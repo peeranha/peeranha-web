@@ -1,34 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-
-import commonMessages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import Label from 'components/FormFields/Label';
 import { Li, Ul } from 'components/TextEditor/Tips';
 
-import messages from './messages';
+export const Tips = ({ faqQuestions }) => {
+  const { t } = useTranslation();
 
-export const Tips = ({ faqQuestions }) => (
-  <div>
-    <Label className="mb-3">
-      <FormattedMessage {...commonMessages.tips} />
-    </Label>
+  return (
+    <div>
+      <Label className="mb-3">{t('common.tips')}</Label>
 
-    <Ul>
-      <li>
-        <FormattedMessage {...messages.tagIsKeyword} />
-      </li>
-      <li>
-        <FormattedMessage {...messages.usingTheRightTags} />
-      </li>
-    </Ul>
+      <Ul>
+        <li>{t('tags.tagIsKeyword')}</li>
+        <li>{t('tags.usingTheRightTags')}</li>
+      </Ul>
 
-    {faqQuestions && (
-      <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
-    )}
-  </div>
-);
+      {faqQuestions && (
+        <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
+      )}
+    </div>
+  );
+};
 
 Tips.propTypes = {
   faqQuestions: PropTypes.array,

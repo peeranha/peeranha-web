@@ -1,0 +1,57 @@
+{
+  "title": "Cộng đồng | Tạo ra",
+  "description": "Mô tả về Tạo Cộng đồng",
+  "website": "Trang web chính thức",
+  "websiteTip": "Tùy chọn",
+  "avatar": "Hình đại diện",
+  "communityTitle": "Tiêu đề",
+  "shortDescription": "Mô tả ngắn gọn",
+  "about": "Về cộng đồng",
+  "optional": "Tùy chọn",
+  "whyWeNeedIt": "Tại sao chúng ta cần nó?",
+  "newCommunity": "Cộng đồng mới",
+  "createCommunity": "Tạo cộng đồng",
+  "oneMoreTag": "Thêm một thẻ",
+  "tags": "Thẻ",
+  "tagsAreNeeded":
+    "Thẻ là cần thiết để đặt câu hỏi. Bạn được yêu cầu chỉ định { { min } } - { { max } } thẻ chính.",
+  "tagTitle": "Thẻ",
+  "tagDescription": "Sự miêu tả",
+  "communityTitleTip": "Tên của cộng đồng mới",
+  "shortDescriptionTip": "Mô tả ngắn gọn về cộng đồng và mục đích của nó.",
+  "whyWeNeedItTip":
+    "Thông tin này hiển thị cho người dùng bỏ phiếu cho các cộng đồng mới.",
+  "tagTitleTip": "Tên duy nhất của thẻ",
+  "tagDescriptionTip": "Mô tả khi sử dụng thẻ",
+  "imageWillBeTheFace": "Hình ảnh sẽ là bộ mặt của cộng đồng",
+  "specifyMemorableTitle": "Chỉ định một tiêu đề đáng nhớ",
+  "communityDescriptionShouldBe":
+    "Mô tả cộng đồng nên ngắn gọn và có mô tả rõ ràng cho người dùng của nó",
+  "writeWhyDoWeeNeed":
+    "Mô tả cách cộng đồng này sẽ thu hút sự chú ý của người dùng khác và thu thập phiếu bầu",
+  "onlyTagsWithUniqueTitles": "Biểu mẫu chỉ cho phép các thẻ có tên duy nhất",
+  "communityLanguage": "Ngôn ngữ",
+  "communityLanguageTip":
+    "Các câu hỏi trong cộng đồng sẽ chỉ được phép trong ngôn ngữ đã chọn",
+  "thatisgreat": "Điều đó thật tuyệt!",
+  "communityWillAppear":
+    "Cộng đồng của bạn sẽ xuất hiện trong danh sách và những người dùng khác có thể bỏ phiếu cho nó. Cần 100 phiếu để cộng đồng được tạo.",
+  "goToList": "Đi đến danh sách",
+  "maxTagsNumberReached": "Số thẻ tối đa đã đạt được",
+  "questionsType": "Loại câu hỏi",
+  "anyQuestionDescriptionLabel":
+    "Người dùng sẽ có thể hỏi cả hai loại câu hỏi Chung và Chuyên gia trong cộng đồng này",
+  "anyQuestionDescriptionList": [],
+  "facebook": "Facebook",
+  "instagram": "Instagram",
+  "youtube": "YouTube",
+  "vk": "VK",
+  "mainColor": "Màu chính",
+  "highlightColor": "Màu sắc nổi bật",
+  "communityType": "Loại cộng đồng",
+  "communityTypeTip": "Tùy chọn",
+  "socialLinks": "Liên kết xã hội",
+  "socialLinksTip": "Tùy chọn",
+  "colors": "Màu sắc",
+  "topBanner": "Biểu ngữ hàng đầu"
+}

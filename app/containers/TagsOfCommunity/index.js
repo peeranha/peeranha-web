@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { bindActionCreators, compose } from 'redux';
 
 import {
@@ -30,7 +30,6 @@ import Seo from 'components/Seo';
 import reducer from './reducer';
 
 import { setEditTagData } from './actions';
-import messages from './messages';
 
 import Content from './Content';
 import Aside from './Aside';
@@ -50,6 +49,7 @@ export const TagsOfCommunity = ({
   setEditTagDataDispatch,
   profileInfo,
 }) => {
+  const { t } = useTranslation();
   const communityId = useMemo(() => single || +match.params.communityid, [
     match.params.communityid,
     single,
@@ -103,8 +103,8 @@ export const TagsOfCommunity = ({
   return (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('tags.title')}
+        description={t('tags.descriptionTags')}
         language={locale}
         keywords={keywords}
       />

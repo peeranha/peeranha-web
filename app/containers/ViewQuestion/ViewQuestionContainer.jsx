@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { translationMessages } from 'i18n';
-import commonMessages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import AnswerForm from 'components/AnswerForm';
 import Base from 'components/Base/BaseRounded';
@@ -9,8 +8,6 @@ import Base from 'components/Base/BaseRounded';
 import Question from './Question';
 import Answers from './Answers';
 import RulesBlock from './RulesBlock';
-
-import messages from './messages';
 
 import { ADD_ANSWER_FORM, POST_ANSWER_BUTTON } from './constants';
 import { POST_TYPE } from '../../utils/constants';
@@ -24,7 +21,7 @@ import {
 } from 'utils/properties';
 
 export const ViewQuestionContainer = (props) => {
-  const msg = translationMessages[props.locale];
+  const { t } = useTranslation();
 
   const { isAnswered } = props;
   const isTutorial = props.questionData.postType === POST_TYPE.tutorial;
@@ -50,12 +47,12 @@ export const ViewQuestionContainer = (props) => {
               answer=""
               communityId={props.questionData.communityId}
               form={ADD_ANSWER_FORM}
-              formHeader={msg[messages.yourAnswer.id]}
+              formHeader={t('post.yourAnswer')}
               sendButtonId={POST_ANSWER_BUTTON}
               sendAnswer={props.postAnswer}
               sendAnswerLoading={props.postAnswerLoading}
-              submitButtonName={msg[messages.postAnswerButton.id]}
-              previewLabel={msg[commonMessages.preview.id]}
+              submitButtonName={t('post.postAnswerButton')}
+              previewLabel={t('common.preview')}
               properties={[]}
               questionView
               isAnswered={isAnswered}

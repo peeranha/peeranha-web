@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
-import commonMessages from 'common-messages';
 import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
@@ -33,7 +31,7 @@ const asyncValidate = async (value, dispatch, { eosService }) => {
 
   const isAvailable = await isTelosNameAvailable(eosService, telosName);
   if (isAvailable) {
-    // eslint-disable-next-line prefer-promise-reject-errors
+    // eslint-disable-next-line prefer-promise-reject-errors`
     return Promise.reject({
       [EOS_ACCOUNT_FIELD]: messages.accountDoesNotExist,
     });
@@ -51,12 +49,12 @@ const SendTokensForm = ({
   sendTokensProcessing,
   loginData,
 }) => {
+  const { t } = useTranslation();
   const { loginWithScatter, loginWithKeycat, loginWithFacebook } = loginData;
+
   return (
     <div>
-      <H4 className="text-center pb-3">
-        <FormattedMessage {...commonMessages.sendTokens} />
-      </H4>
+      <H4 className="text-center pb-3">{t('common.sendTokens')}</H4>
 
       <form
         onSubmit={handleSubmit(
@@ -66,7 +64,7 @@ const SendTokensForm = ({
         <Field
           name={EOS_ACCOUNT_FIELD}
           disabled={sendTokensProcessing}
-          label={translationMessages[locale][commonMessages.ethereumAddress.id]}
+          label={t('common.ethereumAddress')}
           component={TextInputField}
           validate={[required, validateTelosName]}
           warn={[required, validateTelosName]}
@@ -75,7 +73,7 @@ const SendTokensForm = ({
         <Field
           name={AMOUNT_FIELD}
           disabled={sendTokensProcessing}
-          label={translationMessages[locale][commonMessages.amount.id]}
+          label={t('common.amount')}
           component={NumberInputField}
           validate={[requiredAndNotZero, valueHasToBeLessThan]}
           warn={[requiredAndNotZero, valueHasToBeLessThan]}
@@ -85,7 +83,7 @@ const SendTokensForm = ({
           <Field
             name={PASSWORD_FIELD}
             disabled={sendTokensProcessing}
-            label={translationMessages[locale][commonMessages.password.id]}
+            label={t('common.password')}
             component={TextInputField}
             validate={required}
             warn={required}
@@ -94,7 +92,7 @@ const SendTokensForm = ({
         )}
 
         <Button disabled={sendTokensProcessing} className="w-100 mb-3">
-          <FormattedMessage {...commonMessages.submit} />
+          {t('common.submit')}
         </Button>
       </form>
     </div>

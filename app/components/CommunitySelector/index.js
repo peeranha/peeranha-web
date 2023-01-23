@@ -1,11 +1,9 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
-
-import messages from 'common-messages';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
@@ -35,7 +33,6 @@ const CommunitySelector = ({
   input = {},
   Button,
   isArrowed,
-  locale,
   communities = [],
   followedCommunities,
   showOnlyFollowed,
@@ -43,6 +40,7 @@ const CommunitySelector = ({
   disabled,
   toggle,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const [optionsNumber, options] = useMemo(
@@ -79,7 +77,7 @@ const CommunitySelector = ({
           {
             options: [
               {
-                label: translationMessages[locale][messages.allCommunities.id],
+                label: t('common.allCommunities'),
                 value: 0,
               },
             ],
@@ -162,7 +160,7 @@ const CommunitySelector = ({
           autoFocus
           menuIsOpen
           isWrapped
-          placeholder={translationMessages[locale][messages.selectCommunity.id]}
+          placeholder={t('common.selectCommunity')}
         />
         <ManageMyCommunities />
       </Wrapper>

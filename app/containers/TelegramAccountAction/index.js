@@ -1,18 +1,11 @@
-/**
- *
- * DeleteAccount
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
-import { FormattedMessage } from 'react-intl';
+import { Trans } from 'react-i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import messages from './messages';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -58,7 +51,7 @@ export class TelegramAccountAction extends React.PureComponent {
               });
             }}
           >
-            <FormattedMessage {...messages.confirm} />
+            <Trans i18nKey="common.telegram.confirm" />
           </button>
         )}
 
@@ -72,7 +65,7 @@ export class TelegramAccountAction extends React.PureComponent {
               });
             }}
           >
-            <FormattedMessage {...messages.unlink} />
+            <Trans i18nKey="common.telegram.unlink" />
           </button>
         )}
       </>

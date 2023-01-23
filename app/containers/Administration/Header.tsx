@@ -1,5 +1,4 @@
-// @ts-ignore
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
@@ -9,11 +8,7 @@ import H3 from 'components/H3';
 
 import AddModeratorForm from 'containers/Administration/AddModeratorForm';
 
-import commonMessages from 'common-messages';
-
-// @ts-ignore
 import usersHeader from 'images/usersHeader.svg?external';
-// @ts-ignore
 import AddModeratorButton from 'containers/Administration/AddModeratorButton';
 
 import { singleCommunityColors } from 'utils/communityManagement';
@@ -33,6 +28,8 @@ export const Header: React.FC<HeaderProps> = ({
   addModerator,
   addModeratorLoading,
 }): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
@@ -44,8 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
             isColorImportant={true}
           />
         </MediumIconStyled>
-
-        <FormattedMessage id={commonMessages.administration.id} />
+        {t('common.administration')}
       </H3>
       <AddModeratorForm
         locale={locale}

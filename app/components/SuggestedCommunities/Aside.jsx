@@ -2,9 +2,8 @@ import orderBy from 'lodash/orderBy';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
-import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
 import allCommunitiesIcon from 'images/createCommunity.svg?inline';
@@ -18,51 +17,49 @@ import Ul from 'components/Ul';
 import { Header } from 'components/ExistingCommunities/Aside';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 
-const Aside = ({ communities }) => (
-  <div>
-    <Header className="mb-4" fontSize="24" bold>
-      <FormattedMessage {...commonMessages.top} />{' '}
-      <span className="text-lowercase">
-        <FormattedMessage {...commonMessages.communities} />
-      </span>
-    </Header>
+const Aside = ({ communities }) => {
+  const { t } = useTranslation();
 
-    <Ul className="pt-0 mb-4">
-      {orderBy(communities, y => y.users_subscribed, ['desc'])
-        .slice(0, 3)
-        .map(x => (
-          <li key={x.id} className="pb-4">
-            <div className="d-flex align-items-start mb-2">
-              <Img className="mr-1" src={x.avatar} alt="commAvatar" />
-              <div>
-                <P>{x.name}</P>
-                <P>
-                  <Span bold>{x.users_subscribed}</Span>{' '}
-                  <Span fontSize="14">
-                    <FormattedMessage {...commonMessages.users} />
-                  </Span>
-                </P>
+  return (
+    <div>
+      <Header className="mb-4" fontSize="24" bold>
+        {t('common.top')}
+        <span className="text-lowercase">{t('common.communities')}</span>
+      </Header>
+
+      <Ul className="pt-0 mb-4">
+        {orderBy(communities, y => y.users_subscribed, ['desc'])
+          .slice(0, 3)
+          .map(x => (
+            <li key={x.id} className="pb-4">
+              <div className="d-flex align-items-start mb-2">
+                <Img className="mr-1" src={x.avatar} alt="commAvatar" />
+                <div>
+                  <P>{x.name}</P>
+                  <P>
+                    <Span bold>{x.users_subscribed}</Span>{' '}
+                    <Span fontSize="14">{t('common.users')}</Span>
+                  </P>
+                </div>
               </div>
-            </div>
 
-            <FollowCommunityButton communityIdFilter={x.id} />
-          </li>
-        ))}
-    </Ul>
+              <FollowCommunityButton communityIdFilter={x.id} />
+            </li>
+          ))}
+      </Ul>
 
-    <footer>
-      <A className="d-flex align-items-center" to={routes.communities()}>
-        <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
-        <Span color={TEXT_PRIMARY}>
-          <FormattedMessage {...commonMessages.allCommunities} />
-        </Span>
-      </A>
-    </footer>
-  </div>
-);
+      <footer>
+        <A className="d-flex align-items-center" to={routes.communities()}>
+          <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
+          <Span color={TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
+        </A>
+      </footer>
+    </div>
+  );
+};
 
 Aside.propTypes = {
   communities: PropTypes.array,
 };
 
-export default React.memo(Aside);
+export default Aside;

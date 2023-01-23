@@ -1,0 +1,121 @@
+{
+  "title": "Peeranha - Decentralized Q&A website with crypto rewards",
+  "description":
+    "Decentralized questions and answers website that rewards users with crypto tokens for their contributions.",
+  "faqTitle": "Peeranha | FAQ",
+  "faqDescription": "Peeranha | FAQ Description",
+  "about": "About",
+  "rewards": "Rewards",
+  "faq": "FAQ",
+  "team": "Team",
+  "login": "Log in",
+  "signUpFree": "Sign up",
+  "yourContributionsRewarded": "Your Contributions Rewarded",
+  "weAreDecentralized":
+    "Community questions and answers platform for solving your technical challenges in Web3.",
+  "getStarted": "Get started",
+  "yourEmail": "Your email address",
+  "differentThan": "Peeranha is more than a Q&A website.",
+  "differentThan2": "It is a community that puts users at the heart by:",
+
+  "rewardingUser": "Rewarding Users with Crypto",
+  "peopleSaveHours":
+    "Peeranha motivates to ask questions and provide relevant answers as they are rewarded with PEER crypto tokens.",
+
+  "ownershipByUsers": "All question and answers in one place",
+  "peeranhaDecentralized":
+    "Peeranha puts power in the hands of the Web3 projects. We help to grow faster and access the structured knowledgebase.",
+
+  "earlyAdopters": "Valuing Early Adopters",
+  "peeranhaPhilosophy":
+    "Peeranha generously rewards early users for their time. As the website grows, rewards will even out and be distributed to more members of the community.",
+
+  "simpleAndAffordable": "Simple and affordable",
+  "getHelp": "Getting Help from the Community",
+  "askQuestionAndGetHelp":
+    "Peeranha has passionate experts from all areas of life that are ready to help others. Users can return the favor by helping thousands of others answer questions they may also have. Users can get the answers to their questions in a matter of minutes.",
+
+  "helpfulAndGenerous": "Helpful and generous",
+  "shareKnowledge": "Sharing Knowledge",
+  "helpCommunity":
+    "Experts contribute to the community by answering questions from their peers. Answers not only help the person who asked the question but thousands of others who have similar questions. Once a question has been answered, the knowledge can be shared with current and future users.",
+
+  "profitableAndModern": "Profitable and modern",
+  "getPaidInCrypto": "Receiving Crypto Token Rewards",
+  "getPaidInCryptoFromWeekly":
+    "A weekly pool of reward tokens is distributed to users for their contributions. Contributions consist of posting and answering questions. Reward tokens can be sold on the open market to anyone wanting to pay for content to be placed on the platform. An example of paid content can be product advertisements or job openings. Users are always rewarded for their valuable contributions. ",
+
+  "worthyAndPrestig": "Worthy and prestigious",
+  "earnReputation": "Earning Reputation",
+  "whetherYouAsk":
+    "As users build their level of contributions, they also improve their reputation. The community recognizes valuable contributors that answer questions for others. Earning a high reputation unlocks privileges and the user’s standing within the community increases!",
+
+  "honorableAndFascinating": "Honorable and fascinating",
+  "ruleThePlatform": "Governing the Community",
+  "participateInModeration":
+    "Governing the community is in the hands of its members. The best decisions for the platform result in higher token values. Through the governance structure built into Peeranha, the website is moderated by its users. As a decentralized, open source project, the future is decided by the user. Much like a local community, your voice matters.",
+
+  "beTheFirst": "Joining early means enjoying higher levels of rewards",
+  "rewardsPool":
+    "Rewards are distributed weekly to all contributors.  As the number of weekly contributors goes up, rewards per user decrease over time. Joining early means enjoying higher levels of rewards for your pioneering contributions to an early community.",
+
+  "getReward": "Sign up",
+
+  "getMoreAnswers": "Get more answers",
+  "ourTeam": "Our team",
+  "weAppreciate":
+    "We highly appreciate your feedback, opinions or suggestion for the platform. Send us few lines or even better let us know if you have 15 minutes to chat.",
+
+  "sergeyIlin": "Sergey Ilin",
+  "sergeyIlinRole": "Co-founder, CTO",
+  "sergeyIlinDescription":
+    "Developer and architect with over decade of experience building software from websites to large scale enterprise solutions for Fortune 500 companies. Passionate about finding groundbreaking practical applications of Blockchain technology.",
+
+  "nikitaSyr": "Nikita Syrovatnikov",
+  "nikitaSyrRole": "Back-end and Smart-contract Developer",
+  "nikitaSyrDescription":
+    "Blockchain app technician, interested in solving different problems and learning new technologies. I believe that any problem can be solved with the right approach.",
+
+  "romRem": "Roman Remniov",
+  "romRemRole": "Front-end Developer",
+  "romRemDescription":
+    "Based in Minsk front-end developer, currently focused on data-management and User Experience in decentralized applications.",
+
+  "ulyanaPopova": "Ulyana Popova",
+  "ulyanaPopovaRole": "UX and UI Designer",
+  "ulyanaPopovaDescription":
+    "Ready to produce wire-frames, mock-ups, and prototypes which help implement the modernization of systems with an effective, efficient, aesthetic and uncluttered user experience. Able to use humor and energy to keep the momentum going.",
+
+  "olgaFyodorova": "Olga Fedorova",
+  "olgaFyodorovaRole": "Marketing",
+  "olgaFyodorovaDescription":
+    "Strong communication skills regardless of the audience and is able interact effectively with a wide range of people, executives, staff, suppliers, colleagues and applicants.",
+
+  "steveKreynin": "Steve Kreynin",
+  "steveKreyninRole": "Co-founder, President",
+  "steveKreyninDescription":
+    "Successful serial entrepreneur, CEO of Forte Group, an international IT Consulting Company.",
+
+  "yourName": "Your name",
+  "yourNameTip": "Type your name",
+  "email": "Email",
+  "emailTip": "Type your email",
+  "refCode": "Ref. code",
+  "subject": "Subject",
+  "subjectTip": "Choose subject of question",
+  "message": "Message",
+  "messageTip": "Describe problem",
+  "sendMessage": "Send message",
+  "platformUnderDeveloping":
+    "Website is currently under development. Sign up for notifications to be one of the first to join and earn higher rewards as an early adopter.",
+  "askQuestion": "New post",
+  "review": "Review",
+  "systemError": "System error",
+  "none": "None",
+  "messageHasNotBeenSent":
+    "Something went wrong and your message has not been sent. Please try again.",
+  "yourEmailIsRegistred":
+    "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
+  "goToSite": "Go to site",
+  "questionsTitle": "Trending"
+}

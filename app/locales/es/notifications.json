@@ -1,0 +1,21 @@
+{
+  "youHaveNoNewNotifications": "No tienes notificaciones nuevas.",
+  "yourQuestionWasUpVoted": "Tu publicación fue votada",
+  "yourQuestionWasDownVoted": "Tu publicación fue votada negativamente",
+  "yourQuestionUpVoteWasCanceled":
+    "El voto a favor de tu publicación fue cancelado",
+  "yourQuestionDownVoteWasCanceled":
+    "El voto negativo de tu publicación fue cancelado",
+  "yourAnswerWasUpVoted": "Tu respuesta fue votada",
+  "yourAnswerWasDownVoted": "Tu respuesta fue votada negativamente",
+  "yourAnswerUpVoteWasCanceled":
+    "El voto a favor de tu respuesta fue cancelado",
+  "yourAnswerDownVoteWasCanceled":
+    "El voto negativo de tu respuesta fue cancelado",
+  "yourAnswerWasMarkedAsTheBest": "Tu respuesta fue marcada como la mejor",
+  "somebodyAnsweredYourQuestion": "Tu publicación fue respondida",
+  "somebodyLeftACommentToYourQuestion": "Tu publicación fue comentada",
+  "somebodyLeftACommentToYourAnswer": "Tu respuesta fue comentada",
+  "yourQuestionWasTipped": "Tu publicación recibió propina {{cantidad}}",
+  "yourAnswerWasTipped": "Tu respuesta recibió propina {{cantidad}}"
+}

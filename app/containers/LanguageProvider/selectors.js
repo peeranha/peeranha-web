@@ -1,16 +1,9 @@
 import { createSelector } from 'reselect';
-import { initialState } from './reducer';
+import { initialState } from '../AppWrapper/reducer';
 
-/**
- * Direct selector to the languageToggle state domain
- */
-const selectLanguage = state => state.get('language', initialState);
-
-/**
- * Select the language locale
- */
+export const selectLocale = state => state.get('appWrapper', initialState);
 
 const makeSelectLocale = () =>
-  createSelector(selectLanguage, languageState => languageState.get('locale'));
+  createSelector(selectLocale, substate => substate.get('locale'));
 
-export { selectLanguage, makeSelectLocale };
+export { makeSelectLocale };

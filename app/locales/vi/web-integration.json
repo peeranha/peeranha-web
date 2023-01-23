@@ -1,0 +1,33 @@
+{
+  "unknownError": "Lỗi không xác định. Vui lòng gửi báo cáo lỗi!",
+  "accountAlreadyRegistered": "Tài khoản đã đăng ký",
+  "invalidEncryptionKey": "Khóa mã hóa không hợp lệ",
+  "userDidntStoreKey":
+    "Người dùng không lưu trữ khóa chủ sở hữu trong dịch vụ của chúng tôi",
+  "unableToDecryptUserKey": "Kiểm tra dữ liệu đã nhập",
+  "wrongPassword": "Sai mật khẩu",
+  "wrongMasterKey": "Phím chủ sai",
+  "userDidntRequestActivateAcc":
+    "Người dùng này không yêu cầu kích hoạt tài khoản",
+  "youSendTooManRequests": "Bạn đã gửi quá nhiều yêu cầu trong giai đoạn cuối",
+  "userDidntMakeRequestToVerifyEmail":
+    "Email không yêu cầu đăng ký hoặc yêu cầu đã hết hạn",
+  "codeExpiredOrIncorrect": "Mã hết hạn hoặc nhập không chính xác",
+  "passphraseIsInvalid": "Cụm mật khẩu không hợp lệ",
+  "accountWithEmailIsntRegistered":
+    "Tài khoản với email đã cho chưa được đăng ký",
+  "requestExpiredOrSomeOperationWasPassed":
+    "Người dùng không yêu cầu hoạt động hoặc yêu cầu đã hết hạn",
+  "invalidCipher": "Mật mã IV không hợp lệ trong cụm mật khẩu",
+  "emailAlreadyInUse": "Email đã được sử dụng",
+  "unableToBuildModel": "Không thể xây dựng mô hình",
+  "facebookAlreadyInUse": "Tài khoản Facebook đã được sử dụng",
+  "facebookAccountIsntRegistered": "Tài khoản Facebook chưa được đăng ký",
+  "incorrectFacebookAccessToken":
+    "Mã thông báo truy cập Facebook không chính xác",
+  "noStoredFacebookData":
+    "Không có dữ liệu người dùng Facebook được lưu trữ trong Peeranha",
+  "privateKeyTypeIsNotSet": "Loại khóa riêng không được đặt",
+  "noFacebookAccountEmail":
+    "Tài khoản Facebook không có email đã cài đặt hoặc email không được xác minh"
+}

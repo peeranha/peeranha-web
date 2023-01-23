@@ -7,15 +7,11 @@ import {
   getAvailableBalance,
   getBalance,
   getUserBoost,
-  getUserStake,
-  getWeekStat,
 } from 'utils/walletManagement';
 import {
   isSingleCommunityWebsite,
   setSingleCommunityDetails,
 } from 'utils/communityManagement';
-
-import commonMessages from 'common-messages';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
@@ -35,8 +31,6 @@ import {
   INVITED_USERS_SCOPE,
   INVITED_USERS_TABLE,
   MODERATOR_KEY,
-  REWARD_REFER,
-  WEI_IN_ETH,
 } from 'utils/constants';
 import { SHOW_WALLET_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 import {
@@ -92,14 +86,11 @@ import {
 import {
   addLoginData,
   getCurrentAccountError,
-  getCurrentAccountProcessing,
   getCurrentAccountSuccess,
   updateAccErr,
   updateAccSuccess,
 } from './actions';
 import { makeSelectProfileInfo } from './selectors';
-import { makeSelectLocale } from '../LanguageProvider/selectors';
-import { translationMessages } from '../../i18n';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { hasGlobalModeratorRole } from '../../utils/properties';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
@@ -234,7 +225,6 @@ function* updateRefer(user, ethereum) {
   if (info) {
     const reward = +convertPeerValueToNumberValue(info.common_reward);
     if (reward) {
-      const locale = yield select(makeSelectLocale());
       setCookie({
         name: receivedCookieName,
         value: true,
@@ -247,7 +237,7 @@ function* updateRefer(user, ethereum) {
       yield put(
         addToast({
           type: 'success',
-          text: translationMessages[locale][commonMessages.receivedReward.id],
+          text: 'common.receivedReward',
         }),
       );
     }

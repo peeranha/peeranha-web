@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { ethers } from 'ethers';
 
@@ -30,7 +29,6 @@ import DownloadIcon from 'images/download.svg?inline';
 
 import { PEER_PRIMARY_COLOR } from 'style-constants';
 import SignUp from './index';
-import messages from './messages';
 
 import {
   PASSWORD_FIELD,
@@ -73,6 +71,8 @@ const SignUpViaEmail = ({
   handleSignUpViaEmailComplete,
   keys,
 }) => {
+  const { t } = useTranslation();
+
   const [ethereumWallet, setEthereumWallet] = useState(null);
 
   const mnemonicPhraseValue = keys[MNEMONIC_PHRASE];
@@ -133,104 +133,100 @@ const SignUpViaEmail = ({
   return (
     <SignUpViaEmailWrapper>
       <SignUp>
-        {({ locale, signUpViaEmailProcessing }) => {
-          const translate = translationMessages[locale];
+        {({ signUpViaEmailProcessing }) => (
+          <form onSubmit={handleSubmit(handleSignUpViaEmailComplete)}>
+            <Div primary>
+              <Field
+                name={MNEMONIC_PHRASE}
+                label={t('signUp.secretPhrase')}
+                component={MnemonicPhrase}
+                validate={[required]}
+                warn={[required]}
+                readOnly
+                disabled
+                autoComplete="off"
+                writeToBuffer={writeToBuffer}
+                getMasterKey={getMasterKey}
+              />
+              <div className="d-flex align-items-center mb-3">
+                <Img
+                  notRounded
+                  size={0.8}
+                  className="mr-2"
+                  src={dangerIcon}
+                  alt="dangerIcon"
+                />
+                {t('signUp.youHaveToSaveKeys')}
+              </div>
 
-          return (
-            <form onSubmit={handleSubmit(handleSignUpViaEmailComplete)}>
-              <Div primary>
-                <Field
-                  name={MNEMONIC_PHRASE}
-                  label={translate[messages.secretPhrase.id]}
-                  component={MnemonicPhrase}
-                  validate={[required]}
-                  warn={[required]}
-                  readOnly
-                  disabled
-                  autoComplete="off"
-                  writeToBuffer={writeToBuffer}
-                  getMasterKey={getMasterKey}
+              <StyledDownloadContainer
+                className="d-flex"
+                onClick={downloadEthereumWallet}
+              >
+                <Img
+                  notRounded
+                  size={0.8}
+                  className="mr-2"
+                  src={DownloadIcon}
+                  alt="downloadIcon"
                 />
-                <div className="d-flex align-items-center mb-3">
-                  <Img
-                    notRounded
-                    size={0.8}
-                    className="mr-2"
-                    src={dangerIcon}
-                    alt="dangerIcon"
-                  />
-                  <FormattedMessage {...messages.youHaveToSaveKeys} />
-                </div>
-
-                <StyledDownloadContainer
-                  className="d-flex"
-                  onClick={downloadEthereumWallet}
-                >
-                  <Img
-                    notRounded
-                    size={0.8}
-                    className="mr-2"
-                    src={DownloadIcon}
-                    alt="downloadIcon"
-                  />
-                  <FormattedMessage {...messages.downloadSecretPhrase} />
-                </StyledDownloadContainer>
-              </Div>
-              <Div>
-                <Field
-                  name={PASSWORD_FIELD}
-                  disabled={signUpViaEmailProcessing}
-                  label={translate[messages.password.id]}
-                  component={TextInputField}
-                  type="password"
-                  autoComplete="new-password"
-                  validate={[required, strLength8x100, comparePasswords]}
-                  warn={[required, strLength8x100, comparePasswords]}
-                />
-              </Div>
-              <Div>
-                <Field
-                  name={PASSWORD_CONFIRM_FIELD}
-                  disabled={signUpViaEmailProcessing}
-                  label={translate[messages.confirmPassword.id]}
-                  component={TextInputField}
-                  type="password"
-                  autoComplete="new-password"
-                  validate={[required, strLength8x100, comparePasswords]}
-                  warn={[required, strLength8x100, comparePasswords]}
-                />
-              </Div>
-              <Div className="mb-4">
-                <Field
-                  name={I_SAVE_MNEMONIC_PHRASE_KEY_FIELD}
-                  disabled={signUpViaEmailProcessing}
-                  label={translate[messages.iSaveSecretPhrase.id]}
-                  component={Checkbox}
-                  validate={required}
-                  warn={required}
-                />
-              </Div>
-              <Div className="mb-4">
-                <Field
-                  name={I_ACCEPT_PRIVACY_POLICY_FIELD}
-                  disabled={signUpViaEmailProcessing}
-                  label={<IAcceptTerms />}
-                  component={Checkbox}
-                  validate={required}
-                  warn={required}
-                />
-              </Div>
-              <Div>
-                <SubmitButton
-                  disabled={signUpViaEmailProcessing}
-                  className="w-100"
-                >
-                  <FormattedMessage id={messages.signUp.id} />
-                </SubmitButton>
-              </Div>
-            </form>
-          );
-        }}
+                {t('signUp.downloadSecretPhrase')}
+              </StyledDownloadContainer>
+            </Div>
+            <Div>
+              <Field
+                name={PASSWORD_FIELD}
+                disabled={signUpViaEmailProcessing}
+                label={t('signUp.password')}
+                component={TextInputField}
+                type="password"
+                autoComplete="new-password"
+                validate={[required, strLength8x100, comparePasswords]}
+                warn={[required, strLength8x100, comparePasswords]}
+              />
+            </Div>
+            <Div>
+              <Field
+                name={PASSWORD_CONFIRM_FIELD}
+                disabled={signUpViaEmailProcessing}
+                label={t('signUp.confirmPassword')}
+                component={TextInputField}
+                type="password"
+                autoComplete="new-password"
+                validate={[required, strLength8x100, comparePasswords]}
+                warn={[required, strLength8x100, comparePasswords]}
+              />
+            </Div>
+            <Div className="mb-4">
+              <Field
+                name={I_SAVE_MNEMONIC_PHRASE_KEY_FIELD}
+                disabled={signUpViaEmailProcessing}
+                label={t('signUp.iSaveSecretPhrase')}
+                component={Checkbox}
+                validate={required}
+                warn={required}
+              />
+            </Div>
+            <Div className="mb-4">
+              <Field
+                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+                disabled={signUpViaEmailProcessing}
+                label={<IAcceptTerms />}
+                component={Checkbox}
+                validate={required}
+                warn={required}
+              />
+            </Div>
+            <Div>
+              <SubmitButton
+                disabled={signUpViaEmailProcessing}
+                className="w-100"
+              >
+                {t('signUp.signUp')}
+              </SubmitButton>
+            </Div>
+          </form>
+        )}
       </SignUp>
     </SignUpViaEmailWrapper>
   );

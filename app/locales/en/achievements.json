@@ -1,0 +1,174 @@
+{
+  "questionAsked": {
+    "bronze": {
+      "title": "Bronze - The learner",
+      "description": "Ask 10 Questions"
+    },
+    "silver": {
+      "title": "Silver - Digging deep",
+      "description": "Ask 50 Questions"
+    },
+    "gold": {
+      "title": "Gold - I want to know everything!",
+      "description": "Ask 100 Questions"
+    }
+  },
+  "answerGiven": {
+    "bronze": {
+      "title": "Bronze - Expert",
+      "description": "Answer 20 questions"
+    },
+    "silver": {
+      "title": "Silver - Master",
+      "description": "Answer 100 questions"
+    },
+    "gold": {
+      "title": "Gold - Guru",
+      "description": "Answer 200 questions"
+    }
+  },
+  "bestAnswer": {
+    "bronze": {
+      "title": "Bronze - A true professional",
+      "description": "Receive 5 marks as \"The best\""
+    },
+    "silver": {
+      "title": "Silver - Erudite",
+      "description": "Receive 25 marks as \"The best\""
+    },
+    "gold": {
+      "title": "Gold - Artificial Intelligence",
+      "description": "Receive 50 marks as \"The best\""
+    }
+  },
+  "firstIn15": {
+    "bronze": {
+      "title": "Bronze - Fastest hand in the West",
+      "description":
+        "Post answers for 5 different questions in 15 minutes after questions were asked"
+    },
+    "silver": {
+      "title": "Silver - Pedal to the metal",
+      "description":
+        "Post answers for 10 different questions in 15 minutes after questions were asked"
+    },
+    "gold": {
+      "title": "Gold - Lightning",
+      "description":
+        "Post answers for 10 different questions in 15 minutes after questions were asked"
+    }
+  },
+  "firstAnswer": {
+    "bronze": {
+      "title": "Bronze - Quick help",
+      "description":
+        "Be the first one, who posts an answer for 10 different questions"
+    },
+    "silver": {
+      "title": "Silver - I was here first!",
+      "description":
+        "Be the first one, who posts an answer for 25 different questions"
+    },
+    "gold": {
+      "title": "Gold - Undisputed champion",
+      "description":
+        "Be the first one, who posts an answer for 50 different questions"
+    }
+  },
+  "welcomeStranger": {
+    "title": "Welcome, Stranger",
+    "description": "Successfully register on Peeranha"
+  },
+  "newbie": {
+    "title": "A beginning of a great journey",
+    "description": "Achieve the \"Newbie\" status"
+  },
+  "junior": {
+    "title": "Don't call me Junior!",
+    "description": "Achieve the \"Junior\" status"
+  },
+  "resident": {
+    "title": "Peeranha is my home",
+    "description": "Achieve the \"Resident\" status"
+  },
+  "senior": {
+    "title": "I can teach you anything",
+    "description": "Achieve the \"Senior\" status"
+  },
+  "hero": {
+    "title": "This website needs a hero",
+    "description": "Achieve the \"Hero\" status"
+  },
+  "superhero": {
+    "title": "A living Legend",
+    "description": "Achieve the \"Superhero\" status"
+  },
+  "foundingMember": {
+    "title": "Founding Member",
+    "description":
+      "Be the one of first 10 000 Users to successfully register on Peeranha"
+  },
+  "activist": {
+    "title": "Activist",
+    "description":
+      "Be the one of first 700 Users to achieve the \"Newbie\" status"
+  },
+  "researcher": {
+    "title": "Researcher",
+    "description":
+      "Be the one of first 500 Users to achieve the \"Junior\" status"
+  },
+  "honorableResident": {
+    "title": "Honorable Resident",
+    "description":
+      "Be the one of first 300 Users to achieve the \"Resident\" status"
+  },
+  "theWisest": {
+    "title": "The wisest",
+    "description":
+      "Be the one of first 150 Users to achieve the \"Senior\" status"
+  },
+  "modernHero": {
+    "title": "Modern hero",
+    "description": "Be the one of first 50 Users to achieve the \"Hero\" status"
+  },
+  "kingOfTheHill": {
+    "title": "King of the hill",
+    "description":
+      "Be the one of first 10 Users to achieve the \"Superhero\" status"
+  },
+  "progressBarPopover": {
+    "ratingRelated": {
+      "single": "rating point left to unlock this achievement",
+      "multiple": "rating points left to unlock this achievement"
+    },
+    "questionAskedRelated": {
+      "single": "question left to unlock this achievement",
+      "multiple": "questions left to unlock this achievement"
+    },
+    "answerGivenRelated": {
+      "single": "answer left to unlock this achievement",
+      "multiple": "answers left to unlock this achievement"
+    },
+    "bestAnswerRelated": {
+      "single": "best answer left to unlock this achievement",
+      "multiple": "best answers left to unlock this achievement"
+    },
+    "firstAnswerIn15Related": {
+      "single": "answer in 15 minutes left to unlock this achievement",
+      "multiple": "answers in 15 minutes left to unlock this achievement"
+    },
+    "firstAnswerRelated": {
+      "single": "first answer left to unlock this achievement",
+      "multiple": "first answers left to unlock this achievement"
+    }
+  },
+  "separators": {
+    "ratingRelated": "Rating",
+    "questionAskedRelated": "Questions",
+    "answerGivenRelated": "Answers",
+    "bestAnswerRelated": "The best answers",
+    "firstAnswerIn15Related": "Answers in 15 minutes",
+    "firstAnswerRelated": "First answers"
+  }
+}

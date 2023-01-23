@@ -1,0 +1,22 @@
+{
+  "authUserHasMore": "Un usuario autorizado tiene más opciones.",
+  "staySignedIn": "Permanecer conectado",
+  "iForgotPassword": "Olvidé la contraseña",
+  "scatterIsNotInstalled":
+    "Verifique si la billetera y la configuración de red están instaladas",
+  "scatterBrowserExtensionNotConfigured":
+    "Compruebe si la extensión del navegador de la billetera está configurada",
+  "userIsNotRegistered": "El usuario no esta registrado",
+  "userIsNotSelected": "El usuario no está seleccionado",
+  "fbAutologinError":
+    "No se pudo iniciar sesión automáticamente con la cuenta de Facebook",
+  "fbLoginError": "No se pudo iniciar sesión con la cuenta de Facebook",
+  "weAreHappyYouAreHere": "Estamos felices, estás aquí.",
+  "yourUsernameIsHow":
+    "El nombre de usuario es cómo serás conocido en Peeranha.",
+  "referralMessage": "Este es el código que tu amigo te dio.",
+  "optionalReferralCode": "(opcional)",
+  "accountNotCreatedName": "La cuenta aún no se ha creado",
+  "inviterIsNotRegisterYet": "El invitado aún no se ha registrado",
+  "iDontHaveAnAccount": "No tengo cuenta."
+}

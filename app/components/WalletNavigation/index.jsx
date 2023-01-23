@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 
 import { TEXT_PRIMARY } from 'style-constants';
 import sendtokensIcon from 'images/sendtokens.svg?external';
@@ -20,6 +19,7 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import { showSendTokensModal } from 'containers/SendTokens/actions';
 
 const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
+  const { t } = useTranslation();
   const path = window.location.pathname + window.location.hash;
 
   return (
@@ -27,25 +27,25 @@ const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
       <ul>
         <A to={routes.userWallet(userId)}>
           <NavigationButton islink={path !== routes.userWallet(userId)}>
-            <FormattedMessage {...messages.wallet} />
+            {t('common.wallet')}
           </NavigationButton>
         </A>
         <A to={routes.userBoost(userId)}>
           <NavigationButton islink={path !== routes.userBoost(userId)}>
-            <FormattedMessage {...messages.boost} />
+            {t('common.boost')}
           </NavigationButton>
         </A>
       </ul>
 
-      {/*TODO send tokens issue*/}
-      {/*<WrapperRightPanel className="right-panel">*/}
-      {/*  <button onClick={showSendTokensModalDispatch}>*/}
-      {/*    <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>*/}
-      {/*      <IconMd className="mr-2" icon={sendtokensIcon} />*/}
-      {/*      <FormattedMessage {...messages.sendTokens} />*/}
-      {/*    </Span>*/}
-      {/*  </button>*/}
-      {/*</WrapperRightPanel>*/}
+      {/* TODO send tokens issue
+      <WrapperRightPanel className="right-panel">
+       <button onClick={showSendTokensModalDispatch}>
+         <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
+           <IconMd className="mr-2" icon={sendtokensIcon} />
+           {t('common.sendTokens')}
+         </Span>
+       </button>
+      </WrapperRightPanel> */}
     </Wrapper>
   );
 };

@@ -1,0 +1,33 @@
+{
+  "unknownError": "Error desconocido. Envíe un informe de error!",
+  "accountAlreadyRegistered": "Cuenta ya registrada",
+  "invalidEncryptionKey": "Clave de cifrado no válida",
+  "userDidntStoreKey":
+    "El usuario no almacenó la clave del propietario en nuestro servicio.",
+  "unableToDecryptUserKey": "Verifica los datos ingresados",
+  "wrongPassword": "Contraseña incorrecta",
+  "wrongMasterKey": "Clave maestra incorrecta",
+  "userDidntRequestActivateAcc": "Este usuario no solicitó activar cuenta",
+  "youSendTooManRequests":
+    "Enviaste demasiadas solicitudes en el último período",
+  "userDidntMakeRequestToVerifyEmail":
+    "El correo electrónico no requiere registro o solicitud caducada",
+  "codeExpiredOrIncorrect": "Código caducado o introducido incorrectamente",
+  "passphraseIsInvalid": "La frase de contraseña no es válida",
+  "accountWithEmailIsntRegistered":
+    "La cuenta con el correo electrónico proporcionado aún no está registrada",
+  "requestExpiredOrSomeOperationWasPassed":
+    "El usuario no solicitó la operación o la solicitud expiró",
+  "invalidCipher": "Cifrado IV no válido en fase de paso",
+  "emailAlreadyInUse": "Correo electrónico ya en uso",
+  "unableToBuildModel": "No se puede construir el modelo",
+  "facebookAlreadyInUse": "Cuenta de Facebook ya en uso",
+  "facebookAccountIsntRegistered":
+    "La cuenta de Facebook aún no está registrada.",
+  "incorrectFacebookAccessToken": "Token de acceso de facebook incorrecto",
+  "noStoredFacebookData":
+    "No hay datos de usuario de Facebook almacenados en Peeranha",
+  "privateKeyTypeIsNotSet": "El tipo de clave privada no está configurado",
+  "noFacebookAccountEmail":
+    "La cuenta de Facebook no tiene un correo electrónico instalado o el correo electrónico no está verificado"
+}

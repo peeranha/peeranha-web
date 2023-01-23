@@ -1,5 +1,4 @@
 import { takeLatest, takeEvery, put, call, select } from 'redux-saga/effects';
-import { translationMessages } from 'i18n';
 import { getFormValues } from 'redux-form/lib/immutable';
 import { reset as reduxFormReset } from 'redux-form';
 
@@ -10,7 +9,6 @@ import _omit from 'lodash/omit';
 import { WALLETS } from 'wallet-config';
 import { sendTokens } from 'utils/walletManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
-import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 import { SEND_TIPS_SCATTER_APP_NAME, SEND_TIPS_TYPE } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
@@ -31,17 +29,10 @@ import {
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectFacebookUserData } from 'containers/Login/selectors';
 
-import formFieldsMessages from 'components/FormFields/messages.js';
-
 import {
   VERIFY_FB_ACTION_FORM,
   FB_VERIFICATION_CODE_FIELD,
 } from 'components/FbVerificationCodeForm/constants';
-
-import messages, {
-  getAccountNotSelectedMessageDescriptor,
-} from '../Login/messages';
-import { SCATTER_MODE_ERROR, USER_IS_NOT_SELECTED } from '../Login/constants';
 
 import {
   SEND_TIPS,
@@ -85,10 +76,8 @@ import {
 import { formName } from './SendTipsForm';
 import { successHandling } from '../Toast/saga';
 
-export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
+export function* sendTipsWorker({ resetForm, val, questionId, answerId, t }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
     let eosService;
 
     const profile = yield select(makeSelectProfileInfo());
@@ -111,7 +100,7 @@ export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
 
         if (!response.OK) {
           throw new WebIntegrationError(
-            translations[webIntegrationErrors[response.errorCode].id],
+            t(`webIntegration.${response.errorCode}`),
           );
         }
       }
@@ -241,10 +230,8 @@ export function* sendTipsNotificationWorker({
   }
 }
 
-export function* selectScatterAccountWorker() {
+export function* selectScatterAccountWorker(t) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
     let tipsEosService = yield select(selectTipsScatterEosService());
 
     if (!tipsEosService) {
@@ -261,9 +248,7 @@ export function* selectScatterAccountWorker() {
     if (!tipsEosService.scatterInstalled) {
       yield call(tipsEosService.initEosioWithScatter);
       if (!tipsEosService.scatterInstalled) {
-        throw new WebIntegrationError(
-          translations[messages[SCATTER_MODE_ERROR].id],
-        );
+        throw new WebIntegrationError(t('login.scatterIsNotInstalled'));
       }
     }
 
@@ -272,11 +257,13 @@ export function* selectScatterAccountWorker() {
       selectedAccount = yield call(tipsEosService.selectAccount);
       if (!selectedAccount) {
         throw new WebIntegrationError(
-          translations[
-            getAccountNotSelectedMessageDescriptor(
-              tipsEosService.isScatterExtension,
-            ).id
-          ],
+          t(
+            `login.${
+              tipsEosService.isScatterExtension
+                ? 'scatterBrowserExtensionNotConfigured'
+                : 'userIsNotSelected'
+            }`,
+          ),
         );
       }
     }
@@ -285,9 +272,7 @@ export function* selectScatterAccountWorker() {
     );
 
     if (receiver === selectedAccount) {
-      throw new WebIntegrationError(
-        translations[formFieldsMessages.exactFromAndToAccounts.id],
-      );
+      throw new WebIntegrationError(t('formFields.exactFromAndToAccounts'));
     }
 
     yield put(
@@ -302,10 +287,8 @@ export function* selectScatterAccountWorker() {
   }
 }
 
-export function* selectKeycatAccountWorker() {
+export function* selectKeycatAccountWorker(t) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
     let tipsKeycatEosService = yield select(selectTipsKeycatEosService());
 
     if (!tipsKeycatEosService) {
@@ -321,9 +304,7 @@ export function* selectKeycatAccountWorker() {
     );
 
     if (!keycatAccount) {
-      throw new WebIntegrationError(
-        translations[messages[USER_IS_NOT_SELECTED].id],
-      );
+      throw new WebIntegrationError(t('login.userIsNotSelected'));
     }
 
     const receiver = (yield select(getFormValues(formName))).get(
@@ -331,9 +312,7 @@ export function* selectKeycatAccountWorker() {
     );
 
     if (receiver === keycatAccount) {
-      throw new WebIntegrationError(
-        translations[formFieldsMessages.exactFromAndToAccounts.id],
-      );
+      throw new WebIntegrationError(t('formFields.exactFromAndToAccounts'));
     }
 
     yield put(selectKeycatAccountSuccess(keycatAccount));
@@ -342,10 +321,9 @@ export function* selectKeycatAccountWorker() {
   }
 }
 
-export function* sendEmailWorker() {
+export function* sendEmailWorker(t) {
   try {
     const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
     const { id } = yield select(selectFacebookUserData());
 
     const response = yield call(
@@ -356,9 +334,7 @@ export function* sendEmailWorker() {
     );
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
 
     yield put(setSendTipsProcessing(false));
@@ -372,12 +348,10 @@ export function* sendAnotherCodeSuccess() {
   yield call(successHandling);
 }
 
-export function* verifyFacebookActionWorker({ verifyFormVals }) {
+export function* verifyFacebookActionWorker({ verifyFormVals, t }) {
   try {
     yield put(setSendTipsProcessing(true));
 
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
     const { email } = yield select(selectFacebookUserData());
     const verificationCode = verifyFormVals[FB_VERIFICATION_CODE_FIELD];
 
@@ -389,9 +363,7 @@ export function* verifyFacebookActionWorker({ verifyFormVals }) {
     );
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
 
     const val = yield select(selectFbSendTipsFormValues());

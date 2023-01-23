@@ -1,6 +1,5 @@
 /* eslint consistent-return: 0, no-shadow: 0 */
 import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { translationMessages } from 'i18n';
 
 import EosioService from 'utils/eosio';
 import { getCookie } from 'utils/cookie';
@@ -13,7 +12,6 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import { loginWithWallet } from 'containers/Login/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import { logout } from 'containers/Logout/actions';
 
@@ -104,7 +102,6 @@ export function* isValid({
   minEnergy,
   communityId,
 }) {
-  const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
   const selectedAccount = yield select(makeSelectAccount());
 
@@ -113,7 +110,6 @@ export function* isValid({
     () =>
       validate({
         rating: profileInfo.rating,
-        translations: translationMessages[locale],
         actor: selectedAccount,
         creator,
         buttonId,

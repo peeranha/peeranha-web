@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
@@ -15,7 +15,6 @@ import {
 
 import Seo from 'components/Seo';
 
-import messages from './messages';
 import * as selectors from './selectors';
 
 import { pickupReward, getWeekStat } from './actions';
@@ -41,6 +40,8 @@ const Wallet = ({
   ids,
   loading,
 }) => {
+  const { t } = useTranslation();
+
   useEffect(
     () => {
       if (account) {
@@ -62,8 +63,8 @@ const Wallet = ({
     <div>
       {process.env.ENV !== 'dev' && (
         <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
+          title={t('wallet.title')}
+          description={t('wallet.description')}
           language={locale}
           index={false}
         />

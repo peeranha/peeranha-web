@@ -5,14 +5,11 @@ import { bindActionCreators } from 'redux';
 
 import styled from 'styled-components';
 import createdHistory from 'createdHistory';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
 import { TEXT_SECONDARY } from 'style-constants';
 import TransparentButton from 'components/Button/Contained/TransparentSmall';
-
-import loginMessages from './messages';
-import signupMessages from '../SignUp/messages';
 
 import { hideLoginModal } from './actions';
 
@@ -28,21 +25,25 @@ const Base = styled.div`
   }
 `;
 
-const IDontHaveAnAccount = ({ hideLoginModalDispatch, disabled }) => (
-  <Base>
-    <FormattedMessage {...loginMessages.iDontHaveAnAccount} />
-    <TransparentButton
-      onClick={() => {
-        createdHistory.push(routes.signup.email.name);
-        hideLoginModalDispatch();
-      }}
-      disabled={disabled}
-      type="button"
-    >
-      <FormattedMessage {...signupMessages.signUp} />
-    </TransparentButton>
-  </Base>
-);
+const IDontHaveAnAccount = ({ hideLoginModalDispatch, disabled }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Base>
+      {t('login.iDontHaveAnAccount')}
+      <TransparentButton
+        onClick={() => {
+          createdHistory.push(routes.signup.email.name);
+          hideLoginModalDispatch();
+        }}
+        disabled={disabled}
+        type="button"
+      >
+        {t('signUp.signUp')}
+      </TransparentButton>
+    </Base>
+  );
+};
 
 IDontHaveAnAccount.propTypes = {
   hideLoginModalDispatch: PropTypes.func,

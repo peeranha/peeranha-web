@@ -11,12 +11,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
-import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 import { LINK_COLOR } from 'style-constants';
 
@@ -25,7 +23,6 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import errorImage from 'images/oops.svg?inline';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import notFoundPageMessages from 'containers/NotFoundPage/messages';
 import { Box } from 'containers/NotFoundPage';
 
 import A, { ADefault } from 'components/A';
@@ -33,86 +30,65 @@ import P from 'components/P';
 import Seo from 'components/Seo';
 import Span from 'components/Span';
 
-import errorPageMessages from './messages';
-
 const single = isSingleCommunityWebsite();
 
-const NotFound = ({ locale, withSeo = true }) => (
-  <React.Fragment>
-    {withSeo && (
-      <Seo
-        title={translationMessages[locale][errorPageMessages.title.id]}
-        description={
-          translationMessages[locale][errorPageMessages.description.id]
-        }
-        language={locale}
-        index={false}
-      />
-    )}
+const NotFound = ({ locale, withSeo = true }) => {
+  const { t } = useTranslation();
 
-    <Box>
-      <div>
-        <Span fontSize="24" bold>
-          <FormattedMessage {...errorPageMessages.weAreSorry} />
-        </Span>
-      </div>
+  return (
+    <>
+      {withSeo && (
+        <Seo
+          title={t('errorPage.title')}
+          description={t('errorPage.description')}
+          language={locale}
+          index={false}
+        />
+      )}
 
-      <div>
-        <img src={errorImage} alt="404 page" />
-      </div>
+      <Box>
+        <div>
+          <Span fontSize="24" bold>
+            {t('errorPage.weAreSorry')}
+          </Span>
+        </div>
 
-      <div>
-        <P className="text-center mb-1">
-          <FormattedMessage
-            id={notFoundPageMessages.tryToBrowse.id}
-            values={{
-              value: (
-                <A className="text-lowercase" to={routes.questions()}>
-                  <Span color={LINK_COLOR}>
-                    <FormattedMessage id={commonMessages.posts.id} />
-                  </Span>
-                </A>
-              ),
-            }}
-          />
-        </P>
-        <P className="text-center mb-1">
-          <FormattedMessage
-            id={notFoundPageMessages.browseOurPopular.id}
-            values={{
-              value: (
-                <ADefault
-                  href={`${
-                    single ? process.env.APP_LOCATION : ''
-                  }${routes.communities()}`}
-                  className="text-lowercase"
-                >
-                  <Span color={LINK_COLOR}>
-                    <FormattedMessage {...commonMessages.communities} />
-                  </Span>
-                </ADefault>
-              ),
-            }}
-          />
-        </P>
-        <P className="text-center mb-1">
-          <FormattedMessage
-            id={notFoundPageMessages.ifYouFeelSomething.id}
-            values={{
-              value: (
-                <A className="text-lowercase" to={routes.support()}>
-                  <Span color={LINK_COLOR}>
-                    <FormattedMessage {...commonMessages.contactUs} />
-                  </Span>
-                </A>
-              ),
-            }}
-          />
-        </P>
-      </div>
-    </Box>
-  </React.Fragment>
-);
+        <div>
+          <img src={errorImage} alt="404 page" />
+        </div>
+
+        <div>
+          <P className="text-center mb-1">
+            {t('notFound.tryToBrowse')}
+            <A className="text-lowercase" to={routes.questions()}>
+              <Span color={LINK_COLOR}>{t('common.posts')}</Span>
+            </A>
+            {'.'}
+          </P>
+          <P className="text-center mb-1">
+            {t('notFound.browseOurPopular')}
+            <ADefault
+              href={`${
+                single ? process.env.APP_LOCATION : ''
+              }${routes.communities()}`}
+              className="text-lowercase"
+            >
+              <Span color={LINK_COLOR}>{t('common.communities')}</Span>
+            </ADefault>
+            {'.'}
+          </P>
+          <P className="text-center mb-1">
+            {t('notFound.ifYouFeelSomething')}
+            <A className="text-lowercase" to={routes.support()}>
+              <Span color={LINK_COLOR}>{t('common.contactUs')}</Span>
+            </A>
+            {'.'}
+          </P>
+        </div>
+      </Box>
+    </>
+  );
+};
 
 NotFound.propTypes = {
   locale: PropTypes.string,

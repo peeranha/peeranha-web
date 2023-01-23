@@ -1,0 +1,175 @@
+{
+  "questionAsked": {
+    "bronze": {
+      "title": "Bronce - El aprendiz",
+      "description": "Haz 10 preguntas"
+    },
+    "silver": {
+      "title": "Plata - Cavando profundo",
+      "description": "Haz 50 preguntas"
+    },
+    "gold": {
+      "title": "Oro - Quiero saber todo!",
+      "description": "Haz 100 preguntas"
+    }
+  },
+  "answerGiven": {
+    "bronze": {
+      "title": "Bronce - Experto",
+      "description": "Responde 20 preguntas"
+    },
+    "silver": {
+      "title": "Plata - Maestro",
+      "description": "Responde 100 preguntas"
+    },
+    "gold": {
+      "title": "Oro - Gurú",
+      "description": "Responde 200 preguntas"
+    }
+  },
+  "bestAnswer": {
+    "bronze": {
+      "title": "Bronce - Un verdadero profesional",
+      "description": "Recibe 5 puntos como \"El mejor\""
+    },
+    "silver": {
+      "title": "Plata - Erudito",
+      "description": "Recibe 25 puntos como \"El mejor\""
+    },
+    "gold": {
+      "title": "Oro - Inteligencia Artificial",
+      "description": "Recibe 50 puntos como \"El mejor\""
+    }
+  },
+  "firstIn15": {
+    "bronze": {
+      "title": "Bronce - Mano más rápida del Oeste",
+      "description":
+        "Publique respuestas para 5 preguntas diferentes en 15 minutos después de que se hicieron las preguntas"
+    },
+    "silver": {
+      "title": "Plata - Pedal al metal",
+      "description":
+        "Publique respuestas para 10 preguntas diferentes en 15 minutos después de que se hicieron las preguntas"
+    },
+    "gold": {
+      "title": "Oro - Rayo",
+      "description":
+        "Publique respuestas para 10 preguntas diferentes en 15 minutos después de que se hicieron las preguntas"
+    }
+  },
+  "firstAnswer": {
+    "bronze": {
+      "title": "Bronce - Ayuda rápida",
+      "description":
+        "Sé el primero en publicar una respuesta para 10 preguntas diferentes."
+    },
+    "silver": {
+      "title": "Plata - Yo estaba aquí primero!",
+      "description":
+        "Sé el primero en publicar una respuesta para 25 preguntas diferentes."
+    },
+    "gold": {
+      "title": "Oro - Campeón indiscutido",
+      "description":
+        "Sé el primero en publicar una respuesta para 50 preguntas diferentes."
+    }
+  },
+  "welcomeStranger": {
+    "title": "Bienvenido, extraño",
+    "description": "Registrarse con éxito en Peeranha"
+  },
+  "newbie": {
+    "title": "Un comienzo de un gran viaje",
+    "description": "Alcanzar el \"Novato\" estado"
+  },
+  "junior": {
+    "title": "No me llames júnior!",
+    "description": "Alcanzar el \"Júnior\" estado"
+  },
+  "resident": {
+    "title": "Peeranha es mi hogar",
+    "description": "Alcanzar el \"Residente\" estado"
+  },
+  "senior": {
+    "title": "Puedo enseñarte cualquier cosa",
+    "description": "Alcanzar el \"Sénior\" estado"
+  },
+  "hero": {
+    "title": "Este sitio web necesita un héroe",
+    "description": "Alcanzar el \"Héroe\" estado"
+  },
+  "superhero": {
+    "title": "Una leyenda viva",
+    "description": "Alcanzar el \"Superhéroe\" estado"
+  },
+  "foundingMember": {
+    "title": "Miembro fundador",
+    "description":
+      "Sea uno de los primeros 10 000 usuarios en registrarse con éxito en Peeranha"
+  },
+  "activist": {
+    "title": "Activista",
+    "description":
+      "Sea uno de los primeros 700 usuarios en alcanzar el estado \"Novato\""
+  },
+  "researcher": {
+    "title": "Investigador",
+    "description":
+      "Sea uno de los primeros 500 usuarios en alcanzar el estado \"Júnior\""
+  },
+  "honorableResident": {
+    "title": "Residente honorable",
+    "description":
+      "Sea uno de los primeros 300 Usuarios en alcanzar el estatus de \"Residente\""
+  },
+  "theWisest": {
+    "title": "El mas sabio",
+    "description":
+      "Sea uno de los primeros 150 usuarios en alcanzar el estado \"Sénior\""
+  },
+  "modernHero": {
+    "title": "Héroe moderno",
+    "description":
+      "Sea uno de los primeros 50 usuarios en alcanzar el estatus de \"Héroe\""
+  },
+  "kingOfTheHill": {
+    "title": "Rey de la colina",
+    "description":
+      "Sea uno de los primeros 10 usuarios en alcanzar el estatus de \"Superhéroe\""
+  },
+  "progressBarPopover": {
+    "ratingRelated": {
+      "single": "punto de calificación restante para desbloquear este logro",
+      "multiple": "puntos de calificación restantes para desbloquear este logro"
+    },
+    "questionAskedRelated": {
+      "single": "queda preguntas para desbloquear este logro",
+      "multiple": "queda preguntas para desbloquear este logro"
+    },
+    "answerGivenRelated": {
+      "single": "respuesta izquierda para desbloquear este logro",
+      "multiple": "respuesta izquierda para desbloquear este logro"
+    },
+    "bestAnswerRelated": {
+      "single": "queda la mejor respuesta para desbloquear este logro",
+      "multiple": "queda la mejor respuesta para desbloquear este logro"
+    },
+    "firstAnswerIn15Related": {
+      "single": "responde en 15 minutos restantes para desbloquear este logro",
+      "multiple": "responde en 15 minutos restantes para desbloquear este logro"
+    },
+    "firstAnswerRelated": {
+      "single": "queda la primera respuesta para desbloquear este logro",
+      "multiple": "queda la primera respuesta para desbloquear este logro"
+    }
+  },
+  "separators": {
+    "ratingRelated": "Clasificación",
+    "questionAskedRelated": "Preguntas",
+    "answerGivenRelated": "Respuestas",
+    "bestAnswerRelated": "Las mejores respuestas",
+    "firstAnswerIn15Related": "Respuestas en 15 minutos",
+    "firstAnswerRelated": "Primeras respuestas"
+  }
+}

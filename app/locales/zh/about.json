@@ -1,0 +1,118 @@
+{
+  "title": "Peeranha - 具有加密奖励的分散式问答网站",
+  "description": "分散的问题和答案网站，奖励用户与加密令牌的贡献。",
+  "faqTitle": "Peeranha | 常见问题",
+  "faqDescription": "Peeranha | 常见问题的描述",
+  "about": "关于",
+  "rewards": "奖励计划",
+  "faq": "常见问题",
+  "team": "专责小组",
+  "login": "登入",
+  "signUpFree": "注册",
+  "yourContributionsRewarded": "你的贡献得到回报",
+  "weAreDecentralized": "社区问答平台，用于解决您在Web3中的技术挑战。",
+  "getStarted": "开始吧",
+  "yourEmail": "你的电邮地址",
+  "differentThan": "Peeranha不仅仅是一个问答网站。",
+  "differentThan2": "它是一个以用户为中心的社区:",
+
+  "rewardingUser": "使用加密令牌奖励用户",
+  "peopleSaveHours":
+    "Peeranha激励提出问题并提供相关答案，因为他们得到了PEER加密令牌的奖励。",
+
+  "ownershipByUsers": "所有的问题和答案在一个地方",
+  "peeranhaDecentralized":
+    "Peeranha把权力放在Web3项目手中。 我们帮助更快地成长和访问结构化的知识库.",
+
+  "earlyAdopters": "重视早期采用者",
+  "peeranhaPhilosophy":
+    "Peeranha慷慨地奖励早期用户的时间。 随着网站的发展，奖励将均衡并分发给更多的社区成员。",
+
+  "simpleAndAffordable": "简单又负担得起",
+  "getHelp": "从社区获得帮助",
+  "askQuestionAndGetHelp":
+    "Peeranha拥有来自生活各个领域的热情专家，他们随时准备帮助他人。用户可以通过帮助成千上万的其他人回答他们可能也有的问题来回报他们的青睐。 用户可以在几分钟内得到他们的问题的答案。",
+
+  "helpfulAndGenerous": "乐于助人，慷慨大方",
+  "shareKnowledge": "分享知识",
+  "helpCommunity":
+    "专家通过回答同行的问题为社区做出贡献。 答案不仅可以帮助提出问题的人，还可以帮助成千上万有类似问题的人。 一旦问题被回答，知识就可以与当前和未来的用户共享。",
+
+  "profitableAndModern": "盈利和现代",
+  "getPaidInCrypto": "接收加密令牌奖励",
+  "getPaidInCryptoFromWeekly":
+    "每周一次的奖励代币池分发给用户以供他们的贡献。 贡献包括张贴和回答问题。 奖励代币可以在公开市场上出售给任何想要支付放置在平台上的内容的人。 付费内容的一个例子可以是产品广告或职位空缺。 用户的宝贵贡献总是会得到回报。",
+
+  "worthyAndPrestig": "有价值和有声望",
+  "earnReputation": "赢得声誉",
+  "whetherYouAsk":
+    "随着用户建立他们的贡献水平，他们也提高了他们的声誉。 社区认可为他人解答问题的宝贵贡献。 获得高信誉解锁特权和用户在社区内的地位增加!",
+
+  "honorableAndFascinating": "光荣而迷人",
+  "ruleThePlatform": "管理社区",
+  "participateInModeration":
+    "管理社区掌握在其成员手中。 平台的最佳决策会导致更高的令牌值。 通过Peeranha内置的治理结构，该网站由其用户主持。 作为一个去中心化的开源项目，未来由用户决定。 就像当地社区一样，你的声音很重要。",
+
+  "beTheFirst": "尽早加入意味着享受更高水平的奖励",
+  "rewardsPool":
+    "奖励每周分发给所有贡献者。 随着每周贡献者数量的增加，每个用户的奖励随着时间的推移而减少。 早期加入意味着您对早期社区的开创性贡献可以获得更高水平的奖励。",
+
+  "getReward": "注册",
+
+  "getMoreAnswers": "获得更多答案",
+  "ourTeam": "Our team",
+  "weAppreciate":
+    "我们非常感谢您对平台的反馈，意见或建议。 如果你有15分钟的时间聊天，给我们几行或者更好的告诉我们。",
+
+  "sergeyIlin": "Sergey Ilin",
+  "sergeyIlinRole": "Co-founder, CTO",
+  "sergeyIlinDescription":
+    "Developer and architect with over decade of experience building software from websites to large scale enterprise solutions for Fortune 500 companies. Passionate about finding groundbreaking practical applications of Blockchain technology.",
+
+  "nikitaSyr": "Nikita Syrovatnikov",
+  "nikitaSyrRole": "Back-end and Smart-contract Developer",
+  "nikitaSyrDescription":
+    "Blockchain app technician, interested in solving different problems and learning new technologies. I believe that any problem can be solved with the right approach.",
+
+  "romRem": "Roman Remniov",
+  "romRemRole": "Front-end Developer",
+  "romRemDescription":
+    "Based in Minsk front-end developer, currently focused on data-management and User Experience in decentralized applications.",
+
+  "ulyanaPopova": "Ulyana Popova",
+  "ulyanaPopovaRole": "UX and UI Designer",
+  "ulyanaPopovaDescription":
+    "Ready to produce wire-frames, mock-ups, and prototypes which help implement the modernization of systems with an effective, efficient, aesthetic and uncluttered user experience. Able to use humor and energy to keep the momentum going.",
+
+  "olgaFyodorova": "Olga Fedorova",
+  "olgaFyodorovaRole": "Marketing",
+  "olgaFyodorovaDescription":
+    "Strong communication skills regardless of the audience and is able interact effectively with a wide range of people, executives, staff, suppliers, colleagues and applicants.",
+
+  "steveKreynin": "Steve Kreynin",
+  "steveKreyninRole": "Co-founder, President",
+  "steveKreyninDescription":
+    "Successful serial entrepreneur, CEO of Forte Group, an international IT Consulting Company.",
+
+  "yourName": "你的名字",
+  "yourNameTip": "输入你的名字",
+  "email": "电邮",
+  "emailTip": "输入您的电子邮件",
+  "refCode": "参考代码",
+  "subject": "主题",
+  "subjectTip": "选择问题主题",
+  "message": "信息",
+  "messageTip": "描述问题",
+  "sendMessage": "发送信息",
+  "platformUnderDeveloping":
+    "网站目前正在开发中。 注册通知成为第一个加入并作为早期采用者获得更高奖励的人之一。",
+  "askQuestion": "新职位",
+  "review": "检讨",
+  "systemError": "系统错误",
+  "none": "无",
+  "messageHasNotBeenSent": "出了点问题，你的信息还没有发送。 请再试一次。",
+  "yourEmailIsRegistred":
+    "网站正在开发中,但您的电子邮件已注册. 当网站准备就绪时，您将收到一封电子邮件，其中包含继续注册的步骤。",
+  "goToSite": "前往网站",
+  "questionsTitle": "趋势"
+}

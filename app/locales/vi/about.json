@@ -1,0 +1,124 @@
+{
+  "title":
+    "Peeranha - Trang web Q&A phi tập trung với phần thưởng tiền điện tử",
+  "description":
+    "Trang web câu hỏi và câu trả lời phi tập trung thưởng cho người dùng mã thông báo tiền điện tử cho những đóng góp của họ.",
+  "faqTitle": "Peeranha | FAQ",
+  "faqDescription": "Peeranha | FAQ Sự miêu tả",
+  "about": " Giới thiệu về",
+  "rewards": "Thưởng",
+  "faq": "FAQ",
+  "team": "Đội",
+  "login": "Đăng nhập",
+  "signUpFree": "Đăng ký",
+  "yourContributionsRewarded": "Đóng góp của bạn được khen thưởng",
+  "weAreDecentralized":
+    "Nền tảng câu hỏi và câu trả lời của cộng đồng để giải quyết các thách thức kỹ thuật của bạn trong Web3.",
+  "getStarted": "Bắt đầu",
+  "yourEmail": "Địa chỉ email của bạn",
+  "differentThan": "Peeranha không chỉ là một trang web Q&A.",
+  "differentThan2":
+    "Đây là một cộng đồng đặt người dùng vào trung tâm bằng cách:",
+
+  "rewardingUser": "Thưởng cho người dùng bằng tiền điện tử",
+  "peopleSaveHours":
+    "Peeranha thúc đẩy đặt câu hỏi và cung cấp câu trả lời có liên quan khi chúng được thưởng bằng token tiền điện tử PEER.",
+
+  "ownershipByUsers": "Tất cả câu hỏi và câu trả lời ở một nơi",
+  "peeranhaDecentralized":
+    "Peeranha đặt quyền lực vào tay các dự án Web3.Chúng tôi giúp phát triển nhanh hơn và truy cập cơ sở kiến thức có cấu trúc.",
+
+  "earlyAdopters": "Định giá những người chấp nhận sớm",
+  "peeranhaPhilosophy":
+    "Peeranha hào phóng thưởng cho những người dùng sớm vì thời gian của họ. Khi trang web phát triển, phần thưởng thậm chí sẽ được đưa ra và được phân phối cho nhiều thành viên hơn trong cộng đồng.",
+
+  "simpleAndAffordable": "Đơn giản và giá cả phải chăng",
+  "getHelp": "Nhận Trợ giúp từ Cộng đồng",
+  "askQuestionAndGetHelp":
+    "Peeranha có các chuyên gia đam mê từ mọi lĩnh vực của cuộc sống sẵn sàng giúp đỡ người khác.Người dùng có thể đáp lại sự ưu ái bằng cách giúp hàng nghìn người khác trả lời các câu hỏi mà họ cũng có thể có.Người dùng có thể nhận được một.",
+
+  "helpfulAndGenerous": "Hữu ích và hào phóng",
+  "shareKnowledge": "Chia sẻ kiến thức",
+  "helpCommunity":
+    "Các chuyên gia đóng góp cho cộng đồng bằng cách trả lời các câu hỏi từ các đồng nghiệp của họ.Câu trả lời không chỉ giúp ích cho người đặt câu hỏi mà còn hàng ngàn người khác có câu hỏi tương tự.Một lần một câu hỏi.",
+
+  "profitableAndModern": "Có lợi nhuận và hiện đại",
+  "getPaidInCrypto": "Nhận phần thưởng Crypto Token Rewards",
+  "getPaidInCryptoFromWeekly":
+    "Một nhóm mã thông báo phần thưởng hàng tuần được phân phối cho người dùng cho những đóng góp của họ.Đóng góp bao gồm đăng và trả lời câu hỏi. Mã thông báo phần thưởng có thể được bán trên thị trường mở cho bất kỳ ai muốn. ",
+
+  "worthyAndPrestig": "Xứng đáng và uy tín",
+  "earnReputation": "Kiếm được danh tiếng",
+  "whetherYouAsk":
+    "Khi người dùng xây dựng mức độ đóng góp của họ, họ cũng cải thiện danh tiếng của mình.Cộng đồng công nhận những người đóng góp có giá trị trả lời các câu hỏi cho người khác.Kiếm được một danh tiếng cao mở ra các đặc quyền và người dùng đứng trong cộng đồng tăng lên!",
+
+  "honorableAndFascinating": "Danh dự và hấp dẫn",
+  "ruleThePlatform": "Quản lý cộng đồng",
+  "participateInModeration":
+    "Quản lý cộng đồng nằm trong tay các thành viên của nó.Các quyết định tốt nhất cho nền tảng dẫn đến giá trị mã thông báo cao hơn. Thông qua cấu trúc quản trị được xây dựng vào Peeranha, trang web được kiểm duyệt bởi người dùng. Là một dự án phi tập trung, nguồn mở, tương lai được quyết định bởi người dùng. Giống như một cộng đồng địa phương, tiếng nói của bạn quan trọng.",
+
+  "beTheFirst":
+    "Tham gia sớm có nghĩa là tận hưởng các cấp phần thưởng cao hơn",
+  "rewardsPool":
+    "Phần thưởng được phân phối hàng tuần cho tất cả những người đóng góp.  Khi số lượng người đóng góp hàng tuần tăng lên, phần thưởng cho mỗi người dùng giảm theo thời gian. Tham gia sớm có nghĩa là tận hưởng mức phần thưởng cao hơn cho những đóng góp tiên phong của bạn cho một cộng đồng sớm.",
+
+  "getReward": "Đăng ký",
+
+  "getMoreAnswers": "Nhận thêm câu trả lời",
+  "ourTeam": "Đội ngũ của chúng tôi",
+  "weAppreciate":
+    "Chúng tôi đánh giá cao phản hồi, ý kiến hoặc đề xuất của bạn cho nền tảng. Gửi cho chúng tôi vài dòng hoặc thậm chí tốt hơn cho chúng tôi biết nếu bạn có 15 phút để trò chuyện.",
+
+  "sergeyIlin": "Sergey Ilin",
+  "sergeyIlinRole": "Đồng sáng lập, CTO",
+  "sergeyIlinDescription":
+    "Nhà phát triển và kiến trúc sư với hơn thập kỷ kinh nghiệm xây dựng phần mềm từ các trang web đến các giải pháp doanh nghiệp quy mô lớn cho các công ty Fortune 500. Đam mê tìm kiếm các ứng dụng thực tế đột phá của công nghệ Blockchain.",
+
+  "nikitaSyr": "Nikita Syrovatnikov",
+  "nikitaSyrRole": "Phát triển Back-end và Smart-contract",
+  "nikitaSyrDescription":
+    "Kỹ thuật viên ứng dụng Blockchain, quan tâm đến việc giải quyết các vấn đề khác nhau và học các công nghệ mới. Tôi tin rằng bất kỳ vấn đề nào cũng có thể được giải quyết bằng cách tiếp cận đúng.",
+
+  "romRem": "Roman Remniov",
+  "romRemRole": "Phát triển viên Front-end",
+  "romRemDescription":
+    "Có trụ sở tại nhà phát triển front-end Minsk, hiện đang tập trung vào quản lý dữ liệu và Trải nghiệm người dùng trong các ứng dụng phi tập trung.",
+
+  "ulyanaPopova": "Ulyana Popova",
+  "ulyanaPopovaRole": "Trình thiết kế UX và UI",
+  "ulyanaPopovaDescription":
+    "Sẵn sàng sản xuất khung dây, mô phỏng và nguyên mẫu giúp thực hiện hiện đại hóa hệ thống với trải nghiệm người dùng hiệu quả, hiệu quả, thẩm mỹ và không bị che khuất. Có thể sử dụng sự hài hước và năng lượng để giữ đà phát triển.",
+
+  "olgaFyodorova": "Olga Fedorova",
+  "olgaFyodorovaRole": "Tiếp thị",
+  "olgaFyodorovaDescription":
+    "Kỹ năng giao tiếp mạnh mẽ bất kể khán giả và có thể tương tác hiệu quả với nhiều người, giám đốc điều hành, nhân viên, nhà cung cấp, đồng nghiệp và ứng viên.",
+
+  "steveKreynin": "Steve Kreynin",
+  "steveKreyninRole": "Đồng sáng lập, Chủ tịch",
+  "steveKreyninDescription":
+    "Doanh nhân nối tiếp thành công, Giám đốc điều hành của Forte Group, một công ty tư vấn CNTT quốc tế.",
+
+  "yourName": "Tên bạn",
+  "yourNameTip": "Nhập tên của bạn",
+  "email": "Email",
+  "emailTip": "Nhập email của bạn",
+  "refCode": "Mã giới thiệu",
+  "subject": "Chủ đề",
+  "subjectTip": "Chọn chủ đề của câu hỏi",
+  "message": "Thông điệp",
+  "messageTip": "Mô tả vấn đề",
+  "sendMessage": "Gửi tin nhắn",
+  "platformUnderDeveloping":
+    "Trang web hiện đang được phát triển. Đăng ký nhận thông báo để trở thành một trong những người đầu tiên tham gia và kiếm được phần thưởng cao hơn với tư cách là người áp dụng sớm.",
+  "askQuestion": "Bài viết mới",
+  "review": "Xem xét",
+  "systemError": "Lỗi hệ thống",
+  "none": "Không ai",
+  "messageHasNotBeenSent":
+    "Đã xảy ra sự cố và tin nhắn của bạn chưa được gửi đi.Vui lòng thử lại.",
+  "yourEmailIsRegistred":
+    "Trang web đang được phát triển nhưng email của bạn đã được đăng ký. Bạn sẽ nhận được một email với các bước để tiếp tục đăng ký khi trang web đã sẵn sàng.",
+  "goToSite": "Truy cập trang web",
+  "questionsTitle": "Xu hướng"
+}

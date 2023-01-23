@@ -1,7 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import Dropdown from 'components/Dropdown';
 import Span from 'components/Span/index';
@@ -9,39 +7,43 @@ import { QUESTION_TYPES } from 'components/QuestionForm/QuestionTypeField';
 import Ul from 'components/Ul';
 import CheckedItem from 'components/Li/CheckedItem';
 
-// eslint-disable-next-line react/prop-types
 const Button = ({ sorting }) => {
-  const type = Object.values(QUESTION_TYPES).find(x => sorting === x.value);
+  const { t } = useTranslation();
+  const type = Object.values(QUESTION_TYPES).find(
+    item => sorting === item.value,
+  );
 
   return (
     <Span
       className="d-inline-flex align-items-center mr-2 text-capitalize"
       bold
     >
-      <FormattedMessage {...messages[type ? type.label : 'all']} />
+      {t(`common.${type?.label || 'all'}`)}
     </Span>
   );
 };
 
-// eslint-disable-next-line react/prop-types
-const Menu = ({ sort, sorting }) => (
-  <Ul>
-    {Object.values({
-      all: { value: null, label: 'all' },
-      ...QUESTION_TYPES,
-    }).map(x => (
-      <CheckedItem
-        key={x.label}
-        onClick={() => sort(x.value)}
-        isActive={x.value === sorting}
-      >
-        <FormattedMessage {...messages[x.label]} />
-      </CheckedItem>
-    ))}
-  </Ul>
-);
+const Menu = ({ sort, sorting }) => {
+  const { t } = useTranslation();
 
-// eslint-disable-next-line react/prop-types
+  return (
+    <Ul>
+      {Object.values({
+        all: { value: null, label: 'all' },
+        ...QUESTION_TYPES,
+      }).map(item => (
+        <CheckedItem
+          key={item.label}
+          onClick={() => sort(item.value)}
+          isActive={item.value === sorting}
+        >
+          {t(item.label)}
+        </CheckedItem>
+      ))}
+    </Ul>
+  );
+};
+
 const QuestionTypeDropdown = ({ typeFilter, setTypeFilter }) => (
   <Dropdown
     button={<Button sorting={typeFilter} />}

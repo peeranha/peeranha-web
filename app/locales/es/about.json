@@ -1,0 +1,125 @@
+{
+  "title":
+    "Peeranha - sitio web de preguntas y respuestas descentralizado con recompensas criptográficas",
+  "description":
+    "Sitio web descentralizado de preguntas y respuestas que recompensa a los usuarios con tokens criptográficos por sus contribuciones.",
+  "faqTitle": "Peeranha | PMF",
+  "faqDescription": "Peeranha | PMF Descripción",
+  "about": "Sobre",
+  "rewards": "Recompensas",
+  "faq": "PMF",
+  "team": "Equipo",
+  "login": "Iniciar sesión",
+  "signUpFree": "Inscribirse",
+  "yourContributionsRewarded": "Sus contribuciones recompensadas",
+  "weAreDecentralized":
+    "Plataforma de preguntas y respuestas de la comunidad para resolver sus desafíos técnicos en Web3.",
+  "getStarted": "Empezar",
+  "yourEmail": "Su dirección de correo electrónico",
+  "differentThan":
+    "Peeranha es más que un sitio web de preguntas y respuestas.",
+  "differentThan2":
+    "Es una comunidad que pone a los usuarios en el corazón al:",
+
+  "rewardingUser": "Recompensar a los usuarios con Crypto",
+  "peopleSaveHours":
+    "Peeranha motiva a hacer preguntas y brindar respuestas relevantes, ya que son recompensados ​​con tokens criptográficos PEER.",
+
+  "ownershipByUsers": "Todas las preguntas y respuestas en un solo lugar",
+  "peeranhaDecentralized":
+    "Peeranha pone el poder en manos de los proyectos Web3. Ayudamos a crecer más rápido y acceder a la base de conocimiento estructurada.",
+
+  "earlyAdopters": "Valoración de los primeros adoptantes",
+  "peeranhaPhilosophy":
+    "Peeranha recompensa generosamente a los primeros usuarios por su tiempo. A medida que crezca el sitio web, las recompensas se igualarán y se distribuirán a más miembros de la comunidad.",
+
+  "simpleAndAffordable": "Sencillo y asequible",
+  "getHelp": "Obtener ayuda de la comunidad",
+  "askQuestionAndGetHelp":
+    "Peeranha tiene expertos apasionados de todas las áreas de la vida que están listos para ayudar a los demás. Los usuarios pueden devolver el favor ayudando a miles de personas a responder preguntas que ellos también puedan tener. Los usuarios pueden obtener las respuestas a sus preguntas en cuestión de minutos.",
+
+  "helpfulAndGenerous": "Útil y generoso",
+  "shareKnowledge": "El intercambio de conocimientos",
+  "helpCommunity":
+    "Los expertos contribuyen a la comunidad respondiendo a las preguntas de sus compañeros. Las respuestas no solo ayudan a la persona que hizo la pregunta, sino a miles de personas que tienen preguntas similares. Una vez que se ha respondido una pregunta, el conocimiento se puede compartir con los usuarios actuales y futuros.",
+
+  "profitableAndModern": "Rentable y moderno",
+  "getPaidInCrypto": "Recibir recompensas de token criptográfico",
+  "getPaidInCryptoFromWeekly":
+    "Se distribuye un grupo semanal de tokens de recompensa a los usuarios por sus contribuciones. Las contribuciones consisten en publicar y responder preguntas. Los tokens de recompensa se pueden vender en el mercado abierto a cualquier persona que desee pagar por el contenido que se colocará en la plataforma. Un ejemplo de contenido pago pueden ser anuncios de productos o ofertas de trabajo. Los usuarios siempre son recompensados por sus valiosas contribuciones. ",
+
+  "worthyAndPrestig": "Digno y prestigioso",
+  "earnReputation": "Ganar reputación",
+  "whetherYouAsk":
+    "A medida que los usuarios aumentan su nivel de contribuciones, también mejoran su reputación. La comunidad reconoce a los valiosos contribuyentes que responden las preguntas de los demás. ¡Obtener una alta reputación desbloquea privilegios y aumenta la posición del usuario dentro de la comunidad!",
+
+  "honorableAndFascinating": "Honorable y fascinante",
+  "ruleThePlatform": "Gobernando la comunidad",
+  "participateInModeration":
+    "El gobierno de la comunidad está en manos de sus miembros. Las mejores decisiones para la plataforma dan como resultado valores de token más altos. A través de la estructura de gobierno integrada en Peeranha, los usuarios moderan el sitio web. Como proyecto descentralizado de código abierto, el futuro lo decide el usuario. Al igual que una comunidad local, su voz importa.",
+
+  "beTheFirst":
+    "Unirse temprano significa disfrutar de mayores niveles de recompensas",
+  "rewardsPool":
+    "Las recompensas se distribuyen semanalmente a todos los contribuyentes. A medida que aumenta el número de contribuyentes semanales, las recompensas por usuario disminuyen con el tiempo. Unirse temprano significa disfrutar de mayores niveles de recompensas por sus contribuciones pioneras a una comunidad temprana.",
+
+  "getReward": "Inscribirse",
+
+  "getMoreAnswers": "Obtén más respuestas",
+  "ourTeam": "Nuestro equipo",
+  "weAppreciate":
+    "Apreciamos mucho sus comentarios, opiniones o sugerencias para la plataforma. Envíenos unas pocas líneas o, mejor aún, háganos saber si tiene 15 minutos para chatear.",
+
+  "sergeyIlin": "Sergey Ilin",
+  "sergeyIlinRole": "Co-fundador, CTO",
+  "sergeyIlinDescription":
+    "Desarrollador y arquitecto con más de una década de experiencia en la creación de software desde sitios web hasta soluciones empresariales a gran escala para empresas Fortune 500. Apasionado por encontrar aplicaciones prácticas innovadoras de la tecnología Blockchain.",
+
+  "nikitaSyr": "Nikita Syrovatnikov",
+  "nikitaSyrRole": "Desarrollador back-end y contrato inteligente",
+  "nikitaSyrDescription":
+    "Técnico de aplicaciones Blockchain, interesado en resolver diferentes problemas y aprender nuevas tecnologías. Creo que cualquier problema se puede resolver con el enfoque correcto.",
+
+  "romRem": "Roman Remniov",
+  "romRemRole": "Desarrollador front-end",
+  "romRemDescription":
+    "Desarrollador front-end con sede en Minsk, actualmente centrado en la gestión de datos y la experiencia del usuario en aplicaciones descentralizadas.",
+
+  "ulyanaPopova": "Ulyana Popova",
+  "ulyanaPopovaRole": "UX/UI Diseñador",
+  "ulyanaPopovaDescription":
+    "Listo para producir wire-frames, maquetas y prototipos que ayuden a implementar la modernización de los sistemas con una experiencia de usuario efectiva, eficiente, estética y ordenada. Capaz de usar el humor y la energía para mantener el impulso.",
+
+  "olgaFyodorova": "Olga Fedorova",
+  "olgaFyodorovaRole": "Marketing",
+  "olgaFyodorovaDescription":
+    "Fuertes habilidades de comunicación independientemente de la audiencia y es capaz de interactuar de manera efectiva con una amplia gama de personas, ejecutivos, personal, proveedores, colegas y solicitantes.",
+
+  "steveKreynin": "Steve Kreynin",
+  "steveKreyninRole": "Co-fundador, President",
+  "steveKreyninDescription":
+    "Emprendedor en serie exitoso, CEO de Forte Group, una empresa internacional de consultoría de TI.",
+
+  "yourName": "Su nombre",
+  "yourNameTip": "Escriba su nombre",
+  "email": "Correo electrónico",
+  "emailTip": "Escriba su correo electrónico",
+  "refCode": "Árbitro. código",
+  "subject": "Sujeto",
+  "subjectTip": "Elige el tema de la pregunta",
+  "message": "Mensaje",
+  "messageTip": "Describa el problema",
+  "sendMessage": "Enviar mensaje",
+  "platformUnderDeveloping":
+    "El sitio web está actualmente en desarrollo. Regístrese para recibir notificaciones para ser uno de los primeros en unirse y ganar recompensas más altas como uno de los primeros en adoptar.",
+  "askQuestion": "Nueva publicación",
+  "review": "Revisar",
+  "systemError": "Error del sistema",
+  "none": "Ninguno",
+  "messageHasNotBeenSent":
+    "Algo salió mal y su mensaje no ha sido enviado. Inténtalo de nuevo.",
+  "yourEmailIsRegistred":
+    "El sitio web está en desarrollo, pero su correo electrónico está registrado. Recibirás un correo electrónico con los pasos para continuar con tu registro cuando el sitio web esté listo.",
+  "goToSite": "Ir al sitio",
+  "questionsTitle": "Tendencias"
+}

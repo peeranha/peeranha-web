@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import * as clipboard from 'clipboard-polyfill';
 
 import { TEXT_DARK, TEXT_PRIMARY, LINK_COLOR } from 'style-constants';
-import commonMessages from 'common-messages';
 
 import { showPopover } from 'utils/popover';
 
 import Base from 'components/Base/BaseRounded';
-import ReferralProgram from './ReferralProgram';
 import NotFound from '../ErrorPage';
 import AuthorizationData from './AuthorizationData';
-import Tip from './Tip/Tip';
 
 export const BaseStyled = Base.extend`
   > :nth-child(2) {
@@ -113,18 +110,14 @@ const SettingsOfUser = ({
   activeKey,
   ownerKey,
   loginData,
-  user,
   isAvailable,
-  account,
   profile,
   tgData,
 }) => {
+  const { t } = useTranslation();
   const writeToBuffer = event => {
     clipboard.writeText(event.currentTarget.dataset.key);
-    showPopover(
-      event.currentTarget.id,
-      translationMessages[locale][commonMessages.copied.id],
-    );
+    showPopover(event.currentTarget.id, t('common.copied'));
   };
 
   return isAvailable ? (

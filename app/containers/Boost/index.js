@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
@@ -17,8 +17,6 @@ import {
 import Seo from 'components/Seo';
 import NotFound from 'containers/ErrorPage';
 import { STATE_KEY } from './constants';
-
-import messages from './messages';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -44,6 +42,8 @@ const Boost = ({
   changeStakeLoading,
   loading,
 }) => {
+  const { t } = useTranslation();
+
   if (!account && !loading) {
     return (
       <div>
@@ -65,8 +65,8 @@ const Boost = ({
     <div>
       {process.env.ENV !== 'dev' && (
         <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
+          title={t('boost.title')}
+          description={t('boost.description')}
           language={locale}
           index={false}
         />

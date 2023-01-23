@@ -1,13 +1,7 @@
-/**
- *
- * EditCommunity
- *
- */
-
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
@@ -29,11 +23,7 @@ import Tips from 'containers/CreateCommunity/Tips';
 
 import { noAccess as noAccessRoute } from 'routes-config';
 
-import {
-  getPermissions,
-  hasCommunityModeratorRole,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { useModeratorRole } from '../../hooks/useModeratorRole';
@@ -48,7 +38,6 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 import { getSingleCommunityDetails } from '../../utils/communityManagement';
 
 const EditCommunity = ({
@@ -64,6 +53,7 @@ const EditCommunity = ({
     params: { communityId },
   },
 }) => {
+  const { t } = useTranslation();
   useModeratorRole(noAccessRoute, communityId);
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
@@ -88,18 +78,16 @@ const EditCommunity = ({
     [community, communityId, editCommunityDispatch, editCommunityLoading],
   );
 
-  const translations = useMemo(() => translationMessages[locale], [locale]);
-
   return (
     <div>
       <Seo
-        title={translations[messages.pageTitle.id]}
-        description={translations[messages.description.id]}
+        title={t('common.editCommunityDesc.pageTitle')}
+        description={t('common.editCommunityDesc.description')}
         index={false}
         language={locale}
       />
 
-      <Header headerDescriptor={messages.header} />
+      <Header headerDescriptor="common.editCommunityDesc.header" />
 
       <TipsBase className="overflow-hidden">
         {communityLoading && <LoadingIndicator />}

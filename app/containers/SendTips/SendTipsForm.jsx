@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
 import { bindActionCreators } from 'redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
-import commonMessages from 'common-messages';
 import { CURRENCIES, WALLETS } from 'wallet-config';
 import { scrollToErrorField } from 'utils/animation';
 import { getCookie } from 'utils/cookie';
@@ -32,7 +30,6 @@ import {
   makeSelectProfileInfo,
   makeSelectLoginData,
 } from '../AccountProvider/selectors';
-import messages from '../Profile/messages';
 
 import {
   EOS_SEND_TO_ACCOUNT_FIELD,
@@ -59,7 +56,6 @@ import {
 
 import CurrencyField from './CurrencyField';
 
-/* eslint indent: 0 */
 const SendTipsForm = ({
   handleSubmit,
   change,
@@ -89,6 +85,7 @@ const SendTipsForm = ({
   tipsPreselect,
   formValues,
 }) => {
+  const { t } = useTranslation();
   const isPeeranhaWalletSelected = walletValue?.name === WALLETS.PEERANHA.name;
   const isKeycatWalletSelected = walletValue?.name === WALLETS.KEYCAT.name;
   const isScatterWalletSelected =
@@ -161,9 +158,7 @@ const SendTipsForm = ({
 
   return (
     <div>
-      <H4 className="text-center pb-3">
-        <FormattedMessage {...commonMessages.sendTip} />
-      </H4>
+      <H4 className="text-center pb-3">{t('common.sendTip')}</H4>
 
       <form
         onSubmit={handleSubmit(
@@ -177,7 +172,7 @@ const SendTipsForm = ({
           name={CURRENCY_FIELD}
           onChange={changeCurrency}
           disabled={disabled}
-          label={translationMessages[locale][commonMessages.chooseCrypto.id]}
+          label={t('common.chooseCrypto')}
           component={CurrencyField}
           options={currencies}
           validate={[required]}
@@ -186,7 +181,7 @@ const SendTipsForm = ({
         <Field
           name={EOS_SEND_TO_ACCOUNT_FIELD}
           disabled={disabled || !!account}
-          label={translationMessages[locale][messages.sendToAccount.id]}
+          label={t('profile.sendToAccount')}
           component={TextInputField}
           validate={[required]}
           warn={[required]}
@@ -196,7 +191,7 @@ const SendTipsForm = ({
             name={WALLET_FIELD}
             onChange={changeWallet}
             disabled={disabled}
-            label={translationMessages[locale][commonMessages.chooseWallet.id]}
+            label={t('common.chooseWallet')}
             options={wallets}
             component={CurrencyField}
             validate={[required]}
@@ -224,7 +219,7 @@ const SendTipsForm = ({
         <Field
           name={AMOUNT_FIELD}
           disabled={disabled}
-          label={translationMessages[locale][commonMessages.amount.id]}
+          label={t('common.amount')}
           component={NumberInputField}
           dotRestriction={_get(currencyValue, 'precision', 6)}
           validate={
@@ -243,7 +238,7 @@ const SendTipsForm = ({
             <Field
               name={PASSWORD_FIELD}
               disabled={disabled}
-              label={translationMessages[locale][commonMessages.password.id]}
+              label={t('common.password')}
               component={TextInputField}
               validate={required}
               warn={required}
@@ -251,7 +246,7 @@ const SendTipsForm = ({
             />
           )}
         <Button disabled={disabled} className="w-100 mb-3">
-          <FormattedMessage {...commonMessages.submit} />
+          {t('common.submit')}
         </Button>
       </form>
     </div>

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -25,7 +25,6 @@ import {
   selectUsersLoading,
 } from 'containers/DataCacheProvider/selectors';
 
-import messages from './messages';
 import injectReducer from '../../utils/injectReducer';
 import { STATE_KEY } from '../QuestionsOfUser/constants';
 import reducer from '../QuestionsOfUser/reducer';
@@ -45,20 +44,20 @@ export const Profile = ({
   getQuestionsDispatch,
   getQuestionsWithAnswersDispatch,
 }) => {
+  const { t } = useTranslation();
+
   const fetch = useCallback(id => {
     getUserProfileDispatch(id, true, isLogin);
     getQuestionsDispatch(id, true);
     getQuestionsWithAnswersDispatch(id, true);
   }, []);
 
-  const translations = useMemo(() => translationMessages[locale], [locale]);
-
   const HelmetTitle = useMemo(
     () =>
-      `${profile?.displayName ?? translations[messages.wrongUser.id]} | ${
-        translations[messages.profile.id]
-      }`,
-    [profile, translations],
+      `${profile?.displayName ?? t('profile.wrongUser')} | ${t(
+        'profile.profile',
+      )}`,
+    [profile],
   );
 
   const keywords = useMemo(
@@ -78,7 +77,7 @@ export const Profile = ({
       {process.env.ENV !== 'dev' && (
         <Seo
           title={HelmetTitle}
-          description={translations[messages.profileDescription.id]}
+          description={t('profile.profileDescription')}
           language={locale}
           keywords={keywords}
         />
@@ -113,7 +112,7 @@ const mapStateToProps = createStructuredSelector({
   profile: (state, props) => selectUsers(props.userId)(state),
 });
 
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+export function mapDispatchToProps(dispatch) {
   return {
     getUserProfileDispatch: bindActionCreators(getUserProfile, dispatch),
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),

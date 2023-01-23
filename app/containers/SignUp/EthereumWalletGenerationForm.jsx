@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
@@ -26,12 +25,11 @@ import {
 import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedBlockchainAccount from 'components/SignUpWrapper/SignUpViaEmailWrapper';
-import Checkbox, { Icon, Label } from 'components/Input/Checkbox';
+import Checkbox from 'components/Input/Checkbox';
 import IAcceptTerms from 'components/IAcceptTerms';
 import Img from 'components/Img';
 
 import SignUp from './index';
-import messages from './messages';
 
 import {
   EOS_ACCOUNT_FIELD,
@@ -69,151 +67,131 @@ export const Div = styled.div`
   }
 `;
 
-// eslint-disable-next-line no-unused-vars
-const EosOwnerPrivateKeyDiv = Div.extend`
-  position: relative;
-
-  > div:nth-child(2) {
-    position: absolute;
-    top: 0;
-    right: 30px;
-    z-index: 3;
-
-    ${Icon} {
-      min-width: 18px;
-      min-height: 18px;
-      margin-right: 6px;
-    }
-
-    ${Label} {
-      font-size: 14px;
-    }
-  }
-`;
-
 const EthereumWalletGenerationForm = ({
   handleSubmit,
   change,
   storeMyKeysValue,
   masterKeyValue,
-}) => (
-  <YouNeedBlockchainAccount route={routes.signup.accountSetup.name}>
-    <SignUp>
-      {({ locale, iHaveEosAccountProcessing, keys: { masterKey } }) => {
-        const translate = translationMessages[locale];
+}) => {
+  const { t } = useTranslation();
 
-        if (!masterKeyValue) {
-          change(MASTER_KEY_FIELD, masterKey);
-        }
+  return (
+    <YouNeedBlockchainAccount route={routes.signup.accountSetup.name}>
+      <SignUp>
+        {({ iHaveEosAccountProcessing, keys: { masterKey } }) => {
+          if (!masterKeyValue) {
+            change(MASTER_KEY_FIELD, masterKey);
+          }
 
-        if (!storeMyKeysValue) {
-          change(EOS_OWNER_PRIVATE_KEY_FIELD, '');
-        }
+          if (!storeMyKeysValue) {
+            change(EOS_OWNER_PRIVATE_KEY_FIELD, '');
+          }
 
-        return (
-          <form onSubmit={handleSubmit(signUpViaEmailComplete)}>
-            <Div>
-              <Field
-                name={EOS_ACCOUNT_FIELD}
-                disabled={iHaveEosAccountProcessing}
-                label={translate[messages.eosName.id]}
-                component={TextInputField}
-                validate={[required, validateTelosName]}
-                warn={[required, validateTelosName]}
-              />
-            </Div>
-
-            <Div>
-              <Field
-                name={EOS_ACTIVE_PRIVATE_KEY_FIELD}
-                disabled={iHaveEosAccountProcessing}
-                label={translate[messages.eosActivePrivateKey.id]}
-                component={TextInputField}
-                validate={required}
-                warn={required}
-                autoComplete="off"
-              />
-            </Div>
-
-            <Div primary>
-              <Field
-                name={MASTER_KEY_FIELD}
-                label={translate[messages.masterKey.id]}
-                component={TextInputField}
-                validate={[required]}
-                warn={[required]}
-                readOnly
-                disabled
-                autoComplete="off"
-              />
-
-              <div className="d-flex align-items-center mb-3">
-                <Img
-                  notRounded
-                  size={0.85}
-                  className="mr-2"
-                  src={dangerIcon}
-                  alt="dangerIcon"
+          return (
+            <form onSubmit={handleSubmit(signUpViaEmailComplete)}>
+              <Div>
+                <Field
+                  name={EOS_ACCOUNT_FIELD}
+                  disabled={iHaveEosAccountProcessing}
+                  label={t('signUp.eosName')}
+                  component={TextInputField}
+                  validate={[required, validateTelosName]}
+                  warn={[required, validateTelosName]}
                 />
-                <FormattedMessage {...messages.youHaveToSaveKeys} />
-              </div>
-            </Div>
-            <Div>
-              <Field
-                name={PASSWORD_FIELD}
-                disabled={iHaveEosAccountProcessing}
-                label={translate[messages.password.id]}
-                component={TextInputField}
-                type="password"
-                validate={[required, strLength8x100, comparePasswords]}
-                warn={[required, strLength8x100, comparePasswords]}
-              />
-            </Div>
-            <Div>
-              <Field
-                name={PASSWORD_CONFIRM_FIELD}
-                disabled={iHaveEosAccountProcessing}
-                label={translate[messages.confirmPassword.id]}
-                component={TextInputField}
-                type="password"
-                validate={[required, strLength8x100, comparePasswords]}
-                warn={[required, strLength8x100, comparePasswords]}
-              />
-            </Div>
-            <Div className="mb-4">
-              <Field
-                name={I_SAVE_MNEMONIC_PHRASE_KEY_FIELD}
-                disabled={iHaveEosAccountProcessing}
-                label={translate[messages.iSaveMasterKey.id]}
-                component={Checkbox}
-                validate={required}
-                warn={required}
-              />
-            </Div>
-            <Div className="mb-4">
-              <Field
-                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
-                disabled={iHaveEosAccountProcessing}
-                label={<IAcceptTerms />}
-                component={Checkbox}
-                validate={required}
-                warn={required}
-              />
-            </Div>
-            <Div>
-              <SubmitButton
-                disabled={iHaveEosAccountProcessing}
-                className="w-100"
-              >
-                <FormattedMessage {...messages.signUp} />
-              </SubmitButton>
-            </Div>
-          </form>
-        );
-      }}
-    </SignUp>
-  </YouNeedBlockchainAccount>
-);
+              </Div>
+
+              <Div>
+                <Field
+                  name={EOS_ACTIVE_PRIVATE_KEY_FIELD}
+                  disabled={iHaveEosAccountProcessing}
+                  label={t('signUp.eosActivePrivateKey')}
+                  component={TextInputField}
+                  validate={required}
+                  warn={required}
+                  autoComplete="off"
+                />
+              </Div>
+
+              <Div primary>
+                <Field
+                  name={MASTER_KEY_FIELD}
+                  label={t('signUp.masterKey')}
+                  component={TextInputField}
+                  validate={[required]}
+                  warn={[required]}
+                  readOnly
+                  disabled
+                  autoComplete="off"
+                />
+
+                <div className="d-flex align-items-center mb-3">
+                  <Img
+                    notRounded
+                    size={0.85}
+                    className="mr-2"
+                    src={dangerIcon}
+                    alt="dangerIcon"
+                  />
+                  {t('signUp.youHaveToSaveKeys')}
+                </div>
+              </Div>
+              <Div>
+                <Field
+                  name={PASSWORD_FIELD}
+                  disabled={iHaveEosAccountProcessing}
+                  label={t('signUp.password')}
+                  component={TextInputField}
+                  type="password"
+                  validate={[required, strLength8x100, comparePasswords]}
+                  warn={[required, strLength8x100, comparePasswords]}
+                />
+              </Div>
+              <Div>
+                <Field
+                  name={PASSWORD_CONFIRM_FIELD}
+                  disabled={iHaveEosAccountProcessing}
+                  label={t('signUp.confirmPassword')}
+                  component={TextInputField}
+                  type="password"
+                  validate={[required, strLength8x100, comparePasswords]}
+                  warn={[required, strLength8x100, comparePasswords]}
+                />
+              </Div>
+              <Div className="mb-4">
+                <Field
+                  name={I_SAVE_MNEMONIC_PHRASE_KEY_FIELD}
+                  disabled={iHaveEosAccountProcessing}
+                  label={t('signUp.iSaveMasterKey')}
+                  component={Checkbox}
+                  validate={required}
+                  warn={required}
+                />
+              </Div>
+              <Div className="mb-4">
+                <Field
+                  name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+                  disabled={iHaveEosAccountProcessing}
+                  label={<IAcceptTerms />}
+                  component={Checkbox}
+                  validate={required}
+                  warn={required}
+                />
+              </Div>
+              <Div>
+                <SubmitButton
+                  disabled={iHaveEosAccountProcessing}
+                  className="w-100"
+                >
+                  {t('signUp.signUp')}
+                </SubmitButton>
+              </Div>
+            </form>
+          );
+        }}
+      </SignUp>
+    </YouNeedBlockchainAccount>
+  );
+};
 
 EthereumWalletGenerationForm.propTypes = {
   handleSubmit: PropTypes.func,
