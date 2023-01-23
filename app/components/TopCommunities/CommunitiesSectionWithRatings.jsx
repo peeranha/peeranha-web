@@ -31,52 +31,50 @@ const CommunitiesSectionWithRatings = ({
   );
   const AllCommunitiesLink = single ? ADefault : A;
 
-  useEffect(
-    () => {
-      if (single) {
-        setAllCommunitiesRoute(`${process.env.APP_LOCATION}/communities`);
-      }
-    },
-    [single],
-  );
+  useEffect(() => {
+    if (single) {
+      setAllCommunitiesRoute(`${process.env.APP_LOCATION}/communities`);
+    }
+  }, [single]);
   return (
     <div className="overflow-hidden" ref={ref}>
       <H4 isHeader>{t('common.communities')}</H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {orderBy(profile.ratings, 'rating', 'desc')
-          .slice(0, 9)
-          .map(item => (
-            <CommunityItemWithRating
-              communityId={item.communityId}
-              rating={item.rating}
-              single={single}
-              communities={communities}
-              key={item.communityId}
-            />
-          ))}
+        {orderBy(profile.ratings, 'rating', 'desc').map((item) => (
+          <CommunityItemWithRating
+            communityId={item.communityId}
+            rating={item.rating}
+            single={single}
+            communities={communities}
+            key={item.communityId}
+          />
+        ))}
 
-        {communities.length > 9 && (
-          <div className="d-flex align-items-center justify-content-center">
-            <AllCommunitiesLink
-              className="d-flex align-items-center"
-              to={allCommunitiesRoute}
-              href={allCommunitiesRoute}
-            >
-              <Icon
-                className="mr-2"
-                icon={allCommunitiesIcon}
-                width="18"
-                css={css` circle {stroke: ${colors.btnColor ||
-                  TEXT_PRIMARY}}; path {fill: ${colors.btnColor ||
-                  TEXT_PRIMARY}};`}
-              />
-              <Span color={colors.btnColor || TEXT_PRIMARY}>
-                {t('common.allCommunities')}
-              </Span>
-            </AllCommunitiesLink>
-          </div>
-        )}
+        <div className="d-flex align-items-center justify-content-center">
+          <AllCommunitiesLink
+            className="d-flex align-items-center"
+            to={allCommunitiesRoute}
+            href={allCommunitiesRoute}
+          >
+            <Icon
+              className="mr-2"
+              icon={allCommunitiesIcon}
+              width="18"
+              css={css`
+                circle {
+                  stroke: ${colors.btnColor || TEXT_PRIMARY};
+                }
+                path {
+                  fill: ${colors.btnColor || TEXT_PRIMARY};
+                }
+              `}
+            />
+            <Span color={colors.btnColor || TEXT_PRIMARY}>
+              {t('common.allCommunities')}
+            </Span>
+          </AllCommunitiesLink>
+        </div>
       </Grid>
     </div>
   );
