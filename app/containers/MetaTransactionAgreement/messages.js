@@ -19,6 +19,18 @@ const messages = defineMessages({
   cansel: {
     id: 'app.containers.MetaTransactionAgreement.cansel',
   },
+  options: {
+    id: 'app.containers.MetaTransactionAgreement.options',
+  },
+  agreeWithMetaTransactionsText: {
+    id: 'app.containers.MetaTransactionAgreement.agreeWithMetaTransactionsText',
+  },
+  agreeWithMetaTransactionsSecondaryText: {
+    id: 'app.containers.MetaTransactionAgreement.agreeWithMetaTransactionsSecondaryText',
+  },
+  allow: {
+    id: 'app.containers.MetaTransactionAgreement.allow',
+  },
 });
 
 export default messages;

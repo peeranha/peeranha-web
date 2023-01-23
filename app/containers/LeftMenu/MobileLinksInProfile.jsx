@@ -140,10 +140,6 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
             </A>
           )}
 
-          <A to={routes.userSettings(profile.user)}>
-            <FormattedMessage id={messages.settings.id} />
-          </A>
-
           <Logout>
             <LogOutIcon
               className="mr-2"
