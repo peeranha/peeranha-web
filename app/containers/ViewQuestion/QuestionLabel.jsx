@@ -39,6 +39,7 @@ export const TypeContainer = styled.div`
   justify-content: center;
   align-items: center;
   word-break: initial;
+  white-space: nowrap;
 
   color: ${({ color }) => color};
 
