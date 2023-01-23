@@ -55,6 +55,18 @@ import ViewQuestionContainer from './ViewQuestionContainer';
 import { POST_TYPE } from '../../utils/constants';
 import { selectHistoriesLoading } from './selectors';
 
+const getRoute = (postType) => {
+  if (postType === POST_TYPE.generalPost) {
+    return 'questionView';
+  }
+
+  if (postType === POST_TYPE.expertPost) {
+    return 'expertPostView';
+  }
+
+  return 'tutorialView';
+};
+
 export const ViewQuestion = ({
   locale,
   histories,
@@ -99,22 +111,10 @@ export const ViewQuestion = ({
 }) => {
   useEffect(() => {
     if (questionData) {
-      const route =
-        questionData.postType === POST_TYPE.generalPost
-          ? 'questionView'
-          : questionData.postType === POST_TYPE.expertPost
-          ? 'expertPostView'
-          : 'tutorialView';
-      if (
-        match.url !==
-        routes[route](match.params.id, decodeURIComponent(match.params.title))
-      ) {
-        history.push(
-          routes[route](
-            match.params.id,
-            decodeURIComponent(match.params.title),
-          ),
-        );
+      const route = getRoute(questionData.postType);
+
+      if (match.url !== routes[route](match.params.id, questionData.title)) {
+        history.push(routes[route](match.params.id, questionData.title));
       }
     }
   }, [questionData]);
