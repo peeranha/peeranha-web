@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
@@ -80,45 +79,20 @@ const Post: React.FC<PostProps> = ({
     return routes.questions(communityId);
   };
 
-  const hoverColor = () => {
-    if (postType === POST_TYPE.tutorial) {
-      return 'rgba(135, 210, 151, 1)';
-    }
-    if (postType === POST_TYPE.expertPost) {
-      return 'rgba(165, 188, 255, 1)';
-    }
-    if (postType === POST_TYPE.documentation) {
-      return 'rgba(245, 190, 140, 1)';
-    }
-    return 'rgba(242, 163, 159, 1)';
-  };
-
   return (
-    <div
-      className="df mb8 border-box"
-      css={css`
-        ${styles.post};
-        :hover {
-          outline: 3px solid ${hoverColor()};
-        }
-      `}
-    >
-      <div className="m16 full-width" css={css(styles.container)}>
+    <div className="df mb8 border-box" css={styles.post}>
+      <div className="m16 full-width" css={styles.container}>
         <div className="df aic">
           <QuestionType postType={postType} locale={locale} className="mr4" />
 
-          <Link
-            to={postLink}
-            className="fz18 semi-bold "
-            css={css(styles.title)}
-          >
+          <Link to={postLink} className="fz18 semi-bold " css={styles.title}>
             {title}
           </Link>
         </div>
 
-        <div css={css(styles.mainInfo)}>
+        <div css={styles.mainInfo}>
           {postType !== POST_TYPE.documentation && (
-            <span className="db mt8 fz12 light" css={css(styles.creationTime)}>
+            <span className="db mt8 fz12 light" css={styles.creationTime}>
               <FormattedMessage id={commonMessages.asked.id} />{' '}
               {getFormattedDate(
                 postTime,
@@ -128,18 +102,18 @@ const Post: React.FC<PostProps> = ({
             </span>
           )}
 
-          <p className="dib pr mt12 fz14 light ovh" css={css(styles.content)}>
+          <p className="dib pr mt12 fz14 light ovh" css={styles.content}>
             {content}
           </p>
         </div>
 
-        <div css={css(styles.additionalInfo)}>
-          <div className="mt12" css={css(styles.tagsAndCommunity)}>
+        <div css={styles.additionalInfo}>
+          <div className="mt12" css={styles.tagsAndCommunity}>
             {postTags.map((tag: Tag) => (
               <span
                 key={tag.id}
                 className="dib fz14 light mr8 no-wrap mb8"
-                css={css(styles.tag)}
+                css={styles.tag}
               >
                 {tag.name}
               </span>
@@ -150,12 +124,12 @@ const Post: React.FC<PostProps> = ({
                   <img
                     src={community.avatar}
                     alt="community avatar"
-                    css={css(styles.communityAvatar)}
+                    css={styles.communityAvatar}
                   />
                 )}
                 <span
                   className="ml4 fz14 light no-wrap"
-                  css={css(styles.communityName)}
+                  css={styles.communityName}
                 >
                   {community.name}
                 </span>
@@ -167,7 +141,7 @@ const Post: React.FC<PostProps> = ({
             <div className="mt12 df">
               {postType !== POST_TYPE.tutorial && (
                 <div
-                  css={css(styles[bestReply ? 'bestReply' : 'noBestReply'])}
+                  css={styles[bestReply ? 'bestReply' : 'noBestReply']}
                   className="mr24"
                 >
                   <span className="df aic">
@@ -179,7 +153,7 @@ const Post: React.FC<PostProps> = ({
                     ) : (
                       <AnswerIcon stroke="rgb(53, 74, 137)" className="mr8" />
                     )}
-                    <span css={css(styles.count)} className="fz16 light">
+                    <span css={styles.count} className="fz16 light">
                       {getFormattedNum(replyCount)}
                     </span>
                   </span>
@@ -192,7 +166,7 @@ const Post: React.FC<PostProps> = ({
                   ) : (
                     <DisLikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
                   )}
-                  <span css={css(styles.count)} className="fz16 light">
+                  <span css={styles.count} className="fz16 light">
                     {getFormattedNum2(rating)}
                   </span>
                 </span>

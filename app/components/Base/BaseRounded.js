@@ -9,15 +9,7 @@ const BaseRounded = Base.extend`
   transition: 0.5s;
 
   :hover {
-    box-shadow: 0 5px 5px 0 ${SECONDARY_SPECIAL_2};
-    box-shadow: ${({ isExpert, isTutorial, isDiscussion }) =>
-      isExpert
-        ? `5px 5px 5px rgba(165, 188, 255, 0.6)`
-        : isTutorial
-        ? `5px 5px 5px rgba(135, 210, 151, 0.6)`
-        : isDiscussion
-        ? `5px 5px 5px rgba(242, 163, 159, 0.6)`
-        : `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`};}
+    box-shadow: 5px 5px 5px rgba(40, 40, 40, 0.1);
   }
 `;
 
