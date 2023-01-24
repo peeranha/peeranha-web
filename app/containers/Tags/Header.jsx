@@ -38,7 +38,7 @@ import {
   hasProtocolAdminRole,
 } from '../../utils/properties';
 
-const tagsRoute = routes.tags();
+const communitiesRoute = routes.communities();
 
 const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
@@ -135,7 +135,7 @@ export const Header = ({
       <Wrapper position="top">
         <div>
           {!single && (
-            <A to={tagsRoute}>
+            <A to={communitiesRoute}>
               <NavigationButton className="pl-0" islink>
                 <img src={arrowLeft} alt="x" />
                 <span className="d-none d-sm-inline ml-2">

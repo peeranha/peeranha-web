@@ -110,14 +110,17 @@ FormClone = connect(
     if (isEditTagForm) {
       const { communityId, tagId } = editTagData;
       const existingTags = selectExistingTags()(state);
-      const selectedTag = existingTags.find((tag) => tag.id === tagId);
+      const communityTags = Array.isArray(existingTags)
+        ? existingTags
+        : existingTags[communityId];
+      const selectedTag = communityTags.find((tag) => tag.id === tagId);
 
       const selectedCommunity = communities.find(
         (comm) => comm.id === communityId,
       );
 
       return {
-        valueHasNotBeInListValidate: existingTags
+        valueHasNotBeInListValidate: communityTags
           .filter((tag) => tag.id !== tagId)
           .map((x) => x.name?.toLowerCase())
           .concat(

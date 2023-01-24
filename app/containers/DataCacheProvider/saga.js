@@ -1,7 +1,7 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import getHash from 'object-hash';
 
-import { getAllCommunities } from 'utils/communityManagement';
+import { getAllCommunities, getCommunityTags } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getMD } from 'utils/mdManagement';
@@ -26,9 +26,12 @@ import {
 } from 'containers/DataCacheProvider/selectors';
 
 import {
-  getCommunitiesWithTags,
-  getCommunitiesWithTagsErr,
-  getCommunitiesWithTagsSuccess,
+  getCommunities,
+  getCommunitiesErr,
+  getCommunitiesSuccess,
+  getTags,
+  getTagsErr,
+  getTagsSuccess,
   getFaqErr,
   getFaqSuccess,
   getStatErr,
@@ -40,9 +43,11 @@ import {
 } from 'containers/DataCacheProvider/actions';
 
 import {
-  GET_COMMUNITIES_WITH_TAGS,
+  GET_COMMUNITIES,
+  GET_COMMUNITY_TAGS,
   GET_FAQ,
   GET_STAT,
+  GET_TAGS,
   GET_TUTORIAL,
   GET_USER_PROFILE,
 } from 'containers/DataCacheProvider/constants';
@@ -55,13 +60,13 @@ export function* getStatWorker() {
     const stat = yield call(getStat, ethereumService);
 
     yield put(getStatSuccess(stat));
-    yield put(getCommunitiesWithTags());
+    yield put(getCommunities());
   } catch (err) {
     yield put(getStatErr(err));
   }
 }
 
-export function* getCommunitiesWithTagsWorker() {
+export function* getCommunitiesWorker() {
   try {
     const ethereumService = yield select(selectEthereum);
     const stat = yield select(selectStat());
@@ -71,9 +76,27 @@ export function* getCommunitiesWithTagsWorker() {
       stat.communitiesCount,
     );
 
-    yield put(getCommunitiesWithTagsSuccess(communities));
+    yield put(getCommunitiesSuccess(communities));
   } catch (err) {
-    yield put(getCommunitiesWithTagsErr(err));
+    yield put(getCommunitiesErr(err));
+  }
+}
+
+export function* getTagsWorker() {
+  try {
+    const tags = yield call(getTags);
+    yield put(getTagsSuccess(tags));
+  } catch (err) {
+    yield put(getTagsErr(err));
+  }
+}
+
+export function* getCommunityTagsWorker({ communityId }) {
+  try {
+    const tags = yield call(getCommunityTags, communityId);
+    yield put(getTagsSuccess(tags));
+  } catch (err) {
+    yield put(getTagsErr(err));
   }
 }
 
@@ -160,7 +183,9 @@ export function* getUserProfileWorker({
 }
 
 export default function* () {
-  yield takeLatest(GET_COMMUNITIES_WITH_TAGS, getCommunitiesWithTagsWorker);
+  yield takeLatest(GET_COMMUNITIES, getCommunitiesWorker);
+  yield takeLatest(GET_TAGS, getTagsWorker);
+  yield takeLatest(GET_COMMUNITY_TAGS, getCommunityTagsWorker);
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(
     [GET_STAT, FINISH_REGISTRATION_SUCCESS, SIGNUP_WITH_WALLET_SUCCESS],

@@ -32,7 +32,7 @@ type PostProps = {
   title: string;
   postTime: string;
   content: string;
-  tags: Array<number>;
+  tags: Tag[];
   questionBounty: object;
   author?: Author | null;
   communityId: number | string;
@@ -56,15 +56,9 @@ const Post: React.FC<PostProps> = ({
   replyCount,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const community = getFollowedCommunities(communities, [
-    Number(communityId),
-  ])[0] || {
-    tags: [],
-  };
+  const community =
+    getFollowedCommunities(communities, [Number(communityId)])[0] || {};
 
-  const postTags = community.tags.filter((tag: Tag) =>
-    tags?.includes(Number(tag.id.split('-')[1])),
-  );
   const postLink = getPostRoute({ postType, id, title });
   const communityLink = () => {
     if (postType === POST_TYPE.tutorial) {
@@ -109,7 +103,7 @@ const Post: React.FC<PostProps> = ({
 
         <div css={styles.additionalInfo}>
           <div className="mt12" css={styles.tagsAndCommunity}>
-            {postTags.map((tag: Tag) => (
+            {tags.map((tag: Tag) => (
               <span
                 key={tag.id}
                 className="dib fz14 light mr8 no-wrap mb8"

@@ -67,7 +67,6 @@ import {
   EditAnswer,
   CreateCommunity,
   TagsOfCommunity,
-  TagsCollection,
   CreateTag,
   SuggestedTags,
   EditTag,
@@ -268,14 +267,6 @@ const App = ({
             <Route
               path={routes.suggestedCommunities()}
               render={(props) => Wrapper(SuggestedCommunities, props)}
-            />
-          )}
-
-          {!single && (
-            <Route
-              exact
-              path={routes.tags()}
-              render={(props) => Wrapper(TagsCollection, props)}
             />
           )}
 

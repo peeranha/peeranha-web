@@ -36,7 +36,7 @@ const Header = ({ formTitle, postTitle, questionId, postType }) => {
             isColorImportant={true}
           />
         </MediumIconStyled>
-        <span>{formTitle}</span>
+        <span>{formTitle || postTitle}</span>
       </H3>
 
       {questionId && (

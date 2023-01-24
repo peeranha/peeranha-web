@@ -211,15 +211,10 @@ export const ViewQuestion = ({
     ? new Date(questionData.lastEditedDate * 1000)
     : ``;
 
-  const tagIds = questionData?.tags ?? [];
-
-  const community = communities.filter((x) => x.id === commId)[0] || {
-    tags: [],
-  };
-
-  const tags = community.tags.filter((x) => tagIds.includes(x.id));
-
-  const keywords = [...tags.map((x) => x.name), helmetTitle];
+  const keywords = [
+    ...(questionData?.tags?.map((tag) => tag.name) ?? []),
+    helmetTitle,
+  ];
 
   return (
     <>

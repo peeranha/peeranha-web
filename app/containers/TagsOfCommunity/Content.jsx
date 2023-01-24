@@ -110,6 +110,8 @@ const Content = ({
       hasCommunityAdminRole(getPermissions(profileInfo), communityId)) ||
     hasProtocolAdminRole(getPermissions(profileInfo));
 
+  const existingTags = Array.isArray(tags) ? tags : tags[communityId];
+
   return (
     <InfinityLoader
       loadNextPaginatedData={loadMoreTags}
@@ -117,7 +119,7 @@ const Content = ({
       isLastFetch={isLastFetch}
     >
       <Grid xl={3} md={2} xs={1}>
-        {!!tags.length || text ? (
+        {!!existingTags?.length || text ? (
           <li className="d-sm-flex align-items-center justify-content-center">
             <Item
               isInputBox
@@ -132,7 +134,7 @@ const Content = ({
           </li>
         ) : null}
 
-        {tags.map((x) => (
+        {existingTags?.map((x) => (
           <Tag key={x.id} editTagModerator={tagEditingAllowed}>
             <Base>
               <Item

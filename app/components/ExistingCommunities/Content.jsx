@@ -114,7 +114,7 @@ const Content = ({ communities, sorting, locale, profile }) => {
       <Base>
         {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order]).map(
           (
-            { avatar, name, id, description, website, tags, ...x },
+            { avatar, name, id, description, website, tagsCount, ...x },
             index,
             arr,
           ) => {
@@ -177,7 +177,7 @@ const Content = ({ communities, sorting, locale, profile }) => {
                   </Info>
 
                   <Info>
-                    <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
+                    <SpanCenter>{getFormattedNum2(tagsCount)}</SpanCenter>
                     <A to={routes.communityTags(id)}>{t('common.tags')}</A>
                   </Info>
 

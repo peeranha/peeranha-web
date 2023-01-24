@@ -21,7 +21,6 @@ import {
 
 import icoTag from 'images/icoTag.svg?external';
 
-import _uniqBy from 'lodash/uniqBy';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
@@ -65,6 +64,8 @@ import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import DescriptionList from 'components/DescriptionList';
+import { getCommunityTags } from '../../containers/DataCacheProvider/actions';
+import { selectTags } from '../../containers/DataCacheProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -135,13 +136,14 @@ export const QuestionForm = ({
   documentationMenu,
   parentId,
   questionTitle,
+  getCommunityTagsDispatch,
+  cachedTags,
 }) => {
   const { t } = useTranslation();
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
   const [submitPressed, setSubmitPressed] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
-
   const postTitle = question?.title;
   const postContent = question?.content;
 
@@ -176,6 +178,10 @@ export const QuestionForm = ({
       getQuestions(formValues[FORM_TITLE], true);
     }
   }, [formValues[FORM_TITLE]]);
+
+  useEffect(() => {
+    getCommunityTagsDispatch(communityId);
+  }, [communityId, getCommunityTagsDispatch]);
 
   const showMoreQuestions = (e) => {
     e.preventDefault();
@@ -308,6 +314,7 @@ export const QuestionForm = ({
                     questionLoading={questionLoading}
                     formValues={formValues}
                     change={change}
+                    communityTags={cachedTags[communityId]}
                   />
                 )}
 
@@ -378,6 +385,7 @@ export default memo(
         (prop) => prop.key === KEY_QUESTIONS_TYPE,
       )?.value;
 
+      const cachedTags = selectTags()(state);
       // disable community form on edit question page
       const disableCommForm = formName === EDIT_QUESTION_FORM;
 
@@ -385,6 +393,7 @@ export default memo(
         profile: makeSelectProfileInfo()(state),
         formValues: state.toJS().form[formName]?.values ?? {},
         communityQuestionsType: questionsType ?? ANY_TYPE,
+        cachedTags,
         initialValues: {
           [FORM_PROMOTE]: (0).toString(),
           ...(question
@@ -394,14 +403,7 @@ export default memo(
                 [FORM_CONTENT]: question?.content,
                 [FORM_COMMUNITY]: {
                   ...question?.community,
-                  tags: _uniqBy(
-                    question?.community?.tags?.concat(
-                      communities.find(
-                        ({ id }) => id === question?.community?.id,
-                      )?.tags,
-                    ),
-                    'id',
-                  ),
+                  tags: cachedTags[question?.community.id],
                 },
                 [FORM_TAGS]: question?.tags,
                 [FORM_BOUNTY]: question?.bounty ?? '',
@@ -412,17 +414,7 @@ export default memo(
             ? {
                 [FORM_COMMUNITY]: {
                   ...communities?.find(({ id }) => id === single),
-                  tags: _uniqBy(
-                    communities
-                      .find(({ id }) => id === single)
-                      ?.tags?.concat(
-                        communities.find(
-                          ({ id }) => id === question?.community?.id,
-                        )?.tags,
-                      )
-                      .filter((x) => x),
-                    'id',
-                  ),
+                  tags: cachedTags[single],
                 },
                 ...(isDocumentation
                   ? {
@@ -444,6 +436,7 @@ export default memo(
         redirectToCreateTag,
         dispatch,
       ),
+      getCommunityTagsDispatch: bindActionCreators(getCommunityTags, dispatch),
     }),
   )(FormClone),
 );

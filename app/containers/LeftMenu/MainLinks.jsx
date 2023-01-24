@@ -307,13 +307,7 @@ const MainLinks = ({
         )}
 
         {Boolean(singleCommId) && (
-          <A1
-            to={
-              !singleCommId ? routes.tags() : routes.communityTags(singleCommId)
-            }
-            name="tags"
-            route={route}
-          >
+          <A1 to={routes.communityTags(singleCommId)} name="tags" route={route}>
             <IconLg className="mr-2" icon={tagsIcon} />
             {t('common.tags')}
           </A1>
