@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_DARK, TEXT_LIGHT } from 'style-constants';
 
@@ -10,7 +10,6 @@ import arrowUp from 'images/ArrowUP.svg?inline';
 import letterSmile from 'images/letter-smile.svg?inline';
 
 import { FIRST_SCREEN, FIFTH_SCREEN, SEND_MESSAGE_FORM } from './constants';
-import messages from './messages';
 
 import SendMessageForm from './SendMessageForm';
 import Section from './Section';
@@ -18,41 +17,44 @@ import Gradient from './Gradient';
 
 const icon = 47;
 
-const FeedbackForm = ({ translations, sendMessageLoading, sendMessage }) => (
-  <Gradient position="bottom">
-    <Box id={FIFTH_SCREEN}>
-      <div className="container">
-        <div className="row fifth-screen">
-          <div className="col-12 fifth-screen-content">
-            <div className="row">
-              <div className="col-12 col-lg-5">
-                <p className="info-appreciate">
-                  <img className="mb-4" src={letterSmile} alt="letter" />
-                  <FormattedMessage {...messages.weAppreciate} />
-                </p>
-              </div>
+const FeedbackForm = ({ sendMessageLoading, sendMessage }) => {
+  const { t } = useTranslation();
 
-              <div className="col-12 col-lg-5 offset-lg-1 send-message-form">
-                <SendMessageForm
-                  form={SEND_MESSAGE_FORM}
-                  translations={translations}
-                  sendMessage={sendMessage}
-                  sendMessageLoading={sendMessageLoading}
-                />
-                <button
-                  className="icon-arrow-up d-none d-xl-flex"
-                  onClick={() => scrollToSection(`#${FIRST_SCREEN}`)}
-                >
-                  <img src={arrowUp} alt="arrowUp" />
-                </button>
+  return (
+    <Gradient position="bottom">
+      <Box id={FIFTH_SCREEN}>
+        <div className="container">
+          <div className="row fifth-screen">
+            <div className="col-12 fifth-screen-content">
+              <div className="row">
+                <div className="col-12 col-lg-5">
+                  <p className="info-appreciate">
+                    <img className="mb-4" src={letterSmile} alt="letter" />
+                    {t('about.weAppreciate')}
+                  </p>
+                </div>
+
+                <div className="col-12 col-lg-5 offset-lg-1 send-message-form">
+                  <SendMessageForm
+                    form={SEND_MESSAGE_FORM}
+                    sendMessage={sendMessage}
+                    sendMessageLoading={sendMessageLoading}
+                  />
+                  <button
+                    className="icon-arrow-up d-none d-xl-flex"
+                    onClick={() => scrollToSection(`#${FIRST_SCREEN}`)}
+                  >
+                    <img src={arrowUp} alt="arrowUp" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </Box>
-  </Gradient>
-);
+      </Box>
+    </Gradient>
+  );
+};
 
 const Box = Section.extend`
   color: ${TEXT_DARK};
@@ -154,7 +156,6 @@ const Box = Section.extend`
   }
 `;
 FeedbackForm.propTypes = {
-  translations: PropTypes.object,
   sendMessageLoading: PropTypes.bool,
   sendMessage: PropTypes.func,
 };

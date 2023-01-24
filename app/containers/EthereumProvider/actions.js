@@ -62,15 +62,16 @@ export function transactionInPending(transactionHash) {
   };
 }
 
-export function transactionCompleted() {
+export function transactionCompleted(translation) {
   return {
     type: TRANSACTION_COMPLETED,
+    translation,
   };
 }
 
-export function transactionFailed(error) {
+export function transactionFailed(data) {
   return {
     type: TRANSACTION_FAILED,
-    error,
+    data,
   };
 }

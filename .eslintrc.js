@@ -173,6 +173,7 @@ module.exports = {
         ['hooks', './app/hooks'],
         ['icons', './app/components/icons'],
         ['themes', './app/themes'],
+        ['app', './app'],
         ['utils', './app/utils'],
         ['containers', './app/containers'],
         ['routes-config', './app/routes-config.js'],

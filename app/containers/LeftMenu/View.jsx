@@ -34,6 +34,8 @@ const View = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
+  changeLocale,
+  locale,
   documentationMenu,
   redirectToEditQuestionPage,
   redirectToPostDocumentationPage,
@@ -122,7 +124,11 @@ const View = ({
         pinnedItemMenu={pinnedItemMenu}
       />
 
-      <AdditionalLinks currClientHeight={currClientHeight} />
+      <AdditionalLinks
+        currClientHeight={currClientHeight}
+        changeLocale={changeLocale}
+        locale={locale}
+      />
     </ViewStyled>
   );
 };
@@ -135,6 +141,8 @@ View.propTypes = {
   boost: PropTypes.number,
   isMenuVisible: PropTypes.bool,
   showLoginModal: PropTypes.func,
+  changeLocale: PropTypes.func,
+  locale: PropTypes.string,
 };
 
 export default View;

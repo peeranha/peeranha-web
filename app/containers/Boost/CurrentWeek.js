@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   TEXT_WARNING_LIGHT,
@@ -13,8 +13,6 @@ import Base from 'components/Base';
 import WeekNumber from '../Wallet/WeekNumber';
 import WeekDetails from './WeekDetails';
 
-import messages from './messages';
-
 const CurrentWeek = ({
   period,
   locale,
@@ -23,33 +21,37 @@ const CurrentWeek = ({
   periodStarted,
   periodFinished,
   userBoostCurrent,
-}) => (
-  <li
-    className="d-flex flex-column flex-grow-1 mb-3"
-    style={{
-      border: `1px dashed ${BORDER_WARNING_LIGHT}`,
-      borderRadius: BORDER_RADIUS_L,
-    }}
-  >
-    <Base className="flex-grow-0" position="top">
-      <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
-        <FormattedMessage {...messages.currentPeriod} />
-      </P>
-      <WeekNumber
-        locale={locale}
-        period={period}
-        periodStarted={periodStarted}
-        periodFinished={periodFinished}
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <li
+      className="d-flex flex-column flex-grow-1 mb-3"
+      style={{
+        border: `1px dashed ${BORDER_WARNING_LIGHT}`,
+        borderRadius: BORDER_RADIUS_L,
+      }}
+    >
+      <Base className="flex-grow-0" position="top">
+        <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
+          {t('wallet.currentPeriod')}
+        </P>
+        <WeekNumber
+          locale={locale}
+          period={period}
+          periodStarted={periodStarted}
+          periodFinished={periodFinished}
+        />
+      </Base>
+      <WeekDetails
+        averageStake={averageStakeCurrent}
+        yourStake={userStakeCurrent}
+        userBoost={userBoostCurrent}
+        isCurrentWeek
       />
-    </Base>
-    <WeekDetails
-      averageStake={averageStakeCurrent}
-      yourStake={userStakeCurrent}
-      userBoost={userBoostCurrent}
-      isCurrentWeek
-    />
-  </li>
-);
+    </li>
+  );
+};
 
 CurrentWeek.propTypes = {
   period: PropTypes.number,

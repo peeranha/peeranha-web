@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
@@ -27,16 +27,22 @@ import {
   FORM_COMMUNITY,
   FORM_TAGS,
   PROMOTE_HOUR_COST,
+  FORM_TYPE,
 } from 'components/QuestionForm/constants';
 
 import * as makeSelectEditQuestion from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 import { getAskedQuestion, editQuestion } from './actions';
 import { getQuestionData } from '../ViewQuestion/actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
+
+const TITLE = [
+  'common.editExpertQ&A',
+  'common.editDiscussion',
+  'common.editTutorial',
+];
 
 const EditQuestion = ({
   match,
@@ -54,6 +60,7 @@ const EditQuestion = ({
   getQuestionDataDispatch,
   questionTitle,
 }) => {
+  const { t } = useTranslation();
   const { questionid } = match.params;
   const isDocumentation = match.url.split('/')[1] === 'documentation';
   useEffect(() => {
@@ -72,11 +79,7 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
           tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[1]),
-          postType: question?.postType,
-          // bounty: +val[FORM_BOUNTY],
-          // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
-          // bountyHours: +val[FORM_BOUNTY_HOURS],
-          // promote: +val[FORM_PROMOTE],
+          postType: Number(val[FORM_TYPE]) || question.postType,
         },
         questionid,
       );
@@ -90,10 +93,7 @@ const EditQuestion = ({
   );
 
   const titleMessage = useMemo(
-    () =>
-      isDocumentation
-        ? 'Edit article'
-        : translationMessages[locale][messages.title.id[question?.postType]],
+    () => (isDocumentation ? 'Edit article' : t(TITLE[question?.postType])),
     [question?.postType],
   );
 
@@ -105,8 +105,7 @@ const EditQuestion = ({
       form: EDIT_QUESTION_FORM,
       formTitle: titleMessage,
       submitButtonId: EDIT_QUESTION_BUTTON,
-      submitButtonName:
-        translationMessages[locale][messages.submitButtonName.id],
+      submitButtonName: t('common.editQuestion.submitButtonName'),
       sendQuestion,
       questionLoading: editQuestionLoading,
       valueHasToBeLessThan: balance,
@@ -125,9 +124,8 @@ const EditQuestion = ({
 
   const [helmetTitle, helmetDescription] = useMemo(
     () => [
-      question?.title ?? translationMessages[locale][messages.title.id],
-      question?.content ??
-        translationMessages[locale][messages.title.description],
+      question?.title ?? t('common.editQuestion.title'),
+      question?.content ?? t('common.editQuestion.description'),
     ],
     [question],
   );

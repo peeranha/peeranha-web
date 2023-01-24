@@ -1,7 +1,5 @@
-// @ts-ignore
-import { FormattedMessage } from 'react-intl';
-// @ts-ignore
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 import { css } from '@emotion/react';
 import React from 'react';
 
@@ -26,12 +24,6 @@ import { getUserName } from 'utils/user';
 
 import * as routes from 'routes-config';
 
-// @ts-ignore
-import userBodyIconAvatar from 'images/user2.svg?external';
-// @ts-ignore
-import { BORDER_SECONDARY } from 'style-constants';
-import messages from 'containers/Administration/messages';
-
 type ContentProps = {
   locale: string;
   single: number;
@@ -46,22 +38,21 @@ const getRole = (
   moderator: { permission: string },
   moderatorRole: string,
   adminRole: string,
-  locale: string,
 ) => {
   if (moderator.permission === moderatorRole) {
-    return translationMessages[locale][messages.communityModerator.id];
+    return t('administration.communityModerator');
   } else if (moderator.permission === adminRole) {
-    return translationMessages[locale][messages.communityAdministrator.id];
+    return t('administration.communityAdministrator');
   }
 };
 
 export const Content: React.FC<ContentProps> = ({
-  locale,
   single,
   moderators,
   revokeModerator,
   communityId,
 }): JSX.Element => {
+  const { t: translate } = useTranslation();
   const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
   const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
 
@@ -106,7 +97,7 @@ export const Content: React.FC<ContentProps> = ({
             </div>
 
             <div className="mr16 tc text-ellipsis fz14">
-              {getRole(moderator, moderatorRole, adminRole, locale)}
+              {getRole(moderator, moderatorRole, adminRole)}
             </div>
 
             <div
@@ -121,7 +112,6 @@ export const Content: React.FC<ContentProps> = ({
                     submitAction={() => {
                       revokeModerator(moderator.user.id, single);
                     }}
-                    // @ts-ignore
                     Button={({
                       onClick,
                     }: {
@@ -131,7 +121,7 @@ export const Content: React.FC<ContentProps> = ({
                         id={`moderator_delete_${moderator.user.id}`}
                         onClick={onClick}
                       >
-                        <FormattedMessage id={messages.revoke.id} />
+                        {translate('administration.revoke')}
                       </InfoButton>
                     )}
                   />
