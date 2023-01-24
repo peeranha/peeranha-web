@@ -18,6 +18,7 @@ import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { getPermissions } from '../../utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 const colors = singleCommunityColors();
 
@@ -63,6 +64,7 @@ const UserNavigation = ({
   const { t } = useTranslation();
   const path = window.location.pathname + window.location.hash;
   const ref = useRef(null);
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
     if (
@@ -208,18 +210,21 @@ const UserNavigation = ({
             {t('common.settings')}
           </NavigationLink>
 
-          <NavigationButton
-            className={
-              userId === account && path === routes.profileView(account)
-                ? 'd-inline-flex d-md-none'
-                : 'd-none'
-            }
-            onClick={onClickRedirectToEditProfilePage(userId)}
-            id={`redireact-to-edit-${userId}-user-page-1`}
-            islink
-          >
-            {t('common.edit')}
-          </NavigationButton>
+          {isDesktop && (
+            <NavigationButton
+              className={
+                userId === account && path === routes.profileView(account)
+                  ? 'd-inline-flex d-md-none'
+                  : 'd-none'
+              }
+              onClick={redirectToEditProfilePage}
+              id={`redireact-to-edit-${userId}-user-page-1`}
+              data-user={userId}
+              islink
+            >
+              {t('common.edit')}
+            </NavigationButton>
+          )}
         </Div>
 
         <div className="d-none d-md-block">

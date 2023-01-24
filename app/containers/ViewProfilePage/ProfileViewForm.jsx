@@ -53,6 +53,7 @@ const ProfileViewForm = ({
         userId={userId}
         account={account}
         redirectToEditProfilePage={onClickRedirectToEditProfilePage}
+        locale={locale}
       />
 
       {(isProfilePage || profile.ratings?.length > 0) && (

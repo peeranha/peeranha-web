@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import {
+  TEXT_PRIMARY,
   TEXT_DARK,
   TEXT_SECONDARY,
   PEER_PRIMARY_COLOR,
@@ -16,7 +17,10 @@ import {
 } from 'style-constants';
 
 import { getFormattedNum } from 'utils/numbers';
-import { singleCommunityStyles } from 'utils/communityManagement';
+import {
+  singleCommunityStyles,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 import Span from 'components/Span';
 
@@ -24,7 +28,10 @@ import Icon from 'components/Icon';
 
 import options from './options';
 
+import StrangerBigIcon from 'icons/StrangerBig';
+
 const styles = singleCommunityStyles();
+const colors = singleCommunityColors();
 
 const RatingStatusStyled = styled.span`
   display: flex;
@@ -90,16 +97,24 @@ const IconWithStatus = ({
 
   return (
     <RaitingInfo isProfilePage={isProfilePage} className={`${className}`}>
-      <Icon
-        className="d-inline-flex mr-1"
-        icon={full?.icon[size || 'sm']}
-        width={full?.icon.size[size || 'sm'].width}
-        height={full?.icon.size[size || 'sm'].height}
-        color={color}
-        fill={fill}
-        isColorImportant
-        specialStyles={bannedUser && styles.bannedIconStyles}
-      />
+      {isProfilePage ? (
+        <StrangerBigIcon
+          className="mr-2"
+          size={[18, 18]}
+          stroke={colors.linkColor || TEXT_PRIMARY}
+        />
+      ) : (
+        <Icon
+          className="d-inline-flex mr-1"
+          icon={full?.icon[size || 'sm']}
+          width={full?.icon.size[size || 'sm'].width}
+          height={full?.icon.size[size || 'sm'].height}
+          color={color}
+          fill={fill}
+          isColorImportant
+          specialStyles={bannedUser && styles.bannedIconStyles}
+        />
+      )}
 
       <Span
         fontSize={size === 'lg' ? 18 : 14}
@@ -134,8 +149,8 @@ const RatingStatus = ({
         customRatingIconColors={customRatingIconColors}
       />
       <Span
-        className={isRankOff ? 'd-none' : 'd-none d-lg-inline-block ml-1'}
-        fontSize={size === 'lg' ? 16 : 14}
+        className={isRankOff ? 'd-none' : 'd-none d-inline-block ml-2'}
+        fontSize={size === 'lg' ? 17 : 14}
         color={size === 'lg' ? TEXT_DARK : TEXT_SECONDARY}
       >
         {t(full.messageId)}
