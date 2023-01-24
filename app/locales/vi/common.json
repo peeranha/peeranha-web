@@ -171,6 +171,8 @@
     "Thiết lập kỹ thuật;",
     "Hướng dẫn 'Cách thực hiện'."
   ],
+  "documentationPopoverTitle": "Tài liệu",
+  "documentationPopoverLabel": "Bài báo tài liệu được xuất bản bởi quan chức cộng đồng.",
   "rightNow": "Ngay bây giờ",
   "minutesAgo": "{{minutes}} vài phút trước",
   "hoursAgo": "{{hours}} giờ trước",

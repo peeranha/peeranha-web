@@ -55,13 +55,15 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
   return (
     <Base>
       {t(label)}
-      <ul>
-        {t(items, { returnObjects: true }).map((item) => (
-          <li key={item}>
-            <span>{t(item)}</span>
-          </li>
-        ))}
-      </ul>
+      {Boolean(items.length) && (
+        <ul>
+          {t(items, { returnObjects: true }).map((item) => (
+            <li key={item}>
+              <span>{t(item)}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </Base>
   );
 };

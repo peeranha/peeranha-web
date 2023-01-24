@@ -171,6 +171,8 @@
     "Configuración técnica;",
     "Guías prácticas"
   ],
+  "documentationPopoverTitle": "Documentación",
+  "documentationPopoverLabel": "Artículo de documentación publicado por funcionarios de la comunidad.",
   "rightNow": "Ahora mismo",
   "minutesAgo": "{{minutes}} hace minutos",
   "hoursAgo": "{{hours}} hace horas",

@@ -171,6 +171,8 @@
     "Technical setup;",
     "'How-to' guides."
   ],
+  "documentationPopoverTitle": "Documentation",
+  "documentationPopoverLabel": "Documentation article published by community officials.",
   "rightNow": "Right now",
   "minutesAgo": "{{minutes}} minutes ago",
   "hoursAgo": "{{hours}} hours ago",
