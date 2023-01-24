@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
-import { translationMessages } from 'i18n';
 import { FormattedMessage } from 'react-intl';
 
 import H3 from 'components/H3';
@@ -11,12 +10,11 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
 import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import { BaseStyled } from './SettingsOfUser';
 import A from 'components/A';
 import { svgDraw } from 'components/Icon/IconStyled';
-import { TEXT_PRIMARY } from 'style-constants';
 
 const Link = styled(A)`
   ${svgDraw({ color: TEXT_PRIMARY })};
@@ -57,12 +55,19 @@ const AuthorizationData = ({
   };
   return (
     <>
-      <BaseStyled className={className} position="bottom">
+      <BaseStyled
+        className={className}
+        css={css(`
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    `)}
+        position="bottom"
+      >
         <H3>
           <FormattedMessage id={commonMessages.settings.id} />
         </H3>
       </BaseStyled>
-      <BaseStyled position="top" notRoundedStyle className={className}>
+      <BaseStyled position="top" className={className}>
         <div>
           <div>
             <div className="mb-4">
