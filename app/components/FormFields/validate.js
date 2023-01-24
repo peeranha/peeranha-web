@@ -1,11 +1,10 @@
 import { isAddress } from 'ethers/lib/utils';
 import _get from 'lodash/get';
+import { t } from 'i18next';
 import { CURRENCIES } from 'wallet-config';
 import { getRatingByCommunity } from 'utils/profileManagement';
-import messages from './messages';
 import {
   getPermissions,
-  hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
@@ -13,25 +12,25 @@ import {
 
 // TODO: test
 const imageValidation = (img) =>
-  img && img.length > 2000000 ? messages.fileSize : undefined;
+  img && img.length > 2000000 ? 'formFields.fileSize' : undefined;
 
 const byteLength = (val) => encodeURI(val).split(/%..|./).length - 1;
 
 const maxByteLength = (val) =>
-  byteLength(val) > 256 ? messages.wrongByteLength : undefined;
+  byteLength(val) > 256 ? 'formFields.wrongByteLength' : undefined;
 
 // TODO: test
 const stringLength = (min, max) => (value) => {
   let val = value;
 
-  let msg = messages.wrongLength.id;
+  let msg = 'formFields.wrongLength';
 
   if (value && value.toJS) {
     val = value.toJS();
   } else if (value && value.trim) {
     val = value.trim().replace(/  +/g, ' ');
   } else if (value && value.map) {
-    msg = messages.wrongLengthOfList.id;
+    msg = 'formFields.wrongLengthOfList';
   }
 
   return val && (val.length > max || val.length < min)
@@ -39,19 +38,17 @@ const stringLength = (min, max) => (value) => {
     : undefined;
 };
 
-const numberRange = (min, max) => (value) => {
-  const val = value;
-  const msg = messages.wrongNumberRange.id;
-
-  return val && (val > max || val < min) ? { id: msg, min, max } : undefined;
-};
+const numberRange = (min, max) => (value) =>
+  value && (value > max || value < min)
+    ? { id: 'formFields.wrongNumberRange', min, max }
+    : undefined;
 
 // TODO: test
 const valueHasToBePositiveInteger = (value) => {
   const re = /^[0-9]+$/;
 
   return (value && !re.test(value)) || value === undefined
-    ? messages.valueIsNotPositiveInteger
+    ? 'formFields.valueIsNotPositiveInteger'
     : undefined;
 };
 
@@ -61,7 +58,7 @@ const stringLengthMax = (max) => (value) => {
     typeof value === 'string' ? value.trim().replace(/  +/g, ' ') : '';
 
   return val && val.length > max
-    ? { id: messages.wrongLengthMax.id, max }
+    ? { id: 'formFields.wrongLengthMax', max }
     : undefined;
 };
 
@@ -69,7 +66,7 @@ const stringLengthMax = (max) => (value) => {
 const validateEmail = (email) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return email && !re.test(email) ? messages.wrongEmail : undefined;
+  return email && !re.test(email) ? 'formFields.wrongEmail' : undefined;
 };
 
 const validateURL = (url) => {
@@ -79,7 +76,7 @@ const validateURL = (url) => {
   const hasDotSlashSeries = /(\.\.)|(\.\/)|(\/\/.*\/.*\.)|(\s)/g.test(url);
   const hasDoubleSlash = url && url.match(/\/\//g)?.length > 1;
   return url && (!isUrl || hasDotSlashSeries || hasDoubleSlash)
-    ? messages.wrongURL
+    ? 'formFields.wrongURL'
     : undefined;
 };
 
@@ -92,11 +89,11 @@ const required = (value) => {
     val = val.trim();
   }
 
-  return !val ? messages.requiredField : undefined;
+  return !val ? 'formFields.requiredField' : undefined;
 };
 
 const requiredPostTypeSelection = (value) =>
-  Number(value) >= 0 ? undefined : messages.postTypeSelectionError;
+  Number(value) >= 0 ? undefined : 'common.postTypeSelectionError';
 
 const requiredAndNotZero = (value) => {
   let message;
@@ -109,9 +106,9 @@ const requiredAndNotZero = (value) => {
   }
 
   if (val === 0) {
-    message = messages.requiredAndNotZeroField;
+    message = 'formFields.requiredAndNotZeroField';
   } else if (!val) {
-    message = messages.requiredField;
+    message = 'formFields.requiredField';
   }
 
   return message;
@@ -119,22 +116,22 @@ const requiredAndNotZero = (value) => {
 
 const requiredForNumericalField = (value) =>
   value === '' || Number.isFinite(value) || Number(value) < 0
-    ? messages.requiredField
+    ? 'formFields.requiredField'
     : undefined;
 
 const requiredNonZeroInteger = (value) =>
   (value && value.trim() === '') || !Number.isInteger(Number(value))
-    ? messages.requiredNonZeroInteger
+    ? 'formFields.requiredNonZeroInteger'
     : undefined;
 
 const requiredForObjectField = (value) => {
   const val = value && value.toJS ? value.toJS() : value;
-  return !val || (val && !val.value) ? messages.requiredField : undefined;
+  return !val || (val && !val.value) ? 'formFields.requiredField' : undefined;
 };
 
 const requiredMinReputation = (...args) => {
-  const id = args[0].id;
-  const profile = args[2].profile;
+  const { id } = args[0];
+  const { profile } = args[2];
   const MIN_REPUTATION = 0;
 
   const hasRole =
@@ -144,7 +141,7 @@ const requiredMinReputation = (...args) => {
 
   const isMinusReputation = getRatingByCommunity(profile, id) < MIN_REPUTATION;
   return isMinusReputation && !hasRole
-    ? messages.requiredMinReputation
+    ? 'formFields.requiredMinReputation'
     : undefined;
 };
 
@@ -153,7 +150,7 @@ const valueHasNotBeInList = (...args) => {
   const list = args[2].valueHasNotBeInListValidate;
 
   return list && list.includes(value.toLowerCase())
-    ? messages.itemAlreadyExists
+    ? 'formFields.itemAlreadyExists'
     : undefined;
 };
 
@@ -165,7 +162,7 @@ const valueHasNotBeInListMoreThanOneTime = (...args) => {
     list.filter(
       (x) => x && x.trim().toLowerCase() === value.trim().toLowerCase(),
     ).length > 1
-    ? messages.itemAlreadyExists
+    ? 'formFields.itemAlreadyExists'
     : undefined;
 };
 
@@ -178,7 +175,7 @@ const valueHasToBeLessThan = (...args) => {
   }
   const value = Number(args[0]);
   const comparedValue = Number(args[2].valueHasToBeLessThan);
-  return value > comparedValue ? messages.valueIsMore : undefined;
+  return value > comparedValue ? 'formFields.valueIsMore' : undefined;
 };
 
 const bountyCannotBeLessThenPrev = (...args) => {
@@ -187,7 +184,7 @@ const bountyCannotBeLessThenPrev = (...args) => {
   }
   const value = Number(args[0]);
   const comparedValue = Number(_get(args, [2, 'question', 'bounty']));
-  return value < comparedValue ? messages.hasToBeMoreThanPrev : undefined;
+  return value < comparedValue ? 'formFields.hasToBeMoreThanPrev' : undefined;
 };
 
 const hoursCannotBeLessThenPrev = (...args) => {
@@ -196,34 +193,33 @@ const hoursCannotBeLessThenPrev = (...args) => {
   }
   const value = Number(args[0]);
   const comparedValue = Number(_get(args, [2, 'question', 'bountyHours']));
-  return value < comparedValue ? messages.hasToBeMoreThanPrev : undefined;
+  return value < comparedValue ? 'formFields.hasToBeMoreThanPrev' : undefined;
 };
 
 const valueHasToBeLessThanMaxPromotingHours = (...args) => {
   const value = Number(args[0]);
   const comparedValue = Number(args[2].maxPromotingHours);
 
-  return value > comparedValue ? messages.valueIsMore : undefined;
+  return value > comparedValue ? 'formFields.valueIsMore' : undefined;
 };
 
-const stringHasToBeEthereumAddress = (value) => {
-  return !isAddress(value) ? messages.wrongAddressFormat : undefined;
-};
+const stringHasToBeEthereumAddress = (value) =>
+  !isAddress(value) ? 'formFields.wrongAddressFormat' : undefined;
 
 const comparePasswords = (...args) => {
   const value = args[0];
   const list = args[2].passwordList;
 
   return list.filter((x) => x !== value)[0]
-    ? messages.passwordsNotMatch
+    ? 'formFields.passwordsNotMatch'
     : undefined;
 };
 
 const withoutDoubleSpace = (str) =>
-  str && str.includes('  ') ? messages.withoutDoubleSpace : undefined;
+  str && str.includes('  ') ? 'formFields.withoutDoubleSpace' : undefined;
 
 const atLeastOneLetter = (str) =>
-  !str || !/.*[a-z].*/i.test(str) ? messages.atLeastOneLetter : undefined;
+  !str || !/.*[a-z].*/i.test(str) ? 'formFields.atLeastOneLetter' : undefined;
 
 const strLength1x5 = stringLength(1, 5);
 const strLength1x1000 = stringLength(1, 1000);

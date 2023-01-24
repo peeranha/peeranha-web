@@ -1,9 +1,3 @@
-/**
- *
- * TextEditor
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import MDEditor, { commands } from '@uiw/react-md-editor';
@@ -12,7 +6,8 @@ import '@uiw/react-md-editor/markdown-editor.css';
 import { marked } from 'marked';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { Translation } from 'react-i18next';
+import { t } from 'i18next';
 
 import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
@@ -21,9 +16,6 @@ import { PreviewWrapper } from '../AnswerForm';
 import MarkdownPreviewBlock from './MarkdownPreview';
 import Wrapper from 'components/FormFields/Wrapper';
 import Span from 'components/Span';
-import { FormattedMessage } from 'react-intl';
-import commonMessages from 'common-messages';
-import messages from './messages';
 import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
 import { singleCommunityStyles } from 'utils/communityManagement';
 
@@ -65,7 +57,7 @@ class TextEditor extends React.PureComponent {
           value={this.props.value}
           onBlur={this.onBlurHandler}
           textareaProps={{
-            placeholder: translationMessages[locale][messages.enterText.id],
+            placeholder: t('common.enterText'),
           }}
           preview={'edit'}
           data-color-mode={'light'}
@@ -97,7 +89,9 @@ class TextEditor extends React.PureComponent {
               <MarkdownPreviewBlock content={this.props.value} />
             ) : (
               <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-                <FormattedMessage id={commonMessages.nothingToSeeYet.id} />
+                <Translation>
+                  {(translate) => <>{translate('common.nothingToSeeYet')}</>}
+                </Translation>
               </Span>
             )}
           </PreviewWrapper>

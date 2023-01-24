@@ -1,21 +1,20 @@
-import { defineMessages } from 'react-intl';
 import { SCATTER_TIMEOUT_ERROR } from 'utils/constants';
 
-export default defineMessages({
+export default {
   accountDoesNotExist: {
-    id: 'app.containers.ErrorPage.accountDoesNotExist',
+    id: 'errorPage.accountDoesNotExist',
     keywords: 'Account does not exist',
   },
   cannotTransferToSelf: {
-    id: 'app.containers.ErrorPage.cannotTransferToSelf',
+    id: 'errorPage.cannotTransferToSelf',
     keywords: 'Cannot transfer to self',
   },
   notEnoughCPU: {
-    id: 'app.containers.ErrorPage.notEnoughCPU',
+    id: 'errorPage.notEnoughCPU',
     keywords: '3080004',
   },
   checkScatterConnection: {
-    id: 'app.containers.ErrorPage.checkScatterConnection',
+    id: 'errorPage.checkScatterConnection',
     keywords: SCATTER_TIMEOUT_ERROR,
   },
-});
+};

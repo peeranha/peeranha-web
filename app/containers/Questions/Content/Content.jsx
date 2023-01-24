@@ -20,16 +20,9 @@ import MoveSection from './MoveSection';
 import Body from './Body';
 
 import { POST_TYPE } from '../../../utils/constants';
-import { EXPERT_BACKLIGHT, TUTORIAL_BACKLIGHT } from 'style-constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
-  box-shadow: ${({ isExpert, isTutorial }) =>
-    isExpert
-      ? `3px 3px 5px ${EXPERT_BACKLIGHT}`
-      : isTutorial
-      ? `3px 3px 5px ${TUTORIAL_BACKLIGHT}`
-      : null};
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: 15px;
@@ -146,6 +139,7 @@ const QI = ({
       index={index}
       innerRef={ref}
       isTutorial={postType === POST_TYPE.tutorial}
+      isDiscussion={postType === POST_TYPE.generalPost}
       draggable={
         isModerator && !isHomePage && questionFilter === 1 && !isPromoted
       }

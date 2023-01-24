@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import achievementReached from 'images/achievement_reached.svg?external';
 import achievementNotReached from 'images/achievement_not_reached.svg?external';
@@ -10,11 +10,9 @@ import Icon from 'components/Icon';
 import Span from 'components/Span';
 import ProgressBar from './ProgressBar';
 
-import messages from './messages';
-
 const LevelIcon = styled(Icon)`
   .crown {
-    fill: ${props => {
+    fill: ${(props) => {
       if (props.level === 'bronze') return '#8b4513';
       if (props.level === 'silver') return '#c0c0c0';
       if (props.level === 'gold') return '#ffd700';
@@ -55,28 +53,24 @@ const Achievement = ({
   currentValue,
   pointsToNext,
   groupType,
-  locale,
 }) => {
+  const { t } = useTranslation();
   const getProgress = () => (currentValue / lowerValue) * 100;
-
-  const translations = translationMessages[locale]
-    ? translationMessages[locale]
-    : null;
 
   return (
     <Bage>
       <ImageBlock>
-        {reached &&
-          !level && <Icon icon={achievementReached} width="80" height="74" />}
-        {reached &&
-          level && (
-            <LevelIcon
-              icon={achievementReached}
-              width="80"
-              height="74"
-              level={level}
-            />
-          )}
+        {reached && !level && (
+          <Icon icon={achievementReached} width="80" height="74" />
+        )}
+        {reached && level && (
+          <LevelIcon
+            icon={achievementReached}
+            width="80"
+            height="74"
+            level={level}
+          />
+        )}
         {!reached && (
           <Icon icon={achievementNotReached} width="80" height="74" />
         )}
@@ -86,14 +80,8 @@ const Achievement = ({
             progress={getProgress()}
             pointsToNext={pointsToNext}
             groupType={groupType}
-            messageSingle={
-              translations[(messages.progressBarPopover[groupType]?.single.id)]
-            }
-            messageMultiple={
-              translations[
-                (messages.progressBarPopover[groupType]?.multiple.id)
-              ]
-            }
+            messageSingle={t(`progressBarPopover.${groupType}.single`)}
+            messageMultiple={t(`progressBarPopover.${groupType}.multiple`)}
           />
         )}
       </ImageBlock>

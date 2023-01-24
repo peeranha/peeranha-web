@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
@@ -43,7 +42,6 @@ import Form from 'containers/CreateTag/Form';
 import { Tips } from '../CreateTag/Tips';
 import { useModeratorRole } from '../../hooks/useModeratorRole';
 
-import messages from './messages';
 import editTagSaga from './saga';
 import { getEditTagForm, resetEditTagReducer, editTag } from './actions';
 import { selectEditTagFormLoading, selectEditTagProcessing } from './selectors';
@@ -67,6 +65,7 @@ const EditTag = ({
   locale,
   getExistingTagsDispatch,
 }) => {
+  const { t } = useTranslation();
   let { communityId, tagId } = editTagData;
 
   communityId = isSingleCommunityMode || match.params.communityId;
@@ -79,12 +78,9 @@ const EditTag = ({
     setEditTagDataDispatch(tagId, communityId);
   }
 
-  useEffect(
-    () => {
-      getExistingTagsDispatch({ communityId });
-    },
-    [communities.length],
-  );
+  useEffect(() => {
+    getExistingTagsDispatch({ communityId });
+  }, [communities.length]);
 
   // component did mount
   useEffect(() => {
@@ -111,20 +107,18 @@ const EditTag = ({
     [editTagDispatch],
   );
 
-  const title = <FormattedMessage {...messages.title} />;
-
   if (editTagFormLoading) return <LoadingIndicator />;
 
   return (
     <>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('tags.titleEdit')}
+        description={t('tags.descriptionSave')}
         language={locale}
         index={false}
       />
       <Header
-        title={title}
+        title={t('tags.titleEdit')}
         closeRedirectPage={
           communityId ? routes.communityTags(communityId) : routes.tags()
         }
@@ -136,7 +130,6 @@ const EditTag = ({
             communities={communities}
             editTagData={editTagData}
             submitAction={editTagArgs}
-            translations={translationMessages[locale]}
             tagFormLoading={editTagProcessing}
             isEditTagForm
           />
@@ -192,8 +185,5 @@ export default compose(
     saga: editTagSaga,
     disableEject: true,
   }),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
 )(EditTag);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { injectIntl, intlShape } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   TEXT_DARK,
@@ -113,16 +113,15 @@ const IconWithStatus = ({
   );
 };
 
-/* eslint no-nested-ternary: 0 */
 const RatingStatus = ({
   isProfilePage,
   rating = 0,
   size,
-  intl,
   isRankOff,
   ratingNumColor,
   customRatingIconColors,
 }) => {
+  const { t } = useTranslation();
   const full = options[getStatus(rating)];
 
   return (
@@ -139,14 +138,13 @@ const RatingStatus = ({
         fontSize={size === 'lg' ? 16 : 14}
         color={size === 'lg' ? TEXT_DARK : TEXT_SECONDARY}
       >
-        {intl.formatMessage({ id: full.messageId })}
+        {t(full.messageId)}
       </Span>
     </RatingStatusStyled>
   );
 };
 
 RatingStatus.propTypes = {
-  intl: intlShape.isRequired,
   rating: PropTypes.number,
   size: PropTypes.string,
   isRankOff: PropTypes.bool,
@@ -169,4 +167,4 @@ IconWithStatus.propTypes = {
 };
 
 export { IconWithStatus, getStatus };
-export default React.memo(injectIntl(RatingStatus));
+export default React.memo(RatingStatus);

@@ -5,6 +5,7 @@ import {
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 import { POST_TYPE } from './utils/constants';
 import { updateTitle } from './utils/seo';
+import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 
 const userRedirect = (where) => (id) => `/users/${id}${where}`;
 
@@ -77,13 +78,13 @@ export const getPostRoute = ({ postType, id, answerId = null, title }) => {
     return expertPostView(id, title, answerId);
   }
   if (postType === POST_TYPE.documentation) {
-    return documentation(id, title);
+    return documentation(getIpfsHashFromBytes32(id), title);
   }
   return tutorialView(id, title);
 };
 
-export const questionEdit = (postType, questionId) =>
-  `/${postType}/${questionId}/edit`;
+export const questionEdit = (postType, questionId, title) =>
+  `/${postType}/${questionId}/${updateTitle(title)}/edit`;
 
 export const answerEdit = (questionId, answerId) =>
   !singleCommId
@@ -153,8 +154,6 @@ export const registrationStage = 'signup';
 export const preloaderPage = () => '/preloader-page';
 
 export const referralPage = (user) => `/?${REFERRAL_CODE_URI}=${user}`;
-
-export const facebookDataDeletion = () => '/facebook-data-deletion';
 
 export const documentation = (sectionId, title) =>
   `/documentation/${sectionId}/${updateTitle(title)}`;

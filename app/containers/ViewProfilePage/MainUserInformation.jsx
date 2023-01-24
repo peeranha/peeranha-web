@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
 
-import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
@@ -13,7 +12,6 @@ import { getUserAvatar } from 'utils/profileManagement';
 import questionRoundedIcon from 'images/question2.svg?external';
 import answerIcon from 'images/answer.svg?external';
 import CopyTextIcon from 'icons/CopyText';
-import { translationMessages } from 'i18n';
 import Base from 'components/Base';
 import A from 'components/A';
 import Ul from 'components/Ul';
@@ -26,7 +24,6 @@ import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
 import { getUserName } from 'utils/user';
@@ -181,6 +178,7 @@ const MainUserInformation = ({
   redirectToEditProfilePage,
   userAchievementsLength,
 }) => {
+  const { t } = useTranslation();
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
@@ -189,10 +187,7 @@ const MainUserInformation = ({
   const writeToBuffer = (event) => {
     navigator.clipboard.writeText(userId);
     setCopied(colors.btnColor || LINK_COLOR);
-    showPopover(
-      event.currentTarget.id,
-      translationMessages[locale][commonMessages.copied.id],
-    );
+    showPopover(event.currentTarget.id, t('common.copied'));
   };
 
   return (
@@ -229,7 +224,8 @@ const MainUserInformation = ({
           <div className="d-flex align-items-center">
             <UlStyled>
               <li>
-                <FormattedMessage id={messages.status.id} />
+                <span>{t('profile.status')}</span>
+
                 <RatingStatus
                   isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
@@ -239,7 +235,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage id={commonMessages.posts.id} />
+                <span>{t('common.posts')}</span>
                 <span>
                   <IconLg
                     icon={questionRoundedIcon}
@@ -258,7 +254,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage id={commonMessages.answers.id} />
+                <span>{t('common.answers')}</span>
                 <span>
                   <IconLg
                     icon={answerIcon}
@@ -273,7 +269,8 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage id={messages.achievements.id} />
+                <span>{t('profile.achievements')}</span>
+
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
@@ -286,40 +283,42 @@ const MainUserInformation = ({
               </li>
               {!isTemporaryAccount && (
                 <li className="pr">
-                  <FormattedMessage id={commonMessages.walletAddress.id} />
-                  <A
-                    to={{ pathname: userPolygonScanAddress }}
-                    href={userPolygonScanAddress}
-                    target="_blank"
-                  >
-                    <span
-                      id="copytext1"
-                      css={css`
-                        border-bottom: 1px solid;
-                        color: ${LINK_COLOR};
-                        font-weight: 400;
-                        font-size: 14px;
-                      `}
+                  <span>{t('common.walletAddress')}</span>
+                  <span>
+                    <A
+                      to={{ pathname: userPolygonScanAddress }}
+                      href={userPolygonScanAddress}
+                      target="_blank"
                     >
-                      {userId}
-                    </span>
-                  </A>
-                  <button
-                    id="share-link-copy"
-                    css={css`
-                      color: #adaeae;
-                      position: absolute;
-                      left: 95%;
-                      margin-top: 23px;
-                    `}
-                    onClick={writeToBuffer}
-                  >
-                    <CopyTextIcon
-                      className={colors.btnColor || LINK_COLOR}
-                      fill={copied}
-                      stroke={colors.btnColor || LINK_COLOR}
-                    />
-                  </button>
+                      <span
+                        id="copytext1"
+                        css={css`
+                          border-bottom: 1px solid;
+                          color: ${LINK_COLOR};
+                          font-weight: 400;
+                          font-size: 14px;
+                        `}
+                      >
+                        {userId}
+                      </span>
+                    </A>
+                    <button
+                      id="share-link-copy"
+                      css={css`
+                        color: #adaeae;
+                        position: absolute;
+                        left: 95%;
+                        margin-top: 23px;
+                      `}
+                      onClick={writeToBuffer}
+                    >
+                      <CopyTextIcon
+                        className={colors.btnColor || LINK_COLOR}
+                        fill={copied}
+                        stroke={colors.btnColor || LINK_COLOR}
+                      />
+                    </button>
+                  </span>
                 </li>
               )}
 

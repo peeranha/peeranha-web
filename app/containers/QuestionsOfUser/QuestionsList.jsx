@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
 
 import {
   BORDER_PRIMARY,
   BORDER_SECONDARY,
-  EXPERT_BACKLIGHT,
-  SECONDARY_SPECIAL_2,
   TEXT_PRIMARY_DARK,
   TEXT_SECONDARY,
-  TUTORIAL_BACKLIGHT,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 
@@ -24,7 +21,6 @@ import Span from 'components/Span';
 import A from 'components/A';
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 
-import messages from 'containers/Profile/messages';
 import { getUserName } from 'utils/user';
 import { POST_TYPE_ANSWER } from '../Profile/constants';
 import { getPostRoute } from '../../routes-config';
@@ -45,17 +41,6 @@ export const Li = BaseRoundedNoPadding.extend`
   display: flex;
   border: ${(x) =>
     x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0'};
-  box-shadow: ${({ postType }) => {
-    if (postType === POST_TYPE.expertPost) {
-      return `3px 3px 5px ${EXPERT_BACKLIGHT}`;
-    }
-
-    if (postType === POST_TYPE.tutorial) {
-      return `3px 3px 5px ${TUTORIAL_BACKLIGHT}`;
-    }
-
-    return null;
-  }};
   > div:nth-child(2) {
     border-left: 1px solid ${BORDER_SECONDARY};
   }
@@ -70,25 +55,17 @@ export const Li = BaseRoundedNoPadding.extend`
   }
 
   :hover {
-    box-shadow: ${({ postType }) => {
-      if (postType === POST_TYPE.expertPost) {
-        return `6px 6px 5px ${EXPERT_BACKLIGHT}`;
-      }
-
-      if (postType === POST_TYPE.tutorial) {
-        return `6px 6px 5px ${TUTORIAL_BACKLIGHT}`;
-      }
-
-      return `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`;
-    }};
+    box-shadow: 5px 5px 5px rgba(40, 40, 40, 0.1);
   }
 `;
 
 const LastAnswer = ({ lastAnswer, locale }) => {
+  const { t } = useTranslation();
+
   if (!lastAnswer) {
     return (
       <Span fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage id={messages.noAnswersYet.id} />
+        {t('profile.noAnswersYet')}
       </Span>
     );
   }
@@ -107,7 +84,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
       )}
 
       <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
-        <FormattedMessage id={messages.lastAnswer.id} />{' '}
+        {t('profile.lastAnswer')}{' '}
         {getFormattedDate(
           lastAnswer.postTime,
           locale,
@@ -118,7 +95,6 @@ const LastAnswer = ({ lastAnswer, locale }) => {
   );
 };
 
-/* eslint camelcase: 0 */
 const Question = ({
   myPostRating,
   title,
