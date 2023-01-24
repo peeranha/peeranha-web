@@ -37,7 +37,7 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import Content from 'containers/Questions/Content/Content';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import LargeImage from 'components/Img/LargeImage';
-import TextBlock from 'components/FormFields/TextBlock';
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
@@ -243,7 +243,9 @@ export const Home = ({
                 <IntroducingSubTitle>
                   {postCount} {t('common.questions')}
                 </IntroducingSubTitle>
-                {about && <TextBlock content={about} className="mt-3" />}
+                {about && (
+                  <MarkdownPreviewBlock content={about} className="mt-3" />
+                )}
               </div>
             </IntroducingContainer>
           </Base>

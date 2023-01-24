@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import Base from 'components/Base';
-import TextBlock from 'components/FormFields/TextBlock';
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 
 import Comments from './Comments';
 import BestAnswerMarker from './BestAnswerMarker';
@@ -65,7 +65,7 @@ export const ContentBody = ({
         author={author}
       />
 
-      <TextBlock content={content} />
+      <MarkdownPreviewBlock content={content} />
 
       <Comments
         postId={questionData.id}
