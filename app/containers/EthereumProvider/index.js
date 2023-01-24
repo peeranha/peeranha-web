@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import {
   isSingleCommunityWebsite,

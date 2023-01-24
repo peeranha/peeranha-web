@@ -1,7 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import commonMessages from 'common-messages';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import {
@@ -18,12 +17,12 @@ import {
 
 import Container from 'components/Labels/QuestionType';
 
-import Popover from './Popover';
-import { POST_TYPE } from '../../../../utils/constants';
-
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
+
+import Popover from './Popover';
+import { POST_TYPE } from '../../../../utils/constants';
 
 import { IconLg } from '../../../../components/Icon/IconWithSizes';
 import { svgDraw } from '../../../../components/Icon/IconStyled';
@@ -77,28 +76,29 @@ const Icon = styled(IconLg)`
 
 const types = {
   [POST_TYPE.generalPost]: {
-    title: commonMessages.generalPopoverTitle.id,
-    label: commonMessages.generalPopoverLabel.id,
-    items: commonMessages.generalPopoverList.id,
+    title: 'common.generalPopoverTitle',
+    label: 'common.generalPopoverLabel',
+    items: 'common.generalPopoverList',
     icon: generalIcon,
   },
   [POST_TYPE.expertPost]: {
-    title: commonMessages.expertPopoverTitle.id,
-    label: commonMessages.expertPopoverLabel.id,
-    items: commonMessages.expertPopoverList.id,
+    title: 'common.expertPopoverTitle',
+    label: 'common.expertPopoverLabel',
+    items: 'common.expertPopoverList',
     icon: expertIcon,
     isExpert: true,
   },
   [POST_TYPE.tutorial]: {
-    title: commonMessages.tutorialPopoverTitle.id,
-    label: commonMessages.tutorialPopoverLabel.id,
-    items: commonMessages.tutorialPopoverList.id,
+    title: 'common.tutorialPopoverTitle',
+    label: 'common.tutorialPopoverLabel',
+    items: 'common.tutorialPopoverList',
     icon: tutorialIcon,
     isTutorial: true,
   },
 };
 
-const QuestionType = ({ locale, postType, className, isPromoted = false }) => {
+const QuestionType = ({ postType, className, isPromoted = false }) => {
+  const { t } = useTranslation();
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
@@ -117,7 +117,6 @@ const QuestionType = ({ locale, postType, className, isPromoted = false }) => {
           >
             {visible && (
               <Popover
-                locale={locale}
                 title={type.title}
                 label={type.label}
                 items={type.items}
@@ -135,9 +134,7 @@ const QuestionType = ({ locale, postType, className, isPromoted = false }) => {
 
       {isPromoted && (
         <LabelItem>
-          <PromotedLabel>
-            <FormattedMessage id={commonMessages.promoted.id} />
-          </PromotedLabel>
+          <PromotedLabel>{t('common.promoted')}</PromotedLabel>
         </LabelItem>
       )}
     </LabelsWrapper>
@@ -146,7 +143,6 @@ const QuestionType = ({ locale, postType, className, isPromoted = false }) => {
 
 QuestionType.propTypes = {
   postType: PropTypes.number,
-  locale: PropTypes.string,
   isPromoted: PropTypes.bool,
   className: PropTypes.string,
 };

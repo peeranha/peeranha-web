@@ -166,7 +166,6 @@ import { GET_TERMS_ERROR } from 'containers/TermsOfService/constants';
 import { INIT_EOSIO_ERROR } from 'containers/EosioProvider/constants';
 import { GET_USER_ACHIEVEMENTS_ERROR } from 'containers/Achievements/constants';
 import { CHANGE_STAKE_ERROR } from 'containers/Boost/constants';
-import { DELETE_FB_DATA_ERROR } from 'containers/DeleteFacebookData/constants';
 
 import {
   SAVE_CRYPTO_ACCOUNTS_ERROR,
@@ -262,7 +261,6 @@ export const errHandlingTypes = [
   GET_ASKED_QUESTION_ERROR,
   CHANGE_STAKE_ERROR,
   FB_LOGIN_ERROR,
-  DELETE_FB_DATA_ERROR,
 ];
 
 export const successHandlingTypes = [

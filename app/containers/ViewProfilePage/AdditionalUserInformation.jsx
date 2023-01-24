@@ -1,7 +1,6 @@
-/* eslint indent: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { LINK_COLOR, TEXT_SECONDARY } from 'style-constants';
 
@@ -16,40 +15,45 @@ import {
   LOCATION_FIELD,
 } from 'containers/Profile/constants';
 
-import messages from 'containers/Profile/messages';
-
 import { Box } from './MainUserInformation';
 
-const Blank = ({ profile, userId, account, redirectToEditProfilePage }) =>
-  !profile[LOCATION_FIELD] &&
-  !profile[COMPANY_FIELD] &&
-  !profile[POSITION_FIELD] &&
-  !profile[ABOUT_FIELD] && (
-    <p>
-      <Span color={TEXT_SECONDARY} mobileFS="14">
-        <FormattedMessage id={messages.informationIsBlank.id} />{' '}
-      </Span>
-      <button
-        type="button"
-        onClick={redirectToEditProfilePage}
-        className={`align-items-center ${
-          userId === account ? 'd-inline-flex' : 'd-none'
-        }`}
-        id={`add-user-info-edit-${userId}`}
-        data-user={userId}
-      >
-        <Span color={LINK_COLOR} mobileFS="14">
-          <FormattedMessage id={messages.editProfile.id} />
-        </Span>
-      </button>
-    </p>
-  );
+const Blank = ({ profile, userId, account, redirectToEditProfilePage }) => {
+  const { t } = useTranslation();
 
-const Row = ({ nameField, value, asHtml }) =>
-  value ? (
+  return (
+    !profile[LOCATION_FIELD] &&
+    !profile[COMPANY_FIELD] &&
+    !profile[POSITION_FIELD] &&
+    !profile[ABOUT_FIELD] && (
+      <p>
+        <Span color={TEXT_SECONDARY} mobileFS="14">
+          {t('profile.informationIsBlank')}
+        </Span>
+        <button
+          type="button"
+          onClick={redirectToEditProfilePage}
+          className={`align-items-center ${
+            userId === account ? 'd-inline-flex' : 'd-none'
+          }`}
+          id={`add-user-info-edit-${userId}`}
+          data-user={userId}
+        >
+          <Span color={LINK_COLOR} mobileFS="14">
+            {t('profile.editProfile')}
+          </Span>
+        </button>
+      </p>
+    )
+  );
+};
+
+const Row = ({ nameField, value, asHtml }) => {
+  const { t } = useTranslation();
+
+  return value ? (
     <div className="d-flex align-items-start mb-2">
       <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="24">
-        <FormattedMessage id={messages[nameField].id} />
+        {t(`profile.${nameField}`)}
       </Span>
       {asHtml ? (
         <TextBlock content={value} />
@@ -60,6 +64,7 @@ const Row = ({ nameField, value, asHtml }) =>
       )}
     </div>
   ) : null;
+};
 
 const AdditionalUserInformation = ({
   profile,

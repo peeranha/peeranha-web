@@ -2,15 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { BG_PRIMARY, BG_PRIMARY_RGB, BUTTON_COLOR } from 'style-constants';
-import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 
 import { formatStringToHtmlId } from 'utils/animation';
 import { singleCommunityStyles } from 'utils/communityManagement';
 
-import commonMessages from 'common-messages';
+import { IconMd } from 'components/Icon/IconWithSizes';
+import Icon from 'components/Icon';
 
 import coinsIcon from 'images/coins.svg?external';
 import crownIcon from 'images/crownIcon.svg?external';
@@ -20,11 +20,8 @@ import Button from 'components/Button/Contained/PrimaryMedium';
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { B } from './QuestionTitle';
 import SendTips from '../SendTips';
-import { IconMd } from 'components/Icon/IconWithSizes';
-import Icon from 'components/Icon';
 
 import { MARK_AS_BUTTON } from './constants';
-import messages from './messages';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
@@ -70,15 +67,14 @@ export const BestAnswerMarker = ({
   profileInfo,
   author,
 }) => {
+  const { t } = useTranslation();
+
   if (answerId === 0) return null;
   const isItWrittenByMe = profileInfo
     ? author.user === profileInfo.user
     : false;
 
   const isTemporaryAccount = true;
-  //   !!author?.['integer_properties'].find(
-  //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
-  // );
 
   const displayTips =
     (!profileInfo && !isTemporaryAccount) ||
@@ -102,7 +98,7 @@ export const BestAnswerMarker = ({
               icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
               color={BUTTON_COLOR}
             />
-            <FormattedMessage {...commonMessages.tipAnswer} />
+            {t('common.tipAnswer')}
           </B>
         </SendTips>
       )}
@@ -123,7 +119,7 @@ export const BestAnswerMarker = ({
       {isTheLargestRating && (
         <Label bg={BG_PRIMARY} inactive>
           <Icon className="d-inline-flex mr-2" icon={crownIcon} width="11" />
-          <FormattedMessage {...messages.communityChoice} />
+          {t('post.communityChoice')}
         </Label>
       )}
 
@@ -140,7 +136,7 @@ export const BestAnswerMarker = ({
             width="16"
             color={BG_PRIMARY}
           />
-          <FormattedMessage {...messages.officialAnswer} />
+          {t('post.officialAnswer')}
         </Label>
       )}
     </Div>

@@ -1,8 +1,5 @@
-/* eslint consistent-return: 0 */
 import { takeEvery, put, select, call } from 'redux-saga/effects';
-
-import { translationMessages } from 'i18n';
-import messages from 'common-messages';
+import i18next from 'i18next';
 
 import {
   ApplicationError,
@@ -15,7 +12,6 @@ import { logError } from 'utils/web_integration/src/logger/index';
 import { ENDPOINTS_LIST } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import blockchainErrorMsgs from 'containers/ErrorPage/blockchainErrors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
@@ -26,27 +22,23 @@ import { makeSelectToasts } from './selectors';
 
 import { errHandlingTypes, otherTypes } from './imports';
 import errorMessages from 'errorsByCode';
-import { selectTransactionHash } from '../EthereumProvider/selectors';
 import {
   TRANSACTION_COMPLETED,
   TRANSACTION_FAILED,
 } from '../EthereumProvider/constants';
 
-export function* errHandling(error) {
-  const locale = yield select(makeSelectLocale());
-  const msg = translationMessages[locale];
-
+export function* errHandling(error = {}) {
   try {
-    const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
+    const key = Object.keys(error).find((x) => x.toLowerCase().match('err'));
     const errorValue = error[key];
 
     if (errorValue instanceof WebIntegrationErrorByCode) {
       if (isNaN(errorValue?.message)) {
         const errObjWrapper = errorValue.message;
         const errorCode = JSON.parse(errObjWrapper).error.code;
-        throw msg[errorMessages[errorCode].id];
+        throw i18next.t(errorMessages[errorCode]);
       } else {
-        throw msg[errorMessages[errorValue.message].id];
+        throw i18next.t(errorMessages[errorValue.message]);
       }
     }
 
@@ -62,7 +54,7 @@ export function* errHandling(error) {
       let errorCode = null;
 
       try {
-        errorCode = Object.keys(blockchainErrorMsgs).find(x =>
+        errorCode = Object.keys(blockchainErrorMsgs).find((x) =>
           errorValue.message
             .toLowerCase()
             .includes(blockchainErrorMsgs[x].keywords.toLowerCase()),
@@ -72,7 +64,7 @@ export function* errHandling(error) {
       }
 
       if (errorCode) {
-        throw msg[blockchainErrorMsgs[errorCode].id];
+        throw i18next.t(blockchainErrorMsgs[errorCode]);
       }
     }
 
@@ -84,19 +76,17 @@ export function* errHandling(error) {
         text:
           typeof catchError === 'string'
             ? catchError
-            : msg[messages.errorMessage.id],
+            : i18next.t('common.errorMessage'),
       }),
     );
   }
 }
 
 export function* successHandling() {
-  const locale = yield select(makeSelectLocale());
-  const msg = translationMessages[locale];
   yield put(
     addToast({
       type: 'success',
-      text: msg[messages.transactionCompleted.id],
+      text: i18next.t('common.transactionCompleted'),
     }),
   );
 }
@@ -105,7 +95,7 @@ export function* addToastWorker() {
   const toasts = yield select(makeSelectToasts());
   const { toastKey } = toasts[toasts.length - 1];
 
-  yield new Promise(resolve => {
+  yield new Promise((resolve) => {
     setTimeout(resolve, REMOVE_TIMEOUT);
   });
 
@@ -114,7 +104,7 @@ export function* addToastWorker() {
 
 export function* loggerWorker(error) {
   try {
-    const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
+    const key = Object.keys(error).find((x) => x.toLowerCase().match('err'));
 
     const user = yield select(makeSelectAccount());
 
@@ -150,7 +140,7 @@ export function* loggerWorker(error) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeEvery(ADD_TOAST, addToastWorker);
   yield takeEvery(TRANSACTION_FAILED, errHandling);
   yield takeEvery([...otherTypes, ...errHandlingTypes], loggerWorker);
