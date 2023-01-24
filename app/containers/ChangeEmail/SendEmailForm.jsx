@@ -50,7 +50,7 @@ EmailForm.propTypes = {
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: OLD_EMAIL_FORM,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(EmailForm);
 
 FormClone = connect((_, props) => ({

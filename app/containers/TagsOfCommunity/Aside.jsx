@@ -25,7 +25,7 @@ const Aside = ({ suggestedTags, communityId }) => {
         {t('tags.voteForNewTags')}
       </Header>
 
-      {suggestedTags.slice(0, 3).map(x => (
+      {suggestedTags.slice(0, 3).map((x) => (
         <Item key={x.id}>
           <div className="d-flex align-items-center mb-2">
             <A

@@ -53,5 +53,5 @@ ShowActiveKeyForm.propTypes = {
 
 export default reduxForm({
   form: 'ShowActiveKeyForm',
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(ShowActiveKeyForm);

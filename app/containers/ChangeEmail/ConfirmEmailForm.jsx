@@ -71,5 +71,5 @@ ConfirmEmailForm.propTypes = {
 
 export default reduxForm({
   form: CONFIRM_EMAIL_FORM,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(ConfirmEmailForm);

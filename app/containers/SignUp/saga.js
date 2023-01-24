@@ -54,14 +54,14 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 import { getProfileInfo } from '../../utils/profileManagement';
 import { loginWithEmailSuccess } from '../Login/actions';
 
-const setEmailToStorage = email => {
+const setEmailToStorage = (email) => {
   localStorage.setItem('signup_email', JSON.stringify(email));
 };
 
 const getEmailFromStorage = () =>
   JSON.parse(localStorage.getItem('signup_email'));
 
-const setCodeToStorage = code => {
+const setCodeToStorage = (code) => {
   localStorage.setItem('verification_code', JSON.stringify(code));
 };
 
@@ -197,7 +197,7 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);

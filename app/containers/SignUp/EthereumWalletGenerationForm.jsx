@@ -45,10 +45,10 @@ import {
 import { signUpViaEmailComplete } from './actions';
 
 export const Div = styled.div`
-  padding: ${x => (x.primary ? '20px' : '0px')} 30px;
-  margin-bottom: ${x => (x.primary ? '20px' : '0px')};
+  padding: ${(x) => (x.primary ? '20px' : '0px')} 30px;
+  margin-bottom: ${(x) => (x.primary ? '20px' : '0px')};
   border-radius: ${BORDER_RADIUS_M};
-  background: ${x => (x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT)};
+  background: ${(x) => (x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT)};
   position: relative;
 
   #i-save-master-key,
@@ -58,7 +58,7 @@ export const Div = styled.div`
   }
 
   @media only screen and (max-width: 992px) {
-    ${x => (x.primary ? `background: ${BG_TRANSPARENT};` : '')};
+    ${(x) => (x.primary ? `background: ${BG_TRANSPARENT};` : '')};
   }
 
   @media only screen and (max-width: 400px) {
@@ -207,10 +207,10 @@ const formName = 'EthereumWalletGenerationForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(EthereumWalletGenerationForm);
 
-FormClone = connect(state => {
+FormClone = connect((state) => {
   const form = state.toJS().form[formName] || { values: {} };
 
   return {

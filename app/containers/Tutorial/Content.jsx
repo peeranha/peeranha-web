@@ -21,8 +21,8 @@ import Button from 'components/Button/Outlined/PrimaryLarge';
 import Question from './Question';
 
 export const TextBlock = styled.div`
-  display: ${x => (x.isOpened ? 'block' : 'none')};
-  margin-top: ${x => (x.isOpened ? '15px' : '0px')};
+  display: ${(x) => (x.isOpened ? 'block' : 'none')};
+  margin-top: ${(x) => (x.isOpened ? '15px' : '0px')};
 
   ${textBlockStyles};
 
@@ -40,7 +40,8 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   }
 
   > :not(:last-child) {
-    border-bottom: ${x => (x.isOpened ? '1' : '0')}px solid ${BORDER_SECONDARY};
+    border-bottom: ${(x) => (x.isOpened ? '1' : '0')}px solid
+      ${BORDER_SECONDARY};
   }
 
   ${Button} {
@@ -112,18 +113,16 @@ const Section = ({
 
       <div className={isOpened ? 'd-block' : 'd-none'}>
         <ul>
-          {blocks
-            .slice(0, questionsNumber)
-            .map(x => (
-              <Question
-                {...x}
-                key={x.h3}
-                sectionCode={sectionCode}
-                route={route}
-                getQuestionCode={getQuestionCode}
-                sectionIsOpened={isOpened}
-              />
-            ))}
+          {blocks.slice(0, questionsNumber).map((x) => (
+            <Question
+              {...x}
+              key={x.h3}
+              sectionCode={sectionCode}
+              route={route}
+              getQuestionCode={getQuestionCode}
+              sectionIsOpened={isOpened}
+            />
+          ))}
         </ul>
 
         {blocks.length > DEFAULT_QST_NUM && (
@@ -151,7 +150,7 @@ const Section = ({
 
 const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
   <div className="mb-3">
-    {content.blocks.map(x => (
+    {content.blocks.map((x) => (
       <Section
         {...x}
         key={x.h2}

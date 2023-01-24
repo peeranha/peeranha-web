@@ -90,12 +90,9 @@ const SignUpViaEmailWrapper = ({
   logo,
   getLogoDispatch,
 }) => {
-  useEffect(
-    () => {
-      getLogoDispatch();
-    },
-    [single],
-  );
+  useEffect(() => {
+    getLogoDispatch();
+  }, [single]);
 
   return (
     <SignUpWrapper
@@ -131,7 +128,7 @@ const withConnect = connect(
     ]),
     logo: selectLogo(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     getLogoDispatch: bindActionCreators(getLogo, dispatch),
   }),
 );

@@ -60,5 +60,5 @@ ShowOwnerKeyForm.propTypes = {
 
 export default reduxForm({
   form: SUBMIT_EMAIL_FORM,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(ShowOwnerKeyForm);

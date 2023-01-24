@@ -115,7 +115,7 @@ const SettingsOfUser = ({
   tgData,
 }) => {
   const { t } = useTranslation();
-  const writeToBuffer = event => {
+  const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(event.currentTarget.id, t('common.copied'));
   };

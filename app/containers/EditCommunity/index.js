@@ -58,12 +58,9 @@ const EditCommunity = ({
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
-  useEffect(
-    () => {
-      getCommunityDispatch(communityId);
-    },
-    [communityId],
-  );
+  useEffect(() => {
+    getCommunityDispatch(communityId);
+  }, [communityId]);
 
   const formData = useMemo(
     () => ({
@@ -124,7 +121,7 @@ const withConnect = connect(
     locale: makeSelectLocale(),
     profileInfo: makeSelectProfileInfo(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     editCommunityDispatch: bindActionCreators(editCommunity, dispatch),
     getCommunityDispatch: bindActionCreators(getCommunity, dispatch),
   }),

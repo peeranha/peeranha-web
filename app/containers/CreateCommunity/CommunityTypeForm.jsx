@@ -8,7 +8,7 @@ import CommunityTypeField from './CommunityTypeField';
 
 const CommunityTypeForm = ({ change }) => {
   const { t } = useTranslation();
-  const onChange = useCallback(val => change(COMMUNITY_TYPE, val[0]), []);
+  const onChange = useCallback((val) => change(COMMUNITY_TYPE, val[0]), []);
 
   return (
     <>

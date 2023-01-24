@@ -6,17 +6,13 @@
   "unableToDecryptUserKey": "Check  entered data",
   "wrongPassword": "Wrong password",
   "wrongMasterKey": "Wrong master key",
-  "userDidntRequestActivateAcc":
-    "This user did not request to activate account",
+  "userDidntRequestActivateAcc": "This user did not request to activate account",
   "youSendTooManRequests": "You sent too many requests in the last period",
-  "userDidntMakeRequestToVerifyEmail":
-    "Email does not require registration or request expired",
+  "userDidntMakeRequestToVerifyEmail": "Email does not require registration or request expired",
   "codeExpiredOrIncorrect": "Code expired or entered incorrectly",
   "passphraseIsInvalid": "The passphrase is invalid",
-  "accountWithEmailIsntRegistered":
-    "Account with given email isn't registered yet",
-  "requestExpiredOrSomeOperationWasPassed":
-    "User did not request the opertion or request expired",
+  "accountWithEmailIsntRegistered": "Account with given email isn't registered yet",
+  "requestExpiredOrSomeOperationWasPassed": "User did not request the opertion or request expired",
   "invalidCipher": "Invalid cipher IV in passphase",
   "emailAlreadyInUse": "Email already in use",
   "unableToBuildModel": "Unable to build model",
@@ -25,8 +21,6 @@
   "incorrectFacebookAccessToken": "Incorrect facebook access token",
   "noStoredFacebookData": "There is no stored facebook user data in Peeranha",
   "privateKeyTypeIsNotSet": "The private key type is not set",
-  "noFacebookAccountEmail":
-    "The Facebook account does not have an installed email or the email is not verified",
-  "reCaptchaVerifyFailed":
-    "You have not passed the hidden check that you are not a robot"
+  "noFacebookAccountEmail": "The Facebook account does not have an installed email or the email is not verified",
+  "reCaptchaVerifyFailed": "You have not passed the hidden check that you are not a robot"
 }

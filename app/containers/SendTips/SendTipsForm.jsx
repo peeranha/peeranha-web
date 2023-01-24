@@ -93,37 +93,34 @@ const SendTipsForm = ({
     walletValue?.name === WALLETS.WOMBAT.name;
 
   // set user account to EOS_SEND_FROM_ACCOUNT_FIELD
-  useEffect(
-    () => {
-      // user logged with email
-      if (isPeeranhaWalletSelected) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
-      }
+  useEffect(() => {
+    // user logged with email
+    if (isPeeranhaWalletSelected) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
+    }
 
-      // set scatter account
-      if (isScatterWalletSelected && withScatter && !selectedScatterAccount) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
-      }
-      if (
-        isScatterWalletSelected &&
-        ((withScatter && selectedScatterAccount) || !withScatter)
-      ) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedScatterAccount);
-      }
+    // set scatter account
+    if (isScatterWalletSelected && withScatter && !selectedScatterAccount) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
+    }
+    if (
+      isScatterWalletSelected &&
+      ((withScatter && selectedScatterAccount) || !withScatter)
+    ) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedScatterAccount);
+    }
 
-      // set keycat account
-      if (isKeycatWalletSelected && withKeycat && !selectedKeycatAccount) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
-      }
-      if (
-        isKeycatWalletSelected &&
-        ((withKeycat && selectedKeycatAccount) || !withKeycat)
-      ) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedKeycatAccount);
-      }
-    },
-    [walletValue, selectedScatterAccount, selectedKeycatAccount],
-  );
+    // set keycat account
+    if (isKeycatWalletSelected && withKeycat && !selectedKeycatAccount) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
+    }
+    if (
+      isKeycatWalletSelected &&
+      ((withKeycat && selectedKeycatAccount) || !withKeycat)
+    ) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedKeycatAccount);
+    }
+  }, [walletValue, selectedScatterAccount, selectedKeycatAccount]);
 
   useEffect(
     () => () => {
@@ -133,10 +130,10 @@ const SendTipsForm = ({
     [],
   );
 
-  const changeCurrency = currency => {
+  const changeCurrency = (currency) => {
     change(CURRENCY_FIELD, currency);
 
-    const newCurrencyWalletsNames = currency.wallets.map(wal => wal.name);
+    const newCurrencyWalletsNames = currency.wallets.map((wal) => wal.name);
     if (!newCurrencyWalletsNames.includes(walletValue.name)) {
       change(WALLET_FIELD, wallets[0]);
     }
@@ -147,7 +144,7 @@ const SendTipsForm = ({
     change(AMOUNT_FIELD, amount || '');
   };
 
-  const changeWallet = wallet => {
+  const changeWallet = (wallet) => {
     if (!withScatter && !withKeycat) {
       change(WALLET_FIELD, wallet);
     }
@@ -163,7 +160,7 @@ const SendTipsForm = ({
       <form
         onSubmit={handleSubmit(
           loginWithFacebook &&
-          _isEqual(formValues[WALLET_FIELD], WALLETS.PEERANHA)
+            _isEqual(formValues[WALLET_FIELD], WALLETS.PEERANHA)
             ? sendFbVerificationEmail
             : sendTips,
         )}
@@ -233,18 +230,17 @@ const SendTipsForm = ({
               : [requiredAndNotZero, valueHasToBeLessThan]
           }
         />
-        {isPeer &&
-          !loginWithFacebook && (
-            <Field
-              name={PASSWORD_FIELD}
-              disabled={disabled}
-              label={t('common.password')}
-              component={TextInputField}
-              validate={required}
-              warn={required}
-              type="password"
-            />
-          )}
+        {isPeer && !loginWithFacebook && (
+          <Field
+            name={PASSWORD_FIELD}
+            disabled={disabled}
+            label={t('common.password')}
+            component={TextInputField}
+            validate={required}
+            warn={required}
+            type="password"
+          />
+        )}
         <Button disabled={disabled} className="w-100 mb-3">
           {t('common.submit')}
         </Button>
@@ -286,7 +282,7 @@ export const formName = 'SendTipsForm';
 
 let FormClone = reduxForm({
   form: formName,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(SendTipsForm);
 
 const formSelector = formValueSelector(formName);
@@ -330,11 +326,11 @@ FormClone = connect(
       const walletsToFilter = isMobileDevice
         ? mobileWallets
         : currencyValue.wallets.filter(
-            wallet => wallet.name !== WALLETS.WOMBAT.name,
+            (wallet) => wallet.name !== WALLETS.WOMBAT.name,
           );
 
       wallets = walletsToFilter.filter(
-        wallet =>
+        (wallet) =>
           !(
             wallet.name === WALLETS.PEERANHA.name &&
             (!profile || withScatter || withKeycat)
@@ -346,11 +342,11 @@ FormClone = connect(
       // there is saved data for send tips
       const isPreselectedInWalletsArray =
         tipsPreselect &&
-        wallets.find(wallet => wallet.name === tipsPreselect[WALLET_FIELD]);
+        wallets.find((wallet) => wallet.name === tipsPreselect[WALLET_FIELD]);
 
       if (isPreselectedInWalletsArray)
         return Object.values(WALLETS).find(
-          wallet => wallet.name === tipsPreselect[WALLET_FIELD],
+          (wallet) => wallet.name === tipsPreselect[WALLET_FIELD],
         );
 
       // there is no saved data for send tips
@@ -392,7 +388,7 @@ FormClone = connect(
       sendFromAccountFieldValue,
       selectedScatterAccount: selectedScatterAccountSelector()(state),
       selectedKeycatAccount: selectedKeycatAccountSelector()(state),
-      currencies: Object.keys(cryptoAccounts).map(name => CURRENCIES[name]),
+      currencies: Object.keys(cryptoAccounts).map((name) => CURRENCIES[name]),
       selectedAccountProcessing: selectedAccountProcessingSelector()(state),
       enableReinitialize: true,
       initialValues,
@@ -400,7 +396,7 @@ FormClone = connect(
       formValues: _get(state.toJS(), ['form', formName, 'values'], {}),
     };
   },
-  dispatch => ({
+  (dispatch) => ({
     selectScatterAccountDispatch: bindActionCreators(
       selectScatterAccount,
       dispatch,

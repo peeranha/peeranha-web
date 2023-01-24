@@ -10,7 +10,7 @@ import CheckedItem from 'components/Li/CheckedItem';
 const Button = ({ sorting }) => {
   const { t } = useTranslation();
   const type = Object.values(QUESTION_TYPES).find(
-    item => sorting === item.value,
+    (item) => sorting === item.value,
   );
 
   return (
@@ -31,7 +31,7 @@ const Menu = ({ sort, sorting }) => {
       {Object.values({
         all: { value: null, label: 'all' },
         ...QUESTION_TYPES,
-      }).map(item => (
+      }).map((item) => (
         <CheckedItem
           key={item.label}
           onClick={() => sort(item.value)}

@@ -52,14 +52,11 @@ const Boost = ({
     );
   }
 
-  useEffect(
-    () => {
-      if (account) {
-        getWeekStatDispatch();
-      }
-    },
-    [account],
-  );
+  useEffect(() => {
+    if (account) {
+      getWeekStatDispatch();
+    }
+  }, [account]);
 
   return (
     <div>
@@ -127,7 +124,7 @@ export default memo(
         changeStakeLoading: selectors.selectChangeStakeLoading(),
         loading: makeSelectAccountLoading(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
         changeStakeDispatch: bindActionCreators(changeStake, dispatch),
       }),

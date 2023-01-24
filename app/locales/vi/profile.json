@@ -5,8 +5,7 @@
   "informationIsBlank": "Thông tin về người dùng hiện không có sẵn.",
   "activity": "Hoạt động",
   "userHasntActivityYet": "Người dùng này chưa có hoạt động nào",
-  "heHasNoAnswersAndPosts":
-    "Không có câu trả lời hoặc bài viết nào được ghi chú.",
+  "heHasNoAnswersAndPosts": "Không có câu trả lời hoặc bài viết nào được ghi chú.",
   "answered": "Đã trả lời",
   "lastAnswer": "Câu trả lời cuối cùng",
   "noAnswersYet": "Chưa có câu trả lời",
@@ -16,8 +15,7 @@
   "referralProgram": "Chương trình giới thiệu",
   "referralLink": "Liên kết giới thiệu của bạn",
   "referralCode": "Mã giới thiệu của bạn",
-  "referralText":
-    "Chia sẻ liên kết hoặc mã với bạn bè của bạn và cả hai bạn sẽ nhận được 100 mã thông báo PEER sau khi bạn của bạn kiếm được 35 điểm danh tiếng.",
+  "referralText": "Chia sẻ liên kết hoặc mã với bạn bè của bạn và cả hai bạn sẽ nhận được 100 mã thông báo PEER sau khi bạn của bạn kiếm được 35 điểm danh tiếng.",
   "profile": "Hồ sơ",
   "profileDescription": "Mô tả tiểu sử",
   "wrongUser": "Người dùng sai",
@@ -36,8 +34,7 @@
   "confirmPassword": "Xác nhận mật khẩu",
   "youAnswered": "Bạn đã trả lời",
   "seeMore": "Xem tất cả <0>{{posts}}</0> và <1>{{answers}}</1>",
-  "tipText":
-    "Thiết lập ví cho mã thông báo tiền điện tử để nhận mẹo từ những người dùng khác.",
+  "tipText": "Thiết lập ví cho mã thông báo tiền điện tử để nhận mẹo từ những người dùng khác.",
   "crypto": "Crypto",
   "account": "Tài khoản",
   "sendFromAccount": "Gửi từ tài khoản",

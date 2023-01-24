@@ -129,7 +129,7 @@ const Form = ({
 
                 <CurrentStakeForm
                   maxValue={maxStake}
-                  onClickStakeTag={v => changeCurrentStake(v)}
+                  onClickStakeTag={(v) => changeCurrentStake(v)}
                   disabled={changeStakeLoading}
                   formValues={formValues}
                   formSubmitAction={handleSubmit(changeStake)}
@@ -172,7 +172,7 @@ Form.propTypes = {
 
 const FormClone = reduxForm({
   form: FORM_TYPE,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(Form);
 
 export default memo(

@@ -79,6 +79,6 @@ export function* redirectToEditProfilePageWorker({ buttonId, user }) {
   } catch (err) {}
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(SAVE_PROFILE, saveProfileWorker);
 }

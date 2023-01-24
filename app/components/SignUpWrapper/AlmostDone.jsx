@@ -84,7 +84,9 @@ const LeftMenu = ({ faqQuestions, mainLogo }) => {
 
       {faqQuestions && (
         <ul className="mb-4">
-          {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
+          {faqQuestions.map((x) => (
+            <Li key={x.props.children}>{x}</Li>
+          ))}
         </ul>
       )}
     </>
@@ -114,12 +116,9 @@ const RightMenu = ({ message }) => {
 };
 
 const AlmostDone = ({ faqQuestions, message, logo, getLogoDispatch }) => {
-  useEffect(
-    () => {
-      getLogoDispatch();
-    },
-    [single],
-  );
+  useEffect(() => {
+    getLogoDispatch();
+  }, [single]);
 
   return (
     <SignUpWrapper
@@ -140,7 +139,7 @@ const withConnect = connect(
     ]),
     logo: selectLogo(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     getLogoDispatch: bindActionCreators(getLogo, dispatch),
   }),
 );

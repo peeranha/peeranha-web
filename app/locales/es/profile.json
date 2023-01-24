@@ -2,8 +2,7 @@
   "memberSince": "Miembro desde",
   "status": "Estado más alto alcanzado",
   "risen": "Resucitado",
-  "informationIsBlank":
-    "La información sobre el usuario no está disponible actualmente.",
+  "informationIsBlank": "La información sobre el usuario no está disponible actualmente.",
   "activity": "Actividad",
   "userHasntActivityYet": "Este usuario aún no tiene actividad",
   "heHasNoAnswersAndPosts": "No hay respuestas o publicaciones anotadas.",
@@ -16,8 +15,7 @@
   "referralProgram": "Programa de referencia",
   "referralLink": "Tu enlace de referencia",
   "referralCode": "Su código de referencia",
-  "referralText":
-    "Comparta el enlace o el código con su amigo y ambos recibirán 100 tokens PEER después de que su amigo gane 35 puntos de reputación.",
+  "referralText": "Comparta el enlace o el código con su amigo y ambos recibirán 100 tokens PEER después de que su amigo gane 35 puntos de reputación.",
   "profile": "Perfil",
   "profileDescription": "Descripción del perfil",
   "wrongUser": "Usuario incorrecto",
@@ -36,8 +34,7 @@
   "confirmPassword": "Confirmar contraseña",
   "youAnswered": "Tu respondiste",
   "seeMore": "Ver todas las <0>{{posts}}</0> y <1>{{answers}}</1>",
-  "tipText":
-    "Configure billeteras para tokens criptográficos para obtener consejos de otros usuarios.",
+  "tipText": "Configure billeteras para tokens criptográficos para obtener consejos de otros usuarios.",
   "crypto": "Cripto",
   "account": "Cuenta",
   "sendFromAccount": "Enviar desde cuenta",

@@ -115,5 +115,5 @@ export default reduxForm({
   asyncValidate,
   asyncBlurFields: [EOS_ACCOUNT_FIELD],
   shouldAsyncValidate: ({ syncValidationPasses }) => syncValidationPasses,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(SendTokensForm);

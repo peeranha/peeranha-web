@@ -85,10 +85,10 @@ const formName = 'ChangePasswordForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(ChangePasswordForm);
 
-FormClone = connect(state => {
+FormClone = connect((state) => {
   const form = state.toJS().form[formName] || { values: {} };
 
   return {

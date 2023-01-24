@@ -46,7 +46,7 @@ const SocialLinksGroup = ({ disabled }) => {
       tip={t('createCommunity.socialLinksTip')}
       disabled={disabled}
     >
-      {Object.keys(SOCIAL_MEDIA).map(key => (
+      {Object.keys(SOCIAL_MEDIA).map((key) => (
         <Field
           disabled={disabled}
           name={SOCIAL_MEDIA[key].fieldName}

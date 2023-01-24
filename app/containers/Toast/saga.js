@@ -29,7 +29,7 @@ import {
 
 export function* errHandling(error = {}) {
   try {
-    const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
+    const key = Object.keys(error).find((x) => x.toLowerCase().match('err'));
     const errorValue = error[key];
 
     if (errorValue instanceof WebIntegrationErrorByCode) {
@@ -54,7 +54,7 @@ export function* errHandling(error = {}) {
       let errorCode = null;
 
       try {
-        errorCode = Object.keys(blockchainErrorMsgs).find(x =>
+        errorCode = Object.keys(blockchainErrorMsgs).find((x) =>
           errorValue.message
             .toLowerCase()
             .includes(blockchainErrorMsgs[x].keywords.toLowerCase()),
@@ -95,7 +95,7 @@ export function* addToastWorker() {
   const toasts = yield select(makeSelectToasts());
   const { toastKey } = toasts[toasts.length - 1];
 
-  yield new Promise(resolve => {
+  yield new Promise((resolve) => {
     setTimeout(resolve, REMOVE_TIMEOUT);
   });
 
@@ -104,7 +104,7 @@ export function* addToastWorker() {
 
 export function* loggerWorker(error) {
   try {
-    const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
+    const key = Object.keys(error).find((x) => x.toLowerCase().match('err'));
 
     const user = yield select(makeSelectAccount());
 
@@ -140,7 +140,7 @@ export function* loggerWorker(error) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeEvery(ADD_TOAST, addToastWorker);
   yield takeEvery(TRANSACTION_FAILED, errHandling);
   yield takeEvery([...otherTypes, ...errHandlingTypes], loggerWorker);

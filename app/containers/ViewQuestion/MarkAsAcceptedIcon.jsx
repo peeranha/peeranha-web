@@ -43,11 +43,11 @@ export const LabelStyles = css`
 
 const Label = AcceptAnswerView.extend`
   ${LabelStyles};
-  pointer-events: ${x => (x.inactive ? 'none' : 'auto')};
-  background: ${x => (!x.value ? BG_TRANSPARENT : BG_SUCCESS)};
-  border: ${x => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
-  color: ${x => (!x.value ? TEXT_DARK : TEXT_LIGHT)};
-  padding: ${x => (!x.value ? '0 10px 0 5px' : '0px 10px')};
+  pointer-events: ${(x) => (x.inactive ? 'none' : 'auto')};
+  background: ${(x) => (!x.value ? BG_TRANSPARENT : BG_SUCCESS)};
+  border: ${(x) => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
+  color: ${(x) => (!x.value ? TEXT_DARK : TEXT_LIGHT)};
+  padding: ${(x) => (!x.value ? '0 10px 0 5px' : '0px 10px')};
   overflow: hidden;
   height: 1%;
   min-height: 32px;
@@ -56,8 +56,8 @@ const Label = AcceptAnswerView.extend`
 
   ${Icon} {
     background-color: ${BG_LIGHT};
-    background-image: url(${x => (x.value ? okayIconGreen : '')});
-    border: ${x => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
+    background-image: url(${(x) => (x.value ? okayIconGreen : '')});
+    border: ${(x) => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
     box-shadow: none;
 
     border-radius: ${styles.buttonBorderRadius};

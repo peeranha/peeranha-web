@@ -48,7 +48,7 @@ import {
 import { sendMessage } from './actions';
 
 const imagesAnimation = () => {
-  window.$(window).on('DOMMouseScroll mousewheel', event => {
+  window.$(window).on('DOMMouseScroll mousewheel', (event) => {
     const { scrollY } = event.currentTarget;
     const secondScreenPos = window.$(`#${SECOND_SCREEN}`).position().top;
     const thirdScreenPos = window.$(`#${THIRD_SCREEN}`).position().top;
@@ -56,7 +56,7 @@ const imagesAnimation = () => {
     const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
 
     if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
-      animatedImagesArray.each(function() {
+      animatedImagesArray.each(function () {
         const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
         const translatorMax = 30;
         const step = translatorMax * 0.15;
@@ -88,8 +88,9 @@ const imagesAnimation = () => {
               .parent()
               .find(`.${ANIMATE_TEXT}`)
               .css({
-                transform: `translate(0px, ${-direction * step -
-                  translateY}px)`,
+                transform: `translate(0px, ${
+                  -direction * step - translateY
+                }px)`,
               });
           }
         }
@@ -99,7 +100,7 @@ const imagesAnimation = () => {
 };
 
 const headerAnimation = () => {
-  window.$(window).on('scroll', event => {
+  window.$(window).on('scroll', (event) => {
     const { scrollY } = event.currentTarget;
     const { innerHeight } = window;
 
@@ -119,13 +120,13 @@ const parallaxAnimation = () => {
   let x = 0;
   let y = 0;
 
-  window.$(window).on('mousemove', event => {
+  window.$(window).on('mousemove', (event) => {
     x = event.pageX;
     y = event.pageY;
   });
 
   window.requestAnimationFrame(function animation() {
-    patterns.each(function() {
+    patterns.each(function () {
       const modifier = 50;
 
       window.$(this).css({
@@ -204,7 +205,7 @@ const withConnect = connect(
       VALUE_OF_TOKEN,
     ]),
   }),
-  dispatch => ({
+  (dispatch) => ({
     sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
   }),
@@ -213,8 +214,4 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'homepage', reducer });
 const withSaga = injectSaga({ key: 'homepage', saga });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(HomePage);
+export default compose(withReducer, withSaga, withConnect)(HomePage);

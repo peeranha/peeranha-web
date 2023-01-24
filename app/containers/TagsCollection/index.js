@@ -32,7 +32,9 @@ export const TagsCollection = ({
   const { t } = useTranslation();
   const keywords = useMemo(
     () =>
-      communities.map(comm => comm.tags.map(tag => `${comm.name} ${tag.name}`)),
+      communities.map((comm) =>
+        comm.tags.map((tag) => `${comm.name} ${tag.name}`),
+      ),
     [communities],
   );
 
@@ -77,7 +79,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TagsCollection);
+export default connect(mapStateToProps, mapDispatchToProps)(TagsCollection);

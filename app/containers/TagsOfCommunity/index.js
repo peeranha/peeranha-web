@@ -50,10 +50,10 @@ export const TagsOfCommunity = ({
   profileInfo,
 }) => {
   const { t } = useTranslation();
-  const communityId = useMemo(() => single || +match.params.communityid, [
-    match.params.communityid,
-    single,
-  ]);
+  const communityId = useMemo(
+    () => single || +match.params.communityid,
+    [match.params.communityid, single],
+  );
 
   const currentCommunity = useMemo(
     () =>
@@ -61,7 +61,7 @@ export const TagsOfCommunity = ({
     [communityId, communities.length, emptyCommunity],
   );
   const typeInput = useCallback(
-    ev =>
+    (ev) =>
       getExistingTagsDispatch({
         communityId: currentCommunity.id,
         text: ev.target.value,
@@ -70,7 +70,7 @@ export const TagsOfCommunity = ({
   );
 
   const sortTags = useCallback(
-    ev =>
+    (ev) =>
       getExistingTagsDispatch({
         communityId: currentCommunity.id,
         sorting: ev.currentTarget.dataset.key,
@@ -87,19 +87,17 @@ export const TagsOfCommunity = ({
     [currentCommunity.id],
   );
 
-  const keywords = useMemo(() => currentCommunity.tags.map(x => x.name), [
-    currentCommunity.tags,
-  ]);
-
-  useEffect(
-    () => {
-      getExistingTagsDispatch({
-        loadMore: false,
-        communityId: currentCommunity.id,
-      });
-    },
-    [communityId, communities.length, currentCommunity],
+  const keywords = useMemo(
+    () => currentCommunity.tags.map((x) => x.name),
+    [currentCommunity.tags],
   );
+
+  useEffect(() => {
+    getExistingTagsDispatch({
+      loadMore: false,
+      communityId: currentCommunity.id,
+    });
+  }, [communityId, communities.length, currentCommunity]);
   return (
     <div>
       <Seo
@@ -171,14 +169,8 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'tagsOfCommunity', reducer });
 
-export default compose(
-  withConnect,
-  withReducer,
-)(TagsOfCommunity);
+export default compose(withConnect, withReducer)(TagsOfCommunity);

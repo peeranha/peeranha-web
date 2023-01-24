@@ -69,6 +69,6 @@ export default compose(
   })),
   reduxForm({
     form: 'WeAreHappyYouAreHereForm',
-    onSubmitFail: errors => scrollToErrorField(errors),
+    onSubmitFail: (errors) => scrollToErrorField(errors),
   }),
 )(WeAreHappyYouAreHereForm);

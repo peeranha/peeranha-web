@@ -44,19 +44,20 @@ export const Description = BaseSpecial.extend`
   ${P} {
     font-size: 16px;
     line-height: 19px;
-    overflow: ${x => (!x.isOpened && x.isArrowVisible ? 'hidden' : 'visible')};
-    max-height: ${x =>
+    overflow: ${(x) =>
+      !x.isOpened && x.isArrowVisible ? 'hidden' : 'visible'};
+    max-height: ${(x) =>
       !x.isOpened ? `${DEFAULT_DESCRIPTION_HEIGHT}px` : 'auto'};
   }
 
   ${BlockShadow} {
-    display: ${x => (!x.isOpened && x.isArrowVisible ? 'block' : 'none')};
+    display: ${(x) => (!x.isOpened && x.isArrowVisible ? 'block' : 'none')};
   }
 `;
 
 const DESCRIPTION_ID = 'description-content-id';
 
-const Item = props => {
+const Item = (props) => {
   const { t } = useTranslation();
   const [isOpened, changeView] = useState(false);
   const [isArrowVisible, changeArrowVisibility] = useState(false);
@@ -135,7 +136,11 @@ const Content = ({
       isLoading={suggestedCommunitiesLoading}
       isLastFetch={isLastFetch}
     >
-      <div>{suggestedCommunities.map(x => <Item key={x.id} {...x} />)}</div>
+      <div>
+        {suggestedCommunities.map((x) => (
+          <Item key={x.id} {...x} />
+        ))}
+      </div>
     </InfinityLoader>
   );
 };

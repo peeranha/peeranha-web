@@ -56,13 +56,10 @@ WalletNavigation.propTypes = {
 };
 
 export default React.memo(
-  connect(
-    null,
-    dispatch => ({
-      showSendTokensModalDispatch: bindActionCreators(
-        showSendTokensModal,
-        dispatch,
-      ),
-    }),
-  )(WalletNavigation),
+  connect(null, (dispatch) => ({
+    showSendTokensModalDispatch: bindActionCreators(
+      showSendTokensModal,
+      dispatch,
+    ),
+  }))(WalletNavigation),
 );

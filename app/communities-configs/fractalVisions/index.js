@@ -1,11 +1,9 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import FractalVisionsLogo from './images/Rectangle.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/Fractal.ico';
 const domainName = 'https://guild.xyz/fractalvisions';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fontSet = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'fractalVisions_styles',
@@ -177,26 +175,9 @@ export const FractalVisionsStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: FractalVisionsLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/fractalVisions/Rectangle.svg',
+  favicon: 'https://images.peeranha.io/communities/fractalVisions/Fractal.ico',
 
   colors: {
     mainSubHeaderBgColor:

@@ -46,7 +46,7 @@ export const Profile = ({
 }) => {
   const { t } = useTranslation();
 
-  const fetch = useCallback(id => {
+  const fetch = useCallback((id) => {
     getUserProfileDispatch(id, true, isLogin);
     getQuestionsDispatch(id, true);
     getQuestionsWithAnswersDispatch(id, true);
@@ -126,8 +126,5 @@ export function mapDispatchToProps(dispatch) {
 export default compose(
   injectReducer({ key: STATE_KEY, reducer }),
   injectSaga({ key: STATE_KEY, saga, mode: DAEMON }),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
 )(Profile);

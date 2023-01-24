@@ -109,11 +109,11 @@ const formName = 'SubmitEmailForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(SubmitEmailForm);
 
 FormClone = connect(
-  /* istanbul ignore next */ state => {
+  /* istanbul ignore next */ (state) => {
     const form = state.toJS().form[formName] || { values: {} };
 
     return {

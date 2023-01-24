@@ -33,7 +33,7 @@ const Aside = ({ suggestedCommunities }) => {
         {t('common.voteForNewCommunities')}
       </Header>
 
-      {suggestedCommunities.slice(0, 3).map(x => (
+      {suggestedCommunities.slice(0, 3).map((x) => (
         <Item key={x.id}>
           <div className="d-flex align-items-center mb-2">
             <Img className="mr-1" src={x.avatar} alt="commAvatar" />

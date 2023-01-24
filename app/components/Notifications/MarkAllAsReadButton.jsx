@@ -36,14 +36,11 @@ MarkAllAsReadButton.propTypes = {
 export default memo(
   compose(
     injectSaga({ key: 'notifications', saga: notificationsSaga, mode: DAEMON }),
-    connect(
-      null,
-      dispatch => ({
-        markAllAsReadDispatch: bindActionCreators(
-          markAllNotificationsAsRead,
-          dispatch,
-        ),
-      }),
-    ),
+    connect(null, (dispatch) => ({
+      markAllAsReadDispatch: bindActionCreators(
+        markAllNotificationsAsRead,
+        dispatch,
+      ),
+    })),
   )(MarkAllAsReadButton),
 );

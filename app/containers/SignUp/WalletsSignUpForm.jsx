@@ -58,7 +58,7 @@ const WalletsSignUpForm = ({
             logo={logo}
           >
             <Form
-              onSubmit={handleSubmit(val =>
+              onSubmit={handleSubmit((val) =>
                 signUpWithWallet(val, {
                   metaMask: withMetaMask,
                 }),
@@ -124,7 +124,7 @@ let FormClone = compose(
   reduxForm({ form: formName }),
 )(WalletsSignUpForm);
 
-FormClone = connect(state => {
+FormClone = connect((state) => {
   const form = state.toJS().form[formName] || { values: {} };
   const { withMetaMask } = selectEthereum(state);
 

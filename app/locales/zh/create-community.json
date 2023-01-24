@@ -29,8 +29,7 @@
   "communityLanguage": "语",
   "communityLanguageTip": "社区中的问题仅允许使用所选语言",
   "thatisgreat": "那太棒了！",
-  "communityWillAppear":
-    "您的社区将出现在列表中，其他用户可以为它投票。 创建一个社区需要一百张选票。",
+  "communityWillAppear": "您的社区将出现在列表中，其他用户可以为它投票。 创建一个社区需要一百张选票。",
   "goToList": "前往列表",
   "maxTagsNumberReached": "已达到最大标签数",
   "questionsType": "问题类型",

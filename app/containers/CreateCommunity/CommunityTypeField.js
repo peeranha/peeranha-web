@@ -49,12 +49,12 @@ const Button = B.extend`
 
   flex: 1;
   border: 1px solid
-    ${x =>
+    ${(x) =>
       +x.currentValue === +x.value
         ? `${BORDER_PRIMARY} !important`
         : BORDER_SECONDARY}};
 
-  box-shadow: ${x =>
+  box-shadow: ${(x) =>
     +x.currentValue === +x.value
       ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`
       : `none`};
@@ -91,7 +91,7 @@ const CommunityTypeField = ({
       insideOfSection={insideOfSection}
     >
       <ButtonGroup>
-        {Object.values(COMMUNITY_TYPES).map(type => (
+        {Object.values(COMMUNITY_TYPES).map((type) => (
           <Button
             onClick={chooseQuestionType}
             value={type.value}

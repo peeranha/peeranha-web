@@ -108,7 +108,7 @@ const formName = 'EmailPasswordForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(EmailPasswordForm);
 
 FormClone = connect((state, props) => ({

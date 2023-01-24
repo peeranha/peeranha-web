@@ -44,35 +44,29 @@
   "firstIn15": {
     "bronze": {
       "title": "Bronze - Fastest hand in the West",
-      "description":
-        "Post answers for 5 different questions in 15 minutes after questions were asked"
+      "description": "Post answers for 5 different questions in 15 minutes after questions were asked"
     },
     "silver": {
       "title": "Silver - Pedal to the metal",
-      "description":
-        "Post answers for 10 different questions in 15 minutes after questions were asked"
+      "description": "Post answers for 10 different questions in 15 minutes after questions were asked"
     },
     "gold": {
       "title": "Gold - Lightning",
-      "description":
-        "Post answers for 10 different questions in 15 minutes after questions were asked"
+      "description": "Post answers for 10 different questions in 15 minutes after questions were asked"
     }
   },
   "firstAnswer": {
     "bronze": {
       "title": "Bronze - Quick help",
-      "description":
-        "Be the first one, who posts an answer for 10 different questions"
+      "description": "Be the first one, who posts an answer for 10 different questions"
     },
     "silver": {
       "title": "Silver - I was here first!",
-      "description":
-        "Be the first one, who posts an answer for 25 different questions"
+      "description": "Be the first one, who posts an answer for 25 different questions"
     },
     "gold": {
       "title": "Gold - Undisputed champion",
-      "description":
-        "Be the first one, who posts an answer for 50 different questions"
+      "description": "Be the first one, who posts an answer for 50 different questions"
     }
   },
   "welcomeStranger": {
@@ -105,28 +99,23 @@
   },
   "foundingMember": {
     "title": "Founding Member",
-    "description":
-      "Be the one of first 10 000 Users to successfully register on Peeranha"
+    "description": "Be the one of first 10 000 Users to successfully register on Peeranha"
   },
   "activist": {
     "title": "Activist",
-    "description":
-      "Be the one of first 700 Users to achieve the \"Newbie\" status"
+    "description": "Be the one of first 700 Users to achieve the \"Newbie\" status"
   },
   "researcher": {
     "title": "Researcher",
-    "description":
-      "Be the one of first 500 Users to achieve the \"Junior\" status"
+    "description": "Be the one of first 500 Users to achieve the \"Junior\" status"
   },
   "honorableResident": {
     "title": "Honorable Resident",
-    "description":
-      "Be the one of first 300 Users to achieve the \"Resident\" status"
+    "description": "Be the one of first 300 Users to achieve the \"Resident\" status"
   },
   "theWisest": {
     "title": "The wisest",
-    "description":
-      "Be the one of first 150 Users to achieve the \"Senior\" status"
+    "description": "Be the one of first 150 Users to achieve the \"Senior\" status"
   },
   "modernHero": {
     "title": "Modern hero",
@@ -134,8 +123,7 @@
   },
   "kingOfTheHill": {
     "title": "King of the hill",
-    "description":
-      "Be the one of first 10 Users to achieve the \"Superhero\" status"
+    "description": "Be the one of first 10 Users to achieve the \"Superhero\" status"
   },
   "progressBarPopover": {
     "ratingRelated": {

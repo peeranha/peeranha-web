@@ -50,9 +50,6 @@ IDontHaveAnAccount.propTypes = {
   disabled: PropTypes.bool,
 };
 
-export default connect(
-  null,
-  dispatch => ({
-    hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
-  }),
-)(IDontHaveAnAccount);
+export default connect(null, (dispatch) => ({
+  hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
+}))(IDontHaveAnAccount);

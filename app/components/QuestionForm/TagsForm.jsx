@@ -11,13 +11,15 @@ import { FORM_COMMUNITY, FORM_TAGS } from './constants';
 
 const TagsForm = ({ questionLoading, formValues, change }) => {
   const { t } = useTranslation();
-  const setTags = useCallback(updatedTags => change(FORM_TAGS, updatedTags), [
-    change,
-  ]);
+  const setTags = useCallback(
+    (updatedTags) => change(FORM_TAGS, updatedTags),
+    [change],
+  );
 
-  const tagsOptions = useMemo(() => formValues?.[FORM_COMMUNITY]?.tags ?? [], [
-    formValues,
-  ]);
+  const tagsOptions = useMemo(
+    () => formValues?.[FORM_COMMUNITY]?.tags ?? [],
+    [formValues],
+  );
 
   const tagsDisabled = useMemo(
     () => questionLoading || !formValues?.[FORM_COMMUNITY]?.value,

@@ -24,7 +24,7 @@ import {
   MESSAGE_FIELD,
 } from './constants';
 
-const SendMessageForm = props => {
+const SendMessageForm = (props) => {
   const { t } = useTranslation();
   const { handleSubmit, change, sendMessageLoading, sendMessage } = props;
   const sendMessageHandler = (...data) => {
@@ -94,5 +94,5 @@ SendMessageForm.propTypes = {
 };
 
 export default reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(SendMessageForm);

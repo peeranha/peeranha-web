@@ -80,27 +80,27 @@ export function sendTipsNotification(
   };
 }
 
-export const selectScatterAccount = data => ({
+export const selectScatterAccount = (data) => ({
   type: SELECT_SCATTER_ACCOUNT,
   data,
 });
 
-export const selectScatterAccountSuccess = selectedScatterAccount => ({
+export const selectScatterAccountSuccess = (selectedScatterAccount) => ({
   type: SELECT_SCATTER_ACCOUNT_SUCCESS,
   selectedScatterAccount,
 });
 
-export const selectKeycatAccount = data => ({
+export const selectKeycatAccount = (data) => ({
   type: SELECT_KEYCAT_ACCOUNT,
   data,
 });
 
-export const selectKeycatAccountSuccess = selectedKeycatAccount => ({
+export const selectKeycatAccountSuccess = (selectedKeycatAccount) => ({
   type: SELECT_KEYCAT_ACCOUNT_SUCCESS,
   selectedKeycatAccount,
 });
 
-export const selectAccountErr = selectAccountError => ({
+export const selectAccountErr = (selectAccountError) => ({
   type: SELECT_ACCOUNT_ERROR,
   selectAccountError,
 });
@@ -109,12 +109,12 @@ export const removeSelectedAccounts = () => ({
   type: REMOVE_SELECTED_ACCOUNTS,
 });
 
-export const addScatterTipsEosService = tipsScatterEosService => ({
+export const addScatterTipsEosService = (tipsScatterEosService) => ({
   type: ADD_TIPS_SCATTER_EOS_SERVICE,
   tipsScatterEosService,
 });
 
-export const addTipsKeycatEosService = tipsKeycatEosService => ({
+export const addTipsKeycatEosService = (tipsKeycatEosService) => ({
   type: ADD_TIPS_KEYCAT_EOS_SERVICE,
   tipsKeycatEosService,
 });
@@ -123,7 +123,7 @@ export const removeTipsEosServices = () => ({
   type: REMOVE_TIPS_EOS_SERVICES,
 });
 
-export const setSendTipsProcessing = processing => ({
+export const setSendTipsProcessing = (processing) => ({
   type: SET_SEND_TIPS_PROCESSING,
   processing,
 });

@@ -142,12 +142,9 @@ export const Home = ({
 
   checkIsColorsActual(single, PEER_PRIMARY_COLOR, PEER_WARNING_COLOR);
 
-  useEffect(
-    () => {
-      getCommunityDispatch(single);
-    },
-    [single],
-  );
+  useEffect(() => {
+    getCommunityDispatch(single);
+  }, [single]);
 
   useEffect(() => {
     getQuestionsDispatch(single);
@@ -168,16 +165,13 @@ export const Home = ({
     ? followedCommunities.includes(single)
     : false;
 
-  const followHandlerAction = useCallback(
-    () => {
-      followHandlerDispatch(
-        single,
-        isFollowed,
-        `${isFollowed ? 'un' : ''}follow_community_${single}`,
-      );
-    },
-    [single, isFollowed],
-  );
+  const followHandlerAction = useCallback(() => {
+    followHandlerDispatch(
+      single,
+      isFollowed,
+      `${isFollowed ? 'un' : ''}follow_community_${single}`,
+    );
+  }, [single, isFollowed]);
   /* eslint-disable camelcase */
   const { name, about, avatar, postCount, users_subscribed } = community;
 
@@ -306,7 +300,7 @@ const withConnect = connect(
     communityLoading: selectCommunityLoading(),
     followedCommunities: makeSelectFollowedCommunities(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     getCommunityDispatch: bindActionCreators(getCommunity, dispatch),
     followHandlerDispatch: bindActionCreators(followHandler, dispatch),

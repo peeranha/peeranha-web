@@ -92,10 +92,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  null,
-  mapDispatchToProps,
-);
+const withConnect = connect(null, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: TG_ACCOUNT_KEY, reducer });
 const withSaga = injectSaga({

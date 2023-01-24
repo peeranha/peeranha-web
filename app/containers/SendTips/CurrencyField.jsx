@@ -32,10 +32,10 @@ const Option = styled.div`
   }
 
   border: 1px solid
-    ${x => (!x.isCurrentValue ? BORDER_SECONDARY : BORDER_PRIMARY)};
-  box-shadow: ${x =>
+    ${(x) => (!x.isCurrentValue ? BORDER_SECONDARY : BORDER_PRIMARY)};
+  box-shadow: ${(x) =>
     x.isCurrentValue ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
-  ${x => (x.disabled ? `opacity: 0.6` : ``)};
+  ${(x) => (x.disabled ? `opacity: 0.6` : ``)};
 `;
 
 const B = styled.button`
@@ -81,7 +81,7 @@ const CurrencyField = ({
   };
 
   const isCurrency = Object.values(CURRENCIES)
-    .map(el => el.name)
+    .map((el) => el.name)
     .includes(value.name);
 
   return (
@@ -92,7 +92,7 @@ const CurrencyField = ({
       disabled={disabled}
       id={input.name}
     >
-      {options.map(option => (
+      {options.map((option) => (
         <Option
           key={option.name}
           onClick={() => input.onChange(option)}
@@ -102,8 +102,9 @@ const CurrencyField = ({
           {!Array.isArray(option.logo) ? (
             <>
               <img src={option.logo} alt="logo" />
-              {!option.doNotShowName &&
-                option.name && <span className="ml-2">{option.name}</span>}
+              {!option.doNotShowName && option.name && (
+                <span className="ml-2">{option.name}</span>
+              )}
             </>
           ) : (
             option.logo.map((logo, i) => (

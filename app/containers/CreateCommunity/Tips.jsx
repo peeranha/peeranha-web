@@ -20,7 +20,11 @@ export const Tips = ({ faqQuestions }) => {
       </Ul>
 
       {faqQuestions && (
-        <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
+        <ul>
+          {faqQuestions.map((x) => (
+            <Li key={x.props.children}>{x}</Li>
+          ))}
+        </ul>
       )}
     </div>
   );

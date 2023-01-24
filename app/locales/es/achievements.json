@@ -44,35 +44,29 @@
   "firstIn15": {
     "bronze": {
       "title": "Bronce - Mano más rápida del Oeste",
-      "description":
-        "Publique respuestas para 5 preguntas diferentes en 15 minutos después de que se hicieron las preguntas"
+      "description": "Publique respuestas para 5 preguntas diferentes en 15 minutos después de que se hicieron las preguntas"
     },
     "silver": {
       "title": "Plata - Pedal al metal",
-      "description":
-        "Publique respuestas para 10 preguntas diferentes en 15 minutos después de que se hicieron las preguntas"
+      "description": "Publique respuestas para 10 preguntas diferentes en 15 minutos después de que se hicieron las preguntas"
     },
     "gold": {
       "title": "Oro - Rayo",
-      "description":
-        "Publique respuestas para 10 preguntas diferentes en 15 minutos después de que se hicieron las preguntas"
+      "description": "Publique respuestas para 10 preguntas diferentes en 15 minutos después de que se hicieron las preguntas"
     }
   },
   "firstAnswer": {
     "bronze": {
       "title": "Bronce - Ayuda rápida",
-      "description":
-        "Sé el primero en publicar una respuesta para 10 preguntas diferentes."
+      "description": "Sé el primero en publicar una respuesta para 10 preguntas diferentes."
     },
     "silver": {
       "title": "Plata - Yo estaba aquí primero!",
-      "description":
-        "Sé el primero en publicar una respuesta para 25 preguntas diferentes."
+      "description": "Sé el primero en publicar una respuesta para 25 preguntas diferentes."
     },
     "gold": {
       "title": "Oro - Campeón indiscutido",
-      "description":
-        "Sé el primero en publicar una respuesta para 50 preguntas diferentes."
+      "description": "Sé el primero en publicar una respuesta para 50 preguntas diferentes."
     }
   },
   "welcomeStranger": {
@@ -105,38 +99,31 @@
   },
   "foundingMember": {
     "title": "Miembro fundador",
-    "description":
-      "Sea uno de los primeros 10 000 usuarios en registrarse con éxito en Peeranha"
+    "description": "Sea uno de los primeros 10 000 usuarios en registrarse con éxito en Peeranha"
   },
   "activist": {
     "title": "Activista",
-    "description":
-      "Sea uno de los primeros 700 usuarios en alcanzar el estado \"Novato\""
+    "description": "Sea uno de los primeros 700 usuarios en alcanzar el estado \"Novato\""
   },
   "researcher": {
     "title": "Investigador",
-    "description":
-      "Sea uno de los primeros 500 usuarios en alcanzar el estado \"Júnior\""
+    "description": "Sea uno de los primeros 500 usuarios en alcanzar el estado \"Júnior\""
   },
   "honorableResident": {
     "title": "Residente honorable",
-    "description":
-      "Sea uno de los primeros 300 Usuarios en alcanzar el estatus de \"Residente\""
+    "description": "Sea uno de los primeros 300 Usuarios en alcanzar el estatus de \"Residente\""
   },
   "theWisest": {
     "title": "El mas sabio",
-    "description":
-      "Sea uno de los primeros 150 usuarios en alcanzar el estado \"Sénior\""
+    "description": "Sea uno de los primeros 150 usuarios en alcanzar el estado \"Sénior\""
   },
   "modernHero": {
     "title": "Héroe moderno",
-    "description":
-      "Sea uno de los primeros 50 usuarios en alcanzar el estatus de \"Héroe\""
+    "description": "Sea uno de los primeros 50 usuarios en alcanzar el estatus de \"Héroe\""
   },
   "kingOfTheHill": {
     "title": "Rey de la colina",
-    "description":
-      "Sea uno de los primeros 10 usuarios en alcanzar el estatus de \"Superhéroe\""
+    "description": "Sea uno de los primeros 10 usuarios en alcanzar el estatus de \"Superhéroe\""
   },
   "progressBarPopover": {
     "ratingRelated": {

@@ -52,7 +52,7 @@ export const CommentOptions = ({
   const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
 
   const showCommentForm =
-    addCommentFormDisplay.find(buttonId => buttonId === toggleFormButtonId) ||
+    addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) ||
     false;
 
   return (

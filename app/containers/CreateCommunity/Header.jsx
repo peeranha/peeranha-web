@@ -34,9 +34,14 @@ export const Header = ({ headerDescriptor }) => {
           <Icon
             icon={createCommunityHeader}
             width="43"
-            css={css` circle {stroke: ${colors.btnColor ||
-              BORDER_PRIMARY}}; path {fill: ${colors.btnColor ||
-              BORDER_PRIMARY}};`}
+            css={css`
+              circle {
+                stroke: ${colors.btnColor || BORDER_PRIMARY};
+              }
+              path {
+                fill: ${colors.btnColor || BORDER_PRIMARY};
+              }
+            `}
           />
         </MediumIconStyled>
         {t(headerDescriptor || 'createCommunity.newCommunity')}

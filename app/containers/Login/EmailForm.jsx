@@ -66,5 +66,5 @@ EmailForm.propTypes = {
 
 export default reduxForm({
   form: 'EmailForm',
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(EmailForm);

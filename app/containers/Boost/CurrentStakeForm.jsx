@@ -99,10 +99,10 @@ const CurrentStakeForm = ({
       <Label>{t('boost.formCurrentStake')}</Label>
       <Tags>
         <TagsLabel>{t('boost.formTakeAStake')}:</TagsLabel>
-        {STAKE_TAGS.map(item => (
+        {STAKE_TAGS.map((item) => (
           <Tag
             key={item.value}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               onClickStakeTag(item.value);
             }}
@@ -112,7 +112,7 @@ const CurrentStakeForm = ({
         ))}
         {!!initialUserStake && (
           <Tag
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               onClickStakeTag(0);
               setTimeout(() => formSubmitAction(), 1000);

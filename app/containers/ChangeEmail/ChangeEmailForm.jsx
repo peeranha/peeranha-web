@@ -113,13 +113,14 @@ export const validateEmails = (state, fields) => {
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(ChangeEmailForm);
 
 FormClone = connect(() => ({
-  validate: state =>
+  validate: (state) =>
     validateEmails(state, [NEW_EMAIL_FIELD, CONFIRM_EMAIL_FIELD]),
-  warn: state => validateEmails(state, [NEW_EMAIL_FIELD, CONFIRM_EMAIL_FIELD]),
+  warn: (state) =>
+    validateEmails(state, [NEW_EMAIL_FIELD, CONFIRM_EMAIL_FIELD]),
 }))(FormClone);
 
 export default FormClone;

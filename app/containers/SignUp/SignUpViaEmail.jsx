@@ -117,18 +117,15 @@ const SignUpViaEmail = ({
     getMasterKey();
   }, []);
 
-  useEffect(
-    () => {
-      if (mnemonicPhraseValue) {
-        change(MNEMONIC_PHRASE, mnemonicPhraseValue);
-      }
+  useEffect(() => {
+    if (mnemonicPhraseValue) {
+      change(MNEMONIC_PHRASE, mnemonicPhraseValue);
+    }
 
-      if (ethereumAddress) {
-        change(ETHEREUM_WALLET_ADDRESS, ethereumAddress);
-      }
-    },
-    [mnemonicPhraseValue, ethereumAddress],
-  );
+    if (ethereumAddress) {
+      change(ETHEREUM_WALLET_ADDRESS, ethereumAddress);
+    }
+  }, [mnemonicPhraseValue, ethereumAddress]);
 
   return (
     <SignUpViaEmailWrapper>
@@ -250,12 +247,12 @@ let SignUpViaEmailForm = reduxForm({
   form: formName,
   touchOnChange: true,
   asyncBlurFields: [ETHEREUM_WALLET_VIA_EMAIL_FIELD],
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
   shouldAsyncValidate: ({ syncValidationPasses }) => syncValidationPasses,
 })(SignUpViaEmail);
 
 SignUpViaEmailForm = connect(
-  state => {
+  (state) => {
     const form = state.toJS().form[formName] || { values: {} };
     const keys = state.get('signUp').get('keys') || {};
 
@@ -269,7 +266,7 @@ SignUpViaEmailForm = connect(
         : [],
     };
   },
-  dispatch => ({
+  (dispatch) => ({
     putKeysToStateDispatch: bindActionCreators(putKeysToState, dispatch),
     handleSignUpViaEmailComplete: bindActionCreators(
       signUpViaEmailComplete,

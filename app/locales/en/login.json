@@ -2,10 +2,8 @@
   "authUserHasMore": "An authorized user has more options",
   "staySignedIn": "Stay signed in",
   "iForgotPassword": "I forgot password",
-  "scatterIsNotInstalled":
-    "Check whether the wallet and network settings are installed",
-  "scatterBrowserExtensionNotConfigured":
-    "Check whether the wallet browser extension is configured",
+  "scatterIsNotInstalled": "Check whether the wallet and network settings are installed",
+  "scatterBrowserExtensionNotConfigured": "Check whether the wallet browser extension is configured",
   "userIsNotRegistered": "User is not registered",
   "userIsNotSelected": "User is not selected",
   "fbAutologinError": "Could not auto login with facebook account",

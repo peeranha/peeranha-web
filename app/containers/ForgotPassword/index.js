@@ -106,16 +106,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'forgotPassword', reducer });
 const withSaga = injectSaga({ key: 'forgotPassword', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ForgotPassword);
+export default compose(withReducer, withSaga, withConnect)(ForgotPassword);

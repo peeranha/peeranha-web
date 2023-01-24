@@ -62,5 +62,5 @@ FbVerificationCodeForm.propTypes = {
 
 export default reduxForm({
   form: VERIFY_FB_ACTION_FORM,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(FbVerificationCodeForm);

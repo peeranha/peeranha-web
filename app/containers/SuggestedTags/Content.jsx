@@ -37,7 +37,7 @@ const TagLarge = Tag.extend`
 
 const DESCRIPTION_ID = 'description-content-id';
 
-const Item = x => {
+const Item = (x) => {
   const { t } = useTranslation();
   const [isOpened, changeView] = useState(false);
   const [isArrowVisible, changeArrowVisibility] = useState(false);
@@ -107,7 +107,7 @@ const Content = ({
     isLastFetch={isLastFetch}
   >
     <ul>
-      {suggestedTags.map(x => (
+      {suggestedTags.map((x) => (
         <Item key={x.name} {...x} communityId={communityId} />
       ))}
     </ul>

@@ -49,5 +49,5 @@ EmailForgotPasswordForm.propTypes = {
 
 export default reduxForm({
   form: 'EmailForgotPasswordForm',
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(EmailForgotPasswordForm);

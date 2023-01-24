@@ -43,7 +43,7 @@ B.propTypes = {
   profile: PropTypes.object,
 };
 
-const BWrapper = connect(state => ({
+const BWrapper = connect((state) => ({
   profile: makeSelectProfileInfo()(state),
 }))(B);
 

@@ -17,8 +17,8 @@ const height = 50;
 
 const Box = styled.div`
   position: fixed;
-  top: ${x => (x.inProgress ? HEADER_HEIGHT * 1.25 : -HEADER_HEIGHT)}px;
-  opacity: ${x => (x.inProgress ? 1 : 0)};
+  top: ${(x) => (x.inProgress ? HEADER_HEIGHT * 1.25 : -HEADER_HEIGHT)}px;
+  opacity: ${(x) => (x.inProgress ? 1 : 0)};
   left: calc(50% - ${width / 2}px);
   width: ${width}px;
   height: ${height}px;
@@ -41,7 +41,7 @@ const Box = styled.div`
   }
 
   @media only screen and (max-width: 991px) {
-    top: ${x =>
+    top: ${(x) =>
       x.inProgress ? MOBILE_HEADER_HEIGHT * 1.25 : -MOBILE_HEADER_HEIGHT}px;
   }
 

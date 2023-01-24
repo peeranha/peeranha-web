@@ -149,7 +149,7 @@ export default compose(
         isVerifyFbModal: selectors.selectIsVerifyFbModal()(state),
       };
     },
-    dispatch => ({
+    (dispatch) => ({
       hideSendTipsModalDispatch: bindActionCreators(
         hideSendTipsModal,
         dispatch,

@@ -11,7 +11,7 @@ const Toasts = ({ location, toasts, removeToast }) => {
 
   return (
     <ToastBox location={location}>
-      {toasts.map(item => (
+      {toasts.map((item) => (
         <Toast
           type={item.type}
           key={item.toastKey}

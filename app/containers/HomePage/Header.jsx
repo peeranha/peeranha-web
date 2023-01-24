@@ -134,7 +134,7 @@ const Box = styled.div`
     padding: 11px 0;
     position: fixed;
     background-color: rgba(23, 35, 74, 1);
-    height: ${x => (x.isToggled ? `100vh` : `auto`)};
+    height: ${(x) => (x.isToggled ? `100vh` : `auto`)};
 
     .logo img {
       width: 180px;

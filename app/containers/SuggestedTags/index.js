@@ -40,10 +40,10 @@ export const SuggestedTags = ({
   getSuggestedTagsDispatch,
 }) => {
   const { t } = useTranslation();
-  const commId = useMemo(() => single || +match.params.communityid, [
-    single,
-    match.params.communityid,
-  ]);
+  const commId = useMemo(
+    () => single || +match.params.communityid,
+    [single, match.params.communityid],
+  );
 
   const currentCommunity = useMemo(
     () => getFollowedCommunities(communities, [commId])[0] || emptyCommunity,
@@ -51,7 +51,7 @@ export const SuggestedTags = ({
   );
 
   const sortTags = useCallback(
-    ev =>
+    (ev) =>
       getSuggestedTagsDispatch({
         sorting: ev.currentTarget.dataset.key,
         communityId: currentCommunity.id,
@@ -68,9 +68,10 @@ export const SuggestedTags = ({
     [currentCommunity.id],
   );
 
-  const keywords = useMemo(() => currentCommunity.tags.map(x => x.name), [
-    currentCommunity.tags,
-  ]);
+  const keywords = useMemo(
+    () => currentCommunity.tags.map((x) => x.name),
+    [currentCommunity.tags],
+  );
 
   return (
     <div>
@@ -136,7 +137,4 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SuggestedTags);
+export default connect(mapStateToProps, mapDispatchToProps)(SuggestedTags);

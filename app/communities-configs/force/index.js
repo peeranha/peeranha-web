@@ -1,14 +1,9 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import ForceLogo from './images/Group.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/Vector.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
 const domainName = 'https://forcecommunity.io/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'force_style',
@@ -21,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -180,26 +175,8 @@ export const ForceStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: ForceLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo: 'https://images.peeranha.io/communities/force/Group.svg',
+  favicon: 'https://images.peeranha.io/communities/force/Vector.ico',
 
   colors: {
     mainSubHeaderBgColor: '#FFF',
@@ -221,12 +198,19 @@ export const ForceStyles = {
     btnHeaderColor: '#FFAF00',
     btnHeaderHoverOpacity: '0.75',
     newPostButtonText: '#000',
-    btnHeaderHoverOpacity: '0.75',
     tagColor: '#251E67',
     localeArrowColor: '#251E67',
     textColor: '#251E67',
     textColorShadow: '#251E67',
     commHeadElemColor: '#251E67',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: '#2A2460',

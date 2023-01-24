@@ -57,7 +57,7 @@ export const Communities = ({
     getSuggestedCommunitiesDispatch();
   }, []);
 
-  const keywords = useMemo(() => communities.map(x => x.name), [communities]);
+  const keywords = useMemo(() => communities.map((x) => x.name), [communities]);
 
   const [displayLoadingIndicator] = useMemo(
     () => [
@@ -137,7 +137,7 @@ export default memo(
         suggestedCommunitiesLoading: selectSuggestedCommunitiesLoading(),
         isLastFetch: selectIsLastFetch(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         redirectToCreateCommunityDispatch: bindActionCreators(
           redirectToCreateCommunity,
           dispatch,

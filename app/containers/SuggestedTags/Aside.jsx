@@ -19,9 +19,9 @@ const Aside = ({ currentCommunity }) => {
       </Header>
 
       <ul>
-        {orderBy(currentCommunity.tags, y => y.postCount, ['desc'])
+        {orderBy(currentCommunity.tags, (y) => y.postCount, ['desc'])
           .slice(0, 10)
-          .map(x => (
+          .map((x) => (
             <li key={x.id}>
               <div className="d-flex align-items-center mb-3">
                 <Tag>{x.name}</Tag>

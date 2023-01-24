@@ -28,9 +28,9 @@ const Aside = ({ communities }) => {
       </Header>
 
       <Ul className="pt-0 mb-4">
-        {orderBy(communities, y => y.users_subscribed, ['desc'])
+        {orderBy(communities, (y) => y.users_subscribed, ['desc'])
           .slice(0, 3)
-          .map(x => (
+          .map((x) => (
             <li key={x.id} className="pb-4">
               <div className="d-flex align-items-start mb-2">
                 <Img className="mr-1" src={x.avatar} alt="commAvatar" />
