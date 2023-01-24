@@ -7,25 +7,22 @@ const useMediaQuery = (mediaQuery: string): boolean => {
     isClient ? !!window.matchMedia(mediaQuery).matches : false,
   );
 
-  useEffect(
-    () => {
-      const mediaQueryList = window.matchMedia(mediaQuery);
-      setIsVerified(!!mediaQueryList.matches);
-      const documentChangeHandler = (e): void => setIsVerified(!!e.matches);
+  useEffect(() => {
+    const mediaQueryList = window.matchMedia(mediaQuery);
+    setIsVerified(!!mediaQueryList.matches);
+    const documentChangeHandler = (e): void => setIsVerified(!!e.matches);
 
-      if (typeof mediaQueryList.addEventListener === 'function') {
-        mediaQueryList.addEventListener('change', documentChangeHandler);
-        return function cleanup(): void {
-          mediaQueryList.removeEventListener('change', documentChangeHandler);
-        };
-      }
-      mediaQueryList.addListener(documentChangeHandler);
+    if (typeof mediaQueryList.addEventListener === 'function') {
+      mediaQueryList.addEventListener('change', documentChangeHandler);
       return function cleanup(): void {
-        mediaQueryList.addListener(documentChangeHandler);
+        mediaQueryList.removeEventListener('change', documentChangeHandler);
       };
-    },
-    [mediaQuery],
-  );
+    }
+    mediaQueryList.addListener(documentChangeHandler);
+    return function cleanup(): void {
+      mediaQueryList.addListener(documentChangeHandler);
+    };
+  }, [mediaQuery]);
 
   return isVerified;
 };

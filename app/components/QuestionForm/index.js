@@ -129,12 +129,12 @@ export const QuestionForm = ({
   doSkipExistingQuestions,
   skipExistingQuestions,
   communityQuestionsType,
-  disableCommForm,
   profile,
   isFailed,
   isDocumentation,
   documentationMenu,
   parentId,
+  isEditForm,
   questionTitle,
   getCommunityTagsDispatch,
   cachedTags,
@@ -146,12 +146,17 @@ export const QuestionForm = ({
   const [isClickSubmit, setIsClickSubmit] = useState(false);
   const postTitle = question?.title;
   const postContent = question?.content;
+  const isPostAuthor = question?.author === profile?.user;
 
-  const communityId = single || formValues[FORM_COMMUNITY]?.id;
+  const communityId =
+    single || question?.communityId || formValues[FORM_COMMUNITY]?.id;
   const isCommunityModerator = communityId
-    ? hasCommunityModeratorRole(getPermissions(profile), communityId) ||
-      hasCommunityAdminRole(getPermissions(profile), communityId)
+    ? hasCommunityModeratorRole(getPermissions(profile), communityId)
     : false;
+
+  const isHasRoleGlobal =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
@@ -229,9 +234,14 @@ export const QuestionForm = ({
             <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
               <CommunityForm
                 communities={communities}
+                communityId={communityId}
                 change={change}
                 questionLoading={questionLoading}
-                disableCommForm={disableCommForm}
+                disableCommForm={false}
+                isHasRoleGlobal={isHasRoleGlobal}
+                isCommunityModerator={isCommunityModerator}
+                isEditForm={isEditForm}
+                isPostAuthor={isPostAuthor}
               />
 
               {Boolean(!question && isDocumentation && isNaN(parentId)) && (
@@ -240,7 +250,7 @@ export const QuestionForm = ({
                   communities={communities}
                   change={change}
                   questionLoading={questionLoading}
-                  disableCommForm={disableCommForm}
+                  disableCommForm={isEditForm}
                   isDocumentation={isDocumentation}
                   documentationMenu={[
                     defaultDocumentationArticle,
@@ -249,44 +259,49 @@ export const QuestionForm = ({
                 />
               )}
 
-              {!question &&
-                ((communityQuestionsType === ANY_TYPE && (
-                  <TypeForm
-                    change={change}
-                    questionLoading={questionLoading}
-                    locale={locale}
-                    formValues={formValues}
-                    isError={isError}
-                    setIsError={setIsError}
-                    hasSelectedType={isSelectedType}
-                    setHasSelectedType={setIsSelectedType}
-                    isCommunityModerator={isCommunityModerator}
-                    isDocumentation={isDocumentation}
-                  />
-                )) ||
-                  (communityQuestionsType === GENERAL_TYPE && (
-                    <>
-                      <DescriptionList
-                        locale={locale}
-                        label="common.generalQuestionDescriptionLabel"
-                        items="common.generalQuestionDescriptionList"
-                      />
-                      <br />
-                    </>
-                  )) || (
-                    <>
-                      <DescriptionList
-                        locale={locale}
-                        label="common.expertQuestionDescriptionLabel"
-                        items="common.expertQuestionDescriptionList"
-                      />
-                      <br />
-                    </>
-                  ))}
+              {(communityQuestionsType === ANY_TYPE && (
+                <TypeForm
+                  change={change}
+                  questionLoading={questionLoading}
+                  locale={locale}
+                  formValues={formValues}
+                  isError={isError}
+                  setIsError={setIsError}
+                  hasSelectedType={isSelectedType}
+                  setHasSelectedType={setIsSelectedType}
+                  isCommunityModerator={isCommunityModerator}
+                  postType={question?.postType}
+                  postAnswers={question?.answers}
+                  isHasRole={isHasRoleGlobal}
+                  isDocumentation={isDocumentation}
+                />
+              )) ||
+                (communityQuestionsType === GENERAL_TYPE && (
+                  <>
+                    <DescriptionList
+                      locale={locale}
+                      label="common.generalQuestionDescriptionLabel"
+                      items="common.generalQuestionDescriptionList"
+                    />
+                    <br />
+                  </>
+                )) || (
+                  <>
+                    <DescriptionList
+                      locale={locale}
+                      label="common.expertQuestionDescriptionLabel"
+                      items="common.expertQuestionDescriptionList"
+                    />
+                    <br />
+                  </>
+                )}
 
               <TitleForm
                 questionLoading={questionLoading}
                 isDocumentation={isDocumentation}
+                isHasRole={isHasRoleGlobal}
+                isEditForm={isEditForm}
+                isPostAuthor={isPostAuthor}
               />
 
               {formValues[FORM_TITLE] &&
@@ -306,6 +321,9 @@ export const QuestionForm = ({
               <ContentForm
                 questionLoading={questionLoading}
                 formValues={formValues}
+                isHasRole={isHasRoleGlobal}
+                isEditForm={isEditForm}
+                isPostAuthor={isPostAuthor}
               />
 
               {!isDocumentation &&
@@ -366,9 +384,9 @@ QuestionForm.propTypes = {
   existingQuestions: PropTypes.array,
   doSkipExistingQuestions: PropTypes.bool,
   skipExistingQuestions: PropTypes.func,
-  disableCommForm: PropTypes.bool,
   profile: PropTypes.object,
   isFailed: PropTypes.bool,
+  isEditForm: PropTypes.bool,
 };
 
 const FormClone = reduxForm({
@@ -385,9 +403,8 @@ export default memo(
         (prop) => prop.key === KEY_QUESTIONS_TYPE,
       )?.value;
 
+      const isEditForm = formName === EDIT_QUESTION_FORM;
       const cachedTags = selectTags()(state);
-      // disable community form on edit question page
-      const disableCommForm = formName === EDIT_QUESTION_FORM;
 
       return {
         profile: makeSelectProfileInfo()(state),
@@ -428,7 +445,7 @@ export default memo(
             : {}),
         },
         enableReinitialize: true,
-        disableCommForm,
+        isEditForm,
       };
     },
     (dispatch) => ({

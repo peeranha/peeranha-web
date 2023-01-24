@@ -8,14 +8,19 @@ import TextEditorField from 'components/FormFields/TextEditorField';
 
 import { FORM_CONTENT } from './constants';
 
-const ContentForm = ({ questionLoading }) => {
+const ContentForm = ({
+  questionLoading,
+  isHasRole,
+  isEditForm,
+  isPostAuthor,
+}) => {
   const { t } = useTranslation();
 
   return (
     <Field
       name={FORM_CONTENT}
       component={TextEditorField}
-      disabled={questionLoading}
+      disabled={questionLoading || (isHasRole && isEditForm && !isPostAuthor)}
       label={t('common.questionBodyLabel')}
       validate={[strLength25x30000, required]}
       warn={[strLength25x30000, required]}

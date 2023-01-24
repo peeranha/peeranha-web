@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,9 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
 } from 'utils/communityManagement';
+import isEmpty from 'lodash/isEmpty';
 import { POST_TYPE } from './constants';
+import { showPopover } from 'utils/popover';
 
 import {
   BORDER_SECONDARY,
@@ -26,18 +28,22 @@ export const QUESTION_TYPES = {
   GENERAL: {
     value: POST_TYPE.generalPost,
     label: 'common.general',
+    isDisabled: false,
   },
   EXPERT: {
     value: POST_TYPE.expertPost,
     label: 'common.expert',
+    isDisabled: false,
   },
   TUTORIAL: {
     value: POST_TYPE.tutorial,
     label: 'common.tutorial',
+    isDisabled: false,
   },
   FAQ: {
     value: POST_TYPE.documentation,
     label: 'faq',
+    isDisabled: false,
   },
 };
 
@@ -111,19 +117,42 @@ const QuestionTypeField = ({
   insideOfSection,
   error,
   isCommunityModerator,
+  isHasRole,
+  postType,
+  postAnswers,
 }) => {
   const { t } = useTranslation();
   const [type, setType] = useState();
 
-  function chooseQuestionType({ currentTarget }) {
-    const { value } = currentTarget;
+  useEffect(() => {
+    if (postType) {
+      input.onChange(postType);
+    }
+  }, []);
+
+  function chooseQuestionType(event) {
+    const { value } = event.currentTarget;
     event.preventDefault();
     input.onChange(value);
     setType(value);
   }
 
-  // Don't show FAQ post type;
+  function showMessage(e) {
+    e.preventDefault();
+    showPopover(
+      e.currentTarget.id,
+      isHasRole || isCommunityModerator
+        ? t('post.warningForAdmin')
+        : t('post.warningForUser'),
+    );
+  }
+  // Don't show FAQ post type unless user isn't community moderator
+  // const types = isCommunityModerator
+  //   ? Object.values(QUESTION_TYPES)
+  //   : Object.values(QUESTION_TYPES).slice(0, 3);
+
   const types = Object.values(QUESTION_TYPES).slice(0, 3);
+  types[2].isDisabled = !isEmpty(postAnswers);
 
   return (
     <QuestionTypeContainer>
@@ -137,14 +166,16 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {types.map((questionType) => (
+          {types.map((questionType, buttonId) => (
             <Button
+              id={buttonId}
               type={type}
               onClick={chooseQuestionType}
               value={questionType.value}
               currentValue={input.value}
               key={questionType.label}
-              disabled={disabled}
+              disabled={disabled || questionType.isDisabled}
+              onMouseOver={questionType.isDisabled && showMessage}
             >
               {t(questionType.label)}
             </Button>

@@ -15,14 +15,12 @@ import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
-import changeTypeIcon from 'images/change-type.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
 
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
-import { POST_TYPE } from 'utils/constants';
 import { getUserName } from 'utils/user';
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
 import UserInfo from './UserInfo';
@@ -39,8 +37,7 @@ import {
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
-} from '../../utils/properties';
-
+} from 'utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
@@ -139,9 +136,9 @@ const ContentHeader = (props) => {
     changeQuestionTypeDispatch,
     questionData,
     profile,
-    isChangeTypeAvailable,
     infiniteImpact,
     histories,
+    isPostContent,
   } = props;
   const { t } = useTranslation();
 
@@ -229,23 +226,6 @@ const ContentHeader = (props) => {
           isTemporaryAccount={isTemporaryAccount}
         />
         <ButtonContainer>
-          {type === QUESTION_TYPE && (
-            <Button
-              id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={
-                (isGlobalAdmin || isChangeTypeAvailable) &&
-                questionData.postType !== POST_TYPE.tutorial
-              }
-              onClick={changeQuestionTypeWithRatingRestore}
-              disabled={ids.includes(
-                `${type}_change_type_with_rating_restore_${answerId}`,
-              )}
-            >
-              <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
-              <span>{t('post.changeQuestionType')}</span>
-            </Button>
-          )}
-
           {infiniteImpact ? (
             <Button
               show={
@@ -333,7 +313,9 @@ const ContentHeader = (props) => {
           </DropdownBox>
 
           <Button
-            show={!!profile && isItWrittenByMe}
+            show={
+              (!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)
+            }
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
             id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}

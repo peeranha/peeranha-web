@@ -69,5 +69,7 @@
   "areYouSureMarkedTheBest_3": "If you delete your answer, you will lose the reputation points earned from it.",
   "rootLabel": "Sub-article of (parent article)",
   "faqDescriptionLabel": "This section provides answers to a list of typical questions that users might ask regarding a particular community or subject.",
-  "faqDescriptionList": []
+  "faqDescriptionList": [],
+  "warningForAdmin": "This post can’t be changed to Tutorial as it has replies. Please delete all replies from this post to proceed",
+  "warningForUser": "This post can’t be changed to Tutorial as it has replies. Please contact support for assistance"
 }

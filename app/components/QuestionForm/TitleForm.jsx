@@ -14,7 +14,13 @@ import TextInputField from 'components/FormFields/TextInputField';
 
 import { FORM_TITLE } from './constants';
 
-const TitleForm = ({ questionLoading, isDocumentation }) => {
+const TitleForm = ({
+  questionLoading,
+  isDocumentation,
+  isHasRole,
+  isEditForm,
+  isPostAuthor,
+}) => {
   const { t } = useTranslation();
   const length = isDocumentation ? strLength5x100 : strLength15x100;
 
@@ -22,7 +28,7 @@ const TitleForm = ({ questionLoading, isDocumentation }) => {
     <Field
       name={FORM_TITLE}
       component={TextInputField}
-      disabled={questionLoading}
+      disabled={questionLoading || (isHasRole && isEditForm && !isPostAuthor)}
       label={t('common.titleLabel')}
       tip={t('common.titleTip')}
       validate={[withoutDoubleSpace, length, maxByteLength, required]}

@@ -27,6 +27,7 @@ import {
   FORM_COMMUNITY,
   FORM_TAGS,
   PROMOTE_HOUR_COST,
+  FORM_TYPE,
 } from 'components/QuestionForm/constants';
 
 import * as makeSelectEditQuestion from './selectors';
@@ -78,7 +79,7 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
           tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[1]),
-          postType: question?.postType,
+          postType: Number(val[FORM_TYPE]) || question.postType,
         },
         questionid,
       );
