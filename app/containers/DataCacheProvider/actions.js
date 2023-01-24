@@ -5,9 +5,12 @@
  */
 
 import {
-  GET_COMMUNITIES_WITH_TAGS,
-  GET_COMMUNITIES_WITH_TAGS_SUCCESS,
-  GET_COMMUNITIES_WITH_TAGS_ERROR,
+  GET_COMMUNITIES,
+  GET_COMMUNITIES_SUCCESS,
+  GET_COMMUNITIES_ERROR,
+  GET_TAGS,
+  GET_TAGS_SUCCESS,
+  GET_TAGS_ERROR,
   UPDATE_TAG_OF_COMMUNITY,
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
@@ -23,25 +26,53 @@ import {
   GET_TUTORIAL,
   GET_TUTORIAL_SUCCESS,
   GET_TUTORIAL_ERROR,
+  GET_COMMUNITY_TAGS,
 } from './constants';
 
-export function getCommunitiesWithTags() {
+export function getCommunities() {
   return {
-    type: GET_COMMUNITIES_WITH_TAGS,
+    type: GET_COMMUNITIES,
   };
 }
 
-export function getCommunitiesWithTagsSuccess(communities) {
+export function getCommunitiesSuccess(communities) {
   return {
-    type: GET_COMMUNITIES_WITH_TAGS_SUCCESS,
+    type: GET_COMMUNITIES_SUCCESS,
     communities,
   };
 }
 
-export function getCommunitiesWithTagsErr(getCommunitiesWithTagsError) {
+export function getCommunitiesErr(getCommunitiesError) {
   return {
-    type: GET_COMMUNITIES_WITH_TAGS_ERROR,
-    getCommunitiesWithTagsError,
+    type: GET_COMMUNITIES_ERROR,
+    getCommunitiesError,
+  };
+}
+
+export function getTags() {
+  return {
+    type: GET_TAGS,
+  };
+}
+
+export function getCommunityTags(communityId) {
+  return {
+    type: GET_COMMUNITY_TAGS,
+    communityId,
+  };
+}
+
+export function getTagsSuccess(tags) {
+  return {
+    type: GET_TAGS_SUCCESS,
+    tags,
+  };
+}
+
+export function getTagsErr(getTagsError) {
+  return {
+    type: GET_TAGS_ERROR,
+    getTagsError,
   };
 }
 

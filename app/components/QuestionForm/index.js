@@ -4,16 +4,23 @@ import { css } from '@emotion/react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form/immutable';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { Router, Prompt } from 'react-router';
 
-import commonMessages from 'common-messages';
 import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
 
 import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import {
+  getPermissions,
+  hasGlobalModeratorRole,
+  hasCommunityAdminRole,
+  hasCommunityModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+
 import icoTag from 'images/icoTag.svg?external';
 
-import _uniqBy from 'lodash/uniqBy';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
@@ -29,8 +36,6 @@ import Tips from 'components/TextEditor/Tips';
 import FormBox from 'components/Form';
 import TipsBase from 'components/Base/TipsBase';
 import { IconMd } from 'components/Icon/IconWithSizes';
-
-import messages from './messages';
 
 import {
   FORM_TITLE,
@@ -59,30 +64,31 @@ import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import DescriptionList from 'components/DescriptionList';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import {
-  getPermissions,
-  hasCommunityAdminRole,
-  hasCommunityModeratorRole,
-  hasGlobalModeratorRole,
-  hasProtocolAdminRole,
-} from 'utils/properties';
-import { translationMessages } from '../../i18n';
+import { getCommunityTags } from '../../containers/DataCacheProvider/actions';
+import { selectTags } from '../../containers/DataCacheProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
 const history = createdHistory;
 
-const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
+const SuggestTag = ({ redirectToCreateTagDispatch, formValues }) => {
+  const { t } = useTranslation();
   const communityId = useMemo(
     () => formValues?.[FORM_COMMUNITY]?.value ?? 0,
     [formValues],
   );
 
+  const onClick = ({ currentTarget: { id, communityid } }) => {
+    redirectToCreateTagDispatch({
+      buttonId: id,
+      communityId: communityid,
+    });
+  };
+
   return (
     <div style={{ marginBottom: '20px' }}>
       <TransparentButton
-        onClick={redirectToCreateTagDispatch}
+        onClick={onClick}
         data-communityid={communityId}
         id="question-form-suggest-tag"
         type="button"
@@ -97,11 +103,11 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
             }
           `}
         />
-        <FormattedMessage {...commonMessages.createTag} />
+        {t('common.createTag')}
       </TransparentButton>
     </div>
   );
-});
+};
 
 export const QuestionForm = ({
   locale,
@@ -115,7 +121,6 @@ export const QuestionForm = ({
   handleSubmit,
   change,
   formValues,
-  intl,
   question,
   questionid,
   redirectToCreateTagDispatch,
@@ -131,7 +136,10 @@ export const QuestionForm = ({
   parentId,
   isEditForm,
   questionTitle,
+  getCommunityTagsDispatch,
+  cachedTags,
 }) => {
+  const { t } = useTranslation();
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
   const [submitPressed, setSubmitPressed] = useState(false);
@@ -176,6 +184,10 @@ export const QuestionForm = ({
     }
   }, [formValues[FORM_TITLE]]);
 
+  useEffect(() => {
+    getCommunityTagsDispatch(communityId);
+  }, [communityId, getCommunityTagsDispatch]);
+
   const showMoreQuestions = (e) => {
     e.preventDefault();
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
@@ -206,7 +218,7 @@ export const QuestionForm = ({
   return (
     <Router history={history}>
       <Prompt
-        message={translationMessages[locale][messages.leaveWithoutChanges.id]}
+        message={t('common.leaveWithoutChanges')}
         when={isEdited && (!submitPressed || isFailed)}
       />
       <div>
@@ -215,14 +227,12 @@ export const QuestionForm = ({
           postTitle={questionTitle}
           questionId={questionid}
           postType={question?.postType}
-          intl={intl}
           isDocumentation={isDocumentation}
         />
         <TipsBase>
           <BaseSpecialOne>
             <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
               <CommunityForm
-                intl={intl}
                 communities={communities}
                 communityId={communityId}
                 change={change}
@@ -236,12 +246,11 @@ export const QuestionForm = ({
 
               {Boolean(!question && isDocumentation && isNaN(parentId)) && (
                 <SubArticleForm
-                  intl={intl}
                   locale={locale}
                   communities={communities}
                   change={change}
                   questionLoading={questionLoading}
-                  disableCommForm={disableCommForm}
+                  disableCommForm={isEditForm}
                   isDocumentation={isDocumentation}
                   documentationMenu={[
                     defaultDocumentationArticle,
@@ -252,7 +261,6 @@ export const QuestionForm = ({
 
               {(communityQuestionsType === ANY_TYPE && (
                 <TypeForm
-                  intl={intl}
                   change={change}
                   questionLoading={questionLoading}
                   locale={locale}
@@ -272,8 +280,8 @@ export const QuestionForm = ({
                   <>
                     <DescriptionList
                       locale={locale}
-                      label={messages.generalQuestionDescriptionLabel.id}
-                      items={messages.generalQuestionDescriptionList.id}
+                      label="common.generalQuestionDescriptionLabel"
+                      items="common.generalQuestionDescriptionList"
                     />
                     <br />
                   </>
@@ -281,15 +289,14 @@ export const QuestionForm = ({
                   <>
                     <DescriptionList
                       locale={locale}
-                      label={messages.expertQuestionDescriptionLabel.id}
-                      items={messages.expertQuestionDescriptionList.id}
+                      label="common.expertQuestionDescriptionLabel"
+                      items="common.expertQuestionDescriptionList"
                     />
                     <br />
                   </>
                 )}
 
               <TitleForm
-                intl={intl}
                 questionLoading={questionLoading}
                 isDocumentation={isDocumentation}
                 isHasRole={isHasRoleGlobal}
@@ -307,13 +314,11 @@ export const QuestionForm = ({
                     questions={getExistingQuestions(existingQuestions)}
                     skip={skipExistingQuestions}
                     show={showMoreQuestions}
-                    intl={intl}
                     communities={communities}
                   />
                 )}
 
               <ContentForm
-                intl={intl}
                 questionLoading={questionLoading}
                 formValues={formValues}
                 isHasRole={isHasRoleGlobal}
@@ -324,10 +329,10 @@ export const QuestionForm = ({
               {!isDocumentation &&
                 Number(formValues[FORM_TYPE]) !== POST_TYPE.documentation && (
                   <TagsForm
-                    intl={intl}
                     questionLoading={questionLoading}
                     formValues={formValues}
                     change={change}
+                    communityTags={cachedTags[communityId]}
                   />
                 )}
 
@@ -375,7 +380,6 @@ QuestionForm.propTypes = {
   handleSubmit: PropTypes.func,
   formValues: PropTypes.object,
   communities: PropTypes.array,
-  intl: intlShape.isRequired,
   getQuestions: PropTypes.func,
   existingQuestions: PropTypes.array,
   doSkipExistingQuestions: PropTypes.bool,
@@ -390,81 +394,66 @@ const FormClone = reduxForm({
 })(QuestionForm);
 
 export default memo(
-  injectIntl(
-    connect(
-      (state, { question, form: formName, communities, parentId, path }) => {
-        const isDocumentation = path.split('/')[1] === 'documentation';
-        const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
-        const integerProperties = values?.integer_properties ?? [];
-        const questionsType = integerProperties.find(
-          (prop) => prop.key === KEY_QUESTIONS_TYPE,
-        )?.value;
-        const isEditForm = formName === EDIT_QUESTION_FORM;
+  connect(
+    (state, { question, form: formName, communities, parentId, path }) => {
+      const isDocumentation = path.split('/')[1] === 'documentation';
+      const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
+      const integerProperties = values?.integer_properties ?? [];
+      const questionsType = integerProperties.find(
+        (prop) => prop.key === KEY_QUESTIONS_TYPE,
+      )?.value;
 
-        return {
-          profile: makeSelectProfileInfo()(state),
-          formValues: state.toJS().form[formName]?.values ?? {},
-          communityQuestionsType: questionsType ?? ANY_TYPE,
-          initialValues: {
-            [FORM_PROMOTE]: (0).toString(),
-            ...(question
-              ? {
-                  [FORM_TYPE]: question?.type,
-                  [FORM_TITLE]: question?.title,
-                  [FORM_CONTENT]: question?.content,
-                  [FORM_COMMUNITY]: {
-                    ...question?.community,
-                    tags: _uniqBy(
-                      question?.community?.tags?.concat(
-                        communities.find(
-                          ({ id }) => id === question?.community?.id,
-                        )?.tags,
-                      ),
-                      'id',
-                    ),
-                  },
-                  [FORM_TAGS]: question?.tags,
-                  [FORM_BOUNTY]: question?.bounty ?? '',
-                  [FORM_BOUNTY_HOURS]: question?.bountyHours,
-                }
-              : {}),
-            ...(single
-              ? {
-                  [FORM_COMMUNITY]: {
-                    ...communities?.find(({ id }) => id === single),
-                    tags: _uniqBy(
-                      communities
-                        .find(({ id }) => id === single)
-                        ?.tags?.concat(
-                          communities.find(
-                            ({ id }) => id === question?.community?.id,
-                          )?.tags,
-                        )
-                        .filter((x) => x),
-                      'id',
-                    ),
-                  },
-                  ...(isDocumentation
-                    ? {
-                        [FORM_TYPE]: POST_TYPE.documentation,
-                        [FORM_SUB_ARTICLE]: parentId
-                          ? { label: '', value: parentId }
-                          : undefined,
-                      }
-                    : {}),
-                }
-              : {}),
-          },
-          enableReinitialize: true,
-          isEditForm,
-        };
-      },
-      (dispatch) => ({
-        redirectToCreateTagDispatch: bindActionCreators(
-          redirectToCreateTag,
-          dispatch,
-        ),
-      }),
-    )(FormClone),
-  ),
+      const isEditForm = formName === EDIT_QUESTION_FORM;
+      const cachedTags = selectTags()(state);
+
+      return {
+        profile: makeSelectProfileInfo()(state),
+        formValues: state.toJS().form[formName]?.values ?? {},
+        communityQuestionsType: questionsType ?? ANY_TYPE,
+        cachedTags,
+        initialValues: {
+          [FORM_PROMOTE]: (0).toString(),
+          ...(question
+            ? {
+                [FORM_TYPE]: question?.type,
+                [FORM_TITLE]: question?.title,
+                [FORM_CONTENT]: question?.content,
+                [FORM_COMMUNITY]: {
+                  ...question?.community,
+                  tags: cachedTags[question?.community.id],
+                },
+                [FORM_TAGS]: question?.tags,
+                [FORM_BOUNTY]: question?.bounty ?? '',
+                [FORM_BOUNTY_HOURS]: question?.bountyHours,
+              }
+            : {}),
+          ...(single
+            ? {
+                [FORM_COMMUNITY]: {
+                  ...communities?.find(({ id }) => id === single),
+                  tags: cachedTags[single],
+                },
+                ...(isDocumentation
+                  ? {
+                      [FORM_TYPE]: POST_TYPE.documentation,
+                      [FORM_SUB_ARTICLE]: parentId
+                        ? { label: '', value: parentId }
+                        : undefined,
+                    }
+                  : {}),
+              }
+            : {}),
+        },
+        enableReinitialize: true,
+        isEditForm,
+      };
+    },
+    (dispatch) => ({
+      redirectToCreateTagDispatch: bindActionCreators(
+        redirectToCreateTag,
+        dispatch,
+      ),
+      getCommunityTagsDispatch: bindActionCreators(getCommunityTags, dispatch),
+    }),
+  )(FormClone),
 );

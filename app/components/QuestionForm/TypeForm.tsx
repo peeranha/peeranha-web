@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { Field } from 'redux-form/immutable';
 import { requiredPostTypeSelection } from 'components/FormFields/validate';
 import { FORM_TYPE } from './constants';
-import messages from './messages';
+import { useTranslation } from 'react-i18next';
 import QuestionTypeField from './QuestionTypeField';
 import DescriptionList from 'components/DescriptionList';
 import {
@@ -46,15 +46,14 @@ type TypePostAnswers = {
 };
 
 type TypeFormProps = {
-  intl: any;
-  change: Function;
+  change: any;
   locale: string;
   questionLoading: boolean;
   formValues?: any;
   hasSelectedType: boolean;
-  setHasSelectedType: Function;
+  setHasSelectedType: any;
   isError: boolean;
-  setIsError: Function;
+  setIsError: any;
   isCommunityModerator: boolean;
   postType?: number;
   isDocumentation: boolean;
@@ -63,7 +62,6 @@ type TypeFormProps = {
 };
 
 const TypeForm: React.FC<TypeFormProps> = ({
-  intl,
   change,
   locale,
   questionLoading,
@@ -78,6 +76,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
   postAnswers,
   isHasRole,
 }): JSX.Element | null => {
+  const { t } = useTranslation();
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
@@ -102,8 +101,8 @@ const TypeForm: React.FC<TypeFormProps> = ({
         component={QuestionTypeField}
         disabled={questionLoading}
         onChange={onChange}
-        label={intl.formatMessage(messages.questionType)}
-        tip={intl.formatMessage(messages.questionTypeTip)}
+        label={t('common.questionType')}
+        tip={t('common.questionTypeTip')}
         validate={!hasSelectedType && requiredPostTypeSelection}
         splitInHalf
         error={isError}
@@ -115,7 +114,6 @@ const TypeForm: React.FC<TypeFormProps> = ({
       />
       {hasSelectedType && (
         <DescriptionList
-          locale={locale}
           label={descriptionListLabel}
           items={descriptionListItems}
         />

@@ -1,5 +1,3 @@
-/* eslint consistent-return: 0, array-callback-return: 0, eqeqeq: 0, no-param-reassign: 0, no-bitwise: 0, no-shadow: 0, func-names: 0 */
-
 import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getProfileInfo } from 'utils/profileManagement';
@@ -11,8 +9,6 @@ import {
   takeEvery,
   takeLatest,
 } from 'redux-saga/effects';
-
-import { translationMessages } from 'i18n';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -402,7 +398,7 @@ export function* saveCommentWorker({
       yield call(getParams);
 
     yield call(isAvailableAction, () =>
-      editCommentValidator(profileInfo, buttonId, translationMessages[locale]),
+      editCommentValidator(profileInfo, buttonId),
     );
     const commentData = {
       content: comment,
@@ -467,13 +463,7 @@ export function* deleteCommentWorker({
     yield call(
       isAvailableAction,
       () =>
-        deleteCommentValidator(
-          profileInfo,
-          buttonId,
-          translationMessages[locale],
-          commentId,
-          questionData,
-        ),
+        deleteCommentValidator(profileInfo, buttonId, commentId, questionData),
       {
         communityID: questionData.communityId,
       },
@@ -526,7 +516,6 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
           buttonId,
           answerId,
           questionData.bestReply,
-          translationMessages[locale],
           profileInfo,
           questionData,
         ),
@@ -589,7 +578,6 @@ export function* deleteQuestionWorker({
         deleteQuestionValidator(
           buttonId,
           questionData.answers.length,
-          translationMessages[locale],
           profileInfo,
           questionData,
         ),
@@ -599,24 +587,22 @@ export function* deleteQuestionWorker({
     );
     if (isDocumentation) {
       const documentationMenu = yield select(selectDocumentationMenu());
-      const documentationTraversal = (documentationArray) => {
-        return documentationArray.reduce((acc, documentationSection) => {
+      const documentationTraversal = (documentationArray) =>
+        documentationArray.reduce((acc, documentationSection) => {
           if (String(documentationSection.id) !== String(questionId)) {
             if (documentationSection.children.length) {
               return acc.concat({
                 id: documentationSection.id,
                 children: documentationTraversal(documentationSection.children),
               });
-            } else
-              return acc.concat({
-                id: documentationSection.id,
-                children: documentationSection.children,
-              });
-          } else {
-            return acc;
+            }
+            return acc.concat({
+              id: documentationSection.id,
+              children: documentationSection.children,
+            });
           }
+          return acc;
         }, []);
-      };
 
       const newMenu = documentationTraversal(documentationMenu);
       const documentationJSON = {
@@ -713,20 +699,13 @@ export function* getQuestionDataWorker({ questionId }) {
 }
 
 export function* checkPostCommentAvailableWorker(buttonId, answerId) {
-  const { questionData, profileInfo, locale } = yield call(getParams);
+  const { questionData, profileInfo } = yield call(getParams);
 
   yield call(isAuthorized);
 
   yield call(
     isAvailableAction,
-    () =>
-      postCommentValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        answerId,
-        translationMessages[locale],
-      ),
+    () => postCommentValidator(profileInfo, questionData, buttonId, answerId),
     {
       communityID: questionData.communityId,
     },
@@ -830,26 +809,14 @@ export function* postCommentWorker({
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const {
-      questionData,
-      ethereumService,
-      profileInfo,
-      locale,
-      histories,
-      account,
-    } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo, histories, account } =
+      yield call(getParams);
 
     yield call(isAuthorized);
 
     yield call(
       isAvailableAction,
-      () =>
-        postAnswerValidator(
-          profileInfo,
-          questionData,
-          POST_ANSWER_BUTTON,
-          translationMessages[locale],
-        ),
+      () => postAnswerValidator(profileInfo, questionData, POST_ANSWER_BUTTON),
       {
         communityID: questionData.communityId,
       },
@@ -935,7 +902,7 @@ export function* downVoteWorker({
   questionId,
 }) {
   try {
-    const { questionData, ethereumService, profileInfo, locale } = yield call(
+    const { questionData, ethereumService, profileInfo } = yield call(
       getParams,
     );
 
@@ -945,14 +912,7 @@ export function* downVoteWorker({
 
     yield call(
       isAvailableAction,
-      () =>
-        downVoteValidator(
-          profileInfo,
-          questionData,
-          buttonId,
-          answerId,
-          translationMessages[locale],
-        ),
+      () => downVoteValidator(profileInfo, questionData, buttonId, answerId),
       {
         communityID: questionData.communityId,
         skipPermissions: isOwnItem(questionData, profileInfo, answerId),
@@ -999,7 +959,7 @@ export function* upVoteWorker({
   whoWasUpvoted,
 }) {
   try {
-    const { questionData, ethereumService, profileInfo, locale } = yield call(
+    const { questionData, ethereumService, profileInfo } = yield call(
       getParams,
     );
 
@@ -1009,14 +969,7 @@ export function* upVoteWorker({
 
     yield call(
       isAvailableAction,
-      () =>
-        upVoteValidator(
-          profileInfo,
-          questionData,
-          buttonId,
-          answerId,
-          translationMessages[locale],
-        ),
+      () => upVoteValidator(profileInfo, questionData, buttonId, answerId),
       {
         communityID: questionData.communityId,
         skipPermissions: isOwnItem(questionData, profileInfo, answerId),
@@ -1057,7 +1010,7 @@ export function* markAsAcceptedWorker({
   whoWasAccepted,
 }) {
   try {
-    const { questionData, ethereumService, profileInfo, locale } = yield call(
+    const { questionData, ethereumService, profileInfo } = yield call(
       getParams,
     );
 
@@ -1067,13 +1020,7 @@ export function* markAsAcceptedWorker({
 
     yield call(
       isAvailableAction,
-      () =>
-        markAsAcceptedValidator(
-          profileInfo,
-          questionData,
-          buttonId,
-          translationMessages[locale],
-        ),
+      () => markAsAcceptedValidator(profileInfo, questionData, buttonId),
       {
         communityID: questionData.communityId,
       },
@@ -1108,9 +1055,7 @@ export function* voteToDeleteWorker({
   whoWasVoted,
 }) {
   try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
-      getParams,
-    );
+    const { questionData, eosService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasVoted];
 
@@ -1139,14 +1084,7 @@ export function* voteToDeleteWorker({
 
     yield call(
       isAvailableAction,
-      () =>
-        voteToDeleteValidator(
-          profileInfo,
-          questionData,
-          translationMessages[locale],
-          buttonId,
-          item,
-        ),
+      () => voteToDeleteValidator(profileInfo, questionData, buttonId, item),
       {
         communityID: questionData.communityId,
         skipPermissions: itemData.votingStatus?.isUpVoted,
