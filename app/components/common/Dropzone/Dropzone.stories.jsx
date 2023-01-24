@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { uploadImagesToIpfs, uploadVideoToLivepeer } from 'utils/uploadFiles';
 
 import Dropzone from './Dropzone';
-import { translations } from './translations';
 
 const Store = {
   component: Dropzone,
@@ -32,7 +31,7 @@ export const Base = () => {
   return (
     <div>
       <div style={{ padding: 10 }}>
-        <Dropzone config={config} translations={translations('en')} />
+        <Dropzone config={config} />
       </div>
       <div style={{ padding: 10 }}>{mediaLinks}</div>
     </div>

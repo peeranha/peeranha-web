@@ -1,7 +1,6 @@
 import React from 'react';
 import Dropzone from 'components/common/Dropzone';
 import { uploadImagesToIpfs, uploadVideoToLivepeer } from 'utils/uploadFiles';
-import { translations } from 'components/common/Dropzone/translations';
 import Wrapper from './Wrapper';
 
 type MediaInputFieldProps = {
@@ -14,7 +13,6 @@ type MediaInputFieldProps = {
   mediaLinks: string[];
   setMediaLink: (link: string) => void;
   showToastDispatch: () => void;
-  locale: string;
 };
 
 export const MediaInputField = ({
@@ -25,7 +23,6 @@ export const MediaInputField = ({
   splitInHalf,
   setMediaLink,
   showToastDispatch,
-  locale,
 }: MediaInputFieldProps) => {
   const config = [
     {
@@ -52,11 +49,7 @@ export const MediaInputField = ({
       splitInHalf={splitInHalf}
       disabled={disabled}
     >
-      <Dropzone
-        config={config}
-        translations={translations(locale)}
-        showToast={showToastDispatch}
-      />
+      <Dropzone config={config} showToast={showToastDispatch} />
     </Wrapper>
   );
 };

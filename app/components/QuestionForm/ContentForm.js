@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
@@ -14,7 +14,6 @@ import reducer from '../../containers/Toast/reducer';
 import { FORM_CONTENT, FORM_MEDIA } from './constants';
 import MediaInputField from '../FormFields/MediaInputField';
 import { addToast } from '../../containers/Toast/actions';
-import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
 
 const ContentForm = ({
   questionLoading,
@@ -41,11 +40,10 @@ const ContentForm = ({
         name={FORM_MEDIA}
         component={MediaInputField}
         disabled={questionLoading}
-        label={intl.formatMessage(messages.media)}
+        label={t('common.questionMediaLabel')}
         mediaLink={mediaLink}
         setMediaLink={setMediaLink}
         showToastDispatch={showToastDispatch}
-        locale={locale}
       />
     </>
   );
@@ -59,10 +57,7 @@ ContentForm.propTypes = {
 
 export default compose(
   injectReducer({ key: 'toast', reducer }),
-  connect(
-    createStructuredSelector({ locale: makeSelectLocale() }),
-    (dispatch) => ({
-      showToastDispatch: bindActionCreators(addToast, dispatch),
-    }),
-  ),
+  connect(createStructuredSelector({}), (dispatch) => ({
+    showToastDispatch: bindActionCreators(addToast, dispatch),
+  })),
 )(ContentForm);

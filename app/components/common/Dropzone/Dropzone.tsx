@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import { Upload } from 'tus-js-client';
+import { useTranslation } from 'react-i18next';
 
 import PlusWithoutCircleIcon from 'icons/PlusWithoutCircle';
 import { styles } from './Dropzone.styled';
@@ -31,12 +32,6 @@ type DropzoneProps = {
     saveUploadedFileLink: (link: string) => void;
     showUploadProgress: boolean;
   }>;
-  translations: {
-    dragFiles: string;
-    clickTo: string;
-    attach: string;
-    mediaRestrictions: string;
-  };
   showToast?: (toastSettings: { type: string; text: string }) => void;
 };
 
@@ -56,9 +51,9 @@ type SingleFile = {
 
 const Dropzone: React.FC<DropzoneProps> = ({
   config,
-  translations,
   showToast,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const [files, setFiles] = useState<Files>({});
 
   const addNewFile = (file: File): void => {
@@ -194,11 +189,11 @@ const Dropzone: React.FC<DropzoneProps> = ({
         </span>
         <div className="df jcc fdc">
           <span className="fz14 mb4 dn" css={css(styles.dragText)}>
-            {translations.dragFiles}
+            {t('common.dragFiles')}
           </span>
           <span className="fz14" css={css(styles.attachText)}>
-            {translations.clickTo}
-            <span>{translations.attach}</span>
+            {t('common.clickTo')}
+            <span>{t('common.attach')}</span>
           </span>
         </div>
         <input
@@ -217,7 +212,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
         cancelUpload={cancelUpload}
       />
       <p className="fz12" css={css(styles.restrictionsText)}>
-        {translations.mediaRestrictions}
+        {t('common.mediaRestrictions')}
       </p>
     </div>
   );
