@@ -106,4 +106,3 @@ export { default as SocialDiscord } from './SocialDiscord';
 export { default as Pin } from './Pin';
 export { default as AddSubArticle } from './AddSubArticle';
 export { default as Save } from './Save';
-export { default as CopyText } from './CopyText';
