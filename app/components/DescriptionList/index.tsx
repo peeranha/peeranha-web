@@ -1,9 +1,9 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 
 import styled from 'styled-components';
 
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
+
 import { BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -40,25 +40,26 @@ const Base = styled.div`
 type DescriptionListProps = {
   label: string;
   items?: string;
-  locale: string;
 };
 
 export const DescriptionList: React.FC<DescriptionListProps> = ({
   label,
   items,
-  locale,
 }): JSX.Element | null => {
+  const { t } = useTranslation();
+
   if (!items) {
     return null;
   }
+
   return (
     <Base>
-      <FormattedMessage id={label} />
+      {t(label)}
       {Boolean(items.length) && (
         <ul>
-          {translationMessages[locale][items]?.map((item: any) => (
+          {t(items, { returnObjects: true }).map((item) => (
             <li key={item}>
-              <span>{item}</span>
+              <span>{t(item)}</span>
             </li>
           ))}
         </ul>

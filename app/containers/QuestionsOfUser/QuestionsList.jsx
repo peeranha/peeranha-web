@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
 
 import {
@@ -21,7 +21,6 @@ import Span from 'components/Span';
 import A from 'components/A';
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 
-import messages from 'containers/Profile/messages';
 import { getUserName } from 'utils/user';
 import { POST_TYPE_ANSWER } from '../Profile/constants';
 import { getPostRoute } from '../../routes-config';
@@ -61,10 +60,12 @@ export const Li = BaseRoundedNoPadding.extend`
 `;
 
 const LastAnswer = ({ lastAnswer, locale }) => {
+  const { t } = useTranslation();
+
   if (!lastAnswer) {
     return (
       <Span fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage id={messages.noAnswersYet.id} />
+        {t('profile.noAnswersYet')}
       </Span>
     );
   }
@@ -83,7 +84,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
       )}
 
       <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
-        <FormattedMessage id={messages.lastAnswer.id} />{' '}
+        {t('profile.lastAnswer')}{' '}
         {getFormattedDate(
           lastAnswer.postTime,
           locale,
@@ -94,7 +95,6 @@ const LastAnswer = ({ lastAnswer, locale }) => {
   );
 };
 
-/* eslint camelcase: 0 */
 const Question = ({
   myPostRating,
   title,

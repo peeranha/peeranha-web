@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { bindActionCreators, compose } from 'redux';
 
 import {
@@ -30,7 +30,6 @@ import Seo from 'components/Seo';
 import reducer from './reducer';
 
 import { setEditTagData } from './actions';
-import messages from './messages';
 
 import Content from './Content';
 import Aside from './Aside';
@@ -50,10 +49,11 @@ export const TagsOfCommunity = ({
   setEditTagDataDispatch,
   profileInfo,
 }) => {
-  const communityId = useMemo(() => single || +match.params.communityid, [
-    match.params.communityid,
-    single,
-  ]);
+  const { t } = useTranslation();
+  const communityId = useMemo(
+    () => single || +match.params.communityid,
+    [match.params.communityid, single],
+  );
 
   const currentCommunity = useMemo(
     () =>
@@ -61,7 +61,7 @@ export const TagsOfCommunity = ({
     [communityId, communities.length, emptyCommunity],
   );
   const typeInput = useCallback(
-    ev =>
+    (ev) =>
       getExistingTagsDispatch({
         communityId: currentCommunity.id,
         text: ev.target.value,
@@ -70,7 +70,7 @@ export const TagsOfCommunity = ({
   );
 
   const sortTags = useCallback(
-    ev =>
+    (ev) =>
       getExistingTagsDispatch({
         communityId: currentCommunity.id,
         sorting: ev.currentTarget.dataset.key,
@@ -87,24 +87,22 @@ export const TagsOfCommunity = ({
     [currentCommunity.id],
   );
 
-  const keywords = useMemo(() => currentCommunity.tags.map(x => x.name), [
-    currentCommunity.tags,
-  ]);
-
-  useEffect(
-    () => {
-      getExistingTagsDispatch({
-        loadMore: false,
-        communityId: currentCommunity.id,
-      });
-    },
-    [communityId, communities.length, currentCommunity],
+  const keywords = useMemo(
+    () => currentCommunity.tags.map((x) => x.name),
+    [currentCommunity.tags],
   );
+
+  useEffect(() => {
+    getExistingTagsDispatch({
+      loadMore: false,
+      communityId: currentCommunity.id,
+    });
+  }, [communityId, communities.length, currentCommunity]);
   return (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('tags.title')}
+        description={t('tags.descriptionTags')}
         language={locale}
         keywords={keywords}
       />
@@ -171,14 +169,8 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'tagsOfCommunity', reducer });
 
-export default compose(
-  withConnect,
-  withReducer,
-)(TagsOfCommunity);
+export default compose(withConnect, withReducer)(TagsOfCommunity);

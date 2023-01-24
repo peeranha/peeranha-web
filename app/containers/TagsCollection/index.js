@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -15,34 +15,34 @@ import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
 import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import Banner from 'containers/Tags/Banner';
 
 import { createStructuredSelector } from 'reselect';
-
-import messages from './messages';
 
 import Header from './Header';
 import List from './List';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
-export const TagsCollection = /* istanbul ignore next */ ({
+export const TagsCollection = ({
   locale,
   communities,
   communitiesLoading,
   redirectToCreateTagDispatch,
   profile,
 }) => {
+  const { t } = useTranslation();
   const keywords = useMemo(
     () =>
-      communities.map(comm => comm.tags.map(tag => `${comm.name} ${tag.name}`)),
+      communities.map((comm) =>
+        comm.tags.map((tag) => `${comm.name} ${tag.name}`),
+      ),
     [communities],
   );
 
   return (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('tags.tagsCollection')}
+        description={t('tags.tagsDescription')}
         language={locale}
         keywords={keywords}
       />
@@ -70,7 +70,7 @@ const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
 });
 
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+function mapDispatchToProps(dispatch) {
   return {
     redirectToCreateTagDispatch: bindActionCreators(
       redirectToCreateTag,
@@ -79,7 +79,4 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TagsCollection);
+export default connect(mapStateToProps, mapDispatchToProps)(TagsCollection);

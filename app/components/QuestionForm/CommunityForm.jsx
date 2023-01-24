@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
-import { intlShape } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -13,17 +13,15 @@ import CommunityField from 'components/FormFields/CommunityField';
 
 import { FORM_COMMUNITY, FORM_TAGS } from './constants';
 
-import messages from './messages';
-
 const single = isSingleCommunityWebsite();
 
 const CommunityForm = ({
-  intl,
   communities,
   change,
   questionLoading,
   disableCommForm,
 }) => {
+  const { t } = useTranslation();
   const onChange = useCallback(() => change(FORM_TAGS, ''), [change]);
 
   return (
@@ -33,8 +31,8 @@ const CommunityForm = ({
       component={CommunityField}
       onChange={onChange}
       disabled={questionLoading || disableCommForm}
-      label={intl.formatMessage(messages.communityLabel)}
-      tip={intl.formatMessage(messages.communityTip)}
+      label={t('common.communityLabel')}
+      tip={t('common.communityTip')}
       options={communities}
       validate={[requiredForObjectField, requiredMinReputation]}
       warn={[requiredForObjectField, requiredMinReputation]}
@@ -48,7 +46,6 @@ CommunityForm.propTypes = {
   questionLoading: PropTypes.bool,
   disableCommForm: PropTypes.bool,
   communities: PropTypes.array,
-  intl: intlShape.isRequired,
 };
 
 export default memo(CommunityForm);

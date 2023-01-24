@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { Field } from 'redux-form/immutable';
 import { requiredPostTypeSelection } from 'components/FormFields/validate';
 import { FORM_TYPE } from './constants';
-import messages from './messages';
+import { useTranslation } from 'react-i18next';
 import QuestionTypeField from './QuestionTypeField';
 import DescriptionList from 'components/DescriptionList';
 import {
@@ -11,21 +11,19 @@ import {
 } from 'components/QuestionForm/utils';
 
 type TypeFormProps = {
-  intl: any;
-  change: Function;
+  change: any;
   locale: string;
   questionLoading: boolean;
   formValues?: any;
   hasSelectedType: boolean;
-  setHasSelectedType: Function;
+  setHasSelectedType: any;
   isError: boolean;
-  setIsError: Function;
+  setIsError: any;
   isCommunityModerator: boolean;
   isDocumentation: boolean;
 };
 
 const TypeForm: React.FC<TypeFormProps> = ({
-  intl,
   change,
   locale,
   questionLoading,
@@ -37,6 +35,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
   isCommunityModerator,
   isDocumentation,
 }): JSX.Element | null => {
+  const { t } = useTranslation();
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
@@ -61,8 +60,8 @@ const TypeForm: React.FC<TypeFormProps> = ({
         component={QuestionTypeField}
         disabled={questionLoading}
         onChange={onChange}
-        label={intl.formatMessage(messages.questionType)}
-        tip={intl.formatMessage(messages.questionTypeTip)}
+        label={t('common.questionType')}
+        tip={t('common.questionTypeTip')}
         validate={requiredPostTypeSelection}
         splitInHalf
         error={isError}
@@ -70,7 +69,6 @@ const TypeForm: React.FC<TypeFormProps> = ({
       />
       {hasSelectedType && (
         <DescriptionList
-          locale={locale}
           label={descriptionListLabel}
           items={descriptionListItems}
         />

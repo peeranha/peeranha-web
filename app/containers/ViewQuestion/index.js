@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { scrollToSection } from 'utils/animation';
-import {
-  communityAdminInfiniteImpactPermission,
-  getPermissions,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import * as routes from 'routes-config';
 
@@ -47,13 +43,23 @@ import {
 } from './actions';
 
 import * as makeSelectViewQuestion from './selectors';
-import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import { POST_TYPE } from '../../utils/constants';
-import { selectHistoriesLoading } from './selectors';
+
+const getRoute = (postType) => {
+  if (postType === POST_TYPE.generalPost) {
+    return 'questionView';
+  }
+
+  if (postType === POST_TYPE.expertPost) {
+    return 'expertPostView';
+  }
+
+  return 'tutorialView';
+};
 
 export const ViewQuestion = ({
   locale,
@@ -61,7 +67,6 @@ export const ViewQuestion = ({
   historiesLoading,
   account,
   questionData,
-  questionBounty,
   postAnswerLoading,
   postCommentLoading,
   questionDataLoading,
@@ -97,24 +102,14 @@ export const ViewQuestion = ({
   profile,
   history,
 }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (questionData) {
-      const route =
-        questionData.postType === POST_TYPE.generalPost
-          ? 'questionView'
-          : questionData.postType === POST_TYPE.expertPost
-          ? 'expertPostView'
-          : 'tutorialView';
-      if (
-        match.url !==
-        routes[route](match.params.id, decodeURIComponent(match.params.title))
-      ) {
-        history.push(
-          routes[route](
-            match.params.id,
-            decodeURIComponent(match.params.title),
-          ),
-        );
+      const route = getRoute(questionData.postType);
+
+      if (match.url !== routes[route](match.params.id, questionData.title)) {
+        history.push(routes[route](match.params.id, questionData.title));
       }
     }
   }, [questionData]);
@@ -150,8 +145,6 @@ export const ViewQuestion = ({
       history.push(routes.notFound('type=deleted'));
     }
   }, [questionData, questionDataLoading]);
-
-  const translations = translationMessages[locale];
 
   const [isChangeTypeAvailable, infiniteImpact] = useMemo(
     () => [
@@ -189,7 +182,6 @@ export const ViewQuestion = ({
     downVote: downVoteDispatch,
     markAsAccepted: markAsAcceptedDispatch,
     voteToDelete: voteToDeleteDispatch,
-    translations,
     upVoteLoading,
     downVoteLoading,
     markAsAcceptedLoading,
@@ -207,11 +199,9 @@ export const ViewQuestion = ({
     profile,
   };
 
-  const helmetTitle =
-    questionData?.content.title || translations[messages.title.id];
+  const helmetTitle = questionData?.content.title || t('post.title');
 
-  const helmetDescription =
-    questionData?.content.content ?? translations[messages.title.id];
+  const helmetDescription = questionData?.content.content ?? t('post.title');
 
   const articlePublishedTime = questionData?.postTime
     ? new Date(questionData.postTime * 1000)

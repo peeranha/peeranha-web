@@ -1,8 +1,5 @@
 import { Field, reduxForm } from 'redux-form/immutable';
-// @ts-ignore
-import { FormattedMessage } from 'react-intl';
-// @ts-ignore
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import React, { FormEventHandler, useState } from 'react';
 import { css } from '@emotion/react';
 
@@ -19,7 +16,6 @@ import {
   ADD_MODERATOR_BUTTON_BUTTON,
   WALLET_ADDRESS_FIELD,
 } from 'containers/Administration/constants';
-import messages from 'containers/Administration/messages';
 
 import { scrollToErrorField } from 'utils/animation';
 import { TEXT_DARK } from 'style-constants';
@@ -38,18 +34,17 @@ type AddModeratorFormProps = {
 };
 
 const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
-  locale,
   single,
   handleSubmit,
   addModerator,
   Button,
   addModeratorLoading,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const [isOpened, open] = useState(false);
 
   const closeModal = () => {
     document.getElementsByTagName('body')[0].style.position = 'relative';
-    // @ts-ignore
     modalRoot.removeChild(el);
     open(false);
   };
@@ -78,7 +73,7 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
             `}
             className="tc"
           >
-            <FormattedMessage id={messages.addModerator.id} />
+            {t('administration.addModerator')}
           </h5>
 
           <form onSubmit={handleSubmit(addModeratorMethod)}>
@@ -86,16 +81,14 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
               name={WALLET_ADDRESS_FIELD}
               disabled={addModeratorLoading}
               component={TextInputField}
-              placeholder={
-                translationMessages[locale][messages.walletAddress.id]
-              }
+              placeholder={t('common.walletAddress')}
               validate={[required, stringHasToBeEthereumAddress]}
               warn={[required, stringHasToBeEthereumAddress]}
             />
 
             <div className="df aic">
               <OutlinedButton className="mr12" onClick={closeModal}>
-                <FormattedMessage id={messages.cancel.id} />
+                {t('administration.cancel')}
               </OutlinedButton>
 
               <ContainedButton
@@ -103,7 +96,7 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
                 type="submit"
                 id={ADD_MODERATOR_BUTTON_BUTTON}
               >
-                <FormattedMessage id={messages.confirm.id} />
+                {t('administration.confirm')}
               </ContainedButton>
             </div>
           </form>
