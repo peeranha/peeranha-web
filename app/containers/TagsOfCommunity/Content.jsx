@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import createdHistory from 'createdHistory';
 
-import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 
 import {
@@ -27,8 +25,6 @@ import Span from 'components/Span';
 import P from 'components/P';
 import Grid from 'components/Grid';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
-
-import messages from './messages';
 
 const Tag = styled.li`
   height: ${({ editTagModerator }) => (editTagModerator ? '180px' : '140px')};
@@ -98,11 +94,11 @@ const Content = ({
   existingTagsLoading,
   typeInput,
   text,
-  locale,
   communityId,
   setEditTagData,
   profileInfo,
 }) => {
+  const { t } = useTranslation();
   const showEditTagForm = (tagId) => {
     setEditTagData(tagId, communityId);
     createdHistory.push(routes.editTag(communityId, tagId));
@@ -131,7 +127,7 @@ const Content = ({
             >
               <Input
                 input={{ onChange: typeInput, value: text }}
-                placeholder={translationMessages[locale][messages.findTag.id]}
+                placeholder={t('tags.findTag')}
                 isSearchable
               />
             </Item>
@@ -166,7 +162,7 @@ const Content = ({
                     className="ml-15"
                     onClick={() => showEditTagForm(x.id)}
                   >
-                    <FormattedMessage {...commonMessages.edit} />
+                    {t('common.edit')}
                   </InfoButton>
                 </EditTagBtnContainer>
               )}

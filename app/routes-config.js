@@ -82,10 +82,8 @@ export const getPostRoute = ({ postType, id, answerId = null, title }) => {
   return tutorialView(id, title);
 };
 
-export const questionEdit = (postType, questionId, title) => {
-  const updatedTitle = updateTitle(title);
-  return `/${postType}/${questionId}/${updatedTitle}/edit`;
-};
+export const questionEdit = (postType, questionId, title) =>
+  `/${postType}/${questionId}/${updateTitle(title)}/edit`;
 
 export const answerEdit = (questionId, answerId) =>
   !singleCommId
@@ -153,8 +151,6 @@ export const registrationStage = 'signup';
 export const preloaderPage = () => '/preloader-page';
 
 export const referralPage = (user) => `/?${REFERRAL_CODE_URI}=${user}`;
-
-export const facebookDataDeletion = () => '/facebook-data-deletion';
 
 export const documentation = (sectionId, title) =>
   `/documentation/${sectionId}/${updateTitle(title)}`;

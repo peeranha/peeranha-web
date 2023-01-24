@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
-
-import commonMessages from 'common-messages';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -26,7 +24,6 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 import Wrapper from './Wrapper';
 
@@ -51,19 +48,12 @@ const EditAnswer = ({
   getQuestionDataDispatch,
   questionTitle,
 }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     getQuestionDataDispatch(questionid);
     getAnswerDispatch(+questionid, +answerid);
   }, [questionid, answerid]);
-
-  const msg = useMemo(() => translationMessages[locale], [locale]);
-  const [title, description] = useMemo(
-    () => [
-      answer?.content ?? msg[messages.title.id],
-      answer?.content ?? msg[messages.title.description],
-    ],
-    [answer],
-  );
 
   const sendAnswer = useCallback(
     (values) =>
@@ -74,7 +64,7 @@ const EditAnswer = ({
         values.get(ANSWER_TYPE_FORM),
         questionTitle,
       ),
-    [questionid, answerid, title, questionTitle],
+    [questionid, answerid, questionTitle],
   );
 
   const { properties, communityId, content, isOfficialReply } = useMemo(
@@ -85,15 +75,15 @@ const EditAnswer = ({
   const sendProps = useMemo(
     () => ({
       form: EDIT_ANSWER_FORM,
-      formHeader: msg[messages.title.id],
+      formHeader: t('post.title'),
       sendButtonId: EDIT_ANSWER_BUTTON,
       sendAnswer,
       sendAnswerLoading: editAnswerLoading,
-      submitButtonName: msg[messages.submitButtonName.id],
+      submitButtonName: t('post.submitButtonName'),
       answer: content,
       locale,
-      label: msg[commonMessages.answer.id],
-      previewLabel: msg[commonMessages.preview.id],
+      label: t('common.answer'),
+      previewLabel: t('common.preview'),
       isOfficialReply,
       communityId,
     }),
@@ -105,7 +95,16 @@ const EditAnswer = ({
       properties,
       communityId,
       content,
+      t,
     ],
+  );
+
+  const [title, description] = useMemo(
+    () => [
+      answer?.content ?? t('post.title'),
+      answer?.content ?? t('post.description'),
+    ],
+    [answer],
   );
 
   const available = useMemo(

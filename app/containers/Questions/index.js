@@ -1,10 +1,9 @@
-/* eslint no-unused-expressions: 0 */
 import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
 
 import * as routes from 'routes-config';
@@ -44,7 +43,6 @@ import { getQuestions, setCreatedFilter, setTypeFilter } from './actions';
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 import Content from './Content/Content';
 import Banner from './Banner';
@@ -61,13 +59,11 @@ export const Questions = ({
   questionsList,
   questionsLoading,
   topQuestionsLoading,
-  promotedQuestions,
   isLastFetch,
   communities,
   followedCommunities,
   parentPage,
   communitiesLoading,
-  account,
   profile,
   match: { params, path },
   redirectToAskQuestionPageDispatch,
@@ -83,6 +79,7 @@ export const Questions = ({
   isLastTopQuestionLoaded,
   postsTypes,
 }) => {
+  const { t } = useTranslation();
   const isFeed = window.location.pathname === routes.feed(params.communityid);
   const isNotFollowedCommunities =
     isEmpty(followedCommunities) || followedCommunities[0] === 0;
@@ -198,8 +195,8 @@ export const Questions = ({
   return display ? (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('post.questions.title')}
+        description={t('post.questions.description')}
         language={locale}
       />
       <ScrollToTop />
@@ -232,9 +229,6 @@ export const Questions = ({
           <Content
             isFeed={isFeed}
             questionsList={questionsList}
-            // promotedQuestionsList={
-            //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
-            // }
             locale={locale}
             communities={communities}
             typeFilter={typeFilter}
@@ -248,7 +242,7 @@ export const Questions = ({
               <ShowMoreButton
                 questionFilterFromCookies={questionFilterFromCookies}
               >
-                {translationMessages[locale][messages.showAllQuestions.id]}
+                {t('common.showAllQuestions')}
               </ShowMoreButton>
             </div>
           )}

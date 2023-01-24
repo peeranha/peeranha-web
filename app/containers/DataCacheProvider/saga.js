@@ -8,7 +8,6 @@ import { getMD } from 'utils/mdManagement';
 import { getAchievements } from 'utils/achievementsManagement';
 import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
 import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
@@ -104,8 +103,7 @@ export function* getCommunityTagsWorker({ communityId }) {
 export function* getFaqWorker() {
   try {
     const prefix = 'faq';
-    const locale = yield select(makeSelectLocale());
-    const faq = yield call(getMD, prefix, locale);
+    const faq = yield call(getMD, prefix);
 
     yield put(getFaqSuccess(faq));
   } catch (err) {
@@ -116,8 +114,7 @@ export function* getFaqWorker() {
 export function* getTutorialWorker() {
   try {
     const prefix = 'tutorial';
-    const locale = yield select(makeSelectLocale());
-    const tutorial = yield call(getMD, prefix, locale);
+    const tutorial = yield call(getMD, prefix);
 
     yield put(getTutorialSuccess(tutorial));
   } catch (err) {

@@ -27,6 +27,16 @@ const ProfileViewForm = ({
     profile.id === account &&
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
+
+  const onClickRedirectToEditProfilePage = ({
+    currentTarget: { id, user },
+  }) => {
+    redirectToEditProfilePage({
+      buttonId: id,
+      user,
+    });
+  };
+
   return (
     <div className={className}>
       <MainUserInformation
@@ -42,7 +52,7 @@ const ProfileViewForm = ({
         profile={profile}
         userId={userId}
         account={account}
-        redirectToEditProfilePage={redirectToEditProfilePage}
+        redirectToEditProfilePage={onClickRedirectToEditProfilePage}
       />
 
       {(isProfilePage || profile.ratings?.length > 0) && (

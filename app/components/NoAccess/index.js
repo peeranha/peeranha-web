@@ -1,16 +1,11 @@
-/**
- *
- * NoAccess
- *
- */
-
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import Seo from 'components/Seo';
-import messages from './messages';
 
 function NoAccess() {
+  const { t } = useTranslation();
+
   return (
     <div className="container">
       <Seo
@@ -21,7 +16,7 @@ function NoAccess() {
       />
 
       <div className="text-center pt-3">
-        <FormattedMessage {...messages.errorMessage} />
+        {t('common.youDontHaveFeedToRead')}
       </div>
     </div>
   );

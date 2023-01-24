@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import DisLikeIcon from 'icons/DisLike';
 import LikeIcon from 'icons/Like';
@@ -21,7 +21,6 @@ import {
   getFollowedCommunities,
   isSingleCommunityWebsite,
 } from '../../../utils/communityManagement';
-import commonMessages from '../../../common-messages';
 import * as routes from '../../../routes-config';
 
 const single = isSingleCommunityWebsite();
@@ -57,6 +56,7 @@ const Post: React.FC<PostProps> = ({
   rating,
   replyCount,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const community =
     getFollowedCommunities(communities, [Number(communityId)])[0] || {};
 
@@ -75,7 +75,7 @@ const Post: React.FC<PostProps> = ({
     <div className="df mb8 border-box" css={css(styles.post)}>
       <div className="m16 full-width" css={css(styles.container)}>
         <div className="df aic">
-          <QuestionType postType={postType} locale={locale} className="mr4" />
+          <QuestionType postType={postType} className="mr4" />
 
           <Link
             to={postLink}
@@ -89,7 +89,7 @@ const Post: React.FC<PostProps> = ({
         <div css={css(styles.mainInfo)}>
           {postTime && (
             <span className="db mt8 fz12 light" css={css(styles.creationTime)}>
-              <FormattedMessage id={commonMessages.asked.id} />{' '}
+              {t('common.asked')}
               {getFormattedDate(
                 postTime,
                 locale,
