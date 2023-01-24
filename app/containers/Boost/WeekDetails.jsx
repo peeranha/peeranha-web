@@ -1,6 +1,6 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import {
@@ -13,14 +13,11 @@ import {
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
 
 import { getFormattedNum3 } from 'utils/numbers';
-import { getPredictedBoost } from 'utils/walletManagement';
 
 import P from 'components/P';
 import Span from 'components/Span';
 import Base from 'components/Base';
 import SmallImage from 'components/Img/SmallImage';
-
-import messages from './messages';
 
 const BaseGroup = styled.div`
   margin-bottom: 20px;
@@ -41,11 +38,13 @@ const WeekDetails = ({
   userBoost,
   isCurrentWeek,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Base position="bottom">
       <BaseGroup>
         <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-          <FormattedMessage {...messages.maximumStake} />
+          {t('boost.maximumStake')}
         </P>
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
@@ -56,7 +55,7 @@ const WeekDetails = ({
       </BaseGroup>
       <BaseGroup>
         <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-          <FormattedMessage {...messages.yourStake} />
+          {t('boost.yourStake')}
         </P>
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
@@ -68,9 +67,7 @@ const WeekDetails = ({
       {userBoost > 1 && (
         <BaseGroup>
           <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-            <FormattedMessage
-              {...messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost']}
-            />
+            {t(`boost.${isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost'}`)}
           </P>
           <P className="d-flex align-items-center">
             <PredictionPower

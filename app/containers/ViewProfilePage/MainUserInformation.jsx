@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
 
-import commonMessages from 'common-messages';
 import {
   TEXT_DARK,
   TEXT_SECONDARY,
   LINK_COLOR,
-  BORDER_SECONDARY,
   TEXT_PRIMARY,
 } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
@@ -17,26 +15,23 @@ import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import FaqIcon from 'icons/Faq';
-import questionRoundedIcon from 'images/question2.svg?external';
 import AnswerWithAIcon from 'icons/AnswerWithA';
 import pencilIcon from 'images/pencil.svg?external';
 import CopyTextIcon from 'icons/CopyText';
-import { translationMessages } from 'i18n';
+
 import Base from 'components/Base';
 import A from 'components/A';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
-import { IconLg, IconMd } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 import { showPopover } from 'utils/popover';
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
-import ProfileSince from 'components/ProfileSince';
 import { getUserName } from 'utils/user';
 import useMediaQuery from 'hooks/useMediaQuery';
 
@@ -175,6 +170,7 @@ const MainUserInformation = ({
   redirectToEditProfilePage,
   userAchievementsLength,
 }) => {
+  const { t } = useTranslation();
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
@@ -186,10 +182,7 @@ const MainUserInformation = ({
     navigator.clipboard.writeText(userId);
     setCopied(colors.btnColor || LINK_COLOR);
     if (isDesktop) {
-      showPopover(
-        event.currentTarget.id,
-        translationMessages[locale][commonMessages.copied.id],
-      );
+      showPopover(event.currentTarget.id, t('common.copied'));
     }
   };
 
@@ -273,7 +266,7 @@ const MainUserInformation = ({
                 color={colors.btnColor || TEXT_PRIMARY}
               />
               <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
-                <FormattedMessage id={messages.editProfile.id} />
+                {t('profile.editProfile')}
               </Span>
             </button>
           </div>
@@ -306,7 +299,8 @@ const MainUserInformation = ({
                   }
                 `}
               >
-                <FormattedMessage id={messages.status.id} />
+                <span>{t('profile.status')}</span>
+
                 <RatingStatus
                   isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
@@ -328,7 +322,7 @@ const MainUserInformation = ({
                   }
                 `}
               >
-                <FormattedMessage id={commonMessages.posts.id} />
+                <span>{t('common.posts')}</span>
                 <span>
                   <FaqIcon
                     className="mr-2"
@@ -348,7 +342,7 @@ const MainUserInformation = ({
                   }
                 `}
               >
-                <FormattedMessage id={commonMessages.answers.id} />
+                <span>{t('common.answers')}</span>
                 <span>
                   <AnswerWithAIcon
                     className="mr-2"
@@ -373,7 +367,8 @@ const MainUserInformation = ({
                   }
                 `}
               >
-                <FormattedMessage id={messages.achievements.id} />
+                <span>{t('profile.achievements')}</span>
+
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
@@ -390,7 +385,7 @@ const MainUserInformation = ({
                     flex-direction: row;
                   `}
                 >
-                  <FormattedMessage id={commonMessages.walletAddress.id} />
+                  <span>{t('common.walletAddress')}</span>
                   <div>
                     <A
                       to={{ pathname: userPolygonScanAddress }}

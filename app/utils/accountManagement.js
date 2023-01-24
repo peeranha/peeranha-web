@@ -43,7 +43,7 @@ export async function giveCommunityModeratorPermission(
     CONTRACT_USER,
     user,
     GIVE_COMMUNITY_MODERATOR_PERMISSION,
-    [userToGive, communityId],
+    [user, userToGive, communityId],
   );
 }
 
@@ -57,7 +57,7 @@ export async function revokeCommunityModeratorPermission(
     CONTRACT_USER,
     user,
     REVOKE_COMMUNITY_MODERATOR_PERMISSION,
-    [userToRevoke, communityId],
+    [user, userToRevoke, communityId],
   );
 }
 

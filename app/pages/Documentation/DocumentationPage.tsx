@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators, compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { RouteComponentProps } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
@@ -11,6 +12,7 @@ import { css } from '@emotion/react';
 
 import ViewContent from 'components/Documentation/components/ViewContent';
 import Loader from 'components/Documentation/components/Loader';
+import Seo from 'components/Seo';
 
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { getArticleDocumentation } from './actions';
@@ -21,6 +23,7 @@ import {
   selectDocumentationMenu,
   selectPinnedItemMenu,
 } from 'containers/AppWrapper/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   DocumentationArticle,
   OutputSelector,
@@ -36,6 +39,7 @@ interface DocumentationProps extends RouteComponentProps<RouterDocumentetion> {
   isArticleLoading: boolean;
   pinnedItemMenu: PinnedArticleType;
   documentationMenu: Array<DocumentationItemMenuType>;
+  locale: string;
 }
 
 export const DocumentationPage: React.FC<DocumentationProps> = ({
@@ -45,9 +49,11 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   isArticleLoading,
   pinnedItemMenu,
   documentationMenu,
+  locale,
 }) => {
+  const { t } = useTranslation();
   const ipfsHash = pinnedItemMenu?.id || documentationMenu[0]?.id;
-  const ipfsHasgBytes32 = Boolean(match.params.sectionId)
+  const ipfsHasgBytes32 = match.params.sectionId
     ? getBytes32FromIpfsHash(match.params.sectionId)
     : ipfsHash;
 
@@ -64,17 +70,24 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   }
 
   return documentationSection?.id !== '' ? (
-    <div
-      css={css`
-        flex-grow: 1;
-      `}
-    >
-      {isArticleLoading || !documentationSection ? (
-        <Loader />
-      ) : (
-        <ViewContent documentationArticle={documentationSection} />
-      )}
-    </div>
+    <>
+      <Seo
+        title={t('common.documentation')}
+        description={t('common.description')}
+        language={locale}
+      />
+      <div
+        css={css`
+          flex-grow: 1;
+        `}
+      >
+        {isArticleLoading || !documentationSection ? (
+          <Loader />
+        ) : (
+          <ViewContent documentationArticle={documentationSection} />
+        )}
+      </div>
+    </>
   ) : null;
 };
 
@@ -88,6 +101,7 @@ export default compose(
       isArticleLoading: selectDocumentationLoading(),
       pinnedItemMenu: selectPinnedItemMenu(),
       documentationMenu: selectDocumentationMenu(),
+      locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(

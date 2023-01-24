@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { BORDER_PRIMARY } from 'style-constants';
 
 import createCommunityIcon from 'images/createCommunity.svg?inline';
@@ -12,8 +12,6 @@ import SubHeaderWrapper, {
   SubHeaderWrapperRightPanel,
 } from 'components/Header/Complex';
 
-import messages from './messages';
-import languages from './languagesOptions';
 import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
 import {
   getPermissions,
@@ -27,10 +25,9 @@ const Header = ({
   changeSorting,
   sorting,
   communitiesNumber,
-  setLang,
-  language,
   profile,
 }) => {
+  const { t } = useTranslation();
   const profileWithEditingRights =
     profile &&
     (hasProtocolAdminRole(getPermissions(profile)) ||
@@ -61,7 +58,7 @@ const Header = ({
               </span>
 
               <span className="ml-1 button-label">
-                <FormattedMessage {...messages.suggestCommunity} />
+                {t('common.suggestCommunity')}
               </span>
             </TransparentButton>
           </SubHeaderWrapperRightPanel>
@@ -72,9 +69,6 @@ const Header = ({
         changeSorting={changeSorting}
         sorting={sorting}
         communitiesNumber={communitiesNumber}
-        setLang={setLang}
-        language={language}
-        languages={languages}
       />
     </div>
   );

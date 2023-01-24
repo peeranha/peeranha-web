@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
-
-import commonMessages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import H3 from 'components/H3';
 
-import profileMessages from '../Profile/messages';
 import { BaseStyled } from './SettingsOfUser';
 
 const single = isSingleCommunityWebsite();
 
 const ReferralProgram = ({ className, user, writeToBuffer }) => {
+  const { t } = useTranslation();
   const referralLink = `${
     single ? window.location.origin : process.env.APP_LOCATION
   }${routes.referralPage(user)}`;
@@ -24,17 +22,15 @@ const ReferralProgram = ({ className, user, writeToBuffer }) => {
     <>
       <BaseStyled className={className} style={{ marginTop: '10px' }}>
         <div>
-          <H3>
-            <FormattedMessage {...profileMessages.referralProgram} />
-          </H3>
-          <FormattedMessage {...profileMessages.referralText} />
+          <H3>{t('profile.referralProgram')}</H3>
+          {t('profile.referralText')}
         </div>
         <div>
           <table id="referral">
             <thead>
               <tr>
                 <td id="link">
-                  <FormattedMessage {...profileMessages.referralLink} />
+                  {t('profile.referralLink')}
                   <Link to={routes.referralPage(user)}>{referralLink}</Link>
                 </td>
                 <td>
@@ -44,7 +40,7 @@ const ReferralProgram = ({ className, user, writeToBuffer }) => {
                     onClick={writeToBuffer}
                     className={'link-btn'}
                   >
-                    <FormattedMessage {...commonMessages.copy} />{' '}
+                    {t('common.copy')}{' '}
                   </button>
                 </td>
               </tr>
@@ -52,7 +48,7 @@ const ReferralProgram = ({ className, user, writeToBuffer }) => {
             <tbody>
               <tr>
                 <td>
-                  <FormattedMessage {...profileMessages.referralCode} />
+                  {t('profile.referralCode')}
                   <p id="code">{user}</p>
                 </td>
                 <td>
@@ -62,7 +58,7 @@ const ReferralProgram = ({ className, user, writeToBuffer }) => {
                     onClick={writeToBuffer}
                     className={'link-btn'}
                   >
-                    <FormattedMessage {...commonMessages.copy} />{' '}
+                    {t('common.copy')}{' '}
                   </button>
                 </td>
               </tr>
