@@ -167,6 +167,8 @@
   "tutorialPopoverTitle": "教程",
   "tutorialPopoverLabel": "教程是手动说明，可以是以下之一：",
   "tutorialPopoverList": ["逐步解决问题；", "技术设置；", "“操作方法”指南。"],
+  "documentationPopoverTitle": "文档",
+  "documentationPopoverLabel": "社区官员发布的文档文章。",
   "rightNow": "马上",
   "minutesAgo": "{{minutes}} 几分钟前",
   "hoursAgo": "{{hours}} 几小时前",

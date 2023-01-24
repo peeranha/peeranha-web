@@ -21,7 +21,6 @@ import documentationIcon from 'images/documentation-icon.svg?external';
 import Popover from './Popover';
 import { POST_TYPE } from '../../../../utils/constants';
 
-import { IconLg } from '../../../../components/Icon/IconWithSizes';
 import { IconLabel } from '../../../../components/Icon/IconWithSizes';
 import { svgDraw } from '../../../../components/Icon/IconStyled';
 
@@ -109,8 +108,8 @@ const types = {
     isTutorial: true,
   },
   [POST_TYPE.documentation]: {
-    title: commonMessages.documentationPopoverTitle.id,
-    label: commonMessages.documentationPopoverLabel.id,
+    title: 'common.documentationPopoverTitle',
+    label: 'common.documentationPopoverLabel',
     items: [],
     icon: documentationIcon,
     isDocumentation: true,
