@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import { css } from '@emotion/react';
-import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@uiw/react-md-editor/markdown-editor.css';
-import '@uiw/react-markdown-preview/markdown.css';
 import { marked } from 'marked';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -15,6 +13,7 @@ import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 
 import { PreviewWrapper } from '../AnswerForm';
+import MarkdownPreviewBlock from './MarkdownPreview';
 import Wrapper from 'components/FormFields/Wrapper';
 import Span from 'components/Span';
 import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
@@ -87,26 +86,7 @@ class TextEditor extends React.PureComponent {
         >
           <PreviewWrapper>
             {this.props.value ? (
-              <MarkdownPreview
-                source={this.props.value}
-                warpperElement={{ 'data-color-mode': 'light' }}
-                css={css`
-                  ol li {
-                    list-style-type: decimal;
-                  }
-                  ul li {
-                    list-style-type: disc;
-                  }
-                  table {
-                    word-break: normal;
-                  }
-                `}
-                rehypeRewrite={(node) => {
-                  if (node.tagName === 'input') {
-                    node.properties.disabled = false;
-                  }
-                }}
-              />
+              <MarkdownPreviewBlock content={this.props.value} />
             ) : (
               <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
                 <Translation>

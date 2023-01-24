@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -68,27 +67,26 @@ const Post: React.FC<PostProps> = ({
     if (postType === POST_TYPE.expertPost) {
       return routes.expertPosts(communityId);
     }
+    if (postType === POST_TYPE.documentation) {
+      return routes.feed(communityId);
+    }
     return routes.questions(communityId);
   };
 
   return (
-    <div className="df mb8 border-box" css={css(styles.post)}>
-      <div className="m16 full-width" css={css(styles.container)}>
+    <div className="df mb8 border-box" css={styles.post}>
+      <div className="m16 full-width" css={styles.container}>
         <div className="df aic">
           <QuestionType postType={postType} className="mr4" />
 
-          <Link
-            to={postLink}
-            className="fz18 semi-bold "
-            css={css(styles.title)}
-          >
+          <Link to={postLink} className="fz18 semi-bold " css={styles.title}>
             {title}
           </Link>
         </div>
 
-        <div css={css(styles.mainInfo)}>
-          {postTime && (
-            <span className="db mt8 fz12 light" css={css(styles.creationTime)}>
+        <div css={styles.mainInfo}>
+          {postType !== POST_TYPE.documentation && (
+            <span className="db mt8 fz12 light" css={styles.creationTime}>
               {t('common.asked')}
               {getFormattedDate(
                 postTime,
@@ -98,18 +96,18 @@ const Post: React.FC<PostProps> = ({
             </span>
           )}
 
-          <p className="dib pr mt12 fz14 light ovh" css={css(styles.content)}>
+          <p className="dib pr mt12 fz14 light ovh" css={styles.content}>
             {content}
           </p>
         </div>
 
-        <div css={css(styles.additionalInfo)}>
-          <div className="mt12" css={css(styles.tagsAndCommunity)}>
+        <div css={styles.additionalInfo}>
+          <div className="mt12" css={styles.tagsAndCommunity}>
             {tags.map((tag: Tag) => (
               <span
                 key={tag.id}
                 className="dib fz14 light mr8 no-wrap mb8"
-                css={css(styles.tag)}
+                css={styles.tag}
               >
                 {tag.name}
               </span>
@@ -120,12 +118,12 @@ const Post: React.FC<PostProps> = ({
                   <img
                     src={community.avatar}
                     alt="community avatar"
-                    css={css(styles.communityAvatar)}
+                    css={styles.communityAvatar}
                   />
                 )}
                 <span
                   className="ml4 fz14 light no-wrap"
-                  css={css(styles.communityName)}
+                  css={styles.communityName}
                 >
                   {community.name}
                 </span>
@@ -133,37 +131,42 @@ const Post: React.FC<PostProps> = ({
             )}
           </div>
 
-          <div className="mt12 df">
-            {postType !== POST_TYPE.tutorial && (
-              <div
-                css={css(styles[bestReply ? 'bestReply' : 'noBestReply'])}
-                className="mr24"
-              >
+          {postType !== POST_TYPE.documentation && (
+            <div className="mt12 df">
+              {postType !== POST_TYPE.tutorial && (
+                <div
+                  css={styles[bestReply ? 'bestReply' : 'noBestReply']}
+                  className="mr24"
+                >
+                  <span className="df aic">
+                    {bestReply ? (
+                      <BestAnswerIcon
+                        stroke="rgb(40, 167, 69)"
+                        className="mr8"
+                      />
+                    ) : (
+                      <AnswerIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                    )}
+                    <span css={styles.count} className="fz16 light">
+                      {getFormattedNum(replyCount)}
+                    </span>
+                  </span>
+                </div>
+              )}
+              <div>
                 <span className="df aic">
-                  {bestReply ? (
-                    <BestAnswerIcon stroke="rgb(40, 167, 69)" className="mr8" />
+                  {rating >= 0 ? (
+                    <LikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
                   ) : (
-                    <AnswerIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                    <DisLikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
                   )}
-                  <span css={css(styles.count)} className="fz16 light">
-                    {getFormattedNum(replyCount)}
+                  <span css={styles.count} className="fz16 light">
+                    {getFormattedNum2(rating)}
                   </span>
                 </span>
               </div>
-            )}
-            <div>
-              <span className="df aic">
-                {rating >= 0 ? (
-                  <LikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
-                ) : (
-                  <DisLikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
-                )}
-                <span css={css(styles.count)} className="fz16 light">
-                  {getFormattedNum2(rating)}
-                </span>
-              </span>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
