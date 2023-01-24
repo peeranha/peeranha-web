@@ -26,7 +26,7 @@ const Question = ({
   const answerRouteId =
     elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
 
-  const route = getPostRoute(postType, id, answerRouteId);
+  const route = getPostRoute({ postType, id, answerId: answerRouteId, title });
 
   return (
     <Li className="mb-3" postType={postType}>
@@ -55,7 +55,7 @@ const Question = ({
 const QuestionsWithAnswersList = ({ questions, locale, communities }) => (
   <div>
     <ul>
-      {questions.map(x => (
+      {questions.map((x) => (
         <Question
           myPostRating={x.myPostRating}
           title={x.title}
