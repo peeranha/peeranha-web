@@ -115,7 +115,7 @@ class EthereumService {
 
     const transactionList = JSON.parse(
       localStorage.getItem(TRANSACTION_LIST),
-    ).filter((transaction) => !!!transaction.result);
+    ).filter((transaction) => !transaction.result);
     if (transactionList && transactionList.length) {
       transactionList.map(async (transaction) => {
         this.transactionList.push(transaction);
@@ -349,7 +349,7 @@ class EthereumService {
   ) => {
     await this.chainCheck();
     const metaTxContract = this[contract];
-    let nonce = await metaTxContract.getNonce(actor); //orders the list of transactions
+    let nonce = await metaTxContract.getNonce(actor); // orders the list of transactions
 
     if (nonce.lte(this.previousNonce)) {
       nonce = this.previousNonce.add(1);
@@ -419,6 +419,7 @@ class EthereumService {
       action,
       transactionHash: response.body.transactionHash,
     });
+
     localStorage.setItem(
       TRANSACTION_LIST,
       JSON.stringify(this.transactionList),
@@ -440,6 +441,7 @@ class EthereumService {
       (transactionFromList) =>
         transactionFromList.transactionHash === response.body.transactionHash,
     ).result = result;
+
     localStorage.setItem(
       TRANSACTION_LIST,
       JSON.stringify(this.transactionList),
@@ -456,7 +458,7 @@ class EthereumService {
           JSON.stringify(this.transactionList),
         );
       }
-    }, '30000');
+    }, 30000);
 
     this.transactionCompleted(this.transactionList);
     this.setTransactionInitialised(false);

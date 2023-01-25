@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import {
   isSingleCommunityWebsite,
@@ -49,7 +50,7 @@ const torus = torusModule({
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
-const src = styles.withoutSubHeader ? communitiesConfig[single].src : logo;
+const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
 
 const initWeb3Onboard = init({
   wallets: [torus, injected, walletConnect, coinbase],

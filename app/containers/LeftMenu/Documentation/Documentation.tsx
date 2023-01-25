@@ -1,9 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
-import messages from 'common-messages';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
 import ItemMenu from './ItemMenu';
 
@@ -11,7 +10,10 @@ import Dropdown from 'common-components/Dropdown';
 import AddCommentIcon from 'icons/AddComment';
 import EditIcon from 'icons/Edit';
 import PlusIcon from 'icons/Plus';
-import { singleCommunityDocumentationPosition } from 'utils/communityManagement';
+import {
+  singleCommunityDocumentationPosition,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 import {
   DocumentationSection,
   PinnedArticleType,
@@ -31,9 +33,13 @@ type DocumentationMenuSectionProps = {
   pinnedArticleMenuDraft?: (data: PinnedArticleType) => void;
   removeArticle?: (id: string) => void;
   pinnedItemMenuId: string;
+  editOrder?: () => void;
+  setPinned: React.Dispatch<React.SetStateAction<string>>;
+  pinned: string;
 };
 
 const documentationPosition = singleCommunityDocumentationPosition();
+const colors = singleCommunityColors();
 const EditDocumentation = [
   {
     label: 'Edit Documentation',
@@ -48,11 +54,11 @@ const DropdownDocumentation = [
     value: 2,
     icon: <PlusIcon />,
   },
-  // {
-  //   label: 'Edit order',
-  //   value: 3,
-  //   icon: <EditIcon />,
-  // },
+  {
+    label: 'Edit order',
+    value: 3,
+    icon: <EditIcon />,
+  },
 ];
 
 const DOCUMENTATION_ID = '1';
@@ -70,17 +76,26 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   pinnedArticleMenuDraft,
   removeArticle,
   pinnedItemMenuId,
+  editOrder,
+  setPinned,
+  pinned,
 }) => {
+  const { t } = useTranslation();
   const clickDocumentation = () => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
       toggleEditDocumentation();
     }
+
     if (value === 2 && typeof setEditArticle === 'function') {
       setEditArticle({
         id: '',
         parentId: '1',
         isEditArticle: true,
       });
+    }
+
+    if (value === 3 && typeof editOrder === 'function') {
+      editOrder();
     }
   };
 
@@ -102,11 +117,15 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           ...(isEditDocumentation && { padding: '0 16px' }),
         }}
       >
-        <FormattedMessage id={messages.documentation.id} />
+        {t('common.documentation')}
         {Boolean(isModeratorModeSingleCommunity) && (
           <div className="dropdown-documentation db mr4">
             <Dropdown
-              trigger={<AddCommentIcon css={{ color: PEER_PRIMARY_COLOR }} />}
+              trigger={
+                <AddCommentIcon
+                  css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }}
+                />
+              }
               options={
                 isEditDocumentation ? DropdownDocumentation : EditDocumentation
               }
@@ -133,6 +152,9 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           pinnedArticleMenuDraft={pinnedArticleMenuDraft}
           removeArticle={removeArticle}
           pinnedItemMenuId={pinnedItemMenuId}
+          setPinned={setPinned}
+          pinned={pinned}
+          documentationMenu={documentationMenu}
         />
       ))}
       {!isEditDocumentation && documentationPosition === 'top' && (

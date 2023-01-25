@@ -30,7 +30,13 @@ export const initialState = fromJS({
 });
 
 function ethereumProviderReducer(state = initialState, action) {
-  const { type, error, ethereum, transactionHash, transactionList } = action;
+  const {
+    type,
+    error,
+    ethereum,
+    transactionHash,
+    transactionList = [],
+  } = action;
 
   switch (type) {
     case INIT_ETHEREUM:

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import commonMessages from 'common-messages';
 import { BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
@@ -20,12 +19,9 @@ import { IconBG } from './WalletDropdown/WalletButton';
 
 const styles = singleCommunityStyles();
 
-// TODO: return if energy will be needed
-// REMOVE: remove if energy will be needed
 export const Button = ({ energy }) => (
   <IconBG
-    className="d-none" // REMOVE: temporarily added class
-    //className="d-flex flex-column" TODO: temporarily removed class
+    className="d-none"
     bg={styles.fullyTransparent || BG_LIGHT}
     css={{ border: styles.communityBorderStyle }}
   >
@@ -36,29 +32,31 @@ export const Button = ({ energy }) => (
   </IconBG>
 );
 
-const Menu = ({ energy, maxEnergy, faqQuestions }) => (
-  <nav>
-    <Ul>
-      <li>
-        <IconLm icon={energyIcon} />
-        <Span className="mx-1">
-          <Span fontSize="16" bold>
-            {energy}
-          </Span>
-          <span>/</span>
-          <Span color={TEXT_SECONDARY} bold>
-            {maxEnergy}
-          </Span>
-        </Span>
-        <Span bold>
-          <FormattedMessage {...commonMessages.energy} />
-        </Span>
-      </li>
-    </Ul>
+const Menu = ({ energy, maxEnergy, faqQuestions }) => {
+  const { t } = useTranslation();
 
-    <Ul1>{faqQuestions}</Ul1>
-  </nav>
-);
+  return (
+    <nav>
+      <Ul>
+        <li>
+          <IconLm icon={energyIcon} />
+          <Span className="mx-1">
+            <Span fontSize="16" bold>
+              {energy}
+            </Span>
+            <span>/</span>
+            <Span color={TEXT_SECONDARY} bold>
+              {maxEnergy}
+            </Span>
+          </Span>
+          <Span bold>{t('common.energy')}</Span>
+        </li>
+      </Ul>
+
+      <Ul1>{faqQuestions}</Ul1>
+    </nav>
+  );
+};
 
 const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
   const { maxEnergy } = userStatusOptions[getStatus(rating)] || {

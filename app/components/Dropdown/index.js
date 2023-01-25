@@ -54,7 +54,7 @@ export const Dropdown = ({
           width="10"
           alt="data-icon"
           className="dropdown-arrow"
-          fill={DARK_SECONDARY}
+          fill={colors.localeArrowColor || DARK_SECONDARY}
         />
       )}
     </button>

@@ -15,22 +15,33 @@ import Documentation from 'pages/Documentation';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
+import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import global from 'styles/global';
 import { theme } from 'themes/default';
+import {
+  selectDocumentationMenu,
+  selectPinnedItemMenu,
+} from 'containers/AppWrapper/selectors';
 
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
-import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED } from 'utils/constants';
+import {
+  DAEMON,
+  POST_TYPE,
+  REWARD_CLAIMING_ENABLED,
+  POSITION_TOP,
+} from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
   isSingleCommunityWebsite,
   getSingleCommunityDetails,
+  singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
@@ -56,7 +67,6 @@ import {
   EditAnswer,
   CreateCommunity,
   TagsOfCommunity,
-  TagsCollection,
   CreateTag,
   SuggestedTags,
   EditTag,
@@ -88,7 +98,11 @@ import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
-import { redirectToFeed } from './actions';
+import {
+  redirectToFeed,
+  redirectToDocumentation,
+  redirectToPreload,
+} from './actions';
 import {
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
@@ -97,12 +111,18 @@ import {
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
-
+const isDocumentationPositionTop =
+  singleCommunityDocumentationPosition() == POSITION_TOP;
 const App = ({
   location: { pathname, search },
   redirectToFeedDispatch,
+  redirectToDocumentationDispatch,
   history,
+  documentationMenu,
+  pinnedItemMenu,
 }) => {
+  const hasPinnedPost = pinnedItemMenu.id !== '';
+
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
@@ -139,6 +159,14 @@ const App = ({
       redirectToFeedDispatch();
     }
   }, []);
+
+  useEffect(() => {
+    if (single && (pathname == '/' || pathname == '/feed')) {
+      hasPinnedPost || isDocumentationPositionTop
+        ? redirectToDocumentationDispatch()
+        : redirectToFeedDispatch();
+    }
+  }, [documentationMenu]);
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
@@ -189,6 +217,14 @@ const App = ({
             render={(props) => Wrapper(Feed, props)}
           />
 
+          {single && (hasPinnedPost || isDocumentationPositionTop) && (
+            <Route
+              exact
+              path={routes.documentationStartPage()}
+              render={(props) => Wrapper(Documentation, props)}
+            />
+          )}
+
           {!single && (
             <Route
               path={routes.feed(':communityid')}
@@ -231,14 +267,6 @@ const App = ({
             <Route
               path={routes.suggestedCommunities()}
               render={(props) => Wrapper(SuggestedCommunities, props)}
-            />
-          )}
-
-          {!single && (
-            <Route
-              exact
-              path={routes.tags()}
-              render={(props) => Wrapper(TagsCollection, props)}
             />
           )}
 
@@ -371,29 +399,47 @@ const App = ({
 
           <Route
             exact
-            path={routes.questionView(':id')}
+            path={routes.questionView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
             exact
-            path={routes.expertPostView(':id')}
+            path={'/discussions/:id'}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
             exact
-            path={routes.tutorialView(':id')}
+            path={routes.expertPostView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
-            path={routes.questionEdit(':postType', ':questionid')}
+            exact
+            path={'/experts/:id'}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={routes.tutorialView(':id', ':title')}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={'/tutorials/:id'}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            path={routes.questionEdit(':postType', ':questionid', ':title')}
             render={(props) => Wrapper(EditQuestion, props)}
           />
 
           <Route
-            path={routes.documentation(':sectionId')}
+            path={routes.documentation(':sectionId', ':title')}
             render={(props) => Wrapper(Documentation, props)}
           />
 
@@ -438,12 +484,6 @@ const App = ({
             path={routes.errorPage()}
             render={(props) => Wrapper(ErrorPage, props)}
           />
-
-          <Route exact path={routes.facebookDataDeletion()}>
-            <React.Suspense fallback={null}>
-              <DeleteFacebookData />
-            </React.Suspense>
-          </Route>
 
           <Route path={routes.signup.email.name}>
             <React.Suspense fallback={<Loader />}>
@@ -495,10 +535,20 @@ App.propTypes = {
   redirectToFeedDispatch: PropTypes.func,
 };
 
+const mapStateToProps = createStructuredSelector({
+  documentationMenu: selectDocumentationMenu(),
+  pinnedItemMenu: selectPinnedItemMenu(),
+});
+
 export default compose(
   withRouter,
   injectSaga({ key: 'app', saga, mode: DAEMON }),
-  connect(null, (dispatch) => ({
+  connect(mapStateToProps, (dispatch) => ({
     redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
+    redirectToDocumentationDispatch: bindActionCreators(
+      redirectToDocumentation,
+      dispatch,
+    ),
+    redirectToPreloadDispatch: bindActionCreators(redirectToPreload, dispatch),
   })),
 )(App);

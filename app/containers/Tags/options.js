@@ -1,10 +1,8 @@
-import messages from 'common-messages';
-
 export default {
   id: {
-    message: messages.date,
+    message: 'common.date',
   },
   postCount: {
-    message: messages.popularity,
+    message: 'common.popularity',
   },
 };

@@ -12,16 +12,16 @@ import { getStat } from 'utils/statisticsManagement';
 import { getFAQ } from 'utils/faqManagement';
 
 import defaultSaga, {
-  getCommunitiesWithTagsWorker,
+  getCommunitiesWorker,
   getUserProfileWorker,
   getStatWorker,
   getFaqWorker,
 } from '../saga';
 
 import {
-  GET_COMMUNITIES_WITH_TAGS,
-  GET_COMMUNITIES_WITH_TAGS_SUCCESS,
-  GET_COMMUNITIES_WITH_TAGS_ERROR,
+  GET_COMMUNITIES,
+  GET_COMMUNITIES_SUCCESS,
+  GET_COMMUNITIES_ERROR,
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
@@ -35,10 +35,10 @@ import {
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
-  put: jest.fn().mockImplementation(res => res),
-  takeLatest: jest.fn().mockImplementation(res => res),
-  takeEvery: jest.fn().mockImplementation(res => res),
+  call: jest.fn().mockImplementation((func) => func()),
+  put: jest.fn().mockImplementation((res) => res),
+  takeLatest: jest.fn().mockImplementation((res) => res),
+  takeEvery: jest.fn().mockImplementation((res) => res),
 }));
 
 jest.mock('utils/faqManagement', () => ({
@@ -117,9 +117,9 @@ describe('getFaqWorker', () => {
   });
 });
 
-describe('getCommunitiesWithTagsWorker', () => {
+describe('getCommunitiesWorker', () => {
   const eos = {};
-  const generator = getCommunitiesWithTagsWorker();
+  const generator = getCommunitiesWorker();
 
   it('step, eos', () => {
     select.mockImplementation(() => eos);
@@ -133,17 +133,17 @@ describe('getCommunitiesWithTagsWorker', () => {
     expect(getAllCommunities).toHaveBeenCalledWith(eos);
   });
 
-  it('step, getCommunitiesWithTagsSuccess', () => {
+  it('step, getCommunitiesSuccess', () => {
     const communities = [];
     const step = generator.next(communities);
 
-    expect(step.value.type).toBe(GET_COMMUNITIES_WITH_TAGS_SUCCESS);
+    expect(step.value.type).toBe(GET_COMMUNITIES_SUCCESS);
   });
 
   it('error handling', () => {
     const err = 'some error';
     const step = generator.throw(err);
-    expect(step.value.type).toBe(GET_COMMUNITIES_WITH_TAGS_ERROR);
+    expect(step.value.type).toBe(GET_COMMUNITIES_ERROR);
   });
 });
 
@@ -239,9 +239,9 @@ describe('getUserProfileWorker', () => {
 describe('defaultSaga', () => {
   const generator = defaultSaga();
 
-  it('GET_COMMUNITIES_WITH_TAGS', () => {
+  it('GET_COMMUNITIES', () => {
     const step = generator.next();
-    expect(step.value).toBe(GET_COMMUNITIES_WITH_TAGS);
+    expect(step.value).toBe(GET_COMMUNITIES);
   });
 
   it('GET_USER_PROFILE', () => {
