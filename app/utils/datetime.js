@@ -5,7 +5,7 @@ import {
   differenceInMonths,
   differenceInYears,
 } from 'date-fns';
-import { localeRFC5646 } from 'app/i18n';
+import { localeRFC5646 } from 'i18n';
 
 import ru from 'date-fns/locale/ru/index.js';
 import en from 'date-fns/locale/en/index.js';
