@@ -78,9 +78,9 @@ export function setTransactionList(transactionList) {
   };
 }
 
-export function transactionFailed(error) {
+export function transactionFailed(data) {
   return {
     type: TRANSACTION_FAILED,
-    error,
+    data,
   };
 }

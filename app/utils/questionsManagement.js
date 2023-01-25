@@ -45,6 +45,7 @@ import {
   getUsersQuestions,
   historiesForPost,
 } from './theGraph';
+import { getCommunityTags } from 'utils/communityManagement';
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -565,6 +566,12 @@ export async function getQuestionById(ethereumService, questionId, user) {
     0,
     ethereumService,
   );
+  const tags = await getCommunityTags(rawQuestion.communityId);
+
+  const questionTags = tags[rawQuestion.communityId].filter((tag) =>
+    rawQuestion.tags.includes(Number(tag.id.split('-')[1])),
+  );
+
   const replies = [];
   // getting all replies of post
   await Promise.all(
@@ -666,7 +673,7 @@ export async function getQuestionById(ethereumService, questionId, user) {
     }),
   );
   return await formQuestionObject(
-    rawQuestion,
+    { ...rawQuestion, tags: questionTags },
     orderBy(replies, 'postTime'),
     orderBy(comments, 'postTime'),
     ethereumService,

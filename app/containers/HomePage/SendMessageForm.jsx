@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import { scrollToErrorField } from 'utils/animation';
@@ -24,24 +24,20 @@ import {
   MESSAGE_FIELD,
 } from './constants';
 
-import messages from './messages';
-
-const SendMessageForm = props => {
-  const {
-    handleSubmit,
-    change,
-    translations,
-    sendMessageLoading,
-    sendMessage,
-  } = props;
+const SendMessageForm = (props) => {
+  const { t } = useTranslation();
+  const { handleSubmit, change, sendMessageLoading, sendMessage } = props;
+  const sendMessageHandler = (...data) => {
+    sendMessage(...data, t);
+  };
 
   return (
-    <form onSubmit={handleSubmit(sendMessage)} autoComplete="off">
+    <form onSubmit={handleSubmit(sendMessageHandler)} autoComplete="off">
       <div>
         <Field
           name={NAME_FIELD}
           disabled={sendMessageLoading}
-          label={<FormattedMessage {...messages.yourName} />}
+          label={t('about.yourName')}
           component={FloatingLabelInput}
           validate={[strLength3x20, required]}
           warn={[strLength3x20, required]}
@@ -50,7 +46,7 @@ const SendMessageForm = props => {
         <Field
           name={EMAIL_FIELD}
           disabled={sendMessageLoading}
-          label={<FormattedMessage {...messages.email} />}
+          label={t('about.email')}
           component={FloatingLabelInput}
           validate={[validateEmail, required, strLength254Max]}
           warn={[validateEmail, required, strLength254Max]}
@@ -61,11 +57,11 @@ const SendMessageForm = props => {
           change={change}
           name={SUBJECT_FIELD}
           items={[
-            translations[messages.askQuestion.id],
-            translations[messages.review.id],
-            translations[messages.systemError.id],
+            t('about.askQuestion'),
+            t('about.review'),
+            t('about.systemError'),
           ]}
-          label={<FormattedMessage {...messages.subject} />}
+          label={t('about.subject')}
           component={SelectItem}
           validate={[required]}
           warn={[required]}
@@ -75,7 +71,7 @@ const SendMessageForm = props => {
           name={MESSAGE_FIELD}
           multiline
           disabled={sendMessageLoading}
-          label={<FormattedMessage {...messages.message} />}
+          label={t('about.message')}
           component={FloatingLabelInput}
           validate={[strLength15x100, required]}
           warn={[strLength15x100, required]}
@@ -83,9 +79,7 @@ const SendMessageForm = props => {
       </div>
 
       <div className="d-flex">
-        <Button>
-          <FormattedMessage {...messages.sendMessage} />
-        </Button>
+        <Button>{t('about.sendMessage')}</Button>
       </div>
     </form>
   );
@@ -100,5 +94,5 @@ SendMessageForm.propTypes = {
 };
 
 export default reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(SendMessageForm);

@@ -67,7 +67,6 @@ import {
   EditAnswer,
   CreateCommunity,
   TagsOfCommunity,
-  TagsCollection,
   CreateTag,
   SuggestedTags,
   EditTag,
@@ -271,14 +270,6 @@ const App = ({
             />
           )}
 
-          {!single && (
-            <Route
-              exact
-              path={routes.tags()}
-              render={(props) => Wrapper(TagsCollection, props)}
-            />
-          )}
-
           <Route
             exact
             path={routes.communityTags(':communityid')}
@@ -414,7 +405,19 @@ const App = ({
 
           <Route
             exact
+            path={'/discussions/:id'}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
             path={routes.expertPostView(':id', ':title')}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={'/experts/:id'}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
@@ -425,7 +428,13 @@ const App = ({
           />
 
           <Route
-            path={routes.questionEdit(':postType', ':questionid')}
+            exact
+            path={'/tutorials/:id'}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            path={routes.questionEdit(':postType', ':questionid', ':title')}
             render={(props) => Wrapper(EditQuestion, props)}
           />
 
@@ -475,12 +484,6 @@ const App = ({
             path={routes.errorPage()}
             render={(props) => Wrapper(ErrorPage, props)}
           />
-
-          <Route exact path={routes.facebookDataDeletion()}>
-            <React.Suspense fallback={null}>
-              <DeleteFacebookData />
-            </React.Suspense>
-          </Route>
 
           <Route path={routes.signup.email.name}>
             <React.Suspense fallback={<Loader />}>

@@ -1,21 +1,5 @@
-// @ts-ignore
-import { FormattedMessage } from 'react-intl';
-import React, { ReactNode } from 'react';
-
-import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import Wrapper from 'components/Header/Simple';
-import Icon from 'components/Icon';
-import H3 from 'components/H3';
-
-import AddModeratorForm from 'containers/Administration/AddModeratorForm';
-
-import commonMessages from 'common-messages';
-
-// @ts-ignore
-import usersHeader from 'images/usersHeader.svg?external';
-// @ts-ignore
-import AddModeratorButton from 'containers/Administration/AddModeratorButton';
-import messages from 'containers/TransactionsList/messages';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type Transaction = {
   transactionHash: string;
@@ -36,17 +20,17 @@ export const SingleTransaction: React.FC<TransactionProps> = ({
   status,
   StatusIcon,
 }): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div className="df fdr aic">
       <StatusIcon />
 
       <div className="df fdc aifs ml12">
         <p className="fz14 mb8">
-          <FormattedMessage id={messages[transaction.action].id} />
+          {t(`common.transactionsList.${transaction.action}`)}
         </p>
-        <p className="fz12">
-          <FormattedMessage id={status} />
-        </p>
+        <p className="fz12">{t(status)}</p>
       </div>
     </div>
   );

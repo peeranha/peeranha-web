@@ -5,11 +5,19 @@ import {
   GET_DOCUMENTATION_MENU_SUCCESS,
   GET_DOCUMENTATION_MENU_ERROR,
   PINNED_MENU_ITEM,
+  CHANGE_LOCALE,
 } from './constants';
 
 export function showLeftMenu() {
   return {
     type: SHOW_LEFT_MENU,
+  };
+}
+
+export function changeLocale(locale) {
+  return {
+    type: CHANGE_LOCALE,
+    locale,
   };
 }
 

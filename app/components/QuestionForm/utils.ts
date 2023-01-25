@@ -1,27 +1,29 @@
-import messages from 'components/QuestionForm/messages';
-
 export const labelConditional = (n: string) => {
   switch (n) {
     case '1':
-      return messages.generalQuestionDescriptionLabel.id;
+      return 'common.generalQuestionDescriptionLabel';
     case '0':
-      return messages.expertQuestionDescriptionLabel.id;
+      return 'common.expertQuestionDescriptionLabel';
     case '2':
-      return messages.tutorialQuestionDescriptionLabel.id;
+      return 'common.tutorialQuestionDescriptionLabel';
     case '3':
-      return messages.faqDescriptionLabel.id;
+      return 'post.faqDescriptionLabel';
+    default:
+      return 'common.generalQuestionDescriptionLabel';
   }
 };
 
 export const listConditional = (n: string) => {
   switch (n) {
     case '1':
-      return messages.generalQuestionDescriptionList.id;
+      return 'common.generalQuestionDescriptionList';
     case '0':
-      return messages.expertQuestionDescriptionList.id;
+      return 'common.expertQuestionDescriptionList';
     case '2':
-      return messages.tutorialQuestionDescriptionList.id;
+      return 'common.tutorialQuestionDescriptionList';
     case '3':
-      return messages.faqDescriptionList.id;
+      return 'post.faqDescriptionList';
+    default:
+      return 'common.generalQuestionDescriptionList';
   }
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
 
@@ -14,7 +14,7 @@ import {
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { MODERATOR_KEY, SECTION_ID } from 'utils/constants';
+import { SECTION_ID } from 'utils/constants';
 import { getModeratorPermissions } from 'utils/properties';
 
 import { redirectToFeed } from 'containers/App/actions';
@@ -23,22 +23,21 @@ import Content from './Content';
 import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
 
 export const Moderation = ({
-  locale,
   communities = [],
   profile: { permissions },
   communitiesCount = 0,
 }) => {
+  const { t } = useTranslation();
+
   if (!permissions) {
     redirectToFeed();
   }
-  const translations = translationMessages[locale]
-    ? translationMessages[locale]
-    : null;
+
   const moderatorPermissions = getModeratorPermissions(
     permissions,
     communitiesCount,
     communities,
-    translations,
+    t,
   );
   return (
     <div className="d-flex justify-content-center">

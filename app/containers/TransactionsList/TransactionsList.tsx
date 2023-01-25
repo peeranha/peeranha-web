@@ -6,7 +6,7 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import reducer from 'containers/Administration/reducer';
 import saga from 'containers/Administration/saga';
@@ -22,12 +22,10 @@ import {
   selectTransactionInPending,
   selectTransactionList,
 } from 'containers/EthereumProvider/selectors';
-import commonMessages from 'common-messages';
 import {
   SingleTransaction,
   Transaction,
 } from 'containers/TransactionsList/SingleTransaction';
-import messages from 'containers/TransactionsList/messages';
 import { styles } from 'containers/TransactionsList/TransactionList.styled';
 
 type TransactionsListProps = {
@@ -39,6 +37,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
   transactionList,
   transactionInPending,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const [opened, setOpened] = useState(false);
   const timer = useRef();
   const [right, setRight] = useState(-245);
@@ -48,10 +47,8 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
     if (!transactionList.length && !transactionInPending) {
       setRight(-289);
       setOpened(false);
-    } else {
-      if (!opened) {
-        setRight(-245);
-      }
+    } else if (!opened) {
+      setRight(-245);
     }
   }, [transactionList, opened]);
 
@@ -65,7 +62,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
   useEffect(() => {
     if (transactionList.length && transactionInPending && !opened) {
       setWidth(449);
-      timer.current = setTimeout(() => setWidth(289), '3000');
+      timer.current = setTimeout(() => setWidth(289), 3000);
 
       return () => {
         clearTimeout(timer.current);
@@ -106,14 +103,12 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
               font-weight: 400;
             `}
           >
-            {transactionList.length && (
-              <FormattedMessage
-                id={
-                  messages[transactionList[transactionList.length - 1].action]
-                    .id
-                }
-              />
-            )}
+            {transactionList.length &&
+              t(
+                `common.transactionsList.${
+                  transactionList[transactionList.length - 1].action
+                }`,
+              )}
           </div>
           <div
             css={css`
@@ -121,7 +116,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
               color: #ffffff;
             `}
           >
-            <FormattedMessage id={commonMessages.inProgress.id} />
+            {t('common.inProgress')}
           </div>
         </div>
       </div>
@@ -136,14 +131,15 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
             font-weight: 700;
           `}
         >
-          <FormattedMessage id={commonMessages.transactions.id} />
+          {t('common.transactions')}
         </p>
 
         {transactionsInProgress.map((transaction) => {
           const result = transaction.result?.status;
           const status = result
-            ? commonMessages.failed.id
-            : commonMessages.inProgress.id;
+            ? 'common.transactionsList.failed'
+            : 'common.inProgress';
+
           return (
             <SingleTransaction
               transaction={transaction}
@@ -155,6 +151,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
                   <TransactionLoader css={styles.transactionLoader} />
                 )
               }
+              key={transaction.transactionHash}
             />
           );
         })}
@@ -176,8 +173,9 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
         {successfulTransactions.map((transaction) => (
           <SingleTransaction
             transaction={transaction}
-            status={commonMessages.successful.id}
+            status="common.transactionsList.successful"
             StatusIcon={() => <SuccessfulTransaction />}
+            key={transaction.transactionHash}
           />
         ))}
       </div>

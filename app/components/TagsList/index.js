@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { TEXT_SECONDARY, TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
+import { TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
 
 import Span from 'components/Span';
 
@@ -24,62 +24,32 @@ const Tag = Span.extend`
   display: inline-flex;
   align-items: center;
 `;
-
-const SpanCenter = Span.extend`
-  width: 90%;
-  margin-top: 5px;
-  text-align: center;
-`;
-
 const Box = styled.ul`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 `;
 
-const TagsList = ({
-  tags,
-  communities,
-  communityId,
-  children,
-  className,
-  showPopularity,
-}) => {
+const TagsList = ({ tags, communities, communityId, children, className }) => {
   const community = useMemo(
     () => communities.filter((x) => +communityId === x.id)[0] || { tags: [] },
     [communities, communities.length],
   );
 
-  const questionTags = useMemo(
-    () =>
-      tags
-        ? community.tags.filter((x) => tags.includes(+x.id.split('-')[1]))
-        : community.tags,
-    [tags, community.tags, community.tags.length],
-  );
-
-  if (!community || !community.tags.length) return null;
+  if (!community || !tags?.length) return null;
 
   return (
     <Box>
-      {questionTags.map((x, index) => {
-        return (
-          <li
-            key={community.id + (x.name || index)}
-            className="d-flex flex-column"
-          >
-            <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
-              {x.name}
-            </Tag>
-
-            {showPopularity && (
-              <SpanCenter color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-                {x.postCount}
-              </SpanCenter>
-            )}
-          </li>
-        );
-      })}
+      {tags.map((tag, index) => (
+        <li
+          key={community.id + (tag.name || index)}
+          className="d-flex flex-column"
+        >
+          <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
+            {tag.name}
+          </Tag>
+        </li>
+      ))}
 
       {children}
     </Box>
@@ -91,7 +61,6 @@ TagsList.propTypes = {
   className: PropTypes.string,
   tags: PropTypes.array,
   communities: PropTypes.array,
-  showPopularity: PropTypes.bool,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
