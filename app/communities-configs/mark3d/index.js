@@ -1,11 +1,9 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import Mark3dLogo from './images/Mark3dLogo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/Mark3d.ico';
 const domainName = '';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'mark3d_style',
@@ -18,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -177,8 +175,9 @@ export const Mark3dStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: Mark3dLogo,
-  favicon,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/mark3d/Mark3dLogo.svg',
+  favicon: 'https://images.peeranha.io/communities/mark3d/Mark3d.ico',
   // Hided community fonts
   // fonts: {
   //   h3LetterSpacing: '3px',
@@ -225,6 +224,14 @@ export const Mark3dStyles = {
     textColor: 'rgba(135, 133, 244, 1)',
     textColorShadow: 'rgba(135, 133, 244, 1)',
     commHeadElemColor: 'rgba(19, 19, 45, 1)',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background:

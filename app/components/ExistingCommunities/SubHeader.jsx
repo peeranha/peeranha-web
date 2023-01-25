@@ -1,14 +1,11 @@
-/* eslint no-unused-vars: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
-import commonMessages from 'common-messages';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import communitiesHeader from 'images/communitiesHeader.svg?inline';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
-import languageIcon from 'images/ico-languages.svg?inline';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
@@ -22,80 +19,74 @@ import SubHeaderWrapper, {
 
 import sortingOptions from './sortingOptions';
 
-const Button = ({ sorting, icon }) => (
-  <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
-    <img className="mr-2" src={icon} alt="icon" />
-    <FormattedMessage id={sorting.message.id} />
-  </Span>
-);
+const Button = ({ sorting, icon }) => {
+  const { t } = useTranslation();
 
-const Menu = ({ changeSorting, sorting, options }) => (
-  <Ul>
-    {Object.keys(options).map((x) => (
-      <CheckedItem
-        key={`${options[x].message.id}_${options[x].order}`}
-        onClick={() => changeSorting(options[x])}
-        isActive={sorting.message.id === options[x].message.id}
-      >
-        <FormattedMessage id={options[x].message.id} />
-      </CheckedItem>
-    ))}
-  </Ul>
-);
+  return (
+    <Span
+      className="d-inline-flex align-items-center mr-2 text-capitalize"
+      bold
+    >
+      <img className="mr-2" src={icon} alt="icon" />
+      {t(sorting.message)}
+    </Span>
+  );
+};
 
-export const SubHeader = ({
-  changeSorting,
-  sorting,
-  communitiesNumber,
-  setLang,
-  language,
-  languages,
-}) => (
-  <SubHeaderWrapper position="bottom">
-    <H3>
-      <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
+const Menu = ({ changeSorting, sorting, options }) => {
+  const { t } = useTranslation();
 
-      <span>
-        <FormattedMessage id={commonMessages.communities.id} />
-        <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
-          {communitiesNumber}
-        </Span>
-      </span>
-    </H3>
+  return (
+    <Ul>
+      {Object.keys(options).map((item) => (
+        <CheckedItem
+          key={`${options[item].message.id}_${options[item].order}`}
+          onClick={() => changeSorting(options[item])}
+          isActive={sorting.message === options[item].message}
+        >
+          {t(options[item].message)}
+        </CheckedItem>
+      ))}
+    </Ul>
+  );
+};
 
-    <SubHeaderWrapperRightPanel className="d-flex right-panel">
-      {/* <Dropdown
-        className="mr-3"
-        button={<Button sorting={language} icon={languageIcon} />}
-        menu={
-          <Menu
-            changeSorting={setLang}
-            sorting={language}
-            options={languages}
-          />
-        }
-        id="choose-language-dropdown"
-        isArrowed
-      /> */}
+export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => {
+  const { t } = useTranslation();
 
-      <Dropdown
-        button={<Button sorting={sorting} icon={communitiesHeaderFilter} />}
-        menu={
-          <Menu
-            changeSorting={changeSorting}
-            sorting={sorting}
-            options={sortingOptions}
-          />
-        }
-        id="existing-communities-dropdown"
-        isArrowed
-        css={css`
-          z-index: 9;
-        `}
-      />
-    </SubHeaderWrapperRightPanel>
-  </SubHeaderWrapper>
-);
+  return (
+    <SubHeaderWrapper position="bottom">
+      <H3>
+        <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
+
+        <span>
+          {t('common.communities')}
+          <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
+            {communitiesNumber}
+          </Span>
+        </span>
+      </H3>
+
+      <SubHeaderWrapperRightPanel className="d-flex right-panel">
+        <Dropdown
+          button={<Button sorting={sorting} icon={communitiesHeaderFilter} />}
+          menu={
+            <Menu
+              changeSorting={changeSorting}
+              sorting={sorting}
+              options={sortingOptions}
+            />
+          }
+          id="existing-communities-dropdown"
+          isArrowed
+          css={css`
+            z-index: 9;
+          `}
+        />
+      </SubHeaderWrapperRightPanel>
+    </SubHeaderWrapper>
+  );
+};
 
 Button.propTypes = {
   sorting: PropTypes.object,

@@ -1,9 +1,3 @@
-/**
- *
- * LeftMenu
- *
- */
-
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { deleteQuestion } from 'containers/ViewQuestion/actions';
@@ -30,16 +24,19 @@ import {
   makeSelectBoost,
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
-
-import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
-import { toggleEditDocumentation } from 'pages/Documentation/actions';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { loginWithWallet } from 'containers/Login/actions';
+import {
+  changeLocale as changeLocaleDispatch,
+  showLeftMenu,
+} from 'containers/AppWrapper/actions';
 import {
   selectIsMenuVisible,
   selectPinnedItemMenu,
 } from 'containers/AppWrapper/selectors';
-import { showLeftMenu } from 'containers/AppWrapper/actions';
+import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
+import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import View from './View';
 import { Aside, After } from './Styles';
@@ -54,6 +51,8 @@ const LeftMenu = ({
   loginWithWalletDispatch,
   showLeftMenuDispatch,
   isGlobalAdmin,
+  changeLocale,
+  locale,
   documentationMenu,
   redirectToEditQuestionPageDispatch,
   redirectToPostDocumentationPageDispatch,
@@ -81,6 +80,8 @@ const LeftMenu = ({
         boost={boost}
         showLoginModal={showLoginModal}
         isGlobalAdmin={isGlobalAdmin}
+        changeLocale={changeLocale}
+        locale={locale}
         documentationMenu={documentationMenu}
         redirectToEditQuestionPage={redirectToEditQuestionPageDispatch}
         redirectToPostDocumentationPage={
@@ -109,6 +110,8 @@ LeftMenu.propTypes = {
   stakedInNextPeriod: PropTypes.number,
   boost: PropTypes.number,
   isMenuVisible: PropTypes.bool,
+  changeLocale: PropTypes.func,
+  locale: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -119,6 +122,7 @@ const mapStateToProps = createStructuredSelector({
   stakedInNextPeriod: makeSelectStakedInNextPeriod(),
   boost: makeSelectBoost(),
   isMenuVisible: selectIsMenuVisible(),
+  locale: makeSelectLocale(),
   isEditDocumentation: selectIsEditDocumentation(),
   pinnedItemMenu: selectPinnedItemMenu(),
 });
@@ -134,6 +138,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
+    changeLocale: bindActionCreators(changeLocaleDispatch, dispatch),
     redirectToEditQuestionPageDispatch: bindActionCreators(
       redirectToEditQuestionPage,
       dispatch,

@@ -3,7 +3,7 @@ export const DEFAULT_PATH = '/';
 export const TELOS_DOMAIN = '.telos.net';
 export const TEST_COMM_DOMAIN = 'testcommunity.net';
 
-export const getCookie = name => {
+export const getCookie = (name) => {
   const matches = document.cookie.match(
     new RegExp(
       // eslint-disable-next-line no-useless-escape
@@ -52,7 +52,7 @@ export const setCookie = ({
   }, updatedCookie);
 };
 
-export const deleteCookie = name =>
+export const deleteCookie = (name) =>
   setCookie({
     name,
     value: '',

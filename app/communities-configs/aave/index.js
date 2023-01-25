@@ -1,14 +1,9 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-aave.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
 const domainName = 'https://aave.io/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'valist_style',
@@ -21,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -180,26 +175,17 @@ export const AaveStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: AaveLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo: 'https://images.peeranha.io/communities/aave/aaveLogo.svg',
+  favicon: 'https://images.peeranha.io/communities/aave/favicon-aave.ico',
+
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
+  },
 
   colors: {
     mainSubHeaderBgColor:

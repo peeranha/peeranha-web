@@ -1,10 +1,11 @@
-/* eslint indent: 0 */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import messages from 'common-messages';
+import { Wrapper } from 'components/FormFields/Wrapper';
+import { Styles } from 'components/Input/InputStyled';
+import B from 'components/Button';
 
 import {
   BORDER_SECONDARY,
@@ -15,22 +16,18 @@ import {
 
 import { ANY_TYPE, GENERAL_TYPE, EXPERT_TYPE } from './constants';
 
-import { Wrapper } from 'components/FormFields/Wrapper';
-import { Styles } from 'components/Input/InputStyled';
-import B from 'components/Button';
-
 export const QUESTION_TYPES = {
   ANY: {
     value: ANY_TYPE,
-    label: 'any',
+    label: 'common.any',
   },
   GENERAL: {
     value: GENERAL_TYPE,
-    label: 'general',
+    label: 'common.general',
   },
   EXPERT: {
     value: EXPERT_TYPE,
-    label: 'expert',
+    label: 'common.expert',
   },
 };
 
@@ -56,12 +53,12 @@ const Button = B.extend`
 
   flex: 1;
   border: 1px solid
-    ${x =>
+    ${(x) =>
       +x.currentValue === +x.value
         ? `${BORDER_PRIMARY} !important`
         : BORDER_SECONDARY};
 
-  box-shadow: ${x =>
+  box-shadow: ${(x) =>
     +x.currentValue === +x.value
       ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`
       : `none`};
@@ -80,6 +77,8 @@ const QuestionTypeField = ({
   splitInHalf,
   insideOfSection,
 }) => {
+  const { t } = useTranslation();
+
   function chooseQuestionType(event) {
     event.preventDefault();
     input.onChange(event.currentTarget.value);
@@ -95,7 +94,7 @@ const QuestionTypeField = ({
       insideOfSection={insideOfSection}
     >
       <ButtonGroup>
-        {Object.values(QUESTION_TYPES).map(questionType => (
+        {Object.values(QUESTION_TYPES).map((questionType) => (
           <Button
             onClick={chooseQuestionType}
             value={questionType.value}
@@ -103,7 +102,7 @@ const QuestionTypeField = ({
             key={questionType.label}
             disabled={disabled}
           >
-            <FormattedMessage {...messages[questionType.label]} />
+            {t(questionType.label)}
           </Button>
         ))}
       </ButtonGroup>

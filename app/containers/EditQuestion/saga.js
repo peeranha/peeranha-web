@@ -4,11 +4,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import {
-  editQuestion,
-  getQuestionById,
-  getQuestionTags,
-} from 'utils/questionsManagement';
+import { editQuestion, getQuestionById } from 'utils/questionsManagement';
 import { getCommunityWithTags } from 'utils/communityManagement';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -42,9 +38,10 @@ export function* getAskedQuestionWorker({ questionId }) {
     const cachedQuestion = yield select(selectQuestionData());
     const account = yield select(makeSelectAccount());
     let question;
+    let questionFromContract;
 
     if (!cachedQuestion) {
-      const questionFromContract = yield call(
+      questionFromContract = yield call(
         getQuestionById,
         ethereumService,
         questionId,
@@ -57,18 +54,15 @@ export function* getAskedQuestionWorker({ questionId }) {
     } else {
       question = cachedQuestion;
     }
-
     const { communityId } = question;
 
     if (communityId) {
-      question.community = yield call(
-        getCommunityWithTags,
-        ethereumService,
-        communityId,
-      );
-      question.tags = getQuestionTags(question, question.community.tags);
-    }
+      const [community, tags] = yield call(getCommunityWithTags, communityId);
 
+      question.community = community;
+
+      question.tags = questionFromContract.tags;
+    }
     // const promotedQuestions = yield call(
     //   getPromotedQuestions,
     //   eosService,
@@ -200,8 +194,8 @@ export function* editQuestionWorker({ question, questionId }) {
     yield call(
       createdHistory.push,
       Number(question.postType) === Number(POST_TYPE.documentation)
-        ? routes.documentation(questionId)
-        : routes.questionView(questionId),
+        ? routes.documentation(questionId, question.title)
+        : routes.questionView(questionId, question.title),
     );
   } catch (err) {
     yield put(editQuestionErr(err));

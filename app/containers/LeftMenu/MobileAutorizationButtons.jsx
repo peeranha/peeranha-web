@@ -1,11 +1,15 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 
-export default ({ profile, isMenuVisible, showLoginModal }) => {
+const MobileAutorizationButtons = ({
+  profile,
+  isMenuVisible,
+  showLoginModal,
+}) => {
+  const { t } = useTranslation();
+
   if (profile || !isMenuVisible) {
     return null;
   }
@@ -13,8 +17,10 @@ export default ({ profile, isMenuVisible, showLoginModal }) => {
   return (
     <div className="d-flex align-items-center">
       <LargeOutlinedButton onClick={showLoginModal}>
-        <FormattedMessage id={messages.login.id} />
+        {t('common.login')}
       </LargeOutlinedButton>
     </div>
   );
 };
+
+export default MobileAutorizationButtons;
