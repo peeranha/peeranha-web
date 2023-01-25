@@ -1,9 +1,7 @@
 import { t } from 'i18next';
-import { take, takeLatest, put, call, select } from 'redux-saga/effects';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
 
 import {
-  changeCredentialsInit,
-  changeCredentialsConfirm,
   changeCredentialsComplete,
   changeCredentialsGetKeysByPwd,
   getVerificationCode,
@@ -14,7 +12,6 @@ import {
 
 import { WebIntegrationError } from 'utils/errors';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { successHandling } from 'containers/Toast/saga';
 import { addToast } from 'containers/Toast/actions';
@@ -30,7 +27,6 @@ import {
   NEW_EMAIL_FIELD,
   PASSWORD_FIELD,
   SEND_ANOTHER_CODE,
-  SEND_OLD_EMAIL_SUCCESS,
   GET_EMAIL_ADDRESS,
 } from './constants';
 
@@ -41,15 +37,12 @@ import {
   sendOldEmailErr,
   confirmOldEmailSuccess,
   confirmOldEmailErr,
-  getEmailAddress,
   getEmailAddressSuccess,
   getEmailAddressErr,
 } from './actions';
 
 export function* sendOldEmailWorker({ email }) {
   try {
-    const locale = yield select(makeSelectLocale());
-
     const response = yield call(getVerificationCode, email);
 
     if (!response.OK) {
@@ -149,9 +142,7 @@ export function* getEmailAddressWorker({ address }) {
     const response = yield call(getNotificationSettings, address);
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
     const { email, isSubscribed } = response.body;
     yield put(getEmailAddressSuccess(email, isSubscribed));

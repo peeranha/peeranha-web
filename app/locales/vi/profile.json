@@ -40,5 +40,13 @@
   "sendFromAccount": "Gửi từ tài khoản",
   "sendToAccount": "Gửi đến tài khoản",
   "changeAccount": "Thay đổi tài khoản",
-  "chooseAccount": "Chọn tài khoản"
+  "chooseAccount": "Chọn tài khoản",
+  "email": "Email",
+  "excellent": "Xuất sắc!",
+  "excellentText": "Xác nhận đã thành công",
+  "changeEmail": "Thay đổi email",
+  "sendCode": "Gửi mã",
+  "emailNotifications": "Thông báo thư điện tử",
+  "emailNotificationsText": "Nhận thông báo về bài viết, câu trả lời và bình luận.",
+  "verificationCodeText": "Một mã xác minh sẽ được gửi đến email:"
 }

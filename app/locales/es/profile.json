@@ -40,5 +40,13 @@
   "sendFromAccount": "Enviar desde cuenta",
   "sendToAccount": "Enviar a cuenta",
   "changeAccount": "Cambiar cuenta",
-  "chooseAccount": "Elegir cuenta"
+  "chooseAccount": "Elegir cuenta",
+  "email": "Email",
+  "excellent": "Excelente!",
+  "excellentText": "La confirmación fue exitosa",
+  "changeEmail": "Cambiar email",
+  "sendCode": "Enviar código",
+  "emailNotifications": "Email notificaciónes",
+  "emailNotificationsText": "Recibe notificaciones sobre publicaciones, respuestas y comentarios.",
+  "verificationCodeText": "Se enviará un código de verificación al correo electrónico:"
 }

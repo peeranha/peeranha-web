@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from '@emotion/react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
 
@@ -30,9 +29,7 @@ const ConfirmEmailForm = ({
 
   return (
     <div>
-      <H4 className="text-center pb-3">
-        {t('common.change')} {t('signUp.email')}
-      </H4>
+      <H4 className="text-center pb-3">{t('common.confirmNewEmail')}</H4>
 
       <div className="text-center pb-3">
         <img src={letterImg} alt="check your email" />
@@ -40,7 +37,7 @@ const ConfirmEmailForm = ({
           className="text-center py-2"
           css={{ color: 'var(--color-gray-dark)' }}
         >
-          {t('signUp.checkYourEmail')}
+          {t('profile.verificationCodeText')}
         </P>
 
         <div className="semi-bold mb-3">{emailAddress}</div>
@@ -49,7 +46,7 @@ const ConfirmEmailForm = ({
           className="db mb-3"
           css={{ margin: 'auto' }}
         >
-          <FormattedMessage id={messages.changeEmail.id} />
+          {t('profile.changeEmail')}
         </TransparentButton>
         <div
           css={{ height: '1px', background: '#C2C6D8', marginTop: '25px' }}
@@ -71,7 +68,7 @@ const ConfirmEmailForm = ({
           onClick={sendAnotherCode}
           type="button"
         >
-          <FormattedMessage id={commonMessages.sendAnotherCode.id} />
+          {t('common.sendAnotherCode')}
         </TransparentButton>
 
         <Button
@@ -79,7 +76,7 @@ const ConfirmEmailForm = ({
           className="w-100 mb-3"
           type="submit"
         >
-          <FormattedMessage id={messages.verify.id} />
+          {t('sign-up.verify')}
         </Button>
       </form>
     </div>
