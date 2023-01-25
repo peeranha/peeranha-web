@@ -1,45 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { reduxForm, Field } from 'redux-form/immutable';
 
-import { useTranslation } from 'react-i18next';
 import H3 from 'components/H3';
 import Span from 'components/Span';
-import ChangeEmail from '../ChangeEmail';
 import ChangeEmailButton from '../ChangeEmail';
 import ToggleSwitch from '../../components/ToogleSwitch';
 import TextInputField from 'components/FormFields/TextInputField';
-import styled from 'styled-components';
 
 import commonMessages from 'common-messages';
 import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
 import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
 import { TEXT_SECONDARY } from 'style-constants';
 import { validateEmail, required } from 'components/FormFields/validate';
-import {
-  OLD_EMAIL_FORM,
-  OLD_EMAIL_FIELD,
-  CONFIRM_EMAIL_FORM,
-} from '../ChangeEmail/constants';
+import { OLD_EMAIL_FIELD, CONFIRM_EMAIL_FORM } from '../ChangeEmail/constants';
 import { scrollToErrorField } from 'utils/animation';
 
 import { BaseStyled } from './SettingsOfUser';
 import { TYPE_OF_TRANSACTIONS } from 'utils/constants';
 
-const AuthorizationData = ({
-  locale,
-  ownerKey,
-  loginData,
-  className,
-  activeKey,
-  writeToBuffer,
-  tgData,
-  profile,
-  email,
-  isSubscribedEmail,
-}) => {
+const AuthorizationData = ({ className, email, isSubscribedEmail }) => {
+  const { t } = useTranslation();
   const [isToggled, setIsToggled] = useState(false);
   const [emailAddress, setEmailAddress] = useState(null);
   const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
@@ -101,16 +84,12 @@ const AuthorizationData = ({
                     css={{ marginBottom: '8px' }}
                   >
                     {' '}
-                    <FormattedMessage
-                      id={commonMessages.emailNotifications.id}
-                    />
+                    {t('profile.emailNotifications')}
                   </div>
                   <div
                     css={{ fontSize: '14px', color: 'var(--color-gray-dark)' }}
                   >
-                    <FormattedMessage
-                      id={commonMessages.emailNotificationsText.id}
-                    />
+                    {t('profile.emailNotificationsText')}
                   </div>
                 </div>
               </div>
@@ -125,7 +104,7 @@ const AuthorizationData = ({
               <div css={{ maxWidth: '400px' }}>
                 <form className="df jcsb fww" onSubmit={getEmail}>
                   <div className="semi-bold" css={{ width: '300px' }}>
-                    <FormattedMessage id={commonMessages.email.id} />:
+                    {t('profile.email')}
                     <span className="ml-2">{email}</span>
                     <Field
                       name={OLD_EMAIL_FIELD}

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from '@emotion/react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
 
@@ -28,58 +27,62 @@ const ConfirmEmailForm = ({
   sendAnotherCode,
   closeModal,
   emailAddress,
-}) => (
-  <div>
-    <H4 className="text-center pb-3">
-      <FormattedMessage id={messages.confirmNewEmail.id} />
-    </H4>
+}) => {
+  return (
+    <div>
+      <H4 className="text-center pb-3">{t('common.confirmNewEmail')}</H4>
 
-    <div className="text-center pb-3">
-      <img src={letterImg} alt="check your email" />
-      <P className="text-center py-2" css={{ color: 'var(--color-gray-dark)' }}>
-        <FormattedMessage id={messages.verificationCodeText.id} />
-      </P>
-      <div className="semi-bold mb-3">{emailAddress}</div>
-      <TransparentButton
-        onClick={closeModal}
-        className="db mb-3"
-        css={{ margin: 'auto' }}
-      >
-        <FormattedMessage id={messages.changeEmail.id} />
-      </TransparentButton>
-      <div
-        css={{ height: '1px', background: '#C2C6D8', marginTop: '25px' }}
-      ></div>
+      <div className="text-center pb-3">
+        <img src={letterImg} alt="check your email" />
+        <P
+          className="text-center py-2"
+          css={{ color: 'var(--color-gray-dark)' }}
+        >
+          {t('profile.verificationCodeText')}
+        </P>
+
+        <div className="semi-bold mb-3">{emailAddress}</div>
+        <TransparentButton
+          onClick={closeModal}
+          className="db mb-3"
+          css={{ margin: 'auto' }}
+        >
+          {t('profile.changeEmail')}
+        </TransparentButton>
+        <div
+          css={{ height: '1px', background: '#C2C6D8', marginTop: '25px' }}
+        ></div>
+      </div>
+
+      <form onSubmit={handleSubmit(confirmOldEmail)}>
+        <Field
+          name={CODE_FIELD}
+          disabled={confirmOldEmailProcessing}
+          label={t('signUp.verificationCode')}
+          component={TextInputField}
+          validate={required}
+          warn={required}
+        />
+
+        <TransparentButton
+          className="mb-3"
+          onClick={sendAnotherCode}
+          type="button"
+        >
+          {t('common.sendAnotherCode')}
+        </TransparentButton>
+
+        <Button
+          disabled={confirmOldEmailProcessing}
+          className="w-100 mb-3"
+          type="submit"
+        >
+          {t('sign-up.verify')}
+        </Button>
+      </form>
     </div>
-
-    <form onSubmit={handleSubmit(confirmOldEmail)}>
-      <Field
-        name={CODE_FIELD}
-        disabled={confirmOldEmailProcessing}
-        label={translationMessages[locale][signUpMessages.verificationCode.id]}
-        component={TextInputField}
-        validate={required}
-        warn={required}
-      />
-
-      <TransparentButton
-        className="mb-3"
-        onClick={sendAnotherCode}
-        type="button"
-      >
-        <FormattedMessage id={commonMessages.sendAnotherCode.id} />
-      </TransparentButton>
-
-      <Button
-        disabled={confirmOldEmailProcessing}
-        className="w-100 mb-3"
-        type="submit"
-      >
-        <FormattedMessage id={messages.verify.id} />
-      </Button>
-    </form>
-  </div>
-);
+  );
+};
 
 ConfirmEmailForm.propTypes = {
   handleSubmit: PropTypes.func,

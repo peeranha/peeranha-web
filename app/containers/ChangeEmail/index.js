@@ -6,16 +6,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from '@emotion/react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { FormattedMessage } from 'react-intl';
+import { t } from 'i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
-import messages from './messages';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
@@ -113,9 +111,7 @@ export class ChangeEmail extends React.PureComponent {
             color: '#F76F60',
           }}
         >
-          <FormattedMessage
-            id={isSubscribedEmail ? messages.change.id : messages.confirm.id}
-          />
+          {t(isSubscribedEmail ? 'common.change' : 'common.confirm')}
         </Button>
       </React.Fragment>
     );

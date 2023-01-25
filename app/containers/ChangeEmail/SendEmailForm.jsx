@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import messages from './messages';
 import { scrollToErrorField } from 'utils/animation';
@@ -24,34 +23,37 @@ const EmailForm = ({
   sendOldEmailProcessing,
   emailAddress,
   closeModal,
-}) => (
-  <div>
-    <H4 className="text-center pb-3">
-      <FormattedMessage id={messages.confirmNewEmail.id} />
-    </H4>
+}) => {
+  return (
+    <div>
+      <H4 className="text-center pb-3">{t('common.confirmNewEmail')}</H4>
 
-    <div className="text-center pb-3">
-      <img src={letterImg} alt="check your email" />
-      <P className="text-center py-2" css={{ color: 'var(--color-gray-dark)' }}>
-        <FormattedMessage id={messages.verificationCodeText.id} />
-      </P>
-      <div className="semi-bold">{emailAddress}</div>
+      <div className="text-center pb-3">
+        <img src={letterImg} alt="check your email" />
+        <P
+          className="text-center py-2"
+          css={{ color: 'var(--color-gray-dark)' }}
+        >
+          {t('profile.verificationCodeText')}
+        </P>
+        <div className="semi-bold">{emailAddress}</div>
+      </div>
+      <TransparentButton
+        onClick={closeModal}
+        className="db mb-3"
+        css={{ margin: 'auto' }}
+      >
+        {t('profile.changeEmail')}
+      </TransparentButton>
+
+      <form onSubmit={handleSubmit(sendOldEmail)}>
+        <Button disabled={sendOldEmailProcessing} className="w-100 mb-3">
+          {t('profile.sendCode')}
+        </Button>
+      </form>
     </div>
-    <TransparentButton
-      onClick={closeModal}
-      className="db mb-3"
-      css={{ margin: 'auto' }}
-    >
-      <FormattedMessage id={messages.changeEmail.id} />
-    </TransparentButton>
-
-    <form onSubmit={handleSubmit(sendOldEmail)}>
-      <Button disabled={sendOldEmailProcessing} className="w-100 mb-3">
-        <FormattedMessage id={messages.sendCode.id} />
-      </Button>
-    </form>
-  </div>
-);
+  );
+};
 
 EmailForm.propTypes = {
   handleSubmit: PropTypes.func,

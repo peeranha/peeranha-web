@@ -40,5 +40,13 @@
   "sendFromAccount": "Send from account",
   "sendToAccount": "Send to account",
   "changeAccount": "Change account",
-  "chooseAccount": "Choose account"
+  "chooseAccount": "Choose account",
+  "email": "Email",
+  "excellent": "Excellent!",
+  "excellentText": "Confirmation was succesfull",
+  "changeEmail": "Change email",
+  "sendCode": "Send code",
+  "emailNotifications": "Email notifications",
+  "emailNotificationsText": "Get notifications about posts, answers and comments.",
+  "verificationCodeText": "A verification code will be sent to email:"
 }

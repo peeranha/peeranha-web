@@ -1,10 +1,9 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import { styled } from './ToogleSwitch.styled';
 
 type ToggleSwitchProps = {
-  isToggled: Boolean;
-  setIsToggled: (isToggled: Boolean) => void;
+  isToggled: boolean;
+  setIsToggled: (isToggled: boolean) => void;
 };
 
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({

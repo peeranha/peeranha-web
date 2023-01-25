@@ -40,5 +40,13 @@
   "sendFromAccount": "从帐户发送",
   "sendToAccount": "发送到帐户",
   "changeAccount": "更改帐户",
-  "chooseAccount": "选择账户"
+  "chooseAccount": "选择账户",
+  "email": "电子邮件",
+  "excellent": "出色的！",
+  "excellentText": "确认成功",
+  "changeEmail": "更改电子邮件",
+  "sendCode": "发送代码",
+  "emailNotifications": "电子邮件通知",
+  "emailNotificationsText": "获取有关帖子、答案和评论的通知。",
+  "verificationCodeText": "验证码将发送至邮箱:"
 }
