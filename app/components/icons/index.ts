@@ -1,6 +1,5 @@
 export { default as Share } from './Share';
 export { default as Plus } from './Plus';
-export { default as PlusWithoutCircle } from './PlusWithoutCircle';
 export { default as Notification } from './Notification';
 export { default as Energy } from './Energy';
 export { default as Peercoin } from './Peercoin';
@@ -108,3 +107,7 @@ export { default as SocialDiscord } from './SocialDiscord';
 export { default as Pin } from './Pin';
 export { default as AddSubArticle } from './AddSubArticle';
 export { default as Save } from './Save';
+export { default as TransactionStatus } from './TransactionStatus';
+export { default as TransactionLoader } from './TransactionLoader';
+export { default as SuccessfulTransaction } from './SuccessfulTransaction';
+export { default as FailedTransaction } from './FailedTransaction';
