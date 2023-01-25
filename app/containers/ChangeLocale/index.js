@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-import { languages } from 'i18n';
+import { languages } from 'app/i18n';
 
 import { setCookie, getCookie } from 'utils/cookie';
 
