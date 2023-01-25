@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 
 import {
@@ -23,8 +23,6 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import Seo from 'components/Seo';
 import Tags from 'containers/Tags';
 
-import messages from './messages';
-
 import Content from './Content';
 import Aside from './Aside';
 
@@ -41,10 +39,11 @@ export const SuggestedTags = ({
   existingTags,
   getSuggestedTagsDispatch,
 }) => {
-  const commId = useMemo(() => single || +match.params.communityid, [
-    single,
-    match.params.communityid,
-  ]);
+  const { t } = useTranslation();
+  const commId = useMemo(
+    () => single || +match.params.communityid,
+    [single, match.params.communityid],
+  );
 
   const currentCommunity = useMemo(
     () => getFollowedCommunities(communities, [commId])[0] || emptyCommunity,
@@ -52,7 +51,7 @@ export const SuggestedTags = ({
   );
 
   const sortTags = useCallback(
-    ev =>
+    (ev) =>
       getSuggestedTagsDispatch({
         sorting: ev.currentTarget.dataset.key,
         communityId: currentCommunity.id,
@@ -69,15 +68,16 @@ export const SuggestedTags = ({
     [currentCommunity.id],
   );
 
-  const keywords = useMemo(() => currentCommunity.tags.map(x => x.name), [
-    currentCommunity.tags,
-  ]);
+  const keywords = useMemo(
+    () => currentCommunity.tags.map((x) => x.name),
+    [currentCommunity.tags],
+  );
 
   return (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('tags.suggested.title')}
+        description={t('tags.suggested.description')}
         language={locale}
         keywords={keywords}
       />
@@ -137,7 +137,4 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SuggestedTags);
+export default connect(mapStateToProps, mapDispatchToProps)(SuggestedTags);

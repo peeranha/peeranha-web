@@ -54,7 +54,13 @@ export function* getAnswerWorker({ questionId, answerId }) {
   }
 }
 
-export function* editAnswerWorker({ answer, questionId, answerId, official }) {
+export function* editAnswerWorker({
+  answer,
+  questionId,
+  answerId,
+  official,
+  title,
+}) {
   try {
     const ethereumService = yield select(selectEthereum);
     const user = yield call(ethereumService.getSelectedAccount);
@@ -73,7 +79,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official }) {
     );
 
     if (cachedQuestion) {
-      const item = cachedQuestion.answers.find(x => x.id === answerId);
+      const item = cachedQuestion.answers.find((x) => x.id === answerId);
       item.content = answer;
       if (official) {
         item.isOfficialReply = official;
@@ -83,7 +89,10 @@ export function* editAnswerWorker({ answer, questionId, answerId, official }) {
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editAnswerSuccess({ ...cachedQuestion }));
-    yield call(createdHistory.push, routes.questionView(questionId, answerId));
+    yield call(
+      createdHistory.push,
+      routes.questionView(questionId, title, answerId),
+    );
   } catch (err) {
     yield put(editAnswerErr(err));
   }
@@ -109,7 +118,7 @@ export function* redirectToEditAnswerPageWorker({ buttonId, link }) {
   } catch (err) {}
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_ANSWER, getAnswerWorker);
   yield takeLatest(EDIT_ANSWER, editAnswerWorker);
   yield takeLatest(EDIT_ANSWER_SUCCESS, updateQuestionList);

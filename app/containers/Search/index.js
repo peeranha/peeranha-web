@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { css } from '@emotion/react';
-import commonMessages from 'common-messages';
 import searchIcon from 'images/searchIcon.svg?inline';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -25,11 +23,10 @@ import saga from './saga';
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
 
-import messages from './messages';
-import Banner from './Banner/Banner';
-import Content from '../Questions/Content/Content';
 import { selectCommunities } from '../DataCacheProvider/selectors';
-import InfinityLoader from '../../components/InfinityLoader';
+import Banner from './Banner/Banner';
+
+import Loader from 'components/LoadingIndicator/WidthCentered';
 import { TEXT_DARK, TEXT_SECONDARY } from '../../style-constants';
 import SearchContent from './SearchContent';
 import { redirectToAskQuestionPage } from '../AskQuestion/actions';
@@ -47,6 +44,7 @@ const Search = ({
   redirectToAskQuestionPageDispatch,
   loginWithWalletDispatch,
 }) => {
+  const { t } = useTranslation();
   const query = match.params.q;
   useEffect(() => {
     if (query) {
@@ -57,8 +55,8 @@ const Search = ({
   return (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('common.search')}
+        description={t('common.descriptionSearch')}
         language={locale}
         index={false}
       />
@@ -71,7 +69,7 @@ const Search = ({
       >
         <H3>
           <MediumImageStyled src={searchIcon} alt="search" />
-          <FormattedMessage {...commonMessages.search} />
+          {t('common.search')}
         </H3>
         {Boolean(items.length) && (
           <div>
@@ -82,7 +80,7 @@ const Search = ({
                 font-family: 'Source Sans Pro', sans-serif;
               `}
             >
-              <FormattedMessage id={commonMessages.results.id} />
+              {t('common.results')}
             </span>
             <span
               className="fz16 ml8"
@@ -96,27 +94,22 @@ const Search = ({
         )}
       </Header>
 
-      {items.length > 0 ? (
-        <InfinityLoader
-          loadNextPaginatedData={false}
-          isLoading={getResultsProcessing}
-          isLastFetch={false}
-        >
+      {(getResultsProcessing && <Loader />) ||
+        (items.length > 0 ? (
           <SearchContent
             locale={locale}
             posts={items}
             communities={communities}
           />
-        </InfinityLoader>
-      ) : (
-        <Banner
-          profileInfo={profileInfo}
-          redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-          showLoginModalWithRedirectToAskQuestionPage={() =>
-            loginWithWalletDispatch({ metaMask: true }, true)
-          }
-        />
-      )}
+        ) : (
+          <Banner
+            profileInfo={profileInfo}
+            redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+            showLoginModalWithRedirectToAskQuestionPage={() =>
+              loginWithWalletDispatch({ metaMask: true }, true)
+            }
+          />
+        ))}
     </div>
   );
 };

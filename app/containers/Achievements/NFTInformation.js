@@ -1,10 +1,8 @@
 import React from 'react';
-import commonMessages from 'common-messages';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 import PropTypes from 'prop-types';
-import { getIpfsHashFromBytes32 } from 'utils/ipfs.js';
 import Span from 'components/Span';
 import A from 'components/A';
 
@@ -23,7 +21,8 @@ const Label = styled.div`
   left: -30px;
 `;
 
-const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
+const NFTInformation = ({ id, ipfsHash, contractAddress }) => {
+  const { t } = useTranslation();
   const contractAddressURL =
     process.env.BLOCKCHAIN_EXPLORERE_URL + contractAddress;
 
@@ -34,7 +33,7 @@ const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
         {id}
       </Span>
       <Span>
-        {translationMessages[locale][commonMessages.ipfsHashValue.id]}
+        {t('common.ipfsHashValue')}
         {': '}
         {ipfsHash}
       </Span>
@@ -43,7 +42,7 @@ const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
         to={{ pathname: contractAddressURL }}
         href={contractAddressURL}
       >
-        {translationMessages[locale][commonMessages.contractAddress.id]}
+        {t('common.contractAddress')}
         {': '}
         {contractAddress}
       </A>
@@ -53,7 +52,6 @@ const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
 
 NFTInformation.PropTypes = {
   id: PropTypes.number,
-  locale: PropTypes.string,
   ipfsHash: PropTypes.string,
   contractAddress: PropTypes.string,
 };
