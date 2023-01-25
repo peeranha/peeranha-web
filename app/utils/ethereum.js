@@ -89,11 +89,9 @@ class EthereumService {
   };
 
   initEthereum = async () => {
-    console.log('AA');
     this.provider = ethers.providers.getDefaultProvider(
       process.env.ETHEREUM_NETWORK,
     );
-    console.log('AA');
     this.contractUser = new Contract(
       process.env.USER_ADDRESS,
       PeeranhaUser,
@@ -145,14 +143,11 @@ class EthereumService {
         );
       });
     }
-    console.log('AA');
     this.setTransactionList(this.transactionList);
-    console.log('AA');
     localStorage.setItem(
       TRANSACTION_LIST,
       JSON.stringify(this.transactionList),
     );
-    console.log('AA');
   };
 
   chainCheck = async () => {
