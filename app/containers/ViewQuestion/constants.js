@@ -113,7 +113,7 @@ export const GET_HISTORIES = 'app/ViewQuestion/GET_HISTORIES';
 export const GET_HISTORIES_SUCCESS = 'app/ViewQuestion/GET_HISTORIES_SUCCESS';
 export const GET_HISTORIES_ERROR = 'app/ViewQuestion/GET_HISTORIES_ERROR';
 
-export const POST_TYPES = ['experts', 'questions', 'tutorials'];
+export const POST_TYPES = ['experts', 'discussions', 'tutorials'];
 
 export const QUESTION_PROPERTIES = {
   LAST_EDITED_KEY: 3,
