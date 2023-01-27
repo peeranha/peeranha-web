@@ -1,12 +1,9 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import FunctionlandLogo from './images/functionland-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-functionland.ico';
-
 const domainName = 'https://fx.land/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'functionland_style',
@@ -19,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -190,8 +187,10 @@ export const FunctionlandStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: FunctionlandLogo,
-  favicon,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
+  favicon:
+    'https://images.peeranha.io/communities/functionland/favicon-functionland.ico',
   colors: {
     mainBackground: '#F3F3F3',
     linkColor: 'rgb(9, 147, 147)',
@@ -210,6 +209,14 @@ export const FunctionlandStyles = {
     textColor: 'rgb(9, 147, 147)',
     textColorShadow: 'rgba(9, 147, 147, 0.4)',
     localeArrowColor: 'rgb(9, 147, 147)',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
   headerHeight: 80,
   domainName,

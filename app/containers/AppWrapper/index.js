@@ -1,3 +1,4 @@
+import TransactionsList from 'containers/TransactionsList';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -47,10 +48,9 @@ const Box = ({
     <>
       <Header />
 
-      <Main
-        isMenuVisible={isMenuVisible}
-        transactionInitialised={transactionInitialised}
-      >
+      <TransactionsList />
+
+      <Main isMenuVisible={isMenuVisible}>
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
           <div className="d-flex">
             <LeftMenu {...props} documentationMenu={documentationMenu} />

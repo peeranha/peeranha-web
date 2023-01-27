@@ -5,7 +5,6 @@ export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
 // Transaction names
-export const REGISTER_ACC = 'createUser';
 export const UPDATE_ACC = 'updateUser';
 export const CREATE_COMMUNITY = 'createCommunity';
 export const EDIT_COMMUNITY = 'updateCommunity';
@@ -120,7 +119,6 @@ const reply = `
 
 const post = `
     id
-    tags
     ipfsHash
     postType
     author {
@@ -152,6 +150,10 @@ const post = `
       where: { isDeleted: false },
     ) {
       ${comment}
+    }
+    tags {
+      id
+      name
     }
 `;
 
@@ -464,7 +466,10 @@ export const postsForSearchQuery = `
     ) {
         id
         ipfsHash
-        tags
+        tags {
+          id
+          name
+        }
         postType
         author {
           ${user}

@@ -4,12 +4,15 @@
  *
  */
 
-export const GET_COMMUNITIES_WITH_TAGS =
-  'app/DataCacheProvider/GET_COMMUNITIES_WITH_TAGS';
-export const GET_COMMUNITIES_WITH_TAGS_SUCCESS =
-  'app/DataCacheProvider/GET_COMMUNITIES_WITH_TAGS_SUCCESS';
-export const GET_COMMUNITIES_WITH_TAGS_ERROR =
-  'app/DataCacheProvider/GET_COMMUNITIES_WITH_TAGS_ERROR';
+export const GET_COMMUNITIES = 'app/DataCacheProvider/GET_COMMUNITIES';
+export const GET_COMMUNITIES_SUCCESS =
+  'app/DataCacheProvider/GET_COMMUNITIES_SUCCESS';
+export const GET_COMMUNITIES_ERROR =
+  'app/DataCacheProvider/GET_COMMUNITIES_ERROR';
+export const GET_TAGS = 'app/DataCacheProvider/GET_TAGS';
+export const GET_COMMUNITY_TAGS = 'app/DataCacheProvider/GET_COMMUNITY_TAGS';
+export const GET_TAGS_SUCCESS = 'app/DataCacheProvider/GET_TAGS_SUCCESS';
+export const GET_TAGS_ERROR = 'app/DataCacheProvider/GET_TAGS_ERROR';
 export const UPDATE_TAG_OF_COMMUNITY =
   'app/DataCacheProvider/UPDATE_TAG_OF_COMMUNITY';
 

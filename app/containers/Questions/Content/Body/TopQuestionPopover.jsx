@@ -1,13 +1,11 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import Span from 'components/Span';
 
 import { BG_LIGHT, TEXT_DARK } from 'style-constants';
-
-import messages from '../../messages';
 
 const Base = styled.div`
   position: absolute;
@@ -28,11 +26,15 @@ const Base = styled.div`
   }
 `;
 
-const TopQuestionPopover = ({ locale }) => (
-  <Base>
-    <Span>{translationMessages[locale][messages.topQuestionPopover.id]}</Span>
-  </Base>
-);
+const TopQuestionPopover = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Base>
+      <Span>{t('common.topQuestionPopover')}</Span>
+    </Base>
+  );
+};
 
 TopQuestionPopover.propTypes = {
   locale: PropTypes.string,

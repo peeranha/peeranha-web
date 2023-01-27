@@ -10,7 +10,7 @@ import {
   selectDataCacheProviderDomain,
   selectCommunities,
   selectCommunitiesLoading,
-  selectGetCommunitiesWithTagsError,
+  selectGetCommunitiesError,
   selectUsers,
   selectUsersLoading,
   selectGetUserProfileError,
@@ -26,7 +26,7 @@ import {
 describe('selectDataCacheProviderDomain', () => {
   const communities = [];
   const communitiesLoading = false;
-  const getCommunitiesWithTagsError = null;
+  const getCommunitiesError = null;
   const users = {};
   const usersLoading = false;
   const getUserProfileError = null;
@@ -62,7 +62,7 @@ describe('selectDataCacheProviderDomain', () => {
   const globalState = fromJS({
     communities,
     communitiesLoading,
-    getCommunitiesWithTagsError,
+    getCommunitiesError,
     users,
     usersLoading,
     getUserProfileError,
@@ -110,9 +110,9 @@ describe('selectDataCacheProviderDomain', () => {
   });
 
   it('selectCommunitiesLoading', () => {
-    const isSelectGetCommunitiesWithTagsError = selectGetCommunitiesWithTagsError();
-    expect(isSelectGetCommunitiesWithTagsError(mockedState)).toEqual(
-      getCommunitiesWithTagsError,
+    const isSelectGetCommunitiesError = selectGetCommunitiesError();
+    expect(isSelectGetCommunitiesError(mockedState)).toEqual(
+      getCommunitiesError,
     );
   });
 

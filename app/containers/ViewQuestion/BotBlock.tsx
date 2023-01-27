@@ -1,16 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import { TEXT_SECONDARY } from 'style-constants';
-import { FormattedMessage } from 'react-intl';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import Span from 'components/Span';
 
-import messages from './messages';
-import BotInfo from './BotInfo';
+import { useTranslation } from 'react-i18next';
 
 type Messenger = {
   name: string;
@@ -55,26 +52,27 @@ type BotBlockProps = {
   messenger: Messenger;
 };
 
-const BotBlock: React.FC<BotBlockProps> = ({ postTime, locale, messenger }) => (
-  <div css={blockCss}>
-    <span className={`d-flex align-items-center mr-2`}>
-      <Span
-        className="mr-2"
-        fontSize="14"
-        lineHeight="18"
-        textOverflow="ellipsis"
-      >
-        <FormattedMessage
-          id={messages.botAnswer.id}
-          values={{ bot: messenger.name }}
-        />
-      </Span>
-    </span>
+const BotBlock: React.FC<BotBlockProps> = ({ postTime, locale, messenger }) => {
+  const { t } = useTranslation();
 
-    <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-      {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
-    </Span>
-  </div>
-);
+  return (
+    <div css={blockCss}>
+      <span className={`d-flex align-items-center mr-2`}>
+        <Span
+          className="mr-2"
+          fontSize="14"
+          lineHeight="18"
+          textOverflow="ellipsis"
+        >
+          {t('post.botAnswer', { bot: messenger.name })}
+        </Span>
+      </span>
+
+      <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
+        {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+      </Span>
+    </div>
+  );
+};
 
 export default BotBlock;

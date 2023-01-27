@@ -3,9 +3,9 @@ import { fromJS } from 'immutable';
 import dataCacheProviderReducer from '../reducer';
 
 import {
-  getCommunitiesWithTags,
-  getCommunitiesWithTagsSuccess,
-  getCommunitiesWithTagsErr,
+  getCommunities,
+  getCommunitiesSuccess,
+  getCommunitiesErr,
   getUserProfile,
   getUserProfileSuccess,
   getUserProfileErr,
@@ -55,39 +55,31 @@ describe('dataCacheProviderReducer', () => {
     );
   });
 
-  it('getCommunitiesWithTags', () => {
+  it('getCommunities', () => {
     const obj = state.set('communitiesLoading', true);
 
-    expect(dataCacheProviderReducer(state, getCommunitiesWithTags())).toEqual(
-      obj,
-    );
+    expect(dataCacheProviderReducer(state, getCommunities())).toEqual(obj);
   });
 
-  it('getCommunitiesWithTagsSuccess', () => {
+  it('getCommunitiesSuccess', () => {
     const communities = [];
     const obj = state
       .set('communitiesLoading', false)
       .set('communities', communities);
 
     expect(
-      dataCacheProviderReducer(
-        state,
-        getCommunitiesWithTagsSuccess(communities),
-      ),
+      dataCacheProviderReducer(state, getCommunitiesSuccess(communities)),
     ).toEqual(obj);
   });
 
-  it('getCommunitiesWithTagsErr', () => {
-    const getCommunitiesWithTagsError = 'getCommunitiesWithTagsError';
+  it('getCommunitiesErr', () => {
+    const getCommunitiesError = 'getCommunitiesError';
     const obj = state
       .set('communitiesLoading', false)
-      .set('getCommunitiesWithTagsError', getCommunitiesWithTagsError);
+      .set('getCommunitiesError', getCommunitiesError);
 
     expect(
-      dataCacheProviderReducer(
-        state,
-        getCommunitiesWithTagsErr(getCommunitiesWithTagsError),
-      ),
+      dataCacheProviderReducer(state, getCommunitiesErr(getCommunitiesError)),
     ).toEqual(obj);
   });
 
