@@ -30,7 +30,6 @@ import {
   EDIT_COMMENT,
   EDIT_POST,
   GET_COMMENT,
-  GET_ITEM_PROPERTY,
   GET_POST,
   GET_REPLY,
   GET_STATUS_HISTORY,
@@ -47,10 +46,6 @@ import {
   historiesForPost,
 } from './theGraph';
 import { getCommunityTags } from 'utils/communityManagement';
-
-export const ReplyProperties = {
-  MessengerSender: 0,
-};
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -502,25 +497,12 @@ export const formCommentObject = async (
   };
 };
 
-export const formReplyPropertyObject = (rawProperty, propertyId) => {
-  switch (propertyId) {
-    case ReplyProperties.MessengerSender:
-      return {
-        handle: rawProperty.toString().slice(0, rawProperty.length - 1),
-        messengerType: rawProperty[messengerUserData.length - 1],
-      };
-    default:
-      return {};
-  }
-};
-
 export const formReplyObject = async (
   rawReply,
   comments,
   id,
   ethereumService,
   statusHistory,
-  properties,
 ) => {
   const { content } = JSON.parse(
     await getText(getIpfsHashFromBytes32(rawReply.ipfsDoc.hash)),
@@ -535,8 +517,6 @@ export const formReplyObject = async (
     parentReplyId: rawReply.parentReplyId,
     comments,
     id,
-    handle: properties.handle,
-    messengerType: properties.messengerType,
   };
 };
 
@@ -645,32 +625,12 @@ export async function getQuestionById(ethereumService, questionId, user) {
             }),
         );
 
-        const properties = {};
-
-        Object.keys(ReplyProperties).forEach((propertyName) => {
-          ethereumService
-            .getContentDataWithArgs(GET_ITEM_PROPERTY, [
-              ReplyProperties[propertyName],
-              questionId,
-              replyIndex + 1,
-              0,
-            ])
-            .then((rawProperty) => {
-              const propertyId = ReplyProperties[propertyName];
-              properties[propertyId] = formReplyPropertyObject(
-                rawProperty,
-                propertyId,
-              );
-            });
-        });
-
         replyObj = await formReplyObject(
           rawReply,
           orderBy(comments, 'postTime'),
           replyIndex + 1,
           ethereumService,
           replyStatusHistory,
-          properties,
         );
       } catch (err) {
         // if reply is deleted
