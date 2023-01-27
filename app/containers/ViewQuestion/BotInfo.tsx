@@ -1,22 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
-import { TEXT_SECONDARY, PEER_PRIMARY_COLOR } from 'style-constants';
-import { FormattedMessage } from 'react-intl';
-
-import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME, MessengerTypes } from 'utils/constants';
+import { PEER_PRIMARY_COLOR } from 'style-constants';
+import { MessengerTypes } from 'utils/constants';
 import { hexToRgbaString } from 'utils/converters';
-
-import Span from 'components/Span';
 
 import botLogo from 'images/bot/logo_small.svg?inline';
 import telegram from 'images/bot/bot_telegram.svg?inline';
 import discord from 'images/bot/bot_discord.svg?inline';
 import slack from 'images/bot/bot_slack.svg?inline';
 import { CELL } from 'components/Img';
-
-import messages from './messages';
+import BotBlock from './BotBlock';
 
 const MessengerData = {
   [MessengerTypes.Unknown]: {
@@ -35,38 +28,6 @@ const MessengerData = {
     icon: slack,
   },
 };
-
-const blockCss = css`
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  max-width: cacl(100% - 50px - 152px);
-
-  @media only screen and (max-width: 576px) {
-    > span {
-      max-width: 230px;
-    }
-  }
-
-  @media only screen and (max-width: 480px) {
-    > span {
-      max-width: 190px;
-    }
-  }
-
-  @media only screen and (max-width: 420px) {
-    > span {
-      max-width: 150px;
-    }
-  }
-
-  @media only screen and (max-width: 380px) {
-    > span {
-      max-width: 125px;
-    }
-  }
-`;
 
 const borderColor = hexToRgbaString(PEER_PRIMARY_COLOR, 0.4);
 
@@ -104,30 +65,18 @@ export const botImageWrapperCss = css`
   height: ${CELL * 1.75}px;
 `;
 
-export const BotBlock = ({ postTime, locale, messenger }) => (
-  <div css={blockCss}>
-    <span className={`d-flex align-items-center mr-2`}>
-      <Span
-        className="mr-2"
-        fontSize="14"
-        lineHeight="18"
-        textOverflow="ellipsis"
-      >
-        <FormattedMessage
-          id={messages.botAnswer.id}
-          values={{ bot: messenger.name }}
-        />
-      </Span>
-    </span>
+type BotInfoProps = {
+  postTime: string | number;
+  locale: string;
+  messengerType: number;
+};
 
-    <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-      {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
-    </Span>
-  </div>
-);
-
-export const BotInfo = ({ postTime, locale, messengerType }) => {
-  const messenger =
+const BotInfo: React.FC<BotInfoProps> = ({
+  postTime,
+  locale,
+  messengerType,
+}) => {
+  const messenger: any =
     MessengerData[messengerType] ?? MessengerData[MessengerTypes.Unknown];
 
   return (
@@ -141,10 +90,4 @@ export const BotInfo = ({ postTime, locale, messengerType }) => {
   );
 };
 
-BotInfo.propTypes = {
-  postTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  locale: PropTypes.string,
-  messengerType: PropTypes.number,
-};
-
-export default React.memo(BotInfo);
+export default BotInfo;
