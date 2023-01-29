@@ -172,7 +172,7 @@
     "'How-to' guides."
   ],
   "documentationPopoverTitle": "Documentation",
-  "documentationPopoverLabel": "Documentation article published by community officials.",
+  "documentationPopoverLabel": "Documentation article published by community officials. It contains important information and guidelines for both technical and non-technical aspects of the community.",
   "rightNow": "Right now",
   "minutesAgo": "{{minutes}} minutes ago",
   "hoursAgo": "{{hours}} hours ago",
