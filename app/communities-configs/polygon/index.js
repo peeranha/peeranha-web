@@ -1,7 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-const fonts = 'Verdana-Regular, Arial, sans-serif';
 const domainName = 'https://polygon.technology/';
 
 export const customSubHeaderConfig = {
@@ -14,9 +13,6 @@ export const customSubHeaderConfig = {
     color: {
       a: 'rgba(41,41,52,1)',
       arrow: 'rgba(238,238,242,1)',
-    },
-    font: {
-      body: `${fonts}`,
     },
     header: {
       background: '#020038',
@@ -149,15 +145,6 @@ export const PolygonStyles = {
     'https://images.peeranha.io/communities/polygon/polygon-logo.svg',
   favicon: 'https://images.peeranha.io/communities/polygon/favicon-polygon.png',
   withoutFAQ: true,
-  fonts: {
-    h3LetterSpacing: '0.5px',
-    tagsLetterSpacing: '0.5px',
-    questionTitleLetterSpacing: '0.5px',
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-  },
   colors: {
     blue: '#5D6DFE',
     blueRGB: '93,109,254',
