@@ -233,7 +233,6 @@ export const MintStateLabsStyles = {
     textColor: '#53A6EC',
     textColorShadow: '#53A6EC',
     commHeadElemColor: '#FFF',
-    darkBlue: '#1a1c20',
   },
   cookieConsentPopupStyles: {
     background: '#53A6EC',
