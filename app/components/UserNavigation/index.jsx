@@ -120,22 +120,24 @@ const UserNavigation = ({
             tabIndex={!questionsLength ? '-1' : undefined}
             islink={path !== routes.userQuestions(userId) ? 1 : 0}
           >
-            <Trans
-              i18nKey="common.postsNumber"
-              values={{ number: questionsLength }}
-              components={[
-                <Span
-                  className="ml-1"
-                  fontSize="14"
-                  color={
-                    path !== routes.userQuestions(userId)
-                      ? TEXT_SECONDARY
-                      : 'inherit'
-                  }
-                  key="0"
-                />,
-              ]}
-            />
+            <span>
+              <Trans
+                i18nKey="common.postsNumber"
+                values={{ number: questionsLength }}
+                components={[
+                  <Span
+                    className="ml-1"
+                    fontSize="14"
+                    color={
+                      path !== routes.userQuestions(userId)
+                        ? TEXT_SECONDARY
+                        : 'inherit'
+                    }
+                    key="0"
+                  />,
+                ]}
+              />
+            </span>
           </NavigationLink>
 
           <NavigationLink
@@ -144,22 +146,24 @@ const UserNavigation = ({
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
             islink={path !== routes.userAnswers(userId) ? 1 : 0}
           >
-            <Trans
-              i18nKey="common.answersNumber"
-              values={{ number: questionsWithUserAnswersLength }}
-              components={[
-                <Span
-                  className="ml-1"
-                  fontSize="14"
-                  color={
-                    path !== routes.userAnswers(userId)
-                      ? TEXT_SECONDARY
-                      : 'inherit'
-                  }
-                  key="0"
-                />,
-              ]}
-            />
+            <span>
+              <Trans
+                i18nKey="common.answersNumber"
+                values={{ number: questionsWithUserAnswersLength }}
+                components={[
+                  <Span
+                    className="ml-1"
+                    fontSize="14"
+                    color={
+                      path !== routes.userAnswers(userId)
+                        ? TEXT_SECONDARY
+                        : 'inherit'
+                    }
+                    key="0"
+                  />,
+                ]}
+              />
+            </span>
           </NavigationLink>
 
           <NavigationLink
@@ -174,22 +178,24 @@ const UserNavigation = ({
             to={routes.userNFTs(userId)}
             islink={path !== routes.userNFTs(userId) ? 1 : 0}
           >
-            <Trans
-              i18nKey="common.NFTsNumber"
-              values={{ number: userAchievementsLength }}
-              components={[
-                <Span
-                  className="ml-1"
-                  fontSize="14"
-                  color={
-                    path !== routes.userNFTs(userId)
-                      ? TEXT_SECONDARY
-                      : 'inherit'
-                  }
-                  key="0"
-                />,
-              ]}
-            />
+            <span>
+              <Trans
+                i18nKey="common.NFTsNumber"
+                values={{ number: userAchievementsLength }}
+                components={[
+                  <Span
+                    className="ml-1"
+                    fontSize="14"
+                    color={
+                      path !== routes.userNFTs(userId)
+                        ? TEXT_SECONDARY
+                        : 'inherit'
+                    }
+                    key="0"
+                  />,
+                ]}
+              />
+            </span>
           </NavigationLink>
 
           {isModerator && (
