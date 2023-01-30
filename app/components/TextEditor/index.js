@@ -52,6 +52,11 @@ class TextEditor extends React.PureComponent {
             ul li {
               list-style-type: disc;
             }
+            textarea {
+              ::selection {
+                -webkit-text-fill-color: ${TEXT_DARK};
+              }
+            }
             .w-md-editor-toolbar {
               border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
             }
