@@ -89,7 +89,7 @@ export function saveMenuDraft(menu: Array<DocumentationItemMenuType>) {
 }
 
 export function saveDraftsIds(
-  draftsIds: { draftId: string; lastmod: string }[],
+  draftsIds: Array<{ draftId: string; lastmod: string }>,
 ) {
   return {
     type: SAVE_DRAFTS_IDS,

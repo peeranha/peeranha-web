@@ -46,7 +46,6 @@ const ViewContent: React.FC<ViewContentProps> = ({
   const headers = extractStrings(['#', '\n'])(
     `${documentationArticle?.content}\n` || '',
   );
-  console.log(123, isEditDocumentation);
   return (
     <>
       <Wrapper

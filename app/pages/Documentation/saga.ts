@@ -40,7 +40,7 @@ export function* getArticleDocumentationWorker({
     } else {
       const draftsIds = yield select(selectDraftsIds());
       const editedPost = (
-        draftsIds as { draftId: string; lastmod: string }[]
+        draftsIds as Array<{ draftId: string; lastmod: string }>
       ).find((item) => item.draftId === articleId);
       if (editedPost) {
         const documentationArticle = yield call(getText, ipfsHash);

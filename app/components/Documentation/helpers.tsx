@@ -26,12 +26,14 @@ export const initMenu = (
   },
 ];
 
-export const getSavedDraftsIds = (): { draftId: string; lastmod: string }[] => {
+export const getSavedDraftsIds = (): Array<{
+  draftId: string;
+  lastmod: string;
+}> => {
   if (localStorage.getItem(DRAFTS_IDS)) {
     const draftIds = localStorage.getItem(DRAFTS_IDS);
     if (draftIds) {
-      const draftIdsArray = JSON.parse(draftIds);
-      return draftIdsArray;
+      return JSON.parse(draftIds);
     }
   }
 
@@ -41,7 +43,7 @@ export const getSavedDraftsIds = (): { draftId: string; lastmod: string }[] => {
 export const saveDraftsIds = (
   draftId: string,
   lastmod: string,
-): { draftId: string; lastmod: string }[] => {
+): Array<{ draftId: string; lastmod: string }> => {
   const draftsIds = getSavedDraftsIds();
 
   localStorage.setItem(

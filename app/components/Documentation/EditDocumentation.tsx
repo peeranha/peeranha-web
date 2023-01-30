@@ -231,7 +231,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     documentationArticle={viewDocumentationArticle}
                     isEditDocumentation
                     locale={locale}
-                    isEditPost={!!isDraft}
+                    isEditPost={Boolean(isDraft)}
                   />
                 )}
                 {editArticle.isEditArticle && (
