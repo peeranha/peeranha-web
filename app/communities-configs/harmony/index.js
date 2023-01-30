@@ -205,6 +205,7 @@ export const HarmonyStyles = {
     loaderColor: 'rgb(36,95,226)',
     votingIconColor: 'rgb(36,95,226)',
     linkColorSecondary: 'rgb(36,95,226)',
+    textColorShadow: 'rgb(36,95,226)',
     commHeadElemColor: '#FFF',
     walletButton: 'rgb(36,95,226)',
     btnColor: 'rgb(36,95,226)',
