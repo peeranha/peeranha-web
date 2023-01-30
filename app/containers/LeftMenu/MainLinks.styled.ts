@@ -6,6 +6,7 @@ export const styles = {
   },
 
   menuSectionTitle: {
+    textTransform: 'uppercase',
     fontSize: '14px',
     lineHeight: '18px',
     height: 30,

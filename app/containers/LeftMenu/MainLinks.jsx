@@ -268,7 +268,7 @@ const MainLinks = ({
               ...styles.menuItem,
             }}
           >
-            COMMUNITY
+            {t('common.communityLabel')}
           </div>
         )}
 
