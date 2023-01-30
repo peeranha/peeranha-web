@@ -53,6 +53,7 @@ type AdministrationProps = {
 
 const Administration: React.FC<AdministrationProps> = ({
   locale,
+  profileInfo,
   moderators,
   getModeratorsDispatch,
   moderatorsLoading,
@@ -78,6 +79,7 @@ const Administration: React.FC<AdministrationProps> = ({
       <Content
         locale={locale}
         single={single}
+        profileInfo={profileInfo}
         moderators={moderators}
         communityId={single}
         revokeRole={revokeRoleDispatch}

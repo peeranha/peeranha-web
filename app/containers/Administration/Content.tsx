@@ -16,7 +16,7 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 
 import { styles } from 'containers/Administration/Administration.styled';
 import AreYouSure from 'containers/Administration/AreYouSure';
-import { Moderator } from 'containers/Administration/types';
+import { User, Moderator } from 'containers/Administration/types';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { getUserName } from 'utils/user';
@@ -48,6 +48,7 @@ enum Roles {
 type ContentProps = {
   locale: string;
   single: number;
+  profileInfo: User;
   moderators: Array<Moderator>;
   revokeRole: (userAddress: string, roles: Roles, communityId: number) => void;
   communityId: number;
@@ -58,6 +59,7 @@ type ContentProps = {
 export const Content: React.FC<ContentProps> = ({
   locale,
   single,
+  profileInfo,
   moderators,
   revokeRole,
   communityId,
@@ -128,22 +130,24 @@ export const Content: React.FC<ContentProps> = ({
                 return (
                   <Tag className="float-left" key={moderator.user.id + role}>
                     <span>{roleName}</span>
-                    <AreYouSure
-                      submitAction={() => {
-                        revokeRole(moderator.user.id, role, single);
-                      }}
-                      // @ts-ignore
-                      Button={({
-                        onClick,
-                      }: {
-                        onClick: React.MouseEventHandler<HTMLButtonElement>;
-                      }) => (
-                        <RemoveTagIcon type="button" onClick={onClick}>
-                          <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
-                        </RemoveTagIcon>
-                      )}
-                      roleName={roleName}
-                    />
+                    {moderator.user.id !== profileInfo?.id && profileInfo?.id && (
+                      <AreYouSure
+                        submitAction={() => {
+                          revokeRole(moderator.user.id, role, single);
+                        }}
+                        // @ts-ignore
+                        Button={({
+                          onClick,
+                        }: {
+                          onClick: React.MouseEventHandler<HTMLButtonElement>;
+                        }) => (
+                          <RemoveTagIcon type="button" onClick={onClick}>
+                            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
+                          </RemoveTagIcon>
+                        )}
+                        roleName={roleName}
+                      />
+                    )}
                   </Tag>
                 );
               })}
