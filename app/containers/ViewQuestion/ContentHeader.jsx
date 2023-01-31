@@ -91,6 +91,10 @@ const ButtonContainer = styled.div`
     @media only screen and (max-width: 400px) {
       margin: 0 2px;
     }
+
+    @media only screen and (max-width: 330px) {
+      margin: 0 1px;
+    }
   }
 
   @media only screen and (max-width: 360px) {
