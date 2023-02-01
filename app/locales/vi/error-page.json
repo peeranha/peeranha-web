@@ -1,0 +1,9 @@
+{
+  "title": "Đã xảy ra một số lỗi...",
+  "description": "Đã xảy ra một số lỗi... sự miêu tả",
+  "weAreSorry": "Chúng tôi xin lỗi, lỗi không mong muốn đã xảy ra.",
+  "accountDoesNotExist": "Tài khoản không tồn tại",
+  "cannotTransferToSelf": "Không thể chuyển cho chính mình",
+  "notEnoughCPU": "Không đủ CPU",
+  "checkScatterConnection": "Kiểm tra kết nối ví"
+}

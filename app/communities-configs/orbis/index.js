@@ -1,11 +1,9 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import OrbisLogo from './images/Orbis-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/Orbis-logo.ico';
 const domainName = 'https://app.orbis.club/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'orbis_style',
@@ -18,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -177,26 +175,8 @@ export const OrbisStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: OrbisLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo: 'https://images.peeranha.io/communities/orbis/Orbis-logo.svg',
+  favicon: 'https://images.peeranha.io/communities/orbis/Orbis-logo.ico',
 
   colors: {
     mainSubHeaderBgColor: 'linear-gradient(90deg, #100D17 0%, #302763 100%)',
@@ -224,6 +204,14 @@ export const OrbisStyles = {
     textColorShadow: '#DE73DA',
     commHeadElemColor: '#FFF',
   },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
+  },
   cookieConsentPopupStyles: {
     background: '#302763',
     color: '#fff',
@@ -239,7 +227,7 @@ export const OrbisStyles = {
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '8px', ////
+  projectBorderRadius: '8px',
   domainName,
   fullyTransparent: '#302763',
   communityBorderStyle: '2px solid #DE73DA',

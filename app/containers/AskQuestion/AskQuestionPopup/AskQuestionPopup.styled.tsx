@@ -2,14 +2,31 @@ export const styles = {
   rulesConsent: {
     background: 'var(--color-gray-light)',
     zIndex: 10,
-    top: '61px',
+    lineHeight: '20px',
+    width: '328px',
+    height: 'auto',
+    left: 'calc(50% - 328px/2)',
+    top: 'calc(50% - 582px/2 + 0.5px)',
+
+    borderRadius: '5px',
+    boxShadow: '0px 10px 20px rgba(24, 39, 79, 0.1)',
+
     '@media (min-width: 992px)': {
-      width: '50%',
-      left: '30%',
-      top: '25%',
+      width: '580px',
       height: 'auto',
-      borderRadius: '30px',
-      border: '3px solid #fc6655',
+      left: 'calc(50% - 580px/2)',
+      top: 'calc(50% - 402px/2 + 0.5px)',
+    },
+  },
+
+  gotItButton: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+
+    '@media (min-width: 992px)': {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
     },
   },
 

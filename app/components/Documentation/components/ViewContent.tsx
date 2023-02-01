@@ -1,16 +1,15 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { css } from '@emotion/react';
 import { getFormattedDate } from 'utils/datetime';
-import TextBlock from 'components/FormFields/TextBlock';
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 import H3 from 'components/H3';
+import { useTranslation } from 'react-i18next';
 import Wrapper from 'components/Header/Simple';
 import { DocumentationArticle } from 'pages/Documentation/types';
 import { extractStrings } from 'utils/url';
 import TextNavbar from './TextNavbar/TextNavbar';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from '../../../utils/constants';
 import { TEXT_SECONDARY } from '../../../style-constants';
-import commonMessages from '../../../common-messages';
 
 const styled = {
   border: 'none',
@@ -43,6 +42,7 @@ const ViewContent: React.FC<ViewContentProps> = ({
   locale,
   isEditPost,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const headers = extractStrings(['#', '\n'])(
     `${documentationArticle?.content}\n` || '',
   );
@@ -66,13 +66,9 @@ const ViewContent: React.FC<ViewContentProps> = ({
                 className="d-none d-md-inline-block db mt8 fz14 light"
                 css={css(styled.creationTime)}
               >
-                <FormattedMessage
-                  id={
-                    isEditDocumentation
-                      ? commonMessages.lastEdited.id
-                      : commonMessages.lastUpdated.id
-                  }
-                />{' '}
+                {isEditDocumentation
+                  ? t('post.lastEdited')
+                  : t('common.lastUpdated')}{' '}
                 {getFormattedDate(
                   documentationArticle.lastmod,
                   locale,
@@ -89,7 +85,7 @@ const ViewContent: React.FC<ViewContentProps> = ({
             minWidth: '0',
           }}
         >
-          <TextBlock content={documentationArticle?.content} />
+          <MarkdownPreviewBlock content={documentationArticle?.content} />
         </Wrapper>
         {!isEditDocumentation && headers?.length > 1 && (
           <TextNavbar headers={headers} />

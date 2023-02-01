@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import {
   isSingleCommunityWebsite,
@@ -36,6 +37,7 @@ import {
   transactionFailed,
   transactionInPending,
   transactionInitialised,
+  setTransactionList,
 } from './actions';
 import communitiesConfig from '../../communities-config';
 
@@ -95,6 +97,7 @@ export const EthereumProvider = ({
   showModalDispatch,
   transactionInPendingDispatch,
   transactionCompletedDispatch,
+  setTransactionListDispatch,
   waitForConfirmDispatch,
   transactionFailedDispatch,
   initializing,
@@ -151,7 +154,7 @@ export const EthereumProvider = ({
         connectedChain,
       });
     }
-  }, [wallet, connectedWallets, web3Onboard]);
+  }, [wallet, connectedWallets, web3Onboard, ethereum]);
 
   const sendProps = {
     connect,
@@ -164,6 +167,7 @@ export const EthereumProvider = ({
     transactionCompletedDispatch,
     transactionFailedDispatch,
     waitForConfirmDispatch,
+    setTransactionListDispatch,
     addToast,
   };
 
@@ -215,6 +219,10 @@ const withConnect = connect(
     transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
     waitForConfirmDispatch: bindActionCreators(
       transactionInitialised,
+      dispatch,
+    ),
+    setTransactionListDispatch: bindActionCreators(
+      setTransactionList,
       dispatch,
     ),
     addToast: bindActionCreators(addToast, dispatch),

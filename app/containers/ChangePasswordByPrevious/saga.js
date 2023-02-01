@@ -1,13 +1,9 @@
-import { translationMessages } from 'i18n';
-import { takeLatest, put, call, select } from 'redux-saga/effects';
-
-import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
+import { t } from 'i18next';
+import { takeLatest, put, call } from 'redux-saga/effects';
 
 import { changeCredentialsComplete } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 
 import { WebIntegrationError } from 'utils/errors';
-
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { getCookie } from 'utils/cookie';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
@@ -22,9 +18,6 @@ import { changePasswordSuccess, changePasswordErr } from './actions';
 export function* changePasswordWorker({ resetForm, values }) {
   try {
     const { email } = JSON.parse(getCookie(AUTOLOGIN_DATA));
-
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
 
     const oldPassword = values[OLD_PASSWORD_FIELD];
     const newPassword = values[NEW_PASSWORD_FIELD];
@@ -41,11 +34,7 @@ export function* changePasswordWorker({ resetForm, values }) {
       !changeCredentialsCompleteResponse.body.success
     ) {
       throw new WebIntegrationError(
-        translations[
-          webIntegrationErrors[
-            (changeCredentialsCompleteResponse?.errorCode)
-          ].id
-        ],
+        t(`webIntegration.${changeCredentialsCompleteResponse?.errorCode}`),
       );
     }
 
