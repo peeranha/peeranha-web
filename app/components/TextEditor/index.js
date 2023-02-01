@@ -50,7 +50,6 @@ class TextEditor extends React.PureComponent {
           css={css`
             margin-bottom: 20px;
             border-bottom: 2px solid ${TEXT_DARK};
-            //border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
             ol li {
               list-style-type: decimal;
             }
@@ -105,7 +104,7 @@ class TextEditor extends React.PureComponent {
                 warpperElement={{ 'data-color-mode': 'light' }}
                 css={css`
                   background: ${colors.blue2 || ''};
-                  color: ${<colors className="black"></colors> || ''};
+                  color: ${colors.black || ''};
 
                   ol li {
                     list-style-type: decimal;

@@ -237,6 +237,11 @@ const communitiesConfig = {
       src: FractalVisionsLogo,
       styles: FractalVisionsStyles,
     },
+    16: {
+      origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
+      src: PolygonLogo,
+      styles: PolygonStyles,
+    },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
     // },
@@ -299,7 +304,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:31000',
       src: PolygonLogo,
       styles: PolygonStyles,
     },
