@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@uiw/react-markdown-preview/markdown.css';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const TextBlock = ({ content }) => (
   <MarkdownPreview
     source={content}
     css={css`
+      background: ${colors.blue2 || ''};
+      color: ${colors.black || ''};
       font-family: 'Source Sans Pro', sans-serif;
       ol li {
         list-style-type: decimal;

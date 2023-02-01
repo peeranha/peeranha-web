@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
-import verdanaRegularTTF from 'communities-configs/polygon/fonts/verdana.ttf';
+
 import {
   domainName,
   domainDocs,
@@ -11,7 +11,7 @@ import {
 } from 'communities-configs/polygon/urls';
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-polygon.png';
 
-const fonts = 'Verdana-Regular, Arial, sans-serif';
+const fonts = 'General Sans, sans-serif;';
 const links = [
   {
     text: 'Scaling Solutions',
@@ -147,7 +147,7 @@ export const customSubHeaderConfig = {
       }
       div {
         opacity: 1;
-        background-color: rgba(255, 255, 255, 1);
+        background-color: 'linear-gradient(180deg, #0F0E11 0%, #0A090D 21.76%)';
         border-top: 2px solid #7b3fe4;
         margin-top: 20px;
         padding: 1rem 2rem;
@@ -227,10 +227,11 @@ export const customSubHeaderConfig = {
 };
 
 export const PolygonStyles = {
-  documentationPosition: 'top',
+  documentationPosition: 'bottom',
   withoutCopyright: true,
   withoutSubHeader: true,
   poweredByPeeranha: true,
+  logoWhite: true,
   withoutAdditionalLinks: true,
   signUpPageLogo: polygonLogo,
   favicon,
@@ -249,24 +250,38 @@ export const PolygonStyles = {
     questionTitleFont: `${fonts}`,
   },
   colors: {
-    blue: '#5D6DFE',
+    mainSubHeaderBgColor: 'linear-gradient(180deg, #0F0E11 0%, #0A090D 21.76%)',
+    blue: '#FFFFFF',
+    blue2: '#141217',
+    white: '#141217',
+    sectionHeader: '#FFFFFF',
+    formColor: '#FFFFFF',
+
+    headerPrimary: '#141217',
+    linkColorTransparent: '#141217',
+    commentOption: '#141217',
+    contentHeader: '#141217',
+    linkColorSecondary: '#141217',
+
+    secondarySpecial: 'rgba(20,18,23,0)',
+    secondaryAdditional: '#7e8b97',
+    additionalInfoBackground: '#212028',
+    linkColor: '#843bed',
+    pinnedPostBackground: 'rgb(123 63 228 / 30%)',
     blueRGB: '93,109,254',
-    black: '#02003D',
-    // warningLight: '#FF4026',
-    darkBlue: '#5D6DFE',
-    mainBackground: '#F3F3F3',
-    linkColor: '#7b3fe4',
-    linkColorTransparent: 'rgba(123, 63, 228, 0.4)',
-    headerPrimary: '#7b3fe4',
-    commentOption: '#7b3fe4',
-    contentHeader: '#7b3fe4',
+    black: '#FFFFFF',
+    warningLight: '#FF4026',
+    darkBlue: 'rgb(123, 63, 228)',
+    mainBackground: 'linear-gradient(180deg, #0F0E11 0%, #0A090D 21.76%)',
     blockedInfoArea: 'rgba(123, 63, 228, 0.1)',
+
     transparentIconColor: '#b19bdd',
-    loaderColor: '#7b3fe4',
-    votingIconColor: '#7b3fe4',
-    walletButton: '#7b3fe4',
-    btnColor: '#7b3fe4',
-    tagColor: '#7b3fe4',
+    loaderColor: '#843bed',
+    votingIconColor: '#843bed',
+    walletButton: '#843bed',
+    btnColor: '#843bed',
+    tagColor: '#843bed',
+
     successColor: '#55C3B3',
     lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
     secondaryLight: '#5D6DFE',
@@ -278,6 +293,7 @@ export const PolygonStyles = {
   //     font-style: normal;
   //   }
   // `,
+  communityBorderStyle: '2px solid #843bed',
   coinsIconStyles: css`
     ellipse {
       stroke: #7b3fe4;
@@ -289,6 +305,31 @@ export const PolygonStyles = {
       fill: #ff422a;
     }
   `,
+
+  dropDownIconStyles: css`
+    path {
+      stroke: #843bed !important;
+      stroke-width: 1.5px;
+      fill: none !important;
+    }
+    circle {
+      stroke: #843bed;
+      stroke-width: 1.5px;
+      fill: none;
+    }
+  `,
+  headerLoginButtonStyles: css`
+    background: rgba(255, 255, 255, 0);
+    border: 2px solid #843bed;
+    color: #843bed;
+
+    :hover {
+      background: '#843bed' !important;
+      border: 2px solid #843bed;
+    !important;
+    }
+  `,
+
   headerHeight: 80,
   projectBorderRadius: '50px',
   customSubHeaderConfig,

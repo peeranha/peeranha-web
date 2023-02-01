@@ -106,7 +106,11 @@ const messagesArray = [
 ];
 
 const Tips = ({ faqQuestions }) => (
-  <div>
+  <div
+    css={css`
+      background: ${colors.blue2 || ''};
+    `}
+  >
     <Title className="mb-3">
       <FormattedMessage id={messages.tips.id} />:
     </Title>

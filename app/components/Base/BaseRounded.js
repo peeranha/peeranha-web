@@ -9,7 +9,7 @@ import Base from './index';
 
 const BaseRounded = Base.extend`
   border-radius: ${({ notRoundedStyle }) =>
-    notRoundedStyle ? 'none' : BORDER_RADIUS_L} !important;
+    notRoundedStyle ? 'none' : BORDER_RADIUS_L};
   box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};
   transition: 0.5s;
 
@@ -19,8 +19,8 @@ const BaseRounded = Base.extend`
       isExpert
         ? `6px 6px 5px ${EXPERT_BACKLIGHT}`
         : isTutorial
-          ? `6px 6px 5px ${TUTORIAL_BACKLIGHT}`
-          : `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`};
+        ? `6px 6px 5px ${TUTORIAL_BACKLIGHT}`
+        : `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`};
   }
 `;
 

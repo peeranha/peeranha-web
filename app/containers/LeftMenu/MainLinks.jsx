@@ -202,7 +202,8 @@ const MainLinks = ({
       {pinnedItemMenu.id !== '' && (
         <div
           css={{
-            background: '#A5BCFF',
+            background: colors.pinnedPostBackground || '#A5BCFF',
+            // background: 'rgb(123 63 228 / 30%)',
             borderRadius: '0px 0px 20px 20px',
           }}
         >
@@ -241,7 +242,10 @@ const MainLinks = ({
                 >
                   <PinIcon
                     stroke="#FFF"
-                    css={{ fill: '#A5BCFF', marginLeft: '10px' }}
+                    css={{
+                      fill: colors.white || '#A5BCFF',
+                      marginLeft: '10px',
+                    }}
                   />
                 </span>
               </A1>

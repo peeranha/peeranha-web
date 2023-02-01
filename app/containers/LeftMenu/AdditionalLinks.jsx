@@ -12,6 +12,7 @@ import {
 import * as routes from 'routes-config';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+import peeranhaLogoWhite from 'images/Logo.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
@@ -221,7 +222,13 @@ export default React.memo(({ currClientHeight }) => {
               id={messages.poweredBy.id}
               values={{
                 year: new Date().getFullYear(),
-                image: <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />,
+                image: (
+                  <Img
+                    key="peeranha"
+                    src={styles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
+                    alt="peeranha"
+                  />
+                ),
               }}
             >
               {(...chunks) => (

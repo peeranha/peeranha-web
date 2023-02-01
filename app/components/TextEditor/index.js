@@ -26,7 +26,12 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 import messages from './messages';
 import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
-import { singleCommunityStyles } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 /* eslint no-return-assign: "error" */
 class TextEditor extends React.PureComponent {
@@ -45,7 +50,7 @@ class TextEditor extends React.PureComponent {
           css={css`
             margin-bottom: 20px;
             border-bottom: 2px solid ${TEXT_DARK};
-            border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
+            //border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
             ol li {
               list-style-type: decimal;
             }
@@ -53,7 +58,7 @@ class TextEditor extends React.PureComponent {
               list-style-type: disc;
             }
             textarea {
-              -webkit-text-fill-color: ${TEXT_DARK};
+              -webkit-text-fill-color: ${colors.white || TEXT_DARK};
             }
             .w-md-editor-toolbar {
               border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
@@ -99,6 +104,9 @@ class TextEditor extends React.PureComponent {
                 source={this.props.value}
                 warpperElement={{ 'data-color-mode': 'light' }}
                 css={css`
+                  background: ${colors.blue2 || ''};
+                  color: ${<colors className="black"></colors> || ''};
+
                   ol li {
                     list-style-type: decimal;
                   }

@@ -155,8 +155,6 @@ const Content = ({
                 <P fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
                   {x.description}
                 </P>
-
-                <BlockShadow />
               </Item>
               {tagEditingAllowed && (
                 <EditTagBtnContainer>
