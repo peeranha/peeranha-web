@@ -238,7 +238,7 @@ const communitiesConfig = {
       src: FractalVisionsLogo,
       styles: FractalVisionsStyles,
     },
-    13: {
+    17: {
       src: 'https://images.peeranha.io/communities/communityDAO/dao-login.svg',
       styles: DeveloperDAOStyles,
     },
