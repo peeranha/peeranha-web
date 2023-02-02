@@ -240,7 +240,7 @@ const communitiesConfig = {
     },
     17: {
       origin: `https://developerdao${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/communityDAO/dao-login.svg',
+      src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
       styles: DeveloperDAOStyles,
     },
     // 1: {

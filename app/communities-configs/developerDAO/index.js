@@ -171,7 +171,7 @@ export const DeveloperDAOStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
-    'https://images.peeranha.io/communities/communityDAO/dao-login.svg',
+    'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
   favicon:
     'https://images.peeranha.io/communities/communityDAO/dao-favicon.svg',
 
