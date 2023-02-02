@@ -239,6 +239,7 @@ const communitiesConfig = {
       styles: FractalVisionsStyles,
     },
     17: {
+      origin: `https://developerdao${process.env.COOKIE_DOMAIN}`,
       src: 'https://images.peeranha.io/communities/communityDAO/dao-login.svg',
       styles: DeveloperDAOStyles,
     },
