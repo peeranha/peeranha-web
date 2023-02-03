@@ -16,6 +16,4 @@ export const TRANSACTION_IN_PENDING =
   'app/EthereumProvider/TRANSACTION_IN_PENDING';
 export const TRANSACTION_COMPLETED =
   'app/EthereumProvider/TRANSACTION_COMPLETED';
-
-export const SET_TRANSACTION_LIST = 'app/EthereumProvider/SET_TRANSACTION_LIST';
 export const TRANSACTION_FAILED = 'app/EthereumProvider/TRANSACTION_FAILED';

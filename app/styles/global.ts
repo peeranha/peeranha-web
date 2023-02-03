@@ -100,9 +100,6 @@ export default css`
   .aife {
     align-items: flex-end;
   }
-  .aifs {
-    align-items: flex-start;
-  }
   .fdc {
     flex-direction: column;
   }
