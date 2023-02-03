@@ -351,20 +351,12 @@ class EthereumService {
     const metaTxContract = this[contract];
     let nonce = await metaTxContract.getNonce(actor); // orders the list of transactions
 
-    console.log(
-      `Nonce from contract: ${nonce}. Previous nonce: ${this.previousNonce}.`,
-    );
-
     if (nonce.lte(this.previousNonce)) {
       nonce = this.previousNonce.add(1);
       this.previousNonce = nonce;
     } else {
       this.previousNonce = nonce;
     }
-
-    console.log(
-      `Updated nonce: ${nonce}. Updated previous nonce: ${this.previousNonce}.`,
-    );
 
     const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
     const functionSignature = iface.encodeFunctionData(action, data);
