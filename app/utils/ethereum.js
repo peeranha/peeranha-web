@@ -1,4 +1,4 @@
-import { BigNumber, Contract, ethers } from 'ethers';
+import { Contract, ethers } from 'ethers';
 import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
 import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
@@ -73,7 +73,7 @@ class EthereumService {
     this.isTransactionInitialised = null;
     this.addToast = data.addToast;
 
-    this.previousNonce = BigNumber.from(0);
+    this.previousNonce = 0;
     this.transactionList = [];
   }
 
