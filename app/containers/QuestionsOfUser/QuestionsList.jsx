@@ -5,6 +5,7 @@ import * as routes from 'routes-config';
 
 import {
   BORDER_PRIMARY,
+  BORDER_RADIUS_L,
   BORDER_SECONDARY,
   EXPERT_BACKLIGHT,
   SECONDARY_SPECIAL_2,
@@ -56,7 +57,13 @@ export const Li = BaseRoundedNoPadding.extend`
 
     return null;
   }};
+  > div:nth-child(1) {
+    border-top-left-radius: ${BORDER_RADIUS_L} !important;
+    border-bottom-left-radius: ${BORDER_RADIUS_L} !important;
+  }
   > div:nth-child(2) {
+    border-top-right-radius: ${BORDER_RADIUS_L} !important;
+    border-bottom-right-radius: ${BORDER_RADIUS_L} !important;
     border-left: 1px solid ${BORDER_SECONDARY};
   }
 

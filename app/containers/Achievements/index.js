@@ -46,8 +46,8 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { achievementsArr } from './constants';
 
 const BaseRoundedStyled = styled(BaseRounded)`
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 `;
 
 const AchievementsBlockStyles = css`
