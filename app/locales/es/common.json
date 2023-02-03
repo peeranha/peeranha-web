@@ -8,7 +8,7 @@
   "myCommunities": "Mis comunidades",
   "questions": "Preguntas",
   "discussions": "Discusiones",
-  "expertPosts": "Preguntas y respuestas de expertos",
+  "expertPosts": "P&R expertos",
   "answers": "Respuestas",
   "posts": "Publicaciones",
   "achievements": "Logros",
@@ -156,7 +156,7 @@
     "Solicitud de opinión o revisión;",
     "La respuesta es muy conocida."
   ],
-  "expertPopoverTitle": "Preguntas y respuestas de los expertos",
+  "expertPopoverTitle": "P&R expertos",
   "expertPopoverLabel": "Una pregunta que plantea una de las siguientes cuestiones:",
   "expertPopoverList": [
     "Una solución a un problema que requiere conocimientos o experiencia de expertos;",
@@ -418,7 +418,7 @@
     "title": "Editar pregunta"
   },
   "editDiscussion": "Editar discusión",
-  "editExpertQ&A": "Editar preguntas y respuestas de expertos",
+  "editExpertQ&A": "Editar P&R expertos",
   "editTutorial": "Editar Tutorial",
   "footerHeader": "Derechos de autor: Peeranha",
   "youGotThisKey": "Recibió esta clave con la autorización que se guardó en un lugar seguro. Intenta encontrarlo.",
