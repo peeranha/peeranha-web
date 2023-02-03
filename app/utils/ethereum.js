@@ -300,7 +300,10 @@ class EthereumService {
     await this.chainCheck();
     const metaTxContract = this[contract];
     const nonce = await metaTxContract.getNonce(actor);
+    console.log(`Nonce from contract: ${nonce}`);
+
     const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
+
     const functionSignature = iface.encodeFunctionData(action, data);
     const message = {};
     message.nonce = parseInt(nonce);
