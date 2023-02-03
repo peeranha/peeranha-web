@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import { useTranslation, Trans } from 'react-i18next';
 
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
+import {
+  TEXT_PRIMARY,
+  TEXT_SECONDARY,
+  BORDER_PRIMARY,
+  TEXT_DARK,
+} from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
 import closeIcon from 'images/closeCircle.svg?external';
@@ -19,6 +24,7 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import { getPermissions } from '../../utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
 import useMediaQuery from 'hooks/useMediaQuery';
+import { css } from '@emotion/react';
 
 const colors = singleCommunityColors();
 
@@ -233,12 +239,38 @@ const UserNavigation = ({
           )}
         </Div>
 
-        <div className="d-none d-md-block">
+        <div
+          className="d-none d-md-block"
+          css={css`
+            width: 110px;
+            @media (min-width: 840px) {
+              width: auto;
+            }
+            @media (min-width: 991px) {
+              width: 110px;
+            }
+            @media (min-width: 1120px) {
+              width: auto;
+            }
+          `}
+        >
           <button
             onClick={onClickRedirectToEditProfilePage(userId)}
             className={`align-items-center ${
               isProfilePage ? 'd-inline-flex' : 'd-none'
             }`}
+            css={css`
+              margin-right: 23px;
+              @media (min-width: 840px) {
+                margin-right: 0;
+              }
+              @media (min-width: 991px) {
+                margin-right: 23px;
+              }
+              @media (min-width: 1120px) {
+                margin-right: 0;
+              }
+            `}
             id={`redireact-to-edit-${userId}-user-page-2`}
           >
             <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
