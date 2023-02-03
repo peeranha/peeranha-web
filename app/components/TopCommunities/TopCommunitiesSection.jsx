@@ -27,7 +27,7 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
   return (
     <div className="overflow-hidden" ref={ref}>
       <H4 isHeader>
-        {t('common.id')}{' '}
+        {t('common.top')}{' '}
         <span className="text-lowercase">{t('common.communities')}</span>
       </H4>
 
