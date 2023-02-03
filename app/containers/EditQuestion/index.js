@@ -15,7 +15,10 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { selectQuestionTitle } from '../ViewQuestion/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import {
+  selectCommunities,
+  selectTagsLoading,
+} from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';
 import Seo from 'components/Seo';
@@ -59,6 +62,7 @@ const EditQuestion = ({
   editQuestionError,
   getQuestionDataDispatch,
   questionTitle,
+  tagsLoading,
 }) => {
   const { t } = useTranslation();
   const { questionid } = match.params;
@@ -118,6 +122,7 @@ const EditQuestion = ({
       isFailed,
       isDocumentation,
       questionTitle,
+      tagsLoading,
     }),
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );
@@ -180,6 +185,7 @@ export default compose(
       editQuestionError: makeSelectEditQuestion.selectEditQuestionError(),
       profile: makeSelectProfileInfo(),
       questionTitle: selectQuestionTitle(),
+      tagsLoading: selectTagsLoading(),
     }),
     (dispatch) => ({
       getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
