@@ -204,7 +204,6 @@ export const MintStateLabsStyles = {
     textColor: '#53A6EC',
     textColorShadow: '#53A6EC',
     commHeadElemColor: '#FFF',
-    darkBlue: '#1a1c20',
   },
   fonts: {
     h3: `${fonts}`,

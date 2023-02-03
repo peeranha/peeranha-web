@@ -58,7 +58,7 @@ export const CommentOptions = ({
   return (
     <div className="my-3">
       <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
-        {commentsNumber > 0 && (
+        {commentsNumber > 0 && !isAllCommentsView && (
           <ButtonStyled onClick={() => changeCommentsView(!isAllCommentsView)}>
             <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
             <Span className="text-lowercase" color={TEXT_SECONDARY}>
