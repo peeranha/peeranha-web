@@ -5,7 +5,7 @@ const communityColors = singleCommunityColors();
 
 export const styles = {
   wrapper: {
-    background: communityColors.blue2 || 'rgb(250,250,250,1)',
+    background: communityColors.backgroundSpecial || 'rgb(250,250,250,1)',
     minWidth: '208px',
     borderTopRightRadius: BORDER_RADIUS_L,
     borderBottomRightRadius: BORDER_RADIUS_L,

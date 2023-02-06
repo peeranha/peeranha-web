@@ -5,6 +5,7 @@ import * as routes from 'routes-config';
 
 import {
   BORDER_PRIMARY,
+  BORDER_RADIUS_L,
   BORDER_SECONDARY,
   EXPERT_BACKLIGHT,
   SECONDARY_SPECIAL_2,
@@ -33,6 +34,8 @@ const RightBlock = Base.extend`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  border-bottom-right-radius: ${BORDER_RADIUS_L};
+  border-top-right-radius: ${BORDER_RADIUS_L};
 
   @media only screen and (min-width: 768px) {
     padding: 25px 20px;

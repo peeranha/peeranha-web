@@ -51,6 +51,7 @@ export const styled = {
   button: {
     background: colors.btnHeaderColor || BUTTON_COLOR,
     color: colors.newPostButtonText || TEXT_LIGHT,
+    borderRadius: BORDER_RADIUS_L,
 
     ':hover': {
       background: colors.btnHeaderHoverColor,

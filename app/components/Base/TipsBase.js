@@ -25,7 +25,7 @@ export default BaseRoundedNoPadding.extend`
       background: ${SECONDARY_SPECIAL_3};
       border-top-right-radius: ${BORDER_RADIUS_L};
       border-bottom-right-radius: ${BORDER_RADIUS_L};
-      background: ${colors.blue2 || ''};
+      background: ${colors.backgroundSpecial || ''};
       color: ${colors.black || ''};
     }
   }

@@ -40,7 +40,8 @@ const single = isSingleCommunityWebsite();
 
 const BaseStyled = Base.extend`
   position: relative;
-  border-radius: ${({ bordered }) => (bordered ? BORDER_RADIUS_L : 'none')};
+  border-bottom-left-radius: ${BORDER_RADIUS_L};
+  border-top-left-radius: ${BORDER_RADIUS_L};
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -163,7 +164,6 @@ export const QuestionForProfilePage = ({
   isTheLargestRating,
   route,
   isGeneral,
-  bordered,
   isAnswer,
   elementType,
 }) => {
@@ -174,7 +174,7 @@ export const QuestionForProfilePage = ({
     href = `${process.env.APP_LOCATION}${route}`;
   }
   return (
-    <BaseStyled bordered={bordered && !isGeneral}>
+    <BaseStyled>
       {/* TODO: PEER-281 frame and inscription 'expert'
       {!isGeneral && (
         <QuestionType size="sm">

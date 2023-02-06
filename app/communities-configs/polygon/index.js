@@ -254,11 +254,13 @@ export const PolygonStyles = {
     mainSubHeaderBgColor:
       'linear-gradient(120.21deg, #0A090D 17.55%, #7845D0 99.46%)',
     blue: '#843bed',
-    blue2: '#f6f6f3',
+    backgroundSpecial: '#f6f6f3',
     white: '#f6f6f3',
     sectionHeader: '#f6f6f3',
     formColor: '#f6f6f3',
+
     mainLinksColor: '#843bed',
+
     headerShadow: 'rgba(255,255,255,0)',
     commentOption: '#843bed',
     linkColorSecondary: '#141217',

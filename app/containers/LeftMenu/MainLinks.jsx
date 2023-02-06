@@ -1,4 +1,5 @@
 /* eslint indent: 0 */
+import { css } from '@emotion/react';
 import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
 import Documentation from 'containers/LeftMenu/Documentation/Documentation';
 import React from 'react';
@@ -68,6 +69,7 @@ const fonts = singleCommunityFonts();
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
 export const A1 = A.extend`
+  ${svgDraw({ color: colors.mainLinksColor || TEXT_DARK })}; !important;
   ${BasicLink};
   color: ${colors.white || ''}; !important;
 

@@ -11,7 +11,7 @@ export const TextBlock = ({ content }) => (
   <MarkdownPreview
     source={content}
     css={css`
-      background: ${colors.blue2 || ''};
+      background: ${colors.backgroundSpecial || ''};
       color: ${colors.black || ''};
       font-family: 'Source Sans Pro', sans-serif;
       ol li {

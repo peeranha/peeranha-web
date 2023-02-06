@@ -72,7 +72,7 @@ const AuthorizationData = ({
           <FormattedMessage id={commonMessages.settings.id} />
         </H3>
       </BaseStyled>
-      <BaseStyled position="top" notRoundedStyle className={className}>
+      <BaseStyled position="top" className={className}>
         <div>
           <div>
             <div className="mb-4">

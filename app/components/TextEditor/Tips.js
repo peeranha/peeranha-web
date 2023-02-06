@@ -108,7 +108,7 @@ const messagesArray = [
 const Tips = ({ faqQuestions }) => (
   <div
     css={css`
-      background: ${colors.blue2 || ''};
+      background: ${colors.backgroundSpecial || ''};
     `}
   >
     <Title className="mb-3">
