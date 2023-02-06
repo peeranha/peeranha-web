@@ -119,7 +119,6 @@ export const ViewQuestion = ({
     resetStoreDispatch();
 
     return () => {
-      window.$(window).off();
       resetStoreDispatch();
     };
   }, []);
