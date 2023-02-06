@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import { singleCommunityColors } from 'utils/communityManagement';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -18,6 +20,8 @@ import profileMessages from 'containers/Profile/messages';
 
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
+
+const colors = singleCommunityColors();
 
 const DEFAULT_NUMBER = 10;
 
@@ -46,7 +50,12 @@ const Activity = ({
 
   return (
     <div>
-      <H4 isHeader>
+      <H4
+        css={css`
+          color: ${colors.white || ''};
+        `}
+        isHeader
+      >
         <FormattedMessage {...profileMessages.activity} />
       </H4>
 

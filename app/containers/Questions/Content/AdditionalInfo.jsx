@@ -68,7 +68,7 @@ const Div = Base.extend`
 
   &:not(:last-child) {
     border-top-left-radius: ${BORDER_RADIUS_L};
-    border-bottom: 1px solid ${colors.secondaryAdditional || BORDER_SECONDARY};
+    border-bottom: 1px solid ${BORDER_SECONDARY};
   }
 
   @media only screen and (max-width: 576px) {

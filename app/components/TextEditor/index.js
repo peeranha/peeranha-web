@@ -50,6 +50,7 @@ class TextEditor extends React.PureComponent {
           css={css`
             margin-bottom: 20px;
             border-bottom: 2px solid ${TEXT_DARK};
+            background: ${colors.blue2 || ''};
             ol li {
               list-style-type: decimal;
             }
@@ -57,10 +58,11 @@ class TextEditor extends React.PureComponent {
               list-style-type: disc;
             }
             textarea {
-              -webkit-text-fill-color: ${colors.white || TEXT_DARK};
+              -webkit-text-fill-color: ${TEXT_DARK};
             }
             .w-md-editor-toolbar {
               border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
+              background: ${colors.blue2 || ''};
             }
           `}
           disabled={this.props.disabled}

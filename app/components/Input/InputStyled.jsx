@@ -58,10 +58,6 @@ export const Styles = css`
   width: 100%;
   background: ${colors.formColor || BG_LIGHT};
   ${(props) => Input(props)};
-  color: ${colors.white || '#33302e'};
-  ::placeholder {
-    color: ${colors.white || '#7e7e80'};
-  }
 
   &:focus {
     box-shadow: 0 0 0 3px

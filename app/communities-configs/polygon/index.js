@@ -3,6 +3,7 @@ import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
+import polygonLogoLogin from 'communities-configs/polygon/images/polygon-logo-login.svg?inline';
 
 import {
   domainName,
@@ -233,7 +234,7 @@ export const PolygonStyles = {
   poweredByPeeranha: true,
   logoWhite: true,
   withoutAdditionalLinks: true,
-  signUpPageLogo: polygonLogo,
+  signUpPageLogo: polygonLogoLogin,
   favicon,
   mobileSubHeader: (
     <CustomMobileSubHeader config={customSubHeaderConfig} logo={polygonLogo} />
@@ -250,29 +251,24 @@ export const PolygonStyles = {
     questionTitleFont: `${fonts}`,
   },
   colors: {
-    mainSubHeaderBgColor: 'linear-gradient(180deg, #0F0E11 0%, #0A090D 21.76%)',
-    blue: '#FFFFFF',
-    blue2: '#141217',
-    white: '#141217',
-    sectionHeader: '#FFFFFF',
-    formColor: '#FFFFFF',
-
-    headerPrimary: '#141217',
-    linkColorTransparent: '#141217',
-    commentOption: '#141217',
-    contentHeader: '#141217',
+    mainSubHeaderBgColor:
+      'linear-gradient(120.21deg, #0A090D 17.55%, #7845D0 99.46%)',
+    blue: '#843bed',
+    blue2: '#f6f6f3',
+    white: '#f6f6f3',
+    sectionHeader: '#f6f6f3',
+    formColor: '#f6f6f3',
+    mainLinksColor: '#843bed',
+    headerShadow: 'rgba(255,255,255,0)',
+    commentOption: '#843bed',
     linkColorSecondary: '#141217',
-
-    secondarySpecial: 'rgba(20,18,23,0)',
-    secondaryAdditional: '#7e8b97',
-    additionalInfoBackground: '#212028',
     linkColor: '#843bed',
+
     pinnedPostBackground: 'rgb(123 63 228 / 30%)',
     blueRGB: '93,109,254',
-    black: '#FFFFFF',
     warningLight: '#FF4026',
     darkBlue: 'rgb(123, 63, 228)',
-    mainBackground: 'linear-gradient(180deg, #0F0E11 0%, #0A090D 21.76%)',
+    mainBackground: '#312246',
     blockedInfoArea: 'rgba(123, 63, 228, 0.1)',
 
     transparentIconColor: '#b19bdd',
@@ -282,17 +278,26 @@ export const PolygonStyles = {
     btnColor: '#843bed',
     tagColor: '#843bed',
 
-    successColor: '#55C3B3',
-    lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
-    secondaryLight: '#5D6DFE',
+    linkColorTransparent: '#843bed',
+    btnHeaderHoverColor: '#843bed',
+    textColor: '#843bed',
+    textColorShadow: '#843bed',
   },
-  // fontFace: css`
-  //   @font-face {
-  //     font-family: 'Verdana-Regular';
-  //     src: url(${verdanaRegularTTF}) format('truetype');
-  //     font-style: normal;
-  //   }
-  // `,
+  cookieConsentPopupStyles: {
+    background: 'linear-gradient(113.4deg, #6C2FD6 -39.96%, #141217 90.62%);',
+    color: '#fff',
+    button: {
+      color: '#101016',
+      background: '#FFFFFF',
+      border: '1px solid #FFF',
+      ':hover': {
+        opacity: '0.75',
+        color: '#000',
+        background: '#FFFFFF',
+      },
+    },
+  },
+
   communityBorderStyle: '2px solid #843bed',
   coinsIconStyles: css`
     ellipse {
@@ -320,8 +325,8 @@ export const PolygonStyles = {
   `,
   headerLoginButtonStyles: css`
     background: rgba(255, 255, 255, 0);
-    border: 2px solid #843bed;
-    color: #843bed;
+    border: 2px solid #ffffff;
+    color: #ffffff;
 
     :hover {
       background: '#843bed' !important;
@@ -331,7 +336,7 @@ export const PolygonStyles = {
   `,
 
   headerHeight: 80,
-  projectBorderRadius: '50px',
+  projectBorderRadius: '10px',
   customSubHeaderConfig,
   domainName,
 };

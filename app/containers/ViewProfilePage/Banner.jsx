@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import { singleCommunityColors } from 'utils/communityManagement';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -7,9 +9,16 @@ import H4 from 'components/H4';
 import noActivityImg from 'images/userHasntActivity.png';
 import messages from 'containers/Profile/messages';
 
+const colors = singleCommunityColors();
+
 const Banner = () => (
   <div>
-    <H4 isHeader>
+    <H4
+      css={css`
+        color: ${colors.white || ''};
+      `}
+      isHeader
+    >
       <FormattedMessage id={messages.activity.id} />
     </H4>
     <Wrapper>

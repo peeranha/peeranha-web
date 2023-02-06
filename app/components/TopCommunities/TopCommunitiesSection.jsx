@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import { singleCommunityColors } from 'utils/communityManagement';
 import React, { useEffect, useState } from 'react';
 import orderBy from 'lodash/orderBy';
 import { FormattedMessage } from 'react-intl';
@@ -11,6 +13,8 @@ import Span from '../Span';
 import { TEXT_PRIMARY } from '../../style-constants';
 import A, { ADefault } from '../A';
 import * as routes from '../../routes-config';
+
+const colors = singleCommunityColors();
 
 const TopCommunitiesSection = ({ ref, single, communities }) => {
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
@@ -26,7 +30,12 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
 
   return (
     <div className="overflow-hidden" ref={ref}>
-      <H4 isHeader>
+      <H4
+        isHeader
+        css={css`
+          color: ${colors.white || ''};
+        `}
+      >
         <FormattedMessage id={messages.top.id} />{' '}
         <span className="text-lowercase">
           <FormattedMessage id={messages.communities.id} />

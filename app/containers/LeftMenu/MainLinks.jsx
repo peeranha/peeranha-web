@@ -69,6 +69,7 @@ const customColor = colors.linkColor || BORDER_PRIMARY;
 
 export const A1 = A.extend`
   ${BasicLink};
+  color: ${colors.white || ''}; !important;
 
   letter-spacing: 0 !important;
 
@@ -88,7 +89,7 @@ export const A1 = A.extend`
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
           font-weight: bold;
-          color: ${colors.mainLinks || TEXT_DARK} !important;
+          color: '${colors.mainLinks || TEXT_DARK}' !important;
           .fill {
             fill: ${customColor};
           }
