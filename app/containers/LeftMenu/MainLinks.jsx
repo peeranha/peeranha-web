@@ -91,7 +91,7 @@ export const A1 = A.extend`
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
           font-weight: bold;
-          color: '${colors.mainLinks || TEXT_DARK}' !important;
+          color: ${colors.mainLinksColor || TEXT_DARK} !important;
           .fill {
             fill: ${customColor};
           }
