@@ -42,6 +42,7 @@ import { Mark3dStyles } from './communities-configs/mark3d';
 import { OrbisStyles } from './communities-configs/orbis';
 import { FractalVisionsStyles } from './communities-configs/fractalVisions';
 import { MoveStyles } from './communities-configs/move';
+import { DeveloperDAOStyles } from './communities-configs/developerDAO';
 
 const communitiesConfig = {
   prod: {
@@ -236,6 +237,11 @@ const communitiesConfig = {
       origin: `https://fractalvisions${process.env.COOKIE_DOMAIN}`,
       src: FractalVisionsLogo,
       styles: FractalVisionsStyles,
+    },
+    17: {
+      origin: `https://developerdao${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+      styles: DeveloperDAOStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
