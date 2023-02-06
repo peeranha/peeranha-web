@@ -144,6 +144,11 @@ const communitiesConfig = {
       src: 'https://images.peeranha.io/communities/move/move-logo.svg',
       styles: MoveStyles,
     },
+    22: {
+      origin: 'https://developerdao.peeranha.io',
+      src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+      styles: DeveloperDAOStyles,
+    },
   },
   staging: {
     1: {
