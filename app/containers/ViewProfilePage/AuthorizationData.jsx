@@ -1,3 +1,4 @@
+import { singleCommunityColors } from 'utils/communityManagement';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
@@ -110,6 +111,7 @@ const AuthorizationData = ({
             <div
               className="mb-2"
               css={css`
+                color: ${colors.black || ''};
                 font-weight: ${metaTransactions ? 'bold' : 'normal'};
               `}
             >
