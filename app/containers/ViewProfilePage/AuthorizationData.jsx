@@ -111,6 +111,7 @@ const AuthorizationData = ({
             <div
               className="mb-2"
               css={css`
+                color: ${colors.black || ''};
                 font-weight: ${metaTransactions ? 'bold' : 'normal'};
               `}
             >
