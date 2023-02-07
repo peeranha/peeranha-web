@@ -10,16 +10,8 @@ import {
 } from '../Popover/types';
 import DropdownLabel from './DropdownLabel';
 import DropdownOption from './DropdownOption';
-import Input from 'components/Input';
-import styled from 'styled-components';
-import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
-import { Styles } from 'components/Input/InputStyled';
+import InputStyled from 'components/Input/InputStyled';
 
-import {
-  BG_LIGHT,
-  BORDER_PRIMARY_RGB,
-  BORDER_WARNING_LIGHT_RGB,
-} from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
@@ -109,18 +101,6 @@ type OnOptionClickParams = {
   close: PopoverContentChildrenParams['close'];
 };
 
-const InputStyled = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  transition: 0.5s;
-  flex: 1;
-
-  input {
-    ${Styles};
-  }
-`;
-
 const Dropdown: React.FC<DropdownProps> = ({
   options,
   value,
@@ -193,6 +173,10 @@ const Dropdown: React.FC<DropdownProps> = ({
         : true,
     );
 
+  const onChangeSearch = ({ target: { value } }) => {
+    setSearchValue(value);
+  };
+
   return (
     <Popover
       isEqualWidth={typeof isEqualWidth !== undefined ? isEqualWidth : true}
@@ -253,9 +237,7 @@ const Dropdown: React.FC<DropdownProps> = ({
               >
                 <InputStyled>
                   <input
-                    onChange={(event: {
-                      target: { value: React.SetStateAction<undefined> };
-                    }) => setSearchValue(event.target.value)}
+                    onChange={onChangeSearch}
                     placeholder={'search'}
                     type={'text'}
                   />

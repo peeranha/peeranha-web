@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
-import { ArrowDown } from 'components/icons';
+import ArrowDown from 'icons/ArrowDown';
 import { profileDropdownConfig } from 'containers/Header/ProfileDropdownConfig';
 import useTrigger from 'hooks/useTrigger';
 import React, { memo, useMemo } from 'react';
@@ -107,7 +107,7 @@ const getOptions = (profileInfo) => {
   );
 
   return profileDropdownConfig(user, profileInfo, isModerator).filter(
-    (option) => !!option,
+    (option) => Boolean(option),
   );
 };
 

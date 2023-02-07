@@ -109,7 +109,6 @@ const CommunitySelector = ({
           }
         />
       }
-      zIndex={'6'}
     />
   );
 };

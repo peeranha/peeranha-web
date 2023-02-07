@@ -1,5 +1,5 @@
 import Icon from 'components/Icon';
-import { ArrowDown } from 'components/icons';
+import ArrowDown from 'icons/ArrowDown';
 import useTrigger from 'hooks/useTrigger';
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
