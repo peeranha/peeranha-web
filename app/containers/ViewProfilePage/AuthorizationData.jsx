@@ -13,6 +13,7 @@ import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
 import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import { BaseStyled } from './SettingsOfUser';
+import { singleCommunityColors } from 'utils/communityManagement';
 import A from 'components/A';
 import { svgDraw } from 'components/Icon/IconStyled';
 
