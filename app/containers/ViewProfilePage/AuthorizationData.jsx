@@ -1,8 +1,6 @@
-import { singleCommunityColors } from 'utils/communityManagement';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
-import { translationMessages } from 'i18n';
 import { FormattedMessage } from 'react-intl';
 
 import H3 from 'components/H3';
@@ -12,12 +10,11 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
 import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import { BaseStyled } from './SettingsOfUser';
 import A from 'components/A';
 import { svgDraw } from 'components/Icon/IconStyled';
-import { TEXT_PRIMARY } from 'style-constants';
 
 const Link = styled(A)`
   ${svgDraw({ color: TEXT_PRIMARY })};
@@ -113,7 +110,6 @@ const AuthorizationData = ({
             <div
               className="mb-2"
               css={css`
-                color: ${colors.black || ''};
                 font-weight: ${metaTransactions ? 'bold' : 'normal'};
               `}
             >

@@ -42,6 +42,7 @@ import { Mark3dStyles } from './communities-configs/mark3d';
 import { OrbisStyles } from './communities-configs/orbis';
 import { FractalVisionsStyles } from './communities-configs/fractalVisions';
 import { MoveStyles } from './communities-configs/move';
+import { DeveloperDAOStyles } from './communities-configs/developerDAO';
 
 const communitiesConfig = {
   prod: {
@@ -143,6 +144,11 @@ const communitiesConfig = {
       src: 'https://images.peeranha.io/communities/move/move-logo.svg',
       styles: MoveStyles,
     },
+    22: {
+      origin: 'https://developerdao.peeranha.io',
+      src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+      styles: DeveloperDAOStyles,
+    },
   },
   staging: {
     1: {
@@ -242,6 +248,11 @@ const communitiesConfig = {
       src: PolygonLogo,
       styles: PolygonStyles,
     },
+    17: {
+      origin: `https://developerdao${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+      styles: DeveloperDAOStyles,
+    },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
     // },
@@ -304,9 +315,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:3000',
-      // src: PolygonLogo,
-      // styles: PolygonStyles,
+      origin: 'http://localhost:31000',
     },
   },
 };

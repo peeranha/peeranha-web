@@ -52,13 +52,13 @@ export const CommentOptions = ({
   const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
 
   const showCommentForm =
-    addCommentFormDisplay.find(buttonId => buttonId === toggleFormButtonId) ||
+    addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) ||
     false;
 
   return (
     <div className="my-3">
       <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
-        {commentsNumber > 0 && (
+        {commentsNumber > 0 && !isAllCommentsView && (
           <ButtonStyled onClick={() => changeCommentsView(!isAllCommentsView)}>
             <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
             <Span className="text-lowercase" color={TEXT_SECONDARY}>
