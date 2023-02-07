@@ -3,7 +3,8 @@ import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
-import verdanaRegularTTF from 'communities-configs/polygon/fonts/verdana.ttf';
+import polygonLogoLogin from 'communities-configs/polygon/images/polygon-logo-login.svg?inline';
+
 import {
   domainName,
   domainDocs,
@@ -11,7 +12,7 @@ import {
 } from 'communities-configs/polygon/urls';
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-polygon.png';
 
-const fonts = 'Verdana-Regular, Arial, sans-serif';
+const fonts = 'General Sans, sans-serif;';
 const links = [
   {
     text: 'Scaling Solutions',
@@ -147,7 +148,7 @@ export const customSubHeaderConfig = {
       }
       div {
         opacity: 1;
-        background-color: rgba(255, 255, 255, 1);
+        background-color: 'linear-gradient(180deg, #0F0E11 0%, #0A090D 21.76%)';
         border-top: 2px solid #7b3fe4;
         margin-top: 20px;
         padding: 1rem 2rem;
@@ -227,12 +228,13 @@ export const customSubHeaderConfig = {
 };
 
 export const PolygonStyles = {
-  documentationPosition: 'top',
+  documentationPosition: 'bottom',
   withoutCopyright: true,
   withoutSubHeader: true,
   poweredByPeeranha: true,
+  logoWhite: true,
   withoutAdditionalLinks: true,
-  signUpPageLogo: polygonLogo,
+  signUpPageLogo: polygonLogoLogin,
   favicon,
   mobileSubHeader: (
     <CustomMobileSubHeader config={customSubHeaderConfig} logo={polygonLogo} />
@@ -249,35 +251,56 @@ export const PolygonStyles = {
     questionTitleFont: `${fonts}`,
   },
   colors: {
-    blue: '#5D6DFE',
+    mainSubHeaderBgColor:
+      'linear-gradient(120.21deg, #0A090D 17.55%, #7845D0 99.46%)',
+    blue: '#843bed',
+    backgroundSpecial: '#f6f6f3',
+    white: '#f6f6f3',
+    sectionHeader: '#f6f6f3',
+    formColor: '#f6f6f3',
+
+    mainLinksColor: '#843bed',
+
+    headerShadow: 'rgba(255,255,255,0)',
+    commentOption: '#843bed',
+    linkColorSecondary: '#141217',
+    linkColor: '#843bed',
+
+    pinnedPostBackground: 'rgb(123 63 228 / 30%)',
     blueRGB: '93,109,254',
-    black: '#02003D',
-    // warningLight: '#FF4026',
-    darkBlue: '#5D6DFE',
-    mainBackground: '#F3F3F3',
-    linkColor: '#7b3fe4',
-    linkColorTransparent: 'rgba(123, 63, 228, 0.4)',
-    headerPrimary: '#7b3fe4',
-    commentOption: '#7b3fe4',
-    contentHeader: '#7b3fe4',
+    warningLight: '#FF4026',
+    darkBlue: 'rgb(123, 63, 228)',
+    mainBackground: '#312246',
     blockedInfoArea: 'rgba(123, 63, 228, 0.1)',
+
     transparentIconColor: '#b19bdd',
-    loaderColor: '#7b3fe4',
-    votingIconColor: '#7b3fe4',
-    walletButton: '#7b3fe4',
-    btnColor: '#7b3fe4',
-    tagColor: '#7b3fe4',
-    successColor: '#55C3B3',
-    lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
-    secondaryLight: '#5D6DFE',
+    loaderColor: '#843bed',
+    votingIconColor: '#843bed',
+    walletButton: '#843bed',
+    btnColor: '#843bed',
+    tagColor: '#843bed',
+
+    linkColorTransparent: '#843bed',
+    btnHeaderHoverColor: '#843bed',
+    textColor: '#843bed',
+    textColorShadow: '#843bed',
   },
-  // fontFace: css`
-  //   @font-face {
-  //     font-family: 'Verdana-Regular';
-  //     src: url(${verdanaRegularTTF}) format('truetype');
-  //     font-style: normal;
-  //   }
-  // `,
+  cookieConsentPopupStyles: {
+    background: 'linear-gradient(113.4deg, #6C2FD6 -39.96%, #141217 90.62%);',
+    color: '#fff',
+    button: {
+      color: '#101016',
+      background: '#FFFFFF',
+      border: '1px solid #FFF',
+      ':hover': {
+        opacity: '0.75',
+        color: '#000',
+        background: '#FFFFFF',
+      },
+    },
+  },
+
+  communityBorderStyle: '2px solid #843bed',
   coinsIconStyles: css`
     ellipse {
       stroke: #7b3fe4;
@@ -289,8 +312,33 @@ export const PolygonStyles = {
       fill: #ff422a;
     }
   `,
+
+  dropDownIconStyles: css`
+    path {
+      stroke: #843bed !important;
+      stroke-width: 1.5px;
+      fill: none !important;
+    }
+    circle {
+      stroke: #843bed;
+      stroke-width: 1.5px;
+      fill: none;
+    }
+  `,
+  headerLoginButtonStyles: css`
+    background: rgba(255, 255, 255, 0);
+    border: 2px solid #ffffff;
+    color: #ffffff;
+
+    :hover {
+      background: '#843bed' !important;
+      border: 2px solid #843bed;
+    !important;
+    }
+  `,
+
   headerHeight: 80,
-  projectBorderRadius: '50px',
+  projectBorderRadius: '10px',
   customSubHeaderConfig,
   domainName,
 };

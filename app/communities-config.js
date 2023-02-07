@@ -243,6 +243,11 @@ const communitiesConfig = {
       src: FractalVisionsLogo,
       styles: FractalVisionsStyles,
     },
+    16: {
+      origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
+      src: PolygonLogo,
+      styles: PolygonStyles,
+    },
     17: {
       origin: `https://developerdao${process.env.COOKIE_DOMAIN}`,
       src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',

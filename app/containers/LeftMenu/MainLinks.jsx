@@ -1,4 +1,5 @@
 /* eslint indent: 0 */
+import { css } from '@emotion/react';
 import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
 import Documentation from 'containers/LeftMenu/Documentation/Documentation';
 import React from 'react';
@@ -68,7 +69,9 @@ const fonts = singleCommunityFonts();
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
 export const A1 = A.extend`
+  ${svgDraw({ color: colors.mainLinksColor || TEXT_DARK })}; !important;
   ${BasicLink};
+  color: ${colors.white || ''}; !important;
 
   letter-spacing: 0 !important;
 
@@ -88,7 +91,7 @@ export const A1 = A.extend`
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
           font-weight: bold;
-          color: ${colors.mainLinks || TEXT_DARK} !important;
+          color: ${colors.mainLinksColor || TEXT_DARK} !important;
           .fill {
             fill: ${customColor};
           }
@@ -202,7 +205,8 @@ const MainLinks = ({
       {pinnedItemMenu.id !== '' && (
         <div
           css={{
-            background: '#A5BCFF',
+            background: colors.pinnedPostBackground || '#A5BCFF',
+            // background: 'rgb(123 63 228 / 30%)',
             borderRadius: '0px 0px 20px 20px',
           }}
         >
@@ -241,7 +245,10 @@ const MainLinks = ({
                 >
                   <PinIcon
                     stroke="#FFF"
-                    css={{ fill: '#A5BCFF', marginLeft: '10px' }}
+                    css={{
+                      fill: colors.white || '#A5BCFF',
+                      marginLeft: '10px',
+                    }}
                   />
                 </span>
               </A1>

@@ -20,6 +20,8 @@ const Link = styled(A)`
   ${svgDraw({ color: TEXT_PRIMARY })};
 `;
 
+const colors = singleCommunityColors();
+
 const AuthorizationData = ({
   locale,
   ownerKey,
@@ -57,11 +59,11 @@ const AuthorizationData = ({
     <>
       <BaseStyled
         className={className}
-        css={css(`
-      border-top-left-radius: 0 !important;
-      border-top-right-radius: 0 !important;
-    `)}
         position="bottom"
+        css={css`
+        border-top-left-radius: 0; !important;
+        border-top-right-radius: 0; !important;
+      `}
       >
         <H3>
           <FormattedMessage id={commonMessages.settings.id} />
@@ -80,7 +82,7 @@ const AuthorizationData = ({
                 <div>
                   <Span
                     css={css`
-                      color: ${TEXT_SECONDARY};
+                      color: ${colors.black || TEXT_SECONDARY};
                     `}
                     fontSize="16"
                   >
@@ -92,7 +94,7 @@ const AuthorizationData = ({
                 <div>
                   <Span
                     css={css`
-                      color: ${TEXT_SECONDARY};
+                      color: ${colors.black || TEXT_SECONDARY};
                     `}
                     fontSize="16"
                   >
@@ -123,6 +125,7 @@ const AuthorizationData = ({
             </div>
             <div
               css={css`
+                color: ${colors.black || ''};
                 font-weight: ${!metaTransactions ? 'bold' : 'normal'};
               `}
             >

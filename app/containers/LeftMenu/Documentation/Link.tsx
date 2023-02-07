@@ -53,7 +53,7 @@ const Link: React.FC<LinkProps> = ({
           editArticleId === item.id ||
           (route === '/' && startDocumentionPostLight)) && {
           fontWeight: 700,
-          color: 'var(--color-black)',
+          color: 'var(black)',
         }),
       }}
     >

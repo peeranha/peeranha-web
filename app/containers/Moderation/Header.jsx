@@ -1,18 +1,18 @@
+import { css } from '@emotion/react';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
-import { css } from '@emotion/react';
 
 const Header = ({ content }) => (
   <Wrapper
     className="mb-to-sm-0 mb-from-sm-3"
-    css={css(`
-      border-top-left-radius: 0 !important;
-      border-top-right-radius: 0 !important;
-    `)}
+    css={css`
+    border-top-left-radius: 0; !important;
+    border-top-right-radius: 0; !important;
+  `}
   >
     <H3>
       <span className="d-none d-md-inline-block">

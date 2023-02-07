@@ -38,7 +38,12 @@ const CommunitiesSectionWithRatings = ({
   }, [single]);
   return (
     <div className="overflow-hidden" ref={ref}>
-      <H4 isHeader>
+      <H4
+        isHeader
+        css={css`
+          color: ${colors.white || ''};
+        `}
+      >
         <FormattedMessage id={messages.communities.id} />
       </H4>
 
