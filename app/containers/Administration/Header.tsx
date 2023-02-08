@@ -18,6 +18,8 @@ import AddModeratorButton from 'containers/Administration/AddModeratorButton';
 
 import { singleCommunityColors } from 'utils/communityManagement';
 import { BORDER_PRIMARY } from 'style-constants';
+import { Administration } from 'icons/index';
+import { css } from '@emotion/react';
 const colors = singleCommunityColors();
 
 type HeaderProps = {
@@ -36,13 +38,14 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
-        <MediumIconStyled>
-          <Icon
-            icon={usersHeader}
-            width="38"
-            color={colors.btnColor || BORDER_PRIMARY}
-            isColorImportant={true}
-          />
+        <MediumIconStyled
+          css={css`
+            .fill {
+              fill: ${BORDER_PRIMARY};
+            }
+          `}
+        >
+          <Administration />
         </MediumIconStyled>
 
         <FormattedMessage id={commonMessages.administration.id} />
