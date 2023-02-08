@@ -396,7 +396,7 @@ class EthereumService {
     }
 
     this.transactionInPending(response.body.transactionHash);
-    const result = await this.provider.waitForTransaction(
+    const result = await this.providerReads.waitForTransaction(
       response.body.transactionHash,
       confirmations,
     );
