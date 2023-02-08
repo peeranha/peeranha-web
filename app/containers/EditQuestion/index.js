@@ -83,7 +83,9 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
           tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[1]),
-          postType: Number(val[FORM_TYPE]) || question.postType,
+          postType: isNaN(val[FORM_TYPE])
+            ? question.postType
+            : Number(val[FORM_TYPE]),
         },
         questionid,
       );
