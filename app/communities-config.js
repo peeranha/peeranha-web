@@ -256,7 +256,7 @@ const communitiesConfig = {
     },
     18: {
       origin: `https://launchpad${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/launchpad/dd-logo.svg',
+      src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
       styles: LaunchpadStyles,
     },
     // 1: {
