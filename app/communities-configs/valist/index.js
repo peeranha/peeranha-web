@@ -171,14 +171,16 @@ export const customSubHeaderConfig = {
 };
 
 export const ValistStyles = {
+  name: 'valist',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/valist/valist.svg',
-  favicon: 'https://images.peeranha.io/communities/valist/logo-vit.ico',
 
   colors: {
+    appWindowsColor: '#603cba',
+    appSafarieColor: '#656565',
     mainSubHeaderBgColor: '#030111',
     mainBackground: '#F9FAFB',
     linkColor: '#5850EC',

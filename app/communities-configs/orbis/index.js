@@ -171,14 +171,16 @@ export const customSubHeaderConfig = {
 };
 
 export const OrbisStyles = {
+  name: 'orbis',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/orbis/Orbis-logo.svg',
-  favicon: 'https://images.peeranha.io/communities/orbis/Orbis-logo.ico',
 
   colors: {
+    appWindowsColor: '#2b5797',
+    appSafarieColor: '#d55bbe',
     mainSubHeaderBgColor: 'linear-gradient(90deg, #100D17 0%, #302763 100%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
     linkColor: '#DE73DA',

@@ -171,15 +171,17 @@ export const customSubHeaderConfig = {
 };
 
 export const VyperStyles = {
+  name: 'vyper',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/vyper/vyperLogoFlat.svg',
-  favicon: 'https://images.peeranha.io/communities/vyper/vyper-favicon.ico',
 
   colors: {
+    appWindowsColor: '#dfeeff',
+    appSafarieColor: '#637761',
     mainSubHeaderBgColor: '#FAFAFD',
     mainBackground: '#EDEDEE',
     linkColor: '#637761',

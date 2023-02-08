@@ -171,13 +171,13 @@ export const customSubHeaderConfig = {
 };
 
 export const CyberconnectStyles = {
+  name: 'cyberconnect',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/cyberconnect/CyberConnect_logo.svg',
-  favicon: 'https://images.peeranha.io/communities/cyberconnect/logo.ico',
   fonts: {
     h3: `${fonts}`,
     main: `${fonts}`,
@@ -188,6 +188,8 @@ export const CyberconnectStyles = {
   },
 
   colors: {
+    appWindowsColor: '#FFF',
+    appSafarieColor: '#3c2525',
     mainSubHeaderBgColor: '#fff',
     mainBackground: '#F9FAFB',
     linkColor: '#65908a',

@@ -171,13 +171,13 @@ export const customSubHeaderConfig = {
 };
 
 export const FilebaseStyles = {
+  name: 'filebase',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/filebase/filebaselogo.svg',
-  favicon: 'https://images.peeranha.io/communities/filebase/filebase-p.ico',
   fonts: {
     h3: `${fonts}`,
     main: `${fonts}`,
@@ -188,6 +188,8 @@ export const FilebaseStyles = {
   },
 
   colors: {
+    appWindowsColor: '#da532c',
+    appSafarieColor: '#d5b75b',
     mainSubHeaderBgColor: '#FFFFF',
     mainBackground: '#F9FAFB',
     linkColor: '#FFA500',

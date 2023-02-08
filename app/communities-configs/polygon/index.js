@@ -140,6 +140,7 @@ export const customSubHeaderConfig = {
 };
 
 export const PolygonStyles = {
+  name: 'polygon',
   documentationPosition: 'top',
   withoutCopyright: true,
   withoutSubHeader: true,
@@ -147,7 +148,6 @@ export const PolygonStyles = {
   withoutAdditionalLinks: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/polygon/polygon-logo.svg',
-  favicon: 'https://images.peeranha.io/communities/polygon/favicon-polygon.png',
   withoutFAQ: true,
   fonts: {
     h3LetterSpacing: '0.5px',
@@ -159,6 +159,8 @@ export const PolygonStyles = {
     questionTitleFont: `${fonts}`,
   },
   colors: {
+    appWindowsColor: '#000000',
+    appSafarieColor: '#000000',
     blue: '#5D6DFE',
     blueRGB: '93,109,254',
     black: '#02003D',

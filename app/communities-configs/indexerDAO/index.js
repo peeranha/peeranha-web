@@ -171,15 +171,17 @@ export const customSubHeaderConfig = {
 };
 
 export const IndexerDAOStyles = {
+  name: 'indexerDAO',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/indexerDAO/indDao1.svg',
-  favicon: 'https://images.peeranha.io/communities/indexerDAO/dao.ico',
 
   colors: {
+    appWindowsColor: '#ffffff',
+    appSafarieColor: '#2a2a2a',
     mainSubHeaderBgColor: '#2C001E',
     mainBackground: '#F5F5F5',
     linkColor: '#6c3d60',
