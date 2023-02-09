@@ -227,7 +227,6 @@ export const LaunchpadStyles = {
     circle {
       stroke: #1a74fc;
       stroke-width: 1.5px;
-      fill: rgb(255, 255, 255);
     }
   `,
   headerLoginButtonStyles: css`
