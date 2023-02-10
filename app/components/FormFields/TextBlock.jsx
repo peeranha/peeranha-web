@@ -17,6 +17,7 @@ export const TextBlock = ({ content }) => (
       }
       table {
         word-break: normal;
+        overflow-x: auto;
       }
       min-width: 0;
     `}

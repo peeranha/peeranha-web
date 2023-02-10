@@ -109,6 +109,7 @@ class TextEditor extends React.PureComponent {
                   }
                   table {
                     word-break: normal;
+                    overflow-x: auto;
                   }
                 `}
                 rehypeRewrite={(node) => {
