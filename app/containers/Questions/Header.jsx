@@ -1,5 +1,3 @@
-import Icon from 'components/Icon';
-import ArrowDown from 'icons/ArrowDown';
 import useTrigger from 'hooks/useTrigger';
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
@@ -30,7 +28,6 @@ import createdHistory from 'createdHistory';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
-  singleCommunityStyles,
 } from 'utils/communityManagement';
 import {
   getPermissions,
@@ -42,7 +39,6 @@ import {
 import { POST_TYPE } from 'utils/constants';
 import {
   BORDER_PRIMARY,
-  DARK_SECONDARY,
   ICON_TRASPARENT_BLUE,
   TEXT_PRIMARY,
 } from 'style-constants';
@@ -53,7 +49,6 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
-const styles = singleCommunityStyles();
 
 const PageContentHeader = styled.div`
   @media only screen and (max-width: 576px) {
@@ -136,9 +131,8 @@ export const Header = ({
 
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => {
-    const [isOpen, open, close] = useTrigger(false);
     return (
-      <H3 onClick={isOpen ? close : open}>
+      <H3>
         {communityAvatar ? (
           <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
         ) : (
@@ -154,15 +148,6 @@ export const Header = ({
         )}
 
         <span>{communityLabel || defaultLabel}</span>
-
-        <ArrowDown
-          css={{
-            color: DARK_SECONDARY,
-            transition: 'transform 0.5s !important',
-            ...(isOpen && { transform: 'rotate(180deg)' }),
-          }}
-          className="ml-2"
-        />
       </H3>
     );
   };

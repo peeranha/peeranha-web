@@ -159,8 +159,7 @@ export const usersQuery = `
         $orderBy: BigInt,
         $orderDirection: String,
       ) {
-        users(
-          first: $first,
+        users( first: $first,
           skip: $skip,
           orderBy: $orderBy,
           orderDirection: $orderDirection,

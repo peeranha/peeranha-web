@@ -8,11 +8,13 @@ import {
   PopoverTriggerChildrenParams,
   PopoverContentChildrenParams,
 } from '../Popover/types';
+import ArrowDown from 'icons/ArrowDown';
 import DropdownLabel from './DropdownLabel';
 import DropdownOption from './DropdownOption';
 import InputStyled from 'components/Input/InputStyled';
 
 import { singleCommunityColors } from 'utils/communityManagement';
+import { DARK_SECONDARY } from 'style-constants';
 
 const colors = singleCommunityColors();
 
@@ -63,6 +65,8 @@ type DropdownCommonProps = {
   triggerClassName?: string;
   appendTo?: 'viewport' | 'parent';
   zIndex?: string;
+  isArrowed?: boolean;
+  arrowWidth?: number;
 };
 
 type DropdownSingleProps = DropdownCommonProps & {
@@ -116,6 +120,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   isEqualWidth,
   appendTo = 'viewport',
   zIndex,
+  isArrowed,
+  arrowWidth,
 }) => {
   const {
     items,
@@ -185,40 +191,58 @@ const Dropdown: React.FC<DropdownProps> = ({
       zIndex={zIndex}
     >
       <Popover.Trigger className={triggerClassName}>
-        {({ isOpen }: PopoverTriggerChildrenParams): JSX.Element =>
-          (trigger &&
-            React.cloneElement(trigger, {
-              isDisabled,
-              className: 'df aic cup on',
-            })) || (
-            <button
-              className={cn('df aic cup on br10')}
-              css={{
-                ...classes.root,
-                ...(isInvalid && classes.invalid),
-              }}
-              disabled={isDisabled}
-            >
-              {activeItems.length ? (
-                <DropdownLabel items={activeItems} isMultiple={isMultiple} />
-              ) : (
-                placeholder && (
-                  <span
-                    className={cn('line-clamp-1 dropdown-placeholder')}
-                    css={classes.placeholder}
-                  >
-                    {placeholder}
-                  </span>
-                )
-              )}
+        {({ isOpen }: PopoverTriggerChildrenParams): JSX.Element => {
+          return (
+            <div className={cn('df aic')}>
+              {(trigger &&
+                React.cloneElement(trigger, {
+                  isDisabled,
+                  className: 'df aic cup on',
+                })) || (
+                <button
+                  className={cn('df aic cup on br10')}
+                  css={{
+                    ...classes.root,
+                    ...(isInvalid && classes.invalid),
+                  }}
+                  disabled={isDisabled}
+                >
+                  {activeItems.length ? (
+                    <DropdownLabel
+                      items={activeItems}
+                      isMultiple={isMultiple}
+                    />
+                  ) : (
+                    placeholder && (
+                      <span
+                        className={cn('line-clamp-1 dropdown-placeholder')}
+                        css={classes.placeholder}
+                      >
+                        {placeholder}
+                      </span>
+                    )
+                  )}
 
-              <ArrowDownIcon
-                className="dropdown-arrow"
-                css={css({ ...classes.arrow, ...(isOpen && classes.open) })}
-              />
-            </button>
-          )
-        }
+                  <ArrowDownIcon
+                    className="dropdown-arrow"
+                    css={css({ ...classes.arrow, ...(isOpen && classes.open) })}
+                  />
+                </button>
+              )}
+              {isArrowed && (
+                <ArrowDown
+                  css={{
+                    color: DARK_SECONDARY,
+                    transition: 'transform 0.5s !important',
+                    width: arrowWidth,
+                    ...(isOpen && { transform: 'rotate(180deg)' }),
+                  }}
+                  className="ml-2"
+                />
+              )}
+            </div>
+          );
+        }}
       </Popover.Trigger>
       <Popover.Content
         className={cn('p0 m0 ovh br10')}

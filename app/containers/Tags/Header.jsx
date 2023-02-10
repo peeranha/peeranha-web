@@ -52,21 +52,8 @@ const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
 
 const Button = (a) => {
-  const [isOpen, open, close] = useTrigger(false);
-  document.addEventListener('click', () => {
-    if (isOpen) {
-      close();
-    }
-  });
   return (
-    <Span
-      className="d-inline-flex align-items-center mr-2 text-capitalize"
-      bold
-      onClick={(event) => {
-        event.stopPropagation();
-        isOpen ? close() : open();
-      }}
-    >
+    <Span className="d-inline-flex align-items-center text-capitalize" bold>
       <MediumIcon>
         <IconMd
           className="mr-2"
@@ -84,16 +71,6 @@ const Button = (a) => {
         `}
       >
         <FormattedMessage {...options[a.sorting].message} />
-
-        <ArrowDown
-          css={{
-            color: DARK_SECONDARY,
-            width: 18,
-            height: 18,
-            transition: 'transform 0.5s',
-            ...(isOpen && { transform: 'rotate(180deg)' }),
-          }}
-        />
       </div>
     </Span>
   );
@@ -253,6 +230,8 @@ export const Header = ({
               trigger={<Button sorting={sorting} />}
               id="tags-dropdown"
               appendTo="parent"
+              isArrowed
+              arrowWidth={18}
             />
           </WrapperRightPanel>
         )}

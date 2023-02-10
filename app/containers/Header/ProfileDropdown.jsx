@@ -1,7 +1,5 @@
 /* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
-import ArrowDown from 'icons/ArrowDown';
 import { profileDropdownConfig } from 'containers/Header/ProfileDropdownConfig';
-import useTrigger from 'hooks/useTrigger';
 import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -52,9 +50,8 @@ const NoAvatarBox = styled.div`
 `;
 
 const B = ({ profileInfo, isMenuVisible, isMobileVersion }) => {
-  const [isOpen, open, close] = useTrigger(false);
   return (
-    <span className="df aic" onClick={isOpen ? close : open}>
+    <span className="df aic">
       {(!profileInfo.avatar || profileInfo.avatar === NO_AVATAR) && (
         <NoAvatarBox isMobileVersion={isMobileVersion}>
           <Icon
@@ -81,15 +78,6 @@ const B = ({ profileInfo, isMenuVisible, isMobileVersion }) => {
           {getUserName(profileInfo.displayName, profileInfo.loginData.account)}
         </Span>
       </Info>
-      <ArrowDown
-        css={{
-          color: DARK_SECONDARY,
-          width: 18,
-          height: 18,
-          transition: 'transform 0.5s',
-          ...(isOpen && { transform: 'rotate(180deg)' }),
-        }}
-      />
     </span>
   );
 };
@@ -116,6 +104,8 @@ const ProfileDropdown = ({ profileInfo }) => (
     options={getOptions(profileInfo)}
     trigger={<Button profileInfo={profileInfo} />}
     appendTo="parent"
+    isArrowed
+    arrowWidth="18px"
   />
 );
 

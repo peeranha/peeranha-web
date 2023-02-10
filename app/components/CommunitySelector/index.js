@@ -23,6 +23,7 @@ const CommunitySelector = ({
   followedCommunities,
   showOnlyFollowed,
   toggle,
+  isArrowed,
 }) => {
   const [value, setValue] = useState();
 
@@ -96,6 +97,7 @@ const CommunitySelector = ({
       isSearchable
       className="z-8"
       triggerClassName="full-width"
+      isArrowed={isArrowed}
       trigger={
         <Button
           communityAvatar={

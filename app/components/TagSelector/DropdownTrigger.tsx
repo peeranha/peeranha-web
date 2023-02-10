@@ -50,7 +50,7 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
   disabled,
   error,
 }): JSX.Element => (
-  <div className="df aic">
+  <div className="df aic full-width">
     <TagsContainer disabled={disabled} error={error}>
       {value.map((id) => {
         const valueLabel = options?.find(

@@ -24,21 +24,8 @@ import SubHeaderWrapper, {
 import sortingOptions from './sortingOptions';
 
 const Button = ({ sorting, icon }) => {
-  const [isOpen, open, close] = useTrigger(false);
-  document.addEventListener('click', () => {
-    if (isOpen) {
-      close();
-    }
-  });
   return (
-    <Span
-      className="d-inline-flex align-items-center mr-2 text-capitalize"
-      bold
-      onClick={(event) => {
-        event.stopPropagation();
-        isOpen ? close() : open();
-      }}
-    >
+    <Span className="d-inline-flex align-items-center text-capitalize" bold>
       <img className="mr-2" src={icon} alt="icon" />
 
       <div
@@ -50,16 +37,6 @@ const Button = ({ sorting, icon }) => {
         `}
       >
         <FormattedMessage id={sorting.message.id} />
-
-        <ArrowDown
-          css={{
-            color: DARK_SECONDARY,
-            width: 18,
-            height: 18,
-            transition: 'transform 0.5s',
-            ...(isOpen && { transform: 'rotate(180deg)' }),
-          }}
-        />
       </div>
     </Span>
   );
@@ -121,6 +98,8 @@ export const SubHeader = ({
           trigger={<Button sorting={sorting} icon={communitiesHeaderFilter} />}
           id="existing-communities-dropdown"
           appendTo="parent"
+          isArrowed
+          arrowWidth={18}
         />
       </SubHeaderWrapperRightPanel>
     </SubHeaderWrapper>
