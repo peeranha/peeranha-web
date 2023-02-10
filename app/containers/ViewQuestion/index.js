@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { scrollToSection } from 'utils/animation';
-import {
-  communityAdminInfiniteImpactPermission,
-  getPermissions,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import * as routes from 'routes-config';
 
@@ -47,13 +43,23 @@ import {
 } from './actions';
 
 import * as makeSelectViewQuestion from './selectors';
-import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import { POST_TYPE } from '../../utils/constants';
-import { selectHistoriesLoading } from './selectors';
+
+const getRoute = (postType) => {
+  if (postType === POST_TYPE.generalPost) {
+    return 'questionView';
+  }
+
+  if (postType === POST_TYPE.expertPost) {
+    return 'expertPostView';
+  }
+
+  return 'tutorialView';
+};
 
 export const ViewQuestion = ({
   locale,
@@ -61,7 +67,6 @@ export const ViewQuestion = ({
   historiesLoading,
   account,
   questionData,
-  questionBounty,
   postAnswerLoading,
   postCommentLoading,
   questionDataLoading,
@@ -97,17 +102,18 @@ export const ViewQuestion = ({
   profile,
   history,
 }) => {
-  if (questionData) {
-    const route =
-      questionData.postType === POST_TYPE.generalPost
-        ? 'questionView'
-        : questionData.postType === POST_TYPE.expertPost
-        ? 'expertPostView'
-        : 'tutorialView';
-    if (match.url !== routes[route](match.params.id)) {
-      history.push(routes[route](match.params.id));
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    if (questionData) {
+      const route = getRoute(questionData.postType);
+
+      if (match.url !== routes[route](match.params.id, questionData.title)) {
+        history.push(routes[route](match.params.id, questionData.title));
+      }
     }
-  }
+  }, [questionData]);
+
   useEffect(() => {
     window.isRendered = false;
     resetStoreDispatch();
@@ -139,8 +145,6 @@ export const ViewQuestion = ({
       history.push(routes.notFound('type=deleted'));
     }
   }, [questionData, questionDataLoading]);
-
-  const translations = translationMessages[locale];
 
   const [isChangeTypeAvailable, infiniteImpact] = useMemo(
     () => [
@@ -178,7 +182,6 @@ export const ViewQuestion = ({
     downVote: downVoteDispatch,
     markAsAccepted: markAsAcceptedDispatch,
     voteToDelete: voteToDeleteDispatch,
-    translations,
     upVoteLoading,
     downVoteLoading,
     markAsAcceptedLoading,
@@ -196,11 +199,9 @@ export const ViewQuestion = ({
     profile,
   };
 
-  const helmetTitle =
-    questionData?.content.title || translations[messages.title.id];
+  const helmetTitle = questionData?.content.title || t('post.title');
 
-  const helmetDescription =
-    questionData?.content.content ?? translations[messages.title.id];
+  const helmetDescription = questionData?.content.content ?? t('post.title');
 
   const articlePublishedTime = questionData?.postTime
     ? new Date(questionData.postTime * 1000)
@@ -210,15 +211,10 @@ export const ViewQuestion = ({
     ? new Date(questionData.lastEditedDate * 1000)
     : ``;
 
-  const tagIds = questionData?.tags ?? [];
-
-  const community = communities.filter((x) => x.id === commId)[0] || {
-    tags: [],
-  };
-
-  const tags = community.tags.filter((x) => tagIds.includes(x.id));
-
-  const keywords = [...tags.map((x) => x.name), helmetTitle];
+  const keywords = [
+    ...(questionData?.tags?.map((tag) => tag.name) ?? []),
+    helmetTitle,
+  ];
 
   return (
     <>

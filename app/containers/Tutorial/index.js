@@ -1,11 +1,5 @@
-/**
- *
- * Tutorial
- *
- */
-
 import React, { memo } from 'react';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -24,12 +18,10 @@ import Banner from 'components/AskQuestionBanner';
 import Content from './Content';
 import Aside from './Aside';
 
-import messages from './messages';
-
 import Header from './Header';
 
 export const Tutorial = ({ locale, tutorial }) => {
-  const translations = translationMessages[locale];
+  const { t } = useTranslation();
   const SECTION_ID = 'tutorial-section';
 
   if (!tutorial) return null;
@@ -37,8 +29,8 @@ export const Tutorial = ({ locale, tutorial }) => {
   return (
     <div className="d-flex justify-content-center">
       <Seo
-        title={translations[messages.title.id]}
-        description={translations[messages.description.id]}
+        title={t('common.tutorialDesc.title')}
+        description={t('common.tutorialDesc.description')}
         language={locale}
         index={false}
       />
@@ -57,7 +49,7 @@ export const Tutorial = ({ locale, tutorial }) => {
       <AsideBox className="d-none d-xl-block">
         <Aside
           content={tutorial}
-          route={x => routes.tutorials(getSectionCode(SECTION_ID, x))}
+          route={(x) => routes.tutorials(getSectionCode(SECTION_ID, x))}
         />
       </AsideBox>
     </div>

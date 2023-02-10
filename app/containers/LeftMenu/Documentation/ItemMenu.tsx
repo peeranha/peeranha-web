@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import { DocumentationSection } from 'pages/Documentation/types';
+import {
+  DocumentationSection,
+  DocumentationItemMenuType,
+} from 'pages/Documentation/types';
 import ArrowDownIcon from 'icons/ArrowDown';
 import Dropdown from 'common-components/Dropdown';
 import AddSubArticleIcon from 'icons/AddSubArticle';
@@ -35,6 +38,9 @@ type DocumentationMenuProps = {
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
   removeArticle?: (id: string) => void;
   pinnedItemMenuId: string;
+  setPinned: React.Dispatch<React.SetStateAction<string>>;
+  pinned: string;
+  documentationMenu: Array<DocumentationItemMenuType>;
 };
 
 const colors = singleCommunityColors();
@@ -53,9 +59,16 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   pinnedArticleMenuDraft,
   removeArticle,
   pinnedItemMenuId,
+  setPinned,
+  pinned,
+  documentationMenu,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
-
+  const route = window.location.pathname;
+  const startDocumentionPostLight =
+    pinnedItemMenuId == ''
+      ? !isEditDocumentation && documentationMenu[0]?.id === item.id
+      : item.id === pinnedItemMenuId;
   useEffect(() => {
     const isEditableChildren = isEditableChildItem(item, editArticle?.id);
     if (isEditableChildren) {
@@ -101,6 +114,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
         id: pinnedItemMenuId === item.id ? '' : item.id,
         title: pinnedItemMenuId === item.id ? '' : item.title,
       });
+      pinned == item.id ? setPinned('') : setPinned(item.id);
     }
 
     if (value === 4 && typeof removeArticle === 'function') {
@@ -132,7 +146,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           paddingLeft: 15 + 16 * level,
           ...(((match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
-            editArticle?.id === item.id) && {
+            editArticle?.id === item.id ||
+            (route == '/' && startDocumentionPostLight)) && {
             background: 'rgba(53, 74, 137, 0.11)',
             borderLeft: `3px solid ${colors.linkColor || '#5065A5'}`,
             paddingLeft: 12 + 16 * level,
@@ -155,6 +170,9 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             match={match}
             editArticleId={editArticle?.id}
             level={level}
+            pinnedItemMenuId={pinnedItemMenuId}
+            documentationMenu={documentationMenu}
+            startDocumentionPostLight={startDocumentionPostLight}
           />
         ) : (
           <Item
@@ -164,6 +182,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             editArticleId={editArticle?.id}
             level={level}
             onClickArticle={onClickArticle}
+            pinnedItemMenuId={pinnedItemMenuId}
+            pinned={pinned}
           />
         )}
 
@@ -193,7 +213,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     icon: <EditIcon />,
                   },
                   {
-                    label: pinnedItemMenuId === item.id ? 'Unpin' : 'Pin',
+                    label: pinned === item.id ? 'Unpin' : 'Pin',
                     value: 3,
                     icon: (
                       <PinIcon css={{ fill: 'rgba(118, 153, 255, 0.2)' }} />
@@ -247,6 +267,10 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               setEditArticle={setEditArticle}
               pinnedArticleMenuDraft={pinnedArticleMenuDraft}
               removeArticle={removeArticle}
+              pinnedItemMenuId={pinnedItemMenuId}
+              setPinned={setPinned}
+              pinned={pinned}
+              documentationMenu={documentationMenu}
             />
           ))}
         </div>

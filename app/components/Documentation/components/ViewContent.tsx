@@ -17,7 +17,10 @@ import Button from 'common-components/Button';
 
 import RiseUpIcon from 'icons/RiseUp';
 import { translationMessages } from 'i18n';
-import messages from 'common-messages';
+
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
+import { extractStrings } from 'utils/url';
+import TextNavbar from './TextNavbar/TextNavbar';
 
 const styled = {
   border: 'none',
@@ -41,6 +44,10 @@ const ViewContent: React.FC<ViewContentProps> = ({
   documentationMenu,
   locale,
 }): JSX.Element => {
+  const headers = extractStrings(['#', '\n'])(
+    `${documentationArticle?.content}\n` || '',
+  );
+
   const treeArray = getFlatDataFromTree({
     treeData: documentationMenu?.map((node) => ({ ...node })),
     getKey: (node) => node.id,
@@ -100,13 +107,19 @@ const ViewContent: React.FC<ViewContentProps> = ({
           </span>
         </H3>
       </Wrapper>
-      <Wrapper
-        css={{
-          ...(isEditDocumentation && styled),
-        }}
-      >
-        <TextBlock content={documentationArticle?.content} />
-      </Wrapper>
+      <div className="df">
+        <Wrapper
+          css={{
+            ...(isEditDocumentation && styled),
+            minWidth: '0',
+          }}
+        >
+          <MarkdownPreviewBlock content={documentationArticle?.content} />
+        </Wrapper>
+        {!isEditDocumentation && headers?.length > 1 && (
+          <TextNavbar headers={headers} />
+        )}
+      </div>
       {!isEditDocumentation && (
         <Wrapper>
           <div

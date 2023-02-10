@@ -22,7 +22,7 @@ export function getAnswer(questionId, answerId) {
   };
 }
 
-export const getAnswerSuccess = answer => ({
+export const getAnswerSuccess = (answer) => ({
   type: GET_ANSWER_SUCCESS,
   answer,
 });
@@ -34,13 +34,14 @@ export function getAnswerErr(getAnswerError) {
   };
 }
 
-export function editAnswer(answer, questionId, answerId, official) {
+export function editAnswer(answer, questionId, answerId, official, title) {
   return {
     type: EDIT_ANSWER,
     answer,
     questionId,
     answerId,
     official,
+    title,
   };
 }
 

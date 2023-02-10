@@ -30,7 +30,6 @@ const ViewQuestion = React.lazy(() => import('containers/ViewQuestion'));
 const EditAnswer = React.lazy(() => import('containers/EditAnswer'));
 const CreateCommunity = React.lazy(() => import('containers/CreateCommunity'));
 const TagsOfCommunity = React.lazy(() => import('containers/TagsOfCommunity'));
-const TagsCollection = React.lazy(() => import('containers/TagsCollection'));
 const CreateTag = React.lazy(() => import('containers/CreateTag'));
 const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
 const EditTag = React.lazy(() => import('containers/EditTag'));
@@ -51,10 +50,6 @@ const SuggestedCommunities = React.lazy(() =>
   import('components/SuggestedCommunities'),
 );
 
-const DeleteFacebookData = React.lazy(() =>
-  import('containers/DeleteFacebookData'),
-);
-
 export {
   EditCommunity,
   HomePage,
@@ -73,7 +68,6 @@ export {
   EditAnswer,
   CreateCommunity,
   TagsOfCommunity,
-  TagsCollection,
   CreateTag,
   SuggestedTags,
   EditTag,
@@ -99,6 +93,5 @@ export {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
-  DeleteFacebookData,
   MetaTransactionAgreement,
 };

@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { userNotifications } from 'routes-config';
-import messages from 'common-messages';
 
 import {
   BORDER_SECONDARY_LIGHT,
   TEXT_PRIMARY,
   BORDER_PRIMARY,
 } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 import MarkAllAsReadButton from 'components/Notifications/MarkAllAsReadButton';
 import { IconXm } from 'components/Icon/IconWithSizes';
@@ -22,6 +22,8 @@ import notificationsIcon from 'images/notificationsBlue.svg?external';
 import { makeSelectProfileInfo } from '../../../AccountProvider/selectors';
 import { makeSelectLocale } from '../../../LanguageProvider/selectors';
 import { DEFAULT_LOCALE } from '../../../../i18n';
+
+const colors = singleCommunityColors();
 
 const Container = styled.div`
   border-top: 1px solid ${BORDER_SECONDARY_LIGHT};
@@ -39,32 +41,46 @@ const Container = styled.div`
 
     span {
       line-height: 20px;
+      color: ${colors.contentHeader || TEXT_PRIMARY};
     }
   }
 `;
 
-const SeeAllButton = () => (
-  <div style={{ color: TEXT_PRIMARY, marginLeft: '2px' }}>
-    <IconXm className="mr-2" icon={notificationsIcon} />
-    <FormattedMessage id={messages.seeAll.id} />
-  </div>
-);
+const SeeAllButton = () => {
+  const { t } = useTranslation();
 
-const Footer = ({ onClose, profile, empty }) => (
-  <Container>
-    <Link onClick={onClose} to={userNotifications(profile)}>
-      {empty ? (
-        <>
-          <IconXm className="mr-2" icon={clockIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.archive} />
-        </>
-      ) : (
-        <SeeAllButton />
-      )}
-    </Link>
-    {!empty && <MarkAllAsReadButton />}
-  </Container>
-);
+  return (
+    <div style={{ color: TEXT_PRIMARY, marginLeft: '2px' }}>
+      <IconXm className="mr-2" icon={notificationsIcon} />
+      {t('common.seeAll')}
+    </div>
+  );
+};
+
+const Footer = ({ onClose, profile, empty }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Container>
+      <Link onClick={onClose} to={userNotifications(profile)}>
+        {empty ? (
+          <>
+            <IconXm
+              className="mr-2"
+              icon={clockIcon}
+              color={colors.contentHeader || BORDER_PRIMARY}
+              fill={colors.contentHeader || BORDER_PRIMARY}
+            />
+            {t('common.archive')}
+          </>
+        ) : (
+          <SeeAllButton />
+        )}
+      </Link>
+      {!empty && <MarkAllAsReadButton />}
+    </Container>
+  );
+};
 
 Footer.propTypes = {
   empty: PropTypes.bool,

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import messages from 'common-messages';
 import * as routes from 'routes-config';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
@@ -9,11 +8,11 @@ import arrowDownIcon from 'images/arrowDown.svg?external';
 import A from 'components/A';
 import Icon from 'components/Icon';
 import { Button as ProfileButton } from 'containers/Header/ProfileDropdown';
-import { TEXT_PRIMARY, PEER_PRIMARY_TRANSPARENT_COLOR } from 'style-constants';
+import { TEXT_PRIMARY, DARK_SECONDARY } from 'style-constants';
 
 import Logout from 'containers/Logout';
 import PropTypes from 'prop-types';
-import { DARK_SECONDARY } from 'style-constants';
+
 import { getPermissions } from '../../utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -28,11 +27,12 @@ import PostIcon from 'icons/Post';
 import LogOutIcon from 'icons/LogOut';
 
 const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
+  const { t } = useTranslation();
+  const [visibleProfileLinks, setVisibilityProfileLinks] = useState(false);
+
   if (!profile || !isMenuVisible) {
     return null;
   }
-
-  const [visibleProfileLinks, setVisibilityProfileLinks] = useState(false);
 
   const onClick = () => setVisibilityProfileLinks(!visibleProfileLinks);
 
@@ -64,7 +64,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               size={[24, 24]}
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
-            <FormattedMessage id={messages.profile.id} />
+            {t('common.profile')}
           </A>
 
           <A to={routes.userCommunities(profile.user)}>
@@ -73,7 +73,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               size={[24, 24]}
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
-            <FormattedMessage id={messages.myCommunities.id} />
+            {t('common.myCommunities')}
           </A>
 
           <A
@@ -85,7 +85,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               size={[24, 24]}
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
-            <FormattedMessage id={messages.posts.id} />
+            {t('common.posts')}
           </A>
 
           <A
@@ -96,8 +96,8 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               className="mr-2"
               size={[24, 24]}
               stroke={colors.linkColor || TEXT_PRIMARY}
-            />
-            <FormattedMessage id={messages.answers.id} />
+            />{' '}
+            {t('common.answers')}
           </A>
 
           <A to={routes.userNotifications(profile.user)}>
@@ -107,7 +107,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               stroke={colors.linkColor || TEXT_PRIMARY}
               fill={colors.linkColor || TEXT_PRIMARY}
             />
-            <FormattedMessage id={messages.notifications.id} />
+            {t('common.notifications')}
           </A>
 
           <A to={routes.userNFTs(profile.user)}>
@@ -116,17 +116,17 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               size={[24, 24]}
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
-            <FormattedMessage id={messages.NFTs.id} />
+            {t('common.NFTs')}
           </A>
-          {/* PEER-707: Hide settings tab;
+
           <A to={routes.userSettings(profile.user)}>
             <SettingsIcon
               className="mr-2"
               size={[24, 24]}
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
-            <FormattedMessage id={messages.settings.id} />
-          </A> */}
+            {t('common.settings')}
+          </A>
 
           {isModerator && (
             <A to={routes.userModeration(profile.user)}>
@@ -136,13 +136,9 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
                 stroke={colors.linkColor || TEXT_PRIMARY}
                 fill={colors.linkColor || TEXT_PRIMARY}
               />
-              <FormattedMessage id={messages.moderation.id} />
+              {t('common.moderation')}
             </A>
           )}
-
-          <A to={routes.userSettings(profile.user)}>
-            <FormattedMessage id={messages.settings.id} />
-          </A>
 
           <Logout>
             <LogOutIcon
@@ -150,7 +146,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               size={[24, 24]}
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
-            <FormattedMessage id={messages.logout.id} />
+            {t('common.logout')}
           </Logout>
         </div>
       )}
