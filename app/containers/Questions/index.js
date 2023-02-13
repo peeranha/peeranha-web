@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
-
+import history from 'createdHistory';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
@@ -94,10 +94,13 @@ export const Questions = ({
     isNotFollowedCommunities;
   const getInitQuestions = useCallback(() => {
     if (!questionFilter) {
+      const searchParams = new URLSearchParams(history.location.search);
+      const searchParamsTags = searchParams.get('tags');
       getQuestionsDispatch(
         initLoadedItems,
         0,
         postsTypes,
+        searchParamsTags?.split(':'),
         Number(params.communityid) || 0,
         parentPage,
         false,
@@ -107,17 +110,20 @@ export const Questions = ({
   }, [
     initLoadedItems,
     params.communityid,
+    history.location.search,
     parentPage,
     questionFilter,
     postsTypes,
   ]);
-
   const getNextQuestions = useCallback(() => {
     if (!questionFilter) {
+      const searchParams = new URLSearchParams(history.location.search);
+      const searchParamsTags = searchParams.get('tags');
       getQuestionsDispatch(
         nextLoadedItems,
         loadedItems,
         postsTypes,
+        searchParamsTags?.split(':'),
         Number(params.communityid) || 0,
         parentPage,
         true,
@@ -128,6 +134,7 @@ export const Questions = ({
     questionsList.length,
     nextLoadedItems,
     params.communityid,
+    history.location.search,
     parentPage,
     questionFilter,
     loadTopQuestionsDispatch,
