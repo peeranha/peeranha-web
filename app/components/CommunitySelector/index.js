@@ -74,7 +74,7 @@ const CommunitySelector = ({
     }
 
     options.push({
-      label: t('common.selectCommunity'), //CHANGE
+      label: t('common.selectCommunity'),
       value: options.length + 1,
       render: <ManageMyCommunities />,
     });
