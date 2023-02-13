@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { map, getFlatDataFromTree } from 'react-sortable-tree';
+
 import {
   getArticleDocumentation,
   saveMenuDraft,
@@ -34,9 +34,9 @@ import {
   selectDocumentationMenu,
   selectPinnedItemMenu,
 } from 'containers/AppWrapper/selectors';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 import Header from './components/Header';
-import Button from 'common-components/Button';
+import Pagination from './components/Pagination';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
 import DraftsMenu from './components/Drafts/Drafts';
@@ -51,12 +51,11 @@ import {
   animationDocumentation,
   clearSavedDrafts,
   getSavedDraftsIds,
+  getDataFromTree,
+  getcurrentArrayIndex,
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
-
-import RiseUpIcon from 'icons/RiseUp';
-import { translationMessages } from 'i18n';
 
 const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
@@ -78,26 +77,13 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   isEditOrder,
   editOrderDispatch,
   draftsIds,
-  locale,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
   const [pinned, setPinned] = useState<string>(pinnedItemMenu.id);
 
-  const treeArray = getFlatDataFromTree({
-    treeData: documentationMenu?.map((node) => ({ ...node })),
-    getKey: (node) => node.id,
-    getNodeKey: ({ treeIndex }) => treeIndex,
-    ignoreCollapsed: false,
-  });
-  const currentArrayIndex = treeArray.filter(
-    (item) => item?.node.id == viewArticleId,
-  )[0]?.treeIndex;
-  const sliceTitle = (title: string): string =>
-    title?.length < 26 ? title : title?.substr(0, 25) + '...';
-
-  const isStartArticle = currentArrayIndex < 1;
-  const isLastArticle = currentArrayIndex == treeArray.length - 1;
+  const treeArray = getDataFromTree(documentationMenu);
+  const currentArrayIndex = getcurrentArrayIndex(treeArray, viewArticleId);
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -177,32 +163,13 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
       });
     }
   };
-  const onClickPrevArticle = (): void => {
-    const prevArrayId = treeArray.filter(
-      (item) => item?.treeIndex == currentArrayIndex - 1,
-    )[0]?.node.id;
-    onClickArticle(prevArrayId);
-  };
 
-  const onClickNextArticle = (): void => {
-    const nextArrayId = treeArray.filter(
-      (item) => item?.treeIndex == currentArrayIndex + 1,
-    )[0]?.node.id;
-    onClickArticle(nextArrayId);
-  };
-
-  const onClickNextTitle = (): string => {
-    const nextTitle = treeArray.filter(
-      (item) => item?.treeIndex == currentArrayIndex + 1,
-    )[0]?.node.title;
-    return sliceTitle(nextTitle);
-  };
-
-  const onClickPrevTitle = (): string => {
-    const prevTitle = treeArray.filter(
-      (item) => item?.treeIndex == currentArrayIndex - 1,
-    )[0]?.node.title;
-    return sliceTitle(prevTitle);
+  const onClickPaginationArticle = (typeButton: 'prev' | 'next') => () => {
+    const stepDirection = typeButton === 'prev' ? -1 : +1;
+    const arrayId = treeArray.find(
+      (item) => item?.treeIndex === currentArrayIndex + stepDirection,
+    )?.node.id;
+    onClickArticle(arrayId);
   };
 
   const discardDrafts = () => {
@@ -305,80 +272,15 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     updateDraftsIds={saveDraftsIdsDispatch}
                   />
                 )}
+                <Pagination
+                  documentationMenu={documentationMenu}
+                  id={viewArticleId}
+                  onClickPaginationArticleEditDocumentation={
+                    onClickPaginationArticle
+                  }
+                />
               </>
             )}
-            <div
-              className="df aic jcc full-width mb16 fww"
-              css={{ '@media (min-width: 768px)': { flexWrap: 'nowrap' } }}
-            >
-              {!isStartArticle && (
-                <div>
-                  <Button
-                    variant="third"
-                    icon={<RiseUpIcon className="icon" stroke="#A5BCFF" />}
-                    className="df aic mr16"
-                    css={{
-                      border: '1px solid #A5BCFF',
-                      color: '#A5BCFF',
-                      justifyContent: `${
-                        isLastArticle ? 'space-between' : 'flex-start'
-                      }`,
-                      textAlign: 'start',
-                      width: `${isLastArticle ? '700px' : '300px'} !important`,
-                      height: '60px',
-                      '@media (max-width: 768px)': { marginRight: '0px' },
-                    }}
-                    onClick={onClickPrevArticle}
-                  >
-                    <div css={{ color: 'rgba(136 153 168 / 50%);' }}>
-                      {
-                        translationMessages[locale][
-                          messages.documentationPrev.id
-                        ]
-                      }
-                    </div>
-                    <div>{onClickPrevTitle()}</div>
-                  </Button>
-                </div>
-              )}
-
-              {!isLastArticle && (
-                <div>
-                  <Button
-                    variant="third"
-                    icon={
-                      <RiseUpIcon
-                        className="icon"
-                        stroke="#A5BCFF"
-                        css={{ transform: 'rotate(180deg)' }}
-                      />
-                    }
-                    className="df aic ml16"
-                    css={{
-                      border: '1px solid #A5BCFF',
-                      color: '#A5BCFF',
-                      justifyContent: `${
-                        isStartArticle ? 'space-between' : 'flex-start'
-                      }`,
-                      textAlign: 'start',
-                      width: `${isStartArticle ? '700px' : '300px'} !important`,
-                      height: '60px',
-                      '@media (max-width: 768px)': { margin: '10px 0px' },
-                    }}
-                    onClick={onClickNextArticle}
-                  >
-                    <div css={{ color: 'rgba(136 153 168 / 50%);' }}>
-                      {
-                        translationMessages[locale][
-                          messages.documentationNext.id
-                        ]
-                      }
-                    </div>
-                    <div>{onClickNextTitle()}</div>
-                  </Button>
-                </div>
-              )}
-            </div>
           </div>
           <div
             css={{
@@ -414,7 +316,6 @@ export default compose(
       pinnedItemMenu: selectPinnedItemMenu(),
       isEditOrder: selectEditOrder(),
       draftsIds: selectDraftsIds(),
-      locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(

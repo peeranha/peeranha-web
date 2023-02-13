@@ -28,7 +28,6 @@ export type EditDocumentationProps = {
   setViewArticleDispatch: (id: string) => void;
   pinnedArticleMenuDraftDispatch: (data: PinnedArticleType) => void;
   removeArticleDispatch: (id: string) => void;
-  locale: string;
   pinnedItemMenu: PinnedArticleType;
   draftsIds: Array<string>;
   isEditOrder: boolean;
@@ -46,4 +45,14 @@ export type DocumentationFormProps = {
   setEditArticle: (data: EditArticleType) => void;
   isEditArticle: boolean;
   updateDraftsIds: (ids: Array<string>) => void;
+};
+
+export type ButtonPaginationProps = {
+  next?: boolean;
+  isStartArticle: boolean;
+  isLastArticle: boolean;
+  onClickPaginationArticle: (type: string) => void;
+  getcurrentArrayTitle: (type: string) => void;
+  NEXT_TYPE_BUTTON: string;
+  PREV_TYPE_BUTTON: string;
 };
