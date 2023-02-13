@@ -1,8 +1,13 @@
 import React from 'react';
-import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
-import { DocumentationArticle } from 'pages/Documentation/types';
+import Pagination from './Pagination';
+import {
+  DocumentationArticle,
+  DocumentationItemMenuType,
+} from 'pages/Documentation/types';
+
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 import { extractStrings } from 'utils/url';
 import TextNavbar from './TextNavbar/TextNavbar';
 
@@ -19,12 +24,12 @@ type ViewContentProps = {
   documentationArticle: DocumentationArticle;
   isEditDocumentation?: boolean;
   documentationMenu?: DocumentationItemMenuType;
-  locale: string;
 };
 
 const ViewContent: React.FC<ViewContentProps> = ({
   documentationArticle,
   isEditDocumentation,
+  documentationMenu,
 }): JSX.Element => {
   const headers = extractStrings(['#', '\n'])(
     `${documentationArticle?.content}\n` || '',
@@ -45,13 +50,22 @@ const ViewContent: React.FC<ViewContentProps> = ({
       </Wrapper>
       <div className="df">
         <Wrapper
+          className="fdc"
           css={{
             ...(isEditDocumentation && styled),
             minWidth: '0',
           }}
         >
           <MarkdownPreviewBlock content={documentationArticle?.content} />
+
+          {!isEditDocumentation && (
+            <Pagination
+              documentationMenu={documentationMenu}
+              id={documentationArticle?.id}
+            />
+          )}
         </Wrapper>
+
         {!isEditDocumentation && headers?.length > 1 && (
           <TextNavbar headers={headers} />
         )}

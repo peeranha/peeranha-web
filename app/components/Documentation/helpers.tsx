@@ -4,6 +4,8 @@ import {
   DocumentationSection,
 } from 'pages/Documentation/types';
 
+import { map, getFlatDataFromTree } from 'react-sortable-tree';
+
 const TEMP_SAVED_CONTENT = 'tempSavedContent';
 const DRAFTS_IDS = 'draftsIds';
 
@@ -179,4 +181,22 @@ export const isEditableChildItem = (
     );
   }
   return false;
+};
+
+export const getDataFromTree = (
+  documentationMenu: Array<DocumentationItemMenuType>,
+) => {
+  return getFlatDataFromTree({
+    treeData: documentationMenu?.map((node) => ({ ...node })),
+    getKey: (node) => node.id,
+    getNodeKey: ({ treeIndex }) => treeIndex,
+    ignoreCollapsed: false,
+  });
+};
+
+export const getcurrentArrayIndex = (
+  treeArray: Array<DocumentationItemMenuType>,
+  id: number,
+) => {
+  return treeArray.find((item) => item?.node.id === id)?.treeIndex;
 };

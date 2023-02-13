@@ -86,7 +86,10 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
         {isArticleLoading || !documentationSection ? (
           <Loader />
         ) : (
-          <ViewContent documentationArticle={documentationSection} />
+          <ViewContent
+            documentationArticle={documentationSection}
+            documentationMenu={documentationMenu}
+          />
         )}
       </div>
     </>

@@ -112,6 +112,9 @@ export default css`
   .fdr {
     flex-direction: row;
   }
+  .fdrr {
+    flex-direction: row-reverse;
+  }
   .f1 {
     flex: 1;
   }
