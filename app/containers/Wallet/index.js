@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
@@ -15,7 +15,6 @@ import {
 
 import Seo from 'components/Seo';
 
-import messages from './messages';
 import * as selectors from './selectors';
 
 import { pickupReward, getWeekStat } from './actions';
@@ -41,14 +40,13 @@ const Wallet = ({
   ids,
   loading,
 }) => {
-  useEffect(
-    () => {
-      if (account) {
-        getWeekStatDispatch();
-      }
-    },
-    [account],
-  );
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    if (account) {
+      getWeekStatDispatch();
+    }
+  }, [account]);
 
   if ((!account || !checkUserURL(account)) && !loading) {
     return (
@@ -62,8 +60,8 @@ const Wallet = ({
     <div>
       {process.env.ENV !== 'dev' && (
         <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
+          title={t('wallet.title')}
+          description={t('wallet.description')}
           language={locale}
           index={false}
         />
@@ -104,8 +102,8 @@ Wallet.propTypes = {
 export default memo(
   compose(
     /*
-    * reducer and saga injections are produced in WalletDropdown container
-    */
+     * reducer and saga injections are produced in WalletDropdown container
+     */
     connect(
       createStructuredSelector({
         locale: makeSelectLocale(),
@@ -119,7 +117,7 @@ export default memo(
         ids: selectors.selectIds(),
         loading: makeSelectAccountLoading(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         pickupRewardDispatch: bindActionCreators(pickupReward, dispatch),
         getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
       }),

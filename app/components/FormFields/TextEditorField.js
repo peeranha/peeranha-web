@@ -76,6 +76,7 @@ export const TextEditorField = ({
     meta={meta}
     splitInHalf={splitInHalf}
     id={input.name}
+    disabled={disabled}
   >
     <Div
       css={css`border-radius: 0; !important;`}

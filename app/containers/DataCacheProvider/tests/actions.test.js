@@ -1,7 +1,7 @@
 import {
-  getCommunitiesWithTags,
-  getCommunitiesWithTagsSuccess,
-  getCommunitiesWithTagsErr,
+  getCommunities,
+  getCommunitiesSuccess,
+  getCommunitiesErr,
   getUserProfile,
   getUserProfileSuccess,
   getUserProfileErr,
@@ -14,9 +14,9 @@ import {
 } from '../actions';
 
 import {
-  GET_COMMUNITIES_WITH_TAGS,
-  GET_COMMUNITIES_WITH_TAGS_SUCCESS,
-  GET_COMMUNITIES_WITH_TAGS_ERROR,
+  GET_COMMUNITIES,
+  GET_COMMUNITIES_SUCCESS,
+  GET_COMMUNITIES_ERROR,
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
@@ -29,34 +29,32 @@ import {
 } from '../constants';
 
 describe('DataCacheProvider actions', () => {
-  describe('getCommunitiesWithTags Action', () => {
-    it('GET_COMMUNITIES_WITH_TAGS', () => {
+  describe('getCommunities Action', () => {
+    it('GET_COMMUNITIES', () => {
       const expected = {
-        type: GET_COMMUNITIES_WITH_TAGS,
+        type: GET_COMMUNITIES,
       };
 
-      expect(getCommunitiesWithTags()).toEqual(expected);
+      expect(getCommunities()).toEqual(expected);
     });
 
-    it('GET_COMMUNITIES_WITH_TAGS_SUCCESS', () => {
+    it('GET_COMMUNITIES_SUCCESS', () => {
       const communities = [];
       const expected = {
-        type: GET_COMMUNITIES_WITH_TAGS_SUCCESS,
+        type: GET_COMMUNITIES_SUCCESS,
         communities,
       };
 
-      expect(getCommunitiesWithTagsSuccess(communities)).toEqual(expected);
+      expect(getCommunitiesSuccess(communities)).toEqual(expected);
     });
 
-    it('GET_COMMUNITIES_WITH_TAGS_ERROR', () => {
-      const getCommunitiesWithTagsError = 'getCommunitiesWithTagsError';
+    it('GET_COMMUNITIES_ERROR', () => {
+      const getCommunitiesError = 'getCommunitiesError';
       const expected = {
-        type: GET_COMMUNITIES_WITH_TAGS_ERROR,
-        getCommunitiesWithTagsError,
+        type: GET_COMMUNITIES_ERROR,
+        getCommunitiesError,
       };
-      expect(getCommunitiesWithTagsErr(getCommunitiesWithTagsError)).toEqual(
-        expected,
-      );
+      expect(getCommunitiesErr(getCommunitiesError)).toEqual(expected);
     });
 
     it('GET_USER_PROFILE', () => {

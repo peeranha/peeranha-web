@@ -1,9 +1,8 @@
-/* eslint react/jsx-no-bind: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-noninteractive-element-interactions: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import createdHistory from 'createdHistory';
 
@@ -20,15 +19,15 @@ import {
 import plusIcon from 'images/Plus.svg?external';
 import minusIcon from 'images/Minus.svg?external';
 import okayGreen from 'images/okayGreen.svg?external';
-import notOkay from 'images/notOkayRed.svg?external';
-import { IconLg } from 'components/Icon/IconWithSizes';
+
+import { IconLg, IconSm } from 'components/Icon/IconWithSizes';
 import H4 from 'components/H4';
 import Span from 'components/Span';
-import { IconSm } from 'components/Icon/IconWithSizes';
+
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
-import messages from './messages';
+import { permissions } from './messages';
 
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -91,8 +90,10 @@ const Permission = ({
   sectionCode,
   getPermissionCode,
 }) => {
+  const { t } = useTranslation();
   const permissionId = getPermissionCode(sectionCode, permissionCode);
   const ico = okayGreen;
+
   return (
     <PermissionBox key={permissionId} id={permissionId}>
       <ImgWrapper>
@@ -109,7 +110,7 @@ const Permission = ({
       <PermissionBoxBody>
         <h5 className="d-flex align-items-center">
           <Span fontSize="20" lineHeight="35" mobileFS="18">
-            <FormattedMessage id={messages.permissions[title].title.id} />
+            {t(permissions[title].title)}
           </Span>
         </h5>
       </PermissionBoxBody>
@@ -147,17 +148,15 @@ const Section = ({
           {h3}
         </div>
         <ul>
-          {blocks.map((x) => {
-            return (
-              <Permission
-                {...x}
-                key={getPermissionCode(sectionCode, x.permissionCode)}
-                permission={permission}
-                sectionCode={sectionCode}
-                getPermissionCode={getPermissionCode}
-              />
-            );
-          })}
+          {blocks.map((x) => (
+            <Permission
+              {...x}
+              key={getPermissionCode(sectionCode, x.permissionCode)}
+              permission={permission}
+              sectionCode={sectionCode}
+              getPermissionCode={getPermissionCode}
+            />
+          ))}
         </ul>
       </div>
     </SectionStyled>

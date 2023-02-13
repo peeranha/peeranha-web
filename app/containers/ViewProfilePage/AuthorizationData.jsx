@@ -1,25 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import H3 from 'components/H3';
 import Span from 'components/Span';
-import styled from 'styled-components';
 
-import commonMessages from 'common-messages';
 import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
 import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
-import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import { BaseStyled } from './SettingsOfUser';
 import { singleCommunityColors } from 'utils/communityManagement';
-import A from 'components/A';
-import { svgDraw } from 'components/Icon/IconStyled';
-
-const Link = styled(A)`
-  ${svgDraw({ color: TEXT_PRIMARY })};
-`;
 
 const colors = singleCommunityColors();
 
@@ -33,6 +25,7 @@ const AuthorizationData = ({
   tgData,
   profile,
 }) => {
+  const { t } = useTranslation();
   const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
 
   const [metaTransactions, setMetaTransactions] = React.useState(
@@ -62,13 +55,11 @@ const AuthorizationData = ({
         className={className}
         position="bottom"
         css={css`
-        border-top-left-radius: 0; !important;
-        border-top-right-radius: 0; !important;
-      `}
+      border-top-left-radius: 0; !important;
+      border-top-right-radius: 0; !important;
+    `}
       >
-        <H3>
-          <FormattedMessage id={commonMessages.settings.id} />
-        </H3>
+        <H3>{t('common.settings')}</H3>
       </BaseStyled>
       <BaseStyled position="top" className={className}>
         <div>
@@ -76,7 +67,7 @@ const AuthorizationData = ({
             <div className="mb-4">
               <div className="mb-2">
                 <Span fontSize="18" bold>
-                  <FormattedMessage id={commonMessages.transactions.id} />
+                  {t('common.transactions')}
                 </Span>
               </div>
               <div>
@@ -87,9 +78,7 @@ const AuthorizationData = ({
                     `}
                     fontSize="16"
                   >
-                    <FormattedMessage
-                      id={commonMessages.transactionsText_1.id}
-                    />
+                    {t('common.transactionsText_1')}
                   </Span>
                 </div>
                 <div>
@@ -99,9 +88,7 @@ const AuthorizationData = ({
                     `}
                     fontSize="16"
                   >
-                    <FormattedMessage
-                      id={commonMessages.transactionsText_2.id}
-                    />
+                    {t('common.transactionsText_2')}
                   </Span>
                 </div>
               </div>
@@ -122,7 +109,7 @@ const AuthorizationData = ({
                   checked={metaTransactions}
                   onChange={handleMetaTransactionsAllowed}
                 />
-                <FormattedMessage id={commonMessages.transactionsChange_1.id} />
+                {t('common.transactionsChange_1')}
               </label>
             </div>
             <div
@@ -138,11 +125,9 @@ const AuthorizationData = ({
                   checked={!metaTransactions}
                   onChange={handleMetaTransactionsDisallowed}
                 />
-                <FormattedMessage
-                  className="pr-2"
-                  bold
-                  id={commonMessages.transactionsChange_2.id}
-                />
+                <span className="pr-2" bold>
+                  {t('common.transactionsChange_2')}
+                </span>
               </label>
             </div>
           </div>

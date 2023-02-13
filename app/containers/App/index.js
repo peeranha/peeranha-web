@@ -67,7 +67,6 @@ import {
   EditAnswer,
   CreateCommunity,
   TagsOfCommunity,
-  TagsCollection,
   CreateTag,
   SuggestedTags,
   EditTag,
@@ -277,14 +276,6 @@ const App = ({
             <Route
               path={routes.suggestedCommunities()}
               render={(props) => Wrapper(SuggestedCommunities, props)}
-            />
-          )}
-
-          {!single && (
-            <Route
-              exact
-              path={routes.tags()}
-              render={(props) => Wrapper(TagsCollection, props)}
             />
           )}
 
@@ -508,12 +499,6 @@ const App = ({
             path={routes.errorPage()}
             render={(props) => Wrapper(ErrorPage, props)}
           />
-
-          <Route exact path={routes.facebookDataDeletion()}>
-            <React.Suspense fallback={null}>
-              <DeleteFacebookData />
-            </React.Suspense>
-          </Route>
 
           <Route path={routes.signup.email.name}>
             <React.Suspense fallback={<Loader />}>

@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import commonMessages from 'common-messages';
 import DescriptionList from 'components/DescriptionList';
 import { BG_LIGHT, BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
+import { css } from '@emotion/react';
 
 const Base = styled.div`
   position: absolute;
@@ -45,14 +45,20 @@ const Base = styled.div`
   }
 `;
 
-const Popover = ({ locale, title, label, items }) => (
-  <Base>
-    <strong>
-      <FormattedMessage id={title} />
-    </strong>
-    <DescriptionList locale={locale} label={label} items={items} />
-  </Base>
-);
+const Popover = ({ title, label, items, isSearch }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Base
+      css={css`
+        ${isSearch && '@media (max-width: 991px) {left: 0px !important;}'}
+      `}
+    >
+      <strong>{t(title)}</strong>
+      <DescriptionList label={label} items={items} />
+    </Base>
+  );
+};
 
 Popover.propTypes = {
   locale: PropTypes.string,

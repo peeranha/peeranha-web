@@ -2,10 +2,9 @@ import { css } from '@emotion/react';
 import { singleCommunityColors } from 'utils/communityManagement';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation, Trans } from 'react-i18next';
 import _orderBy from 'lodash/orderBy';
 
-import messages from 'common-messages';
 import * as routes from 'routes-config';
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -16,8 +15,6 @@ import Span from 'components/Span';
 import Button from 'components/Button/Contained/Navigation';
 import { TransparentLinkDefault } from 'components/Button/Contained/Transparent';
 
-import profileMessages from 'containers/Profile/messages';
-
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
 
@@ -25,7 +22,6 @@ const colors = singleCommunityColors();
 
 const DEFAULT_NUMBER = 10;
 
-/* eslint indent: 0 */
 const Activity = ({
   userId,
   questions,
@@ -35,7 +31,8 @@ const Activity = ({
   locale,
   profile,
 }) => {
-  // concat 2 mass and sort by postTime and slice
+  const { t } = useTranslation();
+  const [tab, setTab] = useState('posts');
   const myPosts = _orderBy(
     questions.concat(questionsWithUserAnswers),
     (y) => y.myPostTime,
@@ -46,8 +43,6 @@ const Activity = ({
     return <Banner />;
   }
 
-  const [tab, setTab] = useState('posts');
-
   return (
     <div>
       <H4
@@ -56,7 +51,7 @@ const Activity = ({
         `}
         isHeader
       >
-        <FormattedMessage {...profileMessages.activity} />
+        {t('profile.activity')}
       </H4>
 
       <Base position="top">
@@ -65,19 +60,17 @@ const Activity = ({
           islink={tab !== 'posts'}
           onClick={() => setTab('posts')}
         >
-          <FormattedMessage
-            {...messages.allActivitiesNumber}
-            values={{
-              number: (
-                <Span
-                  className="ml-1"
-                  fontSize="14"
-                  color={tab !== 'posts' ? TEXT_SECONDARY : 'inherit'}
-                >
-                  {(profile.postCount || 0) + profile.answersGiven}
-                </Span>
-              ),
-            }}
+          <Trans
+            i18nKey="common.allActivitiesNumber"
+            values={{ number: (profile.postCount || 0) + profile.answersGiven }}
+            components={[
+              <Span
+                className="ml-1"
+                fontSize="14"
+                color={tab !== 'posts' ? TEXT_SECONDARY : 'inherit'}
+                key="0"
+              />,
+            ]}
           />
         </Button>
 
@@ -87,19 +80,19 @@ const Activity = ({
           islink={tab !== 'quest'}
           onClick={() => setTab('quest')}
         >
-          <FormattedMessage
-            {...messages.postsNumber}
+          <Trans
+            i18nKey="common.postsNumber"
             values={{
-              number: (
-                <Span
-                  className="ml-1"
-                  fontSize="14"
-                  color={tab !== 'quest' ? TEXT_SECONDARY : 'inherit'}
-                >
-                  {profile.postCount || 0}
-                </Span>
-              ),
+              number: profile.postCount || 0,
             }}
+            components={[
+              <Span
+                className="ml-1"
+                fontSize="14"
+                color={tab !== 'quest' ? TEXT_SECONDARY : 'inherit'}
+                key="0"
+              />,
+            ]}
           />
         </Button>
 
@@ -109,19 +102,19 @@ const Activity = ({
           islink={tab !== 'answ'}
           onClick={() => setTab('answ')}
         >
-          <FormattedMessage
-            {...messages.answersNumber}
+          <Trans
+            i18nKey="common.answersNumber"
             values={{
-              number: (
-                <Span
-                  className="ml-1"
-                  fontSize="14"
-                  color={tab !== 'answ' ? TEXT_SECONDARY : 'inherit'}
-                >
-                  {profile.answersGiven}
-                </Span>
-              ),
+              number: profile.answersGiven,
             }}
+            components={[
+              <Span
+                className="ml-1"
+                fontSize="14"
+                color={tab !== 'answ' ? TEXT_SECONDARY : 'inherit'}
+                key="0"
+              />,
+            ]}
           />
         </Button>
       </Base>
@@ -155,32 +148,30 @@ const Activity = ({
           !questionsLoading &&
           myPosts.length === DEFAULT_NUMBER && (
             <div className="mt-3">
-              <FormattedMessage
-                id={profileMessages.seeMore.id}
+              <Trans
+                i18nKey="profile.seeMore"
                 values={{
-                  posts: (
-                    <TransparentLinkDefault
-                      className="d-inline text-lowercase"
-                      href={routes.userQuestions(userId)}
-                      disabled={!questions.length}
-                      tabIndex={!questions.length ? '-1' : undefined}
-                    >
-                      <FormattedMessage id={messages.posts.id} />
-                    </TransparentLinkDefault>
-                  ),
-                  answers: (
-                    <TransparentLinkDefault
-                      className="d-inline text-lowercase"
-                      href={routes.userAnswers(userId)}
-                      disabled={!questionsWithUserAnswers.length}
-                      tabIndex={
-                        !questionsWithUserAnswers.length ? '-1' : undefined
-                      }
-                    >
-                      <FormattedMessage id={messages.answers.id} />
-                    </TransparentLinkDefault>
-                  ),
+                  posts: t('common.posts'),
+                  answers: t('common.answers'),
                 }}
+                components={[
+                  <TransparentLinkDefault
+                    className="d-inline text-lowercase"
+                    href={routes.userQuestions(userId)}
+                    disabled={!questions.length}
+                    tabIndex={!questions.length ? '-1' : undefined}
+                    key="0"
+                  />,
+                  <TransparentLinkDefault
+                    className="d-inline text-lowercase"
+                    href={routes.userAnswers(userId)}
+                    disabled={!questionsWithUserAnswers.length}
+                    tabIndex={
+                      !questionsWithUserAnswers.length ? '-1' : undefined
+                    }
+                    key="1"
+                  />,
+                ]}
               />
             </div>
           )}

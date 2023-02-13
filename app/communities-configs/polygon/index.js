@@ -212,7 +212,6 @@ export const customSubHeaderConfig = {
         }
         div {
           border-top: none;
-
           margin-top: 10px;
           padding: 0;
           opacity: 0.9;
@@ -329,7 +328,6 @@ export const PolygonStyles = {
     background: rgba(255, 255, 255, 0);
     border: 2px solid #ffffff;
     color: #ffffff;
-
     :hover {
       background: '#843bed' !important;
       border: 2px solid #843bed;
