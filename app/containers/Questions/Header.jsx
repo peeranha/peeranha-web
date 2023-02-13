@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
@@ -7,9 +7,20 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-
+import {
+  TEXT_DARK,
+  BORDER_PRIMARY,
+  ICON_TRASPARENT_BLUE,
+  TEXT_PRIMARY,
+  PEER_PRIMARY_COLOR,
+  BORDER_RADIUS_L,
+  TEXT_LIGHT,
+} from 'style-constants';
+import { Tag } from 'components/TagsList';
+import FailedTransactionIcon from 'icons/FailedTransaction';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
+import ScrollContainer from 'components/ScrollContainer';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import { IconLg, IconMd } from 'components/Icon/IconWithSizes';
 import H3 from 'components/H3';
@@ -26,6 +37,7 @@ import createdHistory from 'createdHistory';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
+  getTagsNameByIds,
 } from 'utils/communityManagement';
 import {
   getPermissions,
@@ -35,11 +47,6 @@ import {
 } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
-import {
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
-  TEXT_PRIMARY,
-} from 'style-constants';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
@@ -47,10 +54,92 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
 
+const PageContentHeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  @media only screen and (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+  @media only screen and (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
 const PageContentHeader = styled.div`
+  padding: 20px 0px;
+  @media only screen and (max-width: 768px) {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding: 10px 0px;
+  }
   @media only screen and (max-width: 576px) {
     justify-content: space-between;
     width: 100%;
+    padding: 0px;
+  }
+`;
+
+const EditCommunityButton = styled.div`
+  position: absolute;
+  text-align: right;
+  padding: 8px 0px;
+  right: 55px;
+  @media only screen and (max-width: 768px) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    right: 0;
+    margin-top: 14px;
+    button {
+      flex: auto;
+      text-align: end;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    display: block;
+    padding: 0px;
+    text-align: left;
+  }
+`;
+
+const TagFilterContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 20px 0px;
+  max-width: 50%;
+  @media only screen and (max-width: 768px) {
+    padding-bottom: 10px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-template-columns: 1fr;
+    align-items: center;
+    padding: 8px 0px;
+    max-width: 100%;
+    button {
+      flex: auto;
+      text-align: end;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    grid-row-start: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    padding-bottom: 0px;
+    padding-top: 10px;
+  }
+`;
+
+const TagFilter = Tag.extend`
+  color: ${TEXT_LIGHT};
+  border: 1px solid ${colors?.linkColor || PEER_PRIMARY_COLOR};
+  border-radius: ${BORDER_RADIUS_L};
+  background: ${colors?.linkColor || PEER_PRIMARY_COLOR};
+  margin-left: 8px;
+  margin-right: 0px;
+  @media only screen and (max-width: 768px) {
+    margin-left: 0px;
+    margin-right: 8px;
   }
 `;
 
@@ -69,6 +158,11 @@ const StyledCustomIconButtonContainer = styled.div`
   }
 `;
 
+const RemoveTagIcon = styled.button`
+  display: inline-flex;
+  padding: 0 0 0 10px;
+`;
+
 export const Header = ({
   communityIdFilter,
   communities,
@@ -82,12 +176,32 @@ export const Header = ({
   profile,
 }) => {
   const { t } = useTranslation();
+  const [tags, setTags] = useState([]);
+  const [tagsNames, setTagsNames] = useState([]);
   const isFeed = parentPage === routes.feed();
   const communityEditingAllowed = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
       hasProtocolAdminRole(getPermissions(profile)) ||
       hasCommunityAdminRole(getPermissions(profile), single)
     : false;
+
+  useEffect(() => {
+    async function getTagsName() {
+      if (single) {
+        const searchParams = new URLSearchParams(
+          createdHistory.location.search,
+        );
+        const searchParamsTags = searchParams.get('tags');
+        setTags(searchParamsTags ? searchParamsTags.split(':') : []);
+        setTagsNames(
+          searchParamsTags
+            ? await getTagsNameByIds(searchParamsTags.split(':'))
+            : [],
+        );
+      }
+    }
+    getTagsName();
+  }, [createdHistory.location.search]);
 
   let defaultAvatar = null;
   let defaultLabel = null;
@@ -160,42 +274,92 @@ export const Header = ({
   return (
     <Wrapper
       single={single}
-      className="d-flex mb-to-sm-0 mb-from-sm-3"
+      isQuestionsPage={true}
+      className="mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
-      <PageContentHeader className="d-flex align-items-center">
-        <CommunitySelector
-          isArrowed
-          Button={Button}
-          toggle={(choice) => {
-            createdHistory.push(routes[route](choice, false, false));
-            setTypeFilter(choice);
-          }}
-          showOnlyFollowed={isFeed}
-          selectedCommunityId={communityIdFilter}
-          communities={communities}
-        />
-        {/* PEER-451: Hide Subscribe button from single community mode
-        {!!displaySubscribeButton && (
-          <PageContentHeaderRightPanel
-            className={`right-panel m-0 ml-${single ? 3 : 4}`}
-          >
-            <FollowCommunityButton
-              communityIdFilter={single || communityIdFilter}
-              followedCommunities={followedCommunities}
-            />
-          </PageContentHeaderRightPanel>
-        )} */}
-      </PageContentHeader>
-
-      {communityEditingAllowed && (
-        <button onClick={routeToEditCommunity} className="df aic mt12">
-          <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
-          <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
-            {t('common.editCommunity')}
-          </Span>
-        </button>
-      )}
+      <PageContentHeaderContainer>
+        <PageContentHeader className="d-flex align-items-center">
+          <CommunitySelector
+            isArrowed
+            Button={Button}
+            toggle={(choice) => {
+              createdHistory.push(routes[route](choice, false, false));
+              setTypeFilter(choice);
+            }}
+            showOnlyFollowed={isFeed}
+            selectedCommunityId={communityIdFilter}
+            communities={communities}
+          />
+          {/* PEER-451: Hide Subscribe button from single community mode
+          {!!displaySubscribeButton && (
+            <PageContentHeaderRightPanel
+              className={`right-panel m-0 ml-${single ? 3 : 4}`}
+            >
+              <FollowCommunityButton
+                communityIdFilter={single || communityIdFilter}
+                followedCommunities={followedCommunities}
+              />
+            </PageContentHeaderRightPanel>
+          )} */}
+        </PageContentHeader>
+        {communityEditingAllowed && (
+          <EditCommunityButton>
+            <button onClick={routeToEditCommunity} className="aic">
+              <IconMd
+                icon={pencilIcon}
+                color={colors.btnColor || TEXT_PRIMARY}
+              />
+              <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+                {t('common.editCommunity')}
+              </Span>
+            </button>
+          </EditCommunityButton>
+        )}
+        {Boolean(tags.length) && (
+          <TagFilterContainer>
+            <ScrollContainer>
+              <div className="df mt-md-3 mt-sm-0">
+                {tags.map((tag) => {
+                  const removeTagFilter = (removedTag) => {
+                    const searchParams = new URLSearchParams(
+                      createdHistory.location.search,
+                    );
+                    const searchParamsTags = searchParams.get('tags');
+                    const allTags = searchParamsTags?.split(':');
+                    const result = allTags?.filter(
+                      (item) => item !== removedTag,
+                    );
+                    if (result?.length) {
+                      searchParams.set('tags', result.join(':'));
+                    } else {
+                      searchParams.delete('tags');
+                    }
+                    createdHistory.push(
+                      `${createdHistory.location.pathname}?${searchParams}`,
+                    );
+                  };
+                  return (
+                    <TagFilter key={tag}>
+                      {tagsNames[tag]}
+                      <RemoveTagIcon
+                        type="button"
+                        onClick={() => removeTagFilter(tag)}
+                      >
+                        <FailedTransactionIcon
+                          stroke={'#fff'}
+                          size={[16, 16]}
+                          strokeOpacity={'1'}
+                        ></FailedTransactionIcon>
+                      </RemoveTagIcon>
+                    </TagFilter>
+                  );
+                })}
+              </div>
+            </ScrollContainer>
+          </TagFilterContainer>
+        )}
+      </PageContentHeaderContainer>
     </Wrapper>
   );
 };
