@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -12,7 +12,7 @@ import {
 } from 'style-constants';
 
 import { getTimeFromDateToNow } from 'utils/datetime';
-import commonMessages from 'common-messages';
+
 import communitiesConfig from 'communities-config';
 import {
   POST_TYPE_ANSWER,
@@ -89,12 +89,6 @@ const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
   return <Img src={icon} notRounded alt="icon" />;
 };
 
-const QuestionTypeHolder = styled.div`
-  @media (max-width: 576px) {
-    margin-top: -20px;
-  }
-`;
-
 const TitleHolder = Span.extend`
   @media (max-width: 576px) {
     min-width: 45px;
@@ -123,6 +117,7 @@ const Note = ({
   isMyPost,
   communityId,
 }) => {
+  const { t } = useTranslation();
   const LinkStyled = single && single !== communityId ? ADefault : A;
 
   const answerRouteId =
@@ -131,8 +126,8 @@ const Note = ({
   const route =
     single && single !== communityId
       ? communitiesConfig[communityId]?.origin +
-        getPostRoute(postType, id, answerRouteId)
-      : getPostRoute(postType, id, answerRouteId);
+        getPostRoute({ postType, id, answerId: answerRouteId, title })
+      : getPostRoute({ postType, id, answerId: answerRouteId, title });
 
   return (
     <LinkStyled to={route} href={route}>
@@ -153,9 +148,9 @@ const Note = ({
         <TitleHolder fontSize="16" lineHeight="30" mobileFS="14" title={title}>
           {title}
         </TitleHolder>
-        <QuestionTypeHolder>
+        <div>
           <QuestionType locale={locale} postType={postType} />
-        </QuestionTypeHolder>
+        </div>
 
         <PostDate
           className="d-inline-block"
@@ -163,8 +158,7 @@ const Note = ({
           fontSize="14"
           mobileFS="12"
         >
-          {getTimeFromDateToNow(myPostTime, locale)}{' '}
-          <FormattedMessage id={commonMessages.ago.id} />
+          {getTimeFromDateToNow(myPostTime, locale)} {t('common.ago')}
         </PostDate>
       </Block>
     </LinkStyled>
@@ -180,7 +174,7 @@ const QuestionsProfileTab = ({
 }) => (
   <div className={className}>
     <div>
-      {questions.map(item => (
+      {questions.map((item) => (
         <Note
           postType={item.postType}
           isMyAnswerAccepted={item.isMyAnswerAccepted}

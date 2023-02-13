@@ -45,6 +45,7 @@ import {
   getUsersQuestions,
   historiesForPost,
 } from './theGraph';
+import { getCommunityTags } from 'utils/communityManagement';
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -221,7 +222,7 @@ export async function postQuestion(
     CONTRACT_CONTENT,
     user,
     POST_QUESTION,
-    [communityId, ipfsHash, postType, tags],
+    [user, communityId, ipfsHash, postType, tags],
     2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
   );
 }
@@ -256,7 +257,7 @@ export async function updateDocumentationTree(
     CONTRACT_CONTENT,
     user,
     UPDATE_DOCUMENTATION_TREE,
-    [communityId, ipfsHash],
+    [user, communityId, ipfsHash],
     2,
   );
 }
@@ -276,7 +277,7 @@ export const editQuestion = async (
     CONTRACT_CONTENT,
     user,
     EDIT_POST,
-    [postId, ipfsHash, tags, communityId, postType],
+    [user, postId, ipfsHash, tags, communityId, postType],
   );
 };
 
@@ -301,7 +302,7 @@ export async function deleteQuestion(user, questionId, ethereumService) {
     CONTRACT_CONTENT,
     user,
     DELETE_POST,
-    [questionId],
+    [user, questionId],
     2,
   );
 }
@@ -317,7 +318,7 @@ export async function postAnswer(
     CONTRACT_CONTENT,
     user,
     POST_ANSWER,
-    [questionId, 0, ipfsHash, official],
+    [user, questionId, 0, ipfsHash, official],
   );
 }
 
@@ -331,12 +332,13 @@ export async function editAnswer(
 ) {
   const ipfsLink = await saveText(JSON.stringify(answerData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, EDIT_ANSWER, [
-    questionId,
-    answerId,
-    ipfsHash,
-    official,
-  ]);
+  await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    EDIT_ANSWER,
+    [user, questionId, answerId, ipfsHash, official],
+    2,
+  );
 }
 
 export async function deleteAnswer(
@@ -349,7 +351,7 @@ export async function deleteAnswer(
     CONTRACT_CONTENT,
     user,
     DELETE_ANSWER,
-    [questionId, answerId],
+    [user, questionId, answerId],
   );
 }
 
@@ -364,7 +366,7 @@ export async function postComment(
     CONTRACT_CONTENT,
     user,
     POST_COMMENT,
-    [questionId, answerId, ipfsHash],
+    [user, questionId, answerId, ipfsHash],
   );
 }
 
@@ -380,7 +382,7 @@ export async function editComment(
     CONTRACT_CONTENT,
     user,
     EDIT_COMMENT,
-    [questionId, answerId, commentId, ipfsHash],
+    [user, questionId, answerId, commentId, ipfsHash],
   );
 }
 
@@ -395,12 +397,13 @@ export async function deleteComment(
     CONTRACT_CONTENT,
     user,
     DELETE_COMMENT,
-    [questionId, answerId, commentId],
+    [user, questionId, answerId, commentId],
   );
 }
 
 export async function upVote(user, questionId, answerId, ethereumService) {
   await ethereumService.sendTransaction(CONTRACT_CONTENT, user, VOTE_ITEM, [
+    user,
     questionId,
     answerId,
     0,
@@ -410,6 +413,7 @@ export async function upVote(user, questionId, answerId, ethereumService) {
 
 export async function downVote(user, questionId, answerId, ethereumService) {
   await ethereumService.sendTransaction(CONTRACT_CONTENT, user, VOTE_ITEM, [
+    user,
     questionId,
     answerId,
     0,
@@ -441,7 +445,7 @@ export async function markAsAccepted(
     CONTRACT_CONTENT,
     user,
     CHANGE_STATUS_BEST,
-    [questionId, correctAnswerId],
+    [user, questionId, correctAnswerId],
   );
 }
 
@@ -562,6 +566,12 @@ export async function getQuestionById(ethereumService, questionId, user) {
     0,
     ethereumService,
   );
+  const tags = await getCommunityTags(rawQuestion.communityId);
+
+  const questionTags = tags[rawQuestion.communityId].filter((tag) =>
+    rawQuestion.tags.includes(Number(tag.id.split('-')[1])),
+  );
+
   const replies = [];
   // getting all replies of post
   await Promise.all(
@@ -663,7 +673,7 @@ export async function getQuestionById(ethereumService, questionId, user) {
     }),
   );
   return await formQuestionObject(
-    rawQuestion,
+    { ...rawQuestion, tags: questionTags },
     orderBy(replies, 'postTime'),
     orderBy(comments, 'postTime'),
     ethereumService,

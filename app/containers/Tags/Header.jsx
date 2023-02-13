@@ -1,28 +1,21 @@
+import React, { useMemo } from 'react';
 import Dropdown from 'components/common/Dropdown';
-import { ArrowDown } from 'components/icons';
-import useTrigger from 'hooks/useTrigger';
-import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { css } from '@emotion/react';
+import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
-import {
-  TEXT_SECONDARY,
-  BORDER_PRIMARY,
-  DARK_SECONDARY,
-} from 'style-constants';
+import { TEXT_SECONDARY, BORDER_PRIMARY, TEXT_PRIMARY } from 'style-constants';
 
-import commonMessages from 'common-messages';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
 } from 'utils/communityManagement';
+import { css } from '@emotion/react';
 
 import icoTagIcon from 'images/icoTag.svg?external';
 import arrowLeft from 'images/arrowLeft.svg?inline';
 import addIcon from 'images/add.svg?external';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
-import { TEXT_PRIMARY } from 'style-constants';
+
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import Ul from 'components/Ul';
@@ -36,7 +29,6 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
 
-import messages from './messages';
 import options from './options';
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
 import {
@@ -46,12 +38,13 @@ import {
   hasProtocolAdminRole,
 } from '../../utils/properties';
 
-const tagsRoute = routes.tags();
+const communitiesRoute = routes.communities();
 
 const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
 
-const Button = (a) => {
+const Button = ({ sorting }) => {
+  const { t } = useTranslation();
   return (
     <Span className="d-inline-flex align-items-center text-capitalize" bold>
       <MediumIcon>
@@ -70,26 +63,11 @@ const Button = (a) => {
           }
         `}
       >
-        <FormattedMessage {...options[a.sorting].message} />
+        {t(options[sorting].message)}
       </div>
     </Span>
   );
 };
-
-const Menu = ({ sortTags, sorting }) => (
-  <Ul css={css}>
-    {Object.keys(options).map((x) => (
-      <CheckedItem
-        key={x}
-        data-key={x}
-        onClick={sortTags}
-        isActive={x === sorting}
-      >
-        <FormattedMessage {...options[x].message} />
-      </CheckedItem>
-    ))}
-  </Ul>
-);
 
 export const Header = ({
   goToCreateTagScreen,
@@ -99,6 +77,7 @@ export const Header = ({
   tagsNumber,
   profile,
 }) => {
+  const { t } = useTranslation();
   const path = useMemo(
     () => window.location.pathname + window.location.hash,
     [window.location],
@@ -111,7 +90,7 @@ export const Header = ({
 
   const singleCommId = isSingleCommunityWebsite();
 
-  const profileWithCommunityAdminRights = Boolean(singleCommId)
+  const profileWithCommunityAdminRights = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId)
     : false;
 
@@ -124,17 +103,14 @@ export const Header = ({
     () => routes.communityTags(currentCommunity.id),
     [currentCommunity.id],
   );
-  // const suggestedTagsRoute = useMemo(
-  //   () => routes.suggestedTags(currentCommunity.id),
-  //   [currentCommunity.id],
-  // );
+
   const displaySortTagDropdown = useMemo(
     () => path === communityTagsRoute && !!tagsNumber,
     [path, communityTagsRoute, tagsNumber],
   );
 
   const sortingOptions = Object.keys(options).map((x, index) => ({
-    label: <FormattedMessage {...options[x].message} />,
+    label: t(options[x].message),
     value: index,
     render: (
       <CheckedItem
@@ -144,21 +120,28 @@ export const Header = ({
         isActive={x === sorting}
         css={css`padding-left: 0; !important;`}
       >
-        <FormattedMessage {...options[x].message} />
+        {t(options[x].message)}
       </CheckedItem>
     ),
   }));
+
+  const onClickNavigationButton = ({ currentTarget: { id, communityid } }) => {
+    goToCreateTagScreen({
+      buttonId: id,
+      communityId: communityid,
+    });
+  };
 
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
       <Wrapper position="top">
         <div>
           {!single && (
-            <A to={tagsRoute}>
+            <A to={communitiesRoute}>
               <NavigationButton className="pl-0" islink>
                 <img src={arrowLeft} alt="x" />
                 <span className="d-none d-sm-inline ml-2">
-                  <FormattedMessage id={messages.backToList.id} />
+                  {t('tags.backToList')}
                 </span>
               </NavigationButton>
             </A>
@@ -169,7 +152,7 @@ export const Header = ({
           <WrapperRightPanel className="right-panel">
             <NavigationButton
               data-communityid={currentCommunity.id}
-              onClick={goToCreateTagScreen}
+              onClick={onClickNavigationButton}
               id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}
               className="d-inline-flex align-items-center px-0 py-1"
               islink
@@ -192,9 +175,7 @@ export const Header = ({
                 icon={addIcon}
               />
 
-              <span className="ml-1 button-label">
-                <FormattedMessage id={commonMessages.createTag.id} />
-              </span>
+              <span className="ml-1 button-label">{t('common.createTag')}</span>
             </NavigationButton>
           </WrapperRightPanel>
         )}
@@ -218,7 +199,7 @@ export const Header = ({
               bold
             >
               <span>{`${tagsNumber} `}</span>
-              <FormattedMessage id={commonMessages.tags.id} />
+              {t('common.tags')}
             </Span>
           )}
         </H3>
@@ -242,11 +223,6 @@ export const Header = ({
 
 Button.propTypes = {
   sorting: PropTypes.string,
-};
-
-Menu.propTypes = {
-  sorting: PropTypes.string,
-  sortTags: PropTypes.func,
 };
 
 Header.propTypes = {

@@ -4,6 +4,7 @@ import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 import { BORDER_SECONDARY, DARK_SECONDARY } from 'style-constants';
 import { NO_AVATAR } from 'utils/constants';
@@ -38,8 +39,8 @@ const Info = styled.span`
 `;
 
 const NoAvatarBox = styled.div`
-  width: 47px;
-  height: 47px;
+  width: 40px;
+  height: 40px;
   border: ${({ isMobileVersion }) =>
     (!isMobileVersion && styles.communityBorderStyle) ||
     `1px solid ${BORDER_SECONDARY}`};
@@ -47,6 +48,11 @@ const NoAvatarBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (min-width: 992px) {
+    width: 47px;
+    height: 47px;
+  }
 `;
 
 const B = ({ profileInfo, isMenuVisible, isMobileVersion }) => {

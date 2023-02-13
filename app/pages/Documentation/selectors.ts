@@ -13,6 +13,9 @@ export const selectDocumentationLoading = () =>
 export const selectDocumentation = () =>
   createSelector(selectFaqDomain, (substate) => substate.get('documentation'));
 
+export const selectDraftsIds = () =>
+  createSelector(selectFaqDomain, (substate) => substate.get('draftsIds'));
+
 export const selectFaqError = () =>
   createSelector(selectFaqDomain, (substate) =>
     substate.get('documentationError'),
@@ -41,3 +44,6 @@ export const selectPinnedArticleDraft = () =>
     id: substate.get('pinnedArticleId'),
     title: substate.get('pinnedArticleTitle'),
   }));
+
+export const selectEditOrder = () =>
+  createSelector(selectFaqDomain, (substate) => substate.get('isEditOrder'));

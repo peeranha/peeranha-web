@@ -1,13 +1,10 @@
 /* eslint no-unused-vars: 0 */
 import Dropdown from 'components/common/Dropdown';
-import { ArrowDown } from 'components/icons';
-import useTrigger from 'hooks/useTrigger';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
-import commonMessages from 'common-messages';
-import { DARK_SECONDARY, TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import communitiesHeader from 'images/communitiesHeader.svg?inline';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
@@ -24,6 +21,8 @@ import SubHeaderWrapper, {
 import sortingOptions from './sortingOptions';
 
 const Button = ({ sorting, icon }) => {
+  const { t } = useTranslation();
+
   return (
     <Span className="d-inline-flex align-items-center text-capitalize" bold>
       <img className="mr-2" src={icon} alt="icon" />
@@ -36,48 +35,49 @@ const Button = ({ sorting, icon }) => {
           }
         `}
       >
-        <FormattedMessage id={sorting.message.id} />
+        {t(sorting.message)}
       </div>
     </Span>
   );
 };
 
-const Menu = ({ changeSorting, sorting, options }) => (
-  <Ul>
-    {Object.keys(options).map((x) => (
-      <CheckedItem
-        key={`${options[x].message.id}_${options[x].order}`}
-        onClick={() => changeSorting(options[x])}
-        isActive={sorting.message.id === options[x].message.id}
-      >
-        <FormattedMessage id={options[x].message.id} />
-      </CheckedItem>
-    ))}
-  </Ul>
-);
+const Menu = ({ changeSorting, sorting, options }) => {
+  const { t } = useTranslation();
 
-export const SubHeader = ({
-  changeSorting,
-  sorting,
-  communitiesNumber,
-  setLang,
-  language,
-  languages,
-}) => {
-  const options = Object.keys(sortingOptions).map((x, index) => ({
-    label: <FormattedMessage {...sortingOptions[x].message} />,
-    value: index,
-    render: (
-      <CheckedItem
-        key={`${sortingOptions[x].message.id}_${sortingOptions[x].order}`}
-        onClick={() => changeSorting(sortingOptions[x])}
-        isActive={sorting.message.id === sortingOptions[x].message.id}
-        css={css`padding-left: 0; !important;`}
-      >
-        <FormattedMessage {...sortingOptions[x].message} />
-      </CheckedItem>
-    ),
-  }));
+  return (
+    <Ul>
+      {Object.keys(options).map((item) => (
+        <CheckedItem
+          key={`${options[item].message.id}_${options[item].order}`}
+          onClick={() => changeSorting(options[item])}
+          isActive={sorting.message === options[item].message}
+        >
+          {t(options[item].message)}
+        </CheckedItem>
+      ))}
+    </Ul>
+  );
+};
+
+export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => {
+  const { t } = useTranslation();
+
+  const options = Object.keys(sortingOptions).map((x, index) => {
+    return {
+      label: t(sortingOptions[x].message),
+      value: index,
+      render: (
+        <CheckedItem
+          key={`${sortingOptions[x].message}_${sortingOptions[x].order}`}
+          onClick={() => changeSorting(sortingOptions[x])}
+          isActive={sorting.message === sortingOptions[x].message}
+          css={css`padding-left: 0; !important;`}
+        >
+          {t(sortingOptions[x].message)}
+        </CheckedItem>
+      ),
+    };
+  });
 
   return (
     <SubHeaderWrapper position="bottom">
@@ -85,7 +85,7 @@ export const SubHeader = ({
         <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
 
         <span>
-          <FormattedMessage id={commonMessages.communities.id} />
+          {t('common.communities')}
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {communitiesNumber}
           </Span>

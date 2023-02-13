@@ -1,11 +1,9 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import favicon from './images/favicon-koii.svg?inline';
-import koiiLogo from 'communities-configs/koii/images/koii-logo.svg?inline';
 const domainName = 'https://www.koii.network/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'koii_style',
@@ -18,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: `${fontSet}`,
+      body: `${fonts}`,
     },
     header: {
       background: '#FFFFFF',
@@ -189,8 +187,8 @@ export const KoiiStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: koiiLogo,
-  favicon,
+  signUpPageLogo: 'https://images.peeranha.io/communities/koii/koii-logo.svg',
+  favicon: 'https://images.peeranha.io/communities/koii/favicon-koii.svg',
   colors: {
     mainSubHeaderBgColor: 'rgb(236,251,250)',
     mainBackground: 'rgb(245 245 245)',
@@ -210,6 +208,14 @@ export const KoiiStyles = {
     newPostButtonText: 'rgb(34,40,98)',
     textColor: 'rgb(94,217,209)',
     textColorShadow: 'rgb(42,192,167)',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
 
   cookieConsentPopupStyles: {

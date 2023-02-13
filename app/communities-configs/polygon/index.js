@@ -1,94 +1,8 @@
 import React from 'react';
 import { css } from 'styled-components';
-import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
-import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
-import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
-import verdanaRegularTTF from 'communities-configs/polygon/fonts/verdana.ttf';
-import {
-  domainName,
-  domainDocs,
-  domainBlog,
-} from 'communities-configs/polygon/urls';
-import favicon from '!file-loader?name=[name].[ext]!images/favicon-polygon.png';
 
 const fonts = 'Verdana-Regular, Arial, sans-serif';
-const links = [
-  {
-    text: 'Scaling Solutions',
-    subitems: [
-      {
-        text: 'Polygon PoS',
-        href: `${domainName}solutions/polygon-pos`,
-        logo: 'polygonPoS',
-        description: 'An EVM enabled sidechain',
-        mode: '',
-      },
-      {
-        text: 'Polygon Edge',
-        href: `${domainName}solutions/polygon-edge`,
-        logo: 'polygonEdge',
-        description: 'A modular and extensible framework',
-        mode: '',
-      },
-      {
-        text: 'Polygon Avail',
-        href: `${domainName}solutions/polygon-avail`,
-        logo: 'polygonAvail',
-        description: 'A Scalable, data availability Blockchain',
-        mode: 'Development',
-      },
-      {
-        text: 'Polygon Zero',
-        href: `${domainName}solutions/polygon-zero`,
-        logo: 'polygonZero',
-        description: 'A zk Rollup with the speed of Plonky2',
-        mode: 'Development',
-      },
-      {
-        text: 'Polygon Miden',
-        href: `${domainName}solutions/polygon-miden`,
-        logo: 'polygonMiden',
-        description: 'A STARK-based, zk Rollup',
-        mode: 'Development',
-      },
-      {
-        text: 'Polygon Hermez',
-        href: `${domainName}solutions/polygon-Hermez`,
-        logo: 'polygonHermez',
-        description: 'An open-source zk Rollup',
-        mode: '',
-      },
-      {
-        text: 'Polygon Nightfall',
-        href: `${domainName}solutions/polygon-nightfall`,
-        logo: 'polygonNightfall',
-        description: 'A Privacy-focused Rollup for Enterprises',
-        mode: 'Testnet',
-      },
-    ],
-  },
-  {
-    text: 'Developers',
-    href: `${domainName}developers`,
-  },
-  {
-    text: 'Ecosystem',
-    href: `${domainName}ecosystem`,
-  },
-  {
-    text: 'Community',
-    href: `${domainName}community`,
-  },
-  {
-    text: 'Blogs',
-    href: `${domainBlog}`,
-  },
-  {
-    text: 'Get Started',
-    href: `${domainDocs}`,
-    isHighlighted: true,
-  },
-];
+const domainName = 'https://polygon.technology/';
 
 export const customSubHeaderConfig = {
   design: 'polygonStyle',
@@ -129,7 +43,7 @@ export const customSubHeaderConfig = {
     `,
     subitems: css`
       width: 720px;
-      height: 312;
+      height: 312px;
       padding: 0;
       border: none !important;
       border-radius: 0 !important;
@@ -223,7 +137,6 @@ export const customSubHeaderConfig = {
       }
     `,
   },
-  links,
 };
 
 export const PolygonStyles = {
@@ -232,12 +145,9 @@ export const PolygonStyles = {
   withoutSubHeader: true,
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
-  signUpPageLogo: polygonLogo,
-  favicon,
-  mobileSubHeader: (
-    <CustomMobileSubHeader config={customSubHeaderConfig} logo={polygonLogo} />
-  ),
-  customSubHeader: <CustomSubHeader config={customSubHeaderConfig} />,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/polygon/polygon-logo.svg',
+  favicon: 'https://images.peeranha.io/communities/polygon/favicon-polygon.png',
   withoutFAQ: true,
   fonts: {
     h3LetterSpacing: '0.5px',
@@ -252,7 +162,6 @@ export const PolygonStyles = {
     blue: '#5D6DFE',
     blueRGB: '93,109,254',
     black: '#02003D',
-    // warningLight: '#FF4026',
     darkBlue: '#5D6DFE',
     mainBackground: '#F3F3F3',
     linkColor: '#7b3fe4',
@@ -271,13 +180,6 @@ export const PolygonStyles = {
     lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
     secondaryLight: '#5D6DFE',
   },
-  // fontFace: css`
-  //   @font-face {
-  //     font-family: 'Verdana-Regular';
-  //     src: url(${verdanaRegularTTF}) format('truetype');
-  //     font-style: normal;
-  //   }
-  // `,
   coinsIconStyles: css`
     ellipse {
       stroke: #7b3fe4;

@@ -160,8 +160,8 @@ export function* postQuestionWorker({ val }) {
     yield call(
       createdHistory.push,
       postType === POST_TYPE.documentation
-        ? routes.documentation(id)
-        : routes.questionView(id, false, communityId),
+        ? routes.documentation(id, questionData.title)
+        : routes.questionView(id, questionData.title, false),
     );
   } catch (err) {
     yield put(askQuestionError(err));

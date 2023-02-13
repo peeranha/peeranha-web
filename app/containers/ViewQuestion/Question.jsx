@@ -5,15 +5,12 @@ import * as routes from 'routes-config';
 import Content from './Content';
 import { QUESTION_TYPE, POST_TYPES } from './constants';
 
-export const Question = props => {
+export const Question = (props) => {
   const { postType, id } = props.questionData;
 
-  const type = useMemo(
-    () => {
-      return POST_TYPES[postType];
-    },
-    [postType],
-  );
+  const type = useMemo(() => {
+    return POST_TYPES[postType];
+  }, [postType]);
 
   return (
     <Content
@@ -35,7 +32,7 @@ export const Question = props => {
       deleteItemLoading={props.deleteQuestionLoading}
       editItem={[
         props.redirectToEditQuestionPage,
-        routes.questionEdit(type, id),
+        routes.questionEdit(type, id, props.questionData.title),
       ]}
       saveComment={props.saveComment}
       deleteComment={props.deleteComment}
@@ -45,6 +42,7 @@ export const Question = props => {
         whowasvoted: props.questionData.author.id,
       }}
       communities={props.communities}
+      isPostContent={true}
     />
   );
 };

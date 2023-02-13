@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
+
 import { css } from '@emotion/react';
 import * as routes from 'routes-config';
-import commonMessages from 'common-messages';
 import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
 import createCommunityHeader from 'images/communitiesHeader.svg?external';
@@ -16,13 +15,15 @@ import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import Icon from 'components/Icon';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { feed } from './../../routes-config';
-import { singleCommunityColors } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
 export const Header = ({ headerDescriptor }) => {
+  const { t } = useTranslation();
   const isSingleCommunityMode = !!isSingleCommunityWebsite();
   const nextRoute = isSingleCommunityMode ? routes.feed : routes.communities;
 
@@ -33,12 +34,17 @@ export const Header = ({ headerDescriptor }) => {
           <Icon
             icon={createCommunityHeader}
             width="43"
-            css={css` circle {stroke: ${colors.btnColor ||
-              BORDER_PRIMARY}}; path {fill: ${colors.btnColor ||
-              BORDER_PRIMARY}};`}
+            css={css`
+              circle {
+                stroke: ${colors.btnColor || BORDER_PRIMARY};
+              }
+              path {
+                fill: ${colors.btnColor || BORDER_PRIMARY};
+              }
+            `}
           />
         </MediumIconStyled>
-        <FormattedMessage id={headerDescriptor.id} />
+        {t(headerDescriptor || 'createCommunity.newCommunity')}
       </H3>
 
       <WrapperRightPanel className="right-panel">
@@ -55,7 +61,7 @@ export const Header = ({ headerDescriptor }) => {
               color={colors.btnColor || TEXT_PRIMARY}
               className="button-label"
             >
-              <FormattedMessage id={commonMessages.close.id} />
+              {t('common.close')}
             </Span>
           </button>
         </A>
@@ -64,8 +70,4 @@ export const Header = ({ headerDescriptor }) => {
   );
 };
 
-Header.propTypes = {
-  headerDescriptor: PropTypes.object.isRequired,
-};
-
-export default React.memo(Header);
+export default Header;

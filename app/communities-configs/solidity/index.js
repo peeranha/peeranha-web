@@ -1,12 +1,9 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import SolidityLogo from './images/solidity-logo.svg?inline';
-import favicon from './images/favicon-solidity.svg?inline';
-
 const domainName = 'https://solidity.peeranha.io/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'solidity_style',
@@ -19,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -178,63 +175,56 @@ export const SolidityStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: SolidityLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/solidity/solidity-logo.svg',
+  favicon:
+    'https://images.peeranha.io/communities/solidity/favicon-solidity.svg',
 
   colors: {
-    mainSubHeaderBgColor: '#E5E5E5',
-    mainBackground: '#F9FAFB',
-    linkColor: 'rgba(0, 47, 167, 1)',
+    mainSubHeaderBgColor: '#FAFAFA',
+    mainBackground: '#EAECF4',
+    linkColor: 'rgba(25, 68, 176, 1)',
     linkCookieColor: '#fff',
-    linkColorTransparent: 'rgba(0, 47, 167, 1)',
-    headerPrimary: 'rgba(0, 47, 167, 1)',
-    commentOption: 'rgba(0, 47, 167, 1)',
-    contentHeader: 'rgba(0, 47, 167, 1)',
+    linkColorTransparent: 'rgba(25, 68, 176, 1)',
+    headerPrimary: 'rgba(25, 68, 176, 1)',
+    commentOption: 'rgba(25, 68, 176, 1)',
+    contentHeader: 'rgba(25, 68, 176, 1)',
     blockedInfoArea: 'rgba(0, 47, 167,0.11)',
     transparentIconColor: '#fff',
-    loaderColor: 'rgba(0, 47, 167, 1)',
-    votingIconColor: 'rgba(0, 47, 167, 1)',
-    linkColorSecondary: 'rgba(0, 47, 167, 1)',
-    walletButton: 'rgba(0, 47, 167, 1)',
-    textColorShadow: 'rgba(0, 47, 167, 1)',
-    btnColor: 'rgba(0, 47, 167, 1)',
-    btnHoverColor: '#002FA7',
-    btnHeaderColor: '#002FA7',
-    btnHeaderHoverColor: 'rgba(0,47,167,0.8)',
-    tagColor: 'rgba(0, 47, 167, 1)',
-    localeArrowColor: 'rgba(0, 47, 167, 1)',
-    textColor: 'rgba(0, 47, 167, 1)',
-    commHeadElemColor: '#002FA7',
+    loaderColor: 'rgba(25, 68, 176, 1)',
+    votingIconColor: 'rgba(25, 68, 176, 1)',
+    linkColorSecondary: 'rgba(25, 68, 176, 1)',
+    walletButton: 'rgba(25, 68, 176, 1)',
+    textColorShadow: 'rgba(25, 68, 176, 1)',
+    btnColor: 'rgba(25, 68, 176, 1)',
+    btnHoverColor: 'rgba(25, 68, 176, 1)',
+    btnHeaderColor: 'rgba(25, 68, 176, 1)',
+    btnHeaderHoverColor: 'rgba(25, 68, 176, 0.8)',
+    tagColor: 'rgba(25, 68, 176, 1)',
+    localeArrowColor: 'rgba(25, 68, 176, 1)',
+    textColor: 'rgba(25, 68, 176, 1)',
+    commHeadElemColor: 'rgba(25, 68, 176, 1)',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
-    background: 'rgba(0, 47, 167, 1)',
-    color: 'rgba(255, 255, 255, 0.85)',
+    background: 'linear-gradient(92.71deg, #0A37AA 32.07%, #6688E0 101.8%)',
+    color: 'rgba(255, 255, 255, 1)',
     borderColor: '#fff',
     button: {
-      color: '#FFFFFF',
+      background: '#fff',
+      color: 'rgba(25, 68, 176, 1)',
       border: '1px solid #FFFFFF',
 
       ':hover': {
-        color: '#002FA7',
-        backgroundColor: '#FFFFFF',
+        color: '#FFFFFF',
+        backgroundColor: 'rgba(25, 68, 176, 1)',
         border: '1px solid #FFFFFF',
       },
     },
@@ -242,26 +232,26 @@ export const SolidityStyles = {
   headerHeight: 80,
   projectBorderRadius: '5px',
   domainName,
-  communityBorderStyle: '1px solid #002FA7',
+  communityBorderStyle: '1px solid rgba(25, 68, 176, 1)',
   dropDownIconStyles: css`
     path {
-      stroke: #002fa7 !important;
+      stroke: rgba(25, 68, 176, 1) !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #002fa7;
+      stroke: rgba(25, 68, 176, 1);
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 1px solid #002fa7;
-    color: #002fa7;
+    border: 1px solid rgba(25, 68, 176, 1);
+    color: rgba(25, 68, 176, 1);
     :hover {
-      background: #002fa7 !important;
+      background: rgba(25, 68, 176, 1) !important;
       color: #fff !important;
-      border: 1px solid #002fa7 !important;
+      border: 1px solid rgba(25, 68, 176, 1) !important;
     }
   `,
 };

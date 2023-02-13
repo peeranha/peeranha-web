@@ -1,5 +1,6 @@
-import messages from 'common-messages';
-
+import { BigNumber } from 'ethers';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getCookie, deleteCookie } from 'utils/cookie';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -13,9 +14,6 @@ import {
   communityModeratorPermissions,
   PROTOCOL_ADMIN_ROLE,
 } from './constants';
-import { BigNumber } from 'ethers';
-import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { getCookie, deleteCookie } from 'utils/cookie';
 
 // todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
@@ -50,24 +48,24 @@ export const getModeratorPermissions = (
         permission: [role],
         role: !communityId
           ? role === DEFAULT_ADMIN_ROLE
-            ? translations[messages.defaultAdministrator.id]
-            : translations[messages.protocolAdministrator.id]
+            ? translations('common.defaultAdministrator')
+            : translations('common.protocolAdministrator')
           : role === COMMUNITY_ADMIN_ROLE
-          ? translations[messages.communityAdministrator.id]
-          : translations[messages.communityModerator.id],
+          ? translations('common.communityAdministrator')
+          : translations('common.communityModerator'),
         h2: communityId
           ? communities.find(({ id }) => Number(id) === Number(communityId))
               ?.name || 'TestComm1'
           : role === DEFAULT_ADMIN_ROLE
-          ? translations[messages.defaultAdministrator.id]
-          : translations[messages.protocolAdministrator.id],
+          ? translations('common.defaultAdministrator')
+          : translations('common.protocolAdministrator'),
         h3: !communityId
           ? role === DEFAULT_ADMIN_ROLE
-            ? translations[messages.asDefaultAdministrator.id]
-            : translations[messages.asProtocolAdministrator.id]
+            ? translations('common.asDefaultAdministrator')
+            : translations('common.asProtocolAdministrator')
           : role === COMMUNITY_ADMIN_ROLE
-          ? translations[messages.asCommunityAdministrator.id]
-          : translations[messages.asCommunityModerator.id],
+          ? translations('common.asCommunityAdministrator')
+          : translations('common.asCommunityModerator'),
         sectionCode: index,
         communityId,
       };

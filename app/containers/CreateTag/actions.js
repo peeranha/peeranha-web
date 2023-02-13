@@ -15,11 +15,11 @@ import {
   GET_FORM_ERROR,
 } from './constants';
 
-export function redirectToCreateTag(ev) {
+export function redirectToCreateTag({ buttonId, communityId }) {
   return {
     type: REDIRECT_TO_CREATE_TAG,
-    buttonId: ev.currentTarget.id,
-    communityId: ev.currentTarget.dataset.communityid,
+    buttonId,
+    communityId,
   };
 }
 

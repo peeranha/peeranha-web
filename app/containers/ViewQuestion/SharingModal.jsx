@@ -2,13 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import {
   RedditShareButton,
   TelegramShareButton,
   TwitterShareButton,
 } from 'react-share';
-import { translationMessages } from 'i18n';
 import * as clipboard from 'clipboard-polyfill';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -21,9 +20,6 @@ import {
   TEXT_PRIMARY,
 } from 'style-constants';
 import { APP_TWITTER_NICKNAME } from 'utils/constants';
-
-import commonMessages from 'common-messages';
-import messages from './messages';
 
 import { showPopover } from 'utils/popover';
 
@@ -88,21 +84,17 @@ const DropdownModalFooter = styled.footer`
   }
 `;
 
-const SharingModal = ({ questionData, locale }) => {
+const SharingModal = ({ questionData }) => {
+  const { t } = useTranslation();
   const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
-    showPopover(
-      event.currentTarget.id,
-      translationMessages[locale][commonMessages.copied.id],
-    );
+    showPopover(event.currentTarget.id, t('common.copied'));
   };
 
   return (
     <DropdownModal>
       <p>
-        <b>
-          <FormattedMessage id={messages.shareTitle.id} />
-        </b>
+        <b>{t('post.shareTitle')}</b>
       </p>
       <Input input={{ value: window.location.href }} readOnly type="text" />
       <DropdownModalFooter>
@@ -145,10 +137,10 @@ const SharingModal = ({ questionData, locale }) => {
           onClick={writeToBuffer}
           className="copy-btn"
           css={css`
-            color: ${colors.linkColor + '!important' || TEXT_PRIMARY};
+            color: ${`${colors.linkColor}!important` || TEXT_PRIMARY};
           `}
         >
-          <FormattedMessage id={commonMessages.copy.id} />{' '}
+          {t('common.copy')}{' '}
         </button>
       </DropdownModalFooter>
     </DropdownModal>
@@ -157,7 +149,6 @@ const SharingModal = ({ questionData, locale }) => {
 
 SharingModal.propTypes = {
   questionData: PropTypes.object.isRequired,
-  locale: PropTypes.string,
 };
 
 const withConnect = connect(

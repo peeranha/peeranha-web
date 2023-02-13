@@ -1,19 +1,23 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
+
 import Communities from 'icons/Communities';
-import messages from 'common-messages';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
-import { getFollowedCommunities } from 'utils/communityManagement';
+import {
+  getFollowedCommunities,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 
 import Dropdown from 'components/common/Dropdown';
 
 import ManageMyCommunities from './ManageMyCommunities';
+
+const single = isSingleCommunityWebsite();
 
 const CommunitySelector = ({
   Button,
@@ -25,6 +29,7 @@ const CommunitySelector = ({
   toggle,
   isArrowed,
 }) => {
+  const { t } = useTranslation();
   const [value, setValue] = useState();
 
   useEffect(() => {
@@ -60,7 +65,7 @@ const CommunitySelector = ({
     if (!input.name) {
       options = [
         {
-          label: translationMessages[locale][messages.allCommunities.id],
+          label: t('common.allCommunities'),
           value: 0,
           icon: <Communities />,
         },
@@ -69,7 +74,7 @@ const CommunitySelector = ({
     }
 
     options.push({
-      label: <FormattedMessage id={messages.manageMyComm.id} />,
+      label: t('common.selectCommunity'), //CHANGE
       value: options.length + 1,
       render: <ManageMyCommunities />,
     });
@@ -88,16 +93,14 @@ const CommunitySelector = ({
 
   return (
     <Dropdown
-      options={options}
+      options={!single ? options : []}
       value={value}
-      placeholder={
-        translationMessages[locale][messages.selectCommunityFromTheList.id]
-      }
+      placeholder={t('common.selectCommunity')}
       onSelect={onSelect}
-      isSearchable
+      isSearchable={!single}
       className="z-8"
       triggerClassName="full-width"
-      isArrowed={isArrowed}
+      isArrowed={!single ? isArrowed : false}
       trigger={
         <Button
           communityAvatar={
@@ -106,11 +109,10 @@ const CommunitySelector = ({
           communityLabel={
             communities.find((comminity) => comminity.id === value)?.name
           }
-          placeholder={
-            translationMessages[locale][messages.selectCommunityFromTheList.id]
-          }
+          placeholder={t('common.selectCommunity')}
         />
       }
+      zIndex={'6'}
     />
   );
 };
