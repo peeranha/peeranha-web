@@ -56,7 +56,7 @@ const Input = ({ error, disabled }) =>
 
 export const Styles = css`
   width: 100%;
-  background: ${BG_LIGHT};
+  background: ${colors.formColor || BG_LIGHT};
   ${(props) => Input(props)};
 
   &:focus {

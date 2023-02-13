@@ -1,10 +1,10 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-const domainName = 'https://mintstatelabs.com/';
+const domainName = 'developerdao.peeranha.io';
 
 export const customSubHeaderConfig = {
-  design: 'mintstatelabs_style',
+  design: 'orbis_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -165,74 +165,93 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const MintStateLabsStyles = {
-  documentationPosition: 'top',
+export const DeveloperDAOStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
-    'https://images.peeranha.io/communities/mintStateLabs/mintStateLabsIcon.svg',
-  favicon: 'https://images.peeranha.io/communities/mintStateLabs/MSLLogo.ico',
+    'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+  favicon:
+    'https://images.peeranha.io/communities/communityDAO/dao-favicon.svg',
 
   colors: {
-    mainSubHeaderBgColor: '#282828',
-    mainBackground: '#F5F5F5',
-    linkColor: '#53A6EC',
-    linkCookieColor: '#5C23D4',
-    linkColorTransparent: '#53A6EC',
-    headerPrimary: '#53A6EC',
-    commentOption: '#53A6EC',
-    contentHeader: '#53A6EC',
-    blockedInfoArea: '#DAEEFF',
-    transparentIconColor: '#FFFF',
-    loaderColor: '#53A6EC',
-    votingIconColor: '#53A6EC',
-    linkColorSecondary: '#53A6EC',
-    walletButton: '#53A6EC',
-    btnColor: '#53A6EC',
-    btnHoverColor: '#5C23D4',
-    btnHeaderColor: '#5C23D4',
-    btnHeaderHoverColor: '#53A6EC',
-    tagColor: '#53A6EC',
-    localeArrowColor: '#F3F3F3',
-    textColor: '#53A6EC',
-    textColorShadow: '#53A6EC',
+    mainSubHeaderBgColor:
+      'linear-gradient(111.12deg, #000000 41.3%, #D045B9 89.65%)',
+    mainBackground: 'rgba(234, 236, 244, 1)',
+    linkColor: 'rgba(210, 84, 189, 1)',
+    linkCookieColor: 'rgba(210, 84, 189, 1)',
+    linkColorTransparent: 'rgba(210, 84, 189, 1)',
+    headerPrimary: 'rgba(210, 84, 189, 1)',
+    commentOption: 'rgba(210, 84, 189, 1)',
+    contentHeader: 'rgba(210, 84, 189, 1)',
+    blockedInfoArea: 'rgba(0, 0, 0, 10%)',
+    transparentIconColor: '#FFF',
+    loaderColor: 'rgba(210, 84, 189, 1)',
+    votingIconColor: 'rgba(210, 84, 189, 1)',
+    linkColorSecondary: 'rgba(210, 84, 189, 1)',
+    walletButton: 'rgba(210, 84, 189, 1)',
+    btnColor: 'rgba(210, 84, 189, 1)',
+    btnHoverColor: 'rgba(210, 84, 189, 1)',
+    btnHeaderColor: 'rgb(255,255,255)',
+    btnHeaderHoverOpacity: '0.75',
+    newPostButtonText: 'rgba(0, 0, 0, 1)',
+    tagColor: 'rgba(210, 84, 189, 1)',
+    localeArrowColor: 'rgb(255,255,255)',
+    textColor: 'rgba(210, 84, 189, 1)',
+    textColorShadow: 'rgba(210, 84, 189, 1)',
     commHeadElemColor: '#FFF',
   },
   cookieConsentPopupStyles: {
-    background: '#53A6EC',
-    color: '#F3F3F3',
-    borderColor: '#FFF',
+    background: 'rgba(0, 0, 0, 1)',
+    color: '#fff',
     button: {
+      border: 'none',
+      color: '#000',
+      background: '#fff',
       ':hover': {
-        background: '#FFF',
-        color: '#53A6EC',
+        color: '#000',
+        background: '#fff',
+        opacity: 0.75,
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '5px',
+  projectBorderRadius: '4px',
   domainName,
-  communityBorderStyle: '2px solid rgb(0, 108, 208)',
+  fullyTransparent: 'rgb(255, 255, 255)',
+  communityBorderStyle: '2px solid rgba(0, 0, 0, 1)',
   dropDownIconStyles: css`
     path {
-      stroke: rgb(0, 108, 208) !important;
+      stroke: rgba(0, 0, 0, 1) !important;
       stroke-width: 1.5px;
-      fill: none !important;
+      fill: rgb(255, 255, 255) !important;
     }
     circle {
-      stroke: rgb(0, 108, 208);
+      stroke: rgb(255, 255, 255);
       stroke-width: 1.5px;
-      fill: none;
+      fill: rgb(255, 255, 255);
     }
   `,
   headerLoginButtonStyles: css`
-    background: #53a6ec;
-    border: 2px solid #fff;
+    border: 1px solid #fff;
     color: #fff;
     :hover {
-      background: #5c23d4 !important;
+      background: rgba(255, 255, 255, 1) !important;
+      color: rgba(0, 0, 0, 1) !important;
+    }
+  `,
+  newPostPopupButtonStyles: css`
+    border: 1px solid #de73da;
+    color: #de73da;
+    :hover {
+      background: linear-gradient(
+        135deg,
+        #f790bb 44.02%,
+        #b971ee 90.66%
+      ) !important;
+      color: #fff !important;
+      border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
     }
   `,
 };

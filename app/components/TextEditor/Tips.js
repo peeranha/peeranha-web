@@ -109,7 +109,11 @@ const Tips = ({ faqQuestions }) => {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div
+      css={css`
+        background: ${colors.backgroundSpecial || ''};
+      `}
+    >
       <Title className="mb-3">{t('common.tips')}:</Title>
       <P>{t('common.markdownIsSupported')}</P>
 

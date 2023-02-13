@@ -201,6 +201,7 @@ const View = ({
               > span {
                 margin-left: 10px;
               }
+              color: ${colors.white || ''};
             `}
           >
             <IconLg

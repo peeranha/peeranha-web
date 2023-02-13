@@ -187,9 +187,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             onChange={onChangeTitle}
           >
             {({ onChange, onBlur, isValid }) => {
-              if (title !== '') {
-                setIsValidTitle(isValid);
-              }
+              setIsValidTitle(title.length > 2);
 
               return (
                 <input
@@ -246,9 +244,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             position="bottom"
           >
             {({ onChange, onBlur, isValid }) => {
-              if (bodyText !== '') {
-                setIsValidContent(isValid);
-              }
+              setIsValidContent(bodyText.length > 24);
 
               return (
                 <div

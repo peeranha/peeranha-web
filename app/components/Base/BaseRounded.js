@@ -4,7 +4,7 @@ import Base from './index';
 
 const BaseRounded = Base.extend`
   border-radius: ${({ notRoundedStyle }) =>
-    notRoundedStyle ? 'none' : BORDER_RADIUS_L} !important;
+    notRoundedStyle ? 'none' : BORDER_RADIUS_L};
   box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};
   transition: 0.5s;
 
