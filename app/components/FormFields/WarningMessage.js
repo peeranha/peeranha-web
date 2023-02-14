@@ -17,18 +17,15 @@ export const Div = styled.div`
   max-height: ${(x) => (x.isSpecialPosition ? 'auto' : '40px')};
   word-break: normal;
   color: ${TEXT_SECONDARY};
-
   > div {
     display: flex;
     align-items: center;
     flex-direction: ${(x) => (x.isSpecialPosition ? 'column' : 'row')};
-
     img {
       margin-right: ${(x) => (x.isSpecialPosition ? '0px' : '12px')};
       transform: ${(x) =>
         x.isSpecialPosition ? 'rotate(90deg) translateX(8px)' : '0deg'};
     }
-
     span {
       min-width: 160px;
     }

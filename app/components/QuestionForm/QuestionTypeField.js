@@ -122,7 +122,7 @@ const QuestionTypeField = ({
   postAnswers,
 }) => {
   const { t } = useTranslation();
-  const [type, setType] = useState();
+  const [type, setType] = useState(postType);
 
   useEffect(() => {
     if (postType) {

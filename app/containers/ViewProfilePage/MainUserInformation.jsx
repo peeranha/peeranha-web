@@ -202,8 +202,10 @@ const MainUserInformation = ({
           css={css`
             background: rgba(165, 188, 255, 0.1);
             border-radius: 170px;
+            min-width: calc(100% - 5px);
             @media (min-width: 768px) {
               background: none;
+              min-width: 0;
             }
             @media (min-width: 768px) and (max-width: 1308px) {
               padding-top: 10px;

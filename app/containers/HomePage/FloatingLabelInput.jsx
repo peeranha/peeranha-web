@@ -48,12 +48,10 @@ const Input = styled.input`
   box-sizing: border-box;
   font-size: 14px;
   order: 2;
-
   :focus {
     border-color: ${BORDER_WARNING_LIGHT} !important;
   }
-
-  ${x =>
+  ${(x) =>
     x.error
       ? `
     border-color: ${BORDER_WARNING_LIGHT} !important;
@@ -61,13 +59,11 @@ const Input = styled.input`
       : ``} :hover {
     border-color: ${BORDER_DARK};
   }
-
   :focus + ${Label} {
     font-size: 12px;
     padding-bottom: ${1.2 * HEIGHT}px;
   }
-
-  ${x =>
+  ${(x) =>
     x.value
       ? `+ * {
      font-size: 12px !important;

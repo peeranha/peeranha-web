@@ -10,6 +10,7 @@ import {
 } from 'utils/communityManagement';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+import peeranhaLogoWhite from 'images/Logo.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';

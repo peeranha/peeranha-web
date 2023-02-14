@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://www.koii.network/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'koii_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: `${fonts}`,
     },
     header: {
       background: '#FFFFFF',
@@ -209,15 +204,6 @@ export const KoiiStyles = {
     textColor: 'rgb(94,217,209)',
     textColorShadow: 'rgb(42,192,167)',
   },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
-  },
-
   cookieConsentPopupStyles: {
     background: 'rgb(53,53,112)',
     color: 'rgb(255,199,143)',

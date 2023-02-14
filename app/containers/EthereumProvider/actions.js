@@ -64,17 +64,10 @@ export function transactionInPending(transactionHash, transactionList) {
   };
 }
 
-export function transactionCompleted(transactionList) {
+export function transactionCompleted(translation) {
   return {
     type: TRANSACTION_COMPLETED,
-    transactionList,
-  };
-}
-
-export function setTransactionList(transactionList) {
-  return {
-    type: SET_TRANSACTION_LIST,
-    transactionList,
+    translation,
   };
 }
 
