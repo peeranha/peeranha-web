@@ -2,8 +2,6 @@ import React from 'react';
 import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
-import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
-import polygonLogoLogin from 'communities-configs/polygon/images/polygon-logo-login.svg?inline';
 
 import {
   domainName,
@@ -233,10 +231,16 @@ export const PolygonStyles = {
   poweredByPeeranha: true,
   logoWhite: true,
   withoutAdditionalLinks: true,
-  signUpPageLogo: polygonLogoLogin,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/polygon/polygon-logo-login.svg',
   favicon,
   mobileSubHeader: (
-    <CustomMobileSubHeader config={customSubHeaderConfig} logo={polygonLogo} />
+    <CustomMobileSubHeader
+      config={customSubHeaderConfig}
+      logo={
+        'https://images.peeranha.io/communities/polygon/polygon-university-logo.svg'
+      }
+    />
   ),
   customSubHeader: <CustomSubHeader config={customSubHeaderConfig} />,
   withoutFAQ: true,
@@ -257,6 +261,7 @@ export const PolygonStyles = {
     white: '#f6f6f3',
     sectionHeader: '#f6f6f3',
     formColor: '#f6f6f3',
+    baseShadow: 'rgba(224,219,246,0.4)',
 
     mainLinksColor: '#843bed',
 

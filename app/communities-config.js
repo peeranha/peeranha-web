@@ -223,7 +223,7 @@ const communitiesConfig = {
     },
     16: {
       origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/polygon/polygon-logo.svg',
+      src: 'https://images.peeranha.io/communities/polygon/polygon-university-logo.svg',
       styles: PolygonStyles,
     },
     17: {

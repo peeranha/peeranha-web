@@ -2,11 +2,13 @@ import React from 'react';
 import { css } from '@emotion/react';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@uiw/react-markdown-preview/markdown.css';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 type MarkdownPreviewProps = {
   content: string;
 };
 
+const colors = singleCommunityColors();
 const MarkdownPreviewBlock: React.FC<MarkdownPreviewProps> = ({
   content,
 }): JSX.Element => {
@@ -24,6 +26,7 @@ const MarkdownPreviewBlock: React.FC<MarkdownPreviewProps> = ({
         iframe {
           max-width: 100%;
         }
+        background: ${colors.backgroundSpecial || ''};
       `}
       rehypeRewrite={(node, index, parent) => {
         if (node.tagName === 'input') {
