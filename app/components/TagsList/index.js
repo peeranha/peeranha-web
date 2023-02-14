@@ -48,10 +48,11 @@ const TagsList = ({ tags, communities, communityId, children, className }) => {
     const searchParams = new URLSearchParams(history.location.search);
     const searchParamsTags = searchParams.get('tags');
     const newSearchParamsTags = (tagsParams, tagId) => {
+      const allTags = tagsParams?.split(':');
       if (!tagsParams) {
         return tagId;
       }
-      if (!tagsParams?.includes(tagId)) {
+      if (!allTags?.includes(tagId)) {
         return `${tagsParams}:${tagId}`;
       }
 
