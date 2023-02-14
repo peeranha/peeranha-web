@@ -47,7 +47,16 @@ export const Header = ({ headerDescriptor }) => {
         {t(headerDescriptor || 'createCommunity.newCommunity')}
       </H3>
 
-      <WrapperRightPanel className="right-panel">
+      <WrapperRightPanel
+        className="right-panel"
+        css={css({
+          ...(headerDescriptor === 'common.editCommunityDesc.header' && {
+            '@media (max-width: 576px)': {
+              display: 'none',
+            },
+          }),
+        })}
+      >
         <A to={nextRoute()}>
           <button>
             <IconMd

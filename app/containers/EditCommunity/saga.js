@@ -22,6 +22,7 @@ import {
 } from 'utils/communityManagement';
 import { uploadImg } from 'utils/profileManagement';
 import { delay } from 'utils/reduxUtils';
+import { getCommunityById } from 'utils/theGraph';
 
 import {
   editCommunityError,
@@ -44,7 +45,14 @@ export function* getCommunityWorker({ communityId }) {
       communityId,
     );
 
-    yield put(getCommunitySuccess(community));
+    const { translations } = yield call(getCommunityById, communityId);
+
+    yield put(
+      getCommunitySuccess({
+        ...community,
+        translations,
+      }),
+    );
   } catch (error) {
     yield put(getCommunityError(error));
   }

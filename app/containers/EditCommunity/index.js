@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +38,7 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { GENERAL_TAB } from './constants';
 import { getSingleCommunityDetails } from '../../utils/communityManagement';
 
 const EditCommunity = ({
@@ -62,6 +63,8 @@ const EditCommunity = ({
     getCommunityDispatch(communityId);
   }, [communityId]);
 
+  const [tab, setTab] = useState(GENERAL_TAB);
+
   const formData = useMemo(
     () => ({
       community,
@@ -71,10 +74,11 @@ const EditCommunity = ({
       locale,
       isModerator: hasGlobalModeratorRole(getPermissions(profileInfo)),
       isBloggerMode,
+      tab,
+      setTab,
     }),
-    [community, communityId, editCommunityDispatch, editCommunityLoading],
+    [community, communityId, editCommunityDispatch, editCommunityLoading, tab],
   );
-
   return (
     <div>
       <Seo
@@ -91,7 +95,7 @@ const EditCommunity = ({
 
         {!communityLoading && <Form {...formData} />}
 
-        <Tips faqQuestions={faqQuestions} />
+        {tab === GENERAL_TAB && <Tips faqQuestions={faqQuestions} />}
       </TipsBase>
     </div>
   );
