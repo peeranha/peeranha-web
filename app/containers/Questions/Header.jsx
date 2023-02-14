@@ -347,9 +347,11 @@ export const Header = ({
                         onClick={() => removeTagFilter(tag)}
                       >
                         <FailedTransactionIcon
-                          stroke={'#fff'}
+                          stroke={TEXT_LIGHT}
                           size={[16, 16]}
-                          strokeOpacity={'1'}
+                          strokeOpacity={1}
+                          fillOpacity={0.2}
+                          fill={TEXT_LIGHT}
                         ></FailedTransactionIcon>
                       </RemoveTagIcon>
                     </TagFilter>

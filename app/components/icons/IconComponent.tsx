@@ -7,6 +7,7 @@ type IconComponentProps = {
   fill?: string;
   stroke?: string;
   strokeOpacity?: string;
+  fillOpacity?: string;
   size?: number[];
   className?: string;
   style?: React.CSSProperties;
