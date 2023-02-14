@@ -131,10 +131,12 @@ const QuestionTypeField = ({
   }, []);
 
   function chooseQuestionType(event) {
-    const { value } = event.currentTarget;
+    const { value, dataset } = event.currentTarget;
     event.preventDefault();
-    input.onChange(value);
-    setType(value);
+    if (!dataset.trigger) {
+      input.onChange(value);
+      setType(value);
+    }
   }
 
   function showMessage(e) {
@@ -174,8 +176,9 @@ const QuestionTypeField = ({
               value={questionType.value}
               currentValue={input.value}
               key={questionType.label}
-              disabled={disabled || questionType.isDisabled}
+              disabled={disabled}
               onMouseOver={questionType.isDisabled && showMessage}
+              block={questionType.isDisabled}
             >
               {t(questionType.label)}
             </Button>

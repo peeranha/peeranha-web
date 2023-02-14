@@ -100,13 +100,12 @@ export const UlStyled = Ul.extend`
       }
       span {
         height: 18px;
+        white-space: nowrap;
       }
     }
 
-    ${
-      '' /* @media only screen and (max-width: 1280px) {
-      padding-right: 20px;
-    } */
+    @media only screen and (max-width: 1385px) {
+      padding-right: 18px;
     }
 
     @media only screen and (max-width: 768px) {
