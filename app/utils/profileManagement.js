@@ -141,6 +141,7 @@ export async function saveProfile(ethereumService, user, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
   await ethereumService.sendTransaction(CONTRACT_USER, user, UPDATE_ACC, [
+    user,
     transactionData,
   ]);
 }

@@ -2,7 +2,7 @@ import React, { useEffect, memo } from 'react';
 import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,6 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
 import { BORDER_SECONDARY } from 'style-constants';
-import commonMessage from 'common-messages';
 
 import BaseRounded from 'components/Base/BaseRounded';
 import H3 from 'components/H3';
@@ -95,20 +94,19 @@ const Achievements = ({
   resetViewProfileAccountDispatch,
   profile,
 }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     setViewProfileAccountDispatch(userId);
     getAllAchievementsDispatch();
 
-    // ComponentWillUnmount
     return () => resetViewProfileAccountDispatch();
   }, [userId]);
 
   return (
     <div>
       <BaseRoundedStyled>
-        <H3Styled>
-          <FormattedMessage id={commonMessage.NFTs.id} />
-        </H3Styled>
+        <H3Styled>{t('common.NFTs')}</H3Styled>
       </BaseRoundedStyled>
 
       {achievementsLoading && <LoadingIndicator />}
@@ -116,7 +114,7 @@ const Achievements = ({
       {!achievementsLoading && achievements.length > 0 && (
         <UniqueAchievementsWrapper>
           <UniqueAchievementsTitle>
-            <FormattedMessage id={commonMessage.limitedEdition.id} />
+            {t('common.limitedEdition')}
           </UniqueAchievementsTitle>
 
           <UniqueAchievementsBlock>
@@ -133,7 +131,7 @@ const Achievements = ({
                     maxCount={achievement.maxCount}
                     factCount={achievement.factCount}
                     currentValue={profile?.highestRating?.rating || null}
-                    lowerValue={achievementsArr[index].lowerValue}
+                    lowerValue={achievementsArr[index]?.lowerValue}
                     name={achievement.name}
                     description={achievement.description}
                     image={achievement.image}

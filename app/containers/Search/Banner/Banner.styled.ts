@@ -49,9 +49,8 @@ export const styled = {
   },
 
   button: {
-    background: colors.btnHeaderColor || BUTTON_COLOR,
-    color: colors.newPostButtonText || TEXT_LIGHT,
-    borderRadius: BORDER_RADIUS_L,
+    background: BUTTON_COLOR,
+    color: TEXT_LIGHT,
 
     ':hover': {
       background: colors.btnHeaderHoverColor,

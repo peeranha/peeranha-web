@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { Field } from 'redux-form/immutable';
 import { requiredPostTypeSelection } from 'components/FormFields/validate';
 import { FORM_TYPE } from './constants';
-import messages from './messages';
+import { useTranslation } from 'react-i18next';
 import QuestionTypeField from './QuestionTypeField';
 import DescriptionList from 'components/DescriptionList';
 import {
@@ -10,22 +10,58 @@ import {
   listConditional,
 } from 'components/QuestionForm/utils';
 
+type TypePostAnswers = {
+  author: string;
+  commentCount: number;
+  comments?: Array<{
+    author: string;
+    id: number;
+    isDeleted: boolean;
+    postTime: number;
+    content: string;
+    ipfsHash: string;
+    propertyCount: number;
+    rating: number;
+    voitingStatus: {
+      isDownVoted: boolean;
+      isUpVoted: boolean;
+      isVotedToDelete: boolean;
+    };
+  }>;
+  content: string;
+  id: number;
+  ipfsHash: string;
+  isDeleted: boolean;
+  isFirstReply: boolean;
+  isQuickReply: boolean;
+  parentReplyId: number;
+  postTime: number;
+  propertyCount: number;
+  rating: number;
+  voitingStatus: {
+    isDownVoted: boolean;
+    isUpVoted: boolean;
+    isVotedToDelete: boolean;
+  };
+};
+
 type TypeFormProps = {
-  intl: any;
-  change: Function;
+  change: any;
   locale: string;
   questionLoading: boolean;
   formValues?: any;
   hasSelectedType: boolean;
-  setHasSelectedType: Function;
+  setHasSelectedType: any;
   isError: boolean;
-  setIsError: Function;
+  setIsError: any;
   isCommunityModerator: boolean;
+  postType?: number;
   isDocumentation: boolean;
+  postAnswers?: Array<TypePostAnswers>;
+  isHasRole: boolean;
 };
 
 const TypeForm: React.FC<TypeFormProps> = ({
-  intl,
   change,
   locale,
   questionLoading,
@@ -35,20 +71,26 @@ const TypeForm: React.FC<TypeFormProps> = ({
   isError,
   setIsError,
   isCommunityModerator,
+  postType,
   isDocumentation,
+  postAnswers,
+  isHasRole,
 }): JSX.Element | null => {
+  const { t } = useTranslation();
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
+  const formValueId = formValues[FORM_TYPE];
+  const isHasPostId = formValueId !== undefined || postType !== undefined;
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
     () => [
-      labelConditional(formValues[FORM_TYPE]),
-      listConditional(formValues[FORM_TYPE]),
+      isHasPostId ? labelConditional(formValueId || String(postType)) : null,
+      isHasPostId ? listConditional(formValueId || String(postType)) : null,
     ],
-    [formValues[FORM_TYPE]],
+    [formValueId],
   );
 
   useEffect(() => {
-    if (descriptionListLabel && descriptionListItems) {
+    if ((descriptionListLabel && descriptionListItems) || postType) {
       setHasSelectedType(true);
       setIsError(false);
     }
@@ -61,16 +103,19 @@ const TypeForm: React.FC<TypeFormProps> = ({
         component={QuestionTypeField}
         disabled={questionLoading}
         onChange={onChange}
-        label={intl.formatMessage(messages.questionType)}
-        tip={intl.formatMessage(messages.questionTypeTip)}
-        validate={requiredPostTypeSelection}
+        label={t('common.questionType')}
+        tip={t('common.questionTypeTip')}
+        validate={!hasSelectedType && requiredPostTypeSelection}
         splitInHalf
         error={isError}
         isCommunityModerator={isCommunityModerator}
+        postType={postType}
+        postAnswers={postAnswers}
+        locale={locale}
+        isHasRole={isHasRole}
       />
       {hasSelectedType && (
         <DescriptionList
-          locale={locale}
           label={descriptionListLabel}
           items={descriptionListItems}
         />

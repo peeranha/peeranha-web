@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
-import { FormattedMessage } from 'react-intl';
 import orderBy from 'lodash/orderBy';
 
 import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 
 import allCommunitiesIcon from 'images/createCommunity.svg?external';
 import Icon from 'components/Icon';
@@ -26,6 +25,7 @@ const CommunitiesSectionWithRatings = ({
   single,
   communities,
 }) => {
+  const { t } = useTranslation();
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
     routes.communities(),
   );
@@ -44,7 +44,7 @@ const CommunitiesSectionWithRatings = ({
           color: ${colors.white || ''};
         `}
       >
-        <FormattedMessage id={messages.communities.id} />
+        {t('common.communities')}
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
@@ -54,6 +54,7 @@ const CommunitiesSectionWithRatings = ({
             rating={item.rating}
             single={single}
             communities={communities}
+            key={item.communityId}
           />
         ))}
 
@@ -77,7 +78,7 @@ const CommunitiesSectionWithRatings = ({
               `}
             />
             <Span color={colors.btnColor || TEXT_PRIMARY}>
-              <FormattedMessage id={messages.allCommunities.id} />
+              {t('common.allCommunities')}
             </Span>
           </AllCommunitiesLink>
         </div>

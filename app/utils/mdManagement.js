@@ -1,11 +1,9 @@
 import { ApplicationError } from './errors';
 import faqEn from '../faq/en.md';
-import faqRu from '../faq/ru.md';
 import tutorialEn from '../tutorial/en.md';
-import tutorialRu from '../tutorial/ru.md';
 
 function parseMD(md) {
-  const getRegExp = tag => {
+  const getRegExp = (tag) => {
     const str = `<${tag}.*`;
     const regexp = new RegExp(str, 'gim');
 
@@ -65,15 +63,15 @@ function parseMD(md) {
   return { h1, blocks: H2BlocksObject };
 }
 
-function getMD(prefix, locale) {
+function getMD(prefix) {
   let md = null;
 
   switch (prefix) {
     case 'faq':
-      md = locale === 'en' ? faqEn : faqRu;
+      md = faqEn;
       break;
     case 'tutorial':
-      md = locale === 'en' ? tutorialEn : tutorialRu;
+      md = tutorialEn;
       break;
     default:
       throw new ApplicationError('There are no passed args');

@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
-// import Dropdown from '../../components/Dropdown'; ToDo: switch feed page
 
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
@@ -42,7 +40,6 @@ import {
   ICON_TRASPARENT_BLUE,
   TEXT_PRIMARY,
 } from 'style-constants';
-import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
@@ -55,10 +52,6 @@ const PageContentHeader = styled.div`
     justify-content: space-between;
     width: 100%;
   }
-`;
-
-const PageContentHeaderRightPanel = styled.div`
-  flex-shrink: 0;
 `;
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
@@ -77,7 +70,6 @@ const StyledCustomIconButtonContainer = styled.div`
 `;
 
 export const Header = ({
-  intl,
   communityIdFilter,
   communities,
   followedCommunities,
@@ -86,10 +78,10 @@ export const Header = ({
   topQuestions,
   topQuestionsInfoLoaded,
   questionFilterFromCookies,
-  isExpert,
   postsTypes,
   profile,
 }) => {
+  const { t } = useTranslation();
   const isFeed = parentPage === routes.feed();
   const communityEditingAllowed = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
@@ -105,28 +97,26 @@ export const Header = ({
     switch (postsTypes[0]) {
       case POST_TYPE.generalPost:
         defaultAvatar = generalIcon;
-        defaultLabel = intl.formatMessage({ id: messages.discussions.id });
+        defaultLabel = t('common.discussions');
         defaultAvatarWidth = '24';
         route = 'questions';
         break;
       case POST_TYPE.expertPost:
         defaultAvatar = expertIcon;
-        defaultLabel = intl.formatMessage({ id: messages.expertPosts.id });
+        defaultLabel = t('common.expertPosts');
         defaultAvatarWidth = '28';
         route = 'expertPosts';
         break;
       case POST_TYPE.tutorial:
         defaultAvatar = tutorialIcon;
-        defaultLabel = intl.formatMessage({ id: messages.tutorials.id });
+        defaultLabel = t('common.tutorials');
         defaultAvatarWidth = '28';
         route = 'tutorials';
         break;
     }
   } else {
     defaultAvatar = myFeedIcon;
-    defaultLabel = intl.formatMessage({
-      id: messages[profile && !single ? 'myFeed' : 'feed'].id,
-    });
+    defaultLabel = t(`common.${profile && !single ? 'myFeed' : 'feed'}`);
     defaultAvatarWidth = '38';
   }
 
@@ -166,6 +156,7 @@ export const Header = ({
   const routeToEditCommunity = () => {
     createdHistory.push(routes.communitiesEdit(single));
   };
+
   return (
     <Wrapper
       single={single}
@@ -196,15 +187,12 @@ export const Header = ({
           </PageContentHeaderRightPanel>
         )} */}
       </PageContentHeader>
-      <QuestionFilter
-        display={displayQuestionFilter}
-        questionFilterFromCookies={questionFilterFromCookies}
-      />
+
       {communityEditingAllowed && (
         <button onClick={routeToEditCommunity} className="df aic mt12">
           <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
           <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
-            <FormattedMessage id={messages.editCommunity.id} />
+            {t('common.editCommunity')}
           </Span>
         </button>
       )}
@@ -213,7 +201,6 @@ export const Header = ({
 };
 
 Header.propTypes = {
-  intl: intlShape.isRequired,
   communityIdFilter: PropTypes.number,
   communities: PropTypes.array,
   followedCommunities: PropTypes.array,
@@ -223,14 +210,12 @@ Header.propTypes = {
   topQuestions: PropTypes.array,
   profile: PropTypes.object,
 };
-//
-export default injectIntl(
-  React.memo(
-    connect((state) => ({
-      topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
-      topQuestions: selectQuestions(null, null, null, true)(state),
-      communities: selectCommunities()(state),
-      profile: makeSelectProfileInfo()(state),
-    }))(Header),
-  ),
+
+export default React.memo(
+  connect((state) => ({
+    topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
+    topQuestions: selectQuestions(null, null, null, true)(state),
+    communities: selectCommunities()(state),
+    profile: makeSelectProfileInfo()(state),
+  }))(Header),
 );
