@@ -228,6 +228,7 @@ const strLength2x25 = stringLength(2, 25);
 const strLength8x100 = stringLength(8, 100);
 const strLength254Max = stringLengthMax(254);
 const strLength100Max = stringLengthMax(100);
+const strLength250Max = stringLengthMax(250);
 const strLength3x20 = stringLength(3, 20);
 const strLength3x100 = stringLength(3, 100);
 const strLength15x100 = stringLength(15, 100);
@@ -259,6 +260,7 @@ export {
   strLength8x100,
   strLength254Max,
   strLength100Max,
+  strLength250Max,
   strLength3x20,
   strLength3x100,
   strLength15x100,

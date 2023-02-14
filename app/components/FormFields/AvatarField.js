@@ -256,7 +256,7 @@ const AvatarField = ({ input, meta, disabled }) => {
                   setS(false);
                 }}
               />
-              <button className="close-icon" onClick={reload} />
+              <button className="close-icon" type="button" onClick={reload} />
             </div>
 
             <div className="reload-bg" onClick={reload} />
@@ -272,9 +272,10 @@ const AvatarField = ({ input, meta, disabled }) => {
           }
           alt="icon"
         />
-        {input.name === AVATAR_FIELD && input.value && (
+        {input.value && (
           <div className="remove-avatar-action-container">
             <button
+              type="button"
               className="remove-avatar-action"
               onClick={() => input.onChange(NO_AVATAR)}
             />

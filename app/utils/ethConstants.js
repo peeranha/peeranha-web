@@ -262,6 +262,14 @@ export const communitiesQuery = `
           description
           website
           language
+          translations {
+            communityId
+            description
+            enableAutotranslation
+            id
+            language
+            name
+          }
           isFrozen
           creationTime
           postCount
@@ -351,6 +359,14 @@ export const communityQuery = `
           description
           website
           language
+          translations {
+            communityId
+            description
+            enableAutotranslation
+            id
+            language
+            name
+          }
           isFrozen
           creationTime
           postCount

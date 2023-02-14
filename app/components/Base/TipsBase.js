@@ -24,6 +24,11 @@ export default BaseRoundedNoPadding.extend`
       border-top-right-radius: ${BORDER_RADIUS_L};
       border-bottom-right-radius: ${BORDER_RADIUS_L};
     }
+
+    > *:only-child {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
   }
 
   @media only screen and (max-width: 1365px) {
