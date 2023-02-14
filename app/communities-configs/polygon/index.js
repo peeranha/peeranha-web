@@ -261,6 +261,7 @@ export const PolygonStyles = {
     white: '#f6f6f3',
     sectionHeader: '#f6f6f3',
     formColor: '#f6f6f3',
+    baseShadow: 'rgba(224,219,246,0.4)',
 
     mainLinksColor: '#843bed',
 
