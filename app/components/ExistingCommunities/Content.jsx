@@ -43,6 +43,14 @@ export const DescriptionBlock = styled.div`
   width: 300px;
   margin-right: 15px;
 
+  @media (max-width: 1050px) {
+    width: 250px;
+  }
+
+  @media (max-width: 991px) {
+    width: 300px;
+  }
+
   ${MediumImageStyled} {
     margin-top: 6px;
   }
@@ -162,30 +170,42 @@ const Content = ({ communities, sorting, locale, profile }) => {
                       <SpanCenter>
                         {getFormattedNum2(x.followingUsers)}
                       </SpanCenter>
-                      <P>{t('common.subscribers')}</P>
+                      <P>
+                        <span className="no-wrap">
+                          {t('common.subscribers')}
+                        </span>
+                      </P>
                     </Info>
                   )}
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
-                    <P>{t('common.posts')}</P>
+                    <P>
+                      <span className="no-wrap">{t('common.posts')}</span>
+                    </P>
                   </Info>
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
-                    <P>{t('common.answers')}</P>
+                    <P>
+                      <span className="no-wrap">{t('common.answers')}</span>
+                    </P>
                   </Info>
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(tagsCount)}</SpanCenter>
-                    <A to={routes.communityTags(id)}>{t('common.tags')}</A>
+                    <A to={routes.communityTags(id)}>
+                      <span className="no-wrap">{t('common.tags')}</span>
+                    </A>
                   </Info>
 
                   <Info>
-                    <SpanCenter>
+                    <SpanCenter className="no-wrap">
                       {getDifferenceInDate(x.creationTime, locale)}
                     </SpanCenter>
-                    <SpanCenter>{t('common.age')}</SpanCenter>
+                    <SpanCenter>
+                      <span className="no-wrap">{t('common.age')}</span>
+                    </SpanCenter>
                   </Info>
 
                   <Info>

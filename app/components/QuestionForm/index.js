@@ -138,6 +138,7 @@ export const QuestionForm = ({
   questionTitle,
   getCommunityTagsDispatch,
   cachedTags,
+  tagsLoading,
 }) => {
   const { t } = useTranslation();
   const [isSelectedType, setIsSelectedType] = useState(false);
@@ -149,7 +150,7 @@ export const QuestionForm = ({
   const isPostAuthor = question?.author === profile?.user;
 
   const communityId =
-    single || question?.communityId || formValues[FORM_COMMUNITY]?.id;
+    formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
   const isCommunityModerator = communityId
     ? hasCommunityModeratorRole(getPermissions(profile), communityId)
     : false;
@@ -333,6 +334,7 @@ export const QuestionForm = ({
                     formValues={formValues}
                     change={change}
                     communityTags={cachedTags[communityId]}
+                    tagsLoading={tagsLoading}
                   />
                 )}
 
