@@ -1,22 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { getFormattedDate } from 'utils/datetime';
-import messages from './messages';
 
-export const ChangesHistory = ({ lastEditedDate, postTime, locale }) => (
-  <p className="recording-date">
-    {getFormattedDate(postTime)}
+export const ChangesHistory = ({ lastEditedDate, postTime, locale }) => {
+  const { t } = useTranslation();
 
-    {lastEditedDate && (
-      <span>
-        <FormattedMessage {...messages.lastEdited} />
-        <span>{`: ${getFormattedDate(lastEditedDate, locale)}`}</span>
-      </span>
-    )}
-  </p>
-);
+  return (
+    <p className="recording-date">
+      {getFormattedDate(postTime)}
+
+      {lastEditedDate && (
+        <span>
+          {t('post.lastEdited')}
+          <span>{`: ${getFormattedDate(lastEditedDate, locale)}`}</span>
+        </span>
+      )}
+    </p>
+  );
+};
 
 ChangesHistory.propTypes = {
   postTime: PropTypes.number,

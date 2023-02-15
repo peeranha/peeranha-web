@@ -1,15 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import CyberconnectLogo from './images/CyberConnect_logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/logo.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-
 const domainName = 'https://polywrap.io/';
-
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'polywrap_style',
@@ -20,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fontSet,
     },
     header: {
       background: '#FFFFFF',
@@ -181,32 +170,15 @@ export const CyberconnectStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: CyberconnectLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/cyberconnect/CyberConnect_logo.svg',
+  favicon: 'https://images.peeranha.io/communities/cyberconnect/logo.ico',
 
   colors: {
     mainSubHeaderBgColor: '#fff',
     mainBackground: '#F9FAFB',
     linkColor: '#65908a',
-    linkCookieColor: '#0DB48C', ///
+    linkCookieColor: '#0DB48C',
     linkColorTransparent: 'rgba(101, 144, 138, 0.6);',
     headerPrimary: '#65908a',
     commentOption: '#65908a',

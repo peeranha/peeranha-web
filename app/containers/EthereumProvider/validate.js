@@ -1,11 +1,9 @@
 import { showPopover } from 'utils/popover';
 import { ApplicationError } from 'utils/errors';
-
-import messages from 'containers/ViewQuestion/messages';
+import { t } from 'i18next';
 
 export default ({
   rating,
-  translations,
   actor,
   creator,
   buttonId,
@@ -16,9 +14,9 @@ export default ({
   let message;
 
   if (actor && actor === creator) {
-    message = `${translations[messages.creatorCannot.id]}`;
+    message = t('post.creatorCannot');
   } else if (rating < minRating && !isGlobalAdmin && !isCommunityAdmin) {
-    message = `${translations[messages.notEnoughRating.id]} ${minRating}`;
+    message = `${t('post.notEnoughRating')} ${minRating}`;
   }
 
   if (message) {

@@ -2,18 +2,15 @@ import { singleCommunityColors } from 'utils/communityManagement';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import React, { useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { translationMessages } from 'i18n';
-import styled from 'styled-components';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { css } from '@emotion/react';
-import commonMessages from 'common-messages';
 import searchIcon from 'images/searchIcon.svg?external';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -28,9 +25,9 @@ import saga from './saga';
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
 
-import messages from './messages';
 import Banner from './Banner/Banner';
 import { selectCommunities } from '../DataCacheProvider/selectors';
+
 import Loader from 'components/LoadingIndicator/WidthCentered';
 import {
   BORDER_PRIMARY,
@@ -57,6 +54,7 @@ const Search = ({
   redirectToAskQuestionPageDispatch,
   loginWithWalletDispatch,
 }) => {
+  const { t } = useTranslation();
   const query = match.params.q;
   useEffect(() => {
     if (query) {
@@ -67,8 +65,8 @@ const Search = ({
   return (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('common.search')}
+        description={t('common.descriptionSearch')}
         language={locale}
         index={false}
       />
@@ -97,7 +95,7 @@ const Search = ({
               <IconLg icon={searchIcon} width={38} fill={BORDER_PRIMARY} />
             </MediumIconStyled>
           </div>
-          <FormattedMessage {...commonMessages.search} />
+          {t('common.search')}
         </H3>
         {Boolean(items.length) && (
           <div>
@@ -108,7 +106,7 @@ const Search = ({
                 font-family: 'Source Sans Pro', sans-serif;
               `}
             >
-              <FormattedMessage id={commonMessages.results.id} />
+              {t('common.results')}
             </span>
             <span
               className="fz16 ml8"

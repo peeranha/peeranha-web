@@ -16,7 +16,7 @@ export type Post = {
   postType: number;
   rating: number;
   replyCount: number;
-  tags: Array<number> | null;
+  tags: Tag[];
   title: string;
   questionBounty: object;
 };

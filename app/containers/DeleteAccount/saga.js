@@ -1,7 +1,5 @@
-import { translationMessages } from 'i18n';
+import { t } from 'i18next';
 import { takeLatest, put, call, select } from 'redux-saga/effects';
-
-import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
 import {
   changeCredentialsInit,
@@ -42,15 +40,12 @@ import {
 export function* sendEmailWorker({ email, resetForm, withFacebook }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
     const isDelete = true;
 
     const response = yield call(changeCredentialsInit, email, isDelete, locale);
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
 
     yield put(sendEmailSuccess());
@@ -68,9 +63,6 @@ export function* deleteAccountWorker({ resetForm, values, withFacebook }) {
     const password = values[PASSWORD_FIELD];
     const verificationCode = values[CODE_FIELD];
 
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-
     const response = yield call(
       changeCredentialsConfirm,
       email,
@@ -78,9 +70,7 @@ export function* deleteAccountWorker({ resetForm, values, withFacebook }) {
     );
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
 
     if (withFacebook) {
@@ -92,7 +82,7 @@ export function* deleteAccountWorker({ resetForm, values, withFacebook }) {
 
       if (!deleteFacebookAccResponse.OK) {
         throw new WebIntegrationError(
-          translations[webIntegrationErrors[response.errorCode].id],
+          t(`webIntegration.${response.errorCode}`),
         );
       }
     } else {
@@ -105,11 +95,9 @@ export function* deleteAccountWorker({ resetForm, values, withFacebook }) {
 
       if (!changeCredentialsGetKeysByPwdResponse.OK) {
         throw new WebIntegrationError(
-          translations[
-            webIntegrationErrors[
-              changeCredentialsGetKeysByPwdResponse.errorCode
-            ].id
-          ],
+          t(
+            `webIntegration.${changeCredentialsGetKeysByPwdResponse.errorCode}`,
+          ),
         );
       }
 
@@ -126,11 +114,9 @@ export function* deleteAccountWorker({ resetForm, values, withFacebook }) {
 
       if (!changeCredentialsCompleteResponse.OK) {
         throw new WebIntegrationError(
-          translations[
-            webIntegrationErrors[
-              changeCredentialsGetKeysByPwdResponse.errorCode
-            ].id
-          ],
+          t(
+            `webIntegration.${changeCredentialsGetKeysByPwdResponse.errorCode}`,
+          ),
         );
       }
     }
@@ -147,7 +133,6 @@ export function* deleteAccountWorker({ resetForm, values, withFacebook }) {
 export function* sendFacebookEmailWorker() {
   try {
     const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
     const { id } = yield select(selectFacebookUserData());
 
     const response = yield call(
@@ -158,9 +143,7 @@ export function* sendFacebookEmailWorker() {
     );
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
 
     yield put(sendEmailSuccess());
@@ -172,9 +155,6 @@ export function* sendFacebookEmailWorker() {
 
 export function* deleteFacebookAccountWorker({ resetForm, values }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-
     const verificationCode = values[CODE_FIELD];
     const { email, id } = yield select(selectFacebookUserData());
 
@@ -186,17 +166,13 @@ export function* deleteFacebookAccountWorker({ resetForm, values }) {
     );
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
 
     const deleteFacebookAccResponse = yield call(deleteFacebookAccService, id);
 
     if (!deleteFacebookAccResponse.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
 
     yield put(logout());
