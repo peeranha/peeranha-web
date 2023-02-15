@@ -55,11 +55,10 @@ export function transactionInitialised() {
   };
 }
 
-export function transactionInPending(transactionHash, transactionList) {
+export function transactionInPending(transactionHash) {
   return {
     type: TRANSACTION_IN_PENDING,
     transactionHash,
-    transactionList,
   };
 }
 

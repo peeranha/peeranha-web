@@ -1,33 +1,35 @@
 import { Contract, ethers } from 'ethers';
-import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
-import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
-import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaUser from '../../../peeranha-subgraph/abis/PeeranhaUser.json';
+import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
+import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
+import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
+
+import { WebIntegrationError, WebIntegrationErrorByCode } from './errors';
+import {
+  CONTRACT_TOKEN,
+  CONTRACT_USER,
+  CONTRACT_CONTENT,
+  CONTRACT_COMMUNITY,
+  CLAIM_REWARD,
+  GET_COMMUNITY,
+  GET_USER_BY_ADDRESS,
+  SET_STAKE,
+} from './ethConstants';
+
+import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
+import { deleteCookie, getCookie } from './cookie';
 import {
   CURRENCY,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   INVALID_MIN_RATING_ERROR_CODE,
   META_TRANSACTIONS_ALLOWED,
   METAMASK_ERROR_CODE,
-  REJECTED_SIGNATURE_REQUEST,
   USER_MIN_RATING_ERROR_CODE,
+  RECAPTCHA_VERIFY_FAILED_CODE,
+  REJECTED_SIGNATURE_REQUEST,
 } from './constants';
-import { deleteCookie, getCookie } from './cookie';
-
-import { WebIntegrationErrorByCode } from './errors';
-import {
-  CONTRACT_COMMUNITY,
-  CONTRACT_CONTENT,
-  CONTRACT_TOKEN,
-  CONTRACT_USER,
-  GET_COMMUNITY,
-  GET_USER_BY_ADDRESS,
-} from './ethConstants';
-
-import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
 
 const sigUtil = require('eth-sig-util');
-const TRANSACTION_LIST = 'transactionList';
 const {
   callService,
   BLOCKCHAIN_SEND_META_TRANSACTION,
@@ -73,14 +75,10 @@ class EthereumService {
     this.transactionInPending = data.transactionInPendingDispatch;
     this.transactionCompleted = data.transactionCompletedDispatch;
     this.transactionFailed = data.transactionFailedDispatch;
-    this.setTransactionList = data.setTransactionListDispatch;
     this.waitForConfirm = data.waitForConfirmDispatch;
     this.getRecaptchaToken = data.getRecaptchaToken;
     this.isTransactionInitialised = null;
     this.addToast = data.addToast;
-
-    this.previousNonce = 0;
-    this.transactionList = [];
   }
 
   setTransactionInitialised = (toggle) => {
@@ -241,6 +239,14 @@ class EthereumService {
     data,
     confirmations = 1,
   ) => {
+    if (this.isTransactionInitialised) {
+      this.addToast({
+        type: 'info',
+        text: 'Wait for the end of the current transaction.',
+      });
+      throw new Error('Wait for the end of the current transaction.');
+    }
+
     this.setTransactionInitialised(true);
     this.waitForConfirm();
 
@@ -271,29 +277,9 @@ class EthereumService {
       const transaction = await this[contract]
         .connect(this.provider.getSigner(actor))
         [action](...data);
-
-      this.transactionList.push({
-        action,
-        transactionHash: transaction.hash,
-      });
-
-      this.transactionInPending(transaction.hash, this.transactionList);
+      this.transactionInPending(transaction.hash);
       const result = await transaction.wait(confirmations);
-      this.transactionList.find(
-        (transactionFromList) =>
-          transactionFromList.transactionHash === transaction.hash,
-      ).result = result;
-      setTimeout(() => {
-        const index = this.transactionList
-          .map((transactionFromList) => transactionFromList.transactionHash)
-          .indexOf(transaction.hash);
-        if (index !== -1) {
-          this.transactionList.splice(index, 1);
-          this.setTransactionList(this.transactionList);
-        }
-      }, '30000');
-
-      this.transactionCompleted(this.transactionList);
+      this.transactionCompleted();
       this.setTransactionInitialised(false);
       return result;
     } catch (err) {
@@ -405,16 +391,6 @@ class EthereumService {
       reCaptchaToken: token,
     });
 
-    this.transactionList.push({
-      action,
-      transactionHash: response.body.transactionHash,
-    });
-
-    localStorage.setItem(
-      TRANSACTION_LIST,
-      JSON.stringify(this.transactionList),
-    );
-
     if (response.errorCode) {
       throw response;
     }
@@ -424,30 +400,7 @@ class EthereumService {
       response.body.transactionHash,
       confirmations,
     );
-    this.transactionList.find(
-      (transactionFromList) =>
-        transactionFromList.transactionHash === response.body.transactionHash,
-    ).result = result;
-
-    localStorage.setItem(
-      TRANSACTION_LIST,
-      JSON.stringify(this.transactionList),
-    );
-    setTimeout(() => {
-      const index = this.transactionList
-        .map((transactionFromList) => transactionFromList.transactionHash)
-        .indexOf(response.body.transactionHash);
-      if (index !== -1) {
-        this.transactionList.splice(index, 1);
-        this.setTransactionList(this.transactionList);
-        localStorage.setItem(
-          TRANSACTION_LIST,
-          JSON.stringify(this.transactionList),
-        );
-      }
-    }, 30000);
-
-    this.transactionCompleted(this.transactionList);
+    this.transactionCompleted();
     this.setTransactionInitialised(false);
     return result;
   };
