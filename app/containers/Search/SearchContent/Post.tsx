@@ -77,7 +77,7 @@ const Post: React.FC<PostProps> = ({
     <div className="df mb8 border-box" css={styles.post}>
       <div className="m16 full-width" css={styles.container}>
         <div className="df aic">
-          <QuestionType postType={postType} className="mr4" />
+          <QuestionType postType={postType} isSearch={true} className="mr4" />
 
           <Link to={postLink} className="fz18 semi-bold " css={styles.title}>
             {title}

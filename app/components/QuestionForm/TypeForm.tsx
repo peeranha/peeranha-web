@@ -78,13 +78,15 @@ const TypeForm: React.FC<TypeFormProps> = ({
 }): JSX.Element | null => {
   const { t } = useTranslation();
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
+  const formValueId = formValues[FORM_TYPE];
+  const isHasPostId = formValueId !== undefined || postType !== undefined;
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
     () => [
-      labelConditional(formValues[FORM_TYPE] || String(postType)),
-      listConditional(formValues[FORM_TYPE] || String(postType)),
+      isHasPostId ? labelConditional(formValueId || String(postType)) : null,
+      isHasPostId ? listConditional(formValueId || String(postType)) : null,
     ],
-    [formValues[FORM_TYPE]],
+    [formValueId],
   );
 
   useEffect(() => {

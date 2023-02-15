@@ -14,7 +14,6 @@ import {
   TRANSACTION_IN_PENDING,
   TRANSACTION_FAILED,
   TRANSACTION_INITIALISED,
-  SET_TRANSACTION_LIST,
 } from './constants';
 
 export function initEthereum(data) {
@@ -64,17 +63,10 @@ export function transactionInPending(transactionHash, transactionList) {
   };
 }
 
-export function transactionCompleted(transactionList) {
+export function transactionCompleted(translation) {
   return {
     type: TRANSACTION_COMPLETED,
-    transactionList,
-  };
-}
-
-export function setTransactionList(transactionList) {
-  return {
-    type: SET_TRANSACTION_LIST,
-    transactionList,
+    translation,
   };
 }
 

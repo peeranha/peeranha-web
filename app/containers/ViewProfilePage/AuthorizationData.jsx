@@ -11,6 +11,9 @@ import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import { BaseStyled } from './SettingsOfUser';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const AuthorizationData = ({
   locale,
@@ -50,11 +53,11 @@ const AuthorizationData = ({
     <>
       <BaseStyled
         className={className}
-        css={css(`
-      border-top-left-radius: 0 !important;
-      border-top-right-radius: 0 !important;
-    `)}
         position="bottom"
+        css={css`
+      border-top-left-radius: 0; !important;
+      border-top-right-radius: 0; !important;
+    `}
       >
         <H3>{t('common.settings')}</H3>
       </BaseStyled>
@@ -71,7 +74,7 @@ const AuthorizationData = ({
                 <div>
                   <Span
                     css={css`
-                      color: ${TEXT_SECONDARY};
+                      color: ${colors.black || TEXT_SECONDARY};
                     `}
                     fontSize="16"
                   >
@@ -81,7 +84,7 @@ const AuthorizationData = ({
                 <div>
                   <Span
                     css={css`
-                      color: ${TEXT_SECONDARY};
+                      color: ${colors.black || TEXT_SECONDARY};
                     `}
                     fontSize="16"
                   >
@@ -95,6 +98,7 @@ const AuthorizationData = ({
             <div
               className="mb-2"
               css={css`
+                color: ${colors.black || ''};
                 font-weight: ${metaTransactions ? 'bold' : 'normal'};
               `}
             >
@@ -110,6 +114,7 @@ const AuthorizationData = ({
             </div>
             <div
               css={css`
+                color: ${colors.black || ''};
                 font-weight: ${!metaTransactions ? 'bold' : 'normal'};
               `}
             >

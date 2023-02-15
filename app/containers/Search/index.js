@@ -95,7 +95,7 @@ const Search = ({
               <IconLg icon={searchIcon} width={38} fill={BORDER_PRIMARY} />
             </MediumIconStyled>
           </div>
-          <span>{t('common.search')}</span>
+          {t('common.search')}
         </H3>
         {Boolean(items.length) && (
           <div>
