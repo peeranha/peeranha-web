@@ -7,51 +7,45 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const Wrapper = styled.span`
-  position: relative;
-  display: inline-block;
-  width: ${(props) => (props.width ? props.width : '100%')};
-  height: 7px;
-  background-color: var(--color-gray-light);
-  border-radius: 7px;
-  overflow: hidden;
-`;
-
-const Progress = styled.span`
-  width: ${(props) => (props.progress ? `${props.progress}%` : 0)};
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: inline-block;
-  height: 7px;
-  background-color: ${colors.textColor || TEXT_PRIMARY};
-  border-radius: 7px;
-`;
-
 const ProgressBar = ({
   achievementId,
-  width,
   progress,
   pointsToNext,
   groupType,
   messageSingle = '',
   messageMultiple = '',
-}) => {
-  const id = `progress_bar_${groupType}_${achievementId}`;
-
+}): JSX.Element => {
   const currentMessage =
     pointsToNext === 1
       ? `${pointsToNext} ${messageSingle}`
       : `${pointsToNext} ${messageMultiple}`;
 
   const showTooltip = () => {
-    if (currentMessage) showPopover(id, currentMessage);
+    if (currentMessage)
+      showPopover(`progress_bar_${groupType}_${achievementId}`, currentMessage);
   };
 
   return (
-    <Wrapper id={id} width={width} onMouseEnter={showTooltip}>
-      <Progress progress={progress} />
-    </Wrapper>
+    <div
+      className="pr"
+      css={{
+        height: 4,
+        background: 'rgba(53, 74, 137, 0.15)',
+        borderRadius: '4px',
+        width: '60%',
+      }}
+      onMouseEnter={showTooltip}
+    >
+      <div
+        className="pa"
+        css={{
+          height: 4,
+          background: colors.textColor || TEXT_PRIMARY,
+
+          ...(progress && { width: `${progress}%` }),
+        }}
+      />
+    </div>
   );
 };
 
