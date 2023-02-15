@@ -1,11 +1,13 @@
 import React, { useRef, useState, RefObject } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import useEventListener from 'hooks/useEventListener';
 import { singleCommunityColors } from 'utils/communityManagement';
 
-import { styles } from './AskQuestionPopup.styled';
 import LargeButton from 'components/Button/Contained/InfoLarge';
+import { FULL_RULES_LINK } from 'app/constants/rules';
+
+import { styles } from './AskQuestionPopup.styled';
 
 const colors = singleCommunityColors();
 
@@ -47,17 +49,36 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                 <div
                   css={css`
                     color: #7b7b7b;
+                    margin-bottom: 24px;
                   `}
                 >
                   <div className="pb16">{t('common.contentPopupBlock_2')}</div>
-                  <ul className="pb16 ml4">
+                  <ol
+                    css={css`
+                      list-style: decimal;
+                      margin-left: 24px;
+                      margin-bottom: 16px;
+                    `}
+                  >
                     <li>{t('common.contentPopupBlock_3')}</li>
                     <li>{t('common.contentPopupBlock_4')}</li>
                     <li>{t('common.contentPopupBlock_5')}</li>
                     <li>{t('common.contentPopupBlock_6')}</li>
                     <li>{t('common.contentPopupBlock_7')}</li>
-                  </ul>
-                  <div>{t('common.contentPopupBlock_8')}</div>
+                  </ol>
+                  <Trans
+                    i18nKey="common.contentPopupBlock_8"
+                    components={[
+                      <a href={FULL_RULES_LINK} key="0" target="_blank" />,
+                    ]}
+                  />
+                  <div
+                    css={css`
+                      margin-top: 16px;
+                    `}
+                  >
+                    {t('common.contentPopupBlock_9')}
+                  </div>
                 </div>
                 <div css={css(styles.gotItButton)}>
                   <LargeButton
@@ -74,7 +95,6 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                         opacity: ${colors.btnHeaderHoverOpacity};
                       }
                     `}
-                    className="mb24"
                   >
                     {t('common.gotIt')}
                   </LargeButton>
