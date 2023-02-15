@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import { singleCommunityColors } from 'utils/communityManagement';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation, Trans } from 'react-i18next';
@@ -15,6 +17,8 @@ import { TransparentLinkDefault } from 'components/Button/Contained/Transparent'
 
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
+
+const colors = singleCommunityColors();
 
 const DEFAULT_NUMBER = 10;
 
@@ -41,7 +45,14 @@ const Activity = ({
 
   return (
     <div>
-      <H4 isHeader>{t('profile.activity')}</H4>
+      <H4
+        css={css`
+          color: ${colors.white || ''};
+        `}
+        isHeader
+      >
+        {t('profile.activity')}
+      </H4>
 
       <Base position="top">
         <Button
