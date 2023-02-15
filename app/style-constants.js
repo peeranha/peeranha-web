@@ -22,7 +22,7 @@ export const PEER_PREMIUM_COLOR = '#FF8500';
 export const PEER_PREMIUM_TRANSPARENT_COLOR = '#FFECCC';
 
 const black = _get(colors, 'black', '#282828');
-const white = '#ffffff';
+const white = _get(colors, 'white', '#ffffff');
 const gray = '#bdbdbd';
 const darkgray = '#7b7b7b';
 const lightgray = '#efefef';
@@ -52,7 +52,7 @@ const premiumRGB = _get(colors, 'premiumRGB', `255, 133, 0`);
 const darkBlueRGB = `80, 101, 165`;
 const pinkRGB = `252, 102, 85`;
 const graySpecialRGB = `40, 40, 40`;
-const transparentSpecialRGB = `255, 255, 255`;
+const transparentSpecialRGB = `rgb(236, 8, 8)`;
 const lightblueSpecial = `#7699FF`;
 const iconTransparentBlue = '#a5bcff';
 

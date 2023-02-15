@@ -20,7 +20,10 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import {
+  selectCommunities,
+  selectTagsLoading,
+} from 'containers/DataCacheProvider/selectors';
 
 import { askQuestion, getExistingQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
@@ -42,6 +45,7 @@ export const AskQuestion = ({
   profileInfo,
   questionError,
   documentationMenu,
+  tagsLoading,
 }) => {
   const { t } = useTranslation();
   const getQuestionsDispatchDebounced = _debounce(getQuestionsDispatch, 250);
@@ -100,6 +104,7 @@ export const AskQuestion = ({
         documentationMenu={documentationMenu}
         isDocumentation={isDocumentation}
         parentId={parentId}
+        tagsLoading={tagsLoading}
       />
     </div>
   );
@@ -123,6 +128,7 @@ const mapStateToProps = createStructuredSelector({
   profileInfo: makeSelectProfileInfo(),
   existingQuestions: askQuestionSelector.selectExistingQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
+  tagsLoading: selectTagsLoading(),
   questionError: askQuestionSelector.selectQuestionError(),
   documentationMenu: selectDocumentationMenu(),
 });

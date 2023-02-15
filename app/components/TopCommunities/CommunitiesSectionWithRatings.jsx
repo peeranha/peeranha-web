@@ -38,7 +38,14 @@ const CommunitiesSectionWithRatings = ({
   }, [single]);
   return (
     <div className="overflow-hidden" ref={ref}>
-      <H4 isHeader>{t('common.communities')}</H4>
+      <H4
+        isHeader
+        css={css`
+          color: ${colors.white || ''};
+        `}
+      >
+        {t('common.communities')}
+      </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
         {orderBy(profile.ratings, 'rating', 'desc').map((item) => (

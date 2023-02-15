@@ -22,6 +22,10 @@ const Main = styled.div`
       return 0;
     }
 
+    if (x.transactionInitialised) {
+      return HEADER_HEIGHT + LOADER_HEIGHT;
+    }
+
     return HEADER_HEIGHT;
   }}px;
   padding-bottom: ${(x) => (!x.isMenuVisible ? 75 : 0)}px;
@@ -31,6 +35,11 @@ const Main = styled.div`
       if (x.isMenuVisible) {
         return 0;
       }
+
+      if (x.transactionInitialised) {
+        return MOBILE_HEADER_HEIGHT + LOADER_HEIGHT;
+      }
+
       return MOBILE_HEADER_HEIGHT;
     }}px;
     padding-bottom: 0px;

@@ -53,7 +53,7 @@ const Item: React.FC<ItemProps> = ({
             match.params.sectionId === item.id ||
             editArticleId === item.id) && {
             fontWeight: 700,
-            color: 'var(--color-black)',
+            color: 'var(black)',
           }),
         }}
         onClick={onClick}
