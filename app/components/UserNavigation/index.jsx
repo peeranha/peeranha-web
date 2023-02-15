@@ -19,6 +19,8 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import { getPermissions } from '../../utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
 import useMediaQuery from 'hooks/useMediaQuery';
+import { css } from '@emotion/react';
+import ScrollContainer from 'components/common/ScrollContainer';
 
 const colors = singleCommunityColors();
 
@@ -46,6 +48,9 @@ const Div = styled.div`
 
   @media only screen and (max-width: 767px) {
     max-width: 100%;
+    div > a {
+      margin-bottom: 10px;
+    }
   }
 `;
 
@@ -101,114 +106,122 @@ const UserNavigation = ({
           className="d-flex align-items-center"
           isProfilePage={isProfilePage}
         >
-          <NavigationLink
-            to={routes.profileView(userId)}
-            islink={
-              path !== routes.profileView(userId) &&
-              path !== routes.profileEdit(userId) &&
-              path !== routes.userCommunities(userId)
-                ? 1
-                : 0
-            }
-          >
-            {t('common.profile')}
-          </NavigationLink>
+          <ScrollContainer>
+            <NavigationLink
+              to={routes.profileView(userId)}
+              islink={
+                path !== routes.profileView(userId) &&
+                path !== routes.profileEdit(userId) &&
+                path !== routes.userCommunities(userId)
+                  ? 1
+                  : 0
+              }
+            >
+              {t('common.profile')}
+            </NavigationLink>
 
-          <NavigationLink
-            to={routes.userQuestions(userId)}
-            disabled={!questionsLength}
-            tabIndex={!questionsLength ? '-1' : undefined}
-            islink={path !== routes.userQuestions(userId) ? 1 : 0}
-          >
-            <Trans
-              i18nKey="common.postsNumber"
-              values={{ number: questionsLength }}
-              components={[
-                <Span
-                  className="ml-1"
-                  fontSize="14"
-                  color={
-                    path !== routes.userQuestions(userId)
-                      ? TEXT_SECONDARY
-                      : 'inherit'
-                  }
-                  key="0"
-                />,
-              ]}
-            />
-          </NavigationLink>
+            <NavigationLink
+              to={routes.userQuestions(userId)}
+              disabled={!questionsLength}
+              tabIndex={!questionsLength ? '-1' : undefined}
+              islink={path !== routes.userQuestions(userId) ? 1 : 0}
+            >
+              <span>
+                <Trans
+                  i18nKey="common.postsNumber"
+                  values={{ number: questionsLength }}
+                  components={[
+                    <Span
+                      className="ml-1"
+                      fontSize="14"
+                      color={
+                        path !== routes.userQuestions(userId)
+                          ? TEXT_SECONDARY
+                          : 'inherit'
+                      }
+                      key="0"
+                    />,
+                  ]}
+                />
+              </span>
+            </NavigationLink>
 
-          <NavigationLink
-            to={routes.userAnswers(userId)}
-            disabled={!questionsWithUserAnswersLength}
-            tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
-            islink={path !== routes.userAnswers(userId) ? 1 : 0}
-          >
-            <Trans
-              i18nKey="common.answersNumber"
-              values={{ number: questionsWithUserAnswersLength }}
-              components={[
-                <Span
-                  className="ml-1"
-                  fontSize="14"
-                  color={
-                    path !== routes.userAnswers(userId)
-                      ? TEXT_SECONDARY
-                      : 'inherit'
-                  }
-                  key="0"
-                />,
-              ]}
-            />
-          </NavigationLink>
+            <NavigationLink
+              to={routes.userAnswers(userId)}
+              disabled={!questionsWithUserAnswersLength}
+              tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
+              islink={path !== routes.userAnswers(userId) ? 1 : 0}
+            >
+              <span>
+                <Trans
+                  i18nKey="common.answersNumber"
+                  values={{ number: questionsWithUserAnswersLength }}
+                  components={[
+                    <Span
+                      className="ml-1"
+                      fontSize="14"
+                      color={
+                        path !== routes.userAnswers(userId)
+                          ? TEXT_SECONDARY
+                          : 'inherit'
+                      }
+                      key="0"
+                    />,
+                  ]}
+                />
+              </span>
+            </NavigationLink>
 
-          <NavigationLink
-            className={userId !== account ? 'd-none' : ''}
-            to={routes.userNotifications(userId)}
-            islink={path !== routes.userNotifications(userId) ? 1 : 0}
-          >
-            {t('common.notifications')}
-          </NavigationLink>
-
-          <NavigationLink
-            to={routes.userNFTs(userId)}
-            islink={path !== routes.userNFTs(userId) ? 1 : 0}
-          >
-            <Trans
-              i18nKey="common.NFTsNumber"
-              values={{ number: userAchievementsLength }}
-              components={[
-                <Span
-                  className="ml-1"
-                  fontSize="14"
-                  color={
-                    path !== routes.userNFTs(userId)
-                      ? TEXT_SECONDARY
-                      : 'inherit'
-                  }
-                  key="0"
-                />,
-              ]}
-            />
-          </NavigationLink>
-
-          {isModerator && (
             <NavigationLink
               className={userId !== account ? 'd-none' : ''}
-              to={routes.userModeration(userId)}
-              islink={path !== routes.userModeration(userId) ? 1 : 0}
+              to={routes.userNotifications(userId)}
+              islink={path !== routes.userNotifications(userId) ? 1 : 0}
             >
-              {t('common.moderation')}
+              {t('common.notifications')}
             </NavigationLink>
-          )}
 
-          <NavigationLink
-            className={userId !== account ? 'd-none' : ''}
-            to={routes.userSettings(userId)}
-            islink={path !== routes.userSettings(userId) ? 1 : 0}
-          >
-            {t('common.settings')}
-          </NavigationLink>
+            <NavigationLink
+              to={routes.userNFTs(userId)}
+              islink={path !== routes.userNFTs(userId) ? 1 : 0}
+            >
+              <span>
+                <Trans
+                  i18nKey="common.NFTsNumber"
+                  values={{ number: userAchievementsLength }}
+                  components={[
+                    <Span
+                      className="ml-1"
+                      fontSize="14"
+                      color={
+                        path !== routes.userNFTs(userId)
+                          ? TEXT_SECONDARY
+                          : 'inherit'
+                      }
+                      key="0"
+                    />,
+                  ]}
+                />
+              </span>
+            </NavigationLink>
+
+            {isModerator && (
+              <NavigationLink
+                className={userId !== account ? 'd-none' : ''}
+                to={routes.userModeration(userId)}
+                islink={path !== routes.userModeration(userId) ? 1 : 0}
+              >
+                {t('common.moderation')}
+              </NavigationLink>
+            )}
+
+            <NavigationLink
+              className={userId !== account ? 'd-none' : ''}
+              to={routes.userSettings(userId)}
+              islink={path !== routes.userSettings(userId) ? 1 : 0}
+            >
+              {t('common.settings')}
+            </NavigationLink>
+          </ScrollContainer>
 
           {isDesktop && (
             <NavigationButton
@@ -227,12 +240,38 @@ const UserNavigation = ({
           )}
         </Div>
 
-        <div className="d-none d-md-block">
+        <div
+          className="d-none d-md-block"
+          css={css`
+            width: 110px;
+            @media (min-width: 840px) {
+              width: auto;
+            }
+            @media (min-width: 991px) {
+              width: 110px;
+            }
+            @media (min-width: 1120px) {
+              width: auto;
+            }
+          `}
+        >
           <button
             onClick={onClickRedirectToEditProfilePage(userId)}
             className={`align-items-center ${
               isProfilePage ? 'd-inline-flex' : 'd-none'
             }`}
+            css={css`
+              margin-right: 23px;
+              @media (min-width: 840px) {
+                margin-right: 0;
+              }
+              @media (min-width: 991px) {
+                margin-right: 23px;
+              }
+              @media (min-width: 1120px) {
+                margin-right: 0;
+              }
+            `}
             id={`redireact-to-edit-${userId}-user-page-2`}
           >
             <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />

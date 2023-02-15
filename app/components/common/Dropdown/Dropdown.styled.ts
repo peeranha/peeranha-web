@@ -55,7 +55,7 @@ const styles = {
     color: 'rgba(0, 0, 0, 0.54)',
   },
   label: {
-    color: 'var(--color-black)',
+    color: 'var(black)',
   },
   optionsWrap: {
     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.25)',
@@ -65,7 +65,7 @@ const styles = {
     maxHeight: 190,
     overflowY: 'auto',
     backgroundColor: 'var(--color-white)',
-    color: 'var(--color-black)',
+    color: 'var(black)',
     fontSize: 14,
   },
   option: {

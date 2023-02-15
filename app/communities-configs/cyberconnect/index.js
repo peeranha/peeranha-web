@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://polywrap.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'polywrap_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -178,15 +173,6 @@ export const CyberconnectStyles = {
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/cyberconnect/CyberConnect_logo.svg',
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
-  },
-
   colors: {
     appWindowsColor: '#FFF',
     appSafarieColor: '#3c2525',

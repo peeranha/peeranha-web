@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://guild.xyz/fractalvisions';
 
-const fontSet = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'fractalVisions_styles',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fontSet,
     },
     header: {
       background: '#FFFFFF',

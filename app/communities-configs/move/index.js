@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = '';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'mark3d_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fontSet,
     },
     header: {
       background: '#FFFFFF',

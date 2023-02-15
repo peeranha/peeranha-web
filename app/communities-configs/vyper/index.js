@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://valist.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'valist_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -205,14 +200,6 @@ export const VyperStyles = {
     textColorShadow: '#637761',
     commHeadElemColor: '#637761',
     newPostButtonText: '#fff',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: 'linear-gradient(82.09deg, #637761 56.19%, #B4B7B4 147.29%);',

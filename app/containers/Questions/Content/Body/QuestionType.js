@@ -116,7 +116,12 @@ const types = {
   },
 };
 
-const QuestionType = ({ postType, className, isPromoted = false }) => {
+const QuestionType = ({
+  postType,
+  className,
+  isPromoted = false,
+  isSearch = false,
+}) => {
   const { t } = useTranslation();
   const [visible, changeVisibility] = useState(false);
 
@@ -139,6 +144,7 @@ const QuestionType = ({ postType, className, isPromoted = false }) => {
                 title={type.title}
                 label={type.label}
                 items={type.items}
+                isSearch={isSearch}
               />
             )}
             <Icon

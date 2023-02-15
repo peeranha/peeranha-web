@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://aave.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'valist_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -177,15 +172,6 @@ export const AaveStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/aave/aaveLogo.svg',
-
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
-  },
 
   colors: {
     appWindowsColor: '#2b5797',

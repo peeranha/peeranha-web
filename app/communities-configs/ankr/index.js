@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://valist.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'valist_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -178,15 +173,6 @@ export const AnkrStyles = {
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/ankr/ankrBlueLogo.svg',
-
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
-  },
 
   colors: {
     appMobileColor: '#FFF',

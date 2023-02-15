@@ -16,7 +16,7 @@ export const styles = {
     borderRadius: '5px',
 
     ':hover': {
-      boxShadow: '5px 5px 5px rgba(40, 40, 40, 0.1)',
+      boxShadow: `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
     },
   },
 
