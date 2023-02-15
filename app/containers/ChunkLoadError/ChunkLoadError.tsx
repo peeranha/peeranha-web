@@ -64,7 +64,7 @@ const ChunkLoadError: React.FC<{ locale: string }> = ({ locale }) => {
 
             <p className="fz18">
               <Trans
-                i18nKey="errorPage.weUpdatedTheApplication"
+                i18nKey="errorPage.holdDown"
                 values={{ ctrl: 'Ctrl', f5: 'F5' }}
                 components={[<b key="0" />, <b key="1" />]}
               />
