@@ -48,10 +48,17 @@ const AuthorizationData = ({
   };
   return (
     <>
-      <BaseStyled className={className} position="bottom">
+      <BaseStyled
+        className={className}
+        css={css(`
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    `)}
+        position="bottom"
+      >
         <H3>{t('common.settings')}</H3>
       </BaseStyled>
-      <BaseStyled position="top" notRoundedStyle className={className}>
+      <BaseStyled position="top" className={className}>
         <div>
           <div>
             <div className="mb-4">
