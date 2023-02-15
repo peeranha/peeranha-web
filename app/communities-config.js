@@ -128,6 +128,11 @@ const communitiesConfig = {
       src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
       styles: DeveloperDAOStyles,
     },
+    23: {
+      origin: 'https://pl-launchpad.peeranha.io',
+      src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
+      styles: LaunchpadStyles,
+    },
   },
   staging: {
     1: {
