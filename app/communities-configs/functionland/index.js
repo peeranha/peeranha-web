@@ -219,6 +219,10 @@ export const FunctionlandStyles = {
 
     linkColor: 'rgb(9, 147, 147)',
     iconsFillColor: 'rgb(36,199,199)',
+
+    saveDraftButtonBackground: 'rgb(9, 147, 147)',
+    saveDraftButtonText: 'rgb(9, 147, 147)',
+    saveDraftButtonHover: 'rgb(9, 147, 147)',
   },
   headerHeight: 80,
   domainName,

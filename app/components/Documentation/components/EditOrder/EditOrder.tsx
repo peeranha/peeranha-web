@@ -3,6 +3,10 @@ import SortableTree from 'react-sortable-tree';
 import NodeRenderer from './NodeRenderer';
 import Button from 'common-components/Button';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
+import { singleCommunityDocumentation } from 'utils/communityManagement';
+import { styled } from 'components/Documentation/EditDocumentation.styled';
+
+const documentationColors = singleCommunityDocumentation();
 
 type EditOrderProps = {
   documentationMenuDraft: Array<DocumentationItemMenuType>;
@@ -92,8 +96,9 @@ const EditOrder: React.FC<EditOrderProps> = ({
           <div
             className="pl8 pr8"
             css={{
-              color: 'var(--color-white)',
-              backgroundColor: '#7699FF',
+              color: documentationColors.headerText || 'var(--color-white)',
+              backgroundColor:
+                documentationColors.headerBackground || '#7699FF',
               borderRadius: '20px',
             }}
           >
@@ -121,12 +126,23 @@ const EditOrder: React.FC<EditOrderProps> = ({
             borderTop: '1px solid #D8D8D8',
           }}
         >
-          <Button variant="secondary" className="mr16" onClick={editOrder}>
+          <Button
+            variant="secondary"
+            className="mr16"
+            onClick={editOrder}
+            css={styled.canselButton}
+          >
             Cancel
           </Button>
           <Button
             variant="primary"
             css={{
+              background:
+                documentationColors.saveDraftButtonBackground ||
+                'var(--color-button-primary)',
+              color:
+                documentationColors.saveDraftButtonColor ||
+                'var(--color-white)',
               borderWidth: 0,
               '&:hover .icon': { stroke: 'var(--color-white)' },
             }}

@@ -20,6 +20,10 @@ import {
 } from 'components/FormFields/validate';
 import { DocumentationFormProps } from '../types';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
+import { singleCommunityDocumentation } from 'utils/communityManagement';
+import { styled } from 'components/Documentation/EditDocumentation.styled';
+
+const documentationColors = singleCommunityDocumentation();
 
 const DocumentationForm: React.FC<DocumentationFormProps> = ({
   documentationMenu,
@@ -275,12 +279,18 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           className="mr16"
           onClick={onClickCancel}
           disabled={isLoading}
+          css={styled.canselButton}
         >
           Cancel
         </Button>
         <Button
           variant="primary"
           css={{
+            background:
+              documentationColors.saveDraftButtonBackground ||
+              'var(--color-button-primary)',
+            color:
+              documentationColors.saveDraftButtonColor || 'var(--color-white)',
             borderWidth: 0,
             '&:hover .icon': { stroke: 'var(--color-white)' },
           }}

@@ -77,8 +77,10 @@ const Header: React.FC<any> = ({
         <Button
           variant="secondary"
           css={{
-            background: documentationColors.publishBackground || 'transparent',
-            color: documentationColors.publishText || 'transparent',
+            background: documentationColors.publishBackground || 'white',
+            color:
+              documentationColors.publishText ||
+              'var(--color-button-secondary)',
             borderWidth: 0,
             '&:hover': {
               background:
