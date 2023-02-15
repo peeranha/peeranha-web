@@ -5,7 +5,6 @@ export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
 // Transaction names
-export const REGISTER_ACC = 'createUser';
 export const UPDATE_ACC = 'updateUser';
 export const CREATE_COMMUNITY = 'createCommunity';
 export const EDIT_COMMUNITY = 'updateCommunity';
@@ -155,7 +154,10 @@ const replyMesh = `
 
 const post = `
   id
-  tags
+  tags {
+    id
+    name
+  }
   ipfsHash
   postType
   author {
@@ -191,7 +193,10 @@ const post = `
 const postMesh = `
   id
   posttag {
-    tagId
+    tag {
+      id
+      name
+    }
   }
   ipfsHash
   postType
@@ -717,7 +722,10 @@ const postsForSearchQuery = `
       where: {isDeleted: false, title_not: ""},
     ) {
         ${postForSearch}
-        tags
+        tags {
+          id
+          name
+        }
         author {
           ${user}
         }
@@ -735,7 +743,10 @@ const postsForSearchQueryMesh = (text: string) => `
     ) {
         ${postForSearch}
         posttag {
-          tagId
+          tag {
+            id
+            name
+          }
         }
         user {
           ${userMesh}
@@ -874,12 +885,6 @@ const history = `
   post {
     id
   }
-  reply {
-    id
-  }
-  comment {
-    id
-  }
   eventEntity
   eventName
   timeStamp
@@ -894,6 +899,12 @@ const historiesQuery = `
       where: {post: $postId}
     ) {
       ${history}
+      reply {
+        id
+      }
+      comment {
+        id
+      }
     }
   }
 `;
@@ -907,11 +918,11 @@ const historiesQueryMesh = `
       where: { postId: $postId }
     ) {
       ${history}
+      replyId
+      commentId
     }
   }
-`
-  .replace('reply', 'reply (where: { postId: $postId })')
-  .replace('comment', 'comment (where: { postId: $postId })');
+`;
 
 enum QueryName {
   User,

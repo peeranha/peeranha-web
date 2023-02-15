@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import cn from 'classnames';
@@ -11,7 +11,6 @@ import {
 } from '../../utils/communityManagement';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import commonMessages from '../../common-messages';
 import { styles } from './CookieConsentPopup.styled';
 
 const cookie = require('../../images/cookie.svg?inline');
@@ -20,6 +19,7 @@ const stylesCommunity = singleCommunityStyles();
 const colors = singleCommunityColors();
 
 const CookieConsentPopup: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const [enableAnimation, setEnableAnimation] = useState<boolean>(false);
   const [isCookieConsent, setIsCookieConsent] = useState<boolean>(() =>
     Boolean(localStorage.getItem('cookie-consent')),
@@ -62,17 +62,17 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
                   css={css(styles.cookieImage)}
                 />
                 <p className={cn('pr20 pl10')} css={css(styles.text)}>
-                  <FormattedMessage id={commonMessages.cookieConsent.id} />
+                  {t('common.cookieConsent')}
                   <Link
+                    to="/privacy-policy"
                     css={css`
                       color: ${colors.linkCookieColor || TEXT_PRIMARY};
                       :hover {
                         color: ${colors.linkCookieColor || TEXT_PRIMARY};
                       }
                     `}
-                    to="/privacy-policy"
                   >
-                    <FormattedMessage id={commonMessages.moreInfo.id} />
+                    {t('common.moreInfo')}
                   </Link>
                 </p>
               </div>
@@ -82,7 +82,7 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
                 css={css(styles.acceptButton)}
                 className="no-wrap"
               >
-                <FormattedMessage id={commonMessages.confirm.id} />
+                {t('common.confirm')}
               </LargeOutlinedButton>
             </div>
           </div>

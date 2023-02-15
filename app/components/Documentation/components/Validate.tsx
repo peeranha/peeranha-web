@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import validationArrowIcon from 'images/validationArrow.svg?inline';
 import cn from 'classnames';
 
@@ -22,6 +22,7 @@ const Validate: React.FC<ValidateProps> = ({
   onChange,
   position = 'left',
 }): JSX.Element => {
+  const { t } = useTranslation();
   const [errorMessages, setErrorMessages] = useState<
     Array<{ id: string; min?: number; max?: number }>
   >([]);
@@ -68,13 +69,11 @@ const Validate: React.FC<ValidateProps> = ({
           {position === 'left' && (
             <img src={validationArrowIcon} className="mr12" />
           )}
-          <FormattedMessage
-            id={errorMessages[0].id}
-            values={{
-              min: errorMessages[0].min,
-              max: errorMessages[0].max,
-            }}
-          />
+
+          {t(errorMessages[0].id, {
+            min: errorMessages[0].min,
+            max: errorMessages[0].max,
+          })}
         </div>
       )}
     </div>

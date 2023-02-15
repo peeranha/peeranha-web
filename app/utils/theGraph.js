@@ -19,17 +19,13 @@ const graphService = process.env.GRAPH_SERVICE;
 const isMeshService = graphService === 'Mesh';
 
 const executeQuery = async ({ query, variables }, enableCache = true) => {
-  const graphParams = {
-    query: gql(query),
-    variables,
-  };
-  if (!enableCache) {
-    graphParams.fetchPolicy = 'network-only';
-  }
-
   const result = isMeshService
     ? await executeMeshQuery({ query, variables })
-    : await client.query(graphParams);
+    : await client.query({
+        query: gql(query),
+        variables,
+        fetchPolicy: !enableCache ? 'network-only' : undefined,
+      });
 
   return result?.data;
 };
@@ -443,7 +439,7 @@ export const getCurrentPeriod = async () => {
   const response = await executeQuery({
     query: queries.CurrentPeriod[graphService],
   });
-  return isMeshService ? response?.period[0] : response?.periods?.[0];
+  return isMeshService ? response?.period[0] : response?.periods[0];
 };
 
 export const historiesForPost = async (postId) => {

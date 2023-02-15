@@ -75,7 +75,7 @@ const Links = ({ links, styles }) => (
         {subitems ? (
           <Subitems styles={styles.subitems}>
             <div>
-              {subitems.map(item => (
+              {subitems.map((item) => (
                 <LocalLink
                   styles={styles}
                   key={item.href}

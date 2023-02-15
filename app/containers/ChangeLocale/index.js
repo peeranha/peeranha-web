@@ -1,52 +1,41 @@
-/**
- *
- * ChangeLocale
- *
- */
-
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import { createStructuredSelector } from 'reselect';
-import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-import { appLocales } from 'i18n';
-import * as routes from 'routes-config';
+import { languages } from 'app/i18n';
 
-import createdHistory from 'createdHistory';
-import commonMessages from 'common-messages';
-
-import { setCookie } from 'utils/cookie';
+import { setCookie, getCookie } from 'utils/cookie';
 
 import { APP_LOCALE } from 'containers/LanguageProvider/constants';
-import { changeLocale } from 'containers/LanguageProvider/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import Span from 'components/Span';
 import Dropdown from 'components/Dropdown';
 
 import { Flag, Li } from './Styled';
 
-/* eslint global-require: 0 */
-export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
-  function setLocale(newLocale) {
+export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    const lang = getCookie(APP_LOCALE);
+
+    if (lang && lang !== 'en') {
+      changeLocale(lang);
+      i18n.changeLanguage(lang);
+    }
+  }, []);
+
+  const setLocale = (newLocale) => {
     setCookie({
       name: APP_LOCALE,
       value: newLocale,
       options: { neverExpires: true, defaultPath: true, allowSubdomains: true },
     });
 
-    const path = window.location.pathname + window.location.hash;
-
-    // ReactIntl && Redux Saga conflict => redirect solution
-    createdHistory.push(routes.preloaderPage());
-    changeLocaleDispatch(newLocale);
-    setTimeout(() => createdHistory.push(path), 0);
-  }
-  if (process.env.MULTI_LANG === 'false') return null;
+    changeLocale(newLocale);
+    i18n.changeLanguage(newLocale);
+  };
 
   return (
     <Dropdown
@@ -59,23 +48,22 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
             lineHeight="20"
             color={TEXT_SECONDARY}
           >
-            <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
-            {withTitle && <FormattedMessage {...commonMessages[locale]} />}
+            <Flag src={require(`images/${locale}_lang.png`)} alt="country" />
+            {withTitle && t(`common.${locale}`)}
           </Span>
         </React.Fragment>
       }
-      // TODO: return when language selection is needed
       menu={
         <ul>
-          {appLocales.map(x => (
+          {Object.keys(languages).map((item) => (
             <Li
-              key={x}
+              key={item}
               role="presentation"
-              onClick={() => setLocale(x)}
-              isBold={x === locale}
+              onClick={() => setLocale(item)}
+              isBold={item === locale}
             >
-              <Flag src={require(`images/${x}_lang.png`)} alt="language" />
-              <FormattedMessage {...commonMessages[x]} />
+              <Flag src={require(`images/${item}_lang.png`)} alt="language" />
+              {t(`common.${item}`)}
             </Li>
           ))}
         </ul>
@@ -88,25 +76,4 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
   );
 };
 
-ChangeLocale.propTypes = {
-  changeLocaleDispatch: PropTypes.func,
-  locale: PropTypes.string,
-  withTitle: PropTypes.bool,
-};
-
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-});
-
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    changeLocaleDispatch: bindActionCreators(changeLocale, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(withConnect)(ChangeLocale);
+export default ChangeLocale;

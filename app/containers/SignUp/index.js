@@ -1,16 +1,9 @@
-/**
- *
- * SignUp
- *
- */
-
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -44,7 +37,6 @@ import * as signUpSelectors from './selectors';
 import {
   checkEmail,
   verifyEmail,
-  iHaveEosAccount,
   signUpViaEmailComplete,
   putKeysToState,
   showWalletSignUpForm,
@@ -53,8 +45,6 @@ import {
 } from './actions';
 
 import { EMAIL_FIELD } from './constants';
-
-import messages from './messages';
 
 const single = isSingleCommunityWebsite();
 
@@ -83,7 +73,8 @@ export const SignUp = ({
   logo,
   getLogoDispatch,
 }) => {
-  const checkEmailMethod = values => {
+  const { t } = useTranslation();
+  const checkEmailMethod = (values) => {
     const post = values.get ? values.get(EMAIL_FIELD) : email;
     checkEmailDispatch(post);
   };
@@ -107,20 +98,17 @@ export const SignUp = ({
     }
   }, []);
 
-  useEffect(
-    () => {
-      if (single) {
-        getLogoDispatch();
-      }
-    },
-    [single],
-  );
+  useEffect(() => {
+    if (single) {
+      getLogoDispatch();
+    }
+  }, [single]);
 
   return (
     <>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('signUp.title')}
+        description={t('signUp.description')}
         language={locale}
         index={false}
       />
@@ -182,15 +170,18 @@ const withConnect = connect(
     account: makeSelectAccount(),
     email: signUpSelectors.selectEmail(),
     emailChecking: signUpSelectors.selectEmailChecking(),
-    emailVerificationProcessing: signUpSelectors.selectEmailVerificationProcessing(),
+    emailVerificationProcessing:
+      signUpSelectors.selectEmailVerificationProcessing(),
     signUpViaEmailProcessing: signUpSelectors.selectSignUpViaEmailProcessing(),
-    signUpWithWalletProcessing: signUpSelectors.selectSignUpWithWalletProcessing(),
-    showWalletSignUpProcessing: signUpSelectors.selectShowWalletSignUpProcessing(),
+    signUpWithWalletProcessing:
+      signUpSelectors.selectSignUpWithWalletProcessing(),
+    showWalletSignUpProcessing:
+      signUpSelectors.selectShowWalletSignUpProcessing(),
     ethereumUserAddress: signUpSelectors.selectEthereumUserAddress(),
     keys: signUpSelectors.selectKeys(),
     logo: selectLogo(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
     verifyEmailDispatch: bindActionCreators(verifyEmail, dispatch),
     signUpViaEmailComplete: bindActionCreators(

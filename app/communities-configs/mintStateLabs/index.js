@@ -1,21 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import MintStateLabsLogo from './images/mintStateLabsIcon.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/MSLLogo.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-import RobotoMediumEOT from './fonts/Roboto-Medium.eot';
-import RobotoMediumWOFF from './fonts/Roboto-Medium.woff';
-import RobotoMediumTTF from './fonts/Roboto-Medium.ttf';
-import RobotoBoldEOT from './fonts/Roboto-Bold.eot';
-import RobotoBoldWOFF from './fonts/Roboto-Bold.woff';
-import RobotoBoldTTF from './fonts/Roboto-Bold.ttf';
-
 const domainName = 'https://mintstatelabs.com/';
-
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'mintstatelabs_style',
@@ -26,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fontSet,
     },
     header: {
       background: '#FFFFFF',
@@ -188,26 +171,9 @@ export const MintStateLabsStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: MintStateLabsLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/mintStateLabs/mintStateLabsIcon.svg',
+  favicon: 'https://images.peeranha.io/communities/mintStateLabs/MSLLogo.ico',
 
   colors: {
     mainSubHeaderBgColor: '#282828',
@@ -233,7 +199,6 @@ export const MintStateLabsStyles = {
     textColor: '#53A6EC',
     textColorShadow: '#53A6EC',
     commHeadElemColor: '#FFF',
-    darkBlue: '#1a1c20',
   },
   cookieConsentPopupStyles: {
     background: '#53A6EC',

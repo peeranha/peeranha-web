@@ -119,6 +119,7 @@ export async function getProfileInfo(
     profile = JSON.parse(await getText(profileInfo.ipfsHash));
     profileInfo.displayName = profile.displayName;
     profileInfo.avatar = profile.avatar;
+    profileInfo.achievements = userStats?.achievements ?? [];
   } else {
     profile = profileInfo;
   }
@@ -133,7 +134,6 @@ export async function getProfileInfo(
   profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
   profileInfo.answersGiven =
     profileInfo.replyCount ?? userStats?.replyCount ?? 0;
-  profileInfo.achievements = userStats?.achievements ?? [];
   return profileInfo;
 }
 

@@ -1,16 +1,16 @@
 import React, { useRef, useState, RefObject } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import useEventListener from 'hooks/useEventListener';
-import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
-import { singleCommunityStyles } from '../../../utils/communityManagement';
+import { singleCommunityColors } from 'utils/communityManagement';
 
-import commonMessages from '../../../common-messages';
 import { styles } from './AskQuestionPopup.styled';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 
-const stylesCommunity = singleCommunityStyles();
+const colors = singleCommunityColors();
 
 const AskQuestionPopup: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const [enableAnimation, setEnableAnimation] = useState<boolean>(false);
   const [IsAgreeRules, setIsAgreeRules] = useState<boolean>(() =>
     Boolean(localStorage.getItem('agreement with the rules')),
@@ -42,55 +42,43 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
           >
             <div className="container">
               <div className="df fdc jcsb pt24 pb24 lh1-5">
-                <div className="pb20 tc">
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_1.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_2.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_3.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_4.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_5.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_6.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_7.id}
-                  />
-                </div>
-                <div className="p20 tc">
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_8.id}
-                  />
-                </div>
-                <LargeOutlinedButton
-                  onClick={acceptWithRules}
-                  customStyles={
-                    stylesCommunity.newPostPopupButtonStyles ||
-                    stylesCommunity.headerLoginButtonStyles
-                  }
+                <div>{t('common.contentPopupBlock_0')}</div>
+                <div className="pb24">{t('common.contentPopupBlock_1')}</div>
+                <div
+                  css={css`
+                    color: #7b7b7b;
+                  `}
                 >
-                  <FormattedMessage id={commonMessages.gotIt.id} />
-                </LargeOutlinedButton>
+                  <div className="pb16">{t('common.contentPopupBlock_2')}</div>
+                  <ul className="pb16 ml4">
+                    <li>{t('common.contentPopupBlock_3')}</li>
+                    <li>{t('common.contentPopupBlock_4')}</li>
+                    <li>{t('common.contentPopupBlock_5')}</li>
+                    <li>{t('common.contentPopupBlock_6')}</li>
+                    <li>{t('common.contentPopupBlock_7')}</li>
+                  </ul>
+                  <div>{t('common.contentPopupBlock_8')}</div>
+                </div>
+                <div css={css(styles.gotItButton)}>
+                  <LargeButton
+                    onClick={acceptWithRules}
+                    css={css`
+                      min-width: 69px;
+                      height: 30px;
+                      background: ${colors.btnHeaderColor};
+                      color: ${colors.newPostButtonText};
+                      border: 1px solid ${colors.newPostButtonText};
+                      :hover {
+                        background: ${colors.btnHeaderHoverColor};
+                        border: ${colors.btnHeaderHoverBorder};
+                        opacity: ${colors.btnHeaderHoverOpacity};
+                      }
+                    `}
+                    className="mb24"
+                  >
+                    {t('common.gotIt')}
+                  </LargeButton>
+                </div>
               </div>
             </div>
           </div>

@@ -1,9 +1,5 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { put, takeLatest, select } from 'redux-saga/effects';
 import orderBy from 'lodash/orderBy';
-
-import { getExistingTags } from 'utils/communityManagement';
-
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import { GET_EXISTING_TAGS } from './constants';
 
@@ -23,24 +19,19 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
     const storedTags = yield select(selectExistingTags());
 
     const sorting = yield select(selectSorting());
-    const communities = yield select(selectCommunities());
 
     const sliceStart = yield loadMore ? storedTags.length : 0;
 
-    const { tags } = communities.filter(x => x.id === +communityId)[0] || {
-      tags: [],
-    };
-
-    const tagsByInput = tags.filter(x =>
-      `${x.name} ${x.description}`.toLowerCase().match(text.toLowerCase()),
+    const tags = Array.isArray(storedTags)
+      ? storedTags
+      : storedTags[communityId];
+    const tagsByInput = tags.filter((tag) =>
+      `${tag.name} ${tag.description}`.toLowerCase().match(text.toLowerCase()),
     );
 
-    const existingTags = orderBy(tagsByInput, x => x[sorting], ['desc']).slice(
-      sliceStart,
-      sliceStart + limit,
-    );
-
-    // const existingTags = yield call(getExistingTags, sortedTags);
+    const existingTags = orderBy(tagsByInput, (tag) => tag[sorting], [
+      'desc',
+    ]).slice(sliceStart, sliceStart + limit);
 
     yield put(getExistingTagsSuccess(existingTags, loadMore));
   } catch (err) {
@@ -48,6 +39,6 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_EXISTING_TAGS, getExistingTagsWorker);
 }

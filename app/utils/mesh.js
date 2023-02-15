@@ -54,7 +54,7 @@ const getReplyDataFromMesh = (item, replyComments) => {
 
 export const getPostDataFromMesh = (item) => {
   const post = { ...item };
-  const tags = post.posttag.map((postTag) => postTag.tagId);
+  const tags = post.posttag.map((postTag) => postTag.tag[0]);
   const replies = post.reply.map((reply) =>
     getReplyDataFromMesh(reply, post.comment),
   );

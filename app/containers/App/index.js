@@ -67,7 +67,6 @@ import {
   EditAnswer,
   CreateCommunity,
   TagsOfCommunity,
-  TagsCollection,
   CreateTag,
   SuggestedTags,
   EditTag,
@@ -161,11 +160,20 @@ const App = ({
     }
   }, []);
 
+  const isDocumentationExist = Array.isArray(documentationMenu)
+    ? documentationMenu.length
+    : Object.keys(documentationMenu).length;
+
   useEffect(() => {
     if (single && (pathname == '/' || pathname == '/feed')) {
-      hasPinnedPost || isDocumentationPositionTop
-        ? redirectToDocumentationDispatch()
-        : redirectToFeedDispatch();
+      if (
+        (hasPinnedPost || isDocumentationPositionTop) &&
+        isDocumentationExist
+      ) {
+        redirectToDocumentationDispatch();
+      } else {
+        redirectToFeedDispatch();
+      }
     }
   }, [documentationMenu]);
 
@@ -268,14 +276,6 @@ const App = ({
             <Route
               path={routes.suggestedCommunities()}
               render={(props) => Wrapper(SuggestedCommunities, props)}
-            />
-          )}
-
-          {!single && (
-            <Route
-              exact
-              path={routes.tags()}
-              render={(props) => Wrapper(TagsCollection, props)}
             />
           )}
 
@@ -414,13 +414,37 @@ const App = ({
 
           <Route
             exact
+            path={'/questions/:id'}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={'/discussions/:id'}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
             path={routes.expertPostView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
             exact
+            path={'/experts/:id'}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
             path={routes.tutorialView(':id', ':title')}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={'/tutorials/:id'}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
@@ -475,12 +499,6 @@ const App = ({
             path={routes.errorPage()}
             render={(props) => Wrapper(ErrorPage, props)}
           />
-
-          <Route exact path={routes.facebookDataDeletion()}>
-            <React.Suspense fallback={null}>
-              <DeleteFacebookData />
-            </React.Suspense>
-          </Route>
 
           <Route path={routes.signup.email.name}>
             <React.Suspense fallback={<Loader />}>
