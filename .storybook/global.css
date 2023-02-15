@@ -20,7 +20,7 @@ body {
   font-size: 24px;
   padding: 20px;
   background: var(--color-gray-special);
-  color: var(--color-black);
+  color: var(black);
   font-family: 'Roboto';
   font-weight: 500;
 }

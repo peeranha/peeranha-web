@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://solidity.peeranha.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'solidity_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -204,14 +199,6 @@ export const SolidityStyles = {
     localeArrowColor: 'rgba(25, 68, 176, 1)',
     textColor: 'rgba(25, 68, 176, 1)',
     commHeadElemColor: 'rgba(25, 68, 176, 1)',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: 'linear-gradient(92.71deg, #0A37AA 32.07%, #6688E0 101.8%)',

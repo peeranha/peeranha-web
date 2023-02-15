@@ -11,6 +11,7 @@ import {
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+import peeranhaLogoWhite from 'images/Logo.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
@@ -238,7 +239,11 @@ const AdditionalLinksComponent = ({
                   i18nKey="common.poweredBy"
                   values={{ year: new Date().getFullYear() }}
                   components={[
-                    <Img key="0" src={peeranhaLogo} alt="peeranha" />,
+                    <Img
+                      key="peeranha"
+                      src={styles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
+                      alt="peeranha"
+                    />,
                   ]}
                 />
               </a>
