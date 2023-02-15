@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -78,6 +79,7 @@ export const TextEditorField = ({
     disabled={disabled}
   >
     <Div
+      css={css`border-radius: 0; !important;`}
       disabled={disabled}
       error={meta.touched && (meta.error || meta.warning)}
     >

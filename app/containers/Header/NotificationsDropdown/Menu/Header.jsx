@@ -17,7 +17,7 @@ const Container = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT};
 
   > div span:nth-child(1) {
-    margin-right: 10px;
+    margin-left: 10px;
     font-weight: 600;
     font-size: 18px;
   }

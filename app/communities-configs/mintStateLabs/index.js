@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://mintstatelabs.com/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'mintstatelabs_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -204,14 +199,6 @@ export const MintStateLabsStyles = {
     textColor: '#53A6EC',
     textColorShadow: '#53A6EC',
     commHeadElemColor: '#FFF',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: '#53A6EC',

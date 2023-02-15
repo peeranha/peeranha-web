@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import DescriptionList from 'components/DescriptionList';
 import { BG_LIGHT, BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
 import { useTranslation } from 'react-i18next';
+import { css } from '@emotion/react';
 
 const Base = styled.div`
   position: absolute;
@@ -44,11 +45,15 @@ const Base = styled.div`
   }
 `;
 
-const Popover = ({ title, label, items }) => {
+const Popover = ({ title, label, items, isSearch }) => {
   const { t } = useTranslation();
 
   return (
-    <Base>
+    <Base
+      css={css`
+        ${isSearch && '@media (max-width: 991px) {left: 0px !important;}'}
+      `}
+    >
       <strong>{t(title)}</strong>
       <DescriptionList label={label} items={items} />
     </Base>

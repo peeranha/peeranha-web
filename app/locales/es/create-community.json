@@ -46,5 +46,7 @@
   "socialLinks": "Vínculos sociales",
   "socialLinksTip": "Opcional",
   "colors": "Colores",
-  "topBanner": "Bandera superior"
+  "topBanner": "Bandera superior",
+  "communityWebsite": "Sitio de la comunidad",
+  "communityWebsiteTip": "El nombre de su sitio comunitario"
 }
