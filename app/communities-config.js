@@ -218,7 +218,9 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:31000',
+      origin: 'http://localhost:3000',
+      src: 'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
+      styles: FunctionlandStyles,
     },
   },
 };

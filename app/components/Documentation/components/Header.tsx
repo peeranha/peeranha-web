@@ -1,9 +1,12 @@
 import React from 'react';
-import Button from 'common-components/Button';
+import Button from 'components/common/Button';
 import SaveIcon from 'icons/Save';
 import CloseRoundedIcon from 'icons/CloseRounded';
 import Popup from 'common-components/Popup';
 import useTrigger from 'hooks/useTrigger';
+import { singleCommunityDocumentation } from 'utils/communityManagement';
+
+const documentationColors = singleCommunityDocumentation();
 
 const Header: React.FC<any> = ({
   toggleEditDocumentation,
@@ -22,8 +25,8 @@ const Header: React.FC<any> = ({
       className="df jcsb aic pl32 pr32 pt12 pb12"
       css={{
         height: 72,
-        background: '#A5BCFF',
-        color: 'var(--color-white)',
+        background: documentationColors.headerBackground || '#A5BCFF',
+        color: documentationColors.headerText || 'var(--color-white)',
         fontWeight: 600,
         fontSize: 38,
         lineHeight: '48px',
@@ -33,9 +36,16 @@ const Header: React.FC<any> = ({
       <div className="df aic">
         <Button
           variant="third"
+          css={{
+            background: documentationColors.buttonBackground || 'transparent',
+            color: documentationColors.buttonText || 'var(--color-white)',
+            borderColor:
+              documentationColors.buttonBorder || 'var(--color-white)',
+          }}
           icon={
             <CloseRoundedIcon
               className="icon"
+              stroke={documentationColors.buttonText}
               css={{ width: 18, height: 18, fill: 'transparent' }}
             />
           }
@@ -46,9 +56,16 @@ const Header: React.FC<any> = ({
         </Button>
         <Button
           variant="third"
+          css={{
+            background: documentationColors.buttonBackground || 'transparent',
+            color: documentationColors.buttonText || 'var(--color-white)',
+            borderColor:
+              documentationColors.buttonBorder || 'var(--color-white)',
+          }}
           icon={
             <CloseRoundedIcon
               className="icon"
+              stroke={documentationColors.buttonText}
               css={{ width: 18, height: 18, fill: 'transparent' }}
             />
           }
@@ -59,21 +76,33 @@ const Header: React.FC<any> = ({
         </Button>
         <Button
           variant="secondary"
+          css={{
+            background: documentationColors.publishBackground || 'transparent',
+            color: documentationColors.publishText || 'transparent',
+            borderWidth: 0,
+            '&:hover': {
+              background:
+                documentationColors.publishBackgroundHover ||
+                'var(--color-button-secondary)',
+              color:
+                documentationColors.publishTextHover || 'var(--color-white)',
+              '.icon': {
+                stroke:
+                  documentationColors.publishTextHover || 'var(--color-white)',
+              },
+            },
+          }}
           icon={
             <SaveIcon
               className="icon"
               css={{
                 color: 'transparent',
-                stroke: '#F76F60',
+                stroke: documentationColors.publishText || '#F76F60',
                 width: 18,
                 height: 18,
               }}
             />
           }
-          css={{
-            borderWidth: 0,
-            '&:hover .icon': { stroke: 'var(--color-white)' },
-          }}
           onClick={saveDocumentationMenu}
         >
           Publish

@@ -218,6 +218,21 @@ export const FunctionlandStyles = {
     mainLinksSelected: `${fonts}`,
     mainLinksNotSelected: `${fonts}`,
   },
+  documentationColors: {
+    headerBackground: 'rgb(9, 147, 147)',
+    headerText: '#F3F3F3',
+    buttonBackground: 'transparent',
+    buttonText: '#F3F3F3',
+    buttonBorder: '#F3F3F3',
+
+    publishBackground: '#F3F3F3',
+    publishText: 'rgb(9, 147, 147)',
+    publishBackgroundHover: 'rgba(243,243,243,0.7)',
+    publishTextHover: 'rgb(9, 147, 147)',
+
+    linkColor: 'rgb(9, 147, 147)',
+    iconsFillColor: 'rgb(36,199,199)',
+  },
   headerHeight: 80,
   domainName,
   dropDownIconStyles: css`
