@@ -88,6 +88,7 @@ export const editCommunity = async (
     user,
     EDIT_COMMUNITY,
     [user, communityId, ipfsHash],
+    3,
   );
 };
 
