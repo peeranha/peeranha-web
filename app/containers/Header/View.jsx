@@ -18,6 +18,7 @@ import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaMetaLogo from 'images/PeeranhaMeta.svg?inline';
+import processIndicator from 'images/progress-indicator.svg?external';
 
 import {
   isSingleCommunityWebsite,
