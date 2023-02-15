@@ -109,3 +109,4 @@ export { default as TransactionStatus } from './TransactionStatus';
 export { default as TransactionLoader } from './TransactionLoader';
 export { default as SuccessfulTransaction } from './SuccessfulTransaction';
 export { default as FailedTransaction } from './FailedTransaction';
+export { default as SelectedArrow } from './SelectedArrow';

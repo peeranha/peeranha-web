@@ -31,6 +31,7 @@ import {
 } from 'utils/properties';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { showPopover } from 'utils/popover';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
@@ -44,6 +45,7 @@ import LogoStyles from './Logo';
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
+import ChangeLocale from 'containers/ChangeLocale';
 
 import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION } from './constants';
 
@@ -98,10 +100,12 @@ const View = ({
   transactionInitialised,
   isEditDocumentation,
   toggleEditDocumentation,
+  locale,
+  changeLocale,
 }) => {
   const { t } = useTranslation();
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
-
+  const isDesktop = useMediaQuery('(min-width: 992px)');
   useEffect(() => {
     if (isSearchFormVisible && !single) {
       document.getElementById(SEARCH_FORM_ID).focus();
@@ -228,6 +232,13 @@ const View = ({
                   faqQuestions={faqQuestions}
                 />
               ) : null}
+              {isDesktop && (
+                <ChangeLocale
+                  withTitle
+                  changeLocale={changeLocale}
+                  locale={locale}
+                />
+              )}
             </Section>
           </div>
         </div>

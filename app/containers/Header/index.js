@@ -14,7 +14,7 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
-import { showLeftMenu } from 'containers/AppWrapper/actions';
+import { showLeftMenu, changeLocale } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
@@ -86,6 +86,7 @@ export class Header extends React.PureComponent {
       locale,
       isEditDocumentation,
       toggleEditDocumentationDispatch,
+      changeLocale,
     } = this.props;
 
     if (isMenuVisible) return null;
@@ -109,6 +110,7 @@ export class Header extends React.PureComponent {
         locale={locale}
         isEditDocumentation={isEditDocumentation}
         toggleEditDocumentation={toggleEditDocumentationDispatch}
+        changeLocale={changeLocale}
       />
     );
   }
@@ -153,6 +155,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       toggleEditDocumentation,
       dispatch,
     ),
+    changeLocale: bindActionCreators(changeLocale, dispatch),
   };
 }
 

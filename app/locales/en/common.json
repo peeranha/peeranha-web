@@ -505,5 +505,6 @@
     "revokeCommunityModeratorPermission": "Revoke community moderator permission",
     "successful": "Successful",
     "failed": "Failed"
-  }
+  },
+  "selectLanguage": "Select language"
 }
