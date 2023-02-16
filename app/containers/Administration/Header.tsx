@@ -1,5 +1,4 @@
-// @ts-ignore
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
@@ -7,15 +6,9 @@ import Wrapper from 'components/Header/Simple';
 import Icon from 'components/Icon';
 import H3 from 'components/H3';
 
-import messages from 'containers/Administration/messages';
-
 import AddRoleForm from 'containers/Administration/AddRoleForm';
 
-import commonMessages from 'common-messages';
-
-// @ts-ignore
 import usersHeader from 'images/usersHeader.svg?external';
-// @ts-ignore
 import AddModeratorButton from 'containers/Administration/AddModeratorButton';
 
 import { singleCommunityColors } from 'utils/communityManagement';
@@ -34,23 +27,32 @@ export const Header: React.FC<HeaderProps> = ({
   single,
   addRole,
   addRoleLoading,
-}): JSX.Element => (
-  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
-    <H3>
-      <MediumIconStyled>
-        <Icon icon={usersHeader} width="38" />
-      </MediumIconStyled>
-      <FormattedMessage id={commonMessages.administration.id} />
-    </H3>
+}): JSX.Element => {
+  const { t } = useTranslation();
 
-    <AddRoleForm
-      locale={locale}
-      single={single}
-      addRole={addRole}
-      Button={AddModeratorButton}
-      addRoleLoading={addRoleLoading}
-    />
-  </Wrapper>
-);
+  return (
+    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+      <H3>
+        <MediumIconStyled>
+          <Icon
+            icon={usersHeader}
+            width="38"
+            color={colors.btnColor || BORDER_PRIMARY}
+            isColorImportant={true}
+          />
+        </MediumIconStyled>
+
+        {t('common.administration')}
+      </H3>
+      <AddRoleForm
+        locale={locale}
+        single={single}
+        addRole={addRole}
+        Button={AddModeratorButton}
+        addRoleLoading={addRoleLoading}
+      />
+    </Wrapper>
+  );
+};
 
 export default React.memo(Header);

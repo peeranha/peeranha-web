@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { LANDING_FONT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import logo from 'images/Logo.svg?inline';
-import login from 'images/Login.svg?external';
 import closeIcon from 'images/close.svg?external';
 import headerNavigation from 'images/headerNavigation.svg?external';
 
@@ -25,11 +24,8 @@ import {
   THIRD_SCREEN,
 } from './constants';
 
-import messages from './messages';
-
-/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
-
-const Header = ({ showLoginModal, account }) => {
+const Header = () => {
+  const { t } = useTranslation();
   const [isToggled, setToggled] = useState(false);
 
   function toggle(screen) {
@@ -69,18 +65,18 @@ const Header = ({ showLoginModal, account }) => {
               } d-lg-flex flex-column flex-lg-row navbar`}
             >
               <button onClick={() => toggle(SECOND_SCREEN)}>
-                <FormattedMessage id={messages.about.id} />
+                {t('about.about')}
               </button>
 
               <button onClick={() => toggle(THIRD_SCREEN)}>
-                <FormattedMessage id={messages.rewards.id} />
+                {t('about.rewards')}
               </button>
 
               <Button
                 className="signup"
                 onClick={() => createdHistory.push(routes.feed())}
               >
-                <FormattedMessage id={messages.goToApp.id} />
+                {t('about.goToSite')}
               </Button>
             </div>
           </div>

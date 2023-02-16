@@ -72,8 +72,6 @@ export function* checkReadinessWorker({ buttonId }) {
   });
 }
 
-// TODO: test
-/* eslint no-empty: 0 */
 export function* redirectToEditProfilePageWorker({ buttonId, user }) {
   try {
     yield call(checkReadinessWorker, { buttonId });
@@ -81,6 +79,6 @@ export function* redirectToEditProfilePageWorker({ buttonId, user }) {
   } catch (err) {}
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(SAVE_PROFILE, saveProfileWorker);
 }

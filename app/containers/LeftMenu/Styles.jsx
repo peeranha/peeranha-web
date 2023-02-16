@@ -76,7 +76,7 @@ export const ViewStyled = styled.nav`
   }
 
   > div:not(:last-child) {
-    border-bottom: 1px solid ${BORDER_SECONDARY};
+    border-bottom: 1px solid ${colors.secondaryAdditional || BORDER_SECONDARY};
   }
 
   &.sticky {

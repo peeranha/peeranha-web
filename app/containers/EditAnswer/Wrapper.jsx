@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
-import commonMessages from 'common-messages';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { TEXT_PRIMARY } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -20,53 +19,55 @@ import A from 'components/A';
 import { IconMd, IconLg } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
-import messages from './messages';
-
 const colors = singleCommunityColors();
 
-const Wrapper = ({ children, questionid, answerid, title }) => (
-  <div>
-    <Header className="mb-to-sm-0 mb-from-sm-3">
-      <H3>
-        <MediumIconStyled>
-          <IconLg
-            icon={myFeedIcon}
-            width="38"
-            color={colors.btnColor || TEXT_PRIMARY}
-            fill={colors.btnColor || TEXT_PRIMARY}
-            isColorImportant={true}
-          />
-        </MediumIconStyled>
-        <FormattedMessage {...messages.editAnswer} />
-      </H3>
+const Wrapper = ({ children, questionid, answerid, title }) => {
+  const { t } = useTranslation();
 
-      <div className="right-panel">
-        <A to={routes.questionView(questionid, title, answerid)}>
-          <button>
-            <IconMd
-              className="mr-1"
-              icon={closeIcon}
-              fill={colors.btnColor || TEXT_PRIMARY}
+  return (
+    <div>
+      <Header className="mb-to-sm-0 mb-from-sm-3">
+        <H3>
+          <MediumIconStyled>
+            <IconLg
+              icon={myFeedIcon}
+              width="38"
               color={colors.btnColor || TEXT_PRIMARY}
+              fill={colors.btnColor || TEXT_PRIMARY}
               isColorImportant={true}
             />
-            <Span
-              color={colors.btnColor || TEXT_PRIMARY}
-              className="button-label"
-            >
-              <FormattedMessage id={commonMessages.close.id} />
-            </Span>
-          </button>
-        </A>
-      </div>
-    </Header>
+          </MediumIconStyled>
+          {t('post.editAnswer')}
+        </H3>
 
-    <TipsBase className="overflow-hidden">
-      <BaseSpecialOne>{children}</BaseSpecialOne>
-      <Tips />
-    </TipsBase>
-  </div>
-);
+        <div className="right-panel">
+          <A to={routes.questionView(questionid, title, answerid)}>
+            <button>
+              <IconMd
+                className="mr-1"
+                icon={closeIcon}
+                fill={colors.btnColor || TEXT_PRIMARY}
+                color={colors.btnColor || TEXT_PRIMARY}
+                isColorImportant={true}
+              />
+              <Span
+                color={colors.btnColor || TEXT_PRIMARY}
+                className="button-label"
+              >
+                {t('common.close')}
+              </Span>
+            </button>
+          </A>
+        </div>
+      </Header>
+
+      <TipsBase className="overflow-hidden">
+        <BaseSpecialOne>{children}</BaseSpecialOne>
+        <Tips />
+      </TipsBase>
+    </div>
+  );
+};
 
 Wrapper.propTypes = {
   children: PropTypes.any,

@@ -9,7 +9,7 @@ import CommunitySelector from 'components/CommunitySelector';
 import Img from 'components/Img';
 import { Input } from 'components/Input/InputStyled';
 import Span from 'components/Span';
-
+import { DEFAULT_COMMUNITY_ID } from 'components/QuestionForm/constants';
 import Wrapper from './Wrapper';
 
 const Div = styled.div`
@@ -32,10 +32,18 @@ export const CommunityField = ({
   disabled,
   className,
   options,
+  communityId,
+  isHasRoleGlobal,
+  isCommunityModerator,
+  isEditForm,
+  isPostAuthor,
 }) => {
   if (input) {
     input.value = input.value.toJS ? input.value.toJS() : input.value;
   }
+  const AllThingsWeb3Comm = options.filter(
+    (item) => item.id === DEFAULT_COMMUNITY_ID || item.id === communityId,
+  );
 
   return (
     <Wrapper
@@ -50,7 +58,14 @@ export const CommunityField = ({
         input={input}
         disabled={disabled}
         selectedCommunityId={input.value?.id ?? 0}
-        communities={options}
+        communities={
+          isEditForm &&
+          isCommunityModerator &&
+          !isHasRoleGlobal &&
+          !isPostAuthor
+            ? AllThingsWeb3Comm
+            : options
+        }
         Button={({ communityAvatar, communityLabel }) => (
           <Div
             className="d-flex align-items-center"

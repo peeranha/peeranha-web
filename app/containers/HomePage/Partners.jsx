@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import PartnersImg from 'images/partners.svg?inline';
-import { FormattedMessage } from 'react-intl';
-import commonMessages from '../../common-messages';
+import { useTranslation } from 'react-i18next';
 
 const PartnersHeader = styled.h3`
   display: flex;
@@ -40,15 +39,17 @@ const ImgAdaptive = styled.img`
   height: 100%;
 `;
 
-const Partners = () => (
-  <>
-    <PartnersHeader>
-      <FormattedMessage id={commonMessages.partners.id} />
-    </PartnersHeader>
-    <ImgContainer>
-      <ImgAdaptive src={PartnersImg} alt="Partners" />
-    </ImgContainer>
-  </>
-);
+const Partners = () => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <PartnersHeader>{t('common.partners')}</PartnersHeader>
+      <ImgContainer>
+        <ImgAdaptive src={PartnersImg} alt="Partners" />
+      </ImgContainer>
+    </>
+  );
+};
 
 export default Partners;

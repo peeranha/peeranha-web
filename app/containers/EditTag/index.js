@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
@@ -43,12 +42,12 @@ import Form from 'containers/CreateTag/Form';
 import { Tips } from '../CreateTag/Tips';
 import { useModeratorRole } from '../../hooks/useModeratorRole';
 
-import messages from './messages';
 import editTagSaga from './saga';
 import { getEditTagForm, resetEditTagReducer, editTag } from './actions';
 import { selectEditTagFormLoading, selectEditTagProcessing } from './selectors';
 import { getExistingTags } from '../Tags/actions';
 import { isSingleCommunityWebsite } from '../../utils/communityManagement';
+import { getCommunityTags } from '../DataCacheProvider/actions';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 
@@ -66,10 +65,16 @@ const EditTag = ({
   faqQuestions,
   locale,
   getExistingTagsDispatch,
+  getCommunityTagsDispatch,
 }) => {
+  const { t } = useTranslation();
   let { communityId, tagId } = editTagData;
 
   communityId = isSingleCommunityMode || match.params.communityId;
+
+  useEffect(() => {
+    getCommunityTagsDispatch(communityId);
+  }, [communityId]);
 
   useModeratorRole(routes.noAccess, communityId);
 
@@ -108,23 +113,19 @@ const EditTag = ({
     [editTagDispatch],
   );
 
-  const title = <FormattedMessage {...messages.title} />;
-
   if (editTagFormLoading) return <LoadingIndicator />;
 
   return (
     <>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('tags.titleEdit')}
+        description={t('tags.descriptionSave')}
         language={locale}
         index={false}
       />
       <Header
-        title={title}
-        closeRedirectPage={
-          communityId ? routes.communityTags(communityId) : routes.tags()
-        }
+        title={t('tags.titleEdit')}
+        closeRedirectPage={routes.communityTags(communityId)}
         closeButtonAction={resetEditTagDataDispatch}
       />
       <TipsBase>
@@ -133,7 +134,6 @@ const EditTag = ({
             communities={communities}
             editTagData={editTagData}
             submitAction={editTagArgs}
-            translations={translationMessages[locale]}
             tagFormLoading={editTagProcessing}
             isEditTagForm
           />
@@ -155,6 +155,7 @@ EditTag.propTypes = {
   editTagDispatch: PropTypes.func,
   locale: PropTypes.string,
   faqQuestions: PropTypes.array,
+  getCommunityTagsDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -180,6 +181,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     ),
     getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
     editTagDispatch: bindActionCreators(editTag, dispatch),
+    getCommunityTagsDispatch: bindActionCreators(getCommunityTags, dispatch),
   };
 }
 

@@ -31,10 +31,25 @@ const selectCommunitiesLoading = () =>
     (substate) => substate.communitiesLoading,
   );
 
-const selectGetCommunitiesWithTagsError = () =>
+const selectGetCommunitiesError = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    (substate) => substate.getCommunitiesWithTagsError,
+    (substate) => substate.getCommunitiesError,
+  );
+
+const selectTags = () =>
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.tags);
+
+const selectTagsLoading = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    (substate) => substate.tagsLoading,
+  );
+
+const selectGetTagsError = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    (substate) => substate.getTagsError,
   );
 
 const selectUsers = (address) =>
@@ -198,7 +213,10 @@ export {
   selectDataCacheProviderDomain,
   selectCommunities,
   selectCommunitiesLoading,
-  selectGetCommunitiesWithTagsError,
+  selectGetCommunitiesError,
+  selectTags,
+  selectTagsLoading,
+  selectGetTagsError,
   selectUsers,
   selectUsersLoading,
   selectGetUserProfileError,

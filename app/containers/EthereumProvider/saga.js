@@ -1,10 +1,7 @@
-/* eslint consistent-return: 0, no-shadow: 0 */
 import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { translationMessages } from 'i18n';
 
 import EthereumService from 'utils/ethereum';
 import { ApplicationError } from 'utils/errors';
-import { autoLogin } from 'utils/web_integration/src/wallet/login/login';
 
 import {
   makeSelectProfileInfo,
@@ -13,11 +10,8 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import { loginWithWallet } from 'containers/Login/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { logout } from 'containers/Logout/actions';
 
 import {
-  getCurrentAccountWorker,
   updateAccWorker,
   isAvailableAction,
 } from 'containers/AccountProvider/saga';
@@ -27,8 +21,6 @@ import { initEthereumSuccess, initEthereumError } from './actions';
 import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 
 import validate from './validate';
-import { getCookie } from '../../utils/cookie';
-import { AUTOLOGIN_DATA } from '../Login/constants';
 import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
@@ -59,7 +51,6 @@ export function* isAuthorized() {
 }
 
 export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
-  const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
   const selectedAccount = yield select(makeSelectAccount());
   const permissions = yield select(selectPermissions());
@@ -73,7 +64,6 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
     () =>
       validate({
         rating: getRatingByCommunity(profileInfo, communityId),
-        translations: translationMessages[locale],
         actor: selectedAccount,
         isGlobalAdmin,
         isCommunityAdmin,

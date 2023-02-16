@@ -26,6 +26,11 @@ import { singleCommunityColors } from 'utils/communityManagement';
 const colors = singleCommunityColors();
 
 const Container = styled.div`
+  background: ${colors.additionalInfoBackground || ''};
+  border-top-left-radius: ${({ notRoundedStyle }) =>
+    notRoundedStyle ? 'none' : BORDER_RADIUS_L} !important;
+  border-bottom-left-radius: ${({ notRoundedStyle }) =>
+    notRoundedStyle ? 'none' : BORDER_RADIUS_L} !important;
   display: flex;
   flex-grow: 0;
   flex-direction: column;

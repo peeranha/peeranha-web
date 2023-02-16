@@ -7,7 +7,7 @@ const Achivements: React.FC<IconProps> = (props): JSX.Element => (
     id="achivements"
     fill="currentColor"
     viewBox="0 0 16 16"
-    size={[16, 16]}
+    size={[18, 18]}
   >
     <circle
       stroke={props.stroke || '#282828'}
