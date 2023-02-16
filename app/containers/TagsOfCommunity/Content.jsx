@@ -1,11 +1,11 @@
+import { css } from '@emotion/react';
+import { singleCommunityColors } from 'utils/communityManagement';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import createdHistory from 'createdHistory';
 
-import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 
 import {
@@ -28,7 +28,7 @@ import P from 'components/P';
 import Grid from 'components/Grid';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 
-import messages from './messages';
+const colors = singleCommunityColors();
 
 const Tag = styled.li`
   height: ${({ editTagModerator }) => (editTagModerator ? '180px' : '140px')};
@@ -51,6 +51,10 @@ const Item = styled.div`
 
   input {
     background: none;
+    color: ${colors.white || ''}; !important;
+    ::placeholder {
+      color: ${colors.white || ''}; !important;
+    }
   }
 
   p:first-child {
@@ -98,11 +102,11 @@ const Content = ({
   existingTagsLoading,
   typeInput,
   text,
-  locale,
   communityId,
   setEditTagData,
   profileInfo,
 }) => {
+  const { t } = useTranslation();
   const showEditTagForm = (tagId) => {
     setEditTagData(tagId, communityId);
     createdHistory.push(routes.editTag(communityId, tagId));
@@ -114,6 +118,8 @@ const Content = ({
       hasCommunityAdminRole(getPermissions(profileInfo), communityId)) ||
     hasProtocolAdminRole(getPermissions(profileInfo));
 
+  const existingTags = Array.isArray(tags) ? tags : tags[communityId];
+
   return (
     <InfinityLoader
       loadNextPaginatedData={loadMoreTags}
@@ -121,7 +127,7 @@ const Content = ({
       isLastFetch={isLastFetch}
     >
       <Grid xl={3} md={2} xs={1}>
-        {!!tags.length || text ? (
+        {!!existingTags?.length || text ? (
           <li className="d-sm-flex align-items-center justify-content-center">
             <Item
               isInputBox
@@ -129,14 +135,14 @@ const Content = ({
             >
               <Input
                 input={{ onChange: typeInput, value: text }}
-                placeholder={translationMessages[locale][messages.findTag.id]}
+                placeholder={t('tags.findTag')}
                 isSearchable
               />
             </Item>
           </li>
         ) : null}
 
-        {tags.map((x) => (
+        {existingTags?.map((x) => (
           <Tag key={x.id} editTagModerator={tagEditingAllowed}>
             <Base>
               <Item
@@ -155,8 +161,6 @@ const Content = ({
                 <P fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
                   {x.description}
                 </P>
-
-                <BlockShadow />
               </Item>
               {tagEditingAllowed && (
                 <EditTagBtnContainer>
@@ -164,7 +168,7 @@ const Content = ({
                     className="ml-15"
                     onClick={() => showEditTagForm(x.id)}
                   >
-                    <FormattedMessage {...commonMessages.edit} />
+                    {t('common.edit')}
                   </InfoButton>
                 </EditTagBtnContainer>
               )}

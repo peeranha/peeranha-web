@@ -15,7 +15,7 @@ const BaseStyled = Base.extend`
   //overflow: hidden;
 `.withComponent('section');
 
-export const Content = props => {
+export const Content = (props) => {
   const isTemporaryAccount = false;
   //   !!props.author?.['integer_properties'].find(
   //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,

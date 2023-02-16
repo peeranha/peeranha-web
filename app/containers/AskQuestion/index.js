@@ -1,16 +1,10 @@
-/**
- *
- * AskQuestion
- *
- */
-
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import _debounce from 'lodash/debounce';
 
 import injectSaga from 'utils/injectSaga';
@@ -26,13 +20,15 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import {
+  selectCommunities,
+  selectTagsLoading,
+} from 'containers/DataCacheProvider/selectors';
 
 import { askQuestion, getExistingQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
 import reducer, { existingQuestionReducer } from './reducer';
 import saga, { existingQuestionSaga } from './saga';
-import messages from './messages';
 
 import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
 import { getAvailableBalance } from 'utils/profileManagement';
@@ -49,7 +45,9 @@ export const AskQuestion = ({
   profileInfo,
   questionError,
   documentationMenu,
+  tagsLoading,
 }) => {
+  const { t } = useTranslation();
   const getQuestionsDispatchDebounced = _debounce(getQuestionsDispatch, 250);
 
   const [skipExistingQuestions, setSkipExistingQuestions] = useState(false);
@@ -66,22 +64,22 @@ export const AskQuestion = ({
     [availableBalance],
   );
   const urlArray = url.split('/');
-  let parentId = urlArray[2];
+  const parentId = urlArray[2];
   const isDocumentation = path.split('/')[1] === 'documentation';
 
   let formTitle;
   if (isDocumentation) {
     formTitle = !isNaN(parentId) ? 'New sub-article' : 'New article';
   } else {
-    formTitle = translationMessages[locale][messages.title.id];
+    formTitle = t('common.title');
   }
   return (
     <div>
       <AskQuestionPopup />
 
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('common.titleAskQuestion')}
+        description={t('common.descriptionAskQuestion')}
         language={locale}
         index={false}
       />
@@ -92,9 +90,9 @@ export const AskQuestion = ({
         valueHasToBeLessThan={availableBalance}
         maxPromotingHours={maxPromotingHours}
         form={ASK_QUESTION_FORM}
-        formTitle={formTitle}
+        formTitle={t('common.titleAskQuestion')}
         submitButtonId={POST_QUESTION_BUTTON}
-        submitButtonName={translationMessages[locale][messages.postQuestion.id]}
+        submitButtonName={t('common.postQuestion')}
         getQuestions={getQuestionsDispatchDebounced}
         sendQuestion={askQuestionDispatch}
         questionLoading={askQuestionLoading}
@@ -106,6 +104,7 @@ export const AskQuestion = ({
         documentationMenu={documentationMenu}
         isDocumentation={isDocumentation}
         parentId={parentId}
+        tagsLoading={tagsLoading}
       />
     </div>
   );
@@ -129,6 +128,7 @@ const mapStateToProps = createStructuredSelector({
   profileInfo: makeSelectProfileInfo(),
   existingQuestions: askQuestionSelector.selectExistingQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
+  tagsLoading: selectTagsLoading(),
   questionError: askQuestionSelector.selectQuestionError(),
   documentationMenu: selectDocumentationMenu(),
 });

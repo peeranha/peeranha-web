@@ -1,11 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import HarmonyLogo from './images/harmony-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-harmony.ico';
 const domainName = 'https://www.koii.network/';
-
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'harmony_style',
@@ -16,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: `${fontSet}`,
     },
     header: {
       background: '#FFFFFF',
@@ -189,8 +182,9 @@ export const HarmonyStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: HarmonyLogo,
-  favicon,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/harmony/harmony-logo1.svg',
+  favicon: 'https://images.peeranha.io/communities/harmony/favicon-harmony.ico',
   colors: {
     mainSubHeaderBgColor: 'rgba(2, 10, 45, .9)',
     mainBackground: 'rgba(0, 85, 249, 0.08)',
@@ -206,6 +200,7 @@ export const HarmonyStyles = {
     loaderColor: 'rgb(36,95,226)',
     votingIconColor: 'rgb(36,95,226)',
     linkColorSecondary: 'rgb(36,95,226)',
+    textColorShadow: 'rgb(36,95,226)',
     commHeadElemColor: '#FFF',
     walletButton: 'rgb(36,95,226)',
     btnColor: 'rgb(36,95,226)',

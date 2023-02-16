@@ -1,12 +1,9 @@
-// @ts-ignore
-import { FormattedMessage } from 'react-intl';
-// @ts-ignore
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 import { css } from '@emotion/react';
 import React from 'react';
 
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
-import InfoButton from 'components/Button/Outlined/InfoMedium';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import MediumImage from 'components/Img/MediumImage';
 import P from 'components/P';
@@ -20,21 +17,16 @@ import { User, Moderator } from 'containers/Administration/types';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { getUserName } from 'utils/user';
-import { singleCommunityFonts } from 'utils/communityManagement';
 import styled from 'styled-components';
 
 import * as routes from 'routes-config';
 
 // @ts-ignore
-import userBodyIconAvatar from 'images/user2.svg?external';
-// @ts-ignore
 import closeIcon from 'images/closeCircle.svg?external';
 import { BORDER_PRIMARY } from 'style-constants';
 
-import messages from 'containers/Administration/messages';
 import { getUsersModeratorByRols } from 'utils/accountManagement';
 
-const fonts = singleCommunityFonts();
 const RemoveTagIcon = styled.button`
   display: inline-flex;
   padding: 0 0 0 10px;
@@ -57,7 +49,6 @@ type ContentProps = {
 };
 
 export const Content: React.FC<ContentProps> = ({
-  locale,
   single,
   profileInfo,
   moderators,
@@ -75,6 +66,8 @@ export const Content: React.FC<ContentProps> = ({
     moderators,
     Roles,
   );
+
+  const { t: translate } = useTranslation();
 
   return (
     <BaseRoundedNoPadding className="fdc mb16">
@@ -116,16 +109,12 @@ export const Content: React.FC<ContentProps> = ({
               {moderator.user.id}
             </div>
 
-            <div className="mr16 tc fz14">
+            <div className="mr16 tc text-ellipsis fz14">
               {moderator.userRoles.map((role) => {
-                let roleName =
-                  translationMessages[locale][messages.communityModerator.id];
+                let roleName = t('administration.communityModerator');
 
                 if (role === Roles.communityAdmin) {
-                  roleName =
-                    translationMessages[locale][
-                      messages.communityAdministrator.id
-                    ];
+                  roleName = t('administration.communityAdministrator');
                 }
                 return (
                   <Tag className="float-left" key={moderator.user.id + role}>

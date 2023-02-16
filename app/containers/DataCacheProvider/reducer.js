@@ -7,9 +7,9 @@
 import { fromJS } from 'immutable';
 
 import {
-  GET_COMMUNITIES_WITH_TAGS,
-  GET_COMMUNITIES_WITH_TAGS_ERROR,
-  GET_COMMUNITIES_WITH_TAGS_SUCCESS,
+  GET_COMMUNITIES,
+  GET_COMMUNITIES_ERROR,
+  GET_COMMUNITIES_SUCCESS,
   UPDATE_TAG_OF_COMMUNITY,
   GET_FAQ,
   GET_FAQ_ERROR,
@@ -25,12 +25,19 @@ import {
   GET_USER_PROFILE_SUCCESS,
   REMOVE_USER_PROFILE,
   UPDATE_USER_ACHIEVEMENTS,
+  GET_TAGS,
+  GET_TAGS_SUCCESS,
+  GET_TAGS_ERROR,
+  GET_COMMUNITY_TAGS,
 } from './constants';
 
 export const initialState = fromJS({
   communities: [],
   communitiesLoading: false,
-  getCommunitiesWithTagsError: null,
+  getCommunitiesError: null,
+  tags: {},
+  tagsLoading: false,
+  getTagsError: null,
   users: {},
   usersLoading: false,
   getUserProfileError: null,
@@ -50,7 +57,9 @@ function dataCacheProviderReducer(state = initialState, action) {
   const {
     type,
     communities,
-    getCommunitiesWithTagsError,
+    getCommunitiesError,
+    tags,
+    getTagsError,
     updatedTagCommId,
     updatedTagId,
     updatedTag,
@@ -97,18 +106,30 @@ function dataCacheProviderReducer(state = initialState, action) {
         .set('getTutorialLoading', false)
         .set('getTutorialError', getTutorialError);
 
-    case GET_COMMUNITIES_WITH_TAGS:
+    case GET_COMMUNITIES:
       return state.set('communitiesLoading', true);
-    case GET_COMMUNITIES_WITH_TAGS_SUCCESS:
+    case GET_COMMUNITIES_SUCCESS:
       return state
         .set('communitiesLoading', false)
         .set('communities', fromJS(communities));
 
-    case GET_COMMUNITIES_WITH_TAGS_ERROR:
+    case GET_COMMUNITIES_ERROR:
       return state
         .set('communitiesLoading', false)
-        .set('getCommunitiesWithTagsError', getCommunitiesWithTagsError);
+        .set('getCommunitiesError', getCommunitiesError);
 
+    case GET_TAGS:
+    case GET_COMMUNITY_TAGS:
+      return state.set('tagsLoading', true);
+    case GET_TAGS_SUCCESS:
+      return state
+        .set('tagsLoading', false)
+        .set('tags', { ...state.get('tags'), ...tags });
+
+    case GET_TAGS_ERROR:
+      return state.set('tagsLoading', false).set('getTagsError', getTagsError);
+
+    // CHANGE IT!!!!!
     case UPDATE_TAG_OF_COMMUNITY:
       const updatedCommunities = [
         ...state

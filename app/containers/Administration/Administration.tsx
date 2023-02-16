@@ -10,6 +10,8 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import reducer from 'containers/Administration/reducer';
 import saga from 'containers/Administration/saga';
+import { noAccess as noAccessRoute } from 'routes-config';
+import { useModeratorRole } from 'hooks/useModeratorRole';
 
 import {
   addRole,
@@ -64,6 +66,7 @@ const Administration: React.FC<AdministrationProps> = ({
 }): JSX.Element => {
   const single = isSingleCommunityWebsite();
 
+  useModeratorRole(noAccessRoute, single);
   useEffect(() => {
     getModeratorsDispatch(single);
   }, [single]);

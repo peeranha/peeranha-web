@@ -1,25 +1,3 @@
-import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.svg?inline';
-import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
-import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
-import MintStateLabsLogo from './communities-configs/mintStateLabs/images/MSL-LogoMain.svg?inline';
-import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
-import SuiGlobalLogo from './communities-configs/suiGlobal/images/suiGlobal.svg?inline';
-import FilebaseLogo from './communities-configs/filebase/images/filebaselogo.svg?inline';
-import HarmonyLogo from './communities-configs/harmony/images/harmony-logo.svg?inline';
-import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
-import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberConnect_logo.svg?inline';
-import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
-import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
-import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
-import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
-import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
-import VyperLogo from './communities-configs/vyper/images/Vyperlogo.svg?inline';
-import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
-import ForceLogo from './communities-configs/force/images/Group.svg?inline';
-import Mark3dLogo from './communities-configs/mark3d/images/Mark3dLogo.svg?inline';
-import OrbisLogo from './communities-configs/orbis/images/GroupLogo.svg?inline';
-import FractalVisionsLogo from './communities-configs/fractalVisions/images/Rectangle_123.svg?inline';
-
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
 import { FunctionlandStyles } from './communities-configs/functionland';
@@ -42,6 +20,8 @@ import { Mark3dStyles } from './communities-configs/mark3d';
 import { OrbisStyles } from './communities-configs/orbis';
 import { FractalVisionsStyles } from './communities-configs/fractalVisions';
 import { MoveStyles } from './communities-configs/move';
+import { DeveloperDAOStyles } from './communities-configs/developerDAO';
+import { LaunchpadStyles } from './communities-configs/launchpad';
 
 const communitiesConfig = {
   prod: {
@@ -50,92 +30,92 @@ const communitiesConfig = {
     },
     2: {
       origin: 'https://functionland.peeranha.io',
-      src: FunctionlandLogo,
+      src: 'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
       styles: FunctionlandStyles,
     },
     3: {
       origin: 'https://polygon.peeranha.io',
-      src: PolygonLogo,
+      src: 'https://images.peeranha.io/communities/polygon/polygon-logo.svg',
       styles: PolygonStyles,
     },
     4: {
       origin: 'https://filecoin.peeranha.io',
-      src: FileiconLogo,
+      src: 'https://images.peeranha.io/communities/filecoin/filecoin-logo.svg',
       styles: FilecoinStyles,
     },
     6: {
       origin: 'https://koii.peeranha.io',
-      src: KoiiLogo,
+      src: 'https://images.peeranha.io/communities/koii/koii-logo.svg',
       styles: KoiiStyles,
     },
     7: {
       origin: 'https://filebase.peeranha.io',
-      src: FilebaseLogo,
+      src: 'https://images.peeranha.io/communities/filebase/filebaselogo.svg',
       styles: FilebaseStyles,
     },
     8: {
       origin: 'https://polywrap.peeranha.io',
-      src: PolywrapLogo,
+      src: 'https://images.peeranha.io/communities/polywrap/polywrap-horizontal.svg',
       styles: PolywrapStyles,
     },
     9: {
       origin: 'https://cyberconnect.peeranha.io',
-      src: CyberconnectLogo,
+      src: 'https://images.peeranha.io/communities/cyberconnect/CyberConnect_logo.svg',
       styles: CyberconnectStyles,
     },
     10: {
       origin: 'https://valist.peeranha.io',
-      src: ValistLogo,
+      src: 'https://images.peeranha.io/communities/valist/valist.svg',
       styles: ValistStyles,
     },
     11: {
       origin: 'https://suiglobal.peeranha.io',
-      src: SuiGlobalLogo,
+      src: 'https://images.peeranha.io/communities/suiGlobal/suiGlobal.svg',
       styles: SuiGlobalStyles,
     },
     12: {
       origin: 'https://mintstatelabs.peeranha.io',
-      src: MintStateLabsLogo,
+      src: 'https://images.peeranha.io/communities/mintStateLabs/MSL-LogoMain.svg',
       styles: MintStateLabsStyles,
     },
     13: {
       origin: 'https://aave.peeranha.io',
-      src: AaveLogo,
+      src: 'https://images.peeranha.io/communities/aave/aaveLogo.svg',
       styles: AaveStyles,
     },
     14: {
       origin: 'https://solidity.peeranha.io',
-      src: SolidityLogo,
+      src: 'https://images.peeranha.io/communities/solidity/solidity-logo.svg',
       styles: SolidityStyles,
     },
     15: {
       origin: 'https://ankr.peeranha.io',
-      src: AnkrLogo,
+      src: 'https://images.peeranha.io/communities/ankr/ankrBlueLogo.svg',
       styles: AnkrStyles,
     },
     16: {
       origin: 'https://force.peeranha.io',
-      src: ForceLogo,
+      src: 'https://images.peeranha.io/communities/force/Group.svg',
       styles: ForceStyles,
     },
     17: {
       origin: 'https://vyper.peeranha.io',
-      src: VyperLogo,
+      src: 'https://images.peeranha.io/communities/vyper/vyperLogo.svg',
       styles: VyperStyles,
     },
     18: {
       origin: 'https://mark3d.peeranha.io',
-      src: Mark3dLogo,
+      src: 'https://images.peeranha.io/communities/mark3d/Mark3dLogo.svg',
       styles: Mark3dStyles,
     },
     19: {
       origin: 'https://orbis.peeranha.io',
-      src: OrbisLogo,
+      src: 'https://images.peeranha.io/communities/orbis/GroupLogo.svg',
       styles: OrbisStyles,
     },
     20: {
       origin: 'https://fractalvisions.peeranha.io',
-      src: FractalVisionsLogo,
+      src: 'https://images.peeranha.io/communities/fractalVisions/Rectangle_123.svg',
       styles: FractalVisionsStyles,
     },
     21: {
@@ -143,83 +123,93 @@ const communitiesConfig = {
       src: 'https://images.peeranha.io/communities/move/move-logo.svg',
       styles: MoveStyles,
     },
+    22: {
+      origin: 'https://developerdao.peeranha.io',
+      src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+      styles: DeveloperDAOStyles,
+    },
+    23: {
+      origin: 'https://pl-launchpad.peeranha.io',
+      src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
+      styles: LaunchpadStyles,
+    },
   },
   staging: {
     1: {
       origin: 'https://demo-harmony.testpeeranha.io',
-      src: HarmonyLogo,
+      src: 'https://images.peeranha.io/communities/harmony/harmony-logo1.svg',
       styles: HarmonyStyles,
     },
     2: {
       origin: 'https://demo-msl.testpeeranha.io',
-      src: MintStateLabsLogo,
+      src: 'https://images.peeranha.io/communities/mintStateLabs/MSL-LogoMain.svg',
       styles: MintStateLabsStyles,
     },
     3: {
       origin: `https://demo-ankr.testpeeranha.io`,
-      src: AnkrLogo,
+      src: 'https://images.peeranha.io/communities/ankr/ankrBlueLogo.svg',
       styles: AnkrStyles,
     },
     4: {
       origin: 'https://demo-fxland.testpeeranha.io',
-      src: FunctionlandLogo,
+      src: 'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
       styles: FunctionlandStyles,
     },
     5: {
       origin: 'https://demo-mintstatelabs.peeranha.io',
-      src: MintStateLabsLogo,
+      src: 'https://images.peeranha.io/communities/mintStateLabs/MSL-LogoMain.svg',
       styles: MintStateLabsStyles,
     },
     6: {
       origin: 'https://demo-sui.testpeeranha.io',
-      src: SuiLogo,
+      src: 'https://images.peeranha.io/communities/sui/sui-logo.svg',
       styles: SuiStyles,
     },
   },
   test: {
     1: {
       origin: `https://mintstatelabs${process.env.COOKIE_DOMAIN}`,
-      src: MintStateLabsLogo,
+      src: 'https://images.peeranha.io/communities/mintStateLabs/MSL-LogoMain.svg',
       styles: MintStateLabsStyles,
     },
     2: {
       origin: `https://suiglobal${process.env.COOKIE_DOMAIN}`,
-      src: SuiGlobalLogo,
+      src: 'https://images.peeranha.io/communities/suiGlobal/suiGlobal.svg',
       styles: SuiGlobalStyles,
     },
     3: {
       origin: `https://indexerdao${process.env.COOKIE_DOMAIN}`,
-      src: IndexerDAOLogo,
+      src: 'https://images.peeranha.io/communities/indexerDAO/svgviewerNew.jpg',
       styles: IndexerDAOStyles,
     },
     4: {
       origin: `https://aave${process.env.COOKIE_DOMAIN}`,
-      src: AaveLogo,
+      src: 'https://images.peeranha.io/communities/aave/aaveLogo.svg',
       styles: AaveStyles,
     },
     5: {
       origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
-      src: SolidityLogo,
+      src: 'https://images.peeranha.io/communities/solidity/solidity-logo.svg',
       styles: SolidityStyles,
     },
     6: {
       origin: `https://vyper${process.env.COOKIE_DOMAIN}`,
-      src: VyperLogo,
+      src: 'https://images.peeranha.io/communities/vyper/vyperLogo.svg',
       styles: VyperStyles,
     },
     7: {
       origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
-      src: AnkrLogo,
+      src: 'https://images.peeranha.io/communities/ankr/ankrBlueLogo.svg',
       styles: AnkrStyles,
     },
     8: {
       origin: `https://force${process.env.COOKIE_DOMAIN}`,
-      src: ForceLogo,
+      src: 'https://images.peeranha.io/communities/force/Group.svg',
       styles: ForceStyles,
     },
     9: {
       origin: `https://mark3d${process.env.COOKIE_DOMAIN}`,
-      src: Mark3dLogo,
+      src: 'https://images.peeranha.io/communities/mark3d/Mark3dLogo.svg',
       styles: Mark3dStyles,
     },
     10: {
@@ -229,73 +219,29 @@ const communitiesConfig = {
     },
     11: {
       origin: `https://orbis${process.env.COOKIE_DOMAIN}`,
-      src: OrbisLogo,
+      src: 'https://images.peeranha.io/communities/orbis/GroupLogo.svg',
       styles: OrbisStyles,
     },
     12: {
       origin: `https://fractalvisions${process.env.COOKIE_DOMAIN}`,
-      src: FractalVisionsLogo,
+      src: 'https://images.peeranha.io/communities/fractalVisions/Rectangle_123.svg',
       styles: FractalVisionsStyles,
     },
-    // 1: {
-    //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
-    // },
-    // 2: {
-    //   origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
-    //   src: PolygonLogo,
-    //   styles: PolygonStyles,
-    // },
-    // 3: {
-    //   origin: `https://filecoin${process.env.COOKIE_DOMAIN}`,
-    //   src: FileiconLogo,
-    //   styles: FilecoinStyles,
-    // },
-    // 4: {
-    //   origin: `https://community${process.env.COOKIE_DOMAIN}`,
-    // },
-    // 7: {
-    //   origin: `https://fxland${process.env.COOKIE_DOMAIN}`,
-    //   src: FunctionlandLogo,
-    //   styles: FunctionlandStyles,
-    // },
-    // 10: {
-    //   origin: `https://sui${process.env.COOKIE_DOMAIN}`,
-    //   src: SuiLogo,
-    //   styles: SuiStyles,
-    // },
-    // 12: {
-    //   origin: `https://koii${process.env.COOKIE_DOMAIN}`,
-    //   src: KoiiLogo,
-    //   styles: KoiiStyles,
-    // },
-    // 13: {
-    //   origin: `https://harmony${process.env.COOKIE_DOMAIN}`,
-    //   src: HarmonyLogo,
-    //   styles: HarmonyStyles,
-    // },
-    // 6: {
-    //   origin: 'https://testcommunity.net',
-    // },
-    // 16: {
-    //   origin: `https://filebase${process.env.COOKIE_DOMAIN}`,
-    //   src: FilebaseLogo,
-    //   styles: FilebaseStyles,
-    // },
-    // 17: {
-    //   origin: `https://valist${process.env.COOKIE_DOMAIN}`,
-    //   src: ValistLogo,
-    //   styles: ValistStyles,
-    // },
-    // 18: {
-    //   origin: `https://polywrap${process.env.COOKIE_DOMAIN}`,
-    //   src: PolywrapLogo,
-    //   styles: PolywrapStyles,
-    // },
-    // 19: {
-    //   origin: `https://cyberconnect${process.env.COOKIE_DOMAIN}`,
-    //   src: CyberconnectLogo,
-    //   styles: CyberconnectStyles,
-    // },
+    16: {
+      origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/polygon/polygon-university-logo.svg',
+      styles: PolygonStyles,
+    },
+    17: {
+      origin: `https://developerdao${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+      styles: DeveloperDAOStyles,
+    },
+    18: {
+      origin: `https://pl-launchpad${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
+      styles: LaunchpadStyles,
+    },
   },
   dev: {
     1: {

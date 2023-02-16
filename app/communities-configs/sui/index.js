@@ -1,12 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import SuiLogo from './images/sui-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-sui.ico';
-
 const domainName = 'https://sui.io/';
-
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'sui_style',
@@ -17,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fontSet,
     },
     header: {
       background: '#FFFFFF',
@@ -190,8 +182,8 @@ export const SuiStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: SuiLogo,
-  favicon,
+  signUpPageLogo: 'https://images.peeranha.io/communities/sui/sui-logo.svg',
+  favicon: 'https://images.peeranha.io/communities/sui/favicon-sui.ico',
   colors: {
     mainBackground: 'rgb(230,239,254)',
     linkColor: 'rgb(111, 188, 240)',

@@ -1,8 +1,5 @@
 import { Field, reduxForm } from 'redux-form/immutable';
-// @ts-ignore
-import { FormattedMessage } from 'react-intl';
-// @ts-ignore
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import React, { FormEventHandler, useState } from 'react';
 import { css } from '@emotion/react';
 
@@ -13,13 +10,12 @@ import {
   required,
   stringHasToBeEthereumAddress,
 } from 'components/FormFields/validate';
-import Popup from 'common-components/Popup';
-import Dropdown, { OptionValue } from 'common-components/Dropdown/Dropdown';
+import Dropdown, { OptionValue } from 'components/common/Dropdown/Dropdown';
+import Popup from 'components/common/Popup';
 import {
   ADD_MODERATOR_BUTTON_BUTTON,
   WALLET_ADDRESS_FIELD,
 } from 'containers/Administration/constants';
-import messages from 'containers/Administration/messages';
 
 import { scrollToErrorField } from 'utils/animation';
 import { TEXT_DARK } from 'style-constants';
@@ -51,12 +47,13 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   Button,
   addRoleLoading,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const [isOpen, open, close] = useTrigger(false);
   const [role, setRole] = useState<OptionValue>();
 
   const rolesName = [
-    translationMessages[locale][messages.communityAdministrator.id],
-    translationMessages[locale][messages.communityModerator.id],
+    t('administration.communityAdministrator'),
+    t('administration.communityModerator'),
   ];
 
   const RoleNamesList = rolesName.map((roleName, index) => ({
@@ -84,7 +81,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
             `}
             className="tc"
           >
-            <FormattedMessage id={messages.addRole.id} />
+            {t('administration.addRole')}
           </h5>
           <div
             css={css`
@@ -100,7 +97,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
               options={RoleNamesList}
               isMultiple={false}
               value={role}
-              placeholder={translationMessages[locale][messages.chooseRole.id]}
+              placeholder={t('administration.chooseRole')}
               onSelect={setRole}
             />
           </div>
@@ -110,16 +107,14 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
               name={WALLET_ADDRESS_FIELD}
               disabled={addRoleLoading}
               component={TextInputField}
-              placeholder={
-                translationMessages[locale][messages.walletAddress.id]
-              }
+              placeholder={t('common.walletAddress')}
               validate={[required, stringHasToBeEthereumAddress]}
               warn={[required, stringHasToBeEthereumAddress]}
             />
 
             <div className="df aic">
               <OutlinedButton className="mr12" onClick={close}>
-                <FormattedMessage id={messages.cancel.id} />
+                {t('administration.cancel')}
               </OutlinedButton>
 
               <ContainedButton
@@ -127,7 +122,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
                 type="submit"
                 id={ADD_MODERATOR_BUTTON_BUTTON}
               >
-                <FormattedMessage id={messages.confirm.id} />
+                {t('administration.confirm')}
               </ContainedButton>
             </div>
           </form>

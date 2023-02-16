@@ -1,10 +1,8 @@
-// @ts-ignore
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 
 import { TEXT_DARK } from 'style-constants';
-import commonMessages from 'common-messages';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
@@ -29,12 +27,12 @@ const AreYouSure: React.FC<AreYouSureProps> = ({
   Button,
   roleName,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const [currentTarget, changeEventData] = useState(null);
   const [isOpened, open] = useState(false);
 
   const closeModal = () => {
     document.getElementsByTagName('body')[0].style.position = 'relative';
-    // @ts-ignore
     modalRoot.removeChild(el);
     open(false);
   };
@@ -59,17 +57,14 @@ const AreYouSure: React.FC<AreYouSureProps> = ({
             `}
             className="tc pb12"
           >
-            <FormattedMessage
-              id={messages.wantToRevoke.id}
-              values={{
-                role: roleName,
-              }}
-            />
+            {t('administration.wantToRevoke', {
+              role: `${roleName}`,
+            })}
           </h5>
 
           <div className="df aic">
             <OutlinedButton className="mr12" onClick={closeModal}>
-              <FormattedMessage id={commonMessages.no.id} />
+              {t('common.no')}
             </OutlinedButton>
 
             <ContainedButton
@@ -78,7 +73,7 @@ const AreYouSure: React.FC<AreYouSureProps> = ({
                 submitAction({ currentTarget });
               }}
             >
-              <FormattedMessage id={commonMessages.yes.id} />
+              {t('common.yes')}
             </ContainedButton>
           </div>
         </ModalDialog>
