@@ -37,7 +37,7 @@ import TransparentButton from 'components/Button/Contained/Transparent';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from 'components/TextEditor/Tips';
 import FormBox from 'components/Form';
-import { TipsBaseSmallPadding } from 'components/Base/TipsBase';
+import TipsBaseSmallPadding from 'components/Base/TipsBaseSmallPadding';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import DescriptionList from 'components/DescriptionList';
 

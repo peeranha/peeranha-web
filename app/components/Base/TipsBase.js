@@ -4,7 +4,7 @@ import { SECONDARY_SPECIAL_3, BORDER_RADIUS_L } from 'style-constants';
 import BaseRoundedNoPadding from './BaseRoundedNoPadding';
 
 const colors = singleCommunityColors();
-const TipsBase = BaseRoundedNoPadding.extend`
+export default BaseRoundedNoPadding.extend`
   display: flex;
 
   > *:nth-child(1) {
@@ -37,13 +37,3 @@ const TipsBase = BaseRoundedNoPadding.extend`
     }
   }
 `;
-
-export const TipsBaseSmallPadding = TipsBase.extend`
-  @media only screen and (min-width: 1366px) {
-    > *:nth-child(2) {
-      padding: 16px;
-    }
-  }
-`;
-
-export default TipsBase;
