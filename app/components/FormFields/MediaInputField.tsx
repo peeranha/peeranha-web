@@ -26,7 +26,7 @@ export const MediaInputField = ({
 }: MediaInputFieldProps) => {
   const config = [
     {
-      types: ['image'],
+      types: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'],
       maxFileSizeInBytes: 5 * 1000 * 1000,
       uploadFile: uploadImagesToIpfs,
       saveUploadedFileLink: setMediaLink,
