@@ -235,9 +235,15 @@ const NFTCard = ({
                 }}
               >
                 <span>Contract: </span>
-                <span css={{ color: 'var(--color-link)' }}>
+                <a
+                  href={
+                    (process.env.BLOCKCHAIN_EXPLORERE_URL as string) +
+                    process.env.PEERANHA_NFT
+                  }
+                  css={{ color: 'var(--color-link)' }}
+                >
                   {process.env.PEERANHA_NFT}
-                </span>
+                </a>
               </div>
               <div
                 css={{
