@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-
-import commonMessages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import H3 from 'components/H3';
 import TipsBase from 'components/Base/TipsBase';
@@ -15,30 +13,32 @@ import FaqSections from './FaqSections';
 import Banner from './Banner';
 import SendMessageForm from './SendMessageForm';
 
-const Support = ({ faq, locale, sendMessage, sendMessageLoading }) => (
-  <div id={FORM_ID}>
-    <Header>
-      <H3>
-        <FormattedMessage {...commonMessages.support} />
-      </H3>
-    </Header>
+const Support = ({ faq, locale, sendMessage, sendMessageLoading }) => {
+  const { t } = useTranslation();
 
-    <TipsBase className="overflow-hidden">
-      <BaseSpecialOne>
-        <Banner />
-        <BaseSpecialOne nullMobilePadding>
-          <SendMessageForm
-            locale={locale}
-            sendMessage={sendMessage}
-            sendMessageLoading={sendMessageLoading}
-          />
+  return (
+    <div id={FORM_ID}>
+      <Header>
+        <H3>{t('common.support')}</H3>
+      </Header>
+
+      <TipsBase className="overflow-hidden">
+        <BaseSpecialOne>
+          <Banner />
+          <BaseSpecialOne nullMobilePadding>
+            <SendMessageForm
+              locale={locale}
+              sendMessage={sendMessage}
+              sendMessageLoading={sendMessageLoading}
+            />
+          </BaseSpecialOne>
         </BaseSpecialOne>
-      </BaseSpecialOne>
 
-      <FaqSections faq={faq} />
-    </TipsBase>
-  </div>
-);
+        <FaqSections faq={faq} />
+      </TipsBase>
+    </div>
+  );
+};
 
 Support.propTypes = {
   faq: PropTypes.object,

@@ -62,7 +62,13 @@ class EthereumService {
     this.contractContent = null;
     this.contractCommunity = null;
 
+    this.contractTokenReads = null;
+    this.contractUserReads = null;
+    this.contractContentReads = null;
+    this.contractCommunityReads = null;
+
     this.provider = null;
+    this.providerReads = null;
     this.metaMaskProviderDetected = false;
     this.selectedAccount = null;
 
@@ -98,6 +104,10 @@ class EthereumService {
     this.provider = ethers.providers.getDefaultProvider(
       process.env.ETHEREUM_NETWORK,
     );
+    this.providerReads = ethers.providers.getDefaultProvider(
+      process.env.ETHEREUM_NETWORK,
+    );
+
     this.contractUser = new Contract(
       process.env.USER_ADDRESS,
       PeeranhaUser,
@@ -117,6 +127,27 @@ class EthereumService {
       process.env.PEERANHA_TOKEN,
       PeeranhaToken,
       this.provider,
+    );
+
+    this.contractUserReads = new Contract(
+      process.env.USER_ADDRESS,
+      PeeranhaUser,
+      this.providerReads,
+    );
+    this.contractCommunityReads = new Contract(
+      process.env.COMMUNITY_ADDRESS,
+      PeeranhaCommunity,
+      this.providerReads,
+    );
+    this.contractContentReads = new Contract(
+      process.env.CONTENT_ADDRESS,
+      PeeranhaContent,
+      this.providerReads,
+    );
+    this.contractTokenReads = new Contract(
+      process.env.PEERANHA_TOKEN,
+      PeeranhaToken,
+      this.providerReads,
     );
   };
 
@@ -323,7 +354,10 @@ class EthereumService {
     await this.chainCheck();
     const metaTxContract = this[contract];
     const nonce = await metaTxContract.getNonce(actor);
+    console.log(`Nonce from contract: ${nonce}`);
+
     const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
+
     const functionSignature = iface.encodeFunctionData(action, data);
     const message = {};
     message.nonce = parseInt(nonce);
@@ -385,7 +419,7 @@ class EthereumService {
     }
 
     this.transactionInPending(response.body.transactionHash);
-    const result = await this.provider.waitForTransaction(
+    const result = await this.providerReads.waitForTransaction(
       response.body.transactionHash,
       confirmations,
     );
@@ -452,16 +486,16 @@ class EthereumService {
   };
 
   getUserDataWithArgs = async (action, args) =>
-    await this.contractUser[action](...args);
+    await this.contractUserReads[action](...args);
 
   getCommunityDataWithArgs = async (action, args) =>
-    await this.contractCommunity[action](...args);
+    await this.contractCommunityReads[action](...args);
 
   getContentDataWithArgs = async (action, args) =>
-    await this.contractContent[action](...args);
+    await this.contractContentReads[action](...args);
 
   getTokenDataWithArgs = async (action, args) =>
-    await this.contractToken[action](...args);
+    await this.contractTokenReads[action](...args);
 
   getCommunityFromContract = async (id) => {
     const rawCommunity = await this.getCommunityDataWithArgs(GET_COMMUNITY, [

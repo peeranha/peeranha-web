@@ -31,12 +31,12 @@ const Link: React.FC<LinkProps> = ({
 }) => {
   const ipfsHash = getIpfsHashFromBytes32(item.id);
   const isPinnedPost = pinnedItemMenuId == item.id;
-  let route = window.location.pathname;
+  const route = window.location.pathname;
 
   return (
     <A1
-      to={routes.documentation(ipfsHash)}
-      name={isPinnedPost ? '/' : `documentation/${ipfsHash}`}
+      to={routes.documentation(ipfsHash, item.title)}
+      name={isPinnedPost ? '/' : `documentation/${ipfsHash}/${item.title}`}
       className={cn('p0')}
       css={{
         padding: '7px 0',
@@ -51,9 +51,9 @@ const Link: React.FC<LinkProps> = ({
           (match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
           editArticleId === item.id ||
-          (route == '/' && startDocumentionPostLight)) && {
+          (route === '/' && startDocumentionPostLight)) && {
           fontWeight: 700,
-          color: 'var(--color-black)',
+          color: 'var(black)',
         }),
       }}
     >

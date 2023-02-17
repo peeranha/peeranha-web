@@ -1,29 +1,27 @@
-import messages from 'common-messages';
-
 export default {
   posts: {
     sortBy: 'postCount',
     order: 'desc',
-    message: messages.posts,
+    message: 'common.posts',
   },
   answers: {
     sortBy: 'replyCount',
     order: 'desc',
-    message: messages.answers,
+    message: 'common.answers',
   },
   tags: {
     sortBy: 'tags',
     order: 'desc',
-    message: messages.tags,
+    message: 'common.tags',
   },
   oldest: {
     sortBy: 'creationTime',
     order: 'asc',
-    message: messages.oldest,
+    message: 'common.oldest',
   },
   newest: {
     sortBy: 'creationTime',
     order: 'desc',
-    message: messages.newest,
+    message: 'common.newest',
   },
 };

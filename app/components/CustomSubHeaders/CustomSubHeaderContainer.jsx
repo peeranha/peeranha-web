@@ -9,7 +9,7 @@ import FilecoinStyleSubHeader from './CustomSubHeaderContainers/FilecoinStyleSub
 
 const CUSTOM_SUB_HEADER_CONTAINER = {
   telos_style: <TelosStyleTopNav />,
-  polygonStyle: <PolygonStyleTopNav/>,
+  polygonStyle: <PolygonStyleTopNav />,
   logo_right__menu_right: <LogoRightMenuRight />,
   blogger_style: <BloggerStyleSubHeader />,
   filecoin_style: <FilecoinStyleSubHeader />,

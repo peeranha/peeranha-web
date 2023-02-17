@@ -25,12 +25,7 @@ import {
   CONTRACT_COMMUNITY,
   CONTRACT_USER,
 } from './ethConstants';
-import {
-  getAllTags,
-  getCommunities,
-  getCommunityById,
-  getTags,
-} from './theGraph';
+import { getCommunities, getCommunityById, getTags } from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
@@ -176,8 +171,6 @@ export const setSingleCommunityDetails = async (eosService) => {
   if (!prevSingleCommDetails && community.isBlogger) {
     location.reload();
   }
-
-  const communityDetails = getSingleCommunityDetails();
 };
 
 export const getSingleCommunityDetails = () => {
@@ -256,7 +249,7 @@ export async function downVoteToCreateTag(
   tagid,
 ) {}
 
-const formCommunityObjectWithTags = (rawCommunity, tags) => {
+const formCommunityObject = (rawCommunity) => {
   return {
     ...rawCommunity,
     avatar: getFileUrl(rawCommunity.avatar),
@@ -268,40 +261,49 @@ const formCommunityObjectWithTags = (rawCommunity, tags) => {
     creationTime: +rawCommunity.creationTime,
     followingUsers: +rawCommunity.followingUsers,
     replyCount: +rawCommunity.replyCount,
-    //todo amount of questions in community and tag
-    tags: tags.map((tag) => {
-      return { ...tag, label: tag.name };
-    }),
   };
+};
+
+const formattedTags = (tags) => {
+  const formattedTags = {};
+
+  for (let i = 0; i < tags.length; i++) {
+    if (!formattedTags[tags[i].id.split('-')[0]]) {
+      formattedTags[tags[i].id.split('-')[0]] = [tags[i]];
+      continue;
+    }
+    formattedTags[tags[i].id.split('-')[0]] = [
+      ...formattedTags[tags[i].id.split('-')[0]],
+      tags[i],
+    ];
+  }
+  return formattedTags;
 };
 
 /* eslint no-param-reassign: 0 */
 export const getAllCommunities = async (ethereumService, count) => {
   const communities = await getCommunities(count);
-  let tags = await getAllTags();
-
-  const tagsCount = communities.reduce((acc, community) => {
-    return acc + community.tagsCount;
-  }, 0);
-
-  while (tags.length < tagsCount && tagsCount < 500) {
-    tags = [...tags, ...(await getAllTags(tags.length))];
-  }
 
   return communities.map((community) => {
-    return formCommunityObjectWithTags(
-      community,
-      tags.filter((tag) => tag.communityId === community.id),
-    );
+    return formCommunityObject(community);
   });
 };
 
-export const getCommunityWithTags = async (ethereumService, id) => {
+export const getCommunityWithTags = async (id) => {
   const community = await getCommunityById(id);
   const tags = (await getTags(community.id)).map((tag) => {
     return { ...tag, label: tag.name };
   });
-  return formCommunityObjectWithTags(community, tags);
+
+  return [formCommunityObject(community), formattedTags(tags)];
+};
+
+export const getCommunityTags = async (id) => {
+  const tags = (await getTags(id)).map((tag) => {
+    return { ...tag, label: tag.name };
+  });
+
+  return formattedTags(tags);
 };
 
 export const getCommunityFromContract = async (ethereumService, id) => {

@@ -1,36 +1,39 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
 
-import commonMessages from 'common-messages';
-import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR } from 'style-constants';
+import {
+  TEXT_DARK,
+  TEXT_SECONDARY,
+  LINK_COLOR,
+  TEXT_PRIMARY,
+} from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
-import questionRoundedIcon from 'images/question2.svg?external';
-import answerIcon from 'images/answer.svg?external';
-import iconCopy from 'images/document-copy.svg?inline';
-import iconCopySelect from 'images/document-copy-select.svg?inline';
-import { translationMessages } from 'i18n';
+import FaqIcon from 'icons/Faq';
+import AnswerWithAIcon from 'icons/AnswerWithA';
+import pencilIcon from 'images/pencil.svg?external';
+import CopyTextIcon from 'icons/CopyText';
+
 import Base from 'components/Base';
 import A from 'components/A';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
-import { IconLg } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 import { showPopover } from 'utils/popover';
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
-import ProfileSince from 'components/ProfileSince';
 import { getUserName } from 'utils/user';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -44,7 +47,6 @@ export const UlStyled = Ul.extend`
   display: flex;
   border: none;
   padding: 0;
-  overflow-x: hidden;
   white-space: nowrap;
   flex-wrap: wrap;
 
@@ -54,27 +56,20 @@ export const UlStyled = Ul.extend`
     white-space: nowrap;
     flex-wrap: wrap;
   }
-
-  li:last-child {
-    padding-right: 0;
-  }
-
   li {
     display: flex;
     flex-direction: column;
-    padding: 15px 30px 15px 0;
+    padding-right: 25px;
     div {
       display: inline;
     }
-    @media (max-width: 450px) {
+    span {
+      height: 20px;
+    }
+    @media (max-width: 420px) {
       word-break: break-word;
       white-space: pre-line;
       overflow-wrap: break-word;
-
-      button {
-        left: 75%;
-        top: 80%;
-      }
     }
 
     @media (max-width: 399px) {
@@ -84,6 +79,7 @@ export const UlStyled = Ul.extend`
     > *:nth-child(1) {
       font-size: 14px;
       line-height: 25px;
+      padding-bottom: 25px;
       color: ${TEXT_SECONDARY};
     }
 
@@ -102,33 +98,27 @@ export const UlStyled = Ul.extend`
       svg {
         margin-right: 5px;
       }
+      span {
+        height: 18px;
+        white-space: nowrap;
+      }
     }
 
-    @media only screen and (max-width: 1280px) {
-      padding: 10px 45px;
+    @media only screen and (max-width: 1385px) {
+      padding-right: 18px;
     }
 
     @media only screen and (max-width: 768px) {
       padding: 10px 25px 5px 0;
-      span,
-      div {
+      > *:nth-child(1) {
+        font-size: 14px !important;
+      }
+      a span {
         font-size: 16px !important;
-      }
-      button {
-        left: 80%;
-        top: 80%;
-      }
-    }
-
-    @media only screen and (max-width: 640px) {
-      span {
-        font-size: 13px !important;
       }
     }
 
     @media only screen and (max-width: 500px) {
-      height: 70px;
-      padding: 10px 20px 5px 0;
       div {
         font-size: 13px !important;
       }
@@ -149,29 +139,26 @@ export const Box = Base.extend`
     > *:nth-child(1) {
       display: flex;
       justify-content: flex-start;
-      align-items: start;
-      flex: 0 0 150px;
-
-      @media only screen and (max-width: 576px) {
-        flex: 0 0 90px;
-      }
+      align-items: ${(props) => (props.isLogin ? 'center' : 'start')};
+      flex: 1 1;
     }
 
     > *:nth-child(2) {
       flex: 0 0 calc(100% - 150px);
-      max-width: calc(100% - 150px);
-      overflow: hidden;
-
-      @media only screen and (max-width: 576px) {
-        flex: 0 0 calc(100% - 90px);
-        max-width: calc(100% - 90px);
-      }
+      max-width: calc(100% - 10px);
+      overflow: break-word;
     }
   }
 `;
 
 const LargeImageButton = styled.button`
   position: relative;
+  img {
+    @media only screen and (max-width: 576px) {
+      width: 80px;
+      height: 80px;
+    }
+  }
 `;
 
 const MainUserInformation = ({
@@ -182,26 +169,48 @@ const MainUserInformation = ({
   redirectToEditProfilePage,
   userAchievementsLength,
 }) => {
+  const { t } = useTranslation();
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState('');
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+
   const writeToBuffer = (event) => {
     navigator.clipboard.writeText(userId);
-    setCopied(true);
-    showPopover(
-      event.currentTarget.id,
-      translationMessages[locale][commonMessages.copied.id],
-    );
+    setCopied(colors.btnColor || LINK_COLOR);
+    if (isDesktop) {
+      showPopover(event.currentTarget.id, t('common.copied'));
+    }
   };
 
-  const iconType = copied ? iconCopySelect : iconCopy;
-
   return (
-    <Box position="middle" className="pb-0">
-      <div>
-        <div>
+    <Box position="middle" className="pb-0" isLogin={userId !== account}>
+      <div
+        css={css`
+          flex-direction: column;
+          @media (min-width: 768px) {
+            flex-direction: row;
+            background: rgba(165, 188, 255, 0.1);
+            border-radius: 170px;
+          }
+        `}
+      >
+        <div
+          css={css`
+            background: rgba(165, 188, 255, 0.1);
+            border-radius: 170px;
+            min-width: calc(100% - 5px);
+            @media (min-width: 768px) {
+              background: none;
+              min-width: 0;
+            }
+            @media (min-width: 768px) and (max-width: 1308px) {
+              padding-top: 10px;
+            }
+          `}
+        >
           <LargeImageButton
             onClick={redirectToEditProfilePage}
             data-user={userId}
@@ -211,6 +220,10 @@ const MainUserInformation = ({
               src={getUserAvatar(profile.avatar, userId, account)}
               alt="avatar"
               isBordered
+              css={css`
+                border: 2px solid ${TEXT_PRIMARY};
+                padding: 2px;
+              `}
             />
             {isTemporaryAccount && (
               <TelegramUserLabel
@@ -220,63 +233,143 @@ const MainUserInformation = ({
               />
             )}
           </LargeImageButton>
+          <div
+            className={!isDesktop ? 'd-flex ais fdc' : 'd-none'}
+            css={css`
+              min-width: calc(100% - 5px);
+              padding: 0 80px 0 10px;
+            `}
+          >
+            <Span
+              fontSize="24"
+              lineHeight="47"
+              bold
+              css={css`
+                @media (min-width: 577px) {
+                  padding: 20px 0;
+                }
+              `}
+            >
+              {getUserName(profile?.displayName, userId)}
+            </Span>
+            <button
+              onClick={redirectToEditProfilePage}
+              className={
+                isDesktop || userId !== account
+                  ? 'd-none'
+                  : `align-items-center d-inline-flex`
+              }
+              id={`redireact-to-edit-${userId}-user-page-2`}
+              data-user={userId}
+            >
+              <IconMd
+                icon={pencilIcon}
+                color={colors.btnColor || TEXT_PRIMARY}
+              />
+              <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+                {t('profile.editProfile')}
+              </Span>
+            </button>
+          </div>
         </div>
 
         <div>
-          <div className="d-flex align-items-center">
-            <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
+          <div className={isDesktop ? 'd-flex align-items-center' : 'd-none'}>
+            <Span
+              fontSize="38"
+              lineHeight="47"
+              mobileFS="28"
+              bold
+              css={css`
+                @media (min-width: 768px) and (max-width: 1308px) {
+                  padding-top: 0;
+                }
+                padding-top: 12px;
+              `}
+            >
               {getUserName(profile?.displayName, userId)}
             </Span>
           </div>
-
           <div className="d-flex align-items-center">
             <UlStyled>
-              <li>
-                <FormattedMessage id={messages.status.id} />
+              <li
+                css={css`
+                  flex: 1 1 60%;
+                  @media (min-width: 768px) {
+                    flex: 0 1;
+                  }
+                `}
+              >
+                <span>{t('profile.status')}</span>
+
                 <RatingStatus
                   isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
                   rating={profile.highestRating.rating}
                   size="lg"
+                  css={css`
+                    span:last-child {
+                      font-size: 18px;
+                    }
+                  `}
                 />
               </li>
 
-              <li>
-                <FormattedMessage id={commonMessages.posts.id} />
+              <li
+                css={css`
+                  flex: 1 1 40%;
+                  @media (min-width: 768px) {
+                    flex: 0 1;
+                  }
+                `}
+              >
+                <span>{t('common.posts')}</span>
                 <span>
-                  <IconLg
-                    icon={questionRoundedIcon}
-                    css={css`
-                      path {
-                        fill: ${LINK_COLOR};
-                      }
-                      ,
-                      circle {
-                        stroke: ${LINK_COLOR};
-                      }
-                    `}
+                  <FaqIcon
+                    className="mr-2"
+                    size={[18, 18]}
+                    stroke={colors.linkColor || TEXT_PRIMARY}
+                    fill={colors.linkColor || TEXT_PRIMARY}
                   />
                   {profile.postCount}
                 </span>
               </li>
 
-              <li>
-                <FormattedMessage id={commonMessages.answers.id} />
+              <li
+                css={css`
+                  flex: 1 1 60%;
+                  @media (min-width: 768px) {
+                    flex: 0 1;
+                  }
+                `}
+              >
+                <span>{t('common.answers')}</span>
                 <span>
-                  <IconLg
-                    icon={answerIcon}
-                    css={css`
-                      path {
-                        stroke: ${LINK_COLOR};
-                      }
-                    `}
+                  <AnswerWithAIcon
+                    className="mr-2"
+                    size={[18, 18]}
+                    stroke={colors.linkColor || TEXT_PRIMARY}
                   />
                   {profile.answersGiven}
                 </span>
               </li>
 
-              <li>
-                <FormattedMessage id={messages.achievements.id} />
+              <li
+                css={css`
+                  flex: 1 1 40%;
+                  @media (min-width: 768px) {
+                    flex: 0 1;
+                  }
+                  span:last-child {
+                    span:last-child {
+                      font-size: 18px;
+                      height: 20px;
+                    }
+                  }
+                `}
+              >
+                <span>{t('profile.achievements')}</span>
+
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
@@ -288,54 +381,47 @@ const MainUserInformation = ({
                 )}
               </li>
               {!isTemporaryAccount && (
-                <li className="pr">
-                  <FormattedMessage id={commonMessages.walletAddress.id} />
-                  <A
-                    to={{ pathname: userPolygonScanAddress }}
-                    href={userPolygonScanAddress}
-                    target="_blank"
-                  >
-                    <span
-                      id="copytext1"
-                      css={css`
-                        border-bottom: 1px solid;
-                        color: ${LINK_COLOR};
-                        font-weight: 400;
-                        font-size: 14px;
-                      `}
+                <li
+                  css={css`
+                    flex-direction: row;
+                  `}
+                >
+                  <span>{t('common.walletAddress')}</span>
+                  <div>
+                    <A
+                      to={{ pathname: userPolygonScanAddress }}
+                      href={userPolygonScanAddress}
+                      target="_blank"
                     >
-                      {userId}
-                    </span>
-                  </A>
-                  <button
-                    id="share-link-copy"
-                    css={css`
-                      color: #adaeae;
-                      position: absolute;
-                      left: 95%;
-                      margin-top: 23px;
-                    `}
-                    onClick={writeToBuffer}
-                  >
-                    <img
-                      src={iconType}
-                      alt="copy"
+                      <span
+                        id="copytext1"
+                        css={css`
+                          border-bottom: 1px solid;
+                          color: ${LINK_COLOR};
+                          font-weight: 400;
+                          font-size: 16px;
+                          line-height: 23px;
+                        `}
+                      >
+                        {userId}
+                      </span>
+                    </A>
+                    <button
                       css={css`
-                        height: 20px;
+                        margin-left: 10px;
                       `}
-                    />
-                  </button>
+                      id="share-link-copy"
+                      onClick={writeToBuffer}
+                    >
+                      <CopyTextIcon
+                        className={colors.btnColor || LINK_COLOR}
+                        fill={copied}
+                        stroke={colors.btnColor || LINK_COLOR}
+                      />
+                    </button>
+                  </div>
                 </li>
               )}
-
-              <li>
-                {!!profile?.creationTime && (
-                  <ProfileSince
-                    creationTime={profile?.creationTime}
-                    locale={locale}
-                  />
-                )}
-              </li>
             </UlStyled>
           </div>
         </div>

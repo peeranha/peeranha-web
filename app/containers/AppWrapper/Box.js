@@ -17,7 +17,7 @@ const Main = styled.div`
     ? colors.mainBackground
     : 'rgb(234, 236, 244)'};
   min-height: 100vh;
-  padding-top: ${x => {
+  padding-top: ${(x) => {
     if (x.isMenuVisible) {
       return 0;
     }
@@ -28,10 +28,10 @@ const Main = styled.div`
 
     return HEADER_HEIGHT;
   }}px;
-  padding-bottom: ${x => (!x.isMenuVisible ? 75 : 0)}px;
+  padding-bottom: ${(x) => (!x.isMenuVisible ? 75 : 0)}px;
 
   @media only screen and (max-width: 991px) {
-    padding-top: ${x => {
+    padding-top: ${(x) => {
       if (x.isMenuVisible) {
         return 0;
       }

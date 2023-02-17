@@ -1,18 +1,16 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import _isEqual from 'lodash/isEqual';
 
 import { communities as communitiesRoute, feed } from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 
-import { getCommunitiesWithTagsSuccess } from 'containers/DataCacheProvider/actions';
+import { getCommunitiesSuccess } from 'containers/DataCacheProvider/actions';
 
 import {
   selectCommunities,
   selectStat,
 } from 'containers/DataCacheProvider/selectors';
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   editCommunity,
@@ -74,7 +72,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     const communityDataCurrent = yield select(selectCommunity());
     const isSingleCommunityMode = !!isSingleCommunityWebsite();
-    const isEqual = Object.keys(communityData).every(key => {
+    const isEqual = Object.keys(communityData).every((key) => {
       return !(key === 'isBlogger')
         ? communityData[key] === communityDataCurrent[key]
         : true;
@@ -94,7 +92,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
       const cachedCommunities = yield select(selectCommunities());
 
-      const community = cachedCommunities.find(c => c.id === communityId);
+      const community = cachedCommunities.find((c) => c.id === communityId);
 
       if (community) {
         try {
@@ -105,7 +103,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
             stat.communitiesCount,
           );
 
-          yield put(getCommunitiesWithTagsSuccess(communities));
+          yield put(getCommunitiesSuccess(communities));
         } catch {}
       }
     } else {

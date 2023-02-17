@@ -1,6 +1,6 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { getFormattedDate } from 'utils/datetime';
 import {
@@ -12,13 +12,13 @@ import {
 import P from 'components/P';
 import Span from 'components/Span';
 
-import messages from './messages';
-
 const WeekNumber = ({ period, locale, periodStarted, periodFinished }) => {
+  const { t } = useTranslation();
+
   return (
     <P>
       <Span className="mr-3" fontSize="24" mobileFS={21} bold>
-        <FormattedMessage id={messages.week.id} /> {Number(period) + 1}
+        {t('wallet.week')} {Number(period) + 1}
       </Span>
 
       <Span className="d-none d-md-inline-block">

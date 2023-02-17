@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   BG_LIGHT,
@@ -20,8 +20,6 @@ import { Icon } from 'components/Input/Checkbox';
 import AcceptAnswerView from 'components/Button/Contained/SuccessMedium';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
-
-import messages from './messages';
 
 const styles = singleCommunityStyles();
 
@@ -45,11 +43,11 @@ export const LabelStyles = css`
 
 const Label = AcceptAnswerView.extend`
   ${LabelStyles};
-  pointer-events: ${x => (x.inactive ? 'none' : 'auto')};
-  background: ${x => (!x.value ? BG_TRANSPARENT : BG_SUCCESS)};
-  border: ${x => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
-  color: ${x => (!x.value ? TEXT_DARK : TEXT_LIGHT)};
-  padding: ${x => (!x.value ? '0 10px 0 5px' : '0px 10px')};
+  pointer-events: ${(x) => (x.inactive ? 'none' : 'auto')};
+  background: ${(x) => (!x.value ? BG_TRANSPARENT : BG_SUCCESS)};
+  border: ${(x) => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
+  color: ${(x) => (!x.value ? TEXT_DARK : TEXT_LIGHT)};
+  padding: ${(x) => (!x.value ? '0 10px 0 5px' : '0px 10px')};
   overflow: hidden;
   height: 1%;
   min-height: 32px;
@@ -58,8 +56,8 @@ const Label = AcceptAnswerView.extend`
 
   ${Icon} {
     background-color: ${BG_LIGHT};
-    background-image: url(${x => (x.value ? okayIconGreen : '')});
-    border: ${x => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
+    background-image: url(${(x) => (x.value ? okayIconGreen : '')});
+    border: ${(x) => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
     box-shadow: none;
 
     border-radius: ${styles.buttonBorderRadius};
@@ -77,6 +75,8 @@ export const MarkAsAcceptedIcon = ({
   whoWasAccepted,
   className,
 }) => {
+  const { t } = useTranslation();
+
   // There is accepted answer && I am not question's author
   if (
     correctAnswerId === answerId &&
@@ -86,7 +86,7 @@ export const MarkAsAcceptedIcon = ({
     return (
       <Label className={className} inactive value>
         <img className="d-inline-flex mr-2" src={okayIconWhite} alt="icon" />
-        <FormattedMessage {...messages.theBest} />
+        {t('post.theBest')}
       </Label>
     );
   }
@@ -104,11 +104,11 @@ export const MarkAsAcceptedIcon = ({
         id={id}
       >
         <Icon />
-        <FormattedMessage
-          {...messages[
+        {t(
+          `post.${
             correctAnswerId === answerId ? 'theBestAnswer' : 'markAsBest'
-          ]}
-        />
+          }`,
+        )}
       </Label>
     );
   }
