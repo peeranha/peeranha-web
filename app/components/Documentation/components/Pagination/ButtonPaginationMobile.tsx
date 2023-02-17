@@ -38,8 +38,8 @@ const ButtonPaginationMobile: React.FC<ButtonPaginationProps> = ({
               }}
             >
               {!isLastArticle
-                ? getcurrentArrayTitle(NEXT_TYPE_BUTTON)
-                : getcurrentArrayTitle(PREV_TYPE_BUTTON)}
+                ? getcurrentArrayTitle(NEXT_TYPE_BUTTON)[1]
+                : getcurrentArrayTitle(PREV_TYPE_BUTTON)[1]}
             </div>
           </div>
         </div>
