@@ -8,7 +8,7 @@ import { NEXT_TYPE_BUTTON, PREV_TYPE_BUTTON } from './constants';
 const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
   typeButton,
   onClickPaginationArticle,
-  getcurrentArrayTitle,
+  title,
 }): JSX.Element => {
   const { t } = useTranslation();
   const isNextButton = typeButton === NEXT_TYPE_BUTTON;
@@ -48,7 +48,7 @@ const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
               '-webkit-box-orient': 'vertical',
             }}
           >
-            {getcurrentArrayTitle}
+            {title}
           </div>
         </div>
       </div>
