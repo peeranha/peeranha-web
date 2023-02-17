@@ -49,8 +49,8 @@ export type DocumentationFormProps = {
 
 export type ButtonPaginationProps = {
   typeButton: string;
+  title: string;
   isStartArticle?: boolean;
   isLastArticle?: boolean;
   onClickPaginationArticle: (type: string) => void;
-  getcurrentArrayTitle: (type: string) => void;
 };

@@ -63,7 +63,7 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
               onClickPaginationArticle={onClickPaginationArticle(
                 PREV_TYPE_BUTTON,
               )}
-              getcurrentArrayTitle={getButtonContent(PREV_TYPE_BUTTON)?.title}
+              title={getButtonContent(PREV_TYPE_BUTTON)?.title}
             />
           </div>
           <div className={`${isLastArticle ? 'dn' : null}`}>
@@ -72,14 +72,18 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
               onClickPaginationArticle={onClickPaginationArticle(
                 NEXT_TYPE_BUTTON,
               )}
-              getcurrentArrayTitle={getButtonContent(NEXT_TYPE_BUTTON)?.title}
+              title={getButtonContent(NEXT_TYPE_BUTTON)?.title}
             />
           </div>
         </div>
       ) : (
         <ButtonPaginationMobile
           onClickPaginationArticle={onClickPaginationArticle}
-          getcurrentArrayTitle={getButtonContent}
+          title={
+            getButtonContent(
+              !isLastArticle ? NEXT_TYPE_BUTTON : PREV_TYPE_BUTTON,
+            )?.title
+          }
           isStartArticle={isStartArticle}
           isLastArticle={isLastArticle}
         />

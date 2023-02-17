@@ -8,7 +8,7 @@ const ButtonPaginationMobile: React.FC<ButtonPaginationProps> = ({
   isStartArticle,
   isLastArticle,
   onClickPaginationArticle,
-  getcurrentArrayTitle,
+  title,
 }): JSX.Element => {
   const { t } = useTranslation();
 
@@ -37,11 +37,7 @@ const ButtonPaginationMobile: React.FC<ButtonPaginationProps> = ({
                 '-webkit-box-orient': 'vertical',
               }}
             >
-              {
-                getcurrentArrayTitle(
-                  !isLastArticle ? NEXT_TYPE_BUTTON : PREV_TYPE_BUTTON,
-                )?.title
-              }
+              {title}
             </div>
           </div>
         </div>
