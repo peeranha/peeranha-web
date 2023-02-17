@@ -8,6 +8,7 @@ import { getDataFromTree, getcurrentArrayIndex } from '../../helpers';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
 import ButtonPaginationDesktop from './ButtonPaginationDesktop';
 import ButtonPaginationMobile from './ButtonPaginationMobile';
+import { PREV_TYPE_BUTTON } from './constants';
 
 type PaginationDocumentationProps = {
   documentationMenu: DocumentationItemMenuType;
@@ -27,12 +28,6 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
 
   const isStartArticle = currentArrayIndex < 1;
   const isLastArticle = currentArrayIndex === treeArray.length - 1;
-  const TITLE_LENGTH = isDesktop ? 26 : 50;
-  const TITLE_LAST_INDEX = isDesktop ? 25 : 49;
-  const TITLE_START_INDEX = 0;
-  const TITLE_END = '...';
-  const NEXT_TYPE_BUTTON = 'next';
-  const PREV_TYPE_BUTTON = 'prev';
 
   const onClickPaginationArticle = (typeButton: 'prev' | 'next') => () => {
     const stepDirection = typeButton === PREV_TYPE_BUTTON ? -1 : +1;
@@ -51,9 +46,7 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
     const title = treeArray?.find(
       (item) => item?.treeIndex === currentArrayIndex + stepDirection,
     )?.node.title;
-    return title?.length < TITLE_LENGTH
-      ? title
-      : title?.substr(TITLE_START_INDEX, TITLE_LAST_INDEX) + TITLE_END;
+    return title;
   };
   return (
     <>
@@ -72,8 +65,6 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
                 onClickPaginationArticle
               }
               getcurrentArrayTitle={getcurrentArrayTitle}
-              NEXT_TYPE_BUTTON={NEXT_TYPE_BUTTON}
-              PREV_TYPE_BUTTON={PREV_TYPE_BUTTON}
             />
           </div>
           <div className={`${isLastArticle ? 'dn' : null}`}>
@@ -86,8 +77,6 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
                 onClickPaginationArticle
               }
               getcurrentArrayTitle={getcurrentArrayTitle}
-              NEXT_TYPE_BUTTON={NEXT_TYPE_BUTTON}
-              PREV_TYPE_BUTTON={PREV_TYPE_BUTTON}
             />
           </div>
         </div>
@@ -97,8 +86,6 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
           treeArray={treeArray}
           onClickPaginationArticle={onClickPaginationArticle}
           getcurrentArrayTitle={getcurrentArrayTitle}
-          NEXT_TYPE_BUTTON={NEXT_TYPE_BUTTON}
-          PREV_TYPE_BUTTON={PREV_TYPE_BUTTON}
           isStartArticle={isStartArticle}
           isLastArticle={isLastArticle}
         />

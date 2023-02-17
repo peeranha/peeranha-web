@@ -53,6 +53,4 @@ export type ButtonPaginationProps = {
   isLastArticle: boolean;
   onClickPaginationArticle: (type: string) => void;
   getcurrentArrayTitle: (type: string) => void;
-  NEXT_TYPE_BUTTON: string;
-  PREV_TYPE_BUTTON: string;
 };

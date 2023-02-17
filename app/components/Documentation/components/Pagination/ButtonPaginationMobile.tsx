@@ -2,14 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ArrowDownIcon from 'icons/ArrowDown';
 import { ButtonPaginationProps } from '../../types';
+import { NEXT_TYPE_BUTTON, PREV_TYPE_BUTTON } from './constants';
 
 const ButtonPaginationMobile: React.FC<ButtonPaginationProps> = ({
   isStartArticle,
   isLastArticle,
   onClickPaginationArticle,
   getcurrentArrayTitle,
-  NEXT_TYPE_BUTTON,
-  PREV_TYPE_BUTTON,
 }): JSX.Element => {
   const { t } = useTranslation();
 
@@ -29,7 +28,15 @@ const ButtonPaginationMobile: React.FC<ButtonPaginationProps> = ({
               {' '}
               {t(`${!isLastArticle ? 'common.next' : 'common.prev'}`)}
             </div>
-            <div className="fz16 semi-bold mt4">
+            <div
+              className="fz16 semi-bold mt4 ovh"
+              css={{
+                textOverflow: 'ellipsis',
+                display: '-webkit-box !important',
+                '-webkit-line-clamp': '1',
+                '-webkit-box-orient': 'vertical',
+              }}
+            >
               {!isLastArticle
                 ? getcurrentArrayTitle(NEXT_TYPE_BUTTON)
                 : getcurrentArrayTitle(PREV_TYPE_BUTTON)}
