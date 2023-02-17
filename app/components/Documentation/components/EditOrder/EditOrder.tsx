@@ -130,7 +130,7 @@ const EditOrder: React.FC<EditOrderProps> = ({
             variant="secondary"
             className="mr16"
             onClick={editOrder}
-            css={styled.canselButton}
+            css={styled.cancelButton}
           >
             Cancel
           </Button>

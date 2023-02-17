@@ -67,7 +67,7 @@ export const styled = {
     },
   },
 
-  canselButton: {
+  cancelButton: {
     background: documentationColors.publishBackground || 'white',
     color: documentationColors.publishText || 'var(--color-button-secondary)',
     borderColor:

@@ -279,7 +279,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           className="mr16"
           onClick={onClickCancel}
           disabled={isLoading}
-          css={styled.canselButton}
+          css={styled.cancelButton}
         >
           Cancel
         </Button>
