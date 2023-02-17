@@ -37,9 +37,11 @@ const ButtonPaginationMobile: React.FC<ButtonPaginationProps> = ({
                 '-webkit-box-orient': 'vertical',
               }}
             >
-              {!isLastArticle
-                ? getcurrentArrayTitle(NEXT_TYPE_BUTTON)[1]
-                : getcurrentArrayTitle(PREV_TYPE_BUTTON)[1]}
+              {
+                getcurrentArrayTitle(
+                  !isLastArticle ? NEXT_TYPE_BUTTON : PREV_TYPE_BUTTON,
+                )?.title
+              }
             </div>
           </div>
         </div>

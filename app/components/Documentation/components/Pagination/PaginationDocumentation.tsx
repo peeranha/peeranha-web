@@ -32,25 +32,21 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
     typeButton: typeof PREV_TYPE_BUTTON | typeof NEXT_TYPE_BUTTON,
   ) => {
     const stepDirection = typeButton === PREV_TYPE_BUTTON ? -1 : +1;
-    const id = treeArray.find(
+    return treeArray.find(
       (item) => item?.treeIndex === currentArrayIndex + stepDirection,
-    )?.node.id;
-    const title = treeArray?.find(
-      (item) => item?.treeIndex === currentArrayIndex + stepDirection,
-    )?.node.title;
-    return [id, title];
+    )?.node;
   };
 
   const onClickPaginationArticle =
     (typeButton: typeof PREV_TYPE_BUTTON | typeof NEXT_TYPE_BUTTON) => () => {
-      const [arrayId, arrayTitle] = getButtonContent(typeButton);
+      const { id, title } = getButtonContent(typeButton);
 
       if (typeof onClickPaginationArticleEditDocumentation === 'function') {
-        onClickPaginationArticleEditDocumentation(arrayId);
+        onClickPaginationArticleEditDocumentation(id);
         return;
       }
-      const ipfsHash = getIpfsHashFromBytes32(arrayId);
-      createdHistory.push(routes.documentation(ipfsHash, arrayTitle));
+      const ipfsHash = getIpfsHashFromBytes32(id);
+      createdHistory.push(routes.documentation(ipfsHash, title));
     };
 
   return (
@@ -67,7 +63,7 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
               onClickPaginationArticle={onClickPaginationArticle(
                 PREV_TYPE_BUTTON,
               )}
-              getcurrentArrayTitle={getButtonContent(PREV_TYPE_BUTTON)[1]}
+              getcurrentArrayTitle={getButtonContent(PREV_TYPE_BUTTON)?.title}
             />
           </div>
           <div className={`${isLastArticle ? 'dn' : null}`}>
@@ -76,7 +72,7 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
               onClickPaginationArticle={onClickPaginationArticle(
                 NEXT_TYPE_BUTTON,
               )}
-              getcurrentArrayTitle={getButtonContent(NEXT_TYPE_BUTTON)[1]}
+              getcurrentArrayTitle={getButtonContent(NEXT_TYPE_BUTTON)?.title}
             />
           </div>
         </div>
