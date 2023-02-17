@@ -3,13 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import ArrowDownIcon from 'icons/ArrowDown';
 import { ButtonPaginationProps } from '../../types';
+import { NEXT_TYPE_BUTTON, PREV_TYPE_BUTTON } from './constants';
 
 const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
   next,
   onClickPaginationArticle,
   getcurrentArrayTitle,
-  NEXT_TYPE_BUTTON,
-  PREV_TYPE_BUTTON,
 }): JSX.Element => {
   const { t } = useTranslation();
   const buttunType = next ? NEXT_TYPE_BUTTON : PREV_TYPE_BUTTON;
@@ -20,6 +19,9 @@ const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
         width: '375px',
         height: '65px',
         border: '1px solid rgba(53, 74, 137, 0.15);',
+        ':hover': {
+          background: 'rgba(53, 74, 137, 0.05)',
+        },
       }}
       className="ml12 mr12 mb12"
       onClick={onClickPaginationArticle(buttunType)}
@@ -38,7 +40,15 @@ const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
           <div className="mb4 fz14" css={{ color: 'var(--color-gray-dark)' }}>
             {t(`${next ? 'common.next' : 'common.prev'}`)}
           </div>
-          <div className="fz18 semi-bold">
+          <div
+            className="fz18 semi-bold ovh"
+            css={{
+              textOverflow: 'ellipsis',
+              display: '-webkit-box !important',
+              '-webkit-line-clamp': '1',
+              '-webkit-box-orient': 'vertical',
+            }}
+          >
             {next
               ? getcurrentArrayTitle(NEXT_TYPE_BUTTON)
               : getcurrentArrayTitle(PREV_TYPE_BUTTON)}
