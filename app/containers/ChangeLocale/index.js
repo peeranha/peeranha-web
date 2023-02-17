@@ -59,7 +59,7 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
                   isBold={item === locale}
                 >
                   <Flag
-                    src={require(`images/Languages/${item}_lang.svg?inline`)}
+                    src={`https://images.peeranha.io/languages/${item}_lang.svg`}
                     alt="language"
                     css={{
                       width: '18px',

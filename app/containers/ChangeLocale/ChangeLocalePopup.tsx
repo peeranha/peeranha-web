@@ -49,7 +49,7 @@ const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
                 <div className="df aic jcsb" css={styled.inputRadio}>
                   <div className="mb-3 df aic ml-3 text-center">
                     <Flag
-                      src={require(`images/Languages/${item}_lang.svg?inline`)}
+                      src={`https://images.peeranha.io/languages/${item}_lang.svg`}
                       alt="language"
                     />
                     {t(`common.${item}`)}
