@@ -47,7 +47,7 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
     }
   };
 
-  const removeLanguage = (event: React.MouseEvent, language: string) => {
+  const removeLanguage = (language: string) => (event: React.MouseEvent) => {
     event.preventDefault();
     removeSelectedLanguage(language);
   };
@@ -79,7 +79,7 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
                 type="button"
                 className="dif"
                 css={styles.closeIcon}
-                onClick={(event) => removeLanguage(event, language)}
+                onClick={removeLanguage(language)}
               >
                 <CloseRoundedIcon
                   fill={colors.tagColor || BORDER_PRIMARY}
