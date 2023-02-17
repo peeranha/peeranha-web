@@ -192,10 +192,10 @@ export const Header = ({
           createdHistory.location.search,
         );
         const searchParamsTags = searchParams.get('tags');
-        setTags(searchParamsTags ? searchParamsTags.split(':') : []);
+        setTags(searchParamsTags ? searchParamsTags.split(',') : []);
         setTagsNames(
           searchParamsTags
-            ? await getTagsNameByIds(searchParamsTags.split(':'))
+            ? await getTagsNameByIds(searchParamsTags.split(','))
             : [],
         );
       }
@@ -326,12 +326,12 @@ export const Header = ({
                       createdHistory.location.search,
                     );
                     const searchParamsTags = searchParams.get('tags');
-                    const allTags = searchParamsTags?.split(':');
+                    const allTags = searchParamsTags?.split(',');
                     const result = allTags?.filter(
                       (item) => item !== removedTag,
                     );
                     if (result?.length) {
-                      searchParams.set('tags', result.join(':'));
+                      searchParams.set('tags', result.join(','));
                     } else {
                       searchParams.delete('tags');
                     }
