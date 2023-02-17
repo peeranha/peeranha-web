@@ -94,12 +94,12 @@ const EditCommunityForm = ({
     [communityId, editCommunityDispatch, selectedLanguages],
   );
 
-  const setGeneralTab = (e) => {
-    e.preventDefault();
+  const setGeneralTab = (event) => {
+    event.preventDefault();
     setTab(GENERAL_TAB);
   };
-  const setTranslationsTab = (e) => {
-    e.preventDefault();
+  const setTranslationsTab = (event) => {
+    event.preventDefault();
     setTab(TRANSLATIONS_TAB);
   };
 
