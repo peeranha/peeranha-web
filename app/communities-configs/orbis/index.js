@@ -170,7 +170,7 @@ export const OrbisStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/orbis/Orbis-logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/orbis/GroupLogo.svg',
   favicon: 'https://images.peeranha.io/communities/orbis/Orbis-logo.ico',
 
   colors: {
