@@ -1,3 +1,4 @@
+import { languagesEnum } from 'app/i18n';
 import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getProfileInfo } from 'utils/profileManagement';
@@ -413,6 +414,7 @@ export function* saveCommentWorker({
       answerId,
       commentId,
       ipfsHash,
+      languagesEnum[locale],
       ethereumService,
     );
 
@@ -730,7 +732,7 @@ export function* postCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, ethereumService, profileInfo, histories } =
+    const { questionData, ethereumService, locale, profileInfo, histories } =
       yield call(getParams);
 
     yield call(checkPostCommentAvailableWorker, buttonId, answerId);
@@ -747,6 +749,7 @@ export function* postCommentWorker({
       questionId,
       answerId,
       ipfsHash,
+      languagesEnum[locale],
       ethereumService,
     );
 
@@ -809,8 +812,14 @@ export function* postCommentWorker({
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, ethereumService, profileInfo, histories, account } =
-      yield call(getParams);
+    const {
+      questionData,
+      ethereumService,
+      locale,
+      profileInfo,
+      histories,
+      account,
+    } = yield call(getParams);
 
     yield call(isAuthorized);
 
@@ -835,6 +844,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       questionId,
       ipfsHash,
       official,
+      languagesEnum[locale],
       ethereumService,
     );
 

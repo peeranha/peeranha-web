@@ -1,3 +1,5 @@
+import { languagesEnum } from 'app/i18n';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -62,6 +64,7 @@ export function* editAnswerWorker({
   title,
 }) {
   try {
+    const locale = yield select(makeSelectLocale());
     const ethereumService = yield select(selectEthereum);
     const user = yield call(ethereumService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
@@ -75,6 +78,7 @@ export function* editAnswerWorker({
       answerId,
       answerData,
       official,
+      languagesEnum[locale],
       ethereumService,
     );
 
