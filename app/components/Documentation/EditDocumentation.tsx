@@ -51,8 +51,6 @@ import {
   animationDocumentation,
   clearSavedDrafts,
   getSavedDraftsIds,
-  getDataFromTree,
-  getcurrentArrayIndex,
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
@@ -81,9 +79,6 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
   const [pinned, setPinned] = useState<string>(pinnedItemMenu.id);
-
-  const treeArray = getDataFromTree(documentationMenu);
-  const currentArrayIndex = getcurrentArrayIndex(treeArray, viewArticleId);
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -164,11 +159,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
     }
   };
 
-  const onClickPaginationArticle = (typeButton: 'prev' | 'next') => () => {
-    const stepDirection = typeButton === 'prev' ? -1 : +1;
-    const arrayId = treeArray.find(
-      (item) => item?.treeIndex === currentArrayIndex + stepDirection,
-    )?.node.id;
+  const onClickPaginationArticle = (arrayId: string): void => {
     onClickArticle(arrayId);
   };
 

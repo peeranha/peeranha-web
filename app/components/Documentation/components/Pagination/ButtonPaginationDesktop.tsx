@@ -6,13 +6,12 @@ import { ButtonPaginationProps } from '../../types';
 import { NEXT_TYPE_BUTTON, PREV_TYPE_BUTTON } from './constants';
 
 const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
-  next,
+  typeButton,
   onClickPaginationArticle,
   getcurrentArrayTitle,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const buttunType = next ? NEXT_TYPE_BUTTON : PREV_TYPE_BUTTON;
-
+  const isNextButton = typeButton === NEXT_TYPE_BUTTON;
   return (
     <button
       css={{
@@ -24,21 +23,21 @@ const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
         },
       }}
       className="ml12 mr12 mb12"
-      onClick={onClickPaginationArticle(buttunType)}
+      onClick={onClickPaginationArticle}
     >
       <div
         className={`df aic jcsb ml12 mr12`}
         css={css`
-          flex-direction: ${next ? 'row-reverse' : 'row'};
+          flex-direction: ${isNextButton ? 'row-reverse' : 'row'};
         `}
       >
         <ArrowDownIcon
-          css={{ color: 'var(--color-gray-dark)', marginLeft: '12px' }}
-          className={`${next ? 'transform270' : 'transform90'}`}
+          css={{ color: 'var(--color-gray-dark)' }}
+          className={`${isNextButton ? 'transform270' : 'transform90'}`}
         />
-        <div className={`df fdc ${next ? 'aifs' : 'aife'} mr16`}>
+        <div className={`df fdc ${isNextButton ? 'aifs' : 'aife'} mr16`}>
           <div className="mb4 fz14" css={{ color: 'var(--color-gray-dark)' }}>
-            {t(`${next ? 'common.next' : 'common.prev'}`)}
+            {t(`${isNextButton ? 'common.next' : 'common.prev'}`)}
           </div>
           <div
             className="fz18 semi-bold ovh"
@@ -49,9 +48,7 @@ const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
               '-webkit-box-orient': 'vertical',
             }}
           >
-            {next
-              ? getcurrentArrayTitle(NEXT_TYPE_BUTTON)
-              : getcurrentArrayTitle(PREV_TYPE_BUTTON)}
+            {getcurrentArrayTitle}
           </div>
         </div>
       </div>

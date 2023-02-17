@@ -8,12 +8,12 @@ import { getDataFromTree, getcurrentArrayIndex } from '../../helpers';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
 import ButtonPaginationDesktop from './ButtonPaginationDesktop';
 import ButtonPaginationMobile from './ButtonPaginationMobile';
-import { PREV_TYPE_BUTTON } from './constants';
+import { PREV_TYPE_BUTTON, NEXT_TYPE_BUTTON } from './constants';
 
 type PaginationDocumentationProps = {
   documentationMenu: DocumentationItemMenuType;
-  id: string;
-  onClickPaginationArticleEditDocumentation?: () => void;
+  id: number;
+  onClickPaginationArticleEditDocumentation?: (arrayId: string) => void;
 };
 
 const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
@@ -25,29 +25,34 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
   const treeArray = getDataFromTree(documentationMenu);
 
   const currentArrayIndex = getcurrentArrayIndex(treeArray, id);
-
   const isStartArticle = currentArrayIndex < 1;
   const isLastArticle = currentArrayIndex === treeArray.length - 1;
 
-  const onClickPaginationArticle = (typeButton: 'prev' | 'next') => () => {
+  const getButtonContent = (
+    typeButton: typeof PREV_TYPE_BUTTON | typeof NEXT_TYPE_BUTTON,
+  ) => {
     const stepDirection = typeButton === PREV_TYPE_BUTTON ? -1 : +1;
-    const arrayId = treeArray.find(
+    const id = treeArray.find(
       (item) => item?.treeIndex === currentArrayIndex + stepDirection,
     )?.node.id;
-    const arrayTitle = treeArray.find(
-      (item) => item?.treeIndex === currentArrayIndex + stepDirection,
-    )?.node.title;
-    const ipfsHash = getIpfsHashFromBytes32(arrayId);
-    createdHistory.push(routes.documentation(ipfsHash, arrayTitle));
-  };
-
-  const getcurrentArrayTitle = (typeButton: 'prev' | 'next') => {
-    const stepDirection = typeButton === PREV_TYPE_BUTTON ? -1 : +1;
     const title = treeArray?.find(
       (item) => item?.treeIndex === currentArrayIndex + stepDirection,
     )?.node.title;
-    return title;
+    return [id, title];
   };
+
+  const onClickPaginationArticle =
+    (typeButton: typeof PREV_TYPE_BUTTON | typeof NEXT_TYPE_BUTTON) => () => {
+      const [arrayId, arrayTitle] = getButtonContent(typeButton);
+
+      if (typeof onClickPaginationArticleEditDocumentation === 'function') {
+        onClickPaginationArticleEditDocumentation(arrayId);
+        return;
+      }
+      const ipfsHash = getIpfsHashFromBytes32(arrayId);
+      createdHistory.push(routes.documentation(ipfsHash, arrayTitle));
+    };
+
   return (
     <>
       {isDesktop ? (
@@ -58,34 +63,27 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
         >
           <div className={`${isStartArticle ? 'dn' : null}`}>
             <ButtonPaginationDesktop
-              currentArrayIndex={currentArrayIndex}
-              treeArray={treeArray}
-              onClickPaginationArticle={
-                onClickPaginationArticleEditDocumentation ||
-                onClickPaginationArticle
-              }
-              getcurrentArrayTitle={getcurrentArrayTitle}
+              typeButton={PREV_TYPE_BUTTON}
+              onClickPaginationArticle={onClickPaginationArticle(
+                PREV_TYPE_BUTTON,
+              )}
+              getcurrentArrayTitle={getButtonContent(PREV_TYPE_BUTTON)[1]}
             />
           </div>
           <div className={`${isLastArticle ? 'dn' : null}`}>
             <ButtonPaginationDesktop
-              next
-              currentArrayIndex={currentArrayIndex}
-              treeArray={treeArray}
-              onClickPaginationArticle={
-                onClickPaginationArticleEditDocumentation ||
-                onClickPaginationArticle
-              }
-              getcurrentArrayTitle={getcurrentArrayTitle}
+              typeButton={NEXT_TYPE_BUTTON}
+              onClickPaginationArticle={onClickPaginationArticle(
+                NEXT_TYPE_BUTTON,
+              )}
+              getcurrentArrayTitle={getButtonContent(NEXT_TYPE_BUTTON)[1]}
             />
           </div>
         </div>
       ) : (
         <ButtonPaginationMobile
-          currentArrayIndex={currentArrayIndex}
-          treeArray={treeArray}
           onClickPaginationArticle={onClickPaginationArticle}
-          getcurrentArrayTitle={getcurrentArrayTitle}
+          getcurrentArrayTitle={getButtonContent}
           isStartArticle={isStartArticle}
           isLastArticle={isLastArticle}
         />
