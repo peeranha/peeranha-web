@@ -36,6 +36,6 @@ export const styles = {
   },
 
   closeIcon: {
-    margin: '0 0 0 9px',
+    margin: '0 0 0 4px',
   },
 };

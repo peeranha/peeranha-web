@@ -1,12 +1,11 @@
 import { ArrowDown } from 'components/icons';
 import useTrigger from 'hooks/useTrigger';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BORDER_PRIMARY } from 'style-constants';
 
 import { singleCommunityColors } from 'utils/communityManagement';
-import { IconMd } from 'components/Icon/IconWithSizes';
-import closeIcon from 'images/closeCircle.svg?external';
 import { styles } from './DropdownTrigger.styled';
+import CloseRoundedIcon from 'icons/CloseRounded';
 
 const colors = singleCommunityColors();
 
@@ -30,17 +29,27 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
 }): JSX.Element => {
   const [isOpen, open, close] = useTrigger(false);
 
-  document.addEventListener('click', () => {
-    if (isOpen) {
-      close();
-    }
-  });
+  useEffect(() => {
+    const handleClose = () => {
+      if (isOpen) {
+        close();
+      }
+    };
 
-  const dropdownListener = (e: React.MouseEvent) => {
-    e.stopPropagation();
+    document.addEventListener('click', handleClose);
+    return () => window.removeEventListener('click', handleClose);
+  }, []);
+
+  const dropdownListener = (event: React.MouseEvent) => {
+    event.stopPropagation();
     if (selectedLanguages.length !== allLanguages.length) {
       isOpen ? close() : open();
     }
+  };
+
+  const removeLanguage = (event: React.MouseEvent, language: string) => {
+    event.preventDefault();
+    removeSelectedLanguage(language);
   };
 
   return (
@@ -58,10 +67,6 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
             (languageWithDescription) =>
               languageWithDescription.value === language,
           );
-          const removeLanguage = (e) => {
-            e.preventDefault();
-            removeSelectedLanguage(language);
-          };
 
           return (
             <div
@@ -74,12 +79,11 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
                 type="button"
                 className="dif"
                 css={styles.closeIcon}
-                onClick={removeLanguage}
+                onClick={(event) => removeLanguage(event, language)}
               >
-                <IconMd
-                  icon={closeIcon}
+                <CloseRoundedIcon
                   fill={colors.tagColor || BORDER_PRIMARY}
-                  color={colors.tagColor || BORDER_PRIMARY}
+                  stroke={colors.tagColor || BORDER_PRIMARY}
                 />
               </button>
             </div>
