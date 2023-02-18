@@ -72,7 +72,9 @@ export const TextEditorField = ({
   mediaLink,
 }) => {
   useEffect(() => {
-    input.onChange(input.value + mediaLink);
+    if (mediaLink) {
+      input.onChange(input.value + mediaLink);
+    }
   }, [mediaLink]);
 
   return (
