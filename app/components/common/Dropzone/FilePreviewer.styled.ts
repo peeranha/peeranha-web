@@ -71,4 +71,27 @@ export const styles = {
     borderRadius: '50%',
     border: '1px solid rgb(87, 111, 237)',
   },
+
+  tooltip: {
+    background: 'rgb(255,255,255)',
+    borderRadius: '5px',
+    fontSize: '12px',
+    lineHeight: '16px',
+    letterSpacing: '0.3px',
+    color: '#282828',
+    filter: 'drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.25))',
+
+    ':after': {
+      content: '""',
+      position: 'absolute',
+      top: '100%',
+      left: '50%',
+      marginLeft: '-7px',
+      width: 0,
+      height: 0,
+      borderTop: 'solid 5px rgb(255,255,255)',
+      borderLeft: 'solid 7px transparent',
+      borderRight: 'solid 7px transparent',
+    },
+  },
 };

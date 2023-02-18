@@ -22,17 +22,42 @@ export const styles = {
     },
   },
 
-  attachText: {
+  attachOr: {
     lineHeight: '14px',
     color: 'rgba(0, 0, 0, 0.54)',
 
-    span: {
-      color: 'rgb(87, 111, 237)',
+    '@media (min-width: 1024px)': {
+      display: 'inline',
     },
+  },
+
+  attachText: {
+    display: 'inline-block',
+    lineHeight: '14px',
+    color: 'rgba(0, 0, 0, 0.54)',
+
+    ':after': {
+      content: '" "',
+      whiteSpace: 'pre',
+    },
+
+    ':first-letter': {
+      textTransform: 'capitalize',
+    },
+
+    '@media (min-width: 1024px)': {
+      ':first-letter': {
+        textTransform: 'none',
+      },
+    },
+  },
+
+  attachWord: {
+    color: 'rgb(87, 111, 237)',
   },
 
   restrictionsText: {
     color: 'rgb(123, 123, 123)',
-    lineHeight: '15px',
+    lineHeight: '18px',
   },
 };

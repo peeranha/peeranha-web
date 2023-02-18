@@ -140,34 +140,45 @@ const Dropzone: React.FC<DropzoneProps> = ({
   };
 
   const readAndUploadFile = async (file: File) => {
-    let isCorrectFile = false;
+    let isCorrectFileType = false;
+    let isCorrectFileSize = true;
 
     config.forEach((element) => {
       const isPermittedFileType = element.types.find(
         (type) => type === file.type || type === file.type.split('/')[0],
       );
 
-      if (isPermittedFileType && file.size < element.maxFileSizeInBytes) {
-        addNewFile(file);
-        isCorrectFile = true;
+      if (isPermittedFileType) {
+        isCorrectFileType = Boolean(isPermittedFileType);
+        isCorrectFileSize = file.size < element.maxFileSizeInBytes;
 
-        element.uploadFile(
-          file,
-          element.saveUploadedFileLink,
-          setFileFailedUploadStatus,
-          setFileSuccessfulUploadStatus,
-          setFileAbortController,
-          element.showUploadProgress
-            ? setFileUploadProgress
-            : setFileUploadingStatus,
-        );
+        if (file.size < element.maxFileSizeInBytes) {
+          addNewFile(file);
+
+          element.uploadFile(
+            file,
+            element.saveUploadedFileLink,
+            setFileFailedUploadStatus,
+            setFileSuccessfulUploadStatus,
+            setFileAbortController,
+            element.showUploadProgress
+              ? setFileUploadProgress
+              : setFileUploadingStatus,
+          );
+        }
       }
     });
 
-    if (!isCorrectFile && showToast) {
+    if (!isCorrectFileType && showToast) {
       showToast({
         type: 'error',
-        text: 'Invalid file format. Allowed formats: jpeg, jpg, png, gif, mp4.',
+        text: t('common.invalidFileFormat'),
+      });
+    }
+    if (!isCorrectFileSize && showToast) {
+      showToast({
+        type: 'error',
+        text: t('common.invalidFileSize'),
       });
     }
   };
@@ -191,9 +202,12 @@ const Dropzone: React.FC<DropzoneProps> = ({
           <span className="fz14 mb4 dn" css={css(styles.dragText)}>
             {t('common.dragFiles')}
           </span>
-          <span className="fz14" css={css(styles.attachText)}>
-            {t('common.clickTo')}
-            <span>{t('common.attach')}</span>
+          <span className="fz14">
+            <span className="dn" css={css(styles.attachOr)}>
+              {t('common.or')}
+            </span>
+            <span css={css(styles.attachText)}>{t('common.clickTo')}</span>
+            <span css={css(styles.attachWord)}>{t('common.attach')}</span>
           </span>
         </div>
         <input
@@ -211,7 +225,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
         removeFile={removeFile}
         cancelUpload={cancelUpload}
       />
-      <p className="fz12" css={css(styles.restrictionsText)}>
+      <p className="fz14" css={css(styles.restrictionsText)}>
         {t('common.mediaRestrictions')}
       </p>
     </div>

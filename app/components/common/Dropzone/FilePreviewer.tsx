@@ -8,6 +8,8 @@ import Spinner from 'components/common/Spinner';
 import VoteIcon from 'icons/Vote';
 import CloseIcon from 'icons/Close';
 import ReloadRoundedIcon from 'icons/ReloadRounded';
+import Popover from 'components/common/Popover';
+import { useTranslation } from 'react-i18next';
 import AreYouSure from '../../../containers/ViewQuestion/AreYouSure';
 
 import { styles } from './FilePreviewer.styled';
@@ -46,6 +48,8 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
   removeFile,
   cancelUpload,
 }): JSX.Element => {
+  const { t } = useTranslation();
+
   const [isShown, setIsShown] = useState<boolean>(false);
 
   const copyFileUrl = () => {
@@ -150,16 +154,25 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
                 </span>
               )}
             />
-            <span
-              className="df aic jcc"
-              onClick={copyFileUrl}
-              css={css({
-                ...styles.centerIcon,
-                ...(isShown && styles.showOnHover),
-              })}
-            >
-              <CopyLinkIcon stroke="rgb(87, 111, 237)" />
-            </span>
+            <Popover event="click" placement="top">
+              <Popover.Trigger>
+                <span
+                  className="df aic jcc"
+                  onClick={copyFileUrl}
+                  css={css({
+                    ...styles.centerIcon,
+                    ...(isShown && styles.showOnHover),
+                  })}
+                >
+                  <CopyLinkIcon stroke="rgb(87, 111, 237)" />
+                </span>
+              </Popover.Trigger>
+              <Popover.Content>
+                <div className="p12 df jcc" css={styles.tooltip}>
+                  <p>{t('common.copied')}</p>
+                </div>
+              </Popover.Content>
+            </Popover>
           </>
         )}
       </div>
