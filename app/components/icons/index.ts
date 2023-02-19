@@ -1,6 +1,5 @@
 export { default as Share } from './Share';
 export { default as Plus } from './Plus';
-export { default as PlusWithoutCircle } from './PlusWithoutCircle';
 export { default as Notification } from './Notification';
 export { default as Energy } from './Energy';
 export { default as Peercoin } from './Peercoin';
@@ -93,6 +92,7 @@ export { default as SingleCommunity } from './SingleCommunity';
 export { default as Telegram } from './Telegram';
 export { default as Twitter } from './Twitter';
 export { default as RedditGlyph } from './RedditGlyph';
+export { default as CopyText } from './CopyText';
 export { default as Profile } from './Profile';
 export { default as Settings } from './Settings';
 export { default as Notifications } from './Notifications';

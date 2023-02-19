@@ -5,6 +5,9 @@ import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
 } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const MediumIcon = styled.span`
   .stroke {
@@ -23,7 +26,7 @@ const MediumIconStyled = MediumIcon.extend`
   width: 42px;
   height: 42px;
 
-  border: 1px solid ${BORDER_SECONDARY};
+  border: 1px solid ${colors.secondaryAdditional || BORDER_SECONDARY};
 
   background: ${BG_PRIMARY_SPECIAL_2};
   margin-right: 18px;

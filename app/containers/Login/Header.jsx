@@ -1,12 +1,9 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-import commonMessages from 'common-messages';
 import P from 'components/P';
 import H4 from 'components/H4';
-
-import loginMessages from './messages';
 
 const Box = styled.header`
   h4 {
@@ -25,14 +22,16 @@ const Box = styled.header`
   }
 `;
 
-export default () => (
-  <Box>
-    <H4>
-      <FormattedMessage {...commonMessages.login} />
-    </H4>
+const BoxComponent = () => {
+  const { t } = useTranslation();
 
-    <P>
-      <FormattedMessage {...loginMessages.authUserHasMore} />
-    </P>
-  </Box>
-);
+  return (
+    <Box>
+      <H4>{t('common.login')}</H4>
+
+      <P>{t('login.authUserHasMore')}</P>
+    </Box>
+  );
+};
+
+export default BoxComponent;

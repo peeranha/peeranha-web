@@ -1,23 +1,23 @@
+import { singleCommunityColors } from 'utils/communityManagement';
+import { IconLg } from 'components/Icon/IconWithSizes';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import React, { useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { css } from '@emotion/react';
-import commonMessages from 'common-messages';
-import searchIcon from 'images/searchIcon.svg?inline';
+import searchIcon from 'images/searchIcon.svg?external';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
-import { MediumImageStyled } from 'components/Img/MediumImage';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -25,16 +25,23 @@ import saga from './saga';
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
 
-import messages from './messages';
 import Banner from './Banner/Banner';
-import Content from '../Questions/Content/Content';
 import { selectCommunities } from '../DataCacheProvider/selectors';
-import InfinityLoader from '../../components/InfinityLoader';
-import { TEXT_DARK, TEXT_SECONDARY } from '../../style-constants';
+
+import Loader from 'components/LoadingIndicator/WidthCentered';
+import {
+  BORDER_PRIMARY,
+  ICON_TRASPARENT_BLUE,
+  TEXT_DARK,
+  TEXT_SECONDARY,
+} from '../../style-constants';
 import SearchContent from './SearchContent';
 import { redirectToAskQuestionPage } from '../AskQuestion/actions';
 import { loginWithWallet } from '../Login/actions';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+
+const colors = singleCommunityColors();
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const Search = ({
   match,
@@ -47,6 +54,7 @@ const Search = ({
   redirectToAskQuestionPageDispatch,
   loginWithWalletDispatch,
 }) => {
+  const { t } = useTranslation();
   const query = match.params.q;
   useEffect(() => {
     if (query) {
@@ -57,8 +65,8 @@ const Search = ({
   return (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('common.search')}
+        description={t('common.descriptionSearch')}
         language={locale}
         index={false}
       />
@@ -70,8 +78,24 @@ const Search = ({
         `}
       >
         <H3>
-          <MediumImageStyled src={searchIcon} alt="search" />
-          <FormattedMessage {...commonMessages.search} />
+          <div
+            css={css`
+              .fill {
+                fill: ${customColor};
+              }
+              .stroke {
+                stroke: ${customColor};
+              }
+              .semitransparent {
+                fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+              }
+            `}
+          >
+            <MediumIconStyled>
+              <IconLg icon={searchIcon} width={38} fill={BORDER_PRIMARY} />
+            </MediumIconStyled>
+          </div>
+          {t('common.search')}
         </H3>
         {Boolean(items.length) && (
           <div>
@@ -82,7 +106,7 @@ const Search = ({
                 font-family: 'Source Sans Pro', sans-serif;
               `}
             >
-              <FormattedMessage id={commonMessages.results.id} />
+              {t('common.results')}
             </span>
             <span
               className="fz16 ml8"
@@ -96,27 +120,22 @@ const Search = ({
         )}
       </Header>
 
-      {items.length > 0 ? (
-        <InfinityLoader
-          loadNextPaginatedData={false}
-          isLoading={getResultsProcessing}
-          isLastFetch={false}
-        >
+      {(getResultsProcessing && <Loader />) ||
+        (items.length > 0 ? (
           <SearchContent
             locale={locale}
             posts={items}
             communities={communities}
           />
-        </InfinityLoader>
-      ) : (
-        <Banner
-          profileInfo={profileInfo}
-          redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-          showLoginModalWithRedirectToAskQuestionPage={() =>
-            loginWithWalletDispatch({ metaMask: true }, true)
-          }
-        />
-      )}
+        ) : (
+          <Banner
+            profileInfo={profileInfo}
+            redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+            showLoginModalWithRedirectToAskQuestionPage={() =>
+              loginWithWalletDispatch({ metaMask: true }, true)
+            }
+          />
+        ))}
     </div>
   );
 };

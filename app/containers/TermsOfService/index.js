@@ -1,5 +1,5 @@
 import React from 'react';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -17,22 +17,19 @@ import AsideBox from 'components/Base/Aside';
 import Content from 'containers/Faq/Content';
 import Aside from 'containers/Faq/Aside';
 
-import messages from './messages';
-
 import Header from './Header';
 import { SECTION_ID } from './constants';
 import termsEn from '../../terms-of-service/en.md';
-import termsRu from '../../terms-of-service/ru.md';
 
 const TermsOfService = ({ locale }) => {
-  const translations = translationMessages[locale];
-  const terms = parseMD(locale === 'en' ? termsEn : termsRu);
+  const { t } = useTranslation();
+  const terms = parseMD(termsEn);
 
   return (
     <div className="d-flex justify-content-center">
       <Seo
-        title={translations[messages.title.id]}
-        description={translations[messages.description.id]}
+        title={t('common.termsOfServiceDesc.title')}
+        description={t('common.termsOfServiceDesc.description')}
         language={locale}
         index={false}
       />
@@ -51,7 +48,9 @@ const TermsOfService = ({ locale }) => {
       <AsideBox className="d-none d-xl-block">
         <Aside
           content={terms}
-          route={x => routes.termsAndConditions(getSectionCode(SECTION_ID, x))}
+          route={(x) =>
+            routes.termsAndConditions(getSectionCode(SECTION_ID, x))
+          }
         />
       </AsideBox>
     </div>
@@ -66,9 +65,6 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-const withConnect = connect(
-  mapStateToProps,
-  null,
-);
+const withConnect = connect(mapStateToProps, null);
 
 export default compose(withConnect)(TermsOfService);

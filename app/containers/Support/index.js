@@ -1,13 +1,7 @@
-/**
- *
- * Support
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
@@ -26,34 +20,28 @@ import Seo from 'components/Seo';
 import ContactsSection from './Contacts';
 import SupportSection from './Support';
 
-import messages from './messages';
+const Support = ({ locale, sendMessageDispatch, faq, sendMessageLoading }) => {
+  const { t } = useTranslation();
 
-/* eslint-disable react/prefer-stateless-function */
-export class Support extends React.PureComponent {
-  render() {
-    const { locale, sendMessageDispatch, faq, sendMessageLoading } = this.props;
-    const translations = translationMessages[locale];
+  return (
+    <div>
+      <Seo
+        title={t('common.supportDesc.title')}
+        description={t('common.supportDesc.description')}
+        language={locale}
+        index={false}
+      />
 
-    return (
-      <div>
-        <Seo
-          title={translations[messages.title.id]}
-          description={translations[messages.description.id]}
-          language={locale}
-          index={false}
-        />
-
-        <ContactsSection locale={locale} />
-        <SupportSection
-          sendMessage={sendMessageDispatch}
-          faq={faq}
-          locale={locale}
-          sendMessageLoading={sendMessageLoading}
-        />
-      </div>
-    );
-  }
-}
+      <ContactsSection locale={locale} />
+      <SupportSection
+        sendMessage={sendMessageDispatch}
+        faq={faq}
+        locale={locale}
+        sendMessageLoading={sendMessageLoading}
+      />
+    </div>
+  );
+};
 
 Support.propTypes = {
   locale: PropTypes.string,

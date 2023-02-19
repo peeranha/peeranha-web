@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import { BORDER_SECONDARY, BG_LIGHT } from 'style-constants';
 
-import messages from './messages';
 import { italicFont } from '../../global-styles';
 
 const SeparatorBase = styled.div`
@@ -36,16 +35,12 @@ const GroupLabel = styled.div`
   padding-right: 7px;
 `;
 
-const Separator = ({ groupType, locale }) => {
-  const translations = translationMessages[locale]
-    ? translationMessages[locale]
-    : null;
-
-  const title = translations[(messages.separators[groupType]?.id)];
+const Separator = ({ groupType }) => {
+  const { t } = useTranslation();
 
   return (
     <SeparatorBase>
-      <GroupLabel>{title}</GroupLabel>
+      <GroupLabel>{t(`achievements.separators${groupType}`)}</GroupLabel>
     </SeparatorBase>
   );
 };

@@ -119,6 +119,7 @@ export async function getProfileInfo(
     profile = JSON.parse(await getText(profileInfo.ipfsHash));
     profileInfo.displayName = profile.displayName;
     profileInfo.avatar = profile.avatar;
+    profileInfo.achievements = userStats?.achievements ?? [];
   } else {
     profile = profileInfo;
   }
@@ -133,7 +134,6 @@ export async function getProfileInfo(
   profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
   profileInfo.answersGiven =
     profileInfo.replyCount ?? userStats?.replyCount ?? 0;
-  profileInfo.achievements = userStats?.achievements ?? [];
   return profileInfo;
 }
 
@@ -141,6 +141,7 @@ export async function saveProfile(ethereumService, user, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
   await ethereumService.sendTransaction(CONTRACT_USER, user, UPDATE_ACC, [
+    user,
     transactionData,
   ]);
 }

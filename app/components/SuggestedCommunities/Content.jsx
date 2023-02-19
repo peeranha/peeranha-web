@@ -1,9 +1,6 @@
-/* eslint indent: 0, no-unused-vars: 0 */
 import React, { useState, useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-
-import commonMessages from 'common-messages';
 
 import { BORDER_SECONDARY } from 'style-constants';
 
@@ -20,8 +17,6 @@ import BlockShadow from 'components/BlockShadow';
 import VoteUpButton from 'containers/VoteForNewCommunityButton/VoteUpButton';
 import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton';
 import { DescriptionBlock } from 'components/ExistingCommunities/Content';
-
-import messages from './messages';
 
 export const DEFAULT_DESCRIPTION_HEIGHT = 70;
 
@@ -49,25 +44,27 @@ export const Description = BaseSpecial.extend`
   ${P} {
     font-size: 16px;
     line-height: 19px;
-    overflow: ${x => (!x.isOpened && x.isArrowVisible ? 'hidden' : 'visible')};
-    max-height: ${x =>
+    overflow: ${(x) =>
+      !x.isOpened && x.isArrowVisible ? 'hidden' : 'visible'};
+    max-height: ${(x) =>
       !x.isOpened ? `${DEFAULT_DESCRIPTION_HEIGHT}px` : 'auto'};
   }
 
   ${BlockShadow} {
-    display: ${x => (!x.isOpened && x.isArrowVisible ? 'block' : 'none')};
+    display: ${(x) => (!x.isOpened && x.isArrowVisible ? 'block' : 'none')};
   }
 `;
 
 const DESCRIPTION_ID = 'description-content-id';
 
-const Item = x => {
+const Item = (props) => {
+  const { t } = useTranslation();
   const [isOpened, changeView] = useState(false);
   const [isArrowVisible, changeArrowVisibility] = useState(false);
 
   useEffect(() => {
     const { scrollHeight } = document.getElementById(
-      `${DESCRIPTION_ID}_${x.id}`,
+      `${DESCRIPTION_ID}_${props.id}`,
     );
 
     if (scrollHeight > DEFAULT_DESCRIPTION_HEIGHT) {
@@ -76,31 +73,28 @@ const Item = x => {
   });
 
   return (
-    <BaseStyled key={x.id}>
+    <BaseStyled key={props.id}>
       <BaseSpecial className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between">
         <DescriptionBlock className="flex-grow-1 mb-to-sm-2">
           <MediumImageStyled
             className="bg-transparent"
-            src={x.avatar}
-            alt={x.name}
+            src={props.avatar}
+            alt={props.name}
           />
 
           <div>
             <P fontSize="24" lineHeight="31" bold>
-              {x.name}
+              {props.name}
             </P>
-            {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
-              <FormattedMessage {...commonMessages[x.language]} />
-            </P> */}
             <P fontSize="14" lineHeight="18">
-              {x.description}
+              {props.description}
             </P>
           </div>
         </DescriptionBlock>
 
         <div className="flex-shrink-0">
-          <VoteUpButton communityId={x.id} />
-          <VoteDownButton communityId={x.id} />
+          <VoteUpButton communityId={props.id} />
+          <VoteDownButton communityId={props.id} />
         </div>
       </BaseSpecial>
 
@@ -110,7 +104,7 @@ const Item = x => {
         isArrowVisible={isArrowVisible}
       >
         <P className="d-flex align-items-center mb-2" bold>
-          <FormattedMessage {...messages.whyWeeNeedIt} />
+          {t('common.whyWeeNeedIt')}
           <Icon
             className={!isArrowVisible ? 'd-none' : 'ml-2'}
             icon={arrowDownIcon}
@@ -120,7 +114,7 @@ const Item = x => {
         </P>
 
         <div className="position-relative">
-          <P id={`${DESCRIPTION_ID}_${x.id}`}>{x.main_description}</P>
+          <P id={`${DESCRIPTION_ID}_${props.id}`}>{props.main_description}</P>
           <BlockShadow />
         </div>
       </Description>
@@ -133,7 +127,6 @@ const Content = ({
   suggestedCommunitiesLoading,
   isLastFetch,
   getSuggestedCommunities,
-  language,
 }) => {
   if (!suggestedCommunities || !suggestedCommunities.length) return null;
 
@@ -144,11 +137,9 @@ const Content = ({
       isLastFetch={isLastFetch}
     >
       <div>
-        {suggestedCommunities
-          .filter(
-            x => (language.sortBy ? x.language === language.sortBy : true),
-          )
-          .map(x => <Item key={x.id} {...x} />)}
+        {suggestedCommunities.map((x) => (
+          <Item key={x.id} {...x} />
+        ))}
       </div>
     </InfinityLoader>
   );
@@ -159,7 +150,6 @@ Content.propTypes = {
   suggestedCommunitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   getSuggestedCommunities: PropTypes.func,
-  language: PropTypes.object,
 };
 
 export default React.memo(Content);

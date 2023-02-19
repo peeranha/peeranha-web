@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation, Trans } from 'react-i18next';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
@@ -19,6 +18,9 @@ import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { getPermissions } from '../../utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
+import useMediaQuery from 'hooks/useMediaQuery';
+import { css } from '@emotion/react';
+import ScrollContainer from 'components/common/ScrollContainer';
 
 const colors = singleCommunityColors();
 
@@ -46,6 +48,9 @@ const Div = styled.div`
 
   @media only screen and (max-width: 767px) {
     max-width: 100%;
+    div > a {
+      margin-bottom: 10px;
+    }
   }
 `;
 
@@ -61,8 +66,10 @@ const UserNavigation = ({
   userAchievementsLength,
   redirectToEditProfilePage,
 }) => {
+  const { t } = useTranslation();
   const path = window.location.pathname + window.location.hash;
   const ref = useRef(null);
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
     if (
@@ -83,6 +90,15 @@ const UserNavigation = ({
     [profile],
   );
 
+  const onClickRedirectToEditProfilePage =
+    (userId) =>
+    ({ currentTarget: { id } }) => {
+      redirectToEditProfilePage({
+        buttonId: id,
+        user: userId,
+      });
+    };
+
   return (
     <Wrapper position="top" ref={ref}>
       <Ul>
@@ -90,154 +106,177 @@ const UserNavigation = ({
           className="d-flex align-items-center"
           isProfilePage={isProfilePage}
         >
-          <NavigationLink
-            to={routes.profileView(userId)}
-            islink={
-              path !== routes.profileView(userId) &&
-              path !== routes.profileEdit(userId) &&
-              path !== routes.userCommunities(userId)
-                ? 1
-                : 0
-            }
-          >
-            <FormattedMessage id={messages.profile.id} />
-          </NavigationLink>
+          <ScrollContainer>
+            <NavigationLink
+              to={routes.profileView(userId)}
+              islink={
+                path !== routes.profileView(userId) &&
+                path !== routes.profileEdit(userId) &&
+                path !== routes.userCommunities(userId)
+                  ? 1
+                  : 0
+              }
+            >
+              {t('common.profile')}
+            </NavigationLink>
 
-          <NavigationLink
-            to={routes.userQuestions(userId)}
-            disabled={!questionsLength}
-            tabIndex={!questionsLength ? '-1' : undefined}
-            islink={path !== routes.userQuestions(userId) ? 1 : 0}
-          >
-            <FormattedMessage
-              id={messages.postsNumber.id}
-              values={{
-                number: (
-                  <Span
-                    className="ml-1"
-                    fontSize="14"
-                    color={
-                      path !== routes.userQuestions(userId)
-                        ? TEXT_SECONDARY
-                        : 'inherit'
-                    }
-                  >
-                    {questionsLength}
-                  </Span>
-                ),
-              }}
-            />
-          </NavigationLink>
+            <NavigationLink
+              to={routes.userQuestions(userId)}
+              disabled={!questionsLength}
+              tabIndex={!questionsLength ? '-1' : undefined}
+              islink={path !== routes.userQuestions(userId) ? 1 : 0}
+            >
+              <span>
+                <Trans
+                  i18nKey="common.postsNumber"
+                  values={{ number: questionsLength }}
+                  components={[
+                    <Span
+                      className="ml-1"
+                      fontSize="14"
+                      color={
+                        path !== routes.userQuestions(userId)
+                          ? TEXT_SECONDARY
+                          : 'inherit'
+                      }
+                      key="0"
+                    />,
+                  ]}
+                />
+              </span>
+            </NavigationLink>
 
-          <NavigationLink
-            to={routes.userAnswers(userId)}
-            disabled={!questionsWithUserAnswersLength}
-            tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
-            islink={path !== routes.userAnswers(userId) ? 1 : 0}
-          >
-            <FormattedMessage
-              id={messages.answersNumber.id}
-              values={{
-                number: (
-                  <Span
-                    className="ml-1"
-                    fontSize="14"
-                    color={
-                      path !== routes.userAnswers(userId)
-                        ? TEXT_SECONDARY
-                        : 'inherit'
-                    }
-                  >
-                    {questionsWithUserAnswersLength}
-                  </Span>
-                ),
-              }}
-            />
-          </NavigationLink>
+            <NavigationLink
+              to={routes.userAnswers(userId)}
+              disabled={!questionsWithUserAnswersLength}
+              tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
+              islink={path !== routes.userAnswers(userId) ? 1 : 0}
+            >
+              <span>
+                <Trans
+                  i18nKey="common.answersNumber"
+                  values={{ number: questionsWithUserAnswersLength }}
+                  components={[
+                    <Span
+                      className="ml-1"
+                      fontSize="14"
+                      color={
+                        path !== routes.userAnswers(userId)
+                          ? TEXT_SECONDARY
+                          : 'inherit'
+                      }
+                      key="0"
+                    />,
+                  ]}
+                />
+              </span>
+            </NavigationLink>
 
-          <NavigationLink
-            className={userId !== account ? 'd-none' : ''}
-            to={routes.userNotifications(userId)}
-            islink={path !== routes.userNotifications(userId) ? 1 : 0}
-          >
-            <FormattedMessage id={messages.notifications.id} />
-          </NavigationLink>
-
-          <NavigationLink
-            to={routes.userNFTs(userId)}
-            islink={path !== routes.userNFTs(userId) ? 1 : 0}
-          >
-            <FormattedMessage
-              id={messages.NFTsNumber.id}
-              values={{
-                number: (
-                  <Span
-                    className="ml-1"
-                    fontSize="14"
-                    color={
-                      path !== routes.userNFTs(userId)
-                        ? TEXT_SECONDARY
-                        : 'inherit'
-                    }
-                  >
-                    {userAchievementsLength}
-                  </Span>
-                ),
-              }}
-            />
-          </NavigationLink>
-
-          {isModerator && (
             <NavigationLink
               className={userId !== account ? 'd-none' : ''}
-              to={routes.userModeration(userId)}
-              islink={path !== routes.userModeration(userId) ? 1 : 0}
+              to={routes.userNotifications(userId)}
+              islink={path !== routes.userNotifications(userId) ? 1 : 0}
             >
-              <FormattedMessage id={messages.moderation.id} />
+              {t('common.notifications')}
             </NavigationLink>
+
+            <NavigationLink
+              to={routes.userNFTs(userId)}
+              islink={path !== routes.userNFTs(userId) ? 1 : 0}
+            >
+              <span>
+                <Trans
+                  i18nKey="common.NFTsNumber"
+                  values={{ number: userAchievementsLength }}
+                  components={[
+                    <Span
+                      className="ml-1"
+                      fontSize="14"
+                      color={
+                        path !== routes.userNFTs(userId)
+                          ? TEXT_SECONDARY
+                          : 'inherit'
+                      }
+                      key="0"
+                    />,
+                  ]}
+                />
+              </span>
+            </NavigationLink>
+
+            {isModerator && (
+              <NavigationLink
+                className={userId !== account ? 'd-none' : ''}
+                to={routes.userModeration(userId)}
+                islink={path !== routes.userModeration(userId) ? 1 : 0}
+              >
+                {t('common.moderation')}
+              </NavigationLink>
+            )}
+
+            <NavigationLink
+              className={userId !== account ? 'd-none' : ''}
+              to={routes.userSettings(userId)}
+              islink={path !== routes.userSettings(userId) ? 1 : 0}
+            >
+              {t('common.settings')}
+            </NavigationLink>
+          </ScrollContainer>
+
+          {isDesktop && (
+            <NavigationButton
+              className={
+                userId === account && path === routes.profileView(account)
+                  ? 'd-inline-flex d-md-none'
+                  : 'd-none'
+              }
+              onClick={redirectToEditProfilePage}
+              id={`redireact-to-edit-${userId}-user-page-1`}
+              data-user={userId}
+              islink
+            >
+              {t('common.edit')}
+            </NavigationButton>
           )}
-          {/* PEER-718: hide settings;
-          <NavigationLink
-            to={routes.userSettings(userId)}
-            islink={path !== routes.userSettings(userId) ? 1 : 0}
-          >
-            <FormattedMessage id={messages.settings.id} />
-          </NavigationLink> */}
-
-          <NavigationLink
-            to={routes.userSettings(userId)}
-            islink={path !== routes.userSettings(userId) ? 1 : 0}
-          >
-            <FormattedMessage id={messages.settings.id} />
-          </NavigationLink>
-
-          <NavigationButton
-            className={
-              userId === account && path === routes.profileView(account)
-                ? 'd-inline-flex d-md-none'
-                : 'd-none'
-            }
-            onClick={redirectToEditProfilePage}
-            id={`redireact-to-edit-${userId}-user-page-1`}
-            data-user={userId}
-            islink
-          >
-            <FormattedMessage id={messages.edit.id} />
-          </NavigationButton>
         </Div>
 
-        <div className="d-none d-md-block">
+        <div
+          className="d-none d-md-block"
+          css={css`
+            width: 110px;
+            @media (min-width: 840px) {
+              width: auto;
+            }
+            @media (min-width: 991px) {
+              width: 110px;
+            }
+            @media (min-width: 1120px) {
+              width: auto;
+            }
+          `}
+        >
           <button
-            onClick={redirectToEditProfilePage}
+            onClick={onClickRedirectToEditProfilePage(userId)}
             className={`align-items-center ${
               isProfilePage ? 'd-inline-flex' : 'd-none'
             }`}
+            css={css`
+              margin-right: 23px;
+              @media (min-width: 840px) {
+                margin-right: 0;
+              }
+              @media (min-width: 991px) {
+                margin-right: 23px;
+              }
+              @media (min-width: 1120px) {
+                margin-right: 0;
+              }
+            `}
             id={`redireact-to-edit-${userId}-user-page-2`}
-            data-user={userId}
           >
             <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
             <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
-              <FormattedMessage id={messages.edit.id} />
+              {t('common.edit')}
             </Span>
           </button>
 
@@ -256,7 +295,7 @@ const UserNavigation = ({
               isColorImportant
             />
             <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
-              <FormattedMessage id={messages.close.id} />
+              {t('common.close')}
             </Span>
           </A>
         </div>

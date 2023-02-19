@@ -1,9 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
-import messages from 'common-messages';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
 import ItemMenu from './ItemMenu';
 
@@ -81,6 +80,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   setPinned,
   pinned,
 }) => {
+  const { t } = useTranslation();
   const clickDocumentation = () => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
       toggleEditDocumentation();
@@ -117,7 +117,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           ...(isEditDocumentation && { padding: '0 16px' }),
         }}
       >
-        <FormattedMessage id={messages.documentation.id} />
+        {t('common.documentation')}
         {Boolean(isModeratorModeSingleCommunity) && (
           <div className="dropdown-documentation db mr4">
             <Dropdown

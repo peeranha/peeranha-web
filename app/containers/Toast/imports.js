@@ -145,7 +145,7 @@ import {
 import { GET_SUGGESTED_COMMUNITIES_ERROR } from 'containers/Communities/constants';
 
 import {
-  GET_COMMUNITIES_WITH_TAGS_ERROR,
+  GET_COMMUNITIES_ERROR,
   GET_USER_PROFILE_ERROR,
   GET_STAT_ERROR,
   GET_FAQ_ERROR,
@@ -166,7 +166,6 @@ import { GET_TERMS_ERROR } from 'containers/TermsOfService/constants';
 import { INIT_EOSIO_ERROR } from 'containers/EosioProvider/constants';
 import { GET_USER_ACHIEVEMENTS_ERROR } from 'containers/Achievements/constants';
 import { CHANGE_STAKE_ERROR } from 'containers/Boost/constants';
-import { DELETE_FB_DATA_ERROR } from 'containers/DeleteFacebookData/constants';
 
 import {
   SAVE_CRYPTO_ACCOUNTS_ERROR,
@@ -181,7 +180,7 @@ import {
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,
   GET_SUGGESTED_COMMUNITIES_ERROR,
-  GET_COMMUNITIES_WITH_TAGS_ERROR,
+  GET_COMMUNITIES_ERROR,
   GET_USER_PROFILE_ERROR,
   GET_STAT_ERROR,
   GET_FAQ_ERROR,
@@ -262,7 +261,6 @@ export const errHandlingTypes = [
   GET_ASKED_QUESTION_ERROR,
   CHANGE_STAKE_ERROR,
   FB_LOGIN_ERROR,
-  DELETE_FB_DATA_ERROR,
 ];
 
 export const successHandlingTypes = [
