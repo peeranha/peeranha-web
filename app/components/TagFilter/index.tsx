@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
   PEER_PRIMARY_COLOR,
@@ -8,11 +7,16 @@ import {
 import { Tag } from 'components/TagsList';
 import ScrollContainer from 'components/ScrollContainer';
 
-import createdHistory from 'createdHistory';
 import { singleCommunityColors } from 'utils/communityManagement';
 import { getSearchParams } from 'utils/url';
 
 import FailedTransactionIcon from 'icons/FailedTransaction';
+
+import React from 'react';
+// @ts-ignore
+import createdHistory from 'createdHistory';
+import { css } from '@emotion/react';
+import { styles } from './index.styled';
 
 const colors = singleCommunityColors();
 
@@ -43,26 +47,12 @@ const TagFilterContainer = styled.div`
   }
 `;
 
-const TagForFilter = Tag.extend`
-  color: ${TEXT_LIGHT};
-  border: 1px solid ${colors?.linkColor || PEER_PRIMARY_COLOR};
-  border-radius: ${BORDER_RADIUS_L};
-  background: ${colors?.linkColor || PEER_PRIMARY_COLOR};
-  margin-left: 8px;
-  margin-right: 0px;
-  @media only screen and (max-width: 768px) {
-    margin-left: 0px;
-    margin-right: 8px;
-  }
-`;
-
-const RemoveTagIcon = styled.button`
-  display: inline-flex;
-  padding: 0 0 0 10px;
-`;
-
-const TagFilter = ({ tags, tagsNames, communityId }) => {
-  const removeTagFilter = (removedTag) => {
+const TagFilter: React.FC<{
+  tags: string[];
+  tagsNames: any;
+  communityId: string | number;
+}> = ({ tags, tagsNames, communityId }) => {
+  const removeTagFilter = (removedTag: string) => {
     const searchParams = new URLSearchParams(createdHistory.location.search);
     const searchParamsTags = getSearchParams(createdHistory.location.search);
     const result = searchParamsTags?.filter((item) => item !== removedTag);
@@ -77,13 +67,28 @@ const TagFilter = ({ tags, tagsNames, communityId }) => {
   if (!communityId || !tags?.length) return null;
 
   return (
-    <TagFilterContainer>
+    <div css={css(styles.container)}>
       <ScrollContainer>
         <div className="df mt-md-3 mt-sm-0">
           {tags.map((tag) => (
-            <TagForFilter key={tag}>
+            <Tag
+              key={tag}
+              css={css(styles.TagFilter)}
+              style={{
+                ['--text-light' as any]: TEXT_LIGHT,
+                ['--color-borderColor' as any]:
+                  colors?.linkColor || PEER_PRIMARY_COLOR,
+                ['--border-radius' as any]: BORDER_RADIUS_L,
+                ['--background-style' as any]:
+                  colors?.linkColor || PEER_PRIMARY_COLOR,
+              }}
+            >
               {tagsNames[tag]}
-              <RemoveTagIcon type="button" onClick={() => removeTagFilter(tag)}>
+              <button
+                type="button"
+                css={css(styles.RemoveTagIcon)}
+                onClick={() => removeTagFilter(tag)}
+              >
                 <FailedTransactionIcon
                   stroke={TEXT_LIGHT}
                   size={[16, 16]}
@@ -91,19 +96,13 @@ const TagFilter = ({ tags, tagsNames, communityId }) => {
                   fillOpacity={0.2}
                   fill={TEXT_LIGHT}
                 ></FailedTransactionIcon>
-              </RemoveTagIcon>
-            </TagForFilter>
+              </button>
+            </Tag>
           ))}
         </div>
       </ScrollContainer>
-    </TagFilterContainer>
+    </div>
   );
-};
-
-TagFilter.propTypes = {
-  tags: PropTypes.array,
-  tagsNames: PropTypes.object,
-  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default TagFilter;
