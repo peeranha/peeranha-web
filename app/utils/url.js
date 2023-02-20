@@ -35,6 +35,6 @@ export const extractStrings = ([begin, end]) => {
 export const getSearchParams = (search) => {
   const searchParams = new URLSearchParams(search);
   const searchParamsTags = searchParams.get('tags');
-  const allTags = searchParamsTags ? searchParamsTags?.split(':') : [];
+  const allTags = searchParamsTags ? searchParamsTags?.split(',') : [];
   return allTags;
 };

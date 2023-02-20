@@ -67,7 +67,7 @@ const TagFilter = ({ tags, tagsNames, communityId }) => {
     const searchParamsTags = getSearchParams(createdHistory.location.search);
     const result = searchParamsTags?.filter((item) => item !== removedTag);
     if (result?.length) {
-      searchParams.set('tags', result.join(':'));
+      searchParams.set('tags', result.join(','));
     } else {
       searchParams.delete('tags');
     }
