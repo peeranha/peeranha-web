@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-
+import i18next from 'i18next';
 import { sendMessage } from 'utils/homepageManagement';
 
 import { EMAIL_CHECKING } from 'containers/SignUp/constants';
@@ -33,7 +33,7 @@ export function* sendMessageWorker({ val }): Generator<any> {
 
     const pageInfo = {
       url: window.location.href,
-      name: `${val[3]('about.title')}, ${form}`,
+      name: `${i18next.t('homePage.title')}, ${form}`,
     };
 
     yield call(sendMessage, formData, pageInfo);
