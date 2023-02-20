@@ -40,6 +40,7 @@ export const styles = {
     lineHeight: '20px',
     color: 'rgba(40, 40, 40, 1)',
     transition: '0.2s',
+    zIndex: 10,
 
     ':hover': {
       color: 'rgba(118,153,255,1)',
@@ -59,6 +60,7 @@ export const styles = {
     borderRadius: '2px',
     lineHeight: '18px',
     transition: '0.4s',
+    zIndex: 10,
 
     '@media (min-width: 768px)': {
       width: '140px',
