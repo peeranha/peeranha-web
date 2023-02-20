@@ -1,7 +1,5 @@
 import React from 'react';
-
-import { FormattedMessage } from 'react-intl';
-import messages from 'containers/MetaTransactionAgreement/messages';
+import { useTranslation } from 'react-i18next';
 
 import H4 from 'components/H4';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
@@ -16,23 +14,24 @@ const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
   agreeWithMeta,
   hideModal,
 }): JSX.Element => {
+  const { t } = useTranslation();
   return (
     <>
       <H4 className="text-center pb-3">
-        <FormattedMessage id={messages.agreeWithMetaTransactions.id} />
+        {t('common.metaTransaction.agreeWithMetaTransactions')}
       </H4>
 
       <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage id={messages.wouldYouLike.id} />
+        {t('common.metaTransaction.wouldYouLike')}
       </div>
 
       <div className="d-flex align-items-center pb-3">
         <OutlinedButton className="mr-3" onClick={hideModal}>
-          <FormattedMessage id={messages.cansel.id} />
+          {t('common.metaTransaction.cansel')}
         </OutlinedButton>
 
         <ContainedButton onClick={agreeWithMeta}>
-          <FormattedMessage id={messages.confirm.id} />
+          {t('common.metaTransaction.confirm')}
         </ContainedButton>
       </div>
     </>

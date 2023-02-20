@@ -318,7 +318,11 @@
     "dontWorry": "不用担心！ 我们已经为您服务了。",
     "wouldYouLike": "您希望我们转达您的交易并支付交易费用吗？",
     "confirm": "是的",
-    "cansel": "不"
+    "cansel": "不",
+    "allow": "允許",
+    "options": "查看其他選項",
+    "agreeWithMetaTransactionsText": "在 30 天內跳過批准與您的錢包的每次交互，並允許 Peeranha 代表您簽署交易。",
+    "agreeWithMetaTransactionsSecondaryText": "簽名密鑰只能簽署消息，不能持有資金。它們安全地存儲在瀏覽器數據庫系統中"
   },
   "moderationPermitions": {
     "title": "版主权限",
@@ -428,5 +432,12 @@
     "reloadPage": "重新加载页面"
   },
   "answerForm": "你的答案",
-  "results": "结果"
+  "results": "结果",
+  "transactionsText": "請選擇您在 Peeranha 上的最佳用戶體驗：",
+  "transactionsText_1": "彈出窗口少且無費用",
+  "transactionsChange_1": "Peeranha 代表我簽署交易並支付交易費用",
+  "transactionsText_2": "控制不收費",
+  "transactionsChange_2": "我簽署交易，Peeranha 承擔交易費用",
+  "transactionsText_3": "完全控制",
+  "transactionsChange_3": "我簽署交易並支付交易費用"
 }

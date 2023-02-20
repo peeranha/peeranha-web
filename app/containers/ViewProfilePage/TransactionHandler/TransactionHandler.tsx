@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
-import { FormattedMessage } from 'react-intl';
-
+import { useTranslation } from 'react-i18next';
 import Span from 'components/Span';
 
-import commonMessages from 'common-messages';
 import {
   META_TRANSACTIONS_ALLOWED,
   DISPATCHER_TRANSACTIONS_ALLOWED,
@@ -18,6 +16,7 @@ import { setCookie, getCookie } from 'utils/cookie';
 import TransactionOption from './TransactionOption';
 
 const TransactionHandler: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const isTransactionsAllowed = getCookie(TYPE_OF_TRANSACTIONS);
 
   const [transaction, setTransaction] = useState<string>(isTransactionsAllowed);
@@ -69,40 +68,49 @@ const TransactionHandler: React.FC = (): JSX.Element => {
     setTransaction(TRANSACTIONS_ALLOWED);
   };
 
+  const transactionTypes = {
+    dispatcher: {
+      transactionOption: DISPATCHER_TRANSACTIONS_ALLOWED,
+      transactionHandler: handleDispatcherTransactionsAllowed,
+      transactionTitle: t('common.transactionsText_1'),
+      transactionSubtitle: t('common.transactionsChange_1'),
+    },
+    metaTransaction: {
+      transactionOption: META_TRANSACTIONS_ALLOWED,
+      transactionHandler: handleMetaTransactionsAllowed,
+      transactionTitle: t('common.transactionsText_2'),
+      transactionSubtitle: t('common.transactionsChange_2'),
+    },
+    defaultTransaction: {
+      transactionOption: TRANSACTIONS_ALLOWED,
+      transactionHandler: handleMetaTransactionsDisallowed,
+      transactionTitle: t('common.transactionsText_3'),
+      transactionSubtitle: t('common.transactionsChange_3'),
+    },
+  };
+
   return (
     <>
       <div>
         <div className="mb-4">
           <div className="mb-2">
             <Span fontSize="18" bold>
-              <FormattedMessage id={commonMessages.transactions.id} />
+              {t('common.transactionsText')}
             </Span>
           </div>
         </div>
       </div>
-      <div className="fz14 pl-0">
-        <TransactionOption
-          transaction={transaction}
-          transactionOption={DISPATCHER_TRANSACTIONS_ALLOWED}
-          transactionHandler={handleDispatcherTransactionsAllowed}
-          transactionTitle={commonMessages.transactionsText_1.id}
-          transactionSubtitle={commonMessages.transactionsChange_1.id}
-          Recommended
-        />
-        <TransactionOption
-          transaction={transaction}
-          transactionOption={META_TRANSACTIONS_ALLOWED}
-          transactionHandler={handleMetaTransactionsAllowed}
-          transactionTitle={commonMessages.transactionsText_2.id}
-          transactionSubtitle={commonMessages.transactionsChange_2.id}
-        />
-        <TransactionOption
-          transaction={transaction}
-          transactionOption={TRANSACTIONS_ALLOWED}
-          transactionHandler={handleMetaTransactionsDisallowed}
-          transactionTitle={commonMessages.transactionsText_3.id}
-          transactionSubtitle={commonMessages.transactionsChange_3.id}
-        />
+      <div className="fz16 pl-0">
+        {Object.values(transactionTypes).map((item, index) => (
+          <TransactionOption
+            transaction={transaction}
+            transactionOption={item.transactionOption}
+            transactionHandler={item.transactionHandler}
+            transactionTitle={item.transactionTitle}
+            transactionSubtitle={item.transactionSubtitle}
+            Recommended={index === 0}
+          />
+        ))}
       </div>
     </>
   );

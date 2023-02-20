@@ -29,10 +29,6 @@ import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
 
-import { useTranslation } from 'react-i18next';
-import H4 from 'components/H4';
-import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
-import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import { hideModal } from 'containers/EthereumProvider/actions';
 
 import {
@@ -52,7 +48,6 @@ export const MetaTransactionAgreement = ({
   const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
   const isBalance =
     Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0;
-  const { t } = useTranslation();
 
   const hideModal = () => {
     ethereum.stopWaiting();
@@ -84,11 +79,6 @@ export const MetaTransactionAgreement = ({
     });
     hideModal();
   };
-
-  // const hideModal = () => {
-  //   ethereum.stopWaiting();
-  //   hideModalDispatch();
-  // };
 
   return (
     <>
