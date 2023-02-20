@@ -13,9 +13,7 @@ import DropdownLabel from './DropdownLabel';
 import DropdownOption from './DropdownOption';
 
 import { singleCommunityColors } from 'utils/communityManagement';
-import { DARK_SECONDARY, TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
-
-const colors = singleCommunityColors();
+import { DARK_SECONDARY } from 'style-constants';
 
 export type OptionValue = string | number;
 
