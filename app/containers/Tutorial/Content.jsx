@@ -1,13 +1,11 @@
-/* eslint react/jsx-no-bind: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-noninteractive-element-interactions: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import createdHistory from 'createdHistory';
 
 import textBlockStyles from 'text-block-styles';
-import commonMessages from 'common-messages';
 
 import { BORDER_SECONDARY } from 'style-constants';
 
@@ -23,8 +21,8 @@ import Button from 'components/Button/Outlined/PrimaryLarge';
 import Question from './Question';
 
 export const TextBlock = styled.div`
-  display: ${x => (x.isOpened ? 'block' : 'none')};
-  margin-top: ${x => (x.isOpened ? '15px' : '0px')};
+  display: ${(x) => (x.isOpened ? 'block' : 'none')};
+  margin-top: ${(x) => (x.isOpened ? '15px' : '0px')};
 
   ${textBlockStyles};
 
@@ -42,7 +40,8 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   }
 
   > :not(:last-child) {
-    border-bottom: ${x => (x.isOpened ? '1' : '0')}px solid ${BORDER_SECONDARY};
+    border-bottom: ${(x) => (x.isOpened ? '1' : '0')}px solid
+      ${BORDER_SECONDARY};
   }
 
   ${Button} {
@@ -74,6 +73,7 @@ const Section = ({
   getSectionCode,
   getQuestionCode,
 }) => {
+  const { t } = useTranslation();
   const { hash } = window.location;
 
   const [isOpened, collapse] = useState(false);
@@ -113,27 +113,26 @@ const Section = ({
 
       <div className={isOpened ? 'd-block' : 'd-none'}>
         <ul>
-          {blocks
-            .slice(0, questionsNumber)
-            .map(x => (
-              <Question
-                {...x}
-                key={x.h3}
-                sectionCode={sectionCode}
-                route={route}
-                getQuestionCode={getQuestionCode}
-                sectionIsOpened={isOpened}
-              />
-            ))}
+          {blocks.slice(0, questionsNumber).map((x) => (
+            <Question
+              {...x}
+              key={x.h3}
+              sectionCode={sectionCode}
+              route={route}
+              getQuestionCode={getQuestionCode}
+              sectionIsOpened={isOpened}
+            />
+          ))}
         </ul>
 
         {blocks.length > DEFAULT_QST_NUM && (
           <BaseTransparent className="pt-1">
             <Button onClick={extendSection.bind(null, !isExtendedSection)}>
-              <FormattedMessage
-                {...commonMessages[isExtendedSection ? 'showLess' : 'showMore']}
-                values={{ value: `${questionsNumber}/${blocks.length}` }}
-              />
+              {t(`common.${isExtendedSection ? 'showLess' : 'showMore'}`, {
+                value: `${questionsNumber}/${blocks.length}`,
+                interpolation: { escapeValue: false },
+              })}
+
               <Icon
                 className="ml-2"
                 rotate={isExtendedSection}
@@ -151,7 +150,7 @@ const Section = ({
 
 const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
   <div className="mb-3">
-    {content.blocks.map(x => (
+    {content.blocks.map((x) => (
       <Section
         {...x}
         key={x.h2}

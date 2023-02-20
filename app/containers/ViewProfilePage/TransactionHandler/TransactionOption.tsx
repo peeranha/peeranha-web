@@ -1,7 +1,4 @@
 import React from 'react';
-
-import { FormattedMessage } from 'react-intl';
-
 import { styled } from './TransactionHandler.styled';
 
 type TransactionOptionProps = {
@@ -37,11 +34,9 @@ const TransactionOption: React.FC<TransactionOptionProps> = ({
               className="mb-1 bold pr"
               css={Recommended && styled.recommended}
             >
-              <FormattedMessage id={transactionTitle} />
+              {transactionTitle}
             </div>
-            <div css={styled.secondaryColor}>
-              <FormattedMessage id={transactionSubtitle} />
-            </div>
+            <div css={styled.secondaryColor}>{transactionSubtitle}</div>
           </div>
         </div>
       </label>

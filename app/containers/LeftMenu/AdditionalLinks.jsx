@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation, Trans } from 'react-i18next';
 import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
 
@@ -9,13 +9,11 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
-import * as routes from 'routes-config';
-
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+import peeranhaLogoWhite from 'images/Logo.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
-import messages from 'common-messages';
 
 import Icon from 'components/Icon';
 import Dropdown from 'components/Dropdown';
@@ -116,63 +114,75 @@ const DivMention = styled.div`
   }
 `;
 
-const Link = ({ path, message, cssStyles }) =>
-  document.location.origin === process.env.APP_LOCATION ? (
+const Link = ({ path, message, cssStyles }) => {
+  const { t } = useTranslation();
+
+  return document.location.origin === process.env.APP_LOCATION ? (
     <A to={path} css={cssStyles}>
-      <FormattedMessage {...message} />
+      {t(message)}
     </A>
   ) : (
     <ADefault href={`${process.env.APP_LOCATION}${path}`} css={cssStyles}>
-      <FormattedMessage {...message} />
+      {t(message)}
     </ADefault>
   );
+};
 
 Link.propTypes = {
   path: PropTypes.string,
-  message: PropTypes.object,
+  message: PropTypes.string,
   cssStyles: PropTypes.array,
 };
 
-const InfoLinksDropDown = ({ withTitle }) => (
-  <Dropdown
-    className="mr-3"
-    button={
-      <>
-        <Span
-          className="d-flex align-items-center mr-1"
-          fontSize="16"
-          lineHeight="20"
-          color={TEXT_SECONDARY}
-        >
-          <StyledIcon icon={infoIcon} width="16" height="16" />
-          {withTitle && <FormattedMessage {...messages.more} />}
-        </Span>
-      </>
-    }
-    menu={
-      <ul>
-        {INFO_LINKS.map((el) => (
-          <Li key={el.route} css={LiAdditionalStyles}>
-            <Link
-              key={el.title}
-              path={el.route}
-              message={el.title}
-              cssStyles={LinkAdditionalStyles}
-            />
-          </Li>
-        ))}
-      </ul>
-    }
-    id="choose-language-dropdown"
-    isArrowed
-  />
-);
+const InfoLinksDropDown = ({ withTitle }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Dropdown
+      className="mr-3"
+      button={
+        <>
+          <Span
+            className="d-flex align-items-center mr-1"
+            fontSize="16"
+            lineHeight="20"
+            color={TEXT_SECONDARY}
+          >
+            <StyledIcon icon={infoIcon} width="16" height="16" />
+            {withTitle && t('common.more')}
+          </Span>
+        </>
+      }
+      menu={
+        <ul>
+          {INFO_LINKS.map((el) => (
+            <Li key={el.route} css={LiAdditionalStyles}>
+              <Link
+                key={el.title}
+                path={el.route}
+                message={el.title}
+                cssStyles={LinkAdditionalStyles}
+              />
+            </Li>
+          ))}
+        </ul>
+      }
+      id="choose-language-dropdown"
+      isArrowed
+    />
+  );
+};
 
 InfoLinksDropDown.propTypes = {
   withTitle: PropTypes.bool,
 };
 
-export default React.memo(({ currClientHeight }) => {
+const AdditionalLinksComponent = ({
+  currClientHeight,
+  changeLocale,
+  locale,
+}) => {
+  const { t } = useTranslation();
   const basicCondition =
     !styles.withoutAdditionalLinks && !isMobile(window.navigator).any;
 
@@ -192,74 +202,79 @@ export default React.memo(({ currClientHeight }) => {
         </>
       )}
 
-      {middleSize && basicCondition && <InfoLinksDropDown withTitle />}
+      {middleSize && basicCondition && process.env.ENV !== 'prod' && (
+        <InfoLinksDropDown withTitle />
+      )}
 
       {(fullSize ||
         ((smallSize || middleSize) && !basicCondition) ||
-        isMobile(window.navigator).any) && <ChangeLocale withTitle />}
+        isMobile(window.navigator).any) && (
+        <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
+      )}
 
       {smallSize && basicCondition && (
         <FlexibleDiv>
           <InfoLinksDropDown />
-          <ChangeLocale />
+          {process.env.ENV !== 'prod' && (
+            <ChangeLocale changeLocale={changeLocale} locale={locale} />
+          )}
         </FlexibleDiv>
       )}
 
       <FooterStyled currClientHeight={currClientHeight}>
         {!single && (
           <div>
-            <FormattedMessage
-              id={messages.copyrightPeeranha.id}
-              values={{ year: new Date().getFullYear() }}
-            />
+            {t('common.copyrightPeeranha', { year: new Date().getFullYear() })}
           </div>
         )}
 
         {!!single && (
           <div className="mt-2">
-            <FormattedMessage
-              id={messages.poweredBy.id}
-              values={{
-                year: new Date().getFullYear(),
-                image: <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />,
-              }}
-            >
-              {(...chunks) => (
-                <a
-                  className="d-flex align-content-center"
-                  href={process.env.APP_LOCATION}
-                >
-                  {chunks}
-                </a>
-              )}
-            </FormattedMessage>
+            {Boolean(single) && (
+              <a
+                className="d-flex align-content-center"
+                href={process.env.APP_LOCATION}
+              >
+                <Trans
+                  i18nKey="common.poweredBy"
+                  values={{ year: new Date().getFullYear() }}
+                  components={[
+                    <Img
+                      key="peeranha"
+                      src={styles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
+                      alt="peeranha"
+                    />,
+                  ]}
+                />
+              </a>
+            )}
           </div>
         )}
 
         <DivMention>
-          <FormattedMessage
-            id={messages.reCaptchaMention.id}
+          <Trans
+            i18nKey="common.reCaptchaMention"
             values={{
-              privacyPolicy: (
-                <ASimple
-                  href="https://policies.google.com/privacy"
-                  target="_blank"
-                >
-                  <FormattedMessage id={messages.privacyPolicy.id} />
-                </ASimple>
-              ),
-              termsOfService: (
-                <ASimple
-                  href="https://policies.google.com/terms"
-                  target="_blank"
-                >
-                  <FormattedMessage id={messages.termsOfService.id} />
-                </ASimple>
-              ),
+              privacyPolicy: t('common.privacyPolicy'),
+              termsOfService: t('common.termsOfService'),
             }}
+            components={[
+              <ASimple
+                key="0"
+                href="https://policies.google.com/privacy"
+                target="_blank"
+              />,
+              <ASimple
+                key="1"
+                href="https://policies.google.com/terms"
+                target="_blank"
+              />,
+            ]}
           />
         </DivMention>
       </FooterStyled>
     </AdditionalLinks>
   );
-});
+};
+
+export default React.memo(AdditionalLinksComponent);

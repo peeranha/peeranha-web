@@ -1,5 +1,5 @@
 import React from 'react';
-import TextBlock from 'components/FormFields/TextBlock';
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 import { DocumentationArticle } from 'pages/Documentation/types';
@@ -49,7 +49,7 @@ const ViewContent: React.FC<ViewContentProps> = ({
             minWidth: '0',
           }}
         >
-          <TextBlock content={documentationArticle?.content} />
+          <MarkdownPreviewBlock content={documentationArticle?.content} />
         </Wrapper>
         {!isEditDocumentation && headers?.length > 1 && (
           <TextNavbar headers={headers} />

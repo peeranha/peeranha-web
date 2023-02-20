@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-
-import { FormattedMessage } from 'react-intl';
-import messages from 'containers/MetaTransactionAgreement/messages';
+import { useTranslation } from 'react-i18next';
 
 import TransactionHandler from 'containers/ViewProfilePage/TransactionHandler';
 import H4 from 'components/H4';
@@ -16,31 +14,32 @@ const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
   hideModal,
 }): JSX.Element => {
   const [show, setShow] = useState<Boolean>(true);
-
+  const { t } = useTranslation();
   return (
     <>
-      {show && (
+      {show ? (
         <div>
           <H4 className="text-center pb-3">
-            <FormattedMessage id={messages.agreeWithMetaTransactions.id} />
+            {t('common.metaTransaction.agreeWithMetaTransactions')}
           </H4>
 
           <div className="pb-4" style={{ textAlign: 'center' }}>
-            <FormattedMessage id={messages.wouldYouLike.id} />
+            {t('common.metaTransaction.wouldYouLike')}
           </div>
 
           <div className="d-flex align-items-center pb-3">
             <OutlinedButton className="mr-3" onClick={hideModal}>
-              <FormattedMessage id={messages.cansel.id} />
+              {t('common.metaTransaction.cansel')}
             </OutlinedButton>
 
             <ContainedButton onClick={() => setShow(!show)}>
-              <FormattedMessage id={messages.confirm.id} />
+              {t('common.metaTransaction.confirm')}
             </ContainedButton>
           </div>
         </div>
+      ) : (
+        <TransactionHandler />
       )}
-      {!show && <TransactionHandler />}
     </>
   );
 };

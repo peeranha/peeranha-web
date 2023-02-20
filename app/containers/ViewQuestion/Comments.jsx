@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   BORDER_PRIMARY,
@@ -16,28 +16,13 @@ import deleteSmallIcon from 'images/deleteSmallIcon.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 
-import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-
 import Span from 'components/Span';
 import Icon from 'components/Icon';
 import { TextareaStyled } from 'components/Textarea';
-import Button from './Button';
-import UserInfo from './UserInfo';
-import CommentOptions from './CommentOptions';
-import CommentForm from './CommentForm';
-import AreYouSure from './AreYouSure';
 
-import messages from './messages';
-
-import {
-  COMMENT_TYPE,
-  SAVE_COMMENT_BUTTON,
-  SAVE_COMMENT_FORM,
-} from './constants';
 import { useOnClickOutside } from 'utils/click-listners';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
-import commonMessages from 'common-messages';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import { getUserName } from 'utils/user';
 import {
@@ -46,6 +31,18 @@ import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import {
+  COMMENT_TYPE,
+  SAVE_COMMENT_BUTTON,
+  SAVE_COMMENT_FORM,
+} from './constants';
+
+import Button from './Button';
+import UserInfo from './UserInfo';
+import CommentOptions from './CommentOptions';
+import CommentForm from './CommentForm';
+import AreYouSure from './AreYouSure';
 
 const CommentManage = styled.div`
   display: flex;
@@ -119,28 +116,31 @@ const CommentEdit = ({
   answerId,
   id,
   content,
-  translations,
   saveCommentLoading,
   saveComment,
   toggleView,
-}) => (
-  <CommentEditStyled className="my-4">
-    <CommentForm
-      form={`${SAVE_COMMENT_FORM}_${answerId}${id}`}
-      comment={content}
-      submitButtonId={SAVE_COMMENT_BUTTON}
-      submitButtonName={translations[messages.saveButton.id]}
-      sendCommentLoading={saveCommentLoading}
-      sendComment={saveComment}
-      answerId={answerId}
-      commentId={id}
-      toggleView={toggleView}
-    />
-  </CommentEditStyled>
-);
+}) => {
+  const { t } = useTranslation();
 
-/* eslint react/no-danger: 0 */
-const CommentView = item => {
+  return (
+    <CommentEditStyled className="my-4">
+      <CommentForm
+        form={`${SAVE_COMMENT_FORM}_${answerId}${id}`}
+        comment={content}
+        submitButtonId={SAVE_COMMENT_BUTTON}
+        submitButtonName={t('post.saveButton')}
+        sendCommentLoading={saveCommentLoading}
+        sendComment={saveComment}
+        answerId={answerId}
+        commentId={id}
+        toggleView={toggleView}
+      />
+    </CommentEditStyled>
+  );
+};
+
+const CommentView = (item) => {
+  const { t } = useTranslation();
   const isItWrittenByMe = item.profileInfo
     ? item.author?.user === item.profileInfo.user
     : false;
@@ -159,12 +159,22 @@ const CommentView = item => {
     );
 
   const formattedHistories = item.histories?.filter(
-    history =>
+    (history) =>
       history.comment?.id === `${item.postId}-${item.answerId}-${item.id}`,
   );
 
   return (
-    <li>
+    <li
+      css={{
+        '@media only screen and (max-width: 576px)': {
+          ':hover': {
+            'div > a': {
+              paddingTop: '30px',
+            },
+          },
+        },
+      }}
+    >
       <div className="d-flex justify-content-between align-items-center position-relative">
         <UserInfo
           type={COMMENT_TYPE}
@@ -189,7 +199,7 @@ const CommentView = item => {
             onClick={() => item.toggleView(!item.isView)}
           >
             <Icon icon={editSmallIcon} width="13" fill={BORDER_PRIMARY} />
-            <FormattedMessage {...messages.editButton} />
+            {t('post.editButton')}
           </Button>
 
           <div id={`delete-comment-${item.answerId}${item.id}`}>
@@ -214,7 +224,7 @@ const CommentView = item => {
                     width="13"
                     fill={BORDER_PRIMARY}
                   />
-                  <FormattedMessage {...messages.deleteButton} />
+                  {t('post.deleteButton')}
                 </Button>
               )}
             />
@@ -227,7 +237,7 @@ const CommentView = item => {
               onClick={() => setPopoverOpen(true)}
             >
               <IconMd icon={blockchainLogo} />
-              <FormattedMessage id={commonMessages.source.id} />
+              {t('common.source')}
             </Button>
 
             {isPopoverOpen && (
@@ -253,7 +263,7 @@ const CommentView = item => {
   );
 };
 
-const Comment = item => {
+const Comment = (item) => {
   const [isView, toggleView] = useState(true);
 
   return (
@@ -267,7 +277,7 @@ const Comment = item => {
   );
 };
 
-const Comments = props => {
+const Comments = (props) => {
   const isPhone = window.screen.width <= 576;
   const DEFAULT_COMMENTS_NUMBER = isPhone ? 0 : 3;
   const [isAllCommentsView, changeCommentsView] = useState(false);
@@ -278,11 +288,9 @@ const Comments = props => {
     <div>
       {props.comments.length > 0 && (
         <CommentsStyled>
-          {props.comments
-            .slice(0, commentsNum)
-            .map(item => (
-              <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
-            ))}
+          {props.comments.slice(0, commentsNum).map((item) => (
+            <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
+          ))}
         </CommentsStyled>
       )}
 
@@ -328,7 +336,7 @@ CommentEdit.propTypes = {
 export { Comment, CommentEdit, CommentView, Comments };
 export default React.memo(
   connect(
-    state => ({
+    (state) => ({
       profileInfo: makeSelectProfileInfo()(state),
     }),
     null,

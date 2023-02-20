@@ -71,7 +71,7 @@ export const POST_TYPE = {
   expertPost: 0,
   generalPost: 1,
   tutorial: 2,
-  documentation: 3,
+  documentation: 1000,
 };
 
 export const globalAdminPermissions = {

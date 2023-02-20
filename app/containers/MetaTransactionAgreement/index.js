@@ -29,14 +29,13 @@ import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
 
+import { hideModal } from 'containers/EthereumProvider/actions';
+
 import {
   makeSelectEthereum,
   makeSelectShowModal,
 } from '../EthereumProvider/selectors';
-
 import Popup from 'common-components/Popup';
-
-import { hideModal } from 'containers/EthereumProvider/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export const MetaTransactionAgreement = ({
@@ -51,6 +50,11 @@ export const MetaTransactionAgreement = ({
     Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0;
   const isTransactionType = dataFromCookies === TRANSACTIONS_ALLOWED;
 
+  const hideModal = () => {
+    ethereum.stopWaiting();
+    hideModalDispatch();
+  };
+
   const agreeWithDispatcherTransactions = () => {
     setCookie({
       name: TYPE_OF_TRANSACTIONS,
@@ -62,11 +66,6 @@ export const MetaTransactionAgreement = ({
       },
     });
     hideModal();
-  };
-
-  const hideModal = () => {
-    ethereum.stopWaiting();
-    hideModalDispatch();
   };
 
   return (

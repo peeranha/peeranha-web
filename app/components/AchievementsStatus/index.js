@@ -5,8 +5,13 @@ import styled from 'styled-components';
 import Icon from 'components/Icon';
 import achievementsIcon from 'images/achievement_inline.svg?external';
 
-import { PEER_PRIMARY_COLOR } from 'style-constants';
+import { PEER_PRIMARY_COLOR, TEXT_PRIMARY } from 'style-constants';
 import { customRatingIconColors } from 'constants/customRating';
+
+import AchivementsIcon from 'icons/Achivements';
+
+import { singleCommunityColors } from 'utils/communityManagement';
+const colors = singleCommunityColors();
 
 const StatusSpan = styled.span`
   position: relative;
@@ -14,7 +19,7 @@ const StatusSpan = styled.span`
   font-size: ${(props) => (props.size === 'lg' ? '16px' : '14px')};
   align-items: baseline;
   margin-right: 0.5rem;
-  padding-left: ${(props) => (props.size === 'lg' ? '22px' : '12px')};
+  padding-left: ${(props) => (props.size === 'lg' ? '' : '12px')};
 
   @media (max-width: 350px) {
     flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
@@ -25,7 +30,7 @@ const StatusSpan = styled.span`
 
 const Count = styled.span`
   font-family: 'Source Sans Pro', sans-serif;
-  margin-left: 0.25rem;
+  margin-left: ${(props) => (props.size === 'lg' ? '' : '0.25rem')};
   color: ${(props) =>
     props.size === 'lg'
       ? 'inherit'
@@ -65,13 +70,20 @@ const AchievementsStatus = ({
   if (typeof count === 'number')
     return (
       <StatusSpan size={size} isProfilePage={isProfilePage}>
-        <IconAbsolute
-          icon={achievementsIcon}
-          width={size === 'lg' ? '24' : '14'}
-          height={size === 'lg' ? '24' : '14'}
-          size={size}
-          specialStyles={achievIconStyles}
-        />
+        {isProfilePage ? (
+          <AchivementsIcon
+            size={[18, 18]}
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+        ) : (
+          <IconAbsolute
+            icon={achievementsIcon}
+            width={size === 'lg' ? '24' : '14'}
+            height={size === 'lg' ? '24' : '14'}
+            size={size}
+            specialStyles={achievIconStyles}
+          />
+        )}
         <Count
           size={size}
           isSingleNumColor={customRatingIconColors.strokeColor}
