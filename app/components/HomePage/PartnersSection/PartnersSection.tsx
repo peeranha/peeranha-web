@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { scrollTrigger } from 'utils/animation';
-import { FormattedMessage } from 'react-intl';
 import techstars from 'images/logo-techstars.svg?inline';
 import protocolLabs from 'images/logo-protocol-labs.svg?inline';
 import sui from 'images/logo-sui.svg?inline';
@@ -10,8 +10,6 @@ import polygonStudios from 'images/logo-poly.svg?inline';
 import functionland from 'images/logo-functionland.svg?inline';
 import koii from 'images/logo-koii.svg?inline';
 import mystenLabs from 'images/logo-mysten-labs.svg?inline';
-
-import messages from '../messages';
 
 import { styles } from './PartnersSection.styled';
 
@@ -28,6 +26,8 @@ const logos = [
 ];
 
 const PartnersSection: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
+
   const [startTitleAnimation, setStartTitleAnimation] =
     useState<boolean>(false);
   const [startSliderAnimation, setStartSliderAnimation] =
@@ -48,7 +48,7 @@ const PartnersSection: React.FC = (): JSX.Element => {
             ...(startTitleAnimation && styles.titleAnimation),
           }}
         >
-          <FormattedMessage id={messages.partners.id} />
+          {t('homePage.partners')}
         </span>
         <div
           className="full-width ovh partners-animation"

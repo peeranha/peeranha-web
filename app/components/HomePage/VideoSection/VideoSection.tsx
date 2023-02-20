@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { scrollTrigger } from 'utils/animation';
 
 import { styles } from './VideoSection.styled';
-import { scrollTrigger } from 'utils/animation';
 
 const VideoSection: React.FC = (): JSX.Element => {
   const [startVideoAnimation, setStartVideoAnimation] =

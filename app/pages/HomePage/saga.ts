@@ -1,13 +1,10 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { translationMessages } from 'i18n';
+import { takeLatest, call, put } from 'redux-saga/effects';
 
 import { sendMessage } from 'utils/homepageManagement';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { EMAIL_CHECKING } from 'containers/SignUp/constants';
 import { addToast } from 'containers/Toast/actions';
 import { emailCheckingWorker } from 'containers/SignUp/saga';
-import { EMAIL_CHECKING } from 'containers/SignUp/constants';
 import {
   EMAIL_FIELD,
   MESSAGE_FIELD,
@@ -19,9 +16,6 @@ import {
 import { sendMessageSuccess, sendMessageErr } from './actions';
 
 export function* sendMessageWorker({ val }): Generator<any> {
-  const locale = yield select(makeSelectLocale());
-  const msg = translationMessages[locale];
-
   try {
     const { reset, form } = val[2];
 

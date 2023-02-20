@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 import createdHistory from 'createdHistory';
+import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
 import { scrollToSection, scrollTrigger } from 'utils/animation';
 
 import man from 'images/top-man.svg?inline';
 import arrow from 'images/Arrow.svg?inline';
 
-import messages from '../messages';
-
 import { styles } from './GetStartedSection.styled';
 import { pageStyles } from '../HomePage.styled';
 
 const GetStartedSection: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
+
   const [startImageBlockAnimation, setStartImageBlockAnimation] =
     useState<boolean>(false);
   const [startTextBlockAnimation, setStartTextBlockAnimation] =
@@ -36,7 +36,7 @@ const GetStartedSection: React.FC = (): JSX.Element => {
                   ...(startTextBlockAnimation && styles.titleAnimation),
                 }}
               >
-                <FormattedMessage id={messages.moreThan.id} />
+                {t('homePage.moreThan')}
               </h1>
               <span
                 className="bold fz16 tc mb32 op0"
@@ -45,7 +45,7 @@ const GetStartedSection: React.FC = (): JSX.Element => {
                   ...(startTextBlockAnimation && styles.subtitleAnimation),
                 }}
               >
-                <FormattedMessage id={messages.greatCommunity.id} />
+                {t('homePage.greatCommunity')}
               </span>
               <button
                 className="df jcc aic fz20 op0"
@@ -55,7 +55,7 @@ const GetStartedSection: React.FC = (): JSX.Element => {
                 }}
                 onClick={() => createdHistory.push(routes.feed())}
               >
-                <FormattedMessage id={messages.getStarted.id} />
+                {t('homePage.getStarted')}
               </button>
             </div>
             <img

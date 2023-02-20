@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import { scrollTrigger } from 'utils/animation';
@@ -11,12 +11,12 @@ import faq from 'images/ico_faq.svg?inline';
 import profile from 'images/ico_profile.svg?inline';
 import discussions from 'images/ico_discussions.svg?inline';
 
-import messages from '../messages';
-
 import { styles } from './ServiceSection.styled';
 import { pageStyles } from '../HomePage.styled';
 
 const ServiceSection: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
+
   const [startFishAnimation, setStartFishAnimation] = useState<boolean>(false);
   const [startTopRightCoinAnimation, setStartTopRightCoinAnimation] =
     useState<boolean>(false);
@@ -73,7 +73,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                   ...(startHeaderAnimation && styles.headerAnimation),
                 }}
               >
-                <FormattedMessage id={messages.whiteGloveService.id} />
+                {t('homePage.whiteGloveService')}
               </div>
             </div>
             <div css={styles.content}>
@@ -93,11 +93,9 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startContentAnimation && styles.titleAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.knowledgeBase.id} />
+                    {t('homePage.knowledgeBase')}
                   </h5>
-                  <p css={styles.text}>
-                    <FormattedMessage id={messages.whiteLabeledCommunity.id} />
-                  </p>
+                  <p css={styles.text}>{t('homePage.whiteLabeledCommunity')}</p>
                 </div>
               </div>
               <div css={styles.contentBlock}>
@@ -116,7 +114,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startContentAnimation && styles.titleAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.communitySupport.id} />
+                    {t('homePage.communitySupport')}
                   </h5>
                   <p
                     css={{
@@ -124,7 +122,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startContentAnimation && styles.textAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.freeSupportSpecialist.id} />
+                    {t('homePage.freeSupportSpecialist')}
                   </p>
                 </div>
               </div>
@@ -144,7 +142,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startContentAnimation && styles.titleAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.easyWork.id} />
+                    {t('homePage.easyWork')}
                   </h5>
                   <p
                     css={{
@@ -152,9 +150,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startContentAnimation && styles.textAnimation),
                     }}
                   >
-                    <FormattedMessage
-                      id={messages.scrapeCommunityChannels.id}
-                    />
+                    {t('homePage.scrapeCommunityChannels')}
                   </p>
                 </div>
               </div>
@@ -174,7 +170,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startSecondContentAnimation && styles.titleAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.communityChannels.id} />
+                    {t('homePage.communityChannels')}
                   </h5>
                   <p
                     css={{
@@ -182,7 +178,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startSecondContentAnimation && styles.textAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.integrationBots.id} />
+                    {t('homePage.integrationBots')}
                   </p>
                 </div>
               </div>
@@ -202,7 +198,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startSecondContentAnimation && styles.titleAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.multiLanguage.id} />
+                    {t('homePage.multiLanguage')}
                   </h5>
                   <p
                     css={{
@@ -210,7 +206,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startSecondContentAnimation && styles.textAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.supportContributors.id} />
+                    {t('homePage.supportContributors')}
                   </p>
                 </div>
               </div>
@@ -230,7 +226,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startSecondContentAnimation && styles.titleAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.lifelongService.id} />
+                    {t('homePage.lifelongService')}
                   </h5>
                   <p
                     css={{
@@ -238,7 +234,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                       ...(startSecondContentAnimation && styles.textAnimation),
                     }}
                   >
-                    <FormattedMessage id={messages.trackActivity.id} />
+                    {t('homePage.trackActivity')}
                   </p>
                 </div>
               </div>
@@ -251,7 +247,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
               }}
               onClick={() => createdHistory.push(routes.feed())}
             >
-              <FormattedMessage id={messages.startNow.id} />
+              {t('homePage.startNow')}
             </button>
           </div>
           <div

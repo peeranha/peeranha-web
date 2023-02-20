@@ -1,6 +1,6 @@
 import React, { FormEventHandler, useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { useTranslation } from 'react-i18next';
 
 import { scrollToErrorField, scrollTrigger } from 'utils/animation';
 
@@ -19,7 +19,6 @@ import {
   MESSAGE_FIELD,
 } from '../../../pages/HomePage/constants';
 
-import messages from '../messages';
 import FormField from './FormField';
 import { styles } from './FormSection.styled';
 
@@ -36,6 +35,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
   sendMessageLoading,
   sendMessage,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const [startFormAnimation, setStartFormAnimation] = useState<boolean>(false);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
           <Field
             name={NAME_FIELD}
             disabled={sendMessageLoading}
-            label={<FormattedMessage id={messages.yourName.id} />}
+            label={t('homePage.yourName')}
             component={FormField}
             validate={[strLength3x20, required]}
             warn={[strLength3x20, required]}
@@ -65,7 +65,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
           <Field
             name={EMAIL_FIELD}
             disabled={sendMessageLoading}
-            label={<FormattedMessage id={messages.email.id} />}
+            label={t('homePage.email')}
             component={FormField}
             validate={[validateEmail, required, strLength254Max]}
             warn={[validateEmail, required, strLength254Max]}
@@ -78,7 +78,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
           <Field
             name={SUBJECT_FIELD}
             disabled={sendMessageLoading}
-            label={<FormattedMessage id={messages.subject.id} />}
+            label={t('homePage.subject')}
             component={FormField}
             validate={[strLength3x20, required]}
             warn={[strLength3x20, required]}
@@ -92,7 +92,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
             name={MESSAGE_FIELD}
             multiline
             disabled={sendMessageLoading}
-            label={<FormattedMessage id={messages.message.id} />}
+            label={t('homePage.message')}
             component={FormField}
             validate={[strLength15x100, required]}
             warn={[strLength15x100, required]}
@@ -105,7 +105,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
             ...(startFormAnimation && styles.buttonFieldAnimation),
           }}
         >
-          <FormattedMessage id={messages.sendMessage.id} />
+          {t('homePage.sendMessage')}
         </button>
       </div>
     </form>

@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import logo from 'images/LogoBlack.svg?inline';
 import { scrollToSection } from 'utils/animation';
-import messages from '../messages';
 
 import { pageStyles } from '../HomePage.styled';
 import { styles } from './Header.styled';
 
 const Header: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
+
   const [sticky, setSticky] = useState<boolean>(false);
 
   useEffect(() => {
@@ -40,21 +41,21 @@ const Header: React.FC = (): JSX.Element => {
               css={styles.link}
               onClick={() => scrollToSection(`#about`)}
             >
-              <FormattedMessage id={messages.about.id} />
+              {t('homePage.about')}
             </span>
             <span
               className="cup dn fz16"
               css={styles.link}
               onClick={() => scrollToSection(`#service`)}
             >
-              <FormattedMessage id={messages.service.id} />
+              {t('homePage.service')}
             </span>
             <button
               className="df jcc aic fz14"
               css={styles.button}
               onClick={() => createdHistory.push(routes.feed())}
             >
-              <FormattedMessage id={messages.goToApp.id} />
+              {t('homePage.goToApp')}
             </button>
           </div>
         </div>

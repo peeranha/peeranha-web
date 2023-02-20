@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { scrollTrigger } from 'utils/animation';
 import screen_1 from 'images/scr_1.jpg';
 import screen_2 from 'images/scr_2.jpg';
 import screen_3 from 'images/scr_3.jpg';
 import screen_4 from 'images/scr_4.jpg';
-import messages from '../messages';
 
 import { styles } from './ActionsSection.styled';
 import { pageStyles } from '../HomePage.styled';
 
 const ActionsSection: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
+
   const [startFirstActionAnimation, setStartFirstActionAnimation] =
     useState<boolean>(false);
   const [startSecondActionAnimation, setStartSecondActionAnimation] =
@@ -43,7 +44,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                   ...(startFirstActionAnimation && styles.titleAnimation),
                 }}
               >
-                <FormattedMessage id={messages.focusBigPicture.id} />
+                {t('homePage.focusBigPicture')}
               </h3>
               <span
                 className="op0"
@@ -52,7 +53,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                   ...(startFirstActionAnimation && styles.textAnimation),
                 }}
               >
-                <FormattedMessage id={messages.newStandard.id} />
+                {t('homePage.newStandard')}
               </span>
             </div>
             <img
@@ -74,7 +75,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                   ...(startSecondActionAnimation && styles.titleAnimation),
                 }}
               >
-                <FormattedMessage id={messages.askAndAnswer.id} />
+                {t('homePage.askAndAnswer')}
               </h3>
               <span
                 className="op0"
@@ -83,7 +84,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                   ...(startSecondActionAnimation && styles.textAnimation),
                 }}
               >
-                <FormattedMessage id={messages.createDiscussBreeze.id} />
+                {t('homePage.createDiscussBreeze')}
               </span>
             </div>
             <img
@@ -108,7 +109,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                   ...(startThirdActionAnimation && styles.titleAnimation),
                 }}
               >
-                <FormattedMessage id={messages.trackRoad.id} />
+                {t('homePage.trackRoad')}
               </h3>
               <span
                 className="op0"
@@ -117,7 +118,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                   ...(startThirdActionAnimation && styles.textAnimation),
                 }}
               >
-                <FormattedMessage id={messages.seeInformation.id} />
+                {t('homePage.seeInformation')}
               </span>
             </div>
             <img
@@ -139,7 +140,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                   ...(startFourthActionAnimation && styles.titleAnimation),
                 }}
               >
-                <FormattedMessage id={messages.makeItYours.id} />
+                {t('homePage.makeItYours')}
               </h3>
               <span
                 className="op0"
@@ -148,7 +149,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                   ...(startFourthActionAnimation && styles.textAnimation),
                 }}
               >
-                <FormattedMessage id={messages.rewardedForContributions.id} />
+                {t('homePage.rewardedForContributions')}
               </span>
             </div>
             <img
