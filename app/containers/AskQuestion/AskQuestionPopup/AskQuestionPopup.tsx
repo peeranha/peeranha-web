@@ -44,8 +44,16 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
           >
             <div className="container">
               <div className="df fdc jcsb pt24 pb24 lh1-5">
-                <div>{t('common.contentPopupBlock_0')}</div>
-                <div className="pb24">{t('common.contentPopupBlock_1')}</div>
+                <div
+                  css={css`
+                    color: #282828;
+                    margin-bottom: 24px;
+                  `}
+                >
+                  <span>{t('common.contentPopupBlock_0')}</span>
+                  <br />
+                  <span>{t('common.contentPopupBlock_1')}</span>
+                </div>
                 <div
                   css={css`
                     color: #7b7b7b;
