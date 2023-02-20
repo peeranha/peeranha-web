@@ -101,6 +101,35 @@ const styles = {
     color: '#7B7B7B',
     marginLeft: 'auto',
   },
+
+  field: {
+    '@media (min-width: 768px)': {
+      width: '266px',
+    },
+
+    '@media (min-width: 1024px)': {
+      width: '359px',
+    },
+
+    '@media (min-width: 1366px)': {
+      width: '397px',
+    },
+    padding: '5px',
+  },
+
+  inputLabel: {
+    left: '16px',
+    lineHeight: '20px',
+    color: '#7B7B7B',
+    pointerEvents: 'none',
+  },
+
+  input: {
+    height: '40px',
+    background: 'linear-gradient(0deg, #FFFFFF, #FFFFFF), #D8D8D8',
+    border: '1px solid #D8D8D8',
+    borderRadius: '3px',
+  },
 };
 
 export default styles;

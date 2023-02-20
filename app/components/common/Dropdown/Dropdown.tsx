@@ -11,10 +11,9 @@ import {
 import ArrowDown from 'icons/ArrowDown';
 import DropdownLabel from './DropdownLabel';
 import DropdownOption from './DropdownOption';
-import InputStyled from 'components/Input/InputStyled';
 
 import { singleCommunityColors } from 'utils/communityManagement';
-import { DARK_SECONDARY } from 'style-constants';
+import { DARK_SECONDARY, TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 const colors = singleCommunityColors();
 
@@ -255,18 +254,16 @@ const Dropdown: React.FC<DropdownProps> = ({
             id={'dropdown-content'}
           >
             {isSearchable && (
-              <div
-                css={css`
-                  padding: 5px;
-                `}
-              >
-                <InputStyled>
+              <div css={classes.field}>
+                <div className="pr full-width df fdc jcc">
                   <input
                     onChange={onChangeSearch}
+                    type="text"
                     placeholder={'search'}
-                    type={'text'}
+                    className="full-width pl16"
+                    css={classes.input}
                   />
-                </InputStyled>
+                </div>
               </div>
             )}
 
