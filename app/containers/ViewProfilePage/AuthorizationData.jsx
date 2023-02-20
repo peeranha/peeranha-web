@@ -18,6 +18,9 @@ import { OLD_EMAIL_FIELD, CONFIRM_EMAIL_FORM } from '../ChangeEmail/constants';
 import { scrollToErrorField } from 'utils/animation';
 
 import { BaseStyled } from './SettingsOfUser';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const AuthorizationData = ({ className, email, isSubscribedEmail }) => {
   const { t } = useTranslation();
@@ -58,10 +61,17 @@ const AuthorizationData = ({ className, email, isSubscribedEmail }) => {
 
   return (
     <>
-      <BaseStyled className={className} position="bottom">
+      <BaseStyled
+        className={className}
+        position="bottom"
+        css={css`
+      border-top-left-radius: 0; !important;
+      border-top-right-radius: 0; !important;
+    `}
+      >
         <H3>{t('common.settings')}</H3>
       </BaseStyled>
-      <BaseStyled position="top" notRoundedStyle className={className}>
+      <BaseStyled position="top" className={className}>
         <div>
           <div css={{ fontSize: '18px' }}>
             <div
@@ -133,7 +143,7 @@ const AuthorizationData = ({ className, email, isSubscribedEmail }) => {
                 <div>
                   <Span
                     css={css`
-                      color: ${TEXT_SECONDARY};
+                      color: ${colors.black || TEXT_SECONDARY};
                     `}
                     fontSize="16"
                   >
@@ -143,7 +153,7 @@ const AuthorizationData = ({ className, email, isSubscribedEmail }) => {
                 <div>
                   <Span
                     css={css`
-                      color: ${TEXT_SECONDARY};
+                      color: ${colors.black || TEXT_SECONDARY};
                     `}
                     fontSize="16"
                   >
@@ -157,6 +167,7 @@ const AuthorizationData = ({ className, email, isSubscribedEmail }) => {
             <div
               className="mb-2"
               css={css`
+                color: ${colors.black || ''};
                 font-weight: ${metaTransactions ? 'bold' : 'normal'};
               `}
             >
@@ -172,6 +183,7 @@ const AuthorizationData = ({ className, email, isSubscribedEmail }) => {
             </div>
             <div
               css={css`
+                color: ${colors.black || ''};
                 font-weight: ${!metaTransactions ? 'bold' : 'normal'};
               `}
             >

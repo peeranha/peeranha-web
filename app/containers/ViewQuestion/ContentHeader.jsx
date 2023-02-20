@@ -78,6 +78,18 @@ const ButtonContainer = styled.div`
 
   > * {
     margin: 0 10px;
+
+    @media only screen and (max-width: 470px) {
+      margin: 0 5px;
+    }
+
+    @media only screen and (max-width: 400px) {
+      margin: 0 2px;
+    }
+
+    @media only screen and (max-width: 330px) {
+      margin: 0 1px;
+    }
   }
 
   @media only screen and (max-width: 360px) {

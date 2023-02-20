@@ -45,8 +45,8 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { achievementsArr } from './constants';
 
 const BaseRoundedStyled = styled(BaseRounded)`
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 `;
 
 const AchievementsBlockStyles = css`
@@ -131,7 +131,7 @@ const Achievements = ({
                     maxCount={achievement.maxCount}
                     factCount={achievement.factCount}
                     currentValue={profile?.highestRating?.rating || null}
-                    lowerValue={achievementsArr[index].lowerValue}
+                    lowerValue={achievementsArr[index]?.lowerValue}
                     name={achievement.name}
                     description={achievement.description}
                     image={achievement.image}
