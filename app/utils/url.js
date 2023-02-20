@@ -31,3 +31,10 @@ export const extractStrings = ([begin, end]) => {
 
   return (str) => (normalise ? str.match(matcher)?.map(normalise) : []);
 };
+
+export const getSearchParams = (search) => {
+  const searchParams = new URLSearchParams(search);
+  const searchParamsTags = searchParams.get('tags');
+  const allTags = searchParamsTags ? searchParamsTags?.split(':') : [];
+  return allTags;
+};

@@ -10,6 +10,7 @@ import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { getSearchParams } from 'utils/url';
 import { DAEMON } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getCookie } from 'utils/cookie';
@@ -94,13 +95,12 @@ export const Questions = ({
     isNotFollowedCommunities;
   const getInitQuestions = useCallback(() => {
     if (!questionFilter) {
-      const searchParams = new URLSearchParams(history.location.search);
-      const searchParamsTags = searchParams.get('tags');
+      const searchParamsTags = getSearchParams(history.location.search);
       getQuestionsDispatch(
         initLoadedItems,
         0,
         postsTypes,
-        searchParamsTags?.split(':'),
+        searchParamsTags,
         Number(params.communityid) || 0,
         parentPage,
         false,
@@ -117,13 +117,12 @@ export const Questions = ({
   ]);
   const getNextQuestions = useCallback(() => {
     if (!questionFilter) {
-      const searchParams = new URLSearchParams(history.location.search);
-      const searchParamsTags = searchParams.get('tags');
+      const searchParamsTags = getSearchParams(history.location.search);
       getQuestionsDispatch(
         nextLoadedItems,
         loadedItems,
         postsTypes,
-        searchParamsTags?.split(':'),
+        searchParamsTags,
         Number(params.communityid) || 0,
         parentPage,
         true,

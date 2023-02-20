@@ -8,19 +8,13 @@ import { useTranslation } from 'react-i18next';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import {
-  TEXT_DARK,
   BORDER_PRIMARY,
   ICON_TRASPARENT_BLUE,
   TEXT_PRIMARY,
-  PEER_PRIMARY_COLOR,
-  BORDER_RADIUS_L,
-  TEXT_LIGHT,
 } from 'style-constants';
-import { Tag } from 'components/TagsList';
-import FailedTransactionIcon from 'icons/FailedTransaction';
+import TagFilter from 'components/TagFilter';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
-import ScrollContainer from 'components/ScrollContainer';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import { IconLg, IconMd } from 'components/Icon/IconWithSizes';
 import H3 from 'components/H3';
@@ -47,6 +41,7 @@ import {
 } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
+import { getSearchParams } from 'utils/url';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
@@ -103,46 +98,6 @@ const EditCommunityButton = styled.div`
   }
 `;
 
-const TagFilterContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  padding: 20px 0px;
-  max-width: 50%;
-  @media only screen and (max-width: 768px) {
-    padding-bottom: 10px;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-template-columns: 1fr;
-    align-items: center;
-    padding: 8px 0px;
-    max-width: 100%;
-    button {
-      flex: auto;
-      text-align: end;
-    }
-  }
-  @media only screen and (max-width: 576px) {
-    grid-row-start: 3;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    padding-bottom: 0px;
-    padding-top: 10px;
-  }
-`;
-
-const TagFilter = Tag.extend`
-  color: ${TEXT_LIGHT};
-  border: 1px solid ${colors?.linkColor || PEER_PRIMARY_COLOR};
-  border-radius: ${BORDER_RADIUS_L};
-  background: ${colors?.linkColor || PEER_PRIMARY_COLOR};
-  margin-left: 8px;
-  margin-right: 0px;
-  @media only screen and (max-width: 768px) {
-    margin-left: 0px;
-    margin-right: 8px;
-  }
-`;
-
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const StyledCustomIconButtonContainer = styled.div`
@@ -156,11 +111,6 @@ const StyledCustomIconButtonContainer = styled.div`
   .semitransparent {
     fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
   }
-`;
-
-const RemoveTagIcon = styled.button`
-  display: inline-flex;
-  padding: 0 0 0 10px;
 `;
 
 export const Header = ({
@@ -188,16 +138,11 @@ export const Header = ({
   useEffect(() => {
     async function getTagsName() {
       if (single) {
-        const searchParams = new URLSearchParams(
+        const searchParamsTags = getSearchParams(
           createdHistory.location.search,
         );
-        const searchParamsTags = searchParams.get('tags');
-        setTags(searchParamsTags ? searchParamsTags.split(':') : []);
-        setTagsNames(
-          searchParamsTags
-            ? await getTagsNameByIds(searchParamsTags.split(':'))
-            : [],
-        );
+        setTags(searchParamsTags);
+        setTagsNames(await getTagsNameByIds(searchParamsTags));
       }
     }
     getTagsName();
@@ -317,49 +262,11 @@ export const Header = ({
           </EditCommunityButton>
         )}
         {Boolean(tags.length) && (
-          <TagFilterContainer>
-            <ScrollContainer>
-              <div className="df mt-md-3 mt-sm-0">
-                {tags.map((tag) => {
-                  const removeTagFilter = (removedTag) => {
-                    const searchParams = new URLSearchParams(
-                      createdHistory.location.search,
-                    );
-                    const searchParamsTags = searchParams.get('tags');
-                    const allTags = searchParamsTags?.split(':');
-                    const result = allTags?.filter(
-                      (item) => item !== removedTag,
-                    );
-                    if (result?.length) {
-                      searchParams.set('tags', result.join(':'));
-                    } else {
-                      searchParams.delete('tags');
-                    }
-                    createdHistory.push(
-                      `${createdHistory.location.pathname}?${searchParams}`,
-                    );
-                  };
-                  return (
-                    <TagFilter key={tag}>
-                      {tagsNames[tag]}
-                      <RemoveTagIcon
-                        type="button"
-                        onClick={() => removeTagFilter(tag)}
-                      >
-                        <FailedTransactionIcon
-                          stroke={TEXT_LIGHT}
-                          size={[16, 16]}
-                          strokeOpacity={1}
-                          fillOpacity={0.2}
-                          fill={TEXT_LIGHT}
-                        ></FailedTransactionIcon>
-                      </RemoveTagIcon>
-                    </TagFilter>
-                  );
-                })}
-              </div>
-            </ScrollContainer>
-          </TagFilterContainer>
+          <TagFilter
+            tags={tags}
+            tagsNames={tagsNames}
+            communityId={single}
+          ></TagFilter>
         )}
       </PageContentHeaderContainer>
     </Wrapper>
