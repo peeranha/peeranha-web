@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useTrigger from 'hooks/useTrigger';
 import { WarningMessage } from 'components/FormFields/WarningMessage';
 import { styles } from './FormSection.styled';
 
@@ -15,16 +16,10 @@ const FormField: React.FC<FormFieldProps> = ({
   disabled,
   meta,
 }): JSX.Element => {
-  const [showTip, setShowTip] = useState(true);
-  const onTip = () => {
-    setShowTip(true);
-  };
-  const offTip = () => {
-    setShowTip(false);
-  };
+  const [isShow, showTip, hideTip] = useTrigger(true);
 
   return (
-    <div className="mb16" css={styles.field} onFocus={offTip} onBlur={onTip}>
+    <div className="mb16" css={styles.field} onFocus={hideTip} onBlur={showTip}>
       <div className="pr full-width df fdc jcc">
         <input
           {...input}
@@ -33,7 +28,7 @@ const FormField: React.FC<FormFieldProps> = ({
           className="full-width pl16"
           css={styles.input}
         />
-        {showTip && !input.value && (
+        {isShow && !input.value && (
           <div className="pa fz16" css={styles.label}>
             {label}
           </div>

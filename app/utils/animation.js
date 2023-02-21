@@ -40,28 +40,27 @@ export function scrollToErrorField(errors) /* istanbul ignore next */ {
 }
 
 export function scrollTrigger(selector, action, options = {}) {
-  let els = document.querySelectorAll(selector);
-  els = Array.from(els);
-  els.forEach((el) => {
-    addObserver(el, action, options);
+  let elements = document.querySelectorAll(selector);
+  elements = Array.from(elements);
+  elements.forEach((element) => {
+    addObserver(element, action, options);
   });
 }
 
-function addObserver(el, action, options) {
+function addObserver(element, action, options) {
   if (!('IntersectionObserver' in window)) {
-    if (options.cb) {
-      options.cb(el);
+    if (options.callback) {
+      options.callback(element);
     } else {
       action();
     }
     return;
   }
   const observer = new IntersectionObserver((entries, observer) => {
-    // this takes a callback function which receives two arguments: the elemts list and the observer instance
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        if (options.cb) {
-          options.cb(el);
+        if (options.callback) {
+          options.callback(element);
         } else {
           action();
         }
@@ -69,5 +68,5 @@ function addObserver(el, action, options) {
       }
     });
   }, options);
-  observer.observe(el);
+  observer.observe(element);
 }

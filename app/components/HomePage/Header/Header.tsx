@@ -16,9 +16,14 @@ const Header: React.FC = (): JSX.Element => {
   const [sticky, setSticky] = useState<boolean>(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
+    const setStickyHeader = () => {
       setSticky(window.scrollY > 0);
-    });
+    };
+
+    window.addEventListener('scroll', setStickyHeader);
+    return () => {
+      window.removeEventListener('scroll', setStickyHeader);
+    };
   }, []);
 
   return (
