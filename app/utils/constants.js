@@ -334,3 +334,5 @@ export const CHANGED_POSTS_KEY = 'changed-posts';
 
 // position documentation
 export const POSITION_TOP = 'top';
+
+export const LIMITED_EDITION_NFT_TYPE = 0;
