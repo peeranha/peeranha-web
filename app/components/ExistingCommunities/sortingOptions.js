@@ -24,9 +24,4 @@ export default {
     order: 'desc',
     message: 'common.newest',
   },
-  subscribers: {
-    sortBy: 'followingUsers',
-    order: 'desc',
-    message: 'common.users',
-  },
 };

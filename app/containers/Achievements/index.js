@@ -131,12 +131,13 @@ const Achievements = ({
                     maxCount={achievement.maxCount}
                     factCount={achievement.factCount}
                     currentValue={profile?.highestRating?.rating || null}
-                    lowerValue={achievementsArr[index].lowerValue}
+                    lowerValue={achievement.lowerValue}
                     name={achievement.name}
                     description={achievement.description}
                     image={achievement.image}
                     id={achievement.id}
                     achievementURI={achievement.achievementURI}
+                    achievementsType={achievement.achievementsType}
                     locale={locale}
                     currentUser={profile?.id === userId}
                   />
