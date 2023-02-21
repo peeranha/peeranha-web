@@ -32,6 +32,7 @@ import {
   TYPE_OF_TRANSACTIONS,
   WEB3_TOKEN,
   ONE_MONTH,
+  WEB3_TOKEN_USER_ADDRESS,
 } from './constants';
 
 import Web3Token from 'web3-token';
@@ -439,7 +440,9 @@ class EthereumService {
     const userAddress = data.shift();
 
     const isWeb3Token = getCookie(WEB3_TOKEN);
-    if (!isWeb3Token) {
+    const isWeb3TokenUserAddress = getCookie(WEB3_TOKEN_USER_ADDRESS) === actor;
+
+    if (!isWeb3Token || !isWeb3TokenUserAddress) {
       const signer = this.provider.getSigner();
       const web3token = await Web3Token.sign(
         async (msg) => await signer.signMessage(msg),
@@ -449,6 +452,15 @@ class EthereumService {
       setCookie({
         name: WEB3_TOKEN,
         value: web3token,
+        options: {
+          'max-age': ONE_MONTH,
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+      setCookie({
+        name: WEB3_TOKEN_USER_ADDRESS,
+        value: actor,
         options: {
           'max-age': ONE_MONTH,
           defaultPath: true,
