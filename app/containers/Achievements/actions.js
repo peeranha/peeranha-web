@@ -1,9 +1,3 @@
-/*
- *
- * Achievements actions
- *
- */
-
 import {
   GET_USER_ACHIEVEMENTS,
   GET_USER_ACHIEVEMENTS_ERROR,
@@ -24,11 +18,16 @@ export function getAllAchievements() {
   };
 }
 
-export function getAllAchievementsSuccess(allAchievements, userAchievements) {
+export function getAllAchievementsSuccess(
+  allAchievements,
+  userAchievements,
+  communities,
+) {
   return {
     type: GET_ALL_ACHIEVEMENTS_SUCCESS,
     allAchievements,
     userAchievements,
+    communities,
   };
 }
 

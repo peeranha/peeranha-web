@@ -1,28 +1,41 @@
 import React, { useRef, useState } from 'react';
+import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import useMediaQuery from 'hooks/useMediaQuery';
 import LimitedLabel from './LimitedLabel';
 import ProgressBar from './ProgressBar';
+import CommunityLabel from './CommunityLabel';
+import LinkInfo from './LinkInfo';
 import { getNFTUrl } from '../../utils/ipfs';
 import { uniqueRatingRelated } from './constants';
+import { NFTType, CommunityType } from './types';
 
 const LIMITED = 0;
 
-const getProgress = (currentValue, lowerValue) =>
+const getProgress = (currentValue: number, lowerValue: number) =>
   (currentValue / lowerValue) * 100;
 
-const NFTCard = ({
+type NFTCardType = {
+  item: NFTType;
+  hasNFT: boolean;
+  isCurrentUser: boolean;
+  currentValue: number;
+  communities: Array<CommunityType>;
+};
+
+const NFTCard: React.FC<NFTCardType> = ({
   item,
   hasNFT,
   isCurrentUser,
   currentValue,
+  communities,
 }): JSX.Element => {
   const { t } = useTranslation();
   const [isHover, setHover] = useState<boolean>(false);
   const refCard = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLDivElement>(null);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
-  const availiableCount = item.maxCount - item.factCount;
+  const availiableCount = Number(item.maxCount) - Number(item.factCount);
   const pointsToNext = (item?.lowerValue || 0) - (currentValue || 0);
 
   const onHover = (): void => {
@@ -52,6 +65,7 @@ const NFTCard = ({
         css={{
           background: 'rgba(255, 255, 255, 0.3)',
           borderRadius: '5px',
+          minWidth: 148,
 
           ...(hasNFT && {
             background: 'var(--color-white)',
@@ -60,10 +74,11 @@ const NFTCard = ({
 
           '@media (min-width: 1024px)': {
             padding: 16,
+            minWidth: 256,
           },
         }}
-        onMouseEnter={isDesktop ? onHover : undefined}
-        onMouseLeave={isDesktop ? onBlur : undefined}
+        onMouseEnter={hasNFT && isDesktop ? onHover : undefined}
+        onMouseLeave={hasNFT && isDesktop ? onBlur : undefined}
       >
         <div
           css={{
@@ -107,40 +122,14 @@ const NFTCard = ({
               alt={`NFT ${item.name}`}
               css={{
                 width: '100%',
-                height: ref.current?.offsetWidth,
+                height: 'auto',
               }}
             />
-            <div
-              className="pa"
-              css={{
-                width: 24,
-                height: 24,
-                top: 4,
-                left: 4,
-                background: 'var(--color-white)',
-                borderRadius: '20px',
-
-                '@media (min-width: 1024px)': {
-                  top: 8,
-                  left: 8,
-                  width: 32,
-                  height: 32,
-                },
-              }}
-            >
-              <img
-                src="https://images.peeranha.io/communities/peeranha/favicon-32x32.png"
-                css={{
-                  width: 24,
-                  height: 24,
-
-                  '@media (min-width: 1024px)': {
-                    width: 32,
-                    height: 32,
-                  },
-                }}
-              />
-            </div>
+            <CommunityLabel
+              communityId={item.communityId}
+              communities={communities}
+              isHover={isHover && hasNFT}
+            />
             {item.achievementsType === LIMITED && <LimitedLabel />}
             {isCurrentUser && !hasNFT && item?.lowerValue && (
               <div
@@ -178,7 +167,7 @@ const NFTCard = ({
             }}
           >
             <div
-              className="ovh semi-bold fz12"
+              className="semi-bold fz12 ovh"
               css={{
                 ...(!isHover && {
                   display: '-webkit-box',
@@ -196,16 +185,17 @@ const NFTCard = ({
               {item.name}
             </div>
             <div
-              className="ovh mt4"
+              className="mt4 ovh"
               css={{
-                ...(!isHover && {
-                  display: '-webkit-box',
-                  '-webkit-box-orient': 'vertical',
-                  '-webkit-line-clamp': '1',
-                }),
-
+                display: '-webkit-box',
+                '-webkit-box-orient': 'vertical',
+                '-webkit-line-clamp': '1',
                 fontSize: 10,
                 lineHeight: '13px',
+
+                ...(isHover && {
+                  display: 'block',
+                }),
 
                 '@media (min-width: 1024px)': {
                   marginTop: 8,
@@ -229,32 +219,22 @@ const NFTCard = ({
               }}
             >
               <div>ID: {item.id}</div>
-              <div
-                css={{
-                  wordBreak: 'break-all',
-                }}
-              >
-                <span>Contract: </span>
-                <a
-                  href={
-                    (process.env.BLOCKCHAIN_EXPLORERE_URL as string) +
-                    process.env.PEERANHA_NFT
-                  }
-                  css={{ color: 'var(--color-link)' }}
-                >
-                  {process.env.PEERANHA_NFT}
-                </a>
-              </div>
-              <div
-                css={{
-                  wordBreak: 'break-all',
-                }}
-              >
-                <span>IPFS: </span>
-                <span css={{ color: 'var(--color-link)' }}>
-                  {item.achievementURI}
-                </span>
-              </div>
+              <LinkInfo
+                href={
+                  (process.env.BLOCKCHAIN_EXPLORERE_URL as string) +
+                  process.env.PEERANHA_NFT
+                }
+                title={t('achievements.contract')}
+                titleLink={process.env.PEERANHA_NFT as string}
+              />
+              <LinkInfo
+                href={`
+                    ${
+                      process.env.IPFS_NFT_URL as string
+                    }${item.achievementURI.replace('ipfs://', '')}`}
+                title="IPFS"
+                titleLink={item.achievementURI}
+              />
             </div>
           )}
         </div>

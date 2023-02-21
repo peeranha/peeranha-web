@@ -1,9 +1,3 @@
-/*
- *
- * Achievements reducer
- *
- */
-
 import { fromJS } from 'immutable';
 
 import {
@@ -14,11 +8,9 @@ import {
   USER_ACHIEVEMENTS_LOADING,
   SET_MEMORIZED_ACHIEV_DATA,
   SET_MAX_GROUPS_LOWER_VALUES,
-  GET_ALL_ACHIEVEMENTS,
   GET_ALL_ACHIEVEMENTS_SUCCESS,
   GET_ALL_ACHIEVEMENTS_ERROR,
 } from './constants';
-import { allAchievementsQuery } from '../../utils/ethConstants';
 
 export const initialState = fromJS({
   viewProfileAccount: null,
@@ -33,6 +25,7 @@ export const initialState = fromJS({
   userAchievementsError: null,
   allAchievementsLoading: true,
   userAchievementsLoading: true,
+  communities: [],
 });
 
 function achievementsReducer(state = initialState, action) {
@@ -48,6 +41,7 @@ function achievementsReducer(state = initialState, action) {
     memorizedAchievData,
     maxGroupsLowerValues,
     loading,
+    communities,
   } = action;
 
   switch (type) {
@@ -55,6 +49,7 @@ function achievementsReducer(state = initialState, action) {
       return state
         .set('allAchievements', allAchievements)
         .set('userAchievements', userAchievements)
+        .set('communities', communities)
         .set('userAchievementsLoading', false);
     case GET_ALL_ACHIEVEMENTS_ERROR:
       return state.set('allAchievementsError', error);

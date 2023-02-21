@@ -513,12 +513,16 @@ export const allAchievementsQuery = `
           name
           description
           image
-          attributes
+          communityId
         }
         user (id: $userId) {
           achievements {
             id
           }
+        }
+        communities {
+          id
+          name
         }
       }`;
 

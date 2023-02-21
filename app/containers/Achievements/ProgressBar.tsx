@@ -1,13 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { TEXT_PRIMARY } from 'style-constants';
 import { showPopover } from 'utils/popover';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const ProgressBar = ({
+type ProgressBarType = {
+  achievementId: number;
+  progress: number;
+  pointsToNext: number;
+  groupType: string;
+  messageSingle: string;
+  messageMultiple: string;
+};
+
+const ProgressBar: React.FC<ProgressBarType> = ({
   achievementId,
   progress,
   pointsToNext,
@@ -47,15 +54,6 @@ const ProgressBar = ({
       />
     </div>
   );
-};
-
-ProgressBar.propTypes = {
-  width: PropTypes.string,
-  progress: PropTypes.number,
-  pointsToNext: PropTypes.number,
-  groupType: PropTypes.string,
-  messageSingle: PropTypes.string,
-  messageMultiple: PropTypes.string,
 };
 
 export default ProgressBar;

@@ -26,6 +26,7 @@ import {
   selectUniqueAchievements,
   selectAchievementsLoading,
   selectAllAchievements,
+  selectCommunities,
 } from './selectors';
 
 import {
@@ -58,6 +59,7 @@ const Achievements = ({
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
   profile,
+  communities,
 }) => {
   const { t } = useTranslation();
 
@@ -82,20 +84,20 @@ const Achievements = ({
         <div
           className="dg"
           css={{
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: 'repeat(2, 1fr)',
             gap: 8,
             marginTop: 8,
 
             '@media (min-width: 768px)': {
-              gridTemplateColumns: '1fr 1fr 1fr',
+              gridTemplateColumns: 'repeat(3, 1fr)',
             },
 
             '@media (min-width: 1024px)': {
-              gridTemplateColumns: '1fr 1fr',
+              gridTemplateColumns: 'repeat(2, 1fr)',
             },
 
             '@media (min-width: 1366px)': {
-              gridTemplateColumns: '1fr 1fr 1fr 1fr',
+              gridTemplateColumns: 'repeat(4, 1fr)',
             },
           }}
         >
@@ -110,6 +112,7 @@ const Achievements = ({
                   )}
                   isCurrentUser={profile?.id === userId}
                   currentValue={profile?.highestRating?.rating || 0}
+                  communities={communities}
                 />
               ),
           )}
@@ -134,12 +137,14 @@ Achievements.propTypes = {
   resetViewProfileAccountDispatch: PropTypes.func,
   achievementsLoading: PropTypes.bool,
   profile: PropTypes.object,
+  communities: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   achievements: selectAllAchievements(),
   userAchievements: selectUserAchievements(),
+  communities: selectCommunities(),
   ratingAchievements: selectRatingAchievements(),
   questionAskedAchievements: selectQuestionAskedAchievements(),
   anwerGivenAchievements: selectAnwerGivenAchievements(),

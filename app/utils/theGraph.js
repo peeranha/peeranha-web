@@ -56,7 +56,7 @@ export const getModerators = async (roles) => {
   const administrators = await client.query({
     query: gql(moderationQuery),
     variables: {
-      roles: roles,
+      roles,
     },
     fetchPolicy: 'network-only',
   });
@@ -328,6 +328,7 @@ export const getAllAchievements = async (userId) => {
       .map((achievement) => ({ ...achievement, id: Number(achievement.id) }))
       .sort((x, y) => x.id - y.id),
     userAchievements: response?.data.user?.achievements || [],
+    communities: response?.data.communities,
   };
 };
 
