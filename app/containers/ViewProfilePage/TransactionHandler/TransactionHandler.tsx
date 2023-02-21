@@ -15,11 +15,19 @@ import {
 import { setCookie, getCookie } from 'utils/cookie';
 import TransactionOption from './TransactionOption';
 
-const TransactionHandler: React.FC = (): JSX.Element => {
+type TransactionHandlerProps = {
+  transaction: string;
+  setTransaction: (transaction: string) => void;
+  hideModal?: () => void;
+};
+
+const TransactionHandler: React.FC<TransactionHandlerProps> = ({
+  transaction,
+  setTransaction,
+  hideModal,
+}): JSX.Element => {
   const { t } = useTranslation();
   const isTransactionsAllowed = getCookie(TYPE_OF_TRANSACTIONS);
-
-  const [transaction, setTransaction] = useState<string>(isTransactionsAllowed);
 
   const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
 
@@ -109,6 +117,7 @@ const TransactionHandler: React.FC = (): JSX.Element => {
             transactionTitle={item.transactionTitle}
             transactionSubtitle={item.transactionSubtitle}
             Recommended={index === 0}
+            hideModal={hideModal}
           />
         ))}
       </div>

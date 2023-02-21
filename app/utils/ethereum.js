@@ -34,7 +34,6 @@ import {
   ONE_MONTH,
 } from './constants';
 
-import Web3 from 'web3';
 import Web3Token from 'web3-token';
 const sigUtil = require('eth-sig-util');
 const {
@@ -441,11 +440,9 @@ class EthereumService {
 
     const isWeb3Token = getCookie(WEB3_TOKEN);
     if (!isWeb3Token) {
-      const web3 = new Web3(ethereum);
-      await ethereum.request({ method: 'eth_requestAccounts' });
-      const address = (await web3.eth.getAccounts())[0];
+      const signer = this.provider.getSigner();
       const web3token = await Web3Token.sign(
-        (msg) => web3.eth.personal.sign(msg, address),
+        async (msg) => await signer.signMessage(msg),
         '1d',
       );
 

@@ -443,5 +443,6 @@
   "transactionsText_2": "Control sin tarifas",
   "transactionsChange_2": "Yo firmo transacciones y Peeranha cubre las tarifas de transacción",
   "transactionsText_3": "Control total",
-  "transactionsChange_3": "Firmo transacciones y cubro las tarifas de transacción."
+  "transactionsChange_3": "Firmo transacciones y cubro las tarifas de transacción.",
+  "transactionsText_4": "Puede cambiar su elección en cualquier momento en la Configuración."
 }
