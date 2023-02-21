@@ -526,6 +526,7 @@ export const allAchievementsQuery = `
           maxCount
           achievementURI
           achievementsType
+          lowerValue
           name
           description
           image
