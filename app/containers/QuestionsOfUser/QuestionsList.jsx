@@ -7,14 +7,12 @@ import {
   BORDER_PRIMARY,
   BORDER_RADIUS_L,
   BORDER_SECONDARY,
-  EXPERT_BACKLIGHT,
   TEXT_PRIMARY_DARK,
   TEXT_SECONDARY,
-  TUTORIAL_BACKLIGHT,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 
@@ -32,6 +30,8 @@ const RightBlock = Base.extend`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  border-bottom-right-radius: ${BORDER_RADIUS_L};
+  border-top-right-radius: ${BORDER_RADIUS_L};
 
   @media only screen and (min-width: 768px) {
     padding: 25px 20px;
@@ -44,17 +44,7 @@ export const Li = BaseRoundedNoPadding.extend`
   display: flex;
   border: ${(x) =>
     x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0'};
-  box-shadow: ${({ postType }) => {
-    if (postType === POST_TYPE.expertPost) {
-      return `3px 3px 5px ${EXPERT_BACKLIGHT}`;
-    }
 
-    if (postType === POST_TYPE.tutorial) {
-      return `3px 3px 5px ${TUTORIAL_BACKLIGHT}`;
-    }
-
-    return null;
-  }};
   > div:nth-child(1) {
     border-top-left-radius: ${BORDER_RADIUS_L} !important;
     border-bottom-left-radius: ${BORDER_RADIUS_L} !important;

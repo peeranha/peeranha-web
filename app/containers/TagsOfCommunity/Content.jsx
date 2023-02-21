@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import { singleCommunityColors } from 'utils/communityManagement';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -26,6 +28,8 @@ import P from 'components/P';
 import Grid from 'components/Grid';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 
+const colors = singleCommunityColors();
+
 const Tag = styled.li`
   height: ${({ editTagModerator }) => (editTagModerator ? '180px' : '140px')};
   position: relative;
@@ -47,6 +51,10 @@ const Item = styled.div`
 
   input {
     background: none;
+    color: ${colors.white || ''}; !important;
+    ::placeholder {
+      color: ${colors.white || ''}; !important;
+    }
   }
 
   p:first-child {
@@ -153,8 +161,6 @@ const Content = ({
                 <P fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
                   {x.description}
                 </P>
-
-                <BlockShadow />
               </Item>
               {tagEditingAllowed && (
                 <EditTagBtnContainer>

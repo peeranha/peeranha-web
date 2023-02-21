@@ -37,7 +37,6 @@ import {
   transactionFailed,
   transactionInPending,
   transactionInitialised,
-  setTransactionList,
 } from './actions';
 import communitiesConfig from '../../communities-config';
 
@@ -97,7 +96,6 @@ export const EthereumProvider = ({
   showModalDispatch,
   transactionInPendingDispatch,
   transactionCompletedDispatch,
-  setTransactionListDispatch,
   waitForConfirmDispatch,
   transactionFailedDispatch,
   initializing,
@@ -154,7 +152,7 @@ export const EthereumProvider = ({
         connectedChain,
       });
     }
-  }, [wallet, connectedWallets, web3Onboard, ethereum]);
+  }, [wallet, connectedWallets, web3Onboard]);
 
   const sendProps = {
     connect,
@@ -167,7 +165,6 @@ export const EthereumProvider = ({
     transactionCompletedDispatch,
     transactionFailedDispatch,
     waitForConfirmDispatch,
-    setTransactionListDispatch,
     addToast,
   };
 
@@ -219,10 +216,6 @@ const withConnect = connect(
     transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
     waitForConfirmDispatch: bindActionCreators(
       transactionInitialised,
-      dispatch,
-    ),
-    setTransactionListDispatch: bindActionCreators(
-      setTransactionList,
       dispatch,
     ),
     addToast: bindActionCreators(addToast, dispatch),

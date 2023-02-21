@@ -164,7 +164,17 @@ const CommentView = (item) => {
   );
 
   return (
-    <li>
+    <li
+      css={{
+        '@media only screen and (max-width: 576px)': {
+          ':hover': {
+            'div > a': {
+              paddingTop: '30px',
+            },
+          },
+        },
+      }}
+    >
       <div className="d-flex justify-content-between align-items-center position-relative">
         <UserInfo
           type={COMMENT_TYPE}
