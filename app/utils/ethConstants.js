@@ -152,6 +152,7 @@ const post = `
       id
       name
     }
+    language
 `;
 
 export const usersQuery = `
@@ -269,6 +270,10 @@ export const communitiesQuery = `
           deletedPostCount
           followingUsers
           replyCount
+          translations {
+            language
+            enableAutotranslation
+          }
         }
       }`;
 
@@ -357,6 +362,10 @@ export const communityQuery = `
           deletedPostCount
           followingUsers
           replyCount
+          translations {
+            language
+            enableAutotranslation
+          }
         }
       }`;
 

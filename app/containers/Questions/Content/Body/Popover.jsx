@@ -9,16 +9,16 @@ import { css } from '@emotion/react';
 const Base = styled.div`
   position: absolute;
   background-color: ${BG_LIGHT};
-  width: 290px;
+  //width: 290px;
   z-index: 100;
-  left: -235px;
+  //left: -235px;
+  right: 0;
   top: 25px;
   border-radius: 5px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   padding: 15px;
   text-align: left;
-
-  span {
+  white-space: nowrap span {
     color: ${TEXT_DARK};
   }
 
@@ -45,16 +45,17 @@ const Base = styled.div`
   }
 `;
 
-const Popover = ({ title, label, items, isSearch }) => {
+const Popover = ({ title, label, items, isSearch, right }) => {
   const { t } = useTranslation();
 
   return (
     <Base
       css={css`
         ${isSearch && '@media (max-width: 991px) {left: 0px !important;}'}
+        right: ${right}px
       `}
     >
-      <strong>{t(title)}</strong>
+      {title && <strong>{t(title)}</strong>}
       <DescriptionList label={label} items={items} />
     </Base>
   );

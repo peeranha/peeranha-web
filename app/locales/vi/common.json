@@ -93,6 +93,10 @@
   "es": "Español",
   "zh": "简体中文",
   "vi": "Tiếng Việt",
+  "english": "Anh",
+  "spanish": "người Tây Ban Nha",
+  "chinese": "Trung hoa",
+  "vietnamese": "Tiếng Việt",
   "about": "Giới thiệu về",
   "contacts": "Liên hệ",
   "support": "Hỗ trợ",
@@ -432,5 +436,6 @@
     "reloadPage": "Trang tải lại"
   },
   "answerForm": "Câu trả lời của bạn",
-  "results": "Kết quả"
+  "results": "Kết quả",
+  "translatedFrom": "Dịch từ "
 }
