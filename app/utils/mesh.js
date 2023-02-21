@@ -12,84 +12,77 @@ export async function executeMeshQuery(props) {
 }
 
 export const getUserDataFromMesh = (item) => {
-  const user = { ...item };
-  const ratings = user.usercommunityrating;
-  const achievements = user.userachievement.map(({ achievementId }) => ({
+  const { userachievement, usercommunityrating, ...user } = item;
+  const achievements = userachievement.map(({ achievementId }) => ({
     id: achievementId,
   }));
-  delete user.userachievement;
-  delete user.usercommunityrating;
   return {
     ...user,
     achievements,
-    ratings,
+    ratings: usercommunityrating,
   };
 };
 
 const getCommentDataFromMesh = (item) => {
-  const comment = { ...item };
-  const author = getUserDataFromMesh(item.user[0]);
-
-  delete comment.user;
-  return { ...item, author };
+  const { user, ...comment } = item;
+  return { ...comment, author: getUserDataFromMesh(user[0]) };
 };
 
-const getReplyDataFromMesh = (item, replyComments) => {
-  const reply = { ...item };
-  const comments = replyComments
+const getReplyDataFromMesh = (item, postComments) => {
+  const { user, ...reply } = item;
+  const comments = postComments
     .filter(
       (comment) => comment.parentReplyId === Number(reply.id.split('-')[1]),
     )
     .map((comment) => getCommentDataFromMesh(comment));
-  const author = getUserDataFromMesh(reply.user[0]);
 
-  delete reply.comment;
-  delete reply.user;
   return {
     ...reply,
-    author,
+    author: getUserDataFromMesh(user[0]),
     comments,
   };
 };
 
 export const getPostDataFromMesh = (item) => {
-  const post = { ...item };
-  const tags = post.posttag.map((postTag) => postTag.tag[0]);
-  const replies = post.reply.map((reply) =>
-    getReplyDataFromMesh(reply, post.comment),
-  );
+  const {
+    posttag,
+    reply: repliesMesh,
+    comment: commentsMesh,
+    user,
+    ...post
+  } = item;
 
-  const author = getUserDataFromMesh(post.user[0]);
-  const comments = post.comment
+  const tags = posttag.map((postTag) => postTag.tag[0]);
+  const replies = repliesMesh.map((reply) =>
+    getReplyDataFromMesh(reply, commentsMesh),
+  );
+  const comments = commentsMesh
     .filter((comment) => comment.parentReplyId === 0)
     .map((comment) => getCommentDataFromMesh(comment));
 
-  delete post.posttag;
-  delete post.reply;
-  delete post.comment;
-  delete post.user;
   return {
     ...post,
     tags,
-    author,
+    author: getUserDataFromMesh(user[0]),
     replies,
     comments,
   };
 };
 
 export const renameRepliesToAnswers = (post) => {
-  const result = { ...post, answers: post.replies };
-  delete result.replies;
-  return result;
+  const { replies, ...rest } = post;
+
+  return {
+    ...rest,
+    answers: replies,
+  };
 };
 
 export const getHistoryDataFromMesh = (item) => {
-  const history = { ...item };
-  const reply = history.replyId ? { id: history.replyId } : undefined;
-  const comment = history.commentId ? { id: history.commentId } : undefined;
+  const { replyId, commentId, ...history } = item;
+  const reply = replyId ? { id: replyId } : undefined;
+  const comment = commentId ? { id: commentId } : undefined;
 
-  delete history.replyId;
-  delete history.commentId;
   return {
     ...history,
     reply,
