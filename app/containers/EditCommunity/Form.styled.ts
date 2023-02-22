@@ -58,7 +58,7 @@ const styles = {
 
     '@media (min-width: 577px)': {
       display: 'block !important',
-      margin: '0 0 32px 32px !important',
+      margin: '0 0 32px 181px !important',
     },
   },
 
