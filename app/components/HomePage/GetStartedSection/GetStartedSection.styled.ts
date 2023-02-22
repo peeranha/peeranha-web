@@ -211,6 +211,7 @@ export const styles = {
     color: '#FFFFFF',
     marginBottom: '38px',
     transition: '0.4s',
+    zIndex: 5,
 
     ':hover': {
       background: 'rgba(247, 111, 96, 0.8)',
@@ -253,7 +254,7 @@ export const styles = {
 
   arrowImage: {
     width: '54px',
-
+    zIndex: 5,
     animation: 'arrowImageAnimation 3s linear infinite',
 
     '@keyframes arrowImageAnimation': {
