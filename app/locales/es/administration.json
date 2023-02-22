@@ -1,0 +1,10 @@
+{
+  "communityModerator": "Moderador de la comunidad",
+  "communityAdministrator": "Administrador de la comunidad",
+  "addRole": "Agregar un nuevo rol",
+  "chooseRole": "Elija el rol",
+  "confirm": "Confirmar",
+  "cancel": "Cancelar",
+  "wantToRevoke": "¿Estás seguro de que quieres revocar al usuario de ser un {{role}}?",
+  "revoke": "Revocar"
+}

@@ -1,0 +1,10 @@
+{
+  "communityModerator": "Người điều hành cộng đồng",
+  "communityAdministrator": "Quản trị viên cộng đồng",
+  "addRole": "Thêm vai trò mới",
+  "chooseRole": "Chọn vai trò",
+  "confirm": "Xác nhận",
+  "cancel": "Hủy bỏ",
+  "wantToRevoke": "Bạn có chắc chắn muốn hủy bỏ vai trò {{role}} của người dùng không?",
+  "revoke": "thu hồi"
+}
