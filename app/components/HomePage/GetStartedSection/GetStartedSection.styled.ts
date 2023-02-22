@@ -11,27 +11,27 @@ export const styles = {
     height: '210vw',
     backgroundImage: `url(${manBackground})`,
     backgroundSize: '176.5vw',
-    backgroundPosition: '3.5vw 32vh',
+    backgroundPosition: '3.5vw 305px',
 
-    '@media (min-width: 574px)': {
+    '@media (min-width: 564px)': {
       backgroundSize: '125.5vw',
-      backgroundPosition: '17.5vw 26vh',
+      backgroundPosition: '17.5vw 260px',
     },
 
     '@media (min-width: 768px)': {
       backgroundSize: '87.5vw',
-      backgroundPosition: '50.5vw 7vh',
+      backgroundPosition: '50.5vw 60px',
       height: '100vw',
     },
 
     '@media (min-width: 1366px)': {
       backgroundSize: '86.5vw',
-      backgroundPosition: '52vw 14vh',
+      backgroundPosition: '52vw 115px',
     },
 
     '@media (min-width: 1920px)': {
       backgroundSize: '58.5vw',
-      backgroundPosition: '54vw 15vh',
+      backgroundPosition: '54vw 180px',
       width: '110vw',
     },
   },
@@ -39,22 +39,22 @@ export const styles = {
   instruments: {
     transformOrigin: 'center',
     top: '0.5vw',
-    left: '-40vw',
+    left: '-39vw',
     width: '176.5vw',
     height: '620px',
 
     backgroundImage: `url(${manInstruments})`,
     backgroundSize: '275px',
-    backgroundPosition: 'center 33.5vh',
+    backgroundPosition: 'center 310px',
 
-    '@media (min-width: 574px)': {
-      backgroundPosition: 'center 28.5vh',
+    '@media (min-width: 564px)': {
+      backgroundPosition: 'center 260px',
       width: '176.5vw',
       height: '620px',
     },
 
     '@media (min-width: 768px)': {
-      backgroundPosition: '58.5vw 9.5vh',
+      backgroundPosition: '58.5vw 85px',
       left: '0vw',
       width: '176.5vw',
       height: '400px',
@@ -62,7 +62,7 @@ export const styles = {
 
     '@media (min-width: 1024px)': {
       backgroundSize: '378px',
-      backgroundPosition: '58vw 11.5vh',
+      backgroundPosition: '58vw 100px',
       top: '-0.5vw',
       width: '176.5vw',
       height: '480px',
@@ -70,14 +70,14 @@ export const styles = {
 
     '@media (min-width: 1366px)': {
       backgroundSize: '481px',
-      backgroundPosition: '60.5vw 16vh',
+      backgroundPosition: '60.5vw 140px',
       top: '0.5vw',
       left: '0.5vw',
       width: '176.5vw',
       height: '610px',
     },
     '@media (min-width: 1920px)': {
-      backgroundPosition: '60.5vw 16vh',
+      backgroundPosition: '60.5vw 140px',
       left: '0vw',
       width: '176.5vw',
     },
@@ -86,24 +86,24 @@ export const styles = {
   man: {
     backgroundImage: `url(${man})`,
     backgroundSize: '255px',
-    backgroundPosition: 'center 34vh',
+    backgroundPosition: 'center 320px',
 
-    '@media (min-width: 574px)': {
-      backgroundPosition: 'center 29vh',
+    '@media (min-width: 564px)': {
+      backgroundPosition: 'center 270px',
     },
 
     '@media (min-width: 768px)': {
-      backgroundPosition: '60vw 10vh',
+      backgroundPosition: '60vw 93px',
     },
 
     '@media (min-width: 1024px)': {
       backgroundSize: '332px',
-      backgroundPosition: '61vw 12vh',
+      backgroundPosition: '61vw 108px',
     },
 
     '@media (min-width: 1366px)': {
       backgroundSize: '512px',
-      backgroundPosition: '59vw 15vh',
+      backgroundPosition: '59vw 132px',
     },
   },
 
@@ -292,7 +292,7 @@ export const styles = {
       top: '413px',
     },
 
-    '@media (min-width: 574px)': {
+    '@media (min-width: 564px)': {
       left: '32vw',
       top: '364px',
     },
@@ -312,19 +312,19 @@ export const styles = {
     },
 
     '@media (min-width: 1366px)': {
-      left: '64vw',
+      left: '63vw',
       top: '343px',
     },
 
     '@media (min-width: 1920px)': {
-      left: '64vw',
-      top: '350px',
+      left: '63vw',
+      top: '335px',
     },
   },
 
   secondCirclePosition: {
-    top: '39vh',
-    left: '60vw',
+    left: '62vw',
+    top: '368px',
 
     '@media (min-width: 430px)': {
       left: '59vw',
@@ -334,9 +334,9 @@ export const styles = {
       left: '57vw',
     },
 
-    '@media (min-width: 574px)': {
+    '@media (min-width: 564px)': {
       left: '56.5vw',
-      top: '34vh',
+      top: '320px',
     },
 
     '@media (min-width: 650px)': {
@@ -345,7 +345,7 @@ export const styles = {
 
     '@media (min-width: 768px)': {
       left: '81.5vw',
-      top: '15vh',
+      top: '142px',
     },
 
     '@media (min-width: 860px)': {
@@ -358,7 +358,7 @@ export const styles = {
 
     '@media (min-width: 1024px)': {
       left: '83vw',
-      top: '19.5vh',
+      top: '175px',
     },
 
     '@media (min-width: 1110px)': {
@@ -371,7 +371,7 @@ export const styles = {
 
     '@media (min-width: 1366px)': {
       left: '85vw',
-      top: '27.5vh',
+      top: '253px',
     },
 
     '@media (min-width: 1480px)': {
