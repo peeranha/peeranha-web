@@ -17,20 +17,23 @@ const PopupForTorusWallet: React.FC<PopupForTorusWallet> = ({
   const { t } = useTranslation();
   return (
     <>
-      <div className="text-center pb-3" css={{ lineHeight: '18px' }}>
+      <div className="tc pb-3" css={{ lineHeight: '18px' }}>
         {t('common.metaTransaction.agreeWithMetaTransactionsText')}
       </div>
-      <ContainedButton
-        className="w-100 mb-3"
-        onClick={agreeWithDispatcherTransactions}
-      >
-        {t('common.metaTransaction.allow')}
-      </ContainedButton>
+      <div className="df aic jcc">
+        <ContainedButton
+          className="w-100 mb-3"
+          onClick={agreeWithDispatcherTransactions}
+          css={{ maxWidth: '300px' }}
+        >
+          {t('common.metaTransaction.allow')}
+        </ContainedButton>
+      </div>
       <div
-        className="text-center mb-3"
+        className="tc mb-3"
         css={{
-          lineHeight: '15px',
-          fontSize: '14px',
+          lineHeight: '18px',
+          fontSize: '16px',
           color: 'var(--color-gray-dark)',
         }}
       >

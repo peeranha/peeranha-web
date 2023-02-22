@@ -5,13 +5,18 @@ import TransactionHandler from 'containers/ViewProfilePage/TransactionHandler';
 import H4 from 'components/H4';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
+import Popup from 'common-components/Popup';
 
 type PopupForNotBalanceProps = {
   hideModal: () => void;
+  transaction: string;
+  setTransaction: (transaction: string) => void;
 };
 
 const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
   hideModal,
+  transaction,
+  setTransaction,
 }): JSX.Element => {
   const [show, setShow] = useState<Boolean>(true);
   const { t } = useTranslation();
@@ -19,7 +24,7 @@ const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
     <>
       {show ? (
         <div>
-          <H4 className="text-center pb-3">
+          <H4 className="tc pb-3">
             {t('common.metaTransaction.agreeWithMetaTransactions')}
           </H4>
 
@@ -27,7 +32,7 @@ const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
             {t('common.metaTransaction.wouldYouLike')}
           </div>
 
-          <div className="d-flex align-items-center pb-3">
+          <div className="df aic pb-3">
             <OutlinedButton className="mr-3" onClick={hideModal}>
               {t('common.metaTransaction.cansel')}
             </OutlinedButton>
@@ -38,7 +43,14 @@ const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
           </div>
         </div>
       ) : (
-        <TransactionHandler />
+        <Popup size="small" onClose={hideModal} withoutClose={false}>
+          <TransactionHandler
+            transaction={transaction}
+            setTransaction={setTransaction}
+            hideModal={hideModal}
+          />
+          {t('common.transactionsText_4')}
+        </Popup>
       )}
     </>
   );

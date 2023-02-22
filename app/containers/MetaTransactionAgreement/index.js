@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
+import { useTranslation } from 'react-i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -45,6 +46,9 @@ export const MetaTransactionAgreement = ({
   account,
 }) => {
   const dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+  const [transaction, setTransaction] = useState(dataFromCookies);
+  const { t } = useTranslation();
+
   const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
   const isBalance =
     Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0;
@@ -71,18 +75,38 @@ export const MetaTransactionAgreement = ({
   return (
     <>
       {showModal && (
-        <Popup size="small" onClose={hideModal}>
+        <>
           {!isBalance && isTransactionType && (
-            <PopupForNotBalance hideModal={hideModal} />
+            <Popup size="tiny" onClose={hideModal}>
+              <PopupForNotBalance
+                hideModal={hideModal}
+                transaction={transaction}
+                setTransaction={setTransaction}
+                hideModal={hideModal}
+              />
+            </Popup>
           )}
           {isTorusWallet && !dataFromCookies && (
-            <PopupForTorusWallet
-              agreeWithDispatcherTransactions={agreeWithDispatcherTransactions}
-              account={account}
-            />
+            <Popup size="tiny" onClose={hideModal}>
+              <PopupForTorusWallet
+                agreeWithDispatcherTransactions={
+                  agreeWithDispatcherTransactions
+                }
+                account={account}
+              />
+            </Popup>
           )}
-          {!isTorusWallet && !dataFromCookies && <TransactionHandler />}
-        </Popup>
+          {!isTorusWallet && !dataFromCookies && (
+            <Popup size="small" onClose={hideModal} withoutClose={false}>
+              <TransactionHandler
+                transaction={transaction}
+                setTransaction={setTransaction}
+                hideModal={hideModal}
+              />
+              {t('common.transactionsText_4')}
+            </Popup>
+          )}
+        </>
       )}
     </>
   );

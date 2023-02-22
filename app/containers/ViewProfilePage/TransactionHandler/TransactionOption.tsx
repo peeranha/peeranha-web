@@ -8,6 +8,7 @@ type TransactionOptionProps = {
   transactionTitle: string;
   transactionSubtitle: string;
   Recommended?: boolean;
+  hideModal?: () => void;
 };
 
 const TransactionOption: React.FC<TransactionOptionProps> = ({
@@ -17,6 +18,7 @@ const TransactionOption: React.FC<TransactionOptionProps> = ({
   transactionTitle,
   transactionSubtitle,
   Recommended,
+  hideModal,
 }): JSX.Element => {
   return (
     <div className="mb-3">
@@ -26,6 +28,7 @@ const TransactionOption: React.FC<TransactionOptionProps> = ({
           type="radio"
           checked={transaction === transactionOption}
           onChange={transactionHandler}
+          onClick={hideModal}
           css={styled.input}
         />
         <div className="df aic" css={styled.inputRadio}>
