@@ -247,6 +247,14 @@ class EthereumService {
     data,
     confirmations = 1,
   ) => {
+    let dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
+
+    if (!dataFromCookies && Number(balance) >= 0) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
+      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    }
     if (this.isTransactionInitialised) {
       this.addToast({
         type: 'info',
@@ -257,15 +265,6 @@ class EthereumService {
 
     this.setTransactionInitialised(true);
     this.waitForConfirm();
-
-    let dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
-    const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
-
-    if (!dataFromCookies && Number(balance) >= 0) {
-      this.showModalDispatch();
-      await this.waitForCloseModal();
-      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
-    }
 
     const metaTransactionsAllowed =
       dataFromCookies === META_TRANSACTIONS_ALLOWED;

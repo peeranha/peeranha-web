@@ -37,6 +37,8 @@ import {
   makeSelectShowModal,
 } from '../EthereumProvider/selectors';
 import Popup from 'common-components/Popup';
+import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
+import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 
 /* eslint-disable react/prefer-stateless-function */
 export const MetaTransactionAgreement = ({
@@ -58,6 +60,10 @@ export const MetaTransactionAgreement = ({
     hideModalDispatch();
   };
 
+  const cleanTransactionCookie = () => {
+    setTransaction(null), hideModal();
+  };
+
   const agreeWithMeta = () => {
     setCookie({
       name: TYPE_OF_TRANSACTIONS,
@@ -68,7 +74,7 @@ export const MetaTransactionAgreement = ({
         allowSubdomains: true,
       },
     });
-    hideModal();
+    // hideModal();
   };
 
   const agreeWithDispatcherTransactions = () => {
@@ -81,7 +87,7 @@ export const MetaTransactionAgreement = ({
         allowSubdomains: true,
       },
     });
-    hideModal();
+    // hideModal();
   };
 
   return (
@@ -109,9 +115,26 @@ export const MetaTransactionAgreement = ({
               <TransactionHandler
                 transaction={transaction}
                 setTransaction={setTransaction}
-                hideModal={hideModal}
               />
               {t('common.transactionsText_4')}
+              <div className="df aic jcc mt-4">
+                <OutlinedButton
+                  className="mr-3"
+                  onClick={cleanTransactionCookie}
+                >
+                  {t('common.metaTransaction.cansel')}
+                </OutlinedButton>
+                <ContainedButton
+                  disabled={!transaction}
+                  block={!transaction}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    hideModal();
+                  }}
+                >
+                  {t('common.continue')}
+                </ContainedButton>
+              </div>
             </Popup>
           )}
         </>

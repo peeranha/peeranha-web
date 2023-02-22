@@ -18,13 +18,11 @@ import TransactionOption from './TransactionOption';
 type TransactionHandlerProps = {
   transaction: string;
   setTransaction: (transaction: string) => void;
-  hideModal?: () => void;
 };
 
 const TransactionHandler: React.FC<TransactionHandlerProps> = ({
   transaction,
   setTransaction,
-  hideModal,
 }): JSX.Element => {
   const { t } = useTranslation();
   const isTransactionsAllowed = getCookie(TYPE_OF_TRANSACTIONS);
@@ -117,7 +115,6 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
             transactionTitle={item.transactionTitle}
             transactionSubtitle={item.transactionSubtitle}
             Recommended={index === 0}
-            hideModal={hideModal}
           />
         ))}
       </div>
