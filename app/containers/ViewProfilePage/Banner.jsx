@@ -19,6 +19,7 @@ const Banner = () => {
         css={css`
           color: ${colors.white || ''};
         `}
+        isHeader
       >
         {t('profile.activity')}
       </H4>

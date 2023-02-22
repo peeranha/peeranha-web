@@ -433,5 +433,7 @@
   },
   "answerForm": "Tu respuesta",
   "results": "Resultados",
-  "activeUsers": "Usuarios activos"
+  "activeUsers": "Usuarios activos",
+  "administration": "Administración",
+  "documentation": "Documentación"
 }

@@ -433,5 +433,7 @@
   },
   "answerForm": "Câu trả lời của bạn",
   "results": "Kết quả",
-  "activeUsers": "Người dùng đang hoạt động"
+  "activeUsers": "Người dùng đang hoạt động",
+  "administration": "Sự quản lý",
+  "documentation": "Tài liệu"
 }
