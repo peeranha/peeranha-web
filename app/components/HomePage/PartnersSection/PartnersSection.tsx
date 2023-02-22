@@ -42,7 +42,7 @@ const PartnersSection: React.FC = (): JSX.Element => {
     <section css={styles.background}>
       <div className="df fdc aic">
         <span
-          className="mb32 bold fz28 partners-title"
+          className="mb32 bold fz28 op0 partners-title"
           css={{
             ...styles.title,
             ...(startTitleAnimation && styles.titleAnimation),
@@ -51,7 +51,7 @@ const PartnersSection: React.FC = (): JSX.Element => {
           {t('homePage.partners')}
         </span>
         <div
-          className="full-width ovh partners-animation"
+          className="full-width op0 ovh partners-animation"
           css={{
             ...styles.slider,
             ...(startSliderAnimation && styles.sliderAnimation),

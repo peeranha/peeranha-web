@@ -67,7 +67,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
           <div className="df fdc aic" css={styles.wrapper}>
             <div className="df jcc">
               <div
-                className="df jcc aic bold fz28 tc header-figure"
+                className="df jcc aic bold fz28 tc op0 header-figure"
                 css={{
                   ...styles.title,
                   ...(startHeaderAnimation && styles.headerAnimation),
@@ -81,6 +81,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 <img
                   src={discussions}
                   alt="knowledge base icon"
+                  className="op0"
                   css={{
                     ...styles.image,
                     ...(startContentAnimation && styles.iconAnimation),
@@ -88,6 +89,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 />
                 <div>
                   <h5
+                    className="op0"
                     css={{
                       ...styles.header,
                       ...(startContentAnimation && styles.titleAnimation),
@@ -102,6 +104,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 <img
                   src={profile}
                   alt="community support icon"
+                  className="op0"
                   css={{
                     ...styles.image,
                     ...(startContentAnimation && styles.iconAnimation),
@@ -109,6 +112,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 />
                 <div>
                   <h5
+                    className="op0"
                     css={{
                       ...styles.header,
                       ...(startContentAnimation && styles.titleAnimation),
@@ -117,6 +121,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                     {t('homePage.communitySupport')}
                   </h5>
                   <p
+                    className="op0"
                     css={{
                       ...styles.text,
                       ...(startContentAnimation && styles.textAnimation),
@@ -130,6 +135,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 <img
                   src={faq}
                   alt="easy work icon"
+                  className="op0"
                   css={{
                     ...styles.image,
                     ...(startContentAnimation && styles.iconAnimation),
@@ -137,6 +143,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 />
                 <div>
                   <h5
+                    className="op0"
                     css={{
                       ...styles.header,
                       ...(startContentAnimation && styles.titleAnimation),
@@ -145,6 +152,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                     {t('homePage.easyWork')}
                   </h5>
                   <p
+                    className="op0"
                     css={{
                       ...styles.text,
                       ...(startContentAnimation && styles.textAnimation),
@@ -158,6 +166,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 <img
                   src={community}
                   alt="community icon"
+                  className="op0"
                   css={{
                     ...styles.image,
                     ...(startSecondContentAnimation && styles.iconAnimation),
@@ -165,6 +174,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 />
                 <div>
                   <h5
+                    className="op0"
                     css={{
                       ...styles.header,
                       ...(startSecondContentAnimation && styles.titleAnimation),
@@ -173,6 +183,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                     {t('homePage.communityChannels')}
                   </h5>
                   <p
+                    className="op0"
                     css={{
                       ...styles.text,
                       ...(startSecondContentAnimation && styles.textAnimation),
@@ -186,6 +197,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 <img
                   src={language}
                   alt="language icon"
+                  className="op0"
                   css={{
                     ...styles.image,
                     ...(startSecondContentAnimation && styles.iconAnimation),
@@ -193,6 +205,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 />
                 <div>
                   <h5
+                    className="op0"
                     css={{
                       ...styles.header,
                       ...(startSecondContentAnimation && styles.titleAnimation),
@@ -201,6 +214,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                     {t('homePage.multiLanguage')}
                   </h5>
                   <p
+                    className="op0"
                     css={{
                       ...styles.text,
                       ...(startSecondContentAnimation && styles.textAnimation),
@@ -214,6 +228,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 <img
                   src={service}
                   alt="knowledge base icon"
+                  className="op0"
                   css={{
                     ...styles.image,
                     ...(startSecondContentAnimation && styles.iconAnimation),
@@ -221,6 +236,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                 />
                 <div>
                   <h5
+                    className="op0"
                     css={{
                       ...styles.header,
                       ...(startSecondContentAnimation && styles.titleAnimation),
@@ -229,6 +245,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                     {t('homePage.lifelongService')}
                   </h5>
                   <p
+                    className="op0"
                     css={{
                       ...styles.text,
                       ...(startSecondContentAnimation && styles.textAnimation),
@@ -240,7 +257,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
               </div>
             </div>
             <button
-              className="df jcc aic fz20 start-button"
+              className="df jcc aic fz20 op0 start-button"
               css={{
                 ...styles.button,
                 ...(startButtonAnimation && styles.startButtonAnimation),
@@ -251,7 +268,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
             </button>
           </div>
           <div
-            className="pa t0 l0 full-width full-height fish"
+            className="pa t0 l0 full-width full-height op0 fish"
             css={{
               ...styles.fishImage,
               ...(startFishAnimation && styles.fishAnimation),
@@ -259,7 +276,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
           ></div>
         </div>
         <div
-          className="pa t0 l0 full-width full-height bottom-right-coin"
+          className="pa t0 l0 full-width full-height op0 bottom-right-coin"
           css={{
             ...styles.rightBottomCoinImage,
             ...(startBottomRightCoinAnimation &&
@@ -267,21 +284,21 @@ const ServiceSection: React.FC = (): JSX.Element => {
           }}
         ></div>
         <div
-          className="pa t0 l0 full-width full-height top-left-coin"
+          className="pa t0 l0 full-width full-height op0 top-left-coin"
           css={{
             ...styles.leftTopCoinImage,
             ...(startTopLeftCoinAnimation && styles.leftTopCoinAnimation),
           }}
         ></div>
         <div
-          className="pa t0 l0 full-width full-height bottom-left-coin"
+          className="pa t0 l0 full-width full-height op0 bottom-left-coin"
           css={{
             ...styles.leftBottomCoinImage,
             ...(startBottomLeftCoinAnimation && styles.leftBottomCoinAnimation),
           }}
         ></div>
         <div
-          className="pa t0 l0 full-width full-height top-right-coin"
+          className="pa t0 l0 full-width full-height op0 top-right-coin"
           css={{
             ...styles.rightTopCoinImage,
             ...(startTopRightCoinAnimation && styles.rightTopCoinAnimation),

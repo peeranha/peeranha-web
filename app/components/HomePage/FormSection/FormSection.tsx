@@ -22,7 +22,7 @@ const FormSection: React.FC<HomepageProps> = ({
     <section css={pageStyles.container}>
       <div css={styles.container}>
         <div
-          className="df jcc letter-image"
+          className="df jcc op0 letter-image"
           css={{
             ...styles.image,
             ...(startLetterAnimation && styles.letterAnimation),

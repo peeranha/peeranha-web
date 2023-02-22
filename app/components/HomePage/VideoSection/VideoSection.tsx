@@ -14,7 +14,7 @@ const VideoSection: React.FC = (): JSX.Element => {
   return (
     <section className="pr df jcc" css={styles.background} id="video">
       <div
-        className="pr"
+        className="pr op0"
         css={{
           ...styles.videoImage,
           ...(startVideoAnimation && styles.videoImageAnimation),
@@ -30,21 +30,21 @@ const VideoSection: React.FC = (): JSX.Element => {
         />
       </div>
       <div
-        className="pa t0 l0 full-width full-height"
+        className="pa t0 l0 full-width full-height op0"
         css={{
           ...styles.videoLeft,
           ...(startVideoAnimation && styles.videoLeftAnimation),
         }}
       ></div>
       <div
-        className="pa t0 l0 full-width full-height"
+        className="pa t0 l0 full-width full-height op0"
         css={{
           ...styles.videoBackgroundLeft,
           ...(startVideoAnimation && styles.videoBackgroundLeftAnimation),
         }}
       ></div>
       <div
-        className="pa t0 l0 full-width full-height"
+        className="pa t0 l0 full-width full-height op0"
         css={{
           ...styles.videoBackgroundRight,
           ...(startVideoAnimation && styles.videoBackgroundRightAnimation),
@@ -52,7 +52,7 @@ const VideoSection: React.FC = (): JSX.Element => {
       ></div>
 
       <div
-        className="pa t0 l0 full-width full-height"
+        className="pa t0 l0 full-width full-height op0"
         css={{
           ...styles.videoRight,
           ...(startVideoAnimation && styles.videoRightAnimation),
