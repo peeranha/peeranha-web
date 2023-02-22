@@ -29,6 +29,7 @@ const AuthorizationData = ({ className }) => {
         <TransactionHandler
           transaction={transaction}
           setTransaction={setTransaction}
+          settings
         />
       </BaseStyled>
     </>

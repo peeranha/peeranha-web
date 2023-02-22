@@ -255,6 +255,9 @@ class EthereumService {
       await this.waitForCloseModal();
       dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
     }
+    if (!dataFromCookies) {
+      return;
+    }
     if (this.isTransactionInitialised) {
       this.addToast({
         type: 'info',

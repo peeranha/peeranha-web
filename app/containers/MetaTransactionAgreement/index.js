@@ -60,8 +60,17 @@ export const MetaTransactionAgreement = ({
     hideModalDispatch();
   };
 
-  const cleanTransactionCookie = () => {
-    setTransaction(null), hideModal();
+  const writeTransactionCookie = () => {
+    setCookie({
+      name: TYPE_OF_TRANSACTIONS,
+      value: transaction,
+      options: {
+        'max-age': ONE_MONTH,
+        defaultPath: true,
+        allowSubdomains: true,
+      },
+    });
+    hideModal();
   };
 
   const agreeWithMeta = () => {
@@ -74,7 +83,7 @@ export const MetaTransactionAgreement = ({
         allowSubdomains: true,
       },
     });
-    // hideModal();
+    hideModal();
   };
 
   const agreeWithDispatcherTransactions = () => {
@@ -87,7 +96,7 @@ export const MetaTransactionAgreement = ({
         allowSubdomains: true,
       },
     });
-    // hideModal();
+    hideModal();
   };
 
   return (
@@ -111,26 +120,30 @@ export const MetaTransactionAgreement = ({
             </Popup>
           )}
           {!isTorusWallet && !dataFromCookies && (
-            <Popup size="small" onClose={hideModal} withoutClose={false}>
+            <Popup
+              size="small"
+              onClose={hideModal}
+              css={{ '> div': { maxWidth: '570px !important' } }}
+            >
               <TransactionHandler
                 transaction={transaction}
                 setTransaction={setTransaction}
               />
-              {t('common.transactionsText_4')}
-              <div className="df aic jcc mt-4">
-                <OutlinedButton
-                  className="mr-3"
-                  onClick={cleanTransactionCookie}
-                >
-                  {t('common.metaTransaction.cansel')}
+              <div css={{ marginTop: '30px' }}>
+                <span>{t('common.transactionsText_4')}</span>
+                <span className="bold">{t('common.settings')}</span>.
+              </div>
+              <div
+                className="df aic jcfe mt-4"
+                css={{ button: { maxWidth: '150px' } }}
+              >
+                <OutlinedButton className="mr-3" onClick={hideModal}>
+                  {t('common.cancel')}
                 </OutlinedButton>
                 <ContainedButton
                   disabled={!transaction}
                   block={!transaction}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    hideModal();
-                  }}
+                  onClick={writeTransactionCookie}
                 >
                   {t('common.continue')}
                 </ContainedButton>

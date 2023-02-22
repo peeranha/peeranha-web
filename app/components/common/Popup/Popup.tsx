@@ -54,7 +54,7 @@ const Popup: React.FC<PopupProps> = ({
             <div css={classes.header}>
               {title && <h1 className="line-clamp-1 tc">{title}</h1>}
               <div className={cn('pa cup df aic jcc')} css={classes.close}>
-                {withoutClose && <CloseIcon onClick={onClose} />}
+                <CloseIcon onClick={onClose} />
               </div>
             </div>
           )}
