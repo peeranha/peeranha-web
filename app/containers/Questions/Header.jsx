@@ -52,6 +52,7 @@ const colors = singleCommunityColors();
 const PageContentHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  position: relative;
   @media only screen and (max-width: 768px) {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -79,7 +80,7 @@ const EditCommunityButton = styled.div`
   position: absolute;
   text-align: right;
   padding: 8px 0px;
-  right: 55px;
+  right: 0px;
   @media only screen and (max-width: 768px) {
     position: relative;
     display: flex;
