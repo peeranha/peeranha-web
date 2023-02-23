@@ -146,6 +146,7 @@ export const Header = ({
         setTagsNames(await getTagsNameByIds(searchParamsTags));
       }
     }
+    window.scrollTo(0, 0);
     getTagsName();
   }, [createdHistory.location.search]);
 
