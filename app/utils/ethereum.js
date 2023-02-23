@@ -33,6 +33,7 @@ import {
   TYPE_OF_TRANSACTIONS,
   WEB3_TOKEN,
   ONE_MONTH,
+  WEB3_TOKEN_USER_ADDRESS,
 } from './constants';
 
 import Web3Token from 'web3-token';
@@ -247,6 +248,22 @@ class EthereumService {
     data,
     confirmations = 1,
   ) => {
+    let dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
+    const transactionsAllowed = dataFromCookies === TRANSACTIONS_ALLOWED;
+    if (!dataFromCookies) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
+      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    }
+    if (transactionsAllowed && Number(balance) < 0.005) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
+      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    }
+    if (!dataFromCookies) {
+      return;
+    }
     if (this.isTransactionInitialised) {
       this.addToast({
         type: 'info',
@@ -257,23 +274,6 @@ class EthereumService {
 
     this.setTransactionInitialised(true);
     this.waitForConfirm();
-
-    let dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
-    const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
-
-    if (!dataFromCookies) {
-      this.showModalDispatch();
-      await this.waitForCloseModal();
-      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
-    }
-
-    const transactionsAllowed = dataFromCookies === TRANSACTIONS_ALLOWED;
-
-    if (transactionsAllowed && Number(balance) <= 0) {
-      this.showModalDispatch();
-      await this.waitForCloseModal();
-      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
-    }
 
     const metaTransactionsAllowed =
       dataFromCookies === META_TRANSACTIONS_ALLOWED;
@@ -448,7 +448,9 @@ class EthereumService {
     const userAddress = data.shift();
 
     const isWeb3Token = getCookie(WEB3_TOKEN);
-    if (!isWeb3Token) {
+    const isWeb3TokenUserAddress = getCookie(WEB3_TOKEN_USER_ADDRESS) === actor;
+
+    if (!isWeb3Token || !isWeb3TokenUserAddress) {
       const signer = this.provider.getSigner();
       const web3token = await Web3Token.sign(
         async (msg) => await signer.signMessage(msg),
@@ -458,6 +460,15 @@ class EthereumService {
       setCookie({
         name: WEB3_TOKEN,
         value: web3token,
+        options: {
+          'max-age': ONE_MONTH,
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+      setCookie({
+        name: WEB3_TOKEN_USER_ADDRESS,
+        value: actor,
         options: {
           'max-age': ONE_MONTH,
           defaultPath: true,

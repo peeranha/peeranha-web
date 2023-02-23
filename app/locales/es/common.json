@@ -317,10 +317,10 @@
     "subscribeToThisCommunity": "Suscríbete a esta comunidad"
   },
   "metaTransaction": {
-    "agreeWithMetaTransactions": "Lo tenemos cubierto",
+    "agreeWithMetaTransactions": "No tienes suficiente MATIC para cubrir esta transacción. Es probable que se rechace por falta de fondos. Sin embargo, hay otras formas de enviar transacciones.",
     "youNeedMetaBecause": "Su saldo MATIC es 0. Se requiere MATIC para pagar las tarifas de transacción.  ",
     "dontWorry": "No te preocupes! Te tenemos cubierto.",
-    "wouldYouLike": "Le gustaría que transmitamos sus transacciones y cubramos las tarifas de transacción?",
+    "wouldYouLike": "Te gustaría ver las opciones disponibles?",
     "confirm": "Sí",
     "cansel": "No",
     "allow": "Permitir",
@@ -444,5 +444,6 @@
   "transactionsChange_2": "Yo firmo transacciones y Peeranha cubre las tarifas de transacción",
   "transactionsText_3": "Control total",
   "transactionsChange_3": "Firmo transacciones y cubro las tarifas de transacción.",
-  "transactionsText_4": "Puede cambiar su elección en cualquier momento en la Configuración."
+  "transactionsText_4": "Puede cambiar su elección en cualquier momento en la ",
+  "continue": "Continuar"
 }

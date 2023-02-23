@@ -313,10 +313,10 @@
     "subscribeToThisCommunity": "订阅此社区"
   },
   "metaTransaction": {
-    "agreeWithMetaTransactions": "我们为您提供保障",
+    "agreeWithMetaTransactions": "您没有足够的 MATIC 来支付这笔交易。很有可能因为资金不足而被拒绝。但是，还有其他发送交易的方法。",
     "youNeedMetaBecause": "您的 MATIC 余额为零。 MATIC 需要支付交易费用。",
     "dontWorry": "不用担心！ 我们已经为您服务了。",
-    "wouldYouLike": "您希望我们转达您的交易并支付交易费用吗？",
+    "wouldYouLike": "您想查看可用选项吗？",
     "confirm": "是的",
     "cansel": "不",
     "allow": "允許",
@@ -440,5 +440,6 @@
   "transactionsChange_2": "我簽署交易，Peeranha 承擔交易費用",
   "transactionsText_3": "完全控制",
   "transactionsChange_3": "我簽署交易並支付交易費用",
-  "transactionsText_4": "您可以随时在设置中更改您的选择"
+  "transactionsText_4": "您可以随时在设置中更改您的  ",
+  "continue": "继续"
 }

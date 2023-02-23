@@ -37,6 +37,8 @@ import {
   makeSelectShowModal,
 } from '../EthereumProvider/selectors';
 import Popup from 'common-components/Popup';
+import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
+import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 
 /* eslint-disable react/prefer-stateless-function */
 export const MetaTransactionAgreement = ({
@@ -51,12 +53,25 @@ export const MetaTransactionAgreement = ({
 
   const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
   const isBalance =
-    Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0;
+    Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0.005;
   const isTransactionType = dataFromCookies === TRANSACTIONS_ALLOWED;
 
   const hideModal = () => {
     ethereum.stopWaiting();
     hideModalDispatch();
+  };
+
+  const writeTransactionCookie = () => {
+    setCookie({
+      name: TYPE_OF_TRANSACTIONS,
+      value: transaction,
+      options: {
+        'max-age': ONE_MONTH,
+        defaultPath: true,
+        allowSubdomains: true,
+      },
+    });
+    hideModal();
   };
 
   const agreeWithDispatcherTransactions = () => {
@@ -82,7 +97,7 @@ export const MetaTransactionAgreement = ({
                 hideModal={hideModal}
                 transaction={transaction}
                 setTransaction={setTransaction}
-                hideModal={hideModal}
+                writeTransactionCookie={writeTransactionCookie}
               />
             </Popup>
           )}
@@ -97,13 +112,35 @@ export const MetaTransactionAgreement = ({
             </Popup>
           )}
           {!isTorusWallet && !dataFromCookies && (
-            <Popup size="small" onClose={hideModal} withoutClose={false}>
+            <Popup
+              size="small"
+              onClose={hideModal}
+              css={{ '> div': { maxWidth: '570px !important' } }}
+              withoutClose={false}
+            >
               <TransactionHandler
                 transaction={transaction}
                 setTransaction={setTransaction}
-                hideModal={hideModal}
               />
-              {t('common.transactionsText_4')}
+              <div css={{ marginTop: '30px' }}>
+                <span>{t('common.transactionsText_4')}</span>
+                <span className="bold">{t('common.settings')}</span>.
+              </div>
+              <div
+                className="df aic jcfe mt-4"
+                css={{ button: { maxWidth: '150px' } }}
+              >
+                <OutlinedButton className="mr-3" onClick={hideModal}>
+                  {t('common.cancel')}
+                </OutlinedButton>
+                <ContainedButton
+                  disabled={!transaction}
+                  block={!transaction}
+                  onClick={writeTransactionCookie}
+                >
+                  {t('common.continue')}
+                </ContainedButton>
+              </div>
             </Popup>
           )}
         </>

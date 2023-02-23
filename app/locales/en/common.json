@@ -318,10 +318,10 @@
     "subscribeToThisCommunity": "Subscribe to this community"
   },
   "metaTransaction": {
-    "agreeWithMetaTransactions": "We’ve got you covered",
+    "agreeWithMetaTransactions": "You don't have enough MATIC to cover this transaction. It's likely to be declined because of insufficient funds. However, there are other ways to send transactions.",
     "youNeedMetaBecause": "Your MATIC balance is 0. MATIC is required to pay transaction fees.  ",
     "dontWorry": "Don’t worry! We’ve got you covered.",
-    "wouldYouLike": "Would you like us to relay your transactions and cover transaction fees?",
+    "wouldYouLike": "Would you like to see available options?",
     "confirm": "Yes",
     "cansel": "No",
     "allow": "Allow",
@@ -484,5 +484,6 @@
   "transactionsChange_2": "I sign transactions and Peeranha covers transaction fees",
   "transactionsText_3": "Full control",
   "transactionsChange_3": "I sign transactions and cover transaction fees.",
-  "transactionsText_4": "You can change your choice anytime in the Settings."
+  "transactionsText_4": "You can change your choice anytime in the ",
+  "continue": "Continue"
 }

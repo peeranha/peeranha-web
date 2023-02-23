@@ -18,13 +18,13 @@ import TransactionOption from './TransactionOption';
 type TransactionHandlerProps = {
   transaction: string;
   setTransaction: (transaction: string) => void;
-  hideModal?: () => void;
+  settings?: boolean;
 };
 
 const TransactionHandler: React.FC<TransactionHandlerProps> = ({
   transaction,
   setTransaction,
-  hideModal,
+  settings,
 }): JSX.Element => {
   const { t } = useTranslation();
   const isTransactionsAllowed = getCookie(TYPE_OF_TRANSACTIONS);
@@ -38,41 +38,47 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
   }, []);
 
   const handleDispatcherTransactionsAllowed = () => {
-    setCookie({
-      name: TYPE_OF_TRANSACTIONS,
-      value: DISPATCHER_TRANSACTIONS_ALLOWED,
-      options: {
-        'max-age': ONE_MONTH,
-        defaultPath: true,
-        allowSubdomains: true,
-      },
-    });
+    if (settings) {
+      setCookie({
+        name: TYPE_OF_TRANSACTIONS,
+        value: DISPATCHER_TRANSACTIONS_ALLOWED,
+        options: {
+          'max-age': ONE_MONTH,
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+    }
     setTransaction(DISPATCHER_TRANSACTIONS_ALLOWED);
   };
 
   const handleMetaTransactionsAllowed = () => {
-    setCookie({
-      name: TYPE_OF_TRANSACTIONS,
-      value: META_TRANSACTIONS_ALLOWED,
-      options: {
-        neverExpires: true,
-        defaultPath: true,
-        allowSubdomains: true,
-      },
-    });
+    if (settings) {
+      setCookie({
+        name: TYPE_OF_TRANSACTIONS,
+        value: META_TRANSACTIONS_ALLOWED,
+        options: {
+          neverExpires: true,
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+    }
     setTransaction(META_TRANSACTIONS_ALLOWED);
   };
 
   const handleMetaTransactionsDisallowed = () => {
-    setCookie({
-      name: TYPE_OF_TRANSACTIONS,
-      value: TRANSACTIONS_ALLOWED,
-      options: {
-        neverExpires: true,
-        defaultPath: true,
-        allowSubdomains: true,
-      },
-    });
+    if (settings) {
+      setCookie({
+        name: TYPE_OF_TRANSACTIONS,
+        value: TRANSACTIONS_ALLOWED,
+        options: {
+          neverExpires: true,
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+    }
     setTransaction(TRANSACTIONS_ALLOWED);
   };
 
@@ -117,7 +123,6 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
             transactionTitle={item.transactionTitle}
             transactionSubtitle={item.transactionSubtitle}
             Recommended={index === 0}
-            hideModal={hideModal}
           />
         ))}
       </div>
