@@ -1,7 +1,5 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-
 import { BG_PRIMARY } from 'style-constants';
 
 import Container from 'components/Labels/QuestionType';
@@ -9,17 +7,13 @@ import Container from 'components/Labels/QuestionType';
 import Popover from './Popover';
 import { Languages } from 'icons/index';
 import { languagesWithDescriptions } from 'app/i18n';
+import { css } from '@emotion/react';
 
-const LabelItem = styled.span`
-  > div {
-    position: inherit;
-  }
-`;
-
-const LanguageLabel: React.FC<{ isSearch: boolean; language: string }> = ({
-  isSearch = false,
-  language,
-}) => {
+const LanguageLabel: React.FC<{
+  isSearch: boolean;
+  language: string;
+  isFeed: boolean;
+}> = ({ isSearch = false, language, isFeed }) => {
   const { t } = useTranslation();
   const [visible, changeVisibility] = useState(false);
 
@@ -28,7 +22,13 @@ const LanguageLabel: React.FC<{ isSearch: boolean; language: string }> = ({
 
   return (
     <div>
-      <LabelItem>
+      <span
+        css={css`
+          > div {
+            position: inherit;
+          }
+        `}
+      >
         <Container
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
@@ -48,12 +48,12 @@ const LanguageLabel: React.FC<{ isSearch: boolean; language: string }> = ({
               }
               items={[]}
               isSearch={isSearch}
-              right={-68}
+              right={isFeed ? -68 : 0}
             />
           )}
           <Languages stroke={BG_PRIMARY} fill={'#e5ebff'} />
         </Container>
-      </LabelItem>
+      </span>
     </div>
   );
 };

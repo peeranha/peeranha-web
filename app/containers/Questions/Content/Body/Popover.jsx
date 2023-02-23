@@ -9,16 +9,16 @@ import { css } from '@emotion/react';
 const Base = styled.div`
   position: absolute;
   background-color: ${BG_LIGHT};
-  //width: 290px;
   z-index: 100;
-  //left: -235px;
   right: 0;
   top: 25px;
   border-radius: 5px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   padding: 15px;
   text-align: left;
-  white-space: nowrap span {
+
+  white-space: nowrap;
+  span {
     color: ${TEXT_DARK};
   }
 

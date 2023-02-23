@@ -64,6 +64,7 @@ const Body = ({
               postLanguage={postLanguage}
               language={language}
               isAutotranslationEnable={isAutotranslationEnable}
+              isFeed={isFeed}
             />
           )}
 
