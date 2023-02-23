@@ -5,7 +5,7 @@ export const pageStyles = {
   },
 
   sticky: {
-    height: '48px',
+    height: '56px',
 
     '@media (min-width: 1366px)': {
       height: '85px',
