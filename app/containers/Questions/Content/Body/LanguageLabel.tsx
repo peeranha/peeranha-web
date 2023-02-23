@@ -10,7 +10,7 @@ import { languagesWithDescriptions } from 'app/i18n';
 import { css } from '@emotion/react';
 
 const LanguageLabel: React.FC<{
-  isSearch: boolean;
+  isSearch?: boolean;
   language: string;
   isFeed: boolean;
 }> = ({ isSearch = false, language, isFeed }) => {
