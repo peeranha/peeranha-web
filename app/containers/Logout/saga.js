@@ -1,3 +1,4 @@
+import { setTransactionList } from 'containers/EthereumProvider/actions';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -32,6 +33,8 @@ export function* logoutWorker() {
     yield put(addLoginData({}));
 
     yield put(clearNotificationsData());
+    yield put(setTransactionList([]));
+    ethereumService.transactionList = [];
 
     yield put(logoutSuccess());
   } catch (err) {
@@ -39,6 +42,6 @@ export function* logoutWorker() {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(LOGOUT, logoutWorker);
 }

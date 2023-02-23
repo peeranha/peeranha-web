@@ -1,19 +1,17 @@
-import { Contract, ethers } from 'ethers';
+import { BigNumber, Contract, ethers } from 'ethers';
 import PeeranhaUser from '../../../peeranha-subgraph/abis/PeeranhaUser.json';
 import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
 
-import { WebIntegrationError, WebIntegrationErrorByCode } from './errors';
+import { WebIntegrationErrorByCode } from './errors';
 import {
   CONTRACT_TOKEN,
   CONTRACT_USER,
   CONTRACT_CONTENT,
   CONTRACT_COMMUNITY,
-  CLAIM_REWARD,
   GET_COMMUNITY,
   GET_USER_BY_ADDRESS,
-  SET_STAKE,
 } from './ethConstants';
 
 import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
@@ -25,11 +23,9 @@ import {
   META_TRANSACTIONS_ALLOWED,
   METAMASK_ERROR_CODE,
   USER_MIN_RATING_ERROR_CODE,
-  RECAPTCHA_VERIFY_FAILED_CODE,
   REJECTED_SIGNATURE_REQUEST,
 } from './constants';
 
-const sigUtil = require('eth-sig-util');
 const {
   callService,
   BLOCKCHAIN_SEND_META_TRANSACTION,
@@ -75,7 +71,7 @@ class EthereumService {
     this.isTransactionInitialised = null;
     this.addToast = data.addToast;
 
-    this.previousNonce = 0;
+    this.previousNonce = BigNumber.from(0);
     this.transactionList = [];
   }
 
@@ -224,7 +220,7 @@ class EthereumService {
     }
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
-
+    console.log('aaaa');
     try {
       if (metaTransactionsAllowed) {
         const token = await this.getRecaptchaToken();
@@ -237,7 +233,7 @@ class EthereumService {
           token,
         );
       }
-
+      console.log('aaaa');
       await this.chainCheck();
       const transaction = await this[contract]
         .connect(this.provider.getSigner(actor))
@@ -324,6 +320,8 @@ class EthereumService {
       this.previousNonce = nonce;
     }
 
+    console.log(nonce);
+
     const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
     const functionSignature = iface.encodeFunctionData(action, data);
     const message = {};
@@ -398,10 +396,13 @@ class EthereumService {
       response.body.transactionHash,
       confirmations,
     );
-    this.transactionList.find(
+    const pendingTransaction = this.transactionList.find(
       (transactionFromList) =>
         transactionFromList.transactionHash === response.body.transactionHash,
-    ).result = result;
+    );
+    if (pendingTransaction) {
+      pendingTransaction.result = result;
+    }
     setTimeout(() => {
       const index = this.transactionList
         .map((transactionFromList) => transactionFromList.transactionHash)

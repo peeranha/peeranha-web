@@ -27,24 +27,30 @@ import {
   Transaction,
 } from 'containers/TransactionsList/SingleTransaction';
 import { styles } from 'containers/TransactionsList/TransactionList.styled';
+import {
+  makeSelectAccount,
+  makeSelectProfileInfo,
+} from 'containers/AccountProvider/selectors';
 
 type TransactionsListProps = {
   transactionList: Array<Transaction>;
   transactionInPending: boolean;
+  account: string;
 };
 
 const TransactionsList: React.FC<TransactionsListProps> = ({
   transactionList,
   transactionInPending,
+  account,
 }): JSX.Element => {
   const { t } = useTranslation();
   const [opened, setOpened] = useState(false);
   const timer = useRef();
-  const [right, setRight] = useState(-245);
+  const [right, setRight] = useState(-289);
   const [width, setWidth] = useState(289);
 
   useEffect(() => {
-    if (!transactionList.length && !transactionInPending) {
+    if (!transactionList.length) {
       setRight(-289);
       setOpened(false);
     } else if (!opened) {
@@ -60,7 +66,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
   );
 
   useEffect(() => {
-    if (transactionList.length && transactionInPending && !opened) {
+    if (Boolean(transactionList.length) && transactionInPending && !opened) {
       setWidth(449);
       timer.current = setTimeout(() => setWidth(289), 3000);
 
@@ -78,8 +84,6 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
     }
     setOpened(!opened);
   };
-
-  const statusIcon = () => {};
 
   return (
     <div
@@ -191,6 +195,7 @@ export default compose(
       locale: makeSelectLocale(),
       transactionList: selectTransactionList(),
       transactionInPending: selectTransactionInPending(),
+      account: makeSelectAccount(),
     }),
   ),
 )(TransactionsList);
