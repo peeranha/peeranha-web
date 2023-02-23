@@ -20,6 +20,8 @@ import { Mark3dStyles } from './communities-configs/mark3d';
 import { OrbisStyles } from './communities-configs/orbis';
 import { FractalVisionsStyles } from './communities-configs/fractalVisions';
 import { MoveStyles } from './communities-configs/move';
+import { DeveloperDAOStyles } from './communities-configs/developerDAO';
+import { LaunchpadStyles } from './communities-configs/launchpad';
 
 const communitiesConfig = {
   prod: {
@@ -121,6 +123,16 @@ const communitiesConfig = {
       src: 'https://images.peeranha.io/communities/move/move-logo.svg',
       styles: MoveStyles,
     },
+    22: {
+      origin: 'https://developerdao.peeranha.io',
+      src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+      styles: DeveloperDAOStyles,
+    },
+    23: {
+      origin: 'https://pl-launchpad.peeranha.io',
+      src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
+      styles: LaunchpadStyles,
+    },
   },
   staging: {
     1: {
@@ -214,6 +226,21 @@ const communitiesConfig = {
       origin: `https://fractalvisions${process.env.COOKIE_DOMAIN}`,
       src: 'https://images.peeranha.io/communities/fractalVisions/Rectangle_123.svg',
       styles: FractalVisionsStyles,
+    },
+    16: {
+      origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/polygon/polygon-university-logo.svg',
+      styles: PolygonStyles,
+    },
+    17: {
+      origin: `https://developerdao${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+      styles: DeveloperDAOStyles,
+    },
+    18: {
+      origin: `https://pl-launchpad${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
+      styles: LaunchpadStyles,
     },
   },
   dev: {

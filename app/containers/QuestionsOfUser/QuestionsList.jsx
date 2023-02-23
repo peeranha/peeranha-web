@@ -5,6 +5,7 @@ import * as routes from 'routes-config';
 
 import {
   BORDER_PRIMARY,
+  BORDER_RADIUS_L,
   BORDER_SECONDARY,
   TEXT_PRIMARY_DARK,
   TEXT_SECONDARY,
@@ -29,6 +30,8 @@ const RightBlock = Base.extend`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  border-bottom-right-radius: ${BORDER_RADIUS_L};
+  border-top-right-radius: ${BORDER_RADIUS_L};
 
   @media only screen and (min-width: 768px) {
     padding: 25px 20px;
@@ -41,7 +44,14 @@ export const Li = BaseRoundedNoPadding.extend`
   display: flex;
   border: ${(x) =>
     x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0'};
+
+  > div:nth-child(1) {
+    border-top-left-radius: ${BORDER_RADIUS_L} !important;
+    border-bottom-left-radius: ${BORDER_RADIUS_L} !important;
+  }
   > div:nth-child(2) {
+    border-top-right-radius: ${BORDER_RADIUS_L} !important;
+    border-bottom-right-radius: ${BORDER_RADIUS_L} !important;
     border-left: 1px solid ${BORDER_SECONDARY};
   }
 

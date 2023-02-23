@@ -50,7 +50,13 @@ class EthereumService {
     this.contractContent = null;
     this.contractCommunity = null;
 
+    this.contractTokenReads = null;
+    this.contractUserReads = null;
+    this.contractContentReads = null;
+    this.contractCommunityReads = null;
+
     this.provider = null;
+    this.providerReads = null;
     this.metaMaskProviderDetected = false;
     this.selectedAccount = null;
 
@@ -90,6 +96,10 @@ class EthereumService {
     this.provider = ethers.providers.getDefaultProvider(
       process.env.ETHEREUM_NETWORK,
     );
+    this.providerReads = ethers.providers.getDefaultProvider(
+      process.env.ETHEREUM_NETWORK,
+    );
+
     this.contractUser = new Contract(
       process.env.USER_ADDRESS,
       PeeranhaUser,
@@ -109,6 +119,27 @@ class EthereumService {
       process.env.PEERANHA_TOKEN,
       PeeranhaToken,
       this.provider,
+    );
+
+    this.contractUserReads = new Contract(
+      process.env.USER_ADDRESS,
+      PeeranhaUser,
+      this.providerReads,
+    );
+    this.contractCommunityReads = new Contract(
+      process.env.COMMUNITY_ADDRESS,
+      PeeranhaCommunity,
+      this.providerReads,
+    );
+    this.contractContentReads = new Contract(
+      process.env.CONTENT_ADDRESS,
+      PeeranhaContent,
+      this.providerReads,
+    );
+    this.contractTokenReads = new Contract(
+      process.env.PEERANHA_TOKEN,
+      PeeranhaToken,
+      this.providerReads,
     );
   };
 
@@ -220,7 +251,7 @@ class EthereumService {
     }
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
-    console.log('aaaa');
+
     try {
       if (metaTransactionsAllowed) {
         const token = await this.getRecaptchaToken();
@@ -233,7 +264,7 @@ class EthereumService {
           token,
         );
       }
-      console.log('aaaa');
+
       await this.chainCheck();
       const transaction = await this[contract]
         .connect(this.provider.getSigner(actor))
@@ -312,6 +343,7 @@ class EthereumService {
     await this.chainCheck();
     const metaTxContract = this[contract];
     let nonce = await metaTxContract.getNonce(actor); //orders the list of transactions
+    console.log(`Nonce from contract: ${nonce}`);
 
     if (nonce.lte(this.previousNonce)) {
       nonce = this.previousNonce.add(1);
@@ -320,9 +352,8 @@ class EthereumService {
       this.previousNonce = nonce;
     }
 
-    console.log(nonce);
-
     const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
+
     const functionSignature = iface.encodeFunctionData(action, data);
     const message = {};
     message.nonce = parseInt(nonce);
@@ -392,7 +423,7 @@ class EthereumService {
       response.body.transactionHash,
       this.transactionList,
     );
-    const result = await this.provider.waitForTransaction(
+    const result = await this.providerReads.waitForTransaction(
       response.body.transactionHash,
       confirmations,
     );
@@ -419,16 +450,16 @@ class EthereumService {
   };
 
   getUserDataWithArgs = async (action, args) =>
-    await this.contractUser[action](...args);
+    await this.contractUserReads[action](...args);
 
   getCommunityDataWithArgs = async (action, args) =>
-    await this.contractCommunity[action](...args);
+    await this.contractCommunityReads[action](...args);
 
   getContentDataWithArgs = async (action, args) =>
-    await this.contractContent[action](...args);
+    await this.contractContentReads[action](...args);
 
   getTokenDataWithArgs = async (action, args) =>
-    await this.contractToken[action](...args);
+    await this.contractTokenReads[action](...args);
 
   getCommunityFromContract = async (id) => {
     const rawCommunity = await this.getCommunityDataWithArgs(GET_COMMUNITY, [

@@ -91,7 +91,6 @@ import {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
-  DeleteFacebookData,
   MetaTransactionAgreement,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
@@ -160,11 +159,20 @@ const App = ({
     }
   }, []);
 
+  const isDocumentationExist = Array.isArray(documentationMenu)
+    ? documentationMenu.length
+    : Object.keys(documentationMenu).length;
+
   useEffect(() => {
     if (single && (pathname == '/' || pathname == '/feed')) {
-      hasPinnedPost || isDocumentationPositionTop
-        ? redirectToDocumentationDispatch()
-        : redirectToFeedDispatch();
+      if (
+        (hasPinnedPost || isDocumentationPositionTop) &&
+        isDocumentationExist
+      ) {
+        redirectToDocumentationDispatch();
+      } else {
+        redirectToFeedDispatch();
+      }
     }
   }, [documentationMenu]);
 
@@ -400,6 +408,12 @@ const App = ({
           <Route
             exact
             path={routes.questionView(':id', ':title')}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={'/questions/:id'}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 

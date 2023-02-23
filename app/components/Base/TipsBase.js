@@ -1,7 +1,9 @@
+import { singleCommunityColors } from 'utils/communityManagement';
 import { SECONDARY_SPECIAL_3, BORDER_RADIUS_L } from 'style-constants';
 
 import BaseRoundedNoPadding from './BaseRoundedNoPadding';
 
+const colors = singleCommunityColors();
 export default BaseRoundedNoPadding.extend`
   display: flex;
 
@@ -23,6 +25,8 @@ export default BaseRoundedNoPadding.extend`
       background: ${SECONDARY_SPECIAL_3};
       border-top-right-radius: ${BORDER_RADIUS_L};
       border-bottom-right-radius: ${BORDER_RADIUS_L};
+      background: ${colors.backgroundSpecial || ''};
+      color: ${colors.black || ''};
     }
   }
 
