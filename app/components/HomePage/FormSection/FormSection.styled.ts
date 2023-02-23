@@ -161,24 +161,9 @@ export const styles = {
       },
     },
   },
-  fourthFieldAnimation: {
-    animation: 'fourthFormFieldAnimation 1.2s forwards',
-    animationDelay: '0.6s',
-
-    '@keyframes fourthFormFieldAnimation': {
-      '0%': {
-        transform: 'translateY(40px)',
-        opacity: 0,
-      },
-      '100%': {
-        transform: 'translateY(0)',
-        opacity: 1,
-      },
-    },
-  },
   buttonFieldAnimation: {
     animation: 'buttonFormFieldAnimation 1.2s forwards',
-    animationDelay: '0.8s',
+    animationDelay: '0.6s',
 
     '@keyframes buttonFormFieldAnimation': {
       '0%': {

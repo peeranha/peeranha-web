@@ -76,19 +76,6 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
           css={{ ...(startFormAnimation && styles.thirdFieldAnimation) }}
         >
           <Field
-            name={SUBJECT_FIELD}
-            disabled={sendMessageLoading}
-            label={t('homePage.subject')}
-            component={FormField}
-            validate={[strLength3x20, required]}
-            warn={[strLength3x20, required]}
-          />
-        </div>
-        <div
-          className="op0"
-          css={{ ...(startFormAnimation && styles.fourthFieldAnimation) }}
-        >
-          <Field
             name={MESSAGE_FIELD}
             multiline
             disabled={sendMessageLoading}

@@ -10,7 +10,6 @@ import {
   MESSAGE_FIELD,
   NAME_FIELD,
   SEND_MESSAGE,
-  SUBJECT_FIELD,
 } from './constants';
 
 import { sendMessageSuccess, sendMessageErr } from './actions';
@@ -19,15 +18,10 @@ export function* sendMessageWorker({ val }): Generator<any> {
   try {
     const { reset, form } = val[2];
 
-    const subject =
-      typeof val[0].get(SUBJECT_FIELD) === 'object'
-        ? val[0].get(SUBJECT_FIELD).value
-        : val[0].get(SUBJECT_FIELD);
-
     const formData = {
       email: val[0].get(EMAIL_FIELD),
       firstname: val[0].get(NAME_FIELD),
-      subject,
+      subject: 'Message from landing page',
       message: val[0].get(MESSAGE_FIELD),
     };
 
