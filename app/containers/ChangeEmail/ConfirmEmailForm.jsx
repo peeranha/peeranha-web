@@ -76,7 +76,7 @@ const ConfirmEmailForm = ({
           className="w-100 mb-3"
           type="submit"
         >
-          {t('sign-up.verify')}
+          {t('signUp.verify')}
         </Button>
       </form>
     </div>
