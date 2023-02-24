@@ -1,6 +1,6 @@
 import { Field, reduxForm } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
-import React, { FormEventHandler, useState } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
@@ -49,6 +49,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
   const [isOpen, open, close] = useTrigger(false);
+  const [isValidate, setValidate] = useState(true);
   const [role, setRole] = useState<OptionValue>();
 
   const rolesName = [
@@ -62,9 +63,17 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   }));
 
   const addRoleMethod = (values: any) => {
-    addRole(values.get(WALLET_ADDRESS_FIELD), Number(role), single);
-    close();
+    if (typeof role === 'undefined') {
+      setValidate(false);
+    } else {
+      addRole(values.get(WALLET_ADDRESS_FIELD), Number(role), single);
+      close();
+    }
   };
+
+  useEffect(() => {
+    if (role) setValidate(true);
+  }, [role]);
 
   return (
     <>
@@ -85,8 +94,13 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
           </h5>
           <div
             css={css`
+              ${!isValidate &&
+              `border: 1px solid rgb(252, 102, 85);
+              box-shadow: 0 0 0 3px rgb(252 102 85 / 40%);
+              border-radius: 3px;`}
+              margin-bottom: 5px;
               span {
-                font-size: 16px;
+                font-size: 14px;
               }
               button {
                 box-shadow: none !important;
@@ -98,9 +112,24 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
               isMultiple={false}
               value={role}
               placeholder={t('administration.chooseRole')}
-              onSelect={setRole}
+              onSelect={(r) => {
+                setValidate(true);
+                setRole(r);
+              }}
             />
           </div>
+          {!isValidate && (
+            <span
+              css={{
+                display: 'block',
+                color: '#7b7b7b',
+                fontStyle: 'italic',
+                fontSize: '14px',
+              }}
+            >
+              {t('administration.EmptyRole')}
+            </span>
+          )}
 
           <form onSubmit={handleSubmit(addRoleMethod)}>
             <Field

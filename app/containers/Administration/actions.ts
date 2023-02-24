@@ -45,9 +45,10 @@ export function addRole(
   };
 }
 
-export function addRoleSuccess() {
+export function addRoleSuccess(communityId: number) {
   return {
     type: ADD_ROLE_SUCCESS,
+    communityId,
   };
 }
 
@@ -71,9 +72,10 @@ export function revokeRole(
   };
 }
 
-export function revokeRoleSuccess() {
+export function revokeRoleSuccess(communityId: number) {
   return {
     type: REVOKE_ROLE_SUCCESS,
+    communityId,
   };
 }
 

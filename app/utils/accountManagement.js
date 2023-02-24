@@ -64,6 +64,7 @@ export async function giveRolePermission(
     user,
     addRolePermissionEthConstants[role],
     [user, userToGive, communityId],
+    2,
   );
 }
 
@@ -79,6 +80,7 @@ export async function revokeRolePermission(
     user,
     revokeRolePermissionEthConstants[role],
     [user, userToRevoke, communityId],
+    2,
   );
 }
 

@@ -65,7 +65,7 @@ export function* addRoleWorker(props: {
       props.communityId,
       ethereumService,
     );
-    yield put(addRoleSuccess());
+    yield put(addRoleSuccess(props.communityId));
   } catch (err) {
     yield put(addRoleError(err));
   }
@@ -88,7 +88,7 @@ export function* revokeRoleWorker(props: {
       ethereumService,
     );
 
-    yield put(revokeRoleSuccess());
+    yield put(revokeRoleSuccess(props.communityId));
   } catch (err) {
     yield put(revokeRoleError(err));
   }

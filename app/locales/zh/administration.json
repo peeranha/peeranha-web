@@ -3,6 +3,7 @@
   "communityAdministrator": "社区管理员",
   "addRole": "添加新角色",
   "chooseRole": "选择角色",
+  "EmptyRole": "如果未选择角色，则不能离开此字段",
   "confirm": "确认",
   "cancel": "取消",
   "wantToRevoke": "您确定要撤销用户的{{role}}身份吗？",

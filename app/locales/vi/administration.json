@@ -3,6 +3,7 @@
   "communityAdministrator": "Quản trị viên cộng đồng",
   "addRole": "Thêm vai trò mới",
   "chooseRole": "Chọn vai trò",
+  "EmptyRole": "Bạn không thể rời khỏi trường này nếu không có vai trò nào được chọn",
   "confirm": "Xác nhận",
   "cancel": "Hủy bỏ",
   "wantToRevoke": "Bạn có chắc chắn muốn hủy bỏ vai trò {{role}} của người dùng không?",

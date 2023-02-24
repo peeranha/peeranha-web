@@ -3,6 +3,7 @@
   "communityAdministrator": "Administrador de la comunidad",
   "addRole": "Agregar un nuevo rol",
   "chooseRole": "Elija el rol",
+  "EmptyRole": "No puede abandonar este campo si no se selecciona ningún rol",
   "confirm": "Confirmar",
   "cancel": "Cancelar",
   "wantToRevoke": "¿Estás seguro de que quieres revocar al usuario de ser un {{role}}?",
