@@ -10,6 +10,7 @@ import P from 'components/P';
 import A from 'components/A';
 import { Tag } from 'components/TagsList';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import Loader from 'components/LoadingIndicator/WidthCentered';
 
 import { styles } from 'containers/Administration/Administration.styled';
 import AreYouSure from 'containers/Administration/AreYouSure';
@@ -68,6 +69,8 @@ export const Content: React.FC<ContentProps> = ({
   );
 
   const { t: translate } = useTranslation();
+
+  if (moderatorsLoading) return <Loader />;
 
   return (
     <BaseRoundedNoPadding className="fdc mb16">
