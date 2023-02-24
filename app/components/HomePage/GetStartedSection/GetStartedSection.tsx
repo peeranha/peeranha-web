@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import createdHistory from 'createdHistory';
 import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
-import { scrollToSection, scrollTrigger } from 'utils/animation';
+import { scrollToSection } from 'utils/animation';
 
 import man from 'images/top-man.svg?inline';
 import arrow from 'images/Arrow.svg?inline';
@@ -12,16 +12,6 @@ import { pageStyles } from '../HomePage.styled';
 
 const GetStartedSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-
-  const [startImageBlockAnimation, setStartImageBlockAnimation] =
-    useState<boolean>(false);
-  const [startTextBlockAnimation, setStartTextBlockAnimation] =
-    useState<boolean>(false);
-
-  useEffect(() => {
-    scrollTrigger('.text-block', () => setStartTextBlockAnimation(true));
-    scrollTrigger('.image-block', () => setStartImageBlockAnimation(true));
-  }, []);
 
   return (
     <section>
@@ -33,7 +23,7 @@ const GetStartedSection: React.FC = (): JSX.Element => {
                 className="bold fz46 tc mb8 op0"
                 css={{
                   ...styles.heading,
-                  ...(startTextBlockAnimation && styles.titleAnimation),
+                  ...styles.titleAnimation,
                 }}
               >
                 {t('homePage.moreThan')}
@@ -42,7 +32,7 @@ const GetStartedSection: React.FC = (): JSX.Element => {
                 className="bold fz16 tc mb32 op0"
                 css={{
                   ...styles.subHeading,
-                  ...(startTextBlockAnimation && styles.subtitleAnimation),
+                  ...styles.subtitleAnimation,
                 }}
               >
                 {t('homePage.greatCommunity')}
@@ -51,7 +41,7 @@ const GetStartedSection: React.FC = (): JSX.Element => {
                 className="df jcc aic fz20 op0"
                 css={{
                   ...styles.button,
-                  ...(startTextBlockAnimation && styles.buttonAnimation),
+                  ...styles.buttonAnimation,
                 }}
                 onClick={() => createdHistory.push(routes.feed())}
               >
@@ -76,21 +66,21 @@ const GetStartedSection: React.FC = (): JSX.Element => {
             className="pa op0"
             css={{
               ...styles.instruments,
-              ...(startImageBlockAnimation && styles.instrumentsAnimation),
+              ...styles.instrumentsAnimation,
             }}
           ></div>
           <div
             className="pa op0"
             css={{
               ...styles.background,
-              ...(startImageBlockAnimation && styles.backgroundAnimation),
+              ...styles.backgroundAnimation,
             }}
           ></div>
           <div
             className="pa t0 l0 full-width full-height op0"
             css={{
               ...styles.man,
-              ...(startImageBlockAnimation && styles.manAnimation),
+              ...styles.manAnimation,
             }}
           ></div>
           <div
@@ -98,7 +88,7 @@ const GetStartedSection: React.FC = (): JSX.Element => {
             css={{
               ...styles.circle,
               ...styles.firstCirclePosition,
-              ...(startImageBlockAnimation && styles.pulseFirstCircleAnimation),
+              ...styles.pulseFirstCircleAnimation,
             }}
           ></div>
           <div
@@ -106,8 +96,7 @@ const GetStartedSection: React.FC = (): JSX.Element => {
             css={{
               ...styles.circle,
               ...styles.secondCirclePosition,
-              ...(startImageBlockAnimation &&
-                styles.pulseSecondCircleAnimation),
+              ...styles.pulseSecondCircleAnimation,
             }}
           ></div>
         </div>

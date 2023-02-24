@@ -424,13 +424,18 @@ export const styles = {
 
   buttonAnimation: {
     animation: 'buttonAnimation 1s forwards',
-    animationDelay: '0.4s',
+    opacity: 0,
 
     '@keyframes buttonAnimation': {
       '0%': {
         transform: 'translateY(90px)',
         opacity: 0,
       },
+
+      '40%': {
+        opacity: 0,
+      },
+
       '100%': {
         transform: 'translateY(0))',
         opacity: 1,
@@ -476,28 +481,15 @@ export const styles = {
 
   instrumentsAnimation: {
     animation: 'instrumentImageAnimation 3s forwards',
+    opacity: 0,
 
     '@keyframes instrumentImageAnimation': {
       '0%': {
         transform: 'scale(0.5)',
-        rotate: '-180deg',
         opacity: 0,
-      },
-      '40%': {
-        opacity: 1,
-        rotate: '7deg',
-      },
-      '60%': {
-        opacity: 1,
-        rotate: '-4deg',
-      },
-      '80%': {
-        opacity: 1,
-        rotate: '2deg',
       },
       '100%': {
         transform: 'scale(1)',
-        rotate: '0',
         opacity: 1,
       },
     },
