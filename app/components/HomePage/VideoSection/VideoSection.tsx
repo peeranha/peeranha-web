@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { scrollTrigger } from 'utils/animation';
 
 import { styles } from './VideoSection.styled';
 
 const VideoSection: React.FC = (): JSX.Element => {
+  const firstActionBlock = useRef(null);
+
   const [startVideoAnimation, setStartVideoAnimation] =
     useState<boolean>(false);
 
   useEffect(() => {
-    scrollTrigger('#video', () => setStartVideoAnimation(true));
+    scrollTrigger(firstActionBlock.current, () => setStartVideoAnimation(true));
   }, []);
 
   return (
-    <section className="pr df jcc" css={styles.background} id="video">
+    <section
+      className="pr df jcc"
+      css={styles.background}
+      id="video"
+      ref={firstActionBlock}
+    >
       <div
         className="pr op0"
         css={{

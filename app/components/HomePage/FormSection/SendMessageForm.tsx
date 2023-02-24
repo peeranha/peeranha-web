@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useState } from 'react';
+import React, { FormEventHandler, useEffect, useRef, useState } from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +15,6 @@ import {
 import {
   EMAIL_FIELD,
   NAME_FIELD,
-  SUBJECT_FIELD,
   MESSAGE_FIELD,
 } from '../../../pages/HomePage/constants';
 
@@ -36,15 +35,18 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
   sendMessage,
 }): JSX.Element => {
   const { t } = useTranslation();
+
+  const formBlock = useRef(null);
+
   const [startFormAnimation, setStartFormAnimation] = useState<boolean>(false);
 
   useEffect(() => {
-    scrollTrigger('.letter-form', () => setStartFormAnimation(true));
+    scrollTrigger(formBlock.current, () => setStartFormAnimation(true));
   }, []);
 
   return (
     <form onSubmit={handleSubmit(sendMessage)} autoComplete="off">
-      <div className="letter-form">
+      <div ref={formBlock}>
         <div
           className="op0"
           css={{ ...(startFormAnimation && styles.firstFieldAnimation) }}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { scrollTrigger } from 'utils/animation';
 import techstars from 'images/logo-techstars.svg?inline';
@@ -28,21 +28,25 @@ const logos = [
 const PartnersSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
+  const titleBlock = useRef(null);
+  const sliderBlock = useRef(null);
+
   const [startTitleAnimation, setStartTitleAnimation] =
     useState<boolean>(false);
   const [startSliderAnimation, setStartSliderAnimation] =
     useState<boolean>(false);
 
   useEffect(() => {
-    scrollTrigger('.partners-title', () => setStartTitleAnimation(true));
-    scrollTrigger('.partners-animation', () => setStartSliderAnimation(true));
+    scrollTrigger(titleBlock.current, () => setStartTitleAnimation(true));
+    scrollTrigger(sliderBlock.current, () => setStartSliderAnimation(true));
   }, []);
 
   return (
     <section css={styles.background}>
       <div className="df fdc aic">
         <span
-          className="mb32 bold fz28 op0 partners-title"
+          ref={titleBlock}
+          className="mb32 bold fz28 op0"
           css={{
             ...styles.title,
             ...(startTitleAnimation && styles.titleAnimation),
@@ -51,7 +55,8 @@ const PartnersSection: React.FC = (): JSX.Element => {
           {t('homePage.partners')}
         </span>
         <div
-          className="full-width op0 ovh partners-animation"
+          ref={sliderBlock}
+          className="full-width op0 ovh"
           css={{
             ...styles.slider,
             ...(startSliderAnimation && styles.sliderAnimation),

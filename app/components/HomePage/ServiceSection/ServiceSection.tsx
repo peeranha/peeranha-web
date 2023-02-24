@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -16,6 +16,15 @@ import { pageStyles } from '../HomePage.styled';
 
 const ServiceSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
+  const fishActionBlock = useRef(null);
+  const topRightCoinActionBlock = useRef(null);
+  const bottomRightCoinActionBlock = useRef(null);
+  const topLeftCoinActionBlock = useRef(null);
+  const bottomLeftCoinActionBlock = useRef(null);
+  const buttonActionBlock = useRef(null);
+  const contentActionBlock = useRef(null);
+  const secondContentActionBlock = useRef(null);
+  const headerActionBlock = useRef(null);
 
   const [startFishAnimation, setStartFishAnimation] = useState<boolean>(false);
   const [startTopRightCoinAnimation, setStartTopRightCoinAnimation] =
@@ -36,21 +45,29 @@ const ServiceSection: React.FC = (): JSX.Element => {
     useState<boolean>(false);
 
   useEffect(() => {
-    scrollTrigger('.fish', () => setStartFishAnimation(true));
-    scrollTrigger('.top-right-coin', () => setStartTopRightCoinAnimation(true));
-    scrollTrigger('.bottom-right-coin', () =>
+    scrollTrigger(fishActionBlock.current, () => setStartFishAnimation(true));
+    scrollTrigger(topRightCoinActionBlock.current, () =>
+      setStartTopRightCoinAnimation(true),
+    );
+    scrollTrigger(bottomRightCoinActionBlock.current, () =>
       setStartBottomRightCoinAnimation(true),
     );
-    scrollTrigger('.top-left-coin', () => setStartTopLeftCoinAnimation(true));
-    scrollTrigger('.bottom-left-coin', () =>
+    scrollTrigger(topLeftCoinActionBlock.current, () =>
+      setStartTopLeftCoinAnimation(true),
+    );
+    scrollTrigger(bottomLeftCoinActionBlock.current, () =>
       setStartBottomLeftCoinAnimation(true),
     );
-    scrollTrigger('.start-button', () => setStartButtonAnimation(true));
-    scrollTrigger('.service-content', () => setStartContentAnimation(true));
-    scrollTrigger('.second-service-content', () =>
+    scrollTrigger(buttonActionBlock.current, () =>
+      setStartButtonAnimation(true),
+    );
+    scrollTrigger(contentActionBlock.current, () =>
+      setStartContentAnimation(true),
+    );
+    scrollTrigger(secondContentActionBlock.current, () =>
       setStartSecondContentAnimation(true),
     );
-    scrollTrigger('.header-figure', () =>
+    scrollTrigger(headerActionBlock.current, () =>
       setStartHeaderAnimationAnimation(true),
     );
   }, []);
@@ -67,7 +84,8 @@ const ServiceSection: React.FC = (): JSX.Element => {
           <div className="df fdc aic" css={styles.wrapper}>
             <div className="df jcc">
               <div
-                className="df jcc aic bold fz28 tc op0 header-figure"
+                ref={headerActionBlock}
+                className="df jcc aic bold fz28 tc op0"
                 css={{
                   ...styles.title,
                   ...(startHeaderAnimation && styles.headerAnimation),
@@ -77,7 +95,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
               </div>
             </div>
             <div css={styles.content}>
-              <div className="service-content" css={styles.contentBlock}>
+              <div ref={contentActionBlock} css={styles.contentBlock}>
                 <img
                   src={discussions}
                   alt="knowledge base icon"
@@ -162,7 +180,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
                   </p>
                 </div>
               </div>
-              <div className="second-service-content" css={styles.contentBlock}>
+              <div ref={secondContentActionBlock} css={styles.contentBlock}>
                 <img
                   src={community}
                   alt="community icon"
@@ -257,7 +275,8 @@ const ServiceSection: React.FC = (): JSX.Element => {
               </div>
             </div>
             <button
-              className="df jcc aic fz20 op0 start-button"
+              ref={buttonActionBlock}
+              className="df jcc aic fz20 op0"
               css={{
                 ...styles.button,
                 ...(startButtonAnimation && styles.startButtonAnimation),
@@ -268,7 +287,8 @@ const ServiceSection: React.FC = (): JSX.Element => {
             </button>
           </div>
           <div
-            className="pa t0 l0 full-width full-height op0 fish"
+            ref={fishActionBlock}
+            className="pa t0 l0 full-width full-height op0"
             css={{
               ...styles.fishImage,
               ...(startFishAnimation && styles.fishAnimation),
@@ -276,7 +296,8 @@ const ServiceSection: React.FC = (): JSX.Element => {
           ></div>
         </div>
         <div
-          className="pa t0 l0 full-width full-height op0 bottom-right-coin"
+          ref={bottomRightCoinActionBlock}
+          className="pa t0 l0 full-width full-height op0"
           css={{
             ...styles.rightBottomCoinImage,
             ...(startBottomRightCoinAnimation &&
@@ -284,21 +305,24 @@ const ServiceSection: React.FC = (): JSX.Element => {
           }}
         ></div>
         <div
-          className="pa t0 l0 full-width full-height op0 top-left-coin"
+          ref={topLeftCoinActionBlock}
+          className="pa t0 l0 full-width full-height op0"
           css={{
             ...styles.leftTopCoinImage,
             ...(startTopLeftCoinAnimation && styles.leftTopCoinAnimation),
           }}
         ></div>
         <div
-          className="pa t0 l0 full-width full-height op0 bottom-left-coin"
+          ref={bottomLeftCoinActionBlock}
+          className="pa t0 l0 full-width full-height op0"
           css={{
             ...styles.leftBottomCoinImage,
             ...(startBottomLeftCoinAnimation && styles.leftBottomCoinAnimation),
           }}
         ></div>
         <div
-          className="pa t0 l0 full-width full-height op0 top-right-coin"
+          ref={topRightCoinActionBlock}
+          className="pa t0 l0 full-width full-height op0"
           css={{
             ...styles.rightTopCoinImage,
             ...(startTopRightCoinAnimation && styles.rightTopCoinAnimation),

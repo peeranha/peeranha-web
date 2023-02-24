@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { scrollTrigger } from 'utils/animation';
 import letterSmile from 'images/letter-smile.svg?inline';
 import { styles } from './FormSection.styled';
@@ -11,18 +11,21 @@ const FormSection: React.FC<HomepageProps> = ({
   sendMessageLoading,
   sendMessageDispatch,
 }): JSX.Element => {
+  const letterBlock = useRef(null);
+
   const [startLetterAnimation, setStartLetterAnimation] =
     useState<boolean>(false);
 
   useEffect(() => {
-    scrollTrigger('.letter-image', () => setStartLetterAnimation(true));
+    scrollTrigger(letterBlock.current, () => setStartLetterAnimation(true));
   }, []);
 
   return (
     <section css={pageStyles.container}>
       <div css={styles.container}>
         <div
-          className="df jcc op0 letter-image"
+          ref={letterBlock}
+          className="df jcc op0"
           css={{
             ...styles.image,
             ...(startLetterAnimation && styles.letterAnimation),

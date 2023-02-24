@@ -39,12 +39,8 @@ export function scrollToErrorField(errors) /* istanbul ignore next */ {
   scrollToSection(`#${formatStringToHtmlId(keys[0])}`);
 }
 
-export function scrollTrigger(selector, action, options = {}) {
-  let elements = document.querySelectorAll(selector);
-  elements = Array.from(elements);
-  elements.forEach((element) => {
-    addObserver(element, action, options);
-  });
+export function scrollTrigger(element, action, options = {}) {
+  addObserver(element, action, options);
 }
 
 function addObserver(element, action, options) {
