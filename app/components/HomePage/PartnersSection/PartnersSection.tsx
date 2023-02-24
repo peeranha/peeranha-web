@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { scrollTrigger } from 'utils/animation';
-import techstars from 'images/logo-techstars.svg?inline';
+import techstars from 'images/techstars-logo.svg?inline';
 import protocolLabs from 'images/logo-protocol-labs.svg?inline';
 import sui from 'images/logo-sui.svg?inline';
 import polygon from 'images/logo-polygon.svg?inline';
-import filecoin from 'images/logo-f.svg?inline';
+import filecoin from 'images/logo-filecoin.svg?inline';
 import polygonStudios from 'images/logo-poly.svg?inline';
-import functionland from 'images/logo-functionland.svg?inline';
+import functionland from 'images/logo-fnlnd.svg?inline';
 import koii from 'images/logo-koii.svg?inline';
 import mystenLabs from 'images/logo-mysten-labs.svg?inline';
 
 import { styles } from './PartnersSection.styled';
 
 const logos = [
-  techstars,
   protocolLabs,
   sui,
   polygon,
+  techstars,
   filecoin,
   polygonStudios,
   functionland,
