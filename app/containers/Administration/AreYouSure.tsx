@@ -6,9 +6,9 @@ import { TEXT_DARK } from 'style-constants';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
-import ModalDialog, { el, modalRoot } from 'components/ModalDialog';
+import Popup from 'components/common/Popup';
 
-import messages from 'containers/Administration/messages';
+import useTrigger from 'hooks/useTrigger';
 
 type AreYouSureProps = {
   Button: React.FC<{
@@ -29,25 +29,19 @@ const AreYouSure: React.FC<AreYouSureProps> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
   const [currentTarget, changeEventData] = useState(null);
-  const [isOpened, open] = useState(false);
-
-  const closeModal = () => {
-    document.getElementsByTagName('body')[0].style.position = 'relative';
-    modalRoot.removeChild(el);
-    open(false);
-  };
+  const [isOpen, open, close] = useTrigger(false);
 
   return (
     <>
       <Button
         onClick={(ev: { currentTarget: React.SetStateAction<null> }) => {
-          open(true);
+          open();
           changeEventData(ev.currentTarget);
         }}
       />
 
-      {isOpened && (
-        <ModalDialog closeModal={closeModal} show={isOpened}>
+      {isOpen && (
+        <Popup size="tiny" onClose={close}>
           <h5
             css={css`
               color: ${TEXT_DARK};
@@ -63,20 +57,20 @@ const AreYouSure: React.FC<AreYouSureProps> = ({
           </h5>
 
           <div className="df aic">
-            <OutlinedButton className="mr12" onClick={closeModal}>
+            <OutlinedButton className="mr12" onClick={close}>
               {t('common.no')}
             </OutlinedButton>
 
             <ContainedButton
               onClick={() => {
-                closeModal();
+                close();
                 submitAction({ currentTarget });
               }}
             >
               {t('common.yes')}
             </ContainedButton>
           </div>
-        </ModalDialog>
+        </Popup>
       )}
     </>
   );
