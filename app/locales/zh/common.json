@@ -321,6 +321,7 @@
     "cansel": "不",
     "allow": "允許",
     "options": "查看其他選項",
+    "recommended": "受到推崇的",
     "agreeWithMetaTransactionsText": "在 30 天內跳過批准與您的錢包的每次交互，並允許 Peeranha 代表您簽署交易。",
     "agreeWithMetaTransactionsSecondaryText": "簽名密鑰只能簽署消息，不能持有資金。它們安全地存儲在瀏覽器數據庫系統中"
   },

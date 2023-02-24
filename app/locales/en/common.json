@@ -326,6 +326,7 @@
     "cansel": "No",
     "allow": "Allow",
     "options": "See other options",
+    "recommended": "Recommended",
     "agreeWithMetaTransactionsText": "Skip approving every interaction with your wallet for 30 days and allow Peeranha sign transactions on your behalf.",
     "agreeWithMetaTransactionsSecondaryText": "Signing keys can only sign messages and cannot hold funds. They are stored securely in the browser database system"
   },

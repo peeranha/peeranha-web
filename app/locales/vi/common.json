@@ -325,6 +325,7 @@
     "cansel": "Không",
     "allow": "Cho phép",
     "options": "Xem các tùy chọn khác",
+    "recommended": "Khuyến khích",
     "agreeWithMetaTransactionsText": "Bỏ qua việc phê duyệt mọi tương tác với ví của bạn trong 30 ngày và cho phép Peeranha thay mặt bạn ký các giao dịch.",
     "agreeWithMetaTransactionsSecondaryText": "Khóa ký chỉ có thể ký tin nhắn và không thể giữ tiền. Chúng được lưu trữ an toàn trong hệ thống cơ sở dữ liệu của trình duyệt"
   },

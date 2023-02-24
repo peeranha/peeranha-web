@@ -325,6 +325,7 @@
     "cansel": "No",
     "allow": "Permitir",
     "options": "Ver otras opciones",
+    "recommended": "Recomendado",
     "agreeWithMetaTransactionsText": "Omita la aprobación de cada interacción con su billetera durante 30 días y permita que Peeranha firme transacciones en su nombre.",
     "agreeWithMetaTransactionsSecondaryText": "Las claves de firma solo pueden firmar mensajes y no pueden retener fondos. Se almacenan de forma segura en el sistema de base de datos del navegador"
   },
