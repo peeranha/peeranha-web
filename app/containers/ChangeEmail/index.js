@@ -43,67 +43,70 @@ import {
   CONFIRM_EMAIL_FORM,
   CHANGE_EMAIL_FORM,
 } from './constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+import EditIcon from 'icons/Edit';
 
+const colors = singleCommunityColors();
 /* eslint-disable react/prefer-stateless-function */
-export class ChangeEmail extends React.PureComponent {
-  render() /* istanbul ignore next */ {
-    const {
-      changeEmailDispatch,
-      hideChangeEmailModalDispatch,
-      children,
-      showChangeEmailModalDispatch,
-      showModal,
-      changeEmailProcessing,
-      locale,
-      content,
-      sendOldEmailDispatch,
-      confirmOldEmailDispatch,
-      sendOldEmailProcessing,
-      confirmOldEmailProcessing,
-      sendAnotherCodeDispatch,
-      loginData,
-      emailAddress,
-      email,
-      isSubscribedEmail,
-    } = this.props;
+const ChangeEmail = ({
+  changeEmailDispatch,
+  hideChangeEmailModalDispatch,
+  children,
+  showChangeEmailModalDispatch,
+  showModal,
+  changeEmailProcessing,
+  locale,
+  content,
+  sendOldEmailDispatch,
+  confirmOldEmailDispatch,
+  sendOldEmailProcessing,
+  confirmOldEmailProcessing,
+  sendAnotherCodeDispatch,
+  loginData,
+  emailAddress,
+  email,
+  // isSubscribedEmail,
+  setOpen,
+  open,
+}) => {
+  return (
+    <React.Fragment>
+      <Modal show={showModal} closeModal={hideChangeEmailModalDispatch}>
+        {content === OLD_EMAIL_FORM && (
+          <SendEmailForm
+            locale={locale}
+            sendOldEmail={sendOldEmailDispatch}
+            sendOldEmailProcessing={sendOldEmailProcessing}
+            loginData={loginData}
+            closeModal={hideChangeEmailModalDispatch}
+            emailAddress={emailAddress}
+          />
+        )}
 
-    return (
-      <React.Fragment>
-        <Modal show={showModal} closeModal={hideChangeEmailModalDispatch}>
-          {content === OLD_EMAIL_FORM && (
-            <SendEmailForm
-              locale={locale}
-              sendOldEmail={sendOldEmailDispatch}
-              sendOldEmailProcessing={sendOldEmailProcessing}
-              loginData={loginData}
-              closeModal={hideChangeEmailModalDispatch}
-              emailAddress={emailAddress}
-            />
-          )}
+        {content === CONFIRM_EMAIL_FORM && (
+          <ConfirmEmailForm
+            locale={locale}
+            confirmOldEmail={confirmOldEmailDispatch}
+            confirmOldEmailProcessing={confirmOldEmailProcessing}
+            sendAnotherCode={sendAnotherCodeDispatch}
+            closeModal={hideChangeEmailModalDispatch}
+            emailAddress={email}
+          />
+        )}
 
-          {content === CONFIRM_EMAIL_FORM && (
-            <ConfirmEmailForm
-              locale={locale}
-              confirmOldEmail={confirmOldEmailDispatch}
-              confirmOldEmailProcessing={confirmOldEmailProcessing}
-              sendAnotherCode={sendAnotherCodeDispatch}
-              closeModal={hideChangeEmailModalDispatch}
-              emailAddress={email}
-            />
-          )}
-
-          {content === CHANGE_EMAIL_FORM && (
-            <ChangeEmailForm
-              locale={locale}
-              changeEmail={changeEmailDispatch}
-              changeEmailProcessing={changeEmailProcessing}
-              emailAddress={emailAddress}
-            />
-          )}
-        </Modal>
-
+        {content === CHANGE_EMAIL_FORM && (
+          <ChangeEmailForm
+            locale={locale}
+            changeEmail={changeEmailDispatch}
+            changeEmailProcessing={changeEmailProcessing}
+            emailAddress={emailAddress}
+          />
+        )}
+      </Modal>
+      {!open ? (
         <Button
           onClick={showChangeEmailModalDispatch}
+          type="submit"
           css={{
             border: '1px solid #F76F60',
             width: '86px',
@@ -111,12 +114,21 @@ export class ChangeEmail extends React.PureComponent {
             color: '#F76F60',
           }}
         >
-          {t(isSubscribedEmail ? 'common.change' : 'common.confirm')}
+          {t('common.telegram.confirm')}
         </Button>
-      </React.Fragment>
-    );
-  }
-}
+      ) : (
+        <Button onClick={() => setOpen(!open)}>
+          <EditIcon
+            className="mr-1"
+            stroke={colors.btnColor}
+            fill={colors.btnColor}
+          />
+          {t('common.edit')}
+        </Button>
+      )}
+    </React.Fragment>
+  );
+};
 
 ChangeEmail.propTypes = {
   changeEmailDispatch: PropTypes.func,

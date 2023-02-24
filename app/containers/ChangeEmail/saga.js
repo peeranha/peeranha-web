@@ -77,7 +77,7 @@ export function* confirmOldEmailWorker({ resetForm, code }) {
       yield put(
         addToast({
           type: 'error',
-          text: response.errorMessage,
+          text: 'common.incorrectCode',
         }),
       );
       throw new WebIntegrationError(
