@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { scrollTrigger } from 'utils/animation';
-import screen_1 from 'images/scr_1.jpg';
-import screen_2 from 'images/scr_2.jpg';
-import screen_3 from 'images/scr_3.jpg';
-import screen_4 from 'images/scr_4.jpg';
+import screen_1 from 'images/scr_1.png';
+import screen_2 from 'images/scr_2.png';
+import screen_3 from 'images/scr_3.png';
+import screen_4 from 'images/scr_4.png';
 
 import { styles } from './ActionsSection.styled';
 import { pageStyles } from '../HomePage.styled';
