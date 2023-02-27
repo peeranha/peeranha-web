@@ -479,5 +479,6 @@
   "drafts": "Drafts",
   "enterText": "Please enter Markdown text",
   "results": "Results",
-  "noSearchResults": "We couldn't find any matching results. \n Try asking our community."
+  "noSearchResults": "We couldn't find any matching results. \n Try asking our community.",
+  "activeUsers": "Active users"
 }
