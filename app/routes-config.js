@@ -46,8 +46,14 @@ export const tutorials = (communityId) =>
     ? `${!isBloggerMode ? '/tutorials' : '/experts'}`
     : `/tutorials/community/${communityId}/`;
 
-export const questionView = (id, title, answerId) => {
+export const questionView = (id, title, answerId, isOldURL) => {
   const updatedTitle = updateTitle(title);
+
+  if (isOldURL) {
+    return answerId
+      ? `/questions/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`
+      : `/questions/${id}/${updatedTitle}`;
+  }
 
   return answerId
     ? `/discussions/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`

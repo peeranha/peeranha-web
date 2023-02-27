@@ -166,16 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const DeveloperDAOStyles = {
+  name: 'communityDAO',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
-  favicon:
-    'https://images.peeranha.io/communities/communityDAO/dao-favicon.svg',
-
   colors: {
+    appWindowsColor: 'rgba(210, 84, 189, 1)',
+    appSafarieColor: 'rgba(210, 84, 189, 1)',
     mainSubHeaderBgColor:
       'linear-gradient(111.12deg, #000000 41.3%, #D045B9 89.65%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
