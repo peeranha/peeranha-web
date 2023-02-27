@@ -1,3 +1,4 @@
+const { WEB3_TOKEN } = require('../../../constants');
 const { getCookie } = require('../../../cookie');
 const { AUTOLOGIN_DATA } = require('../../../../containers/Login/constants');
 const ACCOUNT_BEGIN_SIGNUP = 'account/begin-signup';
@@ -12,6 +13,7 @@ const BLOCKCHAIN_MAIN_CALL = `${BLOCKCHAIN}/main/call`;
 const BLOCKCHAIN_TOKEN_CALL = `${BLOCKCHAIN}/token/call`;
 const BLOCKCHAIN_MAIN_SEND_TRANSACTION = `${BLOCKCHAIN}/main/send-transaction`;
 const BLOCKCHAIN_SEND_META_TRANSACTION = `${BLOCKCHAIN}/send-meta-transaction`;
+const BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION = `${BLOCKCHAIN}/send-dispatcher-transaction/`;
 
 const GET_OWNER_KEY_INIT_SERVICE = 'wallet/get-owner-key/init';
 const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/get-owner-key/complete';
@@ -45,9 +47,14 @@ async function callService(service, props, isGet = false, signal) {
   const auth = {};
 
   const authData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+  const authorizationWeb3Token = getCookie(WEB3_TOKEN) || null;
 
   if (authData?.authToken) {
     auth.Authorization = `${authData?.authToken}`;
+  }
+
+  if (authorizationWeb3Token) {
+    auth.Authorization = authorizationWeb3Token;
   }
 
   if (isGet) {
@@ -108,5 +115,6 @@ module.exports = {
   BLOCKCHAIN_TOKEN_CALL,
   BLOCKCHAIN_MAIN_SEND_TRANSACTION,
   BLOCKCHAIN_SEND_META_TRANSACTION,
+  BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
   SAVE_FILE_SERVICE,
 };

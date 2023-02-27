@@ -333,7 +333,11 @@
     "dontWorry": "Đừng lo lắng! Chúng tôi đã bảo vệ bạn.",
     "wouldYouLike": "Bạn có muốn chúng tôi chuyển tiếp các giao dịch của bạn và trang trải phí giao dịch không?",
     "confirm": "Đúng",
-    "cansel": "Không"
+    "cansel": "Không",
+    "allow": "Cho phép",
+    "options": "Xem các tùy chọn khác",
+    "agreeWithMetaTransactionsText": "Bỏ qua việc phê duyệt mọi tương tác với ví của bạn trong 30 ngày và cho phép Peeranha thay mặt bạn ký các giao dịch.",
+    "agreeWithMetaTransactionsSecondaryText": "Khóa ký chỉ có thể ký tin nhắn và không thể giữ tiền. Chúng được lưu trữ an toàn trong hệ thống cơ sở dữ liệu của trình duyệt"
   },
   "moderationPermitions": {
     "title": "Quyền của người điều hành",
@@ -444,6 +448,15 @@
   },
   "answerForm": "Câu trả lời của bạn",
   "results": "Kết quả",
+  "transactionsText": "Vui lòng chọn trải nghiệm người dùng tốt nhất của bạn trên Peeranha:",
+  "transactionsText_1": "Ít cửa sổ bật lên hơn và không tính phí",
+  "transactionsChange_1": "Peeranha thay mặt tôi ký giao dịch và trả phí giao dịch",
+  "transactionsText_2": "Kiểm soát không tính phí",
+  "transactionsChange_2": "Tôi ký giao dịch và Peeranha trả phí giao dịch",
+  "transactionsText_3": "Toàn quyền kiểm soát",
+  "transactionsChange_3": "Tôi ký giao dịch và trả phí giao dịch.",
+  "transactionsText_4": "Bạn có thể thay đổi lựa chọn của mình bất cứ lúc nào trong ",
+  "continue": "Tiếp tục",
   "activeUsers": "Người dùng đang hoạt động",
   "administration": "Sự quản lý",
   "documentation": "Tài liệu"

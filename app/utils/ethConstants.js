@@ -4,6 +4,13 @@ export const CONTRACT_USER = 'contractUser';
 export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
+export const ContractsMapping = {
+  [CONTRACT_TOKEN]: 'token',
+  [CONTRACT_USER]: 'user',
+  [CONTRACT_CONTENT]: 'content',
+  [CONTRACT_COMMUNITY]: 'community',
+};
+
 // Transaction names
 export const UPDATE_ACC = 'updateUser';
 export const CREATE_COMMUNITY = 'createCommunity';
