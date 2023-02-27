@@ -166,16 +166,17 @@ export const customSubHeaderConfig = {
 };
 
 export const SuiGlobalStyles = {
+  name: 'suiGlobal',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/suiGlobal/suiGlobal.svg',
-  favicon:
-    'https://images.peeranha.io/communities/suiGlobal/favicon-suiGlobal.ico',
 
   colors: {
+    appWindowsColor: '#2b5797',
+    appSafarieColor: '#5bbad5',
     mainSubHeaderBgColor: 'rgb(255,255,255)',
     mainBackground: '#F5F5F5',
     linkColor: 'rgb(79,183,255)',

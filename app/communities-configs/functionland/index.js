@@ -178,15 +178,16 @@ export const customSubHeaderConfig = {
 };
 
 export const FunctionlandStyles = {
+  name: 'functionland',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
-  favicon:
-    'https://images.peeranha.io/communities/functionland/favicon-functionland.ico',
   colors: {
+    appWindowsColor: '#da532c',
+    appSafarieColor: '#86d55b',
     mainBackground: '#F3F3F3',
     linkColor: 'rgb(9, 147, 147)',
     linkColorTransparent: 'rgb(48, 103, 103)',
