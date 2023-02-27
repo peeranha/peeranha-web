@@ -432,5 +432,35 @@
     "reloadPage": "Recargar página"
   },
   "answerForm": "Tu respuesta",
-  "results": "Resultados"
+  "results": "Resultados",
+  "transactions": "Actas",
+  "transactionsList": {
+    "followCommunity": "Seguir a la comunidad",
+    "updateUser": "Actualizar perfil de usuario",
+    "createCommunity": "Crear comunidad",
+    "updateCommunity": "Actualizar comunidad",
+    "unfollowCommunity": "Dejar de seguir a la comunidad",
+    "createTag": "Crear etiqueta",
+    "updateTag": "Actualizar etiqueta",
+    "createPost": "Crear publicación",
+    "updateDocumentationTree": "Actualizar documentación",
+    "deleteDocumentationPost": "Eliminar publicación de documentación",
+    "changePostType": "Cambiar tipo de publicación",
+    "createReply": "Crear respuesta",
+    "editReply": "Editar respuesta",
+    "deleteReply": "Eliminar respuesta",
+    "editPost": "Editar post",
+    "deletePost": "Eliminar mensaje",
+    "createComment": "Crear comentario",
+    "editComment": "Editar comentario",
+    "deleteComment": "Eliminar comentario",
+    "changeStatusBestReply": "Cambiar mejor respuesta",
+    "voteItem": "Votar artículo",
+    "claimReward": "Reclamar recompensa",
+    "setStake": "Establecer apuesta",
+    "giveCommunityModeratorPermission": "Dar permiso de moderador de la comunidad",
+    "revokeCommunityModeratorPermission": "Revocar permiso de moderador de la comunidad",
+    "successful": "Exitoso",
+    "failed": "Fallido"
+  }
 }

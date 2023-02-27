@@ -432,5 +432,35 @@
     "reloadPage": "Trang tải lại"
   },
   "answerForm": "Câu trả lời của bạn",
-  "results": "Kết quả"
+  "results": "Kết quả",
+  "transactions": "Giao dịch",
+  "transactionsList": {
+    "followCommunity": "Theo dõi cộng đồng",
+    "updateUser": "Cập nhật hồ sơ người dùng",
+    "createCommunity": "Tạo cộng đồng",
+    "updateCommunity": "Cập nhật cộng đồng",
+    "unfollowCommunity": "Bỏ theo dõi cộng đồng",
+    "createTag": "Tạo thẻ",
+    "updateTag": "Cập nhật thẻ",
+    "createPost": "Tạo bài đăng",
+    "updateDocumentationTree": "Cập nhật tài liệu",
+    "deleteDocumentationPost": "Xóa bài đăng tài liệu",
+    "changePostType": "Thay đổi loại bài đăng",
+    "createReply": "Tạo trả lời",
+    "editReply": "Chỉnh sửa câu trả lời",
+    "deleteReply": "Xóa trả lời",
+    "editPost": "Chỉnh sửa bài",
+    "deletePost": "Xóa bài đăng",
+    "createComment": "tạo bình luận",
+    "editComment": "Chỉnh sửa nhận xét",
+    "deleteComment": "Xóa nhận xét",
+    "changeStatusBestReply": "Thay đổi câu trả lời hay nhất",
+    "voteItem": "mục bình chọn",
+    "claimReward": "Yêu cầu phần thưởng",
+    "setStake": "Đặt cược",
+    "giveCommunityModeratorPermission": "Cấp quyền cho người điều hành cộng đồng",
+    "revokeCommunityModeratorPermission": "м",
+    "successful": "Thành công",
+    "failed": "Thất bại"
+  }
 }
