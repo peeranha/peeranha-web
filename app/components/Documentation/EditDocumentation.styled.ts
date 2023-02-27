@@ -1,3 +1,7 @@
+import { singleCommunityDocumentation } from 'utils/communityManagement';
+
+const documentationColors = singleCommunityDocumentation();
+
 export const styled = {
   background: {
     position: 'fixed',
@@ -60,6 +64,22 @@ export const styled = {
 
     '::-webkit-scrollbar-thumb:hover': {
       background: 'rgba(53, 74, 137, 0.5)',
+    },
+  },
+
+  cancelButton: {
+    background: documentationColors.publishBackground || 'white',
+    color: documentationColors.publishText || 'var(--color-button-secondary)',
+    borderColor:
+      documentationColors.publishText || 'var(--color-button-secondary)',
+    '&:hover': {
+      background:
+        documentationColors.publishBackgroundHover ||
+        'var(--color-button-secondary)',
+      color: documentationColors.publishTextHover || 'var(--color-white)',
+      '.icon': {
+        stroke: documentationColors.publishTextHover || 'var(--color-white)',
+      },
     },
   },
 };
