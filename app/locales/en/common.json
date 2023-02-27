@@ -329,14 +329,15 @@
     "subscribeToThisCommunity": "Subscribe to this community"
   },
   "metaTransaction": {
-    "agreeWithMetaTransactions": "We’ve got you covered",
+    "agreeWithMetaTransactions": "You don't have enough MATIC to cover this transaction. It's likely to be declined because of insufficient funds. However, there are other ways to send transactions.",
     "youNeedMetaBecause": "Your MATIC balance is 0. MATIC is required to pay transaction fees.  ",
     "dontWorry": "Don’t worry! We’ve got you covered.",
-    "wouldYouLike": "Would you like us to relay your transactions and cover transaction fees?",
+    "wouldYouLike": "Would you like to see available options?",
     "confirm": "Yes",
     "cansel": "No",
     "allow": "Allow",
     "options": "See other options",
+    "recommended": "Recommended",
     "agreeWithMetaTransactionsText": "Skip approving every interaction with your wallet for 30 days and allow Peeranha sign transactions on your behalf.",
     "agreeWithMetaTransactionsSecondaryText": "Signing keys can only sign messages and cannot hold funds. They are stored securely in the browser database system"
   },
@@ -488,7 +489,6 @@
   "enterText": "Please enter Markdown text",
   "results": "Results",
   "selectLanguage": "Select language",
-  "noSearchResults": "We couldn't find any matching results. \n Try asking our community.",
   "noSearchResults": "We couldn't find any matching results. \n Try asking our community.",
   "transactionsText": "Please choose your best user experience on Peeranha:",
   "transactionsText_1": "Less popups and no fees",

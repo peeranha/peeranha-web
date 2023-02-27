@@ -328,14 +328,15 @@
     "subscribeToThisCommunity": "Suscríbete a esta comunidad"
   },
   "metaTransaction": {
-    "agreeWithMetaTransactions": "Lo tenemos cubierto",
+    "agreeWithMetaTransactions": "No tienes suficiente MATIC para cubrir esta transacción. Es probable que se rechace por falta de fondos. Sin embargo, hay otras formas de enviar transacciones.",
     "youNeedMetaBecause": "Su saldo MATIC es 0. Se requiere MATIC para pagar las tarifas de transacción.  ",
     "dontWorry": "No te preocupes! Te tenemos cubierto.",
-    "wouldYouLike": "Le gustaría que transmitamos sus transacciones y cubramos las tarifas de transacción?",
+    "wouldYouLike": "Te gustaría ver las opciones disponibles?",
     "confirm": "Sí",
     "cansel": "No",
     "allow": "Permitir",
     "options": "Ver otras opciones",
+    "recommended": "Recomendado",
     "agreeWithMetaTransactionsText": "Omita la aprobación de cada interacción con su billetera durante 30 días y permita que Peeranha firme transacciones en su nombre.",
     "agreeWithMetaTransactionsSecondaryText": "Las claves de firma solo pueden firmar mensajes y no pueden retener fondos. Se almacenan de forma segura en el sistema de base de datos del navegador"
   },

@@ -1,39 +1,80 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import H4 from 'components/H4';
+import TransactionHandler from 'containers/ViewProfilePage/TransactionHandler';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
+import Popup from 'common-components/Popup';
 
 type PopupForNotBalanceProps = {
-  agreeWithMeta: () => void;
   hideModal: () => void;
+  transaction: string;
+  setTransaction: (transaction: string) => void;
+  writeTransactionCookie: () => void;
 };
 
 const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
-  agreeWithMeta,
   hideModal,
+  transaction,
+  setTransaction,
+  writeTransactionCookie,
 }): JSX.Element => {
+  const [show, setShow] = useState<Boolean>(true);
   const { t } = useTranslation();
   return (
     <>
-      <H4 className="text-center pb-3">
-        {t('common.metaTransaction.agreeWithMetaTransactions')}
-      </H4>
+      {show ? (
+        <div>
+          <div className="tc pb-3 bold">
+            {t('common.metaTransaction.agreeWithMetaTransactions')}
+          </div>
 
-      <div className="pb-4" style={{ textAlign: 'center' }}>
-        {t('common.metaTransaction.wouldYouLike')}
-      </div>
+          <div className="pb-4" style={{ textAlign: 'center' }}>
+            {t('common.metaTransaction.wouldYouLike')}
+          </div>
 
-      <div className="d-flex align-items-center pb-3">
-        <OutlinedButton className="mr-3" onClick={hideModal}>
-          {t('common.metaTransaction.cansel')}
-        </OutlinedButton>
+          <div className="df aic pb-3">
+            <OutlinedButton className="mr-3" onClick={hideModal}>
+              {t('common.metaTransaction.cansel')}
+            </OutlinedButton>
 
-        <ContainedButton onClick={agreeWithMeta}>
-          {t('common.metaTransaction.confirm')}
-        </ContainedButton>
-      </div>
+            <ContainedButton onClick={() => setShow(!show)}>
+              {t('common.metaTransaction.confirm')}
+            </ContainedButton>
+          </div>
+        </div>
+      ) : (
+        <Popup
+          size="small"
+          onClose={hideModal}
+          css={{ '> div': { maxWidth: '570px !important' } }}
+          withoutClose={false}
+        >
+          <TransactionHandler
+            transaction={transaction}
+            setTransaction={setTransaction}
+          />
+          <div css={{ marginTop: '30px' }}>
+            <span>{t('common.transactionsText_4')}</span>
+            <span className="bold">{t('common.settings')}</span>.
+          </div>
+          <div
+            className="df aic jcfe mt-4"
+            css={{ button: { maxWidth: '150px' } }}
+          >
+            <OutlinedButton className="mr-3" onClick={hideModal}>
+              {t('common.cancel')}
+            </OutlinedButton>
+            <ContainedButton
+              disabled={!transaction}
+              block={!transaction}
+              onClick={writeTransactionCookie}
+            >
+              {t('common.continue')}
+            </ContainedButton>
+          </div>
+        </Popup>
+      )}
     </>
   );
 };
