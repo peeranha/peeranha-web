@@ -54,7 +54,7 @@ const SeeOriginal: React.FC<SeeOriginalProps> = ({
 }): JSX.Element | null => {
   const { t } = useTranslation();
   const isOriginalLanguage =
-    +language === LANGUAGES_MAP[locale as keyof typeof LANGUAGES_MAP];
+    Number(language) === LANGUAGES_MAP[locale as keyof typeof LANGUAGES_MAP];
 
   return (!isOriginalLanguage || showOriginal) && !!translation ? (
     <div

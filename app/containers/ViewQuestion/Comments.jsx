@@ -169,7 +169,10 @@ const CommentView = (item) => {
   );
 
   const getContent = () => {
-    if (+item.language === LANGUAGES_MAP[item.locale] || item.showOriginal) {
+    if (
+      Number(item.language) === LANGUAGES_MAP[item.locale] ||
+      item.showOriginal
+    ) {
       return item.content;
     }
     return translation ? translation.content : item.content;
@@ -202,7 +205,9 @@ const CommentView = (item) => {
 
         <CommentManage>
           <SeeOriginal
-            isOriginalLanguage={+item.language === LANGUAGES_MAP[item.locale]}
+            isOriginalLanguage={
+              Number(item.language) === LANGUAGES_MAP[item.locale]
+            }
             translation={translation}
             showOriginal={item.showOriginal}
             setShowOriginal={item.setShowOriginal}

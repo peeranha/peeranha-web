@@ -19,13 +19,16 @@ export const Content = (props) => {
   const isTemporaryAccount = false;
   const [showOriginal, setShowOriginal] = useState(false);
   const translation = props.translations?.find(
-    ({ language }) => +language === LANGUAGES_MAP[props.locale],
+    ({ language }) => Number(language) === LANGUAGES_MAP[props.locale],
   );
   //   !!props.author?.['integer_properties'].find(
   //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   // );
   const getContent = () => {
-    if (+props.language === LANGUAGES_MAP[props.locale] || showOriginal) {
+    if (
+      Number(props.language) === LANGUAGES_MAP[props.locale] ||
+      showOriginal
+    ) {
       return { content: props.content, title: props.title };
     }
     return translation
