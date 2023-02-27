@@ -1,3 +1,7 @@
+import { singleCommunityDocumentation } from 'utils/communityManagement';
+
+const documentationColors = singleCommunityDocumentation();
+
 export const styles = {
   draftItem: {
     fontFamily: 'Source Sans Pro, serif',
@@ -17,7 +21,7 @@ export const styles = {
 
   draftItemHover: {
     ':hover': {
-      color: '#576fed',
+      color: documentationColors.linkColor || '#576fed',
     },
   },
 
