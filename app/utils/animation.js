@@ -4,35 +4,28 @@ import { HEADER_HEIGHT } from 'containers/Header/constants';
 export function ScrollTo() /* istanbul ignore next */ {
   const { pathname, hash } = window.location;
 
-  useEffect(
-    () => {
-      window.scrollTo(0, 0);
-    },
-    [pathname],
-  );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-  useEffect(
-    () => {
-      setTimeout(scrollToSection, 250);
-    },
-    [hash],
-  );
+  useEffect(() => {
+    setTimeout(scrollToSection, 250);
+  }, [hash]);
 
   return null;
 }
 
-export function scrollToSection(
-  hash = window.location.hash,
-) /* istanbul ignore next */ {
-  const hsh = window.$(hash);
+export function scrollToSection(hash = window.location.hash) {
+  if (hash) {
+    const scrollPosition =
+      document.querySelector(hash).getBoundingClientRect().top +
+      window.scrollY -
+      HEADER_HEIGHT;
 
-  if (hsh && hsh.offset()) {
-    window.$('html, body').animate(
-      {
-        scrollTop: hsh.offset().top - HEADER_HEIGHT,
-      },
-      250,
-    );
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth',
+    });
   }
 }
 

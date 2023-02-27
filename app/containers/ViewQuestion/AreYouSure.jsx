@@ -33,6 +33,14 @@ const AreYouSure = ({
     document.getElementsByTagName('body')[0].style.position = 'relative';
     modalRoot.removeChild(el);
 
+    const scrollY = document.body.style.top;
+    document.body.style.top = '';
+    window.scrollTo({
+      left: 0,
+      top: parseInt(scrollY || '0', 10) * -1,
+      behavior: 'instant',
+    });
+
     open(false);
   };
 
@@ -40,6 +48,7 @@ const AreYouSure = ({
     <React.Fragment>
       <Button
         onClick={(ev) => {
+          document.body.style.top = `-${window.scrollY}px`;
           open(true);
           changeEventData(ev.currentTarget);
         }}
