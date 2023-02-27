@@ -37,3 +37,31 @@ export function scrollToErrorField(errors) /* istanbul ignore next */ {
   const keys = Object.keys(errors);
   scrollToSection(`#${formatStringToHtmlId(keys[0])}`);
 }
+
+export function scrollTrigger(element, action, options = {}) {
+  addObserver(element, action, options);
+}
+
+function addObserver(element, action, options) {
+  if (!('IntersectionObserver' in window)) {
+    if (options.callback) {
+      options.callback(element);
+    } else {
+      action();
+    }
+    return;
+  }
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        if (options.callback) {
+          options.callback(element);
+        } else {
+          action();
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+  observer.observe(element);
+}
