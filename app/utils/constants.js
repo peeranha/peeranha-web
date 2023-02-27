@@ -74,6 +74,13 @@ export const POST_TYPE = {
   documentation: 1000,
 };
 
+export const LANGUAGES_MAP = {
+  en: 0,
+  zh: 1,
+  es: 2,
+  vi: 3,
+};
+
 export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
 export const CURRENCY = 'MATIC';
 
