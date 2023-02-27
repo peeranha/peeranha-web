@@ -8,6 +8,7 @@ import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
 } from 'utils/communityManagement';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaLogoWhite from 'images/Logo.svg?inline';
@@ -183,6 +184,7 @@ const AdditionalLinksComponent = ({
   locale,
 }) => {
   const { t } = useTranslation();
+  const isDesktop = useMediaQuery('(min-width: 992px)');
   const basicCondition =
     !styles.withoutAdditionalLinks && !isMobile(window.navigator).any;
 
@@ -206,9 +208,7 @@ const AdditionalLinksComponent = ({
         <InfoLinksDropDown withTitle />
       )}
 
-      {(fullSize ||
-        ((smallSize || middleSize) && !basicCondition) ||
-        isMobile(window.navigator).any) && (
+      {!isDesktop && (
         <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
       )}
 
