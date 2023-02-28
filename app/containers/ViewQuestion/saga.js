@@ -127,7 +127,7 @@ import {
 } from './validate';
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getQuestionFromGraph } from '../../utils/theGraph';
+import { getQuestionFromGraph } from 'utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
@@ -458,6 +458,8 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
   try {
     let { questionData, ethereumService, locale, profileInfo } = yield call(getParams);
 
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
     if (!questionData) {
       questionData = yield call(getQuestionById, ethereumService, questionId, profileInfo.user);
     }
@@ -508,7 +510,7 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
 
     yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
 
-    yield call(createdHistory.push, getPostsRoute(questionData.postType));
+    yield call(createdHistory.push, baseUrl + getPostsRoute(questionData.postType));
   } catch (err) {
     yield put(deleteQuestionErr(err, buttonId));
   }
@@ -863,6 +865,9 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
 
 export function* voteToDeleteWorker({ questionId, answerId, commentId, buttonId, whoWasVoted }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasVoted];
@@ -931,7 +936,7 @@ export function* voteToDeleteWorker({ questionId, answerId, commentId, buttonId,
         // delete question
         yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
 
-        yield call(createdHistory.push, routes.questions());
+        yield call(createdHistory.push, baseUrl + routes.questions());
       }
 
       yield put(setVoteToDeleteLoading(false));

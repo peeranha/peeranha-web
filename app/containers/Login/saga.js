@@ -13,6 +13,7 @@ import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { hideLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
@@ -25,9 +26,7 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 export function* loginWithWalletWorker({ metaMask, t }) {
   try {
     const ethereumService = yield select(selectEthereum);
-    const isNewPostCreationAfterLogin = yield select(
-      selectIsNewPostCreationAfterLogin(),
-    );
+    const isNewPostCreationAfterLogin = yield select(selectIsNewPostCreationAfterLogin());
 
     let currentAccount;
     let metaMaskUserAddress = null;
@@ -83,15 +82,18 @@ export function* redirectToFeedWorker() {
   const isLeftMenuVisible = yield select(selectIsMenuVisible());
   const profileInfo = yield select(makeSelectProfileInfo());
   const singleCommunityId = isSingleCommunityWebsite();
+  const locale = yield select(makeSelectLocale());
+
+  const baseUrl = locale === 'en' ? '' : `/${locale}`;
 
   if (isLeftMenuVisible) {
     yield put(hideLeftMenu());
   }
 
   if (profileInfo && !singleCommunityId) {
-    yield call(createdHistory.push, routes.feed());
+    yield call(createdHistory.push, baseUrl + routes.feed());
   } else if (singleCommunityId) {
-    yield call(createdHistory.push, routes.questions());
+    yield call(createdHistory.push, baseUrl + routes.questions());
   }
 }
 

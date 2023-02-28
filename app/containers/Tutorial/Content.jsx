@@ -19,6 +19,7 @@ import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 import Question from './Question';
+import i18next from 'app/i18n';
 
 export const TextBlock = styled.div`
   display: ${(x) => (x.isOpened ? 'block' : 'none')};
@@ -40,8 +41,7 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   }
 
   > :not(:last-child) {
-    border-bottom: ${(x) => (x.isOpened ? '1' : '0')}px solid
-      ${BORDER_SECONDARY};
+    border-bottom: ${(x) => (x.isOpened ? '1' : '0')}px solid ${BORDER_SECONDARY};
   }
 
   ${Button} {
@@ -65,14 +65,7 @@ const ImgWrapper = styled.div`
 
 const DEFAULT_QST_NUM = 5;
 
-const Section = ({
-  h2,
-  blocks,
-  sectionCode,
-  route,
-  getSectionCode,
-  getQuestionCode,
-}) => {
+const Section = ({ h2, blocks, sectionCode, route, getSectionCode, getQuestionCode }) => {
   const { t } = useTranslation();
   const { hash } = window.location;
 
@@ -80,9 +73,10 @@ const Section = ({
   const [isExtendedSection, extendSection] = useState(false);
 
   const questionsNumber = isExtendedSection ? blocks.length : DEFAULT_QST_NUM;
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   const collapseSection = () => {
-    createdHistory.push(route());
+    createdHistory.push(baseUrl + route());
     collapse(!isOpened);
   };
 
@@ -99,11 +93,7 @@ const Section = ({
   return (
     <SectionStyled isOpened={isOpened} id={sectionId}>
       <BaseTransparent>
-        <H4
-          className="d-flex align-items-center"
-          onClick={collapseSection}
-          mobileFS="24"
-        >
+        <H4 className="d-flex align-items-center" onClick={collapseSection} mobileFS="24">
           <ImgWrapper>
             <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
           </ImgWrapper>
