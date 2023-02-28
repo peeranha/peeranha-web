@@ -14,7 +14,7 @@ type ChangeLocalePopupProps = {
   setLocale: () => void;
   locale: string;
   open: boolean;
-  setOpen: () => void;
+  setOpen: (isOpen: boolean) => void;
 };
 
 const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
@@ -24,6 +24,7 @@ const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
   setOpen,
 }): JSX.Element => {
   const { t } = useTranslation();
+
   return (
     <>
       <ChangeLocaleButton withTitle locale={locale} />
