@@ -69,7 +69,7 @@ const Administration: React.FC<AdministrationProps> = ({
   useModeratorRole(noAccessRoute, single);
   useEffect(() => {
     getModeratorsDispatch(single);
-  }, [single]);
+  }, [single, addRoleLoading, revokeRoleLoading]);
 
   return (
     <>
