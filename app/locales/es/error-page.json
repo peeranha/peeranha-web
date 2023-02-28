@@ -5,5 +5,8 @@
   "accountDoesNotExist": "La cuenta no existe",
   "cannotTransferToSelf": "No puedes transferirte a ti mismo",
   "notEnoughCPU": "CPU insuficiente",
-  "checkScatterConnection": "Comprobar la conexión de la billetera"
+  "checkScatterConnection": "Comprobar la conexión de la billetera",
+  "weUpdatedTheApplication": "Hemos actualizado la aplicación. ",
+  "clearYourBrowser": "Borre la memoria caché de su navegador para reiniciarlo. ",
+  "holdDown": "Mantenga presionada la tecla <0>{{ctrl}}</0> y presione <1>{{f5}}</1>. "
 }

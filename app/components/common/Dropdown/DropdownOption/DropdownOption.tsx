@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import FaqIcon from 'icons/Faq';
 import classes from '../Dropdown.styled';
 import { MutableOption } from '../Dropdown';
+import { useTranslation } from 'react-i18next';
 
 type DropdownOptionProps = {
   option: MutableOption;
@@ -18,6 +19,7 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
   isMultiple,
   onClick,
 }) => {
+  const { t } = useTranslation();
   const clickHandler = (): void => {
     if (!option.isDisabled) {
       onClick(option);
@@ -44,7 +46,7 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
                 {option.icon}
               </span>
             )}
-            <span>{option.label}</span>
+            <span>{t(`${option.label}`)}</span>
           </>
         )}
         {isMultiple && (

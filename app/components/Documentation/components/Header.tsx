@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from 'components/common/Button';
 import SaveIcon from 'icons/Save';
 import CloseRoundedIcon from 'icons/CloseRounded';
@@ -14,7 +15,7 @@ const Header: React.FC<any> = ({
   discardDrafts,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
-
+  const { t } = useTranslation();
   const discardDraftsHandler = () => {
     discardDrafts();
     close();
@@ -32,7 +33,7 @@ const Header: React.FC<any> = ({
         lineHeight: '48px',
       }}
     >
-      <div>Edit documentation</div>
+      <div>{t('common.editDocumentation')}</div>
       <div className="df aic">
         <Button
           variant="third"
@@ -52,7 +53,7 @@ const Header: React.FC<any> = ({
           className="mr16"
           onClick={toggleEditDocumentation}
         >
-          Close
+          {t('common.close')}
         </Button>
         <Button
           variant="third"
@@ -72,7 +73,7 @@ const Header: React.FC<any> = ({
           className="mr16"
           onClick={open}
         >
-          Discard drafts and close
+          {t('common.discardDraftsAndClose')}
         </Button>
         <Button
           variant="secondary"
@@ -107,18 +108,18 @@ const Header: React.FC<any> = ({
           }
           onClick={saveDocumentationMenu}
         >
-          Publish
+          {t('common.publish')}
         </Button>
       </div>
       {isOpen && (
-        <Popup size="atom" onClose={close} title="Discard drafts">
+        <Popup size="atom" onClose={close} title={t('common.discardDrafts')}>
           <p
             className="tc"
             css={{
               lineHeight: '20px',
             }}
           >
-            If you leave before saving, your changes will not be saved.
+            {t('common.discardDraftsText')}
           </p>
           <div className="df jcc mt16">
             <Button
@@ -126,13 +127,13 @@ const Header: React.FC<any> = ({
               css={{ width: 'calc(50% - 8px) !important' }}
               onClick={close}
             >
-              No
+              {t('common.no')}
             </Button>
             <Button
               css={{ marginLeft: 16, width: 'calc(50% - 8px) !important' }}
               onClick={discardDraftsHandler}
             >
-              Yes
+              {t('common.yes')}
             </Button>
           </div>
         </Popup>
