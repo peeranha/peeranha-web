@@ -565,6 +565,8 @@ export function* deleteQuestionWorker({
       getParams,
     );
 
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
     if (!questionData) {
       questionData = yield call(
         getQuestionById,
@@ -631,7 +633,10 @@ export function* deleteQuestionWorker({
       deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
     );
 
-    yield call(createdHistory.push, getPostsRoute(questionData.postType));
+    yield call(
+      createdHistory.push,
+      baseUrl + getPostsRoute(questionData.postType),
+    );
   } catch (err) {
     yield put(deleteQuestionErr(err, buttonId));
   }
@@ -1050,6 +1055,9 @@ export function* voteToDeleteWorker({
   whoWasVoted,
 }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     const { questionData, eosService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasVoted];
@@ -1135,7 +1143,7 @@ export function* voteToDeleteWorker({
           deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
         );
 
-        yield call(createdHistory.push, routes.questions());
+        yield call(createdHistory.push, baseUrl + routes.questions());
       }
 
       yield put(setVoteToDeleteLoading(false));

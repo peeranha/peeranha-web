@@ -12,6 +12,7 @@ import {
 } from 'containers/AccountProvider/selectors';
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
 import { selectExistingTags } from 'containers/Tags/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { updateTagOfCommunity } from 'containers/DataCacheProvider/actions';
 import {
@@ -55,6 +56,9 @@ export function* editTagWorker({ tag, reset }) {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
     const { communityId, tagId } = yield select(selectEditTagData());
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
 
     const tags = yield select(selectExistingTags());
     const editingTag = tags[communityId].find((tg) => tg.id === tagId);
@@ -81,7 +85,10 @@ export function* editTagWorker({ tag, reset }) {
 
     yield call(reset);
 
-    yield call(createdHistory.push, routes.communityTags(communityId));
+    yield call(
+      createdHistory.push,
+      baseUrl + routes.communityTags(communityId),
+    );
     yield put(editTagErr());
   } catch (err) {
     yield put(editTagErr(err));

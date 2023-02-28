@@ -26,6 +26,7 @@ import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { hideLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
@@ -229,15 +230,18 @@ export function* redirectToFeedWorker() {
   const isLeftMenuVisible = yield select(selectIsMenuVisible());
   const profileInfo = yield select(makeSelectProfileInfo());
   const singleCommunityId = isSingleCommunityWebsite();
+  const locale = yield select(makeSelectLocale());
+
+  const baseUrl = locale === 'en' ? '' : `/${locale}`;
 
   if (isLeftMenuVisible) {
     yield put(hideLeftMenu());
   }
 
   if (profileInfo && !singleCommunityId) {
-    yield call(createdHistory.push, routes.feed());
+    yield call(createdHistory.push, baseUrl + routes.feed());
   } else if (singleCommunityId) {
-    yield call(createdHistory.push, routes.questions());
+    yield call(createdHistory.push, baseUrl + routes.questions());
   }
 }
 
@@ -298,6 +302,10 @@ export function* loginWithFacebookWorker({ data }) {
 
 export function* facebookLoginCallbackWorker({ data, isLogin }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
     if (isLogin && data.userID) {
       yield call(loginWithFacebookWorker, { data });
     } else if (data.userID) {
@@ -312,7 +320,7 @@ export function* facebookLoginCallbackWorker({ data, isLogin }) {
 
       yield loginWithFacebookWorker({ data });
 
-      yield call(createdHistory.push, routes.questions());
+      yield call(createdHistory.push, baseUrl + routes.questions());
     } else if (data.status === 'unknown') {
       throw new WebIntegrationError();
     } else {

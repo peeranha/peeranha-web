@@ -45,6 +45,9 @@ import {
 } from './actions';
 
 import { EMAIL_FIELD } from './constants';
+import i18next from 'app/i18n';
+
+const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
 const single = isSingleCommunityWebsite();
 
@@ -90,7 +93,7 @@ export const SignUp = ({
 
   useEffect(() => {
     if (!email && !withWallet && process.env.NODE_ENV !== 'development') {
-      createdHistory.push(routes.signup.email.name);
+      createdHistory.push(baseUrl + routes.signup.email.name);
     }
 
     if (!keys) {

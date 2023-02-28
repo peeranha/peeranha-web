@@ -14,6 +14,7 @@ import {
 import { LOGOUT } from './constants';
 
 import { logoutSuccess, logoutErr } from './actions';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { clearNotificationsData } from '../../components/Notifications/actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { META_TRANSACTIONS_ALLOWED } from '../../utils/constants';
@@ -21,6 +22,9 @@ import { META_TRANSACTIONS_ALLOWED } from '../../utils/constants';
 export function* logoutWorker() {
   try {
     const ethereumService = yield select(selectEthereum);
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
 
     deleteCookie(AUTOLOGIN_DATA);
     deleteCookie(PROFILE_INFO_LS);
@@ -29,7 +33,7 @@ export function* logoutWorker() {
 
     yield call(ethereumService.resetWalletState);
 
-    yield call(createdHistory.push, routes.feed());
+    yield call(createdHistory.push, baseUrl + routes.feed());
     yield put(getCurrentAccountSuccess());
     yield put(addLoginData({}));
 

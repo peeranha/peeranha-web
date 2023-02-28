@@ -35,6 +35,7 @@ import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
 
 import { selectCommunity } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 export function* getCommunityWorker({ communityId }) {
   try {
@@ -60,6 +61,10 @@ export function* getCommunityWorker({ communityId }) {
 
 export function* editCommunityWorker({ communityId, communityData }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
     const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
@@ -80,11 +85,11 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     const communityDataCurrent = yield select(selectCommunity());
     const isSingleCommunityMode = !!isSingleCommunityWebsite();
-    const isEqual = Object.keys(communityData).every((key) => {
-      return !(key === 'isBlogger')
+    const isEqual = Object.keys(communityData).every((key) =>
+      !(key === 'isBlogger')
         ? communityData[key] === communityDataCurrent[key]
-        : true;
-    });
+        : true,
+    );
 
     if (!isEqual) {
       const ethereumService = yield select(selectEthereum);
@@ -114,7 +119,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     yield call(
       createdHistory.push,
-      `${isSingleCommunityMode ? feed() : communitiesRoute()}`,
+      `${baseUrl}${isSingleCommunityMode ? feed() : communitiesRoute()}`,
     );
   } catch (error) {
     yield put(editCommunityError(error));

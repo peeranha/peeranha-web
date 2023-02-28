@@ -29,6 +29,7 @@ import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
+import i18next from 'app/i18n';
 
 export const TextBlock = styled.div`
   display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
@@ -140,10 +141,11 @@ const Question = ({
   getQuestionCode,
   collapsedMenu,
 }) => {
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
   const [isOpened, collapse] = useState(false);
 
   const collapseQuestion = () => {
-    createdHistory.push(route());
+    createdHistory.push(baseUrl + route());
     collapse((prevIsOpen) => !prevIsOpen);
   };
 
@@ -186,13 +188,14 @@ const Section = ({
   collapsedMenu,
 }) => {
   const { t } = useTranslation();
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
   const [isOpened, collapse] = useState(false);
   const [isExtendedSection, extendSection] = useState(false);
 
   const questionsNumber = isExtendedSection ? blocks.length : DEFAULT_QST_NUM;
 
   const collapseSection = () => {
-    createdHistory.push(route());
+    createdHistory.push(baseUrl + route());
     collapse((prevIsOpen) => !prevIsOpen);
   };
 

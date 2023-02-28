@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
 import { TEXT_SECONDARY } from 'style-constants';
 import TransparentButton from 'components/Button/Contained/TransparentSmall';
+import i18next from 'app/i18n';
 
 import { hideLoginModal } from './actions';
 
@@ -27,13 +28,14 @@ const Base = styled.div`
 
 const IDontHaveAnAccount = ({ hideLoginModalDispatch, disabled }) => {
   const { t } = useTranslation();
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   return (
     <Base>
       {t('login.iDontHaveAnAccount')}
       <TransparentButton
         onClick={() => {
-          createdHistory.push(routes.signup.email.name);
+          createdHistory.push(baseUrl + routes.signup.email.name);
           hideLoginModalDispatch();
         }}
         disabled={disabled}

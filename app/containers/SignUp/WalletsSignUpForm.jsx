@@ -27,6 +27,7 @@ import { REFERRAL_CODE_URI } from '../App/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
+import i18next from 'app/i18n';
 
 const WalletsSignUpForm = ({
   handleSubmit,
@@ -35,6 +36,7 @@ const WalletsSignUpForm = ({
   withMetaMask,
 }) => {
   const { t } = useTranslation();
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   return (
     <SignUp withWallet>
@@ -46,7 +48,7 @@ const WalletsSignUpForm = ({
         logo,
       }) => {
         if (!ethereumUserAddress) {
-          createdHistory.push(routes.signup.email.name);
+          createdHistory.push(baseUrl + routes.signup.email.name);
         }
         if (ethereumUserAddress !== ethereumUserValue) {
           change(EOS_ACCOUNT_FIELD, ethereumUserAddress);

@@ -1,7 +1,8 @@
-import { takeLatest, call } from 'redux-saga/effects';
+import { takeLatest, call, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   REDIRECT_TO_FEED,
@@ -10,15 +11,27 @@ import {
 } from './constants';
 
 export function* redirectToFeedWorker() {
-  yield call(createdHistory.push, routes.feed());
+  const locale = yield select(makeSelectLocale());
+
+  const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
+  yield call(createdHistory.push, baseUrl + routes.feed());
 }
 
 export function* redirectToDocumentationWorker() {
-  yield call(createdHistory.push, routes.documentationStartPage());
+  const locale = yield select(makeSelectLocale());
+
+  const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
+  yield call(createdHistory.push, baseUrl + routes.documentationStartPage());
 }
 
 export function* redirectToPreloadWorker() {
-  yield call(createdHistory.push, routes.preloaderPage());
+  const locale = yield select(makeSelectLocale());
+
+  const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
+  yield call(createdHistory.push, baseUrl + routes.preloaderPage());
 }
 
 export default function* () {

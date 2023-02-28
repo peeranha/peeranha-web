@@ -46,10 +46,12 @@ import {
 
 export function* postQuestionWorker({ val }) {
   try {
-    const locale = yield select(makeSelectLocale());
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
     const documentationMenu = yield select(selectDocumentationMenu());
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
 
     // const promoteValue = +val[FORM_PROMOTE];
     const postType = +val[FORM_TYPE];
@@ -142,31 +144,13 @@ export function* postQuestionWorker({ val }) {
       );
     }
 
-    // if (val[FORM_BOUNTY] && Number(val[FORM_BOUNTY]) > 0) {
-    //   const now = Math.round(new Date().valueOf() / 1000);
-    //   const bountyTime = now + questionData.bountyHours * ONE_HOUR_IN_SECONDS;
-    //
-    //   yield call(
-    //     setBounty,
-    //     selectedAccount,
-    //     questionData.bountyFull,
-    //     questionsPostedByUser[0].question_id,
-    //     bountyTime,
-    //     eosService,
-    //   );
-    // }
-
-    // if (promoteValue) {
-    //   yield call(promoteQuestion, eosService, selectedAccount, que stionsPostedByUser[0].question_id, promoteValue);
-    // }
-
     yield put(askQuestionSuccess(id));
 
     yield call(
       createdHistory.push,
       postType === POST_TYPE.documentation
-        ? routes.documentation(id, questionData.title)
-        : routes.questionView(id, questionData.title, false),
+        ? baseUrl + routes.documentation(id, questionData.title)
+        : baseUrl + routes.questionView(id, questionData.title, false),
     );
   } catch (err) {
     yield put(askQuestionError(err));
@@ -199,12 +183,16 @@ export function* redirectToAskQuestionPageWorker({
   parentId,
 }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
     yield call(checkReadinessWorker, { buttonId });
     yield call(
       createdHistory.push,
       isDocumentation
-        ? routes.documentationCreate(parentId)
-        : routes.questionAsk(),
+        ? baseUrl + routes.documentationCreate(parentId)
+        : baseUrl + routes.questionAsk(),
     );
   } catch (err) {}
 }

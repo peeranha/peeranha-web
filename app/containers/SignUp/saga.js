@@ -11,6 +11,7 @@ import {
 import { WebIntegrationError } from 'utils/errors';
 
 import { successHandling } from 'containers/Toast/saga';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
@@ -70,6 +71,10 @@ const getCodeFromStorage = () =>
 
 export function* emailCheckingWorker({ email }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
     setEmailToStorage(email);
     const response = yield call(registerInit, email);
 
@@ -79,7 +84,10 @@ export function* emailCheckingWorker({ email }) {
 
     yield put(checkEmailSuccess());
 
-    yield call(createdHistory.push, routes.signup.emailVerification.name);
+    yield call(
+      createdHistory.push,
+      baseUrl + routes.signup.emailVerification.name,
+    );
   } catch (err) {
     yield put(checkEmailErr(err));
   }
@@ -91,6 +99,9 @@ export function* verifyEmailWorker({
   redirect = true,
 }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     const email = receivedEmail || getEmailFromStorage();
 
     setCodeToStorage(verificationCode);
@@ -106,7 +117,10 @@ export function* verifyEmailWorker({
 
     yield put(verifyEmailSuccess());
     if (redirect) {
-      yield call(createdHistory.push, routes.signup.accountSetup.name);
+      yield call(
+        createdHistory.push,
+        baseUrl + routes.signup.accountSetup.name,
+      );
     }
   } catch (err) {
     yield put(verifyEmailErr(err));
@@ -125,6 +139,9 @@ export function* sendAnotherCodeSuccess() {
 
 export function* signUpComplete({ val }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     const email = getEmailFromStorage();
 
     const address = val[ETHEREUM_WALLET_ADDRESS];
@@ -160,7 +177,7 @@ export function* signUpComplete({ val }) {
     yield put(loginWithEmailSuccess(WE_ARE_HAPPY_FORM));
     yield put(signUpViaEmailCompleteSuccess());
 
-    yield call(createdHistory.push, routes.questions());
+    yield call(createdHistory.push, baseUrl + routes.questions());
   } catch (err) {
     yield put(signUpViaEmailCompleteError(err));
   }
@@ -171,6 +188,9 @@ export function* signUpWithWalletWorker({ val, metaMask }) {}
 export function* showWalletSignUpFormWorker({ metaMask }) {
   try {
     const ethereumService = yield select(selectEthereum);
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     let currentAccount;
 
     // sign up with metaMask
@@ -191,7 +211,7 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
       throw new WebIntegrationError();
     }
     yield put(showWalletSignUpFormSuccess(currentAccount));
-    yield call(createdHistory.push, routes.signup.displayName.name);
+    yield call(createdHistory.push, baseUrl + routes.signup.displayName.name);
   } catch (err) {
     yield put(showWalletSignUpFormErr(err));
   }

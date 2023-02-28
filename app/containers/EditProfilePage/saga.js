@@ -19,6 +19,7 @@ import {
   EDIT_PROFILE_BUTTON_ID,
   MIN_RATING_TO_EDIT_PROFILE,
 } from './constants';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 // TODO: test
@@ -29,6 +30,9 @@ export function* saveProfileWorker(
 ) {
   try {
     const ethereumService = yield select(selectEthereum);
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
 
     // check that it is not hash
     if (
@@ -53,7 +57,7 @@ export function* saveProfileWorker(
     yield put(saveProfileSuccess());
 
     if (isNavigateToProfile) {
-      yield call(createdHistory.push, routes.profileView(userKey));
+      yield call(createdHistory.push, baseUrl + routes.profileView(userKey));
     }
   } catch (err) {
     yield put(saveProfileErr(err));
@@ -72,8 +76,12 @@ export function* checkReadinessWorker({ buttonId }) {
 
 export function* redirectToEditProfilePageWorker({ buttonId, user }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
     yield call(checkReadinessWorker, { buttonId });
-    yield call(createdHistory.push, routes.profileEdit(user));
+    yield call(createdHistory.push, baseUrl + routes.profileEdit(user));
   } catch (err) {}
 }
 

@@ -104,17 +104,20 @@ export const ViewQuestion = ({
   profile,
   history,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const baseUrl = i18n.language === 'en' ? '' : `/${i18n.language}`;
 
   useEffect(() => {
     if (questionData) {
       const route = getRoute(questionData.postType);
 
       if (match.url !== routes[route](match.params.id, questionData.title)) {
-        history.push(routes[route](match.params.id, questionData.title));
+        history.push(
+          baseUrl + routes[route](match.params.id, questionData.title),
+        );
       }
     }
-  }, [questionData]);
+  }, [questionData, baseUrl]);
 
   useEffect(() => {
     window.isRendered = false;
@@ -143,13 +146,15 @@ export const ViewQuestion = ({
     }
 
     if (!questionDataLoading && !questionData) {
-      history.push(questionDataError ? routes.errorPage() : routes.notFound());
+      history.push(
+        questionDataError ? routes.errorPage() : baseUrl + routes.notFound(),
+      );
     }
 
     if (questionData?.isDeleted) {
       history.push(routes.notFound('type=deleted'));
     }
-  }, [questionData, questionDataLoading]);
+  }, [questionData, questionDataLoading, baseUrl]);
 
   const [isChangeTypeAvailable, infiniteImpact] = useMemo(
     () => [
