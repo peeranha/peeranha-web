@@ -27,6 +27,7 @@ import Span from 'components/Span';
 import P from 'components/P';
 import Grid from 'components/Grid';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
+import i18next from 'app/i18n';
 
 const colors = singleCommunityColors();
 
@@ -107,9 +108,10 @@ const Content = ({
   profileInfo,
 }) => {
   const { t } = useTranslation();
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
   const showEditTagForm = (tagId) => {
     setEditTagData(tagId, communityId);
-    createdHistory.push(routes.editTag(communityId, tagId));
+    createdHistory.push(baseUrl + routes.editTag(communityId, tagId));
   };
 
   const tagEditingAllowed =

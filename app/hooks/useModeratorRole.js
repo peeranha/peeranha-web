@@ -11,9 +11,11 @@ import {
 } from '../utils/properties';
 
 import history from '../createdHistory';
+import i18next from 'app/i18n';
 
 export const useModeratorRole = (redirectPage, communityId = null) => {
   const [isModeratorRole, setModeratorRole] = useState(null);
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   useEffect(() => {
     const permissions =
@@ -33,6 +35,6 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
   }, []);
 
   if (isModeratorRole !== null && !isModeratorRole) {
-    history.push(redirectPage());
+    history.push(baseUrl + redirectPage());
   }
 };

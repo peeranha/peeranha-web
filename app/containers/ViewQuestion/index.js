@@ -48,6 +48,7 @@ import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import { POST_TYPE } from '../../utils/constants';
+import i18next from 'app/i18n';
 
 const getRoute = (postType) => {
   if (postType === POST_TYPE.generalPost) {
@@ -103,16 +104,19 @@ export const ViewQuestion = ({
   history,
 }) => {
   const { t } = useTranslation();
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   useEffect(() => {
     if (questionData) {
       const route = getRoute(questionData.postType);
 
       if (match.url !== routes[route](match.params.id, questionData.title)) {
-        history.push(routes[route](match.params.id, questionData.title));
+        history.push(
+          baseUrl + routes[route](match.params.id, questionData.title),
+        );
       }
     }
-  }, [questionData]);
+  }, [questionData, baseUrl]);
 
   useEffect(() => {
     window.isRendered = false;
@@ -142,9 +146,9 @@ export const ViewQuestion = ({
     }
 
     if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
-      history.push(routes.notFound('type=deleted'));
+      history.push(baseUrl + routes.notFound('type=deleted'));
     }
-  }, [questionData, questionDataLoading]);
+  }, [questionData, questionDataLoading, baseUrl]);
 
   const [isChangeTypeAvailable, infiniteImpact] = useMemo(
     () => [

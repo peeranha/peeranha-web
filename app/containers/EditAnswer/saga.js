@@ -29,6 +29,7 @@ import {
   getAnswerSuccess,
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY } from 'utils/constants';
 
@@ -63,6 +64,9 @@ export function* editAnswerWorker({
 }) {
   try {
     const ethereumService = yield select(selectEthereum);
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     const user = yield call(ethereumService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
     const answerData = {
@@ -91,7 +95,7 @@ export function* editAnswerWorker({
     yield put(editAnswerSuccess({ ...cachedQuestion }));
     yield call(
       createdHistory.push,
-      routes.questionView(questionId, title, answerId),
+      baseUrl + routes.questionView(questionId, title, answerId),
     );
   } catch (err) {
     yield put(editAnswerErr(err));
@@ -113,8 +117,11 @@ export function* checkReadinessWorker({ buttonId }) {
 /* eslint no-empty: 0 */
 export function* redirectToEditAnswerPageWorker({ buttonId, link }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     yield call(checkReadinessWorker, { buttonId });
-    yield call(createdHistory.push, link);
+    yield call(createdHistory.push, baseUrl + link);
   } catch (err) {}
 }
 

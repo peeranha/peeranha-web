@@ -6,13 +6,15 @@ import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import Button from './ContainedButton';
-
-const routeToFeed = (): void => {
-  createdHistory.push(routes.feed());
-};
+import i18next from 'app/i18n';
 
 const ClickRouteToFeed: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
+
+  const routeToFeed = (): void => {
+    createdHistory.push(baseUrl + routes.feed());
+  };
 
   return (
     <div className="df">

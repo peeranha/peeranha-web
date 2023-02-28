@@ -19,6 +19,7 @@ import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 import Question from './Question';
+import i18next from 'app/i18n';
 
 export const TextBlock = styled.div`
   display: ${(x) => (x.isOpened ? 'block' : 'none')};
@@ -80,9 +81,10 @@ const Section = ({
   const [isExtendedSection, extendSection] = useState(false);
 
   const questionsNumber = isExtendedSection ? blocks.length : DEFAULT_QST_NUM;
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   const collapseSection = () => {
-    createdHistory.push(route());
+    createdHistory.push(baseUrl + route());
     collapse(!isOpened);
   };
 

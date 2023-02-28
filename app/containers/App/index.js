@@ -1,16 +1,3 @@
-/**
- *
- * App.js
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
- */
-
 import Documentation from 'pages/Documentation';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -30,69 +17,24 @@ import {
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
-import {
-  DAEMON,
-  POST_TYPE,
-  REWARD_CLAIMING_ENABLED,
-  POSITION_TOP,
-} from 'utils/constants';
+import { DAEMON, POSITION_TOP } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
   isSingleCommunityWebsite,
-  getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
-import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ErrorBoundary from 'components/ErrorBoundary';
-
 import Wrapper from 'containers/AppWrapper';
 
 import saga from 'containers/App/saga';
 import {
-  EditCommunity,
-  HomePage,
-  Faq,
-  Administration,
-  Users,
-  EditQuestion,
-  EditProfilePage,
-  ViewProfilePage,
-  NotFoundPage,
-  ErrorPage,
-  Questions,
-  AskQuestion,
-  ViewQuestion,
-  EditAnswer,
-  CreateCommunity,
-  TagsOfCommunity,
-  CreateTag,
-  SuggestedTags,
-  EditTag,
-  NoAccess,
-  Home,
-  Feed,
-  Communities,
-  SuggestedCommunities,
-  EmailEnteringForm,
-  EmailVerificationForm,
-  WalletsSignUpForm,
-  SignUpViaEmail,
-  RegistrationAlmostDoneWithAccount,
-  RegistrationAlmostDoneNoAccount,
   Login,
   ForgotPassword,
   Toast,
-  Wallet,
-  Boost,
-  Search,
-  Support,
-  PrivacyPolicy,
-  FullWidthPreloader,
-  TermsOfService,
-  DeleteFacebookData,
   MetaTransactionAgreement,
+  NotFoundPage,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
@@ -103,16 +45,17 @@ import {
   redirectToDocumentation,
   redirectToPreload,
 } from './actions';
-import {
-  hasCommunityAdminRole,
-  hasGlobalModeratorRole,
-  hasProtocolAdminRole,
-} from '../../utils/properties';
+import { changeLocale as changeLocaleDispatch } from 'containers/AppWrapper/actions';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
+import routesConfig from './routes';
+import { APP_LOCALE } from 'containers/LanguageProvider/constants';
+import i18next, { languages } from 'app/i18n';
 
 const single = isSingleCommunityWebsite();
 const isDocumentationPositionTop =
-  singleCommunityDocumentationPosition() == POSITION_TOP;
+  singleCommunityDocumentationPosition() === POSITION_TOP;
+const baseRouteUrl = '/:locale(en|es|vi|zh)?';
+
 const App = ({
   location: { pathname, search },
   redirectToFeedDispatch,
@@ -120,8 +63,10 @@ const App = ({
   history,
   documentationMenu,
   pinnedItemMenu,
+  changeLocale,
 }) => {
   const hasPinnedPost = pinnedItemMenu.id !== '';
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
@@ -144,18 +89,45 @@ const App = ({
     }
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-    if (loginData && !single && pathname !== '/') {
+    if (loginData && !single && pathname !== `${baseUrl}/`) {
       redirectToFeedDispatch();
     }
   }, []);
 
   useEffect(() => {
-    window.goto = (page) => history.push(page);
-  }, [history]);
+    const newLocale = getCookie(APP_LOCALE);
+
+    if (newLocale && newLocale !== 'en') {
+      i18next.changeLanguage(newLocale, () => {
+        const lang = history.location.pathname.slice(0, 3);
+
+        if (newLocale === 'en') {
+          history.push(history.location.pathname.slice(3));
+          return;
+        }
+
+        if (
+          Object.keys(languages)
+            .slice(1)
+            .map((item) => `/${item}`)
+            .includes(lang)
+        ) {
+          history.push(`/${newLocale}${history.location.pathname.slice(3)}`);
+        } else {
+          history.push(`/${newLocale}${history.location.pathname}`);
+        }
+      });
+      changeLocale(newLocale);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.goto = (page) => history.push(baseUrl + page);
+  }, [history, baseUrl]);
 
   useEffect(() => {
     const isVisitedSite = getCookie('isVisitedSite');
-    if (isVisitedSite && !single && pathname == '/') {
+    if (isVisitedSite && !single && pathname === `${baseUrl}/`) {
       redirectToFeedDispatch();
     }
   }, []);
@@ -165,7 +137,10 @@ const App = ({
     : Object.keys(documentationMenu).length;
 
   useEffect(() => {
-    if (single && (pathname == '/' || pathname == '/feed')) {
+    if (
+      single &&
+      (pathname === `${baseUrl}/` || pathname === `${baseUrl}/feed`)
+    ) {
       if (
         (hasPinnedPost || isDocumentationPositionTop) &&
         isDocumentationExist
@@ -175,15 +150,7 @@ const App = ({
         redirectToFeedDispatch();
       }
     }
-  }, [documentationMenu]);
-
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
-  const hasCommunityOrProtocolAdminRole =
-    single &&
-    (hasGlobalModeratorRole() ||
-      hasProtocolAdminRole() ||
-      hasCommunityAdminRole(null, single));
+  }, [documentationMenu, baseUrl]);
 
   return (
     <ErrorBoundary>
@@ -200,31 +167,45 @@ const App = ({
         <CookieConsentPopup />
 
         <Switch>
-          <Route exact path={routes.home()}>
-            <React.Suspense fallback={<Loader />}>
-              <HomePage />
-            </React.Suspense>
-          </Route>
+          {routesConfig.map((item, index) => {
+            if (item.fallback) {
+              return (
+                <Route
+                  exact={item?.exact}
+                  path={baseRouteUrl + item.path}
+                  key={index}
+                >
+                  <React.Suspense
+                    fallback={
+                      typeof item.fallback === 'boolean' ? null : (
+                        <item.fallback />
+                      )
+                    }
+                  >
+                    <item.Component />
+                  </React.Suspense>
+                </Route>
+              );
+            }
 
-          <Route
-            exact
-            path={routes.preloaderPage()}
-            render={(props) => Wrapper(FullWidthPreloader, props)}
-          />
+            if (typeof item.isRender !== 'undefined' && !item.isRender) {
+              return null;
+            }
 
-          {!!isBloggerMode && (
-            <Route
-              exact
-              path={routes.detailsHomePage()}
-              render={(props) => Wrapper(Home, props)}
-            />
-          )}
-
-          <Route
-            exact
-            path={routes.feed()}
-            render={(props) => Wrapper(Feed, props)}
-          />
+            return (
+              <Route
+                exact={item?.exact}
+                path={baseRouteUrl + item.path}
+                key={index}
+                render={(props) =>
+                  Wrapper(item.Component, {
+                    ...props,
+                    ...(item.props && item.props),
+                  })
+                }
+              />
+            );
+          })}
 
           {single && (hasPinnedPost || isDocumentationPositionTop) && (
             <Route
@@ -233,308 +214,6 @@ const App = ({
               render={(props) => Wrapper(Documentation, props)}
             />
           )}
-
-          {!single && (
-            <Route
-              path={routes.feed(':communityid')}
-              render={(props) => Wrapper(Feed, props)}
-            />
-          )}
-
-          <Route
-            exact
-            path={routes.profileView(':id')}
-            render={(props) => Wrapper(ViewProfilePage, props)}
-          />
-
-          <Route
-            path={routes.profileEdit(':id')}
-            render={(props) => Wrapper(EditProfilePage, props)}
-          />
-
-          {!single && (
-            <Route
-              exact
-              path={routes.communities()}
-              render={(props) => Wrapper(Communities, props)}
-            />
-          )}
-
-          {!single && (
-            <Route
-              path={routes.communitiesCreate()}
-              render={(props) => Wrapper(CreateCommunity, props)}
-            />
-          )}
-
-          <Route
-            path={routes.communitiesEdit(':communityId')}
-            render={(props) => Wrapper(EditCommunity, props)}
-          />
-
-          {!single && (
-            <Route
-              path={routes.suggestedCommunities()}
-              render={(props) => Wrapper(SuggestedCommunities, props)}
-            />
-          )}
-
-          <Route
-            exact
-            path={routes.communityTags(':communityid')}
-            render={(props) => Wrapper(TagsOfCommunity, props)}
-          />
-
-          <Route
-            path={routes.tagsCreate(':communityid')}
-            render={(props) => Wrapper(CreateTag, props)}
-          />
-
-          <Route
-            path={routes.editTag(':communityId', ':tagid')}
-            render={(props) => Wrapper(EditTag, props)}
-          />
-
-          <Route
-            path={routes.suggestedTags(':communityid')}
-            render={(props) => Wrapper(SuggestedTags, props)}
-          />
-
-          <Route
-            exact
-            path={routes.faq()}
-            render={(props) => Wrapper(Faq, props)}
-          />
-
-          <Route
-            exact
-            path={routes.termsAndConditions()}
-            render={(props) => Wrapper(TermsOfService, props)}
-          />
-
-          <Route
-            path={routes.userWallet(':id')}
-            render={(props) => Wrapper(Wallet, props)}
-          />
-
-          {REWARD_CLAIMING_ENABLED && (
-            <Route
-              path={routes.userBoost(':id')}
-              render={(props) => Wrapper(Boost, props)}
-            />
-          )}
-
-          <Route
-            path={routes.support()}
-            render={(props) => Wrapper(Support, props)}
-          />
-
-          <Route
-            path={routes.privacyPolicy()}
-            render={(props) => Wrapper(PrivacyPolicy, props)}
-          />
-
-          <Route
-            exact
-            path={routes.questions()}
-            render={(props) =>
-              Wrapper(Questions, {
-                ...props,
-                postsTypes: [POST_TYPE.generalPost],
-              })
-            }
-          />
-
-          <Route
-            exact
-            path={routes.expertPosts()}
-            render={(props) =>
-              Wrapper(Questions, {
-                ...props,
-                postsTypes: [POST_TYPE.expertPost],
-              })
-            }
-          />
-
-          <Route
-            path={routes.questions(':communityid')}
-            render={(props) =>
-              Wrapper(Questions, {
-                ...props,
-                postsTypes: [POST_TYPE.generalPost],
-              })
-            }
-          />
-
-          <Route
-            path={routes.expertPosts(':communityid')}
-            render={(props) =>
-              Wrapper(Questions, {
-                ...props,
-                postsTypes: [POST_TYPE.expertPost],
-              })
-            }
-          />
-
-          <Route
-            exact
-            path={routes.tutorials()}
-            render={(props) =>
-              Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
-            }
-          />
-
-          <Route
-            path={routes.tutorials(':communityid')}
-            render={(props) =>
-              Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
-            }
-          />
-
-          <Route
-            path={routes.questionAsk()}
-            render={(props) => Wrapper(AskQuestion, props)}
-          />
-
-          <Route
-            path={routes.documentationCreate(':parentId')}
-            render={(props) => Wrapper(AskQuestion, props)}
-          />
-
-          <Route
-            path={routes.documentationCreate()}
-            render={(props) => Wrapper(AskQuestion, props)}
-          />
-
-          <Route
-            exact
-            path={routes.questionView(':id', ':title')}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
-
-          <Route
-            exact
-            path={'/questions/:id'}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
-
-          <Route
-            exact
-            path={'/discussions/:id'}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
-
-          <Route
-            exact
-            path={routes.expertPostView(':id', ':title')}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
-
-          <Route
-            exact
-            path={'/experts/:id'}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
-
-          <Route
-            exact
-            path={routes.tutorialView(':id', ':title')}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
-
-          <Route
-            exact
-            path={'/tutorials/:id'}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
-
-          <Route
-            path={routes.questionEdit(':postType', ':questionid', ':title')}
-            render={(props) => Wrapper(EditQuestion, props)}
-          />
-
-          <Route
-            path={routes.documentation(':sectionId', ':title')}
-            render={(props) => Wrapper(Documentation, props)}
-          />
-
-          <Route
-            path={routes.answerEdit(':questionid', ':answerid')}
-            render={(props) => Wrapper(EditAnswer, props)}
-          />
-
-          {(hasGlobalModeratorRole() || hasProtocolAdminRole() || single) && (
-            <Route
-              exact
-              path={routes.users()}
-              render={(props) => Wrapper(Users, props)}
-            />
-          )}
-
-          {single && hasCommunityOrProtocolAdminRole && (
-            <Route
-              exact
-              path={routes.administration()}
-              render={(props) => Wrapper(Administration, props)}
-            />
-          )}
-
-          <Route
-            path={routes.noAccess()}
-            render={(props) => Wrapper(NoAccess, props)}
-          />
-
-          <Route
-            exact
-            path={routes.search()}
-            render={(props) => Wrapper(Search, props)}
-          />
-
-          <Route
-            path={routes.search(':q')}
-            render={(props) => Wrapper(Search, props)}
-          />
-
-          <Route
-            path={routes.errorPage()}
-            render={(props) => Wrapper(ErrorPage, props)}
-          />
-
-          <Route path={routes.signup.email.name}>
-            <React.Suspense fallback={<Loader />}>
-              <EmailEnteringForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.emailVerification.name}>
-            <React.Suspense fallback={null}>
-              <EmailVerificationForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.displayName.name}>
-            <React.Suspense fallback={null}>
-              <WalletsSignUpForm />
-            </React.Suspense>
-          </Route>
-
-          <Route exact path={routes.signup.accountSetup.name}>
-            <React.Suspense fallback={null}>
-              <SignUpViaEmail />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneWithAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneWithAccount />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneNoAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneNoAccount />
-            </React.Suspense>
-          </Route>
 
           <Route render={(props) => Wrapper(NotFoundPage, props)} />
         </Switch>
@@ -565,5 +244,6 @@ export default compose(
       dispatch,
     ),
     redirectToPreloadDispatch: bindActionCreators(redirectToPreload, dispatch),
+    changeLocale: bindActionCreators(changeLocaleDispatch, dispatch),
   })),
 )(App);

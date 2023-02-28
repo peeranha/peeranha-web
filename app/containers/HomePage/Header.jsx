@@ -23,10 +23,13 @@ import {
   SECOND_SCREEN,
   THIRD_SCREEN,
 } from './constants';
+import i18next from 'app/i18n';
 
 const Header = () => {
   const { t } = useTranslation();
   const [isToggled, setToggled] = useState(false);
+
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   function toggle(screen) {
     setToggled(!isToggled);
@@ -74,7 +77,7 @@ const Header = () => {
 
               <Button
                 className="signup"
-                onClick={() => createdHistory.push(routes.feed())}
+                onClick={() => createdHistory.push(baseUrl + routes.feed())}
               >
                 {t('about.goToSite')}
               </Button>

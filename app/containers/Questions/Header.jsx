@@ -43,6 +43,7 @@ import {
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import i18next from 'app/i18n';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -120,11 +121,6 @@ export const Header = ({
     defaultAvatarWidth = '38';
   }
 
-  const displayQuestionFilter = useMemo(
-    () => !!single && !!topQuestions.length,
-    [single, topQuestionsInfoLoaded, topQuestions.length],
-  );
-
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
@@ -146,15 +142,10 @@ export const Header = ({
     </H3>
   );
 
-  const displaySubscribeButton =
-    !!single &&
-    isFeed &&
-    window.location.pathname !== routes.questions() &&
-    window.location.pathname !== routes.expertPosts() &&
-    window.location.pathname !== routes.tutorials();
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   const routeToEditCommunity = () => {
-    createdHistory.push(routes.communitiesEdit(single));
+    createdHistory.push(baseUrl + routes.communitiesEdit(single));
   };
 
   return (
@@ -168,7 +159,7 @@ export const Header = ({
           isArrowed
           Button={Button}
           toggle={(choice) => {
-            createdHistory.push(routes[route](choice, false, false));
+            createdHistory.push(baseUrl + routes[route](choice, false, false));
             setTypeFilter(choice);
           }}
           showOnlyFollowed={isFeed}

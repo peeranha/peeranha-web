@@ -66,6 +66,7 @@ import * as routes from '../../routes-config';
 import DescriptionList from 'components/DescriptionList';
 import { getCommunityTags } from '../../containers/DataCacheProvider/actions';
 import { selectTags } from '../../containers/DataCacheProvider/selectors';
+import i18next from 'app/i18n';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -148,6 +149,7 @@ export const QuestionForm = ({
   const postTitle = question?.title;
   const postContent = question?.content;
   const isPostAuthor = question?.author === profile?.user;
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   const communityId =
     formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
@@ -191,7 +193,7 @@ export const QuestionForm = ({
 
   const showMoreQuestions = (e) => {
     e.preventDefault();
-    createdHistory.push(routes.search(formValues[FORM_TITLE]));
+    createdHistory.push(baseUrl + routes.search(formValues[FORM_TITLE]));
   };
 
   const tagCreatingAllowed =

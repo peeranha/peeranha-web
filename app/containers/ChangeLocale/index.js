@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import history from 'createdHistory';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import { languages } from 'app/i18n';
 
-import { setCookie, getCookie } from 'utils/cookie';
+import { setCookie } from 'utils/cookie';
 
 import { APP_LOCALE } from 'containers/LanguageProvider/constants';
 
@@ -17,15 +18,6 @@ import { Flag, Li } from './Styled';
 export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
   const { t, i18n } = useTranslation();
 
-  useEffect(() => {
-    const lang = getCookie(APP_LOCALE);
-
-    if (lang && lang !== 'en') {
-      changeLocale(lang);
-      i18n.changeLanguage(lang);
-    }
-  }, []);
-
   const setLocale = (newLocale) => {
     setCookie({
       name: APP_LOCALE,
@@ -33,8 +25,26 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
       options: { neverExpires: true, defaultPath: true, allowSubdomains: true },
     });
 
+    i18n.changeLanguage(newLocale, () => {
+      const lang = history.location.pathname.slice(0, 3);
+
+      if (newLocale === 'en') {
+        history.push(history.location.pathname.slice(3));
+        return;
+      }
+
+      if (
+        Object.keys(languages)
+          .slice(1)
+          .map((item) => `/${item}`)
+          .includes(lang)
+      ) {
+        history.push(`/${newLocale}${history.location.pathname.slice(3)}`);
+      } else {
+        history.push(`/${newLocale}${history.location.pathname}`);
+      }
+    });
     changeLocale(newLocale);
-    i18n.changeLanguage(newLocale);
   };
 
   return (

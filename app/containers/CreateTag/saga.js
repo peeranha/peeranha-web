@@ -7,6 +7,7 @@ import { createTag } from 'utils/communityManagement';
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   suggestTagErr,
@@ -23,11 +24,17 @@ import { getPermissions } from '../../utils/properties';
 export function* suggestTagWorker({ communityId, tag, reset }) {
   try {
     const ethereumService = yield select(selectEthereum);
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
     yield call(createTag, ethereumService, selectedAccount, communityId, tag);
     yield put(suggestTagSuccess());
     yield call(reset);
-    yield call(createdHistory.push, routes.communityTags(communityId));
+    yield call(
+      createdHistory.push,
+      baseUrl + routes.communityTags(communityId),
+    );
   } catch (err) {
     yield put(suggestTagErr(err));
   }
@@ -45,9 +52,13 @@ export function* checkReadinessWorker({ buttonId, communityId }) {
 /* eslint no-empty: 0 */
 export function* redirectToCreateTagWorker({ buttonId, communityId }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
     yield call(checkReadinessWorker, { buttonId, communityId });
 
-    yield call(createdHistory.push, routes.tagsCreate(communityId));
+    yield call(createdHistory.push, baseUrl + routes.tagsCreate(communityId));
   } catch (err) {}
 }
 
