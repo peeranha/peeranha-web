@@ -69,8 +69,10 @@ export function* getAskedQuestionWorker({ questionId }) {
 
 export function* editQuestionWorker({ question, questionId }) {
   try {
-    const locale = yield select(makeSelectLocale());
     const ethereumService = yield select(selectEthereum);
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
     const questionData = {
@@ -96,15 +98,14 @@ export function* editQuestionWorker({ question, questionId }) {
     yield call(
       createdHistory.push,
       Number(question.postType) === Number(POST_TYPE.documentation)
-        ? routes.documentation(questionId, question.title)
-        : routes.questionView(questionId, question.title),
+        ? baseUrl + routes.documentation(questionId, question.title)
+        : baseUrl + routes.questionView(questionId, question.title),
     );
   } catch (err) {
     yield put(editQuestionErr(err));
   }
 }
 
-// TODO: test
 export function* checkReadinessWorker({ buttonId }) {
   yield call(isAuthorized);
 
@@ -115,12 +116,14 @@ export function* checkReadinessWorker({ buttonId }) {
   });
 }
 
-// TODO: test
-/* eslint no-empty: 0 */
 export function* redirectToEditQuestionPageWorker({ buttonId, link }) {
   try {
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
     yield call(checkReadinessWorker, { buttonId });
-    yield call(createdHistory.push, link);
+    yield call(createdHistory.push, baseUrl + link);
   } catch (err) {}
 }
 
