@@ -1,0 +1,9 @@
+{
+  "communityModerator": "社区版主",
+  "communityAdministrator": "社区管理员",
+  "addModerator": "添加版主",
+  "confirm": "确认",
+  "cancel": "取消",
+  "wantToRevoke": "您确定要撤销此版主吗？",
+  "revoke": "撤销"
+}

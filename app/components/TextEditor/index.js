@@ -82,7 +82,7 @@ class TextEditor extends React.PureComponent {
           ]}
         />
         <Wrapper
-          label={'Preview'}
+          label={t('common.preview')}
           className="pl-2 pt-2"
           css={css`
             h6 {

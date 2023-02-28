@@ -196,7 +196,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                 }
                 options={[
                   {
-                    label: 'Add a new sub-article',
+                    label: 'common.addNewSubArticle',
                     value: 1,
                     icon: (
                       <AddSubArticleIcon
@@ -206,7 +206,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     ),
                   },
                   {
-                    label: 'Edit content',
+                    label: 'common.editContent',
                     value: 2,
                     icon: (
                       <EditIcon
@@ -216,7 +216,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     ),
                   },
                   {
-                    label: pinned === item.id ? 'Unpin' : 'Pin',
+                    label: pinned === item.id ? 'common.unpin' : 'common.pin',
                     value: 3,
                     icon: (
                       <PinIcon
@@ -227,7 +227,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     ),
                   },
                   {
-                    label: 'Delete',
+                    label: 'common.delete',
                     value: 4,
                     icon: (
                       <DeleteIcon

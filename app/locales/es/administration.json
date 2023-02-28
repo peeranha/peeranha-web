@@ -1,0 +1,9 @@
+{
+  "communityModerator": "Moderador de la comunidad",
+  "communityAdministrator": "Administradora comunitaria",
+  "addModerator": "Agregar moderador",
+  "confirm": "Confirmar",
+  "cancel": "Cancelar",
+  "wantToRevoke": "¿Está seguro de que desea revocar a este moderador?",
+  "revoke": "Revocar"
+}
