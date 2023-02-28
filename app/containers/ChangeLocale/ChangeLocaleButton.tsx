@@ -9,7 +9,7 @@ const colors = singleCommunityColors();
 type ChangeLocaleButtonProps = {
   withTitle?: boolean;
   locale: string;
-  setOpen?: () => void;
+  setOpen?: (isOpen: boolean) => void;
 };
 
 const ChangeLocaleButton: React.FC<ChangeLocaleButtonProps> = ({
@@ -24,7 +24,13 @@ const ChangeLocaleButton: React.FC<ChangeLocaleButtonProps> = ({
       fontSize="16"
       lineHeight="20"
       color={colors.commHeadElemColor || 'var(--color-gray-dark)'}
-      onClick={() => setOpen(true)}
+      onClick={
+        typeof setOpen !== 'undefined'
+          ? () => {
+              setOpen(true);
+            }
+          : 'undefined'
+      }
     >
       <Flag
         src={`https://images.peeranha.io/languages/${locale}_lang.svg`}

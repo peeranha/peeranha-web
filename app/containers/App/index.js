@@ -127,7 +127,14 @@ const App = ({
 
   useEffect(() => {
     const isVisitedSite = getCookie('isVisitedSite');
-    if (isVisitedSite && !single && pathname === `${baseUrl}/`) {
+    const locale = getCookie(APP_LOCALE);
+    const url = locale === 'en' ? '' : `/${locale}`;
+
+    if (
+      isVisitedSite &&
+      !single &&
+      (pathname === `${url}` || pathname === '/')
+    ) {
       redirectToFeedDispatch();
     }
   }, []);
@@ -137,10 +144,10 @@ const App = ({
     : Object.keys(documentationMenu).length;
 
   useEffect(() => {
-    if (
-      single &&
-      (pathname === `${baseUrl}/` || pathname === `${baseUrl}/feed`)
-    ) {
+    const locale = getCookie(APP_LOCALE);
+    const url = locale === 'en' ? '' : `/${locale}`;
+
+    if (single && pathname === `${url}/`) {
       if (
         (hasPinnedPost || isDocumentationPositionTop) &&
         isDocumentationExist
@@ -150,7 +157,7 @@ const App = ({
         redirectToFeedDispatch();
       }
     }
-  }, [documentationMenu, baseUrl]);
+  }, [documentationMenu]);
 
   return (
     <ErrorBoundary>
@@ -209,7 +216,7 @@ const App = ({
           {single && (hasPinnedPost || isDocumentationPositionTop) && (
             <Route
               exact
-              path={routes.documentationStartPage()}
+              path={baseRouteUrl + routes.documentationStartPage()}
               render={(props) => Wrapper(Documentation, props)}
             />
           )}
