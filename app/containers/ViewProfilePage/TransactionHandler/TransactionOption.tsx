@@ -34,12 +34,14 @@ const TransactionOption: React.FC<TransactionOptionProps> = ({
           <div>
             <div
               className="mb-1 bold pr"
-              css={{
-                ...(Recommended && styled.recommended),
-                ':after': {
-                  content: `"${t('common.metaTransaction.recommended')}"`,
-                },
-              }}
+              css={
+                Recommended && {
+                  ...styled.recommended,
+                  ':after': {
+                    content: `"${t('common.metaTransaction.recommended')}"`,
+                  },
+                }
+              }
             >
               {transactionTitle}
             </div>
