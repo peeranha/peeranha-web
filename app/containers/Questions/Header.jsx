@@ -250,7 +250,7 @@ export const Header = ({
             </PageContentHeaderRightPanel>
           )} */}
         </PageContentHeader>
-        {communityEditingAllowed && (
+        {communityEditingAllowed && isFeed && (
           <EditCommunityButton>
             <button onClick={routeToEditCommunity} className="aic">
               <IconMd
