@@ -26,7 +26,7 @@ import {
   NAME_FIELD,
   SUBJECT_FIELD,
   MESSAGE_FIELD,
-} from 'containers/HomePage/constants';
+} from 'pages/HomePage/constants';
 
 const SendMessageForm = ({ handleSubmit, sendMessageLoading, sendMessage }) => {
   const { t } = useTranslation();

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
@@ -7,7 +7,12 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-
+import {
+  BORDER_PRIMARY,
+  ICON_TRASPARENT_BLUE,
+  TEXT_PRIMARY,
+} from 'style-constants';
+import TagFilter from 'components/TagFilter';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
@@ -26,6 +31,7 @@ import createdHistory from 'createdHistory';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
+  getTagsNameByIds,
 } from 'utils/communityManagement';
 import {
   getPermissions,
@@ -35,11 +41,7 @@ import {
 } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
-import {
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
-  TEXT_PRIMARY,
-} from 'style-constants';
+import { getSearchParams } from 'utils/url';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
@@ -48,10 +50,53 @@ import i18next from 'app/i18n';
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
 
+const PageContentHeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  @media only screen and (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+  @media only screen and (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
 const PageContentHeader = styled.div`
+  padding: 20px 0px;
+  @media only screen and (max-width: 768px) {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding: 10px 0px;
+  }
   @media only screen and (max-width: 576px) {
     justify-content: space-between;
     width: 100%;
+    padding: 0px;
+  }
+`;
+
+const EditCommunityButton = styled.div`
+  position: absolute;
+  text-align: right;
+  padding: 8px 0px;
+  right: 0px;
+  @media only screen and (max-width: 768px) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    right: 0;
+    margin-top: 14px;
+    button {
+      flex: auto;
+      text-align: end;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    display: block;
+    padding: 0px;
+    text-align: left;
   }
 `;
 
@@ -83,12 +128,28 @@ export const Header = ({
   profile,
 }) => {
   const { t } = useTranslation();
+  const [tags, setTags] = useState([]);
+  const [tagsNames, setTagsNames] = useState([]);
   const isFeed = parentPage === routes.feed();
   const communityEditingAllowed = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
       hasProtocolAdminRole(getPermissions(profile)) ||
       hasCommunityAdminRole(getPermissions(profile), single)
     : false;
+
+  useEffect(() => {
+    async function getTagsName() {
+      if (single) {
+        const searchParamsTags = getSearchParams(
+          createdHistory.location.search,
+        );
+        setTags(searchParamsTags);
+        setTagsNames(await getTagsNameByIds(searchParamsTags));
+      }
+    }
+    window.scrollTo(0, 0);
+    getTagsName();
+  }, [createdHistory.location.search]);
 
   let defaultAvatar = null;
   let defaultLabel = null;
@@ -151,42 +212,58 @@ export const Header = ({
   return (
     <Wrapper
       single={single}
-      className="d-flex mb-to-sm-0 mb-from-sm-3"
+      isQuestionsPage={true}
+      className="mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
-      <PageContentHeader className="d-flex align-items-center">
-        <CommunitySelector
-          isArrowed
-          Button={Button}
-          toggle={(choice) => {
-            createdHistory.push(baseUrl + routes[route](choice, false, false));
-            setTypeFilter(choice);
-          }}
-          showOnlyFollowed={isFeed}
-          selectedCommunityId={communityIdFilter}
-          communities={communities}
-        />
-        {/* PEER-451: Hide Subscribe button from single community mode
-        {!!displaySubscribeButton && (
-          <PageContentHeaderRightPanel
-            className={`right-panel m-0 ml-${single ? 3 : 4}`}
-          >
-            <FollowCommunityButton
-              communityIdFilter={single || communityIdFilter}
-              followedCommunities={followedCommunities}
-            />
-          </PageContentHeaderRightPanel>
-        )} */}
-      </PageContentHeader>
-
-      {communityEditingAllowed && (
-        <button onClick={routeToEditCommunity} className="df aic mt12">
-          <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
-          <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
-            {t('common.editCommunity')}
-          </Span>
-        </button>
-      )}
+      <PageContentHeaderContainer>
+        <PageContentHeader className="d-flex align-items-center">
+          <CommunitySelector
+            isArrowed
+            Button={Button}
+            toggle={(choice) => {
+              createdHistory.push(
+                baseUrl + routes[route](choice, false, false),
+              );
+              setTypeFilter(choice);
+            }}
+            showOnlyFollowed={isFeed}
+            selectedCommunityId={communityIdFilter}
+            communities={communities}
+          />
+          {/* PEER-451: Hide Subscribe button from single community mode
+          {!!displaySubscribeButton && (
+            <PageContentHeaderRightPanel
+              className={`right-panel m-0 ml-${single ? 3 : 4}`}
+            >
+              <FollowCommunityButton
+                communityIdFilter={single || communityIdFilter}
+                followedCommunities={followedCommunities}
+              />
+            </PageContentHeaderRightPanel>
+          )} */}
+        </PageContentHeader>
+        {communityEditingAllowed && (
+          <EditCommunityButton>
+            <button onClick={routeToEditCommunity} className="aic">
+              <IconMd
+                icon={pencilIcon}
+                color={colors.btnColor || TEXT_PRIMARY}
+              />
+              <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+                {t('common.editCommunity')}
+              </Span>
+            </button>
+          </EditCommunityButton>
+        )}
+        {Boolean(tags.length) && (
+          <TagFilter
+            tags={tags}
+            tagsNames={tagsNames}
+            communityId={single}
+          ></TagFilter>
+        )}
+      </PageContentHeaderContainer>
     </Wrapper>
   );
 };

@@ -32,6 +32,7 @@ export function* getQuestionsWorker({
   limit,
   skip,
   postTypes,
+  tags,
   communityIdFilter,
   parentPage,
   next,
@@ -52,6 +53,7 @@ export function* getQuestionsWorker({
         skip,
         postTypes,
         [communityIdFilter],
+        tags,
       );
     }
 
@@ -72,6 +74,7 @@ export function* getQuestionsWorker({
         skip,
         postTypes,
         followedCommunities,
+        tags,
       );
     }
 

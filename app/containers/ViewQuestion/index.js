@@ -71,6 +71,7 @@ export const ViewQuestion = ({
   postAnswerLoading,
   postCommentLoading,
   questionDataLoading,
+  questionDataError,
   saveCommentLoading,
   communities,
   upVoteLoading,
@@ -123,7 +124,6 @@ export const ViewQuestion = ({
     resetStoreDispatch();
 
     return () => {
-      window.$(window).off();
       resetStoreDispatch();
     };
   }, []);
@@ -145,7 +145,13 @@ export const ViewQuestion = ({
       window.isRendered = true;
     }
 
-    if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
+    if (!questionDataLoading && !questionData) {
+      history.push(
+        baseUrl + (questionDataError ? routes.errorPage() : routes.notFound()),
+      );
+    }
+
+    if (questionData?.isDeleted) {
       history.push(baseUrl + routes.notFound('type=deleted'));
     }
   }, [questionData, questionDataLoading, baseUrl]);
@@ -290,6 +296,7 @@ const withConnect = connect(
     communities: selectCommunities(),
     profile: makeSelectProfileInfo(),
     questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
+    questionDataError: makeSelectViewQuestion.selectQuestionDataError(),
     questionData: makeSelectViewQuestion.selectQuestionData(),
     questionBounty: makeSelectViewQuestion.selectQuestionBounty(),
     addCommentFormDisplay: makeSelectViewQuestion.selectAddCommentFormDisplay(),

@@ -28,14 +28,18 @@ import {
 import { scrollToErrorField } from 'utils/animation';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
+import { getCommunityTags } from 'containers/DataCacheProvider/actions';
+import { selectTags } from 'containers/DataCacheProvider/selectors';
+import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from 'components/TextEditor/Tips';
 import FormBox from 'components/Form';
-import TipsBase from 'components/Base/TipsBase';
+import TipsBaseSmallPadding from 'components/Base/TipsBaseSmallPadding';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import DescriptionList from 'components/DescriptionList';
 
 import {
   FORM_TITLE,
@@ -55,17 +59,14 @@ import Header from './Header';
 import CommunityForm from './CommunityForm';
 import SubArticleForm from './SubArticleForm';
 import ExistingQuestions from './ExistingQuestions';
-import TypeForm from 'components/QuestionForm/TypeForm';
+import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
+import PostRules from './PostRules';
 
-import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import DescriptionList from 'components/DescriptionList';
-import { getCommunityTags } from '../../containers/DataCacheProvider/actions';
-import { selectTags } from '../../containers/DataCacheProvider/selectors';
 import i18next from 'app/i18n';
 
 const single = isSingleCommunityWebsite();
@@ -232,7 +233,7 @@ export const QuestionForm = ({
           postType={question?.postType}
           isDocumentation={isDocumentation}
         />
-        <TipsBase>
+        <TipsBaseSmallPadding>
           <BaseSpecialOne>
             <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
               <CommunityForm
@@ -357,9 +358,11 @@ export const QuestionForm = ({
               </Button>
             </FormBox>
           </BaseSpecialOne>
-
-          <Tips />
-        </TipsBase>
+          <div>
+            <PostRules />
+            <Tips />
+          </div>
+        </TipsBaseSmallPadding>
       </div>
     </Router>
   );

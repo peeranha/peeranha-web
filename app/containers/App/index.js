@@ -160,7 +160,6 @@ const App = ({
 
         <Login />
         <ForgotPassword />
-        <MetaTransactionAgreement />
 
         <ScrollTo />
         <Popover />
@@ -217,7 +216,9 @@ const App = ({
 
           <Route render={(props) => Wrapper(NotFoundPage, props)} />
         </Switch>
-        <div id="portal-root" />
+        <div id="portal-root">
+          <MetaTransactionAgreement />
+        </div>
       </ThemeProvider>
     </ErrorBoundary>
   );
