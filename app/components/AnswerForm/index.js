@@ -132,12 +132,15 @@ export default React.memo(
         (Boolean(communityId) &&
           hasCommunityAdminRole(profileInfo?.permissions, communityId));
       const account = makeSelectAccount()(state);
-
+      console.log(form.values);
+      const textEditorValue = form.values
+        ? form.values[TEXT_EDITOR_ANSWER_FORM]
+        : undefined;
       return {
         account,
         enableReinitialize: true,
         isOfficialRepresentative,
-        textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
+        textEditorValue: textEditorValue,
         initialValues: {
           [TEXT_EDITOR_ANSWER_FORM]: answer,
           [ANSWER_TYPE_FORM]: questionView

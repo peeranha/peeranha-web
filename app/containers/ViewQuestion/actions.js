@@ -190,7 +190,7 @@ export function postAnswer(questionId, ...args) {
   return {
     type: POST_ANSWER,
     questionId,
-    answer: args[0].get(TEXT_EDITOR_ANSWER_FORM),
+    answer: args[0]?.get(TEXT_EDITOR_ANSWER_FORM),
     official: args[0].get(ANSWER_TYPE_FORM),
     reset: args[2].reset,
   };
