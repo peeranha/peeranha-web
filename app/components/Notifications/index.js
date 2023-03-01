@@ -29,7 +29,7 @@ import {
 import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
 
-import { ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
+import { NOTIFICATIONS_DATA, ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
 import {
   allNotificationsCount,
   selectAllNotifications,
@@ -99,10 +99,10 @@ const SubHeaderSeparator = styled.hr`
 const Notifications = ({
   loading,
   unreadCount,
-  allCount,
+  allCount: allCountUnfiltered,
   className,
   isAvailable,
-  notifications,
+  notifications: allNotifications,
   readNotifications,
   loadMoreNotificationsDispatch,
   markAsReadNotificationsAllDispatch,
@@ -115,60 +115,58 @@ const Notifications = ({
   const ref = useRef(null);
   const containerRef = useRef(null);
 
-  useEffect(
-    () => {
-      markAsReadNotificationsAllDispatch([
-        0,
-        (notifications.length > 0 && notifications.length - 1) || 0,
-      ]);
-    },
-    [notifications.length],
+  // Temporary fix, will be removed in PEER-682
+  const notifications = allNotifications.filter(
+    ({ type }) => NOTIFICATIONS_DATA[type],
   );
+  const allCount =
+    allCountUnfiltered - (allNotifications.length - notifications.length);
+
+  useEffect(() => {
+    markAsReadNotificationsAllDispatch([
+      0,
+      (notifications.length > 0 && notifications.length - 1) || 0,
+    ]);
+  }, [notifications.length]);
 
   const rowHeight = useMemo(
     () => (containerWidth <= 768 ? ROW_HEIGHT_FOR_SMALL : ROW_HEIGHT),
     [containerWidth],
   );
 
-  const [indexToStart, indexToStop] = useMemo(
-    () => {
-      const calc = Array.from(new Array(notifications.length).keys()).filter(
-        x =>
-          x * rowHeight >= scrollPosition &&
-          (x + 1) * rowHeight - scrollPosition <= window.innerHeight,
-      );
-      const { 0: start, [calc.length - 1]: stop } = calc;
-      return [start || 0, stop || 0];
-    },
-    [notifications.length, rowHeight, scrollPosition, y, window.innerHeight],
-  );
+  const [indexToStart, indexToStop] = useMemo(() => {
+    const calc = Array.from(new Array(notifications.length).keys()).filter(
+      (x) =>
+        x * rowHeight >= scrollPosition &&
+        (x + 1) * rowHeight - scrollPosition <= window.innerHeight,
+    );
+    const { 0: start, [calc.length - 1]: stop } = calc;
+    return [start || 0, stop || 0];
+  }, [notifications.length, rowHeight, scrollPosition, y, window.innerHeight]);
 
-  const recalculateRanges = useCallback(
-    () => {
-      const range = `${indexToStart}-${indexToStop}-${rowHeight}`;
+  const recalculateRanges = useCallback(() => {
+    const range = `${indexToStart}-${indexToStop}-${rowHeight}`;
 
-      const union = rangeUnionWithIntersection(readNotifications, [
-        indexToStart,
-        indexToStop,
-      ]);
+    const union = rangeUnionWithIntersection(readNotifications, [
+      indexToStart,
+      indexToStop,
+    ]);
 
-      /*
-      * TODO: Fix bug with reading notifications, information in Notification center and Dropdown
-      * may vary if notifications are received on the notifications page
-      */
-      /*if (!_isEqual(union, readNotifications) && !document.hidden) {
+    /*
+     * TODO: Fix bug with reading notifications, information in Notification center and Dropdown
+     * may vary if notifications are received on the notifications page
+     */
+    /*if (!_isEqual(union, readNotifications) && !document.hidden) {
         markAsReadNotificationsAllDispatch(union);
       } else if (notifications.length === 1) {
         markAsReadNotificationsAllDispatch([0, 0]);
       }*/
 
-      setCalculatedRanges({
-        ...calculatedRanges,
-        [range]: union,
-      });
-    },
-    [notifications.length, indexToStart, indexToStop, rowHeight],
-  );
+    setCalculatedRanges({
+      ...calculatedRanges,
+      [range]: union,
+    });
+  }, [notifications.length, indexToStart, indexToStop, rowHeight]);
 
   const onScroll = useCallback(
     ({ scrollTop }) => {
@@ -183,48 +181,31 @@ const Notifications = ({
     [notifications.length, indexToStop, loading],
   );
 
-  const onResize = useCallback(
-    () => {
-      setContainerWidth(containerRef?.current?.getBoundingClientRect().width);
-      setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
-    },
-    [containerRef.current, rowHeight],
-  );
+  const onResize = useCallback(() => {
+    setContainerWidth(containerRef?.current?.getBoundingClientRect().width);
+    setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
+  }, [containerRef.current, rowHeight]);
 
-  useEffect(
-    () => {
-      loadMoreNotificationsDispatch();
-      return () => {
-        if (isAvailable) {
-          filterReadNotificationsDispatch();
-        }
-      };
-    },
-    [isAvailable],
-  );
+  useEffect(() => {
+    loadMoreNotificationsDispatch();
+    return () => {
+      if (isAvailable) {
+        filterReadNotificationsDispatch();
+      }
+    };
+  }, [isAvailable]);
 
-  useEffect(
-    () => {
-      setContainerWidth(
-        containerRef.current?.getBoundingClientRect().width ?? 0,
-      );
-    },
-    [containerRef.current],
-  );
+  useEffect(() => {
+    setContainerWidth(containerRef.current?.getBoundingClientRect().width ?? 0);
+  }, [containerRef.current]);
 
-  useEffect(
-    () => {
-      recalculateRanges();
-    },
-    [notifications.length],
-  );
+  useEffect(() => {
+    recalculateRanges();
+  }, [notifications.length]);
 
-  useEffect(
-    () => {
-      setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
-    },
-    [ref.current, rowHeight],
-  );
+  useEffect(() => {
+    setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
+  }, [ref.current, rowHeight]);
 
   const rowRenderer = ({ index, key, style: { top } }) => (
     <Notification
@@ -317,14 +298,14 @@ export default React.memo(
     injectReducer({ key: 'notifications', reducer }),
     injectSaga({ key: 'notifications', saga, mode: DAEMON }),
     connect(
-      state => ({
+      (state) => ({
         allCount: allNotificationsCount()(state),
         notifications: selectAllNotifications()(state),
         loading: selectAllNotificationsLoading()(state),
         readNotifications: selectReadNotificationsAll()(state),
         unreadCount: unreadNotificationsCount()(state),
       }),
-      dispatch => ({
+      (dispatch) => ({
         loadMoreNotificationsDispatch: bindActionCreators(
           loadMoreNotifications,
           dispatch,
