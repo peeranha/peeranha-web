@@ -3,11 +3,12 @@ let timerId = null;
 let timerOn = false;
 
 const setPopover = (elemId, message, position) => {
-  const elem = document.querySelector(`#${elemId}`);
-
-  elem.setAttribute('data-content', message);
-  elem.setAttribute('data-trigger', 'manual');
-  elem.setAttribute('data-placement', position);
+  window.$(`#${elemId}`).attr({
+    'data-content': message,
+    'data-trigger': 'manual',
+    'data-placement': position,
+  });
+  window.$(`#${elemId}`).popover('show');
 };
 
 export const showPopover = (elemId, message, restParamets = {}) => {
@@ -48,12 +49,7 @@ export const closePopover = (callback) => {
     timerOn = false;
   }
 
-  const popover = document.querySelector(`.popover`);
-
-  if (popover) {
-    popover.classList.remove('popover');
-  }
-
+  window.$(`.popover`).remove();
   if (typeof callback === 'function') callback();
 
   return null;
