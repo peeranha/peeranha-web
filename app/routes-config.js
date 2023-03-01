@@ -112,7 +112,7 @@ export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 export const users = () => '/users';
 
 export const faq = (code) => `/faq${code ? `#${code}` : ``}`;
-export const administration = () => `/administration11`;
+export const administration = () => `/administration`;
 export const moderation = (code) => `#moderation${code ? `#${code}` : ``}`;
 export const support = (section) => `/support/${section ? `#${section}` : ''}`;
 export const search = (q) => `/search/${q || ''}`;
