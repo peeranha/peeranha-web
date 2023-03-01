@@ -1,7 +1,6 @@
-/* eslint no-unused-vars: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import styled from 'styled-components';
 import orderBy from 'lodash/orderBy';
@@ -20,9 +19,6 @@ import {
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInDate } from 'utils/datetime';
 
-import commonMessages from 'common-messages';
-import messages from './messages';
-
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 import P from 'components/P';
 import A, { ADefault } from 'components/A';
@@ -33,7 +29,6 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
-import { Link } from 'react-router-dom';
 
 import img from 'images/image-communityPage.svg?inline';
 
@@ -47,6 +42,14 @@ export const DescriptionBlock = styled.div`
   flex-shrink: 0;
   width: 300px;
   margin-right: 15px;
+
+  @media (max-width: 1050px) {
+    width: 250px;
+  }
+
+  @media (max-width: 991px) {
+    width: 300px;
+  }
 
   ${MediumImageStyled} {
     margin-top: 6px;
@@ -105,138 +108,127 @@ const DescriptionText = P.extend`
   }
 `;
 
-const Content = ({ communities, sorting, locale, language, profile }) => {
-  if (!communities || !communities.length) return null;
+const Content = ({ communities, sorting, locale, profile }) => {
+  const { t } = useTranslation();
 
   const communityEditingAllowed =
     hasGlobalModeratorRole(getPermissions(profile)) ||
     hasProtocolAdminRole(getPermissions(profile));
 
+  if (!communities || !communities.length) return null;
+
   return (
     <>
       <Base>
-        {orderBy(communities, y => y[sorting.sortBy], [sorting.order])
-          .filter(
-            x => (language.sortBy ? x.language === language.sortBy : true),
-          )
-          .map(
-            (
-              { avatar, name, id, description, website, tags, ...x },
-              index,
-              arr,
-            ) => {
-              const value = id;
-              const origin = hasCommunitySingleWebsite(id);
+        {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order]).map(
+          (
+            { avatar, name, id, description, website, tagsCount, ...x },
+            index,
+            arr,
+          ) => {
+            const value = id;
+            const origin = hasCommunitySingleWebsite(id);
 
-              return (
-                <BaseSpecial
-                  last={arr.length - 1 === index}
-                  first={!index}
-                  className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
-                  key={value}
-                >
-                  <DescriptionBlock>
-                    <MediumImageStyled
-                      className="bg-transparent"
-                      src={avatar}
-                      alt={name}
-                    />
+            return (
+              <BaseSpecial
+                last={arr.length - 1 === index}
+                first={!index}
+                className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
+                key={value}
+              >
+                <DescriptionBlock>
+                  <MediumImageStyled
+                    className="bg-transparent"
+                    src={avatar}
+                    alt={name}
+                  />
 
-                    <div>
-                      <P fontSize="24" lineHeight="31" bold>
-                        <ADefault
-                          href={origin || routes.questions(id)}
-                          css={{ position: 'relative' }}
-                        >
-                          {name}
-                          {origin && (
-                            <SingleCommunityIcon locale={locale} id={id} />
-                          )}
-                        </ADefault>
+                  <div>
+                    <P fontSize="24" lineHeight="31" bold>
+                      <ADefault
+                        href={origin || routes.questions(id)}
+                        css={{ position: 'relative' }}
+                      >
+                        {name}
+                        {origin && (
+                          <SingleCommunityIcon locale={locale} id={id} />
+                        )}
+                      </ADefault>
+                    </P>
+                    <DescriptionText fontSize="14" lineHeight="18">
+                      {description}
+                    </DescriptionText>
+                    {website && <OfficialSiteLink website={website} />}
+                  </div>
+                </DescriptionBlock>
+
+                <InfoBlock className="flex-wrap flex-sm-nowrap">
+                  {(communityEditingAllowed ||
+                    hasCommunityModeratorRole(getPermissions(profile), value) ||
+                    hasCommunityAdminRole(getPermissions(profile), value)) && (
+                    <Info>
+                      <SpanCenter>
+                        {getFormattedNum2(x.followingUsers)}
+                      </SpanCenter>
+                      <P>
+                        <span className="no-wrap">
+                          {t('common.subscribers')}
+                        </span>
                       </P>
-                      {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
-                  <FormattedMessage {...commonMessages[x.language]} />
-                </P> */}
-                      <DescriptionText fontSize="14" lineHeight="18">
-                        {description}
-                      </DescriptionText>
-                      {website && <OfficialSiteLink website={website} />}
-                    </div>
-                  </DescriptionBlock>
+                    </Info>
+                  )}
 
-                  <InfoBlock className="flex-wrap flex-sm-nowrap">
+                  <Info>
+                    <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
+                    <P>
+                      <span className="no-wrap">{t('common.posts')}</span>
+                    </P>
+                  </Info>
+
+                  <Info>
+                    <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
+                    <P>
+                      <span className="no-wrap">{t('common.answers')}</span>
+                    </P>
+                  </Info>
+
+                  <Info>
+                    <SpanCenter>{getFormattedNum2(tagsCount)}</SpanCenter>
+                    <A to={routes.communityTags(id)}>
+                      <span className="no-wrap">{t('common.tags')}</span>
+                    </A>
+                  </Info>
+
+                  <Info>
+                    <SpanCenter className="no-wrap">
+                      {getDifferenceInDate(x.creationTime, locale)}
+                    </SpanCenter>
+                    <SpanCenter>
+                      <span className="no-wrap">{t('common.age')}</span>
+                    </SpanCenter>
+                  </Info>
+
+                  <Info>
                     {(communityEditingAllowed ||
-                      hasCommunityModeratorRole(
-                        getPermissions(profile),
-                        value,
-                      ) ||
                       hasCommunityAdminRole(
                         getPermissions(profile),
                         value,
                       )) && (
-                      <Info>
-                        <SpanCenter>
-                          {getFormattedNum2(x.followingUsers)}
-                        </SpanCenter>
-                        <P>
-                          <FormattedMessage
-                            id={commonMessages.subscribers.id}
-                          />
-                        </P>
-                      </Info>
+                      <InfoButton
+                        onClick={() =>
+                          createdHistory.push(routes.communitiesEdit(id))
+                        }
+                      >
+                        {t('common.edit')}
+                      </InfoButton>
                     )}
-
-                    <Info>
-                      <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
-                      <P>
-                        <FormattedMessage id={commonMessages.posts.id} />
-                      </P>
-                    </Info>
-
-                    <Info>
-                      <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
-                      <P>
-                        <FormattedMessage id={commonMessages.answers.id} />
-                      </P>
-                    </Info>
-
-                    <Info>
-                      <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
-                      <A to={routes.communityTags(id)}>
-                        <FormattedMessage id={commonMessages.tags.id} />
-                      </A>
-                    </Info>
-
-                    <Info>
-                      <SpanCenter>
-                        {getDifferenceInDate(x.creationTime, locale)}
-                      </SpanCenter>
-                      <SpanCenter>
-                        <FormattedMessage id={commonMessages.age.id} />
-                      </SpanCenter>
-                    </Info>
-
-                    <Info>
-                      {(communityEditingAllowed ||
-                        hasCommunityAdminRole(
-                          getPermissions(profile),
-                          value,
-                        )) && (
-                        <InfoButton
-                          onClick={() =>
-                            createdHistory.push(routes.communitiesEdit(id))
-                          }
-                        >
-                          <FormattedMessage id={commonMessages.edit.id} />
-                        </InfoButton>
-                      )}
-                      <FollowCommunityButton communityIdFilter={id} />
-                    </Info>
-                  </InfoBlock>
-                </BaseSpecial>
-              );
-            },
-          )}
+                    <FollowCommunityButton communityIdFilter={id} />
+                  </Info>
+                </InfoBlock>
+              </BaseSpecial>
+            );
+          },
+        )}
       </Base>
       <Base>
         <div
@@ -263,16 +255,11 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                 line-height: 1.5;
               `}
             >
-              <FormattedMessage id={messages.suggestCommunityBlock_1.id} />
-              {/* Hide link */}
-              {/* <Link to={routes.home()}> */}
-              <FormattedMessage id={messages.suggestCommunityBlock_2.id} />
-              {/* </Link> */}
-              <FormattedMessage id={messages.suggestCommunityBlock_3.id} />
-              <FormattedMessage id={messages.suggestCommunityBlock_4.id} />
-              <a href="mailto:hello@peeranha.io">
-                <FormattedMessage id={messages.suggestCommunityBlock_5.id} />
-              </a>
+              {t('createCommunity.suggestCommunityBlock_1')}
+              {t('createCommunity.suggestCommunityBlock_2')}
+              {t('createCommunity.suggestCommunityBlock_3')}
+              {t('createCommunity.suggestCommunityBlock_4')}
+              <a href="mailto:hello@peeranha.io">hello@peeranha.io.</a>
             </div>
           </div>
         </div>
@@ -285,7 +272,6 @@ Content.propTypes = {
   communities: PropTypes.array,
   sorting: PropTypes.object,
   locale: PropTypes.string,
-  language: PropTypes.object,
   profile: PropTypes.object,
 };
 

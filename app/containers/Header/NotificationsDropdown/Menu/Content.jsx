@@ -6,9 +6,7 @@ import { bindActionCreators, compose } from 'redux';
 
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
-import { FormattedMessage } from 'react-intl';
-
-import messages from 'components/Notifications/messages';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -69,6 +67,7 @@ const Content = ({
   markAsReadNotificationsUnreadDispatch,
   loadMoreUnreadNotificationsDispatch,
 }) => {
+  const { t } = useTranslation();
   const listRef = useRef(null);
 
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -97,12 +96,12 @@ const Content = ({
         .fill()
         .map((_, i) => (i + startIndex) * rowHeight)
         .filter(
-          x =>
+          (x) =>
             x >= scrollPosition - THRESHOLD * rowHeight &&
             x + rowHeight <=
               scrollPosition + contentHeight + THRESHOLD * rowHeight,
         )
-        .map(x => x / rowHeight)
+        .map((x) => x / rowHeight)
         .reduce(
           (acc, cur, i, array) => [array[0], array[array.length - 1]],
           [],
@@ -155,7 +154,7 @@ const Content = ({
       {!notifications.length ? (
         <>
           <IconXl icon={bellIcon} color={TEXT_SECONDARY} />
-          <FormattedMessage {...messages.youHaveNoNewNotifications} />
+          {t('notifications.youHaveNoNewNotifications')}
         </>
       ) : (
         <AutoSizer onResize={onResize}>
@@ -193,11 +192,11 @@ export default memo(
     injectReducer({ key: 'notifications', reducer }),
     injectSaga({ key: 'notifications', saga, mode: DAEMON }),
     connect(
-      state => ({
+      (state) => ({
         loading: selectUnreadNotificationsLoading()(state),
         readNotifications: selectReadNotificationsUnread()(state),
       }),
-      dispatch => ({
+      (dispatch) => ({
         markAsReadNotificationsUnreadDispatch: bindActionCreators(
           markAsReadNotificationsUnread,
           dispatch,

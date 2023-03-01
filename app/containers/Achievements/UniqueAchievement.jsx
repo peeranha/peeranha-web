@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -11,11 +11,10 @@ import Icon from 'components/Icon';
 import Span from 'components/Span';
 import ProgressBar from './ProgressBar';
 
-import messages from './messages';
-
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
 import { getNFTUrl } from '../../utils/ipfs';
+import { LIMITED_EDITION_NFT_TYPE } from '../../utils/constants';
 import NFTInformation from './NFTInformation';
 
 const ImageBlock = styled.div`
@@ -63,15 +62,13 @@ const UniqueAchievement = ({
   image,
   id,
   achievementURI,
+  achievementsType,
   currentUser,
 }) => {
+  const { t } = useTranslation();
   const availiableCount = maxCount - factCount;
   const pointsToNext = lowerValue - (currentValue || 0);
   const getProgress = () => (currentValue / lowerValue) * 100;
-
-  const translations = translationMessages[locale]
-    ? translationMessages[locale]
-    : null;
 
   const [visible, changeVisibility] = useState(false);
   const contractAddress = process.env.PEERANHA_NFT;
@@ -79,64 +76,66 @@ const UniqueAchievement = ({
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
   return (
-    <Bage>
-      <ImageBlock>
-        {reached && (
-          <div
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            className="position-relative"
-          >
-            {visible && (
-              <NFTInformation
-                id={id}
-                locale={locale}
-                contractAddress={contractAddress}
-                ipfsHash={achievementURI}
+    <>
+      {(reached || achievementsType == LIMITED_EDITION_NFT_TYPE) && (
+        <Bage>
+          <ImageBlock>
+            {reached && (
+              <div
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                className="position-relative"
+              >
+                {visible && (
+                  <NFTInformation
+                    id={id}
+                    locale={locale}
+                    contractAddress={contractAddress}
+                    ipfsHash={achievementURI}
+                  />
+                )}
+                <img
+                  src={getNFTUrl(image?.slice(7))}
+                  style={{ width: '160px', height: '148px' }}
+                  alt={'image'}
+                />
+              </div>
+            )}
+            {!reached && (
+              <Icon icon={achievementNotReached} width="160" height="148" />
+            )}
+            {currentUser && !reached && (
+              <ProgressBar
+                achievementId={id}
+                width="60%"
+                progress={getProgress()}
+                pointsToNext={pointsToNext}
+                groupType={uniqueRatingRelated}
+                messageSingle={t(
+                  'achievements.progressBarPopover.ratingRelated.single',
+                )}
+                messageMultiple={t(
+                  'achievements.progressBarPopover.ratingRelated.multiple',
+                )}
               />
             )}
-            <img
-              src={getNFTUrl(image?.slice(7))}
-              style={{ width: '160px', height: '148px' }}
-              alt={'image'}
-            />
+          </ImageBlock>
+          <div>
+            <TitleBlock>
+              <span>{name}</span>
+            </TitleBlock>
+            <DescriptionBlock>
+              {description}
+              {!reached && (
+                <LimitPhrase>
+                  Available {availiableCount} out of {maxCount}
+                </LimitPhrase>
+              )}
+            </DescriptionBlock>
           </div>
-        )}
-        {!reached && (
-          <Icon icon={achievementNotReached} width="160" height="148" />
-        )}
-        {currentUser && !reached && (
-          <ProgressBar
-            achievementId={id}
-            width="60%"
-            progress={getProgress()}
-            pointsToNext={pointsToNext}
-            groupType={uniqueRatingRelated}
-            messageSingle={
-              translations[messages.progressBarPopover.ratingRelated.single.id]
-            }
-            messageMultiple={
-              translations[
-                messages.progressBarPopover.ratingRelated.multiple.id
-              ]
-            }
-          />
-        )}
-      </ImageBlock>
-      <div>
-        <TitleBlock>
-          <span>{name}</span>
-        </TitleBlock>
-        <DescriptionBlock>
-          {description}
-          {!reached && (
-            <LimitPhrase>
-              Available {availiableCount} out of {maxCount}
-            </LimitPhrase>
-          )}
-        </DescriptionBlock>
-      </div>
-    </Bage>
+        </Bage>
+      )}
+    </>
   );
 };
 
@@ -151,6 +150,7 @@ UniqueAchievement.propTypes = {
   description: PropTypes.string,
   locale: PropTypes.string,
   achievementURI: PropTypes.string,
+  achievementsType: PropTypes.number,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

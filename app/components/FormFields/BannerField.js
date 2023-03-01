@@ -1,10 +1,7 @@
-/* eslint indent: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-static-element-interactions: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -76,7 +73,7 @@ const Div = styled.div`
 
     > *:nth-child(2) {
       position: absolute;
-      z-index: ${x => (x.disabled ? 2 : 0)};
+      z-index: ${(x) => (x.disabled ? 2 : 0)};
       top: 0;
       left: 0;
       width: inherit;
@@ -106,14 +103,13 @@ const LabelErrorStyle = styled.div`
 `;
 
 const BannerField = ({ input, meta, disabled, label }) => {
+  const { t } = useTranslation();
   const [isFileTooLarge, setIsFileTooLarge] = useState(false);
   const [isIncorrectResolution, setIsCorrectResolution] = useState(false);
 
   return (
     <Wrapper label={label} disabled={disabled}>
-      <InfoMessage>
-        <FormattedMessage {...messages.communityBannerInfo} />
-      </InfoMessage>
+      <InfoMessage>{t('common.communityBannerInfo')}</InfoMessage>
 
       <Div
         disabled={disabled}
@@ -129,7 +125,7 @@ const BannerField = ({ input, meta, disabled, label }) => {
             <div className="avatar-wrapper">
               <BannerLoader
                 input={input}
-                onBeforeFileLoad={e => {
+                onBeforeFileLoad={(e) => {
                   if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
                     setIsFileTooLarge(true);
                     e.target.value = '';
@@ -152,13 +148,11 @@ const BannerField = ({ input, meta, disabled, label }) => {
         </div>
 
         {(isFileTooLarge && (
-          <LabelErrorStyle>
-            <FormattedMessage {...messages.bannerSizeErrorMsg} />
-          </LabelErrorStyle>
+          <LabelErrorStyle>{t('common.bannerSizeErrorMsg')}</LabelErrorStyle>
         )) ||
           (isIncorrectResolution && (
             <LabelErrorStyle>
-              <FormattedMessage {...messages.incorrectBannerResolutionMsg} />
+              {t('common.incorrectBannerResolutionMsg')}
             </LabelErrorStyle>
           ))}
         <WarningMessage {...meta} isSpecialPosition />

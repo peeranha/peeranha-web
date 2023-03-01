@@ -1,14 +1,20 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import history from 'createdHistory';
 
-import { TEXT_SECONDARY, TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
+import { TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
 
 import Span from 'components/Span';
 
-import { singleCommunityFonts } from 'utils/communityManagement';
+import {
+  singleCommunityFonts,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
+import Button from 'components/Button';
 
 const fonts = singleCommunityFonts();
+const single = isSingleCommunityWebsite();
 
 const Tag = Span.extend`
   border: 1px solid ${TAG_COLOR};
@@ -24,62 +30,60 @@ const Tag = Span.extend`
   display: inline-flex;
   align-items: center;
 `;
-
-const SpanCenter = Span.extend`
-  width: 90%;
-  margin-top: 5px;
-  text-align: center;
-`;
-
 const Box = styled.ul`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 `;
 
-const TagsList = ({
-  tags,
-  communities,
-  communityId,
-  children,
-  className,
-  showPopularity,
-}) => {
+const TagsList = ({ tags, communities, communityId, children, className }) => {
   const community = useMemo(
     () => communities.filter((x) => +communityId === x.id)[0] || { tags: [] },
     [communities, communities.length],
   );
 
-  const questionTags = useMemo(
-    () =>
-      tags
-        ? community.tags.filter((x) => tags.includes(+x.id.split('-')[1]))
-        : community.tags,
-    [tags, community.tags, community.tags.length],
-  );
+  if (!community || !tags?.length) return null;
 
-  if (!community || !community.tags.length) return null;
+  const redirectToFilterByTag = (id) => {
+    const searchParams = new URLSearchParams(history.location.search);
+    const searchParamsTags = searchParams.get('tags');
+    const newSearchParamsTags = (tagsParams, tagId) => {
+      const allTags = tagsParams?.split(',');
+      if (!tagsParams) {
+        return tagId;
+      }
+      if (!allTags?.includes(tagId)) {
+        return `${tagsParams},${tagId}`;
+      }
+
+      return tagsParams;
+    };
+    searchParams.set('tags', newSearchParamsTags(searchParamsTags, id));
+    history.push(`${history.location.pathname}?${searchParams}`);
+  };
 
   return (
     <Box>
-      {questionTags.map((x, index) => {
-        return (
-          <li
-            key={community.id + (x.name || index)}
-            className="d-flex flex-column"
-          >
-            <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
-              {x.name}
-            </Tag>
-
-            {showPopularity && (
-              <SpanCenter color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-                {x.postCount}
-              </SpanCenter>
+      {tags.map((tag, index) => (
+        <li
+          key={community.id + (tag.name || index)}
+          className="d-flex flex-column"
+        >
+          <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
+            {single ? (
+              <Button
+                onClick={() => {
+                  redirectToFilterByTag(tag.id);
+                }}
+              >
+                {tag.name}
+              </Button>
+            ) : (
+              tag.name
             )}
-          </li>
-        );
-      })}
+          </Tag>
+        </li>
+      ))}
 
       {children}
     </Box>
@@ -90,8 +94,8 @@ TagsList.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   tags: PropTypes.array,
+  match: PropTypes.object,
   communities: PropTypes.array,
-  showPopularity: PropTypes.bool,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

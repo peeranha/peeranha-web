@@ -71,7 +71,7 @@ export const POST_TYPE = {
   expertPost: 0,
   generalPost: 1,
   tutorial: 2,
-  documentation: 3,
+  documentation: 1000,
 };
 
 export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
@@ -334,3 +334,5 @@ export const CHANGED_POSTS_KEY = 'changed-posts';
 
 // position documentation
 export const POSITION_TOP = 'top';
+
+export const LIMITED_EDITION_NFT_TYPE = 0;

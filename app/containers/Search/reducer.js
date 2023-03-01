@@ -8,7 +8,7 @@ import {
 
 export const initialState = fromJS({
   items: [],
-  getResultsProcessing: false,
+  getResultsProcessing: true,
   getResultsError: null,
 });
 

@@ -1,14 +1,6 @@
-/**
- * app.js
- *
- * This is the entry file for the application, only setup and boilerplate
- * code.
- */
-
 // Importing Bootstrap and its dependencies
 import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery'; // eslint-disable-line no-unused-vars
-import Popper from 'popper.js'; // eslint-disable-line no-unused-vars
+import $ from 'jquery'; //
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 // Needed for redux-saga es6 generator support
@@ -20,12 +12,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import 'sanitize.css/sanitize.css';
+import { I18nextProvider } from 'react-i18next';
 
 // Import root app
 import App from 'containers/App';
 
 // Import Providers
-import LanguageProvider from 'containers/LanguageProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
 import FacebookProvider from './containers/FacebookProvider';
@@ -41,8 +33,7 @@ import createdHistory from './createdHistory';
 // Import Analytics
 import './analytics';
 
-// Import i18n messages
-import { translationMessages } from './i18n';
+import i18n from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
@@ -64,12 +55,12 @@ const initialState = {};
 const store = configureStore(initialState, createdHistory);
 const MOUNT_NODE = document.getElementById('app');
 
-const render = (messages) => {
+const render = () => {
   ReactDOM.render(
-    <Provider store={store}>
-      <EthereumProvider>
-        <AccountProvider>
-          <LanguageProvider messages={messages}>
+    <I18nextProvider i18n={i18n}>
+      <Provider store={store}>
+        <EthereumProvider>
+          <AccountProvider>
             <FacebookProvider>
               <DataCacheProvider>
                 <ConnectedRouter history={createdHistory}>
@@ -77,10 +68,10 @@ const render = (messages) => {
                 </ConnectedRouter>
               </DataCacheProvider>
             </FacebookProvider>
-          </LanguageProvider>
-        </AccountProvider>
-      </EthereumProvider>
-    </Provider>,
+          </AccountProvider>
+        </EthereumProvider>
+      </Provider>
+    </I18nextProvider>,
     MOUNT_NODE,
   );
 };
@@ -91,20 +82,8 @@ if (module.hot) {
   // have to be constants at compile-time
   module.hot.accept(['./i18n', 'containers/App'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
-    render(translationMessages);
+    render();
   });
 }
 
-// Chunked polyfill for browsers without Intl support
-if (!window.Intl) {
-  new Promise((resolve) => {
-    resolve(import('intl'));
-  })
-    .then(() => Promise.all([import('intl/locale-data/jsonp/en.js')]))
-    .then(() => render(translationMessages))
-    .catch((err) => {
-      throw err;
-    });
-} else {
-  render(translationMessages);
-}
+render();

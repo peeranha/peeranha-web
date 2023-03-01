@@ -1,12 +1,13 @@
-/* eslint indent: 0 */
 import Documentation from 'containers/LeftMenu/Documentation/Documentation';
 import { Administration } from 'icons/index';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+
+import cn from 'classnames';
+
 import isMobile from 'ismobilejs';
 
 import {
@@ -24,7 +25,6 @@ import {
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 
 import {
   isSingleCommunityWebsite,
@@ -69,7 +69,9 @@ const fonts = singleCommunityFonts();
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
 export const A1 = A.extend`
+  ${svgDraw({ color: colors.mainLinksColor || TEXT_DARK })}; !important;
   ${BasicLink};
+  color: ${colors.white || ''}; !important;
 
   letter-spacing: 0 !important;
 
@@ -89,7 +91,7 @@ export const A1 = A.extend`
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
           font-weight: bold;
-          color: ${colors.mainLinks || TEXT_DARK} !important;
+          color: ${colors.mainLinksColor || TEXT_DARK} !important;
           .fill {
             fill: ${customColor};
           }
@@ -168,6 +170,7 @@ const MainLinks = ({
   toggleEditDocumentation,
   pinnedItemMenu,
 }) => {
+  const { t } = useTranslation();
   const { pathname } = window.location;
   let route = pathname.split('/').filter((x) => x)[0];
 
@@ -187,8 +190,8 @@ const MainLinks = ({
   const hasCommunityOrProtocolAdminRole =
     singleCommId &&
     (hasGlobalModeratorRole() ||
-      hasCommunityAdminRole(null, singleCommId) ||
-      isProtocolAdmin);
+      hasProtocolAdminRole() ||
+      hasCommunityAdminRole(null, singleCommId));
 
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
 
@@ -203,7 +206,8 @@ const MainLinks = ({
       {pinnedItemMenu.id !== '' && (
         <div
           css={{
-            background: '#A5BCFF',
+            background: colors.pinnedPostBackground || '#A5BCFF',
+            // background: 'rgb(123 63 228 / 30%)',
             borderRadius: '0px 0px 20px 20px',
           }}
         >
@@ -242,7 +246,10 @@ const MainLinks = ({
                 >
                   <PinIcon
                     stroke="#FFF"
-                    css={{ fill: '#A5BCFF', marginLeft: '10px' }}
+                    css={{
+                      fill: colors.white || '#A5BCFF',
+                      marginLeft: '10px',
+                    }}
                   />
                 </span>
               </A1>
@@ -269,81 +276,69 @@ const MainLinks = ({
               ...styles.menuItem,
             }}
           >
-            COMMUNITY
+            {t('common.communityLabel')}
           </div>
         )}
 
         {isBloggerMode && (
           <A1 to={routes.detailsHomePage()} name="home" route={route}>
             <IconLg className="mr-2" icon={homeIcon} />
-            <FormattedMessage id={messages.home.id} />
+            {t('common.home')}
           </A1>
         )}
 
         <A1 to={routes.feed()} name="feed" route={route}>
           <IconLg className="mr-2" icon={myFeedIcon} />
-          <FormattedMessage
-            id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
-          />
+          {t(`common.${profile && !singleCommId ? 'myFeed' : 'feed'}`)}
         </A1>
 
         <A1 to={routes.questions()} name="discussions" route={route}>
           <IconLg className="mr-2" icon={generalIcon} />
-          <FormattedMessage {...messages.discussions} />
+          {t('common.discussions')}
         </A1>
 
         <A1 to={routes.expertPosts()} name="experts" route={route}>
           <IconLg className="mr-2" icon={expertIcon} />
-          <FormattedMessage {...messages.expertPosts} />
+          {t('common.expertPosts')}
         </A1>
 
         <A1 to={routes.tutorials()} name="tutorials" route={route}>
           <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.tutorials} />
+          {t('common.tutorials')}
         </A1>
 
         {!singleCommId && (
           <A1 to={routes.communities()} name="communities" route={route}>
             <IconLg className="mr-2" icon={communitiesIcon} />
-            <FormattedMessage {...messages.communities} />
+            {t('common.communities')}
           </A1>
         )}
 
         {Boolean(singleCommId) && (
-          <A1
-            to={
-              !singleCommId ? routes.tags() : routes.communityTags(singleCommId)
-            }
-            name="tags"
-            route={route}
-          >
+          <A1 to={routes.communityTags(singleCommId)} name="tags" route={route}>
             <IconLg className="mr-2" icon={tagsIcon} />
-            <FormattedMessage {...messages.tags} />
+            {t('common.tags')}
           </A1>
         )}
 
-        {(hasGlobalModeratorRole() ||
-          isModeratorModeSingleCommunity ||
-          isProtocolAdmin) && (
+        {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
-            <FormattedMessage
-              {...messages[isBloggerMode ? 'followers' : 'users']}
-            />
+            {t(`common.${isBloggerMode ? 'followers' : 'users'}`)}
           </A1>
         )}
 
         {!singleCommId && (
           <A1 to={routes.faq()} name="faq" route={route}>
             <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-            <FormattedMessage id={messages.faq.id} />
+            {t('common.faq')}
           </A1>
         )}
 
         {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
           <A1 to={routes.administration()} name="administration" route={route}>
             <Administration className={'mr-2'} />
-            <FormattedMessage id={messages.administration.id} />
+            {t('common.administration')}
           </A1>
         )}
       </div>

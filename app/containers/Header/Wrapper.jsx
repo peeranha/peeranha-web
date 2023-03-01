@@ -1,5 +1,8 @@
+import { singleCommunityColors } from 'utils/communityManagement';
 import styled from 'styled-components';
 import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
+
+const colors = singleCommunityColors();
 
 import {
   HEADER_HEIGHT,
@@ -78,7 +81,7 @@ export const SingleModeSubHeader = styled.div`
 export const MainSubHeader = styled.div`
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 4px 0 ${BORDER_SECONDARY};
+  box-shadow: 0 2px 4px 0 ${colors.headerShadow || BORDER_SECONDARY};
   flex: 2;
   background: ${(props) =>
     props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : ''};

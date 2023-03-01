@@ -1,15 +1,18 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
-// import Dropdown from '../../components/Dropdown'; ToDo: switch feed page
 
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-
+import {
+  BORDER_PRIMARY,
+  ICON_TRASPARENT_BLUE,
+  TEXT_PRIMARY,
+} from 'style-constants';
+import TagFilter from 'components/TagFilter';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
@@ -28,6 +31,7 @@ import createdHistory from 'createdHistory';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
+  getTagsNameByIds,
 } from 'utils/communityManagement';
 import {
   getPermissions,
@@ -37,12 +41,7 @@ import {
 } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
-import {
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
-  TEXT_PRIMARY,
-} from 'style-constants';
-import QuestionFilter from './QuestionFilter';
+import { getSearchParams } from 'utils/url';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
@@ -50,15 +49,54 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
 
-const PageContentHeader = styled.div`
+const PageContentHeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  @media only screen and (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
   @media only screen and (max-width: 576px) {
-    justify-content: space-between;
-    width: 100%;
+    grid-template-columns: 1fr;
   }
 `;
 
-const PageContentHeaderRightPanel = styled.div`
-  flex-shrink: 0;
+const PageContentHeader = styled.div`
+  padding: 20px 0px;
+  @media only screen and (max-width: 768px) {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding: 10px 0px;
+  }
+  @media only screen and (max-width: 576px) {
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px;
+  }
+`;
+
+const EditCommunityButton = styled.div`
+  position: absolute;
+  text-align: right;
+  padding: 8px 0px;
+  right: 0px;
+  @media only screen and (max-width: 768px) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    right: 0;
+    margin-top: 14px;
+    button {
+      flex: auto;
+      text-align: end;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    display: block;
+    padding: 0px;
+    text-align: left;
+  }
 `;
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
@@ -77,7 +115,6 @@ const StyledCustomIconButtonContainer = styled.div`
 `;
 
 export const Header = ({
-  intl,
   communityIdFilter,
   communities,
   followedCommunities,
@@ -86,16 +123,32 @@ export const Header = ({
   topQuestions,
   topQuestionsInfoLoaded,
   questionFilterFromCookies,
-  isExpert,
   postsTypes,
   profile,
 }) => {
+  const { t } = useTranslation();
+  const [tags, setTags] = useState([]);
+  const [tagsNames, setTagsNames] = useState([]);
   const isFeed = parentPage === routes.feed();
   const communityEditingAllowed = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
       hasProtocolAdminRole(getPermissions(profile)) ||
       hasCommunityAdminRole(getPermissions(profile), single)
     : false;
+
+  useEffect(() => {
+    async function getTagsName() {
+      if (single) {
+        const searchParamsTags = getSearchParams(
+          createdHistory.location.search,
+        );
+        setTags(searchParamsTags);
+        setTagsNames(await getTagsNameByIds(searchParamsTags));
+      }
+    }
+    window.scrollTo(0, 0);
+    getTagsName();
+  }, [createdHistory.location.search]);
 
   let defaultAvatar = null;
   let defaultLabel = null;
@@ -105,28 +158,26 @@ export const Header = ({
     switch (postsTypes[0]) {
       case POST_TYPE.generalPost:
         defaultAvatar = generalIcon;
-        defaultLabel = intl.formatMessage({ id: messages.discussions.id });
+        defaultLabel = t('common.discussions');
         defaultAvatarWidth = '24';
         route = 'questions';
         break;
       case POST_TYPE.expertPost:
         defaultAvatar = expertIcon;
-        defaultLabel = intl.formatMessage({ id: messages.expertPosts.id });
+        defaultLabel = t('common.expertPosts');
         defaultAvatarWidth = '28';
         route = 'expertPosts';
         break;
       case POST_TYPE.tutorial:
         defaultAvatar = tutorialIcon;
-        defaultLabel = intl.formatMessage({ id: messages.tutorials.id });
+        defaultLabel = t('common.tutorials');
         defaultAvatarWidth = '28';
         route = 'tutorials';
         break;
     }
   } else {
     defaultAvatar = myFeedIcon;
-    defaultLabel = intl.formatMessage({
-      id: messages[profile && !single ? 'myFeed' : 'feed'].id,
-    });
+    defaultLabel = t(`common.${profile && !single ? 'myFeed' : 'feed'}`);
     defaultAvatarWidth = '38';
   }
 
@@ -166,54 +217,65 @@ export const Header = ({
   const routeToEditCommunity = () => {
     createdHistory.push(routes.communitiesEdit(single));
   };
+
   return (
     <Wrapper
       single={single}
-      className="d-flex mb-to-sm-0 mb-from-sm-3"
+      isQuestionsPage={true}
+      className="mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
-      <PageContentHeader className="d-flex align-items-center">
-        <CommunitySelector
-          isArrowed
-          Button={Button}
-          toggle={(choice) => {
-            createdHistory.push(routes[route](choice, false, false));
-            setTypeFilter(choice);
-          }}
-          showOnlyFollowed={isFeed}
-          selectedCommunityId={communityIdFilter}
-          communities={communities}
-        />
-        {/* PEER-451: Hide Subscribe button from single community mode
-        {!!displaySubscribeButton && (
-          <PageContentHeaderRightPanel
-            className={`right-panel m-0 ml-${single ? 3 : 4}`}
-          >
-            <FollowCommunityButton
-              communityIdFilter={single || communityIdFilter}
-              followedCommunities={followedCommunities}
-            />
-          </PageContentHeaderRightPanel>
-        )} */}
-      </PageContentHeader>
-      <QuestionFilter
-        display={displayQuestionFilter}
-        questionFilterFromCookies={questionFilterFromCookies}
-      />
-      {communityEditingAllowed && (
-        <button onClick={routeToEditCommunity} className="df aic mt12">
-          <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
-          <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
-            <FormattedMessage id={messages.editCommunity.id} />
-          </Span>
-        </button>
-      )}
+      <PageContentHeaderContainer>
+        <PageContentHeader className="d-flex align-items-center">
+          <CommunitySelector
+            isArrowed
+            Button={Button}
+            toggle={(choice) => {
+              createdHistory.push(routes[route](choice, false, false));
+              setTypeFilter(choice);
+            }}
+            showOnlyFollowed={isFeed}
+            selectedCommunityId={communityIdFilter}
+            communities={communities}
+          />
+          {/* PEER-451: Hide Subscribe button from single community mode
+          {!!displaySubscribeButton && (
+            <PageContentHeaderRightPanel
+              className={`right-panel m-0 ml-${single ? 3 : 4}`}
+            >
+              <FollowCommunityButton
+                communityIdFilter={single || communityIdFilter}
+                followedCommunities={followedCommunities}
+              />
+            </PageContentHeaderRightPanel>
+          )} */}
+        </PageContentHeader>
+        {communityEditingAllowed && (
+          <EditCommunityButton>
+            <button onClick={routeToEditCommunity} className="aic">
+              <IconMd
+                icon={pencilIcon}
+                color={colors.btnColor || TEXT_PRIMARY}
+              />
+              <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+                {t('common.editCommunity')}
+              </Span>
+            </button>
+          </EditCommunityButton>
+        )}
+        {Boolean(tags.length) && (
+          <TagFilter
+            tags={tags}
+            tagsNames={tagsNames}
+            communityId={single}
+          ></TagFilter>
+        )}
+      </PageContentHeaderContainer>
     </Wrapper>
   );
 };
 
 Header.propTypes = {
-  intl: intlShape.isRequired,
   communityIdFilter: PropTypes.number,
   communities: PropTypes.array,
   followedCommunities: PropTypes.array,
@@ -223,14 +285,12 @@ Header.propTypes = {
   topQuestions: PropTypes.array,
   profile: PropTypes.object,
 };
-//
-export default injectIntl(
-  React.memo(
-    connect((state) => ({
-      topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
-      topQuestions: selectQuestions(null, null, null, true)(state),
-      communities: selectCommunities()(state),
-      profile: makeSelectProfileInfo()(state),
-    }))(Header),
-  ),
+
+export default React.memo(
+  connect((state) => ({
+    topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
+    topQuestions: selectQuestions(null, null, null, true)(state),
+    communities: selectCommunities()(state),
+    profile: makeSelectProfileInfo()(state),
+  }))(Header),
 );

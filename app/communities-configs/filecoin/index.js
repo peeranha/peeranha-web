@@ -1,18 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
-import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
-import FileiconLogo from './images/filecoin-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!images/favicon-filecoin.ico';
-
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-
 const domainName = 'https://filecoin.io/';
-
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'filecoin_style',
@@ -23,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fontSet,
     },
     header: {
       background: '#FFFFFF',
@@ -195,37 +181,14 @@ export const FilecoinStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   poweredByPeeranha: true,
-  // withoutAdditionalLinks: true,
-  signUpPageLogo: FileiconLogo,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/filecoin/filecoin-logo-last.png',
   logoText: 'Filecoin',
   logoColor: '#000000',
-  favicon,
-  // // mobileSubHeader: (
-  // //   <CustomMobileSubHeader config={customSubHeaderConfig} logo={FileiconLogo} />
-  // // ),
-  // // customSubHeader: <CustomSubHeader config={customSubHeaderConfig} />,
-  // // withoutFAQ: true,
-  // projectBorderRadius: '25px',
-  // fonts: {
-  //   h3LetterSpacing: '1px',
-  //   tagsLetterSpacing: '1px',
-  //   questionTitleLetterSpacing: '1px',
-  //   h3: fontSet,
-  //   main: fontSet,
-  //   questionItemTitle: fontSet,
-  //   questionTitleFont: fontSet,
-  // },
+  favicon:
+    'https://images.peeranha.io/communities/filecoin/favicon-filecoin.ico',
   colors: {
-    // blue: '#0090FF',
-    // blueRGB: '0,144,255',
-    // blue2: '#FFFFFF',
-    // secondarySpecial: 'rgba(12,60,89,0.16)', // wrapper mainSubheader shadow and lines
-    // black: '#000000', // text
-    // warningLight: '#000000',
-    // darkBlue: 'rgba(0,0,0,.6)', // menu line color ...
     mainBackground: '#F3F3F3',
-    // mainLinks: '#000000', // menu selected item text
-    // attentionColor: '#0090FF',
     linkColor: '#0090FF', // Q&A color
     linkColorTransparent: 'rgba(0, 144, 255, 0.4)', // link color transparent
     headerPrimary: '#0090FF',
@@ -237,36 +200,9 @@ export const FilecoinStyles = {
     votingIconColor: '#0090FF',
     linkColorSecondary: '#0090FF',
     walletButton: '#0090FF',
-    // purple: 'rgba(0,0,0,.6)',
     btnColor: '#000000',
     tagColor: '#0090FF',
-    // premium: '#2FA3F1',
-    // premiumLight: '#D8EBF8',
-    // premiumRGB: '47, 163, 241',
   },
-  // fontFace: css`
-  //   @font-face {
-  //     font-family: 'Roboto-Regular';
-  //     src: url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //       url(${RobotoRegularWOFF}) format('woff'),
-  //       url(${RobotoRegularTTF}) format('truetype');
-  //     font-style: normal;
-  //   }
-  // `,
-  // bountyBgColor: '#000000',
-  // coinsIconStyles: css`
-  //   ellipse {
-  //     stroke: rgba(0, 0, 0, 0.6);
-  //     fill: #cccccc;
-  //   }
-  // `,
-  // boostWalletBtnStyles: css`
-  //   g {
-  //     fill: #000000;
-  //   }
-  // `,
   headerHeight: 80,
-  // isDropdownMenuArrow: false,
-  // customSubHeaderConfig,
   domainName,
 };

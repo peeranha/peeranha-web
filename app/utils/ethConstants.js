@@ -5,7 +5,6 @@ export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
 // Transaction names
-export const REGISTER_ACC = 'createUser';
 export const UPDATE_ACC = 'updateUser';
 export const CREATE_COMMUNITY = 'createCommunity';
 export const EDIT_COMMUNITY = 'updateCommunity';
@@ -117,7 +116,6 @@ const reply = `
 
 const post = `
     id
-    tags
     ipfsHash
     postType
     author {
@@ -149,6 +147,10 @@ const post = `
       where: { isDeleted: false },
     ) {
       ${comment}
+    }
+    tags {
+      id
+      name
     }
 `;
 
@@ -372,6 +374,20 @@ export const tagsQuery = `
         }
       }`;
 
+export const tagsByIdsQuery = `
+      query(
+        $ids: [String],
+      ) {
+        tags(
+         where: { id_in: $ids },
+        ) {
+           id
+           name
+           description
+           postCount
+        }
+      }`;
+
 export const postsQuery = `
       query (
         $first: Int,
@@ -402,6 +418,25 @@ export const postsByCommQuery = `
           first: $first,
           skip: $skip,
           where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: ""},
+        ) {
+           ${post}
+        }
+      }`;
+
+export const postsByCommAndTagsQuery = `
+      query (
+        $first: Int,
+        $skip: Int,
+        $communityIds: [Int],
+        $postTypes: [Int],
+        $tags: [String],
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          first: $first,
+          skip: $skip,
+          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: "", tags_contains: $tags},
         ) {
            ${post}
         }
@@ -461,7 +496,10 @@ export const postsForSearchQuery = `
     ) {
         id
         ipfsHash
-        tags
+        tags {
+          id
+          name
+        }
         postType
         author {
           ${user}
@@ -505,6 +543,7 @@ export const allAchievementsQuery = `
           maxCount
           achievementURI
           achievementsType
+          lowerValue
           name
           description
           image

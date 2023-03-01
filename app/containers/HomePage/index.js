@@ -1,12 +1,7 @@
-/*
- * Landing
- *
- */
-
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 
@@ -48,15 +43,12 @@ import {
   ANIMATE_TEXT,
   SECOND_SCREEN,
   THIRD_SCREEN,
-  EMAIL_FIELD,
 } from './constants';
 
 import { sendMessage } from './actions';
 
-import messages from './messages';
-
 const imagesAnimation = () => {
-  window.$(window).on('DOMMouseScroll mousewheel', event => {
+  window.$(window).on('DOMMouseScroll mousewheel', (event) => {
     const { scrollY } = event.currentTarget;
     const secondScreenPos = window.$(`#${SECOND_SCREEN}`).position().top;
     const thirdScreenPos = window.$(`#${THIRD_SCREEN}`).position().top;
@@ -64,7 +56,7 @@ const imagesAnimation = () => {
     const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
 
     if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
-      animatedImagesArray.each(function() {
+      animatedImagesArray.each(function () {
         const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
         const translatorMax = 30;
         const step = translatorMax * 0.15;
@@ -96,8 +88,9 @@ const imagesAnimation = () => {
               .parent()
               .find(`.${ANIMATE_TEXT}`)
               .css({
-                transform: `translate(0px, ${-direction * step -
-                  translateY}px)`,
+                transform: `translate(0px, ${
+                  -direction * step - translateY
+                }px)`,
               });
           }
         }
@@ -107,7 +100,7 @@ const imagesAnimation = () => {
 };
 
 const headerAnimation = () => {
-  window.$(window).on('scroll', event => {
+  window.$(window).on('scroll', (event) => {
     const { scrollY } = event.currentTarget;
     const { innerHeight } = window;
 
@@ -127,13 +120,13 @@ const parallaxAnimation = () => {
   let x = 0;
   let y = 0;
 
-  window.$(window).on('mousemove', event => {
+  window.$(window).on('mousemove', (event) => {
     x = event.pageX;
     y = event.pageY;
   });
 
   window.requestAnimationFrame(function animation() {
-    patterns.each(function() {
+    patterns.each(function () {
       const modifier = 50;
 
       window.$(this).css({
@@ -153,7 +146,7 @@ export const HomePage = ({
   loginWithWalletDispatch,
   account,
 }) => {
-  const translations = translationMessages[locale];
+  const { t } = useTranslation();
 
   useEffect(() => {
     imagesAnimation();
@@ -164,25 +157,23 @@ export const HomePage = ({
   return (
     <div id={LANDING_ID}>
       <Seo
-        title={translations[messages.title.id]}
-        description={translations[messages.description.id]}
+        title={t('about.title')}
+        description={t('about.description')}
         language={locale}
       />
 
       <Introduction
         account={account}
-        translations={translations}
         location={location}
         showLoginModal={() => loginWithWalletDispatch({ metaMask: true })}
       />
 
       <VideoSection />
-      <About translations={translations} />
+      <About />
 
       <Partners />
-      <Rewards translations={translations} />
+      <Rewards />
       <FeedbackForm
-        translations={translations}
         sendMessage={sendMessageDispatch}
         sendMessageLoading={sendMessageLoading}
       />
@@ -214,7 +205,7 @@ const withConnect = connect(
       VALUE_OF_TOKEN,
     ]),
   }),
-  dispatch => ({
+  (dispatch) => ({
     sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
   }),
@@ -223,8 +214,4 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'homepage', reducer });
 const withSaga = injectSaga({ key: 'homepage', saga });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(HomePage);
+export default compose(withReducer, withSaga, withConnect)(HomePage);

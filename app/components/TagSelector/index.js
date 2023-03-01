@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_PRIMARY, BORDER_PRIMARY, BORDER_RADIUS_S } from 'style-constants';
 
@@ -67,6 +68,7 @@ export const TagSelector = ({
   splitInHalf,
   options = [],
 }) => {
+  const { t } = useTranslation();
   const [isOpen, toggleOpen] = useState(false);
 
   const [value, filteredOptions] = useMemo(() => {
@@ -138,6 +140,7 @@ export const TagSelector = ({
               menuIsOpen
               isWrapped
               disabledScrollbar
+              placeholder={t('common.selectCommunity')}
             />
           </ScrollDropdown>
         </Dropdown>
