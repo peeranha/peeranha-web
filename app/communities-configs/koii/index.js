@@ -178,13 +178,15 @@ export const customSubHeaderConfig = {
 };
 
 export const KoiiStyles = {
+  name: 'koii',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/koii/koii-logo.svg',
-  favicon: 'https://images.peeranha.io/communities/koii/favicon-koii.svg',
   colors: {
+    appWindowsColor: '#ffc40d',
+    appSafarieColor: '#000767',
     mainSubHeaderBgColor: 'rgb(236,251,250)',
     mainBackground: 'rgb(245 245 245)',
     linkColor: 'rgb(8,121,128)',

@@ -25,7 +25,12 @@ import {
   CONTRACT_COMMUNITY,
   CONTRACT_USER,
 } from './ethConstants';
-import { getCommunities, getCommunityById, getTags } from './theGraph';
+import {
+  getCommunities,
+  getCommunityById,
+  getTags,
+  getTagsByIds,
+} from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
@@ -40,6 +45,9 @@ export const singleCommunityColors = () =>
 
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
+
+export const singleCommunityDocumentation = () =>
+  _get(singleCommunityStyles(), 'documentationColors', {});
 
 export const singleCommunityDocumentationPosition = () =>
   _get(singleCommunityStyles(), 'documentationPosition', 'bottom');
@@ -305,6 +313,13 @@ export const getCommunityTags = async (id) => {
   });
 
   return formattedTags(tags);
+};
+
+export const getTagsNameByIds = async (ids) => {
+  const tags = await getTagsByIds(ids);
+  let TagsNameByIds = {};
+  tags.forEach((tag) => (TagsNameByIds[tag.id] = tag.name));
+  return TagsNameByIds;
 };
 
 export const getCommunityFromContract = async (ethereumService, id) => {

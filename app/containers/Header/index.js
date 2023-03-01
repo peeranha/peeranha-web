@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
@@ -14,7 +13,7 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
-import { showLeftMenu } from 'containers/AppWrapper/actions';
+import { showLeftMenu, changeLocale } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
@@ -40,8 +39,13 @@ export class Header extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    $(`#${HEADER_ID}`).removeClass('sticky');
-    $(`#${LEFT_MENU_ID}`).removeClass('sticky');
+    const header = document.querySelector(`#${HEADER_ID}`);
+    const leftMenu = document.querySelector(`#${LEFT_MENU_ID}`);
+
+    if (header && leftMenu) {
+      header.classList.remove('sticky');
+      leftMenu.classList.remove('sticky');
+    }
   }
 
   animate = /* istanbul ignore next */ () => {
@@ -57,11 +61,13 @@ export class Header extends React.PureComponent {
 
         if (scrollY > innerHeight) {
           if (st > lastScrollTop) {
-            $(`#${HEADER_ID}`).addClass('sticky');
-            $(`#${LEFT_MENU_ID}`).addClass('sticky');
+            document.querySelector(`#${HEADER_ID}`).classList.add('sticky');
+            document.querySelector(`#${LEFT_MENU_ID}`).classList.add('sticky');
           } else {
-            $(`#${HEADER_ID}`).removeClass('sticky');
-            $(`#${LEFT_MENU_ID}`).removeClass('sticky');
+            document.querySelector(`#${HEADER_ID}`).classList.remove('sticky');
+            document
+              .querySelector(`#${LEFT_MENU_ID}`)
+              .classList.remove('sticky');
           }
         }
 
@@ -86,6 +92,7 @@ export class Header extends React.PureComponent {
       locale,
       isEditDocumentation,
       toggleEditDocumentationDispatch,
+      changeLocale,
     } = this.props;
 
     if (isMenuVisible) return null;
@@ -109,6 +116,7 @@ export class Header extends React.PureComponent {
         locale={locale}
         isEditDocumentation={isEditDocumentation}
         toggleEditDocumentation={toggleEditDocumentationDispatch}
+        changeLocale={changeLocale}
       />
     );
   }
@@ -153,6 +161,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       toggleEditDocumentation,
       dispatch,
     ),
+    changeLocale: bindActionCreators(changeLocale, dispatch),
   };
 }
 
