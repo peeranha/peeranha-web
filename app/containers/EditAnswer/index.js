@@ -51,10 +51,10 @@ const EditAnswer = ({
   const sendAnswer = useCallback(
     (values) =>
       editAnswerDispatch(
-        values.get(TEXT_EDITOR_ANSWER_FORM),
+        values?.get(TEXT_EDITOR_ANSWER_FORM),
         +questionid,
         +answerid,
-        values.get(ANSWER_TYPE_FORM),
+        values?.get(ANSWER_TYPE_FORM),
         questionTitle,
       ),
     [questionid, answerid, questionTitle],
