@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
 import { bindActionCreators } from 'redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
-import commonMessages from 'common-messages';
 import { CURRENCIES, WALLETS } from 'wallet-config';
 import { scrollToErrorField } from 'utils/animation';
 import { getCookie } from 'utils/cookie';
@@ -32,7 +30,6 @@ import {
   makeSelectProfileInfo,
   makeSelectLoginData,
 } from '../AccountProvider/selectors';
-import messages from '../Profile/messages';
 
 import {
   EOS_SEND_TO_ACCOUNT_FIELD,
@@ -59,7 +56,6 @@ import {
 
 import CurrencyField from './CurrencyField';
 
-/* eslint indent: 0 */
 const SendTipsForm = ({
   handleSubmit,
   change,
@@ -89,6 +85,7 @@ const SendTipsForm = ({
   tipsPreselect,
   formValues,
 }) => {
+  const { t } = useTranslation();
   const isPeeranhaWalletSelected = walletValue?.name === WALLETS.PEERANHA.name;
   const isKeycatWalletSelected = walletValue?.name === WALLETS.KEYCAT.name;
   const isScatterWalletSelected =
@@ -96,37 +93,34 @@ const SendTipsForm = ({
     walletValue?.name === WALLETS.WOMBAT.name;
 
   // set user account to EOS_SEND_FROM_ACCOUNT_FIELD
-  useEffect(
-    () => {
-      // user logged with email
-      if (isPeeranhaWalletSelected) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
-      }
+  useEffect(() => {
+    // user logged with email
+    if (isPeeranhaWalletSelected) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
+    }
 
-      // set scatter account
-      if (isScatterWalletSelected && withScatter && !selectedScatterAccount) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
-      }
-      if (
-        isScatterWalletSelected &&
-        ((withScatter && selectedScatterAccount) || !withScatter)
-      ) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedScatterAccount);
-      }
+    // set scatter account
+    if (isScatterWalletSelected && withScatter && !selectedScatterAccount) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
+    }
+    if (
+      isScatterWalletSelected &&
+      ((withScatter && selectedScatterAccount) || !withScatter)
+    ) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedScatterAccount);
+    }
 
-      // set keycat account
-      if (isKeycatWalletSelected && withKeycat && !selectedKeycatAccount) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
-      }
-      if (
-        isKeycatWalletSelected &&
-        ((withKeycat && selectedKeycatAccount) || !withKeycat)
-      ) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedKeycatAccount);
-      }
-    },
-    [walletValue, selectedScatterAccount, selectedKeycatAccount],
-  );
+    // set keycat account
+    if (isKeycatWalletSelected && withKeycat && !selectedKeycatAccount) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
+    }
+    if (
+      isKeycatWalletSelected &&
+      ((withKeycat && selectedKeycatAccount) || !withKeycat)
+    ) {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedKeycatAccount);
+    }
+  }, [walletValue, selectedScatterAccount, selectedKeycatAccount]);
 
   useEffect(
     () => () => {
@@ -136,10 +130,10 @@ const SendTipsForm = ({
     [],
   );
 
-  const changeCurrency = currency => {
+  const changeCurrency = (currency) => {
     change(CURRENCY_FIELD, currency);
 
-    const newCurrencyWalletsNames = currency.wallets.map(wal => wal.name);
+    const newCurrencyWalletsNames = currency.wallets.map((wal) => wal.name);
     if (!newCurrencyWalletsNames.includes(walletValue.name)) {
       change(WALLET_FIELD, wallets[0]);
     }
@@ -150,7 +144,7 @@ const SendTipsForm = ({
     change(AMOUNT_FIELD, amount || '');
   };
 
-  const changeWallet = wallet => {
+  const changeWallet = (wallet) => {
     if (!withScatter && !withKeycat) {
       change(WALLET_FIELD, wallet);
     }
@@ -161,14 +155,12 @@ const SendTipsForm = ({
 
   return (
     <div>
-      <H4 className="text-center pb-3">
-        <FormattedMessage {...commonMessages.sendTip} />
-      </H4>
+      <H4 className="text-center pb-3">{t('common.sendTip')}</H4>
 
       <form
         onSubmit={handleSubmit(
           loginWithFacebook &&
-          _isEqual(formValues[WALLET_FIELD], WALLETS.PEERANHA)
+            _isEqual(formValues[WALLET_FIELD], WALLETS.PEERANHA)
             ? sendFbVerificationEmail
             : sendTips,
         )}
@@ -177,7 +169,7 @@ const SendTipsForm = ({
           name={CURRENCY_FIELD}
           onChange={changeCurrency}
           disabled={disabled}
-          label={translationMessages[locale][commonMessages.chooseCrypto.id]}
+          label={t('common.chooseCrypto')}
           component={CurrencyField}
           options={currencies}
           validate={[required]}
@@ -186,7 +178,7 @@ const SendTipsForm = ({
         <Field
           name={EOS_SEND_TO_ACCOUNT_FIELD}
           disabled={disabled || !!account}
-          label={translationMessages[locale][messages.sendToAccount.id]}
+          label={t('profile.sendToAccount')}
           component={TextInputField}
           validate={[required]}
           warn={[required]}
@@ -196,7 +188,7 @@ const SendTipsForm = ({
             name={WALLET_FIELD}
             onChange={changeWallet}
             disabled={disabled}
-            label={translationMessages[locale][commonMessages.chooseWallet.id]}
+            label={t('common.chooseWallet')}
             options={wallets}
             component={CurrencyField}
             validate={[required]}
@@ -224,7 +216,7 @@ const SendTipsForm = ({
         <Field
           name={AMOUNT_FIELD}
           disabled={disabled}
-          label={translationMessages[locale][commonMessages.amount.id]}
+          label={t('common.amount')}
           component={NumberInputField}
           dotRestriction={_get(currencyValue, 'precision', 6)}
           validate={
@@ -238,20 +230,19 @@ const SendTipsForm = ({
               : [requiredAndNotZero, valueHasToBeLessThan]
           }
         />
-        {isPeer &&
-          !loginWithFacebook && (
-            <Field
-              name={PASSWORD_FIELD}
-              disabled={disabled}
-              label={translationMessages[locale][commonMessages.password.id]}
-              component={TextInputField}
-              validate={required}
-              warn={required}
-              type="password"
-            />
-          )}
+        {isPeer && !loginWithFacebook && (
+          <Field
+            name={PASSWORD_FIELD}
+            disabled={disabled}
+            label={t('common.password')}
+            component={TextInputField}
+            validate={required}
+            warn={required}
+            type="password"
+          />
+        )}
         <Button disabled={disabled} className="w-100 mb-3">
-          <FormattedMessage {...commonMessages.submit} />
+          {t('common.submit')}
         </Button>
       </form>
     </div>
@@ -291,7 +282,7 @@ export const formName = 'SendTipsForm';
 
 let FormClone = reduxForm({
   form: formName,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(SendTipsForm);
 
 const formSelector = formValueSelector(formName);
@@ -335,11 +326,11 @@ FormClone = connect(
       const walletsToFilter = isMobileDevice
         ? mobileWallets
         : currencyValue.wallets.filter(
-            wallet => wallet.name !== WALLETS.WOMBAT.name,
+            (wallet) => wallet.name !== WALLETS.WOMBAT.name,
           );
 
       wallets = walletsToFilter.filter(
-        wallet =>
+        (wallet) =>
           !(
             wallet.name === WALLETS.PEERANHA.name &&
             (!profile || withScatter || withKeycat)
@@ -351,11 +342,11 @@ FormClone = connect(
       // there is saved data for send tips
       const isPreselectedInWalletsArray =
         tipsPreselect &&
-        wallets.find(wallet => wallet.name === tipsPreselect[WALLET_FIELD]);
+        wallets.find((wallet) => wallet.name === tipsPreselect[WALLET_FIELD]);
 
       if (isPreselectedInWalletsArray)
         return Object.values(WALLETS).find(
-          wallet => wallet.name === tipsPreselect[WALLET_FIELD],
+          (wallet) => wallet.name === tipsPreselect[WALLET_FIELD],
         );
 
       // there is no saved data for send tips
@@ -397,7 +388,7 @@ FormClone = connect(
       sendFromAccountFieldValue,
       selectedScatterAccount: selectedScatterAccountSelector()(state),
       selectedKeycatAccount: selectedKeycatAccountSelector()(state),
-      currencies: Object.keys(cryptoAccounts).map(name => CURRENCIES[name]),
+      currencies: Object.keys(cryptoAccounts).map((name) => CURRENCIES[name]),
       selectedAccountProcessing: selectedAccountProcessingSelector()(state),
       enableReinitialize: true,
       initialValues,
@@ -405,7 +396,7 @@ FormClone = connect(
       formValues: _get(state.toJS(), ['form', formName, 'values'], {}),
     };
   },
-  dispatch => ({
+  (dispatch) => ({
     selectScatterAccountDispatch: bindActionCreators(
       selectScatterAccount,
       dispatch,

@@ -1,10 +1,9 @@
-/* eslint no-unused-expressions: 0 */
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
 
 import * as routes from 'routes-config';
@@ -13,9 +12,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { getCookie, setCookie } from 'utils/cookie';
+import { getCookie } from 'utils/cookie';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
-import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -40,17 +38,11 @@ import InfinityLoader from 'components/InfinityLoader';
 import TopCommunities from 'components/TopCommunities';
 import Seo from 'components/Seo';
 
-import {
-  getQuestions,
-  loadTopCommunityQuestions,
-  setCreatedFilter,
-  setTypeFilter,
-} from './actions';
+import { getQuestions, setCreatedFilter, setTypeFilter } from './actions';
 
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 import Content from './Content/Content';
 import Banner from './Banner';
@@ -58,7 +50,7 @@ import Header from './Header';
 import NotFound from '../ErrorPage';
 import ShowMoreButton from './Content/ShowMoreButton';
 
-import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
+import { QUESTION_FILTER } from './constants';
 
 const single = isSingleCommunityWebsite();
 
@@ -67,13 +59,11 @@ export const Questions = ({
   questionsList,
   questionsLoading,
   topQuestionsLoading,
-  promotedQuestions,
   isLastFetch,
   communities,
   followedCommunities,
   parentPage,
   communitiesLoading,
-  account,
   profile,
   match: { params, path },
   redirectToAskQuestionPageDispatch,
@@ -89,6 +79,7 @@ export const Questions = ({
   isLastTopQuestionLoaded,
   postsTypes,
 }) => {
+  const { t } = useTranslation();
   const isFeed = window.location.pathname === routes.feed(params.communityid);
   const isNotFollowedCommunities =
     isEmpty(followedCommunities) || followedCommunities[0] === 0;
@@ -204,8 +195,8 @@ export const Questions = ({
   return display ? (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('post.questions.title')}
+        description={t('post.questions.description')}
         language={locale}
       />
       <ScrollToTop />

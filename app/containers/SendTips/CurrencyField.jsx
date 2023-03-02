@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { translationMessages } from 'i18n';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { CURRENCIES, WALLETS } from 'wallet-config';
 import {
@@ -14,8 +13,6 @@ import {
 
 import { Wrapper } from 'components/FormFields/Wrapper';
 import Label from 'components/FormFields/Label';
-
-import messages from '../Profile/messages';
 
 const Option = styled.div`
   padding: 8px 14px;
@@ -35,10 +32,10 @@ const Option = styled.div`
   }
 
   border: 1px solid
-    ${x => (!x.isCurrentValue ? BORDER_SECONDARY : BORDER_PRIMARY)};
-  box-shadow: ${x =>
+    ${(x) => (!x.isCurrentValue ? BORDER_SECONDARY : BORDER_PRIMARY)};
+  box-shadow: ${(x) =>
     x.isCurrentValue ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
-  ${x => (x.disabled ? `opacity: 0.6` : ``)};
+  ${(x) => (x.disabled ? `opacity: 0.6` : ``)};
 `;
 
 const B = styled.button`
@@ -62,12 +59,13 @@ const CurrencyField = ({
   selectScatterAccount,
   selectKeycatAccount,
   isPeer,
-  locale,
   withKeycat,
   withScatter,
   isKeycatWalletSelected,
   isScatterWalletSelected,
 }) => {
+  const { t } = useTranslation();
+
   if (!options) return null;
 
   const value = input.value.toJS ? input.value.toJS() : input.value;
@@ -77,13 +75,13 @@ const CurrencyField = ({
       value.name === WALLETS.SCATTER_SQRL_WOMBAT.name ||
       value.name === WALLETS.WOMBAT.name
     ) {
-      selectScatterAccount();
+      selectScatterAccount(t);
     }
-    if (value.name === WALLETS.KEYCAT.name) selectKeycatAccount();
+    if (value.name === WALLETS.KEYCAT.name) selectKeycatAccount(t);
   };
 
   const isCurrency = Object.values(CURRENCIES)
-    .map(el => el.name)
+    .map((el) => el.name)
     .includes(value.name);
 
   return (
@@ -94,7 +92,7 @@ const CurrencyField = ({
       disabled={disabled}
       id={input.name}
     >
-      {options.map(option => (
+      {options.map((option) => (
         <Option
           key={option.name}
           onClick={() => input.onChange(option)}
@@ -104,8 +102,9 @@ const CurrencyField = ({
           {!Array.isArray(option.logo) ? (
             <>
               <img src={option.logo} alt="logo" />
-              {!option.doNotShowName &&
-                option.name && <span className="ml-2">{option.name}</span>}
+              {!option.doNotShowName && option.name && (
+                <span className="ml-2">{option.name}</span>
+              )}
             </>
           ) : (
             option.logo.map((logo, i) => (
@@ -127,20 +126,18 @@ const CurrencyField = ({
 
       {!isCurrency && (
         <div className="d-flex">
-          <LabelFitContent>
-            {translationMessages[locale]?.[messages.sendFromAccount.id]}
-          </LabelFitContent>
+          <LabelFitContent>{t('profile.sendFromAccount')}</LabelFitContent>
           {!isPeer &&
             !(withScatter && isScatterWalletSelected) &&
             !(withKeycat && isKeycatWalletSelected) && (
               <B onClick={selectAccount} type="button">
-                <FormattedMessage
-                  {...messages[
+                {t(
+                  `profile.${
                     sendFromAccountFieldValue
                       ? 'changeAccount'
                       : 'chooseAccount'
-                  ]}
-                />
+                  }`,
+                )}
               </B>
             )}
         </div>
@@ -156,7 +153,6 @@ CurrencyField.propTypes = {
   label: PropTypes.string,
   options: PropTypes.array,
   isPeer: PropTypes.bool,
-  locale: PropTypes.string,
   selectScatterAccount: PropTypes.func,
   selectKeycatAccount: PropTypes.func,
   sendFromAccountFieldValue: PropTypes.string,

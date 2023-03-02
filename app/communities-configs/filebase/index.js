@@ -1,15 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import FilebaseLogo from './images/filebaselogo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/filebase-p.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-
 const domainName = 'https://filebase.com/';
-
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'mintstatelabs_style',
@@ -20,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fontSet,
     },
     header: {
       background: '#FFFFFF',
@@ -181,32 +170,15 @@ export const FilebaseStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: FilebaseLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/filebase/filebaselogo.svg',
+  favicon: 'https://images.peeranha.io/communities/filebase/filebase-p.ico',
 
   colors: {
     mainSubHeaderBgColor: '#FFFFF',
     mainBackground: '#F9FAFB',
     linkColor: '#FFA500',
-    linkCookieColor: '#FFA500',
+    linkCookieColor: '#000',
     linkColorTransparent: '#FFA500',
     headerPrimary: '#FFA500',
     commentOption: '#111827',
@@ -230,6 +202,13 @@ export const FilebaseStyles = {
   cookieConsentPopupStyles: {
     background: '#FFA500',
     color: '#FFF',
+    borderColor: '#FFF',
+    button: {
+      ':hover': {
+        background: '#FFF',
+        color: '#FFA500',
+      },
+    },
   },
   headerHeight: 80,
   projectBorderRadius: '10px',

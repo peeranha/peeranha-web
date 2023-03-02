@@ -8,8 +8,7 @@ import Span from 'components/Span';
 import Wrapper from './Wrapper';
 import Dropdown, { MenuStyled } from 'components/Dropdown/AllowedClickInside';
 import { Select2 } from 'components/FormFields/SelectField';
-import { translationMessages } from '../../i18n';
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 
 const Div = styled.div`
@@ -48,6 +47,7 @@ export const SubArticleField: React.FC<SubArticleFormProps> = ({
   className,
   options,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   if (input) {
     input.value = input.value.toJS ? input.value.toJS() : input.value;
@@ -118,9 +118,7 @@ export const SubArticleField: React.FC<SubArticleFormProps> = ({
             autoFocus
             menuIsOpen
             isWrapped
-            placeholder={
-              translationMessages[locale][messages.selectCommunity.id]
-            }
+            placeholder={t('common.selectCommunity')}
           />
         </Wrapper>
       </Dropdown>

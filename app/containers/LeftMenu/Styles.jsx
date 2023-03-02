@@ -57,7 +57,7 @@ export const After = styled.div`
 `;
 
 export const ViewStyled = styled.nav`
-  position: ${(x) => (x.isMenuVisible ? 'relative' : 'fixed')};
+  position: relative;
   width: inherit;
 
   > div {
@@ -76,7 +76,7 @@ export const ViewStyled = styled.nav`
   }
 
   > div:not(:last-child) {
-    border-bottom: 1px solid ${BORDER_SECONDARY};
+    border-bottom: 1px solid ${colors.secondaryAdditional || BORDER_SECONDARY};
   }
 
   &.sticky {

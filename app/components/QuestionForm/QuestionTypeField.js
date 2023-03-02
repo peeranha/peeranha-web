@@ -1,23 +1,20 @@
-/* eslint indent: 0 */
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   singleCommunityStyles,
   singleCommunityColors,
 } from 'utils/communityManagement';
-import { italicFont } from 'global-styles';
-import messages from 'common-messages';
+import isEmpty from 'lodash/isEmpty';
 import { POST_TYPE } from './constants';
+import { showPopover } from 'utils/popover';
 
 import {
   BORDER_SECONDARY,
-  BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
   BORDER_RADIUS_M,
-  PEER_WARNING_COLOR,
 } from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
@@ -30,19 +27,23 @@ const customShadow = `rgba(${BORDER_PRIMARY_RGB}, 0.4)`;
 export const QUESTION_TYPES = {
   GENERAL: {
     value: POST_TYPE.generalPost,
-    label: 'general',
+    label: 'common.general',
+    isDisabled: false,
   },
   EXPERT: {
     value: POST_TYPE.expertPost,
-    label: 'expert',
+    label: 'common.expert',
+    isDisabled: false,
   },
   TUTORIAL: {
     value: POST_TYPE.tutorial,
-    label: 'tutorial',
+    label: 'common.tutorial',
+    isDisabled: false,
   },
   FAQ: {
     value: POST_TYPE.documentation,
     label: 'faq',
+    isDisabled: false,
   },
 };
 
@@ -57,41 +58,16 @@ const QuestionTypeContainer = styled.div`
   }
 `;
 
-const Warning = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 205px;
-  padding-top: 10px;
-  font-style: ${italicFont};
-  color: var(--color-gray-dark);
-  font-size: 14px;
-  line-height: 18px;
-
-  @media (max-width: 768px) {
-    padding-top: 0;
-    margin: -7px 0 0;
-  }
-`;
-
 const ButtonGroup = styled.div`
   ${Styles};
   padding: 0;
   display: flex;
+  padding: 0;
+  border: ${({ error }) => !error && 'none'};
 
   @media (max-width: 576px) {
     padding-left: 0 !important;
     padding-right: 0 !important;
-  }
-`;
-
-const Img = styled.img`
-  width: 10px;
-  height: 40px;
-  margin-right: 8px;
-
-  @media (max-width: 768px) {
-    display: none;
   }
 `;
 
@@ -103,7 +79,7 @@ const Button = B.extend`
   }
 
   &:last-child {
-    border-left: ${({ type, value }) => +type !== value && 'none'};
+    border-left: ${({ type, value }) => Number(type) !== value && 'none'};
     border-top-right-radius: ${BORDER_RADIUS_M};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
     border-radius: ${styles.buttonBorderRadius};
@@ -112,13 +88,16 @@ const Button = B.extend`
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
   border-color: ${({ type, value }) =>
-    +type === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
+    Number(type) === value &&
+    (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
   box-shadow: ${({ type, value }) =>
-    +type === value
+    Number(type) === value
       ? `0 0 0 3px ${colors.textColorShadow || customShadow}`
       : 'none'};
+  z-index: ${({ type, value }) => (Number(type) === value ? 1 : 0)};
   &:hover {
     box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
+    z-index: 1;
   }
 
   @media only screen and (max-width: 576px) {
@@ -138,18 +117,44 @@ const QuestionTypeField = ({
   insideOfSection,
   error,
   isCommunityModerator,
+  isHasRole,
+  postType,
+  postAnswers,
 }) => {
-  const [type, setType] = useState();
+  const { t } = useTranslation();
+  const [type, setType] = useState(postType);
 
-  function chooseQuestionType({ currentTarget }) {
-    const { value } = currentTarget;
+  useEffect(() => {
+    if (postType) {
+      input.onChange(postType);
+    }
+  }, []);
+
+  function chooseQuestionType(event) {
+    const { value, dataset } = event.currentTarget;
     event.preventDefault();
-    input.onChange(value);
-    setType(value);
+    if (!dataset.trigger) {
+      input.onChange(value);
+      setType(value);
+    }
   }
 
-  // Don't show FAQ post type;
+  function showMessage(e) {
+    e.preventDefault();
+    showPopover(
+      e.currentTarget.id,
+      isHasRole || isCommunityModerator
+        ? t('post.warningForAdmin')
+        : t('post.warningForUser'),
+    );
+  }
+  // Don't show FAQ post type unless user isn't community moderator
+  // const types = isCommunityModerator
+  //   ? Object.values(QUESTION_TYPES)
+  //   : Object.values(QUESTION_TYPES).slice(0, 3);
+
   const types = Object.values(QUESTION_TYPES).slice(0, 3);
+  types[2].isDisabled = !isEmpty(postAnswers);
 
   return (
     <QuestionTypeContainer>
@@ -163,16 +168,19 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {types.map((questionType) => (
+          {types.map((questionType, buttonId) => (
             <Button
+              id={buttonId}
               type={type}
               onClick={chooseQuestionType}
               value={questionType.value}
               currentValue={input.value}
               key={questionType.label}
               disabled={disabled}
+              onMouseOver={questionType.isDisabled && showMessage}
+              block={questionType.isDisabled}
             >
-              <FormattedMessage {...messages[questionType.label]} />
+              {t(questionType.label)}
             </Button>
           ))}
         </ButtonGroup>

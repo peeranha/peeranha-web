@@ -1,5 +1,8 @@
+import { singleCommunityColors } from 'utils/communityManagement';
 import styled from 'styled-components';
 import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
+
+const colors = singleCommunityColors();
 
 import {
   HEADER_HEIGHT,
@@ -10,8 +13,7 @@ import {
 export const Wrapper = styled.header`
   position: fixed;
   width: 100%;
-  height: ${x =>
-    x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT}px;
+  height: ${HEADER_HEIGHT}px;
   background: ${BG_LIGHT};
   z-index: 10;
   transform: translate(0px, 0px);
@@ -20,23 +22,14 @@ export const Wrapper = styled.header`
   transition: all 0.4s ease;
 
   &.sticky {
-    transform: translate(
-      0px,
-      -${x => (x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px
-    );
+    transform: translate(0px, -${HEADER_HEIGHT}px);
   }
 
   @media only screen and (max-width: 991px) {
-    height: ${x =>
-      x.transactionInitialised
-        ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT
-        : MOBILE_HEADER_HEIGHT}px;
+    height: ${MOBILE_HEADER_HEIGHT}px;
 
     &.sticky {
-      transform: translate(
-        0px,
-        -${x => (x.isTransactionInPending ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT : MOBILE_HEADER_HEIGHT)}px
-      );
+      transform: translate(0px, -${MOBILE_HEADER_HEIGHT}px);
     }
   }
 `;
@@ -78,9 +71,9 @@ export const SingleModeSubHeader = styled.div`
 export const MainSubHeader = styled.div`
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 4px 0 ${BORDER_SECONDARY};
+  box-shadow: 0 2px 4px 0 ${colors.headerShadow || BORDER_SECONDARY};
   flex: 2;
-  background-color: ${props =>
+  background: ${(props) =>
     props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : ''};
 
   form {

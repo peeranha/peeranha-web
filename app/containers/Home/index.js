@@ -1,7 +1,6 @@
 import React, { useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import styled from 'styled-components';
@@ -29,9 +28,6 @@ import {
 } from 'utils/communityManagement';
 import { getUserAvatar } from 'utils/profileManagement';
 
-import questionsMessages from 'containers/Questions/messages';
-import commonMessages from 'common-messages';
-
 import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
 import BorderedLargeButton, {
@@ -41,7 +37,7 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import Content from 'containers/Questions/Content/Content';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import LargeImage from 'components/Img/LargeImage';
-import TextBlock from 'components/FormFields/TextBlock';
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
@@ -49,7 +45,7 @@ import {
   makeSelectFollowedCommunities,
 } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -64,7 +60,6 @@ import {
   selectCommunity,
   selectCommunityLoading,
 } from './selectors';
-import messages from './messages';
 import { HOME_KEY } from './constants';
 import InfoButton from '../../components/Button/Outlined/InfoMedium';
 import { italicFont } from '../../global-styles';
@@ -143,20 +138,17 @@ export const Home = ({
   followHandlerDispatch,
   redirectToEditCommunityPageDispatch,
 }) => {
+  const { t } = useTranslation();
+
   checkIsColorsActual(single, PEER_PRIMARY_COLOR, PEER_WARNING_COLOR);
 
-  useEffect(
-    () => {
-      getCommunityDispatch(single);
-    },
-    [single],
-  );
+  useEffect(() => {
+    getCommunityDispatch(single);
+  }, [single]);
 
   useEffect(() => {
     getQuestionsDispatch(single);
   }, []);
-
-  const translations = translationMessages[locale];
 
   const isRenderQuestions = useMemo(
     () => !!communities && !!questions && questions.length,
@@ -173,16 +165,13 @@ export const Home = ({
     ? followedCommunities.includes(single)
     : false;
 
-  const followHandlerAction = useCallback(
-    () => {
-      followHandlerDispatch(
-        single,
-        isFollowed,
-        `${isFollowed ? 'un' : ''}follow_community_${single}`,
-      );
-    },
-    [single, isFollowed],
-  );
+  const followHandlerAction = useCallback(() => {
+    followHandlerDispatch(
+      single,
+      isFollowed,
+      `${isFollowed ? 'un' : ''}follow_community_${single}`,
+    );
+  }, [single, isFollowed]);
   /* eslint-disable camelcase */
   const { name, about, avatar, postCount, users_subscribed } = community;
 
@@ -198,7 +187,7 @@ export const Home = ({
             height: '40px',
           }}
         >
-          <FormattedMessage {...commonMessages.edit} />
+          {t('common.edit')}
         </InfoButton>
       </>
     ) : null;
@@ -206,12 +195,8 @@ export const Home = ({
   return (
     <div>
       <Seo
-        title={
-          single
-            ? translations[commonMessages.home.id]
-            : translations[messages.title.id]
-        }
-        description={translations[messages.description.id]}
+        title={single ? t('common.home') : t('about.title')}
+        description={t('about.description')}
         language={locale}
       />
 
@@ -232,8 +217,7 @@ export const Home = ({
                   alt={name}
                 />
                 <IntroducingImageSubtitle>
-                  {users_subscribed}{' '}
-                  {translationMessages[locale][commonMessages.followers.id]}
+                  {users_subscribed} {t('common.followers')}
                 </IntroducingImageSubtitle>
               </IntroducingMedia>
               <div className="flex-grow-1">
@@ -244,40 +228,31 @@ export const Home = ({
                       <div>
                         <EditButton />
                         <BorderedLargeButton onClick={followHandlerAction}>
-                          {
-                            translationMessages[locale][
-                              commonMessages.unsubscribe.id
-                            ]
-                          }
+                          {t('common.unsubscribe')}
                         </BorderedLargeButton>
                       </div>
                     ) : (
                       <div>
                         <EditButton />
                         <LargeButton onClick={followHandlerAction}>
-                          {
-                            translationMessages[locale][
-                              commonMessages.subscribe.id
-                            ]
-                          }
+                          {t('common.subscribe')}
                         </LargeButton>
                       </div>
                     ))}
                 </IntroducingHeader>
                 <IntroducingSubTitle>
-                  {postCount}{' '}
-                  {translationMessages[locale][commonMessages.questions.id]}
+                  {postCount} {t('common.questions')}
                 </IntroducingSubTitle>
-                {about && <TextBlock content={about} className="mt-3" />}
+                {about && (
+                  <MarkdownPreviewBlock content={about} className="mt-3" />
+                )}
               </div>
             </IntroducingContainer>
           </Base>
 
           {isRenderQuestions ? (
             <>
-              <QuestionsTitle>
-                {translationMessages[locale][messages.questionsTitle.id]}
-              </QuestionsTitle>
+              <QuestionsTitle>{t('about.questionsTitle')}</QuestionsTitle>
               <div className="position-relative">
                 <Content
                   locale={locale}
@@ -292,11 +267,7 @@ export const Home = ({
               </div>
               <div className="d-flex justify-content-center mb-3">
                 <InfoLink to={routes.questions()}>
-                  {
-                    translationMessages[locale][
-                      questionsMessages.showAllQuestions.id
-                    ]
-                  }
+                  {t('common.showAllQuestions')}
                 </InfoLink>
               </div>
             </>
@@ -331,7 +302,7 @@ const withConnect = connect(
     communityLoading: selectCommunityLoading(),
     followedCommunities: makeSelectFollowedCommunities(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     getCommunityDispatch: bindActionCreators(getCommunity, dispatch),
     followHandlerDispatch: bindActionCreators(followHandler, dispatch),

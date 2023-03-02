@@ -1,9 +1,9 @@
 import React from 'react';
+import { useTranslation, Trans } from 'react-i18next';
+import useMediaQuery from 'hooks/useMediaQuery';
 import { css } from '@emotion/react';
 import { styles } from './Footer.styled';
 import A, { ADefault } from 'components/A';
-import { FormattedMessage } from 'react-intl';
-import messages from 'common-messages';
 
 import {
   INFO_LINKS,
@@ -13,7 +13,7 @@ import {
 
 type FooterLinkType = {
   path: string;
-  message: { id: string };
+  message: string;
   cssStyles: string;
 };
 
@@ -24,65 +24,66 @@ const Link: React.FC<FooterLinkType> = ({
 }): JSX.Element =>
   document.location.origin === process.env.APP_LOCATION ? (
     <A to={path} css={cssStyles}>
-      <FormattedMessage id={message.id} />
+      {message}
     </A>
   ) : (
     <ADefault href={`${process.env.APP_LOCATION}${path}`} css={cssStyles}>
-      <FormattedMessage id={message.id} />
+      {message}
     </ADefault>
   );
 
 const Footer: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
+  const isDesktop = useMediaQuery('(min-width: 992px)');
   return (
     <>
-      <div css={css(styles.footer)}>
-        <div css={css(styles.border)} />
-        <div className="df aic jcc " css={css(styles.infoBlock)}>
-          <div className="df fz16" css={css(styles.content)}>
-            {INFO_LINKS.map((element) => (
-              <Link
-                path={element.route}
-                key={element.route}
-                message={element.title}
-                cssStyles={css(styles.infoLinks)}
-              />
-            ))}{' '}
+      {isDesktop && (
+        <div css={css(styles.footer)}>
+          <div css={css(styles.border)} />
+          <div className="df aic jcc " css={css(styles.infoBlock)}>
+            <div className="df fz16" css={css(styles.content)}>
+              {INFO_LINKS.map((element) => (
+                <Link
+                  path={element.route}
+                  key={element.route}
+                  message={t(`${element.title}`)}
+                  cssStyles={css(styles.infoLinks)}
+                />
+              ))}{' '}
+            </div>
           </div>
-        </div>
-        <div className="df aic jcc fdc">
-          <div css={css(styles.infoData)}>
-            <FormattedMessage
-              id={messages.copyrightPeeranha.id}
-              values={{ year: new Date().getFullYear() }}
-            />
-          </div>
-          <div css={css(styles.infoRules)}>
-            <FormattedMessage
-              id={messages.reCaptchaMention.id}
-              values={{
-                privacyPolicy: (
+          <div className="df aic jcc fdc">
+            <div css={css(styles.infoData)}>
+              {t('common.copyrightPeeranha', {
+                year: new Date().getFullYear(),
+              })}
+            </div>
+            <div css={css(styles.infoRules)}>
+              <Trans
+                i18nKey="common.reCaptchaMention"
+                values={{
+                  privacyPolicy: t('common.privacyPolicy'),
+                  termsOfService: t('common.termsOfService'),
+                }}
+                components={[
                   <a
+                    key="0"
                     css={css(styles.infoRulesLink)}
                     href={LINK_PRIVACY_POLICY}
                     target="_blank"
-                  >
-                    <FormattedMessage id={messages.privacyPolicy.id} />
-                  </a>
-                ),
-                termsOfService: (
+                  />,
                   <a
+                    key="1"
                     css={css(styles.infoRulesLink)}
                     href={LINK_TERMS_OF_SERVICE}
                     target="_blank"
-                  >
-                    <FormattedMessage id={messages.termsOfService.id} />
-                  </a>
-                ),
-              }}
-            />
+                  />,
+                ]}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

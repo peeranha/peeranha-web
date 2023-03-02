@@ -6,18 +6,21 @@ type ButtonPaginationProps = {
   page: number;
   element: number;
   clickHandler: (num: number) => void;
+  scrollToTop: () => void;
 };
 
 type StepButtonPaginationProps = {
   src: string;
   alt: string;
   clickHandler: () => void;
+  scrollToTop: () => void;
 };
 
 const ButtonPagination: React.FC<ButtonPaginationProps> = ({
   page,
   element,
   clickHandler,
+  scrollToTop,
 }): JSX.Element => {
   return (
     <button
@@ -25,7 +28,10 @@ const ButtonPagination: React.FC<ButtonPaginationProps> = ({
         ...styles.basicStyles,
         ...(page === element + 1 && styles.activeStyles),
       })}
-      onClick={() => clickHandler(element + 1)}
+      onClick={() => {
+        clickHandler(element + 1);
+        scrollToTop();
+      }}
       key={element}
     >
       {element + 1}
@@ -37,9 +43,16 @@ const StepButtonPagination: React.FC<StepButtonPaginationProps> = ({
   clickHandler,
   src,
   alt,
+  scrollToTop,
 }): JSX.Element => {
   return (
-    <button onClick={clickHandler} css={css(styles.basicStyles)}>
+    <button
+      onClick={() => {
+        clickHandler();
+        scrollToTop();
+      }}
+      css={css(styles.basicStyles)}
+    >
       <img src={src} alt="alt" />
     </button>
   );

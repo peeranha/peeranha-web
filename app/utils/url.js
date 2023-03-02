@@ -5,11 +5,11 @@
  * output: [{ key: refcode, value: REFCODE }, { key: email, value: email@email.ru }]
  */
 
-const parseSearchString = str =>
+const parseSearchString = (str) =>
   str
     .replace(/\?/gim, '')
     .split('&')
-    .map(x => ({ key: x.split('=')[0], value: x.split('=')[1] }));
+    .map((x) => ({ key: x.split('=')[0], value: x.split('=')[1] }));
 
 /*
  * input:
@@ -21,6 +21,13 @@ const parseSearchString = str =>
 
 export const getValueFromSearchString = (search, key) => {
   try {
-    return parseSearchString(search).find(x => x.key === key).value;
+    return parseSearchString(search).find((x) => x.key === key).value;
   } catch (err) {}
+};
+
+export const extractStrings = ([begin, end]) => {
+  const matcher = new RegExp(`${begin}(.*?)${end}`, 'gm');
+  const normalise = (str) => str.slice(begin.length, end.length * -1);
+
+  return (str) => (normalise ? str.match(matcher)?.map(normalise) : []);
 };

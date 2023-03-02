@@ -2,7 +2,7 @@ import React, { useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { compose, bindActionCreators } from 'redux';
 import { noAccess } from 'routes-config';
 
@@ -35,7 +35,6 @@ import {
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 import { suggestTag, getForm } from './actions';
 
@@ -74,6 +73,8 @@ const CreateTag = ({
   getFormDispatch,
   isFormLoading,
 }) => {
+  const { t } = useTranslation();
+
   const commId = useMemo(() => single || +match.params.communityid, [match]);
   useModeratorRole(noAccess, commId);
 
@@ -98,7 +99,7 @@ const CreateTag = ({
 
   const isGlobalAdmin =
     hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
-  const profileWithCommunityAdminRights = Boolean(commId)
+  const profileWithCommunityAdminRights = commId
     ? hasCommunityAdminRole(permissions, commId)
     : false;
   const roles = getAllRoles(permissions, communities.length);
@@ -116,8 +117,8 @@ const CreateTag = ({
   return (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('tags.title')}
+        description={t('tags.description')}
         language={locale}
         index={false}
       />
@@ -134,7 +135,6 @@ const CreateTag = ({
               )}
               tagFormLoading={createTagLoading}
               submitAction={createTag}
-              translations={translationMessages[locale]}
               getSuggestedTagsDispatch={() => {}}
             />
           </BaseSpecialOne>

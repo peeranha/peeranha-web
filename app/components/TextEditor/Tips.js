@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { TEXT_PRIMARY, BG_PRIMARY, BORDER_SECONDARY } from 'style-constants';
+import {
+  TEXT_PRIMARY,
+  BG_PRIMARY,
+  BORDER_SECONDARY,
+  LINK_COLOR,
+} from 'style-constants';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -19,8 +25,8 @@ import {
 import A from 'components/A';
 import Label from 'components/FormFields/Label';
 
-import messages from './messages';
 import { singleCommunityColors } from 'utils/communityManagement';
+import { getLinks } from 'media-links';
 
 const colors = singleCommunityColors();
 
@@ -36,8 +42,7 @@ const Li = styled.li`
 
 const Ul = styled.ul`
   //border-bottom: 1px solid ${BORDER_SECONDARY};
-  padding-bottom: 30px;
-  margin-bottom: 25px;
+  padding-bottom: 6px;
 
   li {
     display: flex;
@@ -64,35 +69,74 @@ const Ul = styled.ul`
   }
 `;
 
+const Title = Label.extend`
+  font-size: 18px;
+`;
+
+const P = styled.p`
+  margin-bottom: 10px;
+`;
+
+const Link = styled.a`
+  line-height: 24px;
+  span {
+    color: ${colors.linkColor || LINK_COLOR};
+  }
+`;
+
+const Italic = styled.span`
+  width: max-content;
+  font-style: italic;
+  margin-right: 6px;
+`;
+
+const Bold = styled.span`
+  width: max-content;
+  font-weight: 600;
+  margin-left: 6px;
+`;
+
 const messagesArray = [
-  messages.putReturnsBetweenParagraphs,
-  messages.addForLineBreaks,
-  messages.italicAndBold,
-  messages.indentCode,
-  messages.backtipEscapes,
-  messages.quoteByPlacing,
+  'common.putReturnsBetweenParagraphs',
+  'common.addForLineBreaks',
+  'common.italicAndBold',
+  'common.indentCode',
+  'common.backtipEscapes',
+  'common.quoteByPlacing',
 ];
 
-const Tips = ({ faqQuestions }) => (
-  <div>
-    <Label className="mb-3">
-      <FormattedMessage {...messages.tips} />:
-    </Label>
+const Tips = ({ faqQuestions }) => {
+  const { t } = useTranslation();
 
-    <Ul>
-      {messagesArray.map((x) => (
-        <li key={x.id}>
-          <FormattedMessage {...x} />{' '}
-        </li>
-      ))}
-    </Ul>
+  return (
+    <div
+      css={css`
+        background: ${colors.backgroundSpecial || ''};
+      `}
+    >
+      <Title className="mb-3">{t('common.tips')}:</Title>
+      <P>{t('common.markdownIsSupported')}</P>
 
-    {/* TODO: PEER-285 Hide FAQ Questions
-    {faqQuestions && (
-      <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
-    )}*/}
-  </div>
-);
+      <Ul>
+        {messagesArray.map((item, index) => (
+          <li key={item}>
+            <span>{t(item)}</span>
+          </li>
+        ))}
+      </Ul>
+      <span
+        css={css`
+          line-height: 20px;
+        `}
+      >
+        {t('common.forMoreSyntax')}
+        <Link href={getLinks().markdownCheatSheet} target="_blank">
+          {t('common.markdownCheatSheet')}
+        </Link>
+      </span>
+    </div>
+  );
+};
 
 Tips.propTypes = {
   className: PropTypes.string,

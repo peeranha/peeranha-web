@@ -7,6 +7,7 @@ const links = {
     medium: 'https://medium.com/peeranha',
     telegram: 'https://t.me/peeranhaio',
     email: 'mailto:hello@peeranha.io',
+    markdownCheatSheet: 'https://www.markdownguide.org/cheat-sheet/',
     discord: 'https://discord.gg/jmrbqVnzMZ',
   },
   ru: {
@@ -17,6 +18,7 @@ const links = {
     medium: 'https://medium.com/peeranha',
     telegram: 'https://t.me/peeranhaio',
     email: 'mailto:hello@peeranha.io',
+    markdownCheatSheet: 'https://www.markdownguide.org/cheat-sheet/',
     discord: 'https://discord.gg/jmrbqVnzMZ',
   },
 };

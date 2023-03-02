@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   TEXT_PRIMARY_DARK,
@@ -13,8 +13,7 @@ import {
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
 } from 'style-constants';
-
-import commonMessages from 'common-messages';
+import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
@@ -34,13 +33,13 @@ import {
 } from 'containers/Profile/constants';
 
 import QuestionCommunity from './QuestionCommunity';
-import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 const single = isSingleCommunityWebsite();
 
 const BaseStyled = Base.extend`
   position: relative;
-  border-radius: ${({ bordered }) => (bordered ? BORDER_RADIUS_L : 'none')};
+  border-bottom-left-radius: ${BORDER_RADIUS_L};
+  border-top-left-radius: ${BORDER_RADIUS_L};
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -116,7 +115,7 @@ const QuestionLabels = styled.div`
   align-items: center;
 
   @media only screen and (max-width: 576px) {
-    top: 0;
+    top: 30px;
     right: 5px;
   }
 `;
@@ -163,10 +162,10 @@ export const QuestionForProfilePage = ({
   isTheLargestRating,
   route,
   isGeneral,
-  bordered,
   isAnswer,
   elementType,
 }) => {
+  const { t } = useTranslation();
   let Link = AProps;
   let href = route;
   if (single && single !== communityId) {
@@ -174,11 +173,11 @@ export const QuestionForProfilePage = ({
     href = `${process.env.APP_LOCATION}${route}`;
   }
   return (
-    <BaseStyled bordered={bordered && !isGeneral}>
+    <BaseStyled>
       {/* TODO: PEER-281 frame and inscription 'expert'
       {!isGeneral && (
         <QuestionType size="sm">
-          <FormattedMessage {...commonMessages.expert} />
+          {t('common.expert')}
         </QuestionType>
       )} */}
       <ContentContainer>
@@ -224,24 +223,19 @@ export const QuestionForProfilePage = ({
               fontSize="14"
               color={TEXT_SECONDARY}
             >
-              {isAnswer ? (
-                <FormattedMessage
-                  id={commonMessages.answeredWhen.id}
-                  values={{
+              {isAnswer
+                ? t('common.answeredWhen', {
                     when: getFormattedDate(
                       myPostTime,
                       locale,
                       MONTH_3LETTERS__DAY_YYYY_TIME,
                     ),
-                  }}
-                />
-              ) : (
-                getFormattedDate(
-                  myPostTime,
-                  locale,
-                  MONTH_3LETTERS__DAY_YYYY_TIME,
-                )
-              )}
+                  })
+                : getFormattedDate(
+                    myPostTime,
+                    locale,
+                    MONTH_3LETTERS__DAY_YYYY_TIME,
+                  )}
             </Span>
             <QuestionCommunity
               communities={communities}

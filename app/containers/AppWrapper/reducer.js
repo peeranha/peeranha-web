@@ -6,10 +6,12 @@ import {
   GET_DOCUMENTATION_MENU_ERROR,
   GET_DOCUMENTATION_MENU_SUCCESS,
   PINNED_MENU_ITEM,
+  CHANGE_LOCALE,
 } from './constants';
 
 export const initialState = fromJS({
   isMenuVisible: false,
+  locale: 'en',
   documentationMenu: [],
   documentationMenuError: null,
   pinnedItemId: '',
@@ -25,6 +27,8 @@ function appWrapperReducer(state = initialState, action) {
       return state.set('isMenuVisible', !state.get('isMenuVisible'));
     case HIDE_LEFT_MENU:
       return state.set('isMenuVisible', false);
+    case CHANGE_LOCALE:
+      return state.set('locale', action.locale);
     case GET_DOCUMENTATION_MENU_SUCCESS:
       return state.set('documentationMenu', documentationMenu);
     case GET_DOCUMENTATION_MENU_ERROR:

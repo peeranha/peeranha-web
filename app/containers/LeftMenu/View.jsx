@@ -11,7 +11,10 @@ import {
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
+import {
+  LEFT_MENU_ID,
+  NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY,
+} from 'containers/LeftMenu/constants';
 
 import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
 import MobileLinksInWallet from 'containers/LeftMenu/MobileLinksInWallet';
@@ -31,6 +34,8 @@ const View = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
+  changeLocale,
+  locale,
   documentationMenu,
   redirectToEditQuestionPage,
   redirectToPostDocumentationPage,
@@ -59,7 +64,7 @@ const View = ({
       single={single}
       isMenuVisible={isMenuVisible}
       css={css`
-        height: calc(100vh - ${HEADER_HEIGHT + 30}px);
+        height: 100vh;
         overflow: hidden;
         padding-right: 6px;
 
@@ -118,6 +123,11 @@ const View = ({
         isEditDocumentation={isEditDocumentation}
         pinnedItemMenu={pinnedItemMenu}
       />
+      <AdditionalLinks
+        currClientHeight={currClientHeight}
+        changeLocale={changeLocale}
+        locale={locale}
+      />
     </ViewStyled>
   );
 };
@@ -130,6 +140,8 @@ View.propTypes = {
   boost: PropTypes.number,
   isMenuVisible: PropTypes.bool,
   showLoginModal: PropTypes.func,
+  changeLocale: PropTypes.func,
+  locale: PropTypes.string,
 };
 
 export default View;

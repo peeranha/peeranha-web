@@ -3,11 +3,16 @@ import Dropdown from 'common-components/Dropdown';
 import Button from 'common-components/Button';
 import TextEditor from 'components/TextEditor';
 import DropdownTrigger from './DropdownTrigger';
-import TextBlock from 'components/FormFields/TextBlock';
 import LoaderDocumentation from './Loader';
 import Validate from './Validate';
 import { saveText, getBytes32FromIpfsHash } from 'utils/ipfs';
-import { saveDraft, initMenu, addArticle, updateMenuDraft } from '../helpers';
+import {
+  saveDraft,
+  initMenu,
+  addArticle,
+  updateMenuDraft,
+  saveDraftsIds,
+} from '../helpers';
 import {
   strLength3x100,
   required,
@@ -24,6 +29,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   setViewArticle,
   setEditArticle,
   isEditArticle,
+  updateDraftsIds,
 }): JSX.Element => {
   const [title, setTitle] = useState<string>('');
   const [bodyText, setBodyText] = useState<string>('');
@@ -98,7 +104,9 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
         }
 
         saveDraft(updatedMenu);
+        const updatedDraftsIds = saveDraftsIds(ipfsHashBytes32);
 
+        updateDraftsIds(updatedDraftsIds);
         updateDocumentationMenuDraft(updatedMenu);
         setEditArticle({
           id: ipfsHashBytes32,
@@ -179,9 +187,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             onChange={onChangeTitle}
           >
             {({ onChange, onBlur, isValid }) => {
-              if (title !== '') {
-                setIsValidTitle(isValid);
-              }
+              setIsValidTitle(title.length > 2);
 
               return (
                 <input
@@ -238,9 +244,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             position="bottom"
           >
             {({ onChange, onBlur, isValid }) => {
-              if (bodyText !== '') {
-                setIsValidContent(isValid);
-              }
+              setIsValidContent(bodyText.length > 24);
 
               return (
                 <div
@@ -263,39 +267,6 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
               );
             }}
           </Validate>
-        </div>
-        <div>
-          <div
-            className="mb12"
-            css={{
-              fontWeight: 700,
-              fontSize: 16,
-              lineHeight: '20px',
-            }}
-          >
-            Preview
-          </div>
-          <div
-            css={{
-              borderTop: '1px dashed #DCDCDC',
-              borderBottom: '1px dashed #DCDCDC',
-              padding: '11px 0',
-            }}
-          >
-            {bodyText !== '' ? (
-              <TextBlock className="my-2" content={bodyText} />
-            ) : (
-              <div
-                className="fz14"
-                css={{
-                  lineHeight: '18px',
-                  color: '#7B7B7B',
-                }}
-              >
-                Nothting to see yet
-              </div>
-            )}
-          </div>
         </div>
       </div>
       <div className="df pt24">

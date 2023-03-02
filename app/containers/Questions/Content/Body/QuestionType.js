@@ -1,53 +1,30 @@
 import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import commonMessages from 'common-messages';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import {
   TEXT_PREMIUM,
   BORDER_RADIUS_M,
   BG_PREMIUM_LIGHT,
-  PRIMARY_SPECIAL,
-  BORDER_PRIMARY_DARK,
-  APP_FONT,
-  TEXT_DARK,
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
   TEXT_PRIMARY,
-  BG_TRANSPARENT,
-  BORDER_TRANSPARENT,
-  BORDER_DARK,
-  TUTORIAL_BACKLIGHT,
   TUTORIAL_ICON_COLOR,
 } from 'style-constants';
 
 import Container from 'components/Labels/QuestionType';
 
-import Popover from './Popover';
-import { POST_TYPE } from '../../../../utils/constants';
-
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
+import documentationIcon from 'images/documentation-icon.svg?external';
 
-import { IconLg } from '../../../../components/Icon/IconWithSizes';
-import A from '../../../../components/A';
-import { BasicLink } from '../../../LeftMenu/Styles';
+import Popover from './Popover';
+import { POST_TYPE } from '../../../../utils/constants';
+
+import { IconLabel } from '../../../../components/Icon/IconWithSizes';
 import { svgDraw } from '../../../../components/Icon/IconStyled';
-import {
-  singleCommunityColors,
-  singleCommunityFonts,
-  singleCommunityStyles,
-} from '../../../../utils/communityManagement';
-
-const LabelsWrapper = styled.div`
-  display: inline-flex;
-`;
 
 const LabelItem = styled.span`
-  margin-left: 5px;
-
   > div {
     position: inherit;
   }
@@ -64,76 +41,88 @@ const PromotedLabel = styled.span`
   border-radius: ${BORDER_RADIUS_M};
 `;
 
-const opacity = ({ isExpert, isTutorial }) =>
-  isExpert
-    ? `.opacity {
-    fill: ${TEXT_PRIMARY} !important;
-  }`
-    : isTutorial
-      ? `.opacity {
-    fill: ${TUTORIAL_BACKLIGHT} !important;
-  }`
-      : `.opacity {
-     fill: none !important;
-   }`;
-
-// ${({ isExpert, isTutorial } ) => {
-//   console.log(isTutorial)
-//   return opacity({isExpert, isTutorial})
-// }};
-
-const Icon = styled(IconLg)`
+const Icon = styled(IconLabel)`
   ${({ isTutorial, isExpert }) =>
     svgDraw({
       color: isTutorial
         ? TUTORIAL_ICON_COLOR
         : isExpert
-          ? TEXT_PRIMARY
-          : TEXT_DARK,
+        ? TEXT_PRIMARY
+        : 'rgba(242, 163, 159, 1)',
     })};
-  background-color: ${BG_TRANSPARENT};
-  border-color: ${BORDER_TRANSPARENT};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 7px;
+  background-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+    isExpert
+      ? 'rgba(173, 186, 255, 0.2)'
+      : isTutorial
+      ? 'rgba(150, 228, 169, 0.2)'
+      : isDocumentation
+      ? 'rgba(255, 228, 90, 0.2)'
+      : 'rgba(255, 174, 188, 0.2)'};
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+    isExpert
+      ? 'rgba(151, 167, 245, 0.2)'
+      : isTutorial
+      ? 'rgba(135, 210, 151, 0.2)'
+      : isDocumentation
+      ? 'rgba(245, 190, 140, 0.2)'
+      : 'rgba(242, 163, 159, 0.2)'};
   font-weight: normal;
   .opacity {
     fill: none !important;
   }
   .fill {
     fill: ${({ isTutorial }) =>
-      isTutorial ? TUTORIAL_ICON_COLOR : BORDER_DARK};
+      isTutorial ? TUTORIAL_ICON_COLOR : 'BORDER_DARK'};
   }
   .semitransparent {
     fill: none;
-  }
-
-  @media (max-width: 576px) {
-    margin-top: 40px;
   }
 `;
 
 const types = {
   [POST_TYPE.generalPost]: {
-    title: commonMessages.generalPopoverTitle.id,
-    label: commonMessages.generalPopoverLabel.id,
-    items: commonMessages.generalPopoverList.id,
+    title: 'common.generalPopoverTitle',
+    label: 'common.generalPopoverLabel',
+    items: 'common.generalPopoverList',
     icon: generalIcon,
   },
   [POST_TYPE.expertPost]: {
-    title: commonMessages.expertPopoverTitle.id,
-    label: commonMessages.expertPopoverLabel.id,
-    items: commonMessages.expertPopoverList.id,
+    title: 'common.expertPopoverTitle',
+    label: 'common.expertPopoverLabel',
+    items: 'common.expertPopoverList',
     icon: expertIcon,
     isExpert: true,
   },
   [POST_TYPE.tutorial]: {
-    title: commonMessages.tutorialPopoverTitle.id,
-    label: commonMessages.tutorialPopoverLabel.id,
-    items: commonMessages.tutorialPopoverList.id,
+    title: 'common.tutorialPopoverTitle',
+    label: 'common.tutorialPopoverLabel',
+    items: 'common.tutorialPopoverList',
     icon: tutorialIcon,
     isTutorial: true,
   },
+  [POST_TYPE.documentation]: {
+    title: 'common.documentationPopoverTitle',
+    label: 'common.documentationPopoverLabel',
+    items: [],
+    icon: documentationIcon,
+    isDocumentation: true,
+  },
 };
 
-const QuestionType = ({ locale, postType, isPromoted }) => {
+const QuestionType = ({
+  postType,
+  className,
+  isPromoted = false,
+  isSearch = false,
+}) => {
+  const { t } = useTranslation();
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
@@ -142,7 +131,7 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
   const type = types[postType];
 
   return (
-    <LabelsWrapper>
+    <div className={className}>
       {type && (
         <LabelItem>
           <Container
@@ -152,15 +141,16 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
           >
             {visible && (
               <Popover
-                locale={locale}
                 title={type.title}
                 label={type.label}
                 items={type.items}
+                isSearch={isSearch}
               />
             )}
             <Icon
               isExpert={type.isExpert}
               isTutorial={type.isTutorial}
+              isDocumentation={type.isDocumentation}
               className="mr-2"
               icon={type.icon}
             />
@@ -170,19 +160,17 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
 
       {isPromoted && (
         <LabelItem>
-          <PromotedLabel>
-            <FormattedMessage id={commonMessages.promoted.id} />
-          </PromotedLabel>
+          <PromotedLabel>{t('common.promoted')}</PromotedLabel>
         </LabelItem>
       )}
-    </LabelsWrapper>
+    </div>
   );
 };
 
 QuestionType.propTypes = {
   postType: PropTypes.number,
-  locale: PropTypes.string,
   isPromoted: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default memo(QuestionType);
