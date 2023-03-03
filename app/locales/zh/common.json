@@ -230,7 +230,7 @@
   "existingQuestionsLabel": "为避免重复，请检查现有问题。",
   "questionBodyLabel": "身体",
   "questionMediaLabel": "媒体",
-  "mediaRestrictions": "图片上传到 IPFS（jpeg、jpg、png、gif。最大文件大小 1.8Mb）。 视频上传到 Livepeer（mp4 编码的 H264 和 aac 音频。最大文件大小 1 Gb）",
+  "mediaRestrictions": "图片上传到 IPFS（jpeg、jpg、png、gif, heic, heif。最大文件大小 1.8Mb）。 视频上传到 Livepeer（mp4 编码的 H264 和 aac 音频。最大文件大小 1 Gb）",
   "dragFiles": "拖动文件",
   "or": "或者 ",
   "clickTo": "点击",

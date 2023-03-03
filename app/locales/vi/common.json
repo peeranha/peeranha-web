@@ -234,7 +234,7 @@
   "existingQuestionsLabel": "Để tránh trùng lặp kiểm tra các câu hỏi hiện có.",
   "questionBodyLabel": "Thân thể",
   "questionMediaLabel": "bì mạc",
-  "mediaRestrictions": "Tải hình ảnh lên IPFS (jpeg, jpg, png, gif. Kích thước tệp tối đa 1.8Mb). Tải video lên Livepeer (mp4 được mã hóa H264 với âm thanh aac. Kích thước tệp tối đa 1 Gb)",
+  "mediaRestrictions": "Tải hình ảnh lên IPFS (jpeg, jpg, png, gif, heic, heif. Kích thước tệp tối đa 1.8Mb). Tải video lên Livepeer (mp4 được mã hóa H264 với âm thanh aac. Kích thước tệp tối đa 1 Gb)",
   "dragFiles": "Kéo tệp",
   "or": "hoặc ",
   "clickTo": "bấm vào để",

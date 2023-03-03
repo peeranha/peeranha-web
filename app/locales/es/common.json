@@ -234,7 +234,7 @@
   "existingQuestionsLabel": "Para evitar duplicados verifique las preguntas existentes.",
   "questionBodyLabel": "Cuerpo",
   "questionMediaLabel": "Medios",
-  "mediaRestrictions": "Carga de imágenes a IPFS (jpeg, jpg, png, gif. Tamaño máximo de archivo 1.8Mb). Carga de video a Livepeer (H264 codificado en mp4 con audio aac. Tamaño máximo de archivo 1 Gb)",
+  "mediaRestrictions": "Carga de imágenes a IPFS (jpeg, jpg, png, gif, heic, heif. Tamaño máximo de archivo 1.8Mb). Carga de video a Livepeer (H264 codificado en mp4 con audio aac. Tamaño máximo de archivo 1 Gb)",
   "dragFiles": "Arrastrar archivos",
   "or": "o ",
   "clickTo": "haga clic para",
