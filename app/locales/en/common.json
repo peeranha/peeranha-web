@@ -234,7 +234,7 @@
   "existingQuestionsLabel": "To avoid duplicates check existing questions.",
   "questionBodyLabel": "Body",
   "questionMediaLabel": "Media",
-  "mediaRestrictions": "Image upload to IPFS (jpeg, jpg, png, gif. Max file size 1.8Mb). Video upload to Livepeer (mp4 encoded H264 with aac audio. Max file size 1 Gb)",
+  "mediaRestrictions": "Image upload to IPFS (jpeg, jpg, png, gif, heic, heif. Max file size 1.8Mb). Video upload to Livepeer (mp4 encoded H264 with aac audio. Max file size 1 Gb)",
   "dragFiles": "Drag files",
   "or": "or ",
   "clickTo": "click to",
