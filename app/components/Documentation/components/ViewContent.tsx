@@ -40,6 +40,7 @@ const ViewContent: React.FC<ViewContentProps> = ({
         className="mb-to-sm-0 mb-from-sm-3"
         css={{
           ...(isEditDocumentation && styled),
+          width: '100%',
         }}
       >
         <H3>
@@ -48,12 +49,11 @@ const ViewContent: React.FC<ViewContentProps> = ({
           </span>
         </H3>
       </Wrapper>
-      <div className="df">
+      <div className="df" css={{ marginBottom: '50px' }}>
         <Wrapper
           className="fdc"
           css={{
             ...(isEditDocumentation && styled),
-            minWidth: '0',
           }}
         >
           <MarkdownPreviewBlock content={documentationArticle?.content} />
