@@ -21,7 +21,7 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
   id,
   onClickPaginationArticleEditDocumentation,
 }): JSX.Element => {
-  const isDesktop = useMediaQuery('(min-width: 577px)');
+  const isDesktop = useMediaQuery('(min-width: 992px)');
   const treeArray = getDataFromTree(documentationMenu);
 
   const currentArrayIndex = getcurrentArrayIndex(treeArray, id);

@@ -15,7 +15,7 @@ const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
   return (
     <button
       css={{
-        width: '375px',
+        width: '350px',
         height: '65px',
         border: '1px solid rgba(53, 74, 137, 0.15);',
         ':hover': {
