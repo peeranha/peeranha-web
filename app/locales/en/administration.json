@@ -4,6 +4,7 @@
   "addRole": "Add new role",
   "chooseRole": "Choose role",
   "EmptyRole": "You cannot leave this field if no role is selected",
+  "alreadyHasRole": "The User already has this role",
   "confirm": "Confirm",
   "cancel": "Cancel",
   "wantToRevoke": "Are you sure you want to revoke the user from being a {{role}}?",

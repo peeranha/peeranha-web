@@ -1,4 +1,4 @@
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm, reset } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
 import React, { FormEventHandler, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
@@ -16,8 +16,10 @@ import {
   ADD_MODERATOR_BUTTON_BUTTON,
   WALLET_ADDRESS_FIELD,
 } from 'containers/Administration/constants';
+import { Moderator } from 'containers/Administration/types';
 
 import { scrollToErrorField } from 'utils/animation';
+import { getCommunityRoles } from 'utils/properties';
 import { TEXT_DARK } from 'style-constants';
 
 import useTrigger from 'hooks/useTrigger';
@@ -26,6 +28,7 @@ type AddRoleFunction = (
   userAddress: string,
   role: number,
   communityId?: number,
+  userHasRole?: boolean,
 ) => void;
 
 type AddRoleFormProps = {
@@ -35,15 +38,20 @@ type AddRoleFormProps = {
     addRole: AddRoleFunction,
   ) => FormEventHandler<HTMLFormElement> | undefined;
   addRole: AddRoleFunction;
+  moderators: Array<Moderator>;
   Button: React.FC<{ onClick: () => void }>;
   addRoleLoading: boolean;
 };
+
+const clearFieldsAfterSubmit = (result: any, dispatch: any) =>
+  dispatch(reset('answerForm'));
 
 const AddRoleForm: React.FC<AddRoleFormProps> = ({
   locale,
   single,
   handleSubmit,
   addRole,
+  moderators,
   Button,
   addRoleLoading,
 }): JSX.Element => {
@@ -66,7 +74,13 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
     if (typeof role === 'undefined') {
       setValidate(false);
     } else {
-      addRole(values.get(WALLET_ADDRESS_FIELD), Number(role), single);
+      const walletAddress = values.get(WALLET_ADDRESS_FIELD);
+      const communityRoles = getCommunityRoles(single);
+      const isUserHasRole = moderators.find(
+        (moderator) =>
+          moderator.id === `${walletAddress}-${communityRoles[Number(role)]}`,
+      );
+      addRole(walletAddress, Number(role), single, Boolean(isUserHasRole));
       close();
     }
   };
@@ -133,6 +147,9 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
 
           <form onSubmit={handleSubmit(addRoleMethod)}>
             <Field
+              css={css`
+                padding-right: 14px !important;
+              `}
               name={WALLET_ADDRESS_FIELD}
               disabled={addRoleLoading}
               component={TextInputField}
@@ -163,5 +180,6 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
 
 export default reduxForm<any, any>({
   onSubmitFail: (errors) => scrollToErrorField(errors),
+  onSubmitSuccess: clearFieldsAfterSubmit,
   form: 'answerForm',
 })(AddRoleForm);

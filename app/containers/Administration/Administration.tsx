@@ -76,6 +76,7 @@ const Administration: React.FC<AdministrationProps> = ({
       <Header
         locale={locale}
         single={single}
+        moderators={moderators}
         addRole={addRoleDispatch}
         addRoleLoading={addRoleLoading}
       />

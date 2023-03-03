@@ -36,12 +36,14 @@ export function addRole(
   userAddress: string,
   role: number,
   communityId: number,
+  isUserHasRole?: boolean,
 ) {
   return {
     type: ADD_ROLE,
     role,
     userAddress,
     communityId,
+    isUserHasRole,
   };
 }
 

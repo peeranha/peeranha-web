@@ -28,6 +28,7 @@ import {
 } from 'utils/accountManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { addToast } from 'containers/Toast/actions';
 
 export function* getModeratorsWorker(props: {
   communityId: number;
@@ -53,20 +54,31 @@ export function* addRoleWorker(props: {
   userAddress: string;
   role: number;
   communityId: number;
+  isUserHasRole?: boolean;
 }): Generator<any> {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const account = yield select(makeSelectAccount());
-    yield call(
-      giveRolePermission,
-      account,
-      props.userAddress,
-      props.role,
-      props.communityId,
-      ethereumService,
-    );
-    yield put(addRoleSuccess(props.communityId));
+    if (props.isUserHasRole) {
+      throw new Error('Unknown error');
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const account = yield select(makeSelectAccount());
+      yield call(
+        giveRolePermission,
+        account,
+        props.userAddress,
+        props.role,
+        props.communityId,
+        ethereumService,
+      );
+      yield put(addRoleSuccess(props.communityId));
+    }
   } catch (err) {
+    yield put(
+      addToast({
+        type: 'error',
+        text: 'administration.alreadyHasRole',
+      }),
+    );
     yield put(addRoleError(err));
   }
 }

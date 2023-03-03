@@ -7,6 +7,7 @@ import Icon from 'components/Icon';
 import H3 from 'components/H3';
 
 import AddRoleForm from 'containers/Administration/AddRoleForm';
+import { Moderator } from 'containers/Administration/types';
 
 import usersHeader from 'images/usersHeader.svg?external';
 import AddModeratorButton from 'containers/Administration/AddModeratorButton';
@@ -18,6 +19,7 @@ const colors = singleCommunityColors();
 type HeaderProps = {
   locale: string;
   single?: number;
+  moderators: Array<Moderator>;
   addRole: (userAddress: string, role: number, communityId: number) => void;
   addRoleLoading: boolean;
 };
@@ -25,6 +27,7 @@ type HeaderProps = {
 export const Header: React.FC<HeaderProps> = ({
   locale,
   single,
+  moderators,
   addRole,
   addRoleLoading,
 }): JSX.Element => {
@@ -48,6 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
         locale={locale}
         single={single}
         addRole={addRole}
+        moderators={moderators}
         Button={AddModeratorButton}
         addRoleLoading={addRoleLoading}
       />

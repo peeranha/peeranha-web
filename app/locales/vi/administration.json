@@ -4,6 +4,7 @@
   "addRole": "Thêm vai trò mới",
   "chooseRole": "Chọn vai trò",
   "EmptyRole": "Bạn không thể rời khỏi trường này nếu không có vai trò nào được chọn",
+  "alreadyHasRole": "Người dùng đã có vai trò này",
   "confirm": "Xác nhận",
   "cancel": "Hủy bỏ",
   "wantToRevoke": "Bạn có chắc chắn muốn hủy bỏ vai trò {{role}} của người dùng không?",
