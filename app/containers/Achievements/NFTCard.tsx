@@ -217,7 +217,10 @@ const NFTCard: React.FC<NFTCardType> = ({
                 item.description}
               {!hasNFT &&
                 item.achievementsType === LIMITED_PEERANHA_NFT &&
-                `Available ${availiableCount} out of ${item.maxCount}`}
+                t('achievements.available', {
+                  count: availiableCount,
+                  maxCount: item.maxCount,
+                })}
             </div>
           </div>
           {isHover && hasNFT && (

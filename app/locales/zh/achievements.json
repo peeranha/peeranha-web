@@ -159,5 +159,6 @@
     "firstAnswerIn15Related": "十五分钟内回答",
     "firstAnswerRelated": "第一个答案"
   },
-  "contract": "合同"
+  "contract": "合同",
+  "available": "{{maxCount}} 个中有 {{count}} 个可用"
 }

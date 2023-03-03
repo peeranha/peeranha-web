@@ -159,5 +159,6 @@
     "firstAnswerIn15Related": "Answers in 15 minutes",
     "firstAnswerRelated": "First answers"
   },
-  "contract": "Contract"
+  "contract": "Contract",
+  "available": "Available {{count}} out of {{maxCount}}"
 }
