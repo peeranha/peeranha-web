@@ -1,6 +1,7 @@
 export type CommunityType = {
-  id: string;
+  id: string | null;
   name: string;
+  avatar: string | null;
 };
 
 export type NFTType = {
@@ -13,6 +14,6 @@ export type NFTType = {
   image: string;
   maxCount: string;
   name: string;
-  lowerValue?: number;
+  lowerValue: string;
   __typename: 'Achievement';
 };

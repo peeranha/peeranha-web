@@ -510,6 +510,7 @@ export const allAchievementsQuery = `
           maxCount
           achievementURI
           achievementsType
+          lowerValue
           name
           description
           image
@@ -522,7 +523,8 @@ export const allAchievementsQuery = `
         }
         communities {
           id
-          name
+          name,
+          avatar
         }
       }`;
 

@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import { CommunityType } from './types';
 
+const LOGO_PEERANHA =
+  'https://ipfs-cdn.peeranha.io/QmbEjRVUPyBffw1r5EGW7rAQHxd4NhoNtADy68bEV5YQT4';
+
 const CommunityLabel: React.FC<{
   communityId: string;
   communities: Array<CommunityType>;
@@ -9,10 +12,6 @@ const CommunityLabel: React.FC<{
   const ref = useRef<HTMLDivElement>(null);
 
   const community = communities.find((item) => item.id === communityId);
-
-  if (!community) {
-    return null;
-  }
 
   return (
     <div
@@ -40,9 +39,7 @@ const CommunityLabel: React.FC<{
       }}
     >
       <img
-        src={`https://images.peeranha.io/nft/community-icons/${community.name
-          .toLowerCase()
-          .replace(' ', '-')}.png`}
+        src={community && community.avatar ? community.avatar : LOGO_PEERANHA}
         css={{
           width: 24,
           height: 24,
@@ -60,7 +57,7 @@ const CommunityLabel: React.FC<{
         }}
         ref={ref}
       >
-        {community.name}
+        {community ? community.name : 'Peeranha'}
       </div>
     </div>
   );

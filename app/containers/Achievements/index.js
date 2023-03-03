@@ -70,8 +70,6 @@ const Achievements = ({
     return () => resetViewProfileAccountDispatch();
   }, [userId]);
 
-  console.log('achievements', achievements);
-
   return (
     <div>
       <BaseRoundedStyled>

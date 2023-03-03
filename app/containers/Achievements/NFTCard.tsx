@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import useMediaQuery from 'hooks/useMediaQuery';
 import LimitedLabel from './LimitedLabel';
@@ -10,10 +9,13 @@ import { getNFTUrl } from '../../utils/ipfs';
 import { uniqueRatingRelated } from './constants';
 import { NFTType, CommunityType } from './types';
 
-const LIMITED = 0;
+const LIMITED_PEERANHA_NFT = 0;
 
-const getProgress = (currentValue: number, lowerValue: number) =>
-  (currentValue / lowerValue) * 100;
+const getProgress = (currentValue: number, lowerValue: number) => {
+  const result = (currentValue / lowerValue) * 100;
+
+  return result > 100 ? 100 : result;
+};
 
 type NFTCardType = {
   item: NFTType;
@@ -36,7 +38,7 @@ const NFTCard: React.FC<NFTCardType> = ({
   const ref = useRef<HTMLDivElement>(null);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const availiableCount = Number(item.maxCount) - Number(item.factCount);
-  const pointsToNext = (item?.lowerValue || 0) - (currentValue || 0);
+  const pointsToNext = Number(item.lowerValue) - (currentValue || 0);
 
   const onHover = (): void => {
     setHover(() => {
@@ -125,36 +127,43 @@ const NFTCard: React.FC<NFTCardType> = ({
                 height: 'auto',
               }}
             />
+
             <CommunityLabel
               communityId={item.communityId}
               communities={communities}
-              isHover={isHover && hasNFT}
+              isHover={isHover}
             />
-            {item.achievementsType === LIMITED && <LimitedLabel />}
-            {isCurrentUser && !hasNFT && item?.lowerValue && (
-              <div
-                className="pa full-width df jcc"
-                css={{
-                  bottom: 8,
-                }}
-              >
-                <ProgressBar
-                  achievementId={item.id}
-                  progress={getProgress(
-                    currentValue || 0,
-                    item?.lowerValue || 0,
-                  )}
-                  pointsToNext={pointsToNext}
-                  groupType={uniqueRatingRelated}
-                  messageSingle={t(
-                    'achievements.progressBarPopover.ratingRelated.single',
-                  )}
-                  messageMultiple={t(
-                    'achievements.progressBarPopover.ratingRelated.multiple',
-                  )}
-                />
-              </div>
-            )}
+            {item.achievementsType === LIMITED_PEERANHA_NFT && <LimitedLabel />}
+            {isCurrentUser &&
+              !hasNFT &&
+              item.achievementsType === LIMITED_PEERANHA_NFT && (
+                <div
+                  className="pa full-width df jcc"
+                  css={{
+                    bottom: 8,
+
+                    '@media (min-width: 992px)': {
+                      bottom: 16,
+                    },
+                  }}
+                >
+                  <ProgressBar
+                    achievementId={item.id}
+                    progress={getProgress(
+                      currentValue || 0,
+                      Number(item.lowerValue),
+                    )}
+                    pointsToNext={pointsToNext}
+                    groupType={uniqueRatingRelated}
+                    messageSingle={t(
+                      'achievements.progressBarPopover.ratingRelated.single',
+                    )}
+                    messageMultiple={t(
+                      'achievements.progressBarPopover.ratingRelated.multiple',
+                    )}
+                  />
+                </div>
+              )}
           </div>
           <div
             className="pt12"
@@ -204,8 +213,10 @@ const NFTCard: React.FC<NFTCardType> = ({
                 },
               }}
             >
-              {hasNFT && item.description}
+              {(hasNFT || item.achievementsType !== LIMITED_PEERANHA_NFT) &&
+                item.description}
               {!hasNFT &&
+                item.achievementsType === LIMITED_PEERANHA_NFT &&
                 `Available ${availiableCount} out of ${item.maxCount}`}
             </div>
           </div>

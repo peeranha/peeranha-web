@@ -40,6 +40,10 @@ const ProgressBar: React.FC<ProgressBarType> = ({
         background: 'rgba(53, 74, 137, 0.15)',
         borderRadius: '4px',
         width: '60%',
+
+        '@media (min-width: 992px)': {
+          height: 8,
+        },
       }}
       onMouseEnter={showTooltip}
     >
@@ -48,8 +52,18 @@ const ProgressBar: React.FC<ProgressBarType> = ({
         css={{
           height: 4,
           background: colors.textColor || TEXT_PRIMARY,
+          borderTopLeftRadius: '4px',
+          borderBottomLeftRadius: '4px',
 
           ...(progress && { width: `${progress}%` }),
+          ...(progress === 100 && {
+            borderTopRightRadius: '4px',
+            borderBottomRightRadius: '4px',
+          }),
+
+          '@media (min-width: 992px)': {
+            height: 8,
+          },
         }}
       />
     </div>
