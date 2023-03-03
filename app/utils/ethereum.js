@@ -454,9 +454,15 @@ class EthereumService {
       const signer = this.provider.getSigner();
       const web3token = await Web3Token.sign(
         async (msg) => await signer.signMessage(msg),
-        '1d',
+        {
+          uri: 'https://peeranha.io/',
+          domain: 'peeranha.io',
+          web3tokenversion: '1',
+          statement:
+            'I allow Peeranha to sign transactions on your behalf for 30 days.',
+          expires_in: '30d',
+        },
       );
-
       setCookie({
         name: WEB3_TOKEN,
         value: web3token,
