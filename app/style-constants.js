@@ -55,6 +55,7 @@ const graySpecialRGB = `40, 40, 40`;
 const transparentSpecialRGB = `rgb(236, 8, 8)`;
 const lightblueSpecial = `#7699FF`;
 const iconTransparentBlue = '#a5bcff';
+const rulesBackground = '#ADBAFF33';
 
 const graySpecial2 = `rgba(${graySpecialRGB}, 0.1)`;
 const graySpecial3 = 'rgba(250, 250, 250, 1)';
@@ -79,6 +80,7 @@ export const SECONDARY_SPECIAL_3 = graySpecial3;
 export const BG_SECONDARY_SPECIAL_4 = graySpecial4;
 export const PRIMARY_SPECIAL = primarySpecial;
 export const TRANSPARENT_SPECIAL = transparentSpecialRGB;
+export const RULES_BACKGROUND = rulesBackground;
 
 export const TEXT_LIGHT = white;
 export const TEXT_DARK = black;

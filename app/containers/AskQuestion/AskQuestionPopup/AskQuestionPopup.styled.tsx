@@ -1,6 +1,6 @@
 export const styles = {
   rulesConsent: {
-    background: 'var(--color-gray-light)',
+    background: 'var(--color-white)',
     zIndex: 10,
     lineHeight: '20px',
     width: '328px',

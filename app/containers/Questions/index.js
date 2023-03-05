@@ -5,11 +5,12 @@ import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
-
+import history from 'createdHistory';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { getSearchParams } from 'utils/url';
 import { DAEMON } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getCookie } from 'utils/cookie';
@@ -94,10 +95,12 @@ export const Questions = ({
     isNotFollowedCommunities;
   const getInitQuestions = useCallback(() => {
     if (!questionFilter) {
+      const searchParamsTags = getSearchParams(history.location.search);
       getQuestionsDispatch(
         initLoadedItems,
         0,
         postsTypes,
+        searchParamsTags,
         Number(params.communityid) || 0,
         parentPage,
         false,
@@ -107,17 +110,19 @@ export const Questions = ({
   }, [
     initLoadedItems,
     params.communityid,
+    history.location.search,
     parentPage,
     questionFilter,
     postsTypes,
   ]);
-
   const getNextQuestions = useCallback(() => {
     if (!questionFilter) {
+      const searchParamsTags = getSearchParams(history.location.search);
       getQuestionsDispatch(
         nextLoadedItems,
         loadedItems,
         postsTypes,
+        searchParamsTags,
         Number(params.communityid) || 0,
         parentPage,
         true,
@@ -128,6 +133,7 @@ export const Questions = ({
     questionsList.length,
     nextLoadedItems,
     params.communityid,
+    history.location.search,
     parentPage,
     questionFilter,
     loadTopQuestionsDispatch,
