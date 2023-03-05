@@ -41,22 +41,17 @@ export const Tags = ({
   redirectToCreateTagDispatch,
   getExistingTagsDispatch,
   profile,
+  locale,
 }) => {
-  useEffect(
-    () => {
-      getExistingTagsDispatch({ communityId });
-    },
-    [communityId],
-  );
+  useEffect(() => {
+    getExistingTagsDispatch({ communityId });
+  }, [communityId]);
 
-  useEffect(
-    () => {
-      if (!communities.length) {
-        getExistingTagsDispatch({ communityId });
-      }
-    },
-    [communities.length],
-  );
+  useEffect(() => {
+    if (!communities.length) {
+      getExistingTagsDispatch({ communityId });
+    }
+  }, [communities.length]);
 
   return (
     <div className="d-flex justify-content-center">
@@ -68,6 +63,7 @@ export const Tags = ({
           currentCommunity={currentCommunity}
           tagsNumber={tagsNumber}
           profile={profile}
+          locale={locale}
         />
 
         <div className="mb-3">{Content}</div>
@@ -87,6 +83,7 @@ Tags.propTypes = {
   currentCommunity: PropTypes.object,
   communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  locale: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -107,16 +104,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'tags', reducer });
 const withSaga = injectSaga({ key: 'tags', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Tags);
+export default compose(withReducer, withSaga, withConnect)(Tags);

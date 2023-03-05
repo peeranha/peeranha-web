@@ -216,6 +216,7 @@ export const Questions = ({
         questionFilterFromCookies={questionFilterFromCookies}
         isExpert={isExpert}
         postsTypes={postsTypes}
+        locale={locale}
       />
       {displayBanner && (
         <Banner
@@ -259,6 +260,7 @@ export const Questions = ({
           communities={communities}
           profile={profile}
           isTopCommunitiesOnly
+          locale={locale}
         />
       )}
       {displayLoader && <LoadingIndicator />}

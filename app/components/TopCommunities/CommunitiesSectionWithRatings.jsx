@@ -24,6 +24,7 @@ const CommunitiesSectionWithRatings = ({
   ref,
   single,
   communities,
+  locale,
 }) => {
   const { t } = useTranslation();
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
@@ -55,6 +56,7 @@ const CommunitiesSectionWithRatings = ({
             single={single}
             communities={communities}
             key={item.communityId}
+            locale={locale}
           />
         ))}
 
@@ -92,6 +94,7 @@ CommunitiesSectionWithRatings.propTypes = {
   ref: PropTypes.object,
   single: PropTypes.bool,
   communities: PropTypes.array,
+  locale: PropTypes.string,
 };
 
 export default React.memo(CommunitiesSectionWithRatings);

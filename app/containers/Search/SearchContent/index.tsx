@@ -23,6 +23,7 @@ export type Post = {
 export type Community = {
   id: number;
   tags: Tag[];
+  translations: Translation[];
 };
 export type Tag = {
   id: string;
@@ -32,6 +33,15 @@ export type Author = {
   displayName: string;
   id: string;
   achievements: { id: string }[];
+};
+
+export type Translation = {
+  communityId: string;
+  description: string | null;
+  enableAutotranslation: boolean;
+  id: string;
+  language: string;
+  name: string;
 };
 
 const SearchContent: React.FC<SearchContentProps> = ({

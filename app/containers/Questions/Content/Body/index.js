@@ -103,6 +103,7 @@ const Body = ({
           tags={tags}
           postType={postType}
           isFeed={isFeed}
+          locale={locale}
         />
       </div>
     </Base>

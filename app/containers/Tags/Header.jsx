@@ -90,6 +90,7 @@ export const Header = ({
   currentCommunity,
   tagsNumber,
   profile,
+  locale,
 }) => {
   const { t } = useTranslation();
   const path = useMemo(
@@ -129,6 +130,10 @@ export const Header = ({
       communityId: communityid,
     });
   };
+
+  const communityTranslationTitle = currentCommunity.translations?.find(
+    (translation) => translation.language === locale,
+  )?.name;
 
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
@@ -187,7 +192,7 @@ export const Header = ({
             alt="tags"
           />
 
-          {`${currentCommunity.name || ''} `}
+          {`${communityTranslationTitle || currentCommunity.name || ''} `}
 
           {!!tagsNumber && (
             <Span
@@ -232,6 +237,7 @@ Header.propTypes = {
   sortTags: PropTypes.func,
   sorting: PropTypes.string,
   tagsNumber: PropTypes.number,
+  locale: PropTypes.string,
 };
 
 export default React.memo(Header);

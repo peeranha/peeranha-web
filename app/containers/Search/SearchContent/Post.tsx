@@ -14,7 +14,7 @@ import {
   MONTH_3LETTERS__DAY_YYYY_TIME,
   POST_TYPE,
 } from '../../../utils/constants';
-import { Community, Tag, Author } from './index';
+import { Community, Tag, Author, Translation } from './index';
 import { getFormattedDate } from '../../../utils/datetime';
 import {
   getFollowedCommunities,
@@ -73,6 +73,10 @@ const Post: React.FC<PostProps> = ({
     return routes.questions(communityId);
   };
 
+  const communityTranslationTitle = community.translations?.find(
+    (translation: Translation) => translation.language === locale,
+  )?.name;
+
   return (
     <div className="df mb8 border-box" css={styles.post}>
       <div className="m16 full-width" css={styles.container}>
@@ -125,7 +129,7 @@ const Post: React.FC<PostProps> = ({
                   className="ml4 fz14 light no-wrap"
                   css={styles.communityName}
                 >
-                  {community.name}
+                  {communityTranslationTitle || community.name}
                 </span>
               </Link>
             )}
