@@ -241,6 +241,7 @@ export const QuestionForProfilePage = ({
               communities={communities}
               communityId={communityId}
               postType={postType}
+              locale={locale}
             />
           </p>
         </div>

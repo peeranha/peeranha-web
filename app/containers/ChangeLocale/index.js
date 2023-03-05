@@ -15,14 +15,42 @@ import Dropdown from 'components/Dropdown';
 import { Flag, Li } from './Styled';
 import SelectedArrow from 'icons/SelectedArrow';
 import useMediaQuery from 'hooks/useMediaQuery';
-import { singleCommunityColors } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const singleCommunityId = isSingleCommunityWebsite();
 
-export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
+export const ChangeLocale = ({
+  withTitle,
+  changeLocale,
+  locale,
+  communities,
+}) => {
   const [open, setOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const isDesktop = useMediaQuery('(min-width: 992px)');
+
+  const getAvailableLanguages = () => {
+    const communityTranslations = communities.find(
+      (community) => community.id === singleCommunityId,
+    )?.translations;
+
+    if (singleCommunityId) {
+      return communityTranslations?.length
+        ? {
+            en: 'en',
+            ...communityTranslations
+              .map((translation) => translation.language)
+              .reduce((acc, value) => ({ ...acc, [value]: value }), {}),
+          }
+        : languages;
+    }
+    return languages;
+  };
+
   useEffect(() => {
     const lang = getCookie(APP_LOCALE);
 
@@ -51,7 +79,7 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
           button={<ChangeLocaleButton locale={locale} />}
           menu={
             <ul>
-              {Object.keys(languages).map((item) => (
+              {Object.keys(getAvailableLanguages()).map((item) => (
                 <Li
                   key={item}
                   role="presentation"

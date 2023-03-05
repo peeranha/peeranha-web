@@ -15,7 +15,7 @@ import * as routes from '../../routes-config';
 
 const colors = singleCommunityColors();
 
-const TopCommunitiesSection = ({ ref, single, communities }) => {
+const TopCommunitiesSection = ({ ref, single, communities, locale }) => {
   const { t } = useTranslation();
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
     routes.communities(),
@@ -43,18 +43,26 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
         {orderBy(communities, 'postCount', 'desc')
           .slice(0, 9)
-          .map((item) => (
-            <CommunityItem
-              id={item.id}
-              description={item.description}
-              name={item.name}
-              postCount={item.postCount}
-              avatar={item.avatar}
-              followingUsers={item.followingUsers}
-              single={single}
-              key={item.id}
-            />
-          ))}
+          .map((community) => {
+            const communityTranslation = community.translations?.find(
+              (translation) => translation.language === locale,
+            );
+
+            return (
+              <CommunityItem
+                id={community.id}
+                description={
+                  communityTranslation?.description || community.description
+                }
+                name={communityTranslation?.name || community.name}
+                postCount={community.postCount}
+                avatar={community.avatar}
+                followingUsers={community.followingUsers}
+                single={single}
+                key={community.id}
+              />
+            );
+          })}
 
         {communities?.length > 9 && (
           <div className="d-flex align-items-center justify-content-center">
@@ -77,6 +85,7 @@ TopCommunitiesSection.propTypes = {
   ref: PropTypes.object,
   single: PropTypes.bool,
   communities: PropTypes.array,
+  locale: PropTypes.string,
 };
 
 export default React.memo(TopCommunitiesSection);

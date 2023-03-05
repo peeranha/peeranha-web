@@ -39,6 +39,7 @@ const CommunitySelector = ({
   selectedCommunityId,
   disabled,
   toggle,
+  locale,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -48,12 +49,24 @@ const CommunitySelector = ({
     const followedFilteredCommunities = getFollowedCommunities(
       communities,
       followedCommunities || [],
-    );
+    ).map((community) => ({
+      ...community,
+      label:
+        community.translations?.find(
+          (translation) => translation.language === locale,
+        )?.name || community.name,
+    }));
 
     const unfollowedFilteredCommunities = getUnfollowedCommunities(
       communities,
       followedCommunities || [],
-    );
+    ).map((community) => ({
+      ...community,
+      label:
+        community.translations?.find(
+          (translation) => translation.language === locale,
+        )?.name || community.name,
+    }));
 
     let options = [];
 
@@ -124,6 +137,10 @@ const CommunitySelector = ({
     [optionsNumber, isArrowed],
   );
 
+  const communityTranslation = selectedValue?.translations?.find(
+    (translation) => translation.language === locale,
+  );
+
   return (
     <Dropdown
       isCommunitySelector
@@ -133,7 +150,7 @@ const CommunitySelector = ({
       target={
         <Button
           communityAvatar={selectedValue?.avatar}
-          communityLabel={selectedValue?.name}
+          communityLabel={communityTranslation?.name || selectedValue?.name}
         />
       }
     >

@@ -148,6 +148,7 @@ const View = ({
   toggleEditDocumentation,
   locale,
   changeLocale,
+  communities,
 }) => {
   const { t } = useTranslation();
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
@@ -329,6 +330,7 @@ const View = ({
                   withTitle
                   changeLocale={changeLocale}
                   locale={locale}
+                  communities={communities}
                 />
               )}
             </Section>
@@ -352,6 +354,7 @@ View.propTypes = {
   isTransactionInPending: PropTypes.bool,
   transactionHash: PropTypes.string,
   transactionInitialised: PropTypes.bool,
+  communities: PropTypes.array,
 };
 
 LoginProfile.propTypes = {

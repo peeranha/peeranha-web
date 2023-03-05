@@ -101,6 +101,7 @@ const Body = ({
         communityId={communityId}
         tags={tags}
         postType={postType}
+        locale={locale}
         isFeed={isFeed}
       />
 

@@ -13,6 +13,7 @@ const TagsContainer = ({
   communityId,
   tags,
   postType,
+  locale,
   isFeed = false,
 }) => (
   <div className="d-flex align-items-center flex-wrap">
@@ -28,6 +29,7 @@ const TagsContainer = ({
           communities={communities}
           communityId={communityId}
           postType={postType}
+          locale={locale}
           isFeed={isFeed}
         />
       ) : null}
@@ -40,6 +42,7 @@ TagsContainer.propTypes = {
   communities: PropTypes.array,
   tags: PropTypes.array,
   postType: PropTypes.number,
+  locale: PropTypes.string,
   isFeed: PropTypes.bool,
 };
 
