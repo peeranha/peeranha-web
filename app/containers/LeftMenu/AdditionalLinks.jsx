@@ -244,13 +244,10 @@ const AdditionalLinksComponent = ({
               </div>
             )}
 
-            {!!single && (
+            {Boolean(single) && (
               <div className="mt-2">
                 {Boolean(single) && (
-                  <a
-                    className="d-flex align-content-center"
-                    href={process.env.APP_LOCATION}
-                  >
+                  <a className="df aic" href={process.env.APP_LOCATION}>
                     <Trans
                       i18nKey="common.poweredBy"
                       values={{ year: new Date().getFullYear() }}
