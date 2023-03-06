@@ -2,8 +2,11 @@ import React from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import useMediaQuery from 'hooks/useMediaQuery';
 import { css } from '@emotion/react';
-import { styles } from './Footer.styled';
 import A, { ADefault } from 'components/A';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+import { DOCUMENTATION_ABOUT_LINK } from 'app/constants/documentation';
+import { styles } from './Footer.styled';
 
 import {
   INFO_LINKS,
@@ -16,6 +19,8 @@ type FooterLinkType = {
   message: string;
   cssStyles: string;
 };
+
+const isSingleCommunityMode = isSingleCommunityWebsite();
 
 const Link: React.FC<FooterLinkType> = ({
   path,
@@ -49,7 +54,16 @@ const Footer: React.FC = (): JSX.Element => {
                   message={t(`${element.title}`)}
                   cssStyles={css(styles.infoLinks)}
                 />
-              ))}{' '}
+              ))}
+              {!isSingleCommunityMode && (
+                <a
+                  css={styles.infoLinks}
+                  href={DOCUMENTATION_ABOUT_LINK}
+                  target="_blank"
+                >
+                  {t('common.documentation')}
+                </a>
+              )}{' '}
             </div>
           </div>
           <div className="df aic jcc fdc">

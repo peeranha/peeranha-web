@@ -23,6 +23,7 @@ import A, { ADefault } from 'components/A';
 import ChangeLocale from 'containers/ChangeLocale';
 import Span from 'components/Span/index';
 import { Li } from 'containers/ChangeLocale/Styled';
+import { DOCUMENTATION_ABOUT_LINK } from 'app/constants/documentation';
 import { FULL_SIZE, INFO_LINKS, SEMI_SIZE } from './constants';
 
 const styles = singleCommunityStyles();
@@ -182,6 +183,7 @@ const AdditionalLinksComponent = ({
   currClientHeight,
   changeLocale,
   locale,
+  isMenuVisible,
 }) => {
   const { t } = useTranslation();
   const isDesktop = useMediaQuery('(min-width: 992px)');
@@ -194,86 +196,104 @@ const AdditionalLinksComponent = ({
   const smallSize = currClientHeight <= SEMI_SIZE;
 
   return (
-    <AdditionalLinks>
-      {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
-        (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
-        <>
-          {INFO_LINKS.map((el) => (
-            <Link path={el.route} key={el.route} message={el.title} />
-          ))}{' '}
-        </>
-      )}
-
-      {middleSize && basicCondition && process.env.ENV !== 'prod' && (
-        <InfoLinksDropDown withTitle />
-      )}
-
-      {!isDesktop && (
-        <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
-      )}
-
-      {smallSize && basicCondition && (
-        <FlexibleDiv>
-          <InfoLinksDropDown />
-          {process.env.ENV !== 'prod' && (
-            <ChangeLocale changeLocale={changeLocale} locale={locale} />
+    <>
+      {isMenuVisible && (
+        <AdditionalLinks>
+          {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
+            (!styles.withoutAdditionalLinks &&
+              isMobile(window.navigator).any)) && (
+            <>
+              {INFO_LINKS.map((el) => (
+                <Link path={el.route} key={el.route} message={el.title} />
+              ))}
+              {!single && (
+                <ADefault href={DOCUMENTATION_ABOUT_LINK} target="_blank">
+                  {t('common.documentation')}
+                </ADefault>
+              )}{' '}
+            </>
           )}
-        </FlexibleDiv>
-      )}
 
-      <FooterStyled currClientHeight={currClientHeight}>
-        {!single && (
-          <div>
-            {t('common.copyrightPeeranha', { year: new Date().getFullYear() })}
-          </div>
-        )}
+          {middleSize && basicCondition && process.env.ENV !== 'prod' && (
+            <InfoLinksDropDown withTitle />
+          )}
 
-        {!!single && (
-          <div className="mt-2">
-            {Boolean(single) && (
-              <a
-                className="d-flex align-content-center"
-                href={process.env.APP_LOCATION}
-              >
-                <Trans
-                  i18nKey="common.poweredBy"
-                  values={{ year: new Date().getFullYear() }}
-                  components={[
-                    <Img
-                      key="peeranha"
-                      src={styles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
-                      alt="peeranha"
-                    />,
-                  ]}
-                />
-              </a>
+          {!isDesktop && (
+            <ChangeLocale
+              withTitle
+              changeLocale={changeLocale}
+              locale={locale}
+            />
+          )}
+
+          {smallSize && basicCondition && (
+            <FlexibleDiv>
+              <InfoLinksDropDown />
+              {process.env.ENV !== 'prod' && (
+                <ChangeLocale changeLocale={changeLocale} locale={locale} />
+              )}
+            </FlexibleDiv>
+          )}
+
+          <FooterStyled currClientHeight={currClientHeight}>
+            {!single && (
+              <div>
+                {t('common.copyrightPeeranha', {
+                  year: new Date().getFullYear(),
+                })}
+              </div>
             )}
-          </div>
-        )}
 
-        <DivMention>
-          <Trans
-            i18nKey="common.reCaptchaMention"
-            values={{
-              privacyPolicy: t('common.privacyPolicy'),
-              termsOfService: t('common.termsOfService'),
-            }}
-            components={[
-              <ASimple
-                key="0"
-                href="https://policies.google.com/privacy"
-                target="_blank"
-              />,
-              <ASimple
-                key="1"
-                href="https://policies.google.com/terms"
-                target="_blank"
-              />,
-            ]}
-          />
-        </DivMention>
-      </FooterStyled>
-    </AdditionalLinks>
+            {!!single && (
+              <div className="mt-2">
+                {Boolean(single) && (
+                  <a
+                    className="d-flex align-content-center"
+                    href={process.env.APP_LOCATION}
+                  >
+                    <Trans
+                      i18nKey="common.poweredBy"
+                      values={{ year: new Date().getFullYear() }}
+                      components={[
+                        <Img
+                          key="peeranha"
+                          src={
+                            styles.logoWhite ? peeranhaLogoWhite : peeranhaLogo
+                          }
+                          alt="peeranha"
+                        />,
+                      ]}
+                    />
+                  </a>
+                )}
+              </div>
+            )}
+
+            <DivMention>
+              <Trans
+                i18nKey="common.reCaptchaMention"
+                values={{
+                  privacyPolicy: t('common.privacyPolicy'),
+                  termsOfService: t('common.termsOfService'),
+                }}
+                components={[
+                  <ASimple
+                    key="0"
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                  />,
+                  <ASimple
+                    key="1"
+                    href="https://policies.google.com/terms"
+                    target="_blank"
+                  />,
+                ]}
+              />
+            </DivMention>
+          </FooterStyled>
+        </AdditionalLinks>
+      )}
+    </>
   );
 };
 

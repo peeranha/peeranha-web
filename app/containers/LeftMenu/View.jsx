@@ -126,6 +126,7 @@ const View = ({
       <AdditionalLinks
         currClientHeight={currClientHeight}
         changeLocale={changeLocale}
+        isMenuVisible={isMenuVisible}
         locale={locale}
       />
     </ViewStyled>
