@@ -6,20 +6,15 @@ import { BORDER_PRIMARY } from 'style-constants';
 
 import { LANGUAGES_MAP } from 'utils/constants';
 
-import enLang from 'images/en_lang.png';
-import esLang from 'images/es_lang.png';
-import viLang from 'images/vi_lang.png';
-import zhLang from 'images/zh_lang.png';
-
 type imageByLanguageType = {
   [key: string]: any;
 };
 
 const imageByLanguage: imageByLanguageType = {
-  0: enLang,
-  1: zhLang,
-  2: esLang,
-  3: viLang,
+  0: 'https://images.peeranha.io/languages/en_lang.svg',
+  1: 'https://images.peeranha.io/languages/zh_lang.svg',
+  2: 'https://images.peeranha.io/languages/es_lang.svg',
+  3: 'https://images.peeranha.io/languages/vi_lang.svg',
 };
 
 type SeeOriginalProps = {
