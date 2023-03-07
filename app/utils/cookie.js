@@ -111,7 +111,7 @@ export const formPermissionsCookie = (permissions) => {
 };
 
 export const parsePermissionsCookie = (permissionsObject) => {
-  const permissions = permissionsObject.base;
+  const permissions = permissionsObject.base || [];
   const adminPermissions =
     permissionsObject['0a7c']?.map((communityId) =>
       getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
