@@ -1,6 +1,7 @@
+import { PROFILE_INFO_LS } from 'containers/Login/constants';
 import { BigNumber } from 'ethers';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { getCookie, deleteCookie } from 'utils/cookie';
+import { getCookie, deleteCookie, parsePermissionsCookie } from 'utils/cookie';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -127,12 +128,13 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
 
   if (!permissions) {
-    permissions =
+    permissions = parsePermissionsCookie(
       JSON.parse(
-        isValidJsonFromCookie(getCookie('profileinfols'), 'profileinfols')
-          ? getCookie('profileinfols')
+        isValidJsonFromCookie(getCookie(PROFILE_INFO_LS), PROFILE_INFO_LS)
+          ? getCookie(PROFILE_INFO_LS)
           : '""',
-      )?.permissions || [];
+      ) || [],
+    );
   }
 
   return Boolean(
@@ -185,12 +187,13 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
   let permissions = permissionsFromState;
 
   if (!permissions) {
-    permissions =
+    permissions = parsePermissionsCookie(
       JSON.parse(
-        isValidJsonFromCookie(getCookie('profileinfols'), 'profileinfols')
-          ? getCookie('profileinfols')
+        isValidJsonFromCookie(getCookie(PROFILE_INFO_LS), PROFILE_INFO_LS)
+          ? getCookie(PROFILE_INFO_LS)
           : '""',
-      )?.permissions || [];
+      ) || [],
+    );
   }
 
   return !!permissions.filter(
@@ -209,12 +212,13 @@ export const hasProtocolAdminRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
 
   if (!permissions) {
-    permissions =
+    permissions = parsePermissionsCookie(
       JSON.parse(
-        isValidJsonFromCookie(getCookie('profileinfols'), 'profileinfols')
-          ? getCookie('profileinfols')
+        isValidJsonFromCookie(getCookie(PROFILE_INFO_LS), PROFILE_INFO_LS)
+          ? getCookie(PROFILE_INFO_LS)
           : '""',
-      )?.permissions || [];
+      ) || [],
+    );
   }
 
   return Boolean(
