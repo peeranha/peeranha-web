@@ -19,8 +19,6 @@ import {
   EDIT_PROFILE_BUTTON_ID,
   MIN_RATING_TO_EDIT_PROFILE,
 } from './constants';
-import { setCookie } from '../../utils/cookie';
-import { PROFILE_INFO_LS } from '../Login/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 // TODO: test

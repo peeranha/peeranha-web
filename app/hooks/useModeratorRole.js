@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { PROFILE_INFO_LS } from 'containers/Login/constants';
 
-import { getCookie } from '../utils/cookie';
+import { getCookie, parsePermissionsCookie } from 'utils/cookie';
 
 import {
   hasGlobalModeratorRole,
@@ -8,7 +9,7 @@ import {
   hasCommunityAdminRole,
   hasProtocolAdminRole,
   isValidJsonFromCookie,
-} from '../utils/properties';
+} from 'utils/properties';
 
 import history from '../createdHistory';
 
@@ -16,12 +17,13 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
   const [isModeratorRole, setModeratorRole] = useState(null);
 
   useEffect(() => {
-    const permissions =
+    const permissions = parsePermissionsCookie(
       JSON.parse(
-        isValidJsonFromCookie(getCookie('profileinfols'), 'profileinfols')
-          ? getCookie('profileinfols')
+        isValidJsonFromCookie(getCookie(PROFILE_INFO_LS), PROFILE_INFO_LS)
+          ? getCookie(PROFILE_INFO_LS)
           : '""',
-      )?.permissions || [];
+      ) || [],
+    );
 
     setModeratorRole(
       hasProtocolAdminRole(permissions) ||
