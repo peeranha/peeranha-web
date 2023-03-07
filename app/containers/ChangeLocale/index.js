@@ -34,7 +34,7 @@ export const ChangeLocale = ({
   const isDesktop = useMediaQuery('(min-width: 992px)');
 
   const getAvailableLanguages = () => {
-    const communityTranslations = communities.find(
+    const communityTranslations = communities?.find(
       (community) => community.id === singleCommunityId,
     )?.translations;
 

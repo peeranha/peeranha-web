@@ -35,8 +35,8 @@ const CommunityItemWithRating = ({
     }
   }, [single, communityId]);
 
-  const community = communities.find((item) => item.id === communityId);
-  const communityTranslation = community.translations?.find(
+  const community = communities?.find((item) => item.id === communityId);
+  const communityTranslation = community?.translations?.find(
     (translation) => translation.language === locale,
   );
 
