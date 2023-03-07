@@ -24,7 +24,9 @@ import { useOnClickOutside } from 'utils/click-listners';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import SeeOriginal from 'containers/ViewQuestion/SeeOriginal';
 import { getUserName } from 'utils/user';
+import { LANGUAGES_MAP } from 'utils/constants';
 import {
   getPermissions,
   hasCommunityModeratorRole,
@@ -144,6 +146,9 @@ const CommentView = (item) => {
   const isItWrittenByMe = item.profileInfo
     ? item.author?.user === item.profileInfo.user
     : false;
+  const translation = item.translations.find(
+    ({ language }) => +language === LANGUAGES_MAP[item.locale],
+  );
 
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const refPopover = useRef(null);
@@ -162,6 +167,16 @@ const CommentView = (item) => {
     (history) =>
       history.comment?.id === `${item.postId}-${item.answerId}-${item.id}`,
   );
+
+  const getContent = () => {
+    if (
+      Number(item.language) === LANGUAGES_MAP[item.locale] ||
+      item.showOriginal
+    ) {
+      return item.content;
+    }
+    return translation ? translation.content : item.content;
+  };
 
   return (
     <li
@@ -189,6 +204,16 @@ const CommentView = (item) => {
         />
 
         <CommentManage>
+          <SeeOriginal
+            isOriginalLanguage={
+              Number(item.language) === LANGUAGES_MAP[item.locale]
+            }
+            translation={translation}
+            showOriginal={item.showOriginal}
+            setShowOriginal={item.setShowOriginal}
+            locale={item.locale}
+            language={item.language || item.questionData?.language}
+          />
           <Button
             show={!!item.profileInfo && isItWrittenByMe}
             params={{
@@ -257,7 +282,7 @@ const CommentView = (item) => {
         fontSize="16"
         lineHeight="20"
         className="d-block mb-2"
-        dangerouslySetInnerHTML={{ __html: item.content }}
+        dangerouslySetInnerHTML={{ __html: getContent() }}
       />
     </li>
   );
@@ -265,13 +290,20 @@ const CommentView = (item) => {
 
 const Comment = (item) => {
   const [isView, toggleView] = useState(true);
+  const [showOriginal, setShowOriginal] = useState(false);
 
   return (
     <React.Fragment>
       {!isView ? (
         <CommentEdit toggleView={() => toggleView(!isView)} {...item} />
       ) : (
-        <CommentView isView={isView} toggleView={toggleView} {...item} />
+        <CommentView
+          {...item}
+          isView={isView}
+          toggleView={toggleView}
+          showOriginal={showOriginal}
+          setShowOriginal={setShowOriginal}
+        />
       )}
     </React.Fragment>
   );
