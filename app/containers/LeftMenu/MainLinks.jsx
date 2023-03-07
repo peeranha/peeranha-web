@@ -1,4 +1,6 @@
 import Documentation from 'containers/LeftMenu/Documentation/Documentation';
+import { Administration } from 'icons/index';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -181,6 +183,11 @@ const MainLinks = ({
       isProtocolAdmin
     : false;
 
+  const isAdministratorModeSingleCommunity = singleCommId
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
+      isProtocolAdmin
+    : false;
+
   if (!route) {
     route = isBloggerMode ? 'home' : '/';
   }
@@ -188,8 +195,8 @@ const MainLinks = ({
   const hasCommunityOrProtocolAdminRole =
     singleCommId &&
     (hasGlobalModeratorRole() ||
-      hasCommunityAdminRole(null, singleCommId) ||
-      isProtocolAdmin);
+      hasProtocolAdminRole() ||
+      hasCommunityAdminRole(null, singleCommId));
 
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
 
@@ -333,7 +340,7 @@ const MainLinks = ({
           </A1>
         )}
 
-        {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
+        {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
             <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
             {t('common.administration')}
