@@ -73,7 +73,12 @@ import {
   POST_ANSWER_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
-import { getCookie, setCookie } from 'utils/cookie';
+import {
+  formPermissionsCookie,
+  getCookie,
+  parsePermissionsCookie,
+  setCookie,
+} from 'utils/cookie';
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
@@ -157,7 +162,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
 
     setCookie({
       name: PROFILE_INFO_LS,
-      value: JSON.stringify(profileInfo),
+      value: JSON.stringify(formPermissionsCookie(profileInfo?.permissions)),
       options: {
         defaultPath: true,
         allowSubdomains: true,

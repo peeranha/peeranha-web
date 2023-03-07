@@ -16,7 +16,10 @@ import AddCommentIcon from 'icons/AddComment';
 import Link from './Link';
 import Item from './Item';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
-import { singleCommunityColors } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityDocumentation,
+} from 'utils/communityManagement';
 import { isEditableChildItem } from 'components/Documentation/helpers';
 
 type DocumentationMenuProps = {
@@ -44,6 +47,7 @@ type DocumentationMenuProps = {
 };
 
 const colors = singleCommunityColors();
+const documentationColors = singleCommunityDocumentation();
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
   item,
@@ -194,24 +198,43 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                   {
                     label: 'Add a new sub-article',
                     value: 1,
-                    icon: <AddSubArticleIcon />,
+                    icon: (
+                      <AddSubArticleIcon
+                        stroke={documentationColors.linkColor}
+                        fill={documentationColors.iconsFillColor}
+                      />
+                    ),
                   },
                   {
                     label: 'Edit content',
                     value: 2,
-                    icon: <EditIcon />,
+                    icon: (
+                      <EditIcon
+                        stroke={documentationColors.linkColor}
+                        fill={documentationColors.iconsFillColor}
+                      />
+                    ),
                   },
                   {
                     label: pinned === item.id ? 'Unpin' : 'Pin',
                     value: 3,
                     icon: (
-                      <PinIcon css={{ fill: 'rgba(118, 153, 255, 0.2)' }} />
+                      <PinIcon
+                        css={{ fill: 'rgba(118, 153, 255, 0.2)' }}
+                        stroke={documentationColors.linkColor}
+                        fill={documentationColors.iconsFillColor}
+                      />
                     ),
                   },
                   {
                     label: 'Delete',
                     value: 4,
-                    icon: <DeleteIcon />,
+                    icon: (
+                      <DeleteIcon
+                        stroke={documentationColors.linkColor}
+                        fill={documentationColors.iconsFillColor}
+                      />
+                    ),
                   },
                 ]}
                 isMultiple={false}
