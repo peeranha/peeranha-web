@@ -183,15 +183,14 @@ const MainLinks = ({
       isProtocolAdmin
     : false;
 
+  const isAdministratorModeSingleCommunity = singleCommId
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
+      isProtocolAdmin
+    : false;
+
   if (!route) {
     route = isBloggerMode ? 'home' : '/';
   }
-
-  const hasCommunityOrProtocolAdminRole =
-    singleCommId &&
-    (hasGlobalModeratorRole() ||
-      hasProtocolAdminRole() ||
-      hasCommunityAdminRole(null, singleCommId));
 
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
 
@@ -335,7 +334,7 @@ const MainLinks = ({
           </A1>
         )}
 
-        {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
+        {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
             <Administration className={'mr-2'} />
             {t('common.administration')}
