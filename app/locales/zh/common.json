@@ -469,5 +469,6 @@
   "continue": "继续",
   "activeUsers": "活跃用户",
   "administration": "行政",
-  "documentation": "文档"
+  "documentation": "文档",
+  "translatedFrom": "翻译为 "
 }

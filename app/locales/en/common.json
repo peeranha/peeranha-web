@@ -511,5 +511,6 @@
   "transactionsChange_3": "I sign transactions and cover transaction fees.",
   "transactionsText_4": "You can change your choice anytime in the ",
   "continue": "Continue",
-  "activeUsers": "Active users"
+  "activeUsers": "Active users",
+  "translatedFrom": "Translated from "
 }
