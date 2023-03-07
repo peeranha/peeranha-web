@@ -93,6 +93,10 @@
   "es": "Español",
   "zh": "简体中文",
   "vi": "Tiếng Việt",
+  "english": "English",
+  "spanish": "Spanish",
+  "chinese": "Chinese",
+  "vietnamese": "Vietnamese",
   "about": "About",
   "contacts": "Contacts",
   "support": "Support",
@@ -476,5 +480,6 @@
   "drafts": "Drafts",
   "enterText": "Please enter Markdown text",
   "results": "Results",
-  "noSearchResults": "We couldn't find any matching results. \n Try asking our community."
+  "noSearchResults": "We couldn't find any matching results. \n Try asking our community.",
+  "translatedFrom": "Translated from "
 }

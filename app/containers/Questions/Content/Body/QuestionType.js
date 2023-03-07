@@ -151,16 +151,10 @@ const QuestionType = ({
               isExpert={type.isExpert}
               isTutorial={type.isTutorial}
               isDocumentation={type.isDocumentation}
-              className="mr-2"
+              className="mr-2 ml-4"
               icon={type.icon}
             />
           </Container>
-        </LabelItem>
-      )}
-
-      {isPromoted && (
-        <LabelItem>
-          <PromotedLabel>{t('common.promoted')}</PromotedLabel>
         </LabelItem>
       )}
     </div>

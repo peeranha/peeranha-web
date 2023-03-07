@@ -93,6 +93,10 @@
   "es": "Español",
   "zh": "简体中文",
   "vi": "Tiếng Việt",
+  "english": "英语",
+  "spanish": "西班牙语",
+  "chinese": "中文",
+  "vietnamese": "越南语",
   "about": "关于",
   "contacts": "联系人",
   "support": "支持",
@@ -428,5 +432,6 @@
     "reloadPage": "重新加载页面"
   },
   "answerForm": "你的答案",
-  "results": "结果"
+  "results": "结果",
+  "translatedFrom": "翻译为 "
 }

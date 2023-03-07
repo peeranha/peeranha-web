@@ -155,7 +155,7 @@ exports[`<CreateTag /> render 1`] = `
                 "app.containers.Communities.voting": "Voting",
                 "app.containers.CreateCommunity.avatar": "Avatar",
                 "app.containers.CreateCommunity.communityDescriptionShouldBe": "Community description should be concise and describe to whom it will be useful",
-                "app.containers.CreateCommunity.communityLanguage": "Language",
+                "app.containers.CreateCommunity.communityLanguage": "LanguageLabel",
                 "app.containers.CreateCommunity.communityLanguageTip": "Some language field tip...",
                 "app.containers.CreateCommunity.communityTitle": "Title",
                 "app.containers.CreateCommunity.communityTitleTip": "Some community title tip...",
