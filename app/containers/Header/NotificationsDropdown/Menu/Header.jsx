@@ -1,41 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
-import { BORDER_SECONDARY_LIGHT, TEXT_SECONDARY } from 'style-constants';
-
-import Span from 'components/Span';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import closeIcon from 'images/closeGray.svg?inline';
 
-const Container = styled.div`
-  display: flex;
-  width: 100%;
-  padding: 16px;
-  justify-content: space-between;
-  border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT};
-
-  > div span:nth-child(1) {
-    margin-left: 10px;
-    font-weight: 600;
-    font-size: 18px;
-  }
-`;
+import styles from './Notification.styled';
 
 const Header = ({ notificationsNumber, onClose }) => {
   const { t } = useTranslation();
-
   return (
-    <Container>
+    <div css={styles.headerContainer}>
       <div>
-        {t('common.notifications')}
-        <Span color={TEXT_SECONDARY}>{notificationsNumber}</Span>
+        <span css={styles.headerTitle}>{t('common.notifications')}</span>
+        <span css={{ color: TEXT_SECONDARY }}>{notificationsNumber}</span>
       </div>
       <button onClick={onClose}>
         <img src={closeIcon} width="15" alt="close_icon" />
       </button>
-    </Container>
+    </div>
   );
 };
 
