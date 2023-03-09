@@ -1,6 +1,6 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
-import EthereumService from 'utils/ethereum';
+import EthereumService from 'utils/ethereum/ethereum';
 import { ApplicationError } from 'utils/errors';
 
 import {
