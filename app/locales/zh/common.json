@@ -237,7 +237,7 @@
   "attach": "附",
   "communityLabel": "社区",
   "tagsLabel": "标签",
-  "invalidFileFormat": "文件格式无效。 允许的格式：jpeg、jpg、png、gif、mp4。",
+  "invalidFileFormat": "文件格式无效。 允许的格式：jpeg、jpg、png、gif、 heic、 heif、 mp4。",
   "invalidFileSize": "文件大小无效。 图片最大允许为 1.8mb，视频最大允许为 1Gb。",
   "bountyLabel": "赏金",
   "bountyDaysLabel": "赏金日",
