@@ -241,7 +241,7 @@
   "attach": "adjuntar",
   "communityLabel": "Comunidad",
   "tagsLabel": "Etiquetas",
-  "invalidFileFormat": "Formato de archivo inválido. Formatos permitidos: jpeg, jpg, png, gif, mp4.",
+  "invalidFileFormat": "Formato de archivo inválido. Formatos permitidos: jpeg, jpg, png, gif, heic, heif, mp4.",
   "invalidFileSize": "Tamaño de archivo no válido. El máximo permitido es de 1,8 MB para imágenes y 1 Gb para videos.",
   "bountyLabel": "Generosidad",
   "bountyDaysLabel": "Días de recompensa",
