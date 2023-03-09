@@ -115,6 +115,7 @@ const SettingsOfUser = ({
   tgData,
 }) => {
   const { t } = useTranslation();
+
   const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(event.currentTarget.id, t('common.copied'));
@@ -122,16 +123,7 @@ const SettingsOfUser = ({
 
   return isAvailable ? (
     <div>
-      <AuthorizationData
-        locale={locale}
-        ownerKey={ownerKey}
-        loginData={loginData}
-        activeKey={activeKey}
-        className={className}
-        writeToBuffer={writeToBuffer}
-        tgData={tgData}
-        profile={profile}
-      />
+      <AuthorizationData className={className} />
     </div>
   ) : (
     <div className={className}>

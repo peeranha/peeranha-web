@@ -3,34 +3,42 @@ import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity
 import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaUser from '../../../peeranha-subgraph/abis/PeeranhaUser.json';
+
+import { WebIntegrationErrorByCode } from './errors';
+import {
+  CONTRACT_TOKEN,
+  CONTRACT_USER,
+  CONTRACT_CONTENT,
+  CONTRACT_COMMUNITY,
+  GET_COMMUNITY,
+  GET_USER_BY_ADDRESS,
+  ContractsMapping,
+} from './ethConstants';
+
+import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
+import { deleteCookie, getCookie, setCookie } from './cookie';
 import {
   CURRENCY,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   INVALID_MIN_RATING_ERROR_CODE,
+  TRANSACTIONS_ALLOWED,
   META_TRANSACTIONS_ALLOWED,
+  DISPATCHER_TRANSACTIONS_ALLOWED,
   METAMASK_ERROR_CODE,
   REJECTED_SIGNATURE_REQUEST,
   USER_MIN_RATING_ERROR_CODE,
+  TYPE_OF_TRANSACTIONS,
+  WEB3_TOKEN,
+  ONE_MONTH,
+  WEB3_TOKEN_USER_ADDRESS,
 } from './constants';
-import { deleteCookie, getCookie } from './cookie';
 
-import { WebIntegrationErrorByCode } from './errors';
-import {
-  CONTRACT_COMMUNITY,
-  CONTRACT_CONTENT,
-  CONTRACT_TOKEN,
-  CONTRACT_USER,
-  GET_COMMUNITY,
-  GET_USER_BY_ADDRESS,
-} from './ethConstants';
-
-import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
-
-const sigUtil = require('eth-sig-util');
+import Web3Token from 'web3-token';
 const TRANSACTION_LIST = 'transactionList';
 const {
   callService,
   BLOCKCHAIN_SEND_META_TRANSACTION,
+  BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
 } = require('./web_integration/src/util/aws-connector');
 
 const CONTRACT_TO_ABI = {};
@@ -277,23 +285,46 @@ class EthereumService {
     data,
     confirmations = 1,
   ) => {
+    let dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
+    const transactionsAllowed = dataFromCookies === TRANSACTIONS_ALLOWED;
+    if (!dataFromCookies) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
+      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    }
+    if (transactionsAllowed && Number(balance) < 0.005) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
+      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    }
+    if (!dataFromCookies) {
+      return;
+    }
+
     this.setTransactionInitialised(true);
     this.waitForConfirm();
 
-    const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
-    const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
-
-    if (!dataFromCookies && Number(balance) >= 0) {
-      this.showModalDispatch();
-      await this.waitForCloseModal();
-    }
-
-    const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
-
+    const metaTransactionsAllowed =
+      dataFromCookies === META_TRANSACTIONS_ALLOWED;
+    const dispatcherTransactionsAllowed =
+      dataFromCookies === DISPATCHER_TRANSACTIONS_ALLOWED;
     try {
       if (metaTransactionsAllowed) {
         const token = await this.getRecaptchaToken();
         return await this.sendMetaTransaction(
+          contract,
+          actor,
+          action,
+          data,
+          confirmations,
+          token,
+        );
+      }
+
+      if (dispatcherTransactionsAllowed) {
+        const token = await this.getRecaptchaToken();
+        return await this.sendDispatcherTransaction(
           contract,
           actor,
           action,
@@ -469,6 +500,112 @@ class EthereumService {
       response.body.transactionHash,
       confirmations,
     );
+    const pendingTransaction = this.transactionList.find(
+      (transactionFromList) =>
+        transactionFromList.transactionHash === response.body.transactionHash,
+    );
+    if (pendingTransaction) {
+      pendingTransaction.result = result;
+    }
+    localStorage.setItem(
+      TRANSACTION_LIST,
+      JSON.stringify(this.transactionList),
+    );
+    setTimeout(() => {
+      const index = this.transactionList
+        .map((transactionFromList) => transactionFromList.transactionHash)
+        .indexOf(response.body.transactionHash);
+      if (index !== -1) {
+        this.transactionList.splice(index, 1);
+        this.setTransactionList(this.transactionList);
+        localStorage.setItem(
+          TRANSACTION_LIST,
+          JSON.stringify(this.transactionList),
+        );
+      }
+    }, 30000);
+
+    this.transactionCompleted(this.transactionList);
+    this.setTransactionInitialised(false);
+    return result;
+  };
+
+  sendDispatcherTransaction = async (
+    contract,
+    actor,
+    action,
+    data,
+    confirmations = 1,
+    token,
+  ) => {
+    await this.chainCheck();
+    const userAddress = data.shift();
+
+    const isWeb3Token = getCookie(WEB3_TOKEN);
+    const isWeb3TokenUserAddress = getCookie(WEB3_TOKEN_USER_ADDRESS) === actor;
+
+    if (!isWeb3Token || !isWeb3TokenUserAddress) {
+      const signer = this.provider.getSigner();
+      const web3token = await Web3Token.sign(
+        async (msg) => await signer.signMessage(msg),
+        '1d',
+      );
+
+      setCookie({
+        name: WEB3_TOKEN,
+        value: web3token,
+        options: {
+          'max-age': ONE_MONTH,
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+      setCookie({
+        name: WEB3_TOKEN_USER_ADDRESS,
+        value: actor,
+        options: {
+          'max-age': ONE_MONTH,
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+    }
+
+    const response = await callService(
+      BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress,
+      {
+        contract: ContractsMapping[contract],
+        action: action,
+        args: data,
+        reCaptchaToken: token,
+        wait: false,
+      },
+    );
+
+    this.transactionList.push({
+      action,
+      transactionHash: response.body.transactionHash,
+    });
+
+    localStorage.setItem(
+      TRANSACTION_LIST,
+      JSON.stringify(this.transactionList),
+    );
+
+    if (response.errorCode) {
+      throw response;
+    }
+
+    this.transactionInPending(
+      response.body.transactionHash,
+      this.transactionList,
+    );
+
+    const result = await this.provider.waitForTransaction(
+      response.body.transactionHash,
+      confirmations,
+    );
+
     const pendingTransaction = this.transactionList.find(
       (transactionFromList) =>
         transactionFromList.transactionHash === response.body.transactionHash,

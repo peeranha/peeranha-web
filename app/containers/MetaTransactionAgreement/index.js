@@ -1,51 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
+import { useTranslation } from 'react-i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DAEMON, META_TRANSACTIONS_ALLOWED } from 'utils/constants';
+import {
+  DAEMON,
+  CURRENCY,
+  TRANSACTIONS_ALLOWED,
+  DISPATCHER_TRANSACTIONS_ALLOWED,
+  TORUS_WALLET,
+  CONNECTED_WALLET,
+  ONE_MONTH,
+  TYPE_OF_TRANSACTIONS,
+} from 'utils/constants';
+import { setCookie, getCookie } from 'utils/cookie';
 
-import ModalDialog from 'components/ModalDialog';
+import PopupForNotBalance from './PopupForNotBalance';
+import PopupForTorusWallet from './PopupForTorusWallet';
 
+import TransactionHandler from 'containers/ViewProfilePage/TransactionHandler';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
 
-import { useTranslation } from 'react-i18next';
-import H4 from 'components/H4';
-import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
-import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import { hideModal } from 'containers/EthereumProvider/actions';
-import { setCookie } from 'utils/cookie';
 
 import {
   makeSelectEthereum,
   makeSelectShowModal,
 } from '../EthereumProvider/selectors';
+import Popup from 'common-components/Popup';
+import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
+import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 
 /* eslint-disable react/prefer-stateless-function */
 export const MetaTransactionAgreement = ({
   showModal,
   hideModalDispatch,
   ethereum,
+  account,
 }) => {
+  const dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+  const [transaction, setTransaction] = useState(dataFromCookies);
   const { t } = useTranslation();
+
+  const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
+  const isBalance =
+    Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0.005;
+  const isTransactionType = dataFromCookies === TRANSACTIONS_ALLOWED;
 
   const hideModal = () => {
     ethereum.stopWaiting();
     hideModalDispatch();
   };
 
-  const agreeWithMeta = () => {
+  const writeTransactionCookie = () => {
     setCookie({
-      name: META_TRANSACTIONS_ALLOWED,
-      value: true,
+      name: TYPE_OF_TRANSACTIONS,
+      value: transaction,
       options: {
-        neverExpires: true,
+        'max-age': ONE_MONTH,
+        defaultPath: true,
+        allowSubdomains: true,
+      },
+    });
+    hideModal();
+  };
+
+  const agreeWithDispatcherTransactions = () => {
+    setCookie({
+      name: TYPE_OF_TRANSACTIONS,
+      value: DISPATCHER_TRANSACTIONS_ALLOWED,
+      options: {
+        'max-age': ONE_MONTH,
         defaultPath: true,
         allowSubdomains: true,
       },
@@ -54,42 +88,73 @@ export const MetaTransactionAgreement = ({
   };
 
   return (
-    <ModalDialog closeModal={hideModal} show={showModal}>
-      <H4 className="text-center pb-3">
-        {t('common.metaTransaction.agreeWithMetaTransactions')}
-      </H4>
-
-      <div className="pb-4" style={{ textAlign: 'center' }}>
-        {t('common.metaTransaction.wouldYouLike')}
-      </div>
-
-      <div className="d-flex align-items-center pb-3">
-        <OutlinedButton className="mr-3" onClick={hideModal}>
-          {t('common.metaTransaction.cansel')}
-        </OutlinedButton>
-
-        <ContainedButton onClick={agreeWithMeta}>
-          {t('common.metaTransaction.confirm')}
-        </ContainedButton>
-      </div>
-    </ModalDialog>
+    <>
+      {showModal && (
+        <>
+          {!isBalance && isTransactionType && (
+            <Popup size="tiny" onClose={hideModal}>
+              <PopupForNotBalance
+                hideModal={hideModal}
+                transaction={transaction}
+                setTransaction={setTransaction}
+                writeTransactionCookie={writeTransactionCookie}
+              />
+            </Popup>
+          )}
+          {isTorusWallet && !dataFromCookies && (
+            <Popup size="tiny" onClose={hideModal}>
+              <PopupForTorusWallet
+                agreeWithDispatcherTransactions={
+                  agreeWithDispatcherTransactions
+                }
+                account={account}
+              />
+            </Popup>
+          )}
+          {!isTorusWallet && !dataFromCookies && (
+            <Popup
+              size="small"
+              onClose={hideModal}
+              css={{ '> div': { maxWidth: '570px !important' } }}
+              withoutClose={false}
+            >
+              <TransactionHandler
+                transaction={transaction}
+                setTransaction={setTransaction}
+              />
+              <div css={{ marginTop: '30px' }}>
+                <span>{t('common.transactionsText_4')}</span>
+                <span className="bold">{t('common.settings')}</span>.
+              </div>
+              <div
+                className="df aic jcfe mt-4"
+                css={{ button: { maxWidth: '150px' } }}
+              >
+                <OutlinedButton className="mr-3" onClick={hideModal}>
+                  {t('common.cancel')}
+                </OutlinedButton>
+                <ContainedButton
+                  disabled={!transaction}
+                  block={!transaction}
+                  onClick={writeTransactionCookie}
+                >
+                  {t('common.continue')}
+                </ContainedButton>
+              </div>
+            </Popup>
+          )}
+        </>
+      )}
+    </>
   );
 };
 
 MetaTransactionAgreement.propTypes = {
-  content: PropTypes.string,
+  account: PropTypes.string,
   showModal: PropTypes.bool,
-  hideLoginModalDispatch: PropTypes.func,
+  hideModalDispatch: PropTypes.func,
+  ethereum: PropTypes.object,
   locale: PropTypes.string,
-  email: PropTypes.string,
-  loginWithEmailProcessing: PropTypes.bool,
-  finishRegistrationProcessing: PropTypes.bool,
-  loginWithWalletProcessing: PropTypes.bool,
-  showEmailPasswordFormDispatch: PropTypes.func,
-  loginWithEmailDispatch: PropTypes.func,
-  loginWithWalletDispatch: PropTypes.func,
-  finishRegistrationDispatch: PropTypes.func,
-  showForgotPasswordModalDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -97,6 +162,7 @@ const withConnect = connect(
     locale: makeSelectLocale(),
     showModal: makeSelectShowModal(),
     ethereum: makeSelectEthereum(),
+    account: makeSelectAccount(),
   }),
   (dispatch) => ({
     hideModalDispatch: bindActionCreators(hideModal, dispatch),

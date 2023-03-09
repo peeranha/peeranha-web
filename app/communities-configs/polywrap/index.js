@@ -166,15 +166,17 @@ export const customSubHeaderConfig = {
 };
 
 export const PolywrapStyles = {
+  name: 'polywrap',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/polywrap/polywrap-horizontal.svg',
-  favicon: 'https://images.peeranha.io/communities/polywrap/logopoly.ico',
 
   colors: {
+    appWindowsColor: '#603cba',
+    appSafarieColor: '#5bbad5',
     mainSubHeaderBgColor: '#1D2B45',
     mainBackground: '#F9FAFB',
     linkColor: '#4ED39F',

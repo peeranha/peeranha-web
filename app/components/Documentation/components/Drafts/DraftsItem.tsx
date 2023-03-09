@@ -3,6 +3,7 @@ import { DocumentationSection } from 'app/pages/Documentation/types';
 import { styles } from './Drafts.styled';
 import EditIcon from 'icons/Edit';
 import { EditArticleType } from 'components/Documentation/types';
+import { singleCommunityDocumentation } from 'utils/communityManagement';
 
 type DraftsItemProps = {
   item: DocumentationSection;
@@ -12,6 +13,8 @@ type DraftsItemProps = {
   setViewArticle?: (id: string) => void;
   draftsIds: Array<string>;
 };
+
+const documentationColors = singleCommunityDocumentation();
 
 const DraftsItem: React.FC<DraftsItemProps> = ({
   item,
@@ -54,7 +57,11 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
           >
             {item.title}
           </div>
-          <EditIcon onClick={editDraft} />
+          <EditIcon
+            onClick={editDraft}
+            stroke={documentationColors.linkColor}
+            fill={documentationColors.iconsFillColor}
+          />
         </div>
       )}
 

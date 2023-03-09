@@ -166,14 +166,15 @@ export const customSubHeaderConfig = {
 };
 
 export const ForceStyles = {
+  name: 'force',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/force/Group.svg',
-  favicon: 'https://images.peeranha.io/communities/force/Vector.ico',
-
   colors: {
+    appWindowsColor: '#ffc40d',
+    appSafarieColor: '#000000',
     mainSubHeaderBgColor: '#FFF',
     mainBackground: 'rgba(27,32,48,0.02)',
     linkColor: '#251E67',
