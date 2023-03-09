@@ -55,46 +55,51 @@ const Content = ({
     isLastFetch={isLastFetch}
   >
     <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-      {users.map((user) => (
-        <A to={routes.profileView(user.id)} key={user.id}>
-          <User>
-            <MediumImageWrapper>
-              <MediumImage
-                isBordered
-                className="flex-shrink-0 mr-2"
-                src={getUserAvatar(user.avatar)}
-                alt="avatar"
-              />
-              {!!user?.integer_properties?.find(
-                (item) => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
-              ) && (
-                <TelegramUserLabel
-                  id={`temporary-account-${user.user}-label`}
-                  locale={locale}
+      {users.map((user) => {
+        const isTemporaryAccount = Boolean(
+          user?.integer_properties?.find(
+            (item) => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
+          ),
+        );
+        const userRating = user?.ratings?.length
+          ? user.ratings.reduce((max, current) =>
+              max.rating > current.rating ? max : current,
+            ).rating
+          : 0;
+
+        return (
+          <A to={routes.profileView(user.id)} key={user.id}>
+            <User>
+              <MediumImageWrapper>
+                <MediumImage
+                  isBordered
+                  className="flex-shrink-0 mr-2"
+                  src={getUserAvatar(user.avatar)}
+                  alt="avatar"
                 />
-              )}
-            </MediumImageWrapper>
-            <div>
-              <P fontSize="14">{getUserName(user?.displayName, user?.id)}</P>
-              <IconWithStatus
-                className="py-1"
-                size="sm"
-                rating={
-                  user?.ratings?.length
-                    ? user?.ratings?.reduce((max, current) =>
-                        max.rating > current.rating ? max : current,
-                      ).rating
-                    : 0
-                }
-                customRatingIconColors={customRatingIconColors}
-              />
-              <P fontSize="14" color={TEXT_SECONDARY}>
-                {getTimeFromDateToNow(user.creationTime, locale)}
-              </P>
-            </div>
-          </User>
-        </A>
-      ))}
+                {isTemporaryAccount && (
+                  <TelegramUserLabel
+                    id={`temporary-account-${user.user}-label`}
+                    locale={locale}
+                  />
+                )}
+              </MediumImageWrapper>
+              <div>
+                <P fontSize="14">{getUserName(user?.displayName, user?.id)}</P>
+                <IconWithStatus
+                  className="py-1"
+                  size="sm"
+                  rating={userRating}
+                  customRatingIconColors={customRatingIconColors}
+                />
+                <P fontSize="14" color={TEXT_SECONDARY}>
+                  {getTimeFromDateToNow(user.creationTime, locale)}
+                </P>
+              </div>
+            </User>
+          </A>
+        );
+      })}
     </Grid>
   </InfinityLoader>
 );
