@@ -1,6 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { t } from 'i18next';
-import { css } from '@emotion/react';
 import React from 'react';
 
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
@@ -18,20 +16,13 @@ import { User, Moderator } from 'containers/Administration/types';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { getUserName } from 'utils/user';
-import styled from 'styled-components';
 
 import * as routes from 'routes-config';
 
-// @ts-ignore
 import closeIcon from 'images/closeCircle.svg?external';
 import { BORDER_PRIMARY } from 'style-constants';
 
-import { getUsersModeratorByRols } from 'utils/accountManagement';
-
-const RemoveTagIcon = styled.button`
-  display: inline-flex;
-  padding: 0 0 0 10px;
-`;
+import { getUsersModeratorByRoles } from 'utils/accountManagement';
 
 enum Roles {
   communityAdmin = 0,
@@ -61,92 +52,87 @@ export const Content: React.FC<ContentProps> = ({
   const usersModerator = [
     ...new Set(moderators.map((moderator) => moderator.user)),
   ];
-  const usersModeratorByRols = getUsersModeratorByRols(
+  const usersModeratorByRoles = getUsersModeratorByRoles(
     usersModerator,
     communityId,
     moderators,
     Roles,
   );
 
-  const { t: translate } = useTranslation();
+  const { t } = useTranslation();
 
   if (moderatorsLoading) return <Loader />;
 
   return (
     <BaseRoundedNoPadding className="fdc mb16">
-      {usersModeratorByRols.map((moderator, index) => {
-        const baseSpecialProps = {
-          last: usersModeratorByRols.length - 1 === index,
-          first: !index,
-        };
+      {usersModeratorByRoles.map((moderator, index) => (
+        <BaseSpecial
+          last={usersModeratorByRoles.length - 1 === index}
+          first={!index}
+          className="dg jcc aic"
+          css={styles.contentGrid}
+          key={moderator.user.id}
+        >
+          <div className="df aic" css={styles.mainInfo}>
+            <MediumImage
+              isBordered
+              className="flex-shrink-0 mr8"
+              src={getUserAvatar(moderator.user.avatar)}
+              alt="avatar"
+            />
 
-        return (
-          <BaseSpecial
-            {...baseSpecialProps}
-            className="dg jcc aic"
-            css={css`
-              grid-template-columns: 3fr 5fr 6fr;
-            `}
-            key={moderator.user.id}
-          >
-            <div css={css(styles.mainInfo)}>
-              <MediumImage
-                isBordered
-                className="flex-shrink-0 mr8"
-                src={getUserAvatar(moderator.user.avatar)}
-                alt="avatar"
-              />
+            <A
+              className="ovh"
+              to={routes.profileView(moderator.user.id)}
+              key={moderator.user.id}
+            >
+              <P className="text-ellipsis fz14">
+                {getUserName(moderator.user.displayName, moderator.user.id)}
+              </P>
+            </A>
+          </div>
 
-              <A
-                className="ovh"
-                to={routes.profileView(moderator.user.id)}
-                key={moderator.user.id}
-              >
-                <P className="text-ellipsis fz14">
-                  {getUserName(moderator.user.displayName, moderator.user.id)}
-                </P>
-              </A>
-            </div>
+          <div className="mr16 tc text-ellipsis fz14">{moderator.user.id}</div>
 
-            <div className="mr16 tc text-ellipsis fz14">
-              {moderator.user.id}
-            </div>
+          <div className="mr16 tc text-ellipsis fz14">
+            {moderator.userRoles.map((role) => {
+              let roleName = t('administration.communityModerator');
 
-            <div className="mr16 tc text-ellipsis fz14">
-              {moderator.userRoles.map((role) => {
-                let roleName = t('administration.communityModerator');
-
-                if (role === Roles.communityAdmin) {
-                  roleName = t('administration.communityAdministrator');
-                }
-                return (
-                  <Tag className="float-left" key={moderator.user.id + role}>
-                    <span>{roleName}</span>
-                    {moderator.user.id !== profileInfo?.id && profileInfo?.id && (
-                      <AreYouSure
-                        submitAction={() => {
-                          revokeRole(moderator.user.id, role, single);
-                        }}
-                        // @ts-ignore
-                        Button={({
-                          onClick,
-                        }: {
-                          onClick: React.MouseEventHandler<HTMLButtonElement>;
-                        }) => (
-                          <RemoveTagIcon type="button" onClick={onClick}>
-                            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
-                          </RemoveTagIcon>
-                        )}
-                        roleName={roleName}
-                      />
-                    )}
-                  </Tag>
-                );
-              })}
-            </div>
-          </BaseSpecial>
-        );
-      })}
+              if (role === Roles.communityAdmin) {
+                roleName = t('administration.communityAdministrator');
+              }
+              return (
+                <Tag className="float-left" key={moderator.user.id + role}>
+                  <span>{roleName}</span>
+                  {moderator.user.id !== profileInfo?.id && profileInfo?.id && (
+                    <AreYouSure
+                      submitAction={() => {
+                        revokeRole(moderator.user.id, role, single);
+                      }}
+                      // @ts-ignore
+                      Button={({
+                        onClick,
+                      }: {
+                        onClick: React.MouseEventHandler<HTMLButtonElement>;
+                      }) => (
+                        <button
+                          className="dif"
+                          css={styles.removeTagIcon}
+                          type="button"
+                          onClick={onClick}
+                        >
+                          <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
+                        </button>
+                      )}
+                      roleName={roleName}
+                    />
+                  )}
+                </Tag>
+              );
+            })}
+          </div>
+        </BaseSpecial>
+      ))}
     </BaseRoundedNoPadding>
   );
 };

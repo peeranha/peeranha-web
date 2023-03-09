@@ -20,9 +20,9 @@ import { Moderator } from 'containers/Administration/types';
 
 import { scrollToErrorField } from 'utils/animation';
 import { getCommunityRoles } from 'utils/properties';
-import { TEXT_DARK } from 'style-constants';
 
 import useTrigger from 'hooks/useTrigger';
+import { styles } from './Administration.styled';
 
 type AddRoleFunction = (
   userAddress: string,
@@ -60,12 +60,10 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   const [isValidate, setValidate] = useState(true);
   const [role, setRole] = useState<OptionValue>();
 
-  const rolesName = [
+  const roleNamesList = [
     t('administration.communityAdministrator'),
     t('administration.communityModerator'),
-  ];
-
-  const RoleNamesList = rolesName.map((roleName, index) => ({
+  ].map((roleName, index) => ({
     label: roleName,
     value: index,
   }));
@@ -95,34 +93,17 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
 
       {isOpen && (
         <Popup size="tiny" onClose={close}>
-          <h5
-            css={css`
-              color: ${TEXT_DARK};
-              font-weight: 600;
-              font-size: 22px;
-              line-height: 28px;
-            `}
-            className="tc"
-          >
+          <h5 css={styles.popupTitle} className="tc fz22 semi-bold">
             {t('administration.addRole')}
           </h5>
           <div
-            css={css`
-              ${!isValidate &&
-              `border: 1px solid rgb(252, 102, 85);
-              box-shadow: 0 0 0 3px rgb(252 102 85 / 40%);
-              border-radius: 3px;`}
-              margin-bottom: 5px;
-              span {
-                font-size: 14px;
-              }
-              button {
-                box-shadow: none !important;
-              }
-            `}
+            css={{
+              ...styles.dropdown,
+              ...(!isValidate && styles.validationError),
+            }}
           >
             <Dropdown
-              options={RoleNamesList}
+              options={roleNamesList}
               isMultiple={false}
               value={role}
               placeholder={t('administration.chooseRole')}
@@ -133,23 +114,14 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
             />
           </div>
           {!isValidate && (
-            <span
-              css={{
-                display: 'block',
-                color: '#7b7b7b',
-                fontStyle: 'italic',
-                fontSize: '14px',
-              }}
-            >
+            <span className="db fz14" css={styles.popupText}>
               {t('administration.EmptyRole')}
             </span>
           )}
 
           <form onSubmit={handleSubmit(addRoleMethod)}>
             <Field
-              css={css`
-                padding-right: 14px !important;
-              `}
+              css={styles.popupField}
               name={WALLET_ADDRESS_FIELD}
               disabled={addRoleLoading}
               component={TextInputField}

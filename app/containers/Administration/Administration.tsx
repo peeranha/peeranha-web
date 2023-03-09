@@ -53,6 +53,8 @@ type AdministrationProps = {
   revokeRoleLoading: boolean;
 };
 
+const single = isSingleCommunityWebsite();
+
 const Administration: React.FC<AdministrationProps> = ({
   locale,
   profileInfo,
@@ -64,8 +66,6 @@ const Administration: React.FC<AdministrationProps> = ({
   revokeRoleDispatch,
   revokeRoleLoading,
 }): JSX.Element => {
-  const single = isSingleCommunityWebsite();
-
   useModeratorRole(noAccessRoute, single);
   useEffect(() => {
     getModeratorsDispatch(single);

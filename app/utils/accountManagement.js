@@ -11,11 +11,11 @@ import { ApplicationError } from './errors';
 import { dateNowInSeconds } from './datetime';
 import {
   CONTRACT_USER,
-  GIVE_COMMUNITY_MODERATOR_PERMISSION,
   GIVE_COMMUNITY_ADMIN_PERMISSION,
+  GIVE_COMMUNITY_MODERATOR_PERMISSION,
   IS_USER_EXISTS,
-  REVOKE_COMMUNITY_MODERATOR_PERMISSION,
   REVOKE_COMMUNITY_ADMIN_PERMISSION,
+  REVOKE_COMMUNITY_MODERATOR_PERMISSION,
 } from './ethConstants';
 
 const addRolePermissionEthConstants = [
@@ -138,27 +138,28 @@ export const checkUserURL = (user) => {
   return userInURL ? userInURL === user : true;
 };
 
-export const getUsersModeratorByRols = (
+export const getUsersModeratorByRoles = (
   usersModerator,
   communityId,
   moderators,
   Roles,
-) => {
-  const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
-  const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
-  const UsersModeratorByRols = usersModerator.map((user) => {
-    const userRoles = [];
+) =>
+  usersModerator.map((user) => {
     const moderatorPermission = moderators.find(
       (moderator) =>
-        moderator.permission === moderatorRole && moderator.user.id === user.id,
+        moderator.permission ===
+          getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId) &&
+        moderator.user.id === user.id,
     );
     const adminPermission = moderators.find(
       (moderator) =>
-        moderator.permission === adminRole && moderator.user.id === user.id,
+        moderator.permission ===
+          getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId) &&
+        moderator.user.id === user.id,
     );
+
+    const userRoles = [];
     if (moderatorPermission) userRoles.push(Roles.communityModerator);
     if (adminPermission) userRoles.push(Roles.communityAdmin);
     return { user, userRoles };
   });
-  return UsersModeratorByRols;
-};

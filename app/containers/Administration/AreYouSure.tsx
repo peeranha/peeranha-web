@@ -1,14 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
-import { css } from '@emotion/react';
-
-import { TEXT_DARK } from 'style-constants';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import Popup from 'components/common/Popup';
 
 import useTrigger from 'hooks/useTrigger';
+import { styles } from './Administration.styled';
 
 type AreYouSureProps = {
   Button: React.FC<{
@@ -42,15 +40,7 @@ const AreYouSure: React.FC<AreYouSureProps> = ({
 
       {isOpen && (
         <Popup size="tiny" onClose={close}>
-          <h5
-            css={css`
-              color: ${TEXT_DARK};
-              font-weight: 600;
-              font-size: 22px;
-              line-height: 28px;
-            `}
-            className="tc pb12"
-          >
+          <h5 className="tc pb12 fz22 semi-bold" css={styles.popupTitle}>
             {t('administration.wantToRevoke', {
               role: `${roleName}`,
             })}

@@ -48,60 +48,56 @@ const Content = ({
   usersLoading,
   isLastFetch,
   locale,
-}) => {
-  return (
-    <InfinityLoader
-      loadNextPaginatedData={getMoreUsers}
-      isLoading={usersLoading}
-      isLastFetch={isLastFetch}
-    >
-      <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {users.map((x) => {
-          return (
-            <A to={routes.profileView(x.id)} key={x.id}>
-              <User>
-                <MediumImageWrapper>
-                  <MediumImage
-                    isBordered
-                    className="flex-shrink-0 mr-2"
-                    src={getUserAvatar(x.avatar)}
-                    alt="avatar"
-                  />
-                  {!!x?.['integer_properties']?.find(
-                    (item) => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
-                  ) && (
-                    <TelegramUserLabel
-                      id={`temporary-account-${x.user}-label`}
-                      locale={locale}
-                    />
-                  )}
-                </MediumImageWrapper>
-                <div>
-                  <P fontSize="14">{getUserName(x?.displayName, x?.id)}</P>
-                  <IconWithStatus
-                    className="py-1"
-                    size="sm"
-                    rating={
-                      x?.['ratings']?.length
-                        ? x?.['ratings']?.reduce((max, current) =>
-                            max.rating > current.rating ? max : current,
-                          ).rating
-                        : 0
-                    }
-                    customRatingIconColors={customRatingIconColors}
-                  />
-                  <P fontSize="14" color={TEXT_SECONDARY}>
-                    {getTimeFromDateToNow(x.creationTime, locale)}
-                  </P>
-                </div>
-              </User>
-            </A>
-          );
-        })}
-      </Grid>
-    </InfinityLoader>
-  );
-};
+}) => (
+  <InfinityLoader
+    loadNextPaginatedData={getMoreUsers}
+    isLoading={usersLoading}
+    isLastFetch={isLastFetch}
+  >
+    <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
+      {users.map((user) => (
+        <A to={routes.profileView(user.id)} key={user.id}>
+          <User>
+            <MediumImageWrapper>
+              <MediumImage
+                isBordered
+                className="flex-shrink-0 mr-2"
+                src={getUserAvatar(user.avatar)}
+                alt="avatar"
+              />
+              {!!user?.integer_properties?.find(
+                (item) => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
+              ) && (
+                <TelegramUserLabel
+                  id={`temporary-account-${user.user}-label`}
+                  locale={locale}
+                />
+              )}
+            </MediumImageWrapper>
+            <div>
+              <P fontSize="14">{getUserName(user?.displayName, user?.id)}</P>
+              <IconWithStatus
+                className="py-1"
+                size="sm"
+                rating={
+                  user?.ratings?.length
+                    ? user?.ratings?.reduce((max, current) =>
+                        max.rating > current.rating ? max : current,
+                      ).rating
+                    : 0
+                }
+                customRatingIconColors={customRatingIconColors}
+              />
+              <P fontSize="14" color={TEXT_SECONDARY}>
+                {getTimeFromDateToNow(user.creationTime, locale)}
+              </P>
+            </div>
+          </User>
+        </A>
+      ))}
+    </Grid>
+  </InfinityLoader>
+);
 
 Content.propTypes = {
   getMoreUsers: PropTypes.func,
