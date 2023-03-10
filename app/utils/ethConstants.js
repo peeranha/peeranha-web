@@ -374,6 +374,20 @@ export const tagsQuery = `
         }
       }`;
 
+export const tagsByIdsQuery = `
+      query(
+        $ids: [String],
+      ) {
+        tags(
+         where: { id_in: $ids },
+        ) {
+           id
+           name
+           description
+           postCount
+        }
+      }`;
+
 export const postsQuery = `
       query (
         $first: Int,
@@ -404,6 +418,25 @@ export const postsByCommQuery = `
           first: $first,
           skip: $skip,
           where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: ""},
+        ) {
+           ${post}
+        }
+      }`;
+
+export const postsByCommAndTagsQuery = `
+      query (
+        $first: Int,
+        $skip: Int,
+        $communityIds: [Int],
+        $postTypes: [Int],
+        $tags: [String],
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          first: $first,
+          skip: $skip,
+          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: "", tags_contains: $tags},
         ) {
            ${post}
         }
