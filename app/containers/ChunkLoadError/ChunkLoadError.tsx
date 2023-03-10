@@ -1,5 +1,5 @@
 import React from 'react';
-import { ANIMATE_IMAGE } from '../HomePage/constants';
+import { ANIMATE_IMAGE } from 'pages/HomePage/constants';
 import { useTranslation, Trans } from 'react-i18next';
 import { getLinks } from 'media-links';
 
