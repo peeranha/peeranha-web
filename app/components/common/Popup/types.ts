@@ -21,4 +21,8 @@ export type PopupProps = {
    * Animation popup
    * */
   isTransition?: boolean;
+  /**
+   * Hiding the ability to close popup
+   * */
+  withoutClose?: boolean;
 };

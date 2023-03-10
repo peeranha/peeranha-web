@@ -100,7 +100,7 @@ const EditQuestion = ({
 
   const titleMessage = useMemo(
     () => (isDocumentation ? 'Edit article' : t(TITLE[question?.postType])),
-    [question?.postType],
+    [question?.postType, t],
   );
 
   const isFailed = editQuestionError !== null;

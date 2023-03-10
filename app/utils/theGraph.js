@@ -14,10 +14,12 @@ import {
   historiesQuery,
   postQuery,
   postsByCommQuery,
+  postsByCommAndTagsQuery,
   postsForSearchQuery,
   postsQuery,
   rewardsQuery,
   tagsQuery,
+  tagsByIdsQuery,
   userPermissionsQuery,
   userQuery,
   usersAnswersQuery,
@@ -182,6 +184,16 @@ export const getTags = async (communityId) => {
   return tags?.data.tags;
 };
 
+export const getTagsByIds = async (ids) => {
+  const tags = await client.query({
+    query: gql(tagsByIdsQuery),
+    variables: {
+      ids,
+    },
+  });
+  return tags?.data.tags;
+};
+
 export const getPosts = async (limit, skip, postTypes) => {
   const posts = await client.query({
     query: gql(postsQuery),
@@ -203,17 +215,30 @@ export const getPostsByCommunityId = async (
   skip,
   postTypes,
   communityIds,
+  tags,
 ) => {
-  const posts = await client.query({
-    query: gql(postsByCommQuery),
-    variables: {
-      communityIds,
-      first: limit,
-      skip,
-      postTypes,
-    },
-    fetchPolicy: 'network-only',
-  });
+  const posts = tags?.length
+    ? await client.query({
+        query: gql(postsByCommAndTagsQuery),
+        variables: {
+          communityIds,
+          first: limit,
+          skip,
+          postTypes,
+          tags,
+        },
+        fetchPolicy: 'network-only',
+      })
+    : await client.query({
+        query: gql(postsByCommQuery),
+        variables: {
+          communityIds,
+          first: limit,
+          skip,
+          postTypes,
+        },
+        fetchPolicy: 'network-only',
+      });
 
   return posts?.data.posts.map((rawPost) => {
     const post = { ...rawPost, answers: rawPost.replies };

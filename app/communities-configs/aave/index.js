@@ -166,14 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const AaveStyles = {
+  name: 'aave',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/aave/aaveLogo.svg',
-  favicon: 'https://images.peeranha.io/communities/aave/favicon-aave.ico',
 
   colors: {
+    appWindowsColor: '#2b5797',
+    appSafarieColor: '#1b2030',
     mainSubHeaderBgColor:
       'linear-gradient(90deg, rgba(59,182,197,1) 0%, rgba(58,32,115,1) 31%, rgba(179,84,159,1) 100%)',
     mainBackground: 'rgba(27,32,48,0.02)',

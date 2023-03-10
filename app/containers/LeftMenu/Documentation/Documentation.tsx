@@ -13,12 +13,15 @@ import PlusIcon from 'icons/Plus';
 import {
   singleCommunityDocumentationPosition,
   singleCommunityColors,
+  singleCommunityDocumentation,
 } from 'utils/communityManagement';
 import {
   DocumentationSection,
   PinnedArticleType,
 } from 'pages/Documentation/types';
 import { EditArticleType } from 'components/Documentation/types';
+
+const documentationColors = singleCommunityDocumentation();
 
 type DocumentationMenuSectionProps = {
   documentationMenu: Array<DocumentationSection>;
@@ -44,7 +47,12 @@ const EditDocumentation = [
   {
     label: 'Edit Documentation',
     value: 1,
-    icon: <EditIcon />,
+    icon: (
+      <EditIcon
+        stroke={documentationColors.linkColor}
+        fill={documentationColors.iconsFillColor}
+      />
+    ),
   },
 ];
 
@@ -52,12 +60,22 @@ const DropdownDocumentation = [
   {
     label: 'Add new article',
     value: 2,
-    icon: <PlusIcon />,
+    icon: (
+      <PlusIcon
+        stroke={documentationColors.linkColor}
+        fill={documentationColors.iconsFillColor}
+      />
+    ),
   },
   {
     label: 'Edit order',
     value: 3,
-    icon: <EditIcon />,
+    icon: (
+      <EditIcon
+        stroke={documentationColors.linkColor}
+        fill={documentationColors.iconsFillColor}
+      />
+    ),
   },
 ];
 
