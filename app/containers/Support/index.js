@@ -8,12 +8,12 @@ import { compose, bindActionCreators } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import reducer from 'containers/HomePage/reducer';
-import saga from 'containers/HomePage/saga';
-import { sendMessage } from 'containers/HomePage/actions';
+import reducer from 'pages/HomePage/reducer';
+import saga from 'pages/HomePage/saga';
+import { sendMessage } from 'pages/HomePage/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaq } from 'containers/DataCacheProvider/selectors';
-import { selectSendMessageLoading } from 'containers/HomePage/selectors';
+import { selectSendMessageLoading } from 'pages/HomePage/selectors';
 
 import Seo from 'components/Seo';
 

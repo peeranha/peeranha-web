@@ -360,7 +360,8 @@ class EthereumService {
     token,
   ) => {
     await this.chainCheck();
-    const metaTxContract = this[contract];
+    // use Reads contract to connect to the same provider that is used to listen for completed transactions
+    const metaTxContract = this[contract + 'Reads'];
     const nonce = await metaTxContract.getNonce(actor);
     console.log(`Nonce from contract: ${nonce}`);
 
