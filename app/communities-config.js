@@ -169,8 +169,8 @@ const communitiesConfig = {
   test: {
     1: {
       origin: `https://mintstatelabs${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/mintStateLabs/MSL-LogoMain.svg',
-      styles: MintStateLabsStyles,
+      src: 'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
+      styles: FunctionlandStyles,
     },
     2: {
       origin: `https://suiglobal${process.env.COOKIE_DOMAIN}`,
@@ -245,7 +245,9 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:31000',
+      origin: 'http://localhost:3000',
+      // src: 'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
+      // styles: FunctionlandStyles,
     },
   },
 };

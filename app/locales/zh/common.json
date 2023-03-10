@@ -174,9 +174,9 @@
   "hoursAgo": "{{hours}} 几小时前",
   "yesterday": "昨天",
   "official": "官方的",
-  "profilesUsersInfo": "文件大小不应超过 5Mb",
+  "profilesUsersInfo": "文件大小不应超过 1.8Mb",
   "communityBannerInfo": "使用至少 1360 x 120 像素的图像。 文件大小不应超过 1Mb",
-  "fileSizeErrorMsg": "文件大小超过 5Mb。 选择另一个...",
+  "fileSizeErrorMsg": "文件大小超过 1.8Mb。 选择另一个...",
   "bannerSizeErrorMsg": "文件大小超过 1Mb。 选择另一个...",
   "incorrectBannerResolutionMsg": "图像分辨率必须为 1360 x 120 像素",
   "chooseFile": "选择一个文件",
@@ -229,8 +229,16 @@
   "titleLabel": "标题",
   "existingQuestionsLabel": "为避免重复，请检查现有问题。",
   "questionBodyLabel": "身体",
+  "questionMediaLabel": "媒体",
+  "mediaRestrictions": "图片上传到 IPFS（jpeg、jpg、png、gif。最大文件大小 1.8Mb）。 视频上传到 Livepeer（mp4 编码的 H264 和 aac 音频。最大文件大小 1 Gb）",
+  "dragFiles": "拖动文件",
+  "or": "或者 ",
+  "clickTo": "点击",
+  "attach": "附",
   "communityLabel": "社区",
   "tagsLabel": "标签",
+  "invalidFileFormat": "文件格式无效。 允许的格式：jpeg、jpg、png、gif、mp4。",
+  "invalidFileSize": "文件大小无效。 图片最大允许为 1.8mb，视频最大允许为 1Gb。",
   "bountyLabel": "赏金",
   "bountyDaysLabel": "赏金日",
   "bountyHoursLabel": "赏金时间",
@@ -428,5 +436,8 @@
     "reloadPage": "重新加载页面"
   },
   "answerForm": "你的答案",
-  "results": "结果"
+  "results": "结果",
+  "activeUsers": "活跃用户",
+  "administration": "行政",
+  "documentation": "文档"
 }

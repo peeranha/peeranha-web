@@ -41,6 +41,9 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
+export const singleCommunityDocumentation = () =>
+  _get(singleCommunityStyles(), 'documentationColors', {});
+
 export const singleCommunityDocumentationPosition = () =>
   _get(singleCommunityStyles(), 'documentationPosition', 'bottom');
 

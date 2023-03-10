@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
@@ -40,8 +39,13 @@ export class Header extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    $(`#${HEADER_ID}`).removeClass('sticky');
-    $(`#${LEFT_MENU_ID}`).removeClass('sticky');
+    const header = document.querySelector(`#${HEADER_ID}`);
+    const leftMenu = document.querySelector(`#${LEFT_MENU_ID}`);
+
+    if (header && leftMenu) {
+      header.classList.remove('sticky');
+      leftMenu.classList.remove('sticky');
+    }
   }
 
   animate = /* istanbul ignore next */ () => {
@@ -57,11 +61,13 @@ export class Header extends React.PureComponent {
 
         if (scrollY > innerHeight) {
           if (st > lastScrollTop) {
-            $(`#${HEADER_ID}`).addClass('sticky');
-            $(`#${LEFT_MENU_ID}`).addClass('sticky');
+            document.querySelector(`#${HEADER_ID}`).classList.add('sticky');
+            document.querySelector(`#${LEFT_MENU_ID}`).classList.add('sticky');
           } else {
-            $(`#${HEADER_ID}`).removeClass('sticky');
-            $(`#${LEFT_MENU_ID}`).removeClass('sticky');
+            document.querySelector(`#${HEADER_ID}`).classList.remove('sticky');
+            document
+              .querySelector(`#${LEFT_MENU_ID}`)
+              .classList.remove('sticky');
           }
         }
 
