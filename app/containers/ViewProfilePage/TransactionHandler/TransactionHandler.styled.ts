@@ -20,8 +20,8 @@ export const styled = {
 
   recommended: {
     '::after': {
-      display: 'inline-block',
-      position: 'absolute',
+      display: 'inline',
+      position: 'relative',
       width: 'max-content',
       height: '15px',
       fontSize: '10px',
@@ -29,7 +29,7 @@ export const styled = {
       color: 'var(--color-white)',
       borderRadius: '14px',
       marginLeft: '15px',
-      padding: '3px 5px 0 5px',
+      padding: '3px 5px 3px 5px',
     },
   },
 
