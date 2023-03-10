@@ -166,16 +166,17 @@ export const customSubHeaderConfig = {
 };
 
 export const SolidityStyles = {
+  name: 'solidity',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/solidity/solidity-logo.svg',
-  favicon:
-    'https://images.peeranha.io/communities/solidity/favicon-solidity.svg',
 
   colors: {
+    appWindowsColor: '#ffc40d',
+    appSafarieColor: '#5b81d5',
     mainSubHeaderBgColor: '#FAFAFA',
     mainBackground: '#EAECF4',
     linkColor: 'rgba(25, 68, 176, 1)',
