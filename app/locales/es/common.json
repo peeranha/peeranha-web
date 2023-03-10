@@ -440,5 +440,8 @@
     "reloadPage": "Recargar página"
   },
   "answerForm": "Tu respuesta",
-  "results": "Resultados"
+  "results": "Resultados",
+  "activeUsers": "Usuarios activos",
+  "administration": "Administración",
+  "documentation": "Documentación"
 }

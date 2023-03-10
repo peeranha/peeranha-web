@@ -440,5 +440,8 @@
     "reloadPage": "Trang tải lại"
   },
   "answerForm": "Câu trả lời của bạn",
-  "results": "Kết quả"
+  "results": "Kết quả",
+  "activeUsers": "Người dùng đang hoạt động",
+  "administration": "Sự quản lý",
+  "documentation": "Tài liệu"
 }

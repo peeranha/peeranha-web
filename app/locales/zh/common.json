@@ -436,5 +436,8 @@
     "reloadPage": "重新加载页面"
   },
   "answerForm": "你的答案",
-  "results": "结果"
+  "results": "结果",
+  "activeUsers": "活跃用户",
+  "administration": "行政",
+  "documentation": "文档"
 }
