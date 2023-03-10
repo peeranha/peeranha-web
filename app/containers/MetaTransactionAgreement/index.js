@@ -11,7 +11,7 @@ import injectReducer from 'utils/injectReducer';
 import {
   DAEMON,
   CURRENCY,
-  META_TRANSACTIONS_ALLOWED,
+  TRANSACTIONS_ALLOWED,
   DISPATCHER_TRANSACTIONS_ALLOWED,
   TORUS_WALLET,
   CONNECTED_WALLET,
@@ -53,7 +53,8 @@ export const MetaTransactionAgreement = ({
 
   const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
   const isBalance =
-    Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0;
+    Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0.005;
+  const isTransactionType = dataFromCookies === TRANSACTIONS_ALLOWED;
 
   const hideModal = () => {
     ethereum.stopWaiting();
@@ -66,19 +67,6 @@ export const MetaTransactionAgreement = ({
       value: transaction,
       options: {
         'max-age': ONE_MONTH,
-        defaultPath: true,
-        allowSubdomains: true,
-      },
-    });
-    hideModal();
-  };
-
-  const agreeWithMeta = () => {
-    setCookie({
-      name: TYPE_OF_TRANSACTIONS,
-      value: META_TRANSACTIONS_ALLOWED,
-      options: {
-        neverExpires: true,
         defaultPath: true,
         allowSubdomains: true,
       },
@@ -103,11 +91,15 @@ export const MetaTransactionAgreement = ({
     <>
       {showModal && (
         <>
-          {!isBalance && dataFromCookies && (
-            <PopupForNotBalance
-              hideModal={hideModal}
-              agreeWithMeta={agreeWithMeta}
-            />
+          {!isBalance && isTransactionType && (
+            <Popup size="tiny" onClose={hideModal}>
+              <PopupForNotBalance
+                hideModal={hideModal}
+                transaction={transaction}
+                setTransaction={setTransaction}
+                writeTransactionCookie={writeTransactionCookie}
+              />
+            </Popup>
           )}
           {isTorusWallet && !dataFromCookies && (
             <Popup size="tiny" onClose={hideModal}>
@@ -124,6 +116,7 @@ export const MetaTransactionAgreement = ({
               size="small"
               onClose={hideModal}
               css={{ '> div': { maxWidth: '570px !important' } }}
+              withoutClose={false}
             >
               <TransactionHandler
                 transaction={transaction}

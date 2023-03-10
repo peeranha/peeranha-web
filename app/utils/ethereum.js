@@ -23,6 +23,7 @@ import {
   CURRENCY,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   INVALID_MIN_RATING_ERROR_CODE,
+  TRANSACTIONS_ALLOWED,
   META_TRANSACTIONS_ALLOWED,
   DISPATCHER_TRANSACTIONS_ALLOWED,
   METAMASK_ERROR_CODE,
@@ -249,8 +250,13 @@ class EthereumService {
   ) => {
     let dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
     const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
-
-    if (!dataFromCookies && Number(balance) >= 0) {
+    const transactionsAllowed = dataFromCookies === TRANSACTIONS_ALLOWED;
+    if (!dataFromCookies) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
+      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    }
+    if (transactionsAllowed && Number(balance) < 0.005) {
       this.showModalDispatch();
       await this.waitForCloseModal();
       dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);

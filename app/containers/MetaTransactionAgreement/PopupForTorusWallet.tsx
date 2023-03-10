@@ -17,7 +17,7 @@ const PopupForTorusWallet: React.FC<PopupForTorusWallet> = ({
   const { t } = useTranslation();
   return (
     <>
-      <div className="text-center pb-3" css={{ lineHeight: '18px' }}>
+      <div className="tc pb-3" css={{ lineHeight: '18px' }}>
         {t('common.metaTransaction.agreeWithMetaTransactionsText')}
       </div>
       <div className="df aic jcc">
@@ -30,7 +30,7 @@ const PopupForTorusWallet: React.FC<PopupForTorusWallet> = ({
         </ContainedButton>
       </div>
       <div
-        className="text-center mb-3"
+        className="tc mb-3"
         css={{
           lineHeight: '18px',
           fontSize: '16px',

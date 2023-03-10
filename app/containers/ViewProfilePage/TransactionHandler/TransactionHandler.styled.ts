@@ -20,23 +20,22 @@ export const styled = {
 
   recommended: {
     '::after': {
-      content: '"Recommended"',
       display: 'inline-block',
       position: 'absolute',
-      width: '80px',
+      width: 'max-content',
       height: '15px',
       fontSize: '10px',
       background: `${colors.btnColor || 'var(--color-blue)'}`,
       color: 'var(--color-white)',
       borderRadius: '14px',
       marginLeft: '15px',
-      padding: '2px 0 0 6px',
+      padding: '3px 5px 0 5px',
     },
   },
 
   input: {
     ':checked+div::before': {
-      border: '6px solid var(--color-blue)',
+      border: `6px solid ${colors.btnColor || 'var(--color-blue)'}`,
     },
   },
 
