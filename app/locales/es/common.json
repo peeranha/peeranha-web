@@ -444,6 +444,8 @@
     "reloadPage": "Recargar página"
   },
   "answerForm": "Tu respuesta",
+  "results": "Resultados",
+  "selectLanguage": "Seleccione el idioma",
   "transactionsText": "Elija su mejor experiencia de usuario en Peeranha:",
   "transactionsText_1": "Menos ventanas emergentes y sin tarifas",
   "transactionsChange_1": "Peeranha firma transacciones en mi nombre y cubre las tarifas de transacción",
@@ -453,7 +455,6 @@
   "transactionsChange_3": "Firmo transacciones y cubro las tarifas de transacción.",
   "transactionsText_4": "Puede cambiar su elección en cualquier momento en la ",
   "continue": "Continuar",
-  "results": "Resultados",
   "activeUsers": "Usuarios activos",
   "administration": "Administración",
   "documentation": "Documentación"
