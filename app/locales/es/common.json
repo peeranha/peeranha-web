@@ -330,7 +330,11 @@
     "dontWorry": "No te preocupes! Te tenemos cubierto.",
     "wouldYouLike": "Le gustaría que transmitamos sus transacciones y cubramos las tarifas de transacción?",
     "confirm": "Sí",
-    "cansel": "No"
+    "cansel": "No",
+    "allow": "Permitir",
+    "options": "Ver otras opciones",
+    "agreeWithMetaTransactionsText": "Omita la aprobación de cada interacción con su billetera durante 30 días y permita que Peeranha firme transacciones en su nombre.",
+    "agreeWithMetaTransactionsSecondaryText": "Las claves de firma solo pueden firmar mensajes y no pueden retener fondos. Se almacenan de forma segura en el sistema de base de datos del navegador"
   },
   "moderationPermitions": {
     "title": "Permisos de moderador",
@@ -440,6 +444,15 @@
     "reloadPage": "Recargar página"
   },
   "answerForm": "Tu respuesta",
+  "transactionsText": "Elija su mejor experiencia de usuario en Peeranha:",
+  "transactionsText_1": "Menos ventanas emergentes y sin tarifas",
+  "transactionsChange_1": "Peeranha firma transacciones en mi nombre y cubre las tarifas de transacción",
+  "transactionsText_2": "Control sin tarifas",
+  "transactionsChange_2": "Yo firmo transacciones y Peeranha cubre las tarifas de transacción",
+  "transactionsText_3": "Control total",
+  "transactionsChange_3": "Firmo transacciones y cubro las tarifas de transacción.",
+  "transactionsText_4": "Puede cambiar su elección en cualquier momento en la ",
+  "continue": "Continuar",
   "results": "Resultados",
   "activeUsers": "Usuarios activos",
   "administration": "Administración",

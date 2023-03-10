@@ -13,6 +13,7 @@ const Popup: React.FC<PopupProps> = ({
   header,
   className,
   isTransition = true,
+  withoutClose = true,
 }) => {
   const [style, setStyle] = useState({});
   const stopPropagation = (e: React.SyntheticEvent): void => {
@@ -34,7 +35,7 @@ const Popup: React.FC<PopupProps> = ({
           ...classes.popup,
           ...classes[size],
         }}
-        onClick={onClose}
+        onClick={withoutClose && onClose}
       >
         <div
           style={style}

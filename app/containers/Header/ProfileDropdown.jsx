@@ -196,7 +196,6 @@ const Menu = ({
             className="mr-2"
             stroke={colors.linkColor || TEXT_PRIMARY}
           />
-
           {t('common.logout')}
         </Logout>
       </Ul>
