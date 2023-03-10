@@ -413,6 +413,12 @@ const App = ({
 
           <Route
             exact
+            path={routes.questionView(':id', ':title', false, true)}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
             path={'/questions/:id'}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
