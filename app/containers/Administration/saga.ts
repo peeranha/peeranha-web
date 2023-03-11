@@ -8,7 +8,6 @@ import {
   REVOKE_ROLE_SUCCESS,
 } from 'containers/Administration/constants';
 import {
-  addRoleError,
   addRoleSuccess,
   getModeratorsError,
   getModeratorsSuccess,
@@ -28,7 +27,6 @@ import {
 } from 'utils/accountManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { addToast } from 'containers/Toast/actions';
 
 export function* getModeratorsWorker(props: {
   communityId: number;
@@ -72,15 +70,7 @@ export function* addRoleWorker(props: {
       );
       yield put(addRoleSuccess(props.communityId));
     }
-  } catch (err) {
-    yield put(
-      addToast({
-        type: 'error',
-        text: 'administration.alreadyHasRole',
-      }),
-    );
-    yield put(addRoleError(err));
-  }
+  } catch (err) {}
 }
 
 export function* revokeRoleWorker(props: {

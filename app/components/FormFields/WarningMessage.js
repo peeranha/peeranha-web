@@ -45,6 +45,7 @@ export const WarningMessage = ({
   isSpecialPosition,
   visited,
   touched,
+  warningStyle,
 }) => {
   const { t } = useTranslation();
   const err = error || warning;
@@ -67,7 +68,7 @@ export const WarningMessage = ({
           />
         )}
 
-        <span>
+        <span css={warningStyle}>
           {(err &&
             t(err.id || err, {
               min: err.min,

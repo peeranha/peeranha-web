@@ -34,6 +34,11 @@ export const styles = {
     lineHeight: '28px',
   },
 
+  popupSpan: {
+    lineHeight: '14px',
+    color: '#282828',
+  },
+
   validationError: {
     border: '1px solid rgb(252, 102, 85)',
     boxShadow: '0 0 0 3px rgb(252 102 85 / 40%)',
@@ -51,12 +56,80 @@ export const styles = {
     },
   },
 
-  popupText: {
-    color: '#7b7b7b',
+  validationText: {
+    color: 'rgba(247, 111, 96, 1)',
     fontStyle: 'italic',
+    marginTop: '9px',
   },
 
-  popupField: {
-    paddingRight: '14px !important',
+  validationField: {
+    color: 'rgba(247, 111, 96, 1)',
+  },
+
+  popupCheckboxLabel: {
+    fontSize: '16px',
+    lineHeight: '14px',
+    color: '#282828',
+  },
+
+  popupCheckbox: {
+    marginRight: '9px',
+    width: '22px',
+    height: '22px',
+
+    'input[type=checkbox]': {
+      position: 'relative',
+      cursor: 'pointer',
+    },
+    'input[type=checkbox]:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      width: '22px',
+      height: '22px',
+      top: 0,
+      left: 0,
+      border: '1px solid #C2C6D8',
+      borderRadius: '3px',
+      backgroundColor: 'rgb(255,255,255)',
+    },
+    'input[type=checkbox]:checked:before': {
+      backgroundColor: 'rgba(87, 111, 237, 1)',
+      border: '1px solid rgba(87, 111, 237, 1)',
+    },
+    'input[type=checkbox]:checked:after': {
+      content: '""',
+      display: 'block',
+      width: '7px',
+      height: '13px',
+      border: 'solid rgb(255,255,255)',
+      borderWidth: '0 2px 2px 0',
+      '-webkit-transform': 'rotate(45deg)',
+      '-ms-transform': 'rotate(45deg)',
+      transform: 'rotate(45deg)',
+      position: 'absolute',
+      top: '3px',
+      left: '8px',
+    },
+  },
+
+  firstCheckbox: {
+    marginRight: '13px',
+  },
+
+  checkboxError: {
+    'input[type=checkbox]:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      width: '22px',
+      height: '22px',
+      top: 0,
+      left: 0,
+      border: '1px solid rgba(247, 111, 96, 1)',
+      borderRadius: '3px',
+      backgroundColor: 'rgb(255,255,255)',
+      boxShadow: '0 0 0 3px rgb(252 102 85 / 40%)',
+    },
   },
 };

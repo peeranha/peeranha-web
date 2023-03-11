@@ -1,7 +1,6 @@
 import { Field, reduxForm, reset } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
-import React, { FormEventHandler, useEffect, useState } from 'react';
-import { css } from '@emotion/react';
+import React, { FormEventHandler, useState } from 'react';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
@@ -10,7 +9,6 @@ import {
   required,
   stringHasToBeEthereumAddress,
 } from 'components/FormFields/validate';
-import Dropdown, { OptionValue } from 'components/common/Dropdown/Dropdown';
 import Popup from 'components/common/Popup';
 import {
   ADD_MODERATOR_BUTTON_BUTTON,
@@ -18,7 +16,6 @@ import {
 } from 'containers/Administration/constants';
 import { Moderator } from 'containers/Administration/types';
 
-import { scrollToErrorField } from 'utils/animation';
 import { getCommunityRoles } from 'utils/properties';
 
 import useTrigger from 'hooks/useTrigger';
@@ -42,50 +39,71 @@ type AddRoleFormProps = {
   Button: React.FC<{ onClick: () => void }>;
   addRoleLoading: boolean;
 };
-
-const clearFieldsAfterSubmit = (result: any, dispatch: any) =>
-  dispatch(reset('answerForm'));
-
 const AddRoleForm: React.FC<AddRoleFormProps> = ({
-  locale,
   single,
   handleSubmit,
   addRole,
   moderators,
   Button,
-  addRoleLoading,
+  dispatch,
 }): JSX.Element => {
   const { t } = useTranslation();
   const [isOpen, open, close] = useTrigger(false);
-  const [isValidate, setValidate] = useState(true);
-  const [role, setRole] = useState<OptionValue>();
 
-  const roleNamesList = [
-    t('administration.communityAdministrator'),
-    t('administration.communityModerator'),
-  ].map((roleName, index) => ({
-    label: roleName,
-    value: index,
-  }));
+  const [administratorRole, setAdministratorRole] =
+    React.useState<boolean>(false);
+  const [moderatorRole, setModeratorRole] = useState<boolean>(false);
+  const [roleValidation, setRoleValidation] = useState<boolean | string>(false);
 
-  const addRoleMethod = (values: any) => {
-    if (typeof role === 'undefined') {
-      setValidate(false);
-    } else {
-      const walletAddress = values.get(WALLET_ADDRESS_FIELD);
-      const communityRoles = getCommunityRoles(single);
-      const isUserHasRole = moderators.find(
-        (moderator) =>
-          moderator.id === `${walletAddress}-${communityRoles[Number(role)]}`,
-      );
-      addRole(walletAddress, Number(role), single, Boolean(isUserHasRole));
-      close();
-    }
+  const setAdministratorRoleHandler = (
+    e: React.FormEvent<HTMLInputElement>,
+  ) => {
+    setRoleValidation(false);
+    setModeratorRole(!e.currentTarget.value);
+    setAdministratorRole(e.currentTarget.value);
+  };
+  const setModeratorRoleHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    setRoleValidation(false);
+    setAdministratorRole(!e.currentTarget.value);
+    setModeratorRole(e.currentTarget.value);
   };
 
-  useEffect(() => {
-    if (role) setValidate(true);
-  }, [role]);
+  const isEmptyRoleHandler = () => {
+    if (!administratorRole && !moderatorRole)
+      setRoleValidation(t('administration.EmptyRole'));
+  };
+
+  const addRoleMethod = (values: any) => {
+    if (!administratorRole && !moderatorRole) {
+      setRoleValidation(t('administration.EmptyRole'));
+    } else {
+      const role = administratorRole ? 0 : 1;
+      const walletAddress = values.get(WALLET_ADDRESS_FIELD);
+
+      const communityRoles = getCommunityRoles(single);
+
+      const isUserHasRole = moderators.find(
+        (moderator) =>
+          moderator.id === `${walletAddress}-${communityRoles[role]}`,
+      );
+
+      if (isUserHasRole) {
+        setRoleValidation(
+          t(
+            `administration.${
+              role === 0
+                ? 'alreadyHasAdministratorRole'
+                : 'alreadyHasModeratorRole'
+            }`,
+          ),
+        );
+      } else {
+        addRole(walletAddress, role, single, Boolean(isUserHasRole));
+        dispatch(reset('answerForm'));
+        close();
+      }
+    }
+  };
 
   return (
     <>
@@ -93,52 +111,80 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
 
       {isOpen && (
         <Popup size="tiny" onClose={close}>
-          <h5 css={styles.popupTitle} className="tc fz22 semi-bold">
+          <h5 className="tc fz24 semi-bold mb24" css={styles.popupTitle}>
             {t('administration.addRole')}
           </h5>
-          <div
-            css={{
-              ...styles.dropdown,
-              ...(!isValidate && styles.validationError),
-            }}
-          >
-            <Dropdown
-              options={roleNamesList}
-              isMultiple={false}
-              value={role}
-              placeholder={t('administration.chooseRole')}
-              onSelect={(r) => {
-                setValidate(true);
-                setRole(r);
-              }}
-            />
+          <span className="dib fz16 semi-bold mb16" css={styles.popupSpan}>
+            {t('administration.chooseRole')}
+          </span>
+
+          <div className="mb24">
+            <div className="df">
+              <div className="dif aic" css={styles.firstCheckbox}>
+                <div
+                  css={{
+                    ...styles.popupCheckbox,
+                    ...(roleValidation === t('administration.EmptyRole') &&
+                      styles.checkboxError),
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={administratorRole}
+                    onChange={setAdministratorRoleHandler}
+                  />
+                </div>
+                <span css={styles.popupCheckboxLabel}>
+                  {t('administration.communityAdministrator')}
+                </span>
+              </div>
+              <div className="dif aic">
+                <div
+                  css={{
+                    ...styles.popupCheckbox,
+                    ...(roleValidation === t('administration.EmptyRole') &&
+                      styles.checkboxError),
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={moderatorRole}
+                    onChange={setModeratorRoleHandler}
+                  />
+                </div>
+                <span css={styles.popupCheckboxLabel}>
+                  {t('administration.communityModerator')}
+                </span>
+              </div>
+            </div>
+
+            {roleValidation && (
+              <span className="db fz14" css={styles.validationText}>
+                {roleValidation}
+              </span>
+            )}
           </div>
-          {!isValidate && (
-            <span className="db fz14" css={styles.popupText}>
-              {t('administration.EmptyRole')}
-            </span>
-          )}
 
           <form onSubmit={handleSubmit(addRoleMethod)}>
             <Field
-              css={styles.popupField}
               name={WALLET_ADDRESS_FIELD}
-              disabled={addRoleLoading}
               component={TextInputField}
               placeholder={t('common.walletAddress')}
               validate={[required, stringHasToBeEthereumAddress]}
               warn={[required, stringHasToBeEthereumAddress]}
+              warningStyle={styles.validationField}
+              onFocus={isEmptyRoleHandler}
             />
 
-            <div className="df aic">
-              <OutlinedButton className="mr12" onClick={close}>
+            <div className="df aic mt32">
+              <OutlinedButton className="mr16" onClick={close}>
                 {t('administration.cancel')}
               </OutlinedButton>
 
               <ContainedButton
-                disabled={addRoleLoading}
                 type="submit"
                 id={ADD_MODERATOR_BUTTON_BUTTON}
+                onClick={isEmptyRoleHandler}
               >
                 {t('administration.confirm')}
               </ContainedButton>
@@ -151,7 +197,5 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
 };
 
 export default reduxForm<any, any>({
-  onSubmitFail: (errors) => scrollToErrorField(errors),
-  onSubmitSuccess: clearFieldsAfterSubmit,
   form: 'answerForm',
 })(AddRoleForm);

@@ -231,5 +231,5 @@ export const hasProtocolAdminRole = (permissionsFromState) => {
 export const getCommunityRoles = (communityId) => {
   const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
   const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
-  return [moderatorRole, adminRole];
+  return [adminRole, moderatorRole];
 };

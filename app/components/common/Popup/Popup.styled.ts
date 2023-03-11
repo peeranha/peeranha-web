@@ -31,7 +31,7 @@ const styles = {
     },
   },
   container: {
-    paddingTop: 12,
+    paddingTop: 2,
   },
   close: {
     zIndex: 1,

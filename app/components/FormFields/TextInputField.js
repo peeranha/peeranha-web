@@ -21,6 +21,7 @@ export const TextInputField = ({
   insideOfSection,
   iconLabel,
   isShowLabel,
+  warningStyle,
 }) => (
   <Wrapper
     label={label}
@@ -32,6 +33,7 @@ export const TextInputField = ({
     insideOfSection={insideOfSection}
     iconLabel={iconLabel}
     isShowLabel={isShowLabel}
+    warningStyle={warningStyle}
   >
     <Input
       input={input}
