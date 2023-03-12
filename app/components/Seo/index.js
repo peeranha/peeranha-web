@@ -88,10 +88,6 @@ const Seo = ({
         href={`https://images.peeranha.io/communities/${domainName}/apple-touch-icon.png`}
       />
       <link
-        rel="manifest"
-        href={`https://images.peeranha.io/communities/${domainName}/site.webmanifest`}
-      />
-      <link
         rel="mask-icon"
         href={`https://images.peeranha.io/communities/${domainName}/safari-pinned-tab.svg`}
         color={appSafariColor}
