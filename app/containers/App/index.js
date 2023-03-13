@@ -484,6 +484,14 @@ const App = ({
             />
           )}
 
+          {single && hasCommunityOrProtocolAdminRole && (
+            <Route
+              exact
+              path={routes.administration()}
+              render={(props) => Wrapper(Administration, props)}
+            />
+          )}
+
           <Route
             path={routes.noAccess()}
             render={(props) => Wrapper(NoAccess, props)}
