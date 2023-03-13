@@ -9,9 +9,16 @@ import * as routes from 'routes-config';
 import { BORDER_WARNING_LIGHT } from 'style-constants';
 
 import { trimRightZeros } from 'utils/numbers';
-import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
-import { NOTIFICATIONS_DATA, NOTIFICATIONS_TYPES, ROUTES_BY_TYPE } from 'components/Notifications/constants';
+import {
+  NOTIFICATIONS_DATA,
+  NOTIFICATIONS_TYPES,
+  ROUTES_BY_TYPE,
+} from 'components/Notifications/constants';
 
 import styles from './Notification.styled';
 
@@ -22,11 +29,11 @@ const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => {
   const { t } = useTranslation();
   return (
     <span css={styles.timestamp}>
-      {!!rightNow && t('common.rightNow')}
-      {!!minutes && t('common.minutesAgo', { minutes })}
-      {!!hours && t('common.hoursAgo', { hours })}
-      {!!yesterday && t('common.yesterday')}
-      {!!fullDate && fullDate}
+      {Boolean(rightNow) && t('common.rightNow')}
+      {Boolean(minutes) && t('common.minutesAgo', { minutes })}
+      {Boolean(hours) && t('common.hoursAgo', { hours })}
+      {Boolean(yesterday) && t('common.yesterday')}
+      {Boolean(fullDate) && fullDate}
     </span>
   );
 };
@@ -45,9 +52,21 @@ const NotificationLink = ({ isAnotherCommItem, href, text }) =>
 
 /* eslint-enable */
 
-const Notification = ({ top, data, time, type, read, index, height, notificationsNumber }) => {
+const Notification = ({
+  top,
+  data,
+  time,
+  type,
+  read,
+  index,
+  height,
+  notificationsNumber,
+}) => {
   const { t } = useTranslation();
-  const isTippedType = [NOTIFICATIONS_TYPES.answerTipped, NOTIFICATIONS_TYPES.questionTipped].includes(type);
+  const isTippedType = [
+    NOTIFICATIONS_TYPES.answerTipped,
+    NOTIFICATIONS_TYPES.questionTipped,
+  ].includes(type);
   const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
   const href = route(data.question_id, data.title, data.answer_id);
 
@@ -63,10 +82,13 @@ const Notification = ({ top, data, time, type, read, index, height, notification
     };
   }, [data.quantity, isTippedType]);
 
-  const isCommunityMod = Boolean(single) && Object.keys(singleStyles).length > 0;
+  const isCommunityMod =
+    Boolean(single) && Object.keys(singleStyles).length > 0;
   const isAnotherCommItem = Boolean(single) && data.community_id !== single;
   const isLast = index === notificationsNumber - 1;
-  const notificationTitle = t(NOTIFICATIONS_DATA[type]?.keyTranslate, { quantity: values });
+  const notificationTitle = t(NOTIFICATIONS_DATA[type]?.keyTranslate, {
+    quantity: values,
+  });
 
   return (
     <div
@@ -81,12 +103,18 @@ const Notification = ({ top, data, time, type, read, index, height, notification
       <IconMd
         icon={NOTIFICATIONS_DATA[type]?.src}
         color={!isCommunityMod && isTippedType ? BORDER_WARNING_LIGHT : null}
-        specialStyles={isCommunityMod && isTippedType && singleStyles.coinsIconStyles}
+        specialStyles={
+          isCommunityMod && isTippedType && singleStyles.coinsIconStyles
+        }
       />
       <div css={styles.textBlock}>
         <span css={styles.title}>{notificationTitle}</span>
         <Time time={time} />
-        <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href} text={data.title} />
+        <NotificationLink
+          isAnotherCommItem={isAnotherCommItem}
+          href={href}
+          text={data.title}
+        />
       </div>
     </div>
   );

@@ -9,9 +9,17 @@ import * as routes from 'routes-config';
 import { BORDER_WARNING_LIGHT, BORDER_PRIMARY } from 'style-constants';
 
 import { trimRightZeros } from 'utils/numbers';
-import { isSingleCommunityWebsite, singleCommunityStyles, singleCommunityColors } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
-import { ROUTES_BY_TYPE, NOTIFICATIONS_DATA, NOTIFICATIONS_TYPES } from './constants';
+import {
+  ROUTES_BY_TYPE,
+  NOTIFICATIONS_DATA,
+  NOTIFICATIONS_TYPES,
+} from './constants';
 import styles from './Notifications.styled';
 
 const single = isSingleCommunityWebsite();
@@ -22,11 +30,11 @@ const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => {
   const { t } = useTranslation();
   return (
     <span css={styles.timeStyles}>
-      {!!rightNow && t('common.rightNow')}
-      {!!minutes && t('common.minutesAgo', { minutes })}
-      {!!hours && t('common.hoursAgo', { hours })}
-      {!!yesterday && t('common.yesterday')}
-      {!!fullDate && fullDate}
+      {Boolean(rightNow) && t('common.rightNow')}
+      {Boolean(minutes) && t('common.minutesAgo', { minutes })}
+      {Boolean(hours) && t('common.hoursAgo', { hours })}
+      {Boolean(yesterday) && t('common.yesterday')}
+      {Boolean(fullDate) && fullDate}
     </span>
   );
 };
@@ -45,11 +53,23 @@ const NotificationLink = ({ isAnotherCommItem, href, children }) =>
 
 /* eslint-enable */
 
-const Notification = ({ top, data, time, type, read, index, height, notificationsNumber }) => {
+const Notification = ({
+  top,
+  data,
+  time,
+  type,
+  read,
+  index,
+  height,
+  notificationsNumber,
+}) => {
   const { t } = useTranslation();
   const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
   const href = route(data.question_id, data.title, data.answer_id);
-  const isTippedType = [NOTIFICATIONS_TYPES.answerTipped, NOTIFICATIONS_TYPES.questionTipped].includes(type);
+  const isTippedType = [
+    NOTIFICATIONS_TYPES.answerTipped,
+    NOTIFICATIONS_TYPES.questionTipped,
+  ].includes(type);
 
   const values = useMemo(() => {
     if (!isTippedType) {
@@ -63,10 +83,13 @@ const Notification = ({ top, data, time, type, read, index, height, notification
     };
   }, [data.quantity, isTippedType]);
 
-  const isCommunityMod = Boolean(single) && Object.keys(singleStyles).length > 0;
+  const isCommunityMod =
+    Boolean(single) && Object.keys(singleStyles).length > 0;
   const isAnotherCommItem = Boolean(single) && data.community_id !== single;
   const isLast = index === notificationsNumber - 1;
-  const notificationTitle = t(NOTIFICATIONS_DATA[type]?.keyTranslate, { quantity: values });
+  const notificationTitle = t(NOTIFICATIONS_DATA[type]?.keyTranslate, {
+    quantity: values,
+  });
 
   return (
     <div
@@ -83,9 +106,13 @@ const Notification = ({ top, data, time, type, read, index, height, notification
         <IconMd
           icon={NOTIFICATIONS_DATA[type]?.src}
           color={!isCommunityMod && isTippedType ? BORDER_WARNING_LIGHT : null}
-          specialStyles={isCommunityMod && isTippedType && singleStyles.coinsIconStyles}
+          specialStyles={
+            isCommunityMod && isTippedType && singleStyles.coinsIconStyles
+          }
         />
-        <span css={{ color: colors.btnColor || BORDER_PRIMARY }}>{data.title}</span>
+        <span css={{ color: colors.btnColor || BORDER_PRIMARY }}>
+          {data.title}
+        </span>
       </NotificationLink>
       <Time time={time} />
     </div>
