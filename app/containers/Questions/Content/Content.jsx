@@ -80,6 +80,7 @@ const QI = ({
   isFeed,
   isCommunityFeed,
   language,
+  translations,
 }) => {
   const ref = useRef(null);
 
@@ -196,6 +197,7 @@ const QI = ({
           isExpert={isExpert}
           isCommunityFeed={isCommunityFeed}
           postLanguage={language}
+          translations={translations}
         />
       </Div>
     </Box>

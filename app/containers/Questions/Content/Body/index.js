@@ -40,6 +40,7 @@ const Body = ({
   isFeed,
   isExpert,
   postLanguage,
+  translations,
 }) => {
   const language = Object.keys(languagesEnum)[Number(postLanguage)];
   const community = communities.find(
@@ -84,6 +85,7 @@ const Body = ({
         id={id}
         questionBounty={questionBounty}
         postType={postType}
+        translations={translations}
       />
 
       <UserInfo

@@ -160,6 +160,11 @@ const post = `
       name
     }
     language
+    translations {
+      language
+      title
+      content
+    }
 `;
 
 export const usersQuery = `
