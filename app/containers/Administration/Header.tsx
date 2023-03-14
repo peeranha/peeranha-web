@@ -6,7 +6,8 @@ import Wrapper from 'components/Header/Simple';
 import Icon from 'components/Icon';
 import H3 from 'components/H3';
 
-import AddModeratorForm from 'containers/Administration/AddModeratorForm';
+import AddRoleForm from 'containers/Administration/AddRoleForm';
+import { Moderator } from 'containers/Administration/types';
 
 import usersHeader from 'images/usersHeader.svg?external';
 import AddModeratorButton from 'containers/Administration/AddModeratorButton';
@@ -18,15 +19,17 @@ const colors = singleCommunityColors();
 type HeaderProps = {
   locale: string;
   single?: number;
-  addModerator: (userAddress: string, communityId: number) => void;
-  addModeratorLoading: boolean;
+  moderators: Array<Moderator>;
+  addRole: (userAddress: string, role: number, communityId: number) => void;
+  addRoleLoading: boolean;
 };
 
 export const Header: React.FC<HeaderProps> = ({
   locale,
   single,
-  addModerator,
-  addModeratorLoading,
+  moderators,
+  addRole,
+  addRoleLoading,
 }): JSX.Element => {
   const { t } = useTranslation();
 
@@ -41,14 +44,16 @@ export const Header: React.FC<HeaderProps> = ({
             isColorImportant={true}
           />
         </MediumIconStyled>
+
         {t('common.administration')}
       </H3>
-      <AddModeratorForm
+      <AddRoleForm
         locale={locale}
         single={single}
-        addModerator={addModerator}
+        addRole={addRole}
+        moderators={moderators}
         Button={AddModeratorButton}
-        addModeratorLoading={addModeratorLoading}
+        addRoleLoading={addRoleLoading}
       />
     </Wrapper>
   );
