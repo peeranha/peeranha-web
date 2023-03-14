@@ -96,7 +96,7 @@ const Body = ({
         communityId={communityId}
       />
 
-      <div className="d-flex justify-content-between align-items-center">
+      <div className="df jcsb aic">
         <TagsContainer
           communities={communities}
           communityId={communityId}

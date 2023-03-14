@@ -15,7 +15,7 @@ const LanguageLabel: React.FC<{
   isFeed: boolean;
 }> = ({ isSearch = false, language, isFeed }) => {
   const { t } = useTranslation();
-  const [visible, changeVisibility] = useState(false);
+  const [visible, changeVisibility] = useState<boolean>(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
