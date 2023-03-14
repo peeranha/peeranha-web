@@ -42,7 +42,7 @@ export const showPopover = (elemId, message, restParamets = {}) => {
   }
 };
 
-export const closePopover = callback => {
+export const closePopover = (callback) => {
   if (timerOn) {
     clearTimeout(timerId);
     currentElement = null;

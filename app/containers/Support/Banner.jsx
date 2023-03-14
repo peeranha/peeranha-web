@@ -14,6 +14,10 @@ const BannerStyled = Banner.extend`
   height: 200px;
   margin-bottom: 20px;
 
+  img {
+    max-width: 170px;
+  }
+
   @media only screen and (max-width: 576px) {
     border-bottom: none;
     padding: 0;

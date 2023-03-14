@@ -674,28 +674,13 @@ export function* getQuestionDataWorker({ questionId }) {
       );
     }
 
-    // const promotedQuestions = yield call(
-    //   getPromotedQuestions,
-    //   eosService,
-    //   questionData.communityId,
-    // );
-    //
-    // const promotedQuestion = promotedQuestions.find(
-    //   item => item.question_id === questionId,
-    // );
-    //
-    // if (promotedQuestion) {
-    //   questionData.promote = {
-    //     startTime: promotedQuestion.start_time,
-    //     endsTime: promotedQuestion.ends_time,
-    //   };
-    // }
     if (isAnotherCommQuestion) {
       yield put(getQuestionDataSuccess(null));
     } else {
       yield put(getQuestionDataSuccess(questionData));
     }
   } catch (err) {
+    console.log(err);
     yield put(getQuestionDataErr(err));
   }
 }
