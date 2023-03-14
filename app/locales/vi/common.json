@@ -480,5 +480,6 @@
   "drafts": "Bản thảo",
   "reputationBelowZero": "Danh tiếng của bạn trong cộng đồng này là tiêu cực, bạn không được phép đăng bất kỳ câu trả lời nào.",
   "enterText": "Vui lòng nhập văn bản đánh dấu",
-  "errorMinReputation": "Để hoàn thành hành động này, danh tiếng của bạn phải ít nhất là 0"
+  "errorMinReputation": "Để hoàn thành hành động này, danh tiếng của bạn phải ít nhất là 0",
+  "noArticles": "Chưa có bài viết nào. Bạn có muốn thêm cái đầu tiên của mình không?"
 }

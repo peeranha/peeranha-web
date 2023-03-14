@@ -510,5 +510,6 @@
   "publish": "Publish",
   "addNewSubArticle": "Add a new sub-article",
   "pin": "Pin",
-  "unpin": "Unpin"
+  "unpin": "Unpin",
+  "noArticles": "There aren't any articles yet. Would you like to add your first one?"
 }

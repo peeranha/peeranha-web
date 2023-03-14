@@ -46,7 +46,7 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
                 {option.icon}
               </span>
             )}
-            <span>{t(`${option.label}`)}</span>
+            <span>{t(option.label)}</span>
           </>
         )}
         {isMultiple && (

@@ -17,11 +17,7 @@ const Empty: React.FC<{ onClickAddArticle: () => void }> = ({
     >
       <img src={noQuestionsAllQuestionsPage} className="mr24" />
       <div>
-        <div className="mb24">
-          {
-            "There aren't any articles yet. Would you like to add your first one?"
-          }
-        </div>
+        <div className="mb24">{t('common.noArticles')}</div>
         <Button variant="primary" onClick={onClickAddArticle}>
           {t('common.addNewArticle')}
         </Button>
