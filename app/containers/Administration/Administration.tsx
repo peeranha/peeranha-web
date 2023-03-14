@@ -12,18 +12,20 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import reducer from 'containers/Administration/reducer';
 import saga from 'containers/Administration/saga';
+import { noAccess as noAccessRoute } from 'routes-config';
+import { useModeratorRole } from 'hooks/useModeratorRole';
 
 import {
-  addModerator,
+  addRole,
   getModerators,
-  revokeModerator,
+  revokeRole,
 } from 'containers/Administration/actions';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
-  selectAddModeratorLoading,
+  selectAddRoleLoading,
   selectModeratorsList,
   selectModeratorsLoading,
-  selectRevokeModeratorLoading,
+  selectRevokeRoleLoading,
 } from 'containers/Administration/selectors';
 import {
   Moderator,
@@ -37,44 +39,57 @@ type AdministrationProps = {
   moderators: Array<Moderator>;
   getModeratorsDispatch: (communityId: number) => void;
   moderatorsLoading: boolean;
-  addModeratorDispatch: (userAddress: string, communityId: number) => void;
-  addModeratorLoading: boolean;
-  revokeModeratorDispatch: (userAddress: string, communityId: number) => void;
-  revokeModeratorLoading: boolean;
+  addRoleDispatch: (
+    userAddress: string,
+    role: number,
+    communityId: number,
+  ) => void;
+  addRoleLoading: boolean;
+  revokeRoleDispatch: (
+    userAddress: string,
+    role: number,
+    communityId: number,
+  ) => void;
+  revokeRoleLoading: boolean;
 };
 
 const single = isSingleCommunityWebsite();
 
 const Administration: React.FC<AdministrationProps> = ({
   locale,
+  profileInfo,
   moderators,
   getModeratorsDispatch,
   moderatorsLoading,
-  addModeratorDispatch,
-  addModeratorLoading,
-  revokeModeratorDispatch,
-  revokeModeratorLoading,
+  addRoleDispatch,
+  addRoleLoading,
+  revokeRoleDispatch,
+  revokeRoleLoading,
 }): JSX.Element => {
+  useModeratorRole(noAccessRoute, single);
+
   useEffect(() => {
     getModeratorsDispatch(single);
-  }, [single]);
+  }, [single, addRoleLoading, revokeRoleLoading]);
 
   return (
     <>
       <Header
         locale={locale}
         single={single}
-        addModerator={addModeratorDispatch}
-        addModeratorLoading={addModeratorLoading}
+        moderators={moderators}
+        addRole={addRoleDispatch}
+        addRoleLoading={addRoleLoading}
       />
       <Content
         locale={locale}
         single={single}
+        profileInfo={profileInfo}
         moderators={moderators}
         communityId={single}
-        revokeModerator={revokeModeratorDispatch}
+        revokeRole={revokeRoleDispatch}
         moderatorsLoading={moderatorsLoading}
-        revokeModeratorLoading={revokeModeratorLoading}
+        revokeRoleLoading={revokeRoleLoading}
       />
     </>
   );
@@ -89,13 +104,13 @@ export default compose(
       profileInfo: makeSelectProfileInfo(),
       moderators: selectModeratorsList,
       moderatorsLoading: selectModeratorsLoading,
-      addModeratorLoading: selectAddModeratorLoading,
-      revokeModeratorLoading: selectRevokeModeratorLoading,
+      addRoleLoading: selectAddRoleLoading,
+      revokeRoleLoading: selectRevokeRoleLoading,
     }),
     (dispatch: Dispatch) => ({
       getModeratorsDispatch: bindActionCreators(getModerators, dispatch),
-      addModeratorDispatch: bindActionCreators(addModerator, dispatch),
-      revokeModeratorDispatch: bindActionCreators(revokeModerator, dispatch),
+      addRoleDispatch: bindActionCreators(addRole, dispatch),
+      revokeRoleDispatch: bindActionCreators(revokeRole, dispatch),
     }),
   ),
 )(Administration);

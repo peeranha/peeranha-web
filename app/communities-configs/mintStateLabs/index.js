@@ -166,6 +166,7 @@ export const customSubHeaderConfig = {
 };
 
 export const MintStateLabsStyles = {
+  name: 'mintStateLabs',
   documentationPosition: 'top',
   withoutCopyright: true,
   withoutSubHeader: true,
@@ -173,9 +174,10 @@ export const MintStateLabsStyles = {
   poweredByPeeranha: true,
   signUpPageLogo:
     'https://images.peeranha.io/communities/mintStateLabs/mintStateLabsIcon.svg',
-  favicon: 'https://images.peeranha.io/communities/mintStateLabs/MSLLogo.ico',
 
   colors: {
+    appWindowsColor: '#2d89ef',
+    appSafarieColor: '#5bbad5',
     mainSubHeaderBgColor: '#282828',
     mainBackground: '#F5F5F5',
     linkColor: '#53A6EC',

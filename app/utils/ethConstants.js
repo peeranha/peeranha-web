@@ -4,6 +4,13 @@ export const CONTRACT_USER = 'contractUser';
 export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
+export const ContractsMapping = {
+  [CONTRACT_TOKEN]: 'token',
+  [CONTRACT_USER]: 'user',
+  [CONTRACT_CONTENT]: 'content',
+  [CONTRACT_COMMUNITY]: 'community',
+};
+
 // Transaction names
 export const UPDATE_ACC = 'updateUser';
 export const CREATE_COMMUNITY = 'createCommunity';
@@ -32,6 +39,9 @@ export const GIVE_COMMUNITY_MODERATOR_PERMISSION =
   'giveCommunityModeratorPermission';
 export const REVOKE_COMMUNITY_MODERATOR_PERMISSION =
   'revokeCommunityModeratorPermission';
+export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
+export const REVOKE_COMMUNITY_ADMIN_PERMISSION =
+  'revokeCommunityAdminPermission';
 
 // Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
@@ -390,6 +400,20 @@ export const tagsQuery = `
         }
       }`;
 
+export const tagsByIdsQuery = `
+      query(
+        $ids: [String],
+      ) {
+        tags(
+         where: { id_in: $ids },
+        ) {
+           id
+           name
+           description
+           postCount
+        }
+      }`;
+
 export const postsQuery = `
       query (
         $first: Int,
@@ -420,6 +444,25 @@ export const postsByCommQuery = `
           first: $first,
           skip: $skip,
           where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: ""},
+        ) {
+           ${post}
+        }
+      }`;
+
+export const postsByCommAndTagsQuery = `
+      query (
+        $first: Int,
+        $skip: Int,
+        $communityIds: [Int],
+        $postTypes: [Int],
+        $tags: [String],
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          first: $first,
+          skip: $skip,
+          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: "", tags_contains: $tags},
         ) {
            ${post}
         }
@@ -530,7 +573,6 @@ export const allAchievementsQuery = `
           name
           description
           image
-          attributes
         }
         user (id: $userId) {
           achievements {

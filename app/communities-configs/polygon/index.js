@@ -225,6 +225,7 @@ export const customSubHeaderConfig = {
 };
 
 export const PolygonStyles = {
+  name: 'polygon',
   documentationPosition: 'bottom',
   withoutCopyright: true,
   withoutSubHeader: true,
@@ -254,6 +255,8 @@ export const PolygonStyles = {
     questionTitleFont: `${fonts}`,
   },
   colors: {
+    appWindowsColor: '#000000',
+    appSafarieColor: '#000000',
     mainSubHeaderBgColor:
       'linear-gradient(120.21deg, #0A090D 17.55%, #7845D0 99.46%)',
     blue: '#843bed',

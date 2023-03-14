@@ -1,9 +1,14 @@
 {
   "communityModerator": "Community Moderator",
   "communityAdministrator": "Community Administrator",
-  "addModerator": "Add moderator",
+  "addRole": "Add new role",
+  "chooseRole": "Choose a role",
+  "EmptyRole": "Please, choose a role",
+  "alreadyHasModeratorRole": "Moderator role is already assigned to this wallet address",
+  "alreadyHasAdministratorRole": "Administrator role is already assigned to this wallet address",
+  "alreadyHasRole": "The User already has this role",
   "confirm": "Confirm",
   "cancel": "Cancel",
-  "wantToRevoke": "Are you sure you want to revoke this moderator?",
+  "wantToRevoke": "Are you sure you want to revoke the user from being a {{role}}?",
   "revoke": "Revoke"
 }

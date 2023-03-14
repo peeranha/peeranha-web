@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 import { useTranslation } from 'react-i18next';
+import { errorPage } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -70,6 +71,7 @@ export const ViewQuestion = ({
   postAnswerLoading,
   postCommentLoading,
   questionDataLoading,
+  questionDataError,
   saveCommentLoading,
   communities,
   upVoteLoading,
@@ -119,7 +121,6 @@ export const ViewQuestion = ({
     resetStoreDispatch();
 
     return () => {
-      window.$(window).off();
       resetStoreDispatch();
     };
   }, []);
@@ -141,7 +142,11 @@ export const ViewQuestion = ({
       window.isRendered = true;
     }
 
-    if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
+    if (!questionDataLoading && !questionData) {
+      history.push(questionDataError ? routes.errorPage() : routes.notFound());
+    }
+
+    if (questionData?.isDeleted) {
       history.push(routes.notFound('type=deleted'));
     }
   }, [questionData, questionDataLoading]);
@@ -287,6 +292,7 @@ const withConnect = connect(
     communities: selectCommunities(),
     profile: makeSelectProfileInfo(),
     questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
+    questionDataError: makeSelectViewQuestion.selectQuestionDataError(),
     questionData: makeSelectViewQuestion.selectQuestionData(),
     questionBounty: makeSelectViewQuestion.selectQuestionBounty(),
     addCommentFormDisplay: makeSelectViewQuestion.selectAddCommentFormDisplay(),

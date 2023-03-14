@@ -1,0 +1,14 @@
+{
+  "communityModerator": "社区版主",
+  "communityAdministrator": "社区管理员",
+  "addRole": "添加新角色",
+  "chooseRole": "选择角色",
+  "EmptyRole": "请选择角色",
+  "alreadyHasModeratorRole": "版主角色已分配给此钱包地址",
+  "alreadyHasAdministratorRole": "管理员角色已分配给此钱包地址",
+  "alreadyHasRole": "用户已经有这个角色",
+  "confirm": "确认",
+  "cancel": "取消",
+  "wantToRevoke": "您确定要撤销用户的{{role}}身份吗？",
+  "revoke": "撤销"
+}

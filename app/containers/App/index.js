@@ -193,7 +193,6 @@ const App = ({
 
         <Login />
         <ForgotPassword />
-        <MetaTransactionAgreement />
 
         <ScrollTo />
         <Popover />
@@ -414,6 +413,12 @@ const App = ({
 
           <Route
             exact
+            path={routes.questionView(':id', ':title', false, true)}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
             path={'/questions/:id'}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
@@ -468,6 +473,14 @@ const App = ({
               exact
               path={routes.users()}
               render={(props) => Wrapper(Users, props)}
+            />
+          )}
+
+          {single && hasCommunityOrProtocolAdminRole && (
+            <Route
+              exact
+              path={routes.administration()}
+              render={(props) => Wrapper(Administration, props)}
             />
           )}
 
@@ -538,7 +551,9 @@ const App = ({
 
           <Route render={(props) => Wrapper(NotFoundPage, props)} />
         </Switch>
-        <div id="portal-root" />
+        <div id="portal-root">
+          <MetaTransactionAgreement />
+        </div>
       </ThemeProvider>
     </ErrorBoundary>
   );
