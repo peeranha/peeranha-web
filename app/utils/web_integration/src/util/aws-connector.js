@@ -43,6 +43,7 @@ const SAVE_FILE_SERVICE = 'save-file';
 
 const GET_VERIFICATION_CODE = '/subscription/get-verification-code';
 const SUBSCRIBE_LINK_EMAIL = '/subscription/link-email';
+const UNSUBSCRIBE_LINK_EMAIL = '/subscription/unlink-email';
 const GET_NOTIFICATION_SETTINGS = '/subscription/get-notification-settings';
 const UPDATE_NOTIFICATION_SETTINGS = '/subscription/update-settings';
 
@@ -125,5 +126,6 @@ module.exports = {
   GET_VERIFICATION_CODE,
   GET_NOTIFICATION_SETTINGS,
   SUBSCRIBE_LINK_EMAIL,
+  UNSUBSCRIBE_LINK_EMAIL,
   UPDATE_NOTIFICATION_SETTINGS,
 };

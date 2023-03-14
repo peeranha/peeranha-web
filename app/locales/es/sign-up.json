@@ -53,5 +53,6 @@
   "tgAccountID": "ID de cuenta de Telegram",
   "tgAccountName": "Nombre de cuenta de telegrama",
   "metaMaskIsNotInstalled": "MetaMask no está instalado",
-  "userNotSelected": "El usuario no está seleccionado"
+  "userNotSelected": "El usuario no está seleccionado",
+  "emailSubscribed": "Este correo ya está suscrito"
 }

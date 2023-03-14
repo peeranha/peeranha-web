@@ -47,6 +47,6 @@
   "changeEmail": "Thay đổi email",
   "sendCode": "Gửi mã",
   "emailNotifications": "Thông báo thư điện tử",
-  "emailNotificationsText": "Nhận thông báo về bài viết, câu trả lời và bình luận.",
+  "emailNotificationsText": "Nhận thông báo về bài đăng, câu trả lời và nhận xét của bạn.",
   "verificationCodeText": "Một mã xác minh sẽ được gửi đến email:"
 }

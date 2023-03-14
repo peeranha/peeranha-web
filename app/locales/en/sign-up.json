@@ -53,5 +53,6 @@
   "tgAccountID": "Telegram account ID",
   "tgAccountName": "Telegram account name",
   "metaMaskIsNotInstalled": "MetaMask is not installed",
-  "userNotSelected": "User is not selected  "
+  "userNotSelected": "User is not selected  ",
+  "emailSubscribed": "This email is already subscribed"
 }

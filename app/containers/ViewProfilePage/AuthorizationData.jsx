@@ -17,11 +17,9 @@ import { TEXT_SECONDARY } from 'style-constants';
 import {
   validateEmail,
   required,
-  withoutDoubleSpace,
-  strLength5x100,
-  maxByteLength,
+  strLength254Max,
 } from 'components/FormFields/validate';
-import { OLD_EMAIL_FIELD, CONFIRM_EMAIL_FORM } from '../ChangeEmail/constants';
+import { OLD_EMAIL_FIELD } from '../ChangeEmail/constants';
 import { scrollToErrorField } from 'utils/animation';
 
 import { BaseStyled } from './SettingsOfUser';
@@ -32,10 +30,10 @@ const AuthorizationData = ({
   email,
   isSubscribedEmail,
   handleSubmit,
+  showChangeEmailModal,
 }) => {
   const { t } = useTranslation();
   const [isToggled, setIsToggled] = useState(false);
-  const [emailAddress, setEmailAddress] = useState(null);
   const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
   const [open, setOpen] = useState(isSubscribedEmail);
   const [metaTransactions, setMetaTransactions] = React.useState(
@@ -43,8 +41,9 @@ const AuthorizationData = ({
   );
 
   useEffect(() => {
+    setOpen(isSubscribedEmail);
     setIsToggled(isSubscribedEmail);
-  }, [isSubscribedEmail]);
+  }, [isSubscribedEmail, email]);
 
   const handleMetaTransactionsAllowed = () => {
     setCookie({
@@ -62,11 +61,6 @@ const AuthorizationData = ({
   const handleMetaTransactionsDisallowed = () => {
     deleteCookie(META_TRANSACTIONS_ALLOWED);
     setMetaTransactions(false);
-  };
-
-  const getEmail = (e) => {
-    e.preventDefault();
-    setEmailAddress(e.target[0].value);
   };
 
   return (
@@ -90,7 +84,7 @@ const AuthorizationData = ({
             >
               <div>
                 <div className="df aic fww mb-2">
-                  <div className="full-width semi-bold mb-1">
+                  <div className="full-width semi-bold mb-2">
                     {' '}
                     {t('profile.emailNotifications')}
                   </div>
@@ -113,38 +107,29 @@ const AuthorizationData = ({
                 {open ? (
                   <div className="semi-bold">
                     {t('common.confirmedEmail')}
-                    <div className="df aic jcsb mt-1">
+                    <div className="df aic jcsb mt-2">
                       <span
                         className="light"
                         css={{ color: 'var(--color-gray-dark)' }}
                       >
                         {email}
                       </span>
-                      <ChangeEmailButton
-                        emailAddress={emailAddress}
-                        setOpen={setOpen}
-                        open={open}
-                      />
+                      <ChangeEmailButton setOpen={setOpen} open={open} />
                     </div>
                   </div>
                 ) : (
                   <form
                     className="df jcsb fww"
-                    onSubmit={handleSubmit(getEmail)}
+                    onSubmit={handleSubmit(showChangeEmailModal)}
                   >
-                    <div className="semi-bold" css={{ width: '350px' }}>
-                      {t('profile.email')}
+                    <div css={{ width: '350px' }}>
+                      <div className="semi-bold mb-2">{t('profile.email')}</div>
 
                       <Field
                         name={OLD_EMAIL_FIELD}
                         component={TextInputField}
-                        validate={[
-                          withoutDoubleSpace,
-                          strLength5x100,
-                          maxByteLength,
-                          required,
-                        ]}
-                        warn={[validateEmail, required]}
+                        validate={[validateEmail, required, strLength254Max]}
+                        warn={[validateEmail, required, strLength254Max]}
                         placeholder={t('profile.email')}
                       />
                     </div>
@@ -155,7 +140,7 @@ const AuthorizationData = ({
                         },
                       }}
                     >
-                      <ChangeEmailButton emailAddress={emailAddress} />
+                      <ChangeEmailButton />
                     </div>
                   </form>
                 )}
@@ -252,7 +237,6 @@ AuthorizationData.propTypes = {
 export default reduxForm({
   form: OLD_EMAIL_FIELD,
   onSubmitFail: (errors) => {
-    console.log(errors, 'errorserrorserrorserrorserrorserrors');
     scrollToErrorField(errors);
   },
 })(AuthorizationData);

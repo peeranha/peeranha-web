@@ -53,5 +53,6 @@
   "tgAccountID": "Telegram 帐户 ID",
   "tgAccountName": "Telegram 帐户名称",
   "metaMaskIsNotInstalled": "未安装 MetaMask",
-  "userNotSelected": "未选择用户  "
+  "userNotSelected": "未选择用户  ",
+  "emailSubscribed": "此电子邮件已被订阅"
 }

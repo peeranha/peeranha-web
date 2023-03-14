@@ -68,6 +68,9 @@ const selectVerificationCode = () =>
     (substate) => substate.verificationCode,
   );
 
+const selectCurrentEmail = () =>
+  createSelector(selectChangeEmailDomain, (substate) => substate.currentEmail);
+
 export {
   selectChangeEmailDomain,
   selectShowModal,
@@ -82,4 +85,5 @@ export {
   selectVerificationCode,
   selectIsSubscribed,
   selectGetEmailAddressError,
+  selectCurrentEmail,
 };

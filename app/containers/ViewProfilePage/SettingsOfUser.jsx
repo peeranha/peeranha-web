@@ -114,6 +114,7 @@ const SettingsOfUser = ({
   tgData,
   email,
   isSubscribedEmail,
+  showChangeEmailModal,
 }) => {
   const { t } = useTranslation();
   const writeToBuffer = (event) => {
@@ -134,6 +135,7 @@ const SettingsOfUser = ({
         profile={profile}
         email={email}
         isSubscribedEmail={isSubscribedEmail}
+        showChangeEmailModal={showChangeEmailModal}
       />
     </div>
   ) : (

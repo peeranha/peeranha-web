@@ -5,7 +5,7 @@ import {
   changeCredentialsComplete,
   changeCredentialsGetKeysByPwd,
   getVerificationCode,
-  getNotificationSettings,
+  unsubscribeLinkEmail,
   subscribeLinkEmail,
   updateNotificationSettings,
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
@@ -18,7 +18,13 @@ import { addToast } from 'containers/Toast/actions';
 
 import { logout } from 'containers/Logout/actions';
 
-import { selectEmail, selectVerificationCode } from './selectors';
+import {
+  selectEmail,
+  selectIsSubscribed,
+  selectVerificationCode,
+  selectContent,
+  selectCurrentEmail,
+} from './selectors';
 
 import {
   CHANGE_EMAIL,
@@ -27,7 +33,7 @@ import {
   NEW_EMAIL_FIELD,
   PASSWORD_FIELD,
   SEND_ANOTHER_CODE,
-  GET_EMAIL_ADDRESS,
+  SHOW_CHANGE_EMAIL_MODAL,
 } from './constants';
 
 import {
@@ -37,14 +43,13 @@ import {
   sendOldEmailErr,
   confirmOldEmailSuccess,
   confirmOldEmailErr,
-  getEmailAddressSuccess,
-  getEmailAddressErr,
+  showChangeEmailModalSuccess,
+  showChangeEmailModalErr,
 } from './actions';
 
 export function* sendOldEmailWorker({ email }) {
   try {
     const response = yield call(getVerificationCode, email);
-
     if (!response.OK) {
       throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
@@ -56,7 +61,7 @@ export function* sendOldEmailWorker({ email }) {
 }
 
 export function* sendAnotherCode() {
-  const email = yield select(selectEmail());
+  const email = yield select(selectCurrentEmail());
   yield call(sendOldEmailWorker, { email });
 }
 
@@ -66,13 +71,12 @@ export function* sendAnotherCodeSuccess() {
 
 export function* confirmOldEmailWorker({ resetForm, code }) {
   try {
-    const email = yield select(selectEmail());
+    const email = yield select(selectCurrentEmail());
     const address = yield select(makeSelectAccount());
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
     const response = yield call(subscribeLinkEmail, email, address, code);
-
     if (!response.OK) {
       yield put(
         addToast({
@@ -80,13 +84,13 @@ export function* confirmOldEmailWorker({ resetForm, code }) {
           text: 'common.incorrectCode',
         }),
       );
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      yield call(resetForm);
     }
-    yield call(updateNotificationSettings, address);
-    yield put(confirmOldEmailSuccess());
-    yield call(resetForm);
+
+    if (response.OK) {
+      yield call(updateNotificationSettings, address);
+      yield put(confirmOldEmailSuccess(email, true));
+    }
   } catch (err) {
     yield put(confirmOldEmailErr(err));
   }
@@ -141,17 +145,24 @@ export function* changeEmailWorker({ resetForm, values }) {
   }
 }
 
-export function* getEmailAddressWorker({ address }) {
+export function* showChangeEmailModalWorker({ email }) {
   try {
-    const response = yield call(getNotificationSettings, address);
+    const subscribedEmail = yield select(selectEmail());
+    const content = yield select(selectContent());
 
-    if (!response.OK) {
-      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
+    if (subscribedEmail === email) {
+      yield put(
+        addToast({
+          type: 'error',
+          text: 'signUp.emailSubscribed',
+        }),
+      );
     }
-    const { email, isSubscribed } = response.body;
-    yield put(getEmailAddressSuccess(email, isSubscribed));
+    if (email !== subscribedEmail && !content) {
+      yield put(showChangeEmailModalSuccess(email));
+    }
   } catch (err) {
-    yield put(getEmailAddressErr(err));
+    yield put(showChangeEmailModalErr(err));
   }
 }
 
@@ -161,5 +172,5 @@ export default function* defaultSaga() {
   yield takeLatest(SEND_OLD_EMAIL, sendOldEmailWorker);
   yield takeLatest(CONFIRM_OLD_EMAIL, confirmOldEmailWorker);
   yield takeLatest(CHANGE_EMAIL, changeEmailWorker);
-  yield takeLatest(GET_EMAIL_ADDRESS, getEmailAddressWorker);
+  yield takeLatest(SHOW_CHANGE_EMAIL_MODAL, showChangeEmailModalWorker);
 }

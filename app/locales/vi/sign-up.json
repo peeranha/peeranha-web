@@ -53,5 +53,6 @@
   "tgAccountID": "Telegram tài khoản ID",
   "tgAccountName": "Telegram tên tài khoản",
   "metaMaskIsNotInstalled": "MetaMask chưa được cài đặt",
-  "userNotSelected": "Người dùng không được chọn  "
+  "userNotSelected": "Người dùng không được chọn  ",
+  "emailSubscribed": "Email này đã được đăng ký"
 }

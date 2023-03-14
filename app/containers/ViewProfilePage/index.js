@@ -61,10 +61,9 @@ import {
   resetViewProfileAccount,
   setViewProfileAccount,
 } from '../Achievements/actions';
-import { getEmailAddress } from '../ChangeEmail/actions';
+import { getEmailAddress, showChangeEmailModal } from '../ChangeEmail/actions';
 
 import achievementsSaga from '../Achievements/saga';
-import changeEmailSaga from '../ChangeEmail/saga';
 import achievementsReducer from '../Achievements/reducer';
 
 const ViewProfilePage = ({
@@ -87,9 +86,9 @@ const ViewProfilePage = ({
   getAllAchievementsDispatch,
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
-  getEmailAddressDispatch,
   email,
   isSubscribedEmail,
+  showChangeEmailModalDispatch,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -100,10 +99,6 @@ const ViewProfilePage = ({
 
     return () => resetViewProfileAccountDispatch();
   }, [userId]);
-
-  useEffect(() => {
-    getEmailAddressDispatch(account);
-  }, [account]);
 
   return (
     <Profile userId={userId} isLogin={account === userId}>
@@ -146,6 +141,7 @@ const ViewProfilePage = ({
         tgData={userTgData}
         email={email}
         isSubscribedEmail={isSubscribedEmail}
+        showChangeEmailModal={showChangeEmailModalDispatch}
       />
 
       {path === routes.userNotifications(userId) && (
@@ -257,7 +253,10 @@ const withConnect = connect(
       resetViewProfileAccount,
       dispatch,
     ),
-    getEmailAddressDispatch: bindActionCreators(getEmailAddress, dispatch),
+    showChangeEmailModalDispatch: bindActionCreators(
+      showChangeEmailModal,
+      dispatch,
+    ),
   }),
 );
 
@@ -282,10 +281,6 @@ const withAchievementsSaga = injectSaga({
   key: 'userAchievements',
   saga: achievementsSaga,
 });
-const withChangeEmailSaga = injectSaga({
-  key: 'userEmail',
-  saga: changeEmailSaga,
-});
 
 const withSaga = injectSaga({ key: 'questionsOfUser', saga, mode: DAEMON });
 
@@ -296,6 +291,5 @@ export default compose(
   withAchievementsReducer,
   withAchievementsSaga,
   withSaga,
-  withChangeEmailSaga,
   withConnect,
 )(ViewProfilePage);
