@@ -192,12 +192,6 @@ const MainLinks = ({
     route = isBloggerMode ? 'home' : '/';
   }
 
-  const hasCommunityOrProtocolAdminRole =
-    singleCommId &&
-    (hasGlobalModeratorRole() ||
-      hasProtocolAdminRole() ||
-      hasCommunityAdminRole(null, singleCommId));
-
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
 
   return (

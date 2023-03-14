@@ -1,13 +1,12 @@
 import {
-  ADD_MODERATOR,
-  ADD_MODERATOR_ERROR,
-  ADD_MODERATOR_SUCCESS,
+  ADD_ROLE,
+  ADD_ROLE_SUCCESS,
   GET_MODERATORS,
   GET_MODERATORS_ERROR,
   GET_MODERATORS_SUCCESS,
-  REVOKE_MODERATOR,
-  REVOKE_MODERATOR_ERROR,
-  REVOKE_MODERATOR_SUCCESS,
+  REVOKE_ROLE,
+  REVOKE_ROLE_ERROR,
+  REVOKE_ROLE_SUCCESS,
 } from 'containers/Administration/constants';
 import { Moderator } from 'containers/Administration/types';
 
@@ -32,44 +31,51 @@ export function getModeratorsError(moderatorsError: Error) {
   };
 }
 
-export function addModerator(userAddress: string, communityId: number) {
+export function addRole(
+  userAddress: string,
+  role: number,
+  communityId: number,
+  isUserHasRole?: boolean,
+) {
   return {
-    type: ADD_MODERATOR,
+    type: ADD_ROLE,
+    role,
     userAddress,
+    communityId,
+    isUserHasRole,
+  };
+}
+
+export function addRoleSuccess(communityId: number) {
+  return {
+    type: ADD_ROLE_SUCCESS,
     communityId,
   };
 }
 
-export function addModeratorSuccess() {
+export function revokeRole(
+  userAddress: string,
+  role: number,
+  communityId: number,
+) {
   return {
-    type: ADD_MODERATOR_SUCCESS,
-  };
-}
-
-export function addModeratorError(moderatorsError: Error) {
-  return {
-    type: ADD_MODERATOR_ERROR,
-    moderatorsError,
-  };
-}
-
-export function revokeModerator(userAddress: string, communityId: number) {
-  return {
-    type: REVOKE_MODERATOR,
+    type: REVOKE_ROLE,
     userAddress,
+    role,
     communityId,
   };
 }
 
-export function revokeModeratorSuccess() {
+export function revokeRoleSuccess(communityId: number) {
   return {
-    type: REVOKE_MODERATOR_SUCCESS,
+    type: REVOKE_ROLE_SUCCESS,
+    communityId,
   };
 }
 
-export function revokeModeratorError(moderatorsError: Error) {
+export function revokeRoleError(moderatorsError: Error) {
   return {
-    type: REVOKE_MODERATOR_ERROR,
+    type: REVOKE_ROLE_ERROR,
     moderatorsError,
   };
 }
