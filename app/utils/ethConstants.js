@@ -95,6 +95,11 @@ const comment = `
     content
     isDeleted
     properties
+    language
+    translations {
+      language
+      content
+    }
 `;
 
 const reply = `
@@ -115,6 +120,11 @@ const reply = `
     isFirstReply
     isQuickReply
     properties
+    language
+    translations {
+      language
+      content
+    }
     comments (
       orderBy: postTime,
       orderDirection: asc,
@@ -134,6 +144,12 @@ const post = `
     rating
     postTime
     communityId
+    language
+    translations {
+      language
+      content
+      title
+    }
     title
     content
     commentCount

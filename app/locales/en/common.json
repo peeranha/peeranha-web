@@ -281,6 +281,8 @@
   "promotedLabel": "Promote post",
   "promotedTip": "Promote post",
   "questionIsPromoting": "Promoted till",
+  "seeOriginal": "See original",
+  "seeTranslation": "See translation",
   "postTypeSelectionError": "You need to select post type",
   "leaveWithoutChanges": "You are about to leave the page without saving your changes. Are you sure want to continue?",
   "titleSuggestedCommunities": "Suggested communities",

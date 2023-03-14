@@ -74,6 +74,13 @@ export const POST_TYPE = {
   documentation: 1000,
 };
 
+export const LANGUAGES_MAP = {
+  en: 0,
+  zh: 1,
+  es: 2,
+  vi: 3,
+};
+
 export const globalAdminPermissions = {
   PERMISSION_PROTOCOL_ADMIN_1: {
     code: 1,
