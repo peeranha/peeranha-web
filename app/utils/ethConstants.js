@@ -554,7 +554,6 @@ export const allAchievementsQuery = `
           name
           description
           image
-          attributes
         }
         user (id: $userId) {
           achievements {
