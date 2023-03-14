@@ -55,21 +55,17 @@ export function* addRoleWorker(props: {
   isUserHasRole?: boolean;
 }): Generator<any> {
   try {
-    if (props.isUserHasRole) {
-      throw new Error('Unknown error');
-    } else {
-      const ethereumService = yield select(selectEthereum);
-      const account = yield select(makeSelectAccount());
-      yield call(
-        giveRolePermission,
-        account,
-        props.userAddress,
-        props.role,
-        props.communityId,
-        ethereumService,
-      );
-      yield put(addRoleSuccess(props.communityId));
-    }
+    const ethereumService = yield select(selectEthereum);
+    const account = yield select(makeSelectAccount());
+    yield call(
+      giveRolePermission,
+      account,
+      props.userAddress,
+      props.role,
+      props.communityId,
+      ethereumService,
+    );
+    yield put(addRoleSuccess(props.communityId));
   } catch (err) {}
 }
 
