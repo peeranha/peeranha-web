@@ -124,7 +124,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               size={[24, 24]}
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
-            <FormattedMessage id={messages.settings.id} />
+            {t('common.settings')}
           </A>
 
           {isModerator && (

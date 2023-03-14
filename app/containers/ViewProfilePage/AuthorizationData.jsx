@@ -10,7 +10,6 @@ import ChangeEmailButton from '../ChangeEmail';
 import ToggleSwitch from '../../components/ToogleSwitch';
 import TextInputField from 'components/FormFields/TextInputField';
 
-import commonMessages from 'common-messages';
 import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
 import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
 import { TEXT_SECONDARY } from 'style-constants';

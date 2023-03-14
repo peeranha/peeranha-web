@@ -189,25 +189,6 @@ const Menu = ({
           {t('common.settings')}
         </A>
       </Ul>
-      {isModerator && (
-        <A to={routes.userModeration(user)}>
-          <ModerationIcon
-            size={[18, 18]}
-            className="mr-2"
-            stroke={colors.linkColor || TEXT_PRIMARY}
-            fill={colors.linkColor || TEXT_PRIMARY}
-          />
-          <FormattedMessage id={messages.moderation.id} />
-        </A>
-      )}
-
-      <A to={routes.userSettings(user)}>
-        <SettingsIcon
-          className="mr-2"
-          stroke={colors.linkColor || TEXT_PRIMARY}
-        />
-        <FormattedMessage id={messages.settings.id} />
-      </A>
 
       <Ul>
         <Logout>
@@ -215,7 +196,7 @@ const Menu = ({
             className="mr-2"
             stroke={colors.linkColor || TEXT_PRIMARY}
           />
-          <FormattedMessage id={messages.logout.id} />
+          {t('common.logout')}
         </Logout>
       </Ul>
     </nav>

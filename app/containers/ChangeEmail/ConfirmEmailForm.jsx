@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
 
-import commonMessages from 'common-messages';
-import messages from './messages';
-
 import { scrollToErrorField } from 'utils/animation';
 
 import letterImg from 'images/letter-smile.svg?inline';

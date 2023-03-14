@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
 
-import messages from './messages';
 import { scrollToErrorField } from 'utils/animation';
 
 import P from 'components/P';
