@@ -1,3 +1,4 @@
+import { languagesEnum } from 'app/i18n';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -18,9 +19,20 @@ const Wrapper = styled.div`
 
 const fonts = singleCommunityFonts();
 
-const Title = ({ locale, title, id, questionBounty, postType }) => {
+const Title = ({
+  locale,
+  title,
+  id,
+  questionBounty,
+  postType,
+  translations,
+}) => {
   const { t } = useTranslation();
   const link = getPostRoute({ postType, id, title });
+  const translatedTitle =
+    translations?.find(
+      (translation) => Number(translation.language) === languagesEnum[locale],
+    )?.title || title;
 
   return (
     <Wrapper className="mb-1">
@@ -40,7 +52,7 @@ const Title = ({ locale, title, id, questionBounty, postType }) => {
           fontFamily={fonts.questionTitleFont || APP_FONT}
           bold
         >
-          {title}
+          {translatedTitle}
         </Span>
       </A>
     </Wrapper>

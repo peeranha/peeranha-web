@@ -1,3 +1,5 @@
+import { languagesEnum } from 'app/i18n';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { POST_TYPES } from 'containers/ViewQuestion/constants';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
@@ -44,6 +46,7 @@ import {
 
 export function* postQuestionWorker({ val }) {
   try {
+    const locale = yield select(makeSelectLocale());
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
     const documentationMenu = yield select(selectDocumentationMenu());
@@ -70,6 +73,7 @@ export function* postQuestionWorker({ val }) {
       questionData,
       postType,
       tags,
+      languagesEnum[locale],
       ethereumService,
     );
     const id = yield call(
