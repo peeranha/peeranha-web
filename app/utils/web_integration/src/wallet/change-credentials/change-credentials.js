@@ -17,6 +17,7 @@ const {
   GET_VERIFICATION_CODE,
   GET_NOTIFICATION_SETTINGS,
   SUBSCRIBE_LINK_EMAIL,
+  UNSUBSCRIBE_LINK_EMAIL,
   UPDATE_NOTIFICATION_SETTINGS,
 } = require('../../util/aws-connector');
 
@@ -138,7 +139,6 @@ async function getVerificationCode(email) {
 }
 
 async function getNotificationSettings(address) {
-  console.log(address, '4');
   return await callService(
     GET_NOTIFICATION_SETTINGS,
     {
@@ -153,6 +153,12 @@ async function subscribeLinkEmail(email, address, code) {
     email,
     address,
     code,
+  });
+}
+
+async function unsubscribeLinkEmail(address) {
+  return await callService(UNSUBSCRIBE_LINK_EMAIL, {
+    address,
   });
 }
 
@@ -173,5 +179,6 @@ module.exports = {
   getVerificationCode,
   getNotificationSettings,
   subscribeLinkEmail,
+  unsubscribeLinkEmail,
   updateNotificationSettings,
 };

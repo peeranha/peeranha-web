@@ -7,10 +7,9 @@ import IconStyled from 'components/Icon/IconStyled';
 export default styled.div`
   position: relative;
   width: 400px;
-  max-height: 86vh;
+  max-height: 95vh;
   z-index: 500;
   animation: moveFromTopToCenter 0.5s;
-  overflow: auto;
 
   ${IconStyled} {
     cursor: pointer;

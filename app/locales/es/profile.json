@@ -47,6 +47,6 @@
   "changeEmail": "Cambiar email",
   "sendCode": "Enviar código",
   "emailNotifications": "Email notificaciónes",
-  "emailNotificationsText": "Recibe notificaciones sobre publicaciones, respuestas y comentarios.",
+  "emailNotificationsText": "Recibe notificaciones sobre su publicaciones, respuestas y comentarios.",
   "verificationCodeText": "Se enviará un código de verificación al correo electrónico:"
 }

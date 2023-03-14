@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -63,12 +63,11 @@ const ChangeEmail = ({
   confirmOldEmailProcessing,
   sendAnotherCodeDispatch,
   loginData,
-  emailAddress,
-  email,
-  // isSubscribedEmail,
   setOpen,
   open,
 }) => {
+  const [emailAddress, setEmailAddress] = useState(null);
+
   return (
     <React.Fragment>
       <Modal show={showModal} closeModal={hideChangeEmailModalDispatch}>
@@ -90,22 +89,15 @@ const ChangeEmail = ({
             confirmOldEmailProcessing={confirmOldEmailProcessing}
             sendAnotherCode={sendAnotherCodeDispatch}
             closeModal={hideChangeEmailModalDispatch}
-            emailAddress={email}
-          />
-        )}
-
-        {content === CHANGE_EMAIL_FORM && (
-          <ChangeEmailForm
-            locale={locale}
-            changeEmail={changeEmailDispatch}
-            changeEmailProcessing={changeEmailProcessing}
             emailAddress={emailAddress}
           />
         )}
+
+        {content === CHANGE_EMAIL_FORM && <ChangeEmailForm />}
       </Modal>
       {!open ? (
         <Button
-          onClick={showChangeEmailModalDispatch}
+          onClick={(e) => setEmailAddress(e.target.form[0].value)}
           type="submit"
           css={{
             border: '1px solid #F76F60',

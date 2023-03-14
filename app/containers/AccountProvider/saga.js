@@ -12,7 +12,7 @@ import {
   isSingleCommunityWebsite,
   setSingleCommunityDetails,
 } from 'utils/communityManagement';
-
+import { getNotificationSettings } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
@@ -90,6 +90,7 @@ import {
   updateAccErr,
   updateAccSuccess,
 } from './actions';
+import { getEmailAddressSuccess } from '../ChangeEmail/actions';
 import { makeSelectProfileInfo } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { hasGlobalModeratorRole } from '../../utils/properties';
@@ -143,13 +144,19 @@ export const getCurrentAccountWorker = function* (initAccount) {
 
     const currentPeriod = yield call(getCurrentPeriod);
 
-    const [profileInfo, balance, availableBalance, userCurrentBoost] =
-      yield all([
-        call(getProfileInfo, account, ethereumService, true, true),
-        call(getBalance, ethereumService, account),
-        call(getAvailableBalance, ethereumService, account),
-        call(getUserBoost, ethereumService, account, currentPeriod.id),
-      ]);
+    const [
+      profileInfo,
+      balance,
+      availableBalance,
+      userCurrentBoost,
+      emailResponse,
+    ] = yield all([
+      call(getProfileInfo, account, ethereumService, true, true),
+      call(getBalance, ethereumService, account),
+      call(getAvailableBalance, ethereumService, account),
+      call(getUserBoost, ethereumService, account, currentPeriod.id),
+      call(getNotificationSettings, account),
+    ]);
 
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);
@@ -163,7 +170,8 @@ export const getCurrentAccountWorker = function* (initAccount) {
         allowSubdomains: true,
       },
     });
-
+    const { email, isSubscribed } = emailResponse.body;
+    yield put(getEmailAddressSuccess(email, isSubscribed));
     yield put(
       addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),
     );

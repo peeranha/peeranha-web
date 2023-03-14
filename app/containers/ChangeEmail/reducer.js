@@ -17,6 +17,8 @@ import {
   CHANGE_EMAIL_SUCCESS,
   CHANGE_EMAIL_ERROR,
   SHOW_CHANGE_EMAIL_MODAL,
+  SHOW_CHANGE_EMAIL_MODAL_SUCCESS,
+  SHOW_CHANGE_EMAIL_MODAL_ERROR,
   HIDE_CHANGE_EMAIL_MODAL,
   OLD_EMAIL_FORM,
   CONFIRM_EMAIL_FORM,
@@ -36,6 +38,7 @@ export const initialState = fromJS({
   changeEmailProcessing: false,
   changeEmailError: null,
   email: null,
+  currentEmail: null,
   isSubscribed: false,
   verificationCode: null,
   getEmailAddressError: null,
@@ -51,15 +54,19 @@ function changeEmailReducer(state = initialState, action) {
     email,
     verificationCode,
     isSubscribed,
+    currentEmail,
   } = action;
 
   switch (type) {
-    case SHOW_CHANGE_EMAIL_MODAL:
-      return state.set('showModal', true).set('content', OLD_EMAIL_FORM);
+    case SHOW_CHANGE_EMAIL_MODAL_SUCCESS:
+      return state
+        .set('showModal', true)
+        .set('content', OLD_EMAIL_FORM)
+        .set('currentEmail', currentEmail);
     case HIDE_CHANGE_EMAIL_MODAL:
-      return state.set('showModal', false);
+      return state.set('showModal', false).set('content', null);
     case SEND_OLD_EMAIL:
-      return state.set('sendOldEmailProcessing', true).set('email', email);
+      return state.set('sendOldEmailProcessing', true);
     case GET_EMAIL_ADDRESS_SUCCESS:
       return state.set('email', email).set('isSubscribed', isSubscribed);
     case GET_EMAIL_ADDRESS_ERROR:
@@ -80,7 +87,9 @@ function changeEmailReducer(state = initialState, action) {
     case CONFIRM_OLD_EMAIL_SUCCESS:
       return state
         .set('confirmOldEmailProcessing', false)
-        .set('content', CHANGE_EMAIL_FORM);
+        .set('content', CHANGE_EMAIL_FORM)
+        .set('email', email)
+        .set('isSubscribed', isSubscribed);
     case CONFIRM_OLD_EMAIL_ERROR:
       return state
         .set('confirmOldEmailProcessing', false)

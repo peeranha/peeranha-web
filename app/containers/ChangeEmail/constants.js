@@ -22,6 +22,10 @@ export const CHANGE_EMAIL_ERROR = 'app/ChangeEmail/CHANGE_EMAIL_ERROR';
 
 export const SHOW_CHANGE_EMAIL_MODAL =
   'app/ChangeEmail/SHOW_CHANGE_EMAIL_MODAL';
+export const SHOW_CHANGE_EMAIL_MODAL_SUCCESS =
+  'app/ChangeEmail/SHOW_CHANGE_EMAIL_MODAL_SUCCESS';
+export const SHOW_CHANGE_EMAIL_MODAL_ERROR =
+  'app/ChangeEmail/SHOW_CHANGE_EMAIL_MODAL_ERROR';
 export const HIDE_CHANGE_EMAIL_MODAL =
   'app/ChangeEmail/HIDE_CHANGE_EMAIL_MODAL';
 export const GET_EMAIL_ADDRESS = 'app/ChangeEmail/GET_EMAIL_ADDRESS';

@@ -15,12 +15,15 @@ import {
   CHANGE_EMAIL_SUCCESS,
   CHANGE_EMAIL_ERROR,
   SHOW_CHANGE_EMAIL_MODAL,
+  SHOW_CHANGE_EMAIL_MODAL_SUCCESS,
+  SHOW_CHANGE_EMAIL_MODAL_ERROR,
   HIDE_CHANGE_EMAIL_MODAL,
   CODE_FIELD,
   SEND_ANOTHER_CODE,
   GET_EMAIL_ADDRESS,
   GET_EMAIL_ADDRESS_SUCCESS,
   GET_EMAIL_ADDRESS_ERROR,
+  OLD_EMAIL_FIELD,
 } from './constants';
 
 export function sendAnotherCode() {
@@ -29,9 +32,24 @@ export function sendAnotherCode() {
   };
 }
 
-export function showChangeEmailModal() {
+export function showChangeEmailModal(...args) {
   return {
     type: SHOW_CHANGE_EMAIL_MODAL,
+    email: args[0].toJS()[OLD_EMAIL_FIELD],
+  };
+}
+
+export function showChangeEmailModalSuccess(email) {
+  return {
+    type: SHOW_CHANGE_EMAIL_MODAL_SUCCESS,
+    currentEmail: email,
+  };
+}
+
+export function showChangeEmailModalErr(showChangeEmailModalError) {
+  return {
+    type: SHOW_CHANGE_EMAIL_MODAL_ERROR,
+    showChangeEmailModalError,
   };
 }
 
@@ -72,9 +90,11 @@ export function confirmOldEmail(...args) {
   };
 }
 
-export function confirmOldEmailSuccess() {
+export function confirmOldEmailSuccess(email, isSubscribed) {
   return {
     type: CONFIRM_OLD_EMAIL_SUCCESS,
+    email,
+    isSubscribed,
   };
 }
 
