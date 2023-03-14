@@ -80,6 +80,7 @@ export const Wrapper = ({
   id,
   insideOfSection,
   className,
+  warningStyle,
 }) => (
   <StyledBox
     className={className}
@@ -96,6 +97,7 @@ export const Wrapper = ({
           {...meta}
           containerIsSplittedInHalf={splitInHalf}
           tip={tip}
+          warningStyle={warningStyle}
         />
       )}
     </div>

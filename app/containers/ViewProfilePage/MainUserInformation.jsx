@@ -185,6 +185,15 @@ const MainUserInformation = ({
     }
   };
 
+  const onClickRedirectToEditProfilePage =
+    (user) =>
+    ({ currentTarget: { id } }) => {
+      redirectToEditProfilePage({
+        buttonId: id,
+        user,
+      });
+    };
+
   return (
     <Box position="middle" className="pb-0" isLogin={userId !== account}>
       <div
@@ -212,8 +221,8 @@ const MainUserInformation = ({
           `}
         >
           <LargeImageButton
-            onClick={redirectToEditProfilePage}
-            data-user={userId}
+            onClick={onClickRedirectToEditProfilePage(userId)}
+            id={`redireact-to-edit-${userId}-user-page-1`}
             disabled={account !== userId}
           >
             <LargeImage
@@ -253,14 +262,13 @@ const MainUserInformation = ({
               {getUserName(profile?.displayName, userId)}
             </Span>
             <button
-              onClick={redirectToEditProfilePage}
+              onClick={onClickRedirectToEditProfilePage(userId)}
+              id={`redireact-to-edit-${userId}-user-page-2`}
               className={
                 isDesktop || userId !== account
                   ? 'd-none'
                   : `align-items-center d-inline-flex`
               }
-              id={`redireact-to-edit-${userId}-user-page-2`}
-              data-user={userId}
             >
               <IconMd
                 icon={pencilIcon}

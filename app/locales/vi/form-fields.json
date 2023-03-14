@@ -28,5 +28,6 @@
   "atLeastOneLetter": "Telos name must contain at least one letter",
   "exactFromAndToAccounts": "Người gửi và người nhận không thể giống nhau",
   "hasToBeMoreThanPrev": "Bạn không thể đặt giá trị thấp hơn",
-  "valueIsNotPositiveInteger": "Giá trị không phải là số nguyên dương"
+  "valueIsNotPositiveInteger": "Giá trị không phải là số nguyên dương",
+  "wrongAddressFormat": "Địa chỉ ví không hợp lệ"
 }

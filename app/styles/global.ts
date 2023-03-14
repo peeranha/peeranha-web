@@ -67,6 +67,9 @@ export default css`
   .dib {
     display: inline-block;
   }
+  .dif {
+    display: inline-flex;
+  }
   .dn {
     display: none;
   }
@@ -156,6 +159,9 @@ export default css`
   }
   .fz20 {
     font-size: 20px;
+  }
+  .fz22 {
+    font-size: 22px;
   }
   .fz24 {
     font-size: 24px;
