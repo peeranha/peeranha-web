@@ -2,11 +2,10 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 import * as routes from 'routes-config';
 
-import { BORDER_WARNING_LIGHT, BORDER_PRIMARY } from 'style-constants';
+import { BORDER_PRIMARY } from 'style-constants';
 
 import { trimRightZeros } from 'utils/numbers';
 import {
@@ -14,16 +13,13 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
 } from 'utils/communityManagement';
+import { renderNotificationIcon } from 'utils/notifications';
 
-import {
-  ROUTES_BY_TYPE,
-  NOTIFICATIONS_DATA,
-  NOTIFICATIONS_TYPES,
-} from './constants';
+import { ROUTES_BY_TYPE, NOTIFICATIONS_DATA, NOTIFICATIONS_TYPES } from './constants';
 import styles from './Notifications.styled';
 
 const single = isSingleCommunityWebsite();
-const singleStyles = singleCommunityStyles();
+const communityStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
 
 const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => {
@@ -53,16 +49,7 @@ const NotificationLink = ({ isAnotherCommItem, href, children }) =>
 
 /* eslint-enable */
 
-const Notification = ({
-  top,
-  data,
-  time,
-  type,
-  read,
-  index,
-  height,
-  notificationsNumber,
-}) => {
+const Notification = ({ top, data, time, type, read, index, height, notificationsNumber }) => {
   const { t } = useTranslation();
   const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
   const href = route(data.question_id, data.title, data.answer_id);
@@ -83,8 +70,7 @@ const Notification = ({
     };
   }, [data.quantity, isTippedType]);
 
-  const isCommunityMod =
-    Boolean(single) && Object.keys(singleStyles).length > 0;
+  const isCommunityMode = Boolean(single) && Object.keys(communityStyles).length > 0;
   const isAnotherCommItem = Boolean(single) && data.community_id !== single;
   const isLast = index === notificationsNumber - 1;
   const notificationTitle = t(NOTIFICATIONS_DATA[type]?.keyTranslate, {
@@ -103,16 +89,8 @@ const Notification = ({
     >
       <span>{notificationTitle}</span>
       <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href}>
-        <IconMd
-          icon={NOTIFICATIONS_DATA[type]?.src}
-          color={!isCommunityMod && isTippedType ? BORDER_WARNING_LIGHT : null}
-          specialStyles={
-            isCommunityMod && isTippedType && singleStyles.coinsIconStyles
-          }
-        />
-        <span css={{ color: colors.btnColor || BORDER_PRIMARY }}>
-          {data.title}
-        </span>
+        {renderNotificationIcon(type, isCommunityMode, communityStyles)}
+        <span css={{ color: colors.btnColor || BORDER_PRIMARY }}>{data.title}</span>
       </NotificationLink>
       <Time time={time} />
     </div>

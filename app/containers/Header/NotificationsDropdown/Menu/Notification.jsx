@@ -2,17 +2,12 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 import * as routes from 'routes-config';
 
-import { BORDER_WARNING_LIGHT } from 'style-constants';
-
 import { trimRightZeros } from 'utils/numbers';
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+import { renderNotificationIcon } from 'utils/notifications';
 
 import {
   NOTIFICATIONS_DATA,
@@ -23,7 +18,7 @@ import {
 import styles from './Notification.styled';
 
 const single = isSingleCommunityWebsite();
-const singleStyles = singleCommunityStyles();
+const communityStyles = singleCommunityStyles();
 
 const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => {
   const { t } = useTranslation();
@@ -52,16 +47,7 @@ const NotificationLink = ({ isAnotherCommItem, href, text }) =>
 
 /* eslint-enable */
 
-const Notification = ({
-  top,
-  data,
-  time,
-  type,
-  read,
-  index,
-  height,
-  notificationsNumber,
-}) => {
+const Notification = ({ top, data, time, type, read, index, height, notificationsNumber }) => {
   const { t } = useTranslation();
   const isTippedType = [
     NOTIFICATIONS_TYPES.answerTipped,
@@ -82,8 +68,7 @@ const Notification = ({
     };
   }, [data.quantity, isTippedType]);
 
-  const isCommunityMod =
-    Boolean(single) && Object.keys(singleStyles).length > 0;
+  const isCommunityMode = Boolean(single) && Object.keys(communityStyles).length > 0;
   const isAnotherCommItem = Boolean(single) && data.community_id !== single;
   const isLast = index === notificationsNumber - 1;
   const notificationTitle = t(NOTIFICATIONS_DATA[type]?.keyTranslate, {
@@ -100,21 +85,11 @@ const Notification = ({
         top: `${top}px`,
       }}
     >
-      <IconMd
-        icon={NOTIFICATIONS_DATA[type]?.src}
-        color={!isCommunityMod && isTippedType ? BORDER_WARNING_LIGHT : null}
-        specialStyles={
-          isCommunityMod && isTippedType && singleStyles.coinsIconStyles
-        }
-      />
+      {renderNotificationIcon(type, isCommunityMode, communityStyles)}
       <div css={styles.textBlock}>
         <span css={styles.title}>{notificationTitle}</span>
         <Time time={time} />
-        <NotificationLink
-          isAnotherCommItem={isAnotherCommItem}
-          href={href}
-          text={data.title}
-        />
+        <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href} text={data.title} />
       </div>
     </div>
   );
