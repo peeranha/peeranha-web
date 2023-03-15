@@ -5,10 +5,10 @@ export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
 export const ContractsMapping = {
-  [CONTRACT_TOKEN]: 'token',
-  [CONTRACT_USER]: 'user',
-  [CONTRACT_CONTENT]: 'content',
-  [CONTRACT_COMMUNITY]: 'community',
+  [CONTRACT_TOKEN]: ['token', process.env.PEERANHA_TOKEN],
+  [CONTRACT_USER]: ['user', process.env.USER_ADDRESS],
+  [CONTRACT_CONTENT]: ['content', process.env.CONTENT_ADDRESS],
+  [CONTRACT_COMMUNITY]: ['community', process.env.COMMUNITY_ADDRESS],
 };
 
 // Transaction names

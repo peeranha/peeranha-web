@@ -488,7 +488,8 @@ class EthereumService {
     const response = await callService(
       BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress,
       {
-        contract: ContractsMapping[contract],
+        contractName: ContractsMapping[contract][0],
+        contractAddress: ContractsMapping[contract][1],
         action: action,
         args: data,
         reCaptchaToken: token,
