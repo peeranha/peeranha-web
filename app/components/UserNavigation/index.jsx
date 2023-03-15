@@ -90,12 +90,12 @@ const UserNavigation = ({
     [profile],
   );
 
-  const onClickRedirectToEditProfilePage =
-    (userId) =>
+  const redirectToEditProfilePageWrapper =
+    (user) =>
     ({ currentTarget: { id } }) => {
       redirectToEditProfilePage({
         buttonId: id,
-        user: userId,
+        user,
       });
     };
 
@@ -230,9 +230,8 @@ const UserNavigation = ({
                   ? 'd-inline-flex d-md-none'
                   : 'd-none'
               }
-              onClick={redirectToEditProfilePage}
+              onClick={redirectToEditProfilePageWrapper(userId)}
               id={`redireact-to-edit-${userId}-user-page-1`}
-              data-user={userId}
               islink
             >
               {t('common.edit')}
@@ -256,7 +255,7 @@ const UserNavigation = ({
           `}
         >
           <button
-            onClick={onClickRedirectToEditProfilePage(userId)}
+            onClick={redirectToEditProfilePageWrapper(userId)}
             className={`align-items-center ${
               isProfilePage ? 'd-inline-flex' : 'd-none'
             }`}

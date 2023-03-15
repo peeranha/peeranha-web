@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
 import { reduxForm, Field } from 'redux-form/immutable';
-
+import TransactionHandler from './TransactionHandler';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import ChangeEmailButton from '../ChangeEmail';
 import ToggleSwitch from '../../components/ToogleSwitch';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/Transparent';
-import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
+import { TYPE_OF_TRANSACTIONS } from 'utils/constants';
 import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
 import { TEXT_SECONDARY } from 'style-constants';
 import {
@@ -35,11 +35,9 @@ const AuthorizationData = ({
 }) => {
   const { t } = useTranslation();
   const [isToggled, setIsToggled] = useState(false);
-  const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
   const [open, setOpen] = useState(isSubscribedEmail);
-  const [metaTransactions, setMetaTransactions] = React.useState(
-    metaTransactionsAllowed,
-  );
+  const dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+  const [transaction, setTransaction] = useState(dataFromCookies);
   const refInput = useRef(null);
   const isCheckEmail = refInput?.current?.value === email;
 
@@ -180,8 +178,13 @@ const AuthorizationData = ({
             )}
           </div>
           <div
-            css={{ height: '1px', background: '#C2C6D8', marginTop: '25px' }}
+            css={{ height: '1px', background: '#C2C6D8', margin: '25px 0' }}
           ></div>
+          <TransactionHandler
+            transaction={transaction}
+            setTransaction={setTransaction}
+            settings
+          />
         </div>
       </BaseStyled>
     </>

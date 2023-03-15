@@ -15,19 +15,19 @@ const selectModeratorsList = createSelector(
   (substate) => substate.get('moderatorsList'),
 );
 
-const selectAddModeratorLoading = createSelector(
+const selectAddRoleLoading = createSelector(
   selectModerationDomain,
-  (substate) => substate.get('addModeratorLoading'),
+  (substate) => substate.get('addRoleLoading'),
 );
 
-const selectRevokeModeratorLoading = createSelector(
+const selectRevokeRoleLoading = createSelector(
   selectModerationDomain,
-  (substate) => substate.get('revokeModeratorLoading'),
+  (substate) => substate.get('revokeRoleLoading'),
 );
 
 export {
   selectModeratorsLoading,
   selectModeratorsList,
-  selectAddModeratorLoading,
-  selectRevokeModeratorLoading,
+  selectAddRoleLoading,
+  selectRevokeRoleLoading,
 };
