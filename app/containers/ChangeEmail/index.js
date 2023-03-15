@@ -20,7 +20,7 @@ import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import Modal from 'components/ModalDialog';
 import Button from 'components/Button/Contained/Transparent';
-
+import { TEXT_LIGHT } from 'style-constants';
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -65,6 +65,9 @@ const ChangeEmail = ({
   loginData,
   setOpen,
   open,
+  verificationCodeError,
+  disabled,
+  verificationCode,
 }) => {
   const [emailAddress, setEmailAddress] = useState(null);
 
@@ -90,6 +93,8 @@ const ChangeEmail = ({
             sendAnotherCode={sendAnotherCodeDispatch}
             closeModal={hideChangeEmailModalDispatch}
             emailAddress={emailAddress}
+            verificationCodeError={verificationCodeError}
+            verificationCode={verificationCode}
           />
         )}
 
@@ -99,11 +104,14 @@ const ChangeEmail = ({
         <Button
           onClick={(e) => setEmailAddress(e.target.form[0].value)}
           type="submit"
+          disabled={disabled}
           css={{
             border: '1px solid #F76F60',
             width: '86px',
             height: '40px',
-            color: '#F76F60',
+            color: TEXT_LIGHT,
+            borderRadius: '2px',
+            background: '#F76F60',
           }}
         >
           {t('common.telegram.confirm')}
@@ -137,6 +145,9 @@ ChangeEmail.propTypes = {
   locale: PropTypes.string,
   content: PropTypes.string,
   loginData: PropTypes.object,
+  verificationCodeError: PropTypes.bool,
+  verificationCode: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -149,6 +160,8 @@ const mapStateToProps = createStructuredSelector({
   confirmOldEmailProcessing: selectors.selectConfirmOldEmailProcessing(),
   email: selectors.selectEmail(),
   isSubscribedEmail: selectors.selectIsSubscribed(),
+  verificationCodeError: selectors.selectConfirmOldEmailError(),
+  verificationCode: selectors.selectVerificationCode(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

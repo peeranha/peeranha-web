@@ -14,7 +14,6 @@ import { WebIntegrationError } from 'utils/errors';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { successHandling } from 'containers/Toast/saga';
-import { addToast } from 'containers/Toast/actions';
 
 import { logout } from 'containers/Logout/actions';
 
@@ -73,17 +72,9 @@ export function* confirmOldEmailWorker({ resetForm, code }) {
   try {
     const email = yield select(selectCurrentEmail());
     const address = yield select(makeSelectAccount());
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
 
     const response = yield call(subscribeLinkEmail, email, address, code);
     if (!response.OK) {
-      yield put(
-        addToast({
-          type: 'error',
-          text: 'common.incorrectCode',
-        }),
-      );
       yield call(resetForm);
     }
 
@@ -151,12 +142,7 @@ export function* showChangeEmailModalWorker({ email }) {
     const content = yield select(selectContent());
 
     if (subscribedEmail === email) {
-      yield put(
-        addToast({
-          type: 'error',
-          text: 'signUp.emailSubscribed',
-        }),
-      );
+      yield put(showChangeEmailModalErr(err));
     }
     if (email !== subscribedEmail && !content) {
       yield put(showChangeEmailModalSuccess(email));

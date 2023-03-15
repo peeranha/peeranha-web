@@ -52,7 +52,7 @@ function changeEmailReducer(state = initialState, action) {
     confirmOldEmailError,
     getEmailAddressError,
     email,
-    verificationCode,
+    code,
     isSubscribed,
     currentEmail,
   } = action;
@@ -83,17 +83,18 @@ function changeEmailReducer(state = initialState, action) {
     case CONFIRM_OLD_EMAIL:
       return state
         .set('confirmOldEmailProcessing', true)
-        .set('verificationCode', verificationCode);
+        .set('verificationCode', code);
     case CONFIRM_OLD_EMAIL_SUCCESS:
       return state
         .set('confirmOldEmailProcessing', false)
         .set('content', CHANGE_EMAIL_FORM)
         .set('email', email)
-        .set('isSubscribed', isSubscribed);
+        .set('isSubscribed', isSubscribed)
+        .set('confirmOldEmailError', false);
     case CONFIRM_OLD_EMAIL_ERROR:
       return state
         .set('confirmOldEmailProcessing', false)
-        .set('confirmOldEmailError', confirmOldEmailError);
+        .set('confirmOldEmailError', true);
 
     case CHANGE_EMAIL:
       return state.set('changeEmailProcessing', true);

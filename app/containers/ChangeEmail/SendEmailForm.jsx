@@ -11,24 +11,28 @@ import H4 from 'components/H4';
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
-import letterImg from 'images/letter-smile.svg?inline';
+import letterImg from 'images/letter.svg?inline';
 
 import { OLD_EMAIL_FORM, OLD_EMAIL_FIELD } from './constants';
 
 const EmailForm = ({
   handleSubmit,
-  locale,
   sendOldEmail,
   sendOldEmailProcessing,
   emailAddress,
   closeModal,
 }) => {
+  const { t } = useTranslation();
   return (
     <div>
       <H4 className="text-center pb-3">{t('common.confirmNewEmail')}</H4>
 
       <div className="text-center pb-3">
-        <img src={letterImg} alt="check your email" />
+        <img
+          css={{ maxWidth: '170px' }}
+          src={letterImg}
+          alt="check your email"
+        />
         <P
           className="text-center py-2"
           css={{ color: 'var(--color-gray-dark)' }}
@@ -58,6 +62,8 @@ EmailForm.propTypes = {
   handleSubmit: PropTypes.func,
   sendOldEmail: PropTypes.func,
   sendOldEmailProcessing: PropTypes.bool,
+  emailAddress: PropTypes.string,
+  closeModal: PropTypes.func,
 };
 
 /* eslint import/no-mutable-exports: 0 */

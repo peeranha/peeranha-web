@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import Span from 'components/Span';
 import ChangeEmailButton from '../ChangeEmail';
 import ToggleSwitch from '../../components/ToogleSwitch';
 import TextInputField from 'components/FormFields/TextInputField';
-
+import Button from 'components/Button/Contained/Transparent';
 import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
 import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
 import { TEXT_SECONDARY } from 'style-constants';
@@ -22,7 +22,9 @@ import { OLD_EMAIL_FIELD } from '../ChangeEmail/constants';
 import { scrollToErrorField } from 'utils/animation';
 
 import { BaseStyled } from './SettingsOfUser';
-import { TYPE_OF_TRANSACTIONS } from 'utils/constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const AuthorizationData = ({
   className,
@@ -38,6 +40,8 @@ const AuthorizationData = ({
   const [metaTransactions, setMetaTransactions] = React.useState(
     metaTransactionsAllowed,
   );
+  const refInput = useRef(null);
+  const isCheckEmail = refInput?.current?.value === email;
 
   useEffect(() => {
     setOpen(isSubscribedEmail);
@@ -74,7 +78,7 @@ const AuthorizationData = ({
       >
         <H3>{t('common.settings')}</H3>
       </BaseStyled>
-      <BaseStyled position="top" notRoundedStyle className={className}>
+      <BaseStyled position="top" className={className}>
         <div>
           <div css={{ fontSize: '18px' }}>
             <div
@@ -121,25 +125,54 @@ const AuthorizationData = ({
                     className="df jcsb fww"
                     onSubmit={handleSubmit(showChangeEmailModal)}
                   >
-                    <div css={{ width: '350px' }}>
+                    <div
+                      className="w-100"
+                      css={
+                        isCheckEmail && {
+                          input: {
+                            border: '1px solid #F76F60',
+                            boxShadow: '0 0 0 3px rgba(255, 0, 0, 0.40)',
+                          },
+                        }
+                      }
+                    >
                       <div className="semi-bold mb-2">{t('profile.email')}</div>
 
                       <Field
+                        ref={refInput}
                         name={OLD_EMAIL_FIELD}
                         component={TextInputField}
                         validate={[validateEmail, required, strLength254Max]}
-                        warn={[validateEmail, required, strLength254Max]}
+                        warn={[validateEmail, required]}
                         placeholder={t('profile.email')}
+                        css={{ border: 'solid 1px #F76F60' }}
                       />
                     </div>
-                    <div
-                      css={{
-                        '@media only screen and (min-width: 435px)': {
-                          marginTop: '24px',
-                        },
-                      }}
-                    >
-                      <ChangeEmailButton />
+                    {isCheckEmail && (
+                      <div
+                        className="mb-3 fz14 w-100"
+                        css={{ color: '#F76F60', fontStyle: 'italic' }}
+                      >
+                        {t('signUp.emailSubscribed')}
+                      </div>
+                    )}
+                    <div>
+                      {email && (
+                        <Button
+                          onClick={() => setOpen(!open)}
+                          css={{
+                            border: '1px solid #F76F60',
+                            width: '86px',
+                            height: '40px',
+                            color: '#F76F60',
+                            marginRight: '12px',
+                            borderRadius: '2px',
+                          }}
+                        >
+                          {t('common.cancel')}
+                        </Button>
+                      )}
+                      <ChangeEmailButton disabled={isCheckEmail} />
                     </div>
                   </form>
                 )}
@@ -150,80 +183,6 @@ const AuthorizationData = ({
             css={{ height: '1px', background: '#C2C6D8', marginTop: '25px' }}
           ></div>
         </div>
-        <div>
-          <div>
-            <div className="mb-4">
-              <div className="mb-2">
-                <Span fontSize="18" bold>
-                  <FormattedMessage id={commonMessages.transactions.id} />
-                </Span>
-              </div>
-              <div>
-                <div>
-                  <Span
-                    css={css`
-                      color: ${TEXT_SECONDARY};
-                    `}
-                    fontSize="14"
-                  >
-                    <FormattedMessage
-                      id={commonMessages.transactionsText_1.id}
-                    />
-                  </Span>
-                </div>
-                <div>
-                  <Span
-                    css={css`
-                      color: ${TEXT_SECONDARY};
-                    `}
-                    fontSize="14"
-                  >
-                    <FormattedMessage
-                      id={commonMessages.transactionsText_2.id}
-                    />
-                  </Span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="fz14">
-            <div
-              className="mb-2"
-              css={css`
-                font-weight: ${metaTransactions ? 'bold' : 'normal'};
-              `}
-            >
-              <label>
-                <input
-                  className="mr-2"
-                  type="radio"
-                  checked={metaTransactions}
-                  onChange={handleMetaTransactionsAllowed}
-                />
-                <FormattedMessage id={commonMessages.transactionsChange_1.id} />
-              </label>
-            </div>
-            <div
-              css={css`
-                font-weight: ${!metaTransactions ? 'bold' : 'normal'};
-              `}
-            >
-              <label>
-                <input
-                  className="mr-2"
-                  type="radio"
-                  checked={!metaTransactions}
-                  onChange={handleMetaTransactionsDisallowed}
-                />
-                <FormattedMessage
-                  className="pr-2"
-                  bold
-                  id={commonMessages.transactionsChange_2.id}
-                />
-              </label>
-            </div>
-          </div>
-        </div>
       </BaseStyled>
     </>
   );
@@ -231,6 +190,10 @@ const AuthorizationData = ({
 
 AuthorizationData.propTypes = {
   className: PropTypes.string,
+  email: PropTypes.string,
+  isSubscribedEmail: PropTypes.bool,
+  handleSubmit: PropTypes.func,
+  showChangeEmailModal: PropTypes.func,
 };
 
 export default reduxForm({
