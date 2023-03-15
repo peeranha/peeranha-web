@@ -55,6 +55,14 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   const [moderatorRole, setModeratorRole] = useState<boolean>(false);
   const [roleValidation, setRoleValidation] = useState<boolean | string>(false);
 
+  const clearAndCloseForm = () => {
+    setAdministratorRole(false);
+    setModeratorRole(false);
+    setRoleValidation(false);
+    dispatch(reset('answerForm'));
+    close();
+  };
+
   const setAdministratorRoleHandler = (
     e: React.FormEvent<HTMLInputElement>,
   ) => {
@@ -99,8 +107,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
         );
       } else {
         addRole(walletAddress, role, single, Boolean(isUserHasRole));
-        dispatch(reset('answerForm'));
-        close();
+        clearAndCloseForm();
       }
     }
   };
@@ -110,7 +117,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
       <Button onClick={open} />
 
       {isOpen && (
-        <Popup size="tiny" onClose={close}>
+        <Popup size="tiny" onClose={clearAndCloseForm}>
           <h5 className="tc fz24 semi-bold mb24" css={styles.popupTitle}>
             {t('administration.addRole')}
           </h5>
@@ -177,7 +184,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
             />
 
             <div className="df aic mt32">
-              <OutlinedButton className="mr16" onClick={close}>
+              <OutlinedButton className="mr16" onClick={clearAndCloseForm}>
                 {t('administration.cancel')}
               </OutlinedButton>
 
