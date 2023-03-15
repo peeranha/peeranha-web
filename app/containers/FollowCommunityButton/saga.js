@@ -3,7 +3,6 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import {

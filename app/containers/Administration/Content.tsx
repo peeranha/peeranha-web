@@ -1,136 +1,144 @@
 import { useTranslation } from 'react-i18next';
-import { t } from 'i18next';
-import { css } from '@emotion/react';
 import React from 'react';
 
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
-import InfoButton from 'components/Button/Outlined/InfoMedium';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import MediumImage from 'components/Img/MediumImage';
 import P from 'components/P';
 import A from 'components/A';
+import { Tag } from 'components/TagsList';
+import { IconMd } from 'components/Icon/IconWithSizes';
+import Loader from 'components/LoadingIndicator/WidthCentered';
 
 import { styles } from 'containers/Administration/Administration.styled';
 import AreYouSure from 'containers/Administration/AreYouSure';
-import { Moderator } from 'containers/Administration/types';
+import { User, Moderator } from 'containers/Administration/types';
 
-import {
-  COMMUNITY_ADMIN_ROLE,
-  COMMUNITY_MODERATOR_ROLE,
-} from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
-import { getCommunityRole } from 'utils/properties';
 import { getUserName } from 'utils/user';
 
 import * as routes from 'routes-config';
 
+import closeIcon from 'images/closeCircle.svg?external';
+import { BORDER_PRIMARY } from 'style-constants';
+
+import { getUsersModeratorByRoles } from 'utils/accountManagement';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+enum Roles {
+  communityAdmin = 0,
+  communityModerator = 1,
+}
+
 type ContentProps = {
   locale: string;
   single: number;
+  profileInfo: User;
   moderators: Array<Moderator>;
-  revokeModerator: (userAddress: string, communityId: number) => void;
+  revokeRole: (userAddress: string, roles: Roles, communityId: number) => void;
   communityId: number;
   moderatorsLoading: boolean;
-  revokeModeratorLoading: boolean;
+  revokeRoleLoading: boolean;
 };
 
-const getRole = (
-  moderator: { permission: string },
-  moderatorRole: string,
-  adminRole: string,
-) => {
-  if (moderator.permission === moderatorRole) {
-    return t('administration.communityModerator');
-  } else if (moderator.permission === adminRole) {
-    return t('administration.communityAdministrator');
-  }
-};
+const communityColors = singleCommunityColors();
 
 export const Content: React.FC<ContentProps> = ({
   single,
+  profileInfo,
   moderators,
-  revokeModerator,
+  revokeRole,
   communityId,
-}): JSX.Element => {
-  const { t: translate } = useTranslation();
-  const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
-  const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
+  moderatorsLoading,
+}): JSX.Element | null => {
+  const usersModerator = [
+    ...new Set(moderators.map((moderator) => moderator.user)),
+  ];
+  const usersModeratorByRoles = getUsersModeratorByRoles(
+    usersModerator,
+    communityId,
+    moderators,
+    Roles,
+  );
+
+  const { t } = useTranslation();
+
+  if (moderatorsLoading) return <Loader />;
 
   return (
     <BaseRoundedNoPadding className="fdc mb16">
-      {moderators.map((moderator, index) => {
-        const baseSpecialProps = {
-          last: moderators.length - 1 === index,
-          first: !index,
-        };
+      {usersModeratorByRoles.map((moderator, index) => (
+        <BaseSpecial
+          last={usersModeratorByRoles.length - 1 === index}
+          first={!index}
+          className="dg jcc aic"
+          css={styles.contentGrid}
+          key={moderator.user.id}
+        >
+          <div className="df aic" css={styles.mainInfo}>
+            <MediumImage
+              isBordered
+              className="flex-shrink-0 mr8"
+              src={getUserAvatar(moderator.user.avatar)}
+              alt="avatar"
+            />
 
-        return (
-          <BaseSpecial
-            {...baseSpecialProps}
-            className="dg jcc aic"
-            css={css`
-              grid-template-columns: 4fr 6fr 4fr 1fr;
-            `}
-            key={moderator.id}
-          >
-            <div css={css(styles.mainInfo)}>
-              <MediumImage
-                isBordered
-                className="flex-shrink-0 mr8"
-                src={getUserAvatar(moderator.user.avatar)}
-                alt="avatar"
-              />
-
-              <A
-                className="ovh"
-                to={routes.profileView(moderator.user.id)}
-                key={moderator.user.id}
-              >
-                <P className="text-ellipsis fz14">
-                  {getUserName(moderator.user.displayName, moderator.user.id)}
-                </P>
-              </A>
-            </div>
-
-            <div className="mr16 tc text-ellipsis fz14">
-              {moderator.user.id}
-            </div>
-
-            <div className="mr16 tc text-ellipsis fz14">
-              {getRole(moderator, moderatorRole, adminRole)}
-            </div>
-
-            <div
-              css={css`
-                min-width: 90px;
-                text-align: center;
-              `}
+            <A
+              className="ovh"
+              to={routes.profileView(moderator.user.id)}
+              key={moderator.user.id}
             >
-              {moderator.permission === moderatorRole && (
-                <div id={`moderator_delete_${moderator.user.id}`}>
-                  <AreYouSure
-                    submitAction={() => {
-                      revokeModerator(moderator.user.id, single);
-                    }}
-                    Button={({
-                      onClick,
-                    }: {
-                      onClick: React.MouseEventHandler<HTMLButtonElement>;
-                    }) => (
-                      <InfoButton
-                        id={`moderator_delete_${moderator.user.id}`}
-                        onClick={onClick}
-                      >
-                        {translate('administration.revoke')}
-                      </InfoButton>
-                    )}
-                  />
-                </div>
-              )}
-            </div>
-          </BaseSpecial>
-        );
-      })}
+              <P className="text-ellipsis fz14">
+                {getUserName(moderator.user.displayName, moderator.user.id)}
+              </P>
+            </A>
+          </div>
+
+          <div className="mr16 tc text-ellipsis fz14">{moderator.user.id}</div>
+
+          <div className="mr16 tc text-ellipsis fz14">
+            {moderator.userRoles.map((role) => {
+              let roleName = t('administration.communityModerator');
+
+              if (role === Roles.communityAdmin) {
+                roleName = t('administration.communityAdministrator');
+              }
+              return (
+                <Tag className="float-left" key={moderator.user.id + role}>
+                  <span>{roleName}</span>
+                  {moderator.user.id !== profileInfo?.id && profileInfo?.id && (
+                    <AreYouSure
+                      submitAction={() => {
+                        revokeRole(moderator.user.id, role, single);
+                      }}
+                      // @ts-ignore
+                      Button={({
+                        onClick,
+                      }: {
+                        onClick: React.MouseEventHandler<HTMLButtonElement>;
+                      }) => (
+                        <button
+                          className="dif"
+                          css={styles.removeTagIcon}
+                          type="button"
+                          onClick={onClick}
+                        >
+                          <IconMd
+                            icon={closeIcon}
+                            fill={communityColors.tagColor || BORDER_PRIMARY}
+                            color={communityColors.tagColor || BORDER_PRIMARY}
+                          />
+                        </button>
+                      )}
+                      roleName={roleName}
+                    />
+                  )}
+                </Tag>
+              );
+            })}
+          </div>
+        </BaseSpecial>
+      ))}
     </BaseRoundedNoPadding>
   );
 };

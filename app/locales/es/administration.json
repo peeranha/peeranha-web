@@ -1,9 +1,15 @@
 {
   "communityModerator": "Moderador de la comunidad",
-  "communityAdministrator": "Administradora comunitaria",
   "addModerator": "Agregar moderador",
+  "communityAdministrator": "Administrador de la comunidad",
+  "addRole": "Agregar un nuevo rol",
+  "chooseRole": "Elija el rol",
+  "EmptyRole": "Por favor, elige un rol",
+  "alreadyHasModeratorRole": "El rol de moderador ya está asignado a esta dirección de billetera",
+  "alreadyHasAdministratorRole": "El rol de administrador ya está asignado a esta dirección de billetera",
+  "alreadyHasRole": "El usuario ya tiene este rol",
   "confirm": "Confirmar",
   "cancel": "Cancelar",
-  "wantToRevoke": "¿Está seguro de que desea revocar a este moderador?",
+  "wantToRevoke": "¿Estás seguro de que quieres revocar al usuario de ser un {{role}}?",
   "revoke": "Revocar"
 }

@@ -30,5 +30,5 @@
   "hasToBeMoreThanPrev": "Bạn không thể đặt giá trị thấp hơn",
   "valueIsNotPositiveInteger": "Giá trị không phải là số nguyên dương",
   "requiredMinReputation": "Danh tiếng của bạn trong cộng đồng này là tiêu cực, bạn không được phép tạo bài đăng mới.",
-  "wrongAddressFormat": "Giá trị không phải là địa chỉ Ethereum"
+  "wrongAddressFormat": "Địa chỉ ví không hợp lệ"
 }
