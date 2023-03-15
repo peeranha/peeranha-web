@@ -146,7 +146,7 @@ const CommentView = (item) => {
   const isItWrittenByMe = item.profileInfo
     ? item.author?.user === item.profileInfo.user
     : false;
-  const translation = item.translations.find(
+  const translation = item.translations?.find(
     ({ language }) => +language === LANGUAGES_MAP[item.locale],
   );
 
