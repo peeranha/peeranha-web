@@ -23,6 +23,7 @@ import closeIcon from 'images/closeCircle.svg?external';
 import { BORDER_PRIMARY } from 'style-constants';
 
 import { getUsersModeratorByRoles } from 'utils/accountManagement';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 enum Roles {
   communityAdmin = 0,
@@ -39,6 +40,8 @@ type ContentProps = {
   moderatorsLoading: boolean;
   revokeRoleLoading: boolean;
 };
+
+const communityColors = singleCommunityColors();
 
 export const Content: React.FC<ContentProps> = ({
   single,
@@ -120,7 +123,11 @@ export const Content: React.FC<ContentProps> = ({
                           type="button"
                           onClick={onClick}
                         >
-                          <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
+                          <IconMd
+                            icon={closeIcon}
+                            fill={communityColors.tagColor || BORDER_PRIMARY}
+                            color={communityColors.tagColor || BORDER_PRIMARY}
+                          />
                         </button>
                       )}
                       roleName={roleName}
