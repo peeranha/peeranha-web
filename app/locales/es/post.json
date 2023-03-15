@@ -61,5 +61,7 @@
   "RulesBlock_1": "Aquí hay algunos consejos para que su respuesta sea útil y no sea eliminada por un moderador:",
   "RulesBlock_2": "1. Lea la publicación detenidamente para comprender el problema y proporcionar la mejor respuesta que pueda.",
   "RulesBlock_3": "2. Asegúrate de que tu respuesta responde a la pregunta formulada en una publicación y no es solo un comentario o agradecimiento.",
-  "RulesBlock_4": "3. Ser educado y respetuoso con los demás."
+  "RulesBlock_4": "3. Ser educado y respetuoso con los demás.",
+  "inThisCommunity": "en esta comunidad",
+  "reputationBelowZero": "Tu reputación en esta comunidad es negativa, no puedes publicar ninguna respuesta."
 }
