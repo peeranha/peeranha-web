@@ -511,5 +511,9 @@
   "addNewSubArticle": "Add a new sub-article",
   "pin": "Pin",
   "unpin": "Unpin",
-  "noArticles": "There aren't any articles yet. Would you like to add your first one?"
+  "noArticles": "There aren't any articles yet. Would you like to add your first one?",
+  "enteringData": "Entering data",
+  "subArticleOf": "Sub-article of",
+  "saveToDraft": "Save to draft",
+  "editing": "Editing"
 }
