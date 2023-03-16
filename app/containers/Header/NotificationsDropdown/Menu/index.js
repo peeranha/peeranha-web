@@ -1,16 +1,10 @@
-import React, { memo, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import {
-  HEADER_AND_FOOTER_HEIGHT,
-  MENU_HEIGHT,
-  MENU_WIDTH,
-  ROW_HEIGHT_DROPDOWN,
-} from '../constants';
 import { BORDER_RADIUS_L } from 'style-constants';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
+import { HEADER_AND_FOOTER_HEIGHT, MENU_HEIGHT, MENU_WIDTH, ROW_HEIGHT_DROPDOWN } from '../constants';
 
 import Header from './Header';
 import Content from './Content';
@@ -42,12 +36,7 @@ const MenuContainer = styled.div`
 const useDetectOutsideClick = (onClose, parentRef) => {
   const ref = useRef(null);
   const handleClickOutside = (e) => {
-    if (
-      ref.current &&
-      !ref.current.contains(e.target) &&
-      parentRef.current &&
-      !parentRef.current.contains(e.target)
-    ) {
+    if (!ref.current?.contains(e.target) && !parentRef.current?.contains(e.target)) {
       onClose();
     }
   };
@@ -64,7 +53,6 @@ const useDetectOutsideClick = (onClose, parentRef) => {
 
 const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
   const ref = useDetectOutsideClick(onClose, parentRef);
-  const empty = useMemo(() => !unreadCount, [unreadCount]);
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
@@ -81,7 +69,7 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
           width={MENU_WIDTH}
           rowHeight={ROW_HEIGHT_DROPDOWN}
         />
-        <Footer empty={empty} onClose={onClose} />
+        <Footer isEmpty={!unreadCount} onClose={onClose} />
       </MenuContainer>
     </div>
   );

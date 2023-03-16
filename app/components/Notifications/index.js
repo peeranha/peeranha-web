@@ -231,12 +231,12 @@ const Notifications = ({
         <Header notificationsNumber={allCount} />
       </Wrapper>
 
-      {!!allCount && (
+      {Boolean(allCount) && (
         <Content
           innerRef={containerRef}
           height={notifications.length * rowHeight + ROW_HEIGHT}
         >
-          {!!unreadCount ? (
+          {Boolean(unreadCount) ? (
             <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
               <MarkAllAsReadButton />
             </SubHeader>

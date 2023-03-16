@@ -5,27 +5,25 @@ import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
 
-import { BORDER_PRIMARY } from 'style-constants';
-
 import { trimRightZeros } from 'utils/numbers';
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-  singleCommunityColors,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { renderNotificationIcon } from 'utils/notifications';
 
-import { ROUTES_BY_TYPE, NOTIFICATIONS_DATA, NOTIFICATIONS_TYPES } from './constants';
-import styles from './Notifications.styled';
+import {
+  NOTIFICATIONS_DATA,
+  NOTIFICATIONS_TYPES,
+  ROUTES_BY_TYPE,
+} from 'components/Notifications/constants';
+
+import styles from './Notification.styled';
 
 const single = isSingleCommunityWebsite();
 const communityStyles = singleCommunityStyles();
-const colors = singleCommunityColors();
 
 const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => {
   const { t } = useTranslation();
   return (
-    <span css={styles.timeStyles}>
+    <span css={styles.timestamp}>
       {Boolean(rightNow) && t('common.rightNow')}
       {Boolean(minutes) && t('common.minutesAgo', { minutes })}
       {Boolean(hours) && t('common.hoursAgo', { hours })}
@@ -35,15 +33,15 @@ const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => {
   );
 };
 
-const NotificationLink = ({ isAnotherCommItem, href, children }) =>
+const NotificationLink = ({ isAnotherCommItem, href, text }) =>
   /* eslint-disable */
   isAnotherCommItem ? (
-    <a css={styles.linkStyles} href={`${process.env.APP_LOCATION}${href}`}>
-      {children}
+    <a css={styles.link} href={`${process.env.APP_LOCATION}${href}`}>
+      {text}
     </a>
   ) : (
-    <Link css={styles.linkStyles} to={href}>
-      {children}
+    <Link css={styles.link} to={href}>
+      {text}
     </Link>
   );
 
@@ -51,12 +49,12 @@ const NotificationLink = ({ isAnotherCommItem, href, children }) =>
 
 const Notification = ({ top, data, time, type, read, index, height, notificationsNumber }) => {
   const { t } = useTranslation();
-  const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
-  const href = route(data.question_id, data.title, data.answer_id);
   const isTippedType = [
     NOTIFICATIONS_TYPES.answerTipped,
     NOTIFICATIONS_TYPES.questionTipped,
   ].includes(type);
+  const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
+  const href = route(data.question_id, data.title, data.answer_id);
 
   const values = useMemo(() => {
     if (!isTippedType) {
@@ -80,19 +78,19 @@ const Notification = ({ top, data, time, type, read, index, height, notification
   return (
     <div
       css={{
-        ...styles.containerStyles,
+        ...styles.root,
         ...(!read ? styles.unreadStyles : {}),
         ...(isLast && { border: 'none' }),
         height: `${height}px`,
         top: `${top}px`,
       }}
     >
-      <span>{notificationTitle}</span>
-      <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href}>
-        {renderNotificationIcon(type, isCommunityMode, communityStyles)}
-        <span css={{ color: colors.btnColor || BORDER_PRIMARY }}>{data.title}</span>
-      </NotificationLink>
-      <Time time={time} />
+      {renderNotificationIcon(type, isCommunityMode, communityStyles)}
+      <div css={styles.textBlock}>
+        <span css={styles.title}>{notificationTitle}</span>
+        <Time time={time} />
+        <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href} text={data.title} />
+      </div>
     </div>
   );
 };
@@ -103,8 +101,10 @@ Notification.propTypes = {
   data: PropTypes.object,
   time: PropTypes.object,
   type: PropTypes.number,
+  small: PropTypes.bool,
   index: PropTypes.number,
   height: PropTypes.number,
+  paddingHorizontal: PropTypes.string,
   notificationsNumber: PropTypes.number,
 };
 
