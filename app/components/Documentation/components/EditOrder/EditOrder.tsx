@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import SortableTree from 'react-sortable-tree';
 import NodeRenderer from './NodeRenderer';
 import Button from 'common-components/Button';
@@ -19,6 +20,7 @@ const EditOrder: React.FC<EditOrderProps> = ({
   editOrder,
   saveMenuDraft,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const [documentationEditOrder, setDocumentationEditOrder] = useState<
     Array<DocumentationItemMenuType>
   >(documentationMenuDraft);
@@ -91,7 +93,7 @@ const EditOrder: React.FC<EditOrderProps> = ({
               color: '#7B7B7B',
             }}
           >
-            Documentation
+            {t('common.documentation')}
           </div>
           <div
             className="pl8 pr8"
@@ -102,7 +104,7 @@ const EditOrder: React.FC<EditOrderProps> = ({
               borderRadius: '20px',
             }}
           >
-            Editing
+            {t('common.editing')}
           </div>
         </div>
         <SortableTree
@@ -132,7 +134,7 @@ const EditOrder: React.FC<EditOrderProps> = ({
             onClick={editOrder}
             css={styled.cancelButton}
           >
-            Cancel
+            {t('common.cancel')}
           </Button>
           <Button
             variant="primary"
@@ -148,7 +150,7 @@ const EditOrder: React.FC<EditOrderProps> = ({
             }}
             onClick={onClickSave}
           >
-            Save
+            {t('common.editQuestion.submitButtonName')}
           </Button>
         </div>
       </div>

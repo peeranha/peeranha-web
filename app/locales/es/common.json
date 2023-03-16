@@ -481,5 +481,9 @@
   "reputationBelowZero": "Tu reputación en esta comunidad es negativa, no puedes publicar ninguna respuesta.",
   "enterText": "Por favor, introduzca el texto de markdown",
   "errorMinReputation": "Para completar esta acción, tu reputación debe ser al menos 0",
-  "noArticles": "Aún no hay artículos. Te gustaría agregar el primero?"
+  "noArticles": "Aún no hay artículos. Te gustaría agregar el primero?",
+  "enteringData": "Ingresando datos",
+  "subArticleOf": "Sub-artículo de",
+  "saveToDraft": "Guardar en borrador",
+  "editing": "Edición"
 }
