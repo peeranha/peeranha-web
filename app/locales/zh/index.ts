@@ -1,6 +1,7 @@
 import about from './about.json';
 import achievements from './achievements.json';
 import boost from './boost.json';
+import administration from './administration.json';
 import common from './common.json';
 import createCommunity from './create-community.json';
 import errorPage from './error-page.json';
@@ -19,6 +20,7 @@ export default {
   translation: {
     about,
     achievements,
+    administration,
     boost,
     common,
     createCommunity,

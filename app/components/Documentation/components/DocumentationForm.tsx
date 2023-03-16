@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Dropdown from 'common-components/Dropdown';
 import Button from 'common-components/Button';
 import TextEditor from 'components/TextEditor';
@@ -35,6 +36,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   isEditArticle,
   updateDraftsIds,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const [title, setTitle] = useState<string>('');
   const [bodyText, setBodyText] = useState<string>('');
   const [parentId, setParentId] = useState<string>('');
@@ -144,7 +146,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           lineHeight: '30px',
         }}
       >
-        Entering data
+        {t('common.enteringData')}
       </div>
       <div className="dg" css={{ gridRowGap: '16px' }}>
         <div>
@@ -156,7 +158,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
               lineHeight: '20px',
             }}
           >
-            Sub-article of
+            {t('common.subArticleOf')}
           </div>
           <Dropdown
             trigger={
@@ -183,7 +185,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
               lineHeight: '20px',
             }}
           >
-            Title
+            {t('common.titleLabel')}
           </div>
           <Validate
             validate={[strLength3x100, required]}
@@ -215,7 +217,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
                       boxShadow: '0 0 0 3px rgb(252 102 85 / 40%)',
                     }),
                   }}
-                  placeholder="Title"
+                  placeholder={t('common.titleLabel')}
                   onChange={onChange}
                   value={title}
                   onBlur={onBlur}
@@ -239,7 +241,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
               lineHeight: '20px',
             }}
           >
-            Body
+            {t('common.questionBodyLabel')}
           </div>
           <Validate
             validate={[strLength25x30000, required]}
@@ -281,7 +283,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           disabled={isLoading}
           css={styled.cancelButton}
         >
-          Cancel
+          {t('common.cancel')}
         </Button>
         <Button
           variant="primary"
@@ -297,7 +299,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           onClick={onClickSaveDraft}
           disabled={isLoading || !isValidTitle || !isValidContent}
         >
-          Save to draft
+          {t('common.saveToDraft')}
         </Button>
       </div>
     </div>

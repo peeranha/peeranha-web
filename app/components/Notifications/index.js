@@ -29,7 +29,7 @@ import {
 import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
 
-import { ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
+import { NOTIFICATIONS_DATA, ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
 import {
   allNotificationsCount,
   selectAllNotifications,
@@ -99,10 +99,10 @@ const SubHeaderSeparator = styled.hr`
 const Notifications = ({
   loading,
   unreadCount,
-  allCount,
+  allCount: allCountUnfiltered,
   className,
   isAvailable,
-  notifications,
+  notifications: allNotifications,
   readNotifications,
   loadMoreNotificationsDispatch,
   markAsReadNotificationsAllDispatch,
@@ -114,6 +114,13 @@ const Notifications = ({
   const [y, setY] = useState(0);
   const ref = useRef(null);
   const containerRef = useRef(null);
+
+  // Temporary fix, will be removed in PEER-682
+  const notifications = allNotifications.filter(
+    ({ type }) => NOTIFICATIONS_DATA[type],
+  );
+  const allCount =
+    allCountUnfiltered - (allNotifications.length - notifications.length);
 
   useEffect(() => {
     markAsReadNotificationsAllDispatch([

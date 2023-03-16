@@ -57,6 +57,12 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
                   role="presentation"
                   onClick={() => setLocale(item)}
                   isBold={item === locale}
+                  css={{
+                    ':hover': {
+                      color: `${colors.btnColor || 'var(--color-blue)'}`,
+                      backgroundColor: 'unset',
+                    },
+                  }}
                 >
                   <Flag
                     src={`https://images.peeranha.io/languages/${item}_lang.svg`}
