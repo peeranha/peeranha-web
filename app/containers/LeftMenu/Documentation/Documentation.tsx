@@ -45,7 +45,7 @@ const documentationPosition = singleCommunityDocumentationPosition();
 const colors = singleCommunityColors();
 const EditDocumentation = [
   {
-    label: 'Edit Documentation',
+    label: 'common.editDocumentation',
     value: 1,
     icon: (
       <EditIcon
@@ -58,7 +58,7 @@ const EditDocumentation = [
 
 const DropdownDocumentation = [
   {
-    label: 'Add new article',
+    label: 'common.addNewArticle',
     value: 2,
     icon: (
       <PlusIcon
@@ -68,7 +68,7 @@ const DropdownDocumentation = [
     ),
   },
   {
-    label: 'Edit order',
+    label: 'common.editOrder',
     value: 3,
     icon: (
       <EditIcon

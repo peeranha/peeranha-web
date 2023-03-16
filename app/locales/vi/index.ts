@@ -20,6 +20,7 @@ export default {
   translation: {
     about,
     achievements,
+    administration,
     boost,
     common,
     createCommunity,

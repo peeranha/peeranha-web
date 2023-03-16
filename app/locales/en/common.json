@@ -499,5 +499,21 @@
   "transactionsText_3": "Full control",
   "transactionsChange_3": "I sign transactions and cover transaction fees.",
   "transactionsText_4": "You can change your choice anytime in the ",
-  "continue": "Continue"
+  "continue": "Continue",
+  "editDocumentation": "Edit Documentation",
+  "addNewArticle": "Add new article",
+  "editOrder": "Edit order",
+  "editContent": "Edit content",
+  "discardDraftsAndClose": "Discard drafts and close",
+  "discardDrafts": "Discard drafts",
+  "discardDraftsText": "If you leave before saving, your changes will not be saved.",
+  "publish": "Publish",
+  "addNewSubArticle": "Add a new sub-article",
+  "pin": "Pin",
+  "unpin": "Unpin",
+  "noArticles": "There aren't any articles yet. Would you like to add your first one?",
+  "enteringData": "Entering data",
+  "subArticleOf": "Sub-article of",
+  "saveToDraft": "Save to draft",
+  "editing": "Editing"
 }

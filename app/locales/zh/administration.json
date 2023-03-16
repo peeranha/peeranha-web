@@ -1,6 +1,7 @@
 {
   "communityModerator": "社区版主",
   "communityAdministrator": "社区管理员",
+  "addModerator": "添加版主",
   "addRole": "添加新角色",
   "chooseRole": "选择角色",
   "EmptyRole": "请选择角色",
