@@ -108,3 +108,4 @@ export { default as Pin } from './Pin';
 export { default as AddSubArticle } from './AddSubArticle';
 export { default as Save } from './Save';
 export { default as SelectedArrow } from './SelectedArrow';
+export { default as Administration } from './Administration';

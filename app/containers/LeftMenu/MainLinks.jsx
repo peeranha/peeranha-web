@@ -336,7 +336,7 @@ const MainLinks = ({
 
         {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
-            <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
+            <Administration className={'mr-2'} />
             {t('common.administration')}
           </A1>
         )}
