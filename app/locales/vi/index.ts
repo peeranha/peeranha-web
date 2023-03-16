@@ -1,5 +1,6 @@
 import about from './about.json';
 import achievements from './achievements.json';
+import administration from './administration.json';
 import boost from './boost.json';
 import common from './common.json';
 import createCommunity from './create-community.json';
@@ -22,6 +23,7 @@ export default {
     boost,
     common,
     createCommunity,
+    administration,
     errorPage,
     formFields,
     login,
