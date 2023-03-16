@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
+import classnames from 'classnames';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller';
 import List from 'react-virtualized/dist/commonjs/List';
 
@@ -17,6 +18,7 @@ import { BG_LIGHT, BORDER_SECONDARY_LIGHT, BORDER_RADIUS_L } from 'style-constan
 
 import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import { NOTIFICATIONS_DATA, ROW_HEIGHT } from './constants';
 import {
@@ -37,7 +39,6 @@ import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
 import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
-import classnames from 'classnames';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -81,10 +82,11 @@ const SubHeaderSeparator = styled.hr`
 const Notifications = ({
   loading,
   unreadCount,
-  allCount: allCountUnfiltered,
+  allCount,
   className,
   isAvailable,
-  notifications: allNotifications,
+  notifications,
+  communities,
   readNotifications,
   loadMoreNotificationsDispatch,
   markAsReadNotificationsAllDispatch,
@@ -96,10 +98,6 @@ const Notifications = ({
   const [y, setY] = useState(0);
   const ref = useRef(null);
   const containerRef = useRef(null);
-
-  // Temporary fix, will be removed in PEER-682
-  const notifications = allNotifications.filter(({ type }) => NOTIFICATIONS_DATA[type]);
-  const allCount = allCountUnfiltered - (allNotifications.length - notifications.length);
 
   useEffect(() => {
     markAsReadNotificationsAllDispatch([
@@ -181,6 +179,7 @@ const Notifications = ({
       height={rowHeight}
       notificationsNumber={notifications.length}
       paddingHorizontal="36"
+      communities={communities}
       {...notifications[index]}
     />
   );
@@ -199,7 +198,7 @@ const Notifications = ({
 
       {Boolean(allCount) && (
         <Content innerRef={containerRef} height={notifications.length * rowHeight + ROW_HEIGHT}>
-          {Boolean(unreadCount) ? (
+          {unreadCount ? (
             <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
               <MarkAllAsReadButton />
             </SubHeader>
@@ -211,7 +210,7 @@ const Notifications = ({
               <div
                 ref={registerChild}
                 className={classnames('pb-2', {
-                  'pt-2': !Boolean(unreadCount),
+                  'pt-2': !unreadCount,
                 })}
               >
                 <List
@@ -267,6 +266,7 @@ export default React.memo(
         loading: selectAllNotificationsLoading()(state),
         readNotifications: selectReadNotificationsAll()(state),
         unreadCount: unreadNotificationsCount()(state),
+        communities: selectCommunities()(state),
       }),
       (dispatch) => ({
         loadMoreNotificationsDispatch: bindActionCreators(loadMoreNotifications, dispatch),
