@@ -150,12 +150,7 @@
   "receivedReward": "您收到推荐奖励",
   "generalPopoverTitle": "讨论",
   "generalPopoverLabel": "不需要专业知识或经验来回答的主题可以是以下之一：",
-  "generalPopoverList": [
-    "主观意见交流；",
-    "头脑风暴；",
-    "反馈或审查请求；",
-    "答案广为人知。"
-  ],
+  "generalPopoverList": ["主观意见交流；", "头脑风暴；", "反馈或审查请求；", "答案广为人知。"],
   "expertPopoverTitle": "专家问答",
   "expertPopoverLabel": "提出以下问题之一的问题：",
   "expertPopoverList": [
@@ -265,11 +260,7 @@
     "要求指导或食谱。"
   ],
   "tutorialQuestionDescriptionLabel": "教程是手动说明，可以是以下之一：",
-  "tutorialQuestionDescriptionList": [
-    "逐步解决问题；",
-    "技术设置；",
-    "“操作方法”指南。"
-  ],
+  "tutorialQuestionDescriptionList": ["逐步解决问题；", "技术设置；", "“操作方法”指南。"],
   "promotedLabel": "推广问题",
   "promotedTip": "推广问题",
   "questionIsPromoting": "推广至",
@@ -481,5 +472,34 @@
   "enteringData": "输入数据",
   "subArticleOf": "子条目",
   "saveToDraft": "保存到草稿",
-  "editing": "编辑"
+  "editing": "编辑",
+  "transactionsList": {
+    "followCommunity": "关注社区",
+    "updateUser": "更新用户资料",
+    "createCommunity": "创建社区",
+    "updateCommunity": "更新社区",
+    "unfollowCommunity": "取消关注社区",
+    "createTag": "创建标签",
+    "updateTag": "更新标签",
+    "createPost": "创建帖子",
+    "updateDocumentationTree": "更新文档",
+    "deleteDocumentationPost": "删除文档帖子",
+    "changePostType": "更改帖子类型",
+    "createReply": "创建回复",
+    "editReply": "编辑回复",
+    "deleteReply": "删除回复",
+    "editPost": "编辑帖子",
+    "deletePost": "删除帖子",
+    "createComment": "创建评论",
+    "editComment": "编辑评论",
+    "deleteComment": "删除评论",
+    "changeStatusBestReply": "更改最佳回复",
+    "voteItem": "投票项目",
+    "claimReward": "领取奖励",
+    "setStake": "设置股份",
+    "giveCommunityModeratorPermission": "授予社区版主权限",
+    "revokeCommunityModeratorPermission": "撤销社区版主权限",
+    "successful": "成功的",
+    "failed": "失败的"
+  }
 }

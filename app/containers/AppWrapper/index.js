@@ -1,3 +1,4 @@
+import TransactionsList from 'containers/TransactionsList';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -46,11 +47,9 @@ const Box = ({
   return (
     <>
       <Header />
+      <TransactionsList />
 
-      <Main
-        isMenuVisible={isMenuVisible}
-        transactionInitialised={transactionInitialised}
-      >
+      <Main isMenuVisible={isMenuVisible} transactionInitialised={transactionInitialised}>
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
           <div className="d-flex">
             <LeftMenu {...props} documentationMenu={documentationMenu} />
@@ -88,10 +87,7 @@ const WrapperConnection = compose(
     }),
     (dispatch) => ({
       showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
-      getDocumentationMenuDispatch: bindActionCreators(
-        getDocumentationMenu,
-        dispatch,
-      ),
+      getDocumentationMenuDispatch: bindActionCreators(getDocumentationMenu, dispatch),
       hideLeftMenuDispatch: bindActionCreators(hideLeftMenu, dispatch),
     }),
   ),

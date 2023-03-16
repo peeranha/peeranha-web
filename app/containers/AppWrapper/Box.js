@@ -2,28 +2,18 @@ import styled from 'styled-components';
 
 import { singleCommunityColors } from 'utils/communityManagement';
 
-import {
-  HEADER_HEIGHT,
-  LOADER_HEIGHT,
-  MOBILE_HEADER_HEIGHT,
-} from 'containers/Header/constants';
+import { HEADER_HEIGHT, LOADER_HEIGHT, MOBILE_HEADER_HEIGHT } from 'containers/Header/constants';
 
 import { LEFT_MENU_WIDTH } from './constants';
 
 const colors = singleCommunityColors();
 
 const Main = styled.div`
-  background: ${colors.mainBackground
-    ? colors.mainBackground
-    : 'rgb(234, 236, 244)'};
+  background: ${colors.mainBackground ? colors.mainBackground : 'rgb(234, 236, 244)'};
   min-height: 100vh;
   padding-top: ${(x) => {
     if (x.isMenuVisible) {
       return 0;
-    }
-
-    if (x.transactionInitialised) {
-      return HEADER_HEIGHT + LOADER_HEIGHT;
     }
 
     return HEADER_HEIGHT;
@@ -34,10 +24,6 @@ const Main = styled.div`
     padding-top: ${(x) => {
       if (x.isMenuVisible) {
         return 0;
-      }
-
-      if (x.transactionInitialised) {
-        return MOBILE_HEADER_HEIGHT + LOADER_HEIGHT;
       }
 
       return MOBILE_HEADER_HEIGHT;

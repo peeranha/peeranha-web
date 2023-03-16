@@ -1,3 +1,4 @@
+import { setTransactionList } from 'containers/EthereumProvider/actions';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -6,10 +7,7 @@ import { deleteCookie } from 'utils/cookie';
 
 import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 import { WEB3_TOKEN } from 'utils/constants';
-import {
-  getCurrentAccountSuccess,
-  addLoginData,
-} from 'containers/AccountProvider/actions';
+import { getCurrentAccountSuccess, addLoginData } from 'containers/AccountProvider/actions';
 
 import { LOGOUT } from './constants';
 
@@ -34,6 +32,8 @@ export function* logoutWorker() {
     yield put(addLoginData({}));
 
     yield put(clearNotificationsData());
+    yield put(setTransactionList([]));
+    ethereumService.transactionList = [];
 
     yield put(logoutSuccess());
   } catch (err) {

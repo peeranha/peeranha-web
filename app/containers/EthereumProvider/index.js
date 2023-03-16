@@ -5,10 +5,7 @@ import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -17,12 +14,7 @@ import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-import {
-  init,
-  useConnectWallet,
-  useSetChain,
-  useWallets,
-} from '@web3-onboard/react';
+import { init, useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
 import injectedModule from '@web3-onboard/injected-wallets';
 import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
@@ -37,6 +29,7 @@ import {
   transactionFailed,
   transactionInPending,
   transactionInitialised,
+  setTransactionList,
 } from './actions';
 import communitiesConfig from '../../communities-config';
 
@@ -97,6 +90,7 @@ export const EthereumProvider = ({
   transactionInPendingDispatch,
   transactionCompletedDispatch,
   waitForConfirmDispatch,
+  setTransactionListDispatch,
   transactionFailedDispatch,
   initializing,
   ethereum,
@@ -152,7 +146,7 @@ export const EthereumProvider = ({
         connectedChain,
       });
     }
-  }, [wallet, connectedWallets, web3Onboard]);
+  }, [wallet, connectedWallets, web3Onboard, ethereum]);
 
   const sendProps = {
     connect,
@@ -166,6 +160,7 @@ export const EthereumProvider = ({
     transactionFailedDispatch,
     waitForConfirmDispatch,
     addToast,
+    setTransactionListDispatch,
   };
 
   useEffect(() => {
@@ -185,9 +180,7 @@ export const EthereumProvider = ({
     }
   }, []);
 
-  return (
-    <div>{!initializing && ethereum ? children : <LoadingIndicator />}</div>
-  );
+  return <div>{!initializing && ethereum ? children : <LoadingIndicator />}</div>;
 };
 
 EthereumProvider.propTypes = {
@@ -205,20 +198,12 @@ const withConnect = connect(
   (dispatch) => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
     showModalDispatch: bindActionCreators(showModal, dispatch),
-    transactionInPendingDispatch: bindActionCreators(
-      transactionInPending,
-      dispatch,
-    ),
-    transactionCompletedDispatch: bindActionCreators(
-      transactionCompleted,
-      dispatch,
-    ),
+    transactionInPendingDispatch: bindActionCreators(transactionInPending, dispatch),
+    transactionCompletedDispatch: bindActionCreators(transactionCompleted, dispatch),
     transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
-    waitForConfirmDispatch: bindActionCreators(
-      transactionInitialised,
-      dispatch,
-    ),
+    waitForConfirmDispatch: bindActionCreators(transactionInitialised, dispatch),
     addToast: bindActionCreators(addToast, dispatch),
+    setTransactionListDispatch: bindActionCreators(setTransactionList, dispatch),
   }),
 );
 
