@@ -2,10 +2,7 @@
 import bs58 from 'bs58';
 import { create } from 'ipfs-http-client';
 
-import {
-  callService,
-  SAVE_FILE_SERVICE,
-} from 'utils/web_integration/src/util/aws-connector';
+import { callService, SAVE_FILE_SERVICE } from 'utils/web_integration/src/util/aws-connector';
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import { ApplicationError } from './errors';
 
@@ -21,9 +18,7 @@ function web3StorageApi() {
   const token = process.env.WEB3_STORAGE_API_TOKEN;
 
   if (!token) {
-    throw new Error(
-      'WEB3_STORAGE_API_TOKEN environment variable is not defined',
-    );
+    throw new Error('WEB3_STORAGE_API_TOKEN environment variable is not defined');
   }
 
   return new Web3Storage({ token });
@@ -78,8 +73,8 @@ async function saveDataTheGraph(buf) {
   return ipfsApiTheGraph().add(buf);
 }
 
-async function saveDataIpfsS3(file) {
-  return callService(SAVE_FILE_SERVICE, { file });
+export async function saveDataIpfsS3(file, signal) {
+  return callService(SAVE_FILE_SERVICE, { file }, false, signal);
 }
 
 export async function saveFile(file) {

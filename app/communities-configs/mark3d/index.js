@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = '';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'mark3d_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,35 +166,17 @@ export const customSubHeaderConfig = {
 };
 
 export const Mark3dStyles = {
+  name: 'mark3d',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/mark3d/Mark3dLogo.svg',
-  favicon: 'https://images.peeranha.io/communities/mark3d/Mark3d.ico',
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo: 'https://images.peeranha.io/communities/mark3d/Mark3dLogo.svg',
 
   colors: {
-    mainSubHeaderBgColor:
-      'linear-gradient(90deg, #BBABF8 0%, #F6D4F5 65.04%, #CBC5F1 100%)',
+    appWindowsColor: '#45aff4',
+    appSafarieColor: '#45aff4',
+    mainSubHeaderBgColor: 'linear-gradient(90deg, #BBABF8 0%, #F6D4F5 65.04%, #CBC5F1 100%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
     linkColor: 'rgba(135, 133, 244, 1)',
     linkCookieColor: 'rgba(86, 79, 229, 1)',
@@ -224,14 +201,6 @@ export const Mark3dStyles = {
     textColor: 'rgba(135, 133, 244, 1)',
     textColorShadow: 'rgba(135, 133, 244, 1)',
     commHeadElemColor: 'rgba(19, 19, 45, 1)',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background:

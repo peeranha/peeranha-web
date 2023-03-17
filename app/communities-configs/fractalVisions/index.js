@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://guild.xyz/fractalvisions';
 
-const fontSet = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'fractalVisions_styles',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fontSet,
     },
     header: {
       background: '#FFFFFF',
@@ -171,15 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const FractalVisionsStyles = {
+  name: 'fractalVisions',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/fractalVisions/Rectangle.svg',
-  favicon: 'https://images.peeranha.io/communities/fractalVisions/Fractal.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/fractalVisions/Rectangle.svg',
 
   colors: {
+    appWindowsColor: '#6D00B3',
+    appSafarieColor: '#6D00B3',
     mainSubHeaderBgColor:
       'linear-gradient(117.73deg, #FFFFFF -12.53%, #A52565 56.31%, #6D00B3 123.73%);',
     mainBackground: 'rgba(234, 236, 244, 1)',

@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import FaqIcon from 'icons/Faq';
 import classes from '../Dropdown.styled';
 import { MutableOption } from '../Dropdown';
+import { useTranslation } from 'react-i18next';
 
 type DropdownOptionProps = {
   option: MutableOption;
@@ -13,11 +14,8 @@ type DropdownOptionProps = {
 
 // TODO: Ripple effect on click
 
-const DropdownOption: React.FC<DropdownOptionProps> = ({
-  option,
-  isMultiple,
-  onClick,
-}) => {
+const DropdownOption: React.FC<DropdownOptionProps> = ({ option, isMultiple, onClick }) => {
+  const { t } = useTranslation();
   const clickHandler = (): void => {
     if (!option.isDisabled) {
       onClick(option);
@@ -35,16 +33,14 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
         })}
         onClick={clickHandler}
       >
-        {(option.render instanceof Function
-          ? option.render(option)
-          : option.render) || (
+        {(option.render instanceof Function ? option.render(option) : option.render) || (
           <>
             {option.icon && (
               <span className={cn('mr8 dropdown-icon')} css={classes.icon}>
                 {option.icon}
               </span>
             )}
-            <span>{option.label}</span>
+            <span>{t(option.label)}</span>
           </>
         )}
         {isMultiple && (

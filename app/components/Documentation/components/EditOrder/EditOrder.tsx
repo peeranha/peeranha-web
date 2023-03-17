@@ -1,8 +1,13 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import SortableTree from 'react-sortable-tree';
 import NodeRenderer from './NodeRenderer';
 import Button from 'common-components/Button';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
+import { singleCommunityDocumentation } from 'utils/communityManagement';
+import { styled } from 'components/Documentation/EditDocumentation.styled';
+
+const documentationColors = singleCommunityDocumentation();
 
 type EditOrderProps = {
   documentationMenuDraft: Array<DocumentationItemMenuType>;
@@ -15,9 +20,9 @@ const EditOrder: React.FC<EditOrderProps> = ({
   editOrder,
   saveMenuDraft,
 }): JSX.Element => {
-  const [documentationEditOrder, setDocumentationEditOrder] = useState<
-    Array<DocumentationItemMenuType>
-  >(documentationMenuDraft);
+  const { t } = useTranslation();
+  const [documentationEditOrder, setDocumentationEditOrder] =
+    useState<Array<DocumentationItemMenuType>>(documentationMenuDraft);
 
   const onClickSave = () => {
     saveMenuDraft(documentationEditOrder);
@@ -87,17 +92,17 @@ const EditOrder: React.FC<EditOrderProps> = ({
               color: '#7B7B7B',
             }}
           >
-            Documentation
+            {t('common.documentation')}
           </div>
           <div
             className="pl8 pr8"
             css={{
-              color: 'var(--color-white)',
-              backgroundColor: '#7699FF',
+              color: documentationColors.headerText || 'var(--color-white)',
+              backgroundColor: documentationColors.headerBackground || '#7699FF',
               borderRadius: '20px',
             }}
           >
-            Editing
+            {t('common.editing')}
           </div>
         </div>
         <SortableTree
@@ -121,18 +126,26 @@ const EditOrder: React.FC<EditOrderProps> = ({
             borderTop: '1px solid #D8D8D8',
           }}
         >
-          <Button variant="secondary" className="mr16" onClick={editOrder}>
-            Cancel
+          <Button
+            variant="secondary"
+            className="mr16"
+            onClick={editOrder}
+            css={styled.cancelButton}
+          >
+            {t('common.cancel')}
           </Button>
           <Button
             variant="primary"
             css={{
+              background:
+                documentationColors.saveDraftButtonBackground || 'var(--color-button-primary)',
+              color: documentationColors.saveDraftButtonColor || 'var(--color-white)',
               borderWidth: 0,
               '&:hover .icon': { stroke: 'var(--color-white)' },
             }}
             onClick={onClickSave}
           >
-            Save
+            {t('common.editQuestion.submitButtonName')}
           </Button>
         </div>
       </div>

@@ -32,11 +32,7 @@ import {
   hasProtocolAdminRole,
 } from 'utils/properties';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-import {
-  COMMENT_TYPE,
-  SAVE_COMMENT_BUTTON,
-  SAVE_COMMENT_FORM,
-} from './constants';
+import { COMMENT_TYPE, SAVE_COMMENT_BUTTON, SAVE_COMMENT_FORM } from './constants';
 
 import Button from './Button';
 import UserInfo from './UserInfo';
@@ -112,14 +108,7 @@ const CommentsStyled = styled.ul`
   }
 `;
 
-const CommentEdit = ({
-  answerId,
-  id,
-  content,
-  saveCommentLoading,
-  saveComment,
-  toggleView,
-}) => {
+const CommentEdit = ({ answerId, id, content, saveCommentLoading, saveComment, toggleView }) => {
   const { t } = useTranslation();
 
   return (
@@ -141,9 +130,7 @@ const CommentEdit = ({
 
 const CommentView = (item) => {
   const { t } = useTranslation();
-  const isItWrittenByMe = item.profileInfo
-    ? item.author?.user === item.profileInfo.user
-    : false;
+  const isItWrittenByMe = item.profileInfo ? item.author?.user === item.profileInfo.user : false;
 
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const refPopover = useRef(null);
@@ -153,18 +140,24 @@ const CommentView = (item) => {
   const isModerator =
     hasGlobalModeratorRole(getPermissions(item.profileInfo)) ||
     hasProtocolAdminRole(getPermissions(item.profileInfo)) ||
-    hasCommunityModeratorRole(
-      getPermissions(item.profileInfo),
-      item.communityId,
-    );
+    hasCommunityModeratorRole(getPermissions(item.profileInfo), item.communityId);
 
   const formattedHistories = item.histories?.filter(
-    (history) =>
-      history.comment?.id === `${item.postId}-${item.answerId}-${item.id}`,
+    (history) => history.comment?.id === `${item.postId}-${item.answerId}-${item.id}`,
   );
 
   return (
-    <li>
+    <li
+      css={{
+        '@media only screen and (max-width: 576px)': {
+          ':hover': {
+            'div > a': {
+              paddingTop: '30px',
+            },
+          },
+        },
+      }}
+    >
       <div className="d-flex justify-content-between align-items-center position-relative">
         <UserInfo
           type={COMMENT_TYPE}
@@ -205,15 +198,9 @@ const CommentView = (item) => {
                     whowasvoted: item.author.user,
                   }}
                   onClick={onClick}
-                  disabled={item.ids.includes(
-                    `delete-comment-${item.answerId}${item.id}`,
-                  )}
+                  disabled={item.ids.includes(`delete-comment-${item.answerId}${item.id}`)}
                 >
-                  <Icon
-                    icon={deleteSmallIcon}
-                    width="13"
-                    fill={BORDER_PRIMARY}
-                  />
+                  <Icon icon={deleteSmallIcon} width="13" fill={BORDER_PRIMARY} />
                   {t('post.deleteButton')}
                 </Button>
               )}
@@ -221,11 +208,7 @@ const CommentView = (item) => {
           </div>
 
           <div className="position-relative">
-            <Button
-              show
-              disabled={isPopoverOpen}
-              onClick={() => setPopoverOpen(true)}
-            >
+            <Button show disabled={isPopoverOpen} onClick={() => setPopoverOpen(true)}>
               <IconMd icon={blockchainLogo} />
               {t('common.source')}
             </Button>

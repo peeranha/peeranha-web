@@ -16,13 +16,10 @@ export const SCATTER_TIMEOUT_DURATION = 10000; // 1 sec
 
 export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
-export const HUBSPOT_URL =
-  'https://api.hsforms.com/submissions/v3/integration/submit';
+export const HUBSPOT_URL = 'https://api.hsforms.com/submissions/v3/integration/submit';
 export const HUBSPOT_PORTAL_ID = '9131393';
-export const HUBSPOT_SEND_EMAIL_FORM_ID =
-  '05305f90-6546-4718-88e8-2d2c8e79c00c';
-export const HUBSPOT_SEND_MESSAGE_FORM_ID =
-  'eb947c08-4d59-4fb5-87b7-3732e487dbd7';
+export const HUBSPOT_SEND_EMAIL_FORM_ID = '05305f90-6546-4718-88e8-2d2c8e79c00c';
+export const HUBSPOT_SEND_MESSAGE_FORM_ID = 'eb947c08-4d59-4fb5-87b7-3732e487dbd7';
 
 export const ENDPOINTS_LIST = 'best_nodes_list';
 
@@ -34,15 +31,9 @@ export const MODERATOR_KEY = 48;
 export const MODERATOR_CREATE_COMMUNITY = 3;
 
 export const DEFAULT_ADMIN_ROLE = 0x00;
-export const PROTOCOL_ADMIN_ROLE = keccak256(
-  toUtf8Bytes('PROTOCOL_ADMIN_ROLE'),
-);
-export const COMMUNITY_ADMIN_ROLE = keccak256(
-  toUtf8Bytes('COMMUNITY_ADMIN_ROLE'),
-);
-export const COMMUNITY_MODERATOR_ROLE = keccak256(
-  toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'),
-);
+export const PROTOCOL_ADMIN_ROLE = keccak256(toUtf8Bytes('PROTOCOL_ADMIN_ROLE'));
+export const COMMUNITY_ADMIN_ROLE = keccak256(toUtf8Bytes('COMMUNITY_ADMIN_ROLE'));
+export const COMMUNITY_MODERATOR_ROLE = keccak256(toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'));
 
 export const COMMUNITY_ADMIN_VALUE = 255;
 export const COMMUNITY_ADMIN_INFINITE_IMPACT = 1;
@@ -56,8 +47,7 @@ export const PERMISSION_GRANTED = '1';
 export const PROPERTY_ANSWER_15_MINUTES = 12;
 export const PROPERTY_FIRST_ANSWER = 13;
 
-export const REWARD_CLAIMING_ENABLED =
-  process.env.REWARD_CLAIMING_ENABLED === 'true';
+export const REWARD_CLAIMING_ENABLED = process.env.REWARD_CLAIMING_ENABLED === 'true';
 
 export const INIT_RATING = 10;
 
@@ -73,9 +63,6 @@ export const POST_TYPE = {
   tutorial: 2,
   documentation: 1000,
 };
-
-export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
-export const CURRENCY = 'MATIC';
 
 export const globalAdminPermissions = {
   PERMISSION_PROTOCOL_ADMIN_1: {
@@ -281,8 +268,7 @@ export const MOVE_QUESTION_METHOD = 'movequestion';
 
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
-export const MONTH_3LETTERS__DAY_YYYY_TIME =
-  'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
+export const MONTH_3LETTERS__DAY_YYYY_TIME = 'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY = 'datetime/MONTH_3LETTERS__DAY_YYYY';
 export const DD_MM_YYYY = 'datetime/DD_MM_YYYY';
 export const DD_MM_YY = 'datetime/DD_MM_YY';
@@ -320,6 +306,16 @@ export const BOUNTY_STATUS_PENDING = 3;
 export const SINGLE_COMMUNITY_DETAILS = 'singleCommunityDetails';
 
 export const KEY_LAST_RATING_UPDATE_TIME = 18;
+export const ONE_MONTH = 2592000;
+export const TYPE_OF_TRANSACTIONS = 'transactionType';
+export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
+export const TRANSACTIONS_ALLOWED = 'tr_allowed';
+export const DISPATCHER_TRANSACTIONS_ALLOWED = 'dispatcher_tr_allowed';
+export const CURRENCY = 'MATIC';
+export const CONNECTED_WALLET = 'connectedWallet';
+export const TORUS_WALLET = 'Torus';
+export const WEB3_TOKEN = 'web3Token';
+export const WEB3_TOKEN_USER_ADDRESS = 'web3Token_userAddress';
 
 // verification codes types
 export const SEND_TIPS_TYPE = 'sendTips';
@@ -344,3 +340,5 @@ export const CHANGED_POSTS_KEY = 'changed-posts';
 
 // position documentation
 export const POSITION_TOP = 'top';
+
+export const LIMITED_EDITION_NFT_TYPE = 0;

@@ -58,13 +58,8 @@ const BotBlock: React.FC<BotBlockProps> = ({ postTime, locale, messenger }) => {
   return (
     <div css={blockCss}>
       <span className={`d-flex align-items-center mr-2`}>
-        <Span
-          className="mr-2"
-          fontSize="14"
-          lineHeight="18"
-          textOverflow="ellipsis"
-        >
-          {t('post.botAnswer', { bot: messenger.name })}
+        <Span className="mr-2" fontSize="14" lineHeight="18" textOverflow="ellipsis">
+          {t('post.BotAnswer', { bot: messenger.name })}
         </Span>
       </span>
 

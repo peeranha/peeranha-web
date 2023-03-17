@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://valist.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'valist_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,23 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const AnkrStyles = {
+  name: 'ankr',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/ankr/ankrBlueLogo.svg',
-  favicon: 'https://images.peeranha.io/communities/ankr/favicon-ankr.ico',
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
-  },
+  signUpPageLogo: 'https://images.peeranha.io/communities/ankr/ankrBlueLogo.svg',
 
   colors: {
+    appMobileColor: '#FFF',
+    appSafarieColor: '#5bbad5',
     mainSubHeaderBgColor: '#FFFFFF',
     mainBackground: '#F2F5FA',
     linkColor: '#356DF3',

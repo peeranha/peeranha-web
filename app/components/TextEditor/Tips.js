@@ -6,12 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import {
-  TEXT_PRIMARY,
-  BG_PRIMARY,
-  BORDER_SECONDARY,
-  LINK_COLOR,
-} from 'style-constants';
+import { TEXT_PRIMARY, BG_PRIMARY, BORDER_SECONDARY, LINK_COLOR } from 'style-constants';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -109,26 +104,20 @@ const Tips = ({ faqQuestions }) => {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div
+      css={css`
+        background: ${colors.backgroundSpecial || ''};
+      `}
+    >
       <Title className="mb-3">{t('common.tips')}:</Title>
       <P>{t('common.markdownIsSupported')}</P>
 
       <Ul>
-        {messagesArray.map((item, index) =>
-          index === 1 ? (
-            <li key={item}>
-              <p>
-                <Italic>_italic_</Italic>
-                or
-                <Bold>**bold**</Bold>
-              </p>
-            </li>
-          ) : (
-            <li key={item}>
-              <span>{t(item)}</span>
-            </li>
-          ),
-        )}
+        {messagesArray.map((item, index) => (
+          <li key={item}>
+            <span>{t(item)}</span>
+          </li>
+        ))}
       </Ul>
       <span
         css={css`

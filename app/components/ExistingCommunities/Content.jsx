@@ -43,6 +43,14 @@ export const DescriptionBlock = styled.div`
   width: 300px;
   margin-right: 15px;
 
+  @media (max-width: 1050px) {
+    width: 250px;
+  }
+
+  @media (max-width: 991px) {
+    width: 300px;
+  }
+
   ${MediumImageStyled} {
     margin-top: 6px;
   }
@@ -113,11 +121,7 @@ const Content = ({ communities, sorting, locale, profile }) => {
     <>
       <Base>
         {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order]).map(
-          (
-            { avatar, name, id, description, website, tagsCount, ...x },
-            index,
-            arr,
-          ) => {
+          ({ avatar, name, id, description, website, tagsCount, ...x }, index, arr) => {
             const value = id;
             const origin = hasCommunitySingleWebsite(id);
 
@@ -129,11 +133,7 @@ const Content = ({ communities, sorting, locale, profile }) => {
                 key={value}
               >
                 <DescriptionBlock>
-                  <MediumImageStyled
-                    className="bg-transparent"
-                    src={avatar}
-                    alt={name}
-                  />
+                  <MediumImageStyled className="bg-transparent" src={avatar} alt={name} />
 
                   <div>
                     <P fontSize="24" lineHeight="31" bold>
@@ -142,9 +142,7 @@ const Content = ({ communities, sorting, locale, profile }) => {
                         css={{ position: 'relative' }}
                       >
                         {name}
-                        {origin && (
-                          <SingleCommunityIcon locale={locale} id={id} />
-                        )}
+                        {origin && <SingleCommunityIcon locale={locale} id={id} />}
                       </ADefault>
                     </P>
                     <DescriptionText fontSize="14" lineHeight="18">
@@ -159,46 +157,47 @@ const Content = ({ communities, sorting, locale, profile }) => {
                     hasCommunityModeratorRole(getPermissions(profile), value) ||
                     hasCommunityAdminRole(getPermissions(profile), value)) && (
                     <Info>
-                      <SpanCenter>
-                        {getFormattedNum2(x.followingUsers)}
-                      </SpanCenter>
-                      <P>{t('common.subscribers')}</P>
+                      <SpanCenter>{getFormattedNum2(x.followingUsers)}</SpanCenter>
+                      <P>
+                        <span className="no-wrap">{t('common.subscribers')}</span>
+                      </P>
                     </Info>
                   )}
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
-                    <P>{t('common.posts')}</P>
+                    <P>
+                      <span className="no-wrap">{t('common.posts')}</span>
+                    </P>
                   </Info>
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
-                    <P>{t('common.answers')}</P>
+                    <P>
+                      <span className="no-wrap">{t('common.answers')}</span>
+                    </P>
                   </Info>
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(tagsCount)}</SpanCenter>
-                    <A to={routes.communityTags(id)}>{t('common.tags')}</A>
+                    <A to={routes.communityTags(id)}>
+                      <span className="no-wrap">{t('common.tags')}</span>
+                    </A>
                   </Info>
 
                   <Info>
-                    <SpanCenter>
+                    <SpanCenter className="no-wrap">
                       {getDifferenceInDate(x.creationTime, locale)}
                     </SpanCenter>
-                    <SpanCenter>{t('common.age')}</SpanCenter>
+                    <SpanCenter>
+                      <span className="no-wrap">{t('common.age')}</span>
+                    </SpanCenter>
                   </Info>
 
                   <Info>
                     {(communityEditingAllowed ||
-                      hasCommunityAdminRole(
-                        getPermissions(profile),
-                        value,
-                      )) && (
-                      <InfoButton
-                        onClick={() =>
-                          createdHistory.push(routes.communitiesEdit(id))
-                        }
-                      >
+                      hasCommunityAdminRole(getPermissions(profile), value)) && (
+                      <InfoButton onClick={() => createdHistory.push(routes.communitiesEdit(id))}>
                         {t('common.edit')}
                       </InfoButton>
                     )}

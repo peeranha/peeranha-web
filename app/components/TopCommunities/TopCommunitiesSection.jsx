@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import { singleCommunityColors } from 'utils/communityManagement';
 import React, { useEffect, useState } from 'react';
 import orderBy from 'lodash/orderBy';
 import { useTranslation } from 'react-i18next';
@@ -11,11 +13,11 @@ import { TEXT_PRIMARY } from '../../style-constants';
 import A, { ADefault } from '../A';
 import * as routes from '../../routes-config';
 
+const colors = singleCommunityColors();
+
 const TopCommunitiesSection = ({ ref, single, communities }) => {
   const { t } = useTranslation();
-  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
-    routes.communities(),
-  );
+  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() => routes.communities());
   const AllCommunitiesLink = single ? ADefault : A;
 
   useEffect(() => {
@@ -26,9 +28,13 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
 
   return (
     <div className="overflow-hidden" ref={ref}>
-      <H4 isHeader>
-        {t('common.id')}{' '}
-        <span className="text-lowercase">{t('common.communities')}</span>
+      <H4
+        isHeader
+        css={css`
+          color: ${colors.white || ''};
+        `}
+      >
+        {t('common.top')} <span className="text-lowercase">{t('common.communities')}</span>
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>

@@ -52,19 +52,16 @@ export const CommentOptions = ({
   const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
 
   const showCommentForm =
-    addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) ||
-    false;
+    addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) || false;
 
   return (
     <div className="my-3">
       <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
-        {commentsNumber > 0 && (
+        {commentsNumber > 0 && !isAllCommentsView && (
           <ButtonStyled onClick={() => changeCommentsView(!isAllCommentsView)}>
             <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
             <Span className="text-lowercase" color={TEXT_SECONDARY}>
-              {commentsNumber === 1
-                ? t('post.moreComment')
-                : t('post.moreComments')}
+              {commentsNumber === 1 ? t('post.moreComment') : t('post.moreComments')}
               <Icon
                 className="ml-1"
                 rotate={isAllCommentsView}
@@ -79,10 +76,7 @@ export const CommentOptions = ({
           id={toggleFormButtonId}
           onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
         >
-          <IconMd
-            icon={dotsIcon}
-            fill={colors.commentOption || BORDER_PRIMARY}
-          />
+          <IconMd icon={dotsIcon} fill={colors.commentOption || BORDER_PRIMARY} />
           <Span className="ml-1" color={colors.commentOption || TEXT_PRIMARY}>
             {t('post.addComment')}
           </Span>

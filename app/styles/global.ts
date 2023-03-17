@@ -67,6 +67,9 @@ export default css`
   .dib {
     display: inline-block;
   }
+  .dif {
+    display: inline-flex;
+  }
   .dn {
     display: none;
   }
@@ -78,6 +81,9 @@ export default css`
   }
   .dg {
     display: grid;
+  }
+  .clarity {
+    opacity: 0;
   }
   .jcsb {
     justify-content: space-between;
@@ -133,6 +139,9 @@ export default css`
   .tl {
     text-align: left;
   }
+  .fz10 {
+    font-size: 10px;
+  }
   .fz12 {
     font-size: 12px;
   }
@@ -145,8 +154,20 @@ export default css`
   .fz18 {
     font-size: 18px;
   }
+  .fz20 {
+    font-size: 20px;
+  }
+  .fz22 {
+    font-size: 22px;
+  }
   .fz24 {
     font-size: 24px;
+  }
+  .fz28 {
+    font-size: 28px;
+  }
+  .fz46 {
+    font-size: 46px;
   }
   .pr {
     position: relative;
@@ -186,6 +207,9 @@ export default css`
   }
   .bd0 {
     border: none;
+  }
+  .op0 {
+    opacity: 0;
   }
   .no-wrap {
     white-space: nowrap;

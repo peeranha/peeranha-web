@@ -19,16 +19,9 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const CommunitiesSectionWithRatings = ({
-  profile,
-  ref,
-  single,
-  communities,
-}) => {
+const CommunitiesSectionWithRatings = ({ profile, ref, single, communities }) => {
   const { t } = useTranslation();
-  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
-    routes.communities(),
-  );
+  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() => routes.communities());
   const AllCommunitiesLink = single ? ADefault : A;
 
   useEffect(() => {
@@ -38,7 +31,14 @@ const CommunitiesSectionWithRatings = ({
   }, [single]);
   return (
     <div className="overflow-hidden" ref={ref}>
-      <H4 isHeader>{t('common.communities')}</H4>
+      <H4
+        isHeader
+        css={css`
+          color: ${colors.white || ''};
+        `}
+      >
+        {t('common.communities')}
+      </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
         {orderBy(profile.ratings, 'rating', 'desc').map((item) => (
@@ -70,9 +70,7 @@ const CommunitiesSectionWithRatings = ({
                 }
               `}
             />
-            <Span color={colors.btnColor || TEXT_PRIMARY}>
-              {t('common.allCommunities')}
-            </Span>
+            <Span color={colors.btnColor || TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
           </AllCommunitiesLink>
         </div>
       </Grid>

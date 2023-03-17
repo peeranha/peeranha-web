@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://valist.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'valist_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,14 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const ValistStyles = {
+  name: 'valist',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/valist/valist.svg',
-  favicon: 'https://images.peeranha.io/communities/valist/logo-vit.ico',
 
   colors: {
+    appWindowsColor: '#603cba',
+    appSafarieColor: '#656565',
     mainSubHeaderBgColor: '#030111',
     mainBackground: '#F9FAFB',
     linkColor: '#5850EC',
@@ -202,14 +199,6 @@ export const ValistStyles = {
     textColor: '#5850EC',
     textColorShadow: '#5850EC',
     commHeadElemColor: '#fff',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: 'linear-gradient(90deg, black,#5850EC)',

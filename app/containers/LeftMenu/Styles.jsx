@@ -11,10 +11,7 @@ import {
 
 import { LEFT_MENU_WIDTH } from 'containers/AppWrapper/constants';
 
-import {
-  HEADER_HEIGHT,
-  MOBILE_HEADER_HEIGHT,
-} from 'containers/Header/constants';
+import { HEADER_HEIGHT, MOBILE_HEADER_HEIGHT } from 'containers/Header/constants';
 
 const colors = singleCommunityColors();
 
@@ -49,9 +46,7 @@ export const After = styled.div`
   width: 50px;
   height: 100%;
   z-index: 9999;
-  background: ${colors.darkBlue
-    ? colors.darkBlue
-    : `rgba(${BG_PRIMARY_DARK_RGB}, 0.9)`};
+  background: ${colors.darkBlue ? colors.darkBlue : `rgba(${BG_PRIMARY_DARK_RGB}, 0.9)`};
   justify-content: center;
   padding-top: 25px;
 `;
@@ -76,7 +71,7 @@ export const ViewStyled = styled.nav`
   }
 
   > div:not(:last-child) {
-    border-bottom: 1px solid ${BORDER_SECONDARY};
+    border-bottom: 1px solid ${colors.secondaryAdditional || BORDER_SECONDARY};
   }
 
   &.sticky {

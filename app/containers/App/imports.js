@@ -12,7 +12,7 @@ import Login from 'containers/Login';
 import MetaTransactionAgreement from 'containers/MetaTransactionAgreement';
 import ForgotPassword from 'containers/ForgotPassword';
 
-const HomePage = React.lazy(() => import('containers/HomePage'));
+const HomePage = React.lazy(() => import('pages/HomePage'));
 const EditCommunity = React.lazy(() => import('containers/EditCommunity'));
 const Faq = React.lazy(() => import('containers/Faq'));
 const Administration = React.lazy(() => import('containers/Administration'));
@@ -46,9 +46,7 @@ const Communities = React.lazy(() => import('components/ExistingCommunities'));
 const FullWidthPreloader = React.lazy(() =>
   import('components/LoadingIndicator/FullWidthPreloader'),
 );
-const SuggestedCommunities = React.lazy(() =>
-  import('components/SuggestedCommunities'),
-);
+const SuggestedCommunities = React.lazy(() => import('components/SuggestedCommunities'));
 
 export {
   EditCommunity,

@@ -5,11 +5,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import {
-  BORDER_SECONDARY,
-  BORDER_PRIMARY,
-  BORDER_ATTENTION_LIGHT,
-} from 'style-constants';
+import { BORDER_SECONDARY, BORDER_PRIMARY, BORDER_ATTENTION_LIGHT } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
@@ -80,6 +76,18 @@ const ButtonContainer = styled.div`
 
   > * {
     margin: 0 10px;
+
+    @media only screen and (max-width: 470px) {
+      margin: 0 5px;
+    }
+
+    @media only screen and (max-width: 400px) {
+      margin: 0 2px;
+    }
+
+    @media only screen and (max-width: 330px) {
+      margin: 0 1px;
+    }
   }
 
   @media only screen and (max-width: 360px) {
@@ -152,9 +160,7 @@ const ContentHeader = (props) => {
   const formattedHistories =
     type === QUESTION_TYPE
       ? histories
-      : histories?.filter(
-          (history) => history.reply?.id === `${questionData.id}-${answerId}`,
-        );
+      : histories?.filter((history) => history.reply?.id === `${questionData.id}-${answerId}`);
   const bestReplyId = questionData.bestReply;
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -169,10 +175,7 @@ const ContentHeader = (props) => {
   const isGlobalAdmin = useMemo(
     () =>
       hasGlobalModeratorRole(getPermissions(profile)) ||
-      hasCommunityModeratorRole(
-        getPermissions(profile),
-        questionData.communityId,
-      ) ||
+      hasCommunityModeratorRole(getPermissions(profile), questionData.communityId) ||
       hasProtocolAdminRole(getPermissions(profile)),
     [profile],
   );
@@ -196,9 +199,7 @@ const ContentHeader = (props) => {
 
   // eslint-disable-next-line camelcase
   const correctAnswerId = questionData?.correct_answer_id;
-  const correctAnswer = questionData?.answers?.find(
-    ({ id }) => id === correctAnswerId,
-  );
+  const correctAnswer = questionData?.answers?.find(({ id }) => id === correctAnswerId);
   const correctAnswerUserName = correctAnswer?.user;
   const currentUserName = profile?.user;
 
@@ -217,11 +218,7 @@ const ContentHeader = (props) => {
 
       <ItemInfo>
         {isBot ? (
-          <BotInfo
-            postTime={postTime}
-            locale={locale}
-            messengerType={author.messengerType}
-          />
+          <BotInfo postTime={postTime} locale={locale} messengerType={author.messengerType} />
         ) : (
           <UserInfo
             avatar={getUserAvatar(author.avatar)}
@@ -241,11 +238,7 @@ const ContentHeader = (props) => {
           {infiniteImpact ? (
             <Button
               show={
-                !profile ||
-                (!!profile &&
-                  !isItWrittenByMe &&
-                  !isGlobalAdmin &&
-                  !infiniteImpact)
+                !profile || (!!profile && !isItWrittenByMe && !isGlobalAdmin && !infiniteImpact)
               }
               id={`${type}_vote_to_delete_${answerId}`}
               params={buttonParams}
@@ -265,19 +258,13 @@ const ContentHeader = (props) => {
               isMarkedTheBest={isMarkedTheBest}
               Button={({ onClick }) => (
                 <Button
-                  show={
-                    !!profile &&
-                    (isItWrittenByMe || isGlobalAdmin || infiniteImpact)
-                  }
+                  show={!!profile && (isItWrittenByMe || isGlobalAdmin || infiniteImpact)}
                   id={`${type}_delete_${answerId}`}
                   params={buttonParams}
                   onClick={onClick}
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
-                  <IconMd
-                    icon={deleteIcon}
-                    fill={colors.contentHeader || BORDER_PRIMARY}
-                  />
+                  <IconMd icon={deleteIcon} fill={colors.contentHeader || BORDER_PRIMARY} />
                   <span>{t('post.deleteButton')}</span>
                 </Button>
               )}
@@ -286,11 +273,7 @@ const ContentHeader = (props) => {
 
           {type === QUESTION_TYPE && (
             <DropdownBox>
-              <Button
-                show
-                disabled={isModalOpen}
-                onClick={() => setModalOpen(true)}
-              >
+              <Button show disabled={isModalOpen} onClick={() => setModalOpen(true)}>
                 <IconSm icon={shareIcon} />
                 <span>{t('post.shareButton')}</span>
               </Button>
@@ -304,11 +287,7 @@ const ContentHeader = (props) => {
           )}
 
           <DropdownBox>
-            <Button
-              show
-              disabled={isPopoverOpen}
-              onClick={() => setPopoverOpen(true)}
-            >
+            <Button show disabled={isPopoverOpen} onClick={() => setPopoverOpen(true)}>
               <IconMd icon={blockchainLogo} />
               <span>{t('common.source')}</span>
             </Button>
@@ -325,9 +304,7 @@ const ContentHeader = (props) => {
           </DropdownBox>
 
           <Button
-            show={
-              (!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)
-            }
+            show={(!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)}
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
             id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
@@ -374,10 +351,7 @@ export default React.memo(
       profile: makeSelectProfileInfo()(state),
     }),
     (dispatch) => ({
-      changeQuestionTypeDispatch: bindActionCreators(
-        changeQuestionType,
-        dispatch,
-      ),
+      changeQuestionTypeDispatch: bindActionCreators(changeQuestionType, dispatch),
       giveBountyDispatch: bindActionCreators(payBounty, dispatch),
     }),
   )(ContentHeader),

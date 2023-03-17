@@ -1,5 +1,5 @@
 import React from 'react';
-import { ANIMATE_IMAGE } from '../HomePage/constants';
+import { ANIMATE_IMAGE } from 'pages/HomePage/constants';
 import { useTranslation, Trans } from 'react-i18next';
 import { getLinks } from 'media-links';
 
@@ -25,11 +25,7 @@ const ChunkLoadError: React.FC<{ locale: string }> = ({ locale }) => {
         text-align: left;
       `}
     >
-      <img
-        className={ANIMATE_IMAGE}
-        src={chunkLoadErrorImage}
-        alt="simpleAndAffordable"
-      />
+      <img className={ANIMATE_IMAGE} src={chunkLoadErrorImage} alt="simpleAndAffordable" />
       <div
         css={css`
           display: flex;
@@ -64,7 +60,7 @@ const ChunkLoadError: React.FC<{ locale: string }> = ({ locale }) => {
 
             <p className="fz18">
               <Trans
-                i18nKey="errorPage.weUpdatedTheApplication"
+                i18nKey="errorPage.holdDown"
                 values={{ ctrl: 'Ctrl', f5: 'F5' }}
                 components={[<b key="0" />, <b key="1" />]}
               />

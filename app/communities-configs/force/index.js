@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://forcecommunity.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'force_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,14 +166,15 @@ export const customSubHeaderConfig = {
 };
 
 export const ForceStyles = {
+  name: 'force',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/force/Group.svg',
-  favicon: 'https://images.peeranha.io/communities/force/Vector.ico',
-
   colors: {
+    appWindowsColor: '#ffc40d',
+    appSafarieColor: '#000000',
     mainSubHeaderBgColor: '#FFF',
     mainBackground: 'rgba(27,32,48,0.02)',
     linkColor: '#251E67',
@@ -203,14 +199,6 @@ export const ForceStyles = {
     textColor: '#251E67',
     textColorShadow: '#251E67',
     commHeadElemColor: '#251E67',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: '#2A2460',

@@ -3,19 +3,12 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import {
-  singleCommunityStyles,
-  singleCommunityColors,
-} from 'utils/communityManagement';
+import { singleCommunityStyles, singleCommunityColors } from 'utils/communityManagement';
 import isEmpty from 'lodash/isEmpty';
 import { POST_TYPE } from './constants';
 import { showPopover } from 'utils/popover';
 
-import {
-  BORDER_SECONDARY,
-  BORDER_PRIMARY_RGB,
-  BORDER_RADIUS_M,
-} from 'style-constants';
+import { BORDER_SECONDARY, BORDER_PRIMARY_RGB, BORDER_RADIUS_M } from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
 import { Styles } from 'components/Input/InputStyled';
@@ -88,12 +81,9 @@ const Button = B.extend`
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
   border-color: ${({ type, value }) =>
-    Number(type) === value &&
-    (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
+    Number(type) === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
   box-shadow: ${({ type, value }) =>
-    Number(type) === value
-      ? `0 0 0 3px ${colors.textColorShadow || customShadow}`
-      : 'none'};
+    Number(type) === value ? `0 0 0 3px ${colors.textColorShadow || customShadow}` : 'none'};
   z-index: ${({ type, value }) => (Number(type) === value ? 1 : 0)};
   &:hover {
     box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
@@ -122,7 +112,7 @@ const QuestionTypeField = ({
   postAnswers,
 }) => {
   const { t } = useTranslation();
-  const [type, setType] = useState();
+  const [type, setType] = useState(postType);
 
   useEffect(() => {
     if (postType) {
@@ -131,19 +121,19 @@ const QuestionTypeField = ({
   }, []);
 
   function chooseQuestionType(event) {
-    const { value } = event.currentTarget;
+    const { value, dataset } = event.currentTarget;
     event.preventDefault();
-    input.onChange(value);
-    setType(value);
+    if (!dataset.trigger) {
+      input.onChange(value);
+      setType(value);
+    }
   }
 
   function showMessage(e) {
     e.preventDefault();
     showPopover(
       e.currentTarget.id,
-      isHasRole || isCommunityModerator
-        ? t('post.warningForAdmin')
-        : t('post.warningForUser'),
+      isHasRole || isCommunityModerator ? t('post.warningForAdmin') : t('post.warningForUser'),
     );
   }
   // Don't show FAQ post type unless user isn't community moderator
@@ -174,8 +164,9 @@ const QuestionTypeField = ({
               value={questionType.value}
               currentValue={input.value}
               key={questionType.label}
-              disabled={disabled || questionType.isDisabled}
+              disabled={disabled}
               onMouseOver={questionType.isDisabled && showMessage}
+              block={questionType.isDisabled}
             >
               {t(questionType.label)}
             </Button>

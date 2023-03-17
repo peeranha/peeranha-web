@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://mintstatelabs.com/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'mintstatelabs_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,16 +166,17 @@ export const customSubHeaderConfig = {
 };
 
 export const MintStateLabsStyles = {
+  name: 'mintStateLabs',
   documentationPosition: 'top',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/mintStateLabs/mintStateLabsIcon.svg',
-  favicon: 'https://images.peeranha.io/communities/mintStateLabs/MSLLogo.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/mintStateLabs/mintStateLabsIcon.svg',
 
   colors: {
+    appWindowsColor: '#2d89ef',
+    appSafarieColor: '#5bbad5',
     mainSubHeaderBgColor: '#282828',
     mainBackground: '#F5F5F5',
     linkColor: '#53A6EC',
@@ -204,15 +200,6 @@ export const MintStateLabsStyles = {
     textColor: '#53A6EC',
     textColorShadow: '#53A6EC',
     commHeadElemColor: '#FFF',
-    darkBlue: '#1a1c20',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: '#53A6EC',
