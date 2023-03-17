@@ -460,7 +460,7 @@ class EthereumService {
           domain: 'peeranha.io',
           web3tokenversion: '1',
           statement:
-            'I allow Peeranha to sign transactions on your behalf for 30 days.',
+            'I allow Peeranha to sign transactions on my behalf for 30 days.',
           expires_in: '30d',
         },
       );
