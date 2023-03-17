@@ -30,6 +30,7 @@ export const Dropdown = ({
   isArrowed,
   isMenuLabelMobile,
   isArrowMarginMobile,
+  disabled = false,
 }) => (
   <DropdownStyled
     className={`dropdown ${className}`}
@@ -45,6 +46,7 @@ export const Dropdown = ({
       aria-expanded="false"
       data-icon="arrow"
       css={css`color: ${colors.localeArrowColor} : "" `}
+      disabled={disabled}
     >
       {button}
 

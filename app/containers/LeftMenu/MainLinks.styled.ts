@@ -43,14 +43,23 @@ export const styles = {
 
   dropdownMenuItem: {
     color: 'black',
-    padding: '12px 16px',
+    fontSize: '14px',
+    padding: '16px',
     textDecoration: 'none',
-    display: 'block',
+    textTransform: 'initial',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    cursor: 'pointer',
+    maxWidth: '310px',
+
     ':hover': {
       boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
-      background: 'rgba(255, 255, 255, 0.05)',
-      border: '1px solid #7699FF',
+      background: 'rgba(123, 123, 123, 0.1);',
       borderRadius: '5px',
+    },
+    svg: {
+      marginRight: '8px',
     },
   },
 };

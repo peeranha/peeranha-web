@@ -6,7 +6,7 @@ import { styles } from 'containers/LeftMenu/MainLinks.styled';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
 import ItemMenu from './ItemMenu';
 
-import Dropdown from 'common-components/Dropdown';
+import Dropdown from 'components/Dropdown';
 import AddCommentIcon from 'icons/AddComment';
 import EditIcon from 'icons/Edit';
 import PlusIcon from 'icons/Plus';
@@ -43,42 +43,6 @@ type DocumentationMenuSectionProps = {
 
 const documentationPosition = singleCommunityDocumentationPosition();
 const colors = singleCommunityColors();
-const EditDocumentation = [
-  {
-    label: 'common.editDocumentation',
-    value: 1,
-    icon: (
-      <EditIcon
-        stroke={documentationColors.linkColor}
-        fill={documentationColors.iconsFillColor}
-      />
-    ),
-  },
-];
-
-const DropdownDocumentation = [
-  {
-    label: 'common.addNewArticle',
-    value: 2,
-    icon: (
-      <PlusIcon
-        stroke={documentationColors.linkColor}
-        fill={documentationColors.iconsFillColor}
-      />
-    ),
-  },
-  {
-    label: 'common.editOrder',
-    value: 3,
-    icon: (
-      <EditIcon
-        stroke={documentationColors.linkColor}
-        fill={documentationColors.iconsFillColor}
-      />
-    ),
-  },
-];
-
 const DOCUMENTATION_ID = '1';
 
 const Documentation: React.FC<DocumentationMenuSectionProps> = ({
@@ -99,7 +63,9 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   pinned,
 }) => {
   const { t } = useTranslation();
-  const clickDocumentation = () => (value: number) => {
+  const clickDocumentation = () => (event: React.MouseEvent) => {
+    const value = Number(event.currentTarget.getAttribute('value'));
+
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
       toggleEditDocumentation();
     }
@@ -116,6 +82,40 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
       editOrder();
     }
   };
+
+  const options = [
+    {
+      label: t('common.editDocumentation'),
+      value: 1,
+      icon: (
+        <EditIcon
+          stroke={documentationColors.linkColor}
+          fill={documentationColors.iconsFillColor}
+        />
+      ),
+    },
+    {
+      label: t('common.addNewArticle'),
+      value: 2,
+      icon: (
+        <PlusIcon
+          stroke={documentationColors.linkColor}
+          fill={documentationColors.iconsFillColor}
+        />
+      ),
+    },
+    {
+      label: t('common.editOrder'),
+      value: 3,
+      icon: (
+        <EditIcon
+          css={{ fill: 'rgba(118, 153, 255, 0.2)' }}
+          stroke={documentationColors.linkColor}
+          fill={documentationColors.iconsFillColor}
+        />
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -139,17 +139,25 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
         {Boolean(isModeratorModeSingleCommunity) && (
           <div className="dropdown-documentation db mr4">
             <Dropdown
-              trigger={
+              id="documentation_dropdown_id"
+              button={
                 <AddCommentIcon
                   css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }}
                 />
               }
-              options={
-                isEditDocumentation ? DropdownDocumentation : EditDocumentation
-              }
-              isMultiple={false}
-              isEqualWidth={false}
-              onSelect={clickDocumentation()}
+              menu={options.map(
+                (item, index) =>
+                  (isEditDocumentation ? index !== 0 : index == 0) && (
+                    <div
+                      value={item.value}
+                      css={css(styles.dropdownMenuItem)}
+                      onClick={clickDocumentation()}
+                    >
+                      {item.icon}
+                      <div>{item.label}</div>
+                    </div>
+                  ),
+              )}
             />
           </div>
         )}
