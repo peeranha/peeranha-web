@@ -4,4 +4,7 @@
   "weAreSorry": "Chúng tôi xin lỗi, lỗi không mong muốn đã xảy ra.",
   "accountDoesNotExist": "Tài khoản không tồn tại",
   "cannotTransferToSelf": "Không thể chuyển cho chính mình"
+  "weUpdatedTheApplication": "Chúng tôi đã cập nhật ứng dụng. ",
+  "clearYourBrowser": "Xóa bộ nhớ cache của trình duyệt để khởi động lại. ",
+  "holdDown": "Giữ <0>{{ctrl}}</0> và nhấn <1>{{f5}}</1>. "
 }

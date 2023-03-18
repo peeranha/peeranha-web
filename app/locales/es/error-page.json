@@ -3,5 +3,8 @@
   "description": "Ocurrió algún error... descripción",
   "weAreSorry": "Lo sentimos, ha ocurrido un error inesperado.",
   "accountDoesNotExist": "La cuenta no existe",
-  "cannotTransferToSelf": "No puedes transferirte a ti mismo"
+  "cannotTransferToSelf": "No puedes transferirte a ti mismo",
+  "weUpdatedTheApplication": "Hemos actualizado la aplicación. ",
+  "clearYourBrowser": "Borre la memoria caché de su navegador para reiniciarlo. ",
+  "holdDown": "Mantenga presionada la tecla <0>{{ctrl}}</0> y presione <1>{{f5}}</1>. "
 }

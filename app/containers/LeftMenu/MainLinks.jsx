@@ -40,7 +40,6 @@ import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
-import faqIcon from 'images/faq.svg?external';
 import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
@@ -183,8 +182,7 @@ const MainLinks = ({
     : false;
 
   const isAdministratorModeSingleCommunity = singleCommId
-    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
-      isProtocolAdmin
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) || isProtocolAdmin
     : false;
 
   if (!route) {
@@ -227,9 +225,7 @@ const MainLinks = ({
               >
                 <span
                   css={{
-                    borderRight: isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderRight: isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                     paddingRight: '10px',
                   }}
                 >
@@ -237,9 +233,7 @@ const MainLinks = ({
                 </span>
                 <span
                   css={{
-                    borderLeft: !isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderLeft: !isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                   }}
                 >
                   <PinIcon
@@ -316,13 +310,6 @@ const MainLinks = ({
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
             {t(`common.users`)}
-          </A1>
-        )}
-
-        {!singleCommId && (
-          <A1 to={routes.faq()} name="faq" route={route}>
-            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-            {t('common.faq')}
           </A1>
         )}
 

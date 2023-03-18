@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import {
-  DocumentationSection,
-  DocumentationItemMenuType,
-} from 'pages/Documentation/types';
+import { DocumentationSection, DocumentationItemMenuType } from 'pages/Documentation/types';
 import ArrowDownIcon from 'icons/ArrowDown';
 import Dropdown from 'common-components/Dropdown';
 import AddSubArticleIcon from 'icons/AddSubArticle';
@@ -16,10 +13,7 @@ import AddCommentIcon from 'icons/AddComment';
 import Link from './Link';
 import Item from './Item';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
-import {
-  singleCommunityColors,
-  singleCommunityDocumentation,
-} from 'utils/communityManagement';
+import { singleCommunityColors, singleCommunityDocumentation } from 'utils/communityManagement';
 import { isEditableChildItem } from 'components/Documentation/helpers';
 
 type DocumentationMenuProps = {
@@ -32,11 +26,7 @@ type DocumentationMenuProps = {
   isMenu?: boolean;
   setEditDocumentation?: (id: string, parentId: string) => void;
   parentId: string;
-  setEditArticle?: (data: {
-    id: string;
-    parentId: string;
-    isEditArticle: boolean;
-  }) => void;
+  setEditArticle?: (data: { id: string; parentId: string; isEditArticle: boolean }) => void;
   setViewArticle?: (id: string) => void;
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
   removeArticle?: (id: string) => void;
@@ -116,10 +106,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   };
 
   const onClickArticle = () => {
-    if (
-      typeof setViewArticle === 'function' &&
-      typeof setEditArticle === 'function'
-    ) {
+    if (typeof setViewArticle === 'function' && typeof setEditArticle === 'function') {
       setViewArticle(item.id);
       setEditArticle({
         id: item.id,
@@ -189,14 +176,10 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               }}
             >
               <Dropdown
-                trigger={
-                  <AddCommentIcon
-                    css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }}
-                  />
-                }
+                trigger={<AddCommentIcon css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }} />}
                 options={[
                   {
-                    label: 'Add a new sub-article',
+                    label: 'common.addNewSubArticle',
                     value: 1,
                     icon: (
                       <AddSubArticleIcon
@@ -206,7 +189,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     ),
                   },
                   {
-                    label: 'Edit content',
+                    label: 'common.editContent',
                     value: 2,
                     icon: (
                       <EditIcon
@@ -216,7 +199,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     ),
                   },
                   {
-                    label: pinned === item.id ? 'Unpin' : 'Pin',
+                    label: pinned === item.id ? 'common.unpin' : 'common.pin',
                     value: 3,
                     icon: (
                       <PinIcon
@@ -227,7 +210,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     ),
                   },
                   {
-                    label: 'Delete',
+                    label: 'common.delete',
                     value: 4,
                     icon: (
                       <DeleteIcon

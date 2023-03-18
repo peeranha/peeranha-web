@@ -22,6 +22,8 @@
   "onlyOneDotValue": "值必须只包含一个点",
   "notAbleChangeAfterCreation": "创建后将无法更改",
   "exactFromAndToAccounts": "发送者和接收者不能相同",
+  "hasToBeMoreThanPrev": "您不能设置较低的值",
   "valueIsNotPositiveInteger": "值不是正整数",
-  "wrongAddressFormat": "钱包地址无效"
+  "requiredMinReputation": "你在这个社区的声誉是负面的，你不能创建新帖子。",
+  "wrongAddressFormat": "值不是以太坊地址"
 }

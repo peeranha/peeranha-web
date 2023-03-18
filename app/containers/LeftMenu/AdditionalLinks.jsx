@@ -4,10 +4,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
@@ -23,6 +20,7 @@ import A, { ADefault } from 'components/A';
 import ChangeLocale from 'containers/ChangeLocale';
 import Span from 'components/Span/index';
 import { Li } from 'containers/ChangeLocale/Styled';
+import { DOCUMENTATION_ABOUT_LINK } from 'app/constants/documentation';
 import { FULL_SIZE, INFO_LINKS, SEMI_SIZE } from './constants';
 
 const styles = singleCommunityStyles();
@@ -57,8 +55,7 @@ const FooterStyled = styled.footer`
   font-size: 12px;
   margin: ${({ currClientHeight }) => {
     if (styles.withoutAdditionalLinks) return '0 0';
-    if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
-      return '10px 0 0';
+    if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any) return '10px 0 0';
     return '30px 0 0 0';
   }};
 
@@ -178,102 +175,94 @@ InfoLinksDropDown.propTypes = {
   withTitle: PropTypes.bool,
 };
 
-const AdditionalLinksComponent = ({
-  currClientHeight,
-  changeLocale,
-  locale,
-}) => {
+const AdditionalLinksComponent = ({ currClientHeight, changeLocale, locale, isMenuVisible }) => {
   const { t } = useTranslation();
   const isDesktop = useMediaQuery('(min-width: 992px)');
-  const basicCondition =
-    !styles.withoutAdditionalLinks && !isMobile(window.navigator).any;
+  const basicCondition = !styles.withoutAdditionalLinks && !isMobile(window.navigator).any;
 
   const fullSize = currClientHeight > SEMI_SIZE;
-  const middleSize =
-    currClientHeight <= FULL_SIZE && currClientHeight > SEMI_SIZE;
+  const middleSize = currClientHeight <= FULL_SIZE && currClientHeight > SEMI_SIZE;
   const smallSize = currClientHeight <= SEMI_SIZE;
 
   return (
-    <AdditionalLinks>
-      {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
-        (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
-        <>
-          {INFO_LINKS.map((el) => (
-            <Link path={el.route} key={el.route} message={el.title} />
-          ))}{' '}
-        </>
-      )}
-
-      {middleSize && basicCondition && process.env.ENV !== 'prod' && (
-        <InfoLinksDropDown withTitle />
-      )}
-
-      {!isDesktop && (
-        <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
-      )}
-
-      {smallSize && basicCondition && (
-        <FlexibleDiv>
-          <InfoLinksDropDown />
-          {process.env.ENV !== 'prod' && (
-            <ChangeLocale changeLocale={changeLocale} locale={locale} />
+    <>
+      {isMenuVisible && (
+        <AdditionalLinks>
+          {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
+            (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
+            <>
+              {INFO_LINKS.map((el) => (
+                <Link path={el.route} key={el.route} message={el.title} />
+              ))}
+              {!single && (
+                <ADefault href={DOCUMENTATION_ABOUT_LINK} target="_blank">
+                  {t('common.documentation')}
+                </ADefault>
+              )}{' '}
+            </>
           )}
-        </FlexibleDiv>
-      )}
 
-      <FooterStyled currClientHeight={currClientHeight}>
-        {!single && (
-          <div>
-            {t('common.copyrightPeeranha', { year: new Date().getFullYear() })}
-          </div>
-        )}
+          {middleSize && basicCondition && process.env.ENV !== 'prod' && (
+            <InfoLinksDropDown withTitle />
+          )}
 
-        {!!single && (
-          <div className="mt-2">
-            {Boolean(single) && (
-              <a
-                className="d-flex align-content-center"
-                href={process.env.APP_LOCATION}
-              >
-                <Trans
-                  i18nKey="common.poweredBy"
-                  values={{ year: new Date().getFullYear() }}
-                  components={[
-                    <Img
-                      key="peeranha"
-                      src={styles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
-                      alt="peeranha"
-                    />,
-                  ]}
-                />
-              </a>
+          {!isDesktop && <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />}
+
+          {smallSize && basicCondition && (
+            <FlexibleDiv>
+              <InfoLinksDropDown />
+              {process.env.ENV !== 'prod' && (
+                <ChangeLocale changeLocale={changeLocale} locale={locale} />
+              )}
+            </FlexibleDiv>
+          )}
+
+          <FooterStyled currClientHeight={currClientHeight}>
+            {!single && (
+              <div>
+                {t('common.copyrightPeeranha', {
+                  year: new Date().getFullYear(),
+                })}
+              </div>
             )}
-          </div>
-        )}
 
-        <DivMention>
-          <Trans
-            i18nKey="common.reCaptchaMention"
-            values={{
-              privacyPolicy: t('common.privacyPolicy'),
-              termsOfService: t('common.termsOfService'),
-            }}
-            components={[
-              <ASimple
-                key="0"
-                href="https://policies.google.com/privacy"
-                target="_blank"
-              />,
-              <ASimple
-                key="1"
-                href="https://policies.google.com/terms"
-                target="_blank"
-              />,
-            ]}
-          />
-        </DivMention>
-      </FooterStyled>
-    </AdditionalLinks>
+            {Boolean(single) && (
+              <div className="mt-2">
+                {Boolean(single) && (
+                  <a className="df aic" href={process.env.APP_LOCATION}>
+                    <Trans
+                      i18nKey="common.poweredBy"
+                      values={{ year: new Date().getFullYear() }}
+                      components={[
+                        <Img
+                          key="peeranha"
+                          src={styles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
+                          alt="peeranha"
+                        />,
+                      ]}
+                    />
+                  </a>
+                )}
+              </div>
+            )}
+
+            <DivMention>
+              <Trans
+                i18nKey="common.reCaptchaMention"
+                values={{
+                  privacyPolicy: t('common.privacyPolicy'),
+                  termsOfService: t('common.termsOfService'),
+                }}
+                components={[
+                  <ASimple key="0" href="https://policies.google.com/privacy" target="_blank" />,
+                  <ASimple key="1" href="https://policies.google.com/terms" target="_blank" />,
+                ]}
+              />
+            </DivMention>
+          </FooterStyled>
+        </AdditionalLinks>
+      )}
+    </>
   );
 };
 

@@ -5,10 +5,7 @@ import React, { FormEventHandler, useState } from 'react';
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import TextInputField from 'components/FormFields/TextInputField';
-import {
-  required,
-  stringHasToBeEthereumAddress,
-} from 'components/FormFields/validate';
+import { required, stringHasToBeEthereumAddress } from 'components/FormFields/validate';
 import Popup from 'components/common/Popup';
 import {
   ADD_MODERATOR_BUTTON_BUTTON,
@@ -31,9 +28,7 @@ type AddRoleFunction = (
 type AddRoleFormProps = {
   locale: string;
   single?: number;
-  handleSubmit: (
-    addRole: AddRoleFunction,
-  ) => FormEventHandler<HTMLFormElement> | undefined;
+  handleSubmit: (addRole: AddRoleFunction) => FormEventHandler<HTMLFormElement> | undefined;
   addRole: AddRoleFunction;
   moderators: Array<Moderator>;
   Button: React.FC<{ onClick: () => void }>;
@@ -50,14 +45,19 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   const { t } = useTranslation();
   const [isOpen, open, close] = useTrigger(false);
 
-  const [administratorRole, setAdministratorRole] =
-    React.useState<boolean>(false);
+  const [administratorRole, setAdministratorRole] = React.useState<boolean>(false);
   const [moderatorRole, setModeratorRole] = useState<boolean>(false);
   const [roleValidation, setRoleValidation] = useState<boolean | string>(false);
 
-  const setAdministratorRoleHandler = (
-    e: React.FormEvent<HTMLInputElement>,
-  ) => {
+  const clearAndCloseForm = () => {
+    setAdministratorRole(false);
+    setModeratorRole(false);
+    setRoleValidation(false);
+    dispatch(reset('answerForm'));
+    close();
+  };
+
+  const setAdministratorRoleHandler = (e: React.FormEvent<HTMLInputElement>) => {
     setRoleValidation(false);
     setModeratorRole(!e.currentTarget.value);
     setAdministratorRole(e.currentTarget.value);
@@ -69,8 +69,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   };
 
   const isEmptyRoleHandler = () => {
-    if (!administratorRole && !moderatorRole)
-      setRoleValidation(t('administration.EmptyRole'));
+    if (!administratorRole && !moderatorRole) setRoleValidation(t('administration.EmptyRole'));
   };
 
   const addRoleMethod = (values: any) => {
@@ -83,24 +82,20 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
       const communityRoles = getCommunityRoles(single);
 
       const isUserHasRole = moderators.find(
-        (moderator) =>
-          moderator.id === `${walletAddress}-${communityRoles[role]}`,
+        (moderator) => moderator.id === `${walletAddress}-${communityRoles[role]}`,
       );
 
       if (isUserHasRole) {
         setRoleValidation(
           t(
             `administration.${
-              role === 0
-                ? 'alreadyHasAdministratorRole'
-                : 'alreadyHasModeratorRole'
+              role === 0 ? 'alreadyHasAdministratorRole' : 'alreadyHasModeratorRole'
             }`,
           ),
         );
       } else {
         addRole(walletAddress, role, single, Boolean(isUserHasRole));
-        dispatch(reset('answerForm'));
-        close();
+        clearAndCloseForm();
       }
     }
   };
@@ -110,7 +105,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
       <Button onClick={open} />
 
       {isOpen && (
-        <Popup size="tiny" onClose={close}>
+        <Popup size="tiny" onClose={clearAndCloseForm}>
           <h5 className="tc fz24 semi-bold mb24" css={styles.popupTitle}>
             {t('administration.addRole')}
           </h5>
@@ -124,8 +119,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
                 <div
                   css={{
                     ...styles.popupCheckbox,
-                    ...(roleValidation === t('administration.EmptyRole') &&
-                      styles.checkboxError),
+                    ...(roleValidation === t('administration.EmptyRole') && styles.checkboxError),
                   }}
                 >
                   <input
@@ -142,8 +136,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
                 <div
                   css={{
                     ...styles.popupCheckbox,
-                    ...(roleValidation === t('administration.EmptyRole') &&
-                      styles.checkboxError),
+                    ...(roleValidation === t('administration.EmptyRole') && styles.checkboxError),
                   }}
                 >
                   <input
@@ -177,7 +170,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
             />
 
             <div className="df aic mt32">
-              <OutlinedButton className="mr16" onClick={close}>
+              <OutlinedButton className="mr16" onClick={clearAndCloseForm}>
                 {t('administration.cancel')}
               </OutlinedButton>
 
