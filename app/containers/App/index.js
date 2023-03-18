@@ -53,7 +53,6 @@ import saga from 'containers/App/saga';
 import {
   EditCommunity,
   HomePage,
-  Faq,
   Administration,
   Users,
   EditQuestion,
@@ -297,12 +296,6 @@ const App = ({
           <Route
             path={routes.suggestedTags(':communityid')}
             render={(props) => Wrapper(SuggestedTags, props)}
-          />
-
-          <Route
-            exact
-            path={routes.faq()}
-            render={(props) => Wrapper(Faq, props)}
           />
 
           <Route
