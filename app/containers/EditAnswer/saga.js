@@ -5,7 +5,7 @@ import * as routes from 'routes-config';
 
 import { editAnswer, getAnswer, getQuestion } from 'utils/questionsManagement';
 
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import {

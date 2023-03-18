@@ -3,7 +3,5 @@
   "description": "Ocurrió algún error... descripción",
   "weAreSorry": "Lo sentimos, ha ocurrido un error inesperado.",
   "accountDoesNotExist": "La cuenta no existe",
-  "cannotTransferToSelf": "No puedes transferirte a ti mismo",
-  "notEnoughCPU": "CPU insuficiente",
-  "checkScatterConnection": "Comprobar la conexión de la billetera"
+  "cannotTransferToSelf": "No puedes transferirte a ti mismo"
 }

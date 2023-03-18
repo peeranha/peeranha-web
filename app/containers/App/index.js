@@ -40,7 +40,6 @@ import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
   isSingleCommunityWebsite,
-  getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
@@ -53,7 +52,6 @@ import saga from 'containers/App/saga';
 import {
   EditCommunity,
   HomePage,
-  Faq,
   Administration,
   Users,
   EditQuestion,
@@ -68,21 +66,12 @@ import {
   CreateCommunity,
   TagsOfCommunity,
   CreateTag,
-  SuggestedTags,
   EditTag,
   NoAccess,
   Home,
   Feed,
   Communities,
-  SuggestedCommunities,
-  EmailEnteringForm,
-  EmailVerificationForm,
-  WalletsSignUpForm,
-  SignUpViaEmail,
-  RegistrationAlmostDoneWithAccount,
-  RegistrationAlmostDoneNoAccount,
   Login,
-  ForgotPassword,
   Toast,
   Wallet,
   Boost,
@@ -91,7 +80,6 @@ import {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
-  DeleteFacebookData,
   MetaTransactionAgreement,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
@@ -177,8 +165,6 @@ const App = ({
     }
   }, [documentationMenu]);
 
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
   const hasCommunityOrProtocolAdminRole =
     single &&
     (hasGlobalModeratorRole() ||
@@ -192,7 +178,6 @@ const App = ({
         <Toast />
 
         <Login />
-        <ForgotPassword />
 
         <ScrollTo />
         <Popover />
@@ -210,14 +195,6 @@ const App = ({
             path={routes.preloaderPage()}
             render={(props) => Wrapper(FullWidthPreloader, props)}
           />
-
-          {!!isBloggerMode && (
-            <Route
-              exact
-              path={routes.detailsHomePage()}
-              render={(props) => Wrapper(Home, props)}
-            />
-          )}
 
           <Route
             exact
@@ -271,13 +248,6 @@ const App = ({
             render={(props) => Wrapper(EditCommunity, props)}
           />
 
-          {!single && (
-            <Route
-              path={routes.suggestedCommunities()}
-              render={(props) => Wrapper(SuggestedCommunities, props)}
-            />
-          )}
-
           <Route
             exact
             path={routes.communityTags(':communityid')}
@@ -292,17 +262,6 @@ const App = ({
           <Route
             path={routes.editTag(':communityId', ':tagid')}
             render={(props) => Wrapper(EditTag, props)}
-          />
-
-          <Route
-            path={routes.suggestedTags(':communityid')}
-            render={(props) => Wrapper(SuggestedTags, props)}
-          />
-
-          <Route
-            exact
-            path={routes.faq()}
-            render={(props) => Wrapper(Faq, props)}
           />
 
           <Route
@@ -512,42 +471,6 @@ const App = ({
             path={routes.errorPage()}
             render={(props) => Wrapper(ErrorPage, props)}
           />
-
-          <Route path={routes.signup.email.name}>
-            <React.Suspense fallback={<Loader />}>
-              <EmailEnteringForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.emailVerification.name}>
-            <React.Suspense fallback={null}>
-              <EmailVerificationForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.displayName.name}>
-            <React.Suspense fallback={null}>
-              <WalletsSignUpForm />
-            </React.Suspense>
-          </Route>
-
-          <Route exact path={routes.signup.accountSetup.name}>
-            <React.Suspense fallback={null}>
-              <SignUpViaEmail />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneWithAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneWithAccount />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneNoAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneNoAccount />
-            </React.Suspense>
-          </Route>
 
           <Route render={(props) => Wrapper(NotFoundPage, props)} />
         </Switch>

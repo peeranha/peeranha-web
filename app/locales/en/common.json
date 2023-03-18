@@ -194,9 +194,7 @@
   "unsubscribe": "Unsubscribe",
   "followSocialMedia": "Follow us on social media:",
   "standart": "Standart",
-  "blogger": "Blogger",
   "cannotTransferToYourself": "Cannot transfer to yourself",
-  "notEnoughCPUOrRAM": "Not enough CPU or RAM",
   "metaMaskIsLocked": "Please check Metamask connection and try to reload the page",
   "ipfsHashValue": "IPFS",
   "source": "Source",
@@ -210,7 +208,6 @@
   "help": "Help",
   "didntFindAnswer": "Didn’t find the answer?",
   "freeFeelToAsk": "Feel free to ask our team.  We will help to find the answer.",
-  "voteForNewCommunities": "Vote for new communities",
   "globalModerator": "Global moderator",
   "verifyFacebookAccount": "Account verification",
   "facebookButton": "Facebook",
@@ -279,8 +276,6 @@
   "questionIsPromoting": "Promoted till",
   "postTypeSelectionError": "You need to select post type",
   "leaveWithoutChanges": "You are about to leave the page without saving your changes. Are you sure want to continue?",
-  "titleSuggestedCommunities": "Suggested communities",
-  "descriptionSuggestedCommunities": "Suggested communities | Description",
   "votingForNewComm": "Vote for new community",
   "whyWeeNeedIt": "Why do we need it?",
   "putReturnsBetweenParagraphs": "markdown is supported",
@@ -313,10 +308,7 @@
   "titleCommunities": "Communities",
   "descriptionCommunities": "Communities | Description",
   "suggestCommunity": "Create community",
-  "deleteAccount": "Delete account",
   "areYouLeaving": "Are you leaving?",
-  "iUnderstand": "I understand that this operation does not remove my account on Telos blockchain. Account is removed only from wallet service.",
-  "iHaveBackup": "I have back up for my Telos private keys.",
   "faqPage": {
     "title": "FAQ",
     "description": "FAQ: description",
@@ -390,7 +382,6 @@
     "description": "Users: description"
   },
   "existingCommunities": {
-    "voteForNewCommunities": "Vote for new communities",
     "singleCommunityTooltip": "This community has Q&A website on another domain"
   },
   "ratingStatus": {

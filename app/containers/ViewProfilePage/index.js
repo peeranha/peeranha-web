@@ -40,16 +40,12 @@ import {
   selectQuestionsLoading as selectQuestionsWithAnswersLoading,
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
-import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
-import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 import { getUserName } from 'utils/user';
-import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
 
 import saga from '../QuestionsWithAnswersOfUser/saga';
 
 import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
 import questionsOfUserReducer from '../QuestionsOfUser/reducer';
-import telegramAccountActionReducer from '../TelegramAccountAction/reducer';
 import { selectUserAchievements } from '../Achievements/selectors';
 import {
   getAllAchievements,
@@ -75,7 +71,6 @@ const ViewProfilePage = ({
   activeKey,
   ownerKey,
   redirectToEditProfilePageDispatch,
-  userTgData,
   stat,
   userAchievements,
   getAllAchievementsDispatch,
@@ -130,7 +125,6 @@ const ViewProfilePage = ({
         account={account}
         user={profile?.user ?? null}
         isAvailable={profile && account === profile.user}
-        tgData={userTgData}
       />
 
       {path === routes.userNotifications(userId) && (
@@ -197,7 +191,6 @@ ViewProfilePage.propTypes = {
   questionsLoading: PropTypes.bool,
   questionsWithAnswersLoading: PropTypes.bool,
   redirectToEditProfilePageDispatch: PropTypes.func,
-  userTgData: PropTypes.object,
   stat: PropTypes.object,
   userAchievements: PropTypes.array,
 };
@@ -213,9 +206,6 @@ const withConnect = connect(
     questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
     questionsLoading: selectQuestionsLoading(),
     questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
-    activeKey: selectActiveKey(),
-    ownerKey: selectOwnerKey(),
-    userTgData: selectGetUserTgData(),
     stat: selectStat(),
     userAchievements: selectUserAchievements(),
   }),
@@ -243,10 +233,6 @@ const withConnect = connect(
   }),
 );
 
-const withTelegramAccountActionReducer = injectReducer({
-  key: 'questionsOfUser',
-  reducer: telegramAccountActionReducer,
-});
 const withQuestionsWithAnswersReducer = injectReducer({
   key: 'questionsOfUser',
   reducer: questionsWithAnswersOfUserReducer,
@@ -270,7 +256,6 @@ const withSaga = injectSaga({ key: 'questionsOfUser', saga, mode: DAEMON });
 export default compose(
   withQuestionsWithAnswersReducer,
   withQuestionsReducer,
-  withTelegramAccountActionReducer,
   withAchievementsReducer,
   withAchievementsSaga,
   withSaga,

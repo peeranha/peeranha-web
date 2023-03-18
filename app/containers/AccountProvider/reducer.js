@@ -29,7 +29,6 @@ export const initialState = fromJS({
   authToken: null,
   passwordUserPart: null,
   encryptedKeys: null,
-  hasOwnerEosKey: false,
   loginWithMetaMask: false,
 });
 
@@ -47,7 +46,6 @@ function accountProviderReducer(state = initialState, action) {
     authToken,
     passwordUserPart,
     encryptedKeys,
-    hasOwnerEosKey,
     loginWithMetaMask,
   } = action;
 
@@ -83,7 +81,6 @@ function accountProviderReducer(state = initialState, action) {
         .set('account', account || state.get('account'))
         .set('passwordUserPart', passwordUserPart)
         .set('encryptedKeys', encryptedKeys)
-        .set('hasOwnerEosKey', hasOwnerEosKey)
         .set('loginWithMetaMask', loginWithMetaMask);
     case REMOVE_LOGIN_DATA:
       return state
@@ -91,7 +88,6 @@ function accountProviderReducer(state = initialState, action) {
         .set('authToken', null)
         .set('passwordUserPart', null)
         .set('encryptedKeys', null)
-        .set('hasOwnerEosKey', null)
         .set('loginWithMetaMask', null);
 
     case CHANGE_STAKED_IN_NEXT_PERIOD:

@@ -84,18 +84,6 @@ const Link = styled.a`
   }
 `;
 
-const Italic = styled.span`
-  width: max-content;
-  font-style: italic;
-  margin-right: 6px;
-`;
-
-const Bold = styled.span`
-  width: max-content;
-  font-weight: 600;
-  margin-left: 6px;
-`;
-
 const messagesArray = [
   'common.putReturnsBetweenParagraphs',
   'common.addForLineBreaks',

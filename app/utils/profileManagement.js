@@ -155,12 +155,6 @@ export const getNotificationsInfo = async (user) => {
   return response.OK ? response.body : { all: 0, unread: 0 };
 };
 
-export async function getUserTelegramData(eosService, userName) {}
-
-export async function confirmTelegramAccount(eosService, user) {}
-
-export async function unlinkTelegramAccount(eosService, user) {}
-
 export const getAvailableBalance = (profile) => {
   const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;
   const stakedInNextPeriod = profile?.stakedInNextPeriod ?? 0;

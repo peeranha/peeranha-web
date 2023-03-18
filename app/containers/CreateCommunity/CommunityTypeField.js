@@ -14,16 +14,12 @@ import {
   BORDER_RADIUS_M,
 } from 'style-constants';
 
-import { STANDART_TYPE, BLOGGER_TYPE } from './constants';
+import { STANDART_TYPE } from './constants';
 
 export const COMMUNITY_TYPES = {
   STANDART: {
     value: STANDART_TYPE,
     label: 'common.standart',
-  },
-  BLOGGER: {
-    value: BLOGGER_TYPE,
-    label: 'common.blogger',
   },
 };
 

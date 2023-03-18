@@ -227,7 +227,6 @@ Menu.propTypes = {
   profileInfo: PropTypes.object,
   questionsLength: PropTypes.number,
   questionsWithUserAnswersLength: PropTypes.number,
-  loginWithScatter: PropTypes.bool,
 };
 
 B.propTypes = {

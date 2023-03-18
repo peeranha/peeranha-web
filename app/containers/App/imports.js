@@ -1,20 +1,11 @@
 import React from 'react';
 
 import Toast from 'containers/Toast';
-import EmailEnteringForm from 'containers/SignUp/EmailEnteringForm';
-import EmailVerificationForm from 'containers/SignUp/EmailVerificationForm';
-import EthereumWalletGenerationForm from 'containers/SignUp/EthereumWalletGenerationForm';
-import SignUpViaEmail from 'containers/SignUp/SignUpViaEmail';
-import WalletsSignUpForm from 'containers/SignUp/WalletsSignUpForm';
-import RegistrationAlmostDoneWithAccount from 'components/SignUpWrapper/AlmostDoneWithAccount';
-import RegistrationAlmostDoneNoAccount from 'components/SignUpWrapper/AlmostDoneNoAccount';
 import Login from 'containers/Login';
 import MetaTransactionAgreement from 'containers/MetaTransactionAgreement';
-import ForgotPassword from 'containers/ForgotPassword';
 
 const HomePage = React.lazy(() => import('pages/HomePage'));
 const EditCommunity = React.lazy(() => import('containers/EditCommunity'));
-const Faq = React.lazy(() => import('containers/Faq'));
 const Administration = React.lazy(() => import('containers/Administration'));
 const Tutorial = React.lazy(() => import('containers/Tutorial'));
 const TermsOfService = React.lazy(() => import('containers/TermsOfService'));
@@ -31,7 +22,6 @@ const EditAnswer = React.lazy(() => import('containers/EditAnswer'));
 const CreateCommunity = React.lazy(() => import('containers/CreateCommunity'));
 const TagsOfCommunity = React.lazy(() => import('containers/TagsOfCommunity'));
 const CreateTag = React.lazy(() => import('containers/CreateTag'));
-const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
 const EditTag = React.lazy(() => import('containers/EditTag'));
 const Wallet = React.lazy(() => import('containers/Wallet'));
 const Boost = React.lazy(() => import('containers/Boost'));
@@ -46,14 +36,10 @@ const Communities = React.lazy(() => import('components/ExistingCommunities'));
 const FullWidthPreloader = React.lazy(() =>
   import('components/LoadingIndicator/FullWidthPreloader'),
 );
-const SuggestedCommunities = React.lazy(() =>
-  import('components/SuggestedCommunities'),
-);
 
 export {
   EditCommunity,
   HomePage,
-  Faq,
   Administration,
   Tutorial,
   Users,
@@ -69,22 +55,12 @@ export {
   CreateCommunity,
   TagsOfCommunity,
   CreateTag,
-  SuggestedTags,
   EditTag,
   NoAccess,
   Home,
   Feed,
   Communities,
-  SuggestedCommunities,
-  EmailEnteringForm,
-  EmailVerificationForm,
-  EthereumWalletGenerationForm,
-  SignUpViaEmail,
-  WalletsSignUpForm,
-  RegistrationAlmostDoneWithAccount,
-  RegistrationAlmostDoneNoAccount,
   Login,
-  ForgotPassword,
   Toast,
   Wallet,
   Boost,

@@ -148,10 +148,6 @@ const QuestionTypeField = ({
         : t('post.warningForUser'),
     );
   }
-  // Don't show FAQ post type unless user isn't community moderator
-  // const types = isCommunityModerator
-  //   ? Object.values(QUESTION_TYPES)
-  //   : Object.values(QUESTION_TYPES).slice(0, 3);
 
   const types = Object.values(QUESTION_TYPES).slice(0, 3);
   types[2].isDisabled = !isEmpty(postAnswers);

@@ -24,7 +24,7 @@ import {
 } from 'components/QuestionForm/constants';
 
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 import {
@@ -137,24 +137,6 @@ export function* postQuestionWorker({ val }) {
         ethereumService,
       );
     }
-
-    // if (val[FORM_BOUNTY] && Number(val[FORM_BOUNTY]) > 0) {
-    //   const now = Math.round(new Date().valueOf() / 1000);
-    //   const bountyTime = now + questionData.bountyHours * ONE_HOUR_IN_SECONDS;
-    //
-    //   yield call(
-    //     setBounty,
-    //     selectedAccount,
-    //     questionData.bountyFull,
-    //     questionsPostedByUser[0].question_id,
-    //     bountyTime,
-    //     eosService,
-    //   );
-    // }
-
-    // if (promoteValue) {
-    //   yield call(promoteQuestion, eosService, selectedAccount, que stionsPostedByUser[0].question_id, promoteValue);
-    // }
 
     yield put(askQuestionSuccess(id));
 

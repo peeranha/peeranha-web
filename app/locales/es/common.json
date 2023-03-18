@@ -194,9 +194,7 @@
   "unsubscribe": "Cancelar la suscripción",
   "followSocialMedia": "Síganos en las redes sociales:",
   "standart": "Standart",
-  "blogger": "Blogger",
   "cannotTransferToYourself": "No puede transferirse a sí mismo",
-  "notEnoughCPUOrRAM": "No hay suficiente CPU o RAM",
   "metaMaskIsLocked": "Por favor, compruebe la conexión de Metamask e intente recargar la página",
   "ipfsHashValue": "IPFS",
   "source": "Fuente",
@@ -210,7 +208,6 @@
   "help": "Ayuda",
   "didntFindAnswer": "no encontre la respuesta?",
   "freeFeelToAsk": "No dude en preguntar a nuestro equipo. Ayudaremos a encontrar la respuesta.",
-  "voteForNewCommunities": "Vota por nuevas comunidades",
   "globalModerator": "Moderador global",
   "verifyFacebookAccount": "Verificación de la cuenta",
   "facebookButton": "Facebook",
@@ -279,8 +276,6 @@
   "questionIsPromoting": "Promocionado hasta",
   "postTypeSelectionError": "Debe seleccionar el tipo de publicación",
   "leaveWithoutChanges": "Está a punto de salir de la página sin guardar los cambios. ¿Seguro que quieres continuar?",
-  "titleSuggestedCommunities": "Comunidades sugeridas",
-  "descriptionSuggestedCommunities": "Comunidades sugeridas | Descripción",
   "votingForNewComm": "Vota por la nueva comunidad",
   "whyWeeNeedIt": "Porque lo necesitamos?",
   "putReturnsBetweenParagraphs": "se admite la rebaja",
@@ -312,10 +307,7 @@
   "titleCommunities": "Comunidades",
   "descriptionCommunities": "Comunidades | Descripción",
   "suggestCommunity": "Crear comunidad",
-  "deleteAccount": "Borrar cuenta",
   "areYouLeaving": "Te vas??",
-  "iUnderstand": "Entiendo que esta operación no elimina mi cuenta en Telos blockchain. La cuenta se elimina solo del servicio de billetera.",
-  "iHaveBackup": "Tengo una copia de seguridad de mis claves privadas de Telos.",
   "faqPage": {
     "title": "PMF",
     "description": "PMF: Descripción",
@@ -392,7 +384,6 @@
     "description": "Usuarios: descripción"
   },
   "existingCommunities": {
-    "voteForNewCommunities": "Vota por nuevas comunidades",
     "singleCommunityTooltip": "Esta comunidad tiene un sitio web de preguntas y respuestas en otro dominio"
   },
   "ratingStatus": {

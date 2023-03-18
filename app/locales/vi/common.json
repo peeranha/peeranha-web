@@ -194,9 +194,7 @@
   "unsubscribe": "Hủy đăng ký",
   "followSocialMedia": "Theo dõi chúng tôi trên phương tiện truyền thông xã hội:",
   "standart": "Chuẩn",
-  "blogger": "Người viết blog",
   "cannotTransferToYourself": "Không thể chuyển cho chính mình",
-  "notEnoughCPUOrRAM": "Không đủ CPU hoặc RAM",
   "metaMaskIsLocked": "Vui lòng kiểm tra kết nối Metamask và thử tải lại trang",
   "ipfsHashValue": "IPFS",
   "source": "Nguồn",
@@ -210,7 +208,6 @@
   "help": "Giúp",
   "didntFindAnswer": "Không tìm thấy câu trả lời?",
   "freeFeelToAsk": "Hãy hỏi nhóm của chúng tôi.  Chúng tôi sẽ giúp tìm câu trả lời.",
-  "voteForNewCommunities": "Bình chọn cho các cộng đồng mới",
   "globalModerator": "Người điều hành toàn cầu",
   "verifyFacebookAccount": "Xác minh tài khoản",
   "facebookButton": "Facebook",
@@ -279,8 +276,6 @@
   "questionIsPromoting": "Quảng bá cho đến khi",
   "postTypeSelectionError": "Bạn cần chọn loại bài",
   "leaveWithoutChanges": "Bạn sắp rời khỏi trang mà không lưu các thay đổi của bạn. Bạn có chắc chắn muốn tiếp tục?",
-  "titleSuggestedCommunities": "Cộng đồng đề xuất",
-  "descriptionSuggestedCommunities": "Cộng đồng đề xuất | Sự miêu tả",
   "votingForNewComm": "Bình chọn cho cộng đồng mới",
   "whyWeeNeedIt": "Tại sao chúng ta cần nó?",
   "putReturnsBetweenParagraphs": "đánh dấu được hỗ trợ",
@@ -312,10 +307,7 @@
   "titleCommunities": "Cộng đồng",
   "descriptionCommunities": "Cộng đồng | Sự miêu tả",
   "suggestCommunity": "Tạo cộng đồng",
-  "deleteAccount": "Xóa tài khoản",
   "areYouLeaving": "Bạn đang đi à?",
-  "iUnderstand": "Tôi hiểu rằng thao tác này không xóa tài khoản của tôi trên Telos blockchain. Tài khoản chỉ bị xóa khỏi dịch vụ ví.",
-  "iHaveBackup": "Tôi đã sao lưu các khóa riêng Telos của mình.",
   "faqPage": {
     "title": "FAQ",
     "description": "FAQ: sự miêu tả",
@@ -392,7 +384,6 @@
     "description": "Người dùng: Sự miêu tả"
   },
   "existingCommunities": {
-    "voteForNewCommunities": "Bình chọn cho các cộng đồng mới",
     "singleCommunityTooltip": "Cộng đồng này có trang web Q&A trên một tên miền khác"
   },
   "ratingStatus": {

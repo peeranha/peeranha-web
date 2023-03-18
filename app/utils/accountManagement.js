@@ -1,14 +1,8 @@
 import { getCommunityRole } from 'utils/properties';
 
-import {
-  ACCOUNT_TABLE,
-  ALL_ACCOUNTS_SCOPE,
-  COMMUNITY_ADMIN_ROLE,
-  COMMUNITY_MODERATOR_ROLE,
-} from './constants';
+import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from './constants';
 
 import { ApplicationError } from './errors';
-import { dateNowInSeconds } from './datetime';
 import {
   CONTRACT_USER,
   GIVE_COMMUNITY_ADMIN_PERMISSION,
@@ -94,43 +88,7 @@ export const isUserExists = async (userAddress, ethereumService) => {
 
 export const updateAcc = async (profile, ethereumService) => {
   if (!profile) throw new ApplicationError('No profile');
-
-  const currentTime = dateNowInSeconds();
-  // const currentPeriod = Math.floor(
-  //   (currentTime - profile.creationTime) /
-  //     process.env.ACCOUNT_STAT_RESET_PERIOD,
-  // );
-
-  // const periodsHavePassed = currentPeriod - profile.last_update_period;
-  // const integerProperties = profile?.integer_properties ?? [];
-  // const lastUpdateTime = integerProperties.find(
-  //   prop => prop.key === KEY_LAST_RATING_UPDATE_TIME,
-  // )?.value;
-  // const timeSinceRatingUpdate = currentTime - lastUpdateTime;
-
-  // if (
-  //   periodsHavePassed > 0 ||
-  //   timeSinceRatingUpdate >= process.env.ACCOUNT_STAT_RESET_PERIOD
-  // ) {
-  //   await eosService.sendTransaction(profile.user, UPDATE_ACC, {
-  //     user: profile.user,
-  //   });
-  // } else {
-  //   // throw new ApplicationError('Period is not finished');
-  // }
 };
-
-export const isUserInSystem = async (user, eosService) => {
-  const profile = await eosService.getTableRow(
-    ACCOUNT_TABLE,
-    ALL_ACCOUNTS_SCOPE,
-    user,
-  );
-
-  return Boolean(profile);
-};
-
-export const inviteUser = async (accountName, referralCode, eosService) => {};
 
 export const checkUserURL = (user) => {
   const path = document.location.pathname.split('/');

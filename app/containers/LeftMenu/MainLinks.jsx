@@ -175,7 +175,6 @@ const MainLinks = ({
   let route = pathname.split('/').filter((x) => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
@@ -189,7 +188,7 @@ const MainLinks = ({
     : false;
 
   if (!route) {
-    route = isBloggerMode ? 'home' : '/';
+    route = '/';
   }
 
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
@@ -279,13 +278,6 @@ const MainLinks = ({
           </div>
         )}
 
-        {isBloggerMode && (
-          <A1 to={routes.detailsHomePage()} name="home" route={route}>
-            <IconLg className="mr-2" icon={homeIcon} />
-            {t('common.home')}
-          </A1>
-        )}
-
         <A1 to={routes.feed()} name="feed" route={route}>
           <IconLg className="mr-2" icon={myFeedIcon} />
           {t(`common.${profile && !singleCommId ? 'myFeed' : 'feed'}`)}
@@ -323,7 +315,7 @@ const MainLinks = ({
         {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
-            {t(`common.${isBloggerMode ? 'followers' : 'users'}`)}
+            {t(`common.users`)}
           </A1>
         )}
 

@@ -1,11 +1,9 @@
-import { css } from '@emotion/react';
 import React, { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { TEXT_SECONDARY_LIGHT } from 'style-constants';
 
 import searchIcon from 'images/search.svg?external';
-import closeIcon from 'images/close.svg?external';
 import refreshIcon from 'images/reload.svg?external';
 import eyeOpenedIcon from 'images/eyeOpened.svg?external';
 import eyeClosedIcon from 'images/eyeСlosed.svg?external';

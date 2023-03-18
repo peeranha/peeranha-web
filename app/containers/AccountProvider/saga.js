@@ -3,20 +3,12 @@ import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
 import {
-  convertPeerValueToNumberValue,
   getAvailableBalance,
   getBalance,
   getUserBoost,
 } from 'utils/walletManagement';
-import {
-  isSingleCommunityWebsite,
-  setSingleCommunityDetails,
-} from 'utils/communityManagement';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
-import { addToast } from 'containers/Toast/actions';
 
 import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
 import { redirectToCreateCommunityWorker } from 'containers/CreateCommunity/saga';
@@ -25,14 +17,7 @@ import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
 import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 
-import {
-  ALL_PROPERTY_COMMUNITY_SCOPE,
-  ALL_PROPERTY_COMMUNITY_TABLE,
-  INVITED_USERS_SCOPE,
-  INVITED_USERS_TABLE,
-  MODERATOR_KEY,
-} from 'utils/constants';
-import { SHOW_WALLET_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
+import { MODERATOR_KEY } from 'utils/constants';
 import {
   ASK_QUESTION_SUCCESS,
   REDIRECT_TO_ASK_QUESTION_PAGE,
@@ -53,17 +38,7 @@ import {
   EDIT_QUESTION_SUCCESS,
   REDIRECT_TO_EDIT_QUESTION_PAGE,
 } from 'containers/EditQuestion/constants';
-import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
-import { SEND_TIPS_SUCCESS } from 'containers/SendTips/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
-import {
-  DOWNVOTE_SUCCESS as DOWNVOTE_COMM_SUCCESS,
-  UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
-} from 'containers/VoteForNewCommunityButton/constants';
-import {
-  DOWNVOTE_SUCCESS as DOWNVOTE_TAGS_SUCCESS,
-  UPVOTE_SUCCESS as UPVOTE_TAGS_SUCCESS,
-} from 'containers/VoteForNewTagButton/constants';
 import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
 import {
@@ -101,8 +76,6 @@ import { hasGlobalModeratorRole } from '../../utils/properties';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 import { getCurrentPeriod } from '../../utils/theGraph';
 
-const single = isSingleCommunityWebsite();
-
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function* (initAccount) {
   try {
@@ -110,8 +83,6 @@ export const getCurrentAccountWorker = function* (initAccount) {
 
     if (ethereumService.withMetaMask)
       yield put(addLoginData({ loginWithMetaMask: true }));
-
-    // const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
 
     let account = yield typeof initAccount === 'string'
       ? initAccount
@@ -203,58 +174,6 @@ export function* isAvailableAction(isValid, data = {}) {
   }
 }
 
-export const getReferralInfo = async (user, ethereum) => {
-  const info = await eosService.getTableRow(
-    INVITED_USERS_TABLE,
-    INVITED_USERS_SCOPE,
-    user,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
-  return info;
-};
-
-function* updateRefer(user, ethereum) {
-  const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
-  const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
-
-  if (getCookie(receivedCookieName) || getCookie(noInviterCookieName)) {
-    return;
-  }
-
-  const info = yield call(getReferralInfo, user, ethereum);
-
-  if (info) {
-    const reward = +convertPeerValueToNumberValue(info.common_reward);
-    if (reward) {
-      setCookie({
-        name: receivedCookieName,
-        value: true,
-        options: {
-          allowSubdomains: true,
-          neverExpires: true,
-          defaultPath: true,
-        },
-      });
-      yield put(
-        addToast({
-          type: 'success',
-          text: 'common.receivedReward',
-        }),
-      );
-    }
-  } else {
-    setCookie({
-      name: noInviterCookieName,
-      value: true,
-      options: {
-        allowSubdomains: true,
-        neverExpires: true,
-        defaultPath: true,
-      },
-    });
-  }
-}
-
 export function* updateAccWorker({ ethereum }) {
   try {
     const account = yield call(ethereum.getSelectedAccount);
@@ -267,8 +186,6 @@ export function* updateAccWorker({ ethereum }) {
 
     if (profileInfo) {
       const { user, pay_out_rating } = profileInfo;
-
-      // yield call(updateRefer, user, ethereum);
 
       if (account) {
         const sentCookieName = `${REFERRAL_REWARD_SENT}_${user}`;
@@ -307,32 +224,6 @@ export function* updateAccWorker({ ethereum }) {
   }
 }
 
-export function* getCommunityPropertyWorker(profile) {
-  try {
-    const profileInfo = profile || (yield select(makeSelectProfileInfo()));
-    const eosService = yield select(selectEos);
-
-    if (single) {
-      yield call(setSingleCommunityDetails, eosService);
-    }
-
-    const info = yield call(
-      eosService.getTableRow,
-      ALL_PROPERTY_COMMUNITY_TABLE,
-      ALL_PROPERTY_COMMUNITY_SCOPE,
-      profileInfo.user,
-    );
-
-    yield put(
-      getUserProfileSuccess({
-        ...profile,
-        permissions: info?.properties ?? [],
-      }),
-    );
-    // eslint-disable-next-line no-empty
-  } catch (e) {}
-}
-
 export default function* defaultSaga() {
   yield takeLatest(
     REDIRECT_TO_EDIT_ANSWER_PAGE,
@@ -358,19 +249,12 @@ export default function* defaultSaga() {
   yield takeLatest(
     [
       GET_CURRENT_ACCOUNT,
-      SHOW_WALLET_SIGNUP_FORM_SUCCESS,
       ASK_QUESTION_SUCCESS,
       POST_ANSWER_SUCCESS,
       CREATE_COMMUNITY_SUCCESS,
       SUGGEST_TAG_SUCCESS,
       EDIT_ANSWER_SUCCESS,
       EDIT_QUESTION_SUCCESS,
-      SEND_TOKENS_SUCCESS,
-      SEND_TIPS_SUCCESS,
-      UPVOTE_COMM_SUCCESS,
-      DOWNVOTE_COMM_SUCCESS,
-      UPVOTE_TAGS_SUCCESS,
-      DOWNVOTE_TAGS_SUCCESS,
       PICKUP_REWARD_SUCCESS,
       DELETE_QUESTION_SUCCESS,
       DELETE_ANSWER_SUCCESS,

@@ -42,21 +42,15 @@ export const Tags = ({
   getExistingTagsDispatch,
   profile,
 }) => {
-  useEffect(
-    () => {
-      getExistingTagsDispatch({ communityId });
-    },
-    [communityId],
-  );
+  useEffect(() => {
+    getExistingTagsDispatch({ communityId });
+  }, [communityId]);
 
-  useEffect(
-    () => {
-      if (!communities.length) {
-        getExistingTagsDispatch({ communityId });
-      }
-    },
-    [communities.length],
-  );
+  useEffect(() => {
+    if (!communities.length) {
+      getExistingTagsDispatch({ communityId });
+    }
+  }, [communities.length]);
 
   return (
     <div className="d-flex justify-content-center">
@@ -107,16 +101,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'tags', reducer });
 const withSaga = injectSaga({ key: 'tags', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Tags);
+export default compose(withReducer, withSaga, withConnect)(Tags);
