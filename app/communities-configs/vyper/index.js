@@ -172,6 +172,7 @@ export const VyperStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/vyper/vyperLogo.svg',
+  favicon: 'https://images.peeranha.io/communities/vyper/vyper-favicon.ico',
 
   colors: {
     appWindowsColor: '#dfeeff',
