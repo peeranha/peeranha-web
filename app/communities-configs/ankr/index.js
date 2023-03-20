@@ -171,8 +171,7 @@ export const AnkrStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/ankr/ankrBlueLogo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/ankr/logo.svg',
 
   colors: {
     appMobileColor: '#FFF',

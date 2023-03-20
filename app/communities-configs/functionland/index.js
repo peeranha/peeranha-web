@@ -183,8 +183,7 @@ export const FunctionlandStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/functionland/logo.svg',
   colors: {
     appWindowsColor: '#da532c',
     appSafarieColor: '#86d55b',
