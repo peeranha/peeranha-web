@@ -31,13 +31,12 @@ import {
   transactionInitialised,
   setTransactionList,
 } from './actions';
-import communitiesConfig from '../../communities-config';
 
 const injected = injectedModule();
 const coinbase = coinbaseModule();
 const walletConnect = walletConnectModule();
 const torus = torusModule({
-  buttonPosition: 'bottom-right',
+  showTorusButton: false,
 });
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
