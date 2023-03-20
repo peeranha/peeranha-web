@@ -9,6 +9,7 @@ import { DocumentationItemMenuType } from 'pages/Documentation/types';
 import ButtonPaginationDesktop from './ButtonPaginationDesktop';
 import ButtonPaginationMobile from './ButtonPaginationMobile';
 import { PREV_TYPE_BUTTON, NEXT_TYPE_BUTTON } from './constants';
+import { styled } from './PaginationDocumentation.styled';
 
 type PaginationDocumentationProps = {
   documentationMenu: DocumentationItemMenuType;
@@ -53,11 +54,16 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
     <>
       {isDesktop ? (
         <div
-          className={`df aic ${
-            isStartArticle ? 'jcfe' : isLastArticle ? 'jcfs' : 'jcc'
-          } full-width mb16 mt32 fww`}
+          css={{
+            ...styled.paginationBlock,
+            justifyContent: isStartArticle
+              ? 'flex-end'
+              : isLastArticle
+              ? 'flex-start'
+              : 'center',
+          }}
         >
-          <div className={`${isStartArticle ? 'dn' : null}`}>
+          <div css={isStartArticle && styled.viewBlock}>
             <ButtonPaginationDesktop
               typeButton={PREV_TYPE_BUTTON}
               onClickPaginationArticle={onClickPaginationArticle(
@@ -66,7 +72,7 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
               title={getButtonContent(PREV_TYPE_BUTTON)?.title}
             />
           </div>
-          <div className={`${isLastArticle ? 'dn' : null}`}>
+          <div css={isLastArticle && styled.viewBlock}>
             <ButtonPaginationDesktop
               typeButton={NEXT_TYPE_BUTTON}
               onClickPaginationArticle={onClickPaginationArticle(
