@@ -51,6 +51,8 @@ import {
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
+import { DocumentationItemMenuType } from '../../pages/Documentation/types';
+import _ from 'lodash';
 
 const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
@@ -76,6 +78,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
   const [pinned, setPinned] = useState<string>(pinnedItemMenu.id);
+  const [saveToDraft, setSaveToDraft] = useState<Function>();
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -128,10 +131,14 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   };
 
   const saveDocumentationMenu = () => {
-    updateDocumentationMenuDispatch(documentationMenuDraft);
-    toggleEditDocumentation();
-    document.querySelector('body').classList.remove('scroll-disabled');
-    document.querySelector('body').style = '';
+    saveToDraft().then((draftFromSave: Array<DocumentationItemMenuType>) => {
+      if (_.isEqual(documentationMenu, documentationMenuDraft)) {
+        updateDocumentationMenuDispatch(draftFromSave);
+      } else {
+        updateDocumentationMenuDispatch(documentationMenuDraft);
+      }
+      toggleEditDocumentation();
+    });
   };
 
   const onClickAddArticle = () => {
@@ -240,6 +247,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     setEditArticle={setEditArticleDispatch}
                     setViewArticle={setViewArticleDispatch}
                     updateDraftsIds={saveDraftsIdsDispatch}
+                    setSaveToDraft={setSaveToDraft}
                   />
                 )}
               </>
