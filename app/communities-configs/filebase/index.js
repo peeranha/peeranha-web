@@ -171,8 +171,7 @@ export const FilebaseStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/filebase/filebaselogo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/filebase/logo.svg',
 
   colors: {
     appWindowsColor: '#da532c',
