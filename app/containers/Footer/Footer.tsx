@@ -18,7 +18,7 @@ type FooterLinkType = {
 };
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
-const stylesSingle = singleCommunityStyles();
+const communityStyles = singleCommunityStyles();
 
 const Link: React.FC<FooterLinkType> = ({ path, message, cssStyles }): JSX.Element =>
   document.location.origin === process.env.APP_LOCATION ? (
@@ -65,7 +65,7 @@ const Footer: React.FC = (): JSX.Element => {
                   components={[
                     <img
                       key="peeranha"
-                      src={stylesSingle.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
+                      src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
                       alt="peeranha"
                     />,
                   ]}
