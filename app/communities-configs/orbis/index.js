@@ -171,9 +171,7 @@ export const OrbisStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/orbis/GroupLogo.svg',
-  favicon: 'https://images.peeranha.io/communities/orbis/Orbis-logo.ico',
-
+  signUpPageLogo: 'https://images.peeranha.io/communities/orbis/logo.svg',
   colors: {
     appWindowsColor: '#2b5797',
     appSafarieColor: '#d55bbe',

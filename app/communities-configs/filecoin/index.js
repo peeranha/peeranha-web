@@ -182,7 +182,7 @@ export const FilecoinStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/filecoin/filecoin-logo-last.png',
+  signUpPageLogo: 'https://images.peeranha.io/communities/filecoin/logo.svg',
   logoText: 'Filecoin',
   logoColor: '#000000',
   colors: {
