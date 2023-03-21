@@ -171,7 +171,7 @@ export const ForceStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/force/Group.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/force/logo.svg',
   colors: {
     appWindowsColor: '#ffc40d',
     appSafarieColor: '#000000',

@@ -8,7 +8,6 @@ import {
   domainDocs,
   domainBlog,
 } from 'communities-configs/polygon/urls';
-import favicon from '!file-loader?name=[name].[ext]!images/favicon-polygon.png';
 
 const fonts = 'General Sans, sans-serif;';
 const links = [
@@ -233,14 +232,11 @@ export const PolygonStyles = {
   logoWhite: true,
   withoutAdditionalLinks: true,
   signUpPageLogo:
-    'https://images.peeranha.io/communities/polygon/polygon-logo-login.svg',
-  favicon,
+    'https://images.peeranha.io/communities/polygon/logo-signUp.svg',
   mobileSubHeader: (
     <CustomMobileSubHeader
       config={customSubHeaderConfig}
-      logo={
-        'https://images.peeranha.io/communities/polygon/polygon-university-logo.svg'
-      }
+      logo={'https://images.peeranha.io/communities/polygon/logo.svg'}
     />
   ),
   customSubHeader: <CustomSubHeader config={customSubHeaderConfig} />,

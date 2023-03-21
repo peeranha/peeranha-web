@@ -184,9 +184,7 @@ export const FunctionlandStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
-    'https://images.peeranha.io/communities/functionland/newlogo.png',
-  favicon:
-    'https://images.peeranha.io/communities/functionland/favicon-functionland.ico',
+    'https://images.peeranha.io/communities/functionland/logo.png',
   colors: {
     appWindowsColor: '#da532c',
     appSafarieColor: '#86d55b',

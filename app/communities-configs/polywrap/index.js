@@ -171,8 +171,7 @@ export const PolywrapStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/polywrap/polywrap-horizontal.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/polywrap/logo.svg',
 
   colors: {
     appWindowsColor: '#603cba',

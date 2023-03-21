@@ -171,9 +171,7 @@ export const VyperStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/vyper/vyperLogo.svg',
-  favicon: 'https://images.peeranha.io/communities/vyper/vyper-favicon.ico',
-
+  signUpPageLogo: 'https://images.peeranha.io/communities/vyper/logo.svg',
   colors: {
     appWindowsColor: '#dfeeff',
     appSafarieColor: '#637761',

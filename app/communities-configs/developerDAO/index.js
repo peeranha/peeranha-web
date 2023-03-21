@@ -172,7 +172,7 @@ export const DeveloperDAOStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo:
-    'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
+    'https://images.peeranha.io/communities/communityDAO/logo.svg',
   colors: {
     appWindowsColor: 'rgba(210, 84, 189, 1)',
     appSafarieColor: 'rgba(210, 84, 189, 1)',
