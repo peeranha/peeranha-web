@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+
 import {
   getArticleDocumentation,
   saveMenuDraft,
@@ -33,7 +34,9 @@ import {
   selectDocumentationMenu,
   selectPinnedItemMenu,
 } from 'containers/AppWrapper/selectors';
+
 import Header from './components/Header';
+import Pagination from './components/Pagination';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
 import DraftsMenu from './components/Drafts/Drafts';
@@ -149,6 +152,24 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
     });
   };
 
+  const onClickArticle = (id: string): void => {
+    if (
+      typeof setViewArticleDispatch === 'function' &&
+      typeof setEditArticleDispatch === 'function'
+    ) {
+      setViewArticleDispatch(id);
+      setEditArticleDispatch({
+        id: id,
+        parentId: '1',
+        isEditArticle: false,
+      });
+    }
+  };
+
+  const onClickPaginationArticle = (arrayId: string): void => {
+    onClickArticle(arrayId);
+  };
+
   const discardDrafts = () => {
     toggleEditDocumentation();
     clearSavedDrafts();
@@ -250,6 +271,13 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     setSaveToDraft={setSaveToDraft}
                   />
                 )}
+                <Pagination
+                  documentationMenu={documentationMenu}
+                  id={viewArticleId}
+                  onClickPaginationArticleEditDocumentation={
+                    onClickPaginationArticle
+                  }
+                />
               </>
             )}
           </div>

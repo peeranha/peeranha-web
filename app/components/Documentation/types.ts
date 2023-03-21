@@ -46,3 +46,11 @@ export type DocumentationFormProps = {
   isEditArticle: boolean;
   updateDraftsIds: (ids: Array<string>) => void;
 };
+
+export type ButtonPaginationProps = {
+  typeButton: string;
+  title: string;
+  isStartArticle?: boolean;
+  isLastArticle?: boolean;
+  onClickPaginationArticle: (type: string) => void;
+};
