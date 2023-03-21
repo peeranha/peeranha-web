@@ -1,7 +1,9 @@
+import { TEXT_SECONDARY } from 'style-constants';
+
 export const styles = {
   footer: {
     minHeight: '140px',
-    color: '#7B7B7B',
+    color: TEXT_SECONDARY,
   },
 
   content: {
@@ -52,6 +54,25 @@ export const styles = {
     ':hover': {
       opacity: '0.8',
       color: 'inherit',
+    },
+  },
+  infoPoweredBy: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: TEXT_SECONDARY,
+    fontSize: '12px',
+    ':hover': {
+      color: TEXT_SECONDARY,
+    },
+    img: {
+      width: '60px',
+      height: '15px',
+      marginLeft: '5px',
+      filter: 'grayscale(100%)',
+      ':hover': {
+        filter: 'grayscale(0)',
+      },
     },
   },
 };
