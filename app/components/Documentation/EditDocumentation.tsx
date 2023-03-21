@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+
 import {
   getArticleDocumentation,
   saveMenuDraft,
@@ -33,7 +34,9 @@ import {
   selectDocumentationMenu,
   selectPinnedItemMenu,
 } from 'containers/AppWrapper/selectors';
+
 import Header from './components/Header';
+import Pagination from './components/Pagination';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
 import DraftsMenu from './components/Drafts/Drafts';
@@ -51,6 +54,8 @@ import {
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
+import { DocumentationItemMenuType } from '../../pages/Documentation/types';
+import _ from 'lodash';
 
 const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
@@ -76,6 +81,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
   const [pinned, setPinned] = useState<string>(pinnedItemMenu.id);
+  const [saveToDraft, setSaveToDraft] = useState<Function>();
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -128,10 +134,14 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   };
 
   const saveDocumentationMenu = () => {
-    updateDocumentationMenuDispatch(documentationMenuDraft);
-    toggleEditDocumentation();
-    document.querySelector('body').classList.remove('scroll-disabled');
-    document.querySelector('body').style = '';
+    saveToDraft().then((draftFromSave: Array<DocumentationItemMenuType>) => {
+      if (_.isEqual(documentationMenu, documentationMenuDraft)) {
+        updateDocumentationMenuDispatch(draftFromSave);
+      } else {
+        updateDocumentationMenuDispatch(documentationMenuDraft);
+      }
+      toggleEditDocumentation();
+    });
   };
 
   const onClickAddArticle = () => {
@@ -140,6 +150,24 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
       parentId: '1',
       isEditArticle: true,
     });
+  };
+
+  const onClickArticle = (id: string): void => {
+    if (
+      typeof setViewArticleDispatch === 'function' &&
+      typeof setEditArticleDispatch === 'function'
+    ) {
+      setViewArticleDispatch(id);
+      setEditArticleDispatch({
+        id: id,
+        parentId: '1',
+        isEditArticle: false,
+      });
+    }
+  };
+
+  const onClickPaginationArticle = (arrayId: string): void => {
+    onClickArticle(arrayId);
   };
 
   const discardDrafts = () => {
@@ -240,8 +268,16 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     setEditArticle={setEditArticleDispatch}
                     setViewArticle={setViewArticleDispatch}
                     updateDraftsIds={saveDraftsIdsDispatch}
+                    setSaveToDraft={setSaveToDraft}
                   />
                 )}
+                <Pagination
+                  documentationMenu={documentationMenu}
+                  id={viewArticleId}
+                  onClickPaginationArticleEditDocumentation={
+                    onClickPaginationArticle
+                  }
+                />
               </>
             )}
           </div>
