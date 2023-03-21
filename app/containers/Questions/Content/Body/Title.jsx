@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { languagesEnum } from 'app/i18n';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
@@ -10,12 +11,7 @@ import Bounty from 'containers/ViewQuestion/Bounty';
 import { APP_FONT } from 'style-constants';
 
 import { singleCommunityFonts } from 'utils/communityManagement';
-import styled from 'styled-components';
 import { getPostRoute } from 'routes-config';
-
-const Wrapper = styled.div`
-  margin-right: 30px;
-`;
 
 const fonts = singleCommunityFonts();
 
@@ -35,7 +31,11 @@ const Title = ({
     )?.title || title;
 
   return (
-    <Wrapper className="mb-1">
+    <div
+      css={css`
+        margin: 0 90px 4px 0;
+      `}
+    >
       <Bounty
         bountyMessage={t('common.bountyPopover')}
         className="questionTitle"
@@ -55,7 +55,7 @@ const Title = ({
           {translatedTitle}
         </Span>
       </A>
-    </Wrapper>
+    </div>
   );
 };
 Title.propTypes = {
