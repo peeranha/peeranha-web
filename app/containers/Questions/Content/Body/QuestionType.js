@@ -145,13 +145,14 @@ const QuestionType = ({
                 label={type.label}
                 items={type.items}
                 isSearch={isSearch}
+                width={290}
               />
             )}
             <Icon
               isExpert={type.isExpert}
               isTutorial={type.isTutorial}
               isDocumentation={type.isDocumentation}
-              className="mr-2 ml-4"
+              className={`mr-2 ${!isSearch && 'ml4'}`}
               icon={type.icon}
             />
           </Container>

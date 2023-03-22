@@ -45,13 +45,14 @@ const Base = styled.div`
   }
 `;
 
-const Popover = ({ title, label, items, isSearch, right }) => {
+const Popover = ({ title, label, items, isSearch, right, width }) => {
   const { t } = useTranslation();
 
   return (
     <Base
       css={css`
         ${isSearch && '@media (max-width: 991px) {left: 0px !important;}'}
+        ${width && `width: ${width}px; white-space: normal !important;`}
         right: ${right}px
       `}
     >
@@ -66,6 +67,7 @@ Popover.propTypes = {
   title: PropTypes.string,
   label: PropTypes.string,
   items: PropTypes.string,
+  width: PropTypes.string,
 };
 
 export default memo(Popover);
