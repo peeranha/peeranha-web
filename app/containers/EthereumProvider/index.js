@@ -5,10 +5,7 @@ import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -17,12 +14,7 @@ import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-import {
-  init,
-  useConnectWallet,
-  useSetChain,
-  useWallets,
-} from '@web3-onboard/react';
+import { init, useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
 import injectedModule from '@web3-onboard/injected-wallets';
 import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
@@ -38,13 +30,18 @@ import {
   transactionInPending,
   transactionInitialised,
 } from './actions';
-import communitiesConfig from '../../communities-config';
 
+const networkLabel = process.env.ENV === 'prod' ? 'Polygon' : 'Polygon Testnet';
 const injected = injectedModule();
 const coinbase = coinbaseModule();
 const walletConnect = walletConnectModule();
 const torus = torusModule({
   buttonPosition: 'bottom-right',
+  network: {
+    host: process.env.ETHEREUM_NETWORK,
+    chainId: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
+    networkName: networkLabel,
+  },
 });
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -57,7 +54,7 @@ const initWeb3Onboard = init({
     {
       id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
       token: 'MATIC',
-      label: 'Polygon',
+      label: networkLabel,
       rpcUrl: process.env.ETHEREUM_NETWORK,
     },
   ],
@@ -185,9 +182,7 @@ export const EthereumProvider = ({
     }
   }, []);
 
-  return (
-    <div>{!initializing && ethereum ? children : <LoadingIndicator />}</div>
-  );
+  return <div>{!initializing && ethereum ? children : <LoadingIndicator />}</div>;
 };
 
 EthereumProvider.propTypes = {
@@ -205,19 +200,10 @@ const withConnect = connect(
   (dispatch) => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
     showModalDispatch: bindActionCreators(showModal, dispatch),
-    transactionInPendingDispatch: bindActionCreators(
-      transactionInPending,
-      dispatch,
-    ),
-    transactionCompletedDispatch: bindActionCreators(
-      transactionCompleted,
-      dispatch,
-    ),
+    transactionInPendingDispatch: bindActionCreators(transactionInPending, dispatch),
+    transactionCompletedDispatch: bindActionCreators(transactionCompleted, dispatch),
     transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
-    waitForConfirmDispatch: bindActionCreators(
-      transactionInitialised,
-      dispatch,
-    ),
+    waitForConfirmDispatch: bindActionCreators(transactionInitialised, dispatch),
     addToast: bindActionCreators(addToast, dispatch),
   }),
 );
