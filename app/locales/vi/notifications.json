@@ -13,5 +13,9 @@
   "somebodyLeftACommentToYourQuestion": "Bài viết của bạn đã được bình luận",
   "somebodyLeftACommentToYourAnswer": "Câu trả lời của bạn đã được bình luận",
   "yourQuestionWasTipped": "Bài viết của bạn đã được lật {{quantity}}",
-  "yourAnswerWasTipped": "Câu trả lời của bạn đã được đưa ra {{quantity}}"
+  "yourAnswerWasTipped": "Câu trả lời của bạn đã được đưa ra {{quantity}}",
+  "yourPostTypeWasChanged": "Loại bài đăng của bạn đã được thay đổi",
+  "communityWasChanged": "Bài đăng của bạn đã được di chuyển",
+  "communityChangedFromTo": "từ {{previousCommunity}} đến {{currentCommunity}} cộng đồng",
+  "postTypeChangedFromTo": "từ {{previousPostType}} đến {{postType}}"
 }
