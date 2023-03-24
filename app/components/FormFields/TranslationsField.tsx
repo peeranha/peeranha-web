@@ -1,5 +1,5 @@
-import Dropdown from 'components/common/Dropdown/Dropdown';
 import React, { useEffect } from 'react';
+import Dropdown from 'components/Dropdown';
 import { languagesWithDescriptions } from 'app/i18n';
 import TranslationSettings from 'containers/EditCommunity/TranslationSettings';
 import DropdownTrigger from 'components/CommunitySelector/DropdownTrigger';
@@ -58,23 +58,9 @@ const TranslationsField: React.FC<TranslationsFieldProps> = ({
   return (
     <div css={styles.container}>
       <Dropdown
-        options={optionsLanguages.map((language) => ({
-          label: language.label,
-          value: language.value,
-          render: (
-            <div
-              className="full-width df aic fz16 light full-height"
-              css={styles.option}
-              onClick={() => {
-                setSelectedLanguages([...selectedLanguages, language.value]);
-              }}
-            >
-              {language.label}
-            </div>
-          ),
-        }))}
-        value={selectedLanguages}
-        trigger={
+        id="translationsField_dropdown_id"
+        dataAttribute={'dropdownMenu'}
+        button={
           <DropdownTrigger
             selectedLanguages={selectedLanguages}
             allLanguages={allLanguages}
@@ -82,6 +68,16 @@ const TranslationsField: React.FC<TranslationsFieldProps> = ({
             placeholder={t('common.editCommunityDesc.selectLanguages')}
           />
         }
+        menu={optionsLanguages.map((language) => (
+          <div
+            css={styles.option}
+            onClick={() => {
+              setSelectedLanguages([...selectedLanguages, language.value]);
+            }}
+          >
+            {language.label}
+          </div>
+        ))}
       />
       <div>
         {allLanguages

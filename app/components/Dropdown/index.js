@@ -30,6 +30,7 @@ export const Dropdown = ({
   isArrowed,
   isMenuLabelMobile,
   isArrowMarginMobile,
+  dataAttribute = null,
 }) => (
   <DropdownStyled
     className={`dropdown ${className}`}
@@ -59,7 +60,11 @@ export const Dropdown = ({
       )}
     </button>
 
-    <MenuStyled className="dropdown-menu" ariaLabelledby={id}>
+    <MenuStyled
+      className="dropdown-menu"
+      data-dropdown={dataAttribute}
+      ariaLabelledby={id}
+    >
       {menu}
     </MenuStyled>
   </DropdownStyled>
