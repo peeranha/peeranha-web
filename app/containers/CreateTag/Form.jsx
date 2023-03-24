@@ -109,8 +109,8 @@ FormClone = connect((state, { communities, communityId, isEditTagForm, editTagDa
     return {
       valueHasNotBeInListValidate: communityTags
         .filter((tag) => tag.id !== tagId)
-        .map((x) => x.name?.toLowerCase())
-        .concat((state?.toJS()?.tags?.suggestedTags ?? []).map((x) => x.name?.toLowerCase())),
+        .map((tag) => tag.name?.toLowerCase())
+        .concat((state?.toJS()?.tags?.suggestedTags ?? []).map((tag) => tag.name?.toLowerCase())),
       initialValues: {
         [FORM_COMMUNITY]: selectedCommunity,
         [NAME_FIELD]: selectedTag?.name,
@@ -125,8 +125,8 @@ FormClone = connect((state, { communities, communityId, isEditTagForm, editTagDa
     valueHasNotBeInListValidate: (
       existingTags[state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.id] ?? []
     )
-      .map((x) => x.name?.toLowerCase())
-      .concat((state?.toJS()?.tags?.suggestedTags ?? []).map((x) => x.name?.toLowerCase())),
+      .map((tag) => tag.name?.toLowerCase())
+      .concat((state?.toJS()?.tags?.suggestedTags ?? []).map((tag) => tag.name?.toLowerCase())),
     initialValues: {
       [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
     },
