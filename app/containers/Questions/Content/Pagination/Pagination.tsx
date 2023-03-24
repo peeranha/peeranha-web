@@ -8,7 +8,7 @@ import {
 } from './ButtonPagination';
 import prev from 'images/prev.svg?inline';
 import next from 'images/next.svg?inline';
-import useMediaQuery from '../../../../hooks/useMediaQuery';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 type PaginationProps = {
   page: number;
@@ -26,6 +26,19 @@ const Pagination: React.FC<PaginationProps> = ({
   setPage,
 }): JSX.Element => {
   const isDesktop450 = useMediaQuery('(min-width: 451px)');
+  const lastPage = page === totalPages;
+
+  const scrollToTop = () => {
+    setTimeout(
+      () =>
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        }),
+      250,
+    );
+  };
   if (totalPages <= 1) {
     return null;
   }
@@ -39,10 +52,18 @@ const Pagination: React.FC<PaginationProps> = ({
                 page={page}
                 element={element}
                 clickHandler={setPage}
+                scrollToTop={scrollToTop}
               />
             ) : null,
           )}
-          <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
+          {!lastPage && (
+            <StepButtonPagination
+              clickHandler={nextPage}
+              src={next}
+              scrollToTop={scrollToTop}
+              alt="next"
+            />
+          )}
         </div>
       </>
     );
@@ -57,6 +78,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 page={page}
                 element={element}
                 clickHandler={setPage}
+                scrollToTop={scrollToTop}
               />
             ) : null,
           )}
@@ -67,10 +89,18 @@ const Pagination: React.FC<PaginationProps> = ({
                 page={page}
                 element={element}
                 clickHandler={setPage}
+                scrollToTop={scrollToTop}
               />
             ) : null,
           )}
-          <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
+          {!lastPage && (
+            <StepButtonPagination
+              clickHandler={nextPage}
+              scrollToTop={scrollToTop}
+              src={next}
+              alt="next"
+            />
+          )}
         </div>
       </>
     );
@@ -79,27 +109,31 @@ const Pagination: React.FC<PaginationProps> = ({
     return (
       <>
         <div className="df aic jcc">
-          <StepButtonPagination clickHandler={prevPage} src={prev} alt="prev" />
+          <StepButtonPagination
+            clickHandler={prevPage}
+            src={prev}
+            scrollToTop={scrollToTop}
+            alt="prev"
+          />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == 0 ? (
               <ButtonPagination
                 page={page}
                 element={element}
                 clickHandler={setPage}
+                scrollToTop={scrollToTop}
               />
             ) : null,
           )}
           <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
             index > 1 &&
-            (index == page - 2 ||
-              index == page - 1 ||
-              index == page ||
-              index == page + 1) ? (
+            (index == page - 2 || index == page - 1 || index == page || index == page + 1) ? (
               <ButtonPagination
                 page={page}
                 element={element}
                 clickHandler={setPage}
+                scrollToTop={scrollToTop}
               />
             ) : null,
           )}
@@ -110,10 +144,18 @@ const Pagination: React.FC<PaginationProps> = ({
                 page={page}
                 element={element}
                 clickHandler={setPage}
+                scrollToTop={scrollToTop}
               />
             ) : null,
           )}
-          <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
+          {!lastPage && (
+            <StepButtonPagination
+              clickHandler={nextPage}
+              scrollToTop={scrollToTop}
+              src={next}
+              alt="next"
+            />
+          )}
         </div>
       </>
     );
@@ -122,13 +164,19 @@ const Pagination: React.FC<PaginationProps> = ({
     return (
       <>
         <div className="df aic jcc">
-          <StepButtonPagination clickHandler={prevPage} src={prev} alt="prev" />
+          <StepButtonPagination
+            clickHandler={prevPage}
+            scrollToTop={scrollToTop}
+            src={prev}
+            alt="prev"
+          />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == 0 ? (
               <ButtonPagination
                 page={page}
                 element={element}
                 clickHandler={setPage}
+                scrollToTop={scrollToTop}
               />
             ) : null,
           )}
@@ -139,6 +187,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 page={page}
                 element={element}
                 clickHandler={setPage}
+                scrollToTop={scrollToTop}
               />
             ) : null,
           )}
@@ -149,10 +198,18 @@ const Pagination: React.FC<PaginationProps> = ({
                 page={page}
                 element={element}
                 clickHandler={setPage}
+                scrollToTop={scrollToTop}
               />
             ) : null,
           )}
-          <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
+          {!lastPage && (
+            <StepButtonPagination
+              clickHandler={nextPage}
+              scrollToTop={scrollToTop}
+              src={next}
+              alt="next"
+            />
+          )}
         </div>
       </>
     );
@@ -160,13 +217,19 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <>
       <div className="df aic jcc">
-        <StepButtonPagination clickHandler={prevPage} src={prev} alt="prev" />
+        <StepButtonPagination
+          clickHandler={prevPage}
+          scrollToTop={scrollToTop}
+          src={prev}
+          alt="prev"
+        />
         {[...Array(totalPages).keys()].map((element, index) =>
           index == 0 ? (
             <ButtonPagination
               page={page}
               element={element}
               clickHandler={setPage}
+              scrollToTop={scrollToTop}
             />
           ) : null,
         )}
@@ -180,10 +243,18 @@ const Pagination: React.FC<PaginationProps> = ({
               page={page}
               element={element}
               clickHandler={setPage}
+              scrollToTop={scrollToTop}
             />
           ) : null,
         )}
-        <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
+        {!lastPage && (
+          <StepButtonPagination
+            clickHandler={nextPage}
+            scrollToTop={scrollToTop}
+            src={next}
+            alt="next"
+          />
+        )}
       </div>
     </>
   );
