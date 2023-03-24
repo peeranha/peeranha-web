@@ -59,7 +59,7 @@ const TranslationsField: React.FC<TranslationsFieldProps> = ({
     <div css={styles.container}>
       <Dropdown
         id="translationsField_dropdown_id"
-        dataAttribute={'dropdownMenu'}
+        dataAttribute="dropdownMenu"
         button={
           <DropdownTrigger
             selectedLanguages={selectedLanguages}
