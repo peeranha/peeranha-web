@@ -66,7 +66,7 @@ const TagsList = ({ tags, communities, communityId, children, className }) => {
     <Box>
       {tags.map((tag, index) => (
         <li
-          key={community.id + (tag.name || index)}
+          key={community.id + (tag.id || index)}
           className="d-flex flex-column"
         >
           <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>

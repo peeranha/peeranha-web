@@ -1,3 +1,4 @@
+import { removeLanguage } from 'containers/App/routes';
 import React, { useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -16,7 +17,7 @@ import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
-import { getPermissions } from '../../utils/properties';
+import { getPermissions } from 'utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
 import useMediaQuery from 'hooks/useMediaQuery';
 import { css } from '@emotion/react';
@@ -66,8 +67,9 @@ const UserNavigation = ({
   userAchievementsLength,
   redirectToEditProfilePage,
 }) => {
-  const { t } = useTranslation();
-  const path = window.location.pathname + window.location.hash;
+  const { t, i18n } = useTranslation();
+  const path = removeLanguage(window.location.pathname + window.location.hash);
+  const baseUrl = i18n.language === 'en' ? '' : `/${i18n.language}`;
   const ref = useRef(null);
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
@@ -108,7 +110,7 @@ const UserNavigation = ({
         >
           <ScrollContainer>
             <NavigationLink
-              to={routes.profileView(userId)}
+              to={baseUrl + routes.profileView(userId)}
               islink={
                 path !== routes.profileView(userId) &&
                 path !== routes.profileEdit(userId) &&
@@ -121,7 +123,7 @@ const UserNavigation = ({
             </NavigationLink>
 
             <NavigationLink
-              to={routes.userQuestions(userId)}
+              to={baseUrl + routes.userQuestions(userId)}
               disabled={!questionsLength}
               tabIndex={!questionsLength ? '-1' : undefined}
               islink={path !== routes.userQuestions(userId) ? 1 : 0}
@@ -147,7 +149,7 @@ const UserNavigation = ({
             </NavigationLink>
 
             <NavigationLink
-              to={routes.userAnswers(userId)}
+              to={baseUrl + routes.userAnswers(userId)}
               disabled={!questionsWithUserAnswersLength}
               tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
               islink={path !== routes.userAnswers(userId) ? 1 : 0}
@@ -174,14 +176,14 @@ const UserNavigation = ({
 
             <NavigationLink
               className={userId !== account ? 'd-none' : ''}
-              to={routes.userNotifications(userId)}
+              to={baseUrl + routes.userNotifications(userId)}
               islink={path !== routes.userNotifications(userId) ? 1 : 0}
             >
               {t('common.notifications')}
             </NavigationLink>
 
             <NavigationLink
-              to={routes.userNFTs(userId)}
+              to={baseUrl + routes.userNFTs(userId)}
               islink={path !== routes.userNFTs(userId) ? 1 : 0}
             >
               <span>
@@ -207,7 +209,7 @@ const UserNavigation = ({
             {isModerator && (
               <NavigationLink
                 className={userId !== account ? 'd-none' : ''}
-                to={routes.userModeration(userId)}
+                to={baseUrl + routes.userModeration(userId)}
                 islink={path !== routes.userModeration(userId) ? 1 : 0}
               >
                 {t('common.moderation')}
@@ -216,7 +218,7 @@ const UserNavigation = ({
 
             <NavigationLink
               className={userId !== account ? 'd-none' : ''}
-              to={routes.userSettings(userId)}
+              to={baseUrl + routes.userSettings(userId)}
               islink={path !== routes.userSettings(userId) ? 1 : 0}
             >
               {t('common.settings')}
@@ -285,7 +287,7 @@ const UserNavigation = ({
                 ? 'd-inline-flex'
                 : 'd-none'
             }`}
-            to={routes.profileView(account)}
+            to={baseUrl + routes.profileView(account)}
           >
             <IconMd
               icon={closeIcon}

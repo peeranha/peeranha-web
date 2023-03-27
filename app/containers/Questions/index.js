@@ -50,10 +50,26 @@ import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
 import ShowMoreButton from './Content/ShowMoreButton';
+import i18next from 'app/i18n';
 
 import { QUESTION_FILTER } from './constants';
 
 const single = isSingleCommunityWebsite();
+
+const getRoute = (postsTypes) => {
+  if (postsTypes.length === 1) {
+    switch (postsTypes[0]) {
+      case 0:
+        return 'expertPosts';
+      case 1:
+        return 'questions';
+      case 2:
+        return 'tutorials';
+    }
+  } else {
+    return 'feed';
+  }
+};
 
 export const Questions = ({
   locale,
@@ -66,7 +82,7 @@ export const Questions = ({
   parentPage,
   communitiesLoading,
   profile,
-  match: { params, path },
+  match: { params, path, url },
   redirectToAskQuestionPageDispatch,
   typeFilter,
   createdFilter,
@@ -80,6 +96,14 @@ export const Questions = ({
   isLastTopQuestionLoaded,
   postsTypes,
 }) => {
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
+
+  useEffect(() => {
+    if (url !== routes[getRoute(postsTypes)](params.id)) {
+      history.push(baseUrl + routes[getRoute(postsTypes)](params.id));
+    }
+  }, [baseUrl]);
+
   const { t } = useTranslation();
   const isFeed = window.location.pathname === routes.feed(params.communityid);
   const isNotFollowedCommunities =
