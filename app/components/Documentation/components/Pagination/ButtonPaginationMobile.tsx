@@ -23,15 +23,9 @@ const ButtonPaginationMobile: React.FC<ButtonPaginationProps> = ({
           </div>
         </div>
         <div css={styled.arrowMobile}>
-          {!isLastArticle && (
-            <ArrowDownIcon
-              onClick={onClickPaginationArticle(NEXT_TYPE_BUTTON)}
-            />
-          )}
+          {!isLastArticle && <ArrowDownIcon onClick={onClickPaginationArticle(NEXT_TYPE_BUTTON)} />}
           {!isStartArticle && (
-            <ArrowDownIcon
-              onClick={onClickPaginationArticle(PREV_TYPE_BUTTON)}
-            />
+            <ArrowDownIcon onClick={onClickPaginationArticle(PREV_TYPE_BUTTON)} />
           )}
         </div>
       </div>

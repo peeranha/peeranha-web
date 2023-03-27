@@ -1,34 +1,23 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-export const selectDocumentationDomain = (state: {
-  get: (arg0: string, arg1: any) => any;
-}) => state.get('documentationReducer', initialState);
+export const selectDocumentationDomain = (state: { get: (arg0: string, arg1: any) => any }) =>
+  state.get('documentationReducer', initialState);
 
 export const selectDocumentationLoading = () =>
-  createSelector(selectDocumentationDomain, (substate) =>
-    substate.get('documentationLoading'),
-  );
+  createSelector(selectDocumentationDomain, (substate) => substate.get('documentationLoading'));
 
 export const selectDocumentation = () =>
-  createSelector(selectDocumentationDomain, (substate) =>
-    substate.get('documentation'),
-  );
+  createSelector(selectDocumentationDomain, (substate) => substate.get('documentation'));
 
 export const selectDraftsIds = () =>
-  createSelector(selectDocumentationDomain, (substate) =>
-    substate.get('draftsIds'),
-  );
+  createSelector(selectDocumentationDomain, (substate) => substate.get('draftsIds'));
 
 export const selectFaqError = () =>
-  createSelector(selectDocumentationDomain, (substate) =>
-    substate.get('documentationError'),
-  );
+  createSelector(selectDocumentationDomain, (substate) => substate.get('documentationError'));
 
 export const selectIsEditDocumentation = () =>
-  createSelector(selectDocumentationDomain, (substate) =>
-    substate.get('isEdit'),
-  );
+  createSelector(selectDocumentationDomain, (substate) => substate.get('isEdit'));
 
 export const selectEditArticle = () =>
   createSelector(selectDocumentationDomain, (substate) => ({
@@ -38,14 +27,10 @@ export const selectEditArticle = () =>
   }));
 
 export const selectDocumentationMenuDraft = () =>
-  createSelector(selectDocumentationDomain, (substate) =>
-    substate.get('documentationMenuDraft'),
-  );
+  createSelector(selectDocumentationDomain, (substate) => substate.get('documentationMenuDraft'));
 
 export const selectViewArticle = () =>
-  createSelector(selectDocumentationDomain, (substate) =>
-    substate.get('viewArticleId'),
-  );
+  createSelector(selectDocumentationDomain, (substate) => substate.get('viewArticleId'));
 
 export const selectPinnedArticleDraft = () =>
   createSelector(selectDocumentationDomain, (substate) => ({
@@ -54,6 +39,4 @@ export const selectPinnedArticleDraft = () =>
   }));
 
 export const selectEditOrder = () =>
-  createSelector(selectDocumentationDomain, (substate) =>
-    substate.get('isEditOrder'),
-  );
+  createSelector(selectDocumentationDomain, (substate) => substate.get('isEditOrder'));

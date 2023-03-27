@@ -109,12 +109,9 @@ export const styled = {
   cancelButton: {
     background: documentationColors.publishBackground || 'white',
     color: documentationColors.publishText || 'var(--color-button-secondary)',
-    borderColor:
-      documentationColors.publishText || 'var(--color-button-secondary)',
+    borderColor: documentationColors.publishText || 'var(--color-button-secondary)',
     '&:hover': {
-      background:
-        documentationColors.publishBackgroundHover ||
-        'var(--color-button-secondary)',
+      background: documentationColors.publishBackgroundHover || 'var(--color-button-secondary)',
       color: documentationColors.publishTextHover || 'var(--color-white)',
       '.icon': {
         stroke: documentationColors.publishTextHover || 'var(--color-white)',

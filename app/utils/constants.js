@@ -16,13 +16,10 @@ export const SCATTER_TIMEOUT_DURATION = 10000; // 1 sec
 
 export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
-export const HUBSPOT_URL =
-  'https://api.hsforms.com/submissions/v3/integration/submit';
+export const HUBSPOT_URL = 'https://api.hsforms.com/submissions/v3/integration/submit';
 export const HUBSPOT_PORTAL_ID = '9131393';
-export const HUBSPOT_SEND_EMAIL_FORM_ID =
-  '05305f90-6546-4718-88e8-2d2c8e79c00c';
-export const HUBSPOT_SEND_MESSAGE_FORM_ID =
-  'eb947c08-4d59-4fb5-87b7-3732e487dbd7';
+export const HUBSPOT_SEND_EMAIL_FORM_ID = '05305f90-6546-4718-88e8-2d2c8e79c00c';
+export const HUBSPOT_SEND_MESSAGE_FORM_ID = 'eb947c08-4d59-4fb5-87b7-3732e487dbd7';
 
 export const ENDPOINTS_LIST = 'best_nodes_list';
 
@@ -34,15 +31,9 @@ export const MODERATOR_KEY = 48;
 export const MODERATOR_CREATE_COMMUNITY = 3;
 
 export const DEFAULT_ADMIN_ROLE = 0x00;
-export const PROTOCOL_ADMIN_ROLE = keccak256(
-  toUtf8Bytes('PROTOCOL_ADMIN_ROLE'),
-);
-export const COMMUNITY_ADMIN_ROLE = keccak256(
-  toUtf8Bytes('COMMUNITY_ADMIN_ROLE'),
-);
-export const COMMUNITY_MODERATOR_ROLE = keccak256(
-  toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'),
-);
+export const PROTOCOL_ADMIN_ROLE = keccak256(toUtf8Bytes('PROTOCOL_ADMIN_ROLE'));
+export const COMMUNITY_ADMIN_ROLE = keccak256(toUtf8Bytes('COMMUNITY_ADMIN_ROLE'));
+export const COMMUNITY_MODERATOR_ROLE = keccak256(toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'));
 
 export const COMMUNITY_ADMIN_VALUE = 255;
 export const COMMUNITY_ADMIN_INFINITE_IMPACT = 1;
@@ -56,8 +47,7 @@ export const PERMISSION_GRANTED = '1';
 export const PROPERTY_ANSWER_15_MINUTES = 12;
 export const PROPERTY_FIRST_ANSWER = 13;
 
-export const REWARD_CLAIMING_ENABLED =
-  process.env.REWARD_CLAIMING_ENABLED === 'true';
+export const REWARD_CLAIMING_ENABLED = process.env.REWARD_CLAIMING_ENABLED === 'true';
 
 export const INIT_RATING = 10;
 
@@ -284,8 +274,7 @@ export const MOVE_QUESTION_METHOD = 'movequestion';
 
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
-export const MONTH_3LETTERS__DAY_YYYY_TIME =
-  'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
+export const MONTH_3LETTERS__DAY_YYYY_TIME = 'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY = 'datetime/MONTH_3LETTERS__DAY_YYYY';
 export const DD_MM_YYYY = 'datetime/DD_MM_YYYY';
 export const DD_MM_YY = 'datetime/DD_MM_YY';

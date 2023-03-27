@@ -4,12 +4,7 @@ import { css } from '@emotion/react';
 import styled from 'styled-components';
 import { Trans } from 'react-i18next';
 
-import {
-  BORDER_SECONDARY,
-  BG_TRANSPARENT,
-  BORDER_TRANSPARENT,
-  TEXT_DARK,
-} from 'style-constants';
+import { BORDER_SECONDARY, BG_TRANSPARENT, BORDER_TRANSPARENT, TEXT_DARK } from 'style-constants';
 
 import H4 from 'components/H4';
 import Span from 'components/Span';
@@ -63,12 +58,7 @@ const PermissionBoxBody = styled.div`
   width: 100%;
 `;
 
-const Permission = ({
-  title,
-  permissionCode,
-  sectionCode,
-  getPermissionCode,
-}) => {
+const Permission = ({ title, permissionCode, sectionCode, getPermissionCode }) => {
   const permissionId = getPermissionCode(sectionCode, permissionCode);
 
   return (
@@ -134,13 +124,7 @@ const Section = ({
   );
 };
 
-const Content = ({
-  content,
-  route,
-  getSectionCode,
-  getPermissionCode,
-  communitiesCount,
-}) => (
+const Content = ({ content, route, getSectionCode, getPermissionCode, communitiesCount }) => (
   <div className="mb-3">
     {content.map((x) => (
       <Section
