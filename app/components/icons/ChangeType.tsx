@@ -7,7 +7,7 @@ const ChangeType: React.FC<IconProps> = (props): JSX.Element => (
     id="change-type"
     fill="currentColor"
     viewBox="0 0 64 64"
-    size={[64, 64]}
+    size={props.size || [64, 64]}
   >
     <g strokeWidth="2">
       <polygon

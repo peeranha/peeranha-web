@@ -183,8 +183,7 @@ const MainLinks = ({
     : false;
 
   const isAdministratorModeSingleCommunity = singleCommId
-    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
-      isProtocolAdmin
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) || isProtocolAdmin
     : false;
 
   if (!route) {
@@ -227,9 +226,7 @@ const MainLinks = ({
               >
                 <span
                   css={{
-                    borderRight: isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderRight: isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                     paddingRight: '10px',
                   }}
                 >
@@ -237,9 +234,7 @@ const MainLinks = ({
                 </span>
                 <span
                   css={{
-                    borderLeft: !isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderLeft: !isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                   }}
                 >
                   <PinIcon
@@ -328,7 +323,7 @@ const MainLinks = ({
 
         {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
-            <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
+            <Administration className={'mr-2'} />
             {t('common.administration')}
           </A1>
         )}

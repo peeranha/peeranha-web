@@ -172,8 +172,7 @@ export const MintStateLabsStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/mintStateLabs/mintStateLabsIcon.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/mintStateLabs/logo-signUp.svg',
 
   colors: {
     appWindowsColor: '#2d89ef',

@@ -7,18 +7,8 @@ import DropdownTrigger from './DropdownTrigger';
 import LoaderDocumentation from './Loader';
 import Validate from './Validate';
 import { saveText, getBytes32FromIpfsHash } from 'utils/ipfs';
-import {
-  saveDraft,
-  initMenu,
-  addArticle,
-  updateMenuDraft,
-  saveDraftsIds,
-} from '../helpers';
-import {
-  strLength3x100,
-  required,
-  strLength25x30000,
-} from 'components/FormFields/validate';
+import { saveDraft, initMenu, addArticle, updateMenuDraft, saveDraftsIds } from '../helpers';
+import { strLength3x100, required, strLength25x30000 } from 'components/FormFields/validate';
 import { DocumentationFormProps } from '../types';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
 import { singleCommunityDocumentation } from 'utils/communityManagement';
@@ -35,6 +25,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   setEditArticle,
   isEditArticle,
   updateDraftsIds,
+  setSaveToDraft,
 }): JSX.Element => {
   const { t } = useTranslation();
   const [title, setTitle] = useState<string>('');
@@ -67,9 +58,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
     setParentId(value);
   };
 
-  const onChangeTitle = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeTitle = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(value);
   };
 
@@ -77,19 +66,18 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
     setBodyText(value);
   };
 
-  const onClickSaveDraft = () => {
+  const onClickSaveDraft = async () => {
     if (!isValidTitle || !isValidContent) {
       return;
     }
 
     setIsLoading(true);
 
-    saveText(JSON.stringify({ title, content: bodyText }))
+    return saveText(JSON.stringify({ title, content: bodyText }))
       .then((ipfsHash) => {
         const ipfsHashBytes32 = getBytes32FromIpfsHash(ipfsHash);
         const isEdit =
-          typeof documentationArticle !== 'undefined' &&
-          documentationArticle.id !== '';
+          typeof documentationArticle !== 'undefined' && documentationArticle.id !== '';
         let updatedMenu: Array<DocumentationItemMenuType> = [];
 
         if (!documentationArticle) {
@@ -120,11 +108,16 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           isEditArticle: false,
         });
         setViewArticle(ipfsHashBytes32);
+        return updatedMenu;
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
+
+  useEffect(() => {
+    setSaveToDraft(() => onClickSaveDraft);
+  }, [title, bodyText]);
 
   const onClickCancel = () => {
     setEditArticle({
@@ -187,11 +180,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           >
             {t('common.titleLabel')}
           </div>
-          <Validate
-            validate={[strLength3x100, required]}
-            value={title}
-            onChange={onChangeTitle}
-          >
+          <Validate validate={[strLength3x100, required]} value={title} onChange={onChangeTitle}>
             {({ onChange, onBlur, isValid }) => {
               setIsValidTitle(title.length > 2);
 
@@ -263,12 +252,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
                     }),
                   }}
                 >
-                  <TextEditor
-                    locale="en"
-                    onChange={onChange}
-                    value={bodyText}
-                    onBlur={onBlur}
-                  />
+                  <TextEditor locale="en" onChange={onChange} value={bodyText} onBlur={onBlur} />
                 </div>
               );
             }}
@@ -289,10 +273,8 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           variant="primary"
           css={{
             background:
-              documentationColors.saveDraftButtonBackground ||
-              'var(--color-button-primary)',
-            color:
-              documentationColors.saveDraftButtonColor || 'var(--color-white)',
+              documentationColors.saveDraftButtonBackground || 'var(--color-button-primary)',
+            color: documentationColors.saveDraftButtonColor || 'var(--color-white)',
             borderWidth: 0,
             '&:hover .icon': { stroke: 'var(--color-white)' },
           }}

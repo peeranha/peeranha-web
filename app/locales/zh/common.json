@@ -50,6 +50,8 @@
   "see": "看",
   "ago": "前",
   "you": "你",
+  "next": "下一個",
+  "prev": "上一頁",
   "upload": "上传",
   "NFTs": "NFTs",
   "NFTsNumber": "NFTs <0>{{number}}</0>",
@@ -150,12 +152,7 @@
   "receivedReward": "您收到推荐奖励",
   "generalPopoverTitle": "讨论",
   "generalPopoverLabel": "不需要专业知识或经验来回答的主题可以是以下之一：",
-  "generalPopoverList": [
-    "主观意见交流；",
-    "头脑风暴；",
-    "反馈或审查请求；",
-    "答案广为人知。"
-  ],
+  "generalPopoverList": ["主观意见交流；", "头脑风暴；", "反馈或审查请求；", "答案广为人知。"],
   "expertPopoverTitle": "专家问答",
   "expertPopoverLabel": "提出以下问题之一的问题：",
   "expertPopoverList": [
@@ -265,11 +262,7 @@
     "要求指导或食谱。"
   ],
   "tutorialQuestionDescriptionLabel": "教程是手动说明，可以是以下之一：",
-  "tutorialQuestionDescriptionList": [
-    "逐步解决问题；",
-    "技术设置；",
-    "“操作方法”指南。"
-  ],
+  "tutorialQuestionDescriptionList": ["逐步解决问题；", "技术设置；", "“操作方法”指南。"],
   "promotedLabel": "推广问题",
   "promotedTip": "推广问题",
   "questionIsPromoting": "推广至",

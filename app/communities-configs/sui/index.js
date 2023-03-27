@@ -183,7 +183,7 @@ export const SuiStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/sui/sui-logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/sui/logo.svg',
   colors: {
     appWindowsColor: '#00aba9',
     appSafarieColor: '#5b5cd5',
