@@ -75,6 +75,7 @@ Dropdown.propTypes = {
   isArrowed: PropTypes.bool,
   isMenuLabelMobile: PropTypes.bool,
   isArrowMarginMobile: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default React.memo(Dropdown);
