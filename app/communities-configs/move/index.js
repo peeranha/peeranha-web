@@ -171,8 +171,7 @@ export const MoveStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/move/move-logo-login.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/move/logo-signUp.svg',
 
   colors: {
     appWindowsColor: '#00aba9',

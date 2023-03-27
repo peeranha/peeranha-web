@@ -12,6 +12,7 @@ import { renderNotificationIcon } from 'utils/notifications';
 import {
   NOTIFICATIONS_DATA,
   NOTIFICATIONS_TYPES,
+  POST_TYPE_TO_LABEL,
   ROUTES_BY_TYPE,
 } from 'components/Notifications/constants';
 
@@ -47,11 +48,25 @@ const NotificationLink = ({ isAnotherCommItem, href, text }) =>
 
 /* eslint-enable */
 
-const Notification = ({ top, data, time, type, read, index, height, notificationsNumber }) => {
+const Notification = ({
+  top,
+  data,
+  time,
+  type,
+  read,
+  index,
+  height,
+  communities,
+  notificationsNumber,
+}) => {
   const { t } = useTranslation();
   const isTippedType = [
     NOTIFICATIONS_TYPES.answerTipped,
     NOTIFICATIONS_TYPES.questionTipped,
+  ].includes(type);
+  const isChangedType = [
+    NOTIFICATIONS_TYPES.postTypeChanged,
+    NOTIFICATIONS_TYPES.communityChanged,
   ].includes(type);
   const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
   const href = route(data.question_id, data.title, data.answer_id);
@@ -71,9 +86,25 @@ const Notification = ({ top, data, time, type, read, index, height, notification
   const isCommunityMode = Boolean(single) && Object.keys(communityStyles).length > 0;
   const isAnotherCommItem = Boolean(single) && data.community_id !== single;
   const isLast = index === notificationsNumber - 1;
-  const notificationTitle = t(NOTIFICATIONS_DATA[type]?.keyTranslate, {
+
+  const previousPostType = data.old_post_type;
+  const previousCommunity = communities?.find(({ id }) => data.old_community_id === id);
+  const postType = data.post_type;
+  const currentCommunity = communities?.find(({ id }) => data.community_id === id);
+
+  const notificationTextProps = {
     quantity: values,
-  });
+    previousPostType: t(POST_TYPE_TO_LABEL[previousPostType]),
+    previousCommunity: previousCommunity?.label,
+    postType: t(POST_TYPE_TO_LABEL[postType]),
+    currentCommunity: currentCommunity?.label,
+  };
+
+  const notificationTitle = t(NOTIFICATIONS_DATA[type]?.keyTranslate);
+  const additionalTitle =
+    type === NOTIFICATIONS_TYPES.communityChanged
+      ? 'notifications.communityChangedFromTo'
+      : 'notifications.postTypeChangedFromTo';
 
   return (
     <div
@@ -87,7 +118,13 @@ const Notification = ({ top, data, time, type, read, index, height, notification
     >
       {renderNotificationIcon(type, isCommunityMode, communityStyles)}
       <div css={styles.textBlock}>
-        <span css={styles.title}>{notificationTitle}</span>
+        <div css={styles.titleWrapper}>
+          <span>
+            {isChangedType
+              ? notificationTitle.concat(' ', t(additionalTitle, notificationTextProps))
+              : notificationTitle}
+          </span>
+        </div>
         <Time time={time} />
         <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href} text={data.title} />
       </div>

@@ -111,3 +111,4 @@ export { default as UpVote } from './UpVote';
 export { default as DownVote } from './DownVote';
 export { default as QuestionCircle } from './QuestionCircle';
 export { default as Coins } from './Coins';
+export { default as Administration } from './Administration';

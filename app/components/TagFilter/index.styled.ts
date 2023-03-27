@@ -3,7 +3,10 @@ export const styles = {
     display: 'grid',
     gridTemplateColumns: '1fr',
     padding: '20px 0px',
-    maxWidth: '50%',
+    maxWidth: '70%',
+    '@media only screen and (max-width: 1280px)': {
+      maxWidth: '50%',
+    },
     '@media only screen and (max-width: 768px)': {
       paddingBottom: '10px',
       gridColumnStart: '1',
