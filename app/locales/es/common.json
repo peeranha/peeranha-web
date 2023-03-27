@@ -512,6 +512,8 @@
     "setStake": "Establecer apuesta",
     "giveCommunityModeratorPermission": "Dar permiso de moderador de la comunidad",
     "revokeCommunityModeratorPermission": "Revocar permiso de moderador de la comunidad",
+    "giveCommunityAdminPermission": "Dar permiso de administrador de la comunidad",
+    "revokeCommunityAdminPermission": "Revocar permiso de administrador de la comunidad",
     "successful": "Exitoso",
     "failed": "Fallido"
   }

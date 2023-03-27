@@ -511,7 +511,9 @@
     "claimReward": "Yêu cầu phần thưởng",
     "setStake": "Đặt cược",
     "giveCommunityModeratorPermission": "Cấp quyền cho người điều hành cộng đồng",
-    "revokeCommunityModeratorPermission": "м",
+    "revokeCommunityModeratorPermission": "Thu hồi quyền của người điều hành cộng đồng",
+    "giveCommunityAdminPermission": "Cấp quyền cho quản trị viên cộng đồng",
+    "revokeCommunityAdminPermission": "Thu hồi quyền quản trị viên cộng đồng",
     "successful": "Thành công",
     "failed": "Thất bại"
   }

@@ -499,6 +499,8 @@
     "setStake": "设置股份",
     "giveCommunityModeratorPermission": "授予社区版主权限",
     "revokeCommunityModeratorPermission": "撤销社区版主权限",
+    "giveCommunityAdminPermission": "授予社区管理员权限",
+    "revokeCommunityAdminPermission": "撤销社区管理员权限",
     "successful": "成功的",
     "failed": "失败的"
   }
