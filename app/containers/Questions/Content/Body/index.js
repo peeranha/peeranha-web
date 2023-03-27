@@ -86,6 +86,7 @@ const Body = ({
         questionBounty={questionBounty}
         postType={postType}
         translations={translations}
+        isAutotranslationEnable={isAutotranslationEnable}
       />
 
       <UserInfo
