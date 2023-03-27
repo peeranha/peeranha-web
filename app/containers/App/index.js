@@ -82,7 +82,6 @@ const App = ({
 
   useEffect(() => {
     const newLocale = getCookie(APP_LOCALE);
-    console.log(newLocale);
 
     if (newLocale && newLocale !== 'en') {
       i18next.changeLanguage(newLocale, () => {

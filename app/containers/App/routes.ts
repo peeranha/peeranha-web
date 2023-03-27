@@ -37,11 +37,21 @@ import {
 import { POST_TYPE, REWARD_CLAIMING_ENABLED } from 'utils/constants';
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import Documentation from 'app/pages/Documentation';
+import { languagesEnum } from 'app/i18n';
 
 const single = isSingleCommunityWebsite();
 const hasCommunityOrProtocolAdminRole =
   single &&
   (hasGlobalModeratorRole() || hasProtocolAdminRole() || hasCommunityAdminRole(null, single));
+
+export const removeLanguage = (path: string) => {
+  for (let i = 0; i < Object.keys(languagesEnum).length; i++) {
+    if (path.indexOf('/' + Object.keys(languagesEnum)[i] + '/') === 0) {
+      return path.replace('/' + Object.keys(languagesEnum)[i], '');
+    }
+  }
+  return path;
+};
 
 const routesConfig = [
   {
