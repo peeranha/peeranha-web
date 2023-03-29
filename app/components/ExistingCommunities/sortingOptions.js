@@ -10,7 +10,7 @@ export default {
     message: 'common.answers',
   },
   tags: {
-    sortBy: 'tags',
+    sortBy: 'tagsCount',
     order: 'desc',
     message: 'common.tags',
   },

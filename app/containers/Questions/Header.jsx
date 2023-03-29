@@ -244,7 +244,7 @@ export const Header = ({
             </PageContentHeaderRightPanel>
           )} */}
         </PageContentHeader>
-        {communityEditingAllowed && (
+        {communityEditingAllowed && isFeed && (
           <EditCommunityButton>
             <button onClick={routeToEditCommunity} className="aic">
               <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />

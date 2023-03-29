@@ -11,10 +11,7 @@ import {
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import {
-  LEFT_MENU_ID,
-  NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY,
-} from 'containers/LeftMenu/constants';
+import { LEFT_MENU_ID, NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY } from 'containers/LeftMenu/constants';
 
 import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
 import MobileLinksInWallet from 'containers/LeftMenu/MobileLinksInWallet';
@@ -50,8 +47,7 @@ const View = ({
   useEffect(() => setClientHeight(document.documentElement.clientHeight), []);
 
   // change links display on window resize
-  const windowResizeHandler = () =>
-    setClientHeight(document.documentElement.clientHeight);
+  const windowResizeHandler = () => setClientHeight(document.documentElement.clientHeight);
 
   useEffect(() => {
     window.addEventListener(`resize`, windowResizeHandler, false);
@@ -123,10 +119,10 @@ const View = ({
         isEditDocumentation={isEditDocumentation}
         pinnedItemMenu={pinnedItemMenu}
       />
-
       <AdditionalLinks
         currClientHeight={currClientHeight}
         changeLocale={changeLocale}
+        isMenuVisible={isMenuVisible}
         locale={locale}
       />
     </ViewStyled>

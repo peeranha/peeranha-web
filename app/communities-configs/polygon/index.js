@@ -228,12 +228,12 @@ export const PolygonStyles = {
   poweredByPeeranha: true,
   logoWhite: true,
   withoutAdditionalLinks: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/polygon/polygon-logo-login.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/polygon/logo-signUp.svg',
   favicon,
   mobileSubHeader: (
     <CustomMobileSubHeader
       config={customSubHeaderConfig}
-      logo={'https://images.peeranha.io/communities/polygon/polygon-university-logo.svg'}
+      logo={'https://images.peeranha.io/communities/polygon/logo.svg'}
     />
   ),
   customSubHeader: <CustomSubHeader config={customSubHeaderConfig} />,

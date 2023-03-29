@@ -40,7 +40,6 @@ import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
-import faqIcon from 'images/faq.svg?external';
 import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
@@ -322,16 +321,9 @@ const MainLinks = ({
           </A1>
         )}
 
-        {!singleCommId && (
-          <A1 to={routes.faq()} name="faq" route={route}>
-            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-            {t('common.faq')}
-          </A1>
-        )}
-
         {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
-            <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
+            <Administration className={'mr-2'} />
             {t('common.administration')}
           </A1>
         )}

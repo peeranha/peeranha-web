@@ -20,6 +20,10 @@ const MarkdownPreviewBlock: React.FC<MarkdownPreviewProps> = ({ content }): JSX.
       ul li {
         list-style-type: disc;
       }
+      table {
+        word-break: normal;
+        overflow-x: auto;
+      }
       iframe {
         max-width: 100%;
       }

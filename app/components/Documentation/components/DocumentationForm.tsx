@@ -25,6 +25,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   setEditArticle,
   isEditArticle,
   updateDraftsIds,
+  setSaveToDraft,
 }): JSX.Element => {
   const { t } = useTranslation();
   const [title, setTitle] = useState<string>('');
@@ -65,14 +66,14 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
     setBodyText(value);
   };
 
-  const onClickSaveDraft = () => {
+  const onClickSaveDraft = async () => {
     if (!isValidTitle || !isValidContent) {
       return;
     }
 
     setIsLoading(true);
 
-    saveText(JSON.stringify({ title, content: bodyText }))
+    return saveText(JSON.stringify({ title, content: bodyText }))
       .then((ipfsHash) => {
         const ipfsHashBytes32 = getBytes32FromIpfsHash(ipfsHash);
         const isEdit =
@@ -107,11 +108,16 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           isEditArticle: false,
         });
         setViewArticle(ipfsHashBytes32);
+        return updatedMenu;
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
+
+  useEffect(() => {
+    setSaveToDraft(() => onClickSaveDraft);
+  }, [title, bodyText]);
 
   const onClickCancel = () => {
     setEditArticle({

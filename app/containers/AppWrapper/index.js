@@ -15,6 +15,7 @@ import { DAEMON } from 'utils/constants';
 import { makeSelectLocation } from 'containers/App/selectors';
 
 import Header from 'containers/Header';
+import Footer from 'containers/Footer';
 import LeftMenu from 'containers/LeftMenu';
 import Loader from 'components/LoadingIndicator/WidthCentered';
 
@@ -60,6 +61,8 @@ const Box = ({
           </div>
         </div>
       </Main>
+
+      <Footer />
     </>
   );
 };

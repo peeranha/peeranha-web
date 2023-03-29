@@ -183,7 +183,7 @@ export const HarmonyStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/harmony/harmony-logo1.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/harmony/logo.svg',
   colors: {
     appWindowsColor: '#ffffff',
     appSafarieColor: 'rgba(2, 10, 45, .9)',
