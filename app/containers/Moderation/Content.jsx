@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import styled from 'styled-components';
-import { Trans, useTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 
 import { BORDER_SECONDARY, BG_TRANSPARENT, BORDER_TRANSPARENT, TEXT_DARK } from 'style-constants';
 
@@ -86,7 +86,6 @@ const Section = ({
   getPermissionCode,
   permission,
 }) => {
-  const { t } = useTranslation();
   const sectionId = getSectionCode(sectionCode);
 
   return (
@@ -100,7 +99,7 @@ const Section = ({
         `}
       >
         <H4 mobileFS="24">
-          <span>{`${sectionPermissions[0]?.h2} ${t('moderation.community')}`}</span>
+          <span>{sectionPermissions[0]?.h2}</span>
         </H4>
       </BaseTransparent>
 

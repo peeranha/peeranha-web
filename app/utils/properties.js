@@ -37,7 +37,9 @@ const createPermissionsObject = ({
     ? translations('moderation.communityAdministrator')
     : translations('moderation.communityModerator'),
   h2: communityId
-    ? communities.find(({ id }) => Number(id) === Number(communityId))?.name || 'TestComm1'
+    ? `${
+        communities.find(({ id }) => Number(id) === Number(communityId))?.name || 'TestComm1'
+      } ${translations('moderation.community')}`
     : role === DEFAULT_ADMIN_ROLE
     ? translations('moderation.defaultAdministrator')
     : translations('moderation.protocolAdministratorCommunities'),
