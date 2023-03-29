@@ -28,22 +28,35 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
   placeholder,
 }): JSX.Element => {
   const [isOpen, open, close] = useTrigger(false);
+  const dropdownMenuElement = document.querySelector(
+    '[data-dropdown="dropdownMenu"]',
+  );
 
+  const openHandler = (): void => {
+    open();
+    dropdownMenuElement?.classList?.add('show');
+  };
+
+  const closeHandler = (): void => {
+    close();
+    dropdownMenuElement?.classList?.remove('show');
+  };
   useEffect(() => {
     const handleClose = () => {
       if (isOpen) {
         close();
+        dropdownMenuElement?.classList?.remove('show');
       }
     };
 
     document.addEventListener('click', handleClose);
     return () => window.removeEventListener('click', handleClose);
-  }, []);
+  });
 
   const dropdownListener = (event: React.MouseEvent) => {
     event.stopPropagation();
     if (selectedLanguages.length !== allLanguages.length) {
-      isOpen ? close() : open();
+      isOpen ? closeHandler() : openHandler();
     }
   };
 

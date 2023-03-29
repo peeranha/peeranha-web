@@ -54,7 +54,7 @@ export const styles = {
   },
 
   option: {
-    padding: '4px 24px 4px 16px',
+    padding: '12px 24px',
     color: '#282828',
 
     ':hover': {

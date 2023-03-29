@@ -6,6 +6,7 @@ const colors = singleCommunityColors();
 export const styles = {
   container: {
     cursor: 'pointer',
+    width: '100%',
     height: 'auto !important',
     background: 'linear-gradient(0deg, #FFFFFF, #FFFFFF), #D8D8D8',
     border: '1px solid #C2C6D8',
