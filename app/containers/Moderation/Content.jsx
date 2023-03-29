@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import styled from 'styled-components';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { BORDER_SECONDARY, BG_TRANSPARENT, BORDER_TRANSPARENT, TEXT_DARK } from 'style-constants';
 
@@ -67,7 +67,7 @@ const Permission = ({ title, permissionCode, sectionCode, getPermissionCode }) =
         <h5 className="d-flex align-items-center">
           <Span fontSize="18" lineHeight="35" mobileFS="18">
             <Trans
-              i18nKey={permissions[title].title}
+              i18nKey={permissions[title]?.title}
               values={{ boldText: 'All Things Web3' }}
               components={[<strong key={permissionCode} />]}
             />
@@ -79,57 +79,74 @@ const Permission = ({ title, permissionCode, sectionCode, getPermissionCode }) =
 };
 
 const Section = ({
-  h2,
-  h3,
-  blocks,
+  sectionPermissions,
   sectionCode,
   route,
   getSectionCode,
   getPermissionCode,
   permission,
 }) => {
+  const { t } = useTranslation();
   const sectionId = getSectionCode(sectionCode);
 
   return (
     <SectionStyled id={sectionId}>
-      <BaseTransparent css={{ padding: '32px 32px 16px' }}>
+      <BaseTransparent
+        css={css`
+          padding: 32px 32px 16px;
+          @media only screen and (max-width: 576px) {
+            padding-left: 5px;
+          }
+        `}
+      >
         <H4 mobileFS="24">
-          <span>{h2}</span>
+          <span>{`${sectionPermissions[0]?.h2} ${t('moderation.community')}`}</span>
         </H4>
       </BaseTransparent>
 
-      <div className="d-block">
-        <div
-          css={css`
-            padding: 16px 32px;
-            font-size: 20px;
-            font-weight: 600;
-          `}
-        >
-          {h3}
+      {sectionPermissions.map(({ h3, blocks }) => (
+        <div className="d-block" key={h3}>
+          <div
+            css={css`
+              padding: 16px 32px;
+              font-size: 20px;
+              font-weight: 600;
+              @media only screen and (max-width: 576px) {
+                padding-left: 5px;
+              }
+            `}
+          >
+            {h3}
+          </div>
+          <ul>
+            {blocks.map((x) => (
+              <Permission
+                {...x}
+                key={getPermissionCode(sectionCode, x.permissionCode)}
+                permission={permission}
+                sectionCode={sectionCode}
+                getPermissionCode={getPermissionCode}
+              />
+            ))}
+          </ul>
         </div>
-        <ul>
-          {blocks.map((x) => (
-            <Permission
-              {...x}
-              key={getPermissionCode(sectionCode, x.permissionCode)}
-              permission={permission}
-              sectionCode={sectionCode}
-              getPermissionCode={getPermissionCode}
-            />
-          ))}
-        </ul>
-      </div>
+      ))}
     </SectionStyled>
   );
 };
 
-const Content = ({ content, route, getSectionCode, getPermissionCode, communitiesCount }) => (
+const Content = ({
+  moderatorPermissions,
+  route,
+  getSectionCode,
+  getPermissionCode,
+  communitiesCount,
+}) => (
   <div className="mb-3">
-    {content.map((x) => (
+    {moderatorPermissions.map((permission) => (
       <Section
-        {...x}
-        key={x.h2}
+        sectionPermissions={permission}
+        key={permission[0].h2}
         route={route}
         getSectionCode={getSectionCode}
         getPermissionCode={getPermissionCode}

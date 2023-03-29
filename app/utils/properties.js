@@ -19,6 +19,39 @@ import {
 // todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
+const createPermissionsObject = ({
+  role,
+  translations,
+  permissionsTypes,
+  communityId,
+  index,
+  communities,
+}) => ({
+  blocks: permissionsTypes,
+  permission: [role],
+  role: !communityId
+    ? role === DEFAULT_ADMIN_ROLE
+      ? translations('moderation.defaultAdministrator')
+      : translations('moderation.protocolAdministrator')
+    : role === COMMUNITY_ADMIN_ROLE
+    ? translations('moderation.communityAdministrator')
+    : translations('moderation.communityModerator'),
+  h2: communityId
+    ? communities.find(({ id }) => Number(id) === Number(communityId))?.name || 'TestComm1'
+    : role === DEFAULT_ADMIN_ROLE
+    ? translations('moderation.defaultAdministrator')
+    : translations('moderation.protocolAdministratorCommunities'),
+  h3: !communityId
+    ? role === DEFAULT_ADMIN_ROLE
+      ? translations('moderation.defaultAdministrator')
+      : translations('moderation.protocolAdministrator')
+    : role === COMMUNITY_ADMIN_ROLE
+    ? translations('moderation.communityAdministrator')
+    : translations('moderation.communityModerator'),
+  sectionCode: index,
+  communityId,
+});
+
 export const getModeratorPermissions = (
   globalModeratorProps,
   communitiesCount,
@@ -26,7 +59,7 @@ export const getModeratorPermissions = (
   translations,
 ) => {
   const values = getAllRoles(globalModeratorProps, communitiesCount);
-  const permissions1 = [];
+  const permissions1 = {};
   values.map(({ communityId = 0, role }, index) => {
     const rawPermissionsTypes = !communityId
       ? globalAdminPermissions
@@ -37,38 +70,21 @@ export const getModeratorPermissions = (
       permissionCode: rawPermissionsTypes[key].code,
       title: permValue.title,
     }));
+    const permissionObject = createPermissionsObject({
+      role,
+      translations,
+      permissionsTypes,
+      communityId,
+      communities,
+      index,
+    });
     if (permissions1[communityId]) {
-      permissions1[communityId].blocks = permissions1[communityId].blocks.concat(permissionsTypes);
-      permissions1[communityId].permission.push(role);
+      permissions1[communityId].push(permissionObject);
     } else {
-      permissions1[communityId] = {
-        blocks: permissionsTypes,
-        permission: [role],
-        role: !communityId
-          ? role === DEFAULT_ADMIN_ROLE
-            ? translations('moderation.defaultAdministrator')
-            : translations('moderation.protocolAdministrator')
-          : role === COMMUNITY_ADMIN_ROLE
-          ? translations('moderation.communityAdministrator')
-          : translations('moderation.communityModerator'),
-        h2: communityId
-          ? communities.find(({ id }) => Number(id) === Number(communityId))?.name || 'TestComm1'
-          : role === DEFAULT_ADMIN_ROLE
-          ? translations('moderation.defaultAdministrator')
-          : translations('moderation.protocolAdministratorCommunities'),
-        h3: !communityId
-          ? role === DEFAULT_ADMIN_ROLE
-            ? translations('moderation.defaultAdministrator')
-            : translations('moderation.protocolAdministrator')
-          : role === COMMUNITY_ADMIN_ROLE
-          ? translations('moderation.communityAdministrator')
-          : translations('moderation.communityModerator'),
-        sectionCode: index,
-        communityId,
-      };
+      permissions1[communityId] = [permissionObject];
     }
   });
-  return permissions1;
+  return Object.values(permissions1);
 };
 
 export const isUserTopCommunityQuestionsModerator = (properties = [], communityId) =>
