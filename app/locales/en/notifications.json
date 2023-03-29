@@ -13,9 +13,5 @@
   "somebodyLeftACommentToYourQuestion": "Your post was commented",
   "somebodyLeftACommentToYourAnswer": "Your answer was commented",
   "yourQuestionWasTipped": "Your post was tipped {{quantity}}",
-  "yourAnswerWasTipped": "Your answer was tipped {{quantity}}",
-  "yourPostTypeWasChanged": "Your post type was changed",
-  "communityWasChanged": "Your post was moved",
-  "communityChangedFromTo": "from {{previousCommunity}} to {{currentCommunity}} community",
-  "postTypeChangedFromTo": "from {{previousPostType}} to {{postType}}"
+  "yourAnswerWasTipped": "Your answer was tipped {{quantity}}"
 }
