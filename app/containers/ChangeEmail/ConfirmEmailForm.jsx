@@ -16,6 +16,7 @@ import TransparentButton from 'components/Button/Contained/Transparent';
 import { required } from 'components/FormFields/validate';
 
 import { CODE_FIELD, CONFIRM_EMAIL_FORM } from './constants';
+import { styles } from './ChangeEmail.styled';
 
 const ConfirmEmailForm = ({
   handleSubmit,
@@ -26,51 +27,64 @@ const ConfirmEmailForm = ({
   emailAddress,
   verificationCodeError,
   verificationCode,
+  verificationCodeRequest,
 }) => {
-  const [encorrectCode, setEncorrectCode] = useState(verificationCodeError);
   const { t } = useTranslation();
+  const [incorrectCode, setIncorrectCode] = useState(verificationCodeError);
+  const [seconds, setSeconds] = useState(0);
+  const [timerActive, setTimerActive] = useState(false);
+  const [requestCount, setRequestCount] = useState(0);
+  const [currentEmail, setCurrentEmail] = useState('');
+
+  useEffect(() => {
+    if (seconds > 0 && timerActive) {
+      setTimeout(setSeconds, 1000, seconds - 1);
+    } else {
+      setTimerActive(false);
+    }
+  }, [seconds, timerActive, requestCount]);
 
   useEffect(() => {
     if (verificationCodeError) {
-      setEncorrectCode(true);
+      setIncorrectCode(true);
     }
   }, [verificationCodeError]);
+
+  useEffect(() => {
+    if (
+      verificationCodeRequest !== requestCount &&
+      verificationCodeRequest % 3 === 0 &&
+      (!currentEmail || currentEmail == emailAddress)
+    ) {
+      setSeconds(60);
+      setTimerActive(true);
+    }
+  }, [verificationCodeRequest, requestCount]);
+
+  const handlerVerificationCode = (event) =>
+    setIncorrectCode(verificationCode === event.target.value);
+
+  const handlerCloseModal = () => {
+    setRequestCount(verificationCodeRequest);
+    setCurrentEmail(emailAddress);
+    setTimeout(() => closeModal(), 1000);
+  };
+
   return (
-    <div>
-      <H4 className="text-center pb-3">{t('common.confirmNewEmail')}</H4>
+    <div css={styles.confirmEmailForm}>
+      <H4>{t('common.confirmNewEmail')}</H4>
+      <div>
+        <img src={letterImg} alt="check your email" />
+        <P>{t('profile.confirmVerificationCode')}</P>
 
-      <div className="text-center pb-3">
-        <img
-          css={{ maxWidth: '170px' }}
-          src={letterImg}
-          alt="check your email"
-        />
-        <P className="text-center py-2" css={{ color: TEXT_SECONDARY }}>
-          {t('profile.verificationCodeText')}
-        </P>
-
-        <div className="semi-bold mb-3">{emailAddress}</div>
-        <TransparentButton
-          onClick={closeModal}
-          className="db mb-3"
-          css={{ margin: 'auto' }}
-        >
+        <div>{emailAddress}</div>
+        <TransparentButton onClick={handlerCloseModal}>
           {t('profile.changeEmail')}
         </TransparentButton>
-        <div
-          css={{ height: '1px', background: '#C2C6D8', marginTop: '25px' }}
-        ></div>
+        <div></div>
       </div>
-
       <form
-        css={
-          encorrectCode && {
-            input: {
-              border: '1px solid #F76F60',
-              boxShadow: '0 0 0 3px rgba(255, 0, 0, 0.40)',
-            },
-          }
-        }
+        css={incorrectCode && styles.inputWarning}
         onSubmit={handleSubmit(confirmOldEmail)}
       >
         <Field
@@ -80,30 +94,28 @@ const ConfirmEmailForm = ({
           component={TextInputField}
           validate={required}
           warn={required}
-          onChange={(e) =>
-            setEncorrectCode(verificationCode !== e.target.value ? false : true)
-          }
+          onChange={handlerVerificationCode}
         />
-        {encorrectCode && (
-          <div
-            className="mb-2 fz14"
-            css={{ color: '#F76F60', fontStyle: 'italic' }}
-          >
-            {t('common.incorrectCode')}
-          </div>
+        {incorrectCode && (
+          <div css={styles.textWarning}>{t('common.incorrectCode')}</div>
         )}
-
-        <TransparentButton
-          className="mb-3"
-          onClick={sendAnotherCode}
-          type="button"
-        >
-          {t('common.sendAnotherCode')}
-        </TransparentButton>
-
+        <span>{t('common.notGetCode')}</span>
+        {!seconds ? (
+          <TransparentButton onClick={sendAnotherCode} type="button">
+            {t('common.sendAnotherCode')}
+          </TransparentButton>
+        ) : (
+          <span css={styles.timer}>
+            <span>{t('common.notGetCodeTimer')}</span>
+            <span>
+              {seconds.toString().length > 1
+                ? `00:${seconds}`
+                : `00:0${seconds}`}
+            </span>
+          </span>
+        )}
         <Button
-          disabled={confirmOldEmailProcessing || encorrectCode}
-          className="w-100 mb-3"
+          disabled={confirmOldEmailProcessing || incorrectCode}
           type="submit"
         >
           {t('signUp.verify')}
@@ -122,6 +134,7 @@ ConfirmEmailForm.propTypes = {
   emailAddress: PropTypes.string,
   verificationCodeError: PropTypes.bool,
   verificationCode: PropTypes.string,
+  verificationCodeRequest: PropTypes.number,
 };
 
 export default reduxForm({

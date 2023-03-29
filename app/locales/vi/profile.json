@@ -48,5 +48,6 @@
   "sendCode": "Gửi mã",
   "emailNotifications": "Thông báo thư điện tử",
   "emailNotificationsText": "Nhận thông báo về bài đăng, câu trả lời và nhận xét của bạn.",
-  "verificationCodeText": "Một mã xác minh sẽ được gửi đến email:"
+  "verificationCodeText": "Chúng tôi sẽ gửi cho bạn mã xác minh vào email",
+  "confirmVerificationCode": "Vui lòng nhập mã mà bạn nhận được trên"
 }

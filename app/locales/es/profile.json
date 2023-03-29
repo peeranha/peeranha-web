@@ -48,5 +48,6 @@
   "sendCode": "Enviar código",
   "emailNotifications": "Email notificaciónes",
   "emailNotificationsText": "Recibe notificaciones sobre su publicaciones, respuestas y comentarios.",
-  "verificationCodeText": "Se enviará un código de verificación al correo electrónico:"
+  "verificationCodeText": "Le enviaremos un código de verificación a su correo electrónico",
+  "confirmVerificationCode": "Por favor, introduce el código que recibiste el"
 }

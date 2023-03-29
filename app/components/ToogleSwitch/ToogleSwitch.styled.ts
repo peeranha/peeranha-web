@@ -1,3 +1,7 @@
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
+
 export const styled = {
   toggleSwitch: {
     position: 'relative',
@@ -12,7 +16,7 @@ export const styled = {
       backgroundColor: '#FFF',
     },
     'input[type="checkbox"]:checked + span': {
-      backgroundColor: '#576FED',
+      backgroundColor: colors.btnColor || '#576FED',
     },
   },
   switch: {

@@ -20,6 +20,7 @@ import {
   HIDE_CHANGE_EMAIL_MODAL,
   CODE_FIELD,
   SEND_ANOTHER_CODE,
+  SEND_VERIFICATION_CODE,
   GET_EMAIL_ADDRESS,
   GET_EMAIL_ADDRESS_SUCCESS,
   GET_EMAIL_ADDRESS_ERROR,
@@ -29,6 +30,12 @@ import {
 export function sendAnotherCode() {
   return {
     type: SEND_ANOTHER_CODE,
+  };
+}
+
+export function sendVerificationCodeSuccess() {
+  return {
+    type: SEND_VERIFICATION_CODE,
   };
 }
 

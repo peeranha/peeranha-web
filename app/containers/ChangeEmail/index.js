@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -20,7 +20,6 @@ import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import Modal from 'components/ModalDialog';
 import Button from 'components/Button/Contained/Transparent';
-import { TEXT_LIGHT } from 'style-constants';
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -45,6 +44,7 @@ import {
 } from './constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 import EditIcon from 'icons/Edit';
+import { styles } from './ChangeEmail.styled';
 
 const colors = singleCommunityColors();
 /* eslint-disable react/prefer-stateless-function */
@@ -68,8 +68,13 @@ const ChangeEmail = ({
   verificationCodeError,
   disabled,
   verificationCode,
+  verificationCodeRequest,
 }) => {
   const [emailAddress, setEmailAddress] = useState(null);
+
+  const clickEmailHandler = (event) =>
+    setEmailAddress(event.target.form[0].value);
+  const clickButtonHandler = useCallback(() => setOpen(!open), [open]);
 
   return (
     <React.Fragment>
@@ -95,6 +100,7 @@ const ChangeEmail = ({
             emailAddress={emailAddress}
             verificationCodeError={verificationCodeError}
             verificationCode={verificationCode}
+            verificationCodeRequest={verificationCodeRequest}
           />
         )}
 
@@ -102,24 +108,17 @@ const ChangeEmail = ({
       </Modal>
       {!open ? (
         <Button
-          onClick={(e) => setEmailAddress(e.target.form[0].value)}
+          onClick={clickEmailHandler}
           type="submit"
           disabled={disabled}
-          css={{
-            border: '1px solid #F76F60',
-            width: '86px',
-            height: '40px',
-            color: TEXT_LIGHT,
-            borderRadius: '2px',
-            background: '#F76F60',
-          }}
+          css={styles.confirmButton}
         >
           {t('common.telegram.confirm')}
         </Button>
       ) : (
-        <Button onClick={() => setOpen(!open)}>
+        <Button onClick={clickButtonHandler}>
           <EditIcon
-            className="mr-1"
+            css={{ marginRight: '5px' }}
             stroke={colors.btnColor}
             fill={colors.btnColor}
           />
@@ -148,6 +147,7 @@ ChangeEmail.propTypes = {
   verificationCodeError: PropTypes.bool,
   verificationCode: PropTypes.string,
   disabled: PropTypes.bool,
+  verificationCodeRequest: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -162,6 +162,7 @@ const mapStateToProps = createStructuredSelector({
   isSubscribedEmail: selectors.selectIsSubscribed(),
   verificationCodeError: selectors.selectConfirmOldEmailError(),
   verificationCode: selectors.selectVerificationCode(),
+  verificationCodeRequest: selectors.selectVerificationCodeRequest(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

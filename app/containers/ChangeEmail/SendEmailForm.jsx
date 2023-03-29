@@ -14,6 +14,7 @@ import TransparentButton from 'components/Button/Contained/Transparent';
 import letterImg from 'images/letter.svg?inline';
 
 import { OLD_EMAIL_FORM, OLD_EMAIL_FIELD } from './constants';
+import { styles } from './ChangeEmail.styled';
 
 const EmailForm = ({
   handleSubmit,
@@ -24,33 +25,19 @@ const EmailForm = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div>
-      <H4 className="text-center pb-3">{t('common.confirmNewEmail')}</H4>
-
-      <div className="text-center pb-3">
-        <img
-          css={{ maxWidth: '170px' }}
-          src={letterImg}
-          alt="check your email"
-        />
-        <P
-          className="text-center py-2"
-          css={{ color: 'var(--color-gray-dark)' }}
-        >
-          {t('profile.verificationCodeText')}
-        </P>
-        <div className="semi-bold">{emailAddress}</div>
+    <div css={styles.sendEmailForm}>
+      <H4>{t('common.confirmNewEmail')}</H4>
+      <div>
+        <img src={letterImg} alt="check your email" />
+        <P>{t('profile.verificationCodeText')}</P>
+        <div>{emailAddress}</div>
       </div>
-      <TransparentButton
-        onClick={closeModal}
-        className="db mb-3"
-        css={{ margin: 'auto' }}
-      >
+      <TransparentButton onClick={closeModal}>
         {t('profile.changeEmail')}
       </TransparentButton>
 
       <form onSubmit={handleSubmit(sendOldEmail)}>
-        <Button disabled={sendOldEmailProcessing} className="w-100 mb-3">
+        <Button disabled={sendOldEmailProcessing}>
           {t('profile.sendCode')}
         </Button>
       </form>

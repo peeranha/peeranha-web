@@ -5,6 +5,7 @@
  */
 
 export const SEND_ANOTHER_CODE = 'app/ChangeEmail/SEND_ANOTHER_CODE';
+export const SEND_VERIFICATION_CODE = 'app/ChangeEmail/SEND_VERIFICATION_CODE';
 
 export const SEND_OLD_EMAIL = 'app/ChangeEmail/SEND_OLD_EMAIL';
 export const SEND_OLD_EMAIL_SUCCESS = 'app/ChangeEmail/SEND_OLD_EMAIL_SUCCESS';

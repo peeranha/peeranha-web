@@ -26,6 +26,7 @@ import {
   GET_EMAIL_ADDRESS,
   GET_EMAIL_ADDRESS_SUCCESS,
   GET_EMAIL_ADDRESS_ERROR,
+  SEND_VERIFICATION_CODE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -42,6 +43,8 @@ export const initialState = fromJS({
   isSubscribed: false,
   verificationCode: null,
   getEmailAddressError: null,
+  verificationCode: false,
+  verificationCodeRequest: 0,
 });
 
 function changeEmailReducer(state = initialState, action) {
@@ -107,7 +110,11 @@ function changeEmailReducer(state = initialState, action) {
       return state
         .set('changeEmailProcessing', false)
         .set('changeEmailError', changeEmailError);
-
+    case SEND_VERIFICATION_CODE:
+      return state.set(
+        'verificationCodeRequest',
+        state.get('verificationCodeRequest') + 1,
+      );
     default:
       return state;
   }

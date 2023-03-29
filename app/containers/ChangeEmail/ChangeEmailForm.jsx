@@ -3,19 +3,18 @@ import H4 from 'components/H4';
 import letterCompleteImg from 'images/EmailComplete.svg?inline';
 import { useTranslation } from 'react-i18next';
 import { TEXT_SECONDARY } from 'style-constants';
+import { styles } from './ChangeEmail.styled';
 
 const ChangeEmailForm = () => {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <H4 className="text-center">{t('profile.excellent')}</H4>
-      <div className="text-center pb-3" css={{ color: TEXT_SECONDARY }}>
-        {t('profile.excellentText')}
-      </div>
+    <div css={styles.changeEmailForm}>
+      <H4>{t('profile.excellent')}</H4>
+      <div>{t('profile.excellentText')}</div>
 
-      <div className="text-center">
-        <img className="pb-3" src={letterCompleteImg} alt="check your email" />
+      <div>
+        <img src={letterCompleteImg} alt="check your email" />
       </div>
     </div>
   );

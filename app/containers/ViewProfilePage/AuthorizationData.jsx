@@ -5,13 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { reduxForm, Field } from 'redux-form/immutable';
 import TransactionHandler from './TransactionHandler';
 import H3 from 'components/H3';
-import Span from 'components/Span';
-import ChangeEmailButton from '../ChangeEmail';
-import ToggleSwitch from '../../components/ToogleSwitch';
+import ChangeEmailButton from 'containers/ChangeEmail';
+import ToggleSwitch from 'components/ToogleSwitch';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/Transparent';
 import { TYPE_OF_TRANSACTIONS } from 'utils/constants';
-import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
+import { getCookie } from 'utils/cookie';
 import { TEXT_SECONDARY } from 'style-constants';
 import {
   validateEmail,
@@ -46,24 +45,6 @@ const AuthorizationData = ({
     setIsToggled(isSubscribedEmail);
   }, [isSubscribedEmail, email]);
 
-  const handleMetaTransactionsAllowed = () => {
-    setCookie({
-      name: META_TRANSACTIONS_ALLOWED,
-      value: true,
-      options: {
-        neverExpires: true,
-        defaultPath: true,
-        allowSubdomains: true,
-      },
-    });
-    setMetaTransactions(true);
-  };
-
-  const handleMetaTransactionsDisallowed = () => {
-    deleteCookie(META_TRANSACTIONS_ALLOWED);
-    setMetaTransactions(false);
-  };
-
   return (
     <>
       <BaseStyled
@@ -80,18 +61,32 @@ const AuthorizationData = ({
         <div>
           <div css={{ fontSize: '18px' }}>
             <div
-              className="df jcsb"
-              css={{ margin: '36px  0 12px 0', maxWidth: '450px' }}
+              css={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                margin: '36px  0 12px 0',
+                maxWidth: '450px',
+              }}
             >
               <div>
-                <div className="df aic fww mb-2">
-                  <div className="full-width semi-bold mb-2">
-                    {' '}
+                <div
+                  css={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    marginBottom: '5px',
+                  }}
+                >
+                  <div
+                    css={{
+                      width: '100%',
+                      marginBottom: '5px',
+                      fontWeight: 600,
+                    }}
+                  >
                     {t('profile.emailNotifications')}
                   </div>
-                  <div
-                    css={{ fontSize: '16px', color: 'var(--color-gray-dark)' }}
-                  >
+                  <div css={{ fontSize: '16px', color: TEXT_SECONDARY }}>
                     {t('profile.emailNotificationsText')}
                   </div>
                 </div>
@@ -106,13 +101,17 @@ const AuthorizationData = ({
             {isToggled && (
               <div css={{ maxWidth: '450px' }}>
                 {open ? (
-                  <div className="semi-bold">
+                  <div css={{ fontWeight: 600 }}>
                     {t('common.confirmedEmail')}
-                    <div className="df aic jcsb mt-2">
-                      <span
-                        className="light"
-                        css={{ color: 'var(--color-gray-dark)' }}
-                      >
+                    <div
+                      css={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginTop: '5px',
+                      }}
+                    >
+                      <span className="light" css={{ color: TEXT_SECONDARY }}>
                         {email}
                       </span>
                       <ChangeEmailButton setOpen={setOpen} open={open} />
@@ -120,21 +119,27 @@ const AuthorizationData = ({
                   </div>
                 ) : (
                   <form
-                    className="df jcsb fww"
+                    css={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                    }}
                     onSubmit={handleSubmit(showChangeEmailModal)}
                   >
                     <div
-                      className="w-100"
                       css={
-                        isCheckEmail && {
+                        (isCheckEmail && {
                           input: {
                             border: '1px solid #F76F60',
                             boxShadow: '0 0 0 3px rgba(255, 0, 0, 0.40)',
                           },
-                        }
+                        },
+                        { width: '100%' })
                       }
                     >
-                      <div className="semi-bold mb-2">{t('profile.email')}</div>
+                      <div css={{ marginBottom: '5px', fontWeight: 600 }}>
+                        {t('profile.email')}
+                      </div>
 
                       <Field
                         ref={refInput}
@@ -148,8 +153,13 @@ const AuthorizationData = ({
                     </div>
                     {isCheckEmail && (
                       <div
-                        className="mb-3 fz14 w-100"
-                        css={{ color: '#F76F60', fontStyle: 'italic' }}
+                        css={{
+                          fontSize: '14px',
+                          width: '100%',
+                          marginBottom: '10px',
+                          color: '#F76F60',
+                          fontStyle: 'italic',
+                        }}
                       >
                         {t('signUp.emailSubscribed')}
                       </div>

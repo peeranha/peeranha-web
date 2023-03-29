@@ -48,5 +48,6 @@
   "sendCode": "发送代码",
   "emailNotifications": "电子邮件通知",
   "emailNotificationsText": "获取有关您的帖子、答案和评论的通知。",
-  "verificationCodeText": "验证码将发送至邮箱:"
+  "verificationCodeText": "我们会将验证码发送至您的邮箱",
+  "confirmVerificationCode": "请输入您收到的代码"
 }

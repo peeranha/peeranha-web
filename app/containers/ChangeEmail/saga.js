@@ -44,6 +44,7 @@ import {
   confirmOldEmailErr,
   showChangeEmailModalSuccess,
   showChangeEmailModalErr,
+  sendVerificationCodeSuccess,
 } from './actions';
 
 export function* sendOldEmailWorker({ email }) {
@@ -65,6 +66,7 @@ export function* sendAnotherCode() {
 }
 
 export function* sendAnotherCodeSuccess() {
+  yield put(sendVerificationCodeSuccess());
   yield call(successHandling);
 }
 

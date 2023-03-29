@@ -48,5 +48,6 @@
   "sendCode": "Send code",
   "emailNotifications": "Email notifications",
   "emailNotificationsText": "Get notifications about your posts, answers and comments.",
-  "verificationCodeText": "A verification code will be sent to email:"
+  "verificationCodeText": "We will send you a verification code to email",
+  "confirmVerificationCode": "Please, enter the code that you received on"
 }

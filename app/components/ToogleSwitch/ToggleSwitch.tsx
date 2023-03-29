@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { styled } from './ToogleSwitch.styled';
 
 type ToggleSwitchProps = {
@@ -10,7 +10,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   isToggled,
   setIsToggled,
 }): JSX.Element => {
-  const onToggle = () => setIsToggled(!isToggled);
+  const onToggle = useCallback(() => setIsToggled(!isToggled), [isToggled]);
   return (
     <label css={styled.toggleSwitch}>
       <input type="checkbox" checked={isToggled} onChange={onToggle} />
