@@ -90,7 +90,7 @@ const EditCommunity = ({
 
       <Header headerDescriptor="common.editCommunityDesc.header" />
 
-      <TipsBase className="overflow-hidden">
+      <TipsBase>
         {communityLoading && <LoadingIndicator />}
 
         {!communityLoading && <Form {...formData} />}
