@@ -12,9 +12,7 @@ const colors = singleCommunityColors();
 export const SpanStyled = TransparentButton.extend`
   ${(x) =>
     svgDraw({
-      color: x.isVotedToDelete
-        ? TEXT_WARNING
-        : colors.linkColor || TEXT_PRIMARY,
+      color: x.isVotedToDelete ? TEXT_WARNING : colors.linkColor || TEXT_PRIMARY,
     })};
 
   display: inline-flex;
@@ -64,10 +62,7 @@ export const Button = ({
 
 Button.propTypes = {
   params: PropTypes.object,
-  children: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.arrayOf(PropTypes.object),
-  ]),
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]),
   id: PropTypes.string,
   className: PropTypes.string,
   onClick: PropTypes.func,

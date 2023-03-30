@@ -32,28 +32,19 @@ import saga from 'containers/EthereumProvider/saga';
 
 import { hideModal } from 'containers/EthereumProvider/actions';
 
-import {
-  makeSelectEthereum,
-  makeSelectShowModal,
-} from '../EthereumProvider/selectors';
+import { makeSelectEthereum, makeSelectShowModal } from '../EthereumProvider/selectors';
 import Popup from 'common-components/Popup';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 
 /* eslint-disable react/prefer-stateless-function */
-export const MetaTransactionAgreement = ({
-  showModal,
-  hideModalDispatch,
-  ethereum,
-  account,
-}) => {
+export const MetaTransactionAgreement = ({ showModal, hideModalDispatch, ethereum, account }) => {
   const dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
   const [transaction, setTransaction] = useState(dataFromCookies);
   const { t } = useTranslation();
 
   const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
-  const isBalance =
-    Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0.005;
+  const isBalance = Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0.005;
   const isTransactionType = dataFromCookies === TRANSACTIONS_ALLOWED;
 
   const hideModal = () => {
@@ -104,9 +95,7 @@ export const MetaTransactionAgreement = ({
           {isTorusWallet && !dataFromCookies && (
             <Popup size="tiny" onClose={hideModal}>
               <PopupForTorusWallet
-                agreeWithDispatcherTransactions={
-                  agreeWithDispatcherTransactions
-                }
+                agreeWithDispatcherTransactions={agreeWithDispatcherTransactions}
                 account={account}
               />
             </Popup>
@@ -118,18 +107,12 @@ export const MetaTransactionAgreement = ({
               css={{ '> div': { maxWidth: '570px !important' } }}
               withoutClose={false}
             >
-              <TransactionHandler
-                transaction={transaction}
-                setTransaction={setTransaction}
-              />
+              <TransactionHandler transaction={transaction} setTransaction={setTransaction} />
               <div css={{ marginTop: '30px' }}>
                 <span>{t('common.transactionsText_4')}</span>
                 <span className="bold">{t('common.settings')}</span>.
               </div>
-              <div
-                className="df aic jcfe mt-4"
-                css={{ button: { maxWidth: '150px' } }}
-              >
+              <div className="df aic jcfe mt-4" css={{ button: { maxWidth: '150px' } }}>
                 <OutlinedButton className="mr-3" onClick={hideModal}>
                   {t('common.cancel')}
                 </OutlinedButton>
@@ -172,8 +155,4 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'ethereumProvider', reducer });
 const withSaga = injectSaga({ key: 'ethereumProvider', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(MetaTransactionAgreement);
+export default compose(withReducer, withSaga, withConnect)(MetaTransactionAgreement);

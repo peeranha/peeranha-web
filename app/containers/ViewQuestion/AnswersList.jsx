@@ -42,6 +42,8 @@ export const AnswersList = (props) => {
           lastEditedDate,
           votingStatus,
           isOfficialReply,
+          handle,
+          messengerType,
         }) => (
           <Content
             {...props}
@@ -56,7 +58,11 @@ export const AnswersList = (props) => {
             questionFrom={props.questionData.author.user}
             isItWrittenByMe={isItWrittenByMe}
             history={history}
-            author={author}
+            author={{
+              ...author,
+              handle,
+              messengerType,
+            }}
             postTime={+postTime}
             lastEditedDate={lastEditedDate}
             votingStatus={votingStatus}

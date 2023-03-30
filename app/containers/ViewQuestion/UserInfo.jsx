@@ -1,24 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
+
+import { customRatingIconColors } from 'constants/customRating';
 
 import noAvatar from 'images/ico-user-no-photo.png';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
-
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus';
 import MediumImage, { MediumImageWrapper } from 'components/Img/MediumImage';
 
 import Span from 'components/Span';
 import A from 'components/A';
-import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 
-import { customRatingIconColors } from 'constants/customRating';
 import { COMMENT_TYPE } from './constants';
 
 const Block = styled.div`
@@ -62,7 +61,6 @@ export const UserInfo = ({
   postTime,
   locale,
   achievementsCount,
-  isTemporaryAccount,
   isComment,
 }) => (
   <A to={routes.profileView(account)} className="d-flex flex-shrink-0">
@@ -74,12 +72,6 @@ export const UserInfo = ({
           src={avatar || noAvatar}
           alt="avatar"
         />
-        {isTemporaryAccount && (
-          <TelegramUserLabel
-            id={`temporary-account-${account}-label`}
-            locale={locale}
-          />
-        )}
       </MediumImageWrapper>
     )}
 
@@ -119,7 +111,6 @@ UserInfo.propTypes = {
   locale: PropTypes.string,
   achievementsCount: PropTypes.number,
   isComment: PropTypes.bool,
-  isTemporaryAccount: PropTypes.bool,
 };
 
 export default React.memo(UserInfo);

@@ -14,11 +14,7 @@ type DropdownOptionProps = {
 
 // TODO: Ripple effect on click
 
-const DropdownOption: React.FC<DropdownOptionProps> = ({
-  option,
-  isMultiple,
-  onClick,
-}) => {
+const DropdownOption: React.FC<DropdownOptionProps> = ({ option, isMultiple, onClick }) => {
   const { t } = useTranslation();
   const clickHandler = (): void => {
     if (!option.isDisabled) {
@@ -37,9 +33,7 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
         })}
         onClick={clickHandler}
       >
-        {(option.render instanceof Function
-          ? option.render(option)
-          : option.render) || (
+        {(option.render instanceof Function ? option.render(option) : option.render) || (
           <>
             {option.icon && (
               <span className={cn('mr8 dropdown-icon')} css={classes.icon}>

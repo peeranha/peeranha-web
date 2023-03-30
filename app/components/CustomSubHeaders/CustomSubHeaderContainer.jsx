@@ -16,9 +16,7 @@ const CUSTOM_SUB_HEADER_CONTAINER = {
 };
 
 const CustomSubHeaderContainer = ({ design }) =>
-  CUSTOM_SUB_HEADER_CONTAINER[design]
-    ? CUSTOM_SUB_HEADER_CONTAINER[design]
-    : '';
+  CUSTOM_SUB_HEADER_CONTAINER[design] ? CUSTOM_SUB_HEADER_CONTAINER[design] : '';
 
 CustomSubHeaderContainer.propTypes = {
   design: PropTypes.string.isRequired,

@@ -5,12 +5,7 @@ import { sendMessage } from 'utils/homepageManagement';
 import { EMAIL_CHECKING } from 'containers/SignUp/constants';
 import { addToast } from 'containers/Toast/actions';
 import { emailCheckingWorker } from 'containers/SignUp/saga';
-import {
-  EMAIL_FIELD,
-  MESSAGE_FIELD,
-  NAME_FIELD,
-  SEND_MESSAGE,
-} from './constants';
+import { EMAIL_FIELD, MESSAGE_FIELD, NAME_FIELD, SEND_MESSAGE } from './constants';
 
 import { sendMessageSuccess, sendMessageErr } from './actions';
 

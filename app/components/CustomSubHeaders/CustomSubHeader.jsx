@@ -18,17 +18,14 @@ const Div = styled.div`
   color: ${({ styles }) =>
     styles.color && styles.color.a ? styles.color.a : `var(--color-white)`};
 
-  ${({ bg }) =>
-    bg ? `background-image: url('${bg}');` : ''} background-size: cover;
+  ${({ bg }) => (bg ? `background-image: url('${bg}');` : '')} background-size: cover;
   background-position: center;
-  background-color: ${({ styles }) =>
-    styles.bg.header || `var(--color-blue-dark)`};
+  background-color: ${({ styles }) => styles.bg.header || `var(--color-blue-dark)`};
   border-bottom: ${({ bg }) => (bg ? 0 : 1)}px solid
     ${({ styles, bg }) =>
       styles.bg.header === `var(--color-white)` ? `#c2c6d8` : styles.bg.header};
 
-  ${({ styles }) =>
-    styles.CustomSubHeader ? styles.CustomSubHeader : ``} > div > div {
+  ${({ styles }) => (styles.CustomSubHeader ? styles.CustomSubHeader : ``)} > div > div {
     font-family: ${({ styles }) =>
       styles.font && styles.font.body ? styles.font.body : `inherit`};
     font-size: 15px;
@@ -301,11 +298,7 @@ export const B = ({
 
             {isDropdownMenuArrow && (
               <ArrowButton onClick={setVis}>
-                <Arrow
-                  className="mt-auto mb-auto"
-                  color="small"
-                  rotate={visible}
-                />
+                <Arrow className="mt-auto mb-auto" color="small" rotate={visible} />
               </ArrowButton>
             )}
           </SubitemsTitleButton>
@@ -313,12 +306,7 @@ export const B = ({
             <Subitems styles={styles.subitems}>
               <div>
                 {subitems.map(({ text, href, target }) => (
-                  <LocalLink
-                    styles={styles}
-                    key={href}
-                    href={href}
-                    target={target || '_blank'}
-                  >
+                  <LocalLink styles={styles} key={href} href={href} target={target || '_blank'}>
                     {text}
                   </LocalLink>
                 ))}
@@ -329,22 +317,13 @@ export const B = ({
       ) : (
         <>
           <SubitemsTitle>
-            <span css={isHighlighted ? `${styles.Highlighted}` : ''}>
-              {text}
-            </span>
-            {isDropdownMenuArrow && (
-              <Arrow className="mt-auto mb-auto" color="small" />
-            )}
+            <span css={isHighlighted ? `${styles.Highlighted}` : ''}>{text}</span>
+            {isDropdownMenuArrow && <Arrow className="mt-auto mb-auto" color="small" />}
           </SubitemsTitle>
           <Subitems styles={styles.subitems}>
             <div>
               {subitems.map(({ text, href, target }) => (
-                <LocalLink
-                  styles={styles}
-                  key={href}
-                  href={href}
-                  target={target || '_blank'}
-                >
+                <LocalLink styles={styles} key={href} href={href} target={target || '_blank'}>
                   {text}
                 </LocalLink>
               ))}
@@ -367,12 +346,7 @@ B.propTypes = {
   target: PropTypes.string,
 };
 
-export const Links = ({
-  links,
-  styles,
-  device = 'desktop',
-  isDropdownMenuArrow = true,
-}) => (
+export const Links = ({ links, styles, device = 'desktop', isDropdownMenuArrow = true }) => (
   <div>
     {links.map(({ text, href, isHighlighted, subitems, target }) => (
       <React.Fragment key={text}>
@@ -417,10 +391,7 @@ const CustomSubHeader = ({ config }) => {
 
   return config ? (
     <Div styles={config.styles} bg={banner}>
-      <Container
-        className="container h-100"
-        css={config.styles.subHeaderContainerStyles}
-      >
+      <Container className="container h-100" css={config.styles.subHeaderContainerStyles}>
         <CustomSubHeaderContainer design={config.design} />
       </Container>
     </Div>

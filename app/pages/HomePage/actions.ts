@@ -1,8 +1,4 @@
-import {
-  SEND_MESSAGE,
-  SEND_MESSAGE_ERROR,
-  SEND_MESSAGE_SUCCESS,
-} from './constants';
+import { SEND_MESSAGE, SEND_MESSAGE_ERROR, SEND_MESSAGE_SUCCESS } from './constants';
 
 export function sendMessage(...val: any) {
   return {

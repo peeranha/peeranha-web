@@ -82,11 +82,8 @@ export const Questions = ({
 }) => {
   const { t } = useTranslation();
   const isFeed = window.location.pathname === routes.feed(params.communityid);
-  const isNotFollowedCommunities =
-    isEmpty(followedCommunities) || followedCommunities[0] === 0;
-  const isExpert =
-    path === routes.expertPosts() ||
-    path === routes.expertPosts(':communityid');
+  const isNotFollowedCommunities = isEmpty(followedCommunities) || followedCommunities[0] === 0;
+  const isExpert = path === routes.expertPosts() || path === routes.expertPosts(':communityid');
   const isTopCommunitiesDisplay =
     isFeed &&
     !single &&
@@ -156,10 +153,7 @@ export const Questions = ({
   const displayBanner = useMemo(
     () =>
       !(getCookie(QUESTION_FILTER) === '1' || questionFilter === 1)
-        ? !questionsList.length &&
-          !questionsLoading &&
-          !topQuestionsLoading &&
-          !communitiesLoading
+        ? !questionsList.length && !questionsLoading && !topQuestionsLoading && !communitiesLoading
         : false,
     [
       questionsList.length,
@@ -192,8 +186,7 @@ export const Questions = ({
   );
 
   const isModerator = useMemo(
-    () =>
-      isUserTopCommunityQuestionsModerator(profile?.permissions ?? [], single),
+    () => isUserTopCommunityQuestionsModerator(profile?.permissions ?? [], single),
     [profile],
   );
 
@@ -239,11 +232,7 @@ export const Questions = ({
         />
       )}
       {isTopCommunitiesDisplay && (
-        <TopCommunities
-          communities={communities}
-          profile={profile}
-          isTopCommunitiesOnly
-        />
+        <TopCommunities communities={communities} profile={profile} isTopCommunitiesOnly />
       )}
       {displayLoader && <LoadingIndicator />}
     </div>
@@ -305,8 +294,7 @@ export default compose(
           props.parentPage,
           Number(props.match.params.communityid),
         )(state),
-      isLastTopQuestionLoaded:
-        questionsSelector.isLastTopQuestionLoadedSelector,
+      isLastTopQuestionLoaded: questionsSelector.isLastTopQuestionLoadedSelector,
       promotedQuestions: questionsSelector.selectPromotedQuestions(),
     }),
     (dispatch) => ({
@@ -314,10 +302,7 @@ export default compose(
       setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
       getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
       showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
-      redirectToAskQuestionPageDispatch: bindActionCreators(
-        redirectToAskQuestionPage,
-        dispatch,
-      ),
+      redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
       loadTopQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     }),
   ),

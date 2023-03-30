@@ -34,9 +34,7 @@ const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
       {open && (
         <Popup onClose={() => setOpen(false)}>
           <div className="mb-3 df fdc">
-            <div className="df aic jcc semi-bold fz24 mb-4">
-              {t(`common.selectLanguage`)}
-            </div>
+            <div className="df aic jcc semi-bold fz24 mb-4">{t(`common.selectLanguage`)}</div>
             {Object.keys(languages).map((item) => (
               <label>
                 <input

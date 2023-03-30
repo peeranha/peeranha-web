@@ -101,9 +101,7 @@ const UniqueAchievement = ({
                 />
               </div>
             )}
-            {!reached && (
-              <Icon icon={achievementNotReached} width="160" height="148" />
-            )}
+            {!reached && <Icon icon={achievementNotReached} width="160" height="148" />}
             {currentUser && !reached && (
               <ProgressBar
                 achievementId={id}
@@ -111,12 +109,8 @@ const UniqueAchievement = ({
                 progress={getProgress()}
                 pointsToNext={pointsToNext}
                 groupType={uniqueRatingRelated}
-                messageSingle={t(
-                  'achievements.progressBarPopover.ratingRelated.single',
-                )}
-                messageMultiple={t(
-                  'achievements.progressBarPopover.ratingRelated.multiple',
-                )}
+                messageSingle={t('achievements.progressBarPopover.ratingRelated.single')}
+                messageMultiple={t('achievements.progressBarPopover.ratingRelated.multiple')}
               />
             )}
           </ImageBlock>

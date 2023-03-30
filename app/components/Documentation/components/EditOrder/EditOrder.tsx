@@ -21,9 +21,8 @@ const EditOrder: React.FC<EditOrderProps> = ({
   saveMenuDraft,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const [documentationEditOrder, setDocumentationEditOrder] = useState<
-    Array<DocumentationItemMenuType>
-  >(documentationMenuDraft);
+  const [documentationEditOrder, setDocumentationEditOrder] =
+    useState<Array<DocumentationItemMenuType>>(documentationMenuDraft);
 
   const onClickSave = () => {
     saveMenuDraft(documentationEditOrder);
@@ -99,8 +98,7 @@ const EditOrder: React.FC<EditOrderProps> = ({
             className="pl8 pr8"
             css={{
               color: documentationColors.headerText || 'var(--color-white)',
-              backgroundColor:
-                documentationColors.headerBackground || '#7699FF',
+              backgroundColor: documentationColors.headerBackground || '#7699FF',
               borderRadius: '20px',
             }}
           >
@@ -140,11 +138,8 @@ const EditOrder: React.FC<EditOrderProps> = ({
             variant="primary"
             css={{
               background:
-                documentationColors.saveDraftButtonBackground ||
-                'var(--color-button-primary)',
-              color:
-                documentationColors.saveDraftButtonColor ||
-                'var(--color-white)',
+                documentationColors.saveDraftButtonBackground || 'var(--color-button-primary)',
+              color: documentationColors.saveDraftButtonColor || 'var(--color-white)',
               borderWidth: 0,
               '&:hover .icon': { stroke: 'var(--color-white)' },
             }}
