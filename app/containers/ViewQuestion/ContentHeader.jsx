@@ -218,7 +218,12 @@ const ContentHeader = (props) => {
 
       <ItemInfo>
         {isBot ? (
-          <BotInfo postTime={postTime} locale={locale} messengerType={author.messengerType} />
+          <BotInfo
+            postTime={postTime}
+            locale={locale}
+            messengerType={author.messengerType}
+            isPost={isPostContent}
+          />
         ) : (
           <UserInfo
             avatar={getUserAvatar(author.avatar)}

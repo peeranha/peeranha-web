@@ -144,6 +144,8 @@ const post = `
     isFirstReply
     isQuickReply
     properties
+    handle
+    messengerType
     replies (
       orderBy: postTime,
       orderDirection: desc,
