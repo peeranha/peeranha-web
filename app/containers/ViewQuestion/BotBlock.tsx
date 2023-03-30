@@ -50,16 +50,17 @@ type BotBlockProps = {
   postTime: string | number;
   locale: string;
   messenger: Messenger;
+  isPost?: boolean;
 };
 
-const BotBlock: React.FC<BotBlockProps> = ({ postTime, locale, messenger }) => {
+const BotBlock: React.FC<BotBlockProps> = ({ postTime, locale, messenger, isPost }) => {
   const { t } = useTranslation();
 
   return (
     <div css={blockCss}>
       <span className={`d-flex align-items-center mr-2`}>
         <Span className="mr-2" fontSize="14" lineHeight="18" textOverflow="ellipsis">
-          {t('post.BotAnswer', { bot: messenger.name })}
+          {t(isPost ? 'post.botCreate' : 'post.botAnswer', { bot: messenger.name })}
         </Span>
       </span>
 
