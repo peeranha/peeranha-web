@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { HEADER_HEIGHT } from 'containers/Header/constants';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import useMediaQuery from 'hooks/useMediaQuery';
 import {
   BG_PRIMARY_BLANKET,
   BG_PRIMARY_SPECIAL,
@@ -11,10 +12,7 @@ import {
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import {
-  LEFT_MENU_ID,
-  NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY,
-} from 'containers/LeftMenu/constants';
+import { LEFT_MENU_ID, NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY } from 'containers/LeftMenu/constants';
 
 import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
 import MobileLinksInWallet from 'containers/LeftMenu/MobileLinksInWallet';
@@ -48,10 +46,9 @@ const View = ({
   const [currClientHeight, setClientHeight] = useState();
 
   useEffect(() => setClientHeight(document.documentElement.clientHeight), []);
-
+  const isDesktop = useMediaQuery('(min-width: 992px)');
   // change links display on window resize
-  const windowResizeHandler = () =>
-    setClientHeight(document.documentElement.clientHeight);
+  const windowResizeHandler = () => setClientHeight(document.documentElement.clientHeight);
 
   useEffect(() => {
     window.addEventListener(`resize`, windowResizeHandler, false);
@@ -64,7 +61,7 @@ const View = ({
       single={single}
       isMenuVisible={isMenuVisible}
       css={css`
-        height: calc(100vh - ${HEADER_HEIGHT}px);
+        height: isDesktop ? calc(100vh - ${HEADER_HEIGHT}px) : 100vh;
         overflow: hidden;
         padding-right: 6px;
 
