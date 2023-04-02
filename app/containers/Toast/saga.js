@@ -22,10 +22,8 @@ import { makeSelectToasts } from './selectors';
 
 import { errHandlingTypes, otherTypes } from './imports';
 import errorMessages from 'errorsByCode';
-import {
-  TRANSACTION_COMPLETED,
-  TRANSACTION_FAILED,
-} from '../EthereumProvider/constants';
+import { TRANSACTION_COMPLETED, TRANSACTION_FAILED } from '../EthereumProvider/constants';
+import errorsByCode from 'errorsByCode';
 
 export function* errHandling(error = {}) {
   try {
@@ -55,9 +53,7 @@ export function* errHandling(error = {}) {
 
       try {
         errorCode = Object.keys(blockchainErrorMsgs).find((x) =>
-          errorValue.message
-            .toLowerCase()
-            .includes(blockchainErrorMsgs[x].keywords.toLowerCase()),
+          errorValue.message.toLowerCase().includes(blockchainErrorMsgs[x].keywords.toLowerCase()),
         );
       } catch (err) {
         throw new Error('Unknown error');
@@ -73,10 +69,7 @@ export function* errHandling(error = {}) {
     yield put(
       addToast({
         type: 'error',
-        text:
-          typeof catchError === 'string'
-            ? catchError
-            : i18next.t('common.errorMessage'),
+        text: i18next.t(errorsByCode[error?.data?.message] || 'common.errorMessage'),
       }),
     );
   }
@@ -125,12 +118,9 @@ export function* loggerWorker(error) {
     yield call(logError, {
       user: user || 'none',
       error: JSON.stringify({
-        message:
-          typeof error[key] === 'string' ? error[key] : error[key].message,
+        message: typeof error[key] === 'string' ? error[key] : error[key].message,
         stack: error[key].stack,
-        node:
-          (endpointsData && endpointsData.nodes[0]) ||
-          process.env.EOS_ENDPOINT_DEFAULT,
+        node: (endpointsData && endpointsData.nodes[0]) || process.env.EOS_ENDPOINT_DEFAULT,
         isScatter: loginData ? Boolean(loginData.loginWithScatter) : false,
         userAgent: navigator.userAgent,
       }),
