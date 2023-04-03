@@ -129,7 +129,9 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   const saveDocumentationMenu = () => {
     saveToDraft().then((draftFromSave: Array<DocumentationItemMenuType>) => {
       if (_.isEqual(documentationMenu, documentationMenuDraft)) {
-        updateDocumentationMenuDispatch(draftFromSave);
+        if (draftFromSave) {
+          updateDocumentationMenuDispatch(draftFromSave);
+        }
       } else {
         updateDocumentationMenuDispatch(documentationMenuDraft);
       }
