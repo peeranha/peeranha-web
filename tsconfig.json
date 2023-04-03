@@ -32,6 +32,6 @@
       "pages": ["app/pages/*"]
     }
   },
-  "include": ["app"],
+  "include": ["app/**/*"],
   "exclude": ["node_modules"]
 }

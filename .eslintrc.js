@@ -1,22 +1,14 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
-    'airbnb-base',
+    'airbnb',
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:import/warnings',
     'plugin:import/errors',
-    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
-  plugins: [
-    'react',
-    'react-hooks',
-    'redux-saga',
-    '@typescript-eslint',
-    'jsx-a11y',
-    'prettier',
-  ],
+  plugins: ['react', 'react-hooks', 'redux-saga', '@typescript-eslint', 'jsx-a11y', 'prettier'],
   env: {
     browser: true,
     node: true,
@@ -77,14 +69,7 @@ module.exports = {
     'react/prop-types': [
       'off',
       {
-        ignore: [
-          'className',
-          'children',
-          'dispatch',
-          'location',
-          'match',
-          'history',
-        ],
+        ignore: ['className', 'children', 'dispatch', 'location', 'match', 'history'],
       },
     ],
     'react/jsx-first-prop-new-line': [2, 'multiline'],
@@ -97,7 +82,7 @@ module.exports = {
     'redux-saga/no-yield-in-race': 2,
     'redux-saga/yield-effects': 2,
     'require-yield': 0,
-    'no-plusplus:': 'off',
+    'no-plusplus': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/react-in-jsx-scope': 'off',
@@ -111,6 +96,10 @@ module.exports = {
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
+      extends: ['airbnb-typescript', 'plugin:@typescript-eslint/recommended'],
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
       rules: {
         'no-undef': 'off',
         'no-unused-vars': 'off',

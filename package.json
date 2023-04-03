@@ -34,43 +34,31 @@
     "setup": "node ./internals/scripts/setup.js",
     "postsetup": "npm run build:dll",
     "clean:all": "npm run test:clean && npm run build:clean",
-    "lint": "npm run lint:js && npm run lint:css",
-    "lint:css": "stylelint './app/**/*.js'",
-    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts",
-    "lint:eslint:fix": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts --fix",
-    "lint:js": "npm run lint:eslint -- . ",
+    "lint": "npm run lint:eslint && npm run lint:stylelint",
+    "lint:stylelint": "stylelint './app/**/*.js'",
+    "lint:eslint": "eslint -c .eslintrc.js --ext=.js,.jsx,.ts,.tsx ./app --ignore-path .gitignore --ignore-pattern internals/scripts",
+    "lint:eslint:fix": "eslint -c .eslintrc.js --ext=.js,.jsx,.ts,.tsx ./app --ignore-path .gitignore --ignore-pattern internals/scripts --fix",
     "lint:staged": "lint-staged",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage --runInBand --no-cache",
     "test:file": "cross-env NODE_ENV=test jest",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "prettify": "prettier --write",
+    "prettify": "prettier --write .",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "browserslist": "> 1%, not dead",
   "lint-staged": {
     "linters": {
-      "*.js": [
+      "**/*.{js,jsx,ts,tsx}": [
+        "eslint -c .eslintrc.js --fix",
         "prettier --write",
-        "git add --force"
+        "git add"
       ],
-      "*.jsx": [
+      "**/*.json": [
         "prettier --write",
-        "git add --force"
-      ],
-      "*.ts": [
-        "prettier --write",
-        "git add --force"
-      ],
-      "*.tsx": [
-        "prettier --write",
-        "git add --force"
-      ],
-      "*.json": [
-        "prettier --write",
-        "git add --force"
+        "git add"
       ]
     }
   },
@@ -289,6 +277,7 @@
     "eslint": "^7.27.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "*",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-babel-module": "^5.3.1",
@@ -302,6 +291,7 @@
     "eslint-plugin-storybook": "^0.6.4",
     "eventsource-polyfill": "0.9.6",
     "file-loader": "^6.2.0",
+    "find-parent-dir": "^0.3.1",
     "graphql": "^15.5.3",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
@@ -311,7 +301,7 @@
     "jest": "23.6.0",
     "jest-cli": "23.1.0",
     "jest-styled-components": "5.0.1",
-    "lint-staged": "7.2.0",
+    "lint-staged": "^7.3.0",
     "markdown-loader": "^8.0.0",
     "node-plop": "0.15.0",
     "plop": "2.0.0",
