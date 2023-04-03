@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 import { useTranslation } from 'react-i18next';
-import { errorPage } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -199,9 +198,9 @@ export const ViewQuestion = ({
     profile,
   };
 
-  const helmetTitle = questionData?.content.title || t('post.title');
+  const helmetTitle = questionData?.title || t('post.title');
 
-  const helmetDescription = questionData?.content.content ?? t('post.title');
+  const helmetDescription = questionData?.content ?? t('post.title');
 
   const articlePublishedTime = questionData?.postTime ? new Date(questionData.postTime * 1000) : ``;
 
@@ -213,16 +212,14 @@ export const ViewQuestion = ({
 
   return (
     <>
-      {process.env.ENV !== 'dev' && (
-        <Seo
-          title={helmetTitle}
-          description={helmetDescription}
-          language={locale}
-          keywords={keywords}
-          articlePublishedTime={articlePublishedTime}
-          articleModifiedTime={articleModifiedTime}
-        />
-      )}
+      <Seo
+        title={helmetTitle}
+        description={helmetDescription}
+        language={locale}
+        keywords={keywords}
+        articlePublishedTime={articlePublishedTime}
+        articleModifiedTime={articleModifiedTime}
+      />
 
       {!questionDataLoading && !historiesLoading && questionData && (
         <ViewQuestionContainer {...sendProps} />
