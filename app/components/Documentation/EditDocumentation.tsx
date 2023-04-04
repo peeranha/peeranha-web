@@ -78,7 +78,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
   const [pinned, setPinned] = useState<string>(pinnedItemMenu.id);
-  const [saveToDraft, setSaveToDraft] = useState<Function>();
+  const [saveToDraft, setSaveToDraft] = useState<Function>(() => async () => {});
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -127,7 +127,11 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   };
 
   const saveDocumentationMenu = () => {
+    console.log(saveToDraft);
     saveToDraft().then((draftFromSave: Array<DocumentationItemMenuType>) => {
+      console.log(documentationMenu);
+      console.log(documentationMenuDraft);
+      console.log(draftFromSave);
       if (_.isEqual(documentationMenu, documentationMenuDraft)) {
         if (draftFromSave) {
           updateDocumentationMenuDispatch(draftFromSave);
