@@ -1,7 +1,7 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 import { dataToString } from 'utils/converters';
 import { isUserExists } from './accountManagement';
-import { queries } from './ethConstants';
+import { queries, postsIdsByTagsQueryMesh } from './ethConstants';
 import {
   executeMeshQuery,
   getPostDataFromMesh,
@@ -36,9 +36,7 @@ export const getUsers = async ({
   orderBy = 'creationTime',
   sorting = 'desc',
 }) => {
-  const query = isMeshService
-    ? queries.Users.Mesh(orderBy, sorting)
-    : queries.Users.TheGraph;
+  const query = isMeshService ? queries.Users.Mesh(orderBy, sorting) : queries.Users.TheGraph;
 
   const result = await executeQuery({
     query,
@@ -50,9 +48,7 @@ export const getUsers = async ({
     },
   });
 
-  return isMeshService
-    ? result.user.map((item) => getUserDataFromMesh(item))
-    : result.users;
+  return isMeshService ? result.user.map((item) => getUserDataFromMesh(item)) : result.users;
 };
 
 export const getModerators = async (roles) => {
@@ -78,11 +74,7 @@ export const getModerators = async (roles) => {
     : [...result.userPermissions];
 };
 
-export const getUsersByCommunity = async ({
-  limit = 50,
-  skip: offset,
-  communityId,
-}) => {
+export const getUsersByCommunity = async ({ limit = 50, skip: offset, communityId }) => {
   const result = await executeQuery({
     query: queries.UsersByCommunity[graphService],
     variables: {
@@ -93,9 +85,7 @@ export const getUsersByCommunity = async ({
   });
 
   return isMeshService
-    ? result.usercommunityrating.map((item) =>
-        getUserDataFromMesh(item.user[0]),
-      )
+    ? result.usercommunityrating.map((item) => getUserDataFromMesh(item.user[0]))
     : result.userCommunityRatings.map((item) => item.user);
 };
 
@@ -107,9 +97,7 @@ export const getUser = async (id) => {
     },
   });
 
-  return isMeshService
-    ? getUserDataFromMesh(result.user[0])
-    : { ...result.user };
+  return isMeshService ? getUserDataFromMesh(result.user[0]) : { ...result.user };
 };
 
 export const getUserPermissions = async (id) => {
@@ -225,6 +213,20 @@ export const getTags = async (communityId) => {
   return isMeshService ? result?.tag : result?.tags;
 };
 
+export const getTagsByIds = async (ids) => {
+  const query = isMeshService
+    ? queries.TagsByIds.Mesh(dataToString(ids))
+    : queries.TagsByIds.TheGraph;
+
+  const result = await executeQuery({
+    query,
+    variables: {
+      ids,
+    },
+  });
+  return isMeshService ? result?.tag : result?.tags;
+};
+
 export const getPosts = async (limit, skip, postTypes) => {
   const query = isMeshService
     ? queries.Posts.Mesh(dataToString(postTypes))
@@ -243,23 +245,40 @@ export const getPosts = async (limit, skip, postTypes) => {
   );
 
   return isMeshService
-    ? result.post.map((post) =>
-        renameRepliesToAnswers(getPostDataFromMesh(post)),
-      )
+    ? result.post.map((post) => renameRepliesToAnswers(getPostDataFromMesh(post)))
     : result?.posts.map((post) => renameRepliesToAnswers(post));
 };
 
-export const getPostsByCommunityId = async (
-  limit,
-  offset,
-  postTypes,
-  communityIds,
-) => {
+export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds, tags) => {
+  if (tags?.length) {
+    let postIds;
+    if (isMeshService) {
+      const tagsQuery = postsIdsByTagsQueryMesh(dataToString(tags));
+      const tagResponse = await executeMeshQuery({ query: tagsQuery, variables: { limit, skip } });
+      postIds = tagResponse.map((tag) => tag.postId);
+    }
+
+    const query = isMeshService
+      ? queries.PostsByCommAndTags.Mesh(dataToString(postIds), dataToString(postTypes))
+      : queries.PostsByCommAndTags.TheGraph;
+    const result = await executeQuery({
+      query,
+      variables: {
+        communityIds,
+        first: limit,
+        skip,
+        postTypes,
+        tags,
+      },
+    });
+
+    return isMeshService
+      ? result?.post.map((rawPost) => renameRepliesToAnswers(getPostDataFromMesh(rawPost)))
+      : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
+  }
+
   const query = isMeshService
-    ? queries.PostsByCommunity.Mesh(
-        dataToString(postTypes),
-        dataToString(communityIds),
-      )
+    ? queries.PostsByCommunity.Mesh(dataToString(postTypes), dataToString(communityIds))
     : queries.PostsByCommunity.TheGraph;
 
   const result = await executeQuery(
@@ -268,7 +287,7 @@ export const getPostsByCommunityId = async (
       variables: {
         communityIds,
         limit,
-        offset,
+        offset: skip,
         postTypes,
       },
     },
@@ -276,9 +295,7 @@ export const getPostsByCommunityId = async (
   );
 
   return isMeshService
-    ? result?.post.map((rawPost) =>
-        renameRepliesToAnswers(getPostDataFromMesh(rawPost)),
-      )
+    ? result?.post.map((rawPost) => renameRepliesToAnswers(getPostDataFromMesh(rawPost)))
     : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
 };
 
@@ -291,9 +308,7 @@ export const getFaqByCommunityId = async (communityId) => {
   });
 
   return isMeshService
-    ? result?.post.map((rawPost) =>
-        renameRepliesToAnswers(getPostDataFromMesh(rawPost)),
-      )
+    ? result?.post.map((rawPost) => renameRepliesToAnswers(getPostDataFromMesh(rawPost)))
     : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
 };
 
@@ -318,9 +333,7 @@ export const getDocumentationMenu = async (communityId) => {
     },
     false,
   );
-  return isMeshService
-    ? result?.communitydocumentation[0]
-    : result?.communityDocumentation;
+  return isMeshService ? result?.communitydocumentation[0] : result?.communityDocumentation;
 };
 
 export const getQuestionFromGraph = async (postId) => {
@@ -364,21 +377,18 @@ export const postsForSearch = async (text, single) => {
 
   const posts = isMeshService
     ? result?.post.map((item) => {
-        const post = { ...item };
-        const tags = item.posttag.map((postTag) => postTag.tagId);
+        const { user, posttag, ...post } = item;
+        const tags = posttag.map((postTag) => postTag.tagId);
 
-        delete post.posttag;
         return {
           ...post,
           tags,
-          author: getUserDataFromMesh(item.user[0]),
+          author: getUserDataFromMesh(user[0]),
         };
       })
     : result?.postSearch;
   return posts.filter(
-    (post) =>
-      !post.isDeleted &&
-      (single ? Number(post.communityId) === Number(single) : true),
+    (post) => !post.isDeleted && (single ? Number(post.communityId) === Number(single) : true),
   );
 };
 
@@ -413,9 +423,7 @@ export const getRewardStat = async (userId, ethereumService) => {
   const isOldUser = await isUserExists(userId, ethereumService);
   const periodsCount = isOldUser ? 2 : 1;
 
-  const query = isMeshService
-    ? queries.Rewards.Mesh(periodsCount)
-    : queries.Rewards.TheGraph;
+  const query = isMeshService ? queries.Rewards.Mesh(periodsCount) : queries.Rewards.TheGraph;
 
   const response = await executeQuery(
     {
@@ -427,11 +435,10 @@ export const getRewardStat = async (userId, ethereumService) => {
     },
     false,
   );
+
   const rewards = isMeshService ? response?.userreward : response?.userRewards;
   const periods = isMeshService ? response?.period : response?.periods;
-  const user = isMeshService
-    ? getUserDataFromMesh(response?.user[0])
-    : response?.user;
+  const user = isMeshService ? getUserDataFromMesh(response?.user[0]) : response?.user;
   return [rewards, periods, user];
 };
 

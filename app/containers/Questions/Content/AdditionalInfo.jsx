@@ -119,10 +119,7 @@ const AdditionalInfo = ({
   );
 
   const formattedAnswerCount = useMemo(
-    () =>
-      isSearchPage
-        ? getFormattedNum(answersCount)
-        : getFormattedNum(answers.length),
+    () => (isSearchPage ? getFormattedNum(answersCount) : getFormattedNum(answers.length)),
     [answersCount],
   );
 
@@ -140,9 +137,7 @@ const AdditionalInfo = ({
       <Div>
         <span>
           <img src={src} alt="icon" />
-          <Span color={colors.linkColor || TEXT_PRIMARY_DARK}>
-            {formattedRating}
-          </Span>
+          <Span color={colors.linkColor || TEXT_PRIMARY_DARK}>{formattedRating}</Span>
         </span>
       </Div>
     </Container>

@@ -1,14 +1,9 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
+import classnames from 'classnames';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller';
 import List from 'react-virtualized/dist/commonjs/List';
 
@@ -20,16 +15,13 @@ import injectReducer from 'utils/injectReducer';
 
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
-import {
-  BG_LIGHT,
-  BORDER_SECONDARY_LIGHT,
-  BORDER_RADIUS_L,
-} from 'style-constants';
+import { BG_LIGHT, BORDER_SECONDARY_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 
 import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
+import { NOTIFICATIONS_DATA, ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
 import {
   allNotificationsCount,
   selectAllNotifications,
@@ -52,10 +44,7 @@ import Wrapper from '../Header/Complex';
 import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
-import WidthCentered, {
-  LoaderContainer,
-} from '../LoadingIndicator/WidthCentered';
-import classnames from 'classnames';
+import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -103,6 +92,7 @@ const Notifications = ({
   className,
   isAvailable,
   notifications,
+  communities,
   readNotifications,
   loadMoreNotificationsDispatch,
   markAsReadNotificationsAllDispatch,
@@ -115,60 +105,48 @@ const Notifications = ({
   const ref = useRef(null);
   const containerRef = useRef(null);
 
-  useEffect(
-    () => {
-      markAsReadNotificationsAllDispatch([
-        0,
-        (notifications.length > 0 && notifications.length - 1) || 0,
-      ]);
-    },
-    [notifications.length],
-  );
+  useEffect(() => {
+    markAsReadNotificationsAllDispatch([
+      0,
+      (notifications.length > 0 && notifications.length - 1) || 0,
+    ]);
+  }, [notifications.length]);
 
   const rowHeight = useMemo(
     () => (containerWidth <= 768 ? ROW_HEIGHT_FOR_SMALL : ROW_HEIGHT),
     [containerWidth],
   );
 
-  const [indexToStart, indexToStop] = useMemo(
-    () => {
-      const calc = Array.from(new Array(notifications.length).keys()).filter(
-        x =>
-          x * rowHeight >= scrollPosition &&
-          (x + 1) * rowHeight - scrollPosition <= window.innerHeight,
-      );
-      const { 0: start, [calc.length - 1]: stop } = calc;
-      return [start || 0, stop || 0];
-    },
-    [notifications.length, rowHeight, scrollPosition, y, window.innerHeight],
-  );
+  const [indexToStart, indexToStop] = useMemo(() => {
+    const calc = Array.from(new Array(notifications.length).keys()).filter(
+      (x) =>
+        x * rowHeight >= scrollPosition &&
+        (x + 1) * rowHeight - scrollPosition <= window.innerHeight,
+    );
+    const { 0: start, [calc.length - 1]: stop } = calc;
+    return [start || 0, stop || 0];
+  }, [notifications.length, rowHeight, scrollPosition, y, window.innerHeight]);
 
-  const recalculateRanges = useCallback(
-    () => {
-      const range = `${indexToStart}-${indexToStop}-${rowHeight}`;
+  const recalculateRanges = useCallback(() => {
+    const range = `${indexToStart}-${indexToStop}-${rowHeight}`;
 
-      const union = rangeUnionWithIntersection(readNotifications, [
-        indexToStart,
-        indexToStop,
-      ]);
+    const union = rangeUnionWithIntersection(readNotifications, [indexToStart, indexToStop]);
 
-      /*
-      * TODO: Fix bug with reading notifications, information in Notification center and Dropdown
-      * may vary if notifications are received on the notifications page
-      */
-      /*if (!_isEqual(union, readNotifications) && !document.hidden) {
+    /*
+     * TODO: Fix bug with reading notifications, information in Notification center and Dropdown
+     * may vary if notifications are received on the notifications page
+     */
+    /*if (!_isEqual(union, readNotifications) && !document.hidden) {
         markAsReadNotificationsAllDispatch(union);
       } else if (notifications.length === 1) {
         markAsReadNotificationsAllDispatch([0, 0]);
       }*/
 
-      setCalculatedRanges({
-        ...calculatedRanges,
-        [range]: union,
-      });
-    },
-    [notifications.length, indexToStart, indexToStop, rowHeight],
-  );
+    setCalculatedRanges({
+      ...calculatedRanges,
+      [range]: union,
+    });
+  }, [notifications.length, indexToStart, indexToStop, rowHeight]);
 
   const onScroll = useCallback(
     ({ scrollTop }) => {
@@ -183,48 +161,31 @@ const Notifications = ({
     [notifications.length, indexToStop, loading],
   );
 
-  const onResize = useCallback(
-    () => {
-      setContainerWidth(containerRef?.current?.getBoundingClientRect().width);
-      setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
-    },
-    [containerRef.current, rowHeight],
-  );
+  const onResize = useCallback(() => {
+    setContainerWidth(containerRef?.current?.getBoundingClientRect().width);
+    setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
+  }, [containerRef.current, rowHeight]);
 
-  useEffect(
-    () => {
-      loadMoreNotificationsDispatch();
-      return () => {
-        if (isAvailable) {
-          filterReadNotificationsDispatch();
-        }
-      };
-    },
-    [isAvailable],
-  );
+  useEffect(() => {
+    loadMoreNotificationsDispatch();
+    return () => {
+      if (isAvailable) {
+        filterReadNotificationsDispatch();
+      }
+    };
+  }, [isAvailable]);
 
-  useEffect(
-    () => {
-      setContainerWidth(
-        containerRef.current?.getBoundingClientRect().width ?? 0,
-      );
-    },
-    [containerRef.current],
-  );
+  useEffect(() => {
+    setContainerWidth(containerRef.current?.getBoundingClientRect().width ?? 0);
+  }, [containerRef.current]);
 
-  useEffect(
-    () => {
-      recalculateRanges();
-    },
-    [notifications.length],
-  );
+  useEffect(() => {
+    recalculateRanges();
+  }, [notifications.length]);
 
-  useEffect(
-    () => {
-      setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
-    },
-    [ref.current, rowHeight],
-  );
+  useEffect(() => {
+    setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
+  }, [ref.current, rowHeight]);
 
   const rowRenderer = ({ index, key, style: { top } }) => (
     <Notification
@@ -234,6 +195,7 @@ const Notifications = ({
       height={rowHeight}
       notificationsNumber={notifications.length}
       paddingHorizontal="36"
+      communities={communities}
       {...notifications[index]}
     />
   );
@@ -250,12 +212,9 @@ const Notifications = ({
         <Header notificationsNumber={allCount} />
       </Wrapper>
 
-      {!!allCount && (
-        <Content
-          innerRef={containerRef}
-          height={notifications.length * rowHeight + ROW_HEIGHT}
-        >
-          {!!unreadCount ? (
+      {Boolean(allCount) && (
+        <Content innerRef={containerRef} height={notifications.length * rowHeight + ROW_HEIGHT}>
+          {Boolean(unreadCount) ? (
             <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
               <MarkAllAsReadButton />
             </SubHeader>
@@ -317,26 +276,21 @@ export default React.memo(
     injectReducer({ key: 'notifications', reducer }),
     injectSaga({ key: 'notifications', saga, mode: DAEMON }),
     connect(
-      state => ({
+      (state) => ({
         allCount: allNotificationsCount()(state),
         notifications: selectAllNotifications()(state),
         loading: selectAllNotificationsLoading()(state),
         readNotifications: selectReadNotificationsAll()(state),
         unreadCount: unreadNotificationsCount()(state),
+        communities: selectCommunities()(state),
       }),
-      dispatch => ({
-        loadMoreNotificationsDispatch: bindActionCreators(
-          loadMoreNotifications,
-          dispatch,
-        ),
+      (dispatch) => ({
+        loadMoreNotificationsDispatch: bindActionCreators(loadMoreNotifications, dispatch),
         markAsReadNotificationsAllDispatch: bindActionCreators(
           markAsReadNotificationsAll,
           dispatch,
         ),
-        filterReadNotificationsDispatch: bindActionCreators(
-          filterReadTimestamps,
-          dispatch,
-        ),
+        filterReadNotificationsDispatch: bindActionCreators(filterReadTimestamps, dispatch),
       }),
     ),
   )(Notifications),

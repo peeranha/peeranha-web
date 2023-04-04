@@ -166,15 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const AnkrStyles = {
+  name: 'ankr',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/ankr/ankrBlueLogo.svg',
-  favicon: 'https://images.peeranha.io/communities/ankr/favicon-ankr.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/ankr/logo.svg',
 
   colors: {
+    appMobileColor: '#FFF',
+    appSafarieColor: '#5bbad5',
     mainSubHeaderBgColor: '#FFFFFF',
     mainBackground: '#F2F5FA',
     linkColor: '#356DF3',

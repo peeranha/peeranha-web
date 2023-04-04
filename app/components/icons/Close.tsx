@@ -7,7 +7,7 @@ const Close: React.FC<IconProps> = (props): JSX.Element => (
     id="close"
     fill="currentColor"
     viewBox="0 0 18 18"
-    size={[18, 18]}
+    size={props.size || [18, 18]}
   >
     <g fill={props.fill || '#282828'}>
       <path d="m1.575.868 15.557 15.557-.707.707L.868 1.575z" />

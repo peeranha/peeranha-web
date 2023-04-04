@@ -31,9 +31,7 @@ const getCommentDataFromMesh = (item) => {
 const getReplyDataFromMesh = (item, postComments) => {
   const { user, ...reply } = item;
   const comments = postComments
-    .filter(
-      (comment) => comment.parentReplyId === Number(reply.id.split('-')[1]),
-    )
+    .filter((comment) => comment.parentReplyId === Number(reply.id.split('-')[1]))
     .map((comment) => getCommentDataFromMesh(comment));
 
   return {
@@ -44,18 +42,10 @@ const getReplyDataFromMesh = (item, postComments) => {
 };
 
 export const getPostDataFromMesh = (item) => {
-  const {
-    posttag,
-    reply: repliesMesh,
-    comment: commentsMesh,
-    user,
-    ...post
-  } = item;
+  const { posttag, reply: repliesMesh, comment: commentsMesh, user, ...post } = item;
 
   const tags = posttag.map((postTag) => postTag.tag[0]);
-  const replies = repliesMesh.map((reply) =>
-    getReplyDataFromMesh(reply, commentsMesh),
-  );
+  const replies = repliesMesh.map((reply) => getReplyDataFromMesh(reply, commentsMesh));
   const comments = commentsMesh
     .filter((comment) => comment.parentReplyId === 0)
     .map((comment) => getCommentDataFromMesh(comment));

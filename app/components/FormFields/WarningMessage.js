@@ -25,8 +25,7 @@ export const Div = styled.div`
 
     img {
       margin-right: ${(x) => (x.isSpecialPosition ? '0px' : '12px')};
-      transform: ${(x) =>
-        x.isSpecialPosition ? 'rotate(90deg) translateX(8px)' : '0deg'};
+      transform: ${(x) => (x.isSpecialPosition ? 'rotate(90deg) translateX(8px)' : '0deg')};
     }
 
     span {
@@ -45,6 +44,7 @@ export const WarningMessage = ({
   isSpecialPosition,
   visited,
   touched,
+  warningStyle,
 }) => {
   const { t } = useTranslation();
   const err = error || warning;
@@ -53,8 +53,7 @@ export const WarningMessage = ({
     err.id = err.get('id');
   }
 
-  return ((touched || visited || (err && err.visited)) && err) ||
-    (active && tip) ? (
+  return ((touched || visited || (err && err.visited)) && err) || (active && tip) ? (
     <Div className={className} isSpecialPosition={isSpecialPosition}>
       <div>
         {(tip || isSpecialPosition) && (
@@ -67,7 +66,7 @@ export const WarningMessage = ({
           />
         )}
 
-        <span>
+        <span css={warningStyle}>
           {(err &&
             t(err.id || err, {
               min: err.min,

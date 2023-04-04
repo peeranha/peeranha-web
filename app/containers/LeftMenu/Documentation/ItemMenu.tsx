@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import {
-  DocumentationSection,
-  DocumentationItemMenuType,
-} from 'pages/Documentation/types';
+import { DocumentationSection, DocumentationItemMenuType } from 'pages/Documentation/types';
 import ArrowDownIcon from 'icons/ArrowDown';
 import Dropdown from 'common-components/Dropdown';
 import AddSubArticleIcon from 'icons/AddSubArticle';
@@ -16,7 +13,7 @@ import AddCommentIcon from 'icons/AddComment';
 import Link from './Link';
 import Item from './Item';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, singleCommunityDocumentation } from 'utils/communityManagement';
 import { isEditableChildItem } from 'components/Documentation/helpers';
 
 type DocumentationMenuProps = {
@@ -29,11 +26,7 @@ type DocumentationMenuProps = {
   isMenu?: boolean;
   setEditDocumentation?: (id: string, parentId: string) => void;
   parentId: string;
-  setEditArticle?: (data: {
-    id: string;
-    parentId: string;
-    isEditArticle: boolean;
-  }) => void;
+  setEditArticle?: (data: { id: string; parentId: string; isEditArticle: boolean }) => void;
   setViewArticle?: (id: string) => void;
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
   removeArticle?: (id: string) => void;
@@ -44,6 +37,7 @@ type DocumentationMenuProps = {
 };
 
 const colors = singleCommunityColors();
+const documentationColors = singleCommunityDocumentation();
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
   item,
@@ -75,6 +69,16 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
       open();
     }
   }, [editArticle?.id, item.children]);
+
+  useEffect(() => {
+    const isEditableChildren = isEditableChildItem(
+      item,
+      match?.params.sectionId && getBytes32FromIpfsHash(match?.params.sectionId),
+    );
+    if (isEditableChildren) {
+      open();
+    }
+  }, [match?.params.sectionId, item.children]);
 
   const onSelect = (value: number) => {
     if (value === 1 && typeof setEditArticle === 'function') {
@@ -112,10 +116,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   };
 
   const onClickArticle = () => {
-    if (
-      typeof setViewArticle === 'function' &&
-      typeof setEditArticle === 'function'
-    ) {
+    if (typeof setViewArticle === 'function' && typeof setEditArticle === 'function') {
       setViewArticle(item.id);
       setEditArticle({
         id: item.id,
@@ -185,33 +186,48 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               }}
             >
               <Dropdown
-                trigger={
-                  <AddCommentIcon
-                    css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }}
-                  />
-                }
+                trigger={<AddCommentIcon css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }} />}
                 options={[
                   {
-                    label: 'Add a new sub-article',
+                    label: 'common.addNewSubArticle',
                     value: 1,
-                    icon: <AddSubArticleIcon />,
-                  },
-                  {
-                    label: 'Edit content',
-                    value: 2,
-                    icon: <EditIcon />,
-                  },
-                  {
-                    label: pinned === item.id ? 'Unpin' : 'Pin',
-                    value: 3,
                     icon: (
-                      <PinIcon css={{ fill: 'rgba(118, 153, 255, 0.2)' }} />
+                      <AddSubArticleIcon
+                        stroke={documentationColors.linkColor}
+                        fill={documentationColors.iconsFillColor}
+                      />
                     ),
                   },
                   {
-                    label: 'Delete',
+                    label: 'common.editContent',
+                    value: 2,
+                    icon: (
+                      <EditIcon
+                        stroke={documentationColors.linkColor}
+                        fill={documentationColors.iconsFillColor}
+                      />
+                    ),
+                  },
+                  {
+                    label: pinned === item.id ? 'common.unpin' : 'common.pin',
+                    value: 3,
+                    icon: (
+                      <PinIcon
+                        css={{ fill: 'rgba(118, 153, 255, 0.2)' }}
+                        stroke={documentationColors.linkColor}
+                        fill={documentationColors.iconsFillColor}
+                      />
+                    ),
+                  },
+                  {
+                    label: 'common.delete',
                     value: 4,
-                    icon: <DeleteIcon />,
+                    icon: (
+                      <DeleteIcon
+                        stroke={documentationColors.linkColor}
+                        fill={documentationColors.iconsFillColor}
+                      />
+                    ),
                   },
                 ]}
                 isMultiple={false}

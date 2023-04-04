@@ -1,4 +1,6 @@
 import Documentation from 'containers/LeftMenu/Documentation/Documentation';
+import { Administration } from 'icons/index';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -38,7 +40,6 @@ import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
-import faqIcon from 'images/faq.svg?external';
 import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
@@ -181,15 +182,13 @@ const MainLinks = ({
       isProtocolAdmin
     : false;
 
+  const isAdministratorModeSingleCommunity = singleCommId
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) || isProtocolAdmin
+    : false;
+
   if (!route) {
     route = isBloggerMode ? 'home' : '/';
   }
-
-  const hasCommunityOrProtocolAdminRole =
-    singleCommId &&
-    (hasGlobalModeratorRole() ||
-      hasCommunityAdminRole(null, singleCommId) ||
-      isProtocolAdmin);
 
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
 
@@ -227,9 +226,7 @@ const MainLinks = ({
               >
                 <span
                   css={{
-                    borderRight: isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderRight: isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                     paddingRight: '10px',
                   }}
                 >
@@ -237,9 +234,7 @@ const MainLinks = ({
                 </span>
                 <span
                   css={{
-                    borderLeft: !isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderLeft: !isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                   }}
                 >
                   <PinIcon
@@ -326,16 +321,9 @@ const MainLinks = ({
           </A1>
         )}
 
-        {!singleCommId && (
-          <A1 to={routes.faq()} name="faq" route={route}>
-            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-            {t('common.faq')}
-          </A1>
-        )}
-
-        {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
+        {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
-            <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
+            <Administration className={'mr-2'} />
             {t('common.administration')}
           </A1>
         )}

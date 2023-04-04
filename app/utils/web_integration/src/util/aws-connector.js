@@ -1,3 +1,4 @@
+const { WEB3_TOKEN } = require('../../../constants');
 const { getCookie } = require('../../../cookie');
 const { AUTOLOGIN_DATA } = require('../../../../containers/Login/constants');
 const ACCOUNT_BEGIN_SIGNUP = 'account/begin-signup';
@@ -12,6 +13,7 @@ const BLOCKCHAIN_MAIN_CALL = `${BLOCKCHAIN}/main/call`;
 const BLOCKCHAIN_TOKEN_CALL = `${BLOCKCHAIN}/token/call`;
 const BLOCKCHAIN_MAIN_SEND_TRANSACTION = `${BLOCKCHAIN}/main/send-transaction`;
 const BLOCKCHAIN_SEND_META_TRANSACTION = `${BLOCKCHAIN}/send-meta-transaction`;
+const BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION = `${BLOCKCHAIN}/send-dispatcher-transaction/`;
 
 const GET_OWNER_KEY_INIT_SERVICE = 'wallet/get-owner-key/init';
 const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/get-owner-key/complete';
@@ -22,8 +24,7 @@ const CHANGE_PASSWORD_CONFIRM_SERVICE = 'account/change-password';
 
 const REGISTER_WITH_FACEBOOK_SERVICE = 'wallet/register/facebook';
 const LOGIN_WITH_FACEBOOK_SERVICE = 'wallet/login/facebook';
-const DELETE_FACEBOOK_ACCOUNT_SERVICE =
-  'wallet/change-credentials/delete-facebook-account';
+const DELETE_FACEBOOK_ACCOUNT_SERVICE = 'wallet/change-credentials/delete-facebook-account';
 const SEND_FB_VERIFICATION_CODE_SERVICE = 'wallet/facebook/verify-facebook';
 const GET_FACEBOOK_PRIVATE_KEY_SERVICE = 'wallet/facebook/get-fb-private-key';
 const CHECK_FACEBOOK_DATA_SERVICE = 'wallet/facebook/check-facebook-data';
@@ -39,15 +40,20 @@ const NOTIFICATIONS_TIPS_SERVICE = 'notifications/tips';
 
 const SAVE_FILE_SERVICE = 'save-file';
 
-async function callService(service, props, isGet = false) {
+async function callService(service, props, isGet = false, signal) {
   const url = new URL(process.env.WALLET_API_ENDPOINT + service);
 
   const auth = {};
 
   const authData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+  const authorizationWeb3Token = getCookie(WEB3_TOKEN) || null;
 
   if (authData?.authToken) {
     auth.Authorization = `${authData?.authToken}`;
+  }
+
+  if (authorizationWeb3Token) {
+    auth.Authorization = authorizationWeb3Token;
   }
 
   if (isGet) {
@@ -62,6 +68,7 @@ async function callService(service, props, isGet = false) {
       ...auth,
     },
     ...(!isGet ? { body: JSON.stringify(props) } : {}),
+    signal,
   });
   const response = await rawResponse.json();
 
@@ -107,5 +114,6 @@ module.exports = {
   BLOCKCHAIN_TOKEN_CALL,
   BLOCKCHAIN_MAIN_SEND_TRANSACTION,
   BLOCKCHAIN_SEND_META_TRANSACTION,
+  BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
   SAVE_FILE_SERVICE,
 };

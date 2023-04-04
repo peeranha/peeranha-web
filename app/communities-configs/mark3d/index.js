@@ -166,17 +166,17 @@ export const customSubHeaderConfig = {
 };
 
 export const Mark3dStyles = {
+  name: 'mark3d',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/mark3d/Mark3dLogo.svg',
-  favicon: 'https://images.peeranha.io/communities/mark3d/Mark3d.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/mark3d/logo.svg',
 
   colors: {
-    mainSubHeaderBgColor:
-      'linear-gradient(90deg, #BBABF8 0%, #F6D4F5 65.04%, #CBC5F1 100%)',
+    appWindowsColor: '#45aff4',
+    appSafarieColor: '#45aff4',
+    mainSubHeaderBgColor: 'linear-gradient(90deg, #BBABF8 0%, #F6D4F5 65.04%, #CBC5F1 100%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
     linkColor: 'rgba(135, 133, 244, 1)',
     linkCookieColor: 'rgba(86, 79, 229, 1)',

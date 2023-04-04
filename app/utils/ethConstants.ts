@@ -4,6 +4,13 @@ export const CONTRACT_USER = 'contractUser';
 export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
+export const ContractsMapping = {
+  [CONTRACT_TOKEN]: 'token',
+  [CONTRACT_USER]: 'user',
+  [CONTRACT_CONTENT]: 'content',
+  [CONTRACT_COMMUNITY]: 'community',
+};
+
 // Transaction names
 export const UPDATE_ACC = 'updateUser';
 export const CREATE_COMMUNITY = 'createCommunity';
@@ -28,10 +35,8 @@ export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
 export const VOTE_ITEM = 'voteItem';
 export const CLAIM_REWARD = 'claimReward';
 export const SET_STAKE = 'setStake';
-export const GIVE_COMMUNITY_MODERATOR_PERMISSION =
-  'giveCommunityModeratorPermission';
-export const REVOKE_COMMUNITY_MODERATOR_PERMISSION =
-  'revokeCommunityModeratorPermission';
+export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
+export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
 
 // Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
@@ -43,6 +48,7 @@ export const GET_POST = 'getPost';
 export const GET_REPLY = 'getReply';
 export const GET_STATUS_HISTORY = 'getStatusHistory';
 export const GET_COMMENT = 'getComment';
+export const GET_ITEM_PROPERTY = 'getItemProperty';
 export const GET_USER_BALANCE = 'balanceOf';
 export const GET_AVERAGE_STAKE = 'getAverageStake';
 export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
@@ -124,6 +130,8 @@ const reply = `
   isFirstReply
   isQuickReply
   properties
+  handle
+  messengerType
   comments (
     orderBy: postTime,
     orderDirection: asc,
@@ -150,6 +158,8 @@ const replyMesh = `
   isBestReply
   isFirstReply
   isQuickReply
+  handle
+  messengerType
 `;
 
 const post = `
@@ -174,6 +184,8 @@ const post = `
   officialReply
   bestReply
   properties
+  handle
+  messengerType
   replies (
     orderBy: postTime,
     orderDirection: desc,
@@ -213,6 +225,8 @@ const postMesh = `
   isDeleted
   officialReply
   bestReply
+  handle
+  messengerType
   reply (
     orderBy: { postTime: desc },
     where: { isDeleted: "0" },
@@ -387,9 +401,7 @@ const userStatsQuery = `
       }`;
 
 const userStatsQueryMesh = editUserQuery(
-  userStatsQuery
-    .replace('ID!', 'String')
-    .replace('id: $id', 'where: { id: $id }'),
+  userStatsQuery.replace('ID!', 'String').replace('id: $id', 'where: { id: $id }'),
 );
 
 const community = `
@@ -567,6 +579,32 @@ const tagsQuery = `
 
 const tagsQueryMesh = tagsQuery.replace('ID!', 'Int').replace('tags', 'tag');
 
+const tagsByIdsQuery = `
+      query(
+        $ids: [String],
+      ) {
+        tags(
+         where: { id_in: $ids },
+        ) {
+           id
+           name
+           description
+           postCount
+        }
+      }`;
+
+const tagsByIdsQueryMesh = (ids: string) => `
+  query {
+    tag(
+      where: { id: "(${ids})" },
+    ) {
+      id
+      name
+      description
+      postCount
+    }
+  }`;
+
 const postsQuery = `
       query (
         $first: Int,
@@ -627,6 +665,49 @@ const postsByCommQueryMesh = (postTypes: string, communityIds: string) => `
       limit: $limit,
       offset: $offset,
       where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})" },
+    ) {
+      ${postMesh}
+    }
+  }`;
+
+const postsByCommAndTagsQuery = `
+  query (
+    $first: Int,
+    $skip: Int,
+    $communityIds: [Int],
+    $postTypes: [Int],
+    $tags: [String],
+  ) {
+    posts (
+      orderBy: postTime,
+      orderDirection: desc,
+      first: $first,
+      skip: $skip,
+      where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: "", tags_contains: $tags},
+    ) {
+       ${post}
+    }
+  }`;
+
+export const postsIdsByTagsQueryMesh = (tags: string) => `
+  query (
+    $first: Int,
+    $skip: Int,
+  ) {
+    posttag (
+      limit: $first,
+      offset: $skip,
+      where: { id: "(${tags})", },
+    ) {
+      postId
+    }
+  }`;
+
+const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
+  query {
+    post (
+      where: { id: "(${ids})", postType: "(${postTypes})",},
+      orderBy: { postTime: desc }
     ) {
       ${postMesh}
     }
@@ -788,8 +869,7 @@ const achievement = `
   lowerValue
   name
   description
-  image
-  attributes
+  image  
 `;
 
 const allAchievementsQuery = `
@@ -950,6 +1030,8 @@ enum QueryName {
   Communities,
   UserPosts,
   UserAnswers,
+  PostsByCommAndTags,
+  TagsByIds,
 }
 
 enum GraphService {
@@ -1058,5 +1140,13 @@ export const queries: {
   UserAnswers: {
     TheGraph: usersAnswersQuery,
     Mesh: usersAnswersQueryMesh,
+  },
+  PostsByCommAndTags: {
+    TheGraph: postsByCommAndTagsQuery,
+    Mesh: postsByCommAndTagsQueryMesh,
+  },
+  TagsByIds: {
+    TheGraph: tagsByIdsQuery,
+    Mesh: tagsByIdsQueryMesh,
   },
 };

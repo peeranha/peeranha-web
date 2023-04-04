@@ -3,13 +3,15 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import * as routes from 'routes-config';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import { getSectionCode } from 'utils/mdManagement';
-import { SECTION_ID } from 'containers/Faq/constants';
-
 import A from 'components/A';
+import {
+  DOCUMENTATION_ABOUT_LINK,
+  DOCUMENTATION_COMMUNITY_LINK,
+  DOCUMENTATION_POSTS_ANSWERS_COMMENTS_LINK,
+  DOCUMENTATION_REPUTATION_PRIVILEGES_LINK,
+} from 'app/constants/documentation';
 
 const Base = styled.div`
   h6 {
@@ -28,21 +30,28 @@ const Base = styled.div`
   }
 `;
 
+const links = [
+  DOCUMENTATION_ABOUT_LINK,
+  DOCUMENTATION_COMMUNITY_LINK,
+  DOCUMENTATION_POSTS_ANSWERS_COMMENTS_LINK,
+  DOCUMENTATION_REPUTATION_PRIVILEGES_LINK,
+];
+
 const FaqSections = ({ faq }) => {
   const { t } = useTranslation();
   const faqBlocks = faq.blocks.slice(0, 5).filter((item, index) => index !== 1);
 
   return (
     <Base>
-      <h6>{t('common.faq')}</h6>
+      <h6>{t('common.documentation')}</h6>
 
       {faq && (
         <ul>
           {faqBlocks.map((x, sectionIndex) => (
             <li key={x.h2}>
-              <A to={routes.faq(getSectionCode(SECTION_ID, sectionIndex))}>
+              <a href={links[sectionIndex]} target="_blank">
                 {x.h2}
-              </A>
+              </a>
             </li>
           ))}
         </ul>

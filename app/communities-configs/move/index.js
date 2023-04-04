@@ -166,15 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const MoveStyles = {
+  name: 'move',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/move/move-logo-login.svg',
-  favicon: 'https://images.peeranha.io/communities/move/Move.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/move/logo-signUp.svg',
 
   colors: {
+    appWindowsColor: '#00aba9',
+    appSafarieColor: '#001288',
     mainSubHeaderBgColor:
       'linear-gradient(103.54deg, #0A2342 -5.34%, #28405E 64.77%, #21B6F0 99.31%)',
     mainBackground: 'rgba(234, 236, 244, 1)',

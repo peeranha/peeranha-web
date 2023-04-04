@@ -122,11 +122,7 @@ const Search = ({
 
       {(getResultsProcessing && <Loader />) ||
         (items.length > 0 ? (
-          <SearchContent
-            locale={locale}
-            posts={items}
-            communities={communities}
-          />
+          <SearchContent locale={locale} posts={items} communities={communities} />
         ) : (
           <Banner
             profileInfo={profileInfo}
@@ -165,10 +161,7 @@ export default compose(
     (dispatch) => ({
       getResultsDispatch: bindActionCreators(getResults, dispatch),
       loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
-      redirectToAskQuestionPageDispatch: bindActionCreators(
-        redirectToAskQuestionPage,
-        dispatch,
-      ),
+      redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
     }),
   ),
 )(Search);

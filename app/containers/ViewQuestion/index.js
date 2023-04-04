@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 import { useTranslation } from 'react-i18next';
+import { errorPage } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -16,10 +17,7 @@ import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
@@ -70,6 +68,7 @@ export const ViewQuestion = ({
   postAnswerLoading,
   postCommentLoading,
   questionDataLoading,
+  questionDataError,
   saveCommentLoading,
   communities,
   upVoteLoading,
@@ -119,7 +118,6 @@ export const ViewQuestion = ({
     resetStoreDispatch();
 
     return () => {
-      window.$(window).off();
       resetStoreDispatch();
     };
   }, []);
@@ -141,7 +139,11 @@ export const ViewQuestion = ({
       window.isRendered = true;
     }
 
-    if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
+    if (!questionDataLoading && !questionData) {
+      history.push(questionDataError ? routes.errorPage() : routes.notFound());
+    }
+
+    if (questionData?.isDeleted) {
       history.push(routes.notFound('type=deleted'));
     }
   }, [questionData, questionDataLoading]);
@@ -154,9 +156,7 @@ export const ViewQuestion = ({
     [profile, questionData],
   );
 
-  const isAnswered = !!questionData?.answers.filter(
-    (x) => x.author.user === account,
-  ).length;
+  const isAnswered = !!questionData?.answers.filter((x) => x.author.user === account).length;
 
   const commId = questionData?.communityId ?? null;
 
@@ -203,18 +203,13 @@ export const ViewQuestion = ({
 
   const helmetDescription = questionData?.content.content ?? t('post.title');
 
-  const articlePublishedTime = questionData?.postTime
-    ? new Date(questionData.postTime * 1000)
-    : ``;
+  const articlePublishedTime = questionData?.postTime ? new Date(questionData.postTime * 1000) : ``;
 
   const articleModifiedTime = questionData?.lastEditedDate
     ? new Date(questionData.lastEditedDate * 1000)
     : ``;
 
-  const keywords = [
-    ...(questionData?.tags?.map((tag) => tag.name) ?? []),
-    helmetTitle,
-  ];
+  const keywords = [...(questionData?.tags?.map((tag) => tag.name) ?? []), helmetTitle];
 
   return (
     <>
@@ -286,6 +281,7 @@ const withConnect = connect(
     communities: selectCommunities(),
     profile: makeSelectProfileInfo(),
     questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
+    questionDataError: makeSelectViewQuestion.selectQuestionDataError(),
     questionData: makeSelectViewQuestion.selectQuestionData(),
     questionBounty: makeSelectViewQuestion.selectQuestionBounty(),
     addCommentFormDisplay: makeSelectViewQuestion.selectAddCommentFormDisplay(),
@@ -311,61 +307,25 @@ const withConnect = connect(
       },
     },
   ) => ({
-    postAnswerDispatch: bindActionCreators(
-      postAnswer.bind(null, questionId),
-      dispatch,
-    ),
-    deleteAnswerDispatch: bindActionCreators(
-      deleteAnswer.bind(null, questionId),
-      dispatch,
-    ),
+    postAnswerDispatch: bindActionCreators(postAnswer.bind(null, questionId), dispatch),
+    deleteAnswerDispatch: bindActionCreators(deleteAnswer.bind(null, questionId), dispatch),
     deleteQuestionDispatch: bindActionCreators(
       deleteQuestion.bind(null, questionId, false),
       dispatch,
     ),
-    postCommentDispatch: bindActionCreators(
-      postComment.bind(null, questionId),
-      dispatch,
-    ),
-    checkAddCommentAvailableDispatch: bindActionCreators(
-      checkAddCommentAvailable,
-      dispatch,
-    ),
-    hideAddCommentFormDispatch: bindActionCreators(
-      hideAddCommentForm,
-      dispatch,
-    ),
-    saveCommentDispatch: bindActionCreators(
-      saveComment.bind(null, questionId),
-      dispatch,
-    ),
-    deleteCommentDispatch: bindActionCreators(
-      deleteComment.bind(null, questionId),
-      dispatch,
-    ),
+    postCommentDispatch: bindActionCreators(postComment.bind(null, questionId), dispatch),
+    checkAddCommentAvailableDispatch: bindActionCreators(checkAddCommentAvailable, dispatch),
+    hideAddCommentFormDispatch: bindActionCreators(hideAddCommentForm, dispatch),
+    saveCommentDispatch: bindActionCreators(saveComment.bind(null, questionId), dispatch),
+    deleteCommentDispatch: bindActionCreators(deleteComment.bind(null, questionId), dispatch),
     upVoteDispatch: bindActionCreators(upVote.bind(null, questionId), dispatch),
-    downVoteDispatch: bindActionCreators(
-      downVote.bind(null, questionId),
-      dispatch,
-    ),
-    markAsAcceptedDispatch: bindActionCreators(
-      markAsAccepted.bind(null, questionId),
-      dispatch,
-    ),
-    voteToDeleteDispatch: bindActionCreators(
-      voteToDelete.bind(null, questionId),
-      dispatch,
-    ),
+    downVoteDispatch: bindActionCreators(downVote.bind(null, questionId), dispatch),
+    markAsAcceptedDispatch: bindActionCreators(markAsAccepted.bind(null, questionId), dispatch),
+    voteToDeleteDispatch: bindActionCreators(voteToDelete.bind(null, questionId), dispatch),
     getQuestionDataDispatch: bindActionCreators(getQuestionData, dispatch),
     resetStoreDispatch: bindActionCreators(resetStore, dispatch),
-    redirectToEditQuestionPageDispatch: bindActionCreators(
-      redirectToEditQuestionPage,
-      dispatch,
-    ),
-    redirectToEditAnswerPageDispatch: bindActionCreators(
-      redirectToEditAnswerPage,
-      dispatch,
-    ),
+    redirectToEditQuestionPageDispatch: bindActionCreators(redirectToEditQuestionPage, dispatch),
+    redirectToEditAnswerPageDispatch: bindActionCreators(redirectToEditAnswerPage, dispatch),
     getHistoriesDispatch: bindActionCreators(getHistories, dispatch),
   }),
 );

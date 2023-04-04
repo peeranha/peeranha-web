@@ -10,8 +10,6 @@ import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-import Notification from 'components/Notifications/Notification';
-
 import _isEqual from 'lodash/isEqual';
 import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
@@ -19,21 +17,22 @@ import injectReducer from 'utils/injectReducer';
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
 import bellIcon from 'images/Notifications_Disabled.svg?external';
+
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
 import { IconXl } from 'components/Icon/IconWithSizes';
-
 import saga from 'components/Notifications/saga';
-
 import reducer from 'components/Notifications/reducer';
-
 import {
   selectReadNotificationsUnread,
   selectUnreadNotificationsLoading,
 } from 'components/Notifications/selectors';
-
 import {
   loadMoreUnreadNotifications,
   markAsReadNotificationsUnread,
 } from 'components/Notifications/actions';
+
+import Notification from './Notification';
 
 import { HEADER_AND_FOOTER_HEIGHT, MENU_HEIGHT, THRESHOLD } from '../constants';
 
@@ -63,6 +62,7 @@ const Content = ({
   rowHeight,
   loading,
   notifications,
+  communities,
   readNotifications,
   markAsReadNotificationsUnreadDispatch,
   loadMoreUnreadNotificationsDispatch,
@@ -72,9 +72,7 @@ const Content = ({
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
-  const [contentHeight, setContentHeight] = useState(
-    MENU_HEIGHT - HEADER_AND_FOOTER_HEIGHT,
-  );
+  const [contentHeight, setContentHeight] = useState(MENU_HEIGHT - HEADER_AND_FOOTER_HEIGHT);
 
   const onScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
     setScrollPosition(scrollTop);
@@ -98,14 +96,10 @@ const Content = ({
         .filter(
           (x) =>
             x >= scrollPosition - THRESHOLD * rowHeight &&
-            x + rowHeight <=
-              scrollPosition + contentHeight + THRESHOLD * rowHeight,
+            x + rowHeight <= scrollPosition + contentHeight + THRESHOLD * rowHeight,
         )
         .map((x) => x / rowHeight)
-        .reduce(
-          (acc, cur, i, array) => [array[0], array[array.length - 1]],
-          [],
-        );
+        .reduce((acc, cur, i, array) => [array[0], array[array.length - 1]], []);
 
       if (!scrollPosition && !newRange.length) {
         newRange.push(0, 1);
@@ -137,6 +131,7 @@ const Content = ({
       key={key}
       top={top}
       height={rowHeight}
+      communities={communities}
       notificationsNumber={notifications.length}
       paddingHorizontal="15"
       {...notifications[index]}
@@ -195,6 +190,7 @@ export default memo(
       (state) => ({
         loading: selectUnreadNotificationsLoading()(state),
         readNotifications: selectReadNotificationsUnread()(state),
+        communities: selectCommunities()(state),
       }),
       (dispatch) => ({
         markAsReadNotificationsUnreadDispatch: bindActionCreators(

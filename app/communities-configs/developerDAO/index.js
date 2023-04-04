@@ -166,18 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const DeveloperDAOStyles = {
+  name: 'communityDAO',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/communityDAO/dd-logo.svg',
-  favicon:
-    'https://images.peeranha.io/communities/communityDAO/dao-favicon.svg',
-
+  signUpPageLogo: 'https://images.peeranha.io/communities/communityDAO/logo.svg',
   colors: {
-    mainSubHeaderBgColor:
-      'linear-gradient(111.12deg, #000000 41.3%, #D045B9 89.65%)',
+    appWindowsColor: 'rgba(210, 84, 189, 1)',
+    appSafarieColor: 'rgba(210, 84, 189, 1)',
+    mainSubHeaderBgColor: 'linear-gradient(111.12deg, #000000 41.3%, #D045B9 89.65%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
     linkColor: 'rgba(210, 84, 189, 1)',
     linkCookieColor: 'rgba(210, 84, 189, 1)',
@@ -245,11 +243,7 @@ export const DeveloperDAOStyles = {
     border: 1px solid #de73da;
     color: #de73da;
     :hover {
-      background: linear-gradient(
-        135deg,
-        #f790bb 44.02%,
-        #b971ee 90.66%
-      ) !important;
+      background: linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
       color: #fff !important;
       border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
     }
