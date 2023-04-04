@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from '@emotion/react';
 import styled from 'styled-components';
 import { Trans } from 'react-i18next';
 
@@ -13,6 +12,7 @@ import BaseTransparent from 'components/Base/BaseTransparent';
 import BaseRounded from 'components/Base/BaseRounded';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 import { permissions } from './messages';
+import styles from './Moderation.styled';
 
 const SectionStyled = BaseRounded.extend`
   margin-bottom: 15px;
@@ -81,7 +81,6 @@ const Permission = ({ title, permissionCode, sectionCode, getPermissionCode }) =
 const Section = ({
   sectionPermissions,
   sectionCode,
-  route,
   getSectionCode,
   getPermissionCode,
   permission,
@@ -90,14 +89,7 @@ const Section = ({
 
   return (
     <SectionStyled id={sectionId}>
-      <BaseTransparent
-        css={css`
-          padding: 32px 32px 16px;
-          @media only screen and (max-width: 576px) {
-            padding-left: 5px;
-          }
-        `}
-      >
+      <BaseTransparent css={styles.sectionHeader}>
         <H4 mobileFS="24">
           <span>{sectionPermissions[0]?.h2}</span>
         </H4>
@@ -105,18 +97,7 @@ const Section = ({
 
       {sectionPermissions.map(({ h3, blocks }) => (
         <div className="d-block" key={h3}>
-          <div
-            css={css`
-              padding: 16px 32px;
-              font-size: 20px;
-              font-weight: 600;
-              @media only screen and (max-width: 576px) {
-                padding-left: 5px;
-              }
-            `}
-          >
-            {h3}
-          </div>
+          <div css={styles.roleTitle}>{h3}</div>
           <ul>
             {blocks.map((x) => (
               <Permission
