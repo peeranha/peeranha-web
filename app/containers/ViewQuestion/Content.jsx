@@ -16,10 +16,7 @@ export const Content = (props) => (
   //   !!props.author?.['integer_properties'].find(
   //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   // );
-  <BaseStyled
-    className={props.className}
-    id={routes.uniqueAnswerId(props.answerId)}
-  >
+  <BaseStyled className={props.className} id={routes.uniqueAnswerId(props.answerId)}>
     <ContentHeader {...props} />
     <QuestionTitle
       title={props.title}

@@ -1,9 +1,6 @@
 import { ethers } from 'ethers';
 import { getFormattedDate } from './datetime';
-import {
-  MONTH_3LETTERS__DAY_TIME,
-  MONTH_3LETTERS__DAY_YYYY_TIME,
-} from './constants';
+import { MONTH_3LETTERS__DAY_TIME, MONTH_3LETTERS__DAY_YYYY_TIME } from './constants';
 
 // how much time has passed since the timestamp:
 // - right now
@@ -27,17 +24,9 @@ export const timeConverter = (timestamp, locale) => {
   } else if (dHours > now.getHours() && dHours < 48) {
     time.yesterday = true;
   } else if (t.getFullYear() === now.getFullYear()) {
-    time.fullDate = getFormattedDate(
-      timestamp,
-      locale,
-      MONTH_3LETTERS__DAY_TIME,
-    );
+    time.fullDate = getFormattedDate(timestamp, locale, MONTH_3LETTERS__DAY_TIME);
   } else {
-    time.fullDate = getFormattedDate(
-      timestamp,
-      locale,
-      MONTH_3LETTERS__DAY_YYYY_TIME,
-    );
+    time.fullDate = getFormattedDate(timestamp, locale, MONTH_3LETTERS__DAY_YYYY_TIME);
   }
 
   return time;
@@ -55,8 +44,7 @@ export const bigNumberToNumber = (bigNumber) => {
   return bigNumber.toNumber();
 };
 
-export const dataToString = (data) =>
-  typeof data === 'string' ? data : String(data);
+export const dataToString = (data) => (typeof data === 'string' ? data : String(data));
 
 export function hexToRgb(hex) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);

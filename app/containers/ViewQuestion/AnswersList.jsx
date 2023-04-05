@@ -16,10 +16,7 @@ export const AnswersList = (props) => {
   const [allVisible, setAllVisible] = useState(false);
   const { answers } = props.questionData;
 
-  const changeVisibility = useCallback(
-    () => setAllVisible(!allVisible),
-    [allVisible],
-  );
+  const changeVisibility = useCallback(() => setAllVisible(!allVisible), [allVisible]);
 
   const visibleAnswers = useMemo(
     () => answers.slice(0, allVisible ? answers.length : DEFAULT_NUMBER),
