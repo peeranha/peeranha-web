@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 
 import communitiesConfig from 'communities-config';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 

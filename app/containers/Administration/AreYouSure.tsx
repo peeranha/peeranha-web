@@ -12,19 +12,11 @@ type AreYouSureProps = {
   Button: React.FC<{
     onClick: (ev: { currentTarget: React.SetStateAction<null> }) => void;
   }>;
-  submitAction: ({
-    currentTarget,
-  }: {
-    currentTarget: null | HTMLInputElement;
-  }) => void;
+  submitAction: ({ currentTarget }: { currentTarget: null | HTMLInputElement }) => void;
   roleName: string;
 };
 
-const AreYouSure: React.FC<AreYouSureProps> = ({
-  submitAction,
-  Button,
-  roleName,
-}): JSX.Element => {
+const AreYouSure: React.FC<AreYouSureProps> = ({ submitAction, Button, roleName }): JSX.Element => {
   const { t } = useTranslation();
   const [currentTarget, changeEventData] = useState(null);
   const [isOpen, open, close] = useTrigger(false);

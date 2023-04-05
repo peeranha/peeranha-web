@@ -2,10 +2,7 @@ import React from 'react';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 import Pagination from './Pagination';
-import {
-  DocumentationArticle,
-  DocumentationItemMenuType,
-} from 'pages/Documentation/types';
+import { DocumentationArticle, DocumentationItemMenuType } from 'pages/Documentation/types';
 
 import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 import { extractStrings } from 'utils/url';
@@ -31,9 +28,7 @@ const ViewContent: React.FC<ViewContentProps> = ({
   isEditDocumentation,
   documentationMenu,
 }): JSX.Element => {
-  const headers = extractStrings(['#', '\n'])(
-    `${documentationArticle?.content}\n` || '',
-  );
+  const headers = extractStrings(['#', '\n'])(`${documentationArticle?.content}\n` || '');
   return (
     <>
       <Wrapper
@@ -44,9 +39,7 @@ const ViewContent: React.FC<ViewContentProps> = ({
         }}
       >
         <H3>
-          <span className="d-none d-md-inline-block">
-            {documentationArticle?.title}
-          </span>
+          <span className="d-none d-md-inline-block">{documentationArticle?.title}</span>
         </H3>
       </Wrapper>
       <div className="df" css={{ marginBottom: '50px' }}>
@@ -59,16 +52,11 @@ const ViewContent: React.FC<ViewContentProps> = ({
           <MarkdownPreviewBlock content={documentationArticle?.content} />
 
           {!isEditDocumentation && (
-            <Pagination
-              documentationMenu={documentationMenu}
-              id={documentationArticle?.id}
-            />
+            <Pagination documentationMenu={documentationMenu} id={documentationArticle?.id} />
           )}
         </Wrapper>
 
-        {!isEditDocumentation && headers?.length > 1 && (
-          <TextNavbar headers={headers} />
-        )}
+        {!isEditDocumentation && headers?.length > 1 && <TextNavbar headers={headers} />}
       </div>
     </>
   );

@@ -50,18 +50,12 @@ const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
           css={{ '> div': { maxWidth: '570px !important' } }}
           withoutClose={false}
         >
-          <TransactionHandler
-            transaction={transaction}
-            setTransaction={setTransaction}
-          />
+          <TransactionHandler transaction={transaction} setTransaction={setTransaction} />
           <div css={{ marginTop: '30px' }}>
             <span>{t('common.transactionsText_4')}</span>
             <span className="bold">{t('common.settings')}</span>.
           </div>
-          <div
-            className="df aic jcfe mt-4"
-            css={{ button: { maxWidth: '150px' } }}
-          >
+          <div className="df aic jcfe mt-4" css={{ button: { maxWidth: '150px' } }}>
             <OutlinedButton className="mr-3" onClick={hideModal}>
               {t('common.cancel')}
             </OutlinedButton>

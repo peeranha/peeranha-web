@@ -29,10 +29,7 @@ type FilePreviewerProps = {
     abortController?: AbortController | Upload,
   ) => void;
   removeFile: (fileName: string) => void;
-  cancelUpload: (
-    fileName: string,
-    abortController?: AbortController | Upload,
-  ) => void;
+  cancelUpload: (fileName: string, abortController?: AbortController | Upload) => void;
 };
 
 const FilePreviewer: React.FC<FilePreviewerProps> = ({
@@ -59,8 +56,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
   const cancelFileUpload = () => {
     cancelUpload(fileName, abortController);
   };
-  const uploadFileAgain = () =>
-    readAndUploadFile(file, fileName, abortController);
+  const uploadFileAgain = () => readAndUploadFile(file, fileName, abortController);
   const deleteFile = () => removeFile(fileName);
   const showCenterIcons = () => setIsShown(true);
   const hideCenterIcons = () => setIsShown(false);
@@ -86,8 +82,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
       <div
         className="pa full-width full-height t0 l0"
         css={css({
-          ...((isUploading || isFailedUpload) &&
-            styles.backgroundUploadingHover),
+          ...((isUploading || isFailedUpload) && styles.backgroundUploadingHover),
           ...(isUploaded && styles.backgroundUploadedHover),
         })}
       />
@@ -103,11 +98,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
           />
         )}
         {isUploaded && (
-          <VoteIcon
-            fillOpacity="1"
-            stroke="rgb(87, 111, 237)"
-            fill="rgb(87, 111, 237)"
-          />
+          <VoteIcon fillOpacity="1" stroke="rgb(87, 111, 237)" fill="rgb(87, 111, 237)" />
         )}
         {isFailedUpload && (
           <ReloadRoundedIcon

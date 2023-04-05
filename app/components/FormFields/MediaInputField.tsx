@@ -42,13 +42,7 @@ export const MediaInputField = ({
   ];
 
   return (
-    <Wrapper
-      label={label}
-      tip={tip}
-      meta={meta}
-      splitInHalf={splitInHalf}
-      disabled={disabled}
-    >
+    <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf} disabled={disabled}>
       <Dropzone config={config} showToast={showToastDispatch} />
     </Wrapper>
   );

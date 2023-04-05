@@ -17,9 +17,7 @@ const colors = singleCommunityColors();
 
 const TopCommunitiesSection = ({ ref, single, communities }) => {
   const { t } = useTranslation();
-  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
-    routes.communities(),
-  );
+  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() => routes.communities());
   const AllCommunitiesLink = single ? ADefault : A;
 
   useEffect(() => {
@@ -36,8 +34,7 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
           color: ${colors.white || ''};
         `}
       >
-        {t('common.top')}{' '}
-        <span className="text-lowercase">{t('common.communities')}</span>
+        {t('common.top')} <span className="text-lowercase">{t('common.communities')}</span>
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>

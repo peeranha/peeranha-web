@@ -152,12 +152,7 @@
   "receivedReward": "您收到推荐奖励",
   "generalPopoverTitle": "讨论",
   "generalPopoverLabel": "不需要专业知识或经验来回答的主题可以是以下之一：",
-  "generalPopoverList": [
-    "主观意见交流；",
-    "头脑风暴；",
-    "反馈或审查请求；",
-    "答案广为人知。"
-  ],
+  "generalPopoverList": ["主观意见交流；", "头脑风暴；", "反馈或审查请求；", "答案广为人知。"],
   "expertPopoverTitle": "专家问答",
   "expertPopoverLabel": "提出以下问题之一的问题：",
   "expertPopoverList": [
@@ -176,9 +171,9 @@
   "hoursAgo": "{{hours}} 几小时前",
   "yesterday": "昨天",
   "official": "官方的",
-  "profilesUsersInfo": "文件大小不应超过 1.8Mb",
+  "profilesUsersInfo": "文件大小不应超过 5Mb",
   "communityBannerInfo": "使用至少 1360 x 120 像素的图像。 文件大小不应超过 1Mb",
-  "fileSizeErrorMsg": "文件大小超过 1.8Mb。 选择另一个...",
+  "fileSizeErrorMsg": "文件大小超过 5Mb。 选择另一个...",
   "bannerSizeErrorMsg": "文件大小超过 1Mb。 选择另一个...",
   "incorrectBannerResolutionMsg": "图像分辨率必须为 1360 x 120 像素",
   "chooseFile": "选择一个文件",
@@ -267,11 +262,7 @@
     "要求指导或食谱。"
   ],
   "tutorialQuestionDescriptionLabel": "教程是手动说明，可以是以下之一：",
-  "tutorialQuestionDescriptionList": [
-    "逐步解决问题；",
-    "技术设置；",
-    "“操作方法”指南。"
-  ],
+  "tutorialQuestionDescriptionList": ["逐步解决问题；", "技术设置；", "“操作方法”指南。"],
   "promotedLabel": "推广问题",
   "promotedTip": "推广问题",
   "questionIsPromoting": "推广至",

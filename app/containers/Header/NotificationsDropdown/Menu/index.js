@@ -4,7 +4,12 @@ import styled from 'styled-components';
 
 import { BORDER_RADIUS_L } from 'style-constants';
 
-import { HEADER_AND_FOOTER_HEIGHT, MENU_HEIGHT, MENU_WIDTH, ROW_HEIGHT_DROPDOWN } from '../constants';
+import {
+  HEADER_AND_FOOTER_HEIGHT,
+  MENU_HEIGHT,
+  MENU_WIDTH,
+  ROW_HEIGHT_DROPDOWN,
+} from '../constants';
 
 import Header from './Header';
 import Content from './Content';

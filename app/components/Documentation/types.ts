@@ -20,9 +20,7 @@ export type EditDocumentationProps = {
   saveMenuDraftDispatch: (data: Array<DocumentationItemMenuType>) => void;
   saveDraftsIdsDispatch: (ids: Array<string>) => void;
   documentationMenuDraft: Array<DocumentationItemMenuType>;
-  updateDocumentationMenuDispatch: (
-    data: Array<DocumentationItemMenuType>,
-  ) => void;
+  updateDocumentationMenuDispatch: (data: Array<DocumentationItemMenuType>) => void;
   isArticleLoading: boolean;
   viewArticleId: string;
   setViewArticleDispatch: (id: string) => void;
@@ -38,9 +36,7 @@ export type DocumentationFormProps = {
   documentationMenu: Array<DocumentationItemMenuType>;
   documentationArticle: DocumentationArticle;
   articleParentId: string;
-  updateDocumentationMenuDraft: (
-    data: Array<DocumentationItemMenuType>,
-  ) => void;
+  updateDocumentationMenuDraft: (data: Array<DocumentationItemMenuType>) => void;
   setViewArticle: (id: string) => void;
   setEditArticle: (data: EditArticleType) => void;
   isEditArticle: boolean;

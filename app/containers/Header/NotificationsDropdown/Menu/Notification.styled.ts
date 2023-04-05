@@ -15,11 +15,14 @@ const styles = {
     position: 'absolute',
     display: 'flex',
     width: '100%',
-    padding: '16px',
+    padding: '10px 16px',
     margin: '0 auto',
     borderBottom: '1px solid rgba(53, 74, 137, 0.15)',
     alignItems: 'start',
     justifyContent: 'start',
+    svg: {
+      marginTop: '3px',
+    },
     '& :nth-last-child': {
       borderBottom: 'none',
     },
@@ -33,6 +36,12 @@ const styles = {
     marginLeft: '12px',
     display: 'flex',
     flexDirection: 'column',
+  },
+  titleWrapper: {
+    '& span': {
+      whiteSpace: 'normal',
+      lineHeight: '20px',
+    },
   },
   title: {
     fontSize: '16px',

@@ -15,11 +15,7 @@ import saga from 'containers/Administration/saga';
 import { noAccess as noAccessRoute } from 'routes-config';
 import { useModeratorRole } from 'hooks/useModeratorRole';
 
-import {
-  addRole,
-  getModerators,
-  revokeRole,
-} from 'containers/Administration/actions';
+import { addRole, getModerators, revokeRole } from 'containers/Administration/actions';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
   selectAddRoleLoading,
@@ -27,11 +23,7 @@ import {
   selectModeratorsLoading,
   selectRevokeRoleLoading,
 } from 'containers/Administration/selectors';
-import {
-  Moderator,
-  OutputSelector,
-  User,
-} from 'containers/Administration/types';
+import { Moderator, OutputSelector, User } from 'containers/Administration/types';
 
 type AdministrationProps = {
   locale: string;
@@ -39,17 +31,9 @@ type AdministrationProps = {
   moderators: Array<Moderator>;
   getModeratorsDispatch: (communityId: number) => void;
   moderatorsLoading: boolean;
-  addRoleDispatch: (
-    userAddress: string,
-    role: number,
-    communityId: number,
-  ) => void;
+  addRoleDispatch: (userAddress: string, role: number, communityId: number) => void;
   addRoleLoading: boolean;
-  revokeRoleDispatch: (
-    userAddress: string,
-    role: number,
-    communityId: number,
-  ) => void;
+  revokeRoleDispatch: (userAddress: string, role: number, communityId: number) => void;
   revokeRoleLoading: boolean;
 };
 

@@ -21,9 +21,7 @@ const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
           flexDirection: isNextButton ? 'row-reverse' : 'row',
         }}
       >
-        <ArrowDownIcon
-          css={{ transform: isNextButton ? 'rotate(270deg)' : 'rotate(90deg)' }}
-        />
+        <ArrowDownIcon css={{ transform: isNextButton ? 'rotate(270deg)' : 'rotate(90deg)' }} />
         <div
           css={{
             ...styled.paginationButtonText,

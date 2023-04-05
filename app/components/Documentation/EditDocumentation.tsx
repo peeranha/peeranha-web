@@ -30,10 +30,7 @@ import {
   selectEditOrder,
   selectDraftsIds,
 } from 'pages/Documentation/selectors';
-import {
-  selectDocumentationMenu,
-  selectPinnedItemMenu,
-} from 'containers/AppWrapper/selectors';
+import { selectDocumentationMenu, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
 
 import Header from './components/Header';
 import Pagination from './components/Pagination';
@@ -113,13 +110,9 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
     }
   }, []);
 
-  const editDocumentationArticle = documentation.find(
-    (item) => item.id === editArticle.id,
-  );
+  const editDocumentationArticle = documentation.find((item) => item.id === editArticle.id);
 
-  const viewDocumentationArticle = documentation.find(
-    (item) => item.id === viewArticleId,
-  );
+  const viewDocumentationArticle = documentation.find((item) => item.id === viewArticleId);
 
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
@@ -136,7 +129,9 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   const saveDocumentationMenu = () => {
     saveToDraft().then((draftFromSave: Array<DocumentationItemMenuType>) => {
       if (_.isEqual(documentationMenu, documentationMenuDraft)) {
-        updateDocumentationMenuDispatch(draftFromSave);
+        if (draftFromSave) {
+          updateDocumentationMenuDispatch(draftFromSave);
+        }
       } else {
         updateDocumentationMenuDispatch(documentationMenuDraft);
       }
@@ -192,12 +187,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
       <div
         css={{
           ...styled.container,
-          animation: `${animationDocumentation(
-            paddingLeft,
-          )} 1s ease-in forwards`,
-          width:
-            refOverlay?.current &&
-            refOverlay?.current.clientWidth - paddingLeft - 86,
+          animation: `${animationDocumentation(paddingLeft)} 1s ease-in forwards`,
+          width: refOverlay?.current && refOverlay?.current.clientWidth - paddingLeft - 86,
         }}
       >
         <Header
@@ -261,9 +252,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     documentationMenu={documentationMenuDraft}
                     documentationArticle={editDocumentationArticle}
                     articleParentId={editArticle.parentId}
-                    isEditArticle={
-                      editArticle.isEditArticle && editArticle.id !== ''
-                    }
+                    isEditArticle={editArticle.isEditArticle && editArticle.id !== ''}
                     updateDocumentationMenuDraft={saveMenuDraftDispatch}
                     setEditArticle={setEditArticleDispatch}
                     setViewArticle={setViewArticleDispatch}
@@ -274,9 +263,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                 <Pagination
                   documentationMenu={documentationMenu}
                   id={viewArticleId}
-                  onClickPaginationArticleEditDocumentation={
-                    onClickPaginationArticle
-                  }
+                  onClickPaginationArticleEditDocumentation={onClickPaginationArticle}
                 />
               </>
             )}
@@ -317,22 +304,13 @@ export default compose(
       draftsIds: selectDraftsIds(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
-      getArticleDocumentationDispatch: bindActionCreators(
-        getArticleDocumentation,
-        dispatch,
-      ),
+      getArticleDocumentationDispatch: bindActionCreators(getArticleDocumentation, dispatch),
       setEditArticleDispatch: bindActionCreators(setEditArticle, dispatch),
       saveMenuDraftDispatch: bindActionCreators(saveMenuDraft, dispatch),
       saveDraftsIdsDispatch: bindActionCreators(saveDraftsIds, dispatch),
-      updateDocumentationMenuDispatch: bindActionCreators(
-        updateDocumentationMenu,
-        dispatch,
-      ),
+      updateDocumentationMenuDispatch: bindActionCreators(updateDocumentationMenu, dispatch),
       setViewArticleDispatch: bindActionCreators(setViewArticle, dispatch),
-      pinnedArticleMenuDraftDispatch: bindActionCreators(
-        pinnedArticleMenuDraft,
-        dispatch,
-      ),
+      pinnedArticleMenuDraftDispatch: bindActionCreators(pinnedArticleMenuDraft, dispatch),
       removeArticleDispatch: bindActionCreators(removeArticle, dispatch),
       editOrderDispatch: bindActionCreators(editOrder, dispatch),
     }),

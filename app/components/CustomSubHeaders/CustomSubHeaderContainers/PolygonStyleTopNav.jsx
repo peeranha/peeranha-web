@@ -2,10 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import communitiesConfig from 'communities-config';
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import polygonPoSLogo from 'communities-configs/polygon/images/polygon-pos.svg?inline';
 import polygonEdgeLogo from 'communities-configs/polygon/images/polygon-edge.svg?inline';
@@ -14,10 +11,7 @@ import polygonZeloLogo from 'communities-configs/polygon/images/polygon-zero.svg
 import polygonMidenLogo from 'communities-configs/polygon/images/polygon-miden.svg?inline';
 import polygonHermezLogo from 'communities-configs/polygon/images/polygon-hermez.svg?inline';
 import polygonNightfallLogo from 'communities-configs/polygon/images/polygon-nightfall.svg?inline';
-import {
-  LocalLink,
-  Subitems,
-} from 'components/CustomSubHeaders/CustomSubHeader';
+import { LocalLink, Subitems } from 'components/CustomSubHeaders/CustomSubHeader';
 
 const logosSVG = {
   polygonPoS: polygonPoSLogo,
@@ -164,18 +158,12 @@ const PolygonStyleTopNav = () => {
       </SubHeaderLogo>
       <SubHeaderNav>
         {!!links && !!styles ? (
-          <Links
-            links={links.filter((link) => !link.isHighlighted)}
-            styles={styles}
-          />
+          <Links links={links.filter((link) => !link.isHighlighted)} styles={styles} />
         ) : null}
       </SubHeaderNav>
       <SubHeaderNavButtons>
         {!!links && !!styles ? (
-          <Links
-            links={links.filter((link) => link.isHighlighted)}
-            styles={styles}
-          />
+          <Links links={links.filter((link) => link.isHighlighted)} styles={styles} />
         ) : null}
       </SubHeaderNavButtons>
     </Container>

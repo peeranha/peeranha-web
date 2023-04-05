@@ -29,13 +29,9 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
   const isStartArticle = currentArrayIndex < 1;
   const isLastArticle = currentArrayIndex === treeArray.length - 1;
 
-  const getButtonContent = (
-    typeButton: typeof PREV_TYPE_BUTTON | typeof NEXT_TYPE_BUTTON,
-  ) => {
+  const getButtonContent = (typeButton: typeof PREV_TYPE_BUTTON | typeof NEXT_TYPE_BUTTON) => {
     const stepDirection = typeButton === PREV_TYPE_BUTTON ? -1 : +1;
-    return treeArray.find(
-      (item) => item?.treeIndex === currentArrayIndex + stepDirection,
-    )?.node;
+    return treeArray.find((item) => item?.treeIndex === currentArrayIndex + stepDirection)?.node;
   };
 
   const onClickPaginationArticle =
@@ -56,28 +52,20 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
         <div
           css={{
             ...styled.paginationBlock,
-            justifyContent: isStartArticle
-              ? 'flex-end'
-              : isLastArticle
-              ? 'flex-start'
-              : 'center',
+            justifyContent: isStartArticle ? 'flex-end' : isLastArticle ? 'flex-start' : 'center',
           }}
         >
           <div css={isStartArticle && styled.viewBlock}>
             <ButtonPaginationDesktop
               typeButton={PREV_TYPE_BUTTON}
-              onClickPaginationArticle={onClickPaginationArticle(
-                PREV_TYPE_BUTTON,
-              )}
+              onClickPaginationArticle={onClickPaginationArticle(PREV_TYPE_BUTTON)}
               title={getButtonContent(PREV_TYPE_BUTTON)?.title}
             />
           </div>
           <div css={isLastArticle && styled.viewBlock}>
             <ButtonPaginationDesktop
               typeButton={NEXT_TYPE_BUTTON}
-              onClickPaginationArticle={onClickPaginationArticle(
-                NEXT_TYPE_BUTTON,
-              )}
+              onClickPaginationArticle={onClickPaginationArticle(NEXT_TYPE_BUTTON)}
               title={getButtonContent(NEXT_TYPE_BUTTON)?.title}
             />
           </div>
@@ -85,11 +73,7 @@ const PaginationDocumentation: React.FC<PaginationDocumentationProps> = ({
       ) : (
         <ButtonPaginationMobile
           onClickPaginationArticle={onClickPaginationArticle}
-          title={
-            getButtonContent(
-              !isLastArticle ? NEXT_TYPE_BUTTON : PREV_TYPE_BUTTON,
-            )?.title
-          }
+          title={getButtonContent(!isLastArticle ? NEXT_TYPE_BUTTON : PREV_TYPE_BUTTON)?.title}
           isStartArticle={isStartArticle}
           isLastArticle={isLastArticle}
         />

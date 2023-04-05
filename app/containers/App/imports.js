@@ -45,9 +45,7 @@ const Communities = React.lazy(() => import('components/ExistingCommunities'));
 const FullWidthPreloader = React.lazy(() =>
   import('components/LoadingIndicator/FullWidthPreloader'),
 );
-const SuggestedCommunities = React.lazy(() =>
-  import('components/SuggestedCommunities'),
-);
+const SuggestedCommunities = React.lazy(() => import('components/SuggestedCommunities'));
 
 export {
   EditCommunity,

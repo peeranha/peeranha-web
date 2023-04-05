@@ -13,10 +13,7 @@ type FilesPreviewerProps = {
     abortController?: AbortController | Upload,
   ) => void;
   removeFile: (fileName: string) => void;
-  cancelUpload: (
-    fileName: string,
-    abortController?: AbortController | Upload,
-  ) => void;
+  cancelUpload: (fileName: string, abortController?: AbortController | Upload) => void;
 };
 
 const FilesPreviewer: React.FC<FilesPreviewerProps> = ({

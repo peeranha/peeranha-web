@@ -18,12 +18,8 @@ const colors = singleCommunityColors();
 
 /* eslint indent: 0 */
 const ErrorHandling = (error) => `
-  border: 1px solid ${
-    error ? `rgb(${BORDER_WARNING_LIGHT_RGB})` : BORDER_SECONDARY
-  };
-  box-shadow: 0 0 0 3px ${
-    error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT
-  };
+  border: 1px solid ${error ? `rgb(${BORDER_WARNING_LIGHT_RGB})` : BORDER_SECONDARY};
+  box-shadow: 0 0 0 3px ${error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT};
 
   border-radius: ${BORDER_RADIUS_M};
 `;
