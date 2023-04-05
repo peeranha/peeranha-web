@@ -171,8 +171,7 @@ export const CyberconnectStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/cyberconnect/CyberConnect_logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/cyberconnect/logo.svg',
   colors: {
     appWindowsColor: '#FFF',
     appSafarieColor: '#3c2525',

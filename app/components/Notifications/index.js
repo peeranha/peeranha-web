@@ -1,14 +1,9 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
+import classnames from 'classnames';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller';
 import List from 'react-virtualized/dist/commonjs/List';
 
@@ -20,14 +15,11 @@ import injectReducer from 'utils/injectReducer';
 
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
-import {
-  BG_LIGHT,
-  BORDER_SECONDARY_LIGHT,
-  BORDER_RADIUS_L,
-} from 'style-constants';
+import { BG_LIGHT, BORDER_SECONDARY_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 
 import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import { NOTIFICATIONS_DATA, ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
 import {
@@ -52,10 +44,7 @@ import Wrapper from '../Header/Complex';
 import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
-import WidthCentered, {
-  LoaderContainer,
-} from '../LoadingIndicator/WidthCentered';
-import classnames from 'classnames';
+import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -99,10 +88,11 @@ const SubHeaderSeparator = styled.hr`
 const Notifications = ({
   loading,
   unreadCount,
-  allCount: allCountUnfiltered,
+  allCount,
   className,
   isAvailable,
-  notifications: allNotifications,
+  notifications,
+  communities,
   readNotifications,
   loadMoreNotificationsDispatch,
   markAsReadNotificationsAllDispatch,
@@ -114,13 +104,6 @@ const Notifications = ({
   const [y, setY] = useState(0);
   const ref = useRef(null);
   const containerRef = useRef(null);
-
-  // Temporary fix, will be removed in PEER-682
-  const notifications = allNotifications.filter(
-    ({ type }) => NOTIFICATIONS_DATA[type],
-  );
-  const allCount =
-    allCountUnfiltered - (allNotifications.length - notifications.length);
 
   useEffect(() => {
     markAsReadNotificationsAllDispatch([
@@ -147,10 +130,7 @@ const Notifications = ({
   const recalculateRanges = useCallback(() => {
     const range = `${indexToStart}-${indexToStop}-${rowHeight}`;
 
-    const union = rangeUnionWithIntersection(readNotifications, [
-      indexToStart,
-      indexToStop,
-    ]);
+    const union = rangeUnionWithIntersection(readNotifications, [indexToStart, indexToStop]);
 
     /*
      * TODO: Fix bug with reading notifications, information in Notification center and Dropdown
@@ -215,6 +195,7 @@ const Notifications = ({
       height={rowHeight}
       notificationsNumber={notifications.length}
       paddingHorizontal="36"
+      communities={communities}
       {...notifications[index]}
     />
   );
@@ -231,12 +212,9 @@ const Notifications = ({
         <Header notificationsNumber={allCount} />
       </Wrapper>
 
-      {!!allCount && (
-        <Content
-          innerRef={containerRef}
-          height={notifications.length * rowHeight + ROW_HEIGHT}
-        >
-          {!!unreadCount ? (
+      {Boolean(allCount) && (
+        <Content innerRef={containerRef} height={notifications.length * rowHeight + ROW_HEIGHT}>
+          {Boolean(unreadCount) ? (
             <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
               <MarkAllAsReadButton />
             </SubHeader>
@@ -304,20 +282,15 @@ export default React.memo(
         loading: selectAllNotificationsLoading()(state),
         readNotifications: selectReadNotificationsAll()(state),
         unreadCount: unreadNotificationsCount()(state),
+        communities: selectCommunities()(state),
       }),
       (dispatch) => ({
-        loadMoreNotificationsDispatch: bindActionCreators(
-          loadMoreNotifications,
-          dispatch,
-        ),
+        loadMoreNotificationsDispatch: bindActionCreators(loadMoreNotifications, dispatch),
         markAsReadNotificationsAllDispatch: bindActionCreators(
           markAsReadNotificationsAll,
           dispatch,
         ),
-        filterReadNotificationsDispatch: bindActionCreators(
-          filterReadTimestamps,
-          dispatch,
-        ),
+        filterReadNotificationsDispatch: bindActionCreators(filterReadTimestamps, dispatch),
       }),
     ),
   )(Notifications),

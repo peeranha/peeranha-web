@@ -15,15 +15,9 @@ import { PROMOTE_HOUR_COST } from 'components/QuestionForm/constants';
 import Seo from 'components/Seo';
 import QuestionForm from 'components/QuestionForm';
 
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  selectCommunities,
-  selectTagsLoading,
-} from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectTagsLoading } from 'containers/DataCacheProvider/selectors';
 
 import { askQuestion, getExistingQuestion } from './actions';
 import * as askQuestionSelector from './selectors';

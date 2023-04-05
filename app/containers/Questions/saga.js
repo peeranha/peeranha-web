@@ -1,13 +1,5 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
-import {
-  take,
-  takeLatest,
-  call,
-  put,
-  select,
-  all,
-  takeEvery,
-} from 'redux-saga/effects';
+import { take, takeLatest, call, put, select, all, takeEvery } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
@@ -42,10 +34,7 @@ import {
   makeSelectFollowedCommunities,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
-import {
-  getQuestionData,
-  isGeneralQuestion,
-} from 'containers/ViewQuestion/saga';
+import { getQuestionData, isGeneralQuestion } from 'containers/ViewQuestion/saga';
 
 import { getQuestionsWorker as getTopQuestions } from '../Home/saga';
 
@@ -153,14 +142,7 @@ export function* getQuestionsWorker({
 
     const clearQuestionsList = questionsList.filter((item) => item.title);
 
-    yield put(
-      getQuestionsSuccess(
-        clearQuestionsList,
-        next,
-        toUpdateQuestions,
-        undefined,
-      ),
-    );
+    yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined));
   } catch (err) {
     yield put(getQuestionsError(err));
   }
@@ -228,10 +210,7 @@ export default function* () {
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
   yield takeLatest(CHANGE_QUESTION_FILTER, changeQuestionFilterWorker);
-  yield takeLatest(
-    LOAD_COMMUNITY_TOP_QUESTIONS,
-    loadTopCommunityQuestionsWorker,
-  );
+  yield takeLatest(LOAD_COMMUNITY_TOP_QUESTIONS, loadTopCommunityQuestionsWorker);
   yield takeLatest(REMOVE_OR_ADD_TOP_QUESTION, removeOrAddTopQuestionWorker);
   yield takeLatest(UP_QUESTION, upQuestionWorker);
   yield takeLatest(DOWN_QUESTION, downQuestionWorker);

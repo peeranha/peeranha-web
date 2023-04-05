@@ -35,9 +35,7 @@ export const emptyProfile = (account) => ({
   balance: 0,
   boost: null,
   creationTime: 0,
-  displayName: `${account.substring(0, 6)}...${account.substring(
-    account.length - 4,
-  )}`,
+  displayName: `${account.substring(0, 6)}...${account.substring(account.length - 4)}`,
   followedCommunities: [],
   highestRating: 0,
   id: account,
@@ -52,13 +50,7 @@ export const emptyProfile = (account) => ({
   user: account,
 });
 
-export async function giveRolePermission(
-  user,
-  userToGive,
-  role,
-  communityId,
-  ethereumService,
-) {
+export async function giveRolePermission(user, userToGive, role, communityId, ethereumService) {
   await ethereumService.sendTransaction(
     CONTRACT_USER,
     user,
@@ -68,13 +60,7 @@ export async function giveRolePermission(
   );
 }
 
-export async function revokeRolePermission(
-  user,
-  userToRevoke,
-  role,
-  communityId,
-  ethereumService,
-) {
+export async function revokeRolePermission(user, userToRevoke, role, communityId, ethereumService) {
   await ethereumService.sendTransaction(
     CONTRACT_USER,
     user,
@@ -87,9 +73,7 @@ export async function revokeRolePermission(
 export const isUserExists = async (userAddress, ethereumService) => {
   if (!userAddress) throw new ApplicationError('No profile');
 
-  return await ethereumService.getUserDataWithArgs(IS_USER_EXISTS, [
-    userAddress,
-  ]);
+  return await ethereumService.getUserDataWithArgs(IS_USER_EXISTS, [userAddress]);
 };
 
 export const updateAcc = async (profile, ethereumService) => {
@@ -121,11 +105,7 @@ export const updateAcc = async (profile, ethereumService) => {
 };
 
 export const isUserInSystem = async (user, eosService) => {
-  const profile = await eosService.getTableRow(
-    ACCOUNT_TABLE,
-    ALL_ACCOUNTS_SCOPE,
-    user,
-  );
+  const profile = await eosService.getTableRow(ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE, user);
 
   return Boolean(profile);
 };
@@ -138,23 +118,16 @@ export const checkUserURL = (user) => {
   return userInURL ? userInURL === user : true;
 };
 
-export const getUsersModeratorByRoles = (
-  usersModerator,
-  communityId,
-  moderators,
-  Roles,
-) =>
+export const getUsersModeratorByRoles = (usersModerator, communityId, moderators, Roles) =>
   usersModerator.map((user) => {
     const moderatorPermission = moderators.find(
       (moderator) =>
-        moderator.permission ===
-          getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId) &&
+        moderator.permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId) &&
         moderator.user.id === user.id,
     );
     const adminPermission = moderators.find(
       (moderator) =>
-        moderator.permission ===
-          getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId) &&
+        moderator.permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId) &&
         moderator.user.id === user.id,
     );
 

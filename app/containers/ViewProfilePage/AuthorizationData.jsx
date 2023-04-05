@@ -26,11 +26,7 @@ const AuthorizationData = ({ className }) => {
         <H3>{t('common.settings')}</H3>
       </BaseStyled>
       <BaseStyled position="top" notRoundedStyle className={className}>
-        <TransactionHandler
-          transaction={transaction}
-          setTransaction={setTransaction}
-          settings
-        />
+        <TransactionHandler transaction={transaction} setTransaction={setTransaction} settings />
       </BaseStyled>
     </>
   );

@@ -4,10 +4,7 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import {
-  DocumentationSection,
-  DocumentationItemMenuType,
-} from 'pages/Documentation/types';
+import { DocumentationSection, DocumentationItemMenuType } from 'pages/Documentation/types';
 import ArrowDownIcon from 'icons/ArrowDown';
 import Dropdown from 'components/Dropdown';
 import AddSubArticleIcon from 'icons/AddSubArticle';
@@ -18,10 +15,7 @@ import AddCommentIcon from 'icons/AddComment';
 import Link from './Link';
 import Item from './Item';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
-import {
-  singleCommunityColors,
-  singleCommunityDocumentation,
-} from 'utils/communityManagement';
+import { singleCommunityColors, singleCommunityDocumentation } from 'utils/communityManagement';
 import { isEditableChildItem } from 'components/Documentation/helpers';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
@@ -35,11 +29,7 @@ type DocumentationMenuProps = {
   isMenu?: boolean;
   setEditDocumentation?: (id: string, parentId: string) => void;
   parentId: string;
-  setEditArticle?: (data: {
-    id: string;
-    parentId: string;
-    isEditArticle: boolean;
-  }) => void;
+  setEditArticle?: (data: { id: string; parentId: string; isEditArticle: boolean }) => void;
   setViewArticle?: (id: string) => void;
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
   removeArticle?: (id: string) => void;
@@ -84,6 +74,16 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
     }
   }, [editArticle?.id, item.children]);
 
+  useEffect(() => {
+    const isEditableChildren = isEditableChildItem(
+      item,
+      match?.params.sectionId && getBytes32FromIpfsHash(match?.params.sectionId),
+    );
+    if (isEditableChildren) {
+      open();
+    }
+  }, [match?.params.sectionId, item.children]);
+
   const onSelect = (event: React.MouseEvent) => {
     const value = Number(event.currentTarget.getAttribute('value'));
     if (value === 1 && typeof setEditArticle === 'function') {
@@ -121,10 +121,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   };
 
   const onClickArticle = () => {
-    if (
-      typeof setViewArticle === 'function' &&
-      typeof setEditArticle === 'function'
-    ) {
+    if (typeof setViewArticle === 'function' && typeof setEditArticle === 'function') {
       setViewArticle(item.id);
       setEditArticle({
         id: item.id,
@@ -239,17 +236,9 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             >
               <Dropdown
                 id="itemMenu_dropdown_id"
-                button={
-                  <AddCommentIcon
-                    css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }}
-                  />
-                }
+                button={<AddCommentIcon css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }} />}
                 menu={options.map((item) => (
-                  <div
-                    value={item.value}
-                    css={css(styles.dropdownMenuItem)}
-                    onClick={onSelect}
-                  >
+                  <div value={item.value} css={css(styles.dropdownMenuItem)} onClick={onSelect}>
                     {item.icon}
                     <div>{item.label}</div>
                   </div>

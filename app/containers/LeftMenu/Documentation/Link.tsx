@@ -3,10 +3,7 @@ import * as routes from 'routes-config';
 import cn from 'classnames';
 import { A1 } from 'containers/LeftMenu/MainLinks';
 import { getIpfsHashFromBytes32, getBytes32FromIpfsHash } from 'utils/ipfs';
-import {
-  DocumentationSection,
-  DocumentationItemMenuType,
-} from 'pages/Documentation/types';
+import { DocumentationSection, DocumentationItemMenuType } from 'pages/Documentation/types';
 
 type LinkProps = {
   item: DocumentationSection;
@@ -48,8 +45,7 @@ const Link: React.FC<LinkProps> = ({
         }),
         ...(level === 0 && { padding: '12px 0' }),
         ...((isOpen ||
-          (match.params.sectionId &&
-            getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
+          (match.params.sectionId && getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
           editArticleId === item.id ||
           (route === '/' && startDocumentionPostLight)) && {
           fontWeight: 700,

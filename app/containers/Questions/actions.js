@@ -110,9 +110,7 @@ export const loadTopCommunityQuestionsSuccess = (
   lastIndex,
 });
 
-export const loadTopCommunityQuestionsErr = (
-  loadTopCommunityQuestionsError,
-) => ({
+export const loadTopCommunityQuestionsErr = (loadTopCommunityQuestionsError) => ({
   type: LOAD_COMMUNITY_TOP_QUESTIONS_ERROR,
   loadTopCommunityQuestionsError,
 });

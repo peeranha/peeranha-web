@@ -24,10 +24,7 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
   draftsIds,
 }) => {
   const editDraft = () => {
-    if (
-      typeof setEditArticle === 'function' &&
-      typeof setViewArticle === 'function'
-    ) {
+    if (typeof setEditArticle === 'function' && typeof setViewArticle === 'function') {
       setEditArticle({
         id: item.id,
         parentId,
@@ -50,11 +47,7 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
             ...styles.draftItemHover,
           }}
         >
-          <div
-            className="ovh mr12"
-            css={styles.draftItemTitle}
-            title={item.title}
-          >
+          <div className="ovh mr12" css={styles.draftItemTitle} title={item.title}>
             {item.title}
           </div>
           <EditIcon

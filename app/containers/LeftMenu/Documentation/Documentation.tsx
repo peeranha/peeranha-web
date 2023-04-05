@@ -15,10 +15,7 @@ import {
   singleCommunityColors,
   singleCommunityDocumentation,
 } from 'utils/communityManagement';
-import {
-  DocumentationSection,
-  PinnedArticleType,
-} from 'pages/Documentation/types';
+import { DocumentationSection, PinnedArticleType } from 'pages/Documentation/types';
 import { EditArticleType } from 'components/Documentation/types';
 
 const documentationColors = singleCommunityDocumentation();
@@ -119,9 +116,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
 
   return (
     <div>
-      {!isEditDocumentation && documentationPosition !== 'top' && (
-        <div css={css(styles.divider)} />
-      )}
+      {!isEditDocumentation && documentationPosition !== 'top' && <div css={css(styles.divider)} />}
       <div
         className={cn('df jcsb pl15', {
           mt28:
@@ -140,11 +135,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           <div className="dropdown-documentation db mr4">
             <Dropdown
               id="documentation_dropdown_id"
-              button={
-                <AddCommentIcon
-                  css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }}
-                />
-              }
+              button={<AddCommentIcon css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }} />}
               menu={options.map(
                 (item, index) =>
                   (isEditDocumentation ? index !== 0 : index == 0) && (
@@ -183,9 +174,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           documentationMenu={documentationMenu}
         />
       ))}
-      {!isEditDocumentation && documentationPosition === 'top' && (
-        <div css={css(styles.divider)} />
-      )}
+      {!isEditDocumentation && documentationPosition === 'top' && <div css={css(styles.divider)} />}
     </div>
   );
 };

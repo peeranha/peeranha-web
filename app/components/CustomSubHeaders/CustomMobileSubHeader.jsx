@@ -78,11 +78,7 @@ const Div = styled.div`
   }
 `;
 
-const CustomMobileSubHeader = ({
-  config,
-  logo: communityLogo,
-  showingLogo,
-}) => {
+const CustomMobileSubHeader = ({ config, logo: communityLogo, showingLogo }) => {
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
   const { styles, links } = config;
@@ -101,16 +97,10 @@ const CustomMobileSubHeader = ({
       >
         <img src={communityLogo || showingLogo} alt="" />
         {!isBloggerMode && (
-          <Arrow
-            className="mt-auto mb-auto"
-            color={styles.color.arrow}
-            rotate={visible}
-          />
+          <Arrow className="mt-auto mb-auto" color={styles.color.arrow} rotate={visible} />
         )}
       </button>
-      {visible && !isBloggerMode && (
-        <Links links={links} styles={styles} device="mobile" />
-      )}
+      {visible && !isBloggerMode && <Links links={links} styles={styles} device="mobile" />}
     </Div>
   );
 };

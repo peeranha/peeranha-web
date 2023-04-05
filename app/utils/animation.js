@@ -18,9 +18,7 @@ export function ScrollTo() /* istanbul ignore next */ {
 export function scrollToSection(hash = window.location.hash) {
   if (hash) {
     const scrollPosition =
-      document.querySelector(hash).getBoundingClientRect().top +
-      window.scrollY -
-      HEADER_HEIGHT;
+      document.querySelector(hash).getBoundingClientRect().top + window.scrollY - HEADER_HEIGHT;
 
     window.scrollTo({
       top: scrollPosition,
