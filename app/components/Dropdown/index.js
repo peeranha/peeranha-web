@@ -30,6 +30,7 @@ export const Dropdown = ({
   isArrowed,
   isMenuLabelMobile,
   isArrowMarginMobile,
+  disabled = false,
 }) => (
   <DropdownStyled
     className={`dropdown ${className}`}
@@ -45,6 +46,7 @@ export const Dropdown = ({
       aria-expanded="false"
       data-icon="arrow"
       css={css`color: ${colors.localeArrowColor} : "" `}
+      disabled={disabled}
     >
       {button}
 
@@ -73,6 +75,7 @@ Dropdown.propTypes = {
   isArrowed: PropTypes.bool,
   isMenuLabelMobile: PropTypes.bool,
   isArrowMarginMobile: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default React.memo(Dropdown);

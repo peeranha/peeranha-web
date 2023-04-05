@@ -9,14 +9,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
-  plugins: [
-    'react',
-    'react-hooks',
-    'redux-saga',
-    '@typescript-eslint',
-    'jsx-a11y',
-    'prettier',
-  ],
+  plugins: ['react', 'react-hooks', 'redux-saga', '@typescript-eslint', 'jsx-a11y', 'prettier'],
   env: {
     browser: true,
     node: true,
@@ -77,14 +70,7 @@ module.exports = {
     'react/prop-types': [
       'off',
       {
-        ignore: [
-          'className',
-          'children',
-          'dispatch',
-          'location',
-          'match',
-          'history',
-        ],
+        ignore: ['className', 'children', 'dispatch', 'location', 'match', 'history'],
       },
     ],
     'react/jsx-first-prop-new-line': [2, 'multiline'],
