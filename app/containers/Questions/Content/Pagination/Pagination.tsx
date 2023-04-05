@@ -9,7 +9,7 @@ import {
 import prev from 'images/prev.svg?inline';
 import next from 'images/next.svg?inline';
 import useMediaQuery from 'hooks/useMediaQuery';
-
+import { STEP_NEXT, STEP_PREV, CONTINUE } from './constants';
 type PaginationProps = {
   page: number;
   totalPages: number;
@@ -44,7 +44,7 @@ const Pagination: React.FC<PaginationProps> = ({
   if (totalPages <= 5) {
     return (
       <>
-        <div className="df aic jcc">
+        <div css={styles.container}>
           {[...Array(totalPages).keys()].map((element, index) =>
             index <= 4 ? (
               <ButtonPagination
@@ -57,10 +57,11 @@ const Pagination: React.FC<PaginationProps> = ({
           )}
           {!lastPage && (
             <StepButtonPagination
+              page={page}
               clickHandler={nextPage}
               src={next}
               scrollToTop={scrollToTop}
-              alt="next"
+              alt={STEP_NEXT}
             />
           )}
         </div>
@@ -70,7 +71,7 @@ const Pagination: React.FC<PaginationProps> = ({
   if (page <= 3 && totalPages > 5) {
     return (
       <>
-        <div className="df aic jcc">
+        <div css={styles.container}>
           {[...Array(totalPages).keys()].map((element, index) =>
             index < 4 ? (
               <ButtonPagination
@@ -94,10 +95,11 @@ const Pagination: React.FC<PaginationProps> = ({
           )}
           {!lastPage && (
             <StepButtonPagination
+              page={page}
               clickHandler={nextPage}
               scrollToTop={scrollToTop}
               src={next}
-              alt="next"
+              alt={STEP_NEXT}
             />
           )}
         </div>
@@ -107,12 +109,13 @@ const Pagination: React.FC<PaginationProps> = ({
   if (isDesktop450 && page > 3 && page < totalPages - 3) {
     return (
       <>
-        <div className="df aic jcc">
+        <div css={styles.container}>
           <StepButtonPagination
+            page={page}
             clickHandler={prevPage}
             src={prev}
             scrollToTop={scrollToTop}
-            alt="prev"
+            alt={STEP_PREV}
           />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == 0 ? (
@@ -149,10 +152,11 @@ const Pagination: React.FC<PaginationProps> = ({
           )}
           {!lastPage && (
             <StepButtonPagination
+              page={page}
               clickHandler={nextPage}
               scrollToTop={scrollToTop}
               src={next}
-              alt="next"
+              alt={STEP_NEXT}
             />
           )}
         </div>
@@ -162,12 +166,13 @@ const Pagination: React.FC<PaginationProps> = ({
   if (page > 3 && page < totalPages - 3) {
     return (
       <>
-        <div className="df aic jcc">
+        <div css={styles.container}>
           <StepButtonPagination
+            page={page}
             clickHandler={prevPage}
             scrollToTop={scrollToTop}
             src={prev}
-            alt="prev"
+            alt={STEP_PREV}
           />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == 0 ? (
@@ -203,10 +208,11 @@ const Pagination: React.FC<PaginationProps> = ({
           )}
           {!lastPage && (
             <StepButtonPagination
+              page={page}
               clickHandler={nextPage}
               scrollToTop={scrollToTop}
               src={next}
-              alt="next"
+              alt={STEP_NEXT}
             />
           )}
         </div>
@@ -215,12 +221,13 @@ const Pagination: React.FC<PaginationProps> = ({
   }
   return (
     <>
-      <div className="df aic jcc">
+      <div css={styles.container}>
         <StepButtonPagination
+          page={page}
           clickHandler={prevPage}
           scrollToTop={scrollToTop}
           src={prev}
-          alt="prev"
+          alt={STEP_PREV}
         />
         {[...Array(totalPages).keys()].map((element, index) =>
           index == 0 ? (
@@ -232,7 +239,7 @@ const Pagination: React.FC<PaginationProps> = ({
             />
           ) : null,
         )}
-        <p css={css(styles.span)}>...</p>
+        <p css={styles.span}>{CONTINUE}</p>
         {[...Array(totalPages).keys()].map((element, index) =>
           index == totalPages - 1 ||
           index == totalPages - 2 ||
@@ -248,10 +255,11 @@ const Pagination: React.FC<PaginationProps> = ({
         )}
         {!lastPage && (
           <StepButtonPagination
+            page={page}
             clickHandler={nextPage}
             scrollToTop={scrollToTop}
             src={next}
-            alt="next"
+            alt={STEP_NEXT}
           />
         )}
       </div>

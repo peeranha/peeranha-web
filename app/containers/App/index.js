@@ -210,6 +210,8 @@ const App = ({
             <Route path={routes.feed(':communityid')} render={(props) => Wrapper(Feed, props)} />
           )}
 
+          <Route path={'/feed/page:paginationPage'} render={(props) => Wrapper(Feed, props)} />
+
           <Route
             exact
             path={routes.profileView(':id')}
@@ -318,7 +320,27 @@ const App = ({
           />
 
           <Route
+            path={'/discussions/page:paginationPage'}
+            render={(props) =>
+              Wrapper(Questions, {
+                ...props,
+                postsTypes: [POST_TYPE.generalPost],
+              })
+            }
+          />
+
+          <Route
             path={routes.expertPosts(':communityid')}
+            render={(props) =>
+              Wrapper(Questions, {
+                ...props,
+                postsTypes: [POST_TYPE.expertPost],
+              })
+            }
+          />
+
+          <Route
+            path={'/experts/page:paginationPage'}
             render={(props) =>
               Wrapper(Questions, {
                 ...props,
@@ -335,6 +357,11 @@ const App = ({
 
           <Route
             path={routes.tutorials(':communityid')}
+            render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
+          />
+
+          <Route
+            path={'/tutorials/page:paginationPage'}
             render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
           />
 

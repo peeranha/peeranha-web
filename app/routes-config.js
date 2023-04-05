@@ -28,20 +28,28 @@ export const userWallet = userRedirect('/wallet');
 export const userBoost = userRedirect('/boost');
 export const uniqueAnswerId = (answerId) => `ans${answerId}`;
 
-export const questions = (communityId) =>
-  !communityId
-    ? `${!isBloggerMode ? '/discussions' : '/discussions'}`
-    : `/discussions/community/${communityId}/`;
+export const questions = (communityId, paginationPage = 1) => {
+  if (!communityId) {
+    return !isBloggerMode && paginationPage > 1
+      ? `/discussions/page${paginationPage}`
+      : '/discussions';
+  }
+  return `/discussions/community/${communityId}/`;
+};
 
-export const expertPosts = (communityId) =>
-  !communityId
-    ? `${!isBloggerMode ? '/experts' : '/experts'}`
-    : `/experts/community/${communityId}/`;
+export const expertPosts = (communityId, paginationPage = 1) => {
+  if (!communityId) {
+    return !isBloggerMode && paginationPage > 1 ? `/experts/page${paginationPage}` : '/experts';
+  }
+  return `/experts/community/${communityId}/`;
+};
 
-export const tutorials = (communityId) =>
-  !communityId
-    ? `${!isBloggerMode ? '/tutorials' : '/experts'}`
-    : `/tutorials/community/${communityId}/`;
+export const tutorials = (communityId, paginationPage = 1) => {
+  if (!communityId) {
+    return !isBloggerMode && paginationPage > 1 ? `/tutorials/page${paginationPage}` : '/tutorials';
+  }
+  return `/tutorials/community/${communityId}/`;
+};
 
 export const questionView = (id, title, answerId, isOldURL) => {
   const updatedTitle = updateTitle(title);
@@ -105,10 +113,16 @@ export const noAccess = () => `/no-access`;
 
 export const detailsHomePage = () => '/';
 
-export const feed = (communityId) =>
-  !singleCommId
-    ? `/feed${communityId ? `/${communityId}` : ''}`
-    : `/${communityId ? `feed/${communityId}` : 'feed'}`;
+export const feed = (communityId, paginationPage = 1) => {
+  if (!singleCommId) {
+    return `/feed${
+      communityId ? `/${communityId}` : paginationPage > 1 ? `/page${paginationPage}` : ''
+    }`;
+  }
+  return `/${
+    communityId ? `feed/${communityId}` : paginationPage > 1 ? `feed/page${paginationPage}` : 'feed'
+  }`;
+};
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
