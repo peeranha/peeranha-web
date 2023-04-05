@@ -13,7 +13,7 @@ import {
   TRANSACTION_COMPLETED,
   TRANSACTION_IN_PENDING,
   TRANSACTION_FAILED,
-  TRANSACTION_INITIALISED,
+  TRANSACTION_INITIALIZED,
 } from './constants';
 
 export function initEthereum(data) {
@@ -51,7 +51,7 @@ export function hideModal() {
 
 export function transactionInitialised() {
   return {
-    type: TRANSACTION_INITIALISED,
+    type: TRANSACTION_INITIALIZED,
   };
 }
 
