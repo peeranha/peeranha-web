@@ -127,15 +127,9 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   };
 
   const saveDocumentationMenu = () => {
-    console.log(saveToDraft);
     saveToDraft().then((draftFromSave: Array<DocumentationItemMenuType>) => {
-      console.log(documentationMenu);
-      console.log(documentationMenuDraft);
-      console.log(draftFromSave);
-      if (_.isEqual(documentationMenu, documentationMenuDraft)) {
-        if (draftFromSave) {
-          updateDocumentationMenuDispatch(draftFromSave);
-        }
+      if (_.isEqual(documentationMenu, documentationMenuDraft) && draftFromSave) {
+        updateDocumentationMenuDispatch(draftFromSave);
       } else {
         updateDocumentationMenuDispatch(documentationMenuDraft);
       }
@@ -158,7 +152,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
     ) {
       setViewArticleDispatch(id);
       setEditArticleDispatch({
-        id: id,
+        id,
         parentId: '1',
         isEditArticle: false,
       });
