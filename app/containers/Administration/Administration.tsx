@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import Header from './Header';
 import { Content } from './Content';
 import { bindActionCreators, compose, Dispatch } from 'redux';
+import Seo from 'components/Seo';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -51,6 +53,7 @@ const Administration: React.FC<AdministrationProps> = ({
   revokeRoleLoading,
 }): JSX.Element => {
   useModeratorRole(noAccessRoute, single);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getModeratorsDispatch(single);
@@ -58,6 +61,12 @@ const Administration: React.FC<AdministrationProps> = ({
 
   return (
     <>
+      <Seo
+        title={t('common.administration')}
+        description={t('common.administration')}
+        language={locale}
+      />
+
       <Header
         locale={locale}
         single={single}

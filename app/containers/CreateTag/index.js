@@ -105,7 +105,7 @@ const CreateTag = ({
   return (
     <div>
       <Seo
-        title={t('tags.title')}
+        title={t('tags.createTag')}
         description={t('tags.description')}
         language={locale}
         index={false}

@@ -5,6 +5,8 @@ import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
+import Seo from 'components/Seo';
+import { useTranslation } from 'react-i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,20 +24,10 @@ import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 import ProfileViewForm from './ProfileViewForm';
 import SettingsOfUser from './SettingsOfUser';
 
-import {
-  makeSelectAccount,
-  makeSelectLoginData,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectLoginData } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  selectCommunities,
-  selectStat,
-  selectUsers,
-} from 'containers/DataCacheProvider/selectors';
-import {
-  selectQuestions,
-  selectQuestionsLoading,
-} from 'containers/QuestionsOfUser/selectors';
+import { selectCommunities, selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
+import { selectQuestions, selectQuestionsLoading } from 'containers/QuestionsOfUser/selectors';
 import {
   selectQuestionsLoading as selectQuestionsWithAnswersLoading,
   selectQuestionsWithUserAnswers,
@@ -43,6 +35,7 @@ import {
 import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
 import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 import { getUserName } from 'utils/user';
+
 import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
 
 import saga from '../QuestionsWithAnswersOfUser/saga';
@@ -85,6 +78,8 @@ const ViewProfilePage = ({
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     setViewProfileAccountDispatch(userId);
     getAllAchievementsDispatch();
@@ -94,6 +89,13 @@ const ViewProfilePage = ({
 
   return (
     <Profile userId={userId} isLogin={account === userId}>
+      <Seo
+        title={t('profile.profile')}
+        description={t('profile.profile')}
+        language={locale}
+        index={false}
+      />
+
       <UserNavigation
         userId={userId}
         account={account}
@@ -162,8 +164,7 @@ const ViewProfilePage = ({
 
       <ProfileViewForm
         className={
-          path === routes.profileView(userId) ||
-          path === routes.userCommunities(userId)
+          path === routes.profileView(userId) || path === routes.userCommunities(userId)
             ? ''
             : 'd-none'
         }
@@ -220,26 +221,11 @@ const withConnect = connect(
     userAchievements: selectUserAchievements(),
   }),
   (dispatch) => ({
-    redirectToEditProfilePageDispatch: bindActionCreators(
-      redirectToEditProfilePage,
-      dispatch,
-    ),
-    getAllAchievementsDispatch: bindActionCreators(
-      getAllAchievements,
-      dispatch,
-    ),
-    getUserAchievementsDispatch: bindActionCreators(
-      getUserAchievements,
-      dispatch,
-    ),
-    setViewProfileAccountDispatch: bindActionCreators(
-      setViewProfileAccount,
-      dispatch,
-    ),
-    resetViewProfileAccountDispatch: bindActionCreators(
-      resetViewProfileAccount,
-      dispatch,
-    ),
+    redirectToEditProfilePageDispatch: bindActionCreators(redirectToEditProfilePage, dispatch),
+    getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
+    getUserAchievementsDispatch: bindActionCreators(getUserAchievements, dispatch),
+    setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
+    resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
   }),
 );
 
