@@ -19,7 +19,7 @@ type PaginationType = {
 const usePagination = ({ contentPerPage, count }: PaginationPropsType): PaginationType => {
   const [page, setPage] = useState<number>(1);
   useEffect(() => {
-    const currentPage = Number(createdHistory.location.pathname.slice(-1));
+    const currentPage = Number(createdHistory.location.search.slice(6));
     setPage(currentPage > 1 ? currentPage : 1);
   }, [createdHistory.location.pathname]);
 

@@ -151,7 +151,7 @@ const App = ({
     : Object.keys(documentationMenu).length;
 
   useEffect(() => {
-    if (single && (pathname == '/' || pathname == '/feed')) {
+    if (single && (pathname == '/' || pathname == '/feed') && !search) {
       if ((hasPinnedPost || isDocumentationPositionTop) && isDocumentationExist) {
         redirectToDocumentationDispatch();
       } else {
@@ -207,10 +207,11 @@ const App = ({
           )}
 
           {!single && (
-            <Route path={routes.feed(':communityid')} render={(props) => Wrapper(Feed, props)} />
+            <Route
+              path={routes.feed(':communityid', ':paginationpage')}
+              render={(props) => Wrapper(Feed, props)}
+            />
           )}
-
-          <Route path={'/feed/page:paginationPage'} render={(props) => Wrapper(Feed, props)} />
 
           <Route
             exact
@@ -310,7 +311,7 @@ const App = ({
           />
 
           <Route
-            path={routes.questions(':communityid')}
+            path={routes.questions(':communityid', ':paginationpage')}
             render={(props) =>
               Wrapper(Questions, {
                 ...props,
@@ -320,27 +321,7 @@ const App = ({
           />
 
           <Route
-            path={'/discussions/page:paginationPage'}
-            render={(props) =>
-              Wrapper(Questions, {
-                ...props,
-                postsTypes: [POST_TYPE.generalPost],
-              })
-            }
-          />
-
-          <Route
-            path={routes.expertPosts(':communityid')}
-            render={(props) =>
-              Wrapper(Questions, {
-                ...props,
-                postsTypes: [POST_TYPE.expertPost],
-              })
-            }
-          />
-
-          <Route
-            path={'/experts/page:paginationPage'}
+            path={routes.expertPosts(':communityid', ':paginationpage')}
             render={(props) =>
               Wrapper(Questions, {
                 ...props,
@@ -356,12 +337,7 @@ const App = ({
           />
 
           <Route
-            path={routes.tutorials(':communityid')}
-            render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
-          />
-
-          <Route
-            path={'/tutorials/page:paginationPage'}
+            path={routes.tutorials(':communityid', ':paginationpage')}
             render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
           />
 
