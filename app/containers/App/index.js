@@ -65,6 +65,7 @@ import {
   Home,
   Feed,
   Communities,
+  Subcommunities,
   SuggestedCommunities,
   EmailEnteringForm,
   EmailVerificationForm,
@@ -226,6 +227,14 @@ const App = ({
               exact
               path={routes.communities()}
               render={(props) => Wrapper(Communities, props)}
+            />
+          )}
+
+          {single && (
+            <Route
+              exact
+              path={routes.subcommunities()}
+              render={(props) => Wrapper(Subcommunities, props)}
             />
           )}
 

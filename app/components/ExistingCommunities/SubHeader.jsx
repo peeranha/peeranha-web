@@ -13,20 +13,18 @@ import Span from 'components/Span';
 import Ul from 'components/Ul';
 import CheckedItem from 'components/Li/CheckedItem';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import SubHeaderWrapper, {
-  SubHeaderWrapperRightPanel,
-} from 'components/Header/Complex';
+import SubHeaderWrapper, { SubHeaderWrapperRightPanel } from 'components/Header/Complex';
 
 import sortingOptions from './sortingOptions';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+const isSingleMode = isSingleCommunityWebsite();
 
 const Button = ({ sorting, icon }) => {
   const { t } = useTranslation();
 
   return (
-    <Span
-      className="d-inline-flex align-items-center mr-2 text-capitalize"
-      bold
-    >
+    <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
       <img className="mr-2" src={icon} alt="icon" />
       {t(sorting.message)}
     </Span>
@@ -60,7 +58,7 @@ export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => {
         <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
 
         <span>
-          {t('common.communities')}
+          {!Boolean(isSingleMode) ? t('common.communities') : t('common.subcommunities')}
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {communitiesNumber}
           </Span>
@@ -70,13 +68,7 @@ export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => {
       <SubHeaderWrapperRightPanel className="d-flex right-panel">
         <Dropdown
           button={<Button sorting={sorting} icon={communitiesHeaderFilter} />}
-          menu={
-            <Menu
-              changeSorting={changeSorting}
-              sorting={sorting}
-              options={sortingOptions}
-            />
-          }
+          menu={<Menu changeSorting={changeSorting} sorting={sorting} options={sortingOptions} />}
           id="existing-communities-dropdown"
           isArrowed
           css={css`

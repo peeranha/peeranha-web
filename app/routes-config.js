@@ -111,7 +111,7 @@ export const feed = (communityId) =>
     : `/${communityId ? `feed/${communityId}` : 'feed'}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
-
+export const subcommunities = () => `/subcommunities`;
 export const users = () => '/users';
 
 export const faq = (code) => `/faq${code ? `#${code}` : ``}`;

@@ -308,6 +308,13 @@ const MainLinks = ({
         )}
 
         {Boolean(singleCommId) && (
+          <A1 to={routes.subcommunities()} name="subcommunities" route={route}>
+            <IconLg className="mr-2" icon={communitiesIcon} />
+            {t('common.subcommunities')}
+          </A1>
+        )}
+
+        {Boolean(singleCommId) && (
           <A1 to={routes.communityTags(singleCommId)} name="tags" route={route}>
             <IconLg className="mr-2" icon={tagsIcon} />
             {t('common.tags')}

@@ -3,7 +3,7 @@ import { take, takeLatest, call, put, select, all, takeEvery } from 'redux-saga/
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
-
+import isEmpty from 'lodash/isEmpty';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { getCookie, setCookie, deleteCookie } from 'utils/cookie';
@@ -16,7 +16,7 @@ import {
   getRandomQuestions,
 } from 'utils/questionsManagement';
 import { getQuestionBounty } from 'utils/walletManagement';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleSubcommunity } from 'utils/communityManagement';
 
 import {
   ADD_TO_TOP_COMMUNITY_METHOD,
@@ -85,7 +85,7 @@ import { selectUsers } from '../DataCacheProvider/selectors';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
-
+const hasSingleSubcommunity = singleSubcommunity();
 export function* getQuestionsWorker({
   limit,
   skip,
@@ -100,17 +100,29 @@ export function* getQuestionsWorker({
     const followedCommunities = yield select(makeSelectFollowedCommunities());
 
     let questionsList = [];
-
+    const isEmptySubcommunityList = isEmpty(hasSingleSubcommunity);
+    const subcommunityList =
+      isEmptySubcommunityList && !single ? [] : [...hasSingleSubcommunity, single];
     if (single) {
       communityIdFilter = single;
     }
-    if (communityIdFilter > 0) {
+    if (communityIdFilter > 0 && isEmptySubcommunityList) {
       questionsList = yield call(
         getPostsByCommunityId,
         limit,
         skip,
         postTypes,
         [communityIdFilter],
+        tags,
+      );
+    }
+    if (communityIdFilter > 0 && !isEmptySubcommunityList) {
+      questionsList = yield call(
+        getPostsByCommunityId,
+        limit,
+        skip,
+        postTypes,
+        subcommunityList,
         tags,
       );
     }

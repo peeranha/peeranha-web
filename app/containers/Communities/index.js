@@ -35,6 +35,13 @@ import saga from './saga';
 
 import Header from './Header';
 
+import { isSingleCommunityWebsite, singleSubcommunity } from 'utils/communityManagement';
+
+import { SUBCOMMUNITIES_ID_ARRAY } from './constants';
+
+const isSingleMode = isSingleCommunityWebsite();
+const hasSingleSubcommunity = singleSubcommunity();
+
 export const Communities = ({
   locale,
   communities,
@@ -62,10 +69,15 @@ export const Communities = ({
   const [displayLoadingIndicator] = useMemo(
     () => [
       (communitiesLoading && route === routes.communities()) ||
-        (suggestedCommunitiesLoading &&
-          route === routes.suggestedCommunities()),
+        (suggestedCommunitiesLoading && route === routes.suggestedCommunities()),
     ],
     [communitiesLoading, route, suggestedCommunitiesLoading],
+  );
+
+  communities = communities.filter((community) =>
+    Boolean(isSingleMode)
+      ? hasSingleSubcommunity.includes(community.id)
+      : !SUBCOMMUNITIES_ID_ARRAY.includes(community.id),
   );
 
   return (
@@ -138,14 +150,8 @@ export default memo(
         isLastFetch: selectIsLastFetch(),
       }),
       (dispatch) => ({
-        redirectToCreateCommunityDispatch: bindActionCreators(
-          redirectToCreateCommunity,
-          dispatch,
-        ),
-        getSuggestedCommunitiesDispatch: bindActionCreators(
-          getSuggestedCommunities,
-          dispatch,
-        ),
+        redirectToCreateCommunityDispatch: bindActionCreators(redirectToCreateCommunity, dispatch),
+        getSuggestedCommunitiesDispatch: bindActionCreators(getSuggestedCommunities, dispatch),
       }),
     ),
   )(Communities),

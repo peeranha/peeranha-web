@@ -248,6 +248,7 @@ const communitiesConfig = {
       origin: 'http://localhost:31000',
       // src: 'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
       // styles: FunctionlandStyles,
+      // subcommunity: [1,2],
     },
   },
 };
