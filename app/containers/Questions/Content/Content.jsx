@@ -81,6 +81,8 @@ const QI = ({
   postType,
   isFeed,
   isCommunityFeed,
+  handle,
+  messengerType,
 }) => {
   const ref = useRef(null);
 
@@ -170,7 +172,11 @@ const QI = ({
           ipfsHash={ipfsHash}
           isModerator={isModerator}
           title={title}
-          author={author}
+          author={{
+            ...author,
+            handle,
+            messengerType,
+          }}
           postTime={postTime}
           locale={locale}
           communityId={communityId}
