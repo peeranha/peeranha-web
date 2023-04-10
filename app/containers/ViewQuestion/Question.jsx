@@ -24,7 +24,11 @@ export const Question = (props) => {
       rating={props.questionData.rating}
       isItWrittenByMe={props.questionData.isItWrittenByMe}
       history={props.questionData.history}
-      author={props.questionData.author}
+      author={{
+        ...props.questionData.author,
+        handle: props.questionData.handle,
+        messengerType: props.questionData.messengerType,
+      }}
       postTime={props.questionData.postTime}
       lastEditedDate={props.questionData.lastEditedDate}
       votingStatus={props.questionData.votingStatus}

@@ -78,11 +78,7 @@ const Div = styled.div`
   }
 `;
 
-const CustomMobileSubHeader = ({
-  config,
-  logo: communityLogo,
-  showingLogo,
-}) => {
+const CustomMobileSubHeader = ({ config, logo: communityLogo, showingLogo }) => {
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
   const { styles, links } = config;
@@ -93,16 +89,9 @@ const CustomMobileSubHeader = ({
       styles={styles}
       mobileSubHeaderImgStyles={styles.mobileSubHeaderImgStyles}
     >
-      <button
-        className="d-flex justify-content-between align-items-center"
-        onClick={setVis}
-      >
+      <button className="d-flex justify-content-between align-items-center" onClick={setVis}>
         <img src={communityLogo || showingLogo} alt="" />
-        <Arrow
-          className="mt-auto mb-auto"
-          color={styles.color.arrow}
-          rotate={visible}
-        />
+        <Arrow className="mt-auto mb-auto" color={styles.color.arrow} rotate={visible} />
       </button>
       {visible && <Links links={links} styles={styles} device="mobile" />}
     </Div>

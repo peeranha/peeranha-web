@@ -8,8 +8,7 @@ import { singleCommunityStyles } from './utils/communityManagement';
 
 const styles = singleCommunityStyles();
 
-const getItalicFont = () =>
-  /iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'normal' : 'italic';
+const getItalicFont = () => (/iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'normal' : 'italic');
 export const italicFont = getItalicFont();
 
 /* eslint no-unused-expressions: 0 */

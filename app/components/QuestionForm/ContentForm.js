@@ -30,13 +30,13 @@ const ContentForm = ({
       <Field
         name={FORM_CONTENT}
         component={TextEditorField}
-        disabled={questionLoading || (isHasRole && isEditForm && !isPostAuthor)}
+        disabled={questionLoading || (isEditForm && !isPostAuthor)}
         label={t('common.questionBodyLabel')}
         validate={[strLength25x30000, required]}
         warn={[strLength25x30000, required]}
         mediaLink={mediaLink}
       />
-      {!(isHasRole && isEditForm && !isPostAuthor) && (
+      {!(isEditForm && !isPostAuthor) && (
         <Field
           name={FORM_MEDIA}
           component={MediaInputField}

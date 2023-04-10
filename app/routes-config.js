@@ -114,15 +114,13 @@ export const search = (q) => `/search/${q || ''}`;
 
 export const supportForm = () => '/support/#support_form';
 
-export const privacyPolicy = (section) =>
-  `/privacy-policy/${section ? `#${section}` : ''}`;
+export const privacyPolicy = (section) => `/privacy-policy/${section ? `#${section}` : ''}`;
 
 export const termsAndConditions = (section) =>
   `/terms-and-conditions/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
-export const communitiesEdit = (communityId) =>
-  `/communities/${communityId}/edit`;
+export const communitiesEdit = (communityId) => `/communities/${communityId}/edit`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
 
 export const communityTags = (communityId) =>
@@ -132,9 +130,7 @@ export const tagsCreate = (communityId) =>
   !singleCommId ? `/tags/community/${communityId || 0}/create` : `/tags/create`;
 
 export const editTag = (communityId, tagId) =>
-  !singleCommId
-    ? `/communities/${communityId}/tags/${tagId}/edit`
-    : `/tags/${tagId}/edit`;
+  !singleCommId ? `/communities/${communityId}/tags/${tagId}/edit` : `/tags/${tagId}/edit`;
 
 export const registrationStage = 'signup';
 
@@ -143,12 +139,7 @@ export const preloaderPage = () => '/preloader-page';
 export const documentation = (sectionId, title) =>
   `/documentation/${sectionId}/${updateTitle(title)}`;
 export const documentationStartPage = () => `/`;
-export const redirectRoutesForSCM = [
-  privacyPolicy(),
-  termsAndConditions(),
-  support(),
-  home(),
-];
+export const redirectRoutesForSCM = [privacyPolicy(), termsAndConditions(), support(), home()];
 
 export const signup = {
   email: {

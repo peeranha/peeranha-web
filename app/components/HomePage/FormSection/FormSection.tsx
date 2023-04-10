@@ -13,8 +13,7 @@ const FormSection: React.FC<HomepageProps> = ({
 }): JSX.Element => {
   const letterBlock = useRef(null);
 
-  const [startLetterAnimation, setStartLetterAnimation] =
-    useState<boolean>(false);
+  const [startLetterAnimation, setStartLetterAnimation] = useState<boolean>(false);
 
   useEffect(() => {
     scrollTrigger(letterBlock.current, () => setStartLetterAnimation(true));

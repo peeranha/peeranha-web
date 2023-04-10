@@ -19,8 +19,7 @@ const Li = styled.li`
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: ${(x) =>
-    x.isBold ? colors.linkColor || 'var(--color-blue)' : 'var(--color-black)'};
+  color: ${(x) => (x.isBold ? colors.linkColor || 'var(--color-blue)' : 'var(--color-black)')};
   :hover {
     background: ${BG_SECONDARY_LIGHT};
   }

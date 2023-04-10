@@ -1,7 +1,4 @@
-import {
-  ASK_QUESTION_ERROR,
-  ASK_QUESTION_SUCCESS,
-} from 'containers/AskQuestion/constants';
+import { ASK_QUESTION_ERROR, ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
 
 import {
   CHANGE_EMAIL_ERROR,
@@ -15,17 +12,11 @@ import {
   CREATE_COMMUNITY_ERROR,
 } from 'containers/CreateCommunity/constants';
 
-import {
-  SUGGEST_TAG_ERROR,
-  SUGGEST_TAG_SUCCESS,
-} from 'containers/CreateTag/constants';
+import { SUGGEST_TAG_ERROR, SUGGEST_TAG_SUCCESS } from 'containers/CreateTag/constants';
 
 import { EDIT_TAG_SUCCESS, EDIT_TAG_ERROR } from 'containers/EditTag/constants';
 
-import {
-  EDIT_ANSWER_ERROR,
-  EDIT_ANSWER_SUCCESS,
-} from 'containers/EditAnswer/constants';
+import { EDIT_ANSWER_ERROR, EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
 
 import {
   EDIT_COMMUNITY_ERROR,
@@ -33,10 +24,7 @@ import {
   GET_COMMUNITY_ERROR,
 } from 'containers/EditCommunity/constants';
 
-import {
-  SAVE_PROFILE_ERROR,
-  SAVE_PROFILE_SUCCESS,
-} from 'containers/EditProfilePage/constants';
+import { SAVE_PROFILE_ERROR, SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 
 import {
   EDIT_QUESTION_SUCCESS,
@@ -44,20 +32,14 @@ import {
   GET_ASKED_QUESTION_ERROR,
 } from 'containers/EditQuestion/constants';
 
-import {
-  SEND_MESSAGE_SUCCESS,
-  SEND_MESSAGE_ERROR,
-} from 'pages/HomePage/constants';
+import { SEND_MESSAGE_SUCCESS, SEND_MESSAGE_ERROR } from 'pages/HomePage/constants';
 
 import { LOGIN_WITH_WALLET_ERROR } from 'containers/Login/constants';
 
 import { LOGOUT_ERROR } from 'containers/Logout/constants';
 
 import { FOLLOW_HANDLER_ERROR } from 'containers/FollowCommunityButton/constants';
-import {
-  PICKUP_REWARD_ERROR,
-  GET_WEEK_STAT_ERROR,
-} from 'containers/Wallet/constants';
+import { PICKUP_REWARD_ERROR, GET_WEEK_STAT_ERROR } from 'containers/Wallet/constants';
 
 import {
   POST_COMMENT_ERROR,

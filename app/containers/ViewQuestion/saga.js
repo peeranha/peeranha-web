@@ -1,14 +1,7 @@
 import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getProfileInfo } from 'utils/profileManagement';
-import {
-  all,
-  call,
-  put,
-  select,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects';
+import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -39,30 +32,18 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
-import {
-  getUserProfileSuccess,
-  removeUserProfile,
-} from 'containers/DataCacheProvider/actions';
+import { getUserProfileSuccess, removeUserProfile } from 'containers/DataCacheProvider/actions';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
-import {
-  getCurrentAccountWorker,
-  isAvailableAction,
-} from 'containers/AccountProvider/saga';
+import { getCurrentAccountWorker, isAvailableAction } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
-import {
-  isItemChanged,
-  saveChangedItemIdToSessionStorage,
-} from 'utils/sessionStorage';
+import { isItemChanged, saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import {
   ANSWER_TYPE,
   CHANGE_QUESTION_TYPE,
@@ -130,11 +111,7 @@ import {
   getHistoriesSuccess,
 } from './actions';
 
-import {
-  selectHistories,
-  selectQuestionBounty,
-  selectQuestionData,
-} from './selectors';
+import { selectHistories, selectQuestionBounty, selectQuestionData } from './selectors';
 
 import {
   deleteAnswerValidator,
@@ -167,19 +144,13 @@ const getPostsRoute = (postType) => {
 };
 
 export const getQuestionTypeValue = (postType) =>
-  postType === POST_TYPE.generalPost
-    ? POST_TYPE.expertPost
-    : POST_TYPE.generalPost;
+  postType === POST_TYPE.generalPost ? POST_TYPE.expertPost : POST_TYPE.generalPost;
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
-  questionData.answers.find((x) => x.id === answerId)?.user ===
-    profileInfo.user;
+  questionData.answers.find((x) => x.id === answerId)?.user === profileInfo.user;
 
-export function* getQuestionData({
-  questionId,
-  user,
-}) /* istanbul ignore next */ {
+export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
   const ethereumService = yield select(selectEthereum);
   const postedAnswerIds = yield select(selectPostedAnswerIds());
   let question;
@@ -190,9 +161,7 @@ export function* getQuestionData({
   if (user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
     if (question.officialReply) {
-      const officialReply = question.answers.find(
-        (answer) => answer.id === question.officialReply,
-      );
+      const officialReply = question.answers.find((answer) => answer.id === question.officialReply);
       if (officialReply) {
         officialReply.isOfficialReply = true;
       }
@@ -205,13 +174,7 @@ export function* getQuestionData({
     question.author = { ...question.author, user: question.author.id };
 
     if (user) {
-      const statusHistory = yield getStatusHistory(
-        user,
-        questionId,
-        0,
-        0,
-        ethereumService,
-      );
+      const statusHistory = yield getStatusHistory(user, questionId, 0, 0, ethereumService);
 
       question.votingStatus = votingStatus(Number(statusHistory));
     }
@@ -294,11 +257,7 @@ export function* getQuestionData({
   }
 
   if (user && (isQuestionChanged || isQuestionJustCreated)) {
-    yield all([
-      processQuestion(),
-      processAnswers(),
-      processCommentsOfQuestion(),
-    ]);
+    yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
   }
 
   // To avoid of fetching same user profiles - remember it and to write author here
@@ -350,12 +309,9 @@ export function* saveCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, ethereumService, profileInfo, locale, histories } =
-      yield call(getParams);
+    const { questionData, ethereumService, profileInfo, locale, histories } = yield call(getParams);
 
-    yield call(isAvailableAction, () =>
-      editCommentValidator(profileInfo, buttonId),
-    );
+    yield call(isAvailableAction, () => editCommentValidator(profileInfo, buttonId));
     const commentData = {
       content: comment,
     };
@@ -406,20 +362,13 @@ export function* saveCommentWorker({
   }
 }
 
-export function* deleteCommentWorker({
-  questionId,
-  answerId,
-  commentId,
-  buttonId,
-}) {
+export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories } =
-      yield call(getParams);
+    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
     yield call(
       isAvailableAction,
-      () =>
-        deleteCommentValidator(profileInfo, buttonId, commentId, questionData),
+      () => deleteCommentValidator(profileInfo, buttonId, commentId, questionData),
       {
         communityID: questionData.communityId,
       },
@@ -435,9 +384,7 @@ export function* deleteCommentWorker({
     );
 
     if (answerId === 0) {
-      questionData.comments = questionData.comments.filter(
-        (x) => x.id !== commentId,
-      );
+      questionData.comments = questionData.comments.filter((x) => x.id !== commentId);
     } else if (answerId > 0) {
       const answer = questionData.answers.find((x) => x.id === answerId);
       answer.comments = answer.comments.filter((x) => x.id !== commentId);
@@ -462,8 +409,7 @@ export function* deleteCommentWorker({
 
 export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories } =
-      yield call(getParams);
+    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -497,9 +443,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
     histories.push(newHistory);
 
-    questionData.answers = questionData.answers.filter(
-      (x) => x.id !== answerId,
-    );
+    questionData.answers = questionData.answers.filter((x) => x.id !== answerId);
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
@@ -509,34 +453,18 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   }
 }
 
-export function* deleteQuestionWorker({
-  questionId,
-  isDocumentation,
-  buttonId,
-}) {
+export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId }) {
   try {
-    let { questionData, ethereumService, locale, profileInfo } = yield call(
-      getParams,
-    );
+    let { questionData, ethereumService, locale, profileInfo } = yield call(getParams);
 
     if (!questionData) {
-      questionData = yield call(
-        getQuestionById,
-        ethereumService,
-        questionId,
-        profileInfo.user,
-      );
+      questionData = yield call(getQuestionById, ethereumService, questionId, profileInfo.user);
     }
 
     yield call(
       isAvailableAction,
       () =>
-        deleteQuestionValidator(
-          buttonId,
-          questionData.answers.length,
-          profileInfo,
-          questionData,
-        ),
+        deleteQuestionValidator(buttonId, questionData.answers.length, profileInfo, questionData),
       {
         communityID: questionData.communityId,
       },
@@ -577,9 +505,7 @@ export function* deleteQuestionWorker({
       yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
     }
 
-    yield put(
-      deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
-    );
+    yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
 
     yield call(createdHistory.push, getPostsRoute(questionData.postType));
   } catch (err) {
@@ -610,9 +536,7 @@ export function* getQuestionDataWorker({ questionId }) {
         answers.map(function* ({ author: answerUserInfo }) {
           const answerProfileInfo = yield select(selectUsers(author.id));
           if (!answerProfileInfo.profile) {
-            const profile = JSON.parse(
-              yield call(getText, answerUserInfo.ipfs_profile),
-            );
+            const profile = JSON.parse(yield call(getText, answerUserInfo.ipfs_profile));
             yield put(
               getUserProfileSuccess({
                 ...answerUserInfo,
@@ -658,17 +582,9 @@ export function* showAddCommentFormWorker({ toggleFormButtonId, answerId }) {
   }
 }
 
-export function* postCommentWorker({
-  answerId,
-  questionId,
-  comment,
-  reset,
-  toggleView,
-  buttonId,
-}) {
+export function* postCommentWorker({ answerId, questionId, comment, reset, toggleView, buttonId }) {
   try {
-    const { questionData, ethereumService, profileInfo, histories } =
-      yield call(getParams);
+    const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
     yield call(checkPostCommentAvailableWorker, buttonId, answerId);
     const commentData = {
@@ -709,9 +625,7 @@ export function* postCommentWorker({
         id: commentId,
       });
     } else {
-      const { comments, commentCount } = questionData.answers.find(
-        (x) => x.id === answerId,
-      );
+      const { comments, commentCount } = questionData.answers.find((x) => x.id === answerId);
       questionData.answers.find((x) => x.id === answerId).commentCount += 1;
       commentId = commentCount + 1;
       comments.push({
@@ -746,8 +660,9 @@ export function* postCommentWorker({
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, ethereumService, profileInfo, histories, account } =
-      yield call(getParams);
+    const { questionData, ethereumService, profileInfo, histories, account } = yield call(
+      getParams,
+    );
 
     yield call(isAuthorized);
 
@@ -832,16 +747,9 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
   }
 }
 
-export function* downVoteWorker({
-  whoWasDownvoted,
-  buttonId,
-  answerId,
-  questionId,
-}) {
+export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionId }) {
   try {
-    const { questionData, ethereumService, profileInfo } = yield call(
-      getParams,
-    );
+    const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasDownvoted];
 
@@ -856,18 +764,10 @@ export function* downVoteWorker({
       },
     );
 
-    yield call(
-      downVote,
-      profileInfo.user,
-      questionId,
-      answerId,
-      ethereumService,
-    );
+    yield call(downVote, profileInfo.user, questionId, answerId, ethereumService);
 
     const item =
-      answerId === 0
-        ? questionData
-        : questionData.answers.find((x) => x.id === answerId);
+      answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);
 
     if (item.votingStatus.isDownVoted) {
       item.rating += 1;
@@ -889,16 +789,9 @@ export function* downVoteWorker({
   }
 }
 
-export function* upVoteWorker({
-  buttonId,
-  answerId,
-  questionId,
-  whoWasUpvoted,
-}) {
+export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted }) {
   try {
-    const { questionData, ethereumService, profileInfo } = yield call(
-      getParams,
-    );
+    const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasUpvoted];
 
@@ -916,9 +809,7 @@ export function* upVoteWorker({
     yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
 
     const item =
-      answerId === 0
-        ? questionData
-        : questionData.answers.find((x) => x.id === answerId);
+      answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);
 
     if (item.votingStatus.isUpVoted) {
       item.rating -= 1;
@@ -940,16 +831,9 @@ export function* upVoteWorker({
   }
 }
 
-export function* markAsAcceptedWorker({
-  buttonId,
-  questionId,
-  correctAnswerId,
-  whoWasAccepted,
-}) {
+export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, whoWasAccepted }) {
   try {
-    const { questionData, ethereumService, profileInfo } = yield call(
-      getParams,
-    );
+    const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasAccepted];
 
@@ -963,38 +847,21 @@ export function* markAsAcceptedWorker({
       },
     );
 
-    yield call(
-      markAsAccepted,
-      profileInfo.user,
-      questionId,
-      correctAnswerId,
-      ethereumService,
-    );
+    yield call(markAsAccepted, profileInfo.user, questionId, correctAnswerId, ethereumService);
 
-    questionData.bestReply =
-      questionData.bestReply === correctAnswerId ? 0 : correctAnswerId;
+    questionData.bestReply = questionData.bestReply === correctAnswerId ? 0 : correctAnswerId;
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
-    yield put(
-      markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId),
-    );
+    yield put(markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
     yield put(markAsAcceptedErr(err, buttonId));
   }
 }
 
-export function* voteToDeleteWorker({
-  questionId,
-  answerId,
-  commentId,
-  buttonId,
-  whoWasVoted,
-}) {
+export function* voteToDeleteWorker({ questionId, answerId, commentId, buttonId, whoWasVoted }) {
   try {
-    const { questionData, ethereumService, profileInfo } = yield call(
-      getParams,
-    );
+    const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasVoted];
 
@@ -1010,9 +877,7 @@ export function* voteToDeleteWorker({
     if (!item.answerId && !item.commentId) {
       itemData = questionData;
     } else if (!item.answerId && item.commentId) {
-      itemData = questionData.comments.filter(
-        (x) => x.id === item.commentId,
-      )[0];
+      itemData = questionData.comments.filter((x) => x.id === item.commentId)[0];
     } else if (item.answerId && !item.commentId) {
       itemData = questionData.answers.filter((x) => x.id === item.answerId)[0];
     } else if (item.answerId && item.commentId) {
@@ -1030,20 +895,11 @@ export function* voteToDeleteWorker({
       },
     );
 
-    yield call(
-      voteToDelete,
-      profileInfo.user,
-      questionId,
-      answerId,
-      commentId,
-      ethereumService,
-    );
+    yield call(voteToDelete, profileInfo.user, questionId, answerId, commentId, ethereumService);
 
     const isDeleteCommentButton = buttonId.includes('delete-comment-');
     const isDeleteAnswerButton = buttonId.includes(`${ANSWER_TYPE}_delete_`);
-    const isDeleteQuestionButton = buttonId.includes(
-      `${QUESTION_TYPE}_delete_`,
-    );
+    const isDeleteQuestionButton = buttonId.includes(`${QUESTION_TYPE}_delete_`);
 
     const isModeratorDelete =
       isDeleteCommentButton || isDeleteAnswerButton || isDeleteQuestionButton;
@@ -1053,9 +909,7 @@ export function* voteToDeleteWorker({
       if (isDeleteCommentButton) {
         // delete comment
         if (answerId === 0) {
-          questionData.comments = questionData.comments.filter(
-            (x) => x.id !== commentId,
-          );
+          questionData.comments = questionData.comments.filter((x) => x.id !== commentId);
         } else if (answerId > 0) {
           const answer = questionData.answers.find((x) => x.id === answerId);
           answer.comments = answer.comments.filter((x) => x.id !== commentId);
@@ -1066,18 +920,14 @@ export function* voteToDeleteWorker({
 
       if (isDeleteAnswerButton) {
         // delete answer
-        questionData.answers = questionData.answers.filter(
-          (x) => x.id !== answerId,
-        );
+        questionData.answers = questionData.answers.filter((x) => x.id !== answerId);
 
         yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
       }
 
       if (isDeleteQuestionButton) {
         // delete question
-        yield put(
-          deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
-        );
+        yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
 
         yield call(createdHistory.push, routes.questions());
       }
@@ -1103,9 +953,7 @@ export function* voteToDeleteWorker({
 
       item.votingStatus.isVotedToDelete = true;
 
-      yield put(
-        voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId),
-      );
+      yield put(voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId));
     }
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
@@ -1116,10 +964,7 @@ export function* voteToDeleteWorker({
 
 // Do not spent time for main action - update author as async action after main action
 // TODO after Graph hooks
-export function* updateQuestionDataAfterTransactionWorker({
-  usersForUpdate = [],
-  questionData,
-}) {
+export function* updateQuestionDataAfterTransactionWorker({ usersForUpdate = [], questionData }) {
   try {
     let userInfoOpponent;
     const user = yield select(makeSelectAccount());
@@ -1160,9 +1005,7 @@ export function* updateQuestionDataAfterTransactionWorker({
 
 function* changeQuestionTypeWorker({ buttonId }) {
   try {
-    const { questionData, ethereumService, profileInfo } = yield call(
-      getParams,
-    );
+    const { questionData, ethereumService, profileInfo } = yield call(getParams);
     yield call(
       changeQuestionType,
       ethereumService,
@@ -1187,16 +1030,8 @@ function* changeQuestionTypeWorker({ buttonId }) {
 
 function* payBountyWorker({ buttonId }) {
   try {
-    const { questionData, ethereumService, profileInfo } = yield call(
-      getParams,
-    );
-    yield call(
-      payBounty,
-      profileInfo?.user,
-      questionData?.id,
-      false,
-      ethereumService,
-    );
+    const { questionData, ethereumService, profileInfo } = yield call(getParams);
+    yield call(payBounty, profileInfo?.user, questionData?.id, false, ethereumService);
     yield put(payBountySuccess(buttonId));
   } catch (err) {
     yield put(payBountyError(err, buttonId));

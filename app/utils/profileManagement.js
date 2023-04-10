@@ -2,27 +2,17 @@ import userBodyAvatar from 'images/user2.svg?inline';
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
-import {
-  getBytes32FromIpfsHash,
-  getFileUrl,
-  getText,
-  saveFile,
-  saveText,
-} from './ipfs';
+import { getBytes32FromIpfsHash, getFileUrl, getText, saveFile, saveText } from './ipfs';
 
 import { INIT_RATING, NO_AVATAR } from './constants';
-import {
-  callService,
-  NOTIFICATIONS_INFO_SERVICE,
-} from './web_integration/src/util/aws-connector';
+import { callService, NOTIFICATIONS_INFO_SERVICE } from './web_integration/src/util/aws-connector';
 import { CONTRACT_USER, GET_USER_RATING, UPDATE_ACC } from './ethConstants';
 import { getUser, getUserPermissions, getUserStats } from './theGraph';
 import { isUserExists } from './accountManagement';
 
 export const getRatingByCommunity = (user, communityId) =>
-  user?.ratings?.find(
-    (ratingObj) => ratingObj.communityId.toString() === communityId?.toString(),
-  )?.rating ?? 0;
+  user?.ratings?.find((ratingObj) => ratingObj.communityId.toString() === communityId?.toString())
+    ?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -81,10 +71,8 @@ export async function getProfileInfo(
 
   if (communityIdForRating) {
     const newRating =
-      (await ethereumService.getUserDataWithArgs(GET_USER_RATING, [
-        user,
-        communityIdForRating,
-      ])) || INIT_RATING;
+      (await ethereumService.getUserDataWithArgs(GET_USER_RATING, [user, communityIdForRating])) ||
+      INIT_RATING;
 
     const foundRating = profileInfo.ratings.find(
       (ratingData) => ratingData.communityId === communityIdForRating,
@@ -99,18 +87,13 @@ export async function getProfileInfo(
       // avoiding "Cannot assign to read only property" error
       profileInfo.ratings = profileInfo.ratings.map((ratingData) => ({
         communityId: ratingData.communityId,
-        rating:
-          ratingData.communityId === communityIdForRating
-            ? ratingData.rating
-            : newRating,
+        rating: ratingData.communityId === communityIdForRating ? ratingData.rating : newRating,
       }));
     }
   }
 
   profileInfo.highestRating = profileInfo.ratings?.length
-    ? profileInfo.ratings?.reduce((max, current) =>
-        max.rating > current.rating ? max : current,
-      )
+    ? profileInfo.ratings?.reduce((max, current) => (max.rating > current.rating ? max : current))
     : 0;
   profileInfo.user = user;
 
@@ -132,26 +115,18 @@ export async function getProfileInfo(
   };
   profileInfo.id = user;
   profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
-  profileInfo.answersGiven =
-    profileInfo.replyCount ?? userStats?.replyCount ?? 0;
+  profileInfo.answersGiven = profileInfo.replyCount ?? userStats?.replyCount ?? 0;
   return profileInfo;
 }
 
 export async function saveProfile(ethereumService, user, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
-  await ethereumService.sendTransaction(CONTRACT_USER, user, UPDATE_ACC, [
-    user,
-    transactionData,
-  ]);
+  await ethereumService.sendTransaction(CONTRACT_USER, user, UPDATE_ACC, [user, transactionData]);
 }
 
 export const getNotificationsInfo = async (user) => {
-  const response = await callService(
-    NOTIFICATIONS_INFO_SERVICE,
-    { user },
-    true,
-  );
+  const response = await callService(NOTIFICATIONS_INFO_SERVICE, { user }, true);
   return response.OK ? response.body : { all: 0, unread: 0 };
 };
 

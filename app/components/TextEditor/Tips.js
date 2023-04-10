@@ -6,12 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import {
-  TEXT_PRIMARY,
-  BG_PRIMARY,
-  BORDER_SECONDARY,
-  LINK_COLOR,
-} from 'style-constants';
+import { TEXT_PRIMARY, BG_PRIMARY, BORDER_SECONDARY, LINK_COLOR } from 'style-constants';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 

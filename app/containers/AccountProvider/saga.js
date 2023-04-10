@@ -2,11 +2,7 @@ import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
-import {
-  getAvailableBalance,
-  getBalance,
-  getUserBoost,
-} from 'utils/walletManagement';
+import { getAvailableBalance, getBalance, getUserBoost } from 'utils/walletManagement';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
@@ -26,14 +22,8 @@ import {
   CREATE_COMMUNITY_SUCCESS,
   REDIRECT_TO_CREATE_COMMUNITY,
 } from 'containers/CreateCommunity/constants';
-import {
-  REDIRECT_TO_CREATE_TAG,
-  SUGGEST_TAG_SUCCESS,
-} from 'containers/CreateTag/constants';
-import {
-  EDIT_ANSWER_SUCCESS,
-  REDIRECT_TO_EDIT_ANSWER_PAGE,
-} from 'containers/EditAnswer/constants';
+import { REDIRECT_TO_CREATE_TAG, SUGGEST_TAG_SUCCESS } from 'containers/CreateTag/constants';
+import { EDIT_ANSWER_SUCCESS, REDIRECT_TO_EDIT_ANSWER_PAGE } from 'containers/EditAnswer/constants';
 import {
   EDIT_QUESTION_SUCCESS,
   REDIRECT_TO_EDIT_QUESTION_PAGE,
@@ -48,12 +38,7 @@ import {
   POST_ANSWER_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
-import {
-  formPermissionsCookie,
-  getCookie,
-  parsePermissionsCookie,
-  setCookie,
-} from 'utils/cookie';
+import { formPermissionsCookie, getCookie, parsePermissionsCookie, setCookie } from 'utils/cookie';
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
@@ -81,8 +66,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
   try {
     const ethereumService = yield select(selectEthereum);
 
-    if (ethereumService.withMetaMask)
-      yield put(addLoginData({ loginWithMetaMask: true }));
+    if (ethereumService.withMetaMask) yield put(addLoginData({ loginWithMetaMask: true }));
 
     let account = yield typeof initAccount === 'string'
       ? initAccount
@@ -91,10 +75,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
     const previouslyConnectedWallet = getCookie('connectedWallet');
 
     if (!window.localStorage.getItem('onboard.js:agreement')) {
-      window.localStorage.setItem(
-        'onboard.js:agreement',
-        getCookie('agreement'),
-      );
+      window.localStorage.setItem('onboard.js:agreement', getCookie('agreement'));
     }
 
     if (!account && previouslyConnectedWallet) {
@@ -119,13 +100,12 @@ export const getCurrentAccountWorker = function* (initAccount) {
 
     const currentPeriod = yield call(getCurrentPeriod);
 
-    const [profileInfo, balance, availableBalance, userCurrentBoost] =
-      yield all([
-        call(getProfileInfo, account, ethereumService, true, true),
-        call(getBalance, ethereumService, account),
-        call(getAvailableBalance, ethereumService, account),
-        call(getUserBoost, ethereumService, account, currentPeriod.id),
-      ]);
+    const [profileInfo, balance, availableBalance, userCurrentBoost] = yield all([
+      call(getProfileInfo, account, ethereumService, true, true),
+      call(getBalance, ethereumService, account),
+      call(getAvailableBalance, ethereumService, account),
+      call(getUserBoost, ethereumService, account, currentPeriod.id),
+    ]);
 
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);
@@ -140,18 +120,9 @@ export const getCurrentAccountWorker = function* (initAccount) {
       },
     });
 
-    yield put(
-      addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),
-    );
+    yield put(addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}));
     yield put(getUserProfileSuccess(profileInfo));
-    yield put(
-      getCurrentAccountSuccess(
-        account,
-        balance,
-        availableBalance,
-        userCurrentBoost,
-      ),
-    );
+    yield put(getCurrentAccountSuccess(account, balance, availableBalance, userCurrentBoost));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
@@ -225,26 +196,11 @@ export function* updateAccWorker({ ethereum }) {
 }
 
 export default function* defaultSaga() {
-  yield takeLatest(
-    REDIRECT_TO_EDIT_ANSWER_PAGE,
-    redirectToEditAnswerPageWorker,
-  );
-  yield takeLatest(
-    REDIRECT_TO_EDIT_QUESTION_PAGE,
-    redirectToEditQuestionPageWorker,
-  );
-  yield takeLatest(
-    REDIRECT_TO_EDIT_PROFILE_PAGE,
-    redirectToEditProfilePageWorker,
-  );
-  yield takeLatest(
-    REDIRECT_TO_ASK_QUESTION_PAGE,
-    redirectToAskQuestionPageWorker,
-  );
-  yield takeLatest(
-    REDIRECT_TO_CREATE_COMMUNITY,
-    redirectToCreateCommunityWorker,
-  );
+  yield takeLatest(REDIRECT_TO_EDIT_ANSWER_PAGE, redirectToEditAnswerPageWorker);
+  yield takeLatest(REDIRECT_TO_EDIT_QUESTION_PAGE, redirectToEditQuestionPageWorker);
+  yield takeLatest(REDIRECT_TO_EDIT_PROFILE_PAGE, redirectToEditProfilePageWorker);
+  yield takeLatest(REDIRECT_TO_ASK_QUESTION_PAGE, redirectToAskQuestionPageWorker);
+  yield takeLatest(REDIRECT_TO_CREATE_COMMUNITY, redirectToCreateCommunityWorker);
   yield takeLatest(REDIRECT_TO_CREATE_TAG, redirectToCreateTagWorker);
   yield takeLatest(
     [

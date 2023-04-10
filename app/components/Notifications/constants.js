@@ -108,8 +108,8 @@ export const NOTIFICATIONS_DATA = {
 };
 
 export const POST_TYPE_TO_LABEL = {
-  0: 'common.general',
-  1: 'common.expert',
+  0: 'common.expert',
+  1: 'common.general',
   2: 'common.tutorial',
 };
 

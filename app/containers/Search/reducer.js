@@ -1,10 +1,6 @@
 import { fromJS } from 'immutable';
 
-import {
-  GET_RESULTS,
-  GET_RESULTS_SUCCESS,
-  GET_RESULTS_ERROR,
-} from './constants';
+import { GET_RESULTS, GET_RESULTS_SUCCESS, GET_RESULTS_ERROR } from './constants';
 
 export const initialState = fromJS({
   items: [],
@@ -23,9 +19,7 @@ function searchReducer(state = initialState, action) {
         .set('getResultsProcessing', false)
         .set('items', items ? items : initialState.get('items'));
     case GET_RESULTS_ERROR:
-      return state
-        .set('getResultsProcessing', false)
-        .set('getResultsError', getResultsError);
+      return state.set('getResultsProcessing', false).set('getResultsError', getResultsError);
 
     default:
       return state;

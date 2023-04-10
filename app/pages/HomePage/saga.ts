@@ -3,12 +3,7 @@ import i18next from 'i18next';
 import { sendMessage } from 'utils/homepageManagement';
 
 import { addToast } from 'containers/Toast/actions';
-import {
-  EMAIL_FIELD,
-  MESSAGE_FIELD,
-  NAME_FIELD,
-  SEND_MESSAGE,
-} from './constants';
+import { EMAIL_FIELD, MESSAGE_FIELD, NAME_FIELD, SEND_MESSAGE } from './constants';
 
 import { sendMessageSuccess, sendMessageErr } from './actions';
 

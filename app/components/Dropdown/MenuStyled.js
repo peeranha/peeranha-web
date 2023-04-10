@@ -12,6 +12,7 @@ const MenuStyled = styled.div`
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   z-index: 3;
+  visibility: visible;
 `;
 
 export default MenuStyled;

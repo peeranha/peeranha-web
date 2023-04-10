@@ -35,13 +35,10 @@ export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
 export const VOTE_ITEM = 'voteItem';
 export const CLAIM_REWARD = 'claimReward';
 export const SET_STAKE = 'setStake';
-export const GIVE_COMMUNITY_MODERATOR_PERMISSION =
-  'giveCommunityModeratorPermission';
-export const REVOKE_COMMUNITY_MODERATOR_PERMISSION =
-  'revokeCommunityModeratorPermission';
+export const GIVE_COMMUNITY_MODERATOR_PERMISSION = 'giveCommunityModeratorPermission';
+export const REVOKE_COMMUNITY_MODERATOR_PERMISSION = 'revokeCommunityModeratorPermission';
 export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
-export const REVOKE_COMMUNITY_ADMIN_PERMISSION =
-  'revokeCommunityAdminPermission';
+export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
 
 // Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
@@ -53,6 +50,7 @@ export const GET_POST = 'getPost';
 export const GET_REPLY = 'getReply';
 export const GET_STATUS_HISTORY = 'getStatusHistory';
 export const GET_COMMENT = 'getComment';
+export const GET_ITEM_PROPERTY = 'getItemProperty';
 export const GET_USER_BALANCE = 'balanceOf';
 export const GET_AVERAGE_STAKE = 'getAverageStake';
 export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
@@ -115,6 +113,8 @@ const reply = `
     isFirstReply
     isQuickReply
     properties
+    handle
+    messengerType
     comments (
       orderBy: postTime,
       orderDirection: asc,
@@ -144,6 +144,8 @@ const post = `
     isFirstReply
     isQuickReply
     properties
+    handle
+    messengerType
     replies (
       orderBy: postTime,
       orderDirection: desc,
