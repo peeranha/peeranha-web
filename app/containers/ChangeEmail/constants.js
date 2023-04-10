@@ -35,6 +35,7 @@ export const GET_EMAIL_ADDRESS_SUCCESS =
 export const GET_EMAIL_ADDRESS_ERROR =
   'app/ChangeEmail/GET_EMAIL_ADDRESS_ERROR';
 // Forms
+export const EMAIL_FORM = 'app/ChangeEmail/EMAIL_FORM';
 export const OLD_EMAIL_FORM = 'app/ChangeEmail/OLD_EMAIL_FORM';
 export const CONFIRM_EMAIL_FORM = 'app/ChangeEmail/CONFIRM_EMAIL_FORM';
 export const CHANGE_EMAIL_FORM = 'app/ChangeEmail/CHANGE_EMAIL_FORM';

@@ -6,11 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import { scrollToErrorField } from 'utils/animation';
 
-import P from 'components/P';
-import H4 from 'components/H4';
-import Button from 'components/Button/Contained/InfoLarge';
-import TransparentButton from 'components/Button/Contained/Transparent';
-
 import letterImg from 'images/letter.svg?inline';
 
 import { OLD_EMAIL_FORM, OLD_EMAIL_FIELD } from './constants';
@@ -26,20 +21,20 @@ const EmailForm = ({
   const { t } = useTranslation();
   return (
     <div css={styles.sendEmailForm}>
-      <H4>{t('common.confirmNewEmail')}</H4>
+      <h4>{t('common.confirmNewEmail')}</h4>
       <div>
         <img src={letterImg} alt="check your email" />
-        <P>{t('profile.verificationCodeText')}</P>
+        <p>{t('profile.verificationCodeText')}</p>
         <div>{emailAddress}</div>
       </div>
-      <TransparentButton onClick={closeModal}>
+      <button css={styles.timerButton} onClick={closeModal}>
         {t('profile.changeEmail')}
-      </TransparentButton>
+      </button>
 
       <form onSubmit={handleSubmit(sendOldEmail)}>
-        <Button disabled={sendOldEmailProcessing}>
+        <button css={styles.verifyButton} disabled={sendOldEmailProcessing}>
           {t('profile.sendCode')}
-        </Button>
+        </button>
       </form>
     </div>
   );

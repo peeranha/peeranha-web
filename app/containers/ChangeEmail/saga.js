@@ -70,14 +70,14 @@ export function* sendAnotherCodeSuccess() {
   yield call(successHandling);
 }
 
-export function* confirmOldEmailWorker({ resetForm, code }) {
+export function* confirmOldEmailWorker({ code }) {
   try {
     const email = yield select(selectCurrentEmail());
     const address = yield select(makeSelectAccount());
 
     const response = yield call(subscribeLinkEmail, email, address, code);
     if (!response.OK) {
-      yield call(resetForm);
+      yield put(confirmOldEmailErr(response.errorMessage));
     }
 
     if (response.OK) {

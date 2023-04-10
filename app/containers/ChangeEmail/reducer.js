@@ -86,6 +86,7 @@ function changeEmailReducer(state = initialState, action) {
     case CONFIRM_OLD_EMAIL:
       return state
         .set('confirmOldEmailProcessing', true)
+        .set('confirmOldEmailError', false)
         .set('verificationCode', code);
     case CONFIRM_OLD_EMAIL_SUCCESS:
       return state

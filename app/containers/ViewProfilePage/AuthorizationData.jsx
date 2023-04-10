@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { reduxForm, Field, reset } from 'redux-form/immutable';
 import TransactionHandler from './TransactionHandler';
 import H3 from 'components/H3';
 import ChangeEmailButton from 'containers/ChangeEmail';
@@ -17,7 +17,7 @@ import {
   required,
   strLength254Max,
 } from 'components/FormFields/validate';
-import { OLD_EMAIL_FIELD } from '../ChangeEmail/constants';
+import { OLD_EMAIL_FIELD, EMAIL_FORM } from '../ChangeEmail/constants';
 import { scrollToErrorField } from 'utils/animation';
 
 import { BaseStyled } from './SettingsOfUser';
@@ -31,6 +31,7 @@ const AuthorizationData = ({
   isSubscribedEmail,
   handleSubmit,
   showChangeEmailModal,
+  dispatch,
 }) => {
   const { t } = useTranslation();
   const [isToggled, setIsToggled] = useState(false);
@@ -39,11 +40,23 @@ const AuthorizationData = ({
   const [transaction, setTransaction] = useState(dataFromCookies);
   const refInput = useRef(null);
   const isCheckEmail = refInput?.current?.value === email;
+  const emailFormInput = Boolean(refInput?.current?.value);
 
   useEffect(() => {
     setOpen(isSubscribedEmail);
     setIsToggled(isSubscribedEmail);
   }, [isSubscribedEmail, email]);
+
+  useEffect(() => {
+    if (isSubscribedEmail && !isToggled) {
+      setOpen(true);
+    }
+  }, [isToggled]);
+
+  const cancelHandler = () => {
+    setOpen(!open);
+    dispatch(reset(EMAIL_FORM));
+  };
 
   return (
     <>
@@ -95,6 +108,11 @@ const AuthorizationData = ({
                 <ToggleSwitch
                   isToggled={isToggled}
                   setIsToggled={setIsToggled}
+                  onClick={() => {
+                    if (isToggled) {
+                      setOpen(true);
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -123,18 +141,24 @@ const AuthorizationData = ({
                       display: 'flex',
                       justifyContent: 'space-between',
                       flexWrap: 'wrap',
+                      '> div': {
+                        width: '100%',
+                      },
                     }}
                     onSubmit={handleSubmit(showChangeEmailModal)}
                   >
                     <div
                       css={
-                        (isCheckEmail && {
+                        isCheckEmail && {
                           input: {
                             border: '1px solid #F76F60',
-                            boxShadow: '0 0 0 3px rgba(255, 0, 0, 0.40)',
+                            boxShadow: '0 0 0 3px rgba(252,102,85,0.40)',
                           },
-                        },
-                        { width: '100%' })
+                          'input:focus': {
+                            border: '1px solid #F76F60',
+                            boxShadow: '0 0 0 3px rgba(252,102,85,0.40)',
+                          },
+                        }
                       }
                     >
                       <div css={{ marginBottom: '5px', fontWeight: 600 }}>
@@ -167,7 +191,7 @@ const AuthorizationData = ({
                     <div>
                       {email && (
                         <Button
-                          onClick={() => setOpen(!open)}
+                          onClick={cancelHandler}
                           css={{
                             border: '1px solid #F76F60',
                             width: '86px',
@@ -180,7 +204,9 @@ const AuthorizationData = ({
                           {t('common.cancel')}
                         </Button>
                       )}
-                      <ChangeEmailButton disabled={isCheckEmail} />
+                      <ChangeEmailButton
+                        disabled={isCheckEmail || !emailFormInput}
+                      />
                     </div>
                   </form>
                 )}
@@ -210,7 +236,7 @@ AuthorizationData.propTypes = {
 };
 
 export default reduxForm({
-  form: OLD_EMAIL_FIELD,
+  form: EMAIL_FORM,
   onSubmitFail: (errors) => {
     scrollToErrorField(errors);
   },

@@ -15,15 +15,14 @@ export const el = document.createElement('div');
 
 export const ModalDialog = ({ children, show, closeModal }) => {
   useEffect(() => {
-    try {
-      if (show && modalRoot.childElementCount === 0) {
-        document.getElementsByTagName('body')[0].style.position = 'fixed';
-        modalRoot.appendChild(el);
-      } else if (!show && modalRoot.childElementCount !== 0) {
-        document.getElementsByTagName('body')[0].style.position = 'relative';
-        modalRoot.removeChild(el);
-      }
-    } catch (err) {}
+    if (show && modalRoot.childElementCount === 0) {
+      document.getElementsByTagName('body')[0].style.position = 'fixed';
+      modalRoot.appendChild(el);
+    }
+    if (!show && modalRoot.childElementCount !== 0) {
+      document.getElementsByTagName('body')[0].style.position = 'relative';
+      modalRoot.removeChild(el);
+    }
   }, [show]);
 
   if (!show) return null;
@@ -31,10 +30,7 @@ export const ModalDialog = ({ children, show, closeModal }) => {
   return ReactDOM.createPortal(
     <React.Fragment>
       <ModalStyled>
-        <div
-          className="df jcfe pr"
-          css={{ top: '30px', right: '10px', zIndex: 10000 }}
-        >
+        <div>
           <Icon
             onClick={closeModal}
             icon={closeIcon}
@@ -44,7 +40,7 @@ export const ModalDialog = ({ children, show, closeModal }) => {
         </div>
         <div className="modal-children">{children}</div>
       </ModalStyled>
-      <Blanket onClick={closeModal} />
+      <Blanket />
     </React.Fragment>,
     el,
   );

@@ -10,7 +10,14 @@ export default styled.div`
   max-height: 95vh;
   z-index: 500;
   animation: moveFromTopToCenter 0.5s;
-
+  > div:first-child {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    top: 30px;
+    right: 10px;
+    z-index: 10000;
+  }
   ${IconStyled} {
     cursor: pointer;
     margin-bottom: 5px;

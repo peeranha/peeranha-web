@@ -1,4 +1,12 @@
-import { TEXT_LIGHT, TEXT_SECONDARY } from 'style-constants';
+import {
+  TEXT_LIGHT,
+  TEXT_SECONDARY,
+  TEXT_DARK,
+  LINK_COLOR,
+  BG_TRANSPARENT,
+  BORDER_TRANSPARENT,
+  BUTTON_COLOR,
+} from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
@@ -17,6 +25,10 @@ export const styles = {
     h4: {
       textAlign: 'center',
       marginBottom: '10px',
+      color: TEXT_DARK,
+      fontWeight: 600,
+      fontSize: '30px',
+      lineHeight: '38px',
     },
     '> div': {
       paddingBottom: '5px',
@@ -32,6 +44,10 @@ export const styles = {
     h4: {
       textAlign: 'center',
       paddingBottom: '5px',
+      color: TEXT_DARK,
+      fontWeight: 600,
+      fontSize: '30px',
+      lineHeight: '38px',
     },
     div: {
       textAlign: 'center',
@@ -67,6 +83,10 @@ export const styles = {
     h4: {
       textAlign: 'center',
       paddingBottom: '5px',
+      color: TEXT_DARK,
+      fontWeight: 600,
+      fontSize: '30px',
+      lineHeight: '38px',
     },
     'h4 ~ div': {
       textAlign: 'center',
@@ -88,6 +108,14 @@ export const styles = {
         display: 'block',
         margin: 'auto',
         marginBottom: '25px',
+        color: LINK_COLOR,
+        background: BG_TRANSPARENT,
+        border: `1px solid ${BORDER_TRANSPARENT}`,
+        borderRadius: 0,
+        height: 'auto',
+        minHeight: 'auto',
+        fontSize: '16px',
+        lineHeight: '18px',
       },
       'div:last-child': {
         height: '1px',
@@ -110,7 +138,11 @@ export const styles = {
   inputWarning: {
     input: {
       border: '1px solid #F76F60',
-      boxShadow: '0 0 0 3px rgba(255, 0, 0, 0.40)',
+      boxShadow: '0 0 0 3px rgba(252,102,85,0.40)',
+    },
+    'input:focus': {
+      border: '1px solid #F76F60',
+      boxShadow: '0 0 0 3px rgba(252,102,85,0.40)',
     },
   },
 
@@ -129,6 +161,29 @@ export const styles = {
     'span:last-child': {
       color: colors.btnColor || '#576FED',
       marginLeft: '0',
+    },
+  },
+
+  timerButton: {
+    color: LINK_COLOR,
+    background: BG_TRANSPARENT,
+    border: `1px solid ${BORDER_TRANSPARENT}`,
+    borderRadius: 0,
+    height: 'auto',
+    minHeight: 'auto',
+    fontSize: '16px',
+    lineHeight: '18px',
+  },
+  verifyButton: {
+    padding: '10px 18px',
+    fontSize: '16px',
+    lineHeight: '18px',
+    minWidth: '92px',
+    height: '40px',
+    background: BUTTON_COLOR,
+    color: TEXT_LIGHT,
+    ':hover': {
+      opacity: '0.8',
     },
   },
 };
