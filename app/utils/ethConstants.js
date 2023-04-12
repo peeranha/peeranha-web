@@ -139,6 +139,7 @@ const post = `
     commentCount
     replyCount
     isDeleted
+    lastmod
     officialReply
     bestReply
     isFirstReply
@@ -524,6 +525,7 @@ export const postsForSearchQuery = `
         commentCount
         replyCount
         isDeleted
+        lastmod
         officialReply
         bestReply
         isFirstReply
@@ -534,7 +536,7 @@ export const postsForSearchQuery = `
 
 export const postQuery = `
       query (
-        $postId: Int,
+        $postId: String,
       ) {
         post (
           id: $postId,
