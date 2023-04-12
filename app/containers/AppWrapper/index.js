@@ -1,4 +1,3 @@
-import TransactionsList from 'containers/TransactionsList';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -16,6 +15,7 @@ import { DAEMON } from 'utils/constants';
 import { makeSelectLocation } from 'containers/App/selectors';
 
 import Header from 'containers/Header';
+import Footer from 'containers/Footer';
 import LeftMenu from 'containers/LeftMenu';
 import Loader from 'components/LoadingIndicator/WidthCentered';
 
@@ -48,9 +48,7 @@ const Box = ({
     <>
       <Header />
 
-      <TransactionsList />
-
-      <Main isMenuVisible={isMenuVisible}>
+      <Main isMenuVisible={isMenuVisible} transactionInitialised={transactionInitialised}>
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
           <div className="d-flex">
             <LeftMenu {...props} documentationMenu={documentationMenu} />
@@ -63,6 +61,8 @@ const Box = ({
           </div>
         </div>
       </Main>
+
+      <Footer />
     </>
   );
 };
@@ -88,10 +88,7 @@ const WrapperConnection = compose(
     }),
     (dispatch) => ({
       showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
-      getDocumentationMenuDispatch: bindActionCreators(
-        getDocumentationMenu,
-        dispatch,
-      ),
+      getDocumentationMenuDispatch: bindActionCreators(getDocumentationMenu, dispatch),
       hideLeftMenuDispatch: bindActionCreators(hideLeftMenu, dispatch),
     }),
   ),

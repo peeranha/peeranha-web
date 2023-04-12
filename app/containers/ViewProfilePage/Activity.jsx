@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import { singleCommunityColors } from 'utils/communityManagement';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation, Trans } from 'react-i18next';
@@ -16,6 +18,8 @@ import { TransparentLinkDefault } from 'components/Button/Contained/Transparent'
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
 
+const colors = singleCommunityColors();
+
 const DEFAULT_NUMBER = 10;
 
 const Activity = ({
@@ -29,11 +33,9 @@ const Activity = ({
 }) => {
   const { t } = useTranslation();
   const [tab, setTab] = useState('posts');
-  const myPosts = _orderBy(
-    questions.concat(questionsWithUserAnswers),
-    (y) => y.myPostTime,
-    ['desc'],
-  ).slice(0, DEFAULT_NUMBER);
+  const myPosts = _orderBy(questions.concat(questionsWithUserAnswers), (y) => y.myPostTime, [
+    'desc',
+  ]).slice(0, DEFAULT_NUMBER);
 
   if (!questionsWithAnswersLoading && !questionsLoading && !myPosts[0]) {
     return <Banner />;
@@ -41,14 +43,17 @@ const Activity = ({
 
   return (
     <div>
-      <H4 isHeader>{t('profile.activity')}</H4>
+      <H4
+        css={css`
+          color: ${colors.white || ''};
+        `}
+        isHeader
+      >
+        {t('profile.activity')}
+      </H4>
 
       <Base position="top">
-        <Button
-          disabled={!myPosts.length}
-          islink={tab !== 'posts'}
-          onClick={() => setTab('posts')}
-        >
+        <Button disabled={!myPosts.length} islink={tab !== 'posts'} onClick={() => setTab('posts')}>
           <Trans
             i18nKey="common.allActivitiesNumber"
             values={{ number: (profile.postCount || 0) + profile.answersGiven }}
@@ -133,37 +138,33 @@ const Activity = ({
           userId={userId}
         />
 
-        {!questionsWithAnswersLoading &&
-          !questionsLoading &&
-          myPosts.length === DEFAULT_NUMBER && (
-            <div className="mt-3">
-              <Trans
-                i18nKey="profile.seeMore"
-                values={{
-                  posts: t('common.posts'),
-                  answers: t('common.answers'),
-                }}
-                components={[
-                  <TransparentLinkDefault
-                    className="d-inline text-lowercase"
-                    href={routes.userQuestions(userId)}
-                    disabled={!questions.length}
-                    tabIndex={!questions.length ? '-1' : undefined}
-                    key="0"
-                  />,
-                  <TransparentLinkDefault
-                    className="d-inline text-lowercase"
-                    href={routes.userAnswers(userId)}
-                    disabled={!questionsWithUserAnswers.length}
-                    tabIndex={
-                      !questionsWithUserAnswers.length ? '-1' : undefined
-                    }
-                    key="1"
-                  />,
-                ]}
-              />
-            </div>
-          )}
+        {!questionsWithAnswersLoading && !questionsLoading && myPosts.length === DEFAULT_NUMBER && (
+          <div className="mt-3">
+            <Trans
+              i18nKey="profile.seeMore"
+              values={{
+                posts: t('common.posts'),
+                answers: t('common.answers'),
+              }}
+              components={[
+                <TransparentLinkDefault
+                  className="d-inline text-lowercase"
+                  href={routes.userQuestions(userId)}
+                  disabled={!questions.length}
+                  tabIndex={!questions.length ? '-1' : undefined}
+                  key="0"
+                />,
+                <TransparentLinkDefault
+                  className="d-inline text-lowercase"
+                  href={routes.userAnswers(userId)}
+                  disabled={!questionsWithUserAnswers.length}
+                  tabIndex={!questionsWithUserAnswers.length ? '-1' : undefined}
+                  key="1"
+                />,
+              ]}
+            />
+          </div>
+        )}
       </Base>
     </div>
   );

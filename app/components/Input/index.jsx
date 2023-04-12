@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import React, { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
@@ -15,28 +16,19 @@ import InputStyled from './InputStyled';
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
-const Handler = ({
-  isRefreshable,
-  isSearchable,
-  isPassword,
-  onClick,
-  value,
-}) => {
-  const src = useMemo(
-    () => {
-      if (isSearchable) {
-        return searchIcon;
-      } else if (isRefreshable) {
-        return refreshIcon;
-      } else if (isPassword[0] && !isPassword[1]) {
-        return eyeClosedIcon;
-      } else if (isPassword[0] && isPassword[1]) {
-        return eyeOpenedIcon;
-      }
-      return null;
-    },
-    [isSearchable, isRefreshable, isPassword],
-  );
+const Handler = ({ isRefreshable, isSearchable, isPassword, onClick, value }) => {
+  const src = useMemo(() => {
+    if (isSearchable) {
+      return searchIcon;
+    } else if (isRefreshable) {
+      return refreshIcon;
+    } else if (isPassword[0] && !isPassword[1]) {
+      return eyeClosedIcon;
+    } else if (isPassword[0] && isPassword[1]) {
+      return eyeOpenedIcon;
+    }
+    return null;
+  }, [isSearchable, isRefreshable, isPassword]);
 
   return src ? (
     <button onMouseDown={onClick || null} type="button" tabIndex="-1">
@@ -60,12 +52,9 @@ const Input = ({
 }) => {
   const [isText, setIsText] = useState(false);
 
-  const changeType = useCallback(
-    () => {
-      setIsText(!isText);
-    },
-    [isText, setIsText],
-  );
+  const changeType = useCallback(() => {
+    setIsText(!isText);
+  }, [isText, setIsText]);
 
   return (
     <InputStyled error={error} isText={isText} className={className}>

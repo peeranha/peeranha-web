@@ -10,6 +10,7 @@ import { BG_LIGHT, BG_WARNING_LIGHT, BORDER_PRIMARY } from 'style-constants';
 
 import Span from 'components/Span';
 import { IconEm } from 'components/Icon/IconWithSizes';
+import { NOTIFICATIONS_DATA } from 'components/Notifications/constants';
 
 import notificationsActiveIcon from 'images/Notifications_Gray.svg?external';
 import notificationsDisabledIcon from 'images/Notifications_Disabled.svg?external';
@@ -63,25 +64,25 @@ const Div = styled.div`
 `;
 
 const NotificationsDropdown = ({
-  unreadCount,
-  notifications,
+  unreadCount: allUnreadCount,
+  notifications: allNotifications,
   filterReadTimestampsDispatch,
 }) => {
   const ref = useRef(null);
   const [visible, setVisibility] = useState(false);
-  const onClick = useCallback(
-    () => {
-      if (visible) {
-        filterReadTimestampsDispatch();
-      }
 
-      setVisibility(!visible);
-    },
-    [visible],
-  );
-  const number = useMemo(() => (unreadCount < 100 ? unreadCount : '...'), [
-    unreadCount,
-  ]);
+  // Temporary fix, will be removed in PEER-682
+  const notifications = allNotifications.filter(({ type }) => NOTIFICATIONS_DATA[type]);
+  const unreadCount = allUnreadCount - (allNotifications.length - notifications.length);
+
+  const onClick = useCallback(() => {
+    if (visible) {
+      filterReadTimestampsDispatch();
+    }
+
+    setVisibility(!visible);
+  }, [visible]);
+  const number = useMemo(() => (unreadCount < 100 ? unreadCount : '...'), [unreadCount]);
 
   return (
     <Container
@@ -121,15 +122,12 @@ NotificationsDropdown.propTypes = {
 
 export default React.memo(
   connect(
-    state => ({
+    (state) => ({
       unreadCount: unreadNotificationsCount()(state),
       notifications: selectUnreadNotifications()(state),
     }),
-    dispatch => ({
-      filterReadTimestampsDispatch: bindActionCreators(
-        filterReadTimestamps,
-        dispatch,
-      ),
+    (dispatch) => ({
+      filterReadTimestampsDispatch: bindActionCreators(filterReadTimestamps, dispatch),
     }),
   )(NotificationsDropdown),
 );

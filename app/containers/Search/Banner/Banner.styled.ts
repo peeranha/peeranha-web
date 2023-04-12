@@ -49,8 +49,8 @@ export const styled = {
   },
 
   button: {
-    background: colors.btnHeaderColor || BUTTON_COLOR,
-    color: colors.newPostButtonText || TEXT_LIGHT,
+    background: BUTTON_COLOR,
+    color: TEXT_LIGHT,
 
     ':hover': {
       background: colors.btnHeaderHoverColor,

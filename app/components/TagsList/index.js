@@ -1,14 +1,17 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import history from 'createdHistory';
 
 import { TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
 
 import Span from 'components/Span';
 
-import { singleCommunityFonts } from 'utils/communityManagement';
+import { singleCommunityFonts, isSingleCommunityWebsite } from 'utils/communityManagement';
+import Button from 'components/Button';
 
 const fonts = singleCommunityFonts();
+const single = isSingleCommunityWebsite();
 
 const Tag = Span.extend`
   border: 1px solid ${TAG_COLOR};
@@ -38,15 +41,40 @@ const TagsList = ({ tags, communities, communityId, children, className }) => {
 
   if (!community || !tags?.length) return null;
 
+  const redirectToFilterByTag = (id) => {
+    const searchParams = new URLSearchParams(history.location.search);
+    const searchParamsTags = searchParams.get('tags');
+    const newSearchParamsTags = (tagsParams, tagId) => {
+      const allTags = tagsParams?.split(',');
+      if (!tagsParams) {
+        return tagId;
+      }
+      if (!allTags?.includes(tagId)) {
+        return `${tagsParams},${tagId}`;
+      }
+
+      return tagsParams;
+    };
+    searchParams.set('tags', newSearchParamsTags(searchParamsTags, id));
+    history.push(`${history.location.pathname}?${searchParams}`);
+  };
+
   return (
     <Box>
       {tags.map((tag, index) => (
-        <li
-          key={community.id + (tag.name || index)}
-          className="d-flex flex-column"
-        >
+        <li key={community.id + (tag.name || index)} className="d-flex flex-column">
           <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
-            {tag.name}
+            {single ? (
+              <Button
+                onClick={() => {
+                  redirectToFilterByTag(tag.id);
+                }}
+              >
+                {tag.name}
+              </Button>
+            ) : (
+              tag.name
+            )}
           </Tag>
         </li>
       ))}
@@ -60,6 +88,7 @@ TagsList.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   tags: PropTypes.array,
+  match: PropTypes.object,
   communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };

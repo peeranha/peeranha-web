@@ -1,26 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
-import createdHistory from 'createdHistory';
+import { BORDER_SECONDARY, BG_TRANSPARENT, BORDER_TRANSPARENT, TEXT_DARK } from 'style-constants';
 
-import {
-  BORDER_SECONDARY,
-  BG_SECONDARY_SPECIAL_4,
-  BG_TRANSPARENT,
-  BORDER_TRANSPARENT,
-  TEXT_PRIMARY,
-  TEXT_DARK,
-  BORDER_PRIMARY_LIGHT,
-} from 'style-constants';
-
-import plusIcon from 'images/Plus.svg?external';
-import minusIcon from 'images/Minus.svg?external';
 import okayGreen from 'images/okayGreen.svg?external';
 
-import { IconLg, IconSm } from 'components/Icon/IconWithSizes';
+import { IconSm } from 'components/Icon/IconWithSizes';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 
@@ -84,12 +72,7 @@ const PermissionBoxBody = styled.div`
   width: 100%;
 `;
 
-const Permission = ({
-  title,
-  permissionCode,
-  sectionCode,
-  getPermissionCode,
-}) => {
+const Permission = ({ title, permissionCode, sectionCode, getPermissionCode }) => {
   const { t } = useTranslation();
   const permissionId = getPermissionCode(sectionCode, permissionCode);
   const ico = okayGreen;
@@ -132,8 +115,8 @@ const Section = ({
 
   return (
     <SectionStyled id={sectionId}>
-      <BaseTransparent>
-        <H4 className="d-flex align-items-center" mobileFS="24">
+      <BaseTransparent css={{ padding: '32px 32px 16px' }}>
+        <H4 mobileFS="24">
           <span>{h2}</span>
         </H4>
       </BaseTransparent>
@@ -163,13 +146,7 @@ const Section = ({
   );
 };
 
-const Content = ({
-  content,
-  route,
-  getSectionCode,
-  getPermissionCode,
-  communitiesCount,
-}) => (
+const Content = ({ content, route, getSectionCode, getPermissionCode, communitiesCount }) => (
   <div className="mb-3">
     {content.map((x) => (
       <Section

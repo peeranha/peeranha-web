@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://polywrap.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'polywrap_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,23 +166,15 @@ export const customSubHeaderConfig = {
 };
 
 export const CyberconnectStyles = {
+  name: 'cyberconnect',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/cyberconnect/CyberConnect_logo.svg',
-  favicon: 'https://images.peeranha.io/communities/cyberconnect/logo.ico',
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
-  },
-
+  signUpPageLogo: 'https://images.peeranha.io/communities/cyberconnect/logo.svg',
   colors: {
+    appWindowsColor: '#FFF',
+    appSafarieColor: '#3c2525',
     mainSubHeaderBgColor: '#fff',
     mainBackground: '#F9FAFB',
     linkColor: '#65908a',

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import Label from 'components/FormFields/Label';
-import { Li, Ul } from 'components/TextEditor/Tips';
+import { Ul } from 'components/TextEditor/Tips';
 
 export const Tips = ({ faqQuestions }) => {
   const { t } = useTranslation();
@@ -13,19 +13,19 @@ export const Tips = ({ faqQuestions }) => {
       <Label className="mb-3">{t('common.tips')}</Label>
 
       <Ul>
-        <li>{t('createCommunity.imageWillBeTheFace')}</li>
-        <li>{t('createCommunity.specifyMemorableTitle')}</li>
-        <li>{t('createCommunity.communityDescriptionShouldBe')}</li>
-        <li>{t('createCommunity.writeWhyDoWeeNeed')}</li>
+        <li>
+          <span>{t('createCommunity.imageWillBeTheFace')}</span>
+        </li>
+        <li>
+          <span>{t('createCommunity.specifyMemorableTitle')}</span>
+        </li>
+        <li>
+          <span>{t('createCommunity.communityDescriptionShouldBe')}</span>
+        </li>
+        <li>
+          <span>{t('createCommunity.writeWhyDoWeeNeed')}</span>
+        </li>
       </Ul>
-
-      {faqQuestions && (
-        <ul>
-          {faqQuestions.map((x) => (
-            <Li key={x.props.children}>{x}</Li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 };

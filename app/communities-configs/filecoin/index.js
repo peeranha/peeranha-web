@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://filecoin.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'filecoin_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -183,16 +178,16 @@ export const customSubHeaderConfig = {
 };
 
 export const FilecoinStyles = {
+  name: 'filecoin',
   withoutCopyright: true,
   withoutSubHeader: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/filecoin/filecoin-logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/filecoin/logo.svg',
   logoText: 'Filecoin',
   logoColor: '#000000',
-  favicon:
-    'https://images.peeranha.io/communities/filecoin/favicon-filecoin.ico',
   colors: {
+    appWindowsColor: '#da532c',
+    appSafarieColor: '#082abe',
     mainBackground: '#F3F3F3',
     linkColor: '#0090FF', // Q&A color
     linkColorTransparent: 'rgba(0, 144, 255, 0.4)', // link color transparent
@@ -207,14 +202,6 @@ export const FilecoinStyles = {
     walletButton: '#0090FF',
     btnColor: '#000000',
     tagColor: '#0090FF',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   headerHeight: 80,
   domainName,

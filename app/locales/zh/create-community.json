@@ -46,5 +46,7 @@
   "socialLinks": "社交链接",
   "socialLinksTip": "可选的",
   "colors": "颜色",
-  "topBanner": "顶部横幅"
+  "topBanner": "顶部横幅",
+  "communityWebsite": "社区网站",
+  "communityWebsiteTip": "您的社区站点的名称"
 }
