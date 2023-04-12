@@ -22,6 +22,10 @@ elif [ "$1" == "dev3" ];
 then
   bucket="dev3.testpeeranha.io"
   npm run build:test
+elif [ "$1" == "dev4" ];
+  then
+    bucket="dev4.testpeeranha.io"
+    npm run build:test
 elif [ "$1" == "storybook" ];
 then
   bucket="storybook.testpeeranha.io"

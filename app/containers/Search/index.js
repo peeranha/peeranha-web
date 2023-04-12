@@ -1,3 +1,6 @@
+import { singleCommunityColors } from 'utils/communityManagement';
+import { IconLg } from 'components/Icon/IconWithSizes';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
@@ -8,14 +11,13 @@ import { compose, bindActionCreators } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { css } from '@emotion/react';
-import searchIcon from 'images/searchIcon.svg?inline';
+import searchIcon from 'images/searchIcon.svg?external';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
-import { MediumImageStyled } from 'components/Img/MediumImage';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -23,15 +25,23 @@ import saga from './saga';
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
 
-import { selectCommunities } from '../DataCacheProvider/selectors';
 import Banner from './Banner/Banner';
+import { selectCommunities } from '../DataCacheProvider/selectors';
 
 import Loader from 'components/LoadingIndicator/WidthCentered';
-import { TEXT_DARK, TEXT_SECONDARY } from '../../style-constants';
+import {
+  BORDER_PRIMARY,
+  ICON_TRASPARENT_BLUE,
+  TEXT_DARK,
+  TEXT_SECONDARY,
+} from '../../style-constants';
 import SearchContent from './SearchContent';
 import { redirectToAskQuestionPage } from '../AskQuestion/actions';
 import { loginWithWallet } from '../Login/actions';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+
+const colors = singleCommunityColors();
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const Search = ({
   match,
@@ -68,7 +78,23 @@ const Search = ({
         `}
       >
         <H3>
-          <MediumImageStyled src={searchIcon} alt="search" />
+          <div
+            css={css`
+              .fill {
+                fill: ${customColor};
+              }
+              .stroke {
+                stroke: ${customColor};
+              }
+              .semitransparent {
+                fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+              }
+            `}
+          >
+            <MediumIconStyled>
+              <IconLg icon={searchIcon} width={38} fill={BORDER_PRIMARY} />
+            </MediumIconStyled>
+          </div>
           {t('common.search')}
         </H3>
         {Boolean(items.length) && (
@@ -96,11 +122,7 @@ const Search = ({
 
       {(getResultsProcessing && <Loader />) ||
         (items.length > 0 ? (
-          <SearchContent
-            locale={locale}
-            posts={items}
-            communities={communities}
-          />
+          <SearchContent locale={locale} posts={items} communities={communities} />
         ) : (
           <Banner
             profileInfo={profileInfo}
@@ -139,10 +161,7 @@ export default compose(
     (dispatch) => ({
       getResultsDispatch: bindActionCreators(getResults, dispatch),
       loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
-      redirectToAskQuestionPageDispatch: bindActionCreators(
-        redirectToAskQuestionPage,
-        dispatch,
-      ),
+      redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
     }),
   ),
 )(Search);

@@ -16,13 +16,10 @@ export const SCATTER_TIMEOUT_DURATION = 10000; // 1 sec
 
 export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
-export const HUBSPOT_URL =
-  'https://api.hsforms.com/submissions/v3/integration/submit';
+export const HUBSPOT_URL = 'https://api.hsforms.com/submissions/v3/integration/submit';
 export const HUBSPOT_PORTAL_ID = '9131393';
-export const HUBSPOT_SEND_EMAIL_FORM_ID =
-  '05305f90-6546-4718-88e8-2d2c8e79c00c';
-export const HUBSPOT_SEND_MESSAGE_FORM_ID =
-  'eb947c08-4d59-4fb5-87b7-3732e487dbd7';
+export const HUBSPOT_SEND_EMAIL_FORM_ID = '05305f90-6546-4718-88e8-2d2c8e79c00c';
+export const HUBSPOT_SEND_MESSAGE_FORM_ID = 'eb947c08-4d59-4fb5-87b7-3732e487dbd7';
 
 export const ENDPOINTS_LIST = 'best_nodes_list';
 
@@ -34,15 +31,9 @@ export const MODERATOR_KEY = 48;
 export const MODERATOR_CREATE_COMMUNITY = 3;
 
 export const DEFAULT_ADMIN_ROLE = 0x00;
-export const PROTOCOL_ADMIN_ROLE = keccak256(
-  toUtf8Bytes('PROTOCOL_ADMIN_ROLE'),
-);
-export const COMMUNITY_ADMIN_ROLE = keccak256(
-  toUtf8Bytes('COMMUNITY_ADMIN_ROLE'),
-);
-export const COMMUNITY_MODERATOR_ROLE = keccak256(
-  toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'),
-);
+export const PROTOCOL_ADMIN_ROLE = keccak256(toUtf8Bytes('PROTOCOL_ADMIN_ROLE'));
+export const COMMUNITY_ADMIN_ROLE = keccak256(toUtf8Bytes('COMMUNITY_ADMIN_ROLE'));
+export const COMMUNITY_MODERATOR_ROLE = keccak256(toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'));
 
 export const COMMUNITY_ADMIN_VALUE = 255;
 export const COMMUNITY_ADMIN_INFINITE_IMPACT = 1;
@@ -56,8 +47,7 @@ export const PERMISSION_GRANTED = '1';
 export const PROPERTY_ANSWER_15_MINUTES = 12;
 export const PROPERTY_FIRST_ANSWER = 13;
 
-export const REWARD_CLAIMING_ENABLED =
-  process.env.REWARD_CLAIMING_ENABLED === 'true';
+export const REWARD_CLAIMING_ENABLED = process.env.REWARD_CLAIMING_ENABLED === 'true';
 
 export const INIT_RATING = 10;
 
@@ -73,9 +63,6 @@ export const POST_TYPE = {
   tutorial: 2,
   documentation: 1000,
 };
-
-export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
-export const CURRENCY = 'MATIC';
 
 export const globalAdminPermissions = {
   PERMISSION_PROTOCOL_ADMIN_1: {
@@ -114,56 +101,62 @@ export const globalAdminPermissions = {
     code: 9,
     title: 'permissionProtocolAdmin_9',
   },
+  PERMISSION_PROTOCOL_ADMIN_10: {
+    code: 10,
+    title: 'permissionProtocolAdmin_10',
+  },
 };
 export const communityAdminPermissions = {
   PERMISSION_COMMUNITY_ADMIN_1: {
-    code: 9,
+    code: 11,
     title: 'permissionCommunityAdmin_1',
   },
   PERMISSION_COMMUNITY_ADMIN_2: {
-    code: 10,
+    code: 12,
     title: 'permissionCommunityAdmin_2',
   },
   PERMISSION_COMMUNITY_ADMIN_3: {
-    code: 11,
+    code: 13,
     title: 'permissionCommunityAdmin_3',
   },
   PERMISSION_COMMUNITY_ADMIN_4: {
-    code: 12,
+    code: 14,
     title: 'permissionCommunityAdmin_4',
   },
-  // PEER-491: temporally hide items;
-  // PERMISSION_COMMUNITY_ADMIN_5: {
-  //   code: 13,
-  //   title: 'permissionCommunityAdmin_5',
-  // },
+  PERMISSION_COMMUNITY_ADMIN_5: {
+    code: 15,
+    title: 'permissionCommunityAdmin_5',
+  },
+  PERMISSION_COMMUNITY_ADMIN_6: {
+    code: 16,
+    title: 'permissionCommunityAdmin_6',
+  },
 };
 export const communityModeratorPermissions = {
   PERMISSION_COMMUNITY_MODERATOR_1: {
-    code: 14,
+    code: 17,
     title: 'permissionCommunityModerator_1',
   },
   PERMISSION_COMMUNITY_MODERATOR_2: {
-    code: 15,
+    code: 18,
     title: 'permissionCommunityModerator_2',
   },
   PERMISSION_COMMUNITY_MODERATOR_3: {
-    code: 16,
+    code: 19,
     title: 'permissionCommunityModerator_3',
   },
   PERMISSION_COMMUNITY_MODERATOR_4: {
-    code: 17,
+    code: 20,
     title: 'permissionCommunityModerator_4',
   },
-  //   PEER-491: temporally hide items;
-  //   PERMISSION_COMMUNITY_MODERATOR_5: {
-  //     code: 18,
-  //     title: 'permissionCommunityModerator_5',
-  //   },
-  //   PERMISSION_COMMUNITY_MODERATOR_6: {
-  //     code: 19,
-  //     title: 'permissionCommunityModerator_6',
-  //   },
+  PERMISSION_COMMUNITY_MODERATOR_5: {
+    code: 21,
+    title: 'permissionCommunityModerator_5',
+  },
+  PERMISSION_COMMUNITY_MODERATOR_6: {
+    code: 22,
+    title: 'permissionCommunityModerator_6',
+  },
 };
 
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
@@ -281,8 +274,7 @@ export const MOVE_QUESTION_METHOD = 'movequestion';
 
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
-export const MONTH_3LETTERS__DAY_YYYY_TIME =
-  'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
+export const MONTH_3LETTERS__DAY_YYYY_TIME = 'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY = 'datetime/MONTH_3LETTERS__DAY_YYYY';
 export const DD_MM_YYYY = 'datetime/DD_MM_YYYY';
 export const DD_MM_YY = 'datetime/DD_MM_YY';
@@ -301,6 +293,16 @@ export const APP_MAIN_NAME = 'Peeranha';
 // Temporary Account Data
 export const TEMPORARY_ACCOUNT_KEY = 15;
 
+// Messenger bot
+export const BOT_ADDRESS = '0x0000000000000000000000000000000000000001';
+
+export const MessengerTypes = {
+  Unknown: 0,
+  Telegram: 1,
+  Discord: 2,
+  Slack: 3,
+};
+
 // Bounty Status
 export const BOUNTY_STATUS_ACTIVE = 1;
 export const BOUNTY_STATUS_PAID = 2;
@@ -310,6 +312,16 @@ export const BOUNTY_STATUS_PENDING = 3;
 export const SINGLE_COMMUNITY_DETAILS = 'singleCommunityDetails';
 
 export const KEY_LAST_RATING_UPDATE_TIME = 18;
+export const ONE_MONTH = 2592000;
+export const TYPE_OF_TRANSACTIONS = 'transactionType';
+export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
+export const TRANSACTIONS_ALLOWED = 'tr_allowed';
+export const DISPATCHER_TRANSACTIONS_ALLOWED = 'dispatcher_tr_allowed';
+export const CURRENCY = 'MATIC';
+export const CONNECTED_WALLET = 'connectedWallet';
+export const TORUS_WALLET = 'Torus';
+export const WEB3_TOKEN = 'web3Token';
+export const WEB3_TOKEN_USER_ADDRESS = 'web3Token_userAddress';
 
 // verification codes types
 export const SEND_TIPS_TYPE = 'sendTips';
@@ -332,5 +344,10 @@ export const RECAPTCHA_VERIFY_FAILED_CODE = 600613;
 // session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';
 
+// amount of posts pagination
+export const AMOUNT_POSTS_PAGINATION = 20;
+
 // position documentation
 export const POSITION_TOP = 'top';
+
+export const LIMITED_EDITION_NFT_TYPE = 0;

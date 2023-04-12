@@ -27,10 +27,7 @@ import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
 // import QuestionType from 'components/Labels/QuestionType';
 
-import {
-  POST_TYPE_ANSWER,
-  POST_TYPE_QUESTION,
-} from 'containers/Profile/constants';
+import { POST_TYPE_ANSWER, POST_TYPE_QUESTION } from 'containers/Profile/constants';
 
 import QuestionCommunity from './QuestionCommunity';
 
@@ -38,7 +35,8 @@ const single = isSingleCommunityWebsite();
 
 const BaseStyled = Base.extend`
   position: relative;
-  border-radius: ${({ bordered }) => (bordered ? BORDER_RADIUS_L : 'none')};
+  border-bottom-left-radius: ${BORDER_RADIUS_L};
+  border-top-left-radius: ${BORDER_RADIUS_L};
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -120,19 +118,11 @@ const QuestionLabels = styled.div`
 `;
 
 /* eslint indent: 0 */
-const AcceptedQuestionBadge = ({
-  acceptedAnswer,
-  elementType,
-  isMyAnswerAccepted,
-}) =>
+const AcceptedQuestionBadge = ({ acceptedAnswer, elementType, isMyAnswerAccepted }) =>
   (elementType === POST_TYPE_QUESTION && acceptedAnswer) ||
   (elementType === POST_TYPE_ANSWER && isMyAnswerAccepted) ? (
     <AcceptedQuestionBadgeStyled>
-      <img
-        className="d-flex align-items-center justify-content-center"
-        src={okayIcon}
-        alt="icon"
-      />
+      <img className="d-flex align-items-center justify-content-center" src={okayIcon} alt="icon" />
     </AcceptedQuestionBadgeStyled>
   ) : null;
 
@@ -161,7 +151,6 @@ export const QuestionForProfilePage = ({
   isTheLargestRating,
   route,
   isGeneral,
-  bordered,
   isAnswer,
   elementType,
 }) => {
@@ -173,7 +162,7 @@ export const QuestionForProfilePage = ({
     href = `${process.env.APP_LOCATION}${route}`;
   }
   return (
-    <BaseStyled bordered={bordered && !isGeneral}>
+    <BaseStyled>
       {/* TODO: PEER-281 frame and inscription 'expert'
       {!isGeneral && (
         <QuestionType size="sm">
@@ -182,12 +171,7 @@ export const QuestionForProfilePage = ({
       )} */}
       <ContentContainer>
         <QuestionLabels>
-          <QuestionType
-            locale={locale}
-            postType={postType}
-            isPromoted={false}
-            isExpert={false}
-          />
+          <QuestionType locale={locale} postType={postType} isPromoted={false} isExpert={false} />
         </QuestionLabels>
 
         <div className="d-flex flex-row flex-md-column">
@@ -199,43 +183,21 @@ export const QuestionForProfilePage = ({
             isMyAnswerAccepted={isMyAnswerAccepted}
           />
 
-          <TopCommunityBadge
-            postType={postType}
-            isTheLargestRating={isTheLargestRating}
-          />
+          <TopCommunityBadge postType={postType} isTheLargestRating={isTheLargestRating} />
         </div>
 
         <div className="d-flex px-3 flex-column flex-grow-1">
-          <Link
-            to={href}
-            href={href}
-            fontSize="24"
-            lineheight="28"
-            mobilefs="18"
-            bold="true"
-          >
+          <Link to={href} href={href} fontSize="24" lineheight="28" mobilefs="18" bold="true">
             <TitleHolder title={title}>{title}</TitleHolder>
           </Link>
 
           <p className="d-flex-column d-sm-flex align-items-center my-1">
-            <Span
-              className="text-capitalize mr-3"
-              fontSize="14"
-              color={TEXT_SECONDARY}
-            >
+            <Span className="text-capitalize mr-3" fontSize="14" color={TEXT_SECONDARY}>
               {isAnswer
                 ? t('common.answeredWhen', {
-                    when: getFormattedDate(
-                      myPostTime,
-                      locale,
-                      MONTH_3LETTERS__DAY_YYYY_TIME,
-                    ),
+                    when: getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME),
                   })
-                : getFormattedDate(
-                    myPostTime,
-                    locale,
-                    MONTH_3LETTERS__DAY_YYYY_TIME,
-                  )}
+                : getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
             </Span>
             <QuestionCommunity
               communities={communities}

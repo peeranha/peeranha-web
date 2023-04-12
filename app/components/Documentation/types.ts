@@ -18,13 +18,9 @@ export type EditDocumentationProps = {
   documentation: Array<DocumentationArticle>;
   setEditArticleDispatch: (data: EditArticleType) => void;
   saveMenuDraftDispatch: (data: Array<DocumentationItemMenuType>) => void;
-  saveDraftsIdsDispatch: (
-    ids: Array<{ draftId: string; lastmod: string }>,
-  ) => void;
+  saveDraftsIdsDispatch: (ids: Array<{ draftId: string; lastmod: string }>) => void;
   documentationMenuDraft: Array<DocumentationItemMenuType>;
-  updateDocumentationMenuDispatch: (
-    data: Array<DocumentationItemMenuType>,
-  ) => void;
+  updateDocumentationMenuDispatch: (data: Array<DocumentationItemMenuType>) => void;
   isArticleLoading: boolean;
   viewArticleId: string;
   setViewArticleDispatch: (id: string) => void;
@@ -41,11 +37,17 @@ export type DocumentationFormProps = {
   documentationMenu: Array<DocumentationItemMenuType>;
   documentationArticle: DocumentationArticle;
   articleParentId: string;
-  updateDocumentationMenuDraft: (
-    data: Array<DocumentationItemMenuType>,
-  ) => void;
+  updateDocumentationMenuDraft: (data: Array<DocumentationItemMenuType>) => void;
   setViewArticle: (id: string) => void;
   setEditArticle: (data: EditArticleType) => void;
   isEditArticle: boolean;
   updateDraftsIds: (ids: Array<{ draftId: string; lastmod: string }>) => void;
+};
+
+export type ButtonPaginationProps = {
+  typeButton: string;
+  title: string;
+  isStartArticle?: boolean;
+  isLastArticle?: boolean;
+  onClickPaginationArticle: (type: string) => void;
 };

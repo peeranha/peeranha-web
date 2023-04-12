@@ -5,10 +5,7 @@ import { FORM_TYPE } from './constants';
 import { useTranslation } from 'react-i18next';
 import QuestionTypeField from './QuestionTypeField';
 import DescriptionList from 'components/DescriptionList';
-import {
-  labelConditional,
-  listConditional,
-} from 'components/QuestionForm/utils';
+import { labelConditional, listConditional } from 'components/QuestionForm/utils';
 
 type TypePostAnswers = {
   author: string;
@@ -78,13 +75,15 @@ const TypeForm: React.FC<TypeFormProps> = ({
 }): JSX.Element | null => {
   const { t } = useTranslation();
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
+  const formValueId = formValues[FORM_TYPE];
+  const isHasPostId = formValueId !== undefined || postType !== undefined;
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
     () => [
-      labelConditional(formValues[FORM_TYPE] || String(postType)),
-      listConditional(formValues[FORM_TYPE] || String(postType)),
+      isHasPostId ? labelConditional(formValueId || String(postType)) : null,
+      isHasPostId ? listConditional(formValueId || String(postType)) : null,
     ],
-    [formValues[FORM_TYPE]],
+    [formValueId],
   );
 
   useEffect(() => {
@@ -113,10 +112,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
         isHasRole={isHasRole}
       />
       {hasSelectedType && (
-        <DescriptionList
-          label={descriptionListLabel}
-          items={descriptionListItems}
-        />
+        <DescriptionList label={descriptionListLabel} items={descriptionListItems} />
       )}
       <br />
     </div>

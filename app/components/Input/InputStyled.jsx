@@ -17,18 +17,14 @@ import { singleCommunityColors } from 'utils/communityManagement';
 const colors = singleCommunityColors();
 
 /* eslint indent: 0 */
-const ErrorHandling = error => `
-  border: 1px solid ${
-    error ? `rgb(${BORDER_WARNING_LIGHT_RGB})` : BORDER_SECONDARY
-  };
-  box-shadow: 0 0 0 3px ${
-    error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT
-  };
+const ErrorHandling = (error) => `
+  border: 1px solid ${error ? `rgb(${BORDER_WARNING_LIGHT_RGB})` : BORDER_SECONDARY};
+  box-shadow: 0 0 0 3px ${error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT};
 
   border-radius: ${BORDER_RADIUS_M};
 `;
 
-const DisableHandling = disabled => `
+const DisableHandling = (disabled) => `
   opacity: ${disabled ? 0.5 : 1};
 `;
 
@@ -39,7 +35,7 @@ const Input = ({ error, disabled }) =>
     min-height: 40px;
     ${ErrorHandling(error)}
     ${DisableHandling(disabled)}
-    padding: 9px 42px 9px 14px;
+    padding: 9px 14px;
     color: ${TEXT_DARK};
     font-family: ${APP_FONT};
     font-size: 16px;
@@ -56,19 +52,19 @@ const Input = ({ error, disabled }) =>
 
 export const Styles = css`
   width: 100%;
-  background: ${BG_LIGHT};
-  ${props => Input(props)};
+  background: ${colors.formColor || BG_LIGHT};
+  ${(props) => Input(props)};
 
   &:focus {
     box-shadow: 0 0 0 3px
-      ${props =>
+      ${(props) =>
         props.error
           ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)`
           : colors.linkColorTransparent || `rgba(${BORDER_PRIMARY_RGB}, 0.40)`};
-    border-color: ${props =>
+    border-color: ${(props) =>
       props.error
         ? `rgb(${BORDER_WARNING_LIGHT_RGB})`
-        : colors.linkColor || `rgb(${BORDER_PRIMARY_RGB})`};
+        : colors.linkColorTransparent || `rgb(${BORDER_PRIMARY_RGB})`};
   }
 
   :disabled {
@@ -87,7 +83,7 @@ const InputStyled = styled.div`
     position: absolute;
     right: 14px;
     cursor: pointer;
-    color: ${x => (x.isText ? TEXT_PRIMARY : TEXT_SECONDARY)};
+    color: ${(x) => (x.isText ? TEXT_PRIMARY : TEXT_SECONDARY)};
   }
 
   input {

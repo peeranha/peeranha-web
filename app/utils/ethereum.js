@@ -1,36 +1,47 @@
 import { Contract, ethers } from 'ethers';
-import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
-import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
-import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaUser from '../../../peeranha-subgraph/abis/PeeranhaUser.json';
+import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
+import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
+import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
+
+import { WebIntegrationError, WebIntegrationErrorByCode } from './errors';
+import {
+  CONTRACT_TOKEN,
+  CONTRACT_USER,
+  CONTRACT_CONTENT,
+  CONTRACT_COMMUNITY,
+  CLAIM_REWARD,
+  GET_COMMUNITY,
+  GET_USER_BY_ADDRESS,
+  SET_STAKE,
+  ContractsMapping,
+} from './ethConstants';
+
+import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
+import { deleteCookie, getCookie, setCookie } from './cookie';
 import {
   CURRENCY,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   INVALID_MIN_RATING_ERROR_CODE,
+  TRANSACTIONS_ALLOWED,
   META_TRANSACTIONS_ALLOWED,
+  DISPATCHER_TRANSACTIONS_ALLOWED,
   METAMASK_ERROR_CODE,
-  REJECTED_SIGNATURE_REQUEST,
   USER_MIN_RATING_ERROR_CODE,
+  RECAPTCHA_VERIFY_FAILED_CODE,
+  REJECTED_SIGNATURE_REQUEST,
+  TYPE_OF_TRANSACTIONS,
+  WEB3_TOKEN,
+  ONE_MONTH,
+  WEB3_TOKEN_USER_ADDRESS,
 } from './constants';
-import { deleteCookie, getCookie } from './cookie';
 
-import { WebIntegrationErrorByCode } from './errors';
-import {
-  CONTRACT_COMMUNITY,
-  CONTRACT_CONTENT,
-  CONTRACT_TOKEN,
-  CONTRACT_USER,
-  GET_COMMUNITY,
-  GET_USER_BY_ADDRESS,
-} from './ethConstants';
-
-import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
-
+import Web3Token from 'web3-token';
 const sigUtil = require('eth-sig-util');
-const TRANSACTION_LIST = 'transactionList';
 const {
   callService,
   BLOCKCHAIN_SEND_META_TRANSACTION,
+  BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
 } = require('./web_integration/src/util/aws-connector');
 
 const CONTRACT_TO_ABI = {};
@@ -52,7 +63,13 @@ class EthereumService {
     this.contractContent = null;
     this.contractCommunity = null;
 
+    this.contractTokenReads = null;
+    this.contractUserReads = null;
+    this.contractContentReads = null;
+    this.contractCommunityReads = null;
+
     this.provider = null;
+    this.providerReads = null;
     this.metaMaskProviderDetected = false;
     this.selectedAccount = null;
 
@@ -67,14 +84,10 @@ class EthereumService {
     this.transactionInPending = data.transactionInPendingDispatch;
     this.transactionCompleted = data.transactionCompletedDispatch;
     this.transactionFailed = data.transactionFailedDispatch;
-    this.setTransactionList = data.setTransactionListDispatch;
     this.waitForConfirm = data.waitForConfirmDispatch;
     this.getRecaptchaToken = data.getRecaptchaToken;
     this.isTransactionInitialised = null;
     this.addToast = data.addToast;
-
-    this.previousNonce = 0;
-    this.transactionList = [];
   }
 
   setTransactionInitialised = (toggle) => {
@@ -89,14 +102,10 @@ class EthereumService {
   };
 
   initEthereum = async () => {
-    this.provider = ethers.providers.getDefaultProvider(
-      process.env.ETHEREUM_NETWORK,
-    );
-    this.contractUser = new Contract(
-      process.env.USER_ADDRESS,
-      PeeranhaUser,
-      this.provider,
-    );
+    this.provider = ethers.providers.getDefaultProvider(process.env.ETHEREUM_NETWORK);
+    this.providerReads = ethers.providers.getDefaultProvider(process.env.ETHEREUM_NETWORK);
+
+    this.contractUser = new Contract(process.env.USER_ADDRESS, PeeranhaUser, this.provider);
     this.contractCommunity = new Contract(
       process.env.COMMUNITY_ADDRESS,
       PeeranhaCommunity,
@@ -107,46 +116,27 @@ class EthereumService {
       PeeranhaContent,
       this.provider,
     );
-    this.contractToken = new Contract(
+    this.contractToken = new Contract(process.env.PEERANHA_TOKEN, PeeranhaToken, this.provider);
+
+    this.contractUserReads = new Contract(
+      process.env.USER_ADDRESS,
+      PeeranhaUser,
+      this.providerReads,
+    );
+    this.contractCommunityReads = new Contract(
+      process.env.COMMUNITY_ADDRESS,
+      PeeranhaCommunity,
+      this.providerReads,
+    );
+    this.contractContentReads = new Contract(
+      process.env.CONTENT_ADDRESS,
+      PeeranhaContent,
+      this.providerReads,
+    );
+    this.contractTokenReads = new Contract(
       process.env.PEERANHA_TOKEN,
       PeeranhaToken,
-      this.provider,
-    );
-
-    const transactionList = JSON.parse(
-      localStorage.getItem(TRANSACTION_LIST),
-    )?.filter((transaction) => !transaction.result);
-    if (transactionList && transactionList.length) {
-      transactionList.map(async (transaction) => {
-        this.transactionList.push(transaction);
-        this.transactionList.find(
-          (transactionFromList) =>
-            transactionFromList.transactionHash === transaction.transactionHash,
-        ).result = await this.provider.waitForTransaction(
-          transaction.transactionHash,
-        );
-
-        setTimeout(() => {
-          const index = this.transactionList
-            .map((transactionFromList) => transactionFromList.transactionHash)
-            .indexOf(transaction.transactionHash);
-          if (index !== -1) {
-            this.transactionList.splice(index, 1);
-            this.setTransactionList(this.transactionList);
-          }
-        }, '30000');
-
-        this.setTransactionList(this.transactionList);
-        localStorage.setItem(
-          TRANSACTION_LIST,
-          JSON.stringify(this.transactionList),
-        );
-      });
-    }
-    this.setTransactionList(this.transactionList);
-    localStorage.setItem(
-      TRANSACTION_LIST,
-      JSON.stringify(this.transactionList),
+      this.providerReads,
     );
   };
 
@@ -179,26 +169,10 @@ class EthereumService {
 
     this.provider = new ethers.providers.Web3Provider(this.wallet.provider);
     const signer = await this.provider.getSigner();
-    this.contractUser = new Contract(
-      process.env.USER_ADDRESS,
-      PeeranhaUser,
-      signer,
-    );
-    this.contractCommunity = new Contract(
-      process.env.COMMUNITY_ADDRESS,
-      PeeranhaCommunity,
-      signer,
-    );
-    this.contractContent = new Contract(
-      process.env.CONTENT_ADDRESS,
-      PeeranhaContent,
-      signer,
-    );
-    this.contractToken = new Contract(
-      process.env.PEERANHA_TOKEN,
-      PeeranhaToken,
-      this.provider,
-    );
+    this.contractUser = new Contract(process.env.USER_ADDRESS, PeeranhaUser, signer);
+    this.contractCommunity = new Contract(process.env.COMMUNITY_ADDRESS, PeeranhaCommunity, signer);
+    this.contractContent = new Contract(process.env.CONTENT_ADDRESS, PeeranhaContent, signer);
+    this.contractToken = new Contract(process.env.PEERANHA_TOKEN, PeeranhaToken, this.provider);
 
     document.getElementsByTagName('body')[0].style.position = 'relative';
 
@@ -218,9 +192,7 @@ class EthereumService {
   getSelectedAccount = () => this.selectedAccount;
 
   getProfile = async (userAddress) => {
-    const user = await this.getUserDataWithArgs(GET_USER_BY_ADDRESS, [
-      userAddress,
-    ]);
+    const user = await this.getUserDataWithArgs(GET_USER_BY_ADDRESS, [userAddress]);
 
     return {
       creationTime: user.creationTime,
@@ -239,30 +211,45 @@ class EthereumService {
     });
   }
 
-  sendTransaction = async (
-    contract,
-    actor,
-    action,
-    data,
-    confirmations = 1,
-  ) => {
+  sendTransaction = async (contract, actor, action, data, confirmations = 1) => {
+    let dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
+    const transactionsAllowed = dataFromCookies === TRANSACTIONS_ALLOWED;
+    if (!dataFromCookies) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
+      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    }
+    if (transactionsAllowed && Number(balance) < 0.005) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
+      dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
+    }
+    if (!dataFromCookies) {
+      return;
+    }
+    if (this.isTransactionInitialised) {
+      this.addToast({
+        type: 'info',
+        text: 'Wait for the end of the current transaction.',
+      });
+      throw new Error('Wait for the end of the current transaction.');
+    }
+
     this.setTransactionInitialised(true);
     this.waitForConfirm();
 
-    const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
-    const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
-
-    if (!dataFromCookies && Number(balance) >= 0) {
-      this.showModalDispatch();
-      await this.waitForCloseModal();
-    }
-
-    const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
-
+    const metaTransactionsAllowed = dataFromCookies === META_TRANSACTIONS_ALLOWED;
+    const dispatcherTransactionsAllowed = dataFromCookies === DISPATCHER_TRANSACTIONS_ALLOWED;
     try {
       if (metaTransactionsAllowed) {
         const token = await this.getRecaptchaToken();
-        return await this.sendMetaTransaction(
+        return await this.sendMetaTransaction(contract, actor, action, data, confirmations, token);
+      }
+
+      if (dispatcherTransactionsAllowed) {
+        const token = await this.getRecaptchaToken();
+        return await this.sendDispatcherTransaction(
           contract,
           actor,
           action,
@@ -276,29 +263,9 @@ class EthereumService {
       const transaction = await this[contract]
         .connect(this.provider.getSigner(actor))
         [action](...data);
-
-      this.transactionList.push({
-        action,
-        transactionHash: transaction.hash,
-      });
-
-      this.transactionInPending(transaction.hash, this.transactionList);
+      this.transactionInPending(transaction.hash);
       const result = await transaction.wait(confirmations);
-      this.transactionList.find(
-        (transactionFromList) =>
-          transactionFromList.transactionHash === transaction.hash,
-      ).result = result;
-      setTimeout(() => {
-        const index = this.transactionList
-          .map((transactionFromList) => transactionFromList.transactionHash)
-          .indexOf(transaction.hash);
-        if (index !== -1) {
-          this.transactionList.splice(index, 1);
-          this.setTransactionList(this.transactionList);
-        }
-      }, '30000');
-
-      this.transactionCompleted(this.transactionList);
+      this.transactionCompleted();
       this.setTransactionInitialised(false);
       return result;
     } catch (err) {
@@ -306,14 +273,10 @@ class EthereumService {
 
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
-          this.transactionFailed(
-            new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
-          );
+          this.transactionFailed(new WebIntegrationErrorByCode(METAMASK_ERROR_CODE));
           break;
         case INVALID_MIN_RATING_ERROR_CODE:
-          this.transactionFailed(
-            new WebIntegrationErrorByCode(USER_MIN_RATING_ERROR_CODE),
-          );
+          this.transactionFailed(new WebIntegrationErrorByCode(USER_MIN_RATING_ERROR_CODE));
           break;
         case REJECTED_SIGNATURE_REQUEST:
           this.transactionFailed(new WebIntegrationErrorByCode(err.code));
@@ -339,26 +302,15 @@ class EthereumService {
     };
   };
 
-  sendMetaTransaction = async (
-    contract,
-    actor,
-    action,
-    data,
-    confirmations = 1,
-    token,
-  ) => {
+  sendMetaTransaction = async (contract, actor, action, data, confirmations = 1, token) => {
     await this.chainCheck();
-    const metaTxContract = this[contract];
-    let nonce = await metaTxContract.getNonce(actor); // orders the list of transactions
-
-    if (nonce.lte(this.previousNonce)) {
-      nonce = this.previousNonce.add(1);
-      this.previousNonce = nonce;
-    } else {
-      this.previousNonce = nonce;
-    }
+    // use Reads contract to connect to the same provider that is used to listen for completed transactions
+    const metaTxContract = this[contract + 'Reads'];
+    const nonce = await metaTxContract.getNonce(actor);
+    console.log(`Nonce from contract: ${nonce}`);
 
     const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
+
     const functionSignature = iface.encodeFunctionData(action, data);
     const message = {};
     message.nonce = parseInt(nonce);
@@ -382,9 +334,7 @@ class EthereumService {
       name: CONTRACT_TO_NAME[contract],
       version: '1',
       verifyingContract: metaTxContract.address,
-      salt: `0x${parseInt(process.env.CHAIN_ID, 10)
-        .toString(16)
-        .padStart(64, '0')}`,
+      salt: `0x${parseInt(process.env.CHAIN_ID, 10).toString(16).padStart(64, '0')}`,
     };
 
     const dataToSign = JSON.stringify({
@@ -397,10 +347,7 @@ class EthereumService {
       message,
     });
 
-    const signature = await this.provider.send('eth_signTypedData_v4', [
-      actor,
-      dataToSign,
-    ]);
+    const signature = await this.provider.send('eth_signTypedData_v4', [actor, dataToSign]);
 
     const { r, s, v } = this.getSignatureParameters(signature);
 
@@ -415,72 +362,90 @@ class EthereumService {
       reCaptchaToken: token,
     });
 
-    this.transactionList.push({
-      action,
-      transactionHash: response.body.transactionHash,
-    });
+    if (response.errorCode) {
+      throw response;
+    }
 
-    localStorage.setItem(
-      TRANSACTION_LIST,
-      JSON.stringify(this.transactionList),
+    this.transactionInPending(response.body.transactionHash);
+    const result = await this.providerReads.waitForTransaction(
+      response.body.transactionHash,
+      confirmations,
     );
+    this.transactionCompleted();
+    this.setTransactionInitialised(false);
+    return result;
+  };
+
+  sendDispatcherTransaction = async (contract, actor, action, data, confirmations = 1, token) => {
+    await this.chainCheck();
+    const userAddress = data.shift();
+
+    const isWeb3Token = getCookie(WEB3_TOKEN);
+    const isWeb3TokenUserAddress = getCookie(WEB3_TOKEN_USER_ADDRESS) === actor;
+
+    if (!isWeb3Token || !isWeb3TokenUserAddress) {
+      const signer = this.provider.getSigner();
+      const web3token = await Web3Token.sign(async (msg) => await signer.signMessage(msg), {
+        uri: 'https://peeranha.io/',
+        domain: 'peeranha.io',
+        web3tokenversion: '1',
+        statement: 'I allow Peeranha to sign transactions on my behalf for 30 days.',
+        expires_in: '30d',
+      });
+
+      setCookie({
+        name: WEB3_TOKEN,
+        value: web3token,
+        options: {
+          'max-age': ONE_MONTH,
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+      setCookie({
+        name: WEB3_TOKEN_USER_ADDRESS,
+        value: actor,
+        options: {
+          'max-age': ONE_MONTH,
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+    }
+
+    const response = await callService(BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress, {
+      contract: ContractsMapping[contract],
+      action: action,
+      args: data,
+      reCaptchaToken: token,
+      wait: false,
+    });
 
     if (response.errorCode) {
       throw response;
     }
 
-    this.transactionInPending(
-      response.body.transactionHash,
-      this.transactionList,
-    );
+    this.transactionInPending(response.body.transactionHash);
     const result = await this.provider.waitForTransaction(
       response.body.transactionHash,
       confirmations,
     );
-    this.transactionList.find(
-      (transactionFromList) =>
-        transactionFromList.transactionHash === response.body.transactionHash,
-    ).result = result;
-
-    localStorage.setItem(
-      TRANSACTION_LIST,
-      JSON.stringify(this.transactionList),
-    );
-    setTimeout(() => {
-      const index = this.transactionList
-        .map((transactionFromList) => transactionFromList.transactionHash)
-        .indexOf(response.body.transactionHash);
-      if (index !== -1) {
-        this.transactionList.splice(index, 1);
-        this.setTransactionList(this.transactionList);
-        localStorage.setItem(
-          TRANSACTION_LIST,
-          JSON.stringify(this.transactionList),
-        );
-      }
-    }, 30000);
-
-    this.transactionCompleted(this.transactionList);
+    this.transactionCompleted();
     this.setTransactionInitialised(false);
     return result;
   };
 
-  getUserDataWithArgs = async (action, args) =>
-    await this.contractUser[action](...args);
+  getUserDataWithArgs = async (action, args) => await this.contractUserReads[action](...args);
 
   getCommunityDataWithArgs = async (action, args) =>
-    await this.contractCommunity[action](...args);
+    await this.contractCommunityReads[action](...args);
 
-  getContentDataWithArgs = async (action, args) =>
-    await this.contractContent[action](...args);
+  getContentDataWithArgs = async (action, args) => await this.contractContentReads[action](...args);
 
-  getTokenDataWithArgs = async (action, args) =>
-    await this.contractToken[action](...args);
+  getTokenDataWithArgs = async (action, args) => await this.contractTokenReads[action](...args);
 
   getCommunityFromContract = async (id) => {
-    const rawCommunity = await this.getCommunityDataWithArgs(GET_COMMUNITY, [
-      id,
-    ]);
+    const rawCommunity = await this.getCommunityDataWithArgs(GET_COMMUNITY, [id]);
     const communityInfo = JSON.parse(
       await getText(getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
     );

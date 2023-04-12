@@ -5,10 +5,7 @@ import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -17,12 +14,7 @@ import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-import {
-  init,
-  useConnectWallet,
-  useSetChain,
-  useWallets,
-} from '@web3-onboard/react';
+import { init, useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
 import injectedModule from '@web3-onboard/injected-wallets';
 import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
@@ -37,15 +29,20 @@ import {
   transactionFailed,
   transactionInPending,
   transactionInitialised,
-  setTransactionList,
 } from './actions';
-import communitiesConfig from '../../communities-config';
+import { MATIC, POLYGON, POLYGON_TESTNET, POSITION_BOTTOM_RIGHT, PROD_ENV } from './constants';
 
+const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
 const injected = injectedModule();
 const coinbase = coinbaseModule();
 const walletConnect = walletConnectModule();
 const torus = torusModule({
-  buttonPosition: 'bottom-right',
+  buttonPosition: POSITION_BOTTOM_RIGHT,
+  network: {
+    host: process.env.ETHEREUM_NETWORK,
+    chainId: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
+    networkName: networkLabel,
+  },
 });
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -57,8 +54,8 @@ const initWeb3Onboard = init({
   chains: [
     {
       id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
-      token: 'MATIC',
-      label: 'Polygon',
+      token: MATIC,
+      label: networkLabel,
       rpcUrl: process.env.ETHEREUM_NETWORK,
     },
   ],
@@ -97,7 +94,6 @@ export const EthereumProvider = ({
   showModalDispatch,
   transactionInPendingDispatch,
   transactionCompletedDispatch,
-  setTransactionListDispatch,
   waitForConfirmDispatch,
   transactionFailedDispatch,
   initializing,
@@ -154,7 +150,7 @@ export const EthereumProvider = ({
         connectedChain,
       });
     }
-  }, [wallet, connectedWallets, web3Onboard, ethereum]);
+  }, [wallet, connectedWallets, web3Onboard]);
 
   const sendProps = {
     connect,
@@ -167,7 +163,6 @@ export const EthereumProvider = ({
     transactionCompletedDispatch,
     transactionFailedDispatch,
     waitForConfirmDispatch,
-    setTransactionListDispatch,
     addToast,
   };
 
@@ -188,9 +183,7 @@ export const EthereumProvider = ({
     }
   }, []);
 
-  return (
-    <div>{!initializing && ethereum ? children : <LoadingIndicator />}</div>
-  );
+  return <div>{!initializing && ethereum ? children : <LoadingIndicator />}</div>;
 };
 
 EthereumProvider.propTypes = {
@@ -208,23 +201,10 @@ const withConnect = connect(
   (dispatch) => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
     showModalDispatch: bindActionCreators(showModal, dispatch),
-    transactionInPendingDispatch: bindActionCreators(
-      transactionInPending,
-      dispatch,
-    ),
-    transactionCompletedDispatch: bindActionCreators(
-      transactionCompleted,
-      dispatch,
-    ),
+    transactionInPendingDispatch: bindActionCreators(transactionInPending, dispatch),
+    transactionCompletedDispatch: bindActionCreators(transactionCompleted, dispatch),
     transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
-    waitForConfirmDispatch: bindActionCreators(
-      transactionInitialised,
-      dispatch,
-    ),
-    setTransactionListDispatch: bindActionCreators(
-      setTransactionList,
-      dispatch,
-    ),
+    waitForConfirmDispatch: bindActionCreators(transactionInitialised, dispatch),
     addToast: bindActionCreators(addToast, dispatch),
   }),
 );

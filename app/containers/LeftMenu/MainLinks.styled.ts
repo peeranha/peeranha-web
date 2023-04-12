@@ -1,3 +1,8 @@
+import { BORDER_SECONDARY } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
+
 export const styles = {
   menuItem: {
     fontFamily: 'Source Sans Pro, serif',
@@ -6,13 +11,14 @@ export const styles = {
   },
 
   menuSectionTitle: {
+    textTransform: 'uppercase',
     fontSize: '14px',
     lineHeight: '18px',
     height: 30,
     span: {
       'text-transform': 'uppercase',
     },
-    color: '#7B7B7B',
+    color: colors.sectionHeader || '#7B7B7B',
 
     '&:hover .dropdown-documentation': {
       display: 'block',
@@ -21,7 +27,7 @@ export const styles = {
 
   divider: {
     height: '1px',
-    background: '#C2C6D8',
+    background: colors.secondaryAdditional || BORDER_SECONDARY,
     marginTop: '28px',
   },
 
@@ -37,14 +43,23 @@ export const styles = {
 
   dropdownMenuItem: {
     color: 'black',
-    padding: '12px 16px',
+    fontSize: '14px',
+    padding: '16px',
     textDecoration: 'none',
-    display: 'block',
+    textTransform: 'initial',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    cursor: 'pointer',
+    maxWidth: '310px',
+
     ':hover': {
       boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
-      background: 'rgba(255, 255, 255, 0.05)',
-      border: '1px solid #7699FF',
+      background: 'rgba(123, 123, 123, 0.1);',
       borderRadius: '5px',
+    },
+    svg: {
+      marginRight: '8px',
     },
   },
 };

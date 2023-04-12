@@ -1,7 +1,4 @@
-import {
-  ASK_QUESTION_ERROR,
-  ASK_QUESTION_SUCCESS,
-} from 'containers/AskQuestion/constants';
+import { ASK_QUESTION_ERROR, ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
 
 import {
   CHANGE_EMAIL_ERROR,
@@ -22,10 +19,7 @@ import {
   CREATE_COMMUNITY_ERROR,
 } from 'containers/CreateCommunity/constants';
 
-import {
-  SUGGEST_TAG_ERROR,
-  SUGGEST_TAG_SUCCESS,
-} from 'containers/CreateTag/constants';
+import { SUGGEST_TAG_ERROR, SUGGEST_TAG_SUCCESS } from 'containers/CreateTag/constants';
 
 import { EDIT_TAG_SUCCESS, EDIT_TAG_ERROR } from 'containers/EditTag/constants';
 
@@ -35,10 +29,7 @@ import {
   SEND_EMAIL_ERROR as DELETE_ACCOUNT_SEND_EMAIL_ERROR,
 } from 'containers/DeleteAccount/constants';
 
-import {
-  EDIT_ANSWER_ERROR,
-  EDIT_ANSWER_SUCCESS,
-} from 'containers/EditAnswer/constants';
+import { EDIT_ANSWER_ERROR, EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
 
 import {
   EDIT_COMMUNITY_ERROR,
@@ -46,10 +37,7 @@ import {
   GET_COMMUNITY_ERROR,
 } from 'containers/EditCommunity/constants';
 
-import {
-  SAVE_PROFILE_ERROR,
-  SAVE_PROFILE_SUCCESS,
-} from 'containers/EditProfilePage/constants';
+import { SAVE_PROFILE_ERROR, SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 
 import {
   EDIT_QUESTION_SUCCESS,
@@ -64,10 +52,7 @@ import {
   CHANGE_PASSWORD_SUCCESS as FORGOT_PASSWORD_CHANGE_PASSWORD_SUCCESS,
 } from 'containers/ForgotPassword/constants';
 
-import {
-  SEND_MESSAGE_SUCCESS,
-  SEND_MESSAGE_ERROR,
-} from 'containers/HomePage/constants';
+import { SEND_MESSAGE_SUCCESS, SEND_MESSAGE_ERROR } from 'pages/HomePage/constants';
 
 import {
   EMAIL_CHECKING_ERROR,
@@ -89,10 +74,7 @@ import {
 
 import { LOGOUT_ERROR } from 'containers/Logout/constants';
 
-import {
-  SEND_TOKENS_ERROR,
-  SEND_TOKENS_SUCCESS,
-} from 'containers/SendTokens/constants';
+import { SEND_TOKENS_ERROR, SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
 
 import { SHOW_ACTIVE_KEY_ERROR } from 'containers/ShowActiveKey/constants';
 
@@ -102,10 +84,7 @@ import {
 } from 'containers/ShowOwnerKey/constants';
 
 import { FOLLOW_HANDLER_ERROR } from 'containers/FollowCommunityButton/constants';
-import {
-  PICKUP_REWARD_ERROR,
-  GET_WEEK_STAT_ERROR,
-} from 'containers/Wallet/constants';
+import { PICKUP_REWARD_ERROR, GET_WEEK_STAT_ERROR } from 'containers/Wallet/constants';
 
 import {
   UPVOTE_ERROR as COMMUNITY_UPVOTE_ERROR,
@@ -155,10 +134,7 @@ import { GET_QUESTIONS_ERROR } from 'containers/Questions/constants';
 import { GET_QUESTIONS_ERROR as GET_Q_USER_ERROR } from 'containers/QuestionsOfUser/constants';
 import { GET_QUESTIONS_ERROR as GET_QA_USER_ERROR } from 'containers/QuestionsWithAnswersOfUser/constants';
 
-import {
-  GET_SUGGESTED_TAGS_ERROR,
-  GET_EXISTING_TAGS_ERROR,
-} from 'containers/Tags/constants';
+import { GET_SUGGESTED_TAGS_ERROR, GET_EXISTING_TAGS_ERROR } from 'containers/Tags/constants';
 
 import { GET_USERS_ERROR } from 'containers/Users/constants';
 import { GET_RESULTS_ERROR } from 'containers/Search/constants';
@@ -171,11 +147,7 @@ import {
   SAVE_CRYPTO_ACCOUNTS_ERROR,
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,
 } from '../ViewProfilePage/Tip/constants';
-import {
-  SELECT_ACCOUNT_ERROR,
-  SEND_TIPS_ERROR,
-  SEND_TIPS_SUCCESS,
-} from '../SendTips/constants';
+import { SELECT_ACCOUNT_ERROR, SEND_TIPS_ERROR, SEND_TIPS_SUCCESS } from '../SendTips/constants';
 
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,

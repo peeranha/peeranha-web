@@ -21,6 +21,7 @@ export const TextInputField = ({
   insideOfSection,
   iconLabel,
   isShowLabel,
+  warningStyle,
 }) => (
   <Wrapper
     label={label}
@@ -32,6 +33,7 @@ export const TextInputField = ({
     insideOfSection={insideOfSection}
     iconLabel={iconLabel}
     isShowLabel={isShowLabel}
+    warningStyle={warningStyle}
   >
     <Input
       input={input}
@@ -42,10 +44,7 @@ export const TextInputField = ({
       isRefreshable={isRefreshable}
       onClick={onClick}
       autoComplete={autoComplete}
-      error={
-        (meta.touched || (meta.error && meta.error.visited)) &&
-        (meta.error || meta.warning)
-      }
+      error={(meta.touched || (meta.error && meta.error.visited)) && (meta.error || meta.warning)}
       type={type}
     />
   </Wrapper>

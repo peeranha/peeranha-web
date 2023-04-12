@@ -28,5 +28,7 @@
   "atLeastOneLetter": "El nombre de Telos debe contener al menos una letra",
   "exactFromAndToAccounts": "El emisor y el receptor no pueden ser el mismo",
   "hasToBeMoreThanPrev": "No puede establecer un valor más bajo",
-  "valueIsNotPositiveInteger": "El valor no es un entero positivo"
+  "valueIsNotPositiveInteger": "El valor no es un entero positivo",
+  "requiredMinReputation": "Tu reputación en esta comunidad es negativa, no puedes crear una nueva publicación.",
+  "wrongAddressFormat": "Dirección de billetera no válida"
 }

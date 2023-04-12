@@ -4,12 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
 
-import {
-  TEXT_DARK,
-  TEXT_SECONDARY,
-  LINK_COLOR,
-  TEXT_PRIMARY,
-} from 'style-constants';
+import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR, TEXT_PRIMARY } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -100,13 +95,12 @@ export const UlStyled = Ul.extend`
       }
       span {
         height: 18px;
+        white-space: nowrap;
       }
     }
 
-    ${
-      '' /* @media only screen and (max-width: 1280px) {
-      padding-right: 20px;
-    } */
+    @media only screen and (max-width: 1385px) {
+      padding-right: 18px;
     }
 
     @media only screen and (max-width: 768px) {
@@ -186,6 +180,15 @@ const MainUserInformation = ({
     }
   };
 
+  const onClickRedirectToEditProfilePage =
+    (user) =>
+    ({ currentTarget: { id } }) => {
+      redirectToEditProfilePage({
+        buttonId: id,
+        user,
+      });
+    };
+
   return (
     <Box position="middle" className="pb-0" isLogin={userId !== account}>
       <div
@@ -202,8 +205,10 @@ const MainUserInformation = ({
           css={css`
             background: rgba(165, 188, 255, 0.1);
             border-radius: 170px;
+            min-width: calc(100% - 5px);
             @media (min-width: 768px) {
               background: none;
+              min-width: 0;
             }
             @media (min-width: 768px) and (max-width: 1308px) {
               padding-top: 10px;
@@ -211,8 +216,8 @@ const MainUserInformation = ({
           `}
         >
           <LargeImageButton
-            onClick={redirectToEditProfilePage}
-            data-user={userId}
+            onClick={onClickRedirectToEditProfilePage(userId)}
+            id={`redireact-to-edit-${userId}-user-page-1`}
             disabled={account !== userId}
           >
             <LargeImage
@@ -252,19 +257,13 @@ const MainUserInformation = ({
               {getUserName(profile?.displayName, userId)}
             </Span>
             <button
-              onClick={redirectToEditProfilePage}
-              className={
-                isDesktop || userId !== account
-                  ? 'd-none'
-                  : `align-items-center d-inline-flex`
-              }
+              onClick={onClickRedirectToEditProfilePage(userId)}
               id={`redireact-to-edit-${userId}-user-page-2`}
-              data-user={userId}
+              className={
+                isDesktop || userId !== account ? 'd-none' : `align-items-center d-inline-flex`
+              }
             >
-              <IconMd
-                icon={pencilIcon}
-                color={colors.btnColor || TEXT_PRIMARY}
-              />
+              <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
               <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
                 {t('profile.editProfile')}
               </Span>

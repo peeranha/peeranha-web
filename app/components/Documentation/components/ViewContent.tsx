@@ -1,12 +1,14 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { getFormattedDate } from 'utils/datetime';
-import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 import H3 from 'components/H3';
 import { useTranslation } from 'react-i18next';
 import Wrapper from 'components/Header/Simple';
-import { DocumentationArticle } from 'pages/Documentation/types';
+import { DocumentationArticle, DocumentationItemMenuType } from 'pages/Documentation/types';
+
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 import { extractStrings } from 'utils/url';
+import Pagination from './Pagination';
 import TextNavbar from './TextNavbar/TextNavbar';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from '../../../utils/constants';
 import { TEXT_SECONDARY } from '../../../style-constants';
@@ -32,6 +34,7 @@ const styled = {
 type ViewContentProps = {
   documentationArticle: DocumentationArticle;
   isEditDocumentation?: boolean;
+  documentationMenu?: DocumentationItemMenuType;
   locale: string;
   isEditPost?: boolean;
 };
@@ -39,26 +42,24 @@ type ViewContentProps = {
 const ViewContent: React.FC<ViewContentProps> = ({
   documentationArticle,
   isEditDocumentation,
+  documentationMenu,
   locale,
   isEditPost,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const headers = extractStrings(['#', '\n'])(
-    `${documentationArticle?.content}\n` || '',
-  );
+  const headers = extractStrings(['#', '\n'])(`${documentationArticle?.content}\n` || '');
   return (
     <>
       <Wrapper
         className="mb-to-sm-0 mb-from-sm-3"
         css={{
           ...(isEditDocumentation && styled),
+          width: '100%',
         }}
       >
         <div>
           <H3>
-            <span className="d-none d-md-inline-block">
-              {documentationArticle?.title}
-            </span>
+            <span className="d-none d-md-inline-block">{documentationArticle?.title}</span>
           </H3>
           {documentationArticle?.lastmod &&
             (!isEditDocumentation || (isEditPost && isEditDocumentation)) && (
@@ -66,9 +67,7 @@ const ViewContent: React.FC<ViewContentProps> = ({
                 className="d-none d-md-inline-block db mt8 fz14 light"
                 css={css(styled.creationTime)}
               >
-                {isEditDocumentation
-                  ? t('post.lastEdited')
-                  : t('common.lastUpdated')}{' '}
+                {isEditDocumentation ? t('post.lastEdited') : t('common.lastUpdated')}{' '}
                 {getFormattedDate(
                   documentationArticle.lastmod,
                   locale,
@@ -78,18 +77,21 @@ const ViewContent: React.FC<ViewContentProps> = ({
             )}
         </div>
       </Wrapper>
-      <div className="df">
+      <div className="df" css={{ marginBottom: '50px' }}>
         <Wrapper
+          className="fdc"
           css={{
             ...(isEditDocumentation && styled),
-            minWidth: '0',
           }}
         >
           <MarkdownPreviewBlock content={documentationArticle?.content} />
+
+          {!isEditDocumentation && (
+            <Pagination documentationMenu={documentationMenu} id={documentationArticle?.id} />
+          )}
         </Wrapper>
-        {!isEditDocumentation && headers?.length > 1 && (
-          <TextNavbar headers={headers} />
-        )}
+
+        {!isEditDocumentation && headers?.length > 1 && <TextNavbar headers={headers} />}
       </div>
     </>
   );
