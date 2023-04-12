@@ -10,7 +10,7 @@ export default {
     message: 'common.answers',
   },
   tags: {
-    sortBy: 'tags',
+    sortBy: 'tagsCount',
     order: 'desc',
     message: 'common.tags',
   },
@@ -23,10 +23,5 @@ export default {
     sortBy: 'creationTime',
     order: 'desc',
     message: 'common.newest',
-  },
-  subscribers: {
-    sortBy: 'followingUsers',
-    order: 'desc',
-    message: 'common.users',
   },
 };

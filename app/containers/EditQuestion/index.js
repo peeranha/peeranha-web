@@ -15,7 +15,7 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { selectQuestionTitle } from '../ViewQuestion/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectTagsLoading } from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';
 import Seo from 'components/Seo';
@@ -38,11 +38,7 @@ import { getAskedQuestion, editQuestion } from './actions';
 import { getQuestionData } from '../ViewQuestion/actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 
-const TITLE = [
-  'common.editExpertQ&A',
-  'common.editDiscussion',
-  'common.editTutorial',
-];
+const TITLE = ['common.editExpertQ&A', 'common.editDiscussion', 'common.editTutorial'];
 
 const EditQuestion = ({
   match,
@@ -59,6 +55,7 @@ const EditQuestion = ({
   editQuestionError,
   getQuestionDataDispatch,
   questionTitle,
+  tagsLoading,
 }) => {
   const { t } = useTranslation();
   const { questionid } = match.params;
@@ -79,7 +76,7 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
           tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[1]),
-          postType: Number(val[FORM_TYPE]) || question.postType,
+          postType: isNaN(val[FORM_TYPE]) ? question.postType : Number(val[FORM_TYPE]),
         },
         questionid,
       );
@@ -87,14 +84,11 @@ const EditQuestion = ({
     [questionid, question],
   );
 
-  const maxPromotingHours = useMemo(
-    () => Math.floor(balance / PROMOTE_HOUR_COST),
-    [balance],
-  );
+  const maxPromotingHours = useMemo(() => Math.floor(balance / PROMOTE_HOUR_COST), [balance]);
 
   const titleMessage = useMemo(
     () => (isDocumentation ? 'Edit article' : t(TITLE[question?.postType])),
-    [question?.postType],
+    [question?.postType, t],
   );
 
   const isFailed = editQuestionError !== null;
@@ -118,6 +112,7 @@ const EditQuestion = ({
       isFailed,
       isDocumentation,
       questionTitle,
+      tagsLoading,
     }),
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );
@@ -180,6 +175,7 @@ export default compose(
       editQuestionError: makeSelectEditQuestion.selectEditQuestionError(),
       profile: makeSelectProfileInfo(),
       questionTitle: selectQuestionTitle(),
+      tagsLoading: selectTagsLoading(),
     }),
     (dispatch) => ({
       getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),

@@ -1,8 +1,10 @@
+import Documentation from 'containers/LeftMenu/Documentation/Documentation';
+import { Administration } from 'icons/index';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import Documentation from 'containers/LeftMenu/Documentation/Documentation';
 
 import cn from 'classnames';
 
@@ -38,7 +40,6 @@ import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
-import faqIcon from 'images/faq.svg?external';
 import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
@@ -67,7 +68,9 @@ const fonts = singleCommunityFonts();
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
 export const A1 = A.extend`
+  ${svgDraw({ color: colors.mainLinksColor || TEXT_DARK })}; !important;
   ${BasicLink};
+  color: ${colors.white || ''}; !important;
 
   letter-spacing: 0 !important;
 
@@ -87,7 +90,7 @@ export const A1 = A.extend`
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
           font-weight: bold;
-          color: ${colors.mainLinks || TEXT_DARK} !important;
+          color: ${colors.mainLinksColor || TEXT_DARK} !important;
           .fill {
             fill: ${customColor};
           }
@@ -179,15 +182,13 @@ const MainLinks = ({
       isProtocolAdmin
     : false;
 
+  const isAdministratorModeSingleCommunity = singleCommId
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) || isProtocolAdmin
+    : false;
+
   if (!route) {
     route = isBloggerMode ? 'home' : '/';
   }
-
-  const hasCommunityOrProtocolAdminRole =
-    singleCommId &&
-    (hasGlobalModeratorRole() ||
-      hasCommunityAdminRole(null, singleCommId) ||
-      isProtocolAdmin);
 
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
 
@@ -202,7 +203,8 @@ const MainLinks = ({
       {pinnedItemMenu.id !== '' && (
         <div
           css={{
-            background: '#A5BCFF',
+            background: colors.pinnedPostBackground || '#A5BCFF',
+            // background: 'rgb(123 63 228 / 30%)',
             borderRadius: '0px 0px 20px 20px',
           }}
         >
@@ -224,9 +226,7 @@ const MainLinks = ({
               >
                 <span
                   css={{
-                    borderRight: isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderRight: isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                     paddingRight: '10px',
                   }}
                 >
@@ -234,14 +234,15 @@ const MainLinks = ({
                 </span>
                 <span
                   css={{
-                    borderLeft: !isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderLeft: !isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                   }}
                 >
                   <PinIcon
                     stroke="#FFF"
-                    css={{ fill: '#A5BCFF', marginLeft: '10px' }}
+                    css={{
+                      fill: colors.white || '#A5BCFF',
+                      marginLeft: '10px',
+                    }}
                   />
                 </span>
               </A1>
@@ -268,7 +269,7 @@ const MainLinks = ({
               ...styles.menuItem,
             }}
           >
-            COMMUNITY
+            {t('common.communityLabel')}
           </div>
         )}
 
@@ -320,16 +321,9 @@ const MainLinks = ({
           </A1>
         )}
 
-        {!singleCommId && (
-          <A1 to={routes.faq()} name="faq" route={route}>
-            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-            {t('common.faq')}
-          </A1>
-        )}
-
-        {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
+        {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
-            <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
+            <Administration className={'mr-2'} />
             {t('common.administration')}
           </A1>
         )}

@@ -5,5 +5,8 @@
   "accountDoesNotExist": "Tài khoản không tồn tại",
   "cannotTransferToSelf": "Không thể chuyển cho chính mình",
   "notEnoughCPU": "Không đủ CPU",
-  "checkScatterConnection": "Kiểm tra kết nối ví"
+  "checkScatterConnection": "Kiểm tra kết nối ví",
+  "weUpdatedTheApplication": "Chúng tôi đã cập nhật ứng dụng. ",
+  "clearYourBrowser": "Xóa bộ nhớ cache của trình duyệt để khởi động lại. ",
+  "holdDown": "Giữ <0>{{ctrl}}</0> và nhấn <1>{{f5}}</1>. "
 }

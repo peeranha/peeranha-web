@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://barracuda.io/indexerdao';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'suiGlobal_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,15 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const IndexerDAOStyles = {
+  name: 'indexerDAO',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/indexerDAO/indDao1.svg',
-  favicon: 'https://images.peeranha.io/communities/indexerDAO/dao.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/indexerDAO/logo-signUp.svg',
 
   colors: {
+    appWindowsColor: '#ffffff',
+    appSafarieColor: '#2a2a2a',
     mainSubHeaderBgColor: '#2C001E',
     mainBackground: '#F5F5F5',
     linkColor: '#6c3d60',
@@ -205,14 +201,6 @@ export const IndexerDAOStyles = {
     textColorShadow: '#2c001e',
     commHeadElemColor: '#5362E8',
     darkBlue: '#1a1c20',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: 'linear-gradient(90deg, #2C001E, #6c3d60)',

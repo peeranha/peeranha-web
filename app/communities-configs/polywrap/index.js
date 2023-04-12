@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://polywrap.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'polywrap_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,15 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const PolywrapStyles = {
+  name: 'polywrap',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/polywrap/polywrap-horizontal.svg',
-  favicon: 'https://images.peeranha.io/communities/polywrap/logopoly.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/polywrap/logo.svg',
 
   colors: {
+    appWindowsColor: '#603cba',
+    appSafarieColor: '#5bbad5',
     mainSubHeaderBgColor: '#1D2B45',
     mainBackground: '#F9FAFB',
     linkColor: '#4ED39F',
@@ -203,14 +199,6 @@ export const PolywrapStyles = {
     textColor: '#4ED39F',
     textColorShadow: '#4ED39F',
     commHeadElemColor: '#fff',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: '#263751',

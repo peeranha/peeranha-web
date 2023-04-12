@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://solidity.peeranha.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'solidity_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,16 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const SolidityStyles = {
+  name: 'solidity',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/solidity/solidity-logo.svg',
-  favicon:
-    'https://images.peeranha.io/communities/solidity/favicon-solidity.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/solidity/logo.svg',
 
   colors: {
+    appWindowsColor: '#ffc40d',
+    appSafarieColor: '#5b81d5',
     mainSubHeaderBgColor: '#FAFAFA',
     mainBackground: '#EAECF4',
     linkColor: 'rgba(25, 68, 176, 1)',
@@ -204,14 +199,6 @@ export const SolidityStyles = {
     localeArrowColor: 'rgba(25, 68, 176, 1)',
     textColor: 'rgba(25, 68, 176, 1)',
     commHeadElemColor: 'rgba(25, 68, 176, 1)',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: 'linear-gradient(92.71deg, #0A37AA 32.07%, #6688E0 101.8%)',

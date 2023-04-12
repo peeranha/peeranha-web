@@ -5,10 +5,8 @@ import * as routes from 'routes-config';
 import { deleteCookie } from 'utils/cookie';
 
 import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
-import {
-  getCurrentAccountSuccess,
-  addLoginData,
-} from 'containers/AccountProvider/actions';
+import { WEB3_TOKEN } from 'utils/constants';
+import { getCurrentAccountSuccess, addLoginData } from 'containers/AccountProvider/actions';
 
 import { LOGOUT } from './constants';
 
@@ -24,6 +22,7 @@ export function* logoutWorker() {
     deleteCookie(AUTOLOGIN_DATA);
     deleteCookie(PROFILE_INFO_LS);
     deleteCookie(META_TRANSACTIONS_ALLOWED);
+    deleteCookie(WEB3_TOKEN);
 
     yield call(ethereumService.resetWalletState);
 
@@ -39,6 +38,6 @@ export function* logoutWorker() {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(LOGOUT, logoutWorker);
 }

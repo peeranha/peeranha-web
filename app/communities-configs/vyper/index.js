@@ -3,8 +3,6 @@ import { css } from 'styled-components';
 
 const domainName = 'https://valist.io/';
 
-const fonts = 'Roboto, sans-serif';
-
 export const customSubHeaderConfig = {
   design: 'valist_style',
   styles: {
@@ -14,9 +12,6 @@ export const customSubHeaderConfig = {
     },
     color: {
       a: '#999999',
-    },
-    font: {
-      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -171,15 +166,15 @@ export const customSubHeaderConfig = {
 };
 
 export const VyperStyles = {
+  name: 'vyper',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/vyper/vyperLogoFlat.svg',
-  favicon: 'https://images.peeranha.io/communities/vyper/vyper-favicon.ico',
-
+  signUpPageLogo: 'https://images.peeranha.io/communities/vyper/logo.svg',
   colors: {
+    appWindowsColor: '#dfeeff',
+    appSafarieColor: '#637761',
     mainSubHeaderBgColor: '#FAFAFD',
     mainBackground: '#EDEDEE',
     linkColor: '#637761',
@@ -203,14 +198,6 @@ export const VyperStyles = {
     textColorShadow: '#637761',
     commHeadElemColor: '#637761',
     newPostButtonText: '#fff',
-  },
-  fonts: {
-    h3: `${fonts}`,
-    main: `${fonts}`,
-    questionItemTitle: `${fonts}`,
-    questionTitleFont: `${fonts}`,
-    mainLinksSelected: `${fonts}`,
-    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: 'linear-gradient(82.09deg, #637761 56.19%, #B4B7B4 147.29%);',

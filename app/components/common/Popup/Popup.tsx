@@ -13,6 +13,7 @@ const Popup: React.FC<PopupProps> = ({
   header,
   className,
   isTransition = true,
+  withoutClose = true,
 }) => {
   const [style, setStyle] = useState({});
   const stopPropagation = (e: React.SyntheticEvent): void => {
@@ -34,7 +35,7 @@ const Popup: React.FC<PopupProps> = ({
           ...classes.popup,
           ...classes[size],
         }}
-        onClick={onClose}
+        onClick={withoutClose && onClose}
       >
         <div
           style={style}
@@ -53,7 +54,7 @@ const Popup: React.FC<PopupProps> = ({
             <div css={classes.header}>
               {title && <h1 className="line-clamp-1 tc">{title}</h1>}
               <div className={cn('pa cup df aic jcc')} css={classes.close}>
-                <CloseIcon onClick={onClose} />
+                <CloseIcon onClick={onClose} size={[16, 16]} />
               </div>
             </div>
           )}

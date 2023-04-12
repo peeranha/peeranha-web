@@ -13,5 +13,9 @@
   "somebodyLeftACommentToYourQuestion": "Tu publicación fue comentada",
   "somebodyLeftACommentToYourAnswer": "Tu respuesta fue comentada",
   "yourQuestionWasTipped": "Tu publicación recibió propina {{cantidad}}",
-  "yourAnswerWasTipped": "Tu respuesta recibió propina {{cantidad}}"
+  "yourAnswerWasTipped": "Tu respuesta recibió propina {{cantidad}}",
+  "yourPostTypeWasChanged": "Tu tipo de publicación fue cambiada",
+  "communityWasChanged": "Tu publicación fue movida",
+  "communityChangedFromTo": "de {{previousCommunity}} a {{currentCommunity}} comunidad",
+  "postTypeChangedFromTo": "de {{previousPostType}} a {{postType}}"
 }

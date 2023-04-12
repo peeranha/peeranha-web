@@ -1,8 +1,89 @@
 import React from 'react';
 import { css } from 'styled-components';
+import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
+import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
-const fonts = 'Verdana-Regular, Arial, sans-serif';
-const domainName = 'https://polygon.technology/';
+import { domainName, domainDocs, domainBlog } from 'communities-configs/polygon/urls';
+import favicon from '!file-loader?name=[name].[ext]!images/favicon-polygon.png';
+
+const fonts = 'General Sans, sans-serif;';
+const links = [
+  {
+    text: 'Scaling Solutions',
+    subitems: [
+      {
+        text: 'Polygon PoS',
+        href: `${domainName}solutions/polygon-pos`,
+        logo: 'polygonPoS',
+        description: 'An EVM enabled sidechain',
+        mode: '',
+      },
+      {
+        text: 'Polygon Edge',
+        href: `${domainName}solutions/polygon-edge`,
+        logo: 'polygonEdge',
+        description: 'A modular and extensible framework',
+        mode: '',
+      },
+      {
+        text: 'Polygon Avail',
+        href: `${domainName}solutions/polygon-avail`,
+        logo: 'polygonAvail',
+        description: 'A Scalable, data availability Blockchain',
+        mode: 'Development',
+      },
+      {
+        text: 'Polygon Zero',
+        href: `${domainName}solutions/polygon-zero`,
+        logo: 'polygonZero',
+        description: 'A zk Rollup with the speed of Plonky2',
+        mode: 'Development',
+      },
+      {
+        text: 'Polygon Miden',
+        href: `${domainName}solutions/polygon-miden`,
+        logo: 'polygonMiden',
+        description: 'A STARK-based, zk Rollup',
+        mode: 'Development',
+      },
+      {
+        text: 'Polygon Hermez',
+        href: `${domainName}solutions/polygon-Hermez`,
+        logo: 'polygonHermez',
+        description: 'An open-source zk Rollup',
+        mode: '',
+      },
+      {
+        text: 'Polygon Nightfall',
+        href: `${domainName}solutions/polygon-nightfall`,
+        logo: 'polygonNightfall',
+        description: 'A Privacy-focused Rollup for Enterprises',
+        mode: 'Testnet',
+      },
+    ],
+  },
+  {
+    text: 'Developers',
+    href: `${domainName}developers`,
+  },
+  {
+    text: 'Ecosystem',
+    href: `${domainName}ecosystem`,
+  },
+  {
+    text: 'Community',
+    href: `${domainName}community`,
+  },
+  {
+    text: 'Blogs',
+    href: `${domainBlog}`,
+  },
+  {
+    text: 'Get Started',
+    href: `${domainDocs}`,
+    isHighlighted: true,
+  },
+];
 
 export const customSubHeaderConfig = {
   design: 'polygonStyle',
@@ -43,7 +124,7 @@ export const customSubHeaderConfig = {
     `,
     subitems: css`
       width: 720px;
-      height: 312px;
+      height: 312;
       padding: 0;
       border: none !important;
       border-radius: 0 !important;
@@ -61,7 +142,7 @@ export const customSubHeaderConfig = {
       }
       div {
         opacity: 1;
-        background-color: rgba(255, 255, 255, 1);
+        background-color: 'linear-gradient(180deg, #0F0E11 0%, #0A090D 21.76%)';
         border-top: 2px solid #7b3fe4;
         margin-top: 20px;
         padding: 1rem 2rem;
@@ -125,7 +206,6 @@ export const customSubHeaderConfig = {
         }
         div {
           border-top: none;
-
           margin-top: 10px;
           padding: 0;
           opacity: 0.9;
@@ -137,17 +217,26 @@ export const customSubHeaderConfig = {
       }
     `,
   },
+  links,
 };
 
 export const PolygonStyles = {
-  documentationPosition: 'top',
+  name: 'polygon',
+  documentationPosition: 'bottom',
   withoutCopyright: true,
   withoutSubHeader: true,
   poweredByPeeranha: true,
+  logoWhite: true,
   withoutAdditionalLinks: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/polygon/polygon-logo.svg',
-  favicon: 'https://images.peeranha.io/communities/polygon/favicon-polygon.png',
+  signUpPageLogo: 'https://images.peeranha.io/communities/polygon/logo-signUp.svg',
+  favicon,
+  mobileSubHeader: (
+    <CustomMobileSubHeader
+      config={customSubHeaderConfig}
+      logo={'https://images.peeranha.io/communities/polygon/logo.svg'}
+    />
+  ),
+  customSubHeader: <CustomSubHeader config={customSubHeaderConfig} />,
   withoutFAQ: true,
   fonts: {
     h3LetterSpacing: '0.5px',
@@ -159,27 +248,58 @@ export const PolygonStyles = {
     questionTitleFont: `${fonts}`,
   },
   colors: {
-    blue: '#5D6DFE',
+    appWindowsColor: '#000000',
+    appSafarieColor: '#000000',
+    mainSubHeaderBgColor: 'linear-gradient(120.21deg, #0A090D 17.55%, #7845D0 99.46%)',
+    blue: '#843bed',
+    backgroundSpecial: '#f6f6f3',
+    white: '#f6f6f3',
+    sectionHeader: '#f6f6f3',
+    formColor: '#f6f6f3',
+    baseShadow: 'rgba(224,219,246,0.4)',
+
+    mainLinksColor: '#843bed',
+
+    headerShadow: 'rgba(255,255,255,0)',
+    commentOption: '#843bed',
+    linkColorSecondary: '#141217',
+    linkColor: '#843bed',
+
+    pinnedPostBackground: 'rgb(123 63 228 / 30%)',
     blueRGB: '93,109,254',
-    black: '#02003D',
-    darkBlue: '#5D6DFE',
-    mainBackground: '#F3F3F3',
-    linkColor: '#7b3fe4',
-    linkColorTransparent: 'rgba(123, 63, 228, 0.4)',
-    headerPrimary: '#7b3fe4',
-    commentOption: '#7b3fe4',
-    contentHeader: '#7b3fe4',
+    warningLight: '#FF4026',
+    darkBlue: 'rgb(123, 63, 228)',
+    mainBackground: '#312246',
     blockedInfoArea: 'rgba(123, 63, 228, 0.1)',
+
     transparentIconColor: '#b19bdd',
-    loaderColor: '#7b3fe4',
-    votingIconColor: '#7b3fe4',
-    walletButton: '#7b3fe4',
-    btnColor: '#7b3fe4',
-    tagColor: '#7b3fe4',
-    successColor: '#55C3B3',
-    lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
-    secondaryLight: '#5D6DFE',
+    loaderColor: '#843bed',
+    votingIconColor: '#843bed',
+    walletButton: '#843bed',
+    btnColor: '#843bed',
+    tagColor: '#843bed',
+
+    linkColorTransparent: '#843bed',
+    btnHeaderHoverColor: '#843bed',
+    textColor: '#843bed',
+    textColorShadow: '#843bed',
   },
+  cookieConsentPopupStyles: {
+    background: 'linear-gradient(113.4deg, #6C2FD6 -39.96%, #141217 90.62%);',
+    color: '#fff',
+    button: {
+      color: '#101016',
+      background: '#FFFFFF',
+      border: '1px solid #FFF',
+      ':hover': {
+        opacity: '0.75',
+        color: '#000',
+        background: '#FFFFFF',
+      },
+    },
+  },
+
+  communityBorderStyle: '2px solid #843bed',
   coinsIconStyles: css`
     ellipse {
       stroke: #7b3fe4;
@@ -191,8 +311,32 @@ export const PolygonStyles = {
       fill: #ff422a;
     }
   `,
+
+  dropDownIconStyles: css`
+    path {
+      stroke: #843bed !important;
+      stroke-width: 1.5px;
+      fill: none !important;
+    }
+    circle {
+      stroke: #843bed;
+      stroke-width: 1.5px;
+      fill: none;
+    }
+  `,
+  headerLoginButtonStyles: css`
+    background: rgba(255, 255, 255, 0);
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    :hover {
+      background: '#843bed' !important;
+      border: 2px solid #843bed;
+    !important;
+    }
+  `,
+
   headerHeight: 80,
-  projectBorderRadius: '50px',
+  projectBorderRadius: '10px',
   customSubHeaderConfig,
   domainName,
 };

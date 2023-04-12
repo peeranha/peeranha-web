@@ -45,8 +45,8 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { achievementsArr } from './constants';
 
 const BaseRoundedStyled = styled(BaseRounded)`
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 `;
 
 const AchievementsBlockStyles = css`
@@ -113,9 +113,7 @@ const Achievements = ({
 
       {!achievementsLoading && achievements.length > 0 && (
         <UniqueAchievementsWrapper>
-          <UniqueAchievementsTitle>
-            {t('common.limitedEdition')}
-          </UniqueAchievementsTitle>
+          <UniqueAchievementsTitle>{t('common.limitedEdition')}</UniqueAchievementsTitle>
 
           <UniqueAchievementsBlock>
             {/* TODO revert for PROD */}
@@ -124,19 +122,19 @@ const Achievements = ({
                 achievement.name !== 'error IPFS2' && (
                   <UniqueAchievement
                     reached={userAchievements.some(
-                      (achievementId) =>
-                        Number(achievementId) === achievement.id,
+                      (achievementId) => Number(achievementId) === achievement.id,
                     )}
                     key={achievement.id}
                     maxCount={achievement.maxCount}
                     factCount={achievement.factCount}
                     currentValue={profile?.highestRating?.rating || null}
-                    lowerValue={achievementsArr[index].lowerValue}
+                    lowerValue={achievement.lowerValue}
                     name={achievement.name}
                     description={achievement.description}
                     image={achievement.image}
                     id={achievement.id}
                     achievementURI={achievement.achievementURI}
+                    achievementsType={achievement.achievementsType}
                     locale={locale}
                     currentUser={profile?.id === userId}
                   />
@@ -183,18 +181,9 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
-  getUserAchievementsDispatch: bindActionCreators(
-    getUserAchievements,
-    dispatch,
-  ),
-  setViewProfileAccountDispatch: bindActionCreators(
-    setViewProfileAccount,
-    dispatch,
-  ),
-  resetViewProfileAccountDispatch: bindActionCreators(
-    resetViewProfileAccount,
-    dispatch,
-  ),
+  getUserAchievementsDispatch: bindActionCreators(getUserAchievements, dispatch),
+  setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
+  resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

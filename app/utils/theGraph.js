@@ -14,10 +14,12 @@ import {
   historiesQuery,
   postQuery,
   postsByCommQuery,
+  postsByCommAndTagsQuery,
   postsForSearchQuery,
   postsQuery,
   rewardsQuery,
   tagsQuery,
+  tagsByIdsQuery,
   userPermissionsQuery,
   userQuery,
   usersAnswersQuery,
@@ -63,11 +65,7 @@ export const getModerators = async (roles) => {
   return [...administrators?.data.userPermissions];
 };
 
-export const getUsersByCommunity = async ({
-  limit = 50,
-  skip,
-  communityId,
-}) => {
+export const getUsersByCommunity = async ({ limit = 50, skip, communityId }) => {
   const users = await client.query({
     query: gql(usersByCommunityQuery),
     variables: {
@@ -182,6 +180,16 @@ export const getTags = async (communityId) => {
   return tags?.data.tags;
 };
 
+export const getTagsByIds = async (ids) => {
+  const tags = await client.query({
+    query: gql(tagsByIdsQuery),
+    variables: {
+      ids,
+    },
+  });
+  return tags?.data.tags;
+};
+
 export const getPosts = async (limit, skip, postTypes) => {
   const posts = await client.query({
     query: gql(postsQuery),
@@ -198,22 +206,29 @@ export const getPosts = async (limit, skip, postTypes) => {
   }));
 };
 //
-export const getPostsByCommunityId = async (
-  limit,
-  skip,
-  postTypes,
-  communityIds,
-) => {
-  const posts = await client.query({
-    query: gql(postsByCommQuery),
-    variables: {
-      communityIds,
-      first: limit,
-      skip,
-      postTypes,
-    },
-    fetchPolicy: 'network-only',
-  });
+export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds, tags) => {
+  const posts = tags?.length
+    ? await client.query({
+        query: gql(postsByCommAndTagsQuery),
+        variables: {
+          communityIds,
+          first: limit,
+          skip,
+          postTypes,
+          tags,
+        },
+        fetchPolicy: 'network-only',
+      })
+    : await client.query({
+        query: gql(postsByCommQuery),
+        variables: {
+          communityIds,
+          first: limit,
+          skip,
+          postTypes,
+        },
+        fetchPolicy: 'network-only',
+      });
 
   return posts?.data.posts.map((rawPost) => {
     const post = { ...rawPost, answers: rawPost.replies };
@@ -247,10 +262,7 @@ export const getCommunityDocumentation = async (id) => {
   return post?.data.post;
 };
 
-export const getCommunityDocumentationNotIncluded = async (
-  communityId,
-  includedIds,
-) => {
+export const getCommunityDocumentationNotIncluded = async (communityId, includedIds) => {
   const post = await client.query({
     query: gql(communityDocumentationNotIncludedQuery),
     variables: {
@@ -312,9 +324,7 @@ export const postsForSearch = async (text, single) => {
     },
   });
   return posts?.data?.postSearch.filter(
-    (post) =>
-      !post.isDeleted &&
-      (single ? Number(post.communityId) === Number(single) : true),
+    (post) => !post.isDeleted && (single ? Number(post.communityId) === Number(single) : true),
   );
 };
 
@@ -343,11 +353,7 @@ export const getRewardStat = async (userId, ethereumService) => {
     },
     fetchPolicy: 'network-only',
   });
-  return [
-    response?.data?.userRewards,
-    response?.data?.periods,
-    response?.data?.user,
-  ];
+  return [response?.data?.userRewards, response?.data?.periods, response?.data?.user];
 };
 
 export const getCurrentPeriod = async () => {

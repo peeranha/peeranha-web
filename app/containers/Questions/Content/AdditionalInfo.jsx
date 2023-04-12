@@ -26,6 +26,11 @@ import { singleCommunityColors } from 'utils/communityManagement';
 const colors = singleCommunityColors();
 
 const Container = styled.div`
+  background: ${colors.additionalInfoBackground || ''};
+  border-top-left-radius: ${({ notRoundedStyle }) =>
+    notRoundedStyle ? 'none' : BORDER_RADIUS_L} !important;
+  border-bottom-left-radius: ${({ notRoundedStyle }) =>
+    notRoundedStyle ? 'none' : BORDER_RADIUS_L} !important;
   display: flex;
   flex-grow: 0;
   flex-direction: column;
@@ -77,7 +82,7 @@ const Div = Base.extend`
     }
   }
 
-  background: ${x => (x.isAccepted ? BG_SUCCESS_LIGHT : BG_TRANSPARENT)};
+  background: ${(x) => (x.isAccepted ? BG_SUCCESS_LIGHT : BG_TRANSPARENT)};
 `;
 
 const AdditionalInfo = ({
@@ -89,16 +94,13 @@ const AdditionalInfo = ({
   isSearchPage,
   isTutorial,
 }) => {
-  const icon = useMemo(
-    () => {
-      if (officialAnswersCount) {
-        return officialIcon;
-      }
+  const icon = useMemo(() => {
+    if (officialAnswersCount) {
+      return officialIcon;
+    }
 
-      return correctAnswerId ? bestAnswerIcon : answerIconEmptyInside;
-    },
-    [correctAnswerId],
-  );
+    return correctAnswerId ? bestAnswerIcon : answerIconEmptyInside;
+  }, [correctAnswerId]);
 
   const color = useMemo(
     () =>
@@ -117,10 +119,7 @@ const AdditionalInfo = ({
   );
 
   const formattedAnswerCount = useMemo(
-    () =>
-      isSearchPage
-        ? getFormattedNum(answersCount)
-        : getFormattedNum(answers.length),
+    () => (isSearchPage ? getFormattedNum(answersCount) : getFormattedNum(answers.length)),
     [answersCount],
   );
 
@@ -138,9 +137,7 @@ const AdditionalInfo = ({
       <Div>
         <span>
           <img src={src} alt="icon" />
-          <Span color={colors.linkColor || TEXT_PRIMARY_DARK}>
-            {formattedRating}
-          </Span>
+          <Span color={colors.linkColor || TEXT_PRIMARY_DARK}>{formattedRating}</Span>
         </span>
       </Div>
     </Container>
