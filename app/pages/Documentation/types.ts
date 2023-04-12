@@ -27,6 +27,7 @@ export type DocumentationArticle = {
   id: string;
   title: string;
   content: string;
+  lastmod?: string;
 };
 
 export type OutputSelector = {

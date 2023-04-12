@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -20,11 +14,7 @@ import injectReducer from 'utils/injectReducer';
 
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
-import {
-  BG_LIGHT,
-  BORDER_SECONDARY_LIGHT,
-  BORDER_RADIUS_L,
-} from 'style-constants';
+import { BG_LIGHT, BORDER_SECONDARY_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 
 import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
@@ -52,9 +42,7 @@ import Wrapper from '../Header/Complex';
 import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
-import WidthCentered, {
-  LoaderContainer,
-} from '../LoadingIndicator/WidthCentered';
+import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
 import classnames from 'classnames';
 
 const Container = styled.div`
@@ -116,11 +104,8 @@ const Notifications = ({
   const containerRef = useRef(null);
 
   // Temporary fix, will be removed in PEER-682
-  const notifications = allNotifications.filter(
-    ({ type }) => NOTIFICATIONS_DATA[type],
-  );
-  const allCount =
-    allCountUnfiltered - (allNotifications.length - notifications.length);
+  const notifications = allNotifications.filter(({ type }) => NOTIFICATIONS_DATA[type]);
+  const allCount = allCountUnfiltered - (allNotifications.length - notifications.length);
 
   useEffect(() => {
     markAsReadNotificationsAllDispatch([
@@ -147,10 +132,7 @@ const Notifications = ({
   const recalculateRanges = useCallback(() => {
     const range = `${indexToStart}-${indexToStop}-${rowHeight}`;
 
-    const union = rangeUnionWithIntersection(readNotifications, [
-      indexToStart,
-      indexToStop,
-    ]);
+    const union = rangeUnionWithIntersection(readNotifications, [indexToStart, indexToStop]);
 
     /*
      * TODO: Fix bug with reading notifications, information in Notification center and Dropdown
@@ -232,10 +214,7 @@ const Notifications = ({
       </Wrapper>
 
       {Boolean(allCount) && (
-        <Content
-          innerRef={containerRef}
-          height={notifications.length * rowHeight + ROW_HEIGHT}
-        >
+        <Content innerRef={containerRef} height={notifications.length * rowHeight + ROW_HEIGHT}>
           {Boolean(unreadCount) ? (
             <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
               <MarkAllAsReadButton />
@@ -306,18 +285,12 @@ export default React.memo(
         unreadCount: unreadNotificationsCount()(state),
       }),
       (dispatch) => ({
-        loadMoreNotificationsDispatch: bindActionCreators(
-          loadMoreNotifications,
-          dispatch,
-        ),
+        loadMoreNotificationsDispatch: bindActionCreators(loadMoreNotifications, dispatch),
         markAsReadNotificationsAllDispatch: bindActionCreators(
           markAsReadNotificationsAll,
           dispatch,
         ),
-        filterReadNotificationsDispatch: bindActionCreators(
-          filterReadTimestamps,
-          dispatch,
-        ),
+        filterReadNotificationsDispatch: bindActionCreators(filterReadTimestamps, dispatch),
       }),
     ),
   )(Notifications),

@@ -15,10 +15,7 @@ type PaginationType = {
   page: number;
 };
 
-const usePagination = ({
-  contentPerPage,
-  count,
-}: PaginationPropsType): PaginationType => {
+const usePagination = ({ contentPerPage, count }: PaginationPropsType): PaginationType => {
   const [page, setPage] = useState<number>(1);
 
   const pageCount = Math.ceil(count / contentPerPage);

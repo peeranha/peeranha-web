@@ -10,15 +10,7 @@ const ReloadRounded: React.FC<IconProps> = (props): JSX.Element => (
     size={[15, 15]}
   >
     <g fill="none">
-      <rect
-        x="0.5"
-        y="0.5"
-        width="14"
-        height="14"
-        rx="7"
-        fill="#7699FF"
-        fillOpacity="0.2"
-      />
+      <rect x="0.5" y="0.5" width="14" height="14" rx="7" fill="#7699FF" fillOpacity="0.2" />
       <path
         d="M11.1591 7.41939C11.1591 9.48197 9.47688 11.16 7.40909 11.16C6.28494 11.16 5.22813 10.6562 4.51852 9.79975H6.20455V9.4597H4V11.66H4.34091V10.1184C5.11307 10.9911 6.2275 11.5 7.40909 11.5C9.66489 11.5 11.5 9.66934 11.5 7.41939H11.1591Z"
         fill={props.fill || '#282828'}
@@ -31,14 +23,7 @@ const ReloadRounded: React.FC<IconProps> = (props): JSX.Element => (
         stroke={props.stroke || '#282828'}
         strokeWidth="0.7"
       />
-      <rect
-        x="0.5"
-        y="0.5"
-        width="14"
-        height="14"
-        rx="7"
-        stroke={props.stroke || '#282828'}
-      />
+      <rect x="0.5" y="0.5" width="14" height="14" rx="7" stroke={props.stroke || '#282828'} />
     </g>
   </IconComponent>
 );

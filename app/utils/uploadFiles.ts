@@ -8,10 +8,7 @@ export const uploadImagesToIpfs = async (
   setMediaLink: (link: string) => void,
   setFileFailedUploadStatus: (fileName: string) => void,
   setFileSuccessfulUploadStatus: (fileName: string, fileUrl: string) => void,
-  setFileAbortController: (
-    fileName: string,
-    abortController: AbortController,
-  ) => void,
+  setFileAbortController: (fileName: string, abortController: AbortController) => void,
   setFileUploadingStatus: (fileName: string) => void,
 ): Promise<void> => {
   const reader = new FileReader();
@@ -69,10 +66,7 @@ export const uploadVideoToLivepeer = async (
 
       onProgress(bytesUploaded, bytesTotal) {
         const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed();
-        setFileUploadProgress(
-          file.name,
-          percentage === '100' ? '99' : percentage,
-        );
+        setFileUploadProgress(file.name, percentage === '100' ? '99' : percentage);
       },
 
       onSuccess() {
@@ -83,10 +77,7 @@ export const uploadVideoToLivepeer = async (
           if (assetInfo.data.status.phase !== ('processing' || 'waiting')) {
             setFileUploadProgress(file.name, '100');
             clearInterval(getAssetInfoInterval);
-            setFileSuccessfulUploadStatus(
-              file.name,
-              `https://lvpr.tv?v=${playbackId}&autoplay=0`,
-            );
+            setFileSuccessfulUploadStatus(file.name, `https://lvpr.tv?v=${playbackId}&autoplay=0`);
             setMediaLink(
               `<br><iframe src="https://lvpr.tv?v=${playbackId}&autoplay=0" allowfullscreen style="min-width:50%;"></iframe><br>`,
             );

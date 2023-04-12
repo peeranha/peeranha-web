@@ -1,11 +1,6 @@
 import { injectGlobal } from 'styled-components';
 import reset from './reset-css';
-import {
-  BG_PRIMARY_LIGHT,
-  BG_LIGHT,
-  APP_FONT,
-  FACEBOOK_MAIN,
-} from 'style-constants';
+import { BG_PRIMARY_LIGHT, BG_LIGHT, APP_FONT, FACEBOOK_MAIN } from 'style-constants';
 
 import _get from 'lodash/get';
 
@@ -13,8 +8,7 @@ import { singleCommunityStyles } from './utils/communityManagement';
 
 const styles = singleCommunityStyles();
 
-const getItalicFont = () =>
-  /iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'normal' : 'italic';
+const getItalicFont = () => (/iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'normal' : 'italic');
 export const italicFont = getItalicFont();
 
 /* eslint no-unused-expressions: 0 */

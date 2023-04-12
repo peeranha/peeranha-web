@@ -15,10 +15,7 @@ import {
   singleCommunityColors,
   singleCommunityDocumentation,
 } from 'utils/communityManagement';
-import {
-  DocumentationSection,
-  PinnedArticleType,
-} from 'pages/Documentation/types';
+import { DocumentationSection, PinnedArticleType } from 'pages/Documentation/types';
 import { EditArticleType } from 'components/Documentation/types';
 
 const documentationColors = singleCommunityDocumentation();
@@ -48,10 +45,7 @@ const EditDocumentation = [
     label: 'common.editDocumentation',
     value: 1,
     icon: (
-      <EditIcon
-        stroke={documentationColors.linkColor}
-        fill={documentationColors.iconsFillColor}
-      />
+      <EditIcon stroke={documentationColors.linkColor} fill={documentationColors.iconsFillColor} />
     ),
   },
 ];
@@ -61,20 +55,14 @@ const DropdownDocumentation = [
     label: 'common.addNewArticle',
     value: 2,
     icon: (
-      <PlusIcon
-        stroke={documentationColors.linkColor}
-        fill={documentationColors.iconsFillColor}
-      />
+      <PlusIcon stroke={documentationColors.linkColor} fill={documentationColors.iconsFillColor} />
     ),
   },
   {
     label: 'common.editOrder',
     value: 3,
     icon: (
-      <EditIcon
-        stroke={documentationColors.linkColor}
-        fill={documentationColors.iconsFillColor}
-      />
+      <EditIcon stroke={documentationColors.linkColor} fill={documentationColors.iconsFillColor} />
     ),
   },
 ];
@@ -119,9 +107,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
 
   return (
     <div>
-      {!isEditDocumentation && documentationPosition !== 'top' && (
-        <div css={css(styles.divider)} />
-      )}
+      {!isEditDocumentation && documentationPosition !== 'top' && <div css={css(styles.divider)} />}
       <div
         className={cn('df jcsb pl15', {
           mt28:
@@ -139,14 +125,8 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
         {Boolean(isModeratorModeSingleCommunity) && (
           <div className="dropdown-documentation db mr4">
             <Dropdown
-              trigger={
-                <AddCommentIcon
-                  css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }}
-                />
-              }
-              options={
-                isEditDocumentation ? DropdownDocumentation : EditDocumentation
-              }
+              trigger={<AddCommentIcon css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }} />}
+              options={isEditDocumentation ? DropdownDocumentation : EditDocumentation}
               isMultiple={false}
               isEqualWidth={false}
               onSelect={clickDocumentation()}
@@ -175,9 +155,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           documentationMenu={documentationMenu}
         />
       ))}
-      {!isEditDocumentation && documentationPosition === 'top' && (
-        <div css={css(styles.divider)} />
-      )}
+      {!isEditDocumentation && documentationPosition === 'top' && <div css={css(styles.divider)} />}
     </div>
   );
 };

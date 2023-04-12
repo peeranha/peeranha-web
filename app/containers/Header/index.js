@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
@@ -19,11 +16,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
-import {
-  WHAT_IS_ENERGY,
-  HOW_TO_CHARGE,
-  VALUE_OF_ACTIONS,
-} from 'containers/Faq/constants';
+import { WHAT_IS_ENERGY, HOW_TO_CHARGE, VALUE_OF_ACTIONS } from 'containers/Faq/constants';
 
 import View from './View';
 import { HEADER_ID } from './constants';
@@ -65,9 +58,7 @@ export class Header extends React.PureComponent {
             document.querySelector(`#${LEFT_MENU_ID}`).classList.add('sticky');
           } else {
             document.querySelector(`#${HEADER_ID}`).classList.remove('sticky');
-            document
-              .querySelector(`#${LEFT_MENU_ID}`)
-              .classList.remove('sticky');
+            document.querySelector(`#${LEFT_MENU_ID}`).classList.remove('sticky');
           }
         }
 
@@ -101,9 +92,7 @@ export class Header extends React.PureComponent {
       <View
         account={account}
         profileInfo={profileInfo}
-        showLoginModalDispatch={() =>
-          loginWithWalletDispatch({ metaMask: true })
-        }
+        showLoginModalDispatch={() => loginWithWalletDispatch({ metaMask: true })}
         showLoginModalWithRedirectToAskQuestionPage={() =>
           loginWithWalletDispatch({ metaMask: true }, true)
         }
@@ -136,11 +125,7 @@ const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
   profileInfo: makeSelectProfileInfo(),
   isMenuVisible: selectIsMenuVisible(),
-  faqQuestions: selectFaqQuestions([
-    WHAT_IS_ENERGY,
-    HOW_TO_CHARGE,
-    VALUE_OF_ACTIONS,
-  ]),
+  faqQuestions: selectFaqQuestions([WHAT_IS_ENERGY, HOW_TO_CHARGE, VALUE_OF_ACTIONS]),
   isTransactionInPending: selectTransactionInPending(),
   transactionHash: selectTransactionHash(),
   transactionInitialised: selectTransactionInitialised(),
@@ -153,14 +138,8 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
-    redirectToAskQuestionPageDispatch: bindActionCreators(
-      redirectToAskQuestionPage,
-      dispatch,
-    ),
-    toggleEditDocumentationDispatch: bindActionCreators(
-      toggleEditDocumentation,
-      dispatch,
-    ),
+    redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
+    toggleEditDocumentationDispatch: bindActionCreators(toggleEditDocumentation, dispatch),
     changeLocale: bindActionCreators(changeLocale, dispatch),
   };
 }

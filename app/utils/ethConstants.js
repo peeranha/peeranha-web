@@ -35,13 +35,10 @@ export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
 export const VOTE_ITEM = 'voteItem';
 export const CLAIM_REWARD = 'claimReward';
 export const SET_STAKE = 'setStake';
-export const GIVE_COMMUNITY_MODERATOR_PERMISSION =
-  'giveCommunityModeratorPermission';
-export const REVOKE_COMMUNITY_MODERATOR_PERMISSION =
-  'revokeCommunityModeratorPermission';
+export const GIVE_COMMUNITY_MODERATOR_PERMISSION = 'giveCommunityModeratorPermission';
+export const REVOKE_COMMUNITY_MODERATOR_PERMISSION = 'revokeCommunityModeratorPermission';
 export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
-export const REVOKE_COMMUNITY_ADMIN_PERMISSION =
-  'revokeCommunityAdminPermission';
+export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
 
 // Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
@@ -139,6 +136,7 @@ const post = `
     commentCount
     replyCount
     isDeleted
+    lastmod
     officialReply
     bestReply
     isFirstReply
@@ -522,6 +520,7 @@ export const postsForSearchQuery = `
         commentCount
         replyCount
         isDeleted
+        lastmod
         officialReply
         bestReply
         isFirstReply
@@ -532,7 +531,7 @@ export const postsForSearchQuery = `
 
 export const postQuery = `
       query (
-        $postId: Int,
+        $postId: String,
       ) {
         post (
           id: $postId,

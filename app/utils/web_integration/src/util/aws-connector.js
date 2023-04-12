@@ -24,8 +24,7 @@ const CHANGE_PASSWORD_CONFIRM_SERVICE = 'account/change-password';
 
 const REGISTER_WITH_FACEBOOK_SERVICE = 'wallet/register/facebook';
 const LOGIN_WITH_FACEBOOK_SERVICE = 'wallet/login/facebook';
-const DELETE_FACEBOOK_ACCOUNT_SERVICE =
-  'wallet/change-credentials/delete-facebook-account';
+const DELETE_FACEBOOK_ACCOUNT_SERVICE = 'wallet/change-credentials/delete-facebook-account';
 const SEND_FB_VERIFICATION_CODE_SERVICE = 'wallet/facebook/verify-facebook';
 const GET_FACEBOOK_PRIVATE_KEY_SERVICE = 'wallet/facebook/get-fb-private-key';
 const CHECK_FACEBOOK_DATA_SERVICE = 'wallet/facebook/check-facebook-data';

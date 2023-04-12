@@ -9,9 +9,7 @@ import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 import pencilIcon from 'images/pencil.svg?external';
 import closeIcon from 'images/closeCircle.svg?external';
 
-import NavigationButton, {
-  NavigationLink,
-} from 'components/Button/Contained/Navigation';
+import NavigationButton, { NavigationLink } from 'components/Button/Contained/Navigation';
 import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
@@ -72,23 +70,16 @@ const UserNavigation = ({
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
-    if (
-      hashes.includes(window.location.hash) ||
-      path === routes.profileView(userId)
-    ) {
+    if (hashes.includes(window.location.hash) || path === routes.profileView(userId)) {
       window.scrollTo(0, 0);
     }
   }, [window.location.hash]);
 
   const isProfilePage =
     userId === account &&
-    (path === routes.profileView(account) ||
-      path === routes.userCommunities(account));
+    (path === routes.profileView(account) || path === routes.userCommunities(account));
 
-  const isModerator = useMemo(
-    () => !!getPermissions(profile)?.length,
-    [profile],
-  );
+  const isModerator = useMemo(() => !!getPermissions(profile)?.length, [profile]);
 
   const redirectToEditProfilePageWrapper =
     (user) =>
@@ -102,10 +93,7 @@ const UserNavigation = ({
   return (
     <Wrapper position="top" ref={ref}>
       <Ul>
-        <Div
-          className="d-flex align-items-center"
-          isProfilePage={isProfilePage}
-        >
+        <Div className="d-flex align-items-center" isProfilePage={isProfilePage}>
           <ScrollContainer>
             <NavigationLink
               to={routes.profileView(userId)}
@@ -134,11 +122,7 @@ const UserNavigation = ({
                     <Span
                       className="ml-1"
                       fontSize="14"
-                      color={
-                        path !== routes.userQuestions(userId)
-                          ? TEXT_SECONDARY
-                          : 'inherit'
-                      }
+                      color={path !== routes.userQuestions(userId) ? TEXT_SECONDARY : 'inherit'}
                       key="0"
                     />,
                   ]}
@@ -160,11 +144,7 @@ const UserNavigation = ({
                     <Span
                       className="ml-1"
                       fontSize="14"
-                      color={
-                        path !== routes.userAnswers(userId)
-                          ? TEXT_SECONDARY
-                          : 'inherit'
-                      }
+                      color={path !== routes.userAnswers(userId) ? TEXT_SECONDARY : 'inherit'}
                       key="0"
                     />,
                   ]}
@@ -192,11 +172,7 @@ const UserNavigation = ({
                     <Span
                       className="ml-1"
                       fontSize="14"
-                      color={
-                        path !== routes.userNFTs(userId)
-                          ? TEXT_SECONDARY
-                          : 'inherit'
-                      }
+                      color={path !== routes.userNFTs(userId) ? TEXT_SECONDARY : 'inherit'}
                       key="0"
                     />,
                   ]}
@@ -256,9 +232,7 @@ const UserNavigation = ({
         >
           <button
             onClick={redirectToEditProfilePageWrapper(userId)}
-            className={`align-items-center ${
-              isProfilePage ? 'd-inline-flex' : 'd-none'
-            }`}
+            className={`align-items-center ${isProfilePage ? 'd-inline-flex' : 'd-none'}`}
             css={css`
               margin-right: 23px;
               @media (min-width: 840px) {

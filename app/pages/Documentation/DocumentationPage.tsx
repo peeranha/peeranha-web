@@ -81,6 +81,7 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
         ) : (
           <ViewContent
             documentationArticle={documentationSection}
+            locale={locale}
             documentationMenu={documentationMenu}
           />
         )}

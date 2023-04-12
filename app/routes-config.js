@@ -1,7 +1,4 @@
-import {
-  isSingleCommunityWebsite,
-  getSingleCommunityDetails,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, getSingleCommunityDetails } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 import { POST_TYPE } from './utils/constants';
 import { updateTitle } from './utils/seo';
@@ -125,8 +122,7 @@ export const search = (q) => `/search/${q || ''}`;
 
 export const supportForm = () => '/support/#support_form';
 
-export const privacyPolicy = (section) =>
-  `/privacy-policy/${section ? `#${section}` : ''}`;
+export const privacyPolicy = (section) => `/privacy-policy/${section ? `#${section}` : ''}`;
 
 export const termsAndConditions = (section) =>
   `/terms-and-conditions/${section ? `#${section}` : ''}`;
@@ -141,17 +137,13 @@ export const communityTags = (communityId) =>
   !singleCommId ? `/communities/${communityId}/tags` : `/tags`;
 
 export const suggestedTags = (communityId) =>
-  !singleCommId
-    ? `/communities/${communityId}/tags/suggested`
-    : `/tags/suggested`;
+  !singleCommId ? `/communities/${communityId}/tags/suggested` : `/tags/suggested`;
 
 export const tagsCreate = (communityId) =>
   !singleCommId ? `/tags/community/${communityId || 0}/create` : `/tags/create`;
 
 export const editTag = (communityId, tagId) =>
-  !singleCommId
-    ? `/communities/${communityId}/tags/${tagId}/edit`
-    : `/tags/${tagId}/edit`;
+  !singleCommId ? `/communities/${communityId}/tags/${tagId}/edit` : `/tags/${tagId}/edit`;
 
 export const registrationStage = 'signup';
 
@@ -162,12 +154,7 @@ export const referralPage = (user) => `/?${REFERRAL_CODE_URI}=${user}`;
 export const documentation = (sectionId, title) =>
   `/documentation/${sectionId}/${updateTitle(title)}`;
 export const documentationStartPage = () => `/`;
-export const redirectRoutesForSCM = [
-  privacyPolicy(),
-  termsAndConditions(),
-  support(),
-  home(),
-];
+export const redirectRoutesForSCM = [privacyPolicy(), termsAndConditions(), support(), home()];
 
 export const signup = {
   email: {

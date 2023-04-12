@@ -60,6 +60,7 @@
   "allQuestions": "All posts",
   "manageMyComm": "See all communities",
   "asked": "Asked",
+  "lastUpdated": "Last updated on",
   "askedWhen": "Asked {{when}}",
   "answeredWhen": "Answered {{when}}",
   "somebodyAsked": "{{account}} asked",
