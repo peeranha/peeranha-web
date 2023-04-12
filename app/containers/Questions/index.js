@@ -120,19 +120,17 @@ export const Questions = ({
     postsTypes,
   ]);
   useEffect(() => {
-    if (page > 1) {
-      if (!questionFilter) {
-        const searchParamsTags = getSearchParams(history.location.search);
-        getQuestionsDispatch(
-          nextLoadedItems,
-          skip,
-          postsTypes,
-          searchParamsTags,
-          Number(params.communityid) || 0,
-          parentPage,
-          true,
-        );
-      }
+    if (page > 1 && !questionFilter) {
+      const searchParamsTags = getSearchParams(history.location.search);
+      getQuestionsDispatch(
+        nextLoadedItems,
+        skip,
+        postsTypes,
+        searchParamsTags,
+        Number(params.communityid) || 0,
+        parentPage,
+        true,
+      );
     }
   }, [page]);
 
@@ -243,7 +241,7 @@ export const Questions = ({
       {isTopCommunitiesDisplay && (
         <TopCommunities communities={communities} profile={profile} isTopCommunitiesOnly />
       )}
-      {questionsList.length <= 0 && displayLoader && <LoadingIndicator />}
+      {!questionsList.length && displayLoader && <LoadingIndicator />}
     </div>
   ) : (
     <NotFound />

@@ -100,8 +100,8 @@ export function* getQuestionsWorker({
     const followedCommunities = yield select(makeSelectFollowedCommunities());
 
     let questionsList = [];
-    let counter = 0;
-    counter += skip;
+    let counter = skip;
+
     if (single) {
       communityIdFilter = single;
     }

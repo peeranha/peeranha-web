@@ -1,14 +1,8 @@
 import React from 'react';
-import { styles } from './Pagination.styled';
-import { css } from '@emotion/react';
-import {
-  ButtonPagination,
-  StepButtonPagination,
-  ContinueButtonPagination,
-} from './ButtonPagination';
+import { ButtonPagination, StepButtonPagination } from './ButtonPagination';
 import prev from 'images/prev.svg?inline';
 import next from 'images/next.svg?inline';
-import useMediaQuery from 'hooks/useMediaQuery';
+import { START_DYNAMIC_PAGINATION } from 'containers/Questions/constants';
 
 type PaginationProps = {
   page: number;
@@ -25,9 +19,8 @@ const Pagination: React.FC<PaginationProps> = ({
   nextPage,
   setPage,
 }): JSX.Element => {
-  const isDesktop450 = useMediaQuery('(min-width: 451px)');
-  const lastPage = page === totalPages;
-  const startPage = page === 1;
+  const isLastPage = page === totalPages;
+  const isStartPage = page === 1;
   const scrollToTop = () => {
     setTimeout(
       () =>
@@ -59,11 +52,11 @@ const Pagination: React.FC<PaginationProps> = ({
       </>
     );
   }
-  if (totalPages > 4) {
+  if (totalPages > START_DYNAMIC_PAGINATION) {
     return (
       <>
         <div className="df aic jcc">
-          {!startPage && (
+          {!isStartPage && (
             <StepButtonPagination
               clickHandler={prevPage}
               src={prev}
@@ -71,18 +64,17 @@ const Pagination: React.FC<PaginationProps> = ({
               alt="prev"
             />
           )}
-          {(page > 2
-            ? [...Array(totalPages).keys()].slice(page - 3, page + 2)
-            : [...Array(totalPages).keys()].slice(0, 5)
-          ).map((element, index) => (
-            <ButtonPagination
-              page={page}
-              element={element}
-              clickHandler={setPage}
-              scrollToTop={scrollToTop}
-            />
-          ))}
-          {!lastPage && (
+          {[...Array(totalPages).keys()]
+            .slice(page > 2 ? page - 3 : 0, page > 2 ? page + 2 : 5)
+            .map((element) => (
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+                scrollToTop={scrollToTop}
+              />
+            ))}
+          {!isLastPage && (
             <StepButtonPagination
               clickHandler={nextPage}
               scrollToTop={scrollToTop}
