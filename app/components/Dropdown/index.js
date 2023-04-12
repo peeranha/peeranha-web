@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { DARK_SECONDARY } from 'style-constants';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
-import {
-  singleCommunityColors,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import Icon from 'components/Icon/index';
