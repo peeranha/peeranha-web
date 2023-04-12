@@ -141,8 +141,7 @@ export const styles = {
   },
 
   container: {
-    background:
-      'radial-gradient(97.64% 49.44% at 26.39% 52.51%, #A5BCFF 0%, #7692F6 100%)',
+    background: 'radial-gradient(97.64% 49.44% at 26.39% 52.51%, #A5BCFF 0%, #7692F6 100%)',
   },
 
   wrapper: {

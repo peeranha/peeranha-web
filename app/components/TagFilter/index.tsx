@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import {
-  PEER_PRIMARY_COLOR,
-  BORDER_RADIUS_L,
-  TEXT_LIGHT,
-} from 'style-constants';
+import { PEER_PRIMARY_COLOR, BORDER_RADIUS_L, TEXT_LIGHT } from 'style-constants';
 import { Tag } from 'components/TagsList';
 import ScrollContainer from 'components/ScrollContainer';
 
@@ -76,11 +72,9 @@ const TagFilter: React.FC<{
               css={css(styles.TagFilter)}
               style={{
                 ['--text-light' as any]: TEXT_LIGHT,
-                ['--color-borderColor' as any]:
-                  colors?.linkColor || PEER_PRIMARY_COLOR,
+                ['--color-borderColor' as any]: colors?.linkColor || PEER_PRIMARY_COLOR,
                 ['--border-radius' as any]: BORDER_RADIUS_L,
-                ['--background-style' as any]:
-                  colors?.linkColor || PEER_PRIMARY_COLOR,
+                ['--background-style' as any]: colors?.linkColor || PEER_PRIMARY_COLOR,
               }}
             >
               {tagsNames[tag]}

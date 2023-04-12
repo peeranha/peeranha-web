@@ -17,30 +17,16 @@ import {
 
 import { getModerators } from 'utils/theGraph';
 import { getCommunityRole } from 'utils/properties';
-import {
-  COMMUNITY_ADMIN_ROLE,
-  COMMUNITY_MODERATOR_ROLE,
-} from 'utils/constants';
-import {
-  giveRolePermission,
-  revokeRolePermission,
-} from 'utils/accountManagement';
+import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from 'utils/constants';
+import { giveRolePermission, revokeRolePermission } from 'utils/accountManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 
-export function* getModeratorsWorker(props: {
-  communityId: number;
-}): Generator<{}> {
+export function* getModeratorsWorker(props: { communityId: number }): Generator<{}> {
   try {
-    const moderatorRole = getCommunityRole(
-      COMMUNITY_MODERATOR_ROLE,
-      props.communityId,
-    );
+    const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, props.communityId);
     const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, props.communityId);
-    const moderators: any = yield call(getModerators, [
-      moderatorRole,
-      adminRole,
-    ]);
+    const moderators: any = yield call(getModerators, [moderatorRole, adminRole]);
 
     yield put(getModeratorsSuccess(moderators.sort()));
   } catch (err) {
@@ -94,10 +80,7 @@ export function* revokeRoleWorker(props: {
 
 export default function* () {
   // @ts-ignore
-  yield takeEvery(
-    [GET_MODERATORS, ADD_ROLE_SUCCESS, REVOKE_ROLE_SUCCESS],
-    getModeratorsWorker,
-  );
+  yield takeEvery([GET_MODERATORS, ADD_ROLE_SUCCESS, REVOKE_ROLE_SUCCESS], getModeratorsWorker);
   // @ts-ignore
   yield takeEvery(ADD_ROLE, addRoleWorker);
   // @ts-ignore

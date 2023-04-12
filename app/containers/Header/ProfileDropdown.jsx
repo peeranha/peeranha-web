@@ -8,10 +8,7 @@ import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 import { NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
-import {
-  singleCommunityColors,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import userBodyIconAvatar from 'images/user2.svg?external';
@@ -54,8 +51,7 @@ const NoAvatarBox = styled.div`
   width: 40px;
   height: 40px;
   border: ${({ isMobileVersion }) =>
-    (!isMobileVersion && styles.communityBorderStyle) ||
-    `1px solid ${BORDER_SECONDARY}`};
+    (!isMobileVersion && styles.communityBorderStyle) || `1px solid ${BORDER_SECONDARY}`};
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -87,10 +83,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         alt="avatar"
       />
     )}
-    <Info
-      className="d-flex flex-column justify-content-center"
-      isMenuVisible={isMenuVisible}
-    >
+    <Info className="d-flex flex-column justify-content-center" isMenuVisible={isMenuVisible}>
       <Span bold color={(!isMobileVersion && colors.commHeadElemColor) || ''}>
         {getUserName(profileInfo.displayName, profileInfo.loginData.account)}
       </Span>
@@ -102,28 +95,17 @@ export const Button = connect((state) => ({
   isMenuVisible: selectIsMenuVisible()(state),
 }))(B);
 
-const Menu = ({
-  profileInfo,
-  questionsLength,
-  questionsWithUserAnswersLength,
-}) => {
+const Menu = ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
   const { t } = useTranslation();
   const { user, loginData } = profileInfo;
 
-  const isModerator = useMemo(
-    () => !!getPermissions(profileInfo)?.length,
-    [profileInfo],
-  );
+  const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [profileInfo]);
 
   return (
     <nav>
       <Ul>
         <A to={routes.profileView(user)}>
-          <ProfileIcon
-            className="mr-2"
-            size={[18, 18]}
-            stroke={colors.linkColor || TEXT_PRIMARY}
-          />
+          <ProfileIcon className="mr-2" size={[18, 18]} stroke={colors.linkColor || TEXT_PRIMARY} />
           {t('common.profile')}
         </A>
         <A to={routes.userCommunities(user)}>
@@ -139,10 +121,7 @@ const Menu = ({
           disabled={!questionsLength}
           tabIndex={!questionsLength ? '-1' : undefined}
         >
-          <PostIcon
-            className="mr-2"
-            stroke={colors.linkColor || TEXT_PRIMARY}
-          />
+          <PostIcon className="mr-2" stroke={colors.linkColor || TEXT_PRIMARY} />
           {t('common.posts')}
         </A>
 
@@ -151,10 +130,7 @@ const Menu = ({
           disabled={!questionsWithUserAnswersLength}
           tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
         >
-          <AnswerWithAIcon
-            className="mr-2"
-            stroke={colors.linkColor || TEXT_PRIMARY}
-          />
+          <AnswerWithAIcon className="mr-2" stroke={colors.linkColor || TEXT_PRIMARY} />
           {t('common.answers')}
         </A>
         <A to={routes.userNotifications(user)}>
@@ -182,20 +158,14 @@ const Menu = ({
         )}
 
         <A to={routes.userSettings(user)}>
-          <SettingsIcon
-            className="mr-2"
-            stroke={colors.linkColor || TEXT_PRIMARY}
-          />
+          <SettingsIcon className="mr-2" stroke={colors.linkColor || TEXT_PRIMARY} />
           {t('common.settings')}
         </A>
       </Ul>
 
       <Ul>
         <Logout>
-          <LogOutIcon
-            className="mr-2"
-            stroke={colors.linkColor || TEXT_PRIMARY}
-          />
+          <LogOutIcon className="mr-2" stroke={colors.linkColor || TEXT_PRIMARY} />
           {t('common.logout')}
         </Logout>
       </Ul>

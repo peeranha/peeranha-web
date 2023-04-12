@@ -90,16 +90,8 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
           isArrowMarginMobile
         />
       ) : (
-        <div
-          className="full-width df aic jcsb cup"
-          onClick={() => setOpen(true)}
-        >
-          <ChangeLocalePopup
-            setLocale={setLocale}
-            locale={locale}
-            open={open}
-            setOpen={setOpen}
-          />
+        <div className="full-width df aic jcsb cup" onClick={() => setOpen(true)}>
+          <ChangeLocalePopup setLocale={setLocale} locale={locale} open={open} setOpen={setOpen} />
         </div>
       )}
     </>

@@ -48,9 +48,7 @@ const BloggerStyleSubHeader = () => {
   const { t } = useTranslation();
   const community = getSingleCommunityDetails();
   const { socialNetworks = {} } = community;
-  const hasSocialNetworks = Object.values(socialNetworks).some(
-    (link) => !!link,
-  );
+  const hasSocialNetworks = Object.values(socialNetworks).some((link) => !!link);
 
   return (
     <Container>

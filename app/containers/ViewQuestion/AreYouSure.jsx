@@ -19,12 +19,7 @@ const TheBestModalText = () => {
   );
 };
 
-const AreYouSure = ({
-  Button,
-  submitAction,
-  isGlobalAdmin,
-  isMarkedTheBest,
-}) => {
+const AreYouSure = ({ Button, submitAction, isGlobalAdmin, isMarkedTheBest }) => {
   const { t } = useTranslation();
   const [currentTarget, changeEventData] = useState(null);
   const [isOpened, open] = useState(false);
@@ -59,11 +54,7 @@ const AreYouSure = ({
           <H4 className="text-center pb-3">{t('common.delete')}</H4>
 
           <div className="pb-4 text-center">
-            {isMarkedTheBest && !isGlobalAdmin ? (
-              <TheBestModalText />
-            ) : (
-              t('post.areYouSure')
-            )}
+            {isMarkedTheBest && !isGlobalAdmin ? <TheBestModalText /> : t('post.areYouSure')}
           </div>
 
           <div className="d-flex align-items-center pb-3">

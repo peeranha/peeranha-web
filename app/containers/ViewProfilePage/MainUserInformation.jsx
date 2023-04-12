@@ -4,12 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
 
-import {
-  TEXT_DARK,
-  TEXT_SECONDARY,
-  LINK_COLOR,
-  TEXT_PRIMARY,
-} from 'style-constants';
+import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR, TEXT_PRIMARY } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -265,15 +260,10 @@ const MainUserInformation = ({
               onClick={onClickRedirectToEditProfilePage(userId)}
               id={`redireact-to-edit-${userId}-user-page-2`}
               className={
-                isDesktop || userId !== account
-                  ? 'd-none'
-                  : `align-items-center d-inline-flex`
+                isDesktop || userId !== account ? 'd-none' : `align-items-center d-inline-flex`
               }
             >
-              <IconMd
-                icon={pencilIcon}
-                color={colors.btnColor || TEXT_PRIMARY}
-              />
+              <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
               <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
                 {t('profile.editProfile')}
               </Span>

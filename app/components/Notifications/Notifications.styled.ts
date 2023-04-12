@@ -1,4 +1,9 @@
-import { BG_SECONDARY_SPECIAL_4, BORDER_PRIMARY_LIGHT, BORDER_SECONDARY_LIGHT, TEXT_SECONDARY } from 'style-constants';
+import {
+  BG_SECONDARY_SPECIAL_4,
+  BORDER_PRIMARY_LIGHT,
+  BORDER_SECONDARY_LIGHT,
+  TEXT_SECONDARY,
+} from 'style-constants';
 
 const styles = {
   containerStyles: {
@@ -14,12 +19,13 @@ const styles = {
     '> *': {
       marginBottom: '4px',
     },
-    '@media only screen and (min-width: 819px) and (max-width: 993px), only screen and (min-width: 1095px)': {
-      display: 'grid',
-      alignItems: 'center',
-      gridTemplateColumns: '1.35fr 1.45fr 0.55fr',
-      padding: '0 36px',
-    },
+    '@media only screen and (min-width: 819px) and (max-width: 993px), only screen and (min-width: 1095px)':
+      {
+        display: 'grid',
+        alignItems: 'center',
+        gridTemplateColumns: '1.35fr 1.45fr 0.55fr',
+        padding: '0 36px',
+      },
   },
   unreadStyles: {
     borderLeft: `3px solid ${BORDER_PRIMARY_LIGHT}`,
