@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import usePagination from 'hooks/usePagination';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,7 +21,7 @@ import MoveSection from './MoveSection';
 import Body from './Body';
 import Pagination from './Pagination';
 
-import { POST_TYPE, AMOUNT_POSTS_PAGINATION } from '../../../utils/constants';
+import { POST_TYPE } from '../../../utils/constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
@@ -220,13 +220,14 @@ export const Content = ({
   isSearchPage,
   isFeed,
   isCommunityFeed,
+  firstContentIndex,
+  lastContentIndex,
+  nextPage,
+  prevPage,
+  page,
+  setPage,
+  totalPages,
 }) => {
-  const { firstContentIndex, lastContentIndex, nextPage, prevPage, page, setPage, totalPages } =
-    usePagination({
-      contentPerPage: AMOUNT_POSTS_PAGINATION,
-      count: questionsList.length,
-    });
-
   return (
     <div className="position-relative">
       {/* {promotedQuestionsList && */}
@@ -316,6 +317,13 @@ Content.propTypes = {
   isHomePage: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
   isFeed: PropTypes.bool,
+  firstContentIndex: PropTypes.number,
+  lastContentIndex: PropTypes.number,
+  nextPage: PropTypes.func,
+  prevPage: PropTypes.func,
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  totalPages: PropTypes.number,
 };
 
 export { QuestionItem };
