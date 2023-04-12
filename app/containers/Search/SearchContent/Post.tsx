@@ -83,10 +83,16 @@ const Post: React.FC<PostProps> = ({
         </div>
 
         <div css={css(styles.mainInfo)}>
-          {lastmod && (
+          {lastmod && postType === POST_TYPE.documentation && (
             <span className="db mt8 fz14 light" css={css(styles.creationTime)}>
               {t('common.lastUpdated')}{' '}
               {getFormattedDate(lastmod, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+            </span>
+          )}
+          {postTime && postType !== POST_TYPE.documentation && (
+            <span className="db mt8 fz12 light" css={styles.creationTime}>
+              {t('common.asked')}{' '}
+              {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
             </span>
           )}
 
