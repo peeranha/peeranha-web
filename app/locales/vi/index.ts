@@ -15,7 +15,6 @@ import signUp from './sign-up.json';
 import tags from './tags.json';
 import wallet from './wallet.json';
 import webIntegration from './web-integration.json';
-import moderation from './moderation.json';
 
 export default {
   translation: {
@@ -37,6 +36,5 @@ export default {
     tags,
     wallet,
     webIntegration,
-    moderation,
   },
 };

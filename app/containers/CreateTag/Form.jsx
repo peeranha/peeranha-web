@@ -122,8 +122,9 @@ FormClone = connect((state, { communities, communityId, isEditTagForm, editTagDa
 
   // map state to props for createTag form
   return {
-    valueHasNotBeInListValidate: (
-      existingTags[state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.id] ?? []
+    valueHasNotBeInListValidate: (Array.isArray(existingTags)
+      ? existingTags
+      : existingTags[communityId] ?? []
     )
       .map((tag) => tag.name?.toLowerCase())
       .concat((state?.toJS()?.tags?.suggestedTags ?? []).map((tag) => tag.name?.toLowerCase())),
