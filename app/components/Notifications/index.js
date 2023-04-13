@@ -6,7 +6,6 @@ import { bindActionCreators, compose } from 'redux';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller';
 import List from 'react-virtualized/dist/commonjs/List';
 
-import _isEqual from 'lodash/isEqual';
 import { DAEMON } from 'utils/constants';
 
 import injectSaga from 'utils/injectSaga';
@@ -19,7 +18,7 @@ import { BG_LIGHT, BORDER_SECONDARY_LIGHT, BORDER_RADIUS_L } from 'style-constan
 import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
 
-import { NOTIFICATIONS_DATA, ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
+import { NOTIFICATIONS_DATA, ROW_HEIGHT } from './constants';
 import {
   allNotificationsCount,
   selectAllNotifications,
@@ -29,12 +28,7 @@ import {
 } from './selectors';
 
 import saga from './saga';
-import {
-  loadMoreNotifications,
-  markAsReadNotificationsAll,
-  filterReadTimestamps,
-  markAllNotificationsAsRead,
-} from './actions';
+import { loadMoreNotifications, markAsReadNotificationsAll, filterReadTimestamps } from './actions';
 
 import Header from './Header';
 import Wrapper from '../Header/Complex';
@@ -133,16 +127,6 @@ const Notifications = ({
     const range = `${indexToStart}-${indexToStop}-${rowHeight}`;
 
     const union = rangeUnionWithIntersection(readNotifications, [indexToStart, indexToStop]);
-
-    /*
-     * TODO: Fix bug with reading notifications, information in Notification center and Dropdown
-     * may vary if notifications are received on the notifications page
-     */
-    /*if (!_isEqual(union, readNotifications) && !document.hidden) {
-        markAsReadNotificationsAllDispatch(union);
-      } else if (notifications.length === 1) {
-        markAsReadNotificationsAllDispatch([0, 0]);
-      }*/
 
     setCalculatedRanges({
       ...calculatedRanges,

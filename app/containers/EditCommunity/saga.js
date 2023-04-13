@@ -52,7 +52,6 @@ export function* getCommunityWorker({ communityId }) {
 
 export function* editCommunityWorker({ communityId, communityData }) {
   try {
-    const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
       communityData.avatar = imgHash;
@@ -64,10 +63,6 @@ export function* editCommunityWorker({ communityId, communityData }) {
     ) {
       const { imgHash } = yield call(uploadImg, communityData.banner);
       communityData.banner = imgHash;
-    }
-
-    if (isBloggerMode) {
-      setSingleCommunityDetailsInCookie(communityData, communityId);
     }
 
     const communityDataCurrent = yield select(selectCommunity());

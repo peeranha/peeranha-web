@@ -29,15 +29,9 @@ export const Form = ({
   submitAction,
   handleSubmit,
   communities,
-  getSuggestedTagsDispatch,
   isEditTagForm,
 }) => {
   const { t } = useTranslation();
-  const onChange = (value) => {
-    if (value) {
-      getSuggestedTagsDispatch(value.id);
-    }
-  };
 
   return (
     <FormBox onSubmit={handleSubmit(submitAction)}>
@@ -52,7 +46,6 @@ export const Form = ({
         validate={[requiredForObjectField]}
         warn={[requiredForObjectField]}
         splitInHalf
-        onChange={onChange}
       />
 
       <Field
@@ -88,7 +81,6 @@ Form.propTypes = {
   submitAction: PropTypes.func,
   handleSubmit: PropTypes.func,
   communities: PropTypes.array,
-  getSuggestedTagsDispatch: PropTypes.func,
 };
 
 let FormClone = reduxForm({
@@ -110,7 +102,7 @@ FormClone = connect((state, { communities, communityId, isEditTagForm, editTagDa
       valueHasNotBeInListValidate: communityTags
         .filter((tag) => tag.id !== tagId)
         .map((tag) => tag.name?.toLowerCase())
-        .concat((state?.toJS()?.tags?.suggestedTags ?? []).map((tag) => tag.name?.toLowerCase())),
+        .concat([].map((tag) => tag.name?.toLowerCase())),
       initialValues: {
         [FORM_COMMUNITY]: selectedCommunity,
         [NAME_FIELD]: selectedTag?.name,
@@ -122,12 +114,11 @@ FormClone = connect((state, { communities, communityId, isEditTagForm, editTagDa
 
   // map state to props for createTag form
   return {
-    valueHasNotBeInListValidate: (Array.isArray(existingTags)
-      ? existingTags
-      : existingTags[communityId] ?? []
+    valueHasNotBeInListValidate: (
+      state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
     )
       .map((tag) => tag.name?.toLowerCase())
-      .concat((state?.toJS()?.tags?.suggestedTags ?? []).map((tag) => tag.name?.toLowerCase())),
+      .concat([].map((tag) => tag.name?.toLowerCase())),
     initialValues: {
       [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
     },

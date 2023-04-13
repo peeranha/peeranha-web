@@ -70,7 +70,6 @@ const Menu = ({ sort, sorting }) => {
 
 export const Header = ({ sorting, dropdownFilter, userCount }) => {
   const { t } = useTranslation();
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
   const isSingleCommunityMode = Boolean(isSingleCommunityWebsite()) || false;
   const usersCondition = isSingleCommunityMode ? 'activeUsers' : 'users';
 
@@ -87,7 +86,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
         </MediumIconStyled>
 
         <span>
-          {t(`common.${isBloggerMode ? 'followers' : usersCondition}`)}
+          {t(`common.${usersCondition}`)}
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {getFormattedNum2(userCount)}
           </Span>

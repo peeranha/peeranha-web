@@ -1,5 +1,4 @@
 import { ApplicationError } from './errors';
-import faqEn from '../faq/en.md';
 import tutorialEn from '../tutorial/en.md';
 
 function parseMD(md) {
@@ -67,9 +66,6 @@ function getMD(prefix) {
   let md = null;
 
   switch (prefix) {
-    case 'faq':
-      md = faqEn;
-      break;
     case 'tutorial':
       md = tutorialEn;
       break;

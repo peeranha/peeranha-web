@@ -56,8 +56,6 @@ import {
   ANY_TYPE,
 } from './constants';
 
-import BloggerModeForm from './BloggerModeForm';
-
 const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
 const DEFAULT_TAGS_ARRAY = [];
@@ -162,13 +160,6 @@ const CreateCommunityForm = ({
           tip={t('createCommunity.communityWebsiteTip')}
           splitInHalf
         />
-
-        {+formValues[COMMUNITY_TYPE] ? (
-          <BloggerModeForm
-            disabled={createCommunityLoading}
-            formValues={formValues}
-          />
-        ) : null}
 
         <div>
           <Wrapper label={t('createCommunity.tags')} splitInHalf>

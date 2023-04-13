@@ -9,7 +9,6 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY,
-  // BG_PRIMARY_DARK,
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
 } from 'style-constants';
@@ -25,7 +24,6 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
-// import QuestionType from 'components/Labels/QuestionType';
 
 import { POST_TYPE_ANSWER, POST_TYPE_QUESTION } from 'containers/Profile/constants';
 
@@ -163,12 +161,6 @@ export const QuestionForProfilePage = ({
   }
   return (
     <BaseStyled>
-      {/* TODO: PEER-281 frame and inscription 'expert'
-      {!isGeneral && (
-        <QuestionType size="sm">
-          {t('common.expert')}
-        </QuestionType>
-      )} */}
       <ContentContainer>
         <QuestionLabels>
           <QuestionType locale={locale} postType={postType} isPromoted={false} isExpert={false} />
