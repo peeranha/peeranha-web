@@ -2,33 +2,17 @@ import React from 'react';
 import { css } from '@emotion/react';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@uiw/react-markdown-preview/markdown.css';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { styles } from './Markdown.styled';
 
 type MarkdownPreviewProps = {
   content: string;
 };
 
-const colors = singleCommunityColors();
 const MarkdownPreviewBlock: React.FC<MarkdownPreviewProps> = ({ content }): JSX.Element => (
   <MarkdownPreview
     source={content}
     warpperElement={{ 'data-color-mode': 'light' }}
-    css={css`
-      ol li {
-        list-style-type: decimal;
-      }
-      ul li {
-        list-style-type: disc;
-      }
-      table {
-        word-break: normal;
-        overflow-x: auto;
-      }
-      iframe {
-        max-width: 100%;
-      }
-      background: ${colors.backgroundSpecial || ''};
-    `}
+    css={styles.markdownPreview}
     rehypeRewrite={(node, index, parent) => {
       if (node.tagName === 'input') {
         node.properties.disabled = false;
