@@ -2,7 +2,7 @@ import * as routes from 'routes-config';
 
 import { POST_TYPE } from 'utils/constants';
 
-export const ROW_HEIGHT = 70;
+export const ROW_HEIGHT = 40;
 export const VERTICAL_OFFSET = 5 * ROW_HEIGHT;
 export const NOTIFICATIONS_REQUEST_LIMIT = 50;
 export const MARK_AS_READ_DELAY = 1000;
@@ -52,8 +52,6 @@ export const NOTIFICATIONS_TYPES = {
   answerCommented: 12,
   questionTipped: 13,
   answerTipped: 14,
-  postTypeChanged: 15,
-  communityChanged: 16,
 };
 
 export const NOTIFICATIONS_DATA = {
@@ -99,18 +97,6 @@ export const NOTIFICATIONS_DATA = {
   [NOTIFICATIONS_TYPES.answerTipped]: {
     keyTranslate: 'notifications.yourAnswerWasTipped',
   },
-  [NOTIFICATIONS_TYPES.postTypeChanged]: {
-    keyTranslate: 'notifications.yourPostTypeWasChanged',
-  },
-  [NOTIFICATIONS_TYPES.communityChanged]: {
-    keyTranslate: 'notifications.communityWasChanged',
-  },
-};
-
-export const POST_TYPE_TO_LABEL = {
-  0: 'common.expert',
-  1: 'common.general',
-  2: 'common.tutorial',
 };
 
 export const ROUTES_BY_TYPE = {
