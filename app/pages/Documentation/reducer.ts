@@ -16,11 +16,7 @@ import {
   REMOVE_ARTICLE,
   EDIT_ORDER,
 } from './constants';
-import {
-  PinnedArticleType,
-  DocumentationItemMenuType,
-  DocumentationArticle,
-} from './types';
+import { PinnedArticleType, DocumentationItemMenuType, DocumentationArticle } from './types';
 import { removeArticle } from 'components/Documentation/helpers';
 
 export const initialState = fromJS({
@@ -80,9 +76,7 @@ function documentationReducer(
             : state.get('documentation'),
         );
     case GET_ARTICLE_ERROR:
-      return state
-        .set('documentationLoading', false)
-        .set('documentationError', documentationError);
+      return state.set('documentationLoading', false).set('documentationError', documentationError);
     case TOGGLE_EDIT_DOCUMENTATION:
       return state.set('isEdit', !state.get('isEdit'));
     case SET_VIEW_ARTICLE:
@@ -94,21 +88,14 @@ function documentationReducer(
         .set('isEditArticle', isEditArticle);
     case REMOVE_ARTICLE:
       return state
-        .set(
-          'documentationMenuDraft',
-          removeArticle(state.get('documentationMenuDraft'), id),
-        )
+        .set('documentationMenuDraft', removeArticle(state.get('documentationMenuDraft'), id))
         .set(
           'pinnedArticleId',
-          state.get('pinnedArticleId') === id
-            ? ''
-            : state.get('pinnedArticleId'),
+          state.get('pinnedArticleId') === id ? '' : state.get('pinnedArticleId'),
         )
         .set(
           'pinnedArticleTitle',
-          state.get('pinnedArticleId') === id
-            ? ''
-            : state.get('pinnedArticleTitle'),
+          state.get('pinnedArticleId') === id ? '' : state.get('pinnedArticleTitle'),
         );
     case SAVE_MENU_DRAFT:
       return state.set('documentationMenuDraft', menu);

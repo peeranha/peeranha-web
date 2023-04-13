@@ -322,6 +322,13 @@ Content.propTypes = {
   isHomePage: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
   isFeed: PropTypes.bool,
+  firstContentIndex: PropTypes.number,
+  lastContentIndex: PropTypes.number,
+  nextPage: PropTypes.func,
+  prevPage: PropTypes.func,
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  totalPages: PropTypes.number,
 };
 
 export { QuestionItem };

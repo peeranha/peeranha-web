@@ -5,11 +5,7 @@ import { getQuestionFromGraph } from 'utils/theGraph';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import {
-  selectPinnedArticleDraft,
-  selectDocumentation,
-  selectDraftsIds,
-} from './selectors';
+import { selectPinnedArticleDraft, selectDocumentation, selectDraftsIds } from './selectors';
 import {
   getArticleDocumentationError,
   getArticleDocumentationSuccess,
@@ -32,16 +28,14 @@ export function* getArticleDocumentationWorker({
     const documentationFromStore = yield select(selectDocumentation());
     const ipfsHash = getIpfsHashFromBytes32(articleId);
     if (
-      (documentationFromStore as Array<DocumentationArticle>).find(
-        (item) => item.id === articleId,
-      )
+      (documentationFromStore as Array<DocumentationArticle>).find((item) => item.id === articleId)
     ) {
       yield put(getArticleDocumentationSuccess());
     } else {
       const draftsIds = yield select(selectDraftsIds());
-      const editedPost = (
-        draftsIds as Array<{ draftId: string; lastmod: string }>
-      ).find((item) => item.draftId === articleId);
+      const editedPost = (draftsIds as Array<{ draftId: string; lastmod: string }>).find(
+        (item) => item.draftId === articleId,
+      );
       if (editedPost) {
         const documentationArticle = yield call(getText, ipfsHash);
         yield put(
@@ -52,10 +46,7 @@ export function* getArticleDocumentationWorker({
           }),
         );
       } else {
-        const documentationArticleFromGraph = yield call(
-          getQuestionFromGraph,
-          articleId,
-        );
+        const documentationArticleFromGraph = yield call(getQuestionFromGraph, articleId);
         yield put(
           getArticleDocumentationSuccess({
             id: articleId,

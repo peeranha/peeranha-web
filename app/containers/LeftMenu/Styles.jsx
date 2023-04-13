@@ -52,7 +52,7 @@ export const After = styled.div`
 `;
 
 export const ViewStyled = styled.nav`
-  position: ${(x) => (x.isMenuVisible ? 'relative' : 'fixed')};
+  position: relative;
   width: inherit;
 
   > div {
