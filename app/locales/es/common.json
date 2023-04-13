@@ -60,6 +60,7 @@
   "allQuestions": "Todas las preguntas",
   "manageMyComm": "Ver todas las comunidades",
   "asked": "Preguntó",
+  "lastUpdated": "Last updated on",
   "askedWhen": "Preguntó {{when}}",
   "answeredWhen": "Contestada {{when}}",
   "somebodyAsked": "{{account}} preguntó",

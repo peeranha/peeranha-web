@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
+import { css } from '@emotion/react';
 import DisLikeIcon from 'icons/DisLike';
 import LikeIcon from 'icons/Like';
 import BestAnswerIcon from 'icons/BestAnswer';
@@ -27,6 +27,7 @@ type PostProps = {
   communities: Community[];
   postType: number;
   title: string;
+  lastmod: string;
   postTime: string;
   content: string;
   tags: Tag[];
@@ -42,6 +43,7 @@ const Post: React.FC<PostProps> = ({
   id,
   locale,
   communities,
+  lastmod,
   postType,
   title,
   postTime,
@@ -80,11 +82,11 @@ const Post: React.FC<PostProps> = ({
           </Link>
         </div>
 
-        <div css={styles.mainInfo}>
-          {postType !== POST_TYPE.documentation && (
-            <span className="db mt8 fz12 light" css={styles.creationTime}>
-              {t('common.asked')}
-              {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+        <div css={css(styles.mainInfo)}>
+          {lastmod && (
+            <span className="db mt8 fz14 light" css={css(styles.creationTime)}>
+              {t('common.lastUpdated')}{' '}
+              {getFormattedDate(lastmod, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
             </span>
           )}
 

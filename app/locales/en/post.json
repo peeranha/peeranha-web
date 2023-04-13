@@ -3,7 +3,7 @@
   "submitButtonName": "Save",
   "title": "Edit Answer",
   "editAnswer": "Edit Answer",
-  "lastEdited": "Last edited",
+  "lastEdited": "Last edited on",
   "voteToDelete": "Vote to delete",
   "notEnoughRating": "To complete this action, your reputation has to be at least",
   "cannotCompleteBecauseBlocked": "You can't complete this action. You voted to delete it earlier",

@@ -60,6 +60,7 @@
   "allQuestions": "Tất cả các câu hỏi",
   "manageMyComm": "Xem tất cả các cộng đồng",
   "asked": "Đã hỏi",
+  "lastUpdated": "Last updated on",
   "askedWhen": "Đã hỏi {{when}}",
   "answeredWhen": "Đã trả lời {{when}}",
   "somebodyAsked": "{{account}} hỏi",

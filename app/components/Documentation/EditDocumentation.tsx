@@ -31,7 +31,7 @@ import {
   selectDraftsIds,
 } from 'pages/Documentation/selectors';
 import { selectDocumentationMenu, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
-
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Header from './components/Header';
 import Pagination from './components/Pagination';
 
@@ -74,6 +74,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   isEditOrder,
   editOrderDispatch,
   draftsIds,
+  locale,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
@@ -113,6 +114,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   const editDocumentationArticle = documentation.find((item) => item.id === editArticle.id);
 
   const viewDocumentationArticle = documentation.find((item) => item.id === viewArticleId);
+
+  const isDraft = draftsIds.find((draft) => draft.draftId === viewArticleId);
 
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
@@ -245,6 +248,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                   <ViewContent
                     documentationArticle={viewDocumentationArticle}
                     isEditDocumentation
+                    locale={locale}
+                    isEditPost={Boolean(isDraft)}
                   />
                 )}
                 {editArticle.isEditArticle && (
@@ -302,6 +307,7 @@ export default compose(
       pinnedItemMenu: selectPinnedItemMenu(),
       isEditOrder: selectEditOrder(),
       draftsIds: selectDraftsIds(),
+      locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(getArticleDocumentation, dispatch),
