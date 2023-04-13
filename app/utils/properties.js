@@ -47,23 +47,23 @@ export const getModeratorPermissions = (
         permission: [role],
         role: !communityId
           ? role === DEFAULT_ADMIN_ROLE
-            ? translations('moderation.defaultAdministrator')
-            : translations('moderation.protocolAdministrator')
+            ? translations('common.defaultAdministrator')
+            : translations('common.protocolAdministrator')
           : role === COMMUNITY_ADMIN_ROLE
-          ? translations('moderation.communityAdministrator')
-          : translations('moderation.communityModerator'),
+          ? translations('common.communityAdministrator')
+          : translations('common.communityModerator'),
         h2: communityId
           ? communities.find(({ id }) => Number(id) === Number(communityId))?.name || 'TestComm1'
           : role === DEFAULT_ADMIN_ROLE
-          ? translations('moderation.defaultAdministrator')
-          : translations('moderation.protocolAdministratorCommunities'),
+          ? translations('common.defaultAdministrator')
+          : translations('common.protocolAdministrator'),
         h3: !communityId
           ? role === DEFAULT_ADMIN_ROLE
-            ? translations('moderation.defaultAdministrator')
-            : translations('moderation.protocolAdministrator')
+            ? translations('common.asDefaultAdministrator')
+            : translations('common.asProtocolAdministrator')
           : role === COMMUNITY_ADMIN_ROLE
-          ? translations('moderation.communityAdministrator')
-          : translations('moderation.communityModerator'),
+          ? translations('common.asCommunityAdministrator')
+          : translations('common.asCommunityModerator'),
         sectionCode: index,
         communityId,
       };

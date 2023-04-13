@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { css } from '@emotion/react';
+
 import DisLikeIcon from 'icons/DisLike';
 import LikeIcon from 'icons/Like';
 import BestAnswerIcon from 'icons/BestAnswer';
@@ -83,10 +83,16 @@ const Post: React.FC<PostProps> = ({
         </div>
 
         <div css={css(styles.mainInfo)}>
-          {lastmod && (
+          {lastmod && postType === POST_TYPE.documentation && (
             <span className="db mt8 fz14 light" css={css(styles.creationTime)}>
               {t('common.lastUpdated')}{' '}
               {getFormattedDate(lastmod, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+            </span>
+          )}
+          {postTime && postType !== POST_TYPE.documentation && (
+            <span className="db mt8 fz12 light" css={styles.creationTime}>
+              {t('common.asked')}{' '}
+              {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
             </span>
           )}
 

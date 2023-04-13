@@ -91,62 +91,56 @@ export const globalAdminPermissions = {
     code: 9,
     title: 'permissionProtocolAdmin_9',
   },
-  PERMISSION_PROTOCOL_ADMIN_10: {
-    code: 10,
-    title: 'permissionProtocolAdmin_10',
-  },
 };
 export const communityAdminPermissions = {
   PERMISSION_COMMUNITY_ADMIN_1: {
-    code: 11,
+    code: 9,
     title: 'permissionCommunityAdmin_1',
   },
   PERMISSION_COMMUNITY_ADMIN_2: {
-    code: 12,
+    code: 10,
     title: 'permissionCommunityAdmin_2',
   },
   PERMISSION_COMMUNITY_ADMIN_3: {
-    code: 13,
+    code: 11,
     title: 'permissionCommunityAdmin_3',
   },
   PERMISSION_COMMUNITY_ADMIN_4: {
-    code: 14,
+    code: 12,
     title: 'permissionCommunityAdmin_4',
   },
-  PERMISSION_COMMUNITY_ADMIN_5: {
-    code: 15,
-    title: 'permissionCommunityAdmin_5',
-  },
-  PERMISSION_COMMUNITY_ADMIN_6: {
-    code: 16,
-    title: 'permissionCommunityAdmin_6',
-  },
+  // PEER-491: temporally hide items;
+  // PERMISSION_COMMUNITY_ADMIN_5: {
+  //   code: 13,
+  //   title: 'permissionCommunityAdmin_5',
+  // },
 };
 export const communityModeratorPermissions = {
   PERMISSION_COMMUNITY_MODERATOR_1: {
-    code: 17,
+    code: 14,
     title: 'permissionCommunityModerator_1',
   },
   PERMISSION_COMMUNITY_MODERATOR_2: {
-    code: 18,
+    code: 15,
     title: 'permissionCommunityModerator_2',
   },
   PERMISSION_COMMUNITY_MODERATOR_3: {
-    code: 19,
+    code: 16,
     title: 'permissionCommunityModerator_3',
   },
   PERMISSION_COMMUNITY_MODERATOR_4: {
-    code: 20,
+    code: 17,
     title: 'permissionCommunityModerator_4',
   },
-  PERMISSION_COMMUNITY_MODERATOR_5: {
-    code: 21,
-    title: 'permissionCommunityModerator_5',
-  },
-  PERMISSION_COMMUNITY_MODERATOR_6: {
-    code: 22,
-    title: 'permissionCommunityModerator_6',
-  },
+  //   PEER-491: temporally hide items;
+  //   PERMISSION_COMMUNITY_MODERATOR_5: {
+  //     code: 18,
+  //     title: 'permissionCommunityModerator_5',
+  //   },
+  //   PERMISSION_COMMUNITY_MODERATOR_6: {
+  //     code: 19,
+  //     title: 'permissionCommunityModerator_6',
+  //   },
 };
 
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;

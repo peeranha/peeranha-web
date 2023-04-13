@@ -42,6 +42,7 @@ export function* getQuestionsWorker({
     const followedCommunities = yield select(makeSelectFollowedCommunities());
 
     let questionsList = [];
+    let counter = skip;
 
     if (single) {
       communityIdFilter = single;
@@ -84,7 +85,8 @@ export function* getQuestionsWorker({
 
     const clearQuestionsList = questionsList.filter((item) => item.title);
 
-    yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined));
+    counter += clearQuestionsList.length;
+    yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, counter));
   } catch (err) {
     yield put(getQuestionsError(err));
   }
