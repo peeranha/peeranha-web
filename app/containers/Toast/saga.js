@@ -120,7 +120,6 @@ export function* loggerWorker(error) {
     }
 
     const endpointsData = JSON.parse(localStorage.getItem(ENDPOINTS_LIST));
-    const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
     yield call(logError, {
       user: user || 'none',
@@ -128,10 +127,8 @@ export function* loggerWorker(error) {
         message:
           typeof error[key] === 'string' ? error[key] : error[key].message,
         stack: error[key].stack,
-        node:
-          (endpointsData && endpointsData.nodes[0]) ||
-          process.env.EOS_ENDPOINT_DEFAULT,
-        isScatter: loginData ? Boolean(loginData.loginWithScatter) : false,
+        node: endpointsData && endpointsData.nodes[0],
+        isScatter: false,
         userAgent: navigator.userAgent,
       }),
     });

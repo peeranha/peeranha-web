@@ -9,8 +9,6 @@ import {
 } from 'redux-saga/effects';
 
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
 
@@ -53,11 +51,11 @@ import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { REMOVE_OR_ADD_TOP_QUESTION } from '../Questions/constants';
 import { followHandlerWorker } from '../FollowCommunityButton/saga';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
 
 export function* getQuestionsWorker({ communityId }) {
   try {
-    const eosService = yield select(selectEos);
-
+    const ethereumService = yield select(selectEthereum);
     yield call(loadTopCommunityQuestionsWorker, { init: true });
 
     const topQuestionsIds = yield select(selectTopQuestionIds);
@@ -66,9 +64,9 @@ export function* getQuestionsWorker({ communityId }) {
 
     if (topQuestionsIds && topQuestionsIds.length) {
       yield all(
-        topQuestionsIds.map(function*(id) {
+        topQuestionsIds.map(function* (id) {
           if (id) {
-            const question = yield call(getQuestionById, eosService, id);
+            const question = yield call(getQuestionById, ethereumService, id);
 
             questionsList.push(question);
           }
@@ -80,7 +78,7 @@ export function* getQuestionsWorker({ communityId }) {
 
       questionsList = yield call(
         getQuestionsFilteredByCommunities,
-        eosService,
+        ethereumService,
         limit,
         offset,
         communityId,
@@ -89,7 +87,7 @@ export function* getQuestionsWorker({ communityId }) {
 
     const users = new Map();
 
-    questionsList.forEach(question => {
+    questionsList.forEach((question) => {
       question.isGeneral = isGeneralQuestion(question.properties);
 
       users.set(
@@ -101,17 +99,21 @@ export function* getQuestionsWorker({ communityId }) {
     });
 
     yield all(
-      questionsList.map(function*(question) {
-        const bounty = yield call(getQuestionBounty, question.id, eosService);
+      questionsList.map(function* (question) {
+        const bounty = yield call(
+          getQuestionBounty,
+          question.id,
+          ethereumService,
+        );
         question.questionBounty = bounty;
       }),
     );
 
     yield all(
-      Array.from(users.keys()).map(function*(user) {
+      Array.from(users.keys()).map(function* (user) {
         const author = yield call(getUserProfileWorker, { user });
 
-        users.get(user).map(cachedItem => {
+        users.get(user).map((cachedItem) => {
           cachedItem.author = author;
         });
       }),
@@ -127,12 +129,12 @@ export function* getCommunityWorker({ id }) {
   try {
     const cachedCommunities = yield select(selectCommunities());
 
-    let community = cachedCommunities.find(c => c.id === id);
+    let community = cachedCommunities.find((c) => c.id === id);
 
     if (!community) {
-      const eosService = yield select(selectEos);
+      const ethereumService = yield select(selectEthereum);
 
-      community = yield call(getCommunityById, eosService, id);
+      community = yield call(getCommunityById, ethereumService, id);
     }
 
     yield put(getCommunitySuccess(community));
@@ -148,19 +150,6 @@ export function* getLogoWorker() {
     const single = isSingleCommunityWebsite();
     if (single) {
       yield call(getCommunityWorker, { id: single });
-
-      const community = yield select(selectCommunity());
-
-      const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
-      if (isBloggerMode) {
-        const { avatar } = community;
-
-        logo =
-          avatar && avatar.length > HASH_CHARS_LIMIT
-            ? avatar
-            : getUserAvatar(avatar, true, true);
-      }
     }
 
     yield put(getLogoSuccess(logo));
@@ -175,7 +164,7 @@ export function* redirectToEditCommunityPageWorker({ id }) {
   } catch (err) {}
 }
 
-export default function*() {
+export default function* () {
   yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
   yield takeEvery(GET_COMMUNITY, getCommunityWorker);
   yield takeEvery(GET_LOGO, getLogoWorker);

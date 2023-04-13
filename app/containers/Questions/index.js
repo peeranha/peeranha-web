@@ -17,7 +17,6 @@ import { getCookie } from 'utils/cookie';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   makeSelectAccount,
@@ -265,7 +264,6 @@ Questions.propTypes = {
   match: PropTypes.object,
   getQuestionsDispatch: PropTypes.func,
   redirectToAskQuestionPageDispatch: PropTypes.func,
-  eosService: PropTypes.object,
   profile: PropTypes.object,
   typeFilter: PropTypes.any,
   createdFilter: PropTypes.any,
@@ -282,7 +280,6 @@ export default compose(
     createStructuredSelector({
       account: makeSelectAccount(),
       profile: makeSelectProfileInfo(),
-      eosService: selectEos,
       locale: makeSelectLocale(),
       communities: selectCommunities(),
       communitiesLoading: selectCommunitiesLoading(),

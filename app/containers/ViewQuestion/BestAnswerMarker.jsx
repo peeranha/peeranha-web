@@ -19,7 +19,6 @@ import officialIcon from 'images/officialWhite.svg?external';
 import Button from 'components/Button/Contained/PrimaryMedium';
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { B } from './QuestionTitle';
-import SendTips from '../SendTips';
 
 import { MARK_AS_BUTTON } from './constants';
 
@@ -70,39 +69,9 @@ export const BestAnswerMarker = ({
   const { t } = useTranslation();
 
   if (answerId === 0) return null;
-  const isItWrittenByMe = profileInfo
-    ? author.user === profileInfo.user
-    : false;
-
-  const isTemporaryAccount = true;
-
-  const displayTips =
-    (!profileInfo && !isTemporaryAccount) ||
-    (!!profileInfo &&
-      !isItWrittenByMe &&
-      answerId !== 0 &&
-      !isTemporaryAccount);
 
   return (
     <Div>
-      {displayTips && (
-        <SendTips
-          form="tip-answer"
-          questionId={questionId}
-          answerId={answerId}
-          account={whoWasAccepted}
-        >
-          <B>
-            <IconMd
-              className="mr-1"
-              icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
-              color={BUTTON_COLOR}
-            />
-            {t('common.tipAnswer')}
-          </B>
-        </SendTips>
-      )}
-
       <MarkAsAcceptedIcon
         id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
         answerId={answerId}

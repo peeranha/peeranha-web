@@ -82,7 +82,6 @@ const CustomMobileSubHeader = ({ config, logo: communityLogo, showingLogo }) => 
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
   const { styles, links } = config;
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   return (
     <Div
@@ -90,17 +89,11 @@ const CustomMobileSubHeader = ({ config, logo: communityLogo, showingLogo }) => 
       styles={styles}
       mobileSubHeaderImgStyles={styles.mobileSubHeaderImgStyles}
     >
-      <button
-        className="d-flex justify-content-between align-items-center"
-        onClick={setVis}
-        disabled={isBloggerMode}
-      >
+      <button className="d-flex justify-content-between align-items-center" onClick={setVis}>
         <img src={communityLogo || showingLogo} alt="" />
-        {!isBloggerMode && (
-          <Arrow className="mt-auto mb-auto" color={styles.color.arrow} rotate={visible} />
-        )}
+        <Arrow className="mt-auto mb-auto" color={styles.color.arrow} rotate={visible} />
       </button>
-      {visible && !isBloggerMode && <Links links={links} styles={styles} device="mobile" />}
+      {visible && <Links links={links} styles={styles} device="mobile" />}
     </Div>
   );
 };

@@ -9,10 +9,6 @@ import {
 } from './constants';
 
 export const initialState = fromJS({
-  suggestedTags: [],
-  getSuggestedTagsError: null,
-  suggestedTagsLoading: false,
-  isLastFetchForSuggestedTags: false,
   sorting: 'id',
   limit: 100,
   existingTags: [],

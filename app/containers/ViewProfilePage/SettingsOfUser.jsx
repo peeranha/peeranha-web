@@ -112,7 +112,6 @@ const SettingsOfUser = ({
   loginData,
   isAvailable,
   profile,
-  tgData,
 }) => {
   const { t } = useTranslation();
 
@@ -142,7 +141,6 @@ SettingsOfUser.propTypes = {
   isAvailable: PropTypes.bool,
   profile: PropTypes.object,
   account: PropTypes.string,
-  tgData: PropTypes.object,
 };
 
 export default React.memo(SettingsOfUser);

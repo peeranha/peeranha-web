@@ -1,5 +1,3 @@
-import JSBI from 'jsbi';
-
 import { orderBy } from 'lodash/collection';
 import {
   getBytes32FromIpfsHash,
@@ -9,14 +7,6 @@ import {
 } from './ipfs';
 import { bigNumberToNumber } from './converters';
 
-import {
-  ALL_QUESTIONS_SCOPE,
-  GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
-  GET_QUESTIONS_KEY_TYPE,
-  PROMOTED_QUESTIONS_TABLES,
-  QUESTION_TABLE,
-  VOTE_TO_DELETE_METHOD,
-} from './constants';
 import {
   CHANGE_POST_TYPE,
   CHANGE_STATUS_BEST,
@@ -47,129 +37,6 @@ import {
 } from './theGraph';
 import { getCommunityTags } from 'utils/communityManagement';
 
-/* eslint-disable  */
-export class FetcherOfQuestionsForFollowedCommunities {
-  constructor(
-    firstFetchCount = 5,
-    communities,
-    eosService,
-  ) /* istanbul ignore next */ {
-    this.eosService = eosService;
-    this.firstFetchCount = firstFetchCount;
-    this.communities = communities;
-
-    if (!communities.length) return null;
-
-    this.communitiesMap = {};
-
-    communities.forEach((communityId) => {
-      const lowerBound = JSBI.leftShift(
-        JSBI.BigInt(communityId),
-        JSBI.BigInt(36),
-      );
-
-      this.communitiesMap[communityId] = {
-        items: [],
-        lowerBound: lowerBound.toString(),
-        lastKeyFetched: lowerBound.toString(),
-        uppperBound: JSBI.leftShift(
-          JSBI.BigInt(communityId + 1),
-          JSBI.BigInt(36),
-        ).toString(),
-        more: true,
-      };
-    });
-
-    this.hasMore = true;
-  }
-
-  getNextItems = /* istanbul ignore next */ async (fetchCount) => {
-    if (!this.hasMore) return [];
-
-    const fill_fetcher = async (communityId) => {
-      if (
-        !this.communitiesMap[communityId].more ||
-        this.communitiesMap[communityId].items.length >= fetchCount
-      )
-        return null;
-
-      const limit =
-        this.firstFetchCount - this.communitiesMap[communityId].items.length;
-
-      const { rows } = await this.eosService.getTableRows(
-        QUESTION_TABLE,
-        ALL_QUESTIONS_SCOPE,
-        this.communitiesMap[communityId].lastKeyFetched,
-        limit,
-        this.communitiesMap[communityId].uppperBound,
-        GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
-        GET_QUESTIONS_KEY_TYPE,
-      );
-
-      this.communitiesMap[communityId].items.push(...rows);
-
-      if (rows.length === limit) {
-        this.communitiesMap[communityId].lastKeyFetched = JSBI.add(
-          JSBI.add(
-            JSBI.BigInt(this.communitiesMap[communityId].lowerBound),
-            JSBI.BigInt(rows[rows.length - 1].id),
-          ),
-          JSBI.BigInt(1),
-        ).toString();
-      } else {
-        this.communitiesMap[communityId].more = false;
-      }
-    };
-
-    const fill_fetcher_task = [];
-
-    this.communities.forEach((communityId) => {
-      fill_fetcher_task.push(fill_fetcher(communityId));
-    });
-
-    await Promise.all(fill_fetcher_task);
-
-    let availableItems = 0;
-
-    this.communities.forEach((communityId) => {
-      availableItems += this.communitiesMap[communityId].items.length;
-    });
-
-    if (availableItems < fetchCount) {
-      this.hasMore = false;
-      fetchCount = availableItems;
-    }
-
-    const minIdInitializer = JSBI.leftShift(JSBI.BigInt(1), JSBI.BigInt(65));
-    const items = [];
-
-    for (let i = 0; i < fetchCount; i++) {
-      // Find min
-      let minId = minIdInitializer;
-      let communityWithMinId;
-
-      this.communities.forEach((communityId) => {
-        if (this.communitiesMap[communityId].items.length) {
-          const currId = JSBI.BigInt(
-            this.communitiesMap[communityId].items[0].id,
-          );
-          if (JSBI.lessThan(currId, minId)) {
-            minId = currId;
-            communityWithMinId = communityId;
-          }
-        }
-      });
-
-      items.push(this.communitiesMap[communityWithMinId].items[0]);
-      this.communitiesMap[communityWithMinId].items.shift();
-    }
-
-    return items;
-  };
-}
-
-/* eslint-enable  */
-
 export async function getQuestionsPostedByUser(id, limit, offset) {
   return await getUsersQuestions(id, limit, offset);
 }
@@ -179,29 +46,22 @@ export async function getAnsweredUsersPosts(id, limit, offset) {
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
-export async function getQuestions(eosService, limit, offset) {}
+export async function getQuestions(ethereumService, limit, offset) {}
 
 /* eslint no-bitwise: 0 no-undef: 0 */
 export async function getQuestionsFilteredByCommunities(
-  eosService,
+  ethereumService,
   limit,
   offset,
   communityId,
 ) {}
-
-/* eslint no-undef: 0 */
-export async function getQuestionsForFollowedCommunities(limit, fetcher) {
-  return await fetcher.getNextItems(limit);
-}
-
-export async function getPromotedQuestions(eosService, communityId) {}
 
 export async function voteToDelete(
   user,
   questionId,
   answerId,
   commentId,
-  eosService,
+  ethereumService,
 ) {}
 
 export async function getAskedQuestion(link) {
