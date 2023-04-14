@@ -3,9 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Button from 'common-components/Button';
 import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?inline';
 
-const Empty: React.FC<{ onClickAddArticle: () => void }> = ({
-  onClickAddArticle,
-}): JSX.Element => {
+const Empty: React.FC<{ onClickAddArticle: () => void }> = ({ onClickAddArticle }): JSX.Element => {
   const { t } = useTranslation();
   return (
     <div

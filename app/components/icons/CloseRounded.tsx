@@ -6,22 +6,9 @@ type CloseRoundedProps = {
   fillOpacity: string;
 };
 
-const CloseRounded: React.FC<IconProps & CloseRoundedProps> = (
-  props,
-): JSX.Element => (
-  <IconComponent
-    {...props}
-    fill="currentColor"
-    viewBox="0 0 18 18"
-    size={props.size || [18, 18]}
-  >
-    <circle
-      cx="9"
-      cy="9"
-      r="7.5"
-      stroke={props.stroke || 'white'}
-      fill={props.circleFill}
-    />
+const CloseRounded: React.FC<IconProps & CloseRoundedProps> = (props): JSX.Element => (
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 18" size={props.size || [18, 18]}>
+    <circle cx="9" cy="9" r="7.5" stroke={props.stroke || 'white'} fill={props.circleFill} />
     <rect
       x="12.017"
       y="5.22876"

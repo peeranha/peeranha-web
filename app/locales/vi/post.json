@@ -58,6 +58,8 @@
   "Edit": "đã chỉnh sửa",
   "Create": "đã đăng",
   "Delete": "đã xóa",
+  "botAnswer": "Đã trả lời qua {{bot}}",
+  "botCreate": "được tạo thông qua {{bot}}",
   "RulesBlock_1": "Dưới đây là một số mẹo giúp câu trả lời của bạn hữu ích và không bị người kiểm duyệt xóa:",
   "RulesBlock_2": "1. Đọc kỹ bài đăng để hiểu vấn đề và đưa ra câu trả lời tốt nhất mà bạn có thể.",
   "RulesBlock_3": "2. Đảm bảo rằng câu trả lời của bạn trả lời câu hỏi được hỏi trong một bài đăng và không chỉ là một nhận xét hay lòng biết ơn.",

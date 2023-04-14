@@ -22,34 +22,20 @@ import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 import ProfileViewForm from './ProfileViewForm';
 import SettingsOfUser from './SettingsOfUser';
 
-import {
-  makeSelectAccount,
-  makeSelectLoginData,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectLoginData } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  selectCommunities,
-  selectStat,
-  selectUsers,
-} from 'containers/DataCacheProvider/selectors';
-import {
-  selectQuestions,
-  selectQuestionsLoading,
-} from 'containers/QuestionsOfUser/selectors';
+import { selectCommunities, selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
+import { selectQuestions, selectQuestionsLoading } from 'containers/QuestionsOfUser/selectors';
 import {
   selectQuestionsLoading as selectQuestionsWithAnswersLoading,
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
-import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
-import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 import { getUserName } from 'utils/user';
-import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
 
 import saga from '../QuestionsWithAnswersOfUser/saga';
 
 import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
 import questionsOfUserReducer from '../QuestionsOfUser/reducer';
-import telegramAccountActionReducer from '../TelegramAccountAction/reducer';
 import { selectUserAchievements } from '../Achievements/selectors';
 import {
   getAllAchievements,
@@ -75,7 +61,6 @@ const ViewProfilePage = ({
   activeKey,
   ownerKey,
   redirectToEditProfilePageDispatch,
-  userTgData,
   stat,
   userAchievements,
   getAllAchievementsDispatch,
@@ -130,7 +115,6 @@ const ViewProfilePage = ({
         account={account}
         user={profile?.user ?? null}
         isAvailable={profile && account === profile.user}
-        tgData={userTgData}
       />
 
       {path === routes.userNotifications(userId) && (
@@ -162,8 +146,7 @@ const ViewProfilePage = ({
 
       <ProfileViewForm
         className={
-          path === routes.profileView(userId) ||
-          path === routes.userCommunities(userId)
+          path === routes.profileView(userId) || path === routes.userCommunities(userId)
             ? ''
             : 'd-none'
         }
@@ -197,7 +180,6 @@ ViewProfilePage.propTypes = {
   questionsLoading: PropTypes.bool,
   questionsWithAnswersLoading: PropTypes.bool,
   redirectToEditProfilePageDispatch: PropTypes.func,
-  userTgData: PropTypes.object,
   stat: PropTypes.object,
   userAchievements: PropTypes.array,
 };
@@ -213,40 +195,18 @@ const withConnect = connect(
     questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
     questionsLoading: selectQuestionsLoading(),
     questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
-    activeKey: selectActiveKey(),
-    ownerKey: selectOwnerKey(),
-    userTgData: selectGetUserTgData(),
     stat: selectStat(),
     userAchievements: selectUserAchievements(),
   }),
   (dispatch) => ({
-    redirectToEditProfilePageDispatch: bindActionCreators(
-      redirectToEditProfilePage,
-      dispatch,
-    ),
-    getAllAchievementsDispatch: bindActionCreators(
-      getAllAchievements,
-      dispatch,
-    ),
-    getUserAchievementsDispatch: bindActionCreators(
-      getUserAchievements,
-      dispatch,
-    ),
-    setViewProfileAccountDispatch: bindActionCreators(
-      setViewProfileAccount,
-      dispatch,
-    ),
-    resetViewProfileAccountDispatch: bindActionCreators(
-      resetViewProfileAccount,
-      dispatch,
-    ),
+    redirectToEditProfilePageDispatch: bindActionCreators(redirectToEditProfilePage, dispatch),
+    getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
+    getUserAchievementsDispatch: bindActionCreators(getUserAchievements, dispatch),
+    setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
+    resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
   }),
 );
 
-const withTelegramAccountActionReducer = injectReducer({
-  key: 'questionsOfUser',
-  reducer: telegramAccountActionReducer,
-});
 const withQuestionsWithAnswersReducer = injectReducer({
   key: 'questionsOfUser',
   reducer: questionsWithAnswersOfUserReducer,
@@ -270,7 +230,6 @@ const withSaga = injectSaga({ key: 'questionsOfUser', saga, mode: DAEMON });
 export default compose(
   withQuestionsWithAnswersReducer,
   withQuestionsReducer,
-  withTelegramAccountActionReducer,
   withAchievementsReducer,
   withAchievementsSaga,
   withSaga,

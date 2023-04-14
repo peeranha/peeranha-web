@@ -5,16 +5,10 @@ import { createStructuredSelector } from 'reselect';
 import { useTranslation } from 'react-i18next';
 import { bindActionCreators, compose } from 'redux';
 
-import {
-  getFollowedCommunities,
-  isSingleCommunityWebsite,
-} from 'utils/communityManagement';
+import { getFollowedCommunities, isSingleCommunityWebsite } from 'utils/communityManagement';
 import injectReducer from 'utils/injectReducer';
 
-import {
-  selectCommunities,
-  selectTags,
-} from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectTags } from 'containers/DataCacheProvider/selectors';
 
 import {
   selectExistingTags,
@@ -35,7 +29,6 @@ import reducer from './reducer';
 import { setEditTagData } from './actions';
 
 import Content from './Content';
-import Aside from './Aside';
 import { getCommunityTags } from '../DataCacheProvider/actions';
 
 const single = isSingleCommunityWebsite();
@@ -66,8 +59,7 @@ export const TagsOfCommunity = ({
   }, [communityId, getCommunityTagsDispatch]);
 
   const currentCommunity = useMemo(
-    () =>
-      getFollowedCommunities(communities, [communityId])[0] || emptyCommunity,
+    () => getFollowedCommunities(communities, [communityId])[0] || emptyCommunity,
     [communityId, communities.length, emptyCommunity],
   );
   const typeInput = useCallback(
@@ -123,7 +115,6 @@ export const TagsOfCommunity = ({
         communityId={communityId}
         tagsNumber={tags[communityId]?.length}
         currentCommunity={currentCommunity}
-        Aside={<Aside suggestedTags={[]} communityId={communityId} />}
         Content={
           <Content
             tags={existingTags}

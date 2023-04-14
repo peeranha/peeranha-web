@@ -81,18 +81,15 @@ const QI = ({
   postType,
   isFeed,
   isCommunityFeed,
+  handle,
+  messengerType,
 }) => {
   const ref = useRef(null);
 
   const isExpert = postType === POST_TYPE.expertPost;
 
   const displayTopQuestionMove = useMemo(
-    () =>
-      isModerator &&
-      isTopQuestion &&
-      questionFilter === 1 &&
-      !isPromoted &&
-      !isHomePage,
+    () => isModerator && isTopQuestion && questionFilter === 1 && !isPromoted && !isHomePage,
     [isTopQuestion, isModerator, questionFilter, isPromoted, isHomePage],
   );
 
@@ -142,9 +139,7 @@ const QI = ({
       innerRef={ref}
       isTutorial={postType === POST_TYPE.tutorial}
       isDiscussion={postType === POST_TYPE.generalPost}
-      draggable={
-        isModerator && !isHomePage && questionFilter === 1 && !isPromoted
-      }
+      draggable={isModerator && !isHomePage && questionFilter === 1 && !isPromoted}
       onDrop={!isHomePage ? onDrop : undefined}
       onDragOver={!isHomePage ? onDragOver : undefined}
       onDragStart={!isHomePage ? onDragStart : undefined}
@@ -177,7 +172,11 @@ const QI = ({
           ipfsHash={ipfsHash}
           isModerator={isModerator}
           title={title}
-          author={author}
+          author={{
+            ...author,
+            handle,
+            messengerType,
+          }}
           postTime={postTime}
           locale={locale}
           communityId={communityId}
@@ -228,18 +227,11 @@ export const Content = ({
   isFeed,
   isCommunityFeed,
 }) => {
-  const {
-    firstContentIndex,
-    lastContentIndex,
-    nextPage,
-    prevPage,
-    page,
-    setPage,
-    totalPages,
-  } = usePagination({
-    contentPerPage: AMOUNT_POSTS_PAGINATION,
-    count: questionsList.length,
-  });
+  const { firstContentIndex, lastContentIndex, nextPage, prevPage, page, setPage, totalPages } =
+    usePagination({
+      contentPerPage: AMOUNT_POSTS_PAGINATION,
+      count: questionsList.length,
+    });
 
   return (
     <div className="position-relative">
@@ -259,26 +251,24 @@ export const Content = ({
       {/*      isHomePage={isHomePage} */}
       {/*    /> */}
       {/*  ))} */}
-      {questionsList
-        .slice(firstContentIndex, lastContentIndex)
-        .map((item, index) => (
-          <QuestionItem
-            {...item}
-            isGeneral={isGeneralQuestion(item)}
-            index={index}
-            first={index === 0}
-            last={index === questionsList.length - 1}
-            locale={locale}
-            communities={communities}
-            key={item.id}
-            isModerator={isModerator}
-            profileInfo={profileInfo}
-            isHomePage={isHomePage}
-            isSearchPage={isSearchPage}
-            isFeed={isFeed}
-            isCommunityFeed={isCommunityFeed}
-          />
-        ))}
+      {questionsList.slice(firstContentIndex, lastContentIndex).map((item, index) => (
+        <QuestionItem
+          {...item}
+          isGeneral={isGeneralQuestion(item)}
+          index={index}
+          first={index === 0}
+          last={index === questionsList.length - 1}
+          locale={locale}
+          communities={communities}
+          key={item.id}
+          isModerator={isModerator}
+          profileInfo={profileInfo}
+          isHomePage={isHomePage}
+          isSearchPage={isSearchPage}
+          isFeed={isFeed}
+          isCommunityFeed={isCommunityFeed}
+        />
+      ))}
       <Pagination
         page={page}
         totalPages={totalPages}
@@ -332,6 +322,13 @@ Content.propTypes = {
   isHomePage: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
   isFeed: PropTypes.bool,
+  firstContentIndex: PropTypes.number,
+  lastContentIndex: PropTypes.number,
+  nextPage: PropTypes.func,
+  prevPage: PropTypes.func,
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  totalPages: PropTypes.number,
 };
 
 export { QuestionItem };

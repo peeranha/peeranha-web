@@ -19,32 +19,18 @@ const getOffset = () => {
   return 75;
 };
 
-const TopCommunities = ({
-  communities,
-  profile,
-  questions,
-  isTopCommunitiesOnly,
-}) => {
+const TopCommunities = ({ communities, profile, questions, isTopCommunitiesOnly }) => {
   if (!communities || !profile || !communities.length) {
     return null;
   }
 
   const refCommunitiesSection = useRef(null);
 
-  useEffect(
-    () => {
-      if (
-        history.default?.location.hash === '#communities' &&
-        refCommunitiesSection.current
-      ) {
-        window.scrollTo(
-          0,
-          refCommunitiesSection.current.offsetTop - getOffset(),
-        );
-      }
-    },
-    [history.default?.location.hash, questions, refCommunitiesSection],
-  );
+  useEffect(() => {
+    if (history.default?.location.hash === '#communities' && refCommunitiesSection.current) {
+      window.scrollTo(0, refCommunitiesSection.current.offsetTop - getOffset());
+    }
+  }, [history.default?.location.hash, questions, refCommunitiesSection]);
 
   if (profile.ratings?.length && !isTopCommunitiesOnly) {
     return (
@@ -57,11 +43,7 @@ const TopCommunities = ({
     );
   }
   return (
-    <TopCommunitiesSection
-      communities={communities}
-      single={single}
-      ref={refCommunitiesSection}
-    />
+    <TopCommunitiesSection communities={communities} single={single} ref={refCommunitiesSection} />
   );
 };
 

@@ -4,10 +4,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
@@ -58,8 +55,7 @@ const FooterStyled = styled.footer`
   font-size: 12px;
   margin: ${({ currClientHeight }) => {
     if (styles.withoutAdditionalLinks) return '0 0';
-    if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
-      return '10px 0 0';
+    if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any) return '10px 0 0';
     return '30px 0 0 0';
   }};
 
@@ -69,7 +65,7 @@ const FooterStyled = styled.footer`
 `;
 
 const Img = styled.img`
-  width: ${({ alt }) => (alt === 'telos' ? 40 : 60)}px;
+  width: 60px;
   height: 15px;
   margin-left: 1px;
   filter: grayscale(100%);
@@ -179,20 +175,13 @@ InfoLinksDropDown.propTypes = {
   withTitle: PropTypes.bool,
 };
 
-const AdditionalLinksComponent = ({
-  currClientHeight,
-  changeLocale,
-  locale,
-  isMenuVisible,
-}) => {
+const AdditionalLinksComponent = ({ currClientHeight, changeLocale, locale, isMenuVisible }) => {
   const { t } = useTranslation();
   const isDesktop = useMediaQuery('(min-width: 992px)');
-  const basicCondition =
-    !styles.withoutAdditionalLinks && !isMobile(window.navigator).any;
+  const basicCondition = !styles.withoutAdditionalLinks && !isMobile(window.navigator).any;
 
   const fullSize = currClientHeight > SEMI_SIZE;
-  const middleSize =
-    currClientHeight <= FULL_SIZE && currClientHeight > SEMI_SIZE;
+  const middleSize = currClientHeight <= FULL_SIZE && currClientHeight > SEMI_SIZE;
   const smallSize = currClientHeight <= SEMI_SIZE;
 
   return (
@@ -200,8 +189,7 @@ const AdditionalLinksComponent = ({
       {isMenuVisible && (
         <AdditionalLinks>
           {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
-            (!styles.withoutAdditionalLinks &&
-              isMobile(window.navigator).any)) && (
+            (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
             <>
               {INFO_LINKS.map((el) => (
                 <Link path={el.route} key={el.route} message={el.title} />
@@ -218,13 +206,7 @@ const AdditionalLinksComponent = ({
             <InfoLinksDropDown withTitle />
           )}
 
-          {!isDesktop && (
-            <ChangeLocale
-              withTitle
-              changeLocale={changeLocale}
-              locale={locale}
-            />
-          )}
+          {!isDesktop && <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />}
 
           {smallSize && basicCondition && (
             <FlexibleDiv>
@@ -254,9 +236,7 @@ const AdditionalLinksComponent = ({
                       components={[
                         <Img
                           key="peeranha"
-                          src={
-                            styles.logoWhite ? peeranhaLogoWhite : peeranhaLogo
-                          }
+                          src={styles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
                           alt="peeranha"
                         />,
                       ]}
@@ -274,16 +254,8 @@ const AdditionalLinksComponent = ({
                   termsOfService: t('common.termsOfService'),
                 }}
                 components={[
-                  <ASimple
-                    key="0"
-                    href="https://policies.google.com/privacy"
-                    target="_blank"
-                  />,
-                  <ASimple
-                    key="1"
-                    href="https://policies.google.com/terms"
-                    target="_blank"
-                  />,
+                  <ASimple key="0" href="https://policies.google.com/privacy" target="_blank" />,
+                  <ASimple key="1" href="https://policies.google.com/terms" target="_blank" />,
                 ]}
               />
             </DivMention>

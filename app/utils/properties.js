@@ -14,6 +14,7 @@ import {
   globalAdminPermissions,
   communityModeratorPermissions,
   PROTOCOL_ADMIN_ROLE,
+  BOT_ADDRESS,
 } from './constants';
 
 // todo change to "findRole"
@@ -146,6 +147,8 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
 
 export const getCommunityRole = (role, communityId) =>
   BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();
+
+export const isBotAddress = (account) => account.id === BOT_ADDRESS;
 
 export const isTemporaryAccount = async (account) => {
   const ethereumService = await selectEthereum();

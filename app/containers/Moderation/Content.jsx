@@ -1,22 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import styled from 'styled-components';
 import { Trans } from 'react-i18next';
 
 import { BORDER_SECONDARY, BG_TRANSPARENT, BORDER_TRANSPARENT, TEXT_DARK } from 'style-constants';
 
+import okayGreen from 'images/okayGreen.svg?external';
+
+import { IconSm } from 'components/Icon/IconWithSizes';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 
+import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
-import BaseRounded from 'components/Base/BaseRounded';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 import { permissions } from './messages';
 import styles from './Moderation.styled';
 
-const SectionStyled = BaseRounded.extend`
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
+
+const SectionStyled = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
-  padding: 0 0 32px;
 
   > :not(:last-child) {
     border-bottom: 1px solid ${BORDER_SECONDARY};
@@ -28,29 +35,40 @@ const SectionStyled = BaseRounded.extend`
   }
 `;
 
+const ImgWrapper = styled.div`
+  margin-right: 18px;
+  width: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  :hover {
+    cursor: pointer;
+  }
+
+  @media only screen and (max-width: 576px) {
+    margin-right: 8px;
+  }
+`;
+
 const PermissionBox = BaseTransparent.extend`
   display: flex;
-  align-items: start;
+  align-items: baseline;
   padding: 0 30px;
   background: ${BG_TRANSPARENT};
   border: 1px solid ${BORDER_TRANSPARENT};
-  margin-bottom: 12px;
 
   h5 span {
     color: ${TEXT_DARK};
-    line-height: 24px;
+    margin-bottom: 5px;
     & strong {
       font-weight: 600;
     }
   }
-  &::before {
-    content: '';
-    width: 5px;
-    height: 5px;
-    margin-top: 11px;
-    border-radius: 50%;
-    background-color: #576fed;
-    margin-right: 10px;
+
+  &:last-child {
+    padding-bottom: 15px;
   }
 `.withComponent('li');
 
@@ -60,9 +78,21 @@ const PermissionBoxBody = styled.div`
 
 const Permission = ({ title, permissionCode, sectionCode, getPermissionCode }) => {
   const permissionId = getPermissionCode(sectionCode, permissionCode);
+  const ico = okayGreen;
 
   return (
-    <PermissionBox key={permissionId} id={permissionId} nullMobilePadding>
+    <PermissionBox key={permissionId} id={permissionId}>
+      <ImgWrapper>
+        <IconSm
+          icon={ico}
+          css={css`
+            path {
+              stroke: ${colors.btnColor || '#25A745'};
+            }
+          `}
+        />
+      </ImgWrapper>
+
       <PermissionBoxBody>
         <h5 className="d-flex align-items-center">
           <Span fontSize="18" lineHeight="35" mobileFS="18">

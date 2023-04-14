@@ -14,27 +14,17 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { saveProfileSuccess, saveProfileErr } from './actions';
 
-import {
-  SAVE_PROFILE,
-  EDIT_PROFILE_BUTTON_ID,
-  MIN_RATING_TO_EDIT_PROFILE,
-} from './constants';
+import { SAVE_PROFILE, EDIT_PROFILE_BUTTON_ID, MIN_RATING_TO_EDIT_PROFILE } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 // TODO: test
 /* eslint no-param-reassign: 0 */
-export function* saveProfileWorker(
-  { profile, userKey },
-  isNavigateToProfile = true,
-) {
+export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = true) {
   try {
     const ethereumService = yield select(selectEthereum);
 
     // check that it is not hash
-    if (
-      profile[AVATAR_FIELD] &&
-      profile[AVATAR_FIELD].length > HASH_CHARS_LIMIT
-    ) {
+    if (profile[AVATAR_FIELD] && profile[AVATAR_FIELD].length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, profile[AVATAR_FIELD]);
       profile[AVATAR_FIELD] = imgHash;
     }

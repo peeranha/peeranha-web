@@ -32,15 +32,12 @@ import {
   EDIT_COMMUNITY_FORM,
 } from './constants';
 import { COMMUNITY_TYPE } from '../CreateCommunity/constants';
-import BloggerModeForm from '../CreateCommunity/BloggerModeForm';
 
 const EditCommunityForm = ({
   communityId,
   communityLoading,
   editCommunityDispatch,
   handleSubmit,
-  formValues,
-  initialValues,
 }) => {
   const { t } = useTranslation();
   const editCommunity = useCallback(
@@ -51,7 +48,7 @@ const EditCommunityForm = ({
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
         website: values.get(COMM_OFFICIAL_SITE_FIELD),
         communitySite: values.get(COMM_PEERANHA_SITE_FIELD),
-        isBlogger: !!parseInt(values.get(COMMUNITY_TYPE)),
+        isBlogger: false,
       };
 
       editCommunityDispatch(communityId, communityData);
@@ -116,19 +113,7 @@ const EditCommunityForm = ({
           splitInHalf
         />
 
-        {+formValues[COMMUNITY_TYPE] ? (
-          <BloggerModeForm
-            disabled={communityLoading}
-            formValues={formValues}
-            initialValues={initialValues}
-          />
-        ) : null}
-
-        <LargeButton
-          id={EDIT_COMMUNITY_BUTTON}
-          type="submit"
-          disabled={communityLoading}
-        >
+        <LargeButton id={EDIT_COMMUNITY_BUTTON} type="submit" disabled={communityLoading}>
           {t('common.editCommunityDesc.editCommunity')}
         </LargeButton>
       </FormBox>
@@ -160,7 +145,7 @@ export default connect((state, { community }) => ({
         [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
         [COMM_OFFICIAL_SITE_FIELD]: community.website,
         [COMM_PEERANHA_SITE_FIELD]: community.communitySite,
-        [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
+        [COMMUNITY_TYPE]: 0,
       }
     : {},
 }))(FormClone);

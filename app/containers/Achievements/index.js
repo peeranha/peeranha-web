@@ -113,9 +113,7 @@ const Achievements = ({
 
       {!achievementsLoading && achievements.length > 0 && (
         <UniqueAchievementsWrapper>
-          <UniqueAchievementsTitle>
-            {t('common.limitedEdition')}
-          </UniqueAchievementsTitle>
+          <UniqueAchievementsTitle>{t('common.limitedEdition')}</UniqueAchievementsTitle>
 
           <UniqueAchievementsBlock>
             {/* TODO revert for PROD */}
@@ -124,8 +122,7 @@ const Achievements = ({
                 achievement.name !== 'error IPFS2' && (
                   <UniqueAchievement
                     reached={userAchievements.some(
-                      (achievementId) =>
-                        Number(achievementId) === achievement.id,
+                      (achievementId) => Number(achievementId) === achievement.id,
                     )}
                     key={achievement.id}
                     maxCount={achievement.maxCount}
@@ -184,18 +181,9 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
-  getUserAchievementsDispatch: bindActionCreators(
-    getUserAchievements,
-    dispatch,
-  ),
-  setViewProfileAccountDispatch: bindActionCreators(
-    setViewProfileAccount,
-    dispatch,
-  ),
-  resetViewProfileAccountDispatch: bindActionCreators(
-    resetViewProfileAccount,
-    dispatch,
-  ),
+  getUserAchievementsDispatch: bindActionCreators(getUserAchievements, dispatch),
+  setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
+  resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
