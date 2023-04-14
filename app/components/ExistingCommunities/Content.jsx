@@ -121,9 +121,16 @@ const Content = ({ communities, sorting, locale, profile }) => {
     <>
       <Base>
         {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order]).map(
-          ({ avatar, name, id, description, website, tagsCount, ...x }, index, arr) => {
+          (
+            { avatar, name, id, description, website, tagsCount, translations, ...x },
+            index,
+            arr,
+          ) => {
             const value = id;
             const origin = hasCommunitySingleWebsite(id);
+            const communityTranslation = translations?.find(
+              (translation) => translation.language === locale,
+            );
 
             return (
               <BaseSpecial
@@ -133,7 +140,11 @@ const Content = ({ communities, sorting, locale, profile }) => {
                 key={value}
               >
                 <DescriptionBlock>
-                  <MediumImageStyled className="bg-transparent" src={avatar} alt={name} />
+                  <MediumImageStyled
+                    className="bg-transparent"
+                    src={avatar}
+                    alt={communityTranslation?.name || name}
+                  />
 
                   <div>
                     <P fontSize="24" lineHeight="31" bold>
@@ -141,12 +152,12 @@ const Content = ({ communities, sorting, locale, profile }) => {
                         href={origin || routes.questions(id)}
                         css={{ position: 'relative' }}
                       >
-                        {name}
+                        {communityTranslation?.name || name}
                         {origin && <SingleCommunityIcon locale={locale} id={id} />}
                       </ADefault>
                     </P>
                     <DescriptionText fontSize="14" lineHeight="18">
-                      {description}
+                      {communityTranslation?.description || description}
                     </DescriptionText>
                     {website && <OfficialSiteLink website={website} />}
                   </div>

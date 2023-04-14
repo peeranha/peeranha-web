@@ -31,31 +31,33 @@ const Base = styled.div`
 `;
 
 const links = [
-  DOCUMENTATION_ABOUT_LINK,
-  DOCUMENTATION_COMMUNITY_LINK,
-  DOCUMENTATION_POSTS_ANSWERS_COMMENTS_LINK,
-  DOCUMENTATION_REPUTATION_PRIVILEGES_LINK,
+  { link: DOCUMENTATION_ABOUT_LINK, text: 'common.aboutPeeranha' },
+  { link: DOCUMENTATION_COMMUNITY_LINK, text: 'common.communities' },
+  {
+    link: DOCUMENTATION_POSTS_ANSWERS_COMMENTS_LINK,
+    text: 'common.postsAnswersComments',
+  },
+  {
+    link: DOCUMENTATION_REPUTATION_PRIVILEGES_LINK,
+    text: 'common.statusReputationPrivileges',
+  },
 ];
 
 const FaqSections = ({ faq }) => {
   const { t } = useTranslation();
-  const faqBlocks = faq.blocks.slice(0, 5).filter((item, index) => index !== 1);
 
   return (
     <Base>
       <h6>{t('common.documentation')}</h6>
-
-      {faq && (
-        <ul>
-          {faqBlocks.map((x, sectionIndex) => (
-            <li key={x.h2}>
-              <a href={links[sectionIndex]} target="_blank">
-                {x.h2}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {links.map((x) => (
+          <li key={t(x.text)}>
+            <a href={x.link} target="_blank">
+              {t(x.text)}
+            </a>
+          </li>
+        ))}
+      </ul>
     </Base>
   );
 };
