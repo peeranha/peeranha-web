@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  getFollowedCommunities,
-  isSingleCommunityWebsite,
-} from 'utils/communityManagement';
+import { getFollowedCommunities, isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import * as routes from 'routes-config';
 
@@ -33,13 +30,19 @@ const QuestionCommunity = ({
   communityId,
   className,
   postType,
+  locale,
   isFeed = false,
 }) => {
   if (!communities[0]) {
     return null;
   }
 
-  const com = getFollowedCommunities(communities, [+communityId])[0] || {};
+  const community = getFollowedCommunities(communities, [+communityId])[0] || {};
+
+  const communityTranslationTitle = community.translations?.find(
+    (translation) => translation.language === locale,
+  )?.name;
+
   let route = null;
   let Link = A;
   if (single && communityId !== single) {
@@ -56,13 +59,9 @@ const QuestionCommunity = ({
   }
 
   return (
-    <Link
-      to={route}
-      href={route}
-      className={`d-flex align-items-center ${className}`}
-    >
-      <Img className="mr-1" src={com.avatar} alt="comm_avatar" />
-      <Span font-size="14">{com.name}</Span>
+    <Link to={route} href={route} className={`d-flex align-items-center ${className}`}>
+      <Img className="mr-1" src={community.avatar} alt="comm_avatar" />
+      <Span font-size="14">{communityTranslationTitle || community.name}</Span>
     </Link>
   );
 };
@@ -72,6 +71,7 @@ QuestionCommunity.propTypes = {
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   className: PropTypes.string,
   postType: PropTypes.number,
+  locale: PropTypes.string,
   isFeed: PropTypes.bool,
 };
 

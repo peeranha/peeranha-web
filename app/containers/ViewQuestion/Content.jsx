@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 
-import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
+import { LANGUAGES_MAP } from 'utils/constants';
 
 import Base from 'components/Base/BaseRoundedNoPadding';
 
 import QuestionTitle from './QuestionTitle';
 import ContentHeader from './ContentHeader';
 import ContentBody from './ContentBody';
-import { isTemporaryAccount } from '../../utils/properties';
 
 const BaseStyled = Base.extend`
   //overflow: hidden;
@@ -17,14 +16,34 @@ const BaseStyled = Base.extend`
 
 export const Content = (props) => {
   const isTemporaryAccount = false;
+  const [showOriginal, setShowOriginal] = useState(false);
+  const translation = props.translations?.find(
+    ({ language }) => Number(language) === LANGUAGES_MAP[props.locale],
+  );
   //   !!props.author?.['integer_properties'].find(
   //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   // );
+  const getContent = () => {
+    if (Number(props.language) === LANGUAGES_MAP[props.locale] || showOriginal) {
+      return { content: props.content, title: props.title };
+    }
+    return translation
+      ? { content: translation.content, title: translation.title }
+      : { content: props.content, title: props.title };
+  };
+
+  const { title, content } = getContent();
+
   return (
     <BaseStyled className={props.className} id={routes.uniqueAnswerId(props.answerId)}>
-      <ContentHeader {...props} />
+      <ContentHeader
+        {...props}
+        translation={translation}
+        showOriginal={showOriginal}
+        setShowOriginal={setShowOriginal}
+      />
       <QuestionTitle
-        title={props.title}
+        title={title}
         communities={props.communities}
         isItWrittenByMe={props.isItWrittenByMe}
         user={props.author.user}
@@ -32,7 +51,12 @@ export const Content = (props) => {
         isTemporaryAccount={isTemporaryAccount}
         locale={props.locale}
       />
-      <ContentBody {...props} />
+      <ContentBody
+        {...props}
+        content={content}
+        showOriginal={showOriginal}
+        setShowOriginal={setShowOriginal}
+      />
     </BaseStyled>
   );
 };
@@ -49,6 +73,7 @@ Content.propTypes = {
   lastEditedDate: PropTypes.number,
   communities: PropTypes.array,
   isItWrittenByMe: PropTypes.bool,
+  translations: PropTypes.array,
 };
 
 export default React.memo(Content);

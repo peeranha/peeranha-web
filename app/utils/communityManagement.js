@@ -66,11 +66,13 @@ export const editCommunity = async (
   );
   const user = selectedAccount;
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
-  await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, EDIT_COMMUNITY, [
+  await ethereumService.sendTransaction(
+    CONTRACT_COMMUNITY,
     user,
-    communityId,
-    ipfsHash,
-  ]);
+    EDIT_COMMUNITY,
+    [user, communityId, ipfsHash],
+    3,
+  );
 };
 
 export const checkIsColorsActual = (id, mainColor, highlightColor) => {

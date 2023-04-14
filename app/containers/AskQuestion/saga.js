@@ -1,13 +1,11 @@
+import { languagesEnum } from 'app/i18n';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { POST_TYPES } from 'containers/ViewQuestion/constants';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import {
-  postQuestion,
-  getCreatedPostId,
-  updateDocumentationTree,
-} from 'utils/questionsManagement';
+import { postQuestion, getCreatedPostId, updateDocumentationTree } from 'utils/questionsManagement';
 
 import { getResults } from 'utils/custom-search';
 
@@ -44,6 +42,7 @@ import {
 
 export function* postQuestionWorker({ val }) {
   try {
+    const locale = yield select(makeSelectLocale());
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
     const documentationMenu = yield select(selectDocumentationMenu());
@@ -70,6 +69,7 @@ export function* postQuestionWorker({ val }) {
       questionData,
       postType,
       tags,
+      languagesEnum[locale],
       ethereumService,
     );
     const id = yield call(
@@ -83,10 +83,7 @@ export function* postQuestionWorker({ val }) {
     if (postType === POST_TYPE.documentation) {
       const documentationTraversal = (documentationArray) =>
         documentationArray.map((documentationSection) => {
-          if (
-            String(documentationSection.id) ===
-            String(val[FORM_SUB_ARTICLE].value)
-          ) {
+          if (String(documentationSection.id) === String(val[FORM_SUB_ARTICLE].value)) {
             documentationSection.children.push({
               id: id.toString(),
               title: questionData.title,
@@ -109,10 +106,7 @@ export function* postQuestionWorker({ val }) {
         });
       let newMenu;
 
-      if (
-        documentationMenu?.length &&
-        Number(val[FORM_SUB_ARTICLE].value) !== -1
-      ) {
+      if (documentationMenu?.length && Number(val[FORM_SUB_ARTICLE].value) !== -1) {
         newMenu = documentationTraversal(documentationMenu);
       } else {
         newMenu = [
@@ -171,18 +165,12 @@ export function* checkReadinessWorker({ buttonId }) {
 }
 
 /* eslint no-empty: 0 */
-export function* redirectToAskQuestionPageWorker({
-  buttonId,
-  isDocumentation,
-  parentId,
-}) {
+export function* redirectToAskQuestionPageWorker({ buttonId, isDocumentation, parentId }) {
   try {
     yield call(checkReadinessWorker, { buttonId });
     yield call(
       createdHistory.push,
-      isDocumentation
-        ? routes.documentationCreate(parentId)
-        : routes.questionAsk(),
+      isDocumentation ? routes.documentationCreate(parentId) : routes.questionAsk(),
     );
   } catch (err) {}
 }

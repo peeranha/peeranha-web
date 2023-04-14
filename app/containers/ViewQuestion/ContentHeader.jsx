@@ -17,6 +17,7 @@ import { useOnClickOutside } from 'utils/click-listners';
 
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import SeeOriginal from 'containers/ViewQuestion/SeeOriginal';
 import { getUserName } from 'utils/user';
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
 import UserInfo from './UserInfo';
@@ -147,6 +148,11 @@ const ContentHeader = (props) => {
     infiniteImpact,
     histories,
     isPostContent,
+    translation,
+    language,
+    isOriginalLanguage,
+    showOriginal,
+    setShowOriginal,
   } = props;
   const { t } = useTranslation();
 
@@ -208,6 +214,9 @@ const ContentHeader = (props) => {
     deleteAction = isGlobalAdmin || infiniteImpact ? deleteItem : null;
   }
 
+  const shouldShowDeleteBtn =
+    !profile || (!!profile && !isItWrittenByMe && !isGlobalAdmin && !infiniteImpact);
+
   return (
     <Box>
       <RatingBox>
@@ -227,6 +236,16 @@ const ContentHeader = (props) => {
           isTemporaryAccount={isTemporaryAccount}
         />
         <ButtonContainer>
+          <div>
+            <SeeOriginal
+              isOriginalLanguage={isOriginalLanguage}
+              showOriginal={showOriginal}
+              setShowOriginal={setShowOriginal}
+              locale={locale}
+              translation={translation}
+              language={type === QUESTION_TYPE ? questionData?.language : language}
+            />
+          </div>
           {infiniteImpact ? (
             <Button
               show={
@@ -243,25 +262,27 @@ const ContentHeader = (props) => {
             </Button>
           ) : null}
 
-          <div id={`${type}_delete_${answerId}`}>
-            <AreYouSure
-              submitAction={deleteAction}
-              isGlobalAdmin={isGlobalAdmin}
-              isMarkedTheBest={isMarkedTheBest}
-              Button={({ onClick }) => (
-                <Button
-                  show={!!profile && (isItWrittenByMe || isGlobalAdmin || infiniteImpact)}
-                  id={`${type}_delete_${answerId}`}
-                  params={buttonParams}
-                  onClick={onClick}
-                  disabled={ids.includes(`${type}_delete_${answerId}`)}
-                >
-                  <IconMd icon={deleteIcon} fill={colors.contentHeader || BORDER_PRIMARY} />
-                  <span>{t('post.deleteButton')}</span>
-                </Button>
-              )}
-            />
-          </div>
+          {!shouldShowDeleteBtn && (
+            <div id={`${type}_delete_${answerId}`}>
+              <AreYouSure
+                submitAction={deleteAction}
+                isGlobalAdmin={isGlobalAdmin}
+                isMarkedTheBest={isMarkedTheBest}
+                Button={({ onClick }) => (
+                  <Button
+                    show={!shouldShowDeleteBtn}
+                    id={`${type}_delete_${answerId}`}
+                    params={buttonParams}
+                    onClick={onClick}
+                    disabled={ids.includes(`${type}_delete_${answerId}`)}
+                  >
+                    <IconMd icon={deleteIcon} fill={colors.contentHeader || BORDER_PRIMARY} />
+                    <span>{t('post.deleteButton')}</span>
+                  </Button>
+                )}
+              />
+            </div>
+          )}
 
           {type === QUESTION_TYPE && (
             <DropdownBox>
@@ -335,6 +356,11 @@ ContentHeader.propTypes = {
   isChangeTypeAvailable: PropTypes.bool,
   infiniteImpact: PropTypes.bool,
   history: PropTypes.array,
+  translation: PropTypes.object,
+  language: PropTypes.string,
+  isOriginalLanguage: PropTypes.bool,
+  showOriginal: PropTypes.bool,
+  setShowOriginal: PropTypes.func,
 };
 
 export default React.memo(

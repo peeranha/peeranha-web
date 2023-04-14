@@ -41,6 +41,7 @@ export const Tags = ({
   redirectToCreateTagDispatch,
   getExistingTagsDispatch,
   profile,
+  locale,
 }) => {
   useEffect(() => {
     getExistingTagsDispatch({ communityId });
@@ -62,6 +63,7 @@ export const Tags = ({
           currentCommunity={currentCommunity}
           tagsNumber={tagsNumber}
           profile={profile}
+          locale={locale}
         />
 
         <div className="mb-3">{Content}</div>
@@ -81,6 +83,7 @@ Tags.propTypes = {
   currentCommunity: PropTypes.object,
   communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  locale: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -94,10 +97,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
-    redirectToCreateTagDispatch: bindActionCreators(
-      redirectToCreateTag,
-      dispatch,
-    ),
+    redirectToCreateTagDispatch: bindActionCreators(redirectToCreateTag, dispatch),
   };
 }
 
