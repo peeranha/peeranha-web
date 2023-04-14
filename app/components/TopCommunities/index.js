@@ -19,13 +19,7 @@ const getOffset = () => {
   return 75;
 };
 
-const TopCommunities = ({
-  communities,
-  profile,
-  questions,
-  isTopCommunitiesOnly,
-  locale,
-}) => {
+const TopCommunities = ({ communities, profile, questions, isTopCommunitiesOnly, locale }) => {
   if (!communities || !profile || !communities.length) {
     return null;
   }
@@ -33,10 +27,7 @@ const TopCommunities = ({
   const refCommunitiesSection = useRef(null);
 
   useEffect(() => {
-    if (
-      history.default?.location.hash === '#communities' &&
-      refCommunitiesSection.current
-    ) {
+    if (history.default?.location.hash === '#communities' && refCommunitiesSection.current) {
       window.scrollTo(0, refCommunitiesSection.current.offsetTop - getOffset());
     }
   }, [history.default?.location.hash, questions, refCommunitiesSection]);
