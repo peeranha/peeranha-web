@@ -8,10 +8,7 @@ import {
 
 import { changeStakedInNextPeriod } from 'containers/AccountProvider/actions';
 
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { parseEther } from 'ethers/lib/utils';
 import { GET_WEEK_STAT, CHANGE_STAKE } from './constants';
@@ -31,9 +28,7 @@ export function* getWeekStatWorker() {
     const ethereumService = yield select(selectEthereum);
     const profile = yield select(makeSelectProfileInfo());
     const user = yield select(makeSelectAccount());
-    const weekStat = profile
-      ? yield call(getWeekStat, ethereumService, user)
-      : [];
+    const weekStat = profile ? yield call(getWeekStat, ethereumService, user) : [];
 
     const currentPeriod = weekStat[0].period;
     const boostStat = profile
@@ -54,12 +49,7 @@ export function* changeStakeWorker({ currentStake }) {
     const profile = yield select(makeSelectProfileInfo());
     const boostStat = yield select(selectUserBoostStat());
 
-    yield call(
-      addBoost,
-      ethereumService,
-      profile.user,
-      parseEther(currentStake),
-    );
+    yield call(addBoost, ethereumService, profile.user, parseEther(currentStake));
 
     yield put(
       changeStakedInNextPeriod(
@@ -68,10 +58,7 @@ export function* changeStakeWorker({ currentStake }) {
       ),
     );
 
-    const [newBoost, newAverageStake] = calculateNewBoost(
-      boostStat,
-      Number(currentStake),
-    );
+    const [newBoost, newAverageStake] = calculateNewBoost(boostStat, Number(currentStake));
 
     const newBoosStat = {
       ...boostStat,

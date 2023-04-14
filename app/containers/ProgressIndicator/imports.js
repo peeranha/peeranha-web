@@ -22,10 +22,7 @@ import {
 import { selectPickupRewardProcessing } from 'containers/Wallet/selectors';
 import { selectTopQuestionActionProcessing } from '../Questions/selectors';
 import { selectChangeStakeLoading } from '../Boost/selectors';
-import {
-  selectTransactionHash,
-  selectTransactionInPending,
-} from '../EthereumProvider/selectors';
+import { selectTransactionHash, selectTransactionInPending } from '../EthereumProvider/selectors';
 
 export default {
   selectAskQuestionLoading: selectAskQuestionLoading(),

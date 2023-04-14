@@ -25,9 +25,7 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 export function* loginWithWalletWorker({ metaMask, t }) {
   try {
     const ethereumService = yield select(selectEthereum);
-    const isNewPostCreationAfterLogin = yield select(
-      selectIsNewPostCreationAfterLogin(),
-    );
+    const isNewPostCreationAfterLogin = yield select(selectIsNewPostCreationAfterLogin());
 
     let currentAccount;
     let metaMaskUserAddress = null;

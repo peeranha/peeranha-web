@@ -16,11 +16,7 @@ import {
   getFormError,
 } from './actions';
 
-import {
-  CREATE_COMMUNITY,
-  CREATE_COMMUNITY_BUTTON,
-  GET_FORM,
-} from './constants';
+import { CREATE_COMMUNITY, CREATE_COMMUNITY_BUTTON, GET_FORM } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* createCommunityWorker({ community, reset }) {

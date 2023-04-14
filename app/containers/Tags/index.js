@@ -94,10 +94,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
-    redirectToCreateTagDispatch: bindActionCreators(
-      redirectToCreateTag,
-      dispatch,
-    ),
+    redirectToCreateTagDispatch: bindActionCreators(redirectToCreateTag, dispatch),
   };
 }
 

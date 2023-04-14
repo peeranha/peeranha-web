@@ -63,12 +63,7 @@ export const Communities = ({
           profile={profile}
         />
 
-        <Content
-          communities={communities}
-          sorting={sorting}
-          locale={locale}
-          profile={profile}
-        />
+        <Content communities={communities} sorting={sorting} locale={locale} profile={profile} />
 
         {displayLoadingIndicator && <LoadingIndicator />}
       </div>
@@ -99,10 +94,7 @@ export default memo(
         profile: makeSelectProfileInfo(),
       }),
       (dispatch) => ({
-        redirectToCreateCommunityDispatch: bindActionCreators(
-          redirectToCreateCommunity,
-          dispatch,
-        ),
+        redirectToCreateCommunityDispatch: bindActionCreators(redirectToCreateCommunity, dispatch),
       }),
     ),
   )(Communities),

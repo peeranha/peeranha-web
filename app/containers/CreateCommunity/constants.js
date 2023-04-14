@@ -1,7 +1,6 @@
 const PATH = 'app/CreateCommunity/';
 
-export const CREATE_COMMUNITY_BUTTON =
-  'app_CreateCommunity_CREATE_COMMUNITY_BUTTON';
+export const CREATE_COMMUNITY_BUTTON = 'app_CreateCommunity_CREATE_COMMUNITY_BUTTON';
 
 export const FORM_NAME = `${PATH}FORM_NAME`;
 export const FORM_TYPE = `${PATH}FORM_TYPE`;

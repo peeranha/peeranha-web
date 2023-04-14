@@ -14,10 +14,7 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import { LOGIN_WITH_WALLET } from 'containers/Login/constants';
 
-import {
-  selectStat,
-  selectUsers,
-} from 'containers/DataCacheProvider/selectors';
+import { selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import {
   getCommunities,
@@ -64,11 +61,7 @@ export function* getCommunitiesWorker() {
   try {
     const ethereumService = yield select(selectEthereum);
     const stat = yield select(selectStat());
-    const communities = yield call(
-      getAllCommunities,
-      ethereumService,
-      stat.communitiesCount,
-    );
+    const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
 
     yield put(getCommunitiesSuccess(communities));
   } catch (err) {
@@ -117,11 +110,7 @@ export function* getTutorialWorker() {
 }
 
 /* eslint consistent-return: 0 */
-export function* getUserProfileWorker({
-  user,
-  getFullProfile,
-  communityIdForRating,
-}) {
+export function* getUserProfileWorker({ user, getFullProfile, communityIdForRating }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
@@ -161,9 +150,7 @@ export function* getUserProfileWorker({
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||
-      (updatedUserInfo &&
-        cachedUserInfo &&
-        getHash(updatedUserInfo) !== getHash(cachedUserInfo))
+      (updatedUserInfo && cachedUserInfo && getHash(updatedUserInfo) !== getHash(cachedUserInfo))
     ) {
       yield put(getUserProfileSuccess({ ...updatedUserInfo }));
     }

@@ -32,12 +32,7 @@ export const ModalDialog = ({ children, show, closeModal }) => {
     <React.Fragment>
       <ModalStyled>
         <div className="d-flex justify-content-end">
-          <Icon
-            onClick={closeModal}
-            icon={closeIcon}
-            width="16"
-            color={TEXT_SECONDARY_LIGHT}
-          />
+          <Icon onClick={closeModal} icon={closeIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
         </div>
         <div className="modal-children">{children}</div>
       </ModalStyled>

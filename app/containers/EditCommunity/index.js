@@ -109,10 +109,7 @@ const withConnect = connect(
   createStructuredSelector({
     community: selectCommunity(),
     editCommunityLoading: selectEditCommunityLoading(),
-    faqQuestions: selectFaqQuestions([
-      WHAT_IS_COMMUNITY_QUESTION,
-      WHO_MANAGES_COMMUNITY_QUESTION,
-    ]),
+    faqQuestions: selectFaqQuestions([WHAT_IS_COMMUNITY_QUESTION, WHO_MANAGES_COMMUNITY_QUESTION]),
     getCommunityLoading: selectGetCommunityLoading(),
     locale: makeSelectLocale(),
     profileInfo: makeSelectProfileInfo(),

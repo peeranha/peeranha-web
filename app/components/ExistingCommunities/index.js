@@ -9,9 +9,7 @@ import SubHeader from './SubHeader';
 import sortingOptions from './sortingOptions';
 
 export const ExistingCommunities = () => {
-  const [sorting, changeSorting] = useState(
-    sortingOptions[Object.keys(sortingOptions)[0]],
-  );
+  const [sorting, changeSorting] = useState(sortingOptions[Object.keys(sortingOptions)[0]]);
 
   return (
     <Communities

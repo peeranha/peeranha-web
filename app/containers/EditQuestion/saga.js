@@ -41,12 +41,7 @@ export function* getAskedQuestionWorker({ questionId }) {
     let questionFromContract;
 
     if (!cachedQuestion) {
-      questionFromContract = yield call(
-        getQuestionById,
-        ethereumService,
-        questionId,
-        account,
-      );
+      questionFromContract = yield call(getQuestionById, ethereumService, questionId, account);
       question = {
         ...questionFromContract,
         isGeneral: !!questionFromContract.postType,

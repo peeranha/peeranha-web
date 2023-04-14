@@ -7,10 +7,7 @@ import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 
 import { getCommunitiesSuccess } from 'containers/DataCacheProvider/actions';
 
-import {
-  selectCommunities,
-  selectStat,
-} from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectStat } from 'containers/DataCacheProvider/selectors';
 
 import {
   editCommunity,
@@ -38,11 +35,7 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 export function* getCommunityWorker({ communityId }) {
   try {
     const ethereumService = yield select(selectEthereum);
-    const community = yield call(
-      getCommunityFromContract,
-      ethereumService,
-      communityId,
-    );
+    const community = yield call(getCommunityFromContract, ethereumService, communityId);
 
     yield put(getCommunitySuccess(community));
   } catch (error) {
@@ -57,10 +50,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
       communityData.avatar = imgHash;
     }
 
-    if (
-      communityData.banner &&
-      communityData.banner.length > HASH_CHARS_LIMIT
-    ) {
+    if (communityData.banner && communityData.banner.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.banner);
       communityData.banner = imgHash;
     }
@@ -68,22 +58,14 @@ export function* editCommunityWorker({ communityId, communityData }) {
     const communityDataCurrent = yield select(selectCommunity());
     const isSingleCommunityMode = !!isSingleCommunityWebsite();
     const isEqual = Object.keys(communityData).every((key) => {
-      return !(key === 'isBlogger')
-        ? communityData[key] === communityDataCurrent[key]
-        : true;
+      return !(key === 'isBlogger') ? communityData[key] === communityDataCurrent[key] : true;
     });
 
     if (!isEqual) {
       const ethereumService = yield select(selectEthereum);
       const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
-      yield call(
-        editCommunity,
-        ethereumService,
-        selectedAccount,
-        communityId,
-        communityData,
-      );
+      yield call(editCommunity, ethereumService, selectedAccount, communityId, communityData);
 
       const cachedCommunities = yield select(selectCommunities());
 
@@ -92,11 +74,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
       if (community) {
         try {
           const stat = yield select(selectStat());
-          const communities = yield call(
-            getAllCommunities,
-            ethereumService,
-            stat.communitiesCount,
-          );
+          const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
 
           yield put(getCommunitiesSuccess(communities));
         } catch {}
@@ -107,10 +85,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     yield put(editCommunitySuccess());
 
-    yield call(
-      createdHistory.push,
-      `${isSingleCommunityMode ? feed() : communitiesRoute()}`,
-    );
+    yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
   } catch (error) {
     yield put(editCommunityError(error));
   }

@@ -19,10 +19,8 @@ export const SHOW_LOGIN_MODAL = 'app/containers/Login/SHOW_LOGIN_MODAL';
 export const HIDE_LOGIN_MODAL = 'app/containers/Login/HIDE_LOGIN_MODAL';
 
 export const LOGIN_WITH_WALLET = 'app/containers/Login/LOGIN_WITH_WALLET';
-export const LOGIN_WITH_WALLET_SUCCESS =
-  'app/containers/Login/LOGIN_WITH_WALLET_SUCCESS';
-export const LOGIN_WITH_WALLET_ERROR =
-  'app/containers/Login/LOGIN_WITH_WALLET_ERROR';
+export const LOGIN_WITH_WALLET_SUCCESS = 'app/containers/Login/LOGIN_WITH_WALLET_SUCCESS';
+export const LOGIN_WITH_WALLET_ERROR = 'app/containers/Login/LOGIN_WITH_WALLET_ERROR';
 
 // Local storage
 export const AUTOLOGIN_DATA = 'peeranhaAutoLogin';

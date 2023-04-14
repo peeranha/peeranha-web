@@ -113,11 +113,7 @@ const EditCommunityForm = ({
           splitInHalf
         />
 
-        <LargeButton
-          id={EDIT_COMMUNITY_BUTTON}
-          type="submit"
-          disabled={communityLoading}
-        >
+        <LargeButton id={EDIT_COMMUNITY_BUTTON} type="submit" disabled={communityLoading}>
           {t('common.editCommunityDesc.editCommunity')}
         </LargeButton>
       </FormBox>

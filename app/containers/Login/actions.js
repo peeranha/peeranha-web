@@ -28,10 +28,7 @@ export function hideLoginModal() {
 
 // Login with Wallet
 
-export function loginWithWallet(
-  { metaMask, t },
-  isNewPostCreationAfterLogin = false,
-) {
+export function loginWithWallet({ metaMask, t }, isNewPostCreationAfterLogin = false) {
   return {
     type: LOGIN_WITH_WALLET,
     metaMask,

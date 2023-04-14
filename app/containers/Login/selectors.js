@@ -13,16 +13,10 @@ export const makeSelectEmail = () =>
   createSelector(selectLoginDomain, (substate) => substate.get('email'));
 
 export const selectLoginWithWalletProcessing = () =>
-  createSelector(selectLoginDomain, (substate) =>
-    substate.get('loginWithWalletProcessing'),
-  );
+  createSelector(selectLoginDomain, (substate) => substate.get('loginWithWalletProcessing'));
 
 export const selectLoginWithWalletError = () =>
-  createSelector(selectLoginDomain, (substate) =>
-    substate.get('loginWithWalletError'),
-  );
+  createSelector(selectLoginDomain, (substate) => substate.get('loginWithWalletError'));
 
 export const selectIsNewPostCreationAfterLogin = () =>
-  createSelector(selectLoginDomain, (substate) =>
-    substate.get('isNewPostCreationAfterLogin'),
-  );
+  createSelector(selectLoginDomain, (substate) => substate.get('isNewPostCreationAfterLogin'));

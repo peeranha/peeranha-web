@@ -1,21 +1,11 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
-import {
-  call,
-  put,
-  select,
-  all,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects';
+import { call, put, select, all, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
 
-import {
-  getQuestionsFilteredByCommunities,
-  getQuestionById,
-} from 'utils/questionsManagement';
+import { getQuestionsFilteredByCommunities, getQuestionById } from 'utils/questionsManagement';
 import {
   getCommunityById,
   isSingleCommunityWebsite,
@@ -92,19 +82,13 @@ export function* getQuestionsWorker({ communityId }) {
 
       users.set(
         question.user,
-        users.get(question.user)
-          ? [...users.get(question.user), question]
-          : [question],
+        users.get(question.user) ? [...users.get(question.user), question] : [question],
       );
     });
 
     yield all(
       questionsList.map(function* (question) {
-        const bounty = yield call(
-          getQuestionBounty,
-          question.id,
-          ethereumService,
-        );
+        const bounty = yield call(getQuestionBounty, question.id, ethereumService);
         question.questionBounty = bounty;
       }),
     );
@@ -168,10 +152,7 @@ export default function* () {
   yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
   yield takeEvery(GET_COMMUNITY, getCommunityWorker);
   yield takeEvery(GET_LOGO, getLogoWorker);
-  yield takeLatest(
-    REDIRECT_TO_EDIT_COMMUNITY_PAGE,
-    redirectToEditCommunityPageWorker,
-  );
+  yield takeLatest(REDIRECT_TO_EDIT_COMMUNITY_PAGE, redirectToEditCommunityPageWorker);
   yield takeEvery(REMOVE_OR_ADD_TOP_QUESTION, removeOrAddTopQuestionWorker);
   yield takeEvery(FOLLOW_HANDLER, followHandlerWorker);
 }

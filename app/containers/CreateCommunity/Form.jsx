@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
 
-import {
-  PEER_PRIMARY_COLOR,
-  PEER_WARNING_COLOR,
-  TEXT_SECONDARY_LIGHT,
-} from 'style-constants';
+import { PEER_PRIMARY_COLOR, PEER_WARNING_COLOR, TEXT_SECONDARY_LIGHT } from 'style-constants';
 
 import icoTag from 'images/icoTag.svg?inline';
 import closeIcon from 'images/close.svg?external';
@@ -177,12 +173,7 @@ const CreateCommunityForm = ({
                 id={formatStringToHtmlId(`${TAG_SECTION}_${x}`)}
               >
                 {index >= MIN_TAGS_NUMBER && (
-                  <button
-                    type="button"
-                    data-key={x}
-                    onClick={removeTag}
-                    tabIndex="-1"
-                  >
+                  <button type="button" data-key={x} onClick={removeTag} tabIndex="-1">
                     <IconSm icon={closeIcon} color={TEXT_SECONDARY_LIGHT} />
                   </button>
                 )}
@@ -192,16 +183,8 @@ const CreateCommunityForm = ({
                   name={TAG_NAME_FIELD}
                   component={TextInputField}
                   placeholder={t('createCommunity.tagTitle')}
-                  validate={[
-                    strLength2x25,
-                    required,
-                    valueHasNotBeInListMoreThanOneTime,
-                  ]}
-                  warn={[
-                    strLength2x25,
-                    required,
-                    valueHasNotBeInListMoreThanOneTime,
-                  ]}
+                  validate={[strLength2x25, required, valueHasNotBeInListMoreThanOneTime]}
+                  warn={[strLength2x25, required, valueHasNotBeInListMoreThanOneTime]}
                   tip={t('createCommunity.tagTitleTip')}
                   splitInHalf
                   insideOfSection
@@ -233,11 +216,7 @@ const CreateCommunityForm = ({
           {t('createCommunity.oneMoreTag')}
         </TransparentButton>
 
-        <LargeButton
-          disabled={createCommunityLoading}
-          type="submit"
-          id={CREATE_COMMUNITY_BUTTON}
-        >
+        <LargeButton disabled={createCommunityLoading} type="submit" id={CREATE_COMMUNITY_BUTTON}>
           {t('createCommunity.createCommunity')}
         </LargeButton>
       </FormBox>

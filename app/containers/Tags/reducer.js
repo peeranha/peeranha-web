@@ -2,11 +2,7 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { GET_TAGS_SUCCESS } from 'containers/DataCacheProvider/constants';
-import {
-  GET_EXISTING_TAGS,
-  GET_EXISTING_TAGS_SUCCESS,
-  GET_EXISTING_TAGS_ERROR,
-} from './constants';
+import { GET_EXISTING_TAGS, GET_EXISTING_TAGS_SUCCESS, GET_EXISTING_TAGS_ERROR } from './constants';
 
 export const initialState = fromJS({
   sorting: 'id',
@@ -19,15 +15,7 @@ export const initialState = fromJS({
 });
 
 function tagsReducer(state = initialState, action) {
-  const {
-    type,
-    sorting,
-    loadMore,
-    existingTags,
-    getExistingTagsError,
-    text,
-    tags,
-  } = action;
+  const { type, sorting, loadMore, existingTags, getExistingTagsError, text, tags } = action;
 
   switch (type) {
     case GET_EXISTING_TAGS:
@@ -42,15 +30,10 @@ function tagsReducer(state = initialState, action) {
     case GET_EXISTING_TAGS_SUCCESS:
       return state
         .set('existingTagsLoading', false)
-        .set(
-          'isLastFetchForExistingTags',
-          existingTags.length < initialState.get('limit'),
-        )
+        .set('isLastFetchForExistingTags', existingTags.length < initialState.get('limit'))
         .set(
           'existingTags',
-          loadMore
-            ? state.toJS().existingTags.concat(existingTags)
-            : existingTags,
+          loadMore ? state.toJS().existingTags.concat(existingTags) : existingTags,
         );
     case GET_EXISTING_TAGS_ERROR:
       return state

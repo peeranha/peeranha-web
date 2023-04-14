@@ -33,10 +33,7 @@ const Button = ({ sorting }) => {
   const { t } = useTranslation();
 
   return (
-    <Span
-      className="d-inline-flex align-items-center mr-2 text-capitalize"
-      bold
-    >
+    <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
       <MediumIcon>
         <IconMd
           className="mr-2"

@@ -14,11 +14,7 @@ import { getCurrentAccount } from './actions';
 import { selectLastUpdate } from './selectors';
 import { UPDATE_ACC_PERIOD } from './constants';
 
-export const AccountProvider = ({
-  children,
-  lastUpdate,
-  getCurrentAccountDispatch,
-}) => {
+export const AccountProvider = ({ children, lastUpdate, getCurrentAccountDispatch }) => {
   useEffect(() => {
     getCurrentAccountDispatch();
 
@@ -48,10 +44,7 @@ export default compose(
       lastUpdate: selectLastUpdate(),
     }),
     (dispatch) => ({
-      getCurrentAccountDispatch: bindActionCreators(
-        getCurrentAccount,
-        dispatch,
-      ),
+      getCurrentAccountDispatch: bindActionCreators(getCurrentAccount, dispatch),
     }),
   ),
 )(AccountProvider);

@@ -27,12 +27,7 @@ export const Login = ({
   loginWithWalletProcessing,
   loginWithWalletDispatch,
   ethereumService,
-}) => (
-  <ModalDialog
-    show={showModal}
-    closeModal={hideLoginModalDispatch}
-  ></ModalDialog>
-);
+}) => <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}></ModalDialog>;
 
 Login.propTypes = {
   content: PropTypes.string,

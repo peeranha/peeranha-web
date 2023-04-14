@@ -22,20 +22,10 @@ import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 import ProfileViewForm from './ProfileViewForm';
 import SettingsOfUser from './SettingsOfUser';
 
-import {
-  makeSelectAccount,
-  makeSelectLoginData,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectLoginData } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  selectCommunities,
-  selectStat,
-  selectUsers,
-} from 'containers/DataCacheProvider/selectors';
-import {
-  selectQuestions,
-  selectQuestionsLoading,
-} from 'containers/QuestionsOfUser/selectors';
+import { selectCommunities, selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
+import { selectQuestions, selectQuestionsLoading } from 'containers/QuestionsOfUser/selectors';
 import {
   selectQuestionsLoading as selectQuestionsWithAnswersLoading,
   selectQuestionsWithUserAnswers,
@@ -156,8 +146,7 @@ const ViewProfilePage = ({
 
       <ProfileViewForm
         className={
-          path === routes.profileView(userId) ||
-          path === routes.userCommunities(userId)
+          path === routes.profileView(userId) || path === routes.userCommunities(userId)
             ? ''
             : 'd-none'
         }
@@ -210,26 +199,11 @@ const withConnect = connect(
     userAchievements: selectUserAchievements(),
   }),
   (dispatch) => ({
-    redirectToEditProfilePageDispatch: bindActionCreators(
-      redirectToEditProfilePage,
-      dispatch,
-    ),
-    getAllAchievementsDispatch: bindActionCreators(
-      getAllAchievements,
-      dispatch,
-    ),
-    getUserAchievementsDispatch: bindActionCreators(
-      getUserAchievements,
-      dispatch,
-    ),
-    setViewProfileAccountDispatch: bindActionCreators(
-      setViewProfileAccount,
-      dispatch,
-    ),
-    resetViewProfileAccountDispatch: bindActionCreators(
-      resetViewProfileAccount,
-      dispatch,
-    ),
+    redirectToEditProfilePageDispatch: bindActionCreators(redirectToEditProfilePage, dispatch),
+    getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
+    getUserAchievementsDispatch: bindActionCreators(getUserAchievements, dispatch),
+    setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
+    resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
   }),
 );
 
