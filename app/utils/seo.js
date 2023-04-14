@@ -1,6 +1,7 @@
+import { slugify } from 'transliteration';
 const updateSeoUrl = (title) =>
   encodeURIComponent(
-    (title || '')
+    slugify(title || '')
       .trim()
       .replace(/[.,'#!$%^&*;:{}=\-_`~() ?]/g, '-')
       .toLowerCase(),
