@@ -81,6 +81,8 @@ const QI = ({
   postType,
   isFeed,
   isCommunityFeed,
+  language,
+  translations,
   handle,
   messengerType,
 }) => {
@@ -195,6 +197,8 @@ const QI = ({
           isFeed={isFeed}
           isExpert={isExpert}
           isCommunityFeed={isCommunityFeed}
+          postLanguage={language}
+          translations={translations}
         />
       </Div>
     </Box>
@@ -322,6 +326,13 @@ Content.propTypes = {
   isHomePage: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
   isFeed: PropTypes.bool,
+  firstContentIndex: PropTypes.number,
+  lastContentIndex: PropTypes.number,
+  nextPage: PropTypes.func,
+  prevPage: PropTypes.func,
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  totalPages: PropTypes.number,
 };
 
 export { QuestionItem };

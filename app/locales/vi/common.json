@@ -24,7 +24,7 @@
   "archive": "Lưu trữ",
   "markAllAsRead": "Đánh dấu tất cả là Đọc",
   "edit": "Chỉnh sửa",
-  "editCommunity": "Chỉnh sửa cộng đồng",
+  "editCommunity": "Cài đặt cộng đồng",
   "logout": "Đăng xuất",
   "search": "Tìm kiếm",
   "login": "Đăng nhập",
@@ -96,6 +96,10 @@
   "es": "Español",
   "zh": "简体中文",
   "vi": "Tiếng Việt",
+  "english": "Anh",
+  "spanish": "người Tây Ban Nha",
+  "chinese": "Trung hoa",
+  "vietnamese": "Tiếng Việt",
   "about": "Giới thiệu về",
   "contacts": "Liên hệ",
   "support": "Hỗ trợ",
@@ -195,9 +199,7 @@
   "unsubscribe": "Hủy đăng ký",
   "followSocialMedia": "Theo dõi chúng tôi trên phương tiện truyền thông xã hội:",
   "standart": "Chuẩn",
-  "blogger": "Người viết blog",
   "cannotTransferToYourself": "Không thể chuyển cho chính mình",
-  "notEnoughCPUOrRAM": "Không đủ CPU hoặc RAM",
   "metaMaskIsLocked": "Vui lòng kiểm tra kết nối Metamask và thử tải lại trang",
   "ipfsHashValue": "IPFS",
   "source": "Nguồn",
@@ -211,7 +213,6 @@
   "help": "Giúp",
   "didntFindAnswer": "Không tìm thấy câu trả lời?",
   "freeFeelToAsk": "Hãy hỏi nhóm của chúng tôi.  Chúng tôi sẽ giúp tìm câu trả lời.",
-  "voteForNewCommunities": "Bình chọn cho các cộng đồng mới",
   "globalModerator": "Người điều hành toàn cầu",
   "verifyFacebookAccount": "Xác minh tài khoản",
   "facebookButton": "Facebook",
@@ -275,13 +276,13 @@
     "Thiết lập kỹ thuật;",
     "Hướng dẫn 'Cách thực hiện'."
   ],
+  "seeOriginal": "Xem bản gốc",
+  "seeTranslation": "Xem phiên dịch",
   "promotedLabel": "Quảng bá câu hỏi",
   "promotedTip": "Quảng bá câu hỏi",
   "questionIsPromoting": "Quảng bá cho đến khi",
   "postTypeSelectionError": "Bạn cần chọn loại bài",
   "leaveWithoutChanges": "Bạn sắp rời khỏi trang mà không lưu các thay đổi của bạn. Bạn có chắc chắn muốn tiếp tục?",
-  "titleSuggestedCommunities": "Cộng đồng đề xuất",
-  "descriptionSuggestedCommunities": "Cộng đồng đề xuất | Sự miêu tả",
   "votingForNewComm": "Bình chọn cho cộng đồng mới",
   "whyWeeNeedIt": "Tại sao chúng ta cần nó?",
   "putReturnsBetweenParagraphs": "đánh dấu được hỗ trợ",
@@ -313,10 +314,7 @@
   "titleCommunities": "Cộng đồng",
   "descriptionCommunities": "Cộng đồng | Sự miêu tả",
   "suggestCommunity": "Tạo cộng đồng",
-  "deleteAccount": "Xóa tài khoản",
   "areYouLeaving": "Bạn đang đi à?",
-  "iUnderstand": "Tôi hiểu rằng thao tác này không xóa tài khoản của tôi trên Telos blockchain. Tài khoản chỉ bị xóa khỏi dịch vụ ví.",
-  "iHaveBackup": "Tôi đã sao lưu các khóa riêng Telos của mình.",
   "faqPage": {
     "title": "FAQ",
     "description": "FAQ: sự miêu tả",
@@ -393,7 +391,6 @@
     "description": "Người dùng: Sự miêu tả"
   },
   "existingCommunities": {
-    "voteForNewCommunities": "Bình chọn cho các cộng đồng mới",
     "singleCommunityTooltip": "Cộng đồng này có trang web Q&A trên một tên miền khác"
   },
   "ratingStatus": {
@@ -424,10 +421,18 @@
   "creatorCannotUpvoteOwnTag": "Người sáng tạo không thể ủng hộ thẻ của chính họ",
   "editCommunityDesc": {
     "communityTitleTip": "Tên của cộng đồng",
-    "description": "Mô tả cộng đồng chỉnh sửa",
+    "description": "Mô tả cài đặt Cộng đồng",
     "editCommunity": "Lưu",
-    "header": "Chỉnh sửa cộng đồng",
-    "pageTitle": "Cộng đồng | Chỉnh sửa"
+    "header": "tiêu đề",
+    "pageTitle": "Cộng đồng | Cài đặt",
+    "general": "Tổng quan",
+    "translations": "bản dịch",
+    "interfaceLanguages": "Ngôn ngữ giao diện cộng đồng",
+    "interfaceTranslation": "Trang web cộng đồng sẽ cung cấp bản dịch giao diện sang các ngôn ngữ sau.",
+    "selectLanguages": "Chọn ngôn ngữ",
+    "enableAutotranslations": "Bật dịch tự động",
+    "translationsTooltip": "Bài đăng, câu trả lời và nhận xét được đăng trong cộng đồng sẽ được dịch tự động sang ngôn ngữ đã chọn. Nội dung này cũng sẽ được lập chỉ mục bởi các công cụ tìm kiếm bằng ngôn ngữ đó, giúp người đọc dễ dàng tìm thấy hơn.",
+    "deleteLanguage": "Xóa ngôn ngữ"
   },
   "editQuestion": {
     "description": "Chỉnh sửa mô tả câu hỏi",
@@ -450,6 +455,7 @@
   },
   "answerForm": "Câu trả lời của bạn",
   "results": "Kết quả",
+  "translatedFrom": "Dịch từ ",
   "selectLanguage": "Chọn ngôn ngữ",
   "transactionsText": "Vui lòng chọn trải nghiệm người dùng tốt nhất của bạn trên Peeranha:",
   "transactionsText_1": "Ít cửa sổ bật lên hơn và không tính phí",
@@ -485,5 +491,8 @@
   "enteringData": "Nhập dữ liệu",
   "subArticleOf": "Bài viết phụ của",
   "saveToDraft": "Lưu vào bản nháp",
-  "editing": "Chỉnh sửa"
+  "editing": "Chỉnh sửa",
+  "aboutPeeranha": "Giới thiệu về Peeranha",
+  "postsAnswersComments": "Bài viết, câu trả lời và bình luận",
+  "statusReputationPrivileges": "Địa vị, danh tiếng và đặc quyền"
 }

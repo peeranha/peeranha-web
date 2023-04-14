@@ -14,12 +14,7 @@ import FrontSide from './FrontSide';
 import BackSide from './BackSide';
 import { customRatingIconColors } from 'constants/customRating';
 
-const CommunityItemWithRating = ({
-  communities,
-  single,
-  communityId,
-  rating,
-}) => {
+const CommunityItemWithRating = ({ communities, single, communityId, rating, locale }) => {
   const { t } = useTranslation();
   const [route, setRoute] = useState(() => routes.questions(communityId));
   const Link = single && communityId !== single ? ADefaultStyled : AStyled;
@@ -34,7 +29,10 @@ const CommunityItemWithRating = ({
     }
   }, [single, communityId]);
 
-  const community = communities.find((item) => item.id === communityId);
+  const community = communities?.find((item) => item.id === communityId);
+  const communityTranslation = community?.translations?.find(
+    (translation) => translation.language === locale,
+  );
 
   return (
     <BaseRoundedNoPadding>
@@ -44,7 +42,7 @@ const CommunityItemWithRating = ({
             <div>
               <MediumImage src={community.avatar} alt="comm_img" />
               <P fontSize="16" bold>
-                {community.name}
+                {communityTranslation?.name || community.name}
               </P>
             </div>
           )}
@@ -72,9 +70,9 @@ const CommunityItemWithRating = ({
             {community && (
               <div>
                 <P fontSize="16" bold>
-                  {community.name}
+                  {communityTranslation?.name || community.name}
                 </P>
-                <P>{community.description}</P>
+                <P>{communityTranslation?.description || community.description}</P>
               </div>
             )}
           </div>
@@ -89,6 +87,7 @@ CommunityItemWithRating.propTypes = {
   single: PropTypes.bool,
   communityId: PropTypes.number,
   rating: PropTypes.number,
+  locale: PropTypes.string,
 };
 
 export default React.memo(CommunityItemWithRating);

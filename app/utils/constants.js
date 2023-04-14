@@ -4,16 +4,6 @@ export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
-export const BLOCKCHAIN_NAME = 'eos';
-export const DEFAULT_EOS_PERMISSION = 'active';
-export const SCATTER_APP_NAME = 'Peeranha';
-export const SEND_TIPS_SCATTER_APP_NAME = 'PeeranhaSendTips';
-
-export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
-export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
-export const SCATTER_TIMEOUT_ERROR = 'Scatter timeout';
-export const SCATTER_TIMEOUT_DURATION = 10000; // 1 sec
-
 export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
 export const HUBSPOT_URL = 'https://api.hsforms.com/submissions/v3/integration/submit';
@@ -64,6 +54,13 @@ export const POST_TYPE = {
   documentation: 1000,
 };
 
+export const LANGUAGES_MAP = {
+  en: 0,
+  zh: 1,
+  es: 2,
+  vi: 3,
+};
+
 export const globalAdminPermissions = {
   PERMISSION_PROTOCOL_ADMIN_1: {
     code: 1,
@@ -101,62 +98,56 @@ export const globalAdminPermissions = {
     code: 9,
     title: 'permissionProtocolAdmin_9',
   },
-  PERMISSION_PROTOCOL_ADMIN_10: {
-    code: 10,
-    title: 'permissionProtocolAdmin_10',
-  },
 };
 export const communityAdminPermissions = {
   PERMISSION_COMMUNITY_ADMIN_1: {
-    code: 11,
+    code: 9,
     title: 'permissionCommunityAdmin_1',
   },
   PERMISSION_COMMUNITY_ADMIN_2: {
-    code: 12,
+    code: 10,
     title: 'permissionCommunityAdmin_2',
   },
   PERMISSION_COMMUNITY_ADMIN_3: {
-    code: 13,
+    code: 11,
     title: 'permissionCommunityAdmin_3',
   },
   PERMISSION_COMMUNITY_ADMIN_4: {
-    code: 14,
+    code: 12,
     title: 'permissionCommunityAdmin_4',
   },
-  PERMISSION_COMMUNITY_ADMIN_5: {
-    code: 15,
-    title: 'permissionCommunityAdmin_5',
-  },
-  PERMISSION_COMMUNITY_ADMIN_6: {
-    code: 16,
-    title: 'permissionCommunityAdmin_6',
-  },
+  // PEER-491: temporally hide items;
+  // PERMISSION_COMMUNITY_ADMIN_5: {
+  //   code: 13,
+  //   title: 'permissionCommunityAdmin_5',
+  // },
 };
 export const communityModeratorPermissions = {
   PERMISSION_COMMUNITY_MODERATOR_1: {
-    code: 17,
+    code: 14,
     title: 'permissionCommunityModerator_1',
   },
   PERMISSION_COMMUNITY_MODERATOR_2: {
-    code: 18,
+    code: 15,
     title: 'permissionCommunityModerator_2',
   },
   PERMISSION_COMMUNITY_MODERATOR_3: {
-    code: 19,
+    code: 16,
     title: 'permissionCommunityModerator_3',
   },
   PERMISSION_COMMUNITY_MODERATOR_4: {
-    code: 20,
+    code: 17,
     title: 'permissionCommunityModerator_4',
   },
-  PERMISSION_COMMUNITY_MODERATOR_5: {
-    code: 21,
-    title: 'permissionCommunityModerator_5',
-  },
-  PERMISSION_COMMUNITY_MODERATOR_6: {
-    code: 22,
-    title: 'permissionCommunityModerator_6',
-  },
+  //   PEER-491: temporally hide items;
+  //   PERMISSION_COMMUNITY_MODERATOR_5: {
+  //     code: 18,
+  //     title: 'permissionCommunityModerator_5',
+  //   },
+  //   PERMISSION_COMMUNITY_MODERATOR_6: {
+  //     code: 19,
+  //     title: 'permissionCommunityModerator_6',
+  //   },
 };
 
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
@@ -183,10 +174,8 @@ export const PERIOD_RATING_TABLE = 'periodrating';
 export const TOTAL_REWARD_TABLE = 'totalreward';
 export const TOTAL_RATING_TABLE = 'totalrating';
 export const USER_SUPPLY_TABLE = 'stat';
-export const INVITED_USERS_TABLE = 'invited';
 export const ALL_TOP_QUESTIONS_TABLE = 'topquestion';
 export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
-export const TG_ACCOUNT_TABLE = 'telegramacc';
 export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
 export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 export const BOOST_STATISTICS_TABLE = 'statboost';
@@ -203,7 +192,6 @@ export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
 export const USER_SUPPLY_SCOPE = 'PEER';
-export const INVITED_USERS_SCOPE = 'allinvited';
 export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
 export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
 export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
@@ -218,12 +206,6 @@ export const INF_LIMIT = -1;
 
 export const SAVE_PROFILE_METHOD = 'setaccprof';
 
-export const REGISTER_ACC = 'registeracc';
-export const UPDATE_ACC = 'updateacc';
-export const INVITE_USER = 'inviteuser';
-export const REWARD_REFER = 'rewardrefer';
-
-export const VOTE_TO_DELETE_METHOD = 'reportforum';
 export const CHANGE_QUESTION_TYPE_METHOD = 'chgqsttype';
 
 export const POST_QUESTION_METHOD = 'postquestion';
@@ -255,12 +237,8 @@ export const EDIT_TAG_ACTION = 'edittag';
 export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
-export const SEND_TOKEN_METHOD = 'transfer';
 export const PICKUP_REWARD_METHOD = 'pickupreward';
 export const ADD_BOOST_METHOD = 'addboost';
-
-export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
-export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';
 
 export const PROMOTE_QUESTION_METHOD = 'addhotquestn';
 export const CHANGE_PROMO_QUEST_COMM = 'chngpromcomm';
@@ -324,12 +302,6 @@ export const WEB3_TOKEN = 'web3Token';
 export const WEB3_TOKEN_USER_ADDRESS = 'web3Token_userAddress';
 
 // verification codes types
-export const SEND_TIPS_TYPE = 'sendTips';
-export const SEND_TOKENS_TYPE = 'sendTokens';
-export const SHOW_ACTIVE_KEY_TYPE = 'showActiveKey';
-export const SHOW_OWNER_KEY_TYPE = 'showOwnerKey';
-export const DELETE_ACCOUNT_TYPE = 'deleteAccount';
-export const DELETE_FB_DATA_TYPE = 'deleteFbData';
 
 export const METAMASK_ERROR_CODE = 1000001;
 export const USER_MIN_RATING_ERROR_CODE = 1000005;

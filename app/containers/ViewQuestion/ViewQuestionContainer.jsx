@@ -78,7 +78,7 @@ ViewQuestionContainer.propTypes = {
   postAnswer: PropTypes.func,
   postAnswerLoading: PropTypes.bool,
   locale: PropTypes.string,
-  translations: PropTypes.object,
+  translations: PropTypes.array,
   questionData: PropTypes.object,
   isAnswered: PropTypes.bool,
   showLoginModal: PropTypes.func,

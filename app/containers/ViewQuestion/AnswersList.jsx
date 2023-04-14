@@ -6,6 +6,8 @@ import * as routes from 'routes-config';
 
 import Button from 'components/Button/Outlined/PrimaryStretching';
 
+import { LANGUAGES_MAP } from 'utils/constants';
+
 import Content from './Content';
 import { ANSWER_TYPE } from './constants';
 
@@ -39,6 +41,8 @@ export const AnswersList = (props) => {
           lastEditedDate,
           votingStatus,
           isOfficialReply,
+          translations,
+          language,
           handle,
           messengerType,
         }) => (
@@ -50,6 +54,9 @@ export const AnswersList = (props) => {
             answerId={id}
             comments={comments}
             content={`${content}`}
+            translations={translations}
+            language={language}
+            isOriginalLanguage={+language === LANGUAGES_MAP[props.locale]}
             rating={rating}
             isTheLargestRating={isTheLargestRating}
             questionFrom={props.questionData.author.user}
@@ -102,6 +109,7 @@ AnswersList.propTypes = {
   deleteComment: PropTypes.func,
   redirectToEditAnswerPage: PropTypes.func,
   deleteAnswerLoading: PropTypes.bool,
+  locale: PropTypes.string,
 };
 
 export default memo(AnswersList);
