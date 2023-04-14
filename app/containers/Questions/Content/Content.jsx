@@ -81,6 +81,8 @@ const QI = ({
   postType,
   isFeed,
   isCommunityFeed,
+  language,
+  translations,
   handle,
   messengerType,
 }) => {
@@ -195,6 +197,8 @@ const QI = ({
           isFeed={isFeed}
           isExpert={isExpert}
           isCommunityFeed={isCommunityFeed}
+          postLanguage={language}
+          translations={translations}
         />
       </Div>
     </Box>

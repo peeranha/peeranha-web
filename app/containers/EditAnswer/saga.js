@@ -1,3 +1,5 @@
+import { languagesEnum } from 'app/i18n';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -48,13 +50,23 @@ export function* getAnswerWorker({ questionId, answerId }) {
 
 export function* editAnswerWorker({ answer, questionId, answerId, official, title }) {
   try {
+    const locale = yield select(makeSelectLocale());
     const ethereumService = yield select(selectEthereum);
     const user = yield call(ethereumService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
     const answerData = {
       content: answer,
     };
-    yield call(editAnswer, user, questionId, answerId, answerData, official, ethereumService);
+    yield call(
+      editAnswer,
+      user,
+      questionId,
+      answerId,
+      answerData,
+      official,
+      languagesEnum[locale],
+      ethereumService,
+    );
 
     if (cachedQuestion) {
       const item = cachedQuestion.answers.find((x) => x.id === answerId);

@@ -27,6 +27,7 @@ export const Dropdown = ({
   isArrowed,
   isMenuLabelMobile,
   isArrowMarginMobile,
+  dataAttribute = null,
   disabled = false,
 }) => (
   <DropdownStyled
@@ -58,7 +59,7 @@ export const Dropdown = ({
       )}
     </button>
 
-    <MenuStyled className="dropdown-menu" ariaLabelledby={id}>
+    <MenuStyled className="dropdown-menu" data-dropdown={dataAttribute} ariaLabelledby={id}>
       {menu}
     </MenuStyled>
   </DropdownStyled>
@@ -72,6 +73,7 @@ Dropdown.propTypes = {
   isArrowed: PropTypes.bool,
   isMenuLabelMobile: PropTypes.bool,
   isArrowMarginMobile: PropTypes.bool,
+  dataAttribute: PropTypes.string,
   disabled: PropTypes.bool,
 };
 

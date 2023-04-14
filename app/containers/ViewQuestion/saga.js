@@ -325,6 +325,7 @@ export function* saveCommentWorker({
       answerId,
       commentId,
       ipfsHash,
+      languagesEnum[locale],
       ethereumService,
     );
 
@@ -584,7 +585,7 @@ export function* showAddCommentFormWorker({ toggleFormButtonId, answerId }) {
 
 export function* postCommentWorker({ answerId, questionId, comment, reset, toggleView, buttonId }) {
   try {
-    const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
+    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
     yield call(checkPostCommentAvailableWorker, buttonId, answerId);
     const commentData = {
@@ -600,6 +601,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
       questionId,
       answerId,
       ipfsHash,
+      languagesEnum[locale],
       ethereumService,
     );
 
@@ -660,7 +662,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, ethereumService, profileInfo, histories, account } = yield call(
+    const { questionData, ethereumService, locale, profileInfo, histories, account } = yield call(
       getParams,
     );
 

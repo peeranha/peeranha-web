@@ -59,6 +59,7 @@ export async function postQuestion(
   questionData,
   postType,
   tags,
+  language,
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
@@ -67,7 +68,7 @@ export async function postQuestion(
     CONTRACT_CONTENT,
     user,
     POST_QUESTION,
-    [user, communityId, ipfsHash, postType, tags],
+    [user, communityId, ipfsHash, postType, tags, language],
     2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
   );
 }
@@ -109,6 +110,7 @@ export const editQuestion = async (
   questionData,
   tags,
   postType,
+  language,
   ethereumService,
 ) => {
   const ipfsLink = await saveText(JSON.stringify(questionData));
@@ -120,6 +122,7 @@ export const editQuestion = async (
     tags,
     communityId,
     postType,
+    language,
   ]);
 };
 
@@ -143,13 +146,14 @@ export async function deleteQuestion(user, questionId, ethereumService) {
   await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_POST, [user, questionId], 2);
 }
 
-export async function postAnswer(user, questionId, ipfsHash, official, ethereumService) {
+export async function postAnswer(user, questionId, ipfsHash, official, language, ethereumService) {
   return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, POST_ANSWER, [
     user,
     questionId,
     0,
     ipfsHash,
     official,
+    language,
   ]);
 }
 
@@ -159,6 +163,7 @@ export async function editAnswer(
   answerId,
   answerData,
   official,
+  locale,
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(answerData));
@@ -167,7 +172,7 @@ export async function editAnswer(
     CONTRACT_CONTENT,
     user,
     EDIT_ANSWER,
-    [user, questionId, answerId, ipfsHash, official],
+    [user, questionId, answerId, ipfsHash, official, locale],
     2,
   );
 }
@@ -180,12 +185,13 @@ export async function deleteAnswer(user, questionId, answerId, ethereumService) 
   ]);
 }
 
-export async function postComment(user, questionId, answerId, ipfsHash, ethereumService) {
+export async function postComment(user, questionId, answerId, ipfsHash, language, ethereumService) {
   return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, POST_COMMENT, [
     user,
     questionId,
     answerId,
     ipfsHash,
+    language,
   ]);
 }
 
@@ -195,6 +201,7 @@ export async function editComment(
   answerId,
   commentId,
   ipfsHash,
+  locale,
   ethereumService,
 ) {
   return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, EDIT_COMMENT, [
@@ -203,6 +210,7 @@ export async function editComment(
     answerId,
     commentId,
     ipfsHash,
+    locale,
   ]);
 }
 

@@ -19,7 +19,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const CommunitiesSectionWithRatings = ({ profile, ref, single, communities }) => {
+const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, locale }) => {
   const { t } = useTranslation();
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() => routes.communities());
   const AllCommunitiesLink = single ? ADefault : A;
@@ -48,6 +48,7 @@ const CommunitiesSectionWithRatings = ({ profile, ref, single, communities }) =>
             single={single}
             communities={communities}
             key={item.communityId}
+            locale={locale}
           />
         ))}
 
@@ -83,6 +84,7 @@ CommunitiesSectionWithRatings.propTypes = {
   ref: PropTypes.object,
   single: PropTypes.bool,
   communities: PropTypes.array,
+  locale: PropTypes.string,
 };
 
 export default React.memo(CommunitiesSectionWithRatings);

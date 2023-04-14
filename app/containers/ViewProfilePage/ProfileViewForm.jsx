@@ -61,6 +61,7 @@ const ProfileViewForm = ({
           communities={communities}
           profile={profile}
           questions={questions}
+          locale={locale}
         />
       )}
 

@@ -11,13 +11,14 @@ import { getPostRoute } from '../../../routes-config';
 import { styles } from './Post.styled';
 import QuestionType from '../../Questions/Content/Body/QuestionType';
 import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from '../../../utils/constants';
-import { Community, Tag, Author } from './index';
+import { Community, Tag, Author, Translation } from './index';
 import { getFormattedDate } from '../../../utils/datetime';
 import {
   getFollowedCommunities,
   isSingleCommunityWebsite,
 } from '../../../utils/communityManagement';
 import * as routes from '../../../routes-config';
+import { css } from '@emotion/react';
 
 const single = isSingleCommunityWebsite();
 
@@ -71,6 +72,10 @@ const Post: React.FC<PostProps> = ({
     return routes.questions(communityId);
   };
 
+  const communityTranslationTitle = community.translations?.find(
+    (translation: Translation) => translation.language === locale,
+  )?.name;
+
   return (
     <div className="df mb8 border-box" css={styles.post}>
       <div className="m16 full-width" css={styles.container}>
@@ -114,7 +119,7 @@ const Post: React.FC<PostProps> = ({
                   <img src={community.avatar} alt="community avatar" css={styles.communityAvatar} />
                 )}
                 <span className="ml4 fz14 light no-wrap" css={styles.communityName}>
-                  {community.name}
+                  {communityTranslationTitle || community.name}
                 </span>
               </Link>
             )}

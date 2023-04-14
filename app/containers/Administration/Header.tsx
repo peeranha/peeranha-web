@@ -9,7 +9,6 @@ import H3 from 'components/H3';
 import AddRoleForm from 'containers/Administration/AddRoleForm';
 import { Moderator } from 'containers/Administration/types';
 
-import usersHeader from 'images/usersHeader.svg?external';
 import AddModeratorButton from 'containers/Administration/AddModeratorButton';
 
 import { singleCommunityColors } from 'utils/communityManagement';

@@ -160,6 +160,7 @@ export const QuestionTitle = ({
               communities={communities}
               communityId={communityId}
               postType={postType}
+              locale={locale}
             />
           ) : null}
         </TagList>

@@ -1,4 +1,6 @@
 /* eslint camelcase: 0 */
+import { languagesEnum } from 'app/i18n';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -67,6 +69,7 @@ export function* getAskedQuestionWorker({ questionId }) {
 
 export function* editQuestionWorker({ question, questionId }) {
   try {
+    const locale = yield select(makeSelectLocale());
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
@@ -83,6 +86,7 @@ export function* editQuestionWorker({ question, questionId }) {
       questionData,
       question.tags,
       Number(question.postType),
+      languagesEnum[locale],
       ethereumService,
     );
 

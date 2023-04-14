@@ -9,7 +9,7 @@ import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProv
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
-import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { showLeftMenu, changeLocale } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -84,6 +84,7 @@ export class Header extends React.PureComponent {
       isEditDocumentation,
       toggleEditDocumentationDispatch,
       changeLocale,
+      communities,
     } = this.props;
 
     if (isMenuVisible) return null;
@@ -106,6 +107,7 @@ export class Header extends React.PureComponent {
         isEditDocumentation={isEditDocumentation}
         toggleEditDocumentation={toggleEditDocumentationDispatch}
         changeLocale={changeLocale}
+        communities={communities}
       />
     );
   }
@@ -119,6 +121,7 @@ Header.propTypes = {
   redirectToAskQuestionPageDispatch: PropTypes.func,
   faqQuestions: PropTypes.array,
   isMenuVisible: PropTypes.bool,
+  communities: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -131,6 +134,7 @@ const mapStateToProps = createStructuredSelector({
   transactionInitialised: selectTransactionInitialised(),
   locale: makeSelectLocale(),
   isEditDocumentation: selectIsEditDocumentation(),
+  communities: selectCommunities(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

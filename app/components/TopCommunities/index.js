@@ -19,7 +19,7 @@ const getOffset = () => {
   return 75;
 };
 
-const TopCommunities = ({ communities, profile, questions, isTopCommunitiesOnly }) => {
+const TopCommunities = ({ communities, profile, questions, isTopCommunitiesOnly, locale }) => {
   if (!communities || !profile || !communities.length) {
     return null;
   }
@@ -39,11 +39,17 @@ const TopCommunities = ({ communities, profile, questions, isTopCommunitiesOnly 
         communities={communities}
         single={single}
         ref={refCommunitiesSection}
+        locale={locale}
       />
     );
   }
   return (
-    <TopCommunitiesSection communities={communities} single={single} ref={refCommunitiesSection} />
+    <TopCommunitiesSection
+      communities={communities}
+      single={single}
+      ref={refCommunitiesSection}
+      locale={locale}
+    />
   );
 };
 
@@ -52,6 +58,7 @@ TopCommunities.propTypes = {
   profile: PropTypes.object,
   questions: PropTypes.array,
   isTopCommunitiesOnly: PropTypes.bool,
+  locale: PropTypes.string,
 };
 
 export default TopCommunities;

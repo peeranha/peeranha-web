@@ -28,6 +28,11 @@ export default BaseRoundedNoPadding.extend`
       background: ${colors.backgroundSpecial || ''};
       color: ${colors.black || ''};
     }
+
+    > *:only-child {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
   }
 
   @media only screen and (max-width: 1365px) {

@@ -19,6 +19,7 @@ import {
 } from 'utils/communityManagement';
 import { uploadImg } from 'utils/profileManagement';
 import { delay } from 'utils/reduxUtils';
+import { getCommunityById } from 'utils/theGraph';
 
 import {
   editCommunityError,
@@ -37,7 +38,14 @@ export function* getCommunityWorker({ communityId }) {
     const ethereumService = yield select(selectEthereum);
     const community = yield call(getCommunityFromContract, ethereumService, communityId);
 
-    yield put(getCommunitySuccess(community));
+    const { translations } = yield call(getCommunityById, communityId);
+
+    yield put(
+      getCommunitySuccess({
+        ...community,
+        translations,
+      }),
+    );
   } catch (error) {
     yield put(getCommunityError(error));
   }
@@ -67,18 +75,10 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
       yield call(editCommunity, ethereumService, selectedAccount, communityId, communityData);
 
-      const cachedCommunities = yield select(selectCommunities());
+      const stat = yield select(selectStat());
+      const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
 
-      const community = cachedCommunities.find((c) => c.id === communityId);
-
-      if (community) {
-        try {
-          const stat = yield select(selectStat());
-          const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
-
-          yield put(getCommunitiesSuccess(communities));
-        } catch {}
-      }
+      yield put(getCommunitiesSuccess(communities));
     } else {
       yield call(delay, 1e3);
     }

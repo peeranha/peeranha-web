@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import { languagesEnum } from 'app/i18n';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -9,21 +11,37 @@ import Bounty from 'containers/ViewQuestion/Bounty';
 import { APP_FONT } from 'style-constants';
 
 import { singleCommunityFonts } from 'utils/communityManagement';
-import styled from 'styled-components';
 import { getPostRoute } from 'routes-config';
-
-const Wrapper = styled.div`
-  margin-right: 30px;
-`;
 
 const fonts = singleCommunityFonts();
 
-const Title = ({ locale, title, id, questionBounty, postType }) => {
+const Title = ({
+  locale,
+  title,
+  id,
+  questionBounty,
+  postType,
+  translations,
+  isAutotranslationEnable,
+}) => {
   const { t } = useTranslation();
   const link = getPostRoute({ postType, id, title });
+  let translatedTitle = title;
+  if (isAutotranslationEnable) {
+    const translation = translations.find(
+      (t) => Number(t.language) === languagesEnum[locale],
+    );
+    if (translation) {
+      translatedTitle = translation.title;
+    }
+  }
 
   return (
-    <Wrapper className="mb-1">
+    <div
+      css={css`
+        margin: 0 90px 4px 0;
+      `}
+    >
       <Bounty
         bountyMessage={t('common.bountyPopover')}
         className="questionTitle"
@@ -40,10 +58,10 @@ const Title = ({ locale, title, id, questionBounty, postType }) => {
           fontFamily={fonts.questionTitleFont || APP_FONT}
           bold
         >
-          {title}
+          {translatedTitle}
         </Span>
       </A>
-    </Wrapper>
+    </div>
   );
 };
 Title.propTypes = {

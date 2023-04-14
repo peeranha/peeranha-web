@@ -14,6 +14,14 @@ export const languages = {
   vi: 'vi',
 };
 
+export const languagesWithDescriptions = [
+  { language: 'en', description: 'english' },
+  { language: 'es', description: 'spanish' },
+  { language: 'zh', description: 'chinese' },
+  { language: 'vi', description: 'vietnamese' },
+];
+export const languagesEnum = { en: 0, zh: 1, es: 2, vi: 3 };
+
 export const localeRFC5646 = {
   en: 'en-US',
   es: 'es-ES',
