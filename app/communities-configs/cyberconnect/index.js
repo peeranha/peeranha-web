@@ -183,7 +183,6 @@ export const CyberconnectStyles = {
     headerPrimary: '#65908a',
     commentOption: '#65908a',
     contentHeader: '#65908a',
-    blockedInfoArea: 'rgba(101, 144, 138,0.11)',
     transparentIconColor: '#fff',
     loaderColor: '#65908a',
     votingIconColor: '#65908a',

@@ -184,7 +184,6 @@ export const SuiGlobalStyles = {
     headerPrimary: 'rgb(79,183,255)',
     commentOption: 'rgb(79,183,255)',
     contentHeader: 'rgb(79,183,255)',
-    blockedInfoArea: '#DAEEFF',
     transparentIconColor: '#FFFF',
     loaderColor: 'rgb(79,183,255)',
     votingIconColor: 'rgb(79,183,255)',
