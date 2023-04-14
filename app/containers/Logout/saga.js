@@ -6,10 +6,7 @@ import { deleteCookie } from 'utils/cookie';
 
 import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 import { WEB3_TOKEN } from 'utils/constants';
-import {
-  getCurrentAccountSuccess,
-  addLoginData,
-} from 'containers/AccountProvider/actions';
+import { getCurrentAccountSuccess, addLoginData } from 'containers/AccountProvider/actions';
 
 import { LOGOUT } from './constants';
 

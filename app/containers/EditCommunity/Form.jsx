@@ -43,7 +43,6 @@ import {
   TRANSLATIONS_TAB,
 } from './constants';
 import { COMMUNITY_TYPE } from '../CreateCommunity/constants';
-import BloggerModeForm from '../CreateCommunity/BloggerModeForm';
 import styles from './Form.styled';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
@@ -54,8 +53,6 @@ const EditCommunityForm = ({
   communityLoading,
   editCommunityDispatch,
   handleSubmit,
-  formValues,
-  initialValues,
   tab,
   setTab,
 }) => {
@@ -72,7 +69,7 @@ const EditCommunityForm = ({
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
         website: values.get(COMM_OFFICIAL_SITE_FIELD),
         communitySite: values.get(COMM_PEERANHA_SITE_FIELD),
-        isBlogger: !!parseInt(values.get(COMMUNITY_TYPE)),
+        isBlogger: false,
         translations: selectedLanguages.map((language) => ({
           communityId,
           id: `${communityId}-${language}`,
@@ -83,9 +80,7 @@ const EditCommunityForm = ({
             `${COMM_AUTOTRANSLATIONS_FIELD}-${communityId}-${language}`,
           ),
           language,
-          name: values.get(
-            `${COMM_TRANSLATIONS_TITLE_FIELD}-${communityId}-${language}`,
-          ),
+          name: values.get(`${COMM_TRANSLATIONS_TITLE_FIELD}-${communityId}-${language}`),
         })),
       };
 
@@ -185,20 +180,9 @@ const EditCommunityForm = ({
                 tip={t('createCommunity.communityWebsiteTip')}
                 splitInHalf
               />
-
-              {+formValues[COMMUNITY_TYPE] ? (
-                <BloggerModeForm
-                  disabled={communityLoading}
-                  formValues={formValues}
-                  initialValues={initialValues}
-                />
-              ) : null}
             </div>
             <div className={tab !== TRANSLATIONS_TAB ? 'dn' : ''}>
-              <span
-                className="fz16 semi-bold pb8"
-                css={styles.translationsTitle}
-              >
+              <span className="fz16 semi-bold pb8" css={styles.translationsTitle}>
                 {t('common.editCommunityDesc.interfaceLanguages')}
               </span>
               <p className="fz16 mb12" css={styles.translationsText}>
@@ -229,15 +213,9 @@ const EditCommunityForm = ({
       <div className="pf b0 l0 full-width" css={styles.popupMenu}>
         <div className="df jcsb pr16 pl16 pt8 pb8">
           <Link to={nextRoute()}>
-            <button css={styles.popupMenuCloseButton}>
-              {t('common.close')}
-            </button>
+            <button css={styles.popupMenuCloseButton}>{t('common.close')}</button>
           </Link>
-          <button
-            css={styles.popupMenuSaveButton}
-            type="submit"
-            disabled={communityLoading}
-          >
+          <button css={styles.popupMenuSaveButton} type="submit" disabled={communityLoading}>
             {t('common.editCommunityDesc.editCommunity')}
           </button>
         </div>
@@ -265,15 +243,12 @@ export default connect((state, { community }) => {
   const translationsFields = {};
   if (community) {
     for (let i = 0; i < community.translations.length; i++) {
-      translationsFields[
-        `${COMM_TRANSLATIONS_TITLE_FIELD}-${community.translations[i].id}`
-      ] = community.translations[i].name;
-      translationsFields[
-        `${COMM_TRANSLATIONS_DESCRIPTION_FIELD}-${community.translations[i].id}`
-      ] = community.translations[i].description;
-      translationsFields[
-        `${COMM_AUTOTRANSLATIONS_FIELD}-${community.translations[i].id}`
-      ] = community.translations[i].enableAutotranslation;
+      translationsFields[`${COMM_TRANSLATIONS_TITLE_FIELD}-${community.translations[i].id}`] =
+        community.translations[i].name;
+      translationsFields[`${COMM_TRANSLATIONS_DESCRIPTION_FIELD}-${community.translations[i].id}`] =
+        community.translations[i].description;
+      translationsFields[`${COMM_AUTOTRANSLATIONS_FIELD}-${community.translations[i].id}`] =
+        community.translations[i].enableAutotranslation;
     }
   }
 
@@ -282,11 +257,12 @@ export default connect((state, { community }) => {
     initialValues: community
       ? {
           [COMM_AVATAR_FIELD]: community.avatar,
+          [COMM_AVATAR_FIELD]: community.avatar,
           [COMM_NAME_FIELD]: community.name,
           [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
           [COMM_OFFICIAL_SITE_FIELD]: community.website,
           [COMM_PEERANHA_SITE_FIELD]: community.communitySite,
-          [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
+          [COMMUNITY_TYPE]: 0,
           ...translationsFields,
         }
       : {},

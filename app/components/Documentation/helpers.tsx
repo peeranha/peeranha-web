@@ -1,8 +1,7 @@
 import { keyframes } from '@emotion/react';
-import {
-  DocumentationItemMenuType,
-  DocumentationSection,
-} from 'pages/Documentation/types';
+import { DocumentationItemMenuType, DocumentationSection } from 'pages/Documentation/types';
+
+import { map, getFlatDataFromTree } from 'react-sortable-tree';
 
 const TEMP_SAVED_CONTENT = 'tempSavedContent';
 const DRAFTS_IDS = 'draftsIds';
@@ -16,9 +15,7 @@ export const updateMenu = (
     items: updateMenu(item.children),
   }));
 
-export const initMenu = (
-  documentationMenu: Array<DocumentationItemMenuType>,
-) => [
+export const initMenu = (documentationMenu: Array<DocumentationItemMenuType>) => [
   {
     label: 'Documentation',
     value: '1',
@@ -26,20 +23,29 @@ export const initMenu = (
   },
 ];
 
-export const getSavedDraftsIds = (): Array<string> => {
+export const getSavedDraftsIds = (): Array<{
+  draftId: string;
+  lastmod: string;
+}> => {
   if (localStorage.getItem(DRAFTS_IDS)) {
-    return JSON.parse(localStorage.getItem(DRAFTS_IDS));
+    const draftIds = localStorage.getItem(DRAFTS_IDS);
+    if (draftIds) {
+      return JSON.parse(draftIds);
+    }
   }
 
   return [];
 };
 
-export const saveDraftsIds = (draftId: string): Array<string> => {
+export const saveDraftsIds = (
+  draftId: string,
+  lastmod: string,
+): Array<{ draftId: string; lastmod: string }> => {
   const draftsIds = getSavedDraftsIds();
 
-  localStorage.setItem(DRAFTS_IDS, JSON.stringify([...draftsIds, draftId]));
+  localStorage.setItem(DRAFTS_IDS, JSON.stringify([...draftsIds, { draftId, lastmod }]));
 
-  return [...draftsIds, draftId];
+  return [...draftsIds, { draftId, lastmod }];
 };
 
 export const saveDraft = (menu: Array<DocumentationItemMenuType>): void => {
@@ -102,12 +108,7 @@ export const addArticle = (
 
 export const updateMenuDraft = (
   documentationMenu: Array<DocumentationItemMenuType> = [],
-  {
-    id,
-    prevId,
-    parentId,
-    title,
-  }: { id: string; prevId: string; parentId: string; title: string },
+  { id, prevId, parentId, title }: { id: string; prevId: string; parentId: string; title: string },
 ): Array<DocumentationItemMenuType> =>
   documentationMenu.map((item) => {
     if (item.id === prevId) {
@@ -124,10 +125,7 @@ export const updateMenuDraft = (
     };
   });
 
-export const removeArticle = (
-  documentationMenu: Array<DocumentationItemMenuType>,
-  id: string,
-) => {
+export const removeArticle = (documentationMenu: Array<DocumentationItemMenuType>, id: string) => {
   const cleanedMenu: Array<DocumentationItemMenuType> = [];
 
   documentationMenu.forEach((item) => {
@@ -161,10 +159,7 @@ export const animationDocumentation = (screenWidth: number) =>
     },
   });
 
-export const isEditableChildItem = (
-  item: DocumentationSection,
-  editedItemId?: string,
-): boolean => {
+export const isEditableChildItem = (item: DocumentationSection, editedItemId?: string): boolean => {
   if (item.children && editedItemId) {
     const isFoundItem = item.children.find(
       (child: DocumentationSection) => editedItemId === child.id,
@@ -174,9 +169,20 @@ export const isEditableChildItem = (
       return true;
     }
 
-    return item.children.some((childItem) =>
-      isEditableChildItem(childItem, editedItemId),
-    );
+    return item.children.some((childItem) => isEditableChildItem(childItem, editedItemId));
   }
   return false;
+};
+
+export const getDataFromTree = (documentationMenu: Array<DocumentationItemMenuType>) => {
+  return getFlatDataFromTree({
+    treeData: documentationMenu?.map((node) => ({ ...node })),
+    getKey: (node) => node.id,
+    getNodeKey: ({ treeIndex }) => treeIndex,
+    ignoreCollapsed: false,
+  });
+};
+
+export const getcurrentArrayIndex = (treeArray: Array<DocumentationItemMenuType>, id: number) => {
+  return treeArray.find((item) => item?.node.id === id)?.treeIndex;
 };

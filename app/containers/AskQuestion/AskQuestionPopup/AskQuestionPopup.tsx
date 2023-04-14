@@ -76,9 +76,7 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                   </ol>
                   <Trans
                     i18nKey="common.contentPopupBlock_8"
-                    components={[
-                      <a href={FULL_RULES_LINK} key="0" target="_blank" />,
-                    ]}
+                    components={[<a href={FULL_RULES_LINK} key="0" target="_blank" />]}
                   />
                   <div
                     css={css`

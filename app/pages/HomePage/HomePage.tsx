@@ -18,10 +18,7 @@ const HomePage: React.FC<HomepageProps> = ({
   sendMessageLoading,
   sendMessageDispatch,
 }): JSX.Element => (
-  <Home
-    sendMessageLoading={sendMessageLoading}
-    sendMessageDispatch={sendMessageDispatch}
-  />
+  <Home sendMessageLoading={sendMessageLoading} sendMessageDispatch={sendMessageDispatch} />
 );
 
 export default compose(

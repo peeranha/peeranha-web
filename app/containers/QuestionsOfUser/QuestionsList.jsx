@@ -42,8 +42,7 @@ const RightBlock = Base.extend`
 
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
-  border: ${(x) =>
-    x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0'};
+  border: ${(x) => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
 
   > div:nth-child(1) {
     border-top-left-radius: ${BORDER_RADIUS_L} !important;
@@ -83,10 +82,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
   return (
     <span className="d-flex flex-column">
       {lastAnswer.author && (
-        <A
-          to={routes.profileView(lastAnswer.author.id)}
-          className="d-flex align-items-center"
-        >
+        <A to={routes.profileView(lastAnswer.author.id)} className="d-flex align-items-center">
           <Span className="mr-2" fontSize="14" lineHeight="18">
             {getUserName(lastAnswer.author?.displayName, lastAnswer.author.id)}
           </Span>
@@ -95,11 +91,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
 
       <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
         {t('profile.lastAnswer')}{' '}
-        {getFormattedDate(
-          lastAnswer.postTime,
-          locale,
-          MONTH_3LETTERS__DAY_YYYY_TIME,
-        )}
+        {getFormattedDate(lastAnswer.postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
     </span>
   );
@@ -121,8 +113,7 @@ const Question = ({
   elementType,
   answerId,
 }) => {
-  const answerRouteId =
-    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
 
   const route = getPostRoute({ postType, id, answerId: answerRouteId, title });
 

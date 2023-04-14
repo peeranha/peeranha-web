@@ -7,25 +7,9 @@
 import {
   SHOW_LOGIN_MODAL,
   HIDE_LOGIN_MODAL,
-  SHOW_EMAIL_PASSWORD_MODAL,
-  LOGIN_WITH_EMAIL,
-  LOGIN_WITH_EMAIL_SUCCESS,
-  LOGIN_WITH_EMAIL_ERROR,
-  EMAIL_FIELD,
-  FINISH_REGISTRATION,
-  FINISH_REGISTRATION_SUCCESS,
-  FINISH_REGISTRATION_ERROR,
-  FINISH_REGISTRATION_REFERRAL_ERROR,
   LOGIN_WITH_WALLET,
   LOGIN_WITH_WALLET_SUCCESS,
   LOGIN_WITH_WALLET_ERROR,
-  FACEBOOK_LOGIN_PROCESSING,
-  FACEBOOK_LOGIN_BUTTON_CLICK,
-  FACEBOOK_LOGIN_DATA_RECEIVE,
-  AUTOLOGIN_WITH_FACEBOOK,
-  SET_FACEBOOK_USER_DATA,
-  FB_LOGIN_ERROR,
-  HANDLE_FB_LOGIN_ERROR,
 } from './constants';
 
 // Show | Hide (modal)
@@ -42,19 +26,9 @@ export function hideLoginModal() {
   };
 }
 
-export function showEmailPasswordForm(val) {
-  return {
-    type: SHOW_EMAIL_PASSWORD_MODAL,
-    email: val.get(EMAIL_FIELD),
-  };
-}
-
 // Login with Wallet
 
-export function loginWithWallet(
-  { metaMask, t },
-  isNewPostCreationAfterLogin = false,
-) {
+export function loginWithWallet({ metaMask, t }, isNewPostCreationAfterLogin = false) {
   return {
     type: LOGIN_WITH_WALLET,
     metaMask,
@@ -75,93 +49,3 @@ export function loginWithWalletErr(loginWithWalletError) {
     loginWithWalletError,
   };
 }
-
-// login with email
-
-export function loginWithEmail(val) {
-  return {
-    type: LOGIN_WITH_EMAIL,
-    val: val.toJS(),
-  };
-}
-
-export function loginWithEmailSuccess(content) {
-  return {
-    type: LOGIN_WITH_EMAIL_SUCCESS,
-    content,
-  };
-}
-
-export function loginWithEmailErr(loginWithEmailError) {
-  return {
-    type: LOGIN_WITH_EMAIL_ERROR,
-    loginWithEmailError,
-  };
-}
-
-// Finish registration (enter display name)
-
-export function finishRegistrationWithDisplayName(val) {
-  return {
-    type: FINISH_REGISTRATION,
-    val: val.toJS(),
-  };
-}
-
-export function finishRegistrationWithDisplayNameSuccess() {
-  return {
-    type: FINISH_REGISTRATION_SUCCESS,
-  };
-}
-
-export function finishRegistrationWithDisplayNameErr(
-  finishRegistrationWithDisplayNameError,
-) {
-  return {
-    type: FINISH_REGISTRATION_ERROR,
-    finishRegistrationWithDisplayNameError,
-  };
-}
-
-export const finishRegistrationReferralErr = (
-  finishRegistrationReferralError,
-) => ({
-  type: FINISH_REGISTRATION_REFERRAL_ERROR,
-  finishRegistrationReferralError,
-});
-
-export const setFacebookLoginProcessing = (facebookLoginProcessing) => ({
-  type: FACEBOOK_LOGIN_PROCESSING,
-  facebookLoginProcessing,
-});
-
-export const handleFbButtonClick = () => ({
-  type: FACEBOOK_LOGIN_BUTTON_CLICK,
-});
-
-export const handleFbLoginCallback = (data, isLogin) => ({
-  type: FACEBOOK_LOGIN_DATA_RECEIVE,
-  data,
-  isLogin,
-});
-
-export const autoLoginWithFacebook = (data) => ({
-  type: AUTOLOGIN_WITH_FACEBOOK,
-  data,
-  isLogin: true,
-});
-
-export const setFacebookUserData = (facebookUserData) => ({
-  type: SET_FACEBOOK_USER_DATA,
-  facebookUserData,
-});
-
-export const facebookLoginErr = (facebookError) => ({
-  type: FB_LOGIN_ERROR,
-  facebookError,
-});
-
-export const handleFbLoginError = (autoLogin = false) => ({
-  type: HANDLE_FB_LOGIN_ERROR,
-  autoLogin,
-});

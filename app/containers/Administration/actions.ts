@@ -53,11 +53,7 @@ export function addRoleSuccess(communityId: number) {
   };
 }
 
-export function revokeRole(
-  userAddress: string,
-  role: number,
-  communityId: number,
-) {
+export function revokeRole(userAddress: string, role: number, communityId: number) {
   return {
     type: REVOKE_ROLE,
     userAddress,

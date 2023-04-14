@@ -23,6 +23,7 @@ import closeIcon from 'images/closeCircle.svg?external';
 import { BORDER_PRIMARY } from 'style-constants';
 
 import { getUsersModeratorByRoles } from 'utils/accountManagement';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 enum Roles {
   communityAdmin = 0,
@@ -40,6 +41,8 @@ type ContentProps = {
   revokeRoleLoading: boolean;
 };
 
+const communityColors = singleCommunityColors();
+
 export const Content: React.FC<ContentProps> = ({
   single,
   profileInfo,
@@ -48,9 +51,7 @@ export const Content: React.FC<ContentProps> = ({
   communityId,
   moderatorsLoading,
 }): JSX.Element | null => {
-  const usersModerator = [
-    ...new Set(moderators.map((moderator) => moderator.user)),
-  ];
+  const usersModerator = [...new Set(moderators.map((moderator) => moderator.user))];
   const usersModeratorByRoles = getUsersModeratorByRoles(
     usersModerator,
     communityId,
@@ -80,11 +81,7 @@ export const Content: React.FC<ContentProps> = ({
               alt="avatar"
             />
 
-            <A
-              className="ovh"
-              to={routes.profileView(moderator.user.id)}
-              key={moderator.user.id}
-            >
+            <A className="ovh" to={routes.profileView(moderator.user.id)} key={moderator.user.id}>
               <P className="text-ellipsis fz14">
                 {getUserName(moderator.user.displayName, moderator.user.id)}
               </P>
@@ -120,7 +117,11 @@ export const Content: React.FC<ContentProps> = ({
                           type="button"
                           onClick={onClick}
                         >
-                          <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
+                          <IconMd
+                            icon={closeIcon}
+                            fill={communityColors.tagColor || BORDER_PRIMARY}
+                            color={communityColors.tagColor || BORDER_PRIMARY}
+                          />
                         </button>
                       )}
                       roleName={roleName}

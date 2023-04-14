@@ -17,10 +17,7 @@ import {
 } from 'style-constants';
 
 import { getFormattedNum } from 'utils/numbers';
-import {
-  singleCommunityStyles,
-  singleCommunityColors,
-} from 'utils/communityManagement';
+import { singleCommunityStyles, singleCommunityColors } from 'utils/communityManagement';
 
 import Span from 'components/Span';
 
@@ -164,10 +161,7 @@ RatingStatus.propTypes = {
   size: PropTypes.string,
   isRankOff: PropTypes.bool,
   ratingNumColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  customRatingIconColors: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
+  customRatingIconColors: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 IconWithStatus.propTypes = {
@@ -175,10 +169,7 @@ IconWithStatus.propTypes = {
   rating: PropTypes.number.isRequired,
   size: PropTypes.string,
   ratingNumColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  customRatingIconColors: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
+  customRatingIconColors: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 export { IconWithStatus, getStatus };

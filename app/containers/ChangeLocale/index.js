@@ -15,20 +15,12 @@ import Dropdown from 'components/Dropdown';
 import { Flag, Li } from './Styled';
 import SelectedArrow from 'icons/SelectedArrow';
 import useMediaQuery from 'hooks/useMediaQuery';
-import {
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 const singleCommunityId = isSingleCommunityWebsite();
 
-export const ChangeLocale = ({
-  withTitle,
-  changeLocale,
-  locale,
-  communities,
-}) => {
+export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) => {
   const [open, setOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const isDesktop = useMediaQuery('(min-width: 992px)');
@@ -118,16 +110,8 @@ export const ChangeLocale = ({
           isArrowMarginMobile
         />
       ) : (
-        <div
-          className="full-width df aic jcsb cup"
-          onClick={() => setOpen(true)}
-        >
-          <ChangeLocalePopup
-            setLocale={setLocale}
-            locale={locale}
-            open={open}
-            setOpen={setOpen}
-          />
+        <div className="full-width df aic jcsb cup" onClick={() => setOpen(true)}>
+          <ChangeLocalePopup setLocale={setLocale} locale={locale} open={open} setOpen={setOpen} />
         </div>
       )}
     </>

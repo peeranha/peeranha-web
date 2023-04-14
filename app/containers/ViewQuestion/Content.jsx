@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 
-import { LANGUAGES_MAP, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
+import { LANGUAGES_MAP } from 'utils/constants';
 
 import Base from 'components/Base/BaseRoundedNoPadding';
 
 import QuestionTitle from './QuestionTitle';
 import ContentHeader from './ContentHeader';
 import ContentBody from './ContentBody';
-import { isTemporaryAccount } from '../../utils/properties';
 
 const BaseStyled = Base.extend`
   //overflow: hidden;
@@ -25,10 +24,7 @@ export const Content = (props) => {
   //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   // );
   const getContent = () => {
-    if (
-      Number(props.language) === LANGUAGES_MAP[props.locale] ||
-      showOriginal
-    ) {
+    if (Number(props.language) === LANGUAGES_MAP[props.locale] || showOriginal) {
       return { content: props.content, title: props.title };
     }
     return translation
@@ -39,10 +35,7 @@ export const Content = (props) => {
   const { title, content } = getContent();
 
   return (
-    <BaseStyled
-      className={props.className}
-      id={routes.uniqueAnswerId(props.answerId)}
-    >
+    <BaseStyled className={props.className} id={routes.uniqueAnswerId(props.answerId)}>
       <ContentHeader
         {...props}
         translation={translation}

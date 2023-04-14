@@ -1,6 +1,5 @@
 import { isAddress } from 'ethers/lib/utils';
 import _get from 'lodash/get';
-import { t } from 'i18next';
 import { CURRENCIES } from 'wallet-config';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import {
@@ -11,13 +10,11 @@ import {
 } from 'utils/properties';
 
 // TODO: test
-const imageValidation = (img) =>
-  img && img.length > 2000000 ? 'formFields.fileSize' : undefined;
+const imageValidation = (img) => (img && img.length > 2000000 ? 'formFields.fileSize' : undefined);
 
 const byteLength = (val) => encodeURI(val).split(/%..|./).length - 1;
 
-const maxByteLength = (val) =>
-  byteLength(val) > 256 ? 'formFields.wrongByteLength' : undefined;
+const maxByteLength = (val) => (byteLength(val) > 256 ? 'formFields.wrongByteLength' : undefined);
 
 // TODO: test
 const stringLength = (min, max) => (value) => {
@@ -33,9 +30,7 @@ const stringLength = (min, max) => (value) => {
     msg = 'formFields.wrongLengthOfList';
   }
 
-  return val && (val.length > max || val.length < min)
-    ? { id: msg, min, max }
-    : undefined;
+  return val && (val.length > max || val.length < min) ? { id: msg, min, max } : undefined;
 };
 
 const numberRange = (min, max) => (value) =>
@@ -54,12 +49,9 @@ const valueHasToBePositiveInteger = (value) => {
 
 // TODO: test
 const stringLengthMax = (max) => (value) => {
-  const val =
-    typeof value === 'string' ? value.trim().replace(/  +/g, ' ') : '';
+  const val = typeof value === 'string' ? value.trim().replace(/  +/g, ' ') : '';
 
-  return val && val.length > max
-    ? { id: 'formFields.wrongLengthMax', max }
-    : undefined;
+  return val && val.length > max ? { id: 'formFields.wrongLengthMax', max } : undefined;
 };
 
 /* eslint no-useless-escape: 0 */
@@ -70,14 +62,11 @@ const validateEmail = (email) => {
 };
 
 const validateURL = (url) => {
-  const re =
-    /^(?:(?:https?):\/\/)(?:www\.|(?!www))([\da-z\-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+  const re = /^(?:(?:https?):\/\/)(?:www\.|(?!www))([\da-z\-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
   const isUrl = re.test(url);
   const hasDotSlashSeries = /(\.\.)|(\.\/)|(\/\/.*\/.*\.)|(\s)/g.test(url);
   const hasDoubleSlash = url && url.match(/\/\//g)?.length > 1;
-  return url && (!isUrl || hasDotSlashSeries || hasDoubleSlash)
-    ? 'formFields.wrongURL'
-    : undefined;
+  return url && (!isUrl || hasDotSlashSeries || hasDoubleSlash) ? 'formFields.wrongURL' : undefined;
 };
 
 const required = (value) => {
@@ -140,18 +129,14 @@ const requiredMinReputation = (...args) => {
     hasProtocolAdminRole(getPermissions(profile));
 
   const isMinusReputation = getRatingByCommunity(profile, id) < MIN_REPUTATION;
-  return isMinusReputation && !hasRole
-    ? 'formFields.requiredMinReputation'
-    : undefined;
+  return isMinusReputation && !hasRole ? 'formFields.requiredMinReputation' : undefined;
 };
 
 const valueHasNotBeInList = (...args) => {
   const value = args[0];
   const list = args[2].valueHasNotBeInListValidate;
 
-  return list && list.includes(value.toLowerCase())
-    ? 'formFields.itemAlreadyExists'
-    : undefined;
+  return list && list.includes(value.toLowerCase()) ? 'formFields.itemAlreadyExists' : undefined;
 };
 
 const valueHasNotBeInListMoreThanOneTime = (...args) => {
@@ -159,18 +144,13 @@ const valueHasNotBeInListMoreThanOneTime = (...args) => {
   const list = args[2].valueHasNotBeInListValidate;
 
   return list &&
-    list.filter(
-      (x) => x && x.trim().toLowerCase() === value.trim().toLowerCase(),
-    ).length > 1
+    list.filter((x) => x && x.trim().toLowerCase() === value.trim().toLowerCase()).length > 1
     ? 'formFields.itemAlreadyExists'
     : undefined;
 };
 
 const valueHasToBeLessThan = (...args) => {
-  if (
-    _get(args, [2, 'currencyValue', 'name'], CURRENCIES.PEER.name) !==
-    CURRENCIES.PEER.name
-  ) {
+  if (_get(args, [2, 'currencyValue', 'name'], CURRENCIES.PEER.name) !== CURRENCIES.PEER.name) {
     return undefined;
   }
   const value = Number(args[0]);
@@ -210,9 +190,7 @@ const comparePasswords = (...args) => {
   const value = args[0];
   const list = args[2].passwordList;
 
-  return list.filter((x) => x !== value)[0]
-    ? 'formFields.passwordsNotMatch'
-    : undefined;
+  return list.filter((x) => x !== value)[0] ? 'formFields.passwordsNotMatch' : undefined;
 };
 
 const withoutDoubleSpace = (str) =>

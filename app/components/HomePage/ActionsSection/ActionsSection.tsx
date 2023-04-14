@@ -17,38 +17,23 @@ const ActionsSection: React.FC = (): JSX.Element => {
   const thirdActionBlock = useRef(null);
   const fourthActionBlock = useRef(null);
 
-  const [startFirstActionAnimation, setStartFirstActionAnimation] =
-    useState<boolean>(false);
-  const [startSecondActionAnimation, setStartSecondActionAnimation] =
-    useState<boolean>(false);
-  const [startThirdActionAnimation, setStartThirdActionAnimation] =
-    useState<boolean>(false);
-  const [startFourthActionAnimation, setStartFourthActionAnimation] =
-    useState<boolean>(false);
+  const [startFirstActionAnimation, setStartFirstActionAnimation] = useState<boolean>(false);
+  const [startSecondActionAnimation, setStartSecondActionAnimation] = useState<boolean>(false);
+  const [startThirdActionAnimation, setStartThirdActionAnimation] = useState<boolean>(false);
+  const [startFourthActionAnimation, setStartFourthActionAnimation] = useState<boolean>(false);
 
   useEffect(() => {
-    scrollTrigger(firstActionBlock.current, () =>
-      setStartFirstActionAnimation(true),
-    );
-    scrollTrigger(secondActionBlock.current, () =>
-      setStartSecondActionAnimation(true),
-    );
-    scrollTrigger(thirdActionBlock.current, () =>
-      setStartThirdActionAnimation(true),
-    );
-    scrollTrigger(fourthActionBlock.current, () =>
-      setStartFourthActionAnimation(true),
-    );
+    scrollTrigger(firstActionBlock.current, () => setStartFirstActionAnimation(true));
+    scrollTrigger(secondActionBlock.current, () => setStartSecondActionAnimation(true));
+    scrollTrigger(thirdActionBlock.current, () => setStartThirdActionAnimation(true));
+    scrollTrigger(fourthActionBlock.current, () => setStartFourthActionAnimation(true));
   }, []);
 
   return (
     <section css={styles.backgroundImage}>
       <div css={pageStyles.container} id="about">
         <div className="df fdc aic" css={styles.wrapper}>
-          <div
-            ref={firstActionBlock}
-            css={{ ...styles.action, ...styles.reverse }}
-          >
+          <div ref={firstActionBlock} css={{ ...styles.action, ...styles.reverse }}>
             <div css={styles.textBlock}>
               <h3
                 className="op0"
@@ -110,10 +95,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
               }}
             />
           </div>
-          <div
-            ref={thirdActionBlock}
-            css={{ ...styles.action, ...styles.reverse }}
-          >
+          <div ref={thirdActionBlock} css={{ ...styles.action, ...styles.reverse }}>
             <div css={styles.textBlock}>
               <h3
                 className="op0"

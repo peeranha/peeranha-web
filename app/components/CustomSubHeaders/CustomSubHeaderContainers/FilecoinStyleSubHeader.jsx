@@ -5,10 +5,7 @@ import communitiesConfig from 'communities-config';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 
 import { Links } from '../CustomSubHeader';
 
@@ -75,9 +72,7 @@ const LogoRightMenuRight = () => {
           subHeaderLogoStyles={styles.subHeaderLogoStyles}
         >
           <img src={src} alt="logo" />
-          {logoTitleText && (
-            <LogoTitle styles={logoTitleStyles}>{logoTitleText}</LogoTitle>
-          )}
+          {logoTitleText && <LogoTitle styles={logoTitleStyles}>{logoTitleText}</LogoTitle>}
         </SubHeaderLogo>
       </TopLogoContainer>
       <TopMenuContainer>

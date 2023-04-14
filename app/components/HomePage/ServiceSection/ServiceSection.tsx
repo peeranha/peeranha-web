@@ -27,49 +27,26 @@ const ServiceSection: React.FC = (): JSX.Element => {
   const headerActionBlock = useRef(null);
 
   const [startFishAnimation, setStartFishAnimation] = useState<boolean>(false);
-  const [startTopRightCoinAnimation, setStartTopRightCoinAnimation] =
-    useState<boolean>(false);
+  const [startTopRightCoinAnimation, setStartTopRightCoinAnimation] = useState<boolean>(false);
   const [startBottomRightCoinAnimation, setStartBottomRightCoinAnimation] =
     useState<boolean>(false);
-  const [startTopLeftCoinAnimation, setStartTopLeftCoinAnimation] =
-    useState<boolean>(false);
-  const [startBottomLeftCoinAnimation, setStartBottomLeftCoinAnimation] =
-    useState<boolean>(false);
-  const [startButtonAnimation, setStartButtonAnimation] =
-    useState<boolean>(false);
-  const [startContentAnimation, setStartContentAnimation] =
-    useState<boolean>(false);
-  const [startSecondContentAnimation, setStartSecondContentAnimation] =
-    useState<boolean>(false);
-  const [startHeaderAnimation, setStartHeaderAnimationAnimation] =
-    useState<boolean>(false);
+  const [startTopLeftCoinAnimation, setStartTopLeftCoinAnimation] = useState<boolean>(false);
+  const [startBottomLeftCoinAnimation, setStartBottomLeftCoinAnimation] = useState<boolean>(false);
+  const [startButtonAnimation, setStartButtonAnimation] = useState<boolean>(false);
+  const [startContentAnimation, setStartContentAnimation] = useState<boolean>(false);
+  const [startSecondContentAnimation, setStartSecondContentAnimation] = useState<boolean>(false);
+  const [startHeaderAnimation, setStartHeaderAnimationAnimation] = useState<boolean>(false);
 
   useEffect(() => {
     scrollTrigger(fishActionBlock.current, () => setStartFishAnimation(true));
-    scrollTrigger(topRightCoinActionBlock.current, () =>
-      setStartTopRightCoinAnimation(true),
-    );
-    scrollTrigger(bottomRightCoinActionBlock.current, () =>
-      setStartBottomRightCoinAnimation(true),
-    );
-    scrollTrigger(topLeftCoinActionBlock.current, () =>
-      setStartTopLeftCoinAnimation(true),
-    );
-    scrollTrigger(bottomLeftCoinActionBlock.current, () =>
-      setStartBottomLeftCoinAnimation(true),
-    );
-    scrollTrigger(buttonActionBlock.current, () =>
-      setStartButtonAnimation(true),
-    );
-    scrollTrigger(contentActionBlock.current, () =>
-      setStartContentAnimation(true),
-    );
-    scrollTrigger(secondContentActionBlock.current, () =>
-      setStartSecondContentAnimation(true),
-    );
-    scrollTrigger(headerActionBlock.current, () =>
-      setStartHeaderAnimationAnimation(true),
-    );
+    scrollTrigger(topRightCoinActionBlock.current, () => setStartTopRightCoinAnimation(true));
+    scrollTrigger(bottomRightCoinActionBlock.current, () => setStartBottomRightCoinAnimation(true));
+    scrollTrigger(topLeftCoinActionBlock.current, () => setStartTopLeftCoinAnimation(true));
+    scrollTrigger(bottomLeftCoinActionBlock.current, () => setStartBottomLeftCoinAnimation(true));
+    scrollTrigger(buttonActionBlock.current, () => setStartButtonAnimation(true));
+    scrollTrigger(contentActionBlock.current, () => setStartContentAnimation(true));
+    scrollTrigger(secondContentActionBlock.current, () => setStartSecondContentAnimation(true));
+    scrollTrigger(headerActionBlock.current, () => setStartHeaderAnimationAnimation(true));
   }, []);
 
   return (
@@ -300,8 +277,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
           className="pa t0 l0 full-width full-height op0"
           css={{
             ...styles.rightBottomCoinImage,
-            ...(startBottomRightCoinAnimation &&
-              styles.rightBottomCoinAnimation),
+            ...(startBottomRightCoinAnimation && styles.rightBottomCoinAnimation),
           }}
         ></div>
         <div

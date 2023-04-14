@@ -171,7 +171,7 @@ export const ValistStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/valist/valist.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/valist/logo.svg',
 
   colors: {
     appWindowsColor: '#603cba',

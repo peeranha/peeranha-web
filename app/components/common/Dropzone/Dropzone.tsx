@@ -15,19 +15,10 @@ type DropzoneProps = {
       file: File,
       setMediaLink: (link: string) => void,
       setFileFailedUploadStatus: (fileName: string) => void,
-      setFileSuccessfulUploadStatus: (
-        fileName: string,
-        fileUrl: string,
-      ) => void,
-      setFileAbortController: (
-        fileName: string,
-        abortController: AbortController | Upload,
-      ) => void,
+      setFileSuccessfulUploadStatus: (fileName: string, fileUrl: string) => void,
+      setFileAbortController: (fileName: string, abortController: AbortController | Upload) => void,
       setFileUploadingStatus?: (fileName: string) => void,
-      setFileUploadProgress?: (
-        fileName: string,
-        uploadPercentage: string,
-      ) => void,
+      setFileUploadProgress?: (fileName: string, uploadPercentage: string) => void,
     ) => Promise<void>;
     saveUploadedFileLink: (link: string) => void;
     showUploadProgress: boolean;
@@ -49,10 +40,7 @@ type SingleFile = {
   uploadProgress: string | null;
 };
 
-const Dropzone: React.FC<DropzoneProps> = ({
-  config,
-  showToast,
-}): JSX.Element => {
+const Dropzone: React.FC<DropzoneProps> = ({ config, showToast }): JSX.Element => {
   const { t } = useTranslation();
   const [files, setFiles] = useState<Files>({});
 
@@ -83,10 +71,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
       },
     }));
   };
-  const setFileSuccessfulUploadStatus = (
-    fileName: string,
-    fileUrl: string,
-  ): void => {
+  const setFileSuccessfulUploadStatus = (fileName: string, fileUrl: string): void => {
     setFiles((state) => ({
       ...state,
       [fileName]: {
@@ -107,10 +92,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
       },
     }));
   };
-  const setFileUploadProgress = (
-    fileName: string,
-    uploadProgress: string,
-  ): void => {
+  const setFileUploadProgress = (fileName: string, uploadProgress: string): void => {
     setFiles((state) => ({
       ...state,
       [fileName]: {
@@ -131,10 +113,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
       },
     }));
   };
-  const cancelUpload = (
-    fileName: string,
-    abortController?: AbortController | Upload,
-  ): void => {
+  const cancelUpload = (fileName: string, abortController?: AbortController | Upload): void => {
     if (abortController) abortController.abort();
     removeFile(fileName);
   };
@@ -161,9 +140,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
             setFileFailedUploadStatus,
             setFileSuccessfulUploadStatus,
             setFileAbortController,
-            element.showUploadProgress
-              ? setFileUploadProgress
-              : setFileUploadingStatus,
+            element.showUploadProgress ? setFileUploadProgress : setFileUploadingStatus,
           );
         }
       }

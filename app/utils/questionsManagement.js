@@ -1,22 +1,7 @@
-import JSBI from 'jsbi';
-
 import { orderBy } from 'lodash/collection';
-import {
-  getBytes32FromIpfsHash,
-  getIpfsHashFromBytes32,
-  getText,
-  saveText,
-} from './ipfs';
+import { getBytes32FromIpfsHash, getIpfsHashFromBytes32, getText, saveText } from './ipfs';
 import { bigNumberToNumber } from './converters';
 
-import {
-  ALL_QUESTIONS_SCOPE,
-  GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
-  GET_QUESTIONS_KEY_TYPE,
-  PROMOTED_QUESTIONS_TABLES,
-  QUESTION_TABLE,
-  VOTE_TO_DELETE_METHOD,
-} from './constants';
 import {
   CHANGE_POST_TYPE,
   CHANGE_STATUS_BEST,
@@ -40,135 +25,8 @@ import {
   UPVOTE_STATUS,
   VOTE_ITEM,
 } from './ethConstants';
-import {
-  getUsersAnsweredQuestions,
-  getUsersQuestions,
-  historiesForPost,
-} from './theGraph';
+import { getUsersAnsweredQuestions, getUsersQuestions, historiesForPost } from './theGraph';
 import { getCommunityTags } from 'utils/communityManagement';
-
-/* eslint-disable  */
-export class FetcherOfQuestionsForFollowedCommunities {
-  constructor(
-    firstFetchCount = 5,
-    communities,
-    eosService,
-  ) /* istanbul ignore next */ {
-    this.eosService = eosService;
-    this.firstFetchCount = firstFetchCount;
-    this.communities = communities;
-
-    if (!communities.length) return null;
-
-    this.communitiesMap = {};
-
-    communities.forEach((communityId) => {
-      const lowerBound = JSBI.leftShift(
-        JSBI.BigInt(communityId),
-        JSBI.BigInt(36),
-      );
-
-      this.communitiesMap[communityId] = {
-        items: [],
-        lowerBound: lowerBound.toString(),
-        lastKeyFetched: lowerBound.toString(),
-        uppperBound: JSBI.leftShift(
-          JSBI.BigInt(communityId + 1),
-          JSBI.BigInt(36),
-        ).toString(),
-        more: true,
-      };
-    });
-
-    this.hasMore = true;
-  }
-
-  getNextItems = /* istanbul ignore next */ async (fetchCount) => {
-    if (!this.hasMore) return [];
-
-    const fill_fetcher = async (communityId) => {
-      if (
-        !this.communitiesMap[communityId].more ||
-        this.communitiesMap[communityId].items.length >= fetchCount
-      )
-        return null;
-
-      const limit =
-        this.firstFetchCount - this.communitiesMap[communityId].items.length;
-
-      const { rows } = await this.eosService.getTableRows(
-        QUESTION_TABLE,
-        ALL_QUESTIONS_SCOPE,
-        this.communitiesMap[communityId].lastKeyFetched,
-        limit,
-        this.communitiesMap[communityId].uppperBound,
-        GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
-        GET_QUESTIONS_KEY_TYPE,
-      );
-
-      this.communitiesMap[communityId].items.push(...rows);
-
-      if (rows.length === limit) {
-        this.communitiesMap[communityId].lastKeyFetched = JSBI.add(
-          JSBI.add(
-            JSBI.BigInt(this.communitiesMap[communityId].lowerBound),
-            JSBI.BigInt(rows[rows.length - 1].id),
-          ),
-          JSBI.BigInt(1),
-        ).toString();
-      } else {
-        this.communitiesMap[communityId].more = false;
-      }
-    };
-
-    const fill_fetcher_task = [];
-
-    this.communities.forEach((communityId) => {
-      fill_fetcher_task.push(fill_fetcher(communityId));
-    });
-
-    await Promise.all(fill_fetcher_task);
-
-    let availableItems = 0;
-
-    this.communities.forEach((communityId) => {
-      availableItems += this.communitiesMap[communityId].items.length;
-    });
-
-    if (availableItems < fetchCount) {
-      this.hasMore = false;
-      fetchCount = availableItems;
-    }
-
-    const minIdInitializer = JSBI.leftShift(JSBI.BigInt(1), JSBI.BigInt(65));
-    const items = [];
-
-    for (let i = 0; i < fetchCount; i++) {
-      // Find min
-      let minId = minIdInitializer;
-      let communityWithMinId;
-
-      this.communities.forEach((communityId) => {
-        if (this.communitiesMap[communityId].items.length) {
-          const currId = JSBI.BigInt(
-            this.communitiesMap[communityId].items[0].id,
-          );
-          if (JSBI.lessThan(currId, minId)) {
-            minId = currId;
-            communityWithMinId = communityId;
-          }
-        }
-      });
-
-      items.push(this.communitiesMap[communityWithMinId].items[0]);
-      this.communitiesMap[communityWithMinId].items.shift();
-    }
-
-    return items;
-  };
-}
-
-/* eslint-enable  */
 
 export async function getQuestionsPostedByUser(id, limit, offset) {
   return await getUsersQuestions(id, limit, offset);
@@ -179,30 +37,17 @@ export async function getAnsweredUsersPosts(id, limit, offset) {
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
-export async function getQuestions(eosService, limit, offset) {}
+export async function getQuestions(ethereumService, limit, offset) {}
 
 /* eslint no-bitwise: 0 no-undef: 0 */
 export async function getQuestionsFilteredByCommunities(
-  eosService,
+  ethereumService,
   limit,
   offset,
   communityId,
 ) {}
 
-/* eslint no-undef: 0 */
-export async function getQuestionsForFollowedCommunities(limit, fetcher) {
-  return await fetcher.getNextItems(limit);
-}
-
-export async function getPromotedQuestions(eosService, communityId) {}
-
-export async function voteToDelete(
-  user,
-  questionId,
-  answerId,
-  commentId,
-  eosService,
-) {}
+export async function voteToDelete(user, questionId, answerId, commentId, ethereumService) {}
 
 export async function getAskedQuestion(link) {
   return JSON.parse(await getText(link));
@@ -228,12 +73,7 @@ export async function postQuestion(
   );
 }
 
-export async function deleteDocumentationPost(
-  user,
-  postId,
-  documentationJSON,
-  ethereumService,
-) {
+export async function deleteDocumentationPost(user, postId, documentationJSON, ethereumService) {
   const ipfsLink = await saveText(JSON.stringify(documentationJSON));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return await ethereumService.sendTransaction(
@@ -275,12 +115,15 @@ export const editQuestion = async (
 ) => {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, EDIT_POST, [
     user,
-    EDIT_POST,
-    [user, postId, ipfsHash, tags, communityId, postType, language],
-  );
+    postId,
+    ipfsHash,
+    tags,
+    communityId,
+    postType,
+    language,
+  ]);
 };
 
 // export const getEditQuestTrActData = async (user, id, question) => {
@@ -300,29 +143,18 @@ export const editQuestion = async (
 // };
 
 export async function deleteQuestion(user, questionId, ethereumService) {
-  await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
-    user,
-    DELETE_POST,
-    [user, questionId],
-    2,
-  );
+  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_POST, [user, questionId], 2);
 }
 
-export async function postAnswer(
-  user,
-  questionId,
-  ipfsHash,
-  official,
-  language,
-  ethereumService,
-) {
-  return await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+export async function postAnswer(user, questionId, ipfsHash, official, language, ethereumService) {
+  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, POST_ANSWER, [
     user,
-    POST_ANSWER,
-    [user, questionId, 0, ipfsHash, official, language],
-  );
+    questionId,
+    0,
+    ipfsHash,
+    official,
+    language,
+  ]);
 }
 
 export async function editAnswer(
@@ -345,34 +177,22 @@ export async function editAnswer(
   );
 }
 
-export async function deleteAnswer(
-  user,
-  questionId,
-  answerId,
-  ethereumService,
-) {
-  return await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+export async function deleteAnswer(user, questionId, answerId, ethereumService) {
+  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_ANSWER, [
     user,
-    DELETE_ANSWER,
-    [user, questionId, answerId],
-  );
+    questionId,
+    answerId,
+  ]);
 }
 
-export async function postComment(
-  user,
-  questionId,
-  answerId,
-  ipfsHash,
-  language,
-  ethereumService,
-) {
-  return await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+export async function postComment(user, questionId, answerId, ipfsHash, language, ethereumService) {
+  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, POST_COMMENT, [
     user,
-    POST_COMMENT,
-    [user, questionId, answerId, ipfsHash, language],
-  );
+    questionId,
+    answerId,
+    ipfsHash,
+    language,
+  ]);
 }
 
 export async function editComment(
@@ -384,27 +204,23 @@ export async function editComment(
   locale,
   ethereumService,
 ) {
-  return await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, EDIT_COMMENT, [
     user,
-    EDIT_COMMENT,
-    [user, questionId, answerId, commentId, ipfsHash, locale],
-  );
+    questionId,
+    answerId,
+    commentId,
+    ipfsHash,
+    locale,
+  ]);
 }
 
-export async function deleteComment(
-  user,
-  questionId,
-  answerId,
-  commentId,
-  ethereumService,
-) {
-  return await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+export async function deleteComment(user, questionId, answerId, commentId, ethereumService) {
+  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_COMMENT, [
     user,
-    DELETE_COMMENT,
-    [user, questionId, answerId, commentId],
-  );
+    questionId,
+    answerId,
+    commentId,
+  ]);
 }
 
 export async function upVote(user, questionId, answerId, ethereumService) {
@@ -427,13 +243,7 @@ export async function downVote(user, questionId, answerId, ethereumService) {
   ]);
 }
 
-export const getStatusHistory = async (
-  user,
-  questionId,
-  answerId,
-  commentId,
-  ethereumService,
-) =>
+export const getStatusHistory = async (user, questionId, answerId, commentId, ethereumService) =>
   await ethereumService.getContentDataWithArgs(GET_STATUS_HISTORY, [
     user,
     questionId,
@@ -441,32 +251,17 @@ export const getStatusHistory = async (
     commentId,
   ]);
 
-export async function markAsAccepted(
-  user,
-  questionId,
-  correctAnswerId,
-  ethereumService,
-) {
-  await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+export async function markAsAccepted(user, questionId, correctAnswerId, ethereumService) {
+  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, CHANGE_STATUS_BEST, [
     user,
-    CHANGE_STATUS_BEST,
-    [user, questionId, correctAnswerId],
-  );
+    questionId,
+    correctAnswerId,
+  ]);
 }
 
-export const getCreatedPostId = async (
-  ethereumService,
-  block,
-  user,
-  communityId,
-) => {
+export const getCreatedPostId = async (ethereumService, block, user, communityId) => {
   const filter = ethereumService.contractContent.filters.PostCreated();
-  const events = await ethereumService.contractContent.queryFilter(
-    filter,
-    block,
-    block,
-  );
+  const events = await ethereumService.contractContent.queryFilter(filter, block, block);
 
   return bigNumberToNumber(
     events.filter(
@@ -486,15 +281,8 @@ const formCommonInfo = (object, statusHistory) => ({
   votingStatus: votingStatus(Number(statusHistory)),
 });
 
-export const formCommentObject = async (
-  rawComment,
-  id,
-  ethereumService,
-  statusHistory,
-) => {
-  const { content } = JSON.parse(
-    await getText(getIpfsHashFromBytes32(rawComment.ipfsDoc.hash)),
-  );
+export const formCommentObject = async (rawComment, id, ethereumService, statusHistory) => {
+  const { content } = JSON.parse(await getText(getIpfsHashFromBytes32(rawComment.ipfsDoc.hash)));
   return {
     content,
     ipfsHash: rawComment.ipfsDoc.hash,
@@ -503,16 +291,8 @@ export const formCommentObject = async (
   };
 };
 
-export const formReplyObject = async (
-  rawReply,
-  comments,
-  id,
-  ethereumService,
-  statusHistory,
-) => {
-  const { content } = JSON.parse(
-    await getText(getIpfsHashFromBytes32(rawReply.ipfsDoc.hash)),
-  );
+export const formReplyObject = async (rawReply, comments, id, ethereumService, statusHistory) => {
+  const { content } = JSON.parse(await getText(getIpfsHashFromBytes32(rawReply.ipfsDoc.hash)));
   return {
     content,
     ipfsHash: rawReply.ipfsDoc.hash,
@@ -562,16 +342,8 @@ export const votingStatus = (statusHistory) => ({
 });
 
 export async function getQuestionById(ethereumService, questionId, user) {
-  const rawQuestion = await ethereumService.getContentDataWithArgs(GET_POST, [
-    questionId,
-  ]);
-  const statusHistory = await getStatusHistory(
-    user,
-    questionId,
-    0,
-    0,
-    ethereumService,
-  );
+  const rawQuestion = await ethereumService.getContentDataWithArgs(GET_POST, [questionId]);
+  const statusHistory = await getStatusHistory(user, questionId, 0, 0, ethereumService);
   const tags = await getCommunityTags(rawQuestion.communityId);
 
   const questionTags = tags[rawQuestion.communityId].filter((tag) =>
@@ -584,10 +356,10 @@ export async function getQuestionById(ethereumService, questionId, user) {
     new Array(rawQuestion.replyCount).fill().map(async (reply, replyIndex) => {
       let replyObj;
       try {
-        const rawReply = await ethereumService.getContentDataWithArgs(
-          GET_REPLY,
-          [questionId, replyIndex + 1],
-        );
+        const rawReply = await ethereumService.getContentDataWithArgs(GET_REPLY, [
+          questionId,
+          replyIndex + 1,
+        ]);
         const replyStatusHistory = await getStatusHistory(
           user,
           questionId,
@@ -598,37 +370,36 @@ export async function getQuestionById(ethereumService, questionId, user) {
         const comments = [];
         // getting all comments on a reply
         await Promise.all(
-          new Array(rawReply.commentCount)
-            .fill()
-            .map(async (comment, commentIndex) => {
-              let commentObj;
-              try {
-                const rawComment = await ethereumService.getContentDataWithArgs(
-                  GET_COMMENT,
-                  [questionId, replyIndex + 1, commentIndex + 1],
-                );
-                const commentStatusHistory = await getStatusHistory(
-                  user,
-                  questionId,
-                  replyIndex + 1,
-                  commentIndex + 1,
-                  ethereumService,
-                );
-                commentObj = await formCommentObject(
-                  rawComment,
-                  commentIndex + 1,
-                  ethereumService,
-                  commentStatusHistory,
-                );
-              } catch (err) {
-                // if comment is deleted
-                console.log('Comment has been deleted');
-              }
+          new Array(rawReply.commentCount).fill().map(async (comment, commentIndex) => {
+            let commentObj;
+            try {
+              const rawComment = await ethereumService.getContentDataWithArgs(GET_COMMENT, [
+                questionId,
+                replyIndex + 1,
+                commentIndex + 1,
+              ]);
+              const commentStatusHistory = await getStatusHistory(
+                user,
+                questionId,
+                replyIndex + 1,
+                commentIndex + 1,
+                ethereumService,
+              );
+              commentObj = await formCommentObject(
+                rawComment,
+                commentIndex + 1,
+                ethereumService,
+                commentStatusHistory,
+              );
+            } catch (err) {
+              // if comment is deleted
+              console.log('Comment has been deleted');
+            }
 
-              if (commentObj) {
-                comments.push(commentObj);
-              }
-            }),
+            if (commentObj) {
+              comments.push(commentObj);
+            }
+          }),
         );
 
         replyObj = await formReplyObject(
@@ -655,20 +426,10 @@ export async function getQuestionById(ethereumService, questionId, user) {
       let commentObj;
       try {
         commentObj = await formCommentObject(
-          await ethereumService.getContentDataWithArgs(GET_COMMENT, [
-            questionId,
-            0,
-            index + 1,
-          ]),
+          await ethereumService.getContentDataWithArgs(GET_COMMENT, [questionId, 0, index + 1]),
           index + 1,
           ethereumService,
-          await getStatusHistory(
-            user,
-            questionId,
-            0,
-            index + 1,
-            ethereumService,
-          ),
+          await getStatusHistory(user, questionId, 0, index + 1, ethereumService),
         );
       } catch (err) {
         console.log('Comment has been deleted');
@@ -689,32 +450,20 @@ export async function getQuestionById(ethereumService, questionId, user) {
 }
 
 export const getQuestion = async (ethereumService, questionId) => {
-  const question = await ethereumService.getContentDataWithArgs(GET_POST, [
-    questionId,
-  ]);
+  const question = await ethereumService.getContentDataWithArgs(GET_POST, [questionId]);
   return await formQuestionObject(question, [], [], ethereumService);
 };
 
 export const getAnswer = async (ethereumService, questionId, answerId) => {
-  const answer = await ethereumService.getContentDataWithArgs(GET_REPLY, [
-    questionId,
-    answerId,
-  ]);
+  const answer = await ethereumService.getContentDataWithArgs(GET_REPLY, [questionId, answerId]);
   return await formReplyObject(answer, [], answerId, ethereumService);
 };
 
-export const changeQuestionType = async (
-  ethereumService,
-  user,
-  questionId,
-  type,
-) => {
-  await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
-    user,
-    CHANGE_POST_TYPE,
-    [questionId, type],
-  );
+export const changeQuestionType = async (ethereumService, user, questionId, type) => {
+  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, CHANGE_POST_TYPE, [
+    questionId,
+    type,
+  ]);
 };
 
 export const getRandomQuestions = (questions, amount) => {
@@ -749,15 +498,7 @@ export const getQuestionTags = (question, tagList) =>
 export const getHistoriesForPost = async (postId) => {
   const histories = await historiesForPost(postId);
   return histories.map(
-    ({
-      post,
-      reply,
-      comment,
-      eventEntity,
-      transactionHash,
-      eventName,
-      timeStamp,
-    }) => ({
+    ({ post, reply, comment, eventEntity, transactionHash, eventName, timeStamp }) => ({
       transactionHash,
       post,
       reply: reply != null ? reply : undefined,

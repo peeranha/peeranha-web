@@ -12,6 +12,7 @@ export type Post = {
   bestReply: number;
   communityId: string;
   content: string;
+  lastmod: string;
   postTime: string;
   postType: number;
   rating: number;
@@ -56,6 +57,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
         id={post.id}
         locale={locale}
         communities={communities}
+        lastmod={post.lastmod}
         postType={post.postType}
         title={post.title}
         postTime={post.postTime}

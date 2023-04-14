@@ -9,12 +9,16 @@ import H3 from 'components/H3';
 import AddRoleForm from 'containers/Administration/AddRoleForm';
 import { Moderator } from 'containers/Administration/types';
 
-import usersHeader from 'images/usersHeader.svg?external';
 import AddModeratorButton from 'containers/Administration/AddModeratorButton';
 
 import { singleCommunityColors } from 'utils/communityManagement';
-import { BORDER_PRIMARY } from 'style-constants';
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
+import { Administration } from 'icons/index';
+import { css } from '@emotion/react';
+
 const colors = singleCommunityColors();
+
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 type HeaderProps = {
   locale: string;
@@ -36,15 +40,24 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
-        <MediumIconStyled>
-          <Icon
-            icon={usersHeader}
-            width="38"
-            color={colors.btnColor || BORDER_PRIMARY}
-            isColorImportant={true}
-          />
-        </MediumIconStyled>
+        <div
+          css={css`
+            .fill {
+              fill: ${customColor};
+            }
+            .stroke {
+              stroke: ${customColor};
+            }
 
+            .semitransparent {
+              fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+            }
+          `}
+        >
+          <MediumIconStyled>
+            <Administration />
+          </MediumIconStyled>
+        </div>
         {t('common.administration')}
       </H3>
       <AddRoleForm

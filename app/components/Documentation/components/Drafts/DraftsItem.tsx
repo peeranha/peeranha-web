@@ -11,7 +11,7 @@ type DraftsItemProps = {
   parentId: string;
   setEditArticle?: (data: EditArticleType) => void;
   setViewArticle?: (id: string) => void;
-  draftsIds: Array<string>;
+  draftsIds: Array<{ draftId: string; lastmod: string }>;
 };
 
 const documentationColors = singleCommunityDocumentation();
@@ -24,10 +24,7 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
   draftsIds,
 }) => {
   const editDraft = () => {
-    if (
-      typeof setEditArticle === 'function' &&
-      typeof setViewArticle === 'function'
-    ) {
+    if (typeof setEditArticle === 'function' && typeof setViewArticle === 'function') {
       setEditArticle({
         id: item.id,
         parentId,
@@ -38,7 +35,7 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
     }
   };
 
-  const isDraft = draftsIds.find((id) => id === item.id);
+  const isDraft = draftsIds.find((draft) => draft.draftId === item.id);
 
   return (
     <>
@@ -50,11 +47,7 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
             ...styles.draftItemHover,
           }}
         >
-          <div
-            className="ovh mr12"
-            css={styles.draftItemTitle}
-            title={item.title}
-          >
+          <div className="ovh mr12" css={styles.draftItemTitle} title={item.title}>
             {item.title}
           </div>
           <EditIcon

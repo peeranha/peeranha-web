@@ -31,10 +31,7 @@ module.exports = {
       services: path.join(__dirname, '../app/services'),
       'common-messages': path.join(__dirname, '../app/common-messages.js'),
       'style-constants': path.join(__dirname, '../app/style-constants.js'),
-      'communities-config': path.join(
-        __dirname,
-        '../app/communities-config.js',
-      ),
+      'communities-config': path.join(__dirname, '../app/communities-config.js'),
       'communities-configs': path.join(__dirname, '../app/communities-configs'),
       i18n: path.join(__dirname, '../app/i18n.js'),
     };

@@ -14,16 +14,12 @@ import {
   BORDER_RADIUS_M,
 } from 'style-constants';
 
-import { STANDART_TYPE, BLOGGER_TYPE } from './constants';
+import { STANDART_TYPE } from './constants';
 
 export const COMMUNITY_TYPES = {
   STANDART: {
     value: STANDART_TYPE,
     label: 'common.standart',
-  },
-  BLOGGER: {
-    value: BLOGGER_TYPE,
-    label: 'common.blogger',
   },
 };
 
@@ -49,15 +45,10 @@ const Button = B.extend`
 
   flex: 1;
   border: 1px solid
-    ${(x) =>
-      +x.currentValue === +x.value
-        ? `${BORDER_PRIMARY} !important`
-        : BORDER_SECONDARY}};
+    ${(x) => (+x.currentValue === +x.value ? `${BORDER_PRIMARY} !important` : BORDER_SECONDARY)}};
 
   box-shadow: ${(x) =>
-    +x.currentValue === +x.value
-      ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`
-      : `none`};
+    +x.currentValue === +x.value ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
 
   @media only screen and (max-width: 576px) {
     height: 36px;

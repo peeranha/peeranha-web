@@ -19,17 +19,9 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const CommunitiesSectionWithRatings = ({
-  profile,
-  ref,
-  single,
-  communities,
-  locale,
-}) => {
+const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, locale }) => {
   const { t } = useTranslation();
-  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
-    routes.communities(),
-  );
+  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() => routes.communities());
   const AllCommunitiesLink = single ? ADefault : A;
 
   useEffect(() => {
@@ -79,9 +71,7 @@ const CommunitiesSectionWithRatings = ({
                 }
               `}
             />
-            <Span color={colors.btnColor || TEXT_PRIMARY}>
-              {t('common.allCommunities')}
-            </Span>
+            <Span color={colors.btnColor || TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
           </AllCommunitiesLink>
         </div>
       </Grid>

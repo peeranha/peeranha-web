@@ -3,11 +3,7 @@ import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
-import {
-  domainName,
-  domainDocs,
-  domainBlog,
-} from 'communities-configs/polygon/urls';
+import { domainName, domainDocs, domainBlog } from 'communities-configs/polygon/urls';
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-polygon.png';
 
 const fonts = 'General Sans, sans-serif;';
@@ -232,15 +228,12 @@ export const PolygonStyles = {
   poweredByPeeranha: true,
   logoWhite: true,
   withoutAdditionalLinks: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/polygon/polygon-logo-login.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/polygon/logo-signUp.svg',
   favicon,
   mobileSubHeader: (
     <CustomMobileSubHeader
       config={customSubHeaderConfig}
-      logo={
-        'https://images.peeranha.io/communities/polygon/polygon-university-logo.svg'
-      }
+      logo={'https://images.peeranha.io/communities/polygon/logo.svg'}
     />
   ),
   customSubHeader: <CustomSubHeader config={customSubHeaderConfig} />,
@@ -257,8 +250,7 @@ export const PolygonStyles = {
   colors: {
     appWindowsColor: '#000000',
     appSafarieColor: '#000000',
-    mainSubHeaderBgColor:
-      'linear-gradient(120.21deg, #0A090D 17.55%, #7845D0 99.46%)',
+    mainSubHeaderBgColor: 'linear-gradient(120.21deg, #0A090D 17.55%, #7845D0 99.46%)',
     blue: '#843bed',
     backgroundSpecial: '#f6f6f3',
     white: '#f6f6f3',
