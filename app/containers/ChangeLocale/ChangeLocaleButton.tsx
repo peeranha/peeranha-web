@@ -24,13 +24,7 @@ const ChangeLocaleButton: React.FC<ChangeLocaleButtonProps> = ({
       fontSize="16"
       lineHeight="20"
       color={colors.commHeadElemColor || 'var(--color-gray-dark)'}
-      onClick={
-        typeof setOpen !== 'undefined'
-          ? () => {
-              setOpen(true);
-            }
-          : 'undefined'
-      }
+      onClick={() => setOpen?.(true)}
     >
       <Flag src={`https://images.peeranha.io/languages/${locale}_lang.svg`} alt="country" />
       {withTitle ? t(`common.${locale}`) : locale.toLocaleUpperCase()}
