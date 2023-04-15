@@ -4,6 +4,7 @@ import { call, put, select, all, takeEvery, takeLatest } from 'redux-saga/effect
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { getQuestionsFilteredByCommunities, getQuestionById } from 'utils/questionsManagement';
 import {
@@ -144,7 +145,11 @@ export function* getLogoWorker() {
 /* eslint no-empty: ["error", { "allowEmptyCatch": true }] */
 export function* redirectToEditCommunityPageWorker({ id }) {
   try {
-    yield call(createdHistory.push, routes.communitiesEdit(id));
+    const locale = yield select(makeSelectLocale());
+
+    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
+    yield call(createdHistory.push, baseUrl + routes.communitiesEdit(id));
   } catch (err) {}
 }
 

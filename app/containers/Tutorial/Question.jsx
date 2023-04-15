@@ -19,17 +19,17 @@ import {
   BORDER_PRIMARY_LIGHT,
 } from 'style-constants';
 import LoadingIndicator from 'components/LoadingIndicator/CenteredTutorial';
+import i18next from 'app/i18n';
 
 const QuestionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
   padding: 10px 30px;
-  background: ${x => (x.isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT)};
-  border: 1px solid
-    ${x => (x.isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
+  background: ${(x) => (x.isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT)};
+  border: 1px solid ${(x) => (x.isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
 
   h5 span {
-    color: ${x => (x.isOpened ? TEXT_PRIMARY : TEXT_DARK)};
+    color: ${(x) => (x.isOpened ? TEXT_PRIMARY : TEXT_DARK)};
   }
 
   &:first-child {
@@ -60,13 +60,13 @@ const ImgWrapper = styled.div`
 
 const VideoWrapper = styled.div`
   position: relative;
-  display: ${x => (x.isOpened ? 'block' : 'none')};
+  display: ${(x) => (x.isOpened ? 'block' : 'none')};
   height: 40vh;
-  margin-top: ${x => (x.isOpened ? '15px' : '0px')};
+  margin-top: ${(x) => (x.isOpened ? '15px' : '0px')};
   margin-bottom: 5px;
 `;
 
-const getYoutubeLink = mdContent =>
+const getYoutubeLink = (mdContent) =>
   mdContent.match(/https:\/\/www\.youtube\.com\//)
     ? mdContent.match(/https:\/\/www\.youtube\.com\//).input.split(`"`)[1]
     : null;
@@ -105,9 +105,10 @@ const Question = ({
   const [isOpened, collapse] = useState(false);
 
   const questionId = getQuestionCode(sectionCode, questionCode);
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   const collapseQuestion = () => {
-    createdHistory.push(route());
+    createdHistory.push(baseUrl + route());
     collapse(!isOpened);
   };
 
@@ -128,11 +129,7 @@ const Question = ({
           </Span>
         </h5>
 
-        <VideoBlock
-          sectionIsOpened={sectionIsOpened}
-          isOpened={isOpened}
-          content={content}
-        />
+        <VideoBlock sectionIsOpened={sectionIsOpened} isOpened={isOpened} content={content} />
       </QuestionBoxBody>
     </QuestionBox>
   );
