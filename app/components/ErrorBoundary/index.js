@@ -12,6 +12,9 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import ErrorMessage from './ErrorMessage';
+import i18next from 'app/i18n';
+
+const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
 /* eslint-disable react/prefer-stateless-function */
 export class ErrorBoundary extends React.PureComponent {
@@ -22,7 +25,7 @@ export class ErrorBoundary extends React.PureComponent {
 
   componentDidCatch(error, errorInfo) {
     if (process.env.NODE_ENV === 'production' && !process.env.IS_TEST_ENV) {
-      createdHistory.push(routes.errorPage());
+      createdHistory.push(baseUrl + routes.errorPage());
     } else {
       this.setState({
         error,
@@ -40,7 +43,8 @@ export class ErrorBoundary extends React.PureComponent {
       ) : (
         <ErrorMessage error={error} errorInfo={errorInfo} />
       );
-    } else return <div>{this.props.children}</div>;
+    }
+    return <div>{this.props.children}</div>;
   }
 }
 

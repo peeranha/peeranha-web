@@ -10,6 +10,7 @@ import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constan
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   CHANGE_QUESTION_FILTER,
@@ -93,10 +94,14 @@ export function* getQuestionsWorker({
 }
 
 export function* redirectWorker({ communityIdFilter, isFollowed }) {
+  const locale = yield select(makeSelectLocale());
+
+  const baseUrl = locale === 'en' ? '' : `/${locale}`;
+
   yield take(GET_USER_PROFILE_SUCCESS);
 
   if (window.location.pathname.includes(routes.feed())) {
-    yield call(createdHistory.push, routes.feed());
+    yield call(createdHistory.push, baseUrl + routes.feed());
   }
 }
 

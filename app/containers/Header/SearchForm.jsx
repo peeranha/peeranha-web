@@ -5,16 +5,18 @@ import createdHistory from 'createdHistory';
 
 import * as routes from 'routes-config';
 import Input from 'components/Input';
+import i18next from 'app/i18n';
 
 const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const [text, changeText] = useState('');
   const [lastPathName, changeLastPathName] = useState('');
+  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   const onSubmit = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
-      createdHistory.push(routes.search(text));
-      changeLastPathName(routes.search());
+      createdHistory.push(baseUrl + routes.search(text));
+      changeLastPathName(baseUrl + routes.search());
     },
     [text],
   );
@@ -24,7 +26,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
       id: searchFormId,
       name: searchFormId,
       value: text,
-      onChange: e => changeText(e.target.value),
+      onChange: (e) => changeText(e.target.value),
       onBlur,
     }),
     [text, searchFormId, onBlur],
@@ -42,13 +44,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   return (
     // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
     <form className={className} onSubmit={onSubmit}>
-      <Input
-        type="text"
-        input={input}
-        placeholder={placeholder}
-        isSearchable
-        onClick={onSubmit}
-      />
+      <Input type="text" input={input} placeholder={placeholder} isSearchable onClick={onSubmit} />
     </form>
   );
 };
