@@ -31,11 +31,9 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
   singleCommunityFonts,
-  getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
-import homeIcon from 'images/house.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
@@ -171,7 +169,8 @@ const MainLinks = ({
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
-  let route = pathname.split('/').filter((x) => x)[0];
+  const pathArray = pathname.split('/').filter((x) => x);
+  let route = pathArray[pathArray.length - 1];
 
   const singleCommId = +isSingleCommunityWebsite();
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
