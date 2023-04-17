@@ -12,7 +12,7 @@ const communityColors = singleCommunityColors();
 const styles = {
   container: {
     position: 'absolute',
-    padding: '0 18px',
+    padding: '16px',
     fontSize: '16px',
     width: '100%',
     display: 'flex',
@@ -20,9 +20,7 @@ const styles = {
     borderBottom: `1px solid ${BORDER_SECONDARY_LIGHT}`,
     alignItems: 'start',
     justifyContent: 'center',
-    '> *': {
-      marginBottom: '4px',
-    },
+
     '@media only screen and (min-width: 819px) and (max-width: 993px), only screen and (min-width: 1095px)':
       {
         display: 'grid',
@@ -33,21 +31,22 @@ const styles = {
   },
   titleWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
     '> span': {
       marginRight: '5px',
     },
-    '@media only screen and (min-width: 819px) and (max-width: 993px), only screen and (min-width: 1095px)':
-      {
-        flexDirection: 'column',
-        alignItems: 'start',
-      },
   },
   textAndIconWrapper: {
     display: 'flex',
     alignItems: 'center',
+    marginBottom: '4px',
+
+    '@media only screen and (min-width: 819px) and (max-width: 993px), only screen and (min-width: 1095px)':
+      {
+        marginBottom: 0,
+      },
   },
-  notificationTitle: {
+  notificationTypeTitle: {
     color: 'rgb(40,40,40)',
     lineHeight: '20px',
     marginLeft: '10px',
@@ -55,6 +54,12 @@ const styles = {
   additionalInfo: {
     color: 'rgb(123,123,123)',
     lineHeight: '20px',
+    marginTop: '4px',
+    marginBottom: '8px',
+    '@media only screen and (min-width: 819px) and (max-width: 993px), only screen and (min-width: 1095px)':
+      {
+        marginBottom: 0,
+      },
   },
   unread: {
     borderLeft: `3px solid ${BORDER_PRIMARY_LIGHT}`,
@@ -69,12 +74,30 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     '> span': {
-      marginLeft: '5px',
       color: communityColors.btnColor || BORDER_PRIMARY,
     },
   },
 
   lastNotification: { border: 'none' },
+
+  notificationTitle: {
+    fontSize: '16px',
+    lineHeight: '20px',
+    color: '#576FED',
+    marginBottom: '8px',
+    '@media only screen and (min-width: 819px) and (max-width: 993px), only screen and (min-width: 1095px)':
+      {
+        marginBottom: 0,
+      },
+  },
+
+  fullDate: {
+    color: 'rgb(40, 40, 40)',
+  },
+
+  lastDatePart: {
+    color: 'rgb(123,123,123)',
+  },
 };
 
 export default styles;

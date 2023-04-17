@@ -3,6 +3,7 @@ import * as routes from 'routes-config';
 import { POST_TYPE } from 'utils/constants';
 
 export const ROW_HEIGHT = 70;
+export const ROW_HEIGHT_FOR_SMALL = 120;
 export const NOTIFICATIONS_REQUEST_LIMIT = 50;
 export const MARK_AS_READ_DELAY = 1000;
 

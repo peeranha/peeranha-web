@@ -23,13 +23,21 @@ const Time: React.FC<NotificationTimeProps> = ({
   time: { rightNow, minutes, hours, yesterday, fullDate },
 }): JSX.Element => {
   const { t } = useTranslation();
+
+  const dateParts = fullDate?.split(' ');
+  const lastDatePart = dateParts?.pop();
+
   return (
     <span css={styles.time}>
       {Boolean(rightNow) && t('common.rightNow')}
       {Boolean(minutes) && t('common.minutesAgo', { minutes })}
       {Boolean(hours) && t('common.hoursAgo', { hours })}
       {Boolean(yesterday) && t('common.yesterday')}
-      {Boolean(fullDate) && fullDate}
+      {Boolean(fullDate) && (
+        <p css={styles.fullDate}>
+          {dateParts.join(' ')} <span css={styles.lastDatePart}>{lastDatePart}</span>
+        </p>
+      )}
     </span>
   );
 };
@@ -123,14 +131,14 @@ const Notification: React.FC<NotificationProps> = ({
       <div css={styles.titleWrapper}>
         <div css={styles.textAndIconWrapper}>
           {renderNotificationIcon(type, isCommunityMode, communityStyles)}
-          <span css={styles.notificationTitle}>{notificationTitle}</span>
+          <span css={styles.notificationTypeTitle}>{notificationTitle}</span>
         </div>
         {isChangedType && (
           <span css={styles.additionalInfo}>{t(additionalTitle, notificationTextProps)}</span>
         )}
       </div>
       <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href}>
-        <span>{data.title}</span>
+        <span css={styles.notificationTitle}>{data.title}</span>
       </NotificationLink>
       <Time time={time} />
     </div>

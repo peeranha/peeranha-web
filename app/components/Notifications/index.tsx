@@ -17,10 +17,9 @@ import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 import { BG_LIGHT, BORDER_SECONDARY_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 
 import NotFound from 'containers/ErrorPage';
-import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { ROW_HEIGHT } from './constants';
+import { ROW_HEIGHT, ROW_HEIGHT_FOR_SMALL } from './constants';
 import { NotificationsProps } from './types';
 import {
   allNotificationsCount,
