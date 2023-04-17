@@ -8,11 +8,9 @@ import Wrapper from 'components/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
 
 import bannerImage from 'images/communityIsSuggested.svg?inline';
-import i18next from 'app/i18n';
 
 export const Banner = () => {
   const { t } = useTranslation();
-  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   return (
     <Wrapper>
@@ -22,7 +20,7 @@ export const Banner = () => {
 
         <p>{t('createCommunity.communityWillAppear')}</p>
 
-        <Button onClick={() => createdHistory.push(baseUrl + routes.communities())}>
+        <Button onClick={() => createdHistory.push(routes.communities())}>
           {t('createCommunity.goToList')}
         </Button>
       </div>

@@ -29,7 +29,6 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
-import i18next from 'app/i18n';
 
 import img from 'images/image-communityPage.svg?inline';
 
@@ -111,7 +110,6 @@ const DescriptionText = P.extend`
 
 const Content = ({ communities, sorting, locale, profile }) => {
   const { t } = useTranslation();
-  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
 
   const communityEditingAllowed =
     hasGlobalModeratorRole(getPermissions(profile)) ||
@@ -210,9 +208,7 @@ const Content = ({ communities, sorting, locale, profile }) => {
                   <Info>
                     {(communityEditingAllowed ||
                       hasCommunityAdminRole(getPermissions(profile), value)) && (
-                      <InfoButton
-                        onClick={() => createdHistory.push(baseUrl + routes.communitiesEdit(id))}
-                      >
+                      <InfoButton onClick={() => createdHistory.push(routes.communitiesEdit(id))}>
                         {t('common.edit')}
                       </InfoButton>
                     )}
