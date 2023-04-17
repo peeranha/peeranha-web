@@ -42,12 +42,10 @@ import {
 
 export function* postQuestionWorker({ val }) {
   try {
+    const locale = yield select(makeSelectLocale());
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
     const documentationMenu = yield select(selectDocumentationMenu());
-    const locale = yield select(makeSelectLocale());
-
-    const baseUrl = locale === 'en' ? '' : `/${locale}`;
 
     // const promoteValue = +val[FORM_PROMOTE];
     const postType = +val[FORM_TYPE];
@@ -139,8 +137,8 @@ export function* postQuestionWorker({ val }) {
     yield call(
       createdHistory.push,
       postType === POST_TYPE.documentation
-        ? baseUrl + routes.documentation(id, questionData.title)
-        : baseUrl + routes.questionView(id, questionData.title, false),
+        ? routes.documentation(id, questionData.title)
+        : routes.questionView(id, questionData.title, false),
     );
   } catch (err) {
     yield put(askQuestionError(err));
@@ -169,17 +167,10 @@ export function* checkReadinessWorker({ buttonId }) {
 /* eslint no-empty: 0 */
 export function* redirectToAskQuestionPageWorker({ buttonId, isDocumentation, parentId }) {
   try {
-    const locale = yield select(makeSelectLocale());
-
-    const baseUrl = locale === 'en' ? '' : `/${locale}`;
-
     yield call(checkReadinessWorker, { buttonId });
     yield call(
       createdHistory.push,
       isDocumentation ? routes.documentationCreate(parentId) : routes.questionAsk(),
-      isDocumentation
-        ? baseUrl + routes.documentationCreate(parentId)
-        : baseUrl + routes.questionAsk(),
     );
   } catch (err) {}
 }
