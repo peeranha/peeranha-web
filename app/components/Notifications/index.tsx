@@ -20,7 +20,8 @@ import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { NOTIFICATIONS_DATA, ROW_HEIGHT } from './constants';
+import { ROW_HEIGHT } from './constants';
+import { NotificationsProps } from './types';
 import {
   allNotificationsCount,
   selectAllNotifications,
@@ -79,7 +80,7 @@ const SubHeaderSeparator = styled.hr`
   }
 `;
 
-const Notifications = ({
+const Notifications: React.FC<NotificationsProps> = ({
   loading,
   unreadCount,
   allCount,
@@ -91,7 +92,7 @@ const Notifications = ({
   loadMoreNotificationsDispatch,
   markAsReadNotificationsAllDispatch,
   filterReadNotificationsDispatch,
-}) => {
+}): JSX.Element => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
   const [containerWidth, setContainerWidth] = useState(0);
@@ -178,7 +179,6 @@ const Notifications = ({
       index={index}
       height={rowHeight}
       notificationsNumber={notifications.length}
-      paddingHorizontal="36"
       communities={communities}
       {...notifications[index]}
     />
@@ -240,19 +240,6 @@ const Notifications = ({
       <NotFound withSeo={false} />
     </div>
   );
-};
-
-Notifications.propTypes = {
-  loading: PropTypes.bool,
-  unreadCount: PropTypes.number,
-  allCount: PropTypes.number,
-  className: PropTypes.string,
-  isAvailable: PropTypes.bool,
-  loadMoreNotificationsDispatch: PropTypes.func,
-  markAsReadNotificationsAllDispatch: PropTypes.func,
-  notifications: PropTypes.arrayOf(PropTypes.object),
-  readNotifications: PropTypes.arrayOf(PropTypes.number),
-  filterReadNotificationsDispatch: PropTypes.func,
 };
 
 export default React.memo(

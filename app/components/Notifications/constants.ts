@@ -3,7 +3,6 @@ import * as routes from 'routes-config';
 import { POST_TYPE } from 'utils/constants';
 
 export const ROW_HEIGHT = 70;
-export const VERTICAL_OFFSET = 5 * ROW_HEIGHT;
 export const NOTIFICATIONS_REQUEST_LIMIT = 50;
 export const MARK_AS_READ_DELAY = 1000;
 
@@ -107,7 +106,7 @@ export const NOTIFICATIONS_DATA = {
   },
 };
 
-export const POST_TYPE_TO_LABEL = {
+export const POST_TYPE_TO_LABEL: { [index: number]: string } = {
   0: 'common.expert',
   1: 'common.general',
   2: 'common.tutorial',

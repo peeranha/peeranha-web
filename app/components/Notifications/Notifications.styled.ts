@@ -1,12 +1,16 @@
+import { singleCommunityColors } from 'utils/communityManagement';
 import {
   BG_SECONDARY_SPECIAL_4,
+  BORDER_PRIMARY,
   BORDER_PRIMARY_LIGHT,
   BORDER_SECONDARY_LIGHT,
   TEXT_SECONDARY,
 } from 'style-constants';
 
+const communityColors = singleCommunityColors();
+
 const styles = {
-  containerStyles: {
+  container: {
     position: 'absolute',
     padding: '0 18px',
     fontSize: '16px',
@@ -39,26 +43,38 @@ const styles = {
         alignItems: 'start',
       },
   },
+  textAndIconWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  notificationTitle: {
+    color: 'rgb(40,40,40)',
+    lineHeight: '20px',
+    marginLeft: '10px',
+  },
   additionalInfo: {
-    color: '#7B7B7B',
+    color: 'rgb(123,123,123)',
     lineHeight: '20px',
   },
-  unreadStyles: {
+  unread: {
     borderLeft: `3px solid ${BORDER_PRIMARY_LIGHT}`,
     background: BG_SECONDARY_SPECIAL_4,
   },
-  timeStyles: {
+  time: {
     color: TEXT_SECONDARY,
     textAlign: 'right',
     whiteSpace: 'nowrap',
   },
-  linkStyles: {
+  link: {
     display: 'flex',
     alignItems: 'center',
     '> span': {
       marginLeft: '5px',
+      color: communityColors.btnColor || BORDER_PRIMARY,
     },
   },
+
+  lastNotification: { border: 'none' },
 };
 
 export default styles;
