@@ -42,21 +42,10 @@ export const i18n = i18next
     },
     lng: 'en',
     fallbackLng: 'en',
-    detection: {
-      order: ['path'],
-      lookupFromPathIndex: 0,
-    },
-    interpolation: {
-      escapeValue: false,
-    },
   });
 
 export const currentLocale = i18next.language;
 
-export const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
-
 export const { changeLanguage } = i18next;
 
 export const DEFAULT_LOCALE = 'en';
-
-export default i18next;

@@ -135,7 +135,7 @@ export const QuestionForm = ({
   cachedTags,
   tagsLoading,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
   const [submitPressed, setSubmitPressed] = useState(false);
@@ -143,7 +143,6 @@ export const QuestionForm = ({
   const postTitle = question?.title;
   const postContent = question?.content;
   const isPostAuthor = question?.author === profile?.user;
-  const baseUrl = i18n.language === 'en' ? '' : `/${i18n.language}`;
 
   const communityId = formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
   const isCommunityModerator = communityId
@@ -184,7 +183,7 @@ export const QuestionForm = ({
 
   const showMoreQuestions = (e) => {
     e.preventDefault();
-    createdHistory.push(baseUrl + routes.search(formValues[FORM_TITLE]));
+    createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
   const tagCreatingAllowed =

@@ -29,7 +29,6 @@ import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
-import i18next from 'app/i18n';
 
 export const TextBlock = styled.div`
   display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
@@ -80,7 +79,8 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   }
 
   > :not(:last-child) {
-    border-bottom: ${({ isOpened }) => (isOpened ? '1' : '0')}px solid ${BORDER_SECONDARY};
+    border-bottom: ${({ isOpened }) => (isOpened ? '1' : '0')}px solid
+      ${BORDER_SECONDARY};
   }
 
   ${Button} {
@@ -110,8 +110,10 @@ const QuestionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
   padding: 10px 30px;
-  background: ${({ isOpened }) => (isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT)};
-  border: 1px solid ${({ isOpened }) => (isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
+  background: ${({ isOpened }) =>
+    isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT};
+  border: 1px solid
+    ${({ isOpened }) => (isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
   h5 span {
     color: ${({ isOpened }) => (isOpened ? TEXT_PRIMARY : TEXT_DARK)};
   }
@@ -138,11 +140,10 @@ const Question = ({
   getQuestionCode,
   collapsedMenu,
 }) => {
-  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
   const [isOpened, collapse] = useState(false);
 
   const collapseQuestion = () => {
-    createdHistory.push(baseUrl + route());
+    createdHistory.push(route());
     collapse((prevIsOpen) => !prevIsOpen);
   };
 
@@ -185,14 +186,13 @@ const Section = ({
   collapsedMenu,
 }) => {
   const { t } = useTranslation();
-  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
   const [isOpened, collapse] = useState(false);
   const [isExtendedSection, extendSection] = useState(false);
 
   const questionsNumber = isExtendedSection ? blocks.length : DEFAULT_QST_NUM;
 
   const collapseSection = () => {
-    createdHistory.push(baseUrl + route());
+    createdHistory.push(route());
     collapse((prevIsOpen) => !prevIsOpen);
   };
 
@@ -205,12 +205,19 @@ const Section = ({
   //   handler: () => sectionRef.current.className = "d-block",
   // });
 
-  window.addEventListener('hashchange', () => (sectionRef.current.className = 'd-block'));
+  window.addEventListener(
+    'hashchange',
+    () => (sectionRef.current.className = 'd-block'),
+  );
 
   return (
     <SectionStyled isOpened={isOpened} id={sectionId}>
       <BaseTransparent>
-        <H4 className="d-flex align-items-center" onClick={collapseSection} mobileFS="24">
+        <H4
+          className="d-flex align-items-center"
+          onClick={collapseSection}
+          mobileFS="24"
+        >
           <ImgWrapper>
             <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
           </ImgWrapper>
@@ -256,7 +263,13 @@ const Section = ({
   );
 };
 
-const Content = ({ content, route, getSectionCode, getQuestionCode, collapsedMenu = true }) => (
+const Content = ({
+  content,
+  route,
+  getSectionCode,
+  getQuestionCode,
+  collapsedMenu = true,
+}) => (
   <div className="mb-3 text-block">
     {content.blocks.map((block) => (
       <Section

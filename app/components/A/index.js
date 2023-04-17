@@ -6,19 +6,7 @@ import { svgDraw } from 'components/Icon/IconStyled';
 import Span from 'components/Span';
 import { singleCommunityColors } from 'utils/communityManagement';
 
-import i18next from 'app/i18n';
-
 const colors = singleCommunityColors();
-
-const LinkPeeranha = ({ to, href, children, ...props }) => {
-  const baseUrl = i18next.language === 'en' ? '' : `/${i18next.language}`;
-
-  return (
-    <Link to={baseUrl + to} href={baseUrl + href} {...props}>
-      {children}
-    </Link>
-  );
-};
 
 export const ACss = css`
   text-decoration: none !important;
@@ -36,7 +24,7 @@ export const ACss = css`
 
 export const AProps = Span.extend`
   ${ACss};
-`.withComponent(LinkPeeranha);
+`.withComponent(Link);
 
 export const ADefault = styled.a`
   ${ACss};
@@ -46,6 +34,6 @@ export const APropsDefault = Span.extend`
   ${ACss};
 `.withComponent(ADefault);
 
-export default styled(LinkPeeranha)`
+export default styled(Link)`
   ${ACss};
 `;

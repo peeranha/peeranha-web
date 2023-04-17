@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
@@ -122,7 +122,7 @@ export const Header = ({
   postsTypes,
   profile,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [tags, setTags] = useState([]);
   const [tagsNames, setTagsNames] = useState([]);
   const isFeed = parentPage === routes.feed();
@@ -175,6 +175,11 @@ export const Header = ({
     defaultAvatarWidth = '38';
   }
 
+  const displayQuestionFilter = useMemo(
+    () => !!single && !!topQuestions.length,
+    [single, topQuestionsInfoLoaded, topQuestions.length],
+  );
+
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
@@ -196,10 +201,15 @@ export const Header = ({
     </H3>
   );
 
-  const baseUrl = i18n.language === 'en' ? '' : `/${i18n.language}`;
+  const displaySubscribeButton =
+    !!single &&
+    isFeed &&
+    window.location.pathname !== routes.questions() &&
+    window.location.pathname !== routes.expertPosts() &&
+    window.location.pathname !== routes.tutorials();
 
   const routeToEditCommunity = () => {
-    createdHistory.push(baseUrl + routes.communitiesEdit(single));
+    createdHistory.push(routes.communitiesEdit(single));
   };
 
   return (
@@ -215,7 +225,7 @@ export const Header = ({
             isArrowed
             Button={Button}
             toggle={(choice) => {
-              createdHistory.push(baseUrl + routes[route](choice, false, false));
+              createdHistory.push(routes[route](choice, false, false));
               setTypeFilter(choice);
             }}
             showOnlyFollowed={isFeed}
