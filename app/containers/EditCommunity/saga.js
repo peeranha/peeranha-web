@@ -32,7 +32,6 @@ import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
 
 import { selectCommunity } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 export function* getCommunityWorker({ communityId }) {
   try {
@@ -54,11 +53,6 @@ export function* getCommunityWorker({ communityId }) {
 
 export function* editCommunityWorker({ communityId, communityData }) {
   try {
-    const locale = yield select(makeSelectLocale());
-
-    const baseUrl = locale === 'en' ? '' : `/${locale}`;
-
-    const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
       communityData.avatar = imgHash;
@@ -91,10 +85,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     yield put(editCommunitySuccess());
 
-    yield call(
-      createdHistory.push,
-      `${baseUrl}${isSingleCommunityMode ? feed() : communitiesRoute()}`,
-    );
+    yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
   } catch (error) {
     yield put(editCommunityError(error));
   }

@@ -50,10 +50,8 @@ export function* getAnswerWorker({ questionId, answerId }) {
 
 export function* editAnswerWorker({ answer, questionId, answerId, official, title }) {
   try {
-    const ethereumService = yield select(selectEthereum);
     const locale = yield select(makeSelectLocale());
-
-    const baseUrl = locale === 'en' ? '' : `/${locale}`;
+    const ethereumService = yield select(selectEthereum);
     const user = yield call(ethereumService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
     const answerData = {
@@ -81,7 +79,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editAnswerSuccess({ ...cachedQuestion }));
-    yield call(createdHistory.push, baseUrl + routes.questionView(questionId, title, answerId));
+    yield call(createdHistory.push, routes.questionView(questionId, title, answerId));
   } catch (err) {
     yield put(editAnswerErr(err));
   }
@@ -102,11 +100,8 @@ export function* checkReadinessWorker({ buttonId }) {
 /* eslint no-empty: 0 */
 export function* redirectToEditAnswerPageWorker({ buttonId, link }) {
   try {
-    const locale = yield select(makeSelectLocale());
-
-    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     yield call(checkReadinessWorker, { buttonId });
-    yield call(createdHistory.push, baseUrl + link);
+    yield call(createdHistory.push, link);
   } catch (err) {}
 }
 

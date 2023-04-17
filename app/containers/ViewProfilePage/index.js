@@ -1,5 +1,3 @@
-import { languagesEnum } from 'app/i18n';
-import { removeLanguage } from 'containers/App/routes';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -69,7 +67,7 @@ const ViewProfilePage = ({
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
 }) => {
-  const path = removeLanguage(window.location.pathname + window.location.hash);
+  const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
 
   useEffect(() => {

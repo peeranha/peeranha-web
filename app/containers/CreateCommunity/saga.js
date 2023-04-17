@@ -7,7 +7,6 @@ import { createCommunity } from 'utils/communityManagement';
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   createCommunitySuccess,
@@ -23,9 +22,6 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 export function* createCommunityWorker({ community, reset }) {
   try {
     const ethereumService = yield select(selectEthereum);
-    const locale = yield select(makeSelectLocale());
-
-    const baseUrl = locale === 'en' ? '' : `/${locale}`;
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
     yield call(createCommunity, ethereumService, selectedAccount, community);
@@ -34,7 +30,7 @@ export function* createCommunityWorker({ community, reset }) {
 
     yield call(reset);
 
-    yield call(createdHistory.push, baseUrl + routes.communitiesCreatedBanner());
+    yield call(createdHistory.push, routes.communitiesCreatedBanner());
   } catch (err) {
     yield put(createCommunityErr(err));
   }
@@ -51,12 +47,8 @@ export function* checkReadinessWorker({ buttonId }) {
 /* eslint no-empty: 0 */
 export function* redirectToCreateCommunityWorker({ buttonId }) {
   try {
-    const locale = yield select(makeSelectLocale());
-
-    const baseUrl = locale === 'en' ? '' : `/${locale}`;
-
     yield call(checkReadinessWorker, { buttonId });
-    yield call(createdHistory.push, baseUrl + routes.communitiesCreate());
+    yield call(createdHistory.push, routes.communitiesCreate());
   } catch (err) {}
 }
 
