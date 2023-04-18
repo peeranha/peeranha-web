@@ -44,7 +44,7 @@ export const MetaTransactionAgreement = ({ showModal, hideModalDispatch, ethereu
   const { t } = useTranslation();
 
   const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
-  const isBalance = Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0.005;
+  const isBalance = Number(ethereum?.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0.005;
   const isTransactionType = dataFromCookies === TRANSACTIONS_ALLOWED;
 
   const hideModal = () => {

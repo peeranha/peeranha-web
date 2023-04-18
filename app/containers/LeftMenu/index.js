@@ -27,14 +27,8 @@ import {
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { loginWithWallet } from 'containers/Login/actions';
-import {
-  changeLocale as changeLocaleDispatch,
-  showLeftMenu,
-} from 'containers/AppWrapper/actions';
-import {
-  selectIsMenuVisible,
-  selectPinnedItemMenu,
-} from 'containers/AppWrapper/selectors';
+import { changeLocale as changeLocaleDispatch, showLeftMenu } from 'containers/AppWrapper/actions';
+import { selectIsMenuVisible, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
@@ -62,15 +56,8 @@ const LeftMenu = ({
   isEditDocumentation,
   pinnedItemMenu,
 }) => {
-  const showLoginModal = () => {
-    loginWithWalletDispatch({ metaMask: true });
-  };
-
   return (
-    <Aside
-      isMenuVisible={isMenuVisible}
-      className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}
-    >
+    <Aside isMenuVisible={isMenuVisible} className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}>
       <View
         isMenuVisible={isMenuVisible}
         profile={profile}
@@ -78,15 +65,13 @@ const LeftMenu = ({
         stakedInCurrentPeriod={stakedInCurrentPeriod}
         stakedInNextPeriod={stakedInNextPeriod}
         boost={boost}
-        showLoginModal={showLoginModal}
+        showLoginModal={loginWithWalletDispatch}
         isGlobalAdmin={isGlobalAdmin}
         changeLocale={changeLocale}
         locale={locale}
         documentationMenu={documentationMenu}
         redirectToEditQuestionPage={redirectToEditQuestionPageDispatch}
-        redirectToPostDocumentationPage={
-          redirectToPostDocumentationPageDispatch
-        }
+        redirectToPostDocumentationPage={redirectToPostDocumentationPageDispatch}
         deleteQuestion={deleteQuestionDispatch}
         match={match}
         toggleEditDocumentation={toggleEditDocumentationDispatch}
@@ -139,19 +124,13 @@ export function mapDispatchToProps(dispatch) {
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     changeLocale: bindActionCreators(changeLocaleDispatch, dispatch),
-    redirectToEditQuestionPageDispatch: bindActionCreators(
-      redirectToEditQuestionPage,
-      dispatch,
-    ),
+    redirectToEditQuestionPageDispatch: bindActionCreators(redirectToEditQuestionPage, dispatch),
     redirectToPostDocumentationPageDispatch: bindActionCreators(
       redirectToAskQuestionPage,
       dispatch,
     ),
     deleteQuestionDispatch: bindActionCreators(deleteQuestion, dispatch),
-    toggleEditDocumentationDispatch: bindActionCreators(
-      toggleEditDocumentation,
-      dispatch,
-    ),
+    toggleEditDocumentationDispatch: bindActionCreators(toggleEditDocumentation, dispatch),
   };
 }
 

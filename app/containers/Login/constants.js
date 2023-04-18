@@ -25,3 +25,6 @@ export const LOGIN_WITH_WALLET_ERROR = 'app/containers/Login/LOGIN_WITH_WALLET_E
 // Local storage
 export const AUTOLOGIN_DATA = 'peeranhaAutoLogin';
 export const PROFILE_INFO_LS = 'profileinfols';
+
+//SUI
+export const LOGIN_WITH_SUI = 'app/containers/Login/LOGIN_WITH_SUI';

@@ -14,7 +14,7 @@ import notificationsReducer from 'components/Notifications/reducer';
 
 import * as selectors from './selectors';
 
-import { hideLoginModal, loginWithWallet } from './actions';
+import { hideLoginModal } from './actions';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -25,7 +25,6 @@ export const Login = ({
   showModal,
   hideLoginModalDispatch,
   loginWithWalletProcessing,
-  loginWithWalletDispatch,
   ethereumService,
 }) => <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}></ModalDialog>;
 
@@ -35,7 +34,6 @@ Login.propTypes = {
   hideLoginModalDispatch: PropTypes.func,
   email: PropTypes.string,
   loginWithWalletProcessing: PropTypes.bool,
-  loginWithWalletDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -48,7 +46,6 @@ const withConnect = connect(
   }),
   (dispatch) => ({
     hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
-    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
   }),
 );
 

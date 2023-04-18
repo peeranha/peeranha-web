@@ -10,6 +10,7 @@ import {
   LOGIN_WITH_WALLET,
   LOGIN_WITH_WALLET_SUCCESS,
   LOGIN_WITH_WALLET_ERROR,
+  LOGIN_WITH_SUI,
 } from './constants';
 
 // Show | Hide (modal)
@@ -28,10 +29,9 @@ export function hideLoginModal() {
 
 // Login with Wallet
 
-export function loginWithWallet({ metaMask, t }, isNewPostCreationAfterLogin = false) {
+export function loginWithWallet({ t }, isNewPostCreationAfterLogin = false) {
   return {
     type: LOGIN_WITH_WALLET,
-    metaMask,
     t,
     isNewPostCreationAfterLogin,
   };
@@ -47,5 +47,14 @@ export function loginWithWalletErr(loginWithWalletError) {
   return {
     type: LOGIN_WITH_WALLET_ERROR,
     loginWithWalletError,
+  };
+}
+
+//SUI
+export function loginWithSui(address, isNewPostCreationAfterLogin = false) {
+  return {
+    type: LOGIN_WITH_SUI,
+    address,
+    isNewPostCreationAfterLogin,
   };
 }

@@ -26,3 +26,5 @@ export const REFERRAL_REWARD_RATING = 25;
 export const REFERRAL_REWARD_RECEIVED = 'reward_received';
 export const REFERRAL_REWARD_SENT = 'reward_sent';
 export const NO_REFERRAL_INVITER = 'no_referral';
+
+export const GET_CURRENT_SUI_ACCOUNT = `${PATH}GET_CURRENT_SUI_ACCOUNT`;

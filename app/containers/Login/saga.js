@@ -18,11 +18,11 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
 import { loginWithWalletSuccess, loginWithWalletErr } from './actions';
 
-import { LOGIN_WITH_WALLET } from './constants';
+import { LOGIN_WITH_SUI, LOGIN_WITH_WALLET } from './constants';
 
 import { selectEthereum } from '../EthereumProvider/selectors';
 
-export function* loginWithWalletWorker({ metaMask, t }) {
+export function* loginWithWalletWorker({ t }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const isNewPostCreationAfterLogin = yield select(selectIsNewPostCreationAfterLogin());
@@ -30,15 +30,13 @@ export function* loginWithWalletWorker({ metaMask, t }) {
     let currentAccount;
     let metaMaskUserAddress = null;
 
-    if (metaMask) {
-      metaMaskUserAddress = yield call(ethereumService.walletLogIn);
+    metaMaskUserAddress = yield call(ethereumService.walletLogIn);
 
-      if (!metaMaskUserAddress) {
-        throw new WebIntegrationError(t('login.userIsNotSelected'));
-      }
-
-      currentAccount = metaMaskUserAddress;
+    if (!metaMaskUserAddress) {
+      throw new WebIntegrationError(t('login.userIsNotSelected'));
     }
+
+    currentAccount = metaMaskUserAddress;
 
     yield call(getCurrentAccountWorker, currentAccount);
     let profileInfo = yield select(makeSelectProfileInfo());
@@ -77,6 +75,16 @@ export function* loginWithWalletWorker({ metaMask, t }) {
   }
 }
 
+export function* loginWithSuiWorker({ address }) {
+  try {
+    yield put(loginWithWalletSuccess());
+  } catch (err) {
+    document.getElementsByTagName('body')[0].style.position = 'relative';
+
+    yield put(loginWithWalletErr(err));
+  }
+}
+
 export function* redirectToFeedWorker() {
   const isLeftMenuVisible = yield select(selectIsMenuVisible());
   const profileInfo = yield select(makeSelectProfileInfo());
@@ -95,4 +103,5 @@ export function* redirectToFeedWorker() {
 
 export default function* () {
   yield takeLatest(LOGIN_WITH_WALLET, loginWithWalletWorker);
+  yield takeLatest(LOGIN_WITH_SUI, loginWithSuiWorker);
 }
