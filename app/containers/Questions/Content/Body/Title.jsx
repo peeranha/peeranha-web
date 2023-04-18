@@ -21,18 +21,12 @@ const Title = ({
   id,
   questionBounty,
   postType,
-  translations,
+  translation,
   isAutotranslationEnable,
 }) => {
   const { t } = useTranslation();
   const link = getPostRoute({ postType, id, title });
-  let translatedTitle = title;
-  if (isAutotranslationEnable) {
-    const translation = translations.find((t) => Number(t.language) === languagesEnum[locale]);
-    if (translation) {
-      translatedTitle = translation.title;
-    }
-  }
+  const translatedTitle = isAutotranslationEnable && translation ? translation.title : title;
 
   return (
     <div

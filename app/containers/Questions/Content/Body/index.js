@@ -49,10 +49,14 @@ const Body = ({
     community?.translations.find((translation) => translation.language === locale)
       ?.enableAutotranslation;
 
+  const translation = translations.find((t) => Number(t.language) === languagesEnum[locale]);
+  const isTranslated =
+    translation && isAutotranslationEnable && Number(postLanguage) !== languagesEnum[locale];
+
   return (
     <Base className={displayTopQuestionMove ? 'pl-0' : ''} position="right" paddingTopMedia={20}>
       <QuestionLabels>
-        {Number(postLanguage) !== languagesEnum[locale] && isAutotranslationEnable && (
+        {isTranslated && (
           <LanguageLabel
             postLanguage={postLanguage}
             language={language}
@@ -77,7 +81,7 @@ const Body = ({
         id={id}
         questionBounty={questionBounty}
         postType={postType}
-        translations={translations}
+        translation={translation}
         isAutotranslationEnable={isAutotranslationEnable}
       />
 
