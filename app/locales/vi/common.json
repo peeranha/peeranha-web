@@ -60,7 +60,7 @@
   "allQuestions": "Tất cả các câu hỏi",
   "manageMyComm": "Xem tất cả các cộng đồng",
   "asked": "Đã hỏi",
-  "lastUpdated": "Last updated on",
+  "lastUpdated": "Cập nhật lần cuối vào ngày",
   "askedWhen": "Đã hỏi {{when}}",
   "answeredWhen": "Đã trả lời {{when}}",
   "somebodyAsked": "{{account}} hỏi",
@@ -456,6 +456,7 @@
     "reloadPage": "Trang tải lại"
   },
   "answerForm": "Câu trả lời của bạn",
+  "reCaptchaMention": "Trang web này được bảo vệ bởi reCAPTCHA và áp dụng {{privacyPolicy}} và {{termsOfService}} của Google.",
   "results": "Kết quả",
   "translatedFrom": "Dịch từ ",
   "selectLanguage": "Chọn ngôn ngữ",
