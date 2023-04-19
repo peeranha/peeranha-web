@@ -7,24 +7,27 @@ import { deleteCookie } from 'utils/cookie';
 import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 import { WEB3_TOKEN } from 'utils/constants';
 import { getCurrentAccountSuccess, addLoginData } from 'containers/AccountProvider/actions';
+import { isSuiBlockchain } from 'utils/networkManagement';
 
 import { LOGOUT } from './constants';
 
 import { logoutSuccess, logoutErr } from './actions';
-import { clearNotificationsData } from '../../components/Notifications/actions';
+import { clearNotificationsData } from 'components/Notifications/actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { META_TRANSACTIONS_ALLOWED } from '../../utils/constants';
+import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
 
 export function* logoutWorker() {
   try {
-    const ethereumService = yield select(selectEthereum);
+    if (!isSuiBlockchain()) {
+      const ethereumService = yield select(selectEthereum);
 
-    deleteCookie(AUTOLOGIN_DATA);
-    deleteCookie(PROFILE_INFO_LS);
-    deleteCookie(META_TRANSACTIONS_ALLOWED);
-    deleteCookie(WEB3_TOKEN);
+      deleteCookie(AUTOLOGIN_DATA);
+      deleteCookie(PROFILE_INFO_LS);
+      deleteCookie(META_TRANSACTIONS_ALLOWED);
+      deleteCookie(WEB3_TOKEN);
 
-    yield call(ethereumService.resetWalletState);
+      yield call(ethereumService.resetWalletState);
+    }
 
     yield call(createdHistory.push, routes.feed());
     yield put(getCurrentAccountSuccess());

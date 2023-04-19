@@ -52,7 +52,7 @@ const styles = singleCommunityStyles();
 
 export const LoginProfile = ({
   profileInfo,
-  showLoginModalDispatch,
+  loginWithWalletDispatch,
   faqQuestions,
   isSearchFormVisible,
 }) =>
@@ -63,7 +63,7 @@ export const LoginProfile = ({
       isSearchFormVisible={isSearchFormVisible}
     />
   ) : (
-    <ButtonGroupForNotAuthorizedUser showLoginModal={showLoginModalDispatch} />
+    <ButtonGroupForNotAuthorizedUser loginWithWallet={loginWithWalletDispatch} />
   );
 
 const colors = singleCommunityColors();
@@ -125,7 +125,7 @@ const Button = LargeButton.extend`
 const View = ({
   showMenu,
   profileInfo,
-  showLoginModalDispatch,
+  loginWithWalletDispatch,
   redirectToAskQuestionPage,
   showLoginModalWithRedirectToAskQuestionPage,
   faqQuestions,
@@ -287,7 +287,7 @@ const View = ({
               {!single.withoutSubHeader || !profileInfo ? (
                 <LoginProfile
                   isSearchFormVisible={isSearchFormVisible}
-                  showLoginModalDispatch={showLoginModalDispatch}
+                  loginWithWalletDispatch={loginWithWalletDispatch}
                   profileInfo={profileInfo}
                   faqQuestions={faqQuestions}
                 />
@@ -314,7 +314,7 @@ const View = ({
 View.propTypes = {
   profileInfo: PropTypes.object,
   showMenu: PropTypes.func,
-  showLoginModalDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
   showLoginModalWithRedirectToAskQuestionPage: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
   faqQuestions: PropTypes.array,
@@ -327,7 +327,7 @@ View.propTypes = {
 LoginProfile.propTypes = {
   isSearchFormVisible: PropTypes.bool,
   profileInfo: PropTypes.object,
-  showLoginModalDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
   faqQuestions: PropTypes.array,
 };
 

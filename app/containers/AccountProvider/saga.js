@@ -1,4 +1,5 @@
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
+import { useWallet } from '@suiet/wallet-kit';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
@@ -42,6 +43,7 @@ import { formPermissionsCookie, getCookie, parsePermissionsCookie, setCookie } f
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
+  GET_CURRENT_SUI_ACCOUNT,
   NO_REFERRAL_INVITER,
   REFERRAL_REWARD_RATING,
   REFERRAL_REWARD_RECEIVED,
@@ -57,16 +59,14 @@ import {
 } from './actions';
 import { makeSelectProfileInfo } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { hasGlobalModeratorRole } from '../../utils/properties';
-import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
-import { getCurrentPeriod } from '../../utils/theGraph';
+import { hasGlobalModeratorRole } from 'utils/properties';
+import { getNotificationsInfoWorker } from 'components/Notifications/saga';
+import { getCurrentPeriod } from 'utils/theGraph';
 
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function* (initAccount) {
   try {
     const ethereumService = yield select(selectEthereum);
-
-    if (ethereumService.withMetaMask) yield put(addLoginData({ loginWithMetaMask: true }));
 
     let account = yield typeof initAccount === 'string'
       ? initAccount
@@ -195,6 +195,18 @@ export function* updateAccWorker({ ethereum }) {
   }
 }
 
+export const getCurrentSuiAccountWorker = function* ({ wallet }) {
+  console.log(wallet);
+  try {
+    if (wallet.connected) {
+      yield put(getUserProfileSuccess(emptyProfile(wallet.account?.address)));
+      yield put(getCurrentAccountSuccess(wallet.account?.address, 0));
+    }
+  } catch (err) {
+    yield put(getCurrentAccountError(err));
+  }
+};
+
 export default function* defaultSaga() {
   yield takeLatest(REDIRECT_TO_EDIT_ANSWER_PAGE, redirectToEditAnswerPageWorker);
   yield takeLatest(REDIRECT_TO_EDIT_QUESTION_PAGE, redirectToEditQuestionPageWorker);
@@ -219,4 +231,6 @@ export default function* defaultSaga() {
     ],
     getCurrentAccountWorker,
   );
+
+  yield takeLatest(GET_CURRENT_SUI_ACCOUNT, getCurrentSuiAccountWorker);
 }

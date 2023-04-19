@@ -127,9 +127,7 @@ const Search = ({
           <Banner
             profileInfo={profileInfo}
             redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-            showLoginModalWithRedirectToAskQuestionPage={() =>
-              loginWithWalletDispatch({ metaMask: true }, true)
-            }
+            showLoginModalWithRedirectToAskQuestionPage={() => loginWithWalletDispatch(true)}
           />
         ))}
     </div>

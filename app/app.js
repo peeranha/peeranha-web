@@ -13,6 +13,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import 'sanitize.css/sanitize.css';
 import { I18nextProvider } from 'react-i18next';
 
+import { WalletProvider } from '@suiet/wallet-kit';
 // Import root app
 import App from 'containers/App';
 
@@ -23,6 +24,7 @@ import AccountProvider from 'containers/AccountProvider';
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 import 'file-loader?name=[name].[ext]!./.htaccess';
+import { isSuiBlockchain } from 'utils/networkManagement';
 /* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore from './configureStore';
@@ -46,6 +48,8 @@ if (process.env.GTM_ID) {
   TagManager.initialize(tagManagerArgs);
 }
 
+const NetworkProvider = isSuiBlockchain() ? WalletProvider : EthereumProvider;
+
 // Create redux store with history
 const initialState = {};
 const store = configureStore(initialState, createdHistory);
@@ -55,7 +59,7 @@ const render = () => {
   ReactDOM.render(
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
-        <EthereumProvider>
+        <NetworkProvider>
           <AccountProvider>
             <DataCacheProvider>
               <ConnectedRouter history={createdHistory}>
@@ -63,7 +67,7 @@ const render = () => {
               </ConnectedRouter>
             </DataCacheProvider>
           </AccountProvider>
-        </EthereumProvider>
+        </NetworkProvider>
       </Provider>
     </I18nextProvider>,
     MOUNT_NODE,

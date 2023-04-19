@@ -1,3 +1,4 @@
+import { useWallet } from '@suiet/wallet-kit';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,25 +8,39 @@ import { bindActionCreators, compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
+import { isSuiBlockchain } from 'utils/networkManagement';
 
 import reducer from './reducer';
 import saga from './saga';
-import { getCurrentAccount } from './actions';
+import { getCurrentAccount, getCurrentSuiAccount } from './actions';
 import { selectLastUpdate } from './selectors';
 import { UPDATE_ACC_PERIOD } from './constants';
 
-export const AccountProvider = ({ children, lastUpdate, getCurrentAccountDispatch }) => {
-  useEffect(() => {
-    getCurrentAccountDispatch();
+export const AccountProvider = ({
+  children,
+  lastUpdate,
+  getCurrentAccountDispatch,
+  getCurrentSuiAccountDispatch,
+}) => {
+  if (isSuiBlockchain()) {
+    const wallet = useWallet();
+    console.log(wallet);
+    useEffect(() => {
+      getCurrentSuiAccountDispatch(wallet);
+    }, [wallet]);
+  } else {
+    useEffect(() => {
+      getCurrentAccountDispatch();
 
-    setInterval(() => {
-      const diff = Date.now() - lastUpdate;
+      setInterval(() => {
+        const diff = Date.now() - lastUpdate;
 
-      if (diff > UPDATE_ACC_PERIOD) {
-        getCurrentAccountDispatch();
-      }
-    }, UPDATE_ACC_PERIOD / 5);
-  }, []);
+        if (diff > UPDATE_ACC_PERIOD) {
+          getCurrentAccountDispatch();
+        }
+      }, UPDATE_ACC_PERIOD / 5);
+    }, []);
+  }
 
   return children;
 };
@@ -45,6 +60,7 @@ export default compose(
     }),
     (dispatch) => ({
       getCurrentAccountDispatch: bindActionCreators(getCurrentAccount, dispatch),
+      getCurrentSuiAccountDispatch: bindActionCreators(getCurrentSuiAccount, dispatch),
     }),
   ),
 )(AccountProvider);
