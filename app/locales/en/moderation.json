@@ -19,7 +19,7 @@
   "permissionCommunityAdmin_2": "Edit your community: change title, description, official site link, and avatar of the community",
   "permissionCommunityAdmin_3": "Create and edit tags in your community",
   "permissionCommunityAdmin_4": "Post an official answer in your community",
-  "permissionCommunityAdmin_5": "Work with documentation in your community: add, edit, and delete articles",
+  "permissionCommunityAdmin_5": "Work with documentation in your community: add, edit, delete, and provide translations in supported languages for documentation articles",
   "permissionCommunityAdmin_6": "Set interface languages and switch on/off autotranslations for them in your community",
   "permissionCommunityModerator_1": "Ignore reputation in your community and perform actions that are reputation restricted like upvoting and downvoting posts, answers, and adding comments",
   "permissionCommunityModerator_2": "Delete posts, answers, even those marked as the best, and comments in your community",
