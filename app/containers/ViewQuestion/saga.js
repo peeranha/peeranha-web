@@ -1,4 +1,4 @@
-import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
+import { languagesEnum } from 'app/i18n';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getProfileInfo } from 'utils/profileManagement';
 import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
@@ -22,7 +22,6 @@ import {
   markAsAccepted,
   postAnswer,
   postComment,
-  updateDocumentationTree,
   upVote,
   voteToDelete,
   votingStatus,
@@ -127,7 +126,7 @@ import {
 } from './validate';
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getQuestionFromGraph } from '../../utils/theGraph';
+import { getQuestionFromGraph } from 'utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
@@ -365,7 +364,7 @@ export function* saveCommentWorker({
 
 export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -410,7 +409,7 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
 
 export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -689,6 +688,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       questionId,
       ipfsHash,
       official,
+      languagesEnum[locale],
       ethereumService,
     );
 
