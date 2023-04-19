@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  getFollowedCommunities,
-  isSingleCommunityWebsite,
-} from 'utils/communityManagement';
+import { getFollowedCommunities, isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import * as routes from 'routes-config';
 
@@ -40,8 +37,7 @@ const QuestionCommunity = ({
     return null;
   }
 
-  const community =
-    getFollowedCommunities(communities, [+communityId])[0] || {};
+  const community = getFollowedCommunities(communities, [+communityId])[0] || {};
 
   const communityTranslationTitle = community.translations?.find(
     (translation) => translation.language === locale,
@@ -63,11 +59,7 @@ const QuestionCommunity = ({
   }
 
   return (
-    <Link
-      to={route}
-      href={route}
-      className={`d-flex align-items-center ${className}`}
-    >
+    <Link to={route} href={route} className={`d-flex align-items-center ${className}`}>
       <Img className="mr-1" src={community.avatar} alt="comm_avatar" />
       <Span font-size="14">{communityTranslationTitle || community.name}</Span>
     </Link>

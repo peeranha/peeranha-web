@@ -52,9 +52,8 @@ const CommunitySelector = ({
     ).map((community) => ({
       ...community,
       label:
-        community.translations?.find(
-          (translation) => translation.language === locale,
-        )?.name || community.name,
+        community.translations?.find((translation) => translation.language === locale)?.name ||
+        community.name,
     }));
 
     const unfollowedFilteredCommunities = getUnfollowedCommunities(
@@ -63,9 +62,8 @@ const CommunitySelector = ({
     ).map((community) => ({
       ...community,
       label:
-        community.translations?.find(
-          (translation) => translation.language === locale,
-        )?.name || community.name,
+        community.translations?.find((translation) => translation.language === locale)?.name ||
+        community.name,
     }));
 
     let options = [];
@@ -128,9 +126,7 @@ const CommunitySelector = ({
     [toggleOpen, input, toggle],
   );
 
-  const selectedValue = getFollowedCommunities(communities, [
-    selectedCommunityId,
-  ])[0];
+  const selectedValue = getFollowedCommunities(communities, [selectedCommunityId])[0];
 
   const isItArrowed = useMemo(
     () => optionsNumber > 0 && !single && isArrowed,
