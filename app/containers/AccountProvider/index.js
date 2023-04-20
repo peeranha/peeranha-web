@@ -8,7 +8,7 @@ import { bindActionCreators, compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
-import { isSuiBlockchain } from 'utils/networkManagement';
+import { isSuiBlockchain } from 'utils/sui';
 
 import reducer from './reducer';
 import saga from './saga';

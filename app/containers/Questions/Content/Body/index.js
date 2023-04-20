@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Base from 'components/Base';
-import { isSuiBlockchain } from 'utils/networkManagement';
+import { isSuiBlockchain } from 'utils/sui';
 import QuestionType from './QuestionType';
 import Title from './Title';
 import UserInfo from './UserInfo';

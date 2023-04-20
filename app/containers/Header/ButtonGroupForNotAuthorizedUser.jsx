@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/networkManagement';
+import { isSuiBlockchain } from 'utils/sui';
 const styles = singleCommunityStyles();
 
 const ButtonGroupForNotAuthorizedUser = ({ loginWithWallet }) => {

@@ -17,7 +17,7 @@ import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import { WHAT_IS_ENERGY, HOW_TO_CHARGE, VALUE_OF_ACTIONS } from 'containers/Faq/constants';
-import { isSuiBlockchain } from 'utils/networkManagement';
+import { isSuiBlockchain } from 'utils/sui';
 
 import View from './View';
 import { HEADER_ID } from './constants';

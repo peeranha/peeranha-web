@@ -34,7 +34,6 @@ import saga from './saga';
 import { setDefaultReducer, saveProfile } from './actions';
 
 import ProfileEditForm from './ProfileEditForm';
-import * as routes from '../../routes-config';
 
 export const EditProfilePage = ({
   match: {
@@ -46,7 +45,6 @@ export const EditProfilePage = ({
   loginData,
   setDefaultReducerDispatch,
   saveProfileDispatch,
-  history,
 }) => {
   const wallet = useWallet();
   const saveProfileMethod = (values) =>
