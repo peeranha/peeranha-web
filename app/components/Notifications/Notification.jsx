@@ -113,7 +113,7 @@ Time.propTypes = {
 };
 
 NotificationLink.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.array,
   isAnotherCommItem: PropTypes.bool,
   href: PropTypes.string,
 };

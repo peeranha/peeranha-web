@@ -2,12 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const AnswerWithA: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    fill="currentColor"
-    viewBox="0 0 18 18"
-    size={props.size || [18, 18]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 18" size={props.size || [18, 18]}>
     <g fill="none">
       <path
         fill={props.stroke || '#282828'}

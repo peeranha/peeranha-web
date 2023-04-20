@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const EyeOpened: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="eye-opened"
-    fill="currentColor"
-    viewBox="0 0 22 14"
-    size={[22, 14]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 22 14" size={[22, 14]}>
     <g fill="none">
       <path
         fill="#000"

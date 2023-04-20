@@ -2,7 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const CopyLink: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent {...props} id="delete" fill="currentColor" viewBox="0 0 18 18" size={[18, 18]}>
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 18" size={[18, 18]}>
     <g transform="translate(1)" fill="none">
       <path
         d="M10.05 7.95001C11.55 9.45001 11.55 11.775 10.05 13.275L7.95 15.375C6.45 16.875 4.125 16.875 2.625 15.375C1.125 13.875 1.125 11.55 2.625 10.05L4.5 8.25001"

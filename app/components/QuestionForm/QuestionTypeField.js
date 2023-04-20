@@ -161,7 +161,7 @@ const QuestionTypeField = ({
               currentValue={input.value}
               key={questionType.label}
               disabled={disabled}
-              onMouseOver={questionType.isDisabled && showMessage}
+              onMouseOver={questionType.isDisabled ? showMessage : undefined}
               block={questionType.isDisabled}
             >
               {t(questionType.label)}

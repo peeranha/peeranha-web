@@ -1,15 +1,8 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Save: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="plus"
-    fill="curentColor"
-    viewBox="0 0 18 18"
-    size={[18, 18]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 18" size={[18, 18]}>
     <path
       d="M4.5 13.5V9H13.5V13.5"
       strokeLinecap="round"
@@ -22,12 +15,7 @@ const Save: React.FC<IconProps> = (props): JSX.Element => (
       strokeLinejoin="round"
       stroke={props.stroke}
     />
-    <path
-      d="M11.25 4.5V6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      stroke={props.stroke}
-    />
+    <path d="M11.25 4.5V6" strokeLinecap="round" strokeLinejoin="round" stroke={props.stroke} />
   </IconComponent>
 );
 

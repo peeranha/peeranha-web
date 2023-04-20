@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Comments: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="comments"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-    size={[24, 24]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 24 24" size={[24, 24]}>
     <g transform="translate(0.5, 0.5)">
       <path
         fill="none"

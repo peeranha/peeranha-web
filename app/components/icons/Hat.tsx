@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Hat: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="hat"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-    size={[24, 24]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 24 24" size={[24, 24]}>
     <g strokeWidth="1" transform="translate(0.5, 0.5)" fill="none">
       <line x1="23" y1="10" x2="23" y2="18" />
       <path

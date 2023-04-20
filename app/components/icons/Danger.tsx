@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Danger: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="danger"
-    fill="currentColor"
-    viewBox="0 0 26 22"
-    size={[26, 22]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 26 22" size={[26, 22]}>
     <g fill="none">
       <path
         fill={props.fill || '#282828'}

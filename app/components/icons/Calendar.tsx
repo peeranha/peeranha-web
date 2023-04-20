@@ -2,23 +2,10 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Calendar: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="calendar"
-    fill="currentColor"
-    viewBox="0 0 34 33"
-    size={[34, 33]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 34 33" size={[34, 33]}>
     <g fill="none">
       <rect width="32" height="29" x="2" y="4" rx="3" />
-      <rect
-        width="31"
-        height="28"
-        x=".5"
-        y="2.5"
-        stroke={props.stroke || '#282828'}
-        rx="3"
-      />
+      <rect width="31" height="28" x=".5" y="2.5" stroke={props.stroke || '#282828'} rx="3" />
       <rect width="2" height="5" x="8" fill="#282828" rx="1" />
       <rect width="2" height="5" x="15" fill="#282828" rx="1" />
       <rect width="2" height="5" x="22" fill="#282828" rx="1" />

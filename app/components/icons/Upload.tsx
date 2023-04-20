@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Upload: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="upload"
-    fill="currentColor"
-    viewBox="0 0 48 59"
-    size={[48, 59]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 48 59" size={[48, 59]}>
     <g fill="none">
       <path
         fill="#000"

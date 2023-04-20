@@ -3,6 +3,9 @@ import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
+import { getFormattedDate } from 'utils/datetime';
+import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
+
 import { LINK_COLOR, TEXT_SECONDARY, BORDER_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
@@ -19,8 +22,6 @@ import {
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import { Box } from './MainUserInformation';
-import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
 
 const Blank = ({ profile, userId, account, redirectToEditProfilePage }) => {
   const { t } = useTranslation();
@@ -37,9 +38,7 @@ const Blank = ({ profile, userId, account, redirectToEditProfilePage }) => {
         <button
           type="button"
           onClick={redirectToEditProfilePage}
-          className={`align-items-center ${
-            userId === account ? 'd-inline-flex' : 'd-none'
-          }`}
+          className={`align-items-center ${userId === account ? 'd-inline-flex' : 'd-none'}`}
           id={`add-user-info-edit-${userId}`}
           data-user={userId}
         >
@@ -98,8 +97,7 @@ const AdditionalUserInformation = ({
   locale,
 }) => {
   const profileSince = useMemo(
-    () =>
-      getFormattedDate(profile?.creationTime, locale, MONTH_3LETTERS__DAY_YYYY),
+    () => getFormattedDate(profile?.creationTime, locale, MONTH_3LETTERS__DAY_YYYY),
     [],
   );
 
@@ -107,7 +105,7 @@ const AdditionalUserInformation = ({
     <Box
       position="bottom"
       css={css`
-        div:first-child {
+        div:first-of-type {
           border-top: 1px solid ${BORDER_SECONDARY};
           padding: 20px 0 8px 0;
         }
@@ -117,21 +115,10 @@ const AdditionalUserInformation = ({
 
       {profile && profile.profile && (
         <>
-          {!!profile?.creationTime && (
-            <Row nameField="memberSince" value={profileSince} />
-          )}
-          <Row
-            nameField="locationLabel"
-            value={profile.profile[LOCATION_FIELD]}
-          />
-          <Row
-            nameField="companyLabel"
-            value={profile.profile[COMPANY_FIELD]}
-          />
-          <Row
-            nameField="positionLabel"
-            value={profile.profile[POSITION_FIELD]}
-          />
+          {!!profile?.creationTime && <Row nameField="memberSince" value={profileSince} />}
+          <Row nameField="locationLabel" value={profile.profile[LOCATION_FIELD]} />
+          <Row nameField="companyLabel" value={profile.profile[COMPANY_FIELD]} />
+          <Row nameField="positionLabel" value={profile.profile[POSITION_FIELD]} />
           <Row nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
 
           {/* PEER-597: Hide the text in the user profile that information is not available;

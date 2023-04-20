@@ -38,7 +38,7 @@ const TopCommunities = ({ communities, profile, questions, isTopCommunitiesOnly,
         profile={profile}
         communities={communities}
         single={single}
-        ref={refCommunitiesSection}
+        innerRef={refCommunitiesSection}
         locale={locale}
       />
     );

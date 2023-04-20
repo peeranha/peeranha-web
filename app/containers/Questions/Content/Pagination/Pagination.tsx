@@ -41,6 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({
           {[...Array(totalPages).keys()].map((element, index) =>
             index <= 4 ? (
               <ButtonPagination
+                key={element}
                 page={page}
                 element={element}
                 clickHandler={setPage}
@@ -66,8 +67,9 @@ const Pagination: React.FC<PaginationProps> = ({
           )}
           {[...Array(totalPages).keys()]
             .slice(page > 2 ? page - 3 : 0, page > 2 ? page + 2 : 5)
-            .map((element) => (
+            .map((element, index) => (
               <ButtonPagination
+                key={element}
                 page={page}
                 element={element}
                 clickHandler={setPage}

@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const ChangeType: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="change-type"
-    fill="currentColor"
-    viewBox="0 0 64 64"
-    size={[64, 64]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 64 64" size={[64, 64]}>
     <g strokeWidth="2">
       <polygon
         points="55.8 55.8 46 57.2 47.4 47.4 55.8 55.8"

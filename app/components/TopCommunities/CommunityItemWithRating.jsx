@@ -14,13 +14,7 @@ import FrontSide from './FrontSide';
 import BackSide from './BackSide';
 import { customRatingIconColors } from 'constants/customRating';
 
-const CommunityItemWithRating = ({
-  communities,
-  single,
-  communityId,
-  rating,
-  locale,
-}) => {
+const CommunityItemWithRating = ({ communities, single, communityId, rating, locale }) => {
   const { t } = useTranslation();
   const [route, setRoute] = useState(() => routes.questions(communityId));
   const Link = single && communityId !== single ? ADefaultStyled : AStyled;
@@ -78,9 +72,7 @@ const CommunityItemWithRating = ({
                 <P fontSize="16" bold>
                   {communityTranslation?.name || community.name}
                 </P>
-                <P>
-                  {communityTranslation?.description || community.description}
-                </P>
+                <P>{communityTranslation?.description || community.description}</P>
               </div>
             )}
           </div>
@@ -92,7 +84,7 @@ const CommunityItemWithRating = ({
 
 CommunityItemWithRating.propTypes = {
   communities: PropTypes.array,
-  single: PropTypes.bool,
+  single: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   communityId: PropTypes.number,
   rating: PropTypes.number,
   locale: PropTypes.string,

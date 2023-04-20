@@ -102,7 +102,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
         onChange={onChange}
         label={t('common.questionType')}
         tip={t('common.questionTypeTip')}
-        validate={!hasSelectedType && requiredPostTypeSelection}
+        validate={hasSelectedType ? undefined : requiredPostTypeSelection}
         splitInHalf
         error={isError}
         isCommunityModerator={isCommunityModerator}

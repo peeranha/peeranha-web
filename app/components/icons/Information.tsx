@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Information: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="information"
-    fill="currentColor"
-    viewBox="0 0 18 19"
-    size={[18, 19]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 19" size={[18, 19]}>
     <g transform="translate(2 1)" fill="none">
       <circle
         stroke={props.stroke || '#282828'}

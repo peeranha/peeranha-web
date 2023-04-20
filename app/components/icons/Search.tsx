@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Search: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="search"
-    fill="currentColor"
-    viewBox="0 0 43 43"
-    size={[43, 43]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 43 43" size={[43, 43]}>
     <g fill="none" transform="translate(8 8)">
       <path
         fill={props.fill || '#FFF'}

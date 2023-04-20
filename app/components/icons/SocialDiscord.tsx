@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const SocialDiscord: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="twitter"
-    fill="none"
-    viewBox="0 0 24 24"
-    size={[24, 24]}
-  >
+  <IconComponent {...props} fill="none" viewBox="0 0 24 24" size={[24, 24]}>
     <path
       d="M20.317 4.95004C18.7873 4.27888 17.147 3.7844 15.4319 3.50119C15.4007 3.49572 15.3695 3.50938 15.3534
         3.5367C15.1424 3.89549 14.9087 4.36357 14.7451 4.73147C12.9004 4.46739 11.0652 4.46739 9.25832 4.73147C9.09465

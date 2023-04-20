@@ -117,6 +117,7 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
       <div className="fz16 pl-0">
         {Object.values(transactionTypes).map((item, index) => (
           <TransactionOption
+            key={index}
             transaction={transaction}
             transactionOption={item.transactionOption}
             transactionHandler={item.transactionHandler}

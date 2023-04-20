@@ -1,9 +1,8 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Plus: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent {...props} id="plus" fill="curentColor" viewBox="0 0 18 18" size={[18, 18]}>
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 18" size={[18, 18]}>
     <path
       d="M13.9497 14.4497C11.2161 17.1834 6.78392 17.1834 4.05025 14.4497C1.31658 11.7161 1.31658 7.28392 4.05025 4.55025C6.78392 1.81658 11.2161 1.81658 13.9497 4.55025C16.6834 7.28392 16.6834 11.7161 13.9497 14.4497Z"
       fill={props.fill || '#7699FF'}

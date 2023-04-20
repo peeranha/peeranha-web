@@ -34,10 +34,7 @@ export const Banner = ({
   isEmpty,
   isSingleCommunityMode,
 }) =>
-  (!isSingleCommunityMode &&
-    isFeed &&
-    followedCommunities &&
-    !followedCommunities[0]) ||
+  (!isSingleCommunityMode && isFeed && followedCommunities && !followedCommunities[0]) ||
   (isSingleCommunityMode && !isEmpty) ? (
     <FeedBanner />
   ) : (
@@ -49,7 +46,7 @@ Banner.propTypes = {
   followedCommunities: PropTypes.array,
   redirectToAskQuestionPage: PropTypes.func,
   isEmpty: PropTypes.bool,
-  isSingleCommunityMode: PropTypes.bool,
+  isSingleCommunityMode: PropTypes.number,
 };
 
 AllQuestionsBanner.propTypes = {

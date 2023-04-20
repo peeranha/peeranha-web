@@ -19,7 +19,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, locale }) => {
+const CommunitiesSectionWithRatings = ({ profile, innerRef, single, communities, locale }) => {
   const { t } = useTranslation();
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() => routes.communities());
   const AllCommunitiesLink = single ? ADefault : A;
@@ -30,7 +30,7 @@ const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, loca
     }
   }, [single]);
   return (
-    <div className="overflow-hidden" ref={ref}>
+    <div className="overflow-hidden" ref={innerRef}>
       <H4
         isHeader
         css={css`
@@ -81,8 +81,8 @@ const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, loca
 
 CommunitiesSectionWithRatings.propTypes = {
   profile: PropTypes.object,
-  ref: PropTypes.object,
-  single: PropTypes.bool,
+  innerRef: PropTypes.object,
+  single: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   communities: PropTypes.array,
   locale: PropTypes.string,
 };

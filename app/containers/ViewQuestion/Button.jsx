@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 import { TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
 
 import { svgDraw } from 'components/Icon/IconStyled';
@@ -62,7 +62,10 @@ export const Button = ({
 
 Button.propTypes = {
   params: PropTypes.object,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]),
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.arrayOf(oneOfType([PropTypes.object, PropTypes.string])),
+  ]),
   id: PropTypes.string,
   className: PropTypes.string,
   onClick: PropTypes.func,

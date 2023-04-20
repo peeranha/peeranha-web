@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const FailedTransaction: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="tip"
-    fill="currentColor"
-    viewBox="0 0 36 36"
-    size={props.size || [24, 24]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 36 36" size={props.size || [24, 24]}>
     <circle
       cx="18"
       cy="18"

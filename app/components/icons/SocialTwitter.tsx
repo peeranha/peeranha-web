@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const SocialTwitter: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="twitter"
-    fill="curentColor"
-    viewBox="0 0 24 24"
-    size={[24, 24]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 24 24" size={[24, 24]}>
     <path
       d="M8.0453 20.1371C15.3185 20.1371 19.3015 14.112 19.3015 8.88909C19.3015 8.71604 19.3015 8.543 19.2858
       8.38569C20.0572 7.83508 20.7341 7.12717 21.2536 6.34059C20.5452 6.65522 19.7738 6.85973 18.9867 6.96985C19.8053

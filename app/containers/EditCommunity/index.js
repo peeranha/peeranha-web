@@ -105,7 +105,7 @@ EditCommunity.propTypes = {
   getCommunityLoading: PropTypes.bool.isRequired,
   locale: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
-  profileInfo: PropTypes.object.isRequired,
+  profileInfo: PropTypes.object,
   community: PropTypes.object,
   faqQuestions: PropTypes.array,
 };

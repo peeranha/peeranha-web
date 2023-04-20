@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const DownVote: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="upVote"
     fill="currentColor"
     fill-rule="nonzero"
     viewBox="0 0 24 21"

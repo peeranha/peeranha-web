@@ -2,17 +2,12 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const CopyText: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    fill="currentColor"
-    viewBox="0 0 18 18"
-    size={[18, 18]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 18" size={[18, 18]}>
     <g fill="none">
       <path
         d="M5 7.7C5 6.5799 5 6.01984 5.21799 5.59202C5.40973 5.21569 5.71569 4.90973 6.09202 4.71799C6.51984 4.5 7.0799 4.5 8.2 4.5L11.5 4.5L16 9V14.3C16 15.4201 16 15.9802 15.782 16.408C15.5903 16.7843 15.2843 17.0903 14.908 17.282C14.4802 17.5 13.9201 17.5 12.8 17.5H8.2C7.07989 17.5 6.51984 17.5 6.09202 17.282C5.71569 17.0903 5.40973 16.7843 5.21799 16.408C5 15.9802 5 15.4201 5 14.3V7.7Z"
         fill={props.fill || '#fff'}
-        fill-opacity="0.2"
+        fillOpacity="0.2"
         stroke={props.stroke || '#282828'}
       />
       <path

@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const RedditGlyph: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="reddit-glyph"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-    size={[24, 24]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 24 24" size={[24, 24]}>
     <path
       fill="#282828"
       d="M24,11.8c0-1.6-1.3-2.9-2.9-2.9c-0.7,0-1.3,0.2-1.8,0.6c-1.8-1.1-4-1.8-6.4-1.9l1.2-3.9l3.4,0.8

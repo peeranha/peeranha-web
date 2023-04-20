@@ -2,20 +2,9 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Profile: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    fill="currentColor"
-    viewBox="0 0 24 24"
-    size={props.size}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 24 24" size={props.size}>
     <g fill="none">
-      <circle
-        cx="12"
-        cy="7"
-        r="5"
-        fill="#fff"
-        stroke={props.stroke || '#282828'}
-      />
+      <circle cx="12" cy="7" r="5" fill="#fff" stroke={props.stroke || '#282828'} />
       <ellipse
         cx="12"
         cy="17"

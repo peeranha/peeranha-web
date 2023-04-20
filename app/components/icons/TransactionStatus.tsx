@@ -2,20 +2,8 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const TransactionStatus: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="tip"
-    fill="currentColor"
-    viewBox="0 0 22 24"
-    size={[22, 24]}
-  >
-    <g
-      width="22"
-      height="24"
-      viewBox="0 0 22 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 22 24" size={[22, 24]}>
+    <g width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <mask id="path-1-inside-1_3689_15784" fill="white">
         <path
           fillRule="evenodd"

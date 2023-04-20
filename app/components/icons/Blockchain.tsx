@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="blockchain"
-    fill="currentColor"
-    viewBox="0 0 32 32"
-    size={[32, 32]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 32 32" size={[32, 32]}>
     <g strokeWidth="1" transform="translate(0.5, 0.5)">
       <polyline
         points="2 6.5 9 10 16 6.5"

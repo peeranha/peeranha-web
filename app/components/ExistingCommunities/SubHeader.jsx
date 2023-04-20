@@ -13,9 +13,7 @@ import Span from 'components/Span';
 import Ul from 'components/Ul';
 import CheckedItem from 'components/Li/CheckedItem';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import SubHeaderWrapper, {
-  SubHeaderWrapperRightPanel,
-} from 'components/Header/Complex';
+import SubHeaderWrapper, { SubHeaderWrapperRightPanel } from 'components/Header/Complex';
 
 import sortingOptions from './sortingOptions';
 
@@ -23,10 +21,7 @@ const Button = ({ sorting, icon }) => {
   const { t } = useTranslation();
 
   return (
-    <Span
-      className="d-inline-flex align-items-center mr-2 text-capitalize"
-      bold
-    >
+    <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
       <img className="mr-2" src={icon} alt="icon" />
       {t(sorting.message)}
     </Span>
@@ -40,7 +35,7 @@ const Menu = ({ changeSorting, sorting, options }) => {
     <Ul>
       {Object.keys(options).map((item) => (
         <CheckedItem
-          key={`${options[item].message.id}_${options[item].order}`}
+          key={`${options[item].message}_${options[item].order}`}
           onClick={() => changeSorting(options[item])}
           isActive={sorting.message === options[item].message}
         >
@@ -70,13 +65,7 @@ export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => {
       <SubHeaderWrapperRightPanel className="d-flex right-panel">
         <Dropdown
           button={<Button sorting={sorting} icon={communitiesHeaderFilter} />}
-          menu={
-            <Menu
-              changeSorting={changeSorting}
-              sorting={sorting}
-              options={sortingOptions}
-            />
-          }
+          menu={<Menu changeSorting={changeSorting} sorting={sorting} options={sortingOptions} />}
           id="existing-communities-dropdown"
           isArrowed
           css={css`

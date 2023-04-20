@@ -2,7 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Edit: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent {...props} id="edit" fill="currentColor" viewBox="0 0 18 18" size={[18, 18]}>
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 18" size={[18, 18]}>
     <rect
       x="1.25"
       y="17.75"

@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Copy: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="copy"
-    fill="currentColor"
-    viewBox="0 0 32 32"
-    size={[32, 32]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 32 32" size={[32, 32]}>
     <g
       strokeWidth="2"
       stroke={props.stroke || '#282828'}

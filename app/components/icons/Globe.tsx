@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Globe: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="globe"
-    fill="currentColor"
-    viewBox="0 0 16 16"
-    size={[16, 16]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 16 16" size={[16, 16]}>
     <ellipse
       cx="8.5"
       cy="8.5"

@@ -2,7 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Administration: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent {...props} id="feed" fill="none" viewBox="0 0 24 24" size={[24, 24]}>
+  <IconComponent {...props} fill="none" viewBox="0 0 24 24" size={[24, 24]}>
     <g
       className="opacity"
       fill="none"

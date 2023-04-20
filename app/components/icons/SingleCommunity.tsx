@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const SingleCommunity: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="search-big"
-    fill="currentColor"
-    viewBox="0 0 16 16"
-    size={[16, 16]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 16 16" size={[16, 16]}>
     <line
       fill="none"
       stroke={props.stroke || '#282828'}

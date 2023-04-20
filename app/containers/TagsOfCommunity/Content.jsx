@@ -176,7 +176,7 @@ const Content = ({
 };
 
 Content.propTypes = {
-  tags: PropTypes.array,
+  tags: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   loadMoreTags: PropTypes.func,
   isLastFetch: PropTypes.bool,
   existingTagsLoading: PropTypes.bool,

@@ -114,7 +114,7 @@ ContentBody.propTypes = {
   postComment: PropTypes.func,
   checkAddCommentAvailable: PropTypes.func,
   hideAddCommentForm: PropTypes.func,
-  addCommentFormDisplay: PropTypes.array,
+  addCommentFormDisplay: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   voteToDelete: PropTypes.func,
   saveComment: PropTypes.func,
   deleteComment: PropTypes.func,

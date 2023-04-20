@@ -67,7 +67,7 @@ Popover.propTypes = {
   title: PropTypes.string,
   label: PropTypes.string,
   items: PropTypes.string,
-  width: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default memo(Popover);

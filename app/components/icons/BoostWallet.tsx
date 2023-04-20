@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const BoostWallet: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="boost-wallet"
-    fill="currentColor"
-    viewBox="0 0 50 50"
-    size={[50, 50]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 50 50" size={[50, 50]}>
     <g strokeWidth="1">
       <g transform="translate(-980.000000, -13.000000)" fill="#FC6655">
         <g transform="translate(1005.646447, 37.853553) scale(-1, 1) rotate(-45.000000) translate(-1005.646447, -37.853553) translate(980.646447, 12.853553)">

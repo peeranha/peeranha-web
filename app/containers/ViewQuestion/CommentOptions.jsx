@@ -109,7 +109,7 @@ CommentOptions.propTypes = {
   sendComment: PropTypes.func,
   checkAddCommentAvailable: PropTypes.func,
   hideAddCommentForm: PropTypes.func,
-  addCommentFormDisplay: PropTypes.array,
+  addCommentFormDisplay: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   answerId: PropTypes.number,
   changeCommentsView: PropTypes.func,
   isAllCommentsView: PropTypes.bool,

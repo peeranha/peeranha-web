@@ -2,7 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Share: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent {...props} id="share" fill="none">
+  <IconComponent {...props} fill="none">
     <g stroke="currentColor">
       <g fill="currentColor" fillOpacity=".2" transform="translate(1)">
         <circle cx="3" cy="9" r="2.5" />

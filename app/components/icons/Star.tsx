@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Star: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="star"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-    size={[24, 24]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 24 24" size={[24, 24]}>
     <path
       stroke={props.stroke || '#282828'}
       fill="none"

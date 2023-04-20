@@ -67,7 +67,7 @@ export const Dropdown = ({
 
 Dropdown.propTypes = {
   button: PropTypes.element.isRequired,
-  menu: PropTypes.element.isRequired,
+  menu: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
   id: PropTypes.string.isRequired,
   className: PropTypes.string,
   isArrowed: PropTypes.bool,

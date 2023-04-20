@@ -2,13 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const ReloadRounded: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="reload-rounded"
-    fill="currentColor"
-    viewBox="0 0 15 15"
-    size={[15, 15]}
-  >
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 15 15" size={[15, 15]}>
     <g fill="none">
       <rect x="0.5" y="0.5" width="14" height="14" rx="7" fill="#7699FF" fillOpacity="0.2" />
       <path

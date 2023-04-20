@@ -143,7 +143,7 @@ TagsOfCommunity.defaultProps = {
 TagsOfCommunity.propTypes = {
   locale: PropTypes.string,
   communities: PropTypes.array,
-  existingTags: PropTypes.array,
+  existingTags: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   existingTagsLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   text: PropTypes.string,
