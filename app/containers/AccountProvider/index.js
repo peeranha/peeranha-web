@@ -24,7 +24,6 @@ export const AccountProvider = ({
 }) => {
   if (isSuiBlockchain()) {
     const wallet = useWallet();
-    console.log(wallet);
     useEffect(() => {
       getCurrentSuiAccountDispatch(wallet);
     }, [wallet]);

@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Base from 'components/Base';
+import { isSuiBlockchain } from 'utils/networkManagement';
 import QuestionType from './QuestionType';
 import Title from './Title';
 import UserInfo from './UserInfo';
@@ -52,14 +53,16 @@ const Body = ({
   return (
     <Base className={displayTopQuestionMove ? 'pl-0' : ''} position="right" paddingTopMedia={20}>
       <QuestionLabels>
-        {Number(postLanguage) !== languagesEnum[locale] && isAutotranslationEnable && (
-          <LanguageLabel
-            postLanguage={postLanguage}
-            language={language}
-            isAutotranslationEnable={isAutotranslationEnable}
-            isFeed={isFeed}
-          />
-        )}
+        {Number(postLanguage) !== languagesEnum[locale] &&
+          isAutotranslationEnable &&
+          !isSuiBlockchain() && (
+            <LanguageLabel
+              postLanguage={postLanguage}
+              language={language}
+              isAutotranslationEnable={isAutotranslationEnable}
+              isFeed={isFeed}
+            />
+          )}
 
         {(isFeed || isSearchPage) && (
           <QuestionType

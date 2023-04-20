@@ -4,6 +4,7 @@
  *
  */
 
+import { useWallet } from '@suiet/wallet-kit';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -47,13 +48,15 @@ export const EditProfilePage = ({
   saveProfileDispatch,
   history,
 }) => {
-  const saveProfileMethod = values =>
+  const wallet = useWallet();
+  const saveProfileMethod = (values) =>
     saveProfileDispatch({
       userKey: id,
       profile: {
         ...profile.profile,
         ...values.toJS(),
       },
+      wallet: wallet,
     });
 
   const sendProps = {
@@ -101,7 +104,7 @@ const withConnect = connect(
     questions: selectQuestions(),
     questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     setDefaultReducerDispatch: bindActionCreators(setDefaultReducer, dispatch),
     saveProfileDispatch: bindActionCreators(saveProfile, dispatch),
   }),
@@ -114,8 +117,4 @@ const withSaga = injectSaga({
   disableEject: true,
 });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(EditProfilePage);
+export default compose(withReducer, withSaga, withConnect)(EditProfilePage);
