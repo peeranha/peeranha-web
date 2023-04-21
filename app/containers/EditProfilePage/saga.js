@@ -1,8 +1,9 @@
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-import { getBytes32FromIpfsHash, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
+import { getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 
@@ -21,13 +22,14 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 
 // TODO: test
 /* eslint no-param-reassign: 0 */
-export function* saveProfileWorker({ profile, userKey, wallet }, isNavigateToProfile = true) {
+export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = true) {
   try {
     if (profile[AVATAR_FIELD] && profile[AVATAR_FIELD].length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, profile[AVATAR_FIELD]);
       profile[AVATAR_FIELD] = imgHash;
     }
     if (isSuiBlockchain()) {
+      const wallet = yield select(selectSuiWallet());
       const ipfsHash = yield call(saveText, JSON.stringify(profile));
       const transactionData = getVector8FromIpfsHash(ipfsHash);
 
@@ -35,11 +37,10 @@ export function* saveProfileWorker({ profile, userKey, wallet }, isNavigateToPro
       const UsersRatingCollection =
         '0xbfe3ac9062970689a73b876909b8709323ebdda6292ba3a76e429e4ec0e8e3aa';
 
-      const result = yield call(handleMoveCall, wallet, packageObjectId, 'userLib', 'createUser', [
+      yield call(handleMoveCall, wallet, packageObjectId, 'userLib', 'createUser', [
         UsersRatingCollection,
         transactionData,
       ]);
-      console.log(result);
     } else {
       const ethereumService = yield select(selectEthereum);
 

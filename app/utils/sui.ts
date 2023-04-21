@@ -4,6 +4,7 @@ import {
   testnetConnection,
   devnetConnection,
 } from '@mysten/sui.js';
+import { WalletContextState } from '@suiet/wallet-kit';
 export const isSuiBlockchain: () => boolean = () => process.env.BLOCKCHAIN === 'sui';
 
 export const getOwnedObject = async (
@@ -27,7 +28,7 @@ export const getOwnedObject = async (
 };
 
 export const handleMoveCall = async (
-  wallet: { signAndExecuteTransactionBlock: (arg0: { transactionBlock: TransactionBlock }) => any },
+  wallet: WalletContextState,
   packageObjectId: string,
   libName: string,
   action: string,

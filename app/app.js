@@ -1,6 +1,7 @@
 // Importing Bootstrap and its dependencies
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import SuiProvider from 'containers/SuiProvider';
 import $ from 'jquery';
 // Needed for redux-saga es6 generator support
 import '@babel/polyfill';
@@ -13,7 +14,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import 'sanitize.css/sanitize.css';
 import { I18nextProvider } from 'react-i18next';
 
-import { WalletProvider } from '@suiet/wallet-kit';
 // Import root app
 import App from 'containers/App';
 
@@ -48,7 +48,7 @@ if (process.env.GTM_ID) {
   TagManager.initialize(tagManagerArgs);
 }
 
-const NetworkProvider = isSuiBlockchain() ? WalletProvider : EthereumProvider;
+const NetworkProvider = isSuiBlockchain() ? SuiProvider : EthereumProvider;
 
 // Create redux store with history
 const initialState = {};

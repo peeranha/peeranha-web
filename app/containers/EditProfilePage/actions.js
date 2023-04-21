@@ -18,12 +18,11 @@ import {
  *
  */
 
-export function saveProfile({ profile, userKey, wallet }) {
+export function saveProfile({ profile, userKey }) {
   return {
     type: SAVE_PROFILE,
     profile,
     userKey,
-    wallet,
   };
 }
 

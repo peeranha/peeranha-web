@@ -1,4 +1,5 @@
 import { useWallet } from '@suiet/wallet-kit';
+import { setWallet } from 'containers/SuiProvider/actions';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -21,10 +22,12 @@ export const AccountProvider = ({
   lastUpdate,
   getCurrentAccountDispatch,
   getCurrentSuiAccountDispatch,
+  setWalletDispatch,
 }) => {
   if (isSuiBlockchain()) {
     const wallet = useWallet();
     useEffect(() => {
+      setWalletDispatch(wallet);
       getCurrentSuiAccountDispatch(wallet);
     }, [wallet]);
   } else {
@@ -60,6 +63,7 @@ export default compose(
     (dispatch) => ({
       getCurrentAccountDispatch: bindActionCreators(getCurrentAccount, dispatch),
       getCurrentSuiAccountDispatch: bindActionCreators(getCurrentSuiAccount, dispatch),
+      setWalletDispatch: bindActionCreators(setWallet, dispatch),
     }),
   ),
 )(AccountProvider);

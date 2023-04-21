@@ -46,7 +46,6 @@ export const EditProfilePage = ({
   setDefaultReducerDispatch,
   saveProfileDispatch,
 }) => {
-  const wallet = useWallet();
   const saveProfileMethod = (values) =>
     saveProfileDispatch({
       userKey: id,
@@ -54,7 +53,6 @@ export const EditProfilePage = ({
         ...profile.profile,
         ...values.toJS(),
       },
-      wallet: wallet,
     });
 
   const sendProps = {
