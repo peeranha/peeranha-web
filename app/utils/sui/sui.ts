@@ -6,11 +6,11 @@ import {
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
 
-const SUI_PACKAGE_ID = '0x29b03f4f192f748fd94849972bb8f2d6133710f8d05be675fbdbfa63a63bce5b';
+const SUI_PACKAGE_ID = '0xc2fef7601b437798ce882e7b3465a8a19d33982952e0a877a4be73f319d44775';
 export const USER_RATING_COLLECTION =
-  '0xc552fbbfaddf9c331243228c2ac1cfedb2f73260c32287c434bd44855597ed46';
+  '0xb24d16b81133a76259d5367ede49cbd5b0fe292c87fb3fb333d0fcaf900348de';
 export const PERIOD_REWARD_CONTAINER =
-  '0x996b3826b5d5eb6ddc97166cd9ec038e35a301010992d6af511d79cf939add10';
+  '0x2550ab7d916675c52e3d6a4b7dc7d8f3bb8400f27c8160750d516cbeec757568';
 
 export const userLib = 'userLib';
 export const createUser = 'createUser';
@@ -21,7 +21,7 @@ export const isSuiBlockchain: () => boolean = () => process.env.BLOCKCHAIN === '
 export const getOwnedObject = async (
   libName: string,
   objectName: string,
-  ownerAddress: string,
+  ownerAddress: string | undefined,
 ): Promise<object> => {
   const rpc = new JsonRpcProvider(devnetConnection);
   return rpc.getOwnedObjects({

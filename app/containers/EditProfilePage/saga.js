@@ -37,7 +37,7 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
     }
     if (isSuiBlockchain()) {
       const wallet = yield select(selectSuiWallet());
-      console.log(yield call(isSuiUserExists(wallet)));
+      console.log(yield call(isSuiUserExists, wallet));
       const ipfsHash = yield call(saveText, JSON.stringify(profile));
       const transactionData = getVector8FromIpfsHash(ipfsHash);
 

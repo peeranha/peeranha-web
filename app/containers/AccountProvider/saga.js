@@ -196,7 +196,6 @@ export function* updateAccWorker({ ethereum }) {
 }
 
 export const getCurrentSuiAccountWorker = function* ({ wallet }) {
-  console.log(wallet);
   try {
     if (wallet.connected) {
       yield put(getUserProfileSuccess(emptyProfile(wallet.account?.address)));

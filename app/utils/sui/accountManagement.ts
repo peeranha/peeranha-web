@@ -1,9 +1,9 @@
 import { ApplicationError } from 'utils/errors';
-import { IS_USER_EXISTS } from 'utils/ethConstants';
 import { getOwnedObject, userLib, userObject } from 'utils/sui/sui';
+import { WalletContextState } from '@suiet/wallet-kit';
 
-export const isSuiUserExists = async (wallet) => {
-  const profile = await getOwnedObject(userLib, userObject, wallet.account?.address);
-  console.log(profile);
-  if (!profile) throw new ApplicationError('No profile');
+export const isSuiUserExists = async (wallet: WalletContextState) => {
+  if (!wallet.connected) throw new ApplicationError('No profile');
+  const userObjects = await getOwnedObject(userLib, userObject, wallet.account?.address);
+  return Boolean(userObjects?.data?.length);
 };
