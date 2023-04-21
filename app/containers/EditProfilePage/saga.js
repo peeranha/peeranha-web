@@ -13,7 +13,14 @@ import { AVATAR_FIELD, DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 import { isValid, isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { handleMoveCall, isSuiBlockchain } from 'utils/sui';
+import { isSuiUserExists } from 'utils/sui/accountManagement';
+import {
+  createUser,
+  handleMoveCall,
+  isSuiBlockchain,
+  USER_RATING_COLLECTION,
+  userLib,
+} from 'utils/sui/sui';
 
 import { saveProfileSuccess, saveProfileErr } from './actions';
 
@@ -30,15 +37,12 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
     }
     if (isSuiBlockchain()) {
       const wallet = yield select(selectSuiWallet());
+      console.log(yield call(isSuiUserExists(wallet)));
       const ipfsHash = yield call(saveText, JSON.stringify(profile));
       const transactionData = getVector8FromIpfsHash(ipfsHash);
 
-      const packageObjectId = '0x6f5f7df4236d7516df8dd71ee58cf25aeec21cf97903fb783598c8b02c1e299b';
-      const UsersRatingCollection =
-        '0xbfe3ac9062970689a73b876909b8709323ebdda6292ba3a76e429e4ec0e8e3aa';
-
-      yield call(handleMoveCall, wallet, packageObjectId, 'userLib', 'createUser', [
-        UsersRatingCollection,
+      yield call(handleMoveCall, wallet, userLib, createUser, [
+        USER_RATING_COLLECTION,
         transactionData,
       ]);
     } else {

@@ -70,7 +70,7 @@ export const isUserExists = async (userAddress, ethereumService) => {
   return await ethereumService.getUserDataWithArgs(IS_USER_EXISTS, [userAddress]);
 };
 
-export const updateAcc = async (profile, ethereumService) => {
+export const updateAcc = async (profile) => {
   if (!profile) throw new ApplicationError('No profile');
 };
 
