@@ -44,17 +44,28 @@ import {
   GET_USER_PROFILE,
 } from 'containers/DataCacheProvider/constants';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getAllSuiCommunities } from 'utils/sui/communityManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { isSuiBlockchain } from 'utils/sui/sui';
 import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const stat = yield call(getStat, ethereumService);
+    if (!isSuiBlockchain) {
+      yield put(
+        getStatSuccess({
+          usersCount: 0,
+          communitiesCount: 0,
+        }),
+      );
+      yield put(getCommunities());
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const stat = yield call(getStat, ethereumService);
 
-    yield put(getStatSuccess(stat));
-    yield put(getCommunities());
+      yield put(getStatSuccess(stat));
+      yield put(getCommunities());
+    }
   } catch (err) {
     yield put(getStatErr(err));
   }
@@ -62,11 +73,16 @@ export function* getStatWorker() {
 
 export function* getCommunitiesWorker() {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const stat = yield select(selectStat());
-    const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
+    if (isSuiBlockchain) {
+      const communities = yield call(getAllSuiCommunities);
+      yield put(getCommunitiesSuccess(communities));
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const stat = yield select(selectStat());
+      const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
 
-    yield put(getCommunitiesSuccess(communities));
+      yield put(getCommunitiesSuccess(communities));
+    }
   } catch (err) {
     yield put(getCommunitiesErr(err));
   }

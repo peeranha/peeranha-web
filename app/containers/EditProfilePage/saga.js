@@ -3,7 +3,6 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-import { getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 
