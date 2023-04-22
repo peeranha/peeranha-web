@@ -32,6 +32,8 @@ import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
 
 import { selectCommunity } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { getOwnedObject, handleMoveCall, isSuiBlockchain } from 'utils/sui/sui';
+import { getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 
 export function* getCommunityWorker({ communityId }) {
   try {
@@ -51,7 +53,7 @@ export function* getCommunityWorker({ communityId }) {
   }
 }
 
-export function* editCommunityWorker({ communityId, communityData }) {
+export function* editCommunityWorker({ communityId, communityData, wallet }) {
   try {
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
@@ -70,13 +72,27 @@ export function* editCommunityWorker({ communityId, communityData }) {
     });
 
     if (!isEqual) {
-      const ethereumService = yield select(selectEthereum);
-      const selectedAccount = yield call(ethereumService.getSelectedAccount);
+      if (isSuiBlockchain) {
+        const communityIpfsHash = yield call(saveText, JSON.stringify(communityData));
+        const communityTransactionData = getVector8FromIpfsHash(communityIpfsHash);
 
-      yield call(editCommunity, ethereumService, selectedAccount, communityId, communityData);
+        const userObj = yield call(getOwnedObject, 'userLib', 'User', wallet.account?.address);
 
-      const stat = yield select(selectStat());
-      const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
+        //NEED 1 MORE ARGUMENT
+        const result = yield call(handleMoveCall, wallet, 'communityLib', 'updateCommunity', [
+          userObj.data.pop().data.objectId,
+          communityTransactionData,
+        ]);
+        console.log('result', result);
+      } else {
+        const ethereumService = yield select(selectEthereum);
+        const selectedAccount = yield call(ethereumService.getSelectedAccount);
+
+        yield call(editCommunity, ethereumService, selectedAccount, communityId, communityData);
+
+        const stat = yield select(selectStat());
+        const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
+      }
 
       yield put(getCommunitiesSuccess(communities));
     } else {
