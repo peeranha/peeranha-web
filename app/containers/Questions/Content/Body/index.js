@@ -55,7 +55,7 @@ const Body = ({
       <QuestionLabels>
         {Number(postLanguage) !== languagesEnum[locale] &&
           isAutotranslationEnable &&
-          !isSuiBlockchain() && (
+          !isSuiBlockchain && (
             <LanguageLabel
               postLanguage={postLanguage}
               language={language}

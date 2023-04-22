@@ -23,7 +23,7 @@ const ButtonGroupForNotAuthorizedUser = ({ loginWithWallet }) => {
 
   const { t } = useTranslation();
 
-  if (isSuiBlockchain()) {
+  if (isSuiBlockchain) {
     return (
       <ConnectModal
         open={showModal}

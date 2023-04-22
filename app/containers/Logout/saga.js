@@ -18,7 +18,7 @@ import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
 
 export function* logoutWorker() {
   try {
-    if (!isSuiBlockchain()) {
+    if (!isSuiBlockchain) {
       const ethereumService = yield select(selectEthereum);
 
       deleteCookie(AUTOLOGIN_DATA);

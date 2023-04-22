@@ -90,7 +90,7 @@ export class Header extends React.PureComponent {
       loginWithSuiDispatch,
     } = this.props;
 
-    const loginDispatch = isSuiBlockchain() ? loginWithSuiDispatch : loginWithWalletDispatch;
+    const loginDispatch = isSuiBlockchain ? loginWithSuiDispatch : loginWithWalletDispatch;
 
     if (isMenuVisible) return null;
 

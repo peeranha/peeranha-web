@@ -48,7 +48,7 @@ if (process.env.GTM_ID) {
   TagManager.initialize(tagManagerArgs);
 }
 
-const NetworkProvider = isSuiBlockchain() ? SuiProvider : EthereumProvider;
+const NetworkProvider = isSuiBlockchain ? SuiProvider : EthereumProvider;
 
 // Create redux store with history
 const initialState = {};

@@ -24,12 +24,12 @@ export const AccountProvider = ({
   getCurrentSuiAccountDispatch,
   setWalletDispatch,
 }) => {
-  if (isSuiBlockchain()) {
+  if (isSuiBlockchain) {
     const wallet = useWallet();
     useEffect(() => {
       setWalletDispatch(wallet);
       getCurrentSuiAccountDispatch(wallet);
-    }, [wallet]);
+    }, [getCurrentSuiAccountDispatch, setWalletDispatch, wallet]);
   } else {
     useEffect(() => {
       getCurrentAccountDispatch();

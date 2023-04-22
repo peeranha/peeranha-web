@@ -1,3 +1,4 @@
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import getHash from 'object-hash';
 
@@ -43,6 +44,8 @@ import {
   GET_USER_PROFILE,
 } from 'containers/DataCacheProvider/constants';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
@@ -112,52 +115,58 @@ export function* getTutorialWorker() {
 /* eslint consistent-return: 0 */
 export function* getUserProfileWorker({ user, getFullProfile, communityIdForRating }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const selectedAccount = yield call(ethereumService.getSelectedAccount);
-    const isLogin = selectedAccount === user;
-    const cachedUserInfo = yield select(selectUsers(user));
-
-    // take userProfile from STORE
-    if (cachedUserInfo && !getFullProfile && !isLogin) {
-      if (!cachedUserInfo.achievements) {
-        const userAchievements = yield call(
-          getAchievements,
-          ethereumService,
-          USER_ACHIEVEMENTS_TABLE,
-          user,
-        );
-        const userStats = yield getUserStats(user);
-
-        const updatedUserInfo = {
-          ...cachedUserInfo,
-          achievements: userAchievements,
-        };
-        yield put(getUserProfileSuccess({ ...updatedUserInfo, ...userStats }));
-        return updatedUserInfo;
-      }
-      return yield cachedUserInfo;
-    }
-
-    // get userProfile and put to STORE
-    const updatedUserInfo = yield call(
-      getProfileInfo,
-      user,
-      ethereumService,
-      getFullProfile,
-      isLogin,
-      communityIdForRating,
-    );
-
-    if (
-      (updatedUserInfo && !cachedUserInfo) ||
-      (updatedUserInfo && cachedUserInfo && getHash(updatedUserInfo) !== getHash(cachedUserInfo))
-    ) {
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const updatedUserInfo = yield call(getSuiProfileInfo, wallet);
       yield put(getUserProfileSuccess({ ...updatedUserInfo }));
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const selectedAccount = yield call(ethereumService.getSelectedAccount);
+      const isLogin = selectedAccount === user;
+      const cachedUserInfo = yield select(selectUsers(user));
+
+      // take userProfile from STORE
+      if (cachedUserInfo && !getFullProfile && !isLogin) {
+        if (!cachedUserInfo.achievements) {
+          const userAchievements = yield call(
+            getAchievements,
+            ethereumService,
+            USER_ACHIEVEMENTS_TABLE,
+            user,
+          );
+          const userStats = yield getUserStats(user);
+
+          const updatedUserInfo = {
+            ...cachedUserInfo,
+            achievements: userAchievements,
+          };
+          yield put(getUserProfileSuccess({ ...updatedUserInfo, ...userStats }));
+          return updatedUserInfo;
+        }
+        return yield cachedUserInfo;
+      }
+
+      // get userProfile and put to STORE
+      const updatedUserInfo = yield call(
+        getProfileInfo,
+        user,
+        ethereumService,
+        getFullProfile,
+        isLogin,
+        communityIdForRating,
+      );
+
+      if (
+        (updatedUserInfo && !cachedUserInfo) ||
+        (updatedUserInfo && cachedUserInfo && getHash(updatedUserInfo) !== getHash(cachedUserInfo))
+      ) {
+        yield put(getUserProfileSuccess({ ...updatedUserInfo }));
+      }
+
+      yield put(getUserProfileSuccess());
+
+      return yield { ...updatedUserInfo };
     }
-
-    yield put(getUserProfileSuccess());
-
-    return yield { ...updatedUserInfo };
   } catch (err) {
     yield put(getUserProfileErr(err));
   }

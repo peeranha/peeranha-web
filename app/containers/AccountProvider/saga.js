@@ -3,6 +3,8 @@ import { useWallet } from '@suiet/wallet-kit';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
+import { isSuiUserExists } from 'utils/sui/accountManagement';
+import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { getAvailableBalance, getBalance, getUserBoost } from 'utils/walletManagement';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
@@ -198,8 +200,26 @@ export function* updateAccWorker({ ethereum }) {
 export const getCurrentSuiAccountWorker = function* ({ wallet }) {
   try {
     if (wallet.connected) {
-      yield put(getUserProfileSuccess(emptyProfile(wallet.account?.address)));
-      yield put(getCurrentAccountSuccess(wallet.account?.address, 0));
+      const isUserRegistered = yield call(isSuiUserExists, wallet);
+      if (isUserRegistered === false) {
+        yield put(getUserProfileSuccess(emptyProfile(wallet.account?.address)));
+        yield put(getCurrentAccountSuccess(wallet.account?.address, 0));
+        return;
+      }
+      const profileInfo = yield call(getSuiProfileInfo, wallet);
+
+      setCookie({
+        name: PROFILE_INFO_LS,
+        value: JSON.stringify(formPermissionsCookie(profileInfo?.permissions)),
+        options: {
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+      yield put(addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}));
+      yield put(getUserProfileSuccess(profileInfo));
+
+      yield put(getCurrentAccountSuccess(wallet.account?.address, 0, 0, 0));
     }
   } catch (err) {
     yield put(getCurrentAccountError(err));

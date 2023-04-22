@@ -27,7 +27,7 @@ export const Logout = /* istanbul ignore next */ ({ logoutDispatch, children }) 
       logoutDispatch();
     });
   };
-  const logout = isSuiBlockchain() ? suiLogout : logoutDispatch;
+  const logout = isSuiBlockchain ? suiLogout : logoutDispatch;
   return (
     <button className="d-flex align-items-center" onClick={logout}>
       {children}

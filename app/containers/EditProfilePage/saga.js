@@ -13,7 +13,7 @@ import { AVATAR_FIELD, DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 import { isValid, isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { isSuiUserExists } from 'utils/sui/accountManagement';
+
 import {
   createUser,
   handleMoveCall,
@@ -35,9 +35,8 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
       const { imgHash } = yield call(uploadImg, profile[AVATAR_FIELD]);
       profile[AVATAR_FIELD] = imgHash;
     }
-    if (isSuiBlockchain()) {
+    if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
-      console.log(yield call(isSuiUserExists, wallet));
       const ipfsHash = yield call(saveText, JSON.stringify(profile));
       const transactionData = getVector8FromIpfsHash(ipfsHash);
 
