@@ -6,7 +6,7 @@ import { getSuiUserObject } from 'utils/sui/accountManagement';
 export const createSuiCommunity = async (wallet: WalletContextState, community) => {
   const communityIpfsHash = await saveText(JSON.stringify(community));
   const communityTransactionData = getVector8FromIpfsHash(communityIpfsHash);
-  const userObj = await getSuiUserObject(wallet);
+  const userObj = await getSuiUserObject(wallet.address);
 
   const tagsStringData = community.tags.map(async (tag) => JSON.parse(await getText(tag)));
 
