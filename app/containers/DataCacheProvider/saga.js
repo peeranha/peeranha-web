@@ -44,10 +44,9 @@ import {
   GET_USER_PROFILE,
 } from 'containers/DataCacheProvider/constants';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { getAllSuiCommunities } from 'utils/sui/communityManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import { getSuiUserById } from 'utils/sui/suiIndexer';
+import { getSuiUserById, getSuiCommunities } from 'utils/sui/suiIndexer';
 import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
@@ -75,7 +74,7 @@ export function* getStatWorker() {
 export function* getCommunitiesWorker() {
   try {
     if (isSuiBlockchain) {
-      const communities = yield call(getAllSuiCommunities);
+      const communities = yield call(getSuiCommunities);
       yield put(getCommunitiesSuccess(communities));
     } else {
       const ethereumService = yield select(selectEthereum);

@@ -35,6 +35,82 @@ const user = `
     isPaid
   }
 `;
+
+const community = `
+  id
+    name
+    description
+    website
+    communitySite
+    language
+    avatar
+    isFrozen
+    creationTime
+    postCount
+    documentationCount
+    deletedPostCount
+    replyCount
+    tagsCount
+    followingUsers
+    ipfsHash
+    ipfsHash2
+    communitydocumentation {
+      id
+      communityId
+      title
+      content
+      creationTime
+      author {
+        id
+        username
+        displayName
+        avatar
+      }
+    }
+    post {
+      id
+      title
+      content
+      author {
+        id
+        username
+        displayName
+        avatar
+      }
+      creationTime
+      community {
+        id
+        name
+        avatar
+      }
+    }
+    tag {
+      id
+      name
+      postCount
+    }
+    usercommunity {
+      id
+      role
+      user {
+        id
+        username
+        displayName
+        avatar
+      }
+    }
+    usercommunityrating {
+      id
+      rating
+      user {
+        id
+        username
+        displayName
+        avatar
+      }
+    }
+`;
+
 export const userQuery = `query($id: String) {
     user(where: { id: $id }) {
       ${user}
@@ -44,5 +120,11 @@ export const userQuery = `query($id: String) {
 export const usersQuery = `query {
     user {
       ${user}
+    }
+  }`;
+
+export const communitiesQuery = `query {
+    community {
+      ${community}
     }
   }`;

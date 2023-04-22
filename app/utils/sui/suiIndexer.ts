@@ -1,4 +1,4 @@
-import { userQuery, usersQuery } from 'utils/sui/suiQuerries';
+import { userQuery, usersQuery, communitiesQuery } from 'utils/sui/suiQuerries';
 import { SUI_INDEXER_URL } from 'utils/sui/sui';
 
 const getDataFromIndexer = async (query: string, variables: object = {}) => {
@@ -36,41 +36,6 @@ export const getSuiUserById = async (id: string) => {
 };
 
 export const getSuiCommunities = async () => {
-  const community = `
-        id
-        avatar
-        name
-        description
-        language
-        website
-        communitySite
-        isBlogger
-        tags
-    `;
-
-  const query = `
-      query(
-        $first: Int,
-      ) {
-        communities(
-         first: $first,
-        ) {
-          ${community}
-        }
-      }`;
-
-  const variables = { first: '100' };
-
-  try {
-    const response = await fetch('https://ue2ez6lhhi.execute-api.us-east-2.amazonaws.com/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, variables }),
-    });
-
-    const data = await response.json();
-    console.log('data', data);
-  } catch (error) {
-    console.error(error);
-  }
+  const data = await getDataFromIndexer(communitiesQuery);
+  return data.community;
 };
