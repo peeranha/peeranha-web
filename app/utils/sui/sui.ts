@@ -6,11 +6,11 @@ import {
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
 
-const SUI_PACKAGE_ID = '0xc2fef7601b437798ce882e7b3465a8a19d33982952e0a877a4be73f319d44775';
+const SUI_PACKAGE_ID = '0xb92ab16f581105eaca9cc07e30ce297a6a33851a6255a7153d28f056f7a9bc70';
 export const USER_RATING_COLLECTION =
-  '0xb24d16b81133a76259d5367ede49cbd5b0fe292c87fb3fb333d0fcaf900348de';
+  '0x41ae881dcce6019934cbd673a3cf56bdb4bac35237a659929b47c33e66b656c8';
 export const PERIOD_REWARD_CONTAINER =
-  '0x2550ab7d916675c52e3d6a4b7dc7d8f3bb8400f27c8160750d516cbeec757568';
+  '0xcb7a14dc1c3e49f43c655b7df6de5071f1e1d9a3aa493ab2905016dcf5b51c79';
 
 export const userLib = 'userLib';
 export const createUser = 'createUser';

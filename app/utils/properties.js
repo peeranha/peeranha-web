@@ -2,6 +2,7 @@ import { PROFILE_INFO_LS } from 'containers/Login/constants';
 import { BigNumber } from 'ethers';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getCookie, deleteCookie, parsePermissionsCookie } from 'utils/cookie';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -128,6 +129,9 @@ export const isValidJsonFromCookie = (data, cookieName) => {
 };
 
 export const hasGlobalModeratorRole = (permissionsFromState) => {
+  if (isSuiBlockchain) {
+    return true;
+  }
   let permissions = permissionsFromState;
 
   if (!permissions) {

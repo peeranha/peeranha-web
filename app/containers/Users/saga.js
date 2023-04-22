@@ -1,12 +1,17 @@
-import { put, takeLatest, select } from 'redux-saga/effects';
+import { put, takeLatest, select, call } from 'redux-saga/effects';
+import { getSuiUsers } from 'utils/sui/indexerQueries';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { getUsers, getUsersByCommunity } from 'utils/theGraph';
 
 import { GET_USERS } from './constants';
 import { getUsersSuccess, getUsersErr } from './actions';
 import { selectLimit, selectSkip, selectSorting } from './selectors';
-import { getUsers, getUsersByCommunity } from '../../utils/theGraph';
 
 export function* getUsersWorker({ loadMore, reload, communityId }) {
   try {
+    if (isSuiBlockchain) {
+      yield call(getSuiUsers);
+    }
     const limit = yield select(selectLimit());
     const sorting = yield select(selectSorting());
     const skip = reload ? 0 : yield select(selectSkip());
@@ -22,6 +27,6 @@ export function* getUsersWorker({ loadMore, reload, communityId }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_USERS, getUsersWorker);
 }
