@@ -1,21 +1,15 @@
 import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-import {
-  communityLib,
-  getOwnedObject,
-  handleMoveCall,
-  isSuiBlockchain,
-  createCommunity as createSuiCommunity,
-} from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { createCommunity } from 'utils/communityManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
-
-import { getVector8FromIpfsHash, saveText } from 'utils/ipfs';
+import { createSuiCommunity } from 'utils/sui/communityManagement';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 
 import {
   createCommunitySuccess,
@@ -28,25 +22,11 @@ import {
 import { CREATE_COMMUNITY, CREATE_COMMUNITY_BUTTON, GET_FORM } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
-export function* createCommunityWorker({ community, reset, wallet }) {
+export function* createCommunityWorker({ community, reset }) {
   try {
     if (isSuiBlockchain) {
-      const communityIpfsHash = yield call(saveText, JSON.stringify(community));
-      const communityTransactionData = getVector8FromIpfsHash(communityIpfsHash);
-
-      const userObj = yield call(getOwnedObject, 'userLib', 'User', wallet.account?.address);
-
-      const tagsStringData = yield all(
-        community.tags.map((tag) => call(saveText, JSON.stringify(tag))),
-      );
-
-      const tagsTransactionData = tagsStringData.map((tag) => getVector8FromIpfsHash(tag));
-
-      yield call(handleMoveCall, wallet, communityLib, createSuiCommunity, [
-        userObj.data.pop().data.objectId,
-        communityTransactionData,
-        tagsTransactionData,
-      ]);
+      const wallet = yield select(selectSuiWallet());
+      yield call(createSuiCommunity, wallet, community);
     } else {
       const ethereumService = yield select(selectEthereum);
       const selectedAccount = yield call(ethereumService.getSelectedAccount);

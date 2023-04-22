@@ -13,12 +13,11 @@ import {
   GET_COMMUNITY_SUCCESS,
 } from './constants';
 
-export function editCommunity(communityId, communityData, wallet) {
+export function editCommunity(communityId, communityData) {
   return {
     type: EDIT_COMMUNITY,
     communityId,
     communityData,
-    wallet,
   };
 }
 

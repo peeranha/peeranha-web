@@ -6,7 +6,6 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import * as routes from 'routes-config';
 import { Link } from 'react-router-dom';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { useWallet } from '@suiet/wallet-kit';
 
 import {
   imageValidation,
@@ -59,7 +58,6 @@ const EditCommunityForm = ({
 }) => {
   const { t } = useTranslation();
   const nextRoute = isSingleCommunityMode ? routes.feed : routes.communities;
-  const wallet = useWallet();
 
   const [selectedLanguages, setSelectedLanguages] = useState([]);
 
@@ -86,7 +84,7 @@ const EditCommunityForm = ({
         })),
       };
 
-      editCommunityDispatch(communityId, communityData, wallet);
+      editCommunityDispatch(communityId, communityData);
     },
     [communityId, editCommunityDispatch, selectedLanguages],
   );

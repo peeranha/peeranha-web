@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useWallet } from '@suiet/wallet-kit';
 import { createStructuredSelector } from 'reselect';
 import { DEFAULT_LOCALE } from 'i18n';
 import { useTranslation } from 'react-i18next';
@@ -63,7 +62,6 @@ export const CreateCommunity = ({
 }) => {
   const { t } = useTranslation();
   useModeratorRole(routes.noAccess);
-  const wallet = useWallet();
 
   useEffect(() => {
     setDefaultStoreDispatch();
@@ -91,7 +89,7 @@ export const CreateCommunity = ({
       communitySite: values[COMM_PEERANHA_SITE_FIELD],
       tags,
     };
-    createCommunityDispatch(community, reset, wallet);
+    createCommunityDispatch(community, reset);
   };
 
   const sendProps = {

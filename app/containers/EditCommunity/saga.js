@@ -4,6 +4,7 @@ import { communities as communitiesRoute, feed } from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 
 import { getCommunitiesSuccess } from 'containers/DataCacheProvider/actions';
 
@@ -53,7 +54,7 @@ export function* getCommunityWorker({ communityId }) {
   }
 }
 
-export function* editCommunityWorker({ communityId, communityData, wallet }) {
+export function* editCommunityWorker({ communityId, communityData }) {
   try {
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
@@ -73,10 +74,11 @@ export function* editCommunityWorker({ communityId, communityData, wallet }) {
 
     if (!isEqual) {
       if (isSuiBlockchain) {
+        const wallet = yield select(selectSuiWallet());
         const communityIpfsHash = yield call(saveText, JSON.stringify(communityData));
         const communityTransactionData = getVector8FromIpfsHash(communityIpfsHash);
 
-        const userObj = yield call(getOwnedObject, 'userLib', 'User', wallet.account?.address);
+        const userObj = yield call(getOwnedObject, 'userLib', 'User', wallet.address);
 
         //NEED 1 MORE ARGUMENT
         const result = yield call(handleMoveCall, wallet, 'communityLib', 'updateCommunity', [

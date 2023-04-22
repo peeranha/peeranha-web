@@ -16,6 +16,9 @@ export const userLib = 'userLib';
 export const createUser = 'createUser';
 export const updateUser = 'updateUser';
 export const userObject = 'User';
+export const communityLib = 'communityLib';
+export const updateCommunity = 'updateCommunity';
+export const createCommunity = 'createCommunity';
 
 export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const IS_INDEXER_ON = true;

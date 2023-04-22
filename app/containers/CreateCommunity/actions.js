@@ -17,12 +17,11 @@ export function redirectToCreateCommunity(ev) {
   };
 }
 
-export function createCommunity(community, reset, wallet) {
+export function createCommunity(community, reset) {
   return {
     type: CREATE_COMMUNITY,
     community,
     reset,
-    wallet,
   };
 }
 
