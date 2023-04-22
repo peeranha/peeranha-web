@@ -17,7 +17,7 @@ const ButtonGroupForNotAuthorizedUser = ({ loginWithWallet }) => {
   useEffect(() => {
     if (wallet.connected) {
       setShowModal(false);
-      loginWithWallet(wallet.account?.address);
+      loginWithWallet(wallet.address);
     }
   }, [wallet.connected]);
 

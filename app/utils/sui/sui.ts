@@ -18,6 +18,7 @@ export const updateUser = 'updateUser';
 export const userObject = 'User';
 
 export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
+export const IS_INDEXER_ON = true;
 
 export const handleMoveCall = async (
   wallet: WalletContextState,

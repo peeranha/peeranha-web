@@ -117,7 +117,14 @@ export function* getUserProfileWorker({ user, getFullProfile, communityIdForRati
   try {
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
-      const updatedUserInfo = yield call(getSuiProfileInfo, wallet);
+      const isLogin = wallet.address === user;
+      let updatedUserInfo;
+      if (isLogin) {
+        updatedUserInfo = yield call(getSuiProfileInfo, wallet.address);
+      } else {
+        // TODO query from indexer
+        updatedUserInfo = yield call(getSuiProfileInfo, user);
+      }
       yield put(getUserProfileSuccess({ ...updatedUserInfo }));
     } else {
       const ethereumService = yield select(selectEthereum);

@@ -22,16 +22,15 @@ export const byteArrayToHexString = (byteArray: any[]) => {
 };
 
 /* eslint camelcase: 0 */
-export async function getSuiProfileInfo(wallet: WalletContextState) {
-  if (!wallet.connected) return null;
-  const profileObject = await getSuiUserObject(wallet);
+export async function getSuiProfileInfo(address: string) {
+  const profileObject = await getSuiUserObject(address);
   const ipfsHash = getIpfsHashFromBytes32(
     `0x${byteArrayToHexString(profileObject.ipfsDoc.fields.hash)}`,
   );
   const profile = JSON.parse(await getText(ipfsHash));
   return {
     id: profileObject.id.id,
-    user: wallet.account?.address,
+    user: address,
     displayName: profile.displayName,
     avatar: profile.avatar,
     achievements: [],
@@ -52,7 +51,7 @@ export async function getSuiProfileInfo(wallet: WalletContextState) {
 export async function saveSuiProfile(wallet: WalletContextState, profile: object) {
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getVector8FromIpfsHash(ipfsHash);
-  const suiUserObject = await getSuiUserObject(wallet);
+  const suiUserObject = await getSuiUserObject(wallet.address);
   if (!suiUserObject) {
     return handleMoveCall(wallet, userLib, createUser, [USER_RATING_COLLECTION, transactionData]);
   }
