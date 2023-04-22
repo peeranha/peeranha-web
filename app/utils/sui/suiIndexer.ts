@@ -15,6 +15,11 @@ export const getSuiUsers = async () => {
   return data.user;
 };
 
+export const getSuiUserById = async () => {
+  const data = await getDataFromIndexer(usersQuery);
+  return data.user;
+};
+
 export const getSuiCommunities = async () => {
   const community = `
         id

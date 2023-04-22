@@ -13,6 +13,7 @@ export function* getUsersWorker({ loadMore, reload, communityId }) {
       let users = [];
       if (IS_INDEXER_ON) {
         users = yield call(getSuiUsers);
+        console.log(users);
       } else {
         users = yield call(getSuiUsersFromContract);
       }
