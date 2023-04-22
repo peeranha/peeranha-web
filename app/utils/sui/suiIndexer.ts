@@ -12,7 +12,7 @@ const getDataFromIndexer = async (query: string, variables: object = {}) => {
 
 export const getSuiUsers = async () => {
   const data = await getDataFromIndexer(usersQuery);
-  return data.users;
+  return data.user;
 };
 
 export const getSuiCommunities = async () => {
