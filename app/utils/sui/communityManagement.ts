@@ -8,12 +8,14 @@ export const createSuiCommunity = async (wallet: WalletContextState, community) 
   const communityTransactionData = getVector8FromIpfsHash(communityIpfsHash);
   const userObj = await getSuiUserObject(wallet.address);
 
-  const tagsStringData = community.tags.map(async (tag) => JSON.parse(await getText(tag)));
+  const tagsStringData = await Promise.all(
+    community.tags.map(async (tag) => await saveText(JSON.stringify(tag))),
+  );
 
   const tagsTransactionData = tagsStringData.map((tag) => getVector8FromIpfsHash(tag));
 
   return handleMoveCall(wallet, communityLib, createCommunity, [
-    userObj.data.pop().data.objectId,
+    userObj.id.id,
     communityTransactionData,
     tagsTransactionData,
   ]);
