@@ -24,3 +24,43 @@ export const getSuiUsers = async () => {
     console.error(error);
   }
 };
+
+export const getSuiCommunities = async () => {
+  const community = `
+        id
+        avatar
+        name
+        description
+        language
+        website
+        communitySite
+        isBlogger
+        tags
+    `;
+
+  const query = `
+      query(
+        $first: Int,
+      ) {
+        communities(
+         first: $first,
+        ) {
+          ${community}
+        }
+      }`;
+
+  const variables = { first: '100' };
+
+  try {
+    const response = await fetch('https://ue2ez6lhhi.execute-api.us-east-2.amazonaws.com/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables }),
+    });
+
+    const data = await response.json();
+    console.log('data', data);
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useWallet } from '@suiet/wallet-kit';
 import { createStructuredSelector } from 'reselect';
 import { DEFAULT_LOCALE } from 'i18n';
 import { useTranslation } from 'react-i18next';
@@ -62,6 +63,7 @@ export const CreateCommunity = ({
 }) => {
   const { t } = useTranslation();
   useModeratorRole(routes.noAccess);
+  const wallet = useWallet();
 
   useEffect(() => {
     setDefaultStoreDispatch();
@@ -83,15 +85,13 @@ export const CreateCommunity = ({
     const community = {
       avatar: values[COMM_AVATAR_FIELD],
       name: values[COMM_NAME_FIELD],
-      language: values[LANGUAGE_FIELD]
-        ? values[LANGUAGE_FIELD].value
-        : DEFAULT_LOCALE,
+      language: values[LANGUAGE_FIELD] ? values[LANGUAGE_FIELD].value : DEFAULT_LOCALE,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       website: values[COMM_OFFICIAL_SITE_FIELD],
       communitySite: values[COMM_PEERANHA_SITE_FIELD],
       tags,
     };
-    createCommunityDispatch(community, reset);
+    createCommunityDispatch(community, reset, wallet);
   };
 
   const sendProps = {
@@ -143,10 +143,7 @@ CreateCommunity.propTypes = {
 const withConnect = connect(
   createStructuredSelector({
     locale: makeSelectLocale(),
-    faqQuestions: selectFaqQuestions([
-      WHAT_IS_COMMUNITY_QUESTION,
-      WHO_MANAGES_COMMUNITY_QUESTION,
-    ]),
+    faqQuestions: selectFaqQuestions([WHAT_IS_COMMUNITY_QUESTION, WHO_MANAGES_COMMUNITY_QUESTION]),
     createCommunityLoading: selectors.selectCreateCommunityLoading(),
     isFormLoading: selectors.selectIsFormLoading(),
     profile: makeSelectProfileInfo(),

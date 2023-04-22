@@ -107,9 +107,11 @@ export const communityAdminOfficialAnswerPermission = (properties = [], communit
   ).length;
 
 export const communityAdminCreateTagPermission = (properties = [], communityId) =>
-  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_CREATE_TAG]).filter(
-    ({ community }) => communityId === community,
-  ).length;
+  isSuiBlockchain
+    ? true
+    : !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_CREATE_TAG]).filter(
+        ({ community }) => communityId === community,
+      ).length;
 
 export const communityAdminInfiniteImpactPermission = (properties, communityId) =>
   !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_INFINITE_IMPACT]).filter(
@@ -144,9 +146,9 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
     );
   }
 
-  return Boolean(
-    permissions.find((permission) => BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE)),
-  );
+  return isSuiBlockchain
+    ? true
+    : Boolean(permissions.find((permission) => BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE)));
 };
 
 export const getCommunityRole = (role, communityId) =>
@@ -201,15 +203,19 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
     );
   }
 
-  return !!permissions.filter(
-    (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
-  ).length;
+  return isSuiBlockchain
+    ? true
+    : !!permissions.filter(
+        (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
+      ).length;
 };
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
-  !!permissions.filter(
-    (permission) => permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
-  ).length;
+  isSuiBlockchain
+    ? true
+    : !!permissions.filter(
+        (permission) => permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
+      ).length;
 
 export const hasProtocolAdminRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
@@ -224,9 +230,9 @@ export const hasProtocolAdminRole = (permissionsFromState) => {
     );
   }
 
-  return Boolean(
-    permissions.find((permission) => BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE)),
-  );
+  return isSuiBlockchain
+    ? true
+    : Boolean(permissions.find((permission) => BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE)));
 };
 
 export const getCommunityRoles = (communityId) => {
