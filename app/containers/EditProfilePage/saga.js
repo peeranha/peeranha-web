@@ -13,14 +13,9 @@ import { AVATAR_FIELD, DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 import { isValid, isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { saveSuiProfile } from 'utils/sui/profileManagement';
 
-import {
-  createUser,
-  handleMoveCall,
-  isSuiBlockchain,
-  USER_RATING_COLLECTION,
-  userLib,
-} from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { saveProfileSuccess, saveProfileErr } from './actions';
 
@@ -37,13 +32,7 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
     }
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
-      const ipfsHash = yield call(saveText, JSON.stringify(profile));
-      const transactionData = getVector8FromIpfsHash(ipfsHash);
-
-      yield call(handleMoveCall, wallet, userLib, createUser, [
-        USER_RATING_COLLECTION,
-        transactionData,
-      ]);
+      yield call(saveSuiProfile, wallet, profile);
     } else {
       const ethereumService = yield select(selectEthereum);
 

@@ -1,8 +1,14 @@
-import { getOwnedObject, userLib, userObject } from 'utils/sui/sui';
+import {
+  createUser,
+  handleMoveCall,
+  updateUser,
+  USER_RATING_COLLECTION,
+  userLib,
+  userObject,
+} from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
-import { getIpfsHashFromBytes32, getText } from 'utils/ipfs';
-import { getUserAvatar } from 'utils/profileManagement';
-
+import { getIpfsHashFromBytes32, getText, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
+import { getSuiUserObject } from 'utils/sui/accountManagement';
 export const getRatingByCommunity = (
   user: { ratings: any[] },
   communityId: { toString: () => any },
@@ -18,10 +24,7 @@ export const byteArrayToHexString = (byteArray: any[]) => {
 /* eslint camelcase: 0 */
 export async function getSuiProfileInfo(wallet: WalletContextState) {
   if (!wallet.connected) return null;
-  const profileObjects = (
-    await getOwnedObject(userLib, userObject, wallet.account?.address)
-  )?.data.sort((first, second) => Number(second?.data?.version) - Number(first?.data?.version));
-  const profileObject = profileObjects ? profileObjects[0].data?.content?.fields : null;
+  const profileObject = await getSuiUserObject(wallet);
   const ipfsHash = getIpfsHashFromBytes32(
     `0x${byteArrayToHexString(profileObject.ipfsDoc.fields.hash)}`,
   );
@@ -46,22 +49,22 @@ export async function getSuiProfileInfo(wallet: WalletContextState) {
   };
 }
 
-export async function saveProfile() {
-  // const ipfsHash = await saveText(JSON.stringify(profile));
-  // const transactionData = getBytes32FromIpfsHash(ipfsHash);
-  // await ethereumService.sendTransaction(CONTRACT_USER, user, UPDATE_ACC, [user, transactionData]);
+export async function saveSuiProfile(wallet: WalletContextState, profile: object) {
+  const ipfsHash = await saveText(JSON.stringify(profile));
+  const transactionData = getVector8FromIpfsHash(ipfsHash);
+  const suiUserObject = await getSuiUserObject(wallet);
+  if (!suiUserObject) {
+    return handleMoveCall(wallet, userLib, createUser, [USER_RATING_COLLECTION, transactionData]);
+  }
+  return handleMoveCall(wallet, userLib, updateUser, [
+    USER_RATING_COLLECTION,
+    suiUserObject.id.id,
+    transactionData,
+  ]);
 }
 
-export const getNotificationsInfo = async () => {
+export const getSuiNotificationsInfo = async () =>
   // const response = await callService(NOTIFICATIONS_INFO_SERVICE, { user }, true);
-  // return response.OK ? response.body : { all: 0, unread: 0 };
-};
+  ({ all: 0, unread: 0 });
 
-export const getAvailableBalance = () => {
-  // const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;
-  // const stakedInNextPeriod = profile?.stakedInNextPeriod ?? 0;
-  // const balance = profile?.balance ?? 0;
-  // return stakedInCurrentPeriod >= stakedInNextPeriod
-  //   ? balance - stakedInCurrentPeriod
-  //   : balance - stakedInNextPeriod;
-};
+export const getSuiAvailableBalance = () => 0;

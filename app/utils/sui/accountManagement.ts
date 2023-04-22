@@ -7,3 +7,12 @@ export const isSuiUserExists = async (wallet: WalletContextState) => {
   const userObjects = await getOwnedObject(userLib, userObject, wallet.account?.address);
   return Boolean(userObjects?.data?.length);
 };
+
+export const getSuiUserObject = async (wallet: WalletContextState) => {
+  if (!wallet.connected) throw new ApplicationError('No profile');
+
+  const profileObjects = (
+    await getOwnedObject(userLib, userObject, wallet.account?.address)
+  )?.data.sort((first, second) => Number(second?.data?.version) - Number(first?.data?.version));
+  return profileObjects ? profileObjects[0]?.data?.content?.fields : null;
+};
