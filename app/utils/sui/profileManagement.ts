@@ -18,15 +18,12 @@ export const getRatingByCommunity = (
 
 export const byteArrayToHexString = (byteArray: any[]) => {
   const uint8Array = new Uint8Array(byteArray);
-  return new TextDecoder('utf-8').decode(uint8Array).slice(2, -1);
+  return `0x${new TextDecoder('utf-8').decode(uint8Array)}`;
 };
-
 /* eslint camelcase: 0 */
 export async function getSuiProfileInfo(address: string) {
   const profileObject = await getSuiUserObject(address);
-  const ipfsHash = getIpfsHashFromBytes32(
-    `0x${byteArrayToHexString(profileObject.ipfsDoc.fields.hash)}`,
-  );
+  const ipfsHash = getIpfsHashFromBytes32(byteArrayToHexString(profileObject.ipfsDoc.fields.hash));
   const profile = JSON.parse(await getText(ipfsHash));
   return {
     id: profileObject.id.id,

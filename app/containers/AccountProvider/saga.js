@@ -207,6 +207,7 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
         return;
       }
       const profileInfo = yield call(getSuiProfileInfo, wallet.address);
+      console.log(profileInfo);
 
       setCookie({
         name: PROFILE_INFO_LS,

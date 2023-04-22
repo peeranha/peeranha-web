@@ -51,7 +51,7 @@ import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
   try {
-    if (!isSuiBlockchain) {
+    if (isSuiBlockchain) {
       yield put(
         getStatSuccess({
           usersCount: 0,
