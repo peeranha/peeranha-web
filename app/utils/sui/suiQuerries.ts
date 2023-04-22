@@ -37,7 +37,7 @@ const user = `
 `;
 
 const community = `
-  id
+    id
     name
     description
     website
@@ -111,6 +111,17 @@ const community = `
     }
 `;
 
+const tag = `
+    id
+    communityId
+    name
+    description
+    postCount
+    deletedPostCount
+    ipfsHash
+    ipfsHash2
+`;
+
 export const userQuery = `query($id: String) {
     user(where: { id: $id }) {
       ${user}
@@ -126,5 +137,17 @@ export const usersQuery = `query {
 export const communitiesQuery = `query {
     community {
       ${community}
+    }
+  }`;
+
+export const tagsQuery = `query {
+    tag {
+      ${tag}
+    }
+}`;
+
+export const communityTagsQuery = `query($communityId: String) {
+    tag(where: { communityId: $communityId }) {
+      ${tag}
     }
   }`;

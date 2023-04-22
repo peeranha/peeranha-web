@@ -46,7 +46,12 @@ import {
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import { getSuiUserById, getSuiCommunities } from 'utils/sui/suiIndexer';
+import {
+  getSuiUserById,
+  getSuiCommunities,
+  getSuiTags,
+  getSuiCommunityTags,
+} from 'utils/sui/suiIndexer';
 import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
@@ -90,8 +95,13 @@ export function* getCommunitiesWorker() {
 
 export function* getTagsWorker() {
   try {
-    const tags = yield call(getTags);
-    yield put(getTagsSuccess(tags));
+    if (isSuiBlockchain) {
+      const tags = yield call(getSuiTags);
+      yield put(getTagsSuccess(tags));
+    } else {
+      const tags = yield call(getTags);
+      yield put(getTagsSuccess(tags));
+    }
   } catch (err) {
     yield put(getTagsErr(err));
   }
@@ -99,8 +109,13 @@ export function* getTagsWorker() {
 
 export function* getCommunityTagsWorker({ communityId }) {
   try {
-    const tags = yield call(getCommunityTags, communityId);
-    yield put(getTagsSuccess(tags));
+    if (isSuiBlockchain) {
+      const tags = yield call(getSuiCommunityTags, communityId);
+      yield put(getTagsSuccess(tags));
+    } else {
+      const tags = yield call(getCommunityTags, communityId);
+      yield put(getTagsSuccess(tags));
+    }
   } catch (err) {
     yield put(getTagsErr(err));
   }
