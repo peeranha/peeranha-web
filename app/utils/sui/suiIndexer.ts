@@ -1,28 +1,18 @@
+import { usersQuery } from 'utils/sui/suiQuerries';
+import { SUI_INDEXER_URL } from 'utils/sui/sui';
+
+const getDataFromIndexer = async (query: string, variables: object = {}) => {
+  const response = await fetch(SUI_INDEXER_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: usersQuery, variables }),
+  });
+  return (await response.json()).data;
+};
+
 export const getSuiUsers = async () => {
-  const query = `query {
-    user {
-      id
-      displayName
-      company
-      position
-      location
-      about
-      avatar
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://ue2ez6lhhi.execute-api.us-east-2.amazonaws.com/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query }),
-    });
-
-    const data = await response.json();
-    console.log(data.data.user);
-  } catch (error) {
-    console.error(error);
-  }
+  const data = await getDataFromIndexer(usersQuery);
+  return data.users;
 };
 
 export const getSuiCommunities = async () => {

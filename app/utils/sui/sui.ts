@@ -12,6 +12,8 @@ export const USER_RATING_COLLECTION =
 export const PERIOD_REWARD_CONTAINER =
   '0xc8c06ebf97cfdc6714d49032f7d5f3aa8de1c6fec95d55c6842317e597598245';
 
+export const SUI_INDEXER_URL = 'https://ue2ez6lhhi.execute-api.us-east-2.amazonaws.com/graphql';
+
 export const userLib = 'userLib';
 export const communityLib = 'communityLib';
 export const userObject = 'User';

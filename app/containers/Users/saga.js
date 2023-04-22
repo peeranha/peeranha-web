@@ -1,5 +1,5 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { getSuiUsers, getSuiUsersFromContract } from 'utils/sui/indexerQueries';
+import { getSuiUsers, getSuiUsersFromContract } from 'utils/sui/suiIndexer';
 import { IS_INDEXER_ON, isSuiBlockchain } from 'utils/sui/sui';
 import { getUsers, getUsersByCommunity } from 'utils/theGraph';
 
