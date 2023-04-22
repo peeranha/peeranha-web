@@ -47,6 +47,7 @@ import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getAllSuiCommunities } from 'utils/sui/communityManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { isSuiBlockchain } from 'utils/sui/sui';
+import { getSuiUserById } from 'utils/sui/suiIndexer';
 import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
@@ -138,8 +139,7 @@ export function* getUserProfileWorker({ user, getFullProfile, communityIdForRati
       if (isLogin) {
         updatedUserInfo = yield call(getSuiProfileInfo, wallet.address);
       } else {
-        // TODO query from indexer
-        updatedUserInfo = yield call(getSuiProfileInfo, user);
+        updatedUserInfo = yield call(getSuiUserById, user);
       }
       yield put(getUserProfileSuccess({ ...updatedUserInfo }));
     } else {
