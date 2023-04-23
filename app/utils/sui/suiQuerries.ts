@@ -36,80 +36,12 @@ const user = `
   }
 `;
 
-const community = `
-    id
-    name
-    description
-    website
-    communitySite
-    language
-    avatar
-    isFrozen
-    creationTime
-    postCount
-    documentationCount
-    deletedPostCount
-    replyCount
-    tagsCount
-    followingUsers
-    ipfsHash
-    ipfsHash2
-    communitydocumentation {
-      id
-      communityId
-      title
-      content
-      creationTime
-      author {
-        id
-        username
-        displayName
-        avatar
-      }
-    }
-    post {
-      id
-      title
-      content
-      author {
-        id
-        username
-        displayName
-        avatar
-      }
-      creationTime
-      community {
-        id
-        name
-        avatar
-      }
-    }
-    tag {
-      id
-      name
-      postCount
-    }
-    usercommunity {
-      id
-      role
-      user {
-        id
-        username
-        displayName
-        avatar
-      }
-    }
-    usercommunityrating {
-      id
-      rating
-      user {
-        id
-        username
-        displayName
-        avatar
-      }
-    }
-`;
+const tag = `id
+  communityId
+  name
+  description
+  postCount
+  deletedPostCount`;
 
 const post = `
     id
@@ -135,7 +67,6 @@ const post = `
       commentTime
     }
     history {
-      id
       postId
       eventType
       eventTime
@@ -149,15 +80,8 @@ const post = `
       ${user}
     }
     posttag {
-      id
-      tagId
       tag {
-        id
-        communityId
-        name
-        description
-        postCount
-        deletedPostCount
+        ${tag}
       }
     }
     reply {
@@ -168,15 +92,49 @@ const post = `
     }
 `;
 
-const tag = `
+const community = `
     id
-    communityId
     name
     description
+    website
+    communitySite
+    language
+    avatar
+    isFrozen
+    creationTime
     postCount
+    documentationCount
     deletedPostCount
+    replyCount
+    tagsCount
+    followingUsers
     ipfsHash
     ipfsHash2
+    communitydocumentation {
+      title
+      content
+      creationTime
+      author {
+        ${user}
+      }
+    }
+    post {
+      ${post}
+    }
+    tag {
+      ${tag}
+    }
+    usercommunity {
+      user {
+        ${user}
+      }
+    }
+    usercommunityrating {
+      rating
+      user {
+        id
+      }
+    }
 `;
 
 export const userQuery = `query($id: String) {
