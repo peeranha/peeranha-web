@@ -167,8 +167,17 @@ export const communityTagsQuery = `query($communityId: String) {
     }
   }`;
 
-export const postsQuery = `query {
-    post {
+export const postsQuery = (postTypes: string) => `
+  query (
+    $first: Int,
+    $skip: Int
+  ) {
+    post (
+      orderBy: { postTime: desc },
+      limit: $first,
+      offset: $skip,
+      where: {isDeleted: "0", postType: "(${postTypes})" },
+    ) {
       ${post}
     }
-}`;
+  }`;

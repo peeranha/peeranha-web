@@ -43,7 +43,7 @@ export function* getQuestionsWorker({
 }) {
   try {
     if (isSuiBlockchain) {
-      const posts = yield call(getSuiPosts);
+      const posts = yield call(getSuiPosts, limit, skip, postTypes);
       const clearQuestionsList = posts.filter((item) => item.title);
       yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, 0));
     } else {

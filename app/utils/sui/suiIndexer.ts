@@ -57,8 +57,8 @@ export const getSuiCommunities = async () => {
   }));
 };
 
-export const getSuiPosts = async () => {
-  const data = await getDataFromIndexer(postsQuery);
+export const getSuiPosts = async (limit, offset, postTypes) => {
+  const data = await getDataFromIndexer(postsQuery(String(postTypes)), { limit, offset });
   return data.post.map((post) => ({
     ...post,
     answers: post.reply || [],
