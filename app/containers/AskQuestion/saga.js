@@ -26,7 +26,9 @@ import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { postSuiQuestion } from 'utils/sui/questionsManagement';
 import {
+  CREATE_POST_EVENT_NAME,
   createPost,
+  getTransactionEventByName,
   handleMoveCall,
   isSuiBlockchain,
   postLib,
@@ -67,7 +69,7 @@ export function* postQuestionWorker({ val }) {
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
-      const result = yield call(
+      const txResult = yield call(
         postSuiQuestion,
         wallet,
         profile.id,
@@ -75,6 +77,22 @@ export function* postQuestionWorker({ val }) {
         questionData,
         postType,
         tags,
+      );
+      console.log(`Post result: ${JSON.stringify(txResult)}`);
+      const postCreatedEvent = yield call(
+        getTransactionEventByName,
+        txResult.digest,
+        CREATE_POST_EVENT_NAME,
+      );
+      const id = postCreatedEvent.parsedJson.postMetaDataId;
+      console.log(`New post id ${id}`);
+      yield put(askQuestionSuccess(id));
+
+      yield call(
+        createdHistory.push,
+        postType === POST_TYPE.documentation
+          ? routes.documentation(id, questionData.title)
+          : routes.questionView(id, questionData.title, false),
       );
     } else {
       const ethereumService = yield select(selectEthereum);

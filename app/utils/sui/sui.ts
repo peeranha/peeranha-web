@@ -31,6 +31,12 @@ export const createComment = 'createComment';
 export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const IS_INDEXER_ON = true;
 
+export const CREATE_POST_EVENT_NAME = 'CreatePostEvent';
+
+export const waitForTransactionConfirmation = async (_transaction: string): Promise<void> =>
+  // TODO: add actual implementation
+  new Promise((resolve) => setTimeout(resolve, 2000));
+
 export const handleMoveCall = async (
   wallet: WalletContextState,
   libName: string,
@@ -45,9 +51,13 @@ export const handleMoveCall = async (
     arguments: data.map((item: unknown) => tx.pure(item)),
   });
 
-  return wallet.signAndExecuteTransactionBlock({
+  const transactionResult = await wallet.signAndExecuteTransactionBlock({
     transactionBlock: tx,
   });
+
+  await waitForTransactionConfirmation(transactionResult.digest);
+
+  return transactionResult;
 };
 
 export const getOwnedObject = async (
@@ -81,4 +91,49 @@ export const getObjectById = async (objectId: string): Promise<object> => {
       showContent: true,
     },
   });
+};
+
+export const getTransactionEventByName = async (
+  transacion: string,
+  eventName: string,
+): Promise<
+  | {
+      id: {
+        txDigest: string;
+        eventSeq: string;
+      };
+      packageId: string;
+      transactionModule: string;
+      sender: string;
+      type: string;
+      parsedJson?: Record<string, any> | undefined;
+      bcs?: string | undefined;
+      timestampMs?: string | undefined;
+    }
+  | undefined
+> => {
+  const rpc = new JsonRpcProvider(devnetConnection);
+  const result = await rpc.getTransactionBlock({
+    digest: transacion,
+    options: {
+      showInput: false,
+      showEffects: false,
+      showEvents: true,
+      showObjectChanges: false,
+      showBalanceChanges: false,
+    },
+  });
+  const { events } = result;
+
+  if (!events) {
+    return undefined;
+  }
+
+  const resultEvent = events.filter((event) => event.type.includes(eventName));
+
+  if (!resultEvent) {
+    return undefined;
+  }
+
+  return resultEvent[0];
 };
