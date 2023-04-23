@@ -111,6 +111,63 @@ const community = `
     }
 `;
 
+const post = `
+    id
+    ipfsHash
+    postType
+    author
+    rating
+    postTime
+    communityId
+    title
+    content
+    commentCount
+    replyCount
+    isDeleted
+    officialReply
+    bestReply
+    handle
+    messengerType
+    comment {
+      id
+      author
+      content
+      commentTime
+    }
+    history {
+      id
+      postId
+      eventType
+      eventTime
+    }
+    community {
+      id
+      name
+      description
+    }
+    user {
+      ${user}
+    }
+    posttag {
+      id
+      tagId
+      tag {
+        id
+        communityId
+        name
+        description
+        postCount
+        deletedPostCount
+      }
+    }
+    reply {
+      id
+      author
+      content
+      replyTime
+    }
+`;
+
 const tag = `
     id
     communityId
@@ -151,3 +208,9 @@ export const communityTagsQuery = `query($communityId: String) {
       ${tag}
     }
   }`;
+
+export const postsQuery = `query {
+    post {
+      ${post}
+    }
+}`;

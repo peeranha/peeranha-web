@@ -34,7 +34,6 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import ScrollToTop from 'components/ScrollToTop/index';
-import InfinityLoader from 'components/InfinityLoader';
 import TopCommunities from 'components/TopCommunities';
 import Seo from 'components/Seo';
 
@@ -48,7 +47,6 @@ import Content from './Content/Content';
 import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
-import ShowMoreButton from './Content/ShowMoreButton';
 import { QUESTION_FILTER } from './constants';
 
 const single = isSingleCommunityWebsite();
@@ -70,11 +68,9 @@ export const Questions = ({
   createdFilter,
   setTypeFilterDispatch,
   initLoadedItems,
-  loadedItems,
   nextLoadedItems,
   getQuestionsDispatch,
   questionFilter,
-  loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
   postsTypes,
   questionsCount,

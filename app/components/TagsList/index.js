@@ -9,6 +9,7 @@ import Span from 'components/Span';
 
 import { singleCommunityFonts, isSingleCommunityWebsite } from 'utils/communityManagement';
 import Button from 'components/Button';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const fonts = singleCommunityFonts();
 const single = isSingleCommunityWebsite();
@@ -34,9 +35,10 @@ const Box = styled.ul`
 `;
 
 const TagsList = ({ tags, communities, communityId, children, className }) => {
-  const community = useMemo(
-    () => communities.filter((x) => +communityId === x.id)[0] || { tags: [] },
-    [communities, communities.length],
+  const community = communities.find((communityObject) =>
+    isSuiBlockchain
+      ? communityObject.suiId === communityId
+      : communityObject.id === Number(communityId),
   );
 
   if (!community || !tags?.length) return null;

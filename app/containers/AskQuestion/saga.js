@@ -1,5 +1,6 @@
 import { languagesEnum } from 'app/i18n';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { POST_TYPES } from 'containers/ViewQuestion/constants';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
@@ -9,7 +10,7 @@ import { postQuestion, getCreatedPostId, updateDocumentationTree } from 'utils/q
 
 import { getResults } from 'utils/custom-search';
 
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import {
   FORM_COMMUNITY,
@@ -23,6 +24,14 @@ import {
 
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
+import { postSuiQuestion } from 'utils/sui/questionsManagement';
+import {
+  createPost,
+  handleMoveCall,
+  isSuiBlockchain,
+  postLib,
+  USER_RATING_COLLECTION,
+} from 'utils/sui/sui';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 import {
@@ -43,11 +52,6 @@ import {
 export function* postQuestionWorker({ val }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const ethereumService = yield select(selectEthereum);
-    const selectedAccount = yield select(makeSelectAccount());
-    const documentationMenu = yield select(selectDocumentationMenu());
-
-    // const promoteValue = +val[FORM_PROMOTE];
     const postType = +val[FORM_TYPE];
     const tags =
       postType !== POST_TYPE.documentation
@@ -58,88 +62,103 @@ export function* postQuestionWorker({ val }) {
     const questionData = {
       title: val[FORM_TITLE],
       content: val[FORM_CONTENT],
-      // bounty: +val[FORM_BOUNTY],
-      // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
-      // bountyHours: +val[FORM_BOUNTY_HOURS],
     };
-    const transaction = yield call(
-      postQuestion,
-      selectedAccount,
-      communityId,
-      questionData,
-      postType,
-      tags,
-      languagesEnum[locale],
-      ethereumService,
-    );
-    const id = yield call(
-      getCreatedPostId,
-      ethereumService,
-      transaction.blockNumber,
-      selectedAccount,
-      communityId,
-    );
 
-    if (postType === POST_TYPE.documentation) {
-      const documentationTraversal = (documentationArray) =>
-        documentationArray.map((documentationSection) => {
-          if (String(documentationSection.id) === String(val[FORM_SUB_ARTICLE].value)) {
-            documentationSection.children.push({
-              id: id.toString(),
-              title: questionData.title,
-              children: [],
-            });
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const profile = yield select(makeSelectProfileInfo());
+      const result = yield call(
+        postSuiQuestion,
+        wallet,
+        profile.id,
+        val[FORM_COMMUNITY].suiId,
+        questionData,
+        postType,
+        tags,
+      );
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const selectedAccount = yield select(makeSelectAccount());
+      const documentationMenu = yield select(selectDocumentationMenu());
+      const transaction = yield call(
+        postQuestion,
+        selectedAccount,
+        communityId,
+        questionData,
+        postType,
+        tags,
+        languagesEnum[locale],
+        ethereumService,
+      );
+      const id = yield call(
+        getCreatedPostId,
+        ethereumService,
+        transaction.blockNumber,
+        selectedAccount,
+        communityId,
+      );
+
+      if (postType === POST_TYPE.documentation) {
+        const documentationTraversal = (documentationArray) =>
+          documentationArray.map((documentationSection) => {
+            if (String(documentationSection.id) === String(val[FORM_SUB_ARTICLE].value)) {
+              documentationSection.children.push({
+                id: id.toString(),
+                title: questionData.title,
+                children: [],
+              });
+              return {
+                id: documentationSection.id,
+                children: documentationSection.children,
+              };
+            } else if (documentationSection.children.length) {
+              return {
+                id: documentationSection.id,
+                children: documentationTraversal(documentationSection.children),
+              };
+            }
             return {
               id: documentationSection.id,
               children: documentationSection.children,
             };
-          } else if (documentationSection.children.length) {
-            return {
-              id: documentationSection.id,
-              children: documentationTraversal(documentationSection.children),
-            };
-          }
-          return {
-            id: documentationSection.id,
-            children: documentationSection.children,
-          };
-        });
-      let newMenu;
+          });
+        let newMenu;
 
-      if (documentationMenu?.length && Number(val[FORM_SUB_ARTICLE].value) !== -1) {
-        newMenu = documentationTraversal(documentationMenu);
-      } else {
-        newMenu = [
-          ...(documentationMenu || []),
-          {
-            id: id.toString(),
-            children: [],
-          },
-        ];
+        if (documentationMenu?.length && Number(val[FORM_SUB_ARTICLE].value) !== -1) {
+          newMenu = documentationTraversal(documentationMenu);
+        } else {
+          newMenu = [
+            ...(documentationMenu || []),
+            {
+              id: id.toString(),
+              children: [],
+            },
+          ];
+        }
+
+        const documentationJSON = {
+          pinnedId: '',
+          documentations: newMenu,
+        };
+
+        yield call(
+          updateDocumentationTree,
+          selectedAccount,
+          communityId,
+          documentationJSON,
+          ethereumService,
+        );
       }
 
-      const documentationJSON = {
-        pinnedId: '',
-        documentations: newMenu,
-      };
+      yield put(askQuestionSuccess(id));
 
       yield call(
-        updateDocumentationTree,
-        selectedAccount,
-        communityId,
-        documentationJSON,
-        ethereumService,
+        createdHistory.push,
+        postType === POST_TYPE.documentation
+          ? routes.documentation(id, questionData.title)
+          : routes.questionView(id, questionData.title, false),
       );
     }
-
-    yield put(askQuestionSuccess(id));
-
-    yield call(
-      createdHistory.push,
-      postType === POST_TYPE.documentation
-        ? routes.documentation(id, questionData.title)
-        : routes.questionView(id, questionData.title, false),
-    );
   } catch (err) {
     yield put(askQuestionError(err));
   }

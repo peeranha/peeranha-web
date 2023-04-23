@@ -9,6 +9,7 @@ import Span from 'components/Span';
 import Img from 'components/Img';
 
 import { POST_TYPE } from 'utils/constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const single = isSingleCommunityWebsite();
 
@@ -37,7 +38,11 @@ const QuestionCommunity = ({
     return null;
   }
 
-  const community = getFollowedCommunities(communities, [+communityId])[0] || {};
+  const community = communities.find((communityObject) =>
+    isSuiBlockchain
+      ? communityObject.suiId === communityId
+      : communityObject.id === Number(communityId),
+  );
 
   const communityTranslationTitle = community.translations?.find(
     (translation) => translation.language === locale,

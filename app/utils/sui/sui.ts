@@ -16,6 +16,7 @@ export const SUI_INDEXER_URL = 'https://ue2ez6lhhi.execute-api.us-east-2.amazona
 
 export const userLib = 'userLib';
 export const communityLib = 'communityLib';
+export const postLib = 'postLib';
 export const userObject = 'User';
 export const communityObject = 'Community';
 
@@ -23,6 +24,9 @@ export const createUser = 'createUser';
 export const updateUser = 'updateUser';
 export const updateCommunity = 'updateCommunity';
 export const createCommunity = 'createCommunity';
+export const createPost = 'createPost';
+export const createReply = 'createReply';
+export const createComment = 'createComment';
 
 export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const IS_INDEXER_ON = true;

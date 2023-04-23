@@ -1,4 +1,5 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { take, takeLatest, call, put, select } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
@@ -10,6 +11,8 @@ import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constan
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { getSuiPosts } from 'utils/sui/suiIndexer';
 
 import {
   CHANGE_QUESTION_FILTER,
@@ -39,54 +42,62 @@ export function* getQuestionsWorker({
   toUpdateQuestions,
 }) {
   try {
-    const followedCommunities = yield select(makeSelectFollowedCommunities());
+    if (isSuiBlockchain) {
+      const posts = yield call(getSuiPosts);
+      const clearQuestionsList = posts.filter((item) => item.title);
+      yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, 0));
+    } else {
+      const followedCommunities = yield select(makeSelectFollowedCommunities());
 
-    let questionsList = [];
-    let counter = skip;
+      let questionsList = [];
+      let counter = skip;
 
-    if (single) {
-      communityIdFilter = single;
-    }
-    if (communityIdFilter > 0) {
-      questionsList = yield call(
-        getPostsByCommunityId,
-        limit,
-        skip,
-        postTypes,
-        [communityIdFilter],
-        tags,
+      if (single) {
+        communityIdFilter = single;
+      }
+      if (communityIdFilter > 0) {
+        questionsList = yield call(
+          getPostsByCommunityId,
+          limit,
+          skip,
+          postTypes,
+          [communityIdFilter],
+          tags,
+        );
+      }
+
+      if (communityIdFilter === 0 && parentPage !== feed) {
+        questionsList = yield call(getPosts, limit, skip, postTypes);
+      }
+
+      // Load questions for communities where I am
+      if (
+        communityIdFilter === 0 &&
+        parentPage === feed &&
+        followedCommunities &&
+        followedCommunities.length > 0
+      ) {
+        questionsList = yield call(
+          getPostsByCommunityId,
+          limit,
+          skip,
+          postTypes,
+          followedCommunities,
+          tags,
+        );
+      }
+
+      questionsList.forEach((question) => {
+        question.isGeneral = isGeneralQuestion(question);
+      });
+
+      const clearQuestionsList = questionsList.filter((item) => item.title);
+
+      counter += clearQuestionsList.length;
+      yield put(
+        getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, counter),
       );
     }
-
-    if (communityIdFilter === 0 && parentPage !== feed) {
-      questionsList = yield call(getPosts, limit, skip, postTypes);
-    }
-
-    // Load questions for communities where I am
-    if (
-      communityIdFilter === 0 &&
-      parentPage === feed &&
-      followedCommunities &&
-      followedCommunities.length > 0
-    ) {
-      questionsList = yield call(
-        getPostsByCommunityId,
-        limit,
-        skip,
-        postTypes,
-        followedCommunities,
-        tags,
-      );
-    }
-
-    questionsList.forEach((question) => {
-      question.isGeneral = isGeneralQuestion(question);
-    });
-
-    const clearQuestionsList = questionsList.filter((item) => item.title);
-
-    counter += clearQuestionsList.length;
-    yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, counter));
   } catch (err) {
     yield put(getQuestionsError(err));
   }

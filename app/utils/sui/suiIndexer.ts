@@ -4,6 +4,7 @@ import {
   communitiesQuery,
   tagsQuery,
   communityTagsQuery,
+  postsQuery,
 } from 'utils/sui/suiQuerries';
 import { SUI_INDEXER_URL } from 'utils/sui/sui';
 
@@ -36,8 +37,7 @@ export const getSuiUserById = async (id: string) => {
     ratings: user.usercommunityrating,
     permissions: user.userpermission,
     highestRating: 0,
-    postCount: 0,
-    answersGiven: 0,
+    answersGiven: user.replyCount,
   };
 };
 
@@ -54,6 +54,18 @@ export const getSuiCommunities = async () => {
     followingUsers: +community.followingUsers,
     replyCount: +community.replyCount,
     suiId: community.id,
+  }));
+};
+
+export const getSuiPosts = async () => {
+  const data = await getDataFromIndexer(postsQuery);
+  return data.post.map((post) => ({
+    ...post,
+    answers: post.reply || [],
+    community: post.community[0] || {},
+    author: post.user[0] || {},
+    communityId: post.community[0].id,
+    tags: post.posttag.map((tagObject) => tagObject.tag[0]),
   }));
 };
 
