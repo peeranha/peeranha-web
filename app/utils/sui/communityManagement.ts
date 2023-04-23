@@ -1,5 +1,5 @@
-import { getText, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
-import { communityLib, createCommunity, handleMoveCall } from 'utils/sui/sui';
+import { getVector8FromIpfsHash, saveText } from 'utils/ipfs';
+import { communityLib, createCommunity, handleMoveCall, updateCommunity } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 
@@ -18,5 +18,17 @@ export const createSuiCommunity = async (wallet: WalletContextState, community) 
     userObj.id.id,
     communityTransactionData,
     tagsTransactionData,
+  ]);
+};
+
+export const updateSuiCommunity = async (wallet: WalletContextState, communityId, community) => {
+  const communityIpfsHash = await saveText(JSON.stringify(community));
+  const communityTransactionData = getVector8FromIpfsHash(communityIpfsHash);
+  const userObj = await getSuiUserObject(wallet.address);
+
+  return handleMoveCall(wallet, communityLib, updateCommunity, [
+    userObj.id.id,
+    communityId,
+    communityTransactionData,
   ]);
 };

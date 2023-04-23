@@ -155,6 +155,12 @@ export const communitiesQuery = `query {
     }
   }`;
 
+export const communityQuery = `query($id: String) {
+    community(where: { id: $id }) {
+      ${community}
+    }
+  }`;
+
 export const tagsQuery = `query {
     tag {
       ${tag}

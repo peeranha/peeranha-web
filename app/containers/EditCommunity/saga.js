@@ -33,22 +33,31 @@ import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
 
 import { selectCommunity } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getOwnedObject, handleMoveCall, isSuiBlockchain } from 'utils/sui/sui';
-import { getVector8FromIpfsHash, saveText } from 'utils/ipfs';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { updateSuiCommunity } from 'utils/sui/communityManagement';
+import { getSuiCommunities, getSuiCommunity } from 'utils/sui/suiIndexer';
 
 export function* getCommunityWorker({ communityId }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const community = yield call(getCommunityFromContract, ethereumService, communityId);
+    if (isSuiBlockchain) {
+      const suiCommunities = yield call(getSuiCommunities);
+      yield put(getCommunitiesSuccess(suiCommunities));
+      const communities = yield select(selectCommunities());
+      const suiCommunityId = communities.find((community) => community.id == communityId).suiId;
+      const community = yield call(getSuiCommunity, suiCommunityId);
+      yield put(getCommunitySuccess({ ...community, translations: [] }));
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const community = yield call(getCommunityFromContract, ethereumService, communityId);
+      const { translations } = yield call(getCommunityById, communityId);
 
-    const { translations } = yield call(getCommunityById, communityId);
-
-    yield put(
-      getCommunitySuccess({
-        ...community,
-        translations,
-      }),
-    );
+      yield put(
+        getCommunitySuccess({
+          ...community,
+          translations,
+        }),
+      );
+    }
   } catch (error) {
     yield put(getCommunityError(error));
   }
@@ -68,24 +77,16 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     const communityDataCurrent = yield select(selectCommunity());
     const isSingleCommunityMode = !!isSingleCommunityWebsite();
-    const isEqual = Object.keys(communityData).every((key) => {
-      return !(key === 'isBlogger') ? communityData[key] === communityDataCurrent[key] : true;
-    });
+    const isEqual = Object.keys(communityData).every((key) =>
+      !(key === 'isBlogger') ? communityData[key] === communityDataCurrent[key] : true,
+    );
 
     if (!isEqual) {
       if (isSuiBlockchain) {
         const wallet = yield select(selectSuiWallet());
-        const communityIpfsHash = yield call(saveText, JSON.stringify(communityData));
-        const communityTransactionData = getVector8FromIpfsHash(communityIpfsHash);
-
-        const userObj = yield call(getOwnedObject, 'userLib', 'User', wallet.address);
-
-        //NEED 1 MORE ARGUMENT
-        const result = yield call(handleMoveCall, wallet, 'communityLib', 'updateCommunity', [
-          userObj.data.pop().data.objectId,
-          communityTransactionData,
-        ]);
-        console.log('result', result);
+        yield call(updateSuiCommunity, wallet, communityDataCurrent.suiId, communityData);
+        const communities = yield call(getSuiCommunities);
+        yield put(getCommunitiesSuccess(communities));
       } else {
         const ethereumService = yield select(selectEthereum);
         const selectedAccount = yield call(ethereumService.getSelectedAccount);
@@ -94,9 +95,8 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
         const stat = yield select(selectStat());
         const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
+        yield put(getCommunitiesSuccess(communities));
       }
-
-      yield put(getCommunitiesSuccess(communities));
     } else {
       yield call(delay, 1e3);
     }
