@@ -174,12 +174,15 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
 };
 
 export const getCommunities = async (count) => {
-  const communities = await executeQuery({
-    query: queries.Communities[graphService],
-    variables: {
-      first: count,
+  const communities = await executeQuery(
+    {
+      query: queries.Communities[graphService],
+      variables: {
+        first: count,
+      },
     },
-  });
+    false,
+  );
   return isMeshService ? communities?.community : communities?.communities;
 };
 

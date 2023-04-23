@@ -5,10 +5,10 @@ export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
 export const ContractsMapping = {
-  [CONTRACT_TOKEN]: 'token',
-  [CONTRACT_USER]: 'user',
-  [CONTRACT_CONTENT]: 'content',
-  [CONTRACT_COMMUNITY]: 'community',
+  [CONTRACT_TOKEN]: ['token', process.env.PEERANHA_TOKEN],
+  [CONTRACT_USER]: ['user', process.env.USER_ADDRESS],
+  [CONTRACT_CONTENT]: ['content', process.env.CONTENT_ADDRESS],
+  [CONTRACT_COMMUNITY]: ['community', process.env.COMMUNITY_ADDRESS],
 };
 
 // Transaction names
@@ -96,6 +96,11 @@ const comment = `
   content
   isDeleted
   properties
+  language
+    translations {
+      language
+      content
+    }
 `;
 
 const commentMesh = `
@@ -130,6 +135,11 @@ const reply = `
   isFirstReply
   isQuickReply
   properties
+  language
+  translations {
+    language
+    content
+  }
   handle
   messengerType
   comments (
@@ -176,13 +186,22 @@ const post = `
   rating
   postTime
   communityId
+  language
+  translations {
+    language
+    content
+    title
+  }
   title
   content
   commentCount
   replyCount
   isDeleted
+  lastmod
   officialReply
   bestReply
+  isFirstReply
+  isQuickReply
   properties
   handle
   messengerType
@@ -199,6 +218,12 @@ const post = `
     where: { isDeleted: false },
   ) {
     ${comment}
+  }
+  language
+  translations {
+    language
+    title
+    content
   }
 `;
 
@@ -418,6 +443,14 @@ const community = `
   deletedPostCount
   followingUsers
   replyCount
+  translations {
+    communityId
+    description
+    enableAutotranslation
+    id
+    language
+    name
+  }
 `;
 
 const communitiesQuery = `
@@ -697,7 +730,7 @@ export const postsIdsByTagsQueryMesh = (tags: string) => `
     posttag (
       limit: $first,
       offset: $skip,
-      where: { id: "(${tags})", },
+      where: { tagid: "(${tags})" }
     ) {
       postId
     }
@@ -706,7 +739,7 @@ export const postsIdsByTagsQueryMesh = (tags: string) => `
 const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
   query {
     post (
-      where: { id: "(${ids})", postType: "(${postTypes})",},
+      where: { id: "(${ids})", isDeleted: "0", postType: "(${postTypes})" },
       orderBy: { postTime: desc }
     ) {
       ${postMesh}
