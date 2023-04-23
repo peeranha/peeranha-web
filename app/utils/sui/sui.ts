@@ -35,7 +35,7 @@ export const CREATE_POST_EVENT_NAME = 'CreatePostEvent';
 
 export const waitForTransactionConfirmation = async (_transaction: string): Promise<void> =>
   // TODO: add actual implementation
-  new Promise((resolve) => setTimeout(resolve, 2000));
+  new Promise((resolve) => setTimeout(resolve, 4000));
 
 export const handleMoveCall = async (
   wallet: WalletContextState,
