@@ -41,7 +41,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
   };
 
   const hashString = getIpfsHashFromBytes32(ipfsHash);
-  const polygonURL = process.env.BLOCKCHAIN_TRANSACTION_INFO_URL;
+  const explorerUrl = process.env.BLOCKCHAIN_TRANSACTION_INFO_URL;
   const ipfsURL = process.env.IPFS_CDN_URL;
 
   const formattedData = histories?.map(
@@ -49,18 +49,14 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
       transactionHash: (
         <A
           target="_blank"
-          to={{ pathname: polygonURL + transactionHash }}
-          href={polygonURL + transactionHash}
+          to={{ pathname: explorerUrl.replace('{0}', transactionHash) }}
+          href={explorerUrl.replace('{0}', transactionHash)}
         >
           {`${transactionHash.substring(0, 12)}...`}
         </A>
       ),
       eventName: `${t(`post.${eventEntity}`)} ${t(`post.${eventName}`)}`,
-      timeStamp: getFormattedDate(
-        timeStamp,
-        locale,
-        MONTH_3LETTERS__DAY_YYYY_TIME,
-      ),
+      timeStamp: getFormattedDate(timeStamp, locale, MONTH_3LETTERS__DAY_YYYY_TIME),
     }),
   );
 
@@ -70,11 +66,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
       <Span fontSize="14">
         {t('common.ipfsHashValue')}
         {': '}
-        <A
-          target="_blank"
-          to={{ pathname: ipfsURL + hashString }}
-          href={ipfsURL + hashString}
-        >
+        <A target="_blank" to={{ pathname: ipfsURL + hashString }} href={ipfsURL + hashString}>
           {hashString}
         </A>
       </Span>

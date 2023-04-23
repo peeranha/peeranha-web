@@ -201,7 +201,7 @@ const View = ({
               <>
                 {t('common.transactionInPending')}{' '}
                 <a
-                  href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(transactionHash)}
+                  href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.replace('{0}', transactionHash)}
                   target="_blank"
                   css={css`
                     margin: 0 5px;

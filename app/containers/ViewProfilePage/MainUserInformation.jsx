@@ -168,7 +168,7 @@ const MainUserInformation = ({
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
-  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
+  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL.replace('{0}', userId);
   const [copied, setCopied] = useState('');
   const isDesktop = useMediaQuery('(min-width: 768px)');
 

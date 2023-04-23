@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-import {
-  BG_PRIMARY_LIGHT,
-  TEXT_SECONDARY_LIGHT,
-  TEXT_PRIMARY,
-} from 'style-constants';
+import { BG_PRIMARY_LIGHT, TEXT_SECONDARY_LIGHT, TEXT_PRIMARY } from 'style-constants';
 
 import currencyPeerImage from 'images/currencyPeer.svg?external';
 import lockBoostImage from 'images/lock.svg?external';
@@ -54,7 +50,7 @@ const SubHeader = ({
   stakedInNextPeriod,
 }) => {
   const { t } = useTranslation();
-  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + account;
+  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL.replace('{0}', account);
 
   return (
     <Box position="bottom">
@@ -72,15 +68,9 @@ const SubHeader = ({
         <div>
           <div className="d-flex align-items-center">
             <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-              <IconLg
-                className="mr-2"
-                icon={currencyPeerImage}
-                color={TEXT_PRIMARY}
-              />
+              <IconLg className="mr-2" icon={currencyPeerImage} color={TEXT_PRIMARY} />
               <AvailableBalance>
-                {getFormattedNum3(
-                  Math.round(availableBalance * 1000000) / 1000000,
-                )}
+                {getFormattedNum3(Math.round(availableBalance * 1000000) / 1000000)}
               </AvailableBalance>
             </Span>
             <Span
