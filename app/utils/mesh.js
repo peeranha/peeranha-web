@@ -8,7 +8,8 @@ export async function executeMeshQuery(props) {
     body: JSON.stringify(props),
   });
 
-  return response.json();
+  const resultJson = await response.json();
+  return resultJson;
 }
 
 export const getUserDataFromMesh = (item) => {

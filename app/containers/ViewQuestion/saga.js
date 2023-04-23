@@ -130,6 +130,8 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 import { getQuestionFromGraph } from '../../utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -151,14 +153,18 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.answers.find((x) => x.id === answerId)?.user === profileInfo.user;
 
 export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
-  const ethereumService = yield select(selectEthereum);
+  let ethereumService;
+  if (!isSuiBlockchain) {
+    ethereumService = yield select(selectEthereum);
+  }
+
   const postedAnswerIds = yield select(selectPostedAnswerIds());
   let question;
 
   const isQuestionChanged = isItemChanged(CHANGED_POSTS_KEY, questionId);
   const isQuestionJustCreated = postedAnswerIds.includes(Number(questionId));
 
-  if (user && (isQuestionChanged || isQuestionJustCreated)) {
+  if (!isSuiBlockchain && user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
     if (question.officialReply) {
       const officialReply = question.answers.find((answer) => answer.id === question.officialReply);
@@ -173,7 +179,8 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
 
     question.author = { ...question.author, user: question.author.id };
 
-    if (user) {
+    // TODO: SUI - implement load of voting history
+    if (!isSuiBlockchain && user) {
       const statusHistory = yield getStatusHistory(user, questionId, 0, 0, ethereumService);
 
       question.votingStatus = votingStatus(Number(statusHistory));
@@ -192,7 +199,8 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
           id: Number(comment.id.split('-')[2]),
         }));
 
-        if (user) {
+        // TODO: SUI - implement load of voting history
+        if (!isSuiBlockchain && user) {
           const answerStatusHistory = yield call(
             getStatusHistory,
             user,
@@ -256,12 +264,12 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
     );
   }
 
-  if (user && (isQuestionChanged || isQuestionJustCreated)) {
+  if (!isSuiBlockchain && user && (isQuestionChanged || isQuestionJustCreated)) {
     yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
   }
 
   // To avoid of fetching same user profiles - remember it and to write author here
-  if ((user && isQuestionChanged) || isQuestionJustCreated) {
+  if (!isSuiBlockchain && ((user && isQuestionChanged) || isQuestionJustCreated)) {
     yield all(
       Array.from(users.keys()).map(function* (userFromItem) {
         const author = yield call(getUserProfileWorker, {
@@ -281,12 +289,23 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
 
 export function* getParams() {
   const questionData = yield select(selectQuestionData());
-  const ethereumService = yield select(selectEthereum);
   const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
-  const account = yield select(makeSelectAccount());
   const questionBounty = yield select(selectQuestionBounty());
   const histories = yield select(selectHistories());
+
+  let ethereumService;
+  if (!isSuiBlockchain) {
+    ethereumService = yield select(selectEthereum);
+  }
+
+  let account;
+  if (isSuiBlockchain) {
+    const profile = yield select(makeSelectProfileInfo());
+    account = profile?.id;
+  } else {
+    account = yield select(makeSelectAccount());
+  }
 
   return {
     questionData,
@@ -556,7 +575,7 @@ export function* getQuestionDataWorker({ questionId }) {
     }
   } catch (err) {
     console.log(err);
-    yield put(getQuestionDataErr(err));
+    // yield put(getQuestionDataErr(err));
   }
 }
 
