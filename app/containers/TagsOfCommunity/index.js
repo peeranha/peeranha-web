@@ -53,7 +53,6 @@ export const TagsOfCommunity = ({
     () => single || +match.params.communityid,
     [match.params.communityid, single],
   );
-
   useEffect(() => {
     getCommunityTagsDispatch(communityId);
   }, [communityId, getCommunityTagsDispatch]);

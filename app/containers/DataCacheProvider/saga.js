@@ -15,7 +15,7 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import { LOGIN_WITH_WALLET } from 'containers/Login/constants';
 
-import { selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import {
   getCommunities,
@@ -110,7 +110,9 @@ export function* getTagsWorker() {
 export function* getCommunityTagsWorker({ communityId }) {
   try {
     if (isSuiBlockchain) {
-      const tags = yield call(getSuiCommunityTags, communityId);
+      const communities = yield select(selectCommunities());
+      const suiCommunityId = communities.find((community) => community.id === communityId).suiId;
+      const tags = yield call(getSuiCommunityTags, suiCommunityId);
       yield put(getTagsSuccess(tags));
     } else {
       const tags = yield call(getCommunityTags, communityId);
