@@ -26,8 +26,8 @@ export const updateUser = 'updateUser';
 export const updateCommunity = 'updateCommunity';
 export const createCommunity = 'createCommunity';
 export const createPost = 'createPost';
-export const createReply = 'createReply';
-export const createComment = 'createComment';
+export const CREATE_REPLY_ACTION_NAME = 'createReply';
+export const CREATE_COMMENT_ACTION_NAME = 'createComment';
 
 export const DELETE_POST_ACTION_NAME = 'deletePost';
 

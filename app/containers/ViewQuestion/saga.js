@@ -132,7 +132,8 @@ import { getQuestionFromGraph } from '../../utils/theGraph';
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 import { isSuiBlockchain } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-import { deleteSuiQuestion } from 'utils/sui/questionsManagement';
+import { deleteSuiQuestion, postSuiAnswer, postSuiComment } from 'utils/sui/questionsManagement';
+import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -562,7 +563,7 @@ export function* getQuestionDataWorker({ questionId }) {
       yield all(
         answers.map(function* ({ author: answerUserInfo }) {
           const answerProfileInfo = yield select(selectUsers(author.id));
-          if (!answerProfileInfo.profile) {
+          if (answerProfileInfo && !answerProfileInfo.profile) {
             const profile = JSON.parse(yield call(getText, answerUserInfo.ipfs_profile));
             yield put(
               getUserProfileSuccess({
@@ -621,15 +622,30 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
     const ipfsLink = yield call(saveText, JSON.stringify(commentData));
     const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
 
-    const transaction = yield call(
-      postComment,
-      profileInfo.user,
-      questionId,
-      answerId,
-      ipfsHash,
-      languagesEnum[locale],
-      ethereumService,
-    );
+    let txHash;
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const transactionResult = yield call(
+        postSuiComment,
+        wallet,
+        profileInfo.id,
+        questionId,
+        answerId,
+        ipfsLink,
+      );
+      txHash = transactionResult.digest;
+    } else {
+      const transaction = yield call(
+        postComment,
+        profileInfo.user,
+        questionId,
+        answerId,
+        ipfsHash,
+        languagesEnum[locale],
+        ethereumService,
+      );
+      txHash = transaction.transactionHash;
+    }
 
     const newComment = {
       ipfsHash,
@@ -663,7 +679,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
     }
 
     const newHistory = {
-      transactionHash: transaction.transactionHash,
+      transactionHash: txHash,
       post: { id: questionId },
       reply: { id: `${questionId}-${answerId}` },
       comment: { id: `${questionId}-${answerId}-${commentId}` },
@@ -709,26 +725,35 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     const ipfsLink = yield call(saveText, JSON.stringify(answerData));
     const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
 
-    const transaction = yield call(
-      postAnswer,
-      profileInfo.user,
-      questionId,
-      ipfsHash,
-      official,
-      ethereumService,
-    );
+    let txHash;
+
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const transactionResult = yield call(
+        postSuiAnswer,
+        wallet,
+        profileInfo.id,
+        questionId,
+        ipfsLink,
+        official,
+      );
+      txHash = transactionResult.digest;
+    } else {
+      const transactionResult = yield call(
+        postAnswer,
+        profileInfo.user,
+        questionId,
+        ipfsHash,
+        official,
+        ethereumService,
+      );
+      txHash = transactionResult.transactionHash;
+    }
 
     questionData.replyCount += 1;
     const replyId = questionData.replyCount;
 
-    const updatedProfileInfo = yield call(
-      getProfileInfo,
-      profileInfo.user,
-      ethereumService,
-      true,
-      true,
-      questionData.communityId,
-    );
+    const updatedProfileInfo = yield call(getSuiProfileInfo, profileInfo.address);
 
     const newAnswer = {
       id: replyId,
@@ -748,7 +773,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     };
 
     const newHistory = {
-      transactionHash: transaction.transactionHash,
+      transactionHash: txHash,
       post: { id: questionId },
       reply: { id: `${questionId}-${newAnswer.id}` },
       eventEntity: 'Reply',

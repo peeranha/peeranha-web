@@ -28,6 +28,7 @@ export async function getSuiProfileInfo(address: string) {
   return {
     id: profileObject.id.id,
     user: address,
+    address,
     displayName: profile.displayName,
     avatar: profile.avatar,
     achievements: [],
