@@ -211,7 +211,7 @@ export async function deleteSuiAnswer(
   ]);
 }
 
-export async function upVotePost(
+export async function voteSuiPost(
   wallet: WalletContextState,
   userSuiId: string,
   postId: string,
@@ -226,7 +226,7 @@ export async function upVotePost(
   ]);
 }
 
-export async function upVoteReply(
+export async function voteSuiReply(
   wallet: WalletContextState,
   userSuiId: string,
   postId: string,
@@ -240,16 +240,6 @@ export async function upVoteReply(
     postId,
     replyId,
     isUpvote,
-  ]);
-}
-
-export async function downVote(user, questionId, answerId, ethereumService) {
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, VOTE_ITEM, [
-    user,
-    questionId,
-    answerId,
-    0,
-    false,
   ]);
 }
 

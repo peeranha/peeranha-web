@@ -38,15 +38,13 @@ const QuestionCommunity = ({
     return null;
   }
 
-  const community = communities.find((communityObject) =>
-    isSuiBlockchain
-      ? communityObject.suiId === communityId
-      : communityObject.id === Number(communityId),
+  const community = communities.find(
+    (communityObject) => communityObject.id === Number(communityId),
   );
 
-  const communityTranslationTitle = community.translations?.find(
-    (translation) => translation.language === locale,
-  )?.name;
+  const communityTranslationTitle = isSuiBlockchain
+    ? undefined
+    : community.translations?.find((translation) => translation.language === locale)?.name;
 
   let route = null;
   let Link = A;

@@ -1,5 +1,4 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
-import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { take, takeLatest, call, put, select } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
@@ -53,9 +52,9 @@ export function* getQuestionsWorker({
     }
 
     if (isSuiBlockchain) {
-      const сommunities = yield select(selectCommunities());
+      const communities = yield select(selectCommunities());
       if (communityIdFilter > 0) {
-        const communitySuiIdFilter = сommunities.find(
+        const communitySuiIdFilter = communities.find(
           (community) => community.id === communityIdFilter,
         ).suiId;
         questionsList = yield call(getSuiPostsByCommunityId, limit, skip, postTypes, [
@@ -71,7 +70,7 @@ export function* getQuestionsWorker({
         followedCommunities &&
         followedCommunities.length > 0
       ) {
-        const communitySuiIdsFilter = сommunities.filter((community) =>
+        const communitySuiIdsFilter = communities.filter((community) =>
           followedCommunities.includes(community.id),
         );
         questionsList = yield call(
@@ -84,7 +83,7 @@ export function* getQuestionsWorker({
       }
       questionsList = questionsList.map((question) => ({
         ...question,
-        communityId: сommunities.find((community) => community.suiId === question.communityId).id,
+        communityId: communities?.find((community) => community.suiId === question.communityId)?.id,
       }));
 
       const clearQuestionsList = questionsList.filter((item) => item.title);

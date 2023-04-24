@@ -23,14 +23,24 @@ const getDataFromIndexer = async (query: string, variables: object = {}) => {
   return (await response.json()).data;
 };
 
-export const getSuiUsers = async () => {
-  const data = await getDataFromIndexer(usersQuery);
-  return data.user;
+type User = {
+  usercommunityrating: any;
+  about: any;
+  company: any;
+  location: any;
+  position: any;
+  id: any;
+  userpermission: any;
+  replyCount: any;
 };
 
-export const getSuiUserById = async (id: string) => {
-  const data = await getDataFromIndexer(userQuery, { id });
-  const user = data.user[0];
+const formUserObject = (user: User) => {
+  const ratings = user?.usercommunityrating;
+  const highestRating = ratings?.length
+    ? ratings.reduce((max: { rating: number }, current: { rating: number }) =>
+        max.rating > current.rating ? max : current,
+      )
+    : 0;
   return {
     ...user,
     profile: {
@@ -40,11 +50,21 @@ export const getSuiUserById = async (id: string) => {
       position: user.position,
     },
     user: user.id,
-    ratings: user.usercommunityrating,
+    ratings,
     permissions: user.userpermission,
-    highestRating: 0,
+    highestRating,
     answersGiven: user.replyCount,
   };
+};
+
+export const getSuiUsers = async () => {
+  const data = await getDataFromIndexer(usersQuery);
+  return data.user.map((user: User) => formUserObject(user));
+};
+
+export const getSuiUserById = async (id: string) => {
+  const data = await getDataFromIndexer(userQuery, { id });
+  return formUserObject(data.user[0]);
 };
 
 export const getSuiCommunities = async () => {
@@ -67,9 +87,9 @@ export const getSuiPosts = async (limit, offset, postTypes) => {
   const data = await getDataFromIndexer(postsQuery(String(postTypes)), { limit, offset });
   return data.post.map((post) => ({
     ...post,
+    author: formUserObject(post.user[0]),
     answers: post.reply || [],
     community: post.community[0] || {},
-    author: post.user[0] || {},
     communityId: post.community[0].id,
     tags: post.posttag.map((tagObject) => tagObject.tag[0]),
   }));

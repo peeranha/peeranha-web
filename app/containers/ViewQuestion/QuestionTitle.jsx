@@ -132,12 +132,18 @@ export const QuestionTitle = ({
           <QuestionName>{title}</QuestionName>
         </TitleContainer>
 
-        <TagList className="my-2" tags={tags} communityId={communityId} communities={communities}>
+        <TagList
+          className="my-2"
+          tags={tags}
+          communityId={communities.find((community) => community.suiId === communityId).id}
+          communities={communities}
+          bySuiId
+        >
           {!isSingleCommunityWebsite() ? (
             <QuestionCommunity
               className="my-1"
               communities={communities}
-              communityId={communityId}
+              communityId={communities.find((community) => community.suiId === communityId).id}
               postType={postType}
               locale={locale}
             />

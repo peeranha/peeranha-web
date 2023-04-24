@@ -94,6 +94,7 @@ const Body = ({
         postTime={postTime}
         isSearchPage={isSearchPage}
         communityId={communityId}
+        communities={communities}
       />
 
       <div className="df jcsb aic">
