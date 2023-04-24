@@ -7,6 +7,7 @@ import {
   DELETE_ANSWER_ACTION_NAME,
   DELETE_COMMENT_ACTION_NAME,
   DELETE_POST_ACTION_NAME,
+  CHANGE_BEST_REPLY_ACTION_NAME,
   editPost,
   EDIT_COMMENT_ACTION_NAME,
   handleMoveCall,
@@ -70,7 +71,6 @@ export async function deleteSuiQuestion(
   userSuiId: string,
   postId: string,
 ) {
-  console.log(postId);
   return handleMoveCall(wallet, postLib, DELETE_POST_ACTION_NAME, [
     USER_RATING_COLLECTION,
     PERIOD_REWARD_CONTAINER,
@@ -250,5 +250,21 @@ export async function downVote(user, questionId, answerId, ethereumService) {
     answerId,
     0,
     false,
+  ]);
+}
+
+export async function markAsAcceptedSuiReply(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postId: string,
+  answerId: string,
+) {
+  return handleMoveCall(wallet, postLib, CHANGE_BEST_REPLY_ACTION_NAME, [
+    USER_RATING_COLLECTION,
+    PERIOD_REWARD_CONTAINER,
+    userSuiId,
+    postId,
+    answerId,
+    answerId,
   ]);
 }

@@ -42,6 +42,7 @@ export const DELETE_POST_ACTION_NAME = 'deletePost';
 export const DELETE_ANSWER_ACTION_NAME = 'deleteReply';
 export const DELETE_COMMENT_ACTION_NAME = 'deleteComment';
 export const EDIT_COMMENT_ACTION_NAME = 'editComment';
+export const CHANGE_BEST_REPLY_ACTION_NAME = 'changeStatusBestReply';
 
 export const followCommunity = 'followCommunity';
 export const unfollowCommunity = 'unfollowCommunity';

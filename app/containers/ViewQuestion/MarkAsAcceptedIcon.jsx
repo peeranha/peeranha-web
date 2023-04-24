@@ -74,15 +74,12 @@ export const MarkAsAcceptedIcon = ({
   disabled,
   whoWasAccepted,
   className,
+  profile,
 }) => {
   const { t } = useTranslation();
 
   // There is accepted answer && I am not question's author
-  if (
-    correctAnswerId === answerId &&
-    answerId !== 0 &&
-    account !== questionFrom
-  ) {
+  if (correctAnswerId === answerId && answerId !== 0 && profile?.id !== questionFrom) {
     return (
       <Label className={className} inactive value>
         <img className="d-inline-flex mr-2" src={okayIconWhite} alt="icon" />
@@ -92,7 +89,7 @@ export const MarkAsAcceptedIcon = ({
   }
 
   // I am question's author
-  if (answerId !== 0 && account === questionFrom) {
+  if (answerId !== 0 && profile?.id === questionFrom) {
     return (
       <Label
         className={className}
@@ -104,11 +101,7 @@ export const MarkAsAcceptedIcon = ({
         id={id}
       >
         <Icon />
-        {t(
-          `post.${
-            correctAnswerId === answerId ? 'theBestAnswer' : 'markAsBest'
-          }`,
-        )}
+        {t(`post.${correctAnswerId === answerId ? 'theBestAnswer' : 'markAsBest'}`)}
       </Label>
     );
   }

@@ -38,7 +38,11 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
-import { getCurrentAccountWorker, isAvailableAction } from 'containers/AccountProvider/saga';
+import {
+  getCurrentAccountWorker,
+  isAvailableAction,
+  getCurrentSuiAccountWorker,
+} from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
@@ -141,6 +145,7 @@ import {
   postSuiComment,
   upVotePost,
   upVoteReply,
+  markAsAcceptedSuiReply,
 } from 'utils/sui/questionsManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
@@ -940,8 +945,12 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
         communityID: questionData.communityId,
       },
     );
-
-    yield call(markAsAccepted, profileInfo.user, questionId, correctAnswerId, ethereumService);
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      yield call(markAsAcceptedSuiReply, wallet, profileInfo.id, questionId, correctAnswerId);
+    } else {
+      yield call(markAsAccepted, profileInfo.user, questionId, correctAnswerId, ethereumService);
+    }
 
     questionData.bestReply = questionData.bestReply === correctAnswerId ? 0 : correctAnswerId;
 
@@ -1063,7 +1072,9 @@ export function* updateQuestionDataAfterTransactionWorker({ usersForUpdate = [],
     let userInfoOpponent;
     const user = yield select(makeSelectAccount());
 
-    yield call(getCurrentAccountWorker);
+    if (!isSuiBlockchain) {
+      yield call(getCurrentAccountWorker);
+    }
 
     if (user !== usersForUpdate[0]) {
       yield put(removeUserProfile(usersForUpdate[0]));

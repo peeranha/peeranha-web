@@ -42,6 +42,7 @@ export const ContentBody = ({
   histories,
   isOfficialReply,
   isOriginalLanguage,
+  profile,
 }) => {
   const { t } = useTranslation();
   const isOfficial = questionData.officialReply === answerId || isOfficialReply;
@@ -64,6 +65,7 @@ export const ContentBody = ({
         questionId={questionData.id}
         isOfficial={isOfficial}
         author={author}
+        profile={profile}
       />
 
       <MarkdownPreviewBlock content={content} />

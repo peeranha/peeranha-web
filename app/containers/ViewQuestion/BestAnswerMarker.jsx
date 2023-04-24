@@ -65,6 +65,7 @@ export const BestAnswerMarker = ({
   isOfficial,
   profileInfo,
   author,
+  profile,
 }) => {
   const { t } = useTranslation();
 
@@ -77,6 +78,7 @@ export const BestAnswerMarker = ({
         answerId={answerId}
         questionFrom={questionFrom}
         account={account}
+        profile={profile}
         markAsAccepted={markAsAccepted}
         disabled={ids.includes(formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`))}
         correctAnswerId={correctAnswerId}
