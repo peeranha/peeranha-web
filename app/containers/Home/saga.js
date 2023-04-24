@@ -53,6 +53,7 @@ export function* getQuestionsWorker({ communityId }) {
     let questionsList = [];
 
     if (isSuiBlockchain) {
+      const сommunities = yield select(selectCommunities());
       if (topQuestionsIds && topQuestionsIds.length) {
         yield all(
           topQuestionsIds.map(function* (id) {
@@ -65,7 +66,6 @@ export function* getQuestionsWorker({ communityId }) {
       } else {
         const limit = 5;
         const offset = 0;
-        const сommunities = yield select(selectCommunities());
         const communitySuiIdFilter = сommunities.find(
           (community) => community.id === communityId,
         ).suiId;
@@ -76,11 +76,11 @@ export function* getQuestionsWorker({ communityId }) {
           [0, 1, 2],
           [communitySuiIdFilter],
         );
-        questionsList = questionsList.map((question) => ({
-          ...question,
-          communityId: сommunities.find((community) => community.suiId === question.communityId).id,
-        }));
       }
+      questionsList = questionsList.map((question) => ({
+        ...question,
+        communityId: сommunities.find((community) => community.suiId === question.communityId).id,
+      }));
     } else {
       const ethereumService = yield select(selectEthereum);
       if (topQuestionsIds && topQuestionsIds.length) {
