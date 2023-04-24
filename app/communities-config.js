@@ -22,6 +22,7 @@ import { SuiStyles } from './communities-configs/sui';
 import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { ValistStyles } from './communities-configs/valist';
 import { VyperStyles } from './communities-configs/vyper';
+import { SuiMainStyles } from './communities-configs/suiMain';
 
 const communitiesConfig = {
   prod: {
@@ -246,8 +247,8 @@ const communitiesConfig = {
   dev: {
     1: {
       origin: 'http://localhost:31000',
-      // src: 'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
-      // styles: FunctionlandStyles,
+      src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+      styles: SuiMainStyles,
     },
   },
 };

@@ -26,8 +26,14 @@ export const isSingleCommunityWebsite = () =>
     (id) => communitiesConfig[id].origin === window.location.origin,
   );
 
+const isSuiWebsite = () => {
+  const SUI = process.env.BLOCKCHAIN;
+  const SUI_ID = 1;
+  return SUI ? SUI_ID : undefined;
+};
+
 export const singleCommunityStyles = () =>
-  _get(communitiesConfig, [isSingleCommunityWebsite(), 'styles'], {});
+  _get(communitiesConfig, [isSingleCommunityWebsite() || isSuiWebsite(), 'styles'], {});
 
 export const singleCommunityColors = () => _get(singleCommunityStyles(), 'colors', {});
 
@@ -157,20 +163,18 @@ export async function editTag(user, ethereumService, tag, tagId) {
   ]);
 }
 
-const formCommunityObject = (rawCommunity) => {
-  return {
-    ...rawCommunity,
-    avatar: getFileUrl(rawCommunity.avatar),
-    id: +rawCommunity.id,
-    value: +rawCommunity.id,
-    label: rawCommunity.name,
-    postCount: +rawCommunity.postCount,
-    deletedPostCount: +rawCommunity.deletedPostCount,
-    creationTime: +rawCommunity.creationTime,
-    followingUsers: +rawCommunity.followingUsers,
-    replyCount: +rawCommunity.replyCount,
-  };
-};
+const formCommunityObject = (rawCommunity) => ({
+  ...rawCommunity,
+  avatar: getFileUrl(rawCommunity.avatar),
+  id: +rawCommunity.id,
+  value: +rawCommunity.id,
+  label: rawCommunity.name,
+  postCount: +rawCommunity.postCount,
+  deletedPostCount: +rawCommunity.deletedPostCount,
+  creationTime: +rawCommunity.creationTime,
+  followingUsers: +rawCommunity.followingUsers,
+  replyCount: +rawCommunity.replyCount,
+});
 
 const formattedTags = (tags) => {
   const formattedTags = {};
@@ -189,38 +193,31 @@ const formattedTags = (tags) => {
 export const getAllCommunities = async (ethereumService, count) => {
   const communities = await getCommunities(count);
 
-  return communities.map((community) => {
-    return formCommunityObject(community);
-  });
+  return communities.map((community) => formCommunityObject(community));
 };
 
 export const getCommunityWithTags = async (id) => {
   const community = await getCommunityById(id);
-  const tags = (await getTags(community.id)).map((tag) => {
-    return { ...tag, label: tag.name };
-  });
+  const tags = (await getTags(community.id)).map((tag) => ({ ...tag, label: tag.name }));
 
   return [formCommunityObject(community), formattedTags(tags)];
 };
 
 export const getCommunityTags = async (id) => {
-  const tags = (await getTags(id)).map((tag) => {
-    return { ...tag, label: tag.name };
-  });
+  const tags = (await getTags(id)).map((tag) => ({ ...tag, label: tag.name }));
 
   return formattedTags(tags);
 };
 
 export const getTagsNameByIds = async (ids) => {
   const tags = await getTagsByIds(ids);
-  let TagsNameByIds = {};
+  const TagsNameByIds = {};
   tags.forEach((tag) => (TagsNameByIds[tag.id] = tag.name));
   return TagsNameByIds;
 };
 
-export const getCommunityFromContract = async (ethereumService, id) => {
-  return await ethereumService.getCommunityFromContract(id);
-};
+export const getCommunityFromContract = async (ethereumService, id) =>
+  await ethereumService.getCommunityFromContract(id);
 
 export async function unfollowCommunity(ethereumService, communityIdFilter, account) {
   await ethereumService.sendTransaction(CONTRACT_USER, account, UNFOLLOW_COMMUNITY, [

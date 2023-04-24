@@ -196,14 +196,14 @@ const MainUserInformation = ({
           flex-direction: column;
           @media (min-width: 768px) {
             flex-direction: row;
-            background: rgba(165, 188, 255, 0.1);
+            background: ${colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
             border-radius: 170px;
           }
         `}
       >
         <div
           css={css`
-            background: rgba(165, 188, 255, 0.1);
+            background: ${colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
             border-radius: 170px;
             min-width: calc(100% - 5px);
             @media (min-width: 768px) {

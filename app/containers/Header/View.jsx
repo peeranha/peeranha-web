@@ -151,8 +151,8 @@ const View = ({
     if (isSearchFormVisible) return null;
 
     const logo = single ? peeranhaMetaLogo : peeranhaLogo;
-    const src = styles.withoutSubHeader ? communitiesConfig[single].src : logo;
-
+    const src = styles.withoutSubHeader ? communitiesConfig[1].src : logo;
+    //add logo sui
     return (
       <LogoStyles to={single ? routes.feed() : routes.home()}>
         <img src={src} alt="logo" />

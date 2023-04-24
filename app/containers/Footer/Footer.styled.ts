@@ -1,9 +1,13 @@
 import { TEXT_SECONDARY } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const styles = {
   footer: {
     minHeight: '140px',
-    color: TEXT_SECONDARY,
+    color: colors.footerText || TEXT_SECONDARY,
+    background: colors.footerBG,
   },
 
   content: {
@@ -13,7 +17,7 @@ export const styles = {
   },
 
   border: {
-    borderBottom: '1px solid #c2c6d8',
+    borderBottom: `1px solid ${colors.footer || '#c2c6d8'}`,
     marginBottom: '30px',
   },
 
