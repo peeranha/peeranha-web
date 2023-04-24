@@ -138,6 +138,8 @@ import {
   deleteSuiQuestion,
   postSuiAnswer,
   postSuiComment,
+  upVotePost,
+  upVoteReply,
 } from 'utils/sui/questionsManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
@@ -874,8 +876,17 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
         skipPermissions: isOwnItem(questionData, profileInfo, answerId),
       },
     );
-
-    yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const profile = yield select(makeSelectProfileInfo());
+      if (questionId) {
+        yield call(upVotePost, wallet, profile.id, questionId, true);
+      } else {
+        yield call(upVoteReply, wallet, profile.id, questionId, answerId, true);
+      }
+    } else {
+      yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
+    }
 
     const item =
       answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);

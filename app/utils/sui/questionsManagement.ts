@@ -13,8 +13,11 @@ import {
   PERIOD_REWARD_CONTAINER,
   postLib,
   USER_RATING_COLLECTION,
+  votePost,
+  voteReply,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
+import { CONTRACT_CONTENT, VOTE_ITEM } from 'utils/ethConstants';
 
 export async function postSuiQuestion(
   wallet: WalletContextState,
@@ -182,5 +185,47 @@ export async function deleteSuiAnswer(
     userSuiId,
     postId,
     answerId,
+  ]);
+}
+
+export async function upVotePost(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postId: string,
+  isUpvote: boolean,
+) {
+  return handleMoveCall(wallet, postLib, votePost, [
+    USER_RATING_COLLECTION,
+    PERIOD_REWARD_CONTAINER,
+    userSuiId,
+    postId,
+    isUpvote,
+  ]);
+}
+
+export async function upVoteReply(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postId: string,
+  replyId: number,
+  isUpvote: boolean,
+) {
+  return handleMoveCall(wallet, postLib, voteReply, [
+    USER_RATING_COLLECTION,
+    PERIOD_REWARD_CONTAINER,
+    userSuiId,
+    postId,
+    replyId,
+    isUpvote,
+  ]);
+}
+
+export async function downVote(user, questionId, answerId, ethereumService) {
+  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, VOTE_ITEM, [
+    user,
+    questionId,
+    answerId,
+    0,
+    false,
   ]);
 }

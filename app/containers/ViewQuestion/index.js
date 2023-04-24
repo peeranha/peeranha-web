@@ -167,6 +167,7 @@ export const ViewQuestion = ({
     communities,
     questionData,
     translations: questionData?.translations,
+    id2: questionData?.id2,
     postAnswerLoading,
     postCommentLoading,
     saveCommentLoading,

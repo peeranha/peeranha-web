@@ -204,6 +204,7 @@ const post = `
 
 const postMesh = `
   id
+  id2
   posttag {
     tag {
       id
@@ -869,7 +870,7 @@ const achievement = `
   lowerValue
   name
   description
-  image  
+  image
 `;
 
 const allAchievementsQuery = `
