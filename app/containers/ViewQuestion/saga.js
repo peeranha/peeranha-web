@@ -132,6 +132,7 @@ import { getQuestionFromGraph } from '../../utils/theGraph';
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 import { isSuiBlockchain } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { deleteSuiQuestion } from 'utils/sui/questionsManagement';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -478,6 +479,9 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
     let { questionData, ethereumService, locale, profileInfo } = yield call(getParams);
 
     if (!questionData) {
+      if (isSuiBlockchain) {
+        console.log('WARN: questionData is empty. Unable to delete');
+      }
       questionData = yield call(getQuestionById, ethereumService, questionId, profileInfo.user);
     }
 
@@ -521,6 +525,9 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
         documentationJSON,
         ethereumService,
       );
+    } else if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      yield call(deleteSuiQuestion, wallet, profileInfo.id, questionId);
     } else {
       yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
     }

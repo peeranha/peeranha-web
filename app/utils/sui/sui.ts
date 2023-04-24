@@ -14,6 +14,7 @@ export const PERIOD_REWARD_CONTAINER =
 
 export const SUI_INDEXER_URL = 'https://dev2-query-index-api.testpeeranha.io/graphql';
 
+// TODO: name these constants properly
 export const userLib = 'userLib';
 export const communityLib = 'communityLib';
 export const postLib = 'postLib';
@@ -27,6 +28,8 @@ export const createCommunity = 'createCommunity';
 export const createPost = 'createPost';
 export const createReply = 'createReply';
 export const createComment = 'createComment';
+
+export const DELETE_POST_ACTION_NAME = 'deletePost';
 
 export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const IS_INDEXER_ON = true;
