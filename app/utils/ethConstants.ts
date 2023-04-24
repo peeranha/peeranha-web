@@ -100,6 +100,7 @@ const comment = `
 
 const commentMesh = `
   id
+  id2
   ipfsHash
   user {
     ${userMesh}
@@ -114,6 +115,7 @@ const commentMesh = `
 
 const reply = `
   id
+  id2
   ipfsHash
   author {
     ${user}
