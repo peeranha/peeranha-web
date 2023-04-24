@@ -64,6 +64,7 @@ import PostRules from './PostRules';
 
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
+import { HIDDEN_COMMUNITIES } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -205,6 +206,9 @@ export const QuestionForm = ({
     title: 'Documentation',
   };
 
+  if (!Boolean(single)) {
+    communities = communities.filter((community) => !HIDDEN_COMMUNITIES.includes(community.id));
+  }
   return (
     <Router history={history}>
       <Prompt

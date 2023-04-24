@@ -24,7 +24,7 @@ import {
 import { getQuestionsSuccess, getQuestionsError } from './actions';
 
 import { getPosts, getPostsByCommunityId } from 'utils/theGraph';
-
+import { HIDDEN_COMMUNITIES } from '../Communities/constants';
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
 
@@ -39,8 +39,13 @@ export function* getQuestionsWorker({
   toUpdateQuestions,
 }) {
   try {
-    const followedCommunities = yield select(makeSelectFollowedCommunities());
-
+    let followedCommunities = yield select(makeSelectFollowedCommunities());
+    const hasHiddenCommunities = HIDDEN_COMMUNITIES.length > 0;
+    if (hasHiddenCommunities) {
+      followedCommunities = followedCommunities?.filter(
+        (community) => !HIDDEN_COMMUNITIES.includes(community),
+      );
+    }
     let questionsList = [];
     let counter = skip;
 
@@ -59,6 +64,7 @@ export function* getQuestionsWorker({
     }
 
     if (communityIdFilter === 0 && parentPage !== feed) {
+      ///add filter
       questionsList = yield call(getPosts, limit, skip, postTypes);
     }
 
