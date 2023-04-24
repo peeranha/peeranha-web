@@ -10,6 +10,8 @@ import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
 import { createSuiCommunity } from 'utils/sui/communityManagement';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { uploadImg } from 'utils/profileManagement';
+import { getFileUrl } from 'utils/ipfs';
 
 import {
   createCommunitySuccess,
@@ -25,6 +27,8 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 export function* createCommunityWorker({ community, reset }) {
   try {
     if (isSuiBlockchain) {
+      const { imgHash } = yield call(uploadImg, community.avatar);
+      community.avatar = getFileUrl(imgHash);
       const wallet = yield select(selectSuiWallet());
       yield call(createSuiCommunity, wallet, community);
     } else {
