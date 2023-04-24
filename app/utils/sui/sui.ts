@@ -18,6 +18,7 @@ export const SUI_INDEXER_URL = 'https://dev2-query-index-api.testpeeranha.io/gra
 export const userLib = 'userLib';
 export const communityLib = 'communityLib';
 export const postLib = 'postLib';
+export const followCommunityLib = 'followCommunityLib';
 export const userObject = 'User';
 export const communityObject = 'Community';
 
@@ -39,6 +40,8 @@ export const DELETE_POST_ACTION_NAME = 'deletePost';
 export const DELETE_ANSWER_ACTION_NAME = 'deleteReply';
 export const DELETE_COMMENT_ACTION_NAME = 'deleteComment';
 
+export const followCommunity = 'followCommunity';
+export const unfollowCommunity = 'unfollowCommunity';
 export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const IS_INDEXER_ON = true;
 

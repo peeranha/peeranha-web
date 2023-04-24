@@ -2,10 +2,14 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
+import { followSuiCommunity } from 'utils/sui/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 
 import { FOLLOW_HANDLER, MIN_RATING_TO_FOLLOW, MIN_ENERGY_TO_FOLLOW } from './constants';
 
@@ -14,23 +18,32 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const account = yield select(makeSelectAccount());
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const communities = yield select(selectCommunities());
+      const profile = yield select(makeSelectProfileInfo());
+      const suiCommunityId = communities.find(
+        (community) => community.id === communityIdFilter,
+      ).suiId;
+      yield call(followSuiCommunity, wallet, profile.id, suiCommunityId, isFollowed);
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const account = yield select(makeSelectAccount());
 
-    yield call(isAuthorized);
+      yield call(isAuthorized);
 
-    yield call(isValid, {
-      buttonId,
-      minRating: MIN_RATING_TO_FOLLOW,
-      minEnergy: MIN_ENERGY_TO_FOLLOW,
-    });
-    yield call(
-      isFollowed ? unfollowCommunity : followCommunity,
-      ethereumService,
-      communityIdFilter,
-      account,
-    );
-
+      yield call(isValid, {
+        buttonId,
+        minRating: MIN_RATING_TO_FOLLOW,
+        minEnergy: MIN_ENERGY_TO_FOLLOW,
+      });
+      yield call(
+        isFollowed ? unfollowCommunity : followCommunity,
+        ethereumService,
+        communityIdFilter,
+        account,
+      );
+    }
     const profileInfo = yield select(makeSelectProfileInfo());
     const updatedProfileInfo = {
       ...profileInfo,

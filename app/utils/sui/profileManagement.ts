@@ -9,6 +9,8 @@ import {
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getIpfsHashFromBytes32, getText, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
+import { getFollowCommunitySuiIds, getSuiCommunities } from './suiIndexer';
+
 export const getRatingByCommunity = (
   user: { ratings: any[] },
   communityId: { toString: () => any },
@@ -25,6 +27,11 @@ export async function getSuiProfileInfo(address: string) {
   const profileObject = await getSuiUserObject(address);
   const ipfsHash = getIpfsHashFromBytes32(byteArrayToHexString(profileObject.ipfsDoc.fields.hash));
   const profile = JSON.parse(await getText(ipfsHash));
+  const followedCommunityIds = await getFollowCommunitySuiIds();
+  const communities = await getSuiCommunities();
+  const followedCommunities = communities.filter((community) =>
+    followedCommunityIds.includes(community.suiId),
+  );
   return {
     id: profileObject.id.id,
     user: address,
@@ -33,6 +40,7 @@ export async function getSuiProfileInfo(address: string) {
     avatar: profile.avatar,
     achievements: [],
     permissions: [],
+    followedCommunities: followedCommunities.map((community) => community.id),
     profile: {
       about: profile.about,
       company: profile.company,

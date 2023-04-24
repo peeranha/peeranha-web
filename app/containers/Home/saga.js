@@ -20,6 +20,9 @@ import {
   loadTopCommunityQuestionsWorker,
   removeOrAddTopQuestionWorker,
 } from 'containers/Questions/saga';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { getSuiPostsByCommunityId, getSuiPostById } from 'utils/sui/suiIndexer';
 
 import {
   GET_QUESTIONS,
@@ -41,38 +44,63 @@ import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { REMOVE_OR_ADD_TOP_QUESTION } from '../Questions/constants';
 import { followHandlerWorker } from '../FollowCommunityButton/saga';
-import { selectEthereum } from 'containers/EthereumProvider/selectors';
 
 export function* getQuestionsWorker({ communityId }) {
   try {
-    const ethereumService = yield select(selectEthereum);
     yield call(loadTopCommunityQuestionsWorker, { init: true });
-
     const topQuestionsIds = yield select(selectTopQuestionIds);
 
     let questionsList = [];
 
-    if (topQuestionsIds && topQuestionsIds.length) {
-      yield all(
-        topQuestionsIds.map(function* (id) {
-          if (id) {
-            const question = yield call(getQuestionById, ethereumService, id);
-
-            questionsList.push(question);
-          }
-        }),
-      );
+    if (isSuiBlockchain) {
+      if (topQuestionsIds && topQuestionsIds.length) {
+        yield all(
+          topQuestionsIds.map(function* (id) {
+            if (id) {
+              const question = yield call(getSuiPostById, id);
+              questionsList.push(question);
+            }
+          }),
+        );
+      } else {
+        const limit = 5;
+        const offset = 0;
+        const сommunities = yield select(selectCommunities());
+        const communitySuiIdFilter = сommunities.find(
+          (community) => community.id === communityId,
+        ).suiId;
+        questionsList = yield call(
+          getSuiPostsByCommunityId,
+          limit,
+          offset,
+          [0, 1, 2],
+          [communitySuiIdFilter],
+        );
+      }
     } else {
-      const limit = 5;
-      const offset = 0;
+      const ethereumService = yield select(selectEthereum);
+      if (topQuestionsIds && topQuestionsIds.length) {
+        yield all(
+          topQuestionsIds.map(function* (id) {
+            if (id) {
+              const question = yield call(getQuestionById, ethereumService, id);
 
-      questionsList = yield call(
-        getQuestionsFilteredByCommunities,
-        ethereumService,
-        limit,
-        offset,
-        communityId,
-      );
+              questionsList.push(question);
+            }
+          }),
+        );
+      } else {
+        const limit = 5;
+        const offset = 0;
+
+        questionsList = yield call(
+          getQuestionsFilteredByCommunities,
+          ethereumService,
+          limit,
+          offset,
+          communityId,
+        );
+      }
     }
 
     const users = new Map();
@@ -129,7 +157,7 @@ export function* getCommunityWorker({ id }) {
 
 export function* getLogoWorker() {
   try {
-    let logo = '';
+    const logo = '';
 
     const single = isSingleCommunityWebsite();
     if (single) {

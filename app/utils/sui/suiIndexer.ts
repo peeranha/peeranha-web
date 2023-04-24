@@ -5,8 +5,11 @@ import {
   tagsQuery,
   communityTagsQuery,
   postsQuery,
+  postByIdQuery,
   communityQuery,
   postQuery,
+  followCommunityQuery,
+  postsByCommunityIdQuery,
 } from 'utils/sui/suiQuerries';
 import { SUI_INDEXER_URL } from 'utils/sui/sui';
 import { getFileUrl } from 'utils/ipfs';
@@ -85,6 +88,18 @@ export const getSuiPost = async (id) => {
   };
 };
 
+export const getSuiPostById = async (id: string) => {
+  const data = await getDataFromIndexer(postByIdQuery, { id });
+  return {
+    ...data,
+    answers: data.reply || [],
+    community: data.community[0] || {},
+    author: data.user[0] || {},
+    communityId: data.community[0].id,
+    tags: data.posttag.map((tagObject) => tagObject.tag[0]),
+  };
+};
+
 export const getSuiCommunity = async (id: string) => {
   const data = await getDataFromIndexer(communityQuery, { id });
   return data.community.map((community) => ({
@@ -108,4 +123,24 @@ export const getSuiTags = async () => {
 export const getSuiCommunityTags = async (communityId: string) => {
   const data = await getDataFromIndexer(communityTagsQuery, { communityId });
   return data.tag;
+};
+
+export const getFollowCommunitySuiIds = async () => {
+  const data = await getDataFromIndexer(followCommunityQuery);
+  return data.usercommunity.map((usercommunity: any) => usercommunity.community[0].id);
+};
+
+export const getSuiPostsByCommunityId = async (limit, offset, postTypes, communityIds) => {
+  const data = await getDataFromIndexer(
+    postsByCommunityIdQuery(String(postTypes), String(communityIds)),
+    { limit, offset },
+  );
+  return data.post.map((post) => ({
+    ...post,
+    answers: post.reply || [],
+    community: post.community[0] || {},
+    author: post.user[0] || {},
+    communityId: post.community[0].id,
+    tags: post.posttag.map((tagObject) => tagObject.tag[0]),
+  }));
 };

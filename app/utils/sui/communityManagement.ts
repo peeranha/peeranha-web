@@ -6,6 +6,10 @@ import {
   handleMoveCall,
   updateCommunity,
   updateTag,
+  followCommunityLib,
+  followCommunity,
+  unfollowCommunity,
+  USER_RATING_COLLECTION,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
@@ -64,3 +68,14 @@ export const updateSuiTag = async (wallet: WalletContextState, communityId, tagI
     tagTransactionData,
   ]);
 };
+export const followSuiCommunity = async (
+  wallet: WalletContextState,
+  userId: any,
+  suiCommunityId: any,
+  isFollow: boolean,
+) =>
+  handleMoveCall(wallet, followCommunityLib, isFollow ? unfollowCommunity : followCommunity, [
+    USER_RATING_COLLECTION,
+    userId,
+    suiCommunityId,
+  ]);

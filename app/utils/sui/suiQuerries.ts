@@ -158,6 +158,18 @@ const community = `
     }
 `;
 
+const usercommunity = `
+    id
+    userId
+    communityId
+    user {
+      ${user}
+    }
+    community {
+      ${community}
+    }
+`;
+
 export const userQuery = `query($id: String) {
     user(where: { id: $id }) {
       ${user}
@@ -216,4 +228,31 @@ export const postQuery = `
     post(where: { id: $id }) {
       ${post}
     }
-  }`;
+}`;
+
+export const postByIdQuery = `query($id: String) {
+  post(where: { id: $id }) {
+    ${post}
+  }
+}`;
+
+export const postsByCommunityIdQuery = (postTypes: string, communityIds: string) => `
+  query (
+    $first: Int,
+    $skip: Int
+  ) {
+    post (
+      orderBy: { postTime: desc },
+      limit: $first,
+      offset: $skip,
+      where: {isDeleted: "0", postType: "(${postTypes})", communityId: "(${communityIds})" },
+    ) {
+      ${post}
+    }
+}`;
+
+export const followCommunityQuery = `query($userId: String) {
+    usercommunity(where: { userId: $userId }) {
+      ${usercommunity}
+    }
+}`;

@@ -10,9 +10,10 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import { getSuiPosts } from 'utils/sui/suiIndexer';
+import { getSuiPosts, getSuiPostsByCommunityId } from 'utils/sui/suiIndexer';
 
 import {
   CHANGE_QUESTION_FILTER,
@@ -42,19 +43,56 @@ export function* getQuestionsWorker({
   toUpdateQuestions,
 }) {
   try {
+    const followedCommunities = yield select(makeSelectFollowedCommunities());
+
+    let questionsList = [];
+    let counter = skip;
+
+    if (single) {
+      communityIdFilter = single;
+    }
+
     if (isSuiBlockchain) {
-      const posts = yield call(getSuiPosts, limit, skip, postTypes);
-      const clearQuestionsList = posts.filter((item) => item.title);
-      yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, 0));
-    } else {
-      const followedCommunities = yield select(makeSelectFollowedCommunities());
-
-      let questionsList = [];
-      let counter = skip;
-
-      if (single) {
-        communityIdFilter = single;
+      const сommunities = yield select(selectCommunities());
+      if (communityIdFilter > 0) {
+        const communitySuiIdFilter = сommunities.find(
+          (community) => community.id === communityIdFilter,
+        ).suiId;
+        questionsList = yield call(getSuiPostsByCommunityId, limit, skip, postTypes, [
+          communitySuiIdFilter,
+        ]);
       }
+      if (communityIdFilter === 0 && parentPage !== feed) {
+        questionsList = yield call(getSuiPosts, limit, skip, postTypes);
+      }
+      if (
+        communityIdFilter === 0 &&
+        parentPage === feed &&
+        followedCommunities &&
+        followedCommunities.length > 0
+      ) {
+        const communitySuiIdsFilter = сommunities.filter((community) =>
+          followedCommunities.includes(community.id),
+        );
+        questionsList = yield call(
+          getSuiPostsByCommunityId,
+          limit,
+          skip,
+          postTypes,
+          communitySuiIdsFilter.map((community) => community.suiId),
+        );
+      }
+      questionsList = questionsList.map((question) => ({
+        ...question,
+        communityId: сommunities.find((community) => community.suiId === question.communityId).id,
+      }));
+
+      const clearQuestionsList = questionsList.filter((item) => item.title);
+      counter += clearQuestionsList.length;
+      yield put(
+        getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, counter),
+      );
+    } else {
       if (communityIdFilter > 0) {
         questionsList = yield call(
           getPostsByCommunityId,
