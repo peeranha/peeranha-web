@@ -4,6 +4,8 @@ import {
   CREATE_COMMENT_ACTION_NAME,
   CREATE_REPLY_ACTION_NAME,
   createPost,
+  DELETE_ANSWER_ACTION_NAME,
+  DELETE_COMMENT_ACTION_NAME,
   DELETE_POST_ACTION_NAME,
   deletePost,
   EDIT_REPLY_ACTION_NAME,
@@ -65,6 +67,23 @@ export async function postSuiComment(
   ]);
 }
 
+export async function deleteSuiComment(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postId: string,
+  parentId: string,
+  commentId: string,
+) {
+  return handleMoveCall(wallet, postLib, DELETE_COMMENT_ACTION_NAME, [
+    USER_RATING_COLLECTION,
+    PERIOD_REWARD_CONTAINER,
+    userSuiId,
+    postId,
+    parentId,
+    commentId,
+  ]);
+}
+
 export async function postSuiAnswer(
   wallet: WalletContextState,
   userSuiId: string,
@@ -123,5 +142,20 @@ export async function moderatorEditSuiAnswer(
     postId,
     answerId,
     isOfficial,
+  ]);
+}
+
+export async function deleteSuiAnswer(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postId: string,
+  answerId: string,
+) {
+  return handleMoveCall(wallet, postLib, DELETE_ANSWER_ACTION_NAME, [
+    USER_RATING_COLLECTION,
+    PERIOD_REWARD_CONTAINER,
+    userSuiId,
+    postId,
+    answerId,
   ]);
 }

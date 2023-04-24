@@ -35,6 +35,8 @@ export const AUTHOR_EDIT_REPLY_ACTION_NAME = 'authorEditReply';
 export const MODERATOR_EDIT_REPLY_ACTION_NAME = 'moderatorEditReply';
 
 export const DELETE_POST_ACTION_NAME = 'deletePost';
+export const DELETE_ANSWER_ACTION_NAME = 'deleteReply';
+export const DELETE_COMMENT_ACTION_NAME = 'deleteComment';
 
 export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const IS_INDEXER_ON = true;
