@@ -35,7 +35,7 @@ export const getSuiUserById = async (id: string) => {
       location: user.location,
       position: user.position,
     },
-    user: id,
+    user: user.id,
     ratings: user.usercommunityrating,
     permissions: user.userpermission,
     highestRating: 0,
