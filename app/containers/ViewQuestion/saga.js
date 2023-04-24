@@ -132,7 +132,13 @@ import { getQuestionFromGraph } from '../../utils/theGraph';
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 import { isSuiBlockchain } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-import { deleteSuiQuestion, postSuiAnswer, postSuiComment } from 'utils/sui/questionsManagement';
+import {
+  deleteSuiAnswer,
+  deleteSuiComment,
+  deleteSuiQuestion,
+  postSuiAnswer,
+  postSuiComment,
+} from 'utils/sui/questionsManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
@@ -396,14 +402,28 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
       },
     );
 
-    const transaction = yield call(
-      deleteComment,
-      profileInfo.user,
-      questionId,
-      answerId,
-      commentId,
-      ethereumService,
-    );
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      yield call(deleteSuiComment, wallet, profileInfo.id, questionId, answerId, commentId);
+    } else {
+      const transaction = yield call(
+        deleteComment,
+        profileInfo.user,
+        questionId,
+        answerId,
+        commentId,
+        ethereumService,
+      );
+
+      const newHistory = {
+        transactionHash: transaction.transactionHash,
+        eventEntity: 'Comment',
+        eventName: 'Delete',
+        timeStamp: String(dateNowInSeconds()),
+      };
+
+      histories.push(newHistory);
+    }
 
     if (answerId === 0) {
       questionData.comments = questionData.comments.filter((x) => x.id !== commentId);
@@ -411,15 +431,6 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
       const answer = questionData.answers.find((x) => x.id === answerId);
       answer.comments = answer.comments.filter((x) => x.id !== commentId);
     }
-
-    const newHistory = {
-      transactionHash: transaction.transactionHash,
-      eventEntity: 'Comment',
-      eventName: 'Delete',
-      timeStamp: String(dateNowInSeconds()),
-    };
-
-    histories.push(newHistory);
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
@@ -433,37 +444,42 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
     const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
-    yield call(
-      isAvailableAction,
-      () =>
-        deleteAnswerValidator(
-          buttonId,
-          answerId,
-          questionData.bestReply,
-          profileInfo,
-          questionData,
-        ),
-      {
-        communityID: questionData.communityId,
-      },
-    );
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      yield call(deleteSuiAnswer, wallet, profileInfo.id, questionId, answerId);
+    } else {
+      yield call(
+        isAvailableAction,
+        () =>
+          deleteAnswerValidator(
+            buttonId,
+            answerId,
+            questionData.bestReply,
+            profileInfo,
+            questionData,
+          ),
+        {
+          communityID: questionData.communityId,
+        },
+      );
 
-    const transaction = yield call(
-      deleteAnswer,
-      profileInfo.user,
-      questionId,
-      answerId,
-      ethereumService,
-    );
+      const transaction = yield call(
+        deleteAnswer,
+        profileInfo.user,
+        questionId,
+        answerId,
+        ethereumService,
+      );
 
-    const newHistory = {
-      transactionHash: transaction.transactionHash,
-      eventEntity: 'Reply',
-      eventName: 'Delete',
-      timeStamp: String(dateNowInSeconds()),
-    };
+      const newHistory = {
+        transactionHash: transaction.transactionHash,
+        eventEntity: 'Reply',
+        eventName: 'Delete',
+        timeStamp: String(dateNowInSeconds()),
+      };
 
-    histories.push(newHistory);
+      histories.push(newHistory);
+    }
 
     questionData.answers = questionData.answers.filter((x) => x.id !== answerId);
 
