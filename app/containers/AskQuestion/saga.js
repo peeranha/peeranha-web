@@ -32,7 +32,7 @@ import {
   handleMoveCall,
   isSuiBlockchain,
   postLib,
-  USER_RATING_COLLECTION,
+  USER_RATING_COLLECTION_ID,
 } from 'utils/sui/sui';
 import { selectEthereum } from '../EthereumProvider/selectors';
 

@@ -6,13 +6,13 @@ import {
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
 
-const SUI_PACKAGE_ID = '0xda5b0dbe4ed7ee40fa2e60940345e7ceee38915cd208e02220900226af2022db';
-export const USER_RATING_COLLECTION =
-  '0x5a8cda0a06c2613fefa5057f9fbea94fe7261f26a8f47ec76f6c602e4235d917';
-export const PERIOD_REWARD_CONTAINER =
-  '0xc8c06ebf97cfdc6714d49032f7d5f3aa8de1c6fec95d55c6842317e597598245';
+export const SUI_PACKAGE_ID = process.env.SUI_PACKAGE;
+export const USER_RATING_COLLECTION_ID = process.env.USER_RATING_COLLECTION;
+export const USER_ROLES_COLLECTION_ID = process.env.USER_ROLES_COLLECTION;
+export const PERIOD_REWARD_CONTAINER_ID = process.env.PERIOD_REWARD_CONTAINER;
 
-export const SUI_INDEXER_URL = 'https://dev2-query-index-api.testpeeranha.io/graphql';
+export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
+export const IS_INDEXER_ON = true;
 
 // TODO: name these constants properly
 export const userLib = 'userLib';
@@ -46,8 +46,6 @@ export const CHANGE_BEST_REPLY_ACTION_NAME = 'changeStatusBestReply';
 
 export const followCommunity = 'followCommunity';
 export const unfollowCommunity = 'unfollowCommunity';
-export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
-export const IS_INDEXER_ON = true;
 
 export const CREATE_POST_EVENT_NAME = 'CreatePostEvent';
 

@@ -12,9 +12,9 @@ import {
   EDIT_COMMENT_ACTION_NAME,
   handleMoveCall,
   MODERATOR_EDIT_REPLY_ACTION_NAME,
-  PERIOD_REWARD_CONTAINER,
+  PERIOD_REWARD_CONTAINER_ID,
   postLib,
-  USER_RATING_COLLECTION,
+  USER_RATING_COLLECTION_ID,
   votePost,
   voteReply,
 } from 'utils/sui/sui';
@@ -32,7 +32,7 @@ export async function postSuiQuestion(
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, createPost, [
-    USER_RATING_COLLECTION,
+    USER_RATING_COLLECTION_ID,
     userSuiId,
     communitySuiId,
     ipfsHash,
@@ -54,8 +54,8 @@ export async function editSuiQuestion(
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, editPost, [
-    USER_RATING_COLLECTION,
-    PERIOD_REWARD_CONTAINER,
+    USER_RATING_COLLECTION_ID,
+    PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
     postSuiId,
     postMetaData,
@@ -72,8 +72,8 @@ export async function deleteSuiQuestion(
   postId: string,
 ) {
   return handleMoveCall(wallet, postLib, DELETE_POST_ACTION_NAME, [
-    USER_RATING_COLLECTION,
-    PERIOD_REWARD_CONTAINER,
+    USER_RATING_COLLECTION_ID,
+    PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
     postId,
   ]);
@@ -88,7 +88,7 @@ export async function postSuiComment(
 ) {
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, CREATE_COMMENT_ACTION_NAME, [
-    USER_RATING_COLLECTION,
+    USER_RATING_COLLECTION_ID,
     userSuiId,
     postId,
     answerId,
@@ -104,8 +104,8 @@ export async function deleteSuiComment(
   commentId: string,
 ) {
   return handleMoveCall(wallet, postLib, DELETE_COMMENT_ACTION_NAME, [
-    USER_RATING_COLLECTION,
-    PERIOD_REWARD_CONTAINER,
+    USER_RATING_COLLECTION_ID,
+    PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
     postId,
     parentId,
@@ -125,7 +125,7 @@ export async function editSuiComment(
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
 
   return handleMoveCall(wallet, postLib, EDIT_COMMENT_ACTION_NAME, [
-    USER_RATING_COLLECTION,
+    USER_RATING_COLLECTION_ID,
     userSuiId,
     postId,
     comment,
@@ -144,8 +144,8 @@ export async function postSuiAnswer(
 ) {
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, CREATE_REPLY_ACTION_NAME, [
-    USER_RATING_COLLECTION,
-    PERIOD_REWARD_CONTAINER,
+    USER_RATING_COLLECTION_ID,
+    PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
     postId,
     0, // parent reply id is always 0 for now
@@ -166,7 +166,7 @@ export async function authorEditSuiAnswer(
   const ipfsLink = await saveText(JSON.stringify(answerData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, AUTHOR_EDIT_REPLY_ACTION_NAME, [
-    USER_RATING_COLLECTION,
+    USER_RATING_COLLECTION_ID,
     userSuiId,
     postId,
     answerObjectId,
@@ -188,7 +188,7 @@ export async function moderatorEditSuiAnswer(
   const ipfsLink = await saveText(JSON.stringify(answerData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, MODERATOR_EDIT_REPLY_ACTION_NAME, [
-    USER_RATING_COLLECTION,
+    USER_RATING_COLLECTION_ID,
     userSuiId,
     postId,
     answerId,
@@ -203,8 +203,8 @@ export async function deleteSuiAnswer(
   answerId: string,
 ) {
   return handleMoveCall(wallet, postLib, DELETE_ANSWER_ACTION_NAME, [
-    USER_RATING_COLLECTION,
-    PERIOD_REWARD_CONTAINER,
+    USER_RATING_COLLECTION_ID,
+    PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
     postId,
     answerId,
@@ -218,8 +218,8 @@ export async function upVotePost(
   isUpvote: boolean,
 ) {
   return handleMoveCall(wallet, postLib, votePost, [
-    USER_RATING_COLLECTION,
-    PERIOD_REWARD_CONTAINER,
+    USER_RATING_COLLECTION_ID,
+    PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
     postId,
     isUpvote,
@@ -234,8 +234,8 @@ export async function upVoteReply(
   isUpvote: boolean,
 ) {
   return handleMoveCall(wallet, postLib, voteReply, [
-    USER_RATING_COLLECTION,
-    PERIOD_REWARD_CONTAINER,
+    USER_RATING_COLLECTION_ID,
+    PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
     postId,
     replyId,
@@ -260,8 +260,8 @@ export async function markAsAcceptedSuiReply(
   answerId: string,
 ) {
   return handleMoveCall(wallet, postLib, CHANGE_BEST_REPLY_ACTION_NAME, [
-    USER_RATING_COLLECTION,
-    PERIOD_REWARD_CONTAINER,
+    USER_RATING_COLLECTION_ID,
+    PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
     postId,
     answerId,

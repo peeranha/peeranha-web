@@ -1,5 +1,5 @@
 export async function executeMeshQuery(props) {
-  const response = await fetch(process.env.MESH_QUERY_URL, {
+  const response = await fetch(process.env.QUERY_INDEX_URL, {
     method: 'POST',
     headers: {
       Accept: 'application/json',

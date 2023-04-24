@@ -9,7 +9,7 @@ import {
   followCommunityLib,
   followCommunity,
   unfollowCommunity,
-  USER_RATING_COLLECTION,
+  USER_RATING_COLLECTION_ID,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
@@ -75,7 +75,7 @@ export const followSuiCommunity = async (
   isFollow: boolean,
 ) =>
   handleMoveCall(wallet, followCommunityLib, isFollow ? unfollowCommunity : followCommunity, [
-    USER_RATING_COLLECTION,
+    USER_RATING_COLLECTION_ID,
     userId,
     suiCommunityId,
   ]);
