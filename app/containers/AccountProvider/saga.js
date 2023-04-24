@@ -95,7 +95,7 @@ import {
   updateAccErr,
   updateAccSuccess,
 } from './actions';
-import { getEmailAddressSuccess } from '../ChangeEmail/actions';
+import { getEmailAddressSuccess } from '../EmailNotifications/actions';
 import { makeSelectProfileInfo } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { hasGlobalModeratorRole } from '../../utils/properties';

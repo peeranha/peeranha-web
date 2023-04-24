@@ -37,7 +37,7 @@ import logoutReducer from 'containers/Logout/reducer';
 import showActiveKeyReducer from 'containers/ShowActiveKey/reducer';
 import showOwnerKeyReducer from 'containers/ShowOwnerKey/reducer';
 import changePasswordByPreviousReducer from 'containers/ChangePasswordByPrevious/reducer';
-import changeEmailReducer from 'containers/ChangeEmail/reducer';
+import emailNotificationsReducer from 'containers/EmailNotifications/reducer';
 import deleteAccountReducer from 'containers/DeleteAccount/reducer';
 import sendTokensReducer from 'containers/SendTokens/reducer';
 import searchReducer from 'containers/Search/reducer';
@@ -111,7 +111,7 @@ export default (injectedReducers) =>
     showActiveKey: showActiveKeyReducer,
     showOwnerKey: showOwnerKeyReducer,
     changePasswordByPrevious: changePasswordByPreviousReducer,
-    changeEmail: changeEmailReducer,
+    emailNotifications: emailNotificationsReducer,
     deleteAccount: deleteAccountReducer,
     sendTokens: sendTokensReducer,
     search: searchReducer,

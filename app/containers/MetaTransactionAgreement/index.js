@@ -23,7 +23,7 @@ import { setCookie, getCookie } from 'utils/cookie';
 import PopupForNotBalance from './PopupForNotBalance';
 import PopupForTorusWallet from './PopupForTorusWallet';
 
-import TransactionHandler from 'containers/ViewProfilePage/TransactionHandler';
+import TransactionHandler from 'containers/ViewProfilePage/SettingsTab/TransactionHandler';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 

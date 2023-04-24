@@ -19,6 +19,7 @@ export const styles = {
     color: TEXT_LIGHT,
     borderRadius: '2px',
     background: '#F76F60',
+    fontSize: '16px',
   },
 
   changeEmailForm: {
@@ -184,6 +185,19 @@ export const styles = {
     color: TEXT_LIGHT,
     ':hover': {
       opacity: '0.8',
+    },
+  },
+  transparentButton: {
+    color: LINK_COLOR,
+    background: BG_TRANSPARENT,
+    border: `1px solid ${BORDER_TRANSPARENT}`,
+    borderRadius: 0,
+    height: 'auto',
+    minHeight: 'auto',
+    fontSize: '16px',
+    lineHeight: '18px',
+    svg: {
+      marginRight: '5px',
     },
   },
 };

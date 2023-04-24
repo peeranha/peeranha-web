@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Field, reduxForm, reset } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
-import { scrollToErrorField } from 'utils/animation';
 
 import letterImg from 'images/letter.svg?inline';
 import TextInputField from 'components/FormFields/TextInputField';
 import { required } from 'components/FormFields/validate';
 
-import { CODE_FIELD, CONFIRM_EMAIL_FORM, EMAIL_FORM } from './constants';
-import { styles } from './ChangeEmail.styled';
+import {
+  CODE_FIELD,
+  CONFIRM_EMAIL_FORM,
+  EMAIL_FORM,
+  CHECK_EMAIL_IMG_ALT,
+} from './constants';
+import { styles } from './EmailNotifications.styled';
+import { ConfirmEmailFormProps } from './types';
 
-const ConfirmEmailForm = ({
+const ConfirmEmailForm: React.FC<ConfirmEmailFormProps> = ({
   handleSubmit,
-  confirmOldEmail,
-  confirmOldEmailProcessing,
+  confirmEmail,
+  confirmEmailProcessing,
   sendAnotherCode,
   closeModal,
   emailAddress,
@@ -22,12 +26,14 @@ const ConfirmEmailForm = ({
   verificationCode,
   verificationCodeRequest,
   dispatch,
-}) => {
+}): JSX.Element => {
   const { t } = useTranslation();
-  const [incorrectCode, setIncorrectCode] = useState(verificationCodeError);
-  const [seconds, setSeconds] = useState(0);
-  const [timerActive, setTimerActive] = useState(false);
-  const [currentEmail, setCurrentEmail] = useState('');
+  const [incorrectCode, setIncorrectCode] = useState<boolean>(
+    verificationCodeError,
+  );
+  const [seconds, setSeconds] = useState<number>(0);
+  const [timerActive, setTimerActive] = useState<boolean>(false);
+  const [currentEmail, setCurrentEmail] = useState<string>('');
 
   useEffect(() => {
     if (seconds > 0 && timerActive) {
@@ -59,10 +65,11 @@ const ConfirmEmailForm = ({
     }
   }, [verificationCodeRequest]);
 
-  const handlerVerificationCode = (event) =>
-    setIncorrectCode(verificationCode === event.target.value);
+  const verificationCodeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => setIncorrectCode(verificationCode === event.target.value);
 
-  const handlerCloseModal = () => {
+  const closeModalHandler = (): void => {
     setCurrentEmail(emailAddress);
     setTimeout(() => closeModal(), 1000);
   };
@@ -71,25 +78,25 @@ const ConfirmEmailForm = ({
     <div css={styles.confirmEmailForm}>
       <h4>{t('common.confirmNewEmail')}</h4>
       <div>
-        <img src={letterImg} alt="check your email" />
+        <img src={letterImg} alt={CHECK_EMAIL_IMG_ALT} />
         <p>{t('profile.confirmVerificationCode')}</p>
 
         <div>{emailAddress}</div>
-        <button onClick={handlerCloseModal}>{t('profile.changeEmail')}</button>
+        <button onClick={closeModalHandler}>{t('profile.changeEmail')}</button>
         <div></div>
       </div>
       <form
         css={incorrectCode && styles.inputWarning}
-        onSubmit={handleSubmit(confirmOldEmail)}
+        onSubmit={handleSubmit(confirmEmail)}
       >
         <Field
           name={CODE_FIELD}
-          disabled={confirmOldEmailProcessing}
+          disabled={confirmEmailProcessing}
           label={t('signUp.verificationCode')}
           component={TextInputField}
           validate={required}
           warn={required}
-          onChange={handlerVerificationCode}
+          onChange={verificationCodeHandler}
         />
         {incorrectCode && (
           <div css={styles.textWarning}>{t('common.incorrectCode')}</div>
@@ -115,13 +122,8 @@ const ConfirmEmailForm = ({
         )}
         <button
           css={styles.verifyButton}
-          disabled={confirmOldEmailProcessing || incorrectCode}
+          disabled={confirmEmailProcessing || incorrectCode}
           type="submit"
-          onClick={() => {
-            if (incorrectCode) {
-              dispatch(reset(EMAIL_FORM));
-            }
-          }}
         >
           {t('signUp.verify')}
         </button>
@@ -130,19 +132,6 @@ const ConfirmEmailForm = ({
   );
 };
 
-ConfirmEmailForm.propTypes = {
-  handleSubmit: PropTypes.func,
-  sendAnotherCode: PropTypes.func,
-  confirmOldEmail: PropTypes.func,
-  confirmOldEmailProcessing: PropTypes.bool,
-  closeModal: PropTypes.func,
-  emailAddress: PropTypes.string,
-  verificationCodeError: PropTypes.bool,
-  verificationCode: PropTypes.string,
-  verificationCodeRequest: PropTypes.number,
-};
-
-export default reduxForm({
-  form: EMAIL_FORM,
-  onSubmitFail: (errors) => scrollToErrorField(errors),
+export default reduxForm<any, any>({
+  form: CONFIRM_EMAIL_FORM,
 })(ConfirmEmailForm);

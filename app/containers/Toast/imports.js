@@ -8,7 +8,7 @@ import {
   SEND_OLD_EMAIL_ERROR,
   CONFIRM_OLD_EMAIL_ERROR,
   CHANGE_EMAIL_SUCCESS,
-} from 'containers/ChangeEmail/constants';
+} from 'containers/EmailNotifications/constants';
 
 import {
   CHANGE_PASSWORD_ERROR,

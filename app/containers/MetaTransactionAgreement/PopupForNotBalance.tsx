@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import TransactionHandler from 'containers/ViewProfilePage/TransactionHandler';
+import TransactionHandler from 'containers/ViewProfilePage/SettingsTab/TransactionHandler';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import Popup from 'common-components/Popup';

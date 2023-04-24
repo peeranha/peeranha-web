@@ -80,6 +80,12 @@ const validateURL = (url) => {
     : undefined;
 };
 
+const checkEmail = (...args) => {
+  const value = args[0];
+  const { email } = args[2];
+  return value === email ? 'signUp.emailSubscribed' : undefined;
+};
+
 const required = (value) => {
   let val = value;
 
@@ -88,7 +94,6 @@ const required = (value) => {
   } else if (typeof value === 'string') {
     val = val.trim();
   }
-
   return !val ? 'formFields.requiredField' : undefined;
 };
 
@@ -282,4 +287,5 @@ export {
   valueHasToBePositiveInteger,
   valueHasToBeLessThanMaxPromotingHours,
   stringHasToBeEthereumAddress,
+  checkEmail,
 };

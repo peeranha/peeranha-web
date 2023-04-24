@@ -20,8 +20,7 @@ import UserNavigation from 'components/UserNavigation';
 import QuestionsOfUser from 'containers/QuestionsOfUser';
 import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 import ProfileViewForm from './ProfileViewForm';
-import SettingsOfUser from './SettingsOfUser';
-
+import Settings from './SettingsTab/Settings';
 import {
   makeSelectAccount,
   makeSelectLoginData,
@@ -47,7 +46,7 @@ import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
 import {
   selectEmail,
   selectIsSubscribed,
-} from 'containers/ChangeEmail/selectors';
+} from 'containers/EmailNotifications/selectors';
 
 import saga from '../QuestionsWithAnswersOfUser/saga';
 
@@ -61,7 +60,11 @@ import {
   resetViewProfileAccount,
   setViewProfileAccount,
 } from '../Achievements/actions';
-import { getEmailAddress, showChangeEmailModal } from '../ChangeEmail/actions';
+import {
+  getEmailAddress,
+  showChangeEmailModal,
+  unsubscribeEmailAddress,
+} from '../EmailNotifications/actions';
 
 import achievementsSaga from '../Achievements/saga';
 import achievementsReducer from '../Achievements/reducer';
@@ -89,6 +92,7 @@ const ViewProfilePage = ({
   email,
   isSubscribedEmail,
   showChangeEmailModalDispatch,
+  unsubscribeEmailAddressDispatch,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -127,22 +131,14 @@ const ViewProfilePage = ({
         userId={userId}
       />
 
-      <SettingsOfUser
-        className={path === routes.userSettings(userId) ? 'mb-4' : 'd-none'}
-        userId={userId}
-        locale={locale}
-        activeKey={activeKey}
-        ownerKey={ownerKey}
-        loginData={loginData}
-        profile={profile}
-        account={account}
-        user={profile?.user ?? null}
-        isAvailable={profile && account === profile.user}
-        tgData={userTgData}
-        email={email}
-        isSubscribedEmail={isSubscribedEmail}
-        showChangeEmailModal={showChangeEmailModalDispatch}
-      />
+      {path === routes.userSettings(userId) && (
+        <Settings
+          email={email}
+          isSubscribedEmail={isSubscribedEmail}
+          showChangeEmailModal={showChangeEmailModalDispatch}
+          unsubscribeEmail={unsubscribeEmailAddressDispatch}
+        />
+      )}
 
       {path === routes.userNotifications(userId) && (
         <Notifications
@@ -211,6 +207,7 @@ ViewProfilePage.propTypes = {
   userTgData: PropTypes.object,
   stat: PropTypes.object,
   userAchievements: PropTypes.array,
+  unsubscribeEmailAddressDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -255,6 +252,10 @@ const withConnect = connect(
     ),
     showChangeEmailModalDispatch: bindActionCreators(
       showChangeEmailModal,
+      dispatch,
+    ),
+    unsubscribeEmailAddressDispatch: bindActionCreators(
+      unsubscribeEmailAddress,
       dispatch,
     ),
   }),

@@ -27,6 +27,7 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
   settings,
 }): JSX.Element => {
   const { t } = useTranslation();
+
   const isTransactionsAllowed = getCookie(TYPE_OF_TRANSACTIONS);
 
   const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
