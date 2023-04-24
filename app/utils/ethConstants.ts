@@ -850,10 +850,10 @@ const postQuery = `
 
 const postQueryMesh = `
   query (
-    $postId: String,
+    $postId: String
   ) {
     post (
-      where: { id: $postId, isDeleted: "0" },
+      where: { id: $postId, isDeleted: "0" }
     ) {
       ${postMesh}
     }

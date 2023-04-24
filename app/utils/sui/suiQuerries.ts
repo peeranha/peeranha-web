@@ -64,12 +64,12 @@ const post = `
       id
       author
       content
-      commentTime
+      postTime
     }
     history {
       postId
-      eventType
-      eventTime
+      eventName
+      timeStamp
     }
     community {
       id
@@ -88,7 +88,7 @@ const post = `
       id
       author
       content
-      replyTime
+      postTime
     }
 `;
 
@@ -110,17 +110,6 @@ const community = `
     followingUsers
     ipfsHash
     ipfsHash2
-    communitydocumentation {
-      title
-      content
-      creationTime
-      author {
-        ${user}
-      }
-    }
-    post {
-      ${post}
-    }
     tag {
       ${tag}
     }
