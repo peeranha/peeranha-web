@@ -8,6 +8,7 @@ import {
   DELETE_COMMENT_ACTION_NAME,
   DELETE_POST_ACTION_NAME,
   editPost,
+  EDIT_COMMENT_ACTION_NAME,
   handleMoveCall,
   MODERATOR_EDIT_REPLY_ACTION_NAME,
   PERIOD_REWARD_CONTAINER,
@@ -109,6 +110,28 @@ export async function deleteSuiComment(
     postId,
     parentId,
     commentId,
+  ]);
+}
+
+export async function editSuiComment(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postId: string,
+  comment: any,
+  parentId: number,
+  commentId: number,
+  ipfsLink: string,
+) {
+  const ipfsHash = getVector8FromIpfsHash(ipfsLink);
+
+  return handleMoveCall(wallet, postLib, EDIT_COMMENT_ACTION_NAME, [
+    USER_RATING_COLLECTION,
+    userSuiId,
+    postId,
+    comment,
+    parentId,
+    commentId,
+    ipfsHash,
   ]);
 }
 

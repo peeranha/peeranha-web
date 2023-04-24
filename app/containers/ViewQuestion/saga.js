@@ -127,7 +127,7 @@ import {
 } from './validate';
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getQuestionFromGraph } from '../../utils/theGraph';
+import { getCommentId2, getQuestionFromGraph } from '../../utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 import { isSuiBlockchain } from 'utils/sui/sui';
@@ -136,6 +136,7 @@ import {
   deleteSuiAnswer,
   deleteSuiComment,
   deleteSuiQuestion,
+  editSuiComment,
   postSuiAnswer,
   postSuiComment,
   upVotePost,
@@ -339,24 +340,49 @@ export function* saveCommentWorker({
 }) {
   try {
     const { questionData, ethereumService, profileInfo, locale, histories } = yield call(getParams);
-
     yield call(isAvailableAction, () => editCommentValidator(profileInfo, buttonId));
     const commentData = {
       content: comment,
     };
     const ipfsLink = yield call(saveText, JSON.stringify(commentData));
     const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const commentObjectId = yield call(getCommentId2, questionId, answerId, commentId);
 
-    const transaction = yield call(
-      editComment,
-      profileInfo.user,
-      questionId,
-      answerId,
-      commentId,
-      ipfsHash,
-      languagesEnum[locale],
-      ethereumService,
-    );
+      yield call(
+        editSuiComment,
+        wallet,
+        profileInfo.id,
+        questionId,
+        commentObjectId,
+        answerId,
+        commentId,
+        ipfsHash,
+      );
+    } else {
+      const transaction = yield call(
+        editComment,
+        profileInfo.user,
+        questionId,
+        answerId,
+        commentId,
+        ipfsHash,
+        languagesEnum[locale],
+        ethereumService,
+      );
+
+      const newHistory = {
+        transactionHash: transaction.transactionHash,
+        post: { id: questionId },
+        reply: { id: `${questionId}-${answerId}` },
+        comment: { id: `${questionId}-${answerId}-${commentId}` },
+        eventEntity: 'Comment',
+        eventName: 'Edit',
+        timeStamp: String(dateNowInSeconds()),
+      };
+      histories.push(newHistory);
+    }
 
     let item;
 
@@ -368,19 +394,7 @@ export function* saveCommentWorker({
         .comments.find((x) => x.id === commentId);
     }
 
-    const newHistory = {
-      transactionHash: transaction.transactionHash,
-      post: { id: questionId },
-      reply: { id: `${questionId}-${answerId}` },
-      comment: { id: `${questionId}-${answerId}-${commentId}` },
-      eventEntity: 'Comment',
-      eventName: 'Edit',
-      timeStamp: String(dateNowInSeconds()),
-    };
-
     item.content = comment;
-
-    histories.push(newHistory);
 
     yield call(toggleView, true);
 

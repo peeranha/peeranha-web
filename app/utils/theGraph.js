@@ -1,7 +1,12 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 import { dataToString } from 'utils/converters';
 import { isUserExists } from './accountManagement';
-import { queries, postsIdsByTagsQueryMesh, replyId2QueryMesh } from './ethConstants';
+import {
+  queries,
+  postsIdsByTagsQueryMesh,
+  replyId2QueryMesh,
+  commentId2QueryMesh,
+} from './ethConstants';
 import {
   executeMeshQuery,
   getPostDataFromMesh,
@@ -363,6 +368,20 @@ export const getReplyId2 = async (postId, answerId) => {
     false,
   );
   return result.reply[0].id2;
+};
+
+export const getCommentId2 = async (postId, answerId, commentId) => {
+  const result = await executeQuery(
+    {
+      query: commentId2QueryMesh,
+      variables: {
+        commentId: `${postId}-${answerId}-${commentId}`,
+      },
+    },
+    false,
+  );
+
+  return result.comment[0].id2;
 };
 
 export const postsForSearch = async (text, single) => {

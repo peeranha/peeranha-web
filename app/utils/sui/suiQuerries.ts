@@ -83,6 +83,7 @@ const post = `
     messengerType
     comment {
       id
+      id2
       author
       content
       postTime

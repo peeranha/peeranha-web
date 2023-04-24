@@ -85,6 +85,7 @@ const userMesh = editUserQuery(user);
 
 const comment = `
   id
+  id2
   ipfsHash
   author {
     ${user}
@@ -1160,6 +1161,18 @@ export const replyId2QueryMesh = `
   ) {
     reply (
       where: { id: $replyId },
+    ) {
+      id2
+    }
+  }
+`;
+
+export const commentId2QueryMesh = `
+  query (
+    $commentId: String,
+  ) {
+    comment (
+      where: { id: $commentId }
     ) {
       id2
     }
