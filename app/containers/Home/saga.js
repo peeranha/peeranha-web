@@ -76,6 +76,10 @@ export function* getQuestionsWorker({ communityId }) {
           [0, 1, 2],
           [communitySuiIdFilter],
         );
+        questionsList = questionsList.map((question) => ({
+          ...question,
+          communityId: сommunities.find((community) => community.suiId === question.communityId).id,
+        }));
       }
     } else {
       const ethereumService = yield select(selectEthereum);
