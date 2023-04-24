@@ -29,6 +29,9 @@ export const createPost = 'createPost';
 export const CREATE_REPLY_ACTION_NAME = 'createReply';
 export const CREATE_COMMENT_ACTION_NAME = 'createComment';
 
+export const AUTHOR_EDIT_REPLY_ACTION_NAME = 'authorEditReply';
+export const MODERATOR_EDIT_REPLY_ACTION_NAME = 'moderatorEditReply';
+
 export const DELETE_POST_ACTION_NAME = 'deletePost';
 
 export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';

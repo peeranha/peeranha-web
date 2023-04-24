@@ -561,7 +561,7 @@ const communityQuery = `
         }
       }`;
 
-const communityQueryMesh = communityQuery.replace('ID!', 'Int');
+const communityQueryMesh = communityQuery.replace('ID!', 'String');
 
 const tagsQuery = `
       query(
@@ -577,7 +577,7 @@ const tagsQuery = `
         }
       }`;
 
-const tagsQueryMesh = tagsQuery.replace('ID!', 'Int').replace('tags', 'tag');
+const tagsQueryMesh = tagsQuery.replace('ID!', 'String').replace('tags', 'tag');
 
 const tagsByIdsQuery = `
       query(
@@ -1150,3 +1150,15 @@ export const queries: {
     Mesh: tagsByIdsQueryMesh,
   },
 };
+
+export const replyId2QueryMesh = `
+  query (
+    $replyId: String,
+  ) {
+    reply (
+      where: { id: $replyId },
+    ) {
+      id2
+    }
+  }
+`;

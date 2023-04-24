@@ -25,14 +25,32 @@ import { editAnswerErr, editAnswerSuccess, getAnswerErr, getAnswerSuccess } from
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY } from 'utils/constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { getQuestionFromGraph, getReplyId2 } from 'utils/theGraph';
+import {
+  authorEditSuiAnswer,
+  editSuiAnswer,
+  moderatorEditSuiAnswer,
+} from 'utils/sui/questionsManagement';
 
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    let answer = yield select(selectAnswer(answerId));
-    const question = yield call(getQuestion, ethereumService, questionId);
+    let question;
+    let answer;
+    let ethereumService;
 
-    if (!answer) {
+    if (isSuiBlockchain) {
+      question = yield call(getQuestionFromGraph, questionId);
+      answer = question.answers[answerId - 1];
+    } else {
+      ethereumService = yield select(selectEthereum);
+      answer = yield select(selectAnswer(answerId));
+      question = yield call(getQuestion, ethereumService, questionId);
+    }
+
+    if (!isSuiBlockchain && !answer) {
       answer = yield call(getAnswer, ethereumService, questionId, answerId);
     }
 
@@ -51,22 +69,46 @@ export function* getAnswerWorker({ questionId, answerId }) {
 export function* editAnswerWorker({ answer, questionId, answerId, official, title }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const ethereumService = yield select(selectEthereum);
-    const user = yield call(ethereumService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
-    const answerData = {
+    const answerContent = {
       content: answer,
     };
-    yield call(
-      editAnswer,
-      user,
-      questionId,
-      answerId,
-      answerData,
-      official,
-      languagesEnum[locale],
-      ethereumService,
-    );
+
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const profile = yield select(makeSelectProfileInfo());
+      const questionData = yield call(getQuestionFromGraph, questionId);
+      const answerData = questionData.answers[answerId - 1];
+
+      if (profile.id === answerData.author.id) {
+        const answerObjectId = yield call(getReplyId2, questionId, answerId);
+        yield call(
+          authorEditSuiAnswer,
+          wallet,
+          profile.id,
+          questionId,
+          answerObjectId,
+          answerId,
+          answerContent,
+          official,
+        );
+      } else {
+        yield call(moderatorEditSuiAnswer, wallet, profile.id, questionId, answerId, official);
+      }
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const user = yield call(ethereumService.getSelectedAccount);
+      yield call(
+        editAnswer,
+        user,
+        questionId,
+        answerId,
+        answerContent,
+        official,
+        languagesEnum[locale],
+        ethereumService,
+      );
+    }
 
     if (cachedQuestion) {
       const item = cachedQuestion.answers.find((x) => x.id === answerId);

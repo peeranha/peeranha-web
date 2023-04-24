@@ -97,7 +97,9 @@ export const QuestionTitle = ({
     return null;
   }, [promote]);
 
-  const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
+  const isItWrittenByMe = profileInfo
+    ? user === profileInfo.user || user === profileInfo.id
+    : false;
 
   return title ? (
     <BaseExtnded paddingTop="5" paddingTopMedia="5" position="middle" paddingBottom="10" withoutBR>

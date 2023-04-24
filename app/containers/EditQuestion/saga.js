@@ -33,21 +33,30 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 import { makeSelectAccount } from '../AccountProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { getQuestionFromGraph } from 'utils/theGraph';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
-    const ethereumService = yield select(selectEthereum);
+    let ethereumService;
+    if (!isSuiBlockchain) {
+      ethereumService = yield select(selectEthereum);
+    }
     const cachedQuestion = yield select(selectQuestionData());
     const account = yield select(makeSelectAccount());
     let question;
     let questionFromContract;
 
     if (!cachedQuestion) {
-      questionFromContract = yield call(getQuestionById, ethereumService, questionId, account);
-      question = {
-        ...questionFromContract,
-        isGeneral: !!questionFromContract.postType,
-      };
+      if (isSuiBlockchain) {
+        question = yield call(getQuestionFromGraph, questionId);
+      } else {
+        questionFromContract = yield call(getQuestionById, ethereumService, questionId, account);
+        question = {
+          ...questionFromContract,
+          isGeneral: !!questionFromContract.postType,
+        };
+      }
     } else {
       question = cachedQuestion;
     }

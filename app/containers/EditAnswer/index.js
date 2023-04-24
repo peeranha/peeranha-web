@@ -12,16 +12,9 @@ import Seo from 'components/Seo';
 import AnswerForm from 'components/AnswerForm';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  ANSWER_TYPE_FORM,
-  TEXT_EDITOR_ANSWER_FORM,
-} from 'components/AnswerForm/constants';
+import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
 
-import {
-  selectAnswer,
-  selectAnswerLoading,
-  selectEditAnswerLoading,
-} from './selectors';
+import { selectAnswer, selectAnswerLoading, selectEditAnswerLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -52,14 +45,14 @@ const EditAnswer = ({
 
   useEffect(() => {
     getQuestionDataDispatch(questionid);
-    getAnswerDispatch(+questionid, +answerid);
+    getAnswerDispatch(questionid, +answerid);
   }, [questionid, answerid]);
 
   const sendAnswer = useCallback(
     (values) =>
       editAnswerDispatch(
         values.get(TEXT_EDITOR_ANSWER_FORM),
-        +questionid,
+        questionid,
         +answerid,
         values.get(ANSWER_TYPE_FORM),
         questionTitle,
@@ -87,23 +80,11 @@ const EditAnswer = ({
       isOfficialReply,
       communityId,
     }),
-    [
-      sendAnswer,
-      editAnswerLoading,
-      answer,
-      locale,
-      properties,
-      communityId,
-      content,
-      t,
-    ],
+    [sendAnswer, editAnswerLoading, answer, locale, properties, communityId, content, t],
   );
 
   const [title, description] = useMemo(
-    () => [
-      answer?.content ?? t('post.title'),
-      answer?.content ?? t('post.description'),
-    ],
+    () => [answer?.content ?? t('post.title'), answer?.content ?? t('post.description')],
     [answer],
   );
 
@@ -116,19 +97,10 @@ const EditAnswer = ({
     <div>
       {available ? (
         <>
-          <Seo
-            title={title}
-            description={description || ''}
-            language={locale}
-            index={false}
-          />
+          <Seo title={title} description={description || ''} language={locale} index={false} />
 
           {!answerLoading && (
-            <Wrapper
-              questionid={questionid}
-              answerid={answerid}
-              title={questionTitle}
-            >
+            <Wrapper questionid={questionid} answerid={answerid} title={questionTitle}>
               <AnswerForm {...sendProps} />
             </Wrapper>
           )}

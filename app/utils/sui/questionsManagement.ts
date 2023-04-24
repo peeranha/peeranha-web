@@ -1,11 +1,14 @@
 import { getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 import {
+  AUTHOR_EDIT_REPLY_ACTION_NAME,
   CREATE_COMMENT_ACTION_NAME,
   CREATE_REPLY_ACTION_NAME,
   createPost,
   DELETE_POST_ACTION_NAME,
   deletePost,
+  EDIT_REPLY_ACTION_NAME,
   handleMoveCall,
+  MODERATOR_EDIT_REPLY_ACTION_NAME,
   PERIOD_REWARD_CONTAINER,
   postLib,
   USER_RATING_COLLECTION,
@@ -77,6 +80,48 @@ export async function postSuiAnswer(
     postId,
     0, // parent reply id is always 0 for now
     ipfsHash,
+    isOfficial,
+  ]);
+}
+
+export async function authorEditSuiAnswer(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postId: string,
+  answerObjectId: string,
+  answerId: number,
+  answerData: any,
+  isOfficial: boolean,
+) {
+  const ipfsLink = await saveText(JSON.stringify(answerData));
+  const ipfsHash = getVector8FromIpfsHash(ipfsLink);
+  return handleMoveCall(wallet, postLib, AUTHOR_EDIT_REPLY_ACTION_NAME, [
+    USER_RATING_COLLECTION,
+    userSuiId,
+    postId,
+    answerObjectId,
+    answerId,
+    ipfsHash,
+    isOfficial,
+  ]);
+}
+
+export async function moderatorEditSuiAnswer(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postId: string,
+  answerObjectId: string,
+  answerId: number,
+  answerData: any,
+  isOfficial: boolean,
+) {
+  const ipfsLink = await saveText(JSON.stringify(answerData));
+  const ipfsHash = getVector8FromIpfsHash(ipfsLink);
+  return handleMoveCall(wallet, postLib, MODERATOR_EDIT_REPLY_ACTION_NAME, [
+    USER_RATING_COLLECTION,
+    userSuiId,
+    postId,
+    answerId,
     isOfficial,
   ]);
 }

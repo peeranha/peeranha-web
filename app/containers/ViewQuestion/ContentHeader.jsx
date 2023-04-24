@@ -189,7 +189,7 @@ const ContentHeader = (props) => {
   const isBot = isBotAddress(author);
 
   const isItWrittenByMe = useMemo(
-    () => (profile ? author.user === profile.user : false),
+    () => (profile ? author.user === profile.user || author.user === profile.id : false),
     [profile, author],
   );
 

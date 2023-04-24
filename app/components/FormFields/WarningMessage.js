@@ -84,8 +84,8 @@ export const WarningMessage = ({
 };
 
 WarningMessage.propTypes = {
-  error: PropTypes.object,
-  warning: PropTypes.object,
+  error: PropTypes.string,
+  warning: PropTypes.string,
   className: PropTypes.string,
   containerIsSplittedInHalf: PropTypes.bool,
   tip: PropTypes.string,
