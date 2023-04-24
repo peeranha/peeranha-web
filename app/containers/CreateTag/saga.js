@@ -7,6 +7,12 @@ import { createTag } from 'utils/communityManagement';
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import { getSuiCommunityTags } from 'utils/sui/suiIndexer';
+import { getTagsSuccess } from 'containers/DataCacheProvider/actions';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { createSuiTag } from 'utils/sui/communityManagement';
 
 import {
   suggestTagErr,
@@ -22,9 +28,23 @@ import { getPermissions } from '../../utils/properties';
 
 export function* suggestTagWorker({ communityId, tag, reset }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const selectedAccount = yield call(ethereumService.getSelectedAccount);
-    yield call(createTag, ethereumService, selectedAccount, communityId, tag);
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const communities = yield select(selectCommunities());
+      const suiCommunityId = communities.find((community) => community.id == communityId).suiId;
+      yield call(createSuiTag, wallet, suiCommunityId, tag);
+
+      const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
+        ...tag,
+        label: tag.name,
+      }));
+
+      yield put(getTagsSuccess({ [tag.communityId]: tags }));
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const selectedAccount = yield call(ethereumService.getSelectedAccount);
+      yield call(createTag, ethereumService, selectedAccount, communityId, tag);
+    }
     yield put(suggestTagSuccess());
     yield call(reset);
     yield call(createdHistory.push, routes.communityTags(communityId));
