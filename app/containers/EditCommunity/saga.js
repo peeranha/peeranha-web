@@ -21,6 +21,10 @@ import {
 import { uploadImg } from 'utils/profileManagement';
 import { delay } from 'utils/reduxUtils';
 import { getCommunityById } from 'utils/theGraph';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { updateSuiCommunity } from 'utils/sui/communityManagement';
+import { getSuiCommunities, getSuiCommunity } from 'utils/sui/suiIndexer';
+import { getFileUrl } from 'utils/ipfs';
 
 import {
   editCommunityError,
@@ -33,9 +37,6 @@ import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
 
 import { selectCommunity } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { isSuiBlockchain } from 'utils/sui/sui';
-import { updateSuiCommunity } from 'utils/sui/communityManagement';
-import { getSuiCommunities, getSuiCommunity } from 'utils/sui/suiIndexer';
 
 export function* getCommunityWorker({ communityId }) {
   try {
@@ -67,12 +68,12 @@ export function* editCommunityWorker({ communityId, communityData }) {
   try {
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
-      communityData.avatar = imgHash;
+      communityData.avatar = isSuiBlockchain ? getFileUrl(imgHash) : imgHash;
     }
 
     if (communityData.banner && communityData.banner.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.banner);
-      communityData.banner = imgHash;
+      communityData.banner = isSuiBlockchain ? getFileUrl(imgHash) : imgHash;
     }
 
     const communityDataCurrent = yield select(selectCommunity());
