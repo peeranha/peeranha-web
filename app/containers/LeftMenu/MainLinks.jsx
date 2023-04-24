@@ -85,7 +85,7 @@ export const A1 = A.extend`
   ${({ route, name }) =>
     route === name
       ? `
-          background-color: ${PRIMARY_SPECIAL};
+          background-color: ${colors.userInformation || PRIMARY_SPECIAL};
           border-color: ${colors.linkColor || BORDER_PRIMARY_DARK};
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
