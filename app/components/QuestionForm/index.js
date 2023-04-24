@@ -37,6 +37,7 @@ import FormBox from 'components/Form';
 import TipsBaseSmallPadding from 'components/Base/TipsBaseSmallPadding';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import DescriptionList from 'components/DescriptionList';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import {
   FORM_TITLE,
@@ -142,7 +143,10 @@ export const QuestionForm = ({
   const [isClickSubmit, setIsClickSubmit] = useState(false);
   const postTitle = question?.title;
   const postContent = question?.content;
-  const isPostAuthor = question?.author === profile?.user;
+
+  const isPostAuthor = isSuiBlockchain
+    ? question?.author.id === profile?.id
+    : question?.author === profile?.user;
 
   const communityId = formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
   const isCommunityModerator = communityId
@@ -406,11 +410,17 @@ export default memo(
                 [FORM_TYPE]: question?.type,
                 [FORM_TITLE]: question?.title,
                 [FORM_CONTENT]: question?.content,
-                [FORM_COMMUNITY]: {
-                  ...question?.community,
-                  tags: cachedTags[question?.community.id],
-                },
-                [FORM_TAGS]: question?.tags,
+                [FORM_COMMUNITY]: isSuiBlockchain
+                  ? {
+                      ...communities?.find(
+                        (community) => community.suiId === question?.community?.id,
+                      ),
+                    }
+                  : {
+                      ...question?.community,
+                      tags: cachedTags[question?.community?.id],
+                    },
+                [FORM_TAGS]: question?.tags.map((tag) => ({ ...tag, label: tag.name })),
                 [FORM_BOUNTY]: question?.bounty ?? '',
                 [FORM_BOUNTY_HOURS]: question?.bountyHours,
               }

@@ -43,8 +43,29 @@ const tag = `id
   postCount
   deletedPostCount`;
 
+const reply = `
+  id
+  id2
+  author
+  rating
+  postTime
+  postId
+  parentReplyId
+  content
+  commentCount
+  isDeleted
+  isOfficialReply
+  isBestReply
+  isFirstReply
+  isQuickReply
+  handle
+  messengerType
+`;
+// id - metadata
+// id2 - private id
 const post = `
     id
+    id2
     ipfsHash
     postType
     author
@@ -75,6 +96,20 @@ const post = `
       id
       name
       description
+      website
+      communitySite
+      language
+      avatar
+      isFrozen
+      creationTime
+      postCount
+      documentationCount
+      deletedPostCount
+      replyCount
+      tagsCount
+      followingUsers
+      ipfsHash
+      ipfsHash2
     }
     user {
       ${user}
@@ -85,10 +120,7 @@ const post = `
       }
     }
     reply {
-      id
-      author
-      content
-      postTime
+      ${reply}
     }
 `;
 
@@ -173,6 +205,15 @@ export const postsQuery = (postTypes: string) => `
       offset: $skip,
       where: {isDeleted: "0", postType: "(${postTypes})" },
     ) {
+      ${post}
+    }
+  }`;
+
+export const postQuery = `
+  query (
+    $id: String,
+  ) {
+    post(where: { id: $id }) {
       ${post}
     }
   }`;

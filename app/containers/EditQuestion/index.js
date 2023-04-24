@@ -14,6 +14,7 @@ import {
   makeSelectBalance,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { selectQuestionTitle } from '../ViewQuestion/selectors';
 import { selectCommunities, selectTagsLoading } from 'containers/DataCacheProvider/selectors';
 
@@ -74,11 +75,12 @@ const EditQuestion = ({
         {
           title: val[FORM_TITLE],
           content: val[FORM_CONTENT],
-          communityId: val[FORM_COMMUNITY].id,
+          communityId: isSuiBlockchain ? val[FORM_COMMUNITY].suiId : val[FORM_COMMUNITY].id,
           tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[1]),
           postType: isNaN(val[FORM_TYPE]) ? question.postType : Number(val[FORM_TYPE]),
         },
         questionid,
+        question.id2,
       );
     },
     [questionid, question],

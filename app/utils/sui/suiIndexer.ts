@@ -6,6 +6,7 @@ import {
   communityTagsQuery,
   postsQuery,
   communityQuery,
+  postQuery,
 } from 'utils/sui/suiQuerries';
 import { SUI_INDEXER_URL } from 'utils/sui/sui';
 import { getFileUrl } from 'utils/ipfs';
@@ -69,6 +70,19 @@ export const getSuiPosts = async (limit, offset, postTypes) => {
     communityId: post.community[0].id,
     tags: post.posttag.map((tagObject) => tagObject.tag[0]),
   }));
+};
+
+export const getSuiPost = async (id) => {
+  const data = await getDataFromIndexer(postQuery, { id });
+  const post = data.post[0];
+  return {
+    ...post,
+    answers: post.reply || [],
+    community: post.community[0] || {},
+    author: post.user[0] || {},
+    communityId: post.community[0].id,
+    tags: post.posttag.map((tagObject) => tagObject.tag[0]),
+  };
 };
 
 export const getSuiCommunity = async (id: string) => {

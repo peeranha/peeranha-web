@@ -35,11 +35,12 @@ export function getAskedQuestionErr(getAskedQuestionError) {
   };
 }
 
-export function editQuestion(question, questionId) {
+export function editQuestion(question, questionId, id2) {
   return {
     type: EDIT_QUESTION,
     question,
     questionId,
+    id2,
   };
 }
 

@@ -28,6 +28,7 @@ export const createCommunity = 'createCommunity';
 export const updateTag = 'updateTag';
 export const createTag = 'createTag';
 export const createPost = 'createPost';
+export const editPost = 'authorEditPost';
 export const CREATE_REPLY_ACTION_NAME = 'createReply';
 export const CREATE_COMMENT_ACTION_NAME = 'createComment';
 

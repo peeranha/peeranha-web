@@ -5,8 +5,7 @@ import {
   CREATE_REPLY_ACTION_NAME,
   createPost,
   DELETE_POST_ACTION_NAME,
-  deletePost,
-  EDIT_REPLY_ACTION_NAME,
+  editPost,
   handleMoveCall,
   MODERATOR_EDIT_REPLY_ACTION_NAME,
   PERIOD_REWARD_CONTAINER,
@@ -35,11 +34,37 @@ export async function postSuiQuestion(
   ]);
 }
 
+export async function editSuiQuestion(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postSuiId: string,
+  postMetaData: string,
+  communitySuiId: string,
+  questionData: object,
+  postType: number,
+  tags: Array<object>,
+) {
+  const ipfsLink = await saveText(JSON.stringify(questionData));
+  const ipfsHash = getVector8FromIpfsHash(ipfsLink);
+  return handleMoveCall(wallet, postLib, editPost, [
+    USER_RATING_COLLECTION,
+    PERIOD_REWARD_CONTAINER,
+    userSuiId,
+    postSuiId,
+    postMetaData,
+    communitySuiId,
+    ipfsHash,
+    postType,
+    tags,
+  ]);
+}
+
 export async function deleteSuiQuestion(
   wallet: WalletContextState,
   userSuiId: string,
   postId: string,
 ) {
+  console.log(postId);
   return handleMoveCall(wallet, postLib, DELETE_POST_ACTION_NAME, [
     USER_RATING_COLLECTION,
     PERIOD_REWARD_CONTAINER,

@@ -1,6 +1,7 @@
 /* eslint camelcase: 0 */
 import { languagesEnum } from 'app/i18n';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -13,6 +14,8 @@ import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
+import { editSuiQuestion } from 'utils/sui/questionsManagement';
+import { getSuiPost } from 'utils/sui/suiIndexer';
 
 import {
   EDIT_QUESTION,
@@ -30,7 +33,7 @@ import {
   getAskedQuestionSuccess,
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { makeSelectAccount } from '../AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 import { isSuiBlockchain } from 'utils/sui/sui';
@@ -49,25 +52,25 @@ export function* getAskedQuestionWorker({ questionId }) {
 
     if (!cachedQuestion) {
       if (isSuiBlockchain) {
-        question = yield call(getQuestionFromGraph, questionId);
+        question = yield call(getSuiPost, questionId);
       } else {
         questionFromContract = yield call(getQuestionById, ethereumService, questionId, account);
         question = {
           ...questionFromContract,
           isGeneral: !!questionFromContract.postType,
         };
+        const { communityId } = question;
+
+        if (communityId) {
+          const [community, tags] = yield call(getCommunityWithTags, communityId);
+
+          question.community = community;
+
+          question.tags = questionFromContract.tags;
+        }
       }
     } else {
       question = cachedQuestion;
-    }
-    const { communityId } = question;
-
-    if (communityId) {
-      const [community, tags] = yield call(getCommunityWithTags, communityId);
-
-      question.community = community;
-
-      question.tags = questionFromContract.tags;
     }
 
     yield put(getAskedQuestionSuccess(question));
@@ -76,28 +79,45 @@ export function* getAskedQuestionWorker({ questionId }) {
   }
 }
 
-export function* editQuestionWorker({ question, questionId }) {
+export function* editQuestionWorker({ question, questionId, id2 }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const ethereumService = yield select(selectEthereum);
-    const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
     const questionData = {
       title: question.title,
       content: question.content,
     };
 
-    yield call(
-      editQuestion,
-      selectedAccount,
-      Number(questionId),
-      Number(question.communityId),
-      questionData,
-      question.tags,
-      Number(question.postType),
-      languagesEnum[locale],
-      ethereumService,
-    );
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const profile = yield select(makeSelectProfileInfo());
+      console.log(profile);
+      yield call(
+        editSuiQuestion,
+        wallet,
+        profile.id,
+        id2,
+        questionId,
+        question.communityId,
+        questionData,
+        Number(question.postType),
+        question.tags,
+      );
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const selectedAccount = yield call(ethereumService.getSelectedAccount);
+      yield call(
+        editQuestion,
+        selectedAccount,
+        Number(questionId),
+        Number(question.communityId),
+        questionData,
+        question.tags,
+        Number(question.postType),
+        languagesEnum[locale],
+        ethereumService,
+      );
+    }
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
