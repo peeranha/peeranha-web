@@ -51,7 +51,7 @@ const formUserObject = (user: User) => {
     },
     user: user.id,
     ratings,
-    permissions: user.userpermission,
+    permissions: user.userpermission.map((usrPerm: any) => usrPerm.permission),
     highestRating,
     answersGiven: user.replyCount,
   };
