@@ -80,7 +80,7 @@ const post = `
     bestReply
     handle
     messengerType
-    comment {
+    comment (where: { isDeleted: "0" }) {
       id
       id2
       author
@@ -119,7 +119,7 @@ const post = `
         ${tag}
       }
     }
-    reply {
+    reply (where: { isDeleted: "0" }) {
       ${reply}
     }
 `;
