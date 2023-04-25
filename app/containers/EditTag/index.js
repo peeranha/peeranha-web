@@ -10,31 +10,18 @@ import * as routes from 'routes-config';
 import injectSaga from 'utils/injectSaga';
 
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
-import {
-  resetEditTagData,
-  setEditTagData,
-} from 'containers/TagsOfCommunity/actions';
+import { resetEditTagData, setEditTagData } from 'containers/TagsOfCommunity/actions';
 
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
-import {
-  HOW_TO_USE_IT_QUESTION,
-  WHAT_IS_TAG_QUESTION,
-} from 'containers/Faq/constants';
+import { HOW_TO_USE_IT_QUESTION, WHAT_IS_TAG_QUESTION } from 'containers/Faq/constants';
 
-import {
-  DESCRIPTION_FIELD,
-  FORM_COMMUNITY,
-  NAME_FIELD,
-} from 'containers/CreateTag/constants';
+import { DESCRIPTION_FIELD, FORM_COMMUNITY, NAME_FIELD } from 'containers/CreateTag/constants';
 
-import {
-  selectFaqQuestions,
-  selectCommunities,
-} from 'containers/DataCacheProvider/selectors';
+import { selectFaqQuestions, selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { Header } from 'containers/CreateTag/Header';
@@ -48,6 +35,7 @@ import { selectEditTagFormLoading, selectEditTagProcessing } from './selectors';
 import { getExistingTags } from '../Tags/actions';
 import { isSingleCommunityWebsite } from '../../utils/communityManagement';
 import { getCommunityTags } from '../DataCacheProvider/actions';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 
@@ -80,7 +68,7 @@ const EditTag = ({
 
   if (!Object.keys(editTagData).length) {
     tagId = match.params.tagid;
-    editTagData = { communityId: Number(communityId), tagId };
+    editTagData = { communityId: isSuiBlockchain ? communityId : Number(communityId), tagId };
     setEditTagDataDispatch(tagId, communityId);
   }
 
@@ -164,10 +152,7 @@ const mapStateToProps = createStructuredSelector({
   editTagProcessing: selectEditTagProcessing(),
   editTagData: selectEditTagData(),
   locale: makeSelectLocale(),
-  faqQuestions: selectFaqQuestions([
-    WHAT_IS_TAG_QUESTION,
-    HOW_TO_USE_IT_QUESTION,
-  ]),
+  faqQuestions: selectFaqQuestions([WHAT_IS_TAG_QUESTION, HOW_TO_USE_IT_QUESTION]),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -175,10 +160,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     resetEditTagDataDispatch: bindActionCreators(resetEditTagData, dispatch),
     getEditTagFormDispatch: bindActionCreators(getEditTagForm, dispatch),
     setEditTagDataDispatch: bindActionCreators(setEditTagData, dispatch),
-    resetEditTagReducerDispatch: bindActionCreators(
-      resetEditTagReducer,
-      dispatch,
-    ),
+    resetEditTagReducerDispatch: bindActionCreators(resetEditTagReducer, dispatch),
     getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
     editTagDispatch: bindActionCreators(editTag, dispatch),
     getCommunityTagsDispatch: bindActionCreators(getCommunityTags, dispatch),

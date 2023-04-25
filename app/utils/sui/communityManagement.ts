@@ -9,7 +9,8 @@ import {
   followCommunityLib,
   followCommunity,
   unfollowCommunity,
-  USER_RATING_COLLECTION,
+  USER_RATING_COLLECTION_ID,
+  USER_ROLES_COLLECTION_ID,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
@@ -27,6 +28,7 @@ export const createSuiCommunity = async (wallet: WalletContextState, community) 
 
   return handleMoveCall(wallet, communityLib, createCommunity, [
     userObj.id.id,
+    USER_ROLES_COLLECTION_ID,
     communityTransactionData,
     tagsTransactionData,
   ]);
@@ -39,6 +41,7 @@ export const updateSuiCommunity = async (wallet: WalletContextState, communityId
 
   return handleMoveCall(wallet, communityLib, updateCommunity, [
     userObj.id.id,
+    USER_ROLES_COLLECTION_ID,
     communityId,
     communityTransactionData,
   ]);
@@ -51,6 +54,7 @@ export const createSuiTag = async (wallet: WalletContextState, communityId, tag)
 
   return handleMoveCall(wallet, communityLib, createTag, [
     userObj.id.id,
+    USER_ROLES_COLLECTION_ID,
     communityId,
     tagTransactionData,
   ]);
@@ -63,6 +67,7 @@ export const updateSuiTag = async (wallet: WalletContextState, communityId, tagI
 
   return handleMoveCall(wallet, communityLib, updateTag, [
     userObj.id.id,
+    USER_ROLES_COLLECTION_ID,
     communityId,
     tagId,
     tagTransactionData,
@@ -75,7 +80,7 @@ export const followSuiCommunity = async (
   isFollow: boolean,
 ) =>
   handleMoveCall(wallet, followCommunityLib, isFollow ? unfollowCommunity : followCommunity, [
-    USER_RATING_COLLECTION,
+    USER_RATING_COLLECTION_ID,
     userId,
     suiCommunityId,
   ]);

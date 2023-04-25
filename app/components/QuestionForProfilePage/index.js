@@ -193,7 +193,7 @@ export const QuestionForProfilePage = ({
             </Span>
             <QuestionCommunity
               communities={communities}
-              communityId={communityId}
+              communityId={communities.find((community) => community.suiId === communityId).id}
               postType={postType}
               locale={locale}
             />

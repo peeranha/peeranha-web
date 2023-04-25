@@ -10,6 +10,7 @@ import { WalletContextState } from '@suiet/wallet-kit';
 import { getIpfsHashFromBytes32, getText, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 import { getFollowCommunitySuiIds, getSuiCommunities } from './suiIndexer';
+import { getUser, getUserPermissions, getUserStats } from 'utils/theGraph';
 
 export const getRatingByCommunity = (
   user: { ratings: any[] },
@@ -25,22 +26,25 @@ export const byteArrayToHexString = (byteArray: any[]) => {
 /* eslint camelcase: 0 */
 export async function getSuiProfileInfo(address: string) {
   const profileObject = await getSuiUserObject(address);
+  const userId = profileObject.id.id;
+
   const ipfsHash = getIpfsHashFromBytes32(byteArrayToHexString(profileObject.ipfsDoc.fields.hash));
   const profile = JSON.parse(await getText(ipfsHash));
   const followedCommunityIds = await getFollowCommunitySuiIds();
   const communities = await getSuiCommunities();
-  const followedCommunities = communities.filter((community) =>
+  const followedCommunities = communities.filter((community: any) =>
     followedCommunityIds.includes(community.suiId),
   );
-  return {
-    id: profileObject.id.id,
-    user: address,
+
+  const profileInfo = {
+    id: userId,
+    user: userId,
     address,
     displayName: profile.displayName,
     avatar: profile.avatar,
     achievements: [],
     permissions: [],
-    followedCommunities: followedCommunities.map((community) => community.id),
+    followedCommunities: followedCommunities.map((community: any) => community.id),
     profile: {
       about: profile.about,
       company: profile.company,
@@ -52,6 +56,8 @@ export async function getSuiProfileInfo(address: string) {
     postCount: 0,
     answersGiven: 0,
   };
+  profileInfo.permissions = await getUserPermissions(userId);
+  return profileInfo;
 }
 
 export async function saveSuiProfile(wallet: WalletContextState, profile: object) {

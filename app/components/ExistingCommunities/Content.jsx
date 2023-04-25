@@ -26,6 +26,7 @@ import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
@@ -122,11 +123,11 @@ const Content = ({ communities, sorting, locale, profile }) => {
       <Base>
         {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order]).map(
           (
-            { avatar, name, id, description, website, tagsCount, translations, ...x },
+            { avatar, name, id, suiId, description, website, tagsCount, translations, ...x },
             index,
             arr,
           ) => {
-            const value = id;
+            const value = isSuiBlockchain ? suiId : id;
             const origin = hasCommunitySingleWebsite(id);
             const communityTranslation = translations?.find(
               (translation) => translation.language === locale,

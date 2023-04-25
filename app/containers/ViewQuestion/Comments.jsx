@@ -289,7 +289,7 @@ const Comments = (props) => {
 
   return (
     <div>
-      {props.comments.length > 0 && (
+      {props.comments?.length > 0 && (
         <CommentsStyled>
           {props.comments.slice(0, commentsNum).map((item) => (
             <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
@@ -309,7 +309,7 @@ const Comments = (props) => {
         answerId={props.answerId}
         changeCommentsView={changeCommentsView}
         isAllCommentsView={isAllCommentsView}
-        commentsNumber={props.comments.length - DEFAULT_COMMENTS_NUMBER}
+        commentsNumber={props?.comments.length - DEFAULT_COMMENTS_NUMBER}
       />
     </div>
   );

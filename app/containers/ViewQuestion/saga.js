@@ -149,6 +149,7 @@ import {
   voteSuiReply,
 } from 'utils/sui/questionsManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { languagesEnum } from 'app/i18n';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -190,7 +191,7 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
       }
     }
   } else {
-    question = yield call(getSuiPost, questionId);
+    question = yield call(getQuestionFromGraph, questionId);
     question.commentCount = question.comments.length;
     question.communityId = isSuiBlockchain ? question.communityId : Number(question.communityId);
 
@@ -205,12 +206,12 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
 
     yield all(
       question.answers.map(function* (answer) {
-        answer.commentCount = answer.comments.length;
+        answer.commentCount = isSuiBlockchain ? answer.commentCount : answer.comments.length;
         answer.id = Number(answer.id.split('-')[1]);
 
         answer.author = { ...answer.author, user: answer.author.id };
 
-        answer.comments = answer.comments.map((comment) => ({
+        answer.comments = answer.comments?.map((comment) => ({
           ...comment,
           author: { ...comment.author, user: comment.author.id },
           id: Number(comment.id.split('-')[2]),
@@ -351,7 +352,7 @@ export function* saveCommentWorker({
       content: comment,
     };
     const ipfsLink = yield call(saveText, JSON.stringify(commentData));
-    const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
       const commentObjectId = yield call(getCommentId2, questionId, answerId, commentId);
@@ -364,9 +365,11 @@ export function* saveCommentWorker({
         commentObjectId,
         answerId,
         commentId,
-        ipfsHash,
+        ipfsLink,
+        languagesEnum[locale],
       );
     } else {
+      const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
       const transaction = yield call(
         editComment,
         profileInfo.user,
@@ -670,6 +673,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         questionId,
         answerId,
         ipfsLink,
+        languagesEnum[locale],
       );
       txHash = transactionResult.digest;
     } else {
@@ -767,6 +771,8 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
+      console.log(profileInfo);
+      console.log(questionId);
       const transactionResult = yield call(
         postSuiAnswer,
         wallet,
@@ -774,6 +780,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
         questionId,
         ipfsLink,
         official,
+        languagesEnum[locale],
       );
       txHash = transactionResult.digest;
     } else {

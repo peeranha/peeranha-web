@@ -7,13 +7,15 @@ import {
 import { WalletContextState } from '@suiet/wallet-kit';
 
 const SUI_PACKAGE_ID = '0x87fdd12300ec006cf986231983766ec193bea14c96b727a1d1b9a94241edf07d';
-export const USER_RATING_COLLECTION =
+export const USER_RATING_COLLECTION_ID =
   '0xfa4ab7ac89a1801ae2a43018413f70c562331bab9d28f2ff9d092f378fecb3d3';
 export const PERIOD_REWARD_CONTAINER =
   '0x94d9ef89b4e4f45ec706c4afffd1898b2789bcfe13d03f7e1e5c69b027e79c02';
 
 export const SUI_INDEXER_URL = 'https://dev3-query-index-api.testpeeranha.io/graphql';
-export const PERIOD_REWARD_CONTAINER =
+export const USER_ROLES_COLLECTION_ID =
+  '0xcc99b12d1c65b55553bad3a99d16bfb326f430b8464b3a26c74275475af7c1ea';
+export const PERIOD_REWARD_CONTAINER_ID =
   '0x94d9ef89b4e4f45ec706c4afffd1898b2789bcfe13d03f7e1e5c69b027e79c02';
 
 // TODO: name these constants properly

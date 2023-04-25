@@ -1,4 +1,5 @@
 import { keccak256, toUtf8Bytes } from 'ethers/lib.esm/utils';
+import { isSuiBlockchain } from './sui/sui';
 
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
@@ -21,9 +22,15 @@ export const MODERATOR_KEY = 48;
 export const MODERATOR_CREATE_COMMUNITY = 3;
 
 export const DEFAULT_ADMIN_ROLE = 0x00;
-export const PROTOCOL_ADMIN_ROLE = keccak256(toUtf8Bytes('PROTOCOL_ADMIN_ROLE'));
-export const COMMUNITY_ADMIN_ROLE = keccak256(toUtf8Bytes('COMMUNITY_ADMIN_ROLE'));
-export const COMMUNITY_MODERATOR_ROLE = keccak256(toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'));
+export const PROTOCOL_ADMIN_ROLE = isSuiBlockchain
+  ? '02'
+  : keccak256(toUtf8Bytes('PROTOCOL_ADMIN_ROLE'));
+export const COMMUNITY_ADMIN_ROLE = isSuiBlockchain
+  ? '03'
+  : keccak256(toUtf8Bytes('COMMUNITY_ADMIN_ROLE'));
+export const COMMUNITY_MODERATOR_ROLE = isSuiBlockchain
+  ? '04'
+  : keccak256(toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'));
 
 export const COMMUNITY_ADMIN_VALUE = 255;
 export const COMMUNITY_ADMIN_INFINITE_IMPACT = 1;

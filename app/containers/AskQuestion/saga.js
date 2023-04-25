@@ -77,15 +77,14 @@ export function* postQuestionWorker({ val }) {
         questionData,
         postType,
         tags,
+        languagesEnum[locale],
       );
-      console.log(`Post result: ${JSON.stringify(txResult)}`);
       const postCreatedEvent = yield call(
         getTransactionEventByName,
         txResult.digest,
         CREATE_POST_EVENT_NAME,
       );
       const id = postCreatedEvent.parsedJson.postMetaDataId;
-      console.log(`New post id ${id}`);
       yield put(askQuestionSuccess(id));
 
       yield call(
