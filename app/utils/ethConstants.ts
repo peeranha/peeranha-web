@@ -231,6 +231,18 @@ const postMesh = `
   bestReply
   handle
   messengerType
+  lastMod
+  history {
+    id
+    transactionHash
+    postId
+    replyId
+    commentId
+    eventEntity
+    eventName
+    actionUser
+    timeStamp
+  }
   reply (
     orderBy: { postTime: desc },
     where: { isDeleted: "0" },

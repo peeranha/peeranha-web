@@ -238,7 +238,7 @@ const ContentHeader = (props) => {
             avatar={getUserAvatar(author.avatar)}
             name={getUserName(author.displayName, author.id)}
             account={author.user}
-            rating={getRatingByCommunity(author, props.commId)}
+            rating={getRatingByCommunity(author, props.commId, props.communities, true)}
             type={type}
             postTime={postTime}
             locale={locale}

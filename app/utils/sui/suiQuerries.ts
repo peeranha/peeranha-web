@@ -20,7 +20,6 @@ const user = `
     communityId
   }
   usercommunityrating {
-    id
     communityId
     rating
   }

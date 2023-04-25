@@ -14,6 +14,7 @@ import A, { ADefault } from 'components/A';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import Grid from 'components/Grid';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import CommunityItemWithRating from './CommunityItemWithRating';
 import { singleCommunityColors } from 'utils/communityManagement';
 

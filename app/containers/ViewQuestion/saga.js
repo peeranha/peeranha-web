@@ -131,7 +131,7 @@ import {
 } from './validate';
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getCommentId2, getQuestionFromGraph } from '../../utils/theGraph';
+import { getCommentId2, getQuestionFromGraph } from 'utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 import { isSuiBlockchain } from 'utils/sui/sui';
@@ -143,9 +143,9 @@ import {
   editSuiComment,
   postSuiAnswer,
   postSuiComment,
-  upVotePost,
-  upVoteReply,
   markAsAcceptedSuiReply,
+  voteSuiPost,
+  voteSuiReply,
 } from 'utils/sui/questionsManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { languagesEnum } from 'app/i18n';
@@ -860,7 +860,17 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
       },
     );
 
-    yield call(downVote, profileInfo.user, questionId, answerId, ethereumService);
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const profile = yield select(makeSelectProfileInfo());
+      if (!answerId) {
+        yield call(voteSuiPost, wallet, profile.id, questionId, false);
+      } else {
+        yield call(voteSuiReply, wallet, profile.id, questionId, answerId, false);
+      }
+    } else {
+      yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
+    }
 
     const item =
       answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);
@@ -904,10 +914,10 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
-      if (questionId) {
-        yield call(upVotePost, wallet, profile.id, questionId, true);
+      if (!answerId) {
+        yield call(voteSuiPost, wallet, profile.id, questionId, true);
       } else {
-        yield call(upVoteReply, wallet, profile.id, questionId, answerId, true);
+        yield call(voteSuiReply, wallet, profile.id, questionId, answerId, true);
       }
     } else {
       yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);

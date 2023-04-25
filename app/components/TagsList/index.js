@@ -35,10 +35,8 @@ const Box = styled.ul`
 `;
 
 const TagsList = ({ tags, communities, communityId, children, className }) => {
-  const community = communities.find((communityObject) =>
-    isSuiBlockchain
-      ? communityObject.suiId === communityId
-      : communityObject.id === Number(communityId),
+  const community = communities.find(
+    (communityObject) => communityObject.id === Number(communityId),
   );
 
   if (!community || !tags?.length) return null;

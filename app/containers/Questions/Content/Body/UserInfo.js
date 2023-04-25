@@ -27,7 +27,7 @@ export const AuthorName = Span.extend`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
+const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, communities }) => (
   <p className="mb-3">
     <A to={routes.profileView(author.id)} className="d-inline-flex align-items-center">
       {!isSearchPage && (
@@ -40,7 +40,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
           {!isBotAddress(author) && (
             <>
               <RatingStatus
-                rating={getRatingByCommunity(author, communityId)}
+                rating={getRatingByCommunity(author, communityId, communities)}
                 size="sm"
                 isRankOff
                 customRatingIconColors={customRatingIconColors}
