@@ -20,10 +20,8 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Seo from 'components/Seo';
 
 import Header from './Header';
-import { HIDDEN_COMMUNITIES } from './constants';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { HIDDEN_COMMUNITIES_ID } from './constants';
 
-const isSingleMode = isSingleCommunityWebsite();
 export const Communities = ({
   locale,
   communities,
@@ -44,9 +42,9 @@ export const Communities = ({
     () => [communitiesLoading && route === routes.communities()],
     [communitiesLoading, route],
   );
-  if (!Boolean(isSingleMode)) {
-    communities = communities.filter((community) => !HIDDEN_COMMUNITIES.includes(community.id));
-  }
+  const unhiddenCommunities = communities.filter(
+    (community) => !HIDDEN_COMMUNITIES_ID.includes(community.id),
+  );
 
   return (
     <div className="d-xl-flex">
@@ -65,11 +63,16 @@ export const Communities = ({
           SubHeader={SubHeader}
           changeSorting={changeSorting}
           sorting={sorting}
-          communitiesNumber={communities?.length ?? 0}
+          communitiesNumber={unhiddenCommunities?.length ?? 0}
           profile={profile}
         />
 
-        <Content communities={communities} sorting={sorting} locale={locale} profile={profile} />
+        <Content
+          communities={unhiddenCommunities}
+          sorting={sorting}
+          locale={locale}
+          profile={profile}
+        />
 
         {displayLoadingIndicator && <LoadingIndicator />}
       </div>
