@@ -19,6 +19,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 import useMediaQuery from 'hooks/useMediaQuery';
 import { css } from '@emotion/react';
 import ScrollContainer from 'components/common/ScrollContainer';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 
@@ -190,13 +191,15 @@ const UserNavigation = ({
               </NavigationLink>
             )}
 
-            <NavigationLink
-              className={userId !== account ? 'd-none' : ''}
-              to={routes.userSettings(userId)}
-              islink={path !== routes.userSettings(userId) ? 1 : 0}
-            >
-              {t('common.settings')}
-            </NavigationLink>
+            {!isSuiBlockchain && (
+              <NavigationLink
+                className={userId !== account ? 'd-none' : ''}
+                to={routes.userSettings(userId)}
+                islink={path !== routes.userSettings(userId) ? 1 : 0}
+              >
+                {t('common.settings')}
+              </NavigationLink>
+            )}
           </ScrollContainer>
 
           {isDesktop && (
