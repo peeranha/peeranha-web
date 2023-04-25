@@ -771,8 +771,6 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
-      console.log(profileInfo);
-      console.log(questionId);
       const transactionResult = yield call(
         postSuiAnswer,
         wallet,

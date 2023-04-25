@@ -2,7 +2,7 @@ import {
   createUser,
   handleMoveCall,
   updateUser,
-  USER_RATING_COLLECTION,
+  USER_RATING_COLLECTION_ID,
   userLib,
   userObject,
 } from 'utils/sui/sui';
@@ -65,10 +65,13 @@ export async function saveSuiProfile(wallet: WalletContextState, profile: object
   const transactionData = getVector8FromIpfsHash(ipfsHash);
   const suiUserObject = await getSuiUserObject(wallet.address);
   if (!suiUserObject) {
-    return handleMoveCall(wallet, userLib, createUser, [USER_RATING_COLLECTION, transactionData]);
+    return handleMoveCall(wallet, userLib, createUser, [
+      USER_RATING_COLLECTION_ID,
+      transactionData,
+    ]);
   }
   return handleMoveCall(wallet, userLib, updateUser, [
-    USER_RATING_COLLECTION,
+    USER_RATING_COLLECTION_ID,
     suiUserObject.id.id,
     transactionData,
   ]);
