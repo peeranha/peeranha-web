@@ -27,6 +27,7 @@ import {
   voteToDelete,
   votingStatus,
 } from 'utils/questionsManagement';
+import { getSuiPost } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
@@ -189,7 +190,7 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
       }
     }
   } else {
-    question = yield call(getQuestionFromGraph, questionId);
+    question = yield call(getSuiPost, questionId);
     question.commentCount = question.comments.length;
     question.communityId = isSuiBlockchain ? question.communityId : Number(question.communityId);
 

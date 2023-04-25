@@ -102,9 +102,10 @@ export const getSuiPost = async (id) => {
     ...post,
     answers: post.reply || [],
     community: post.community[0] || {},
-    author: post.user[0] || {},
+    author: formUserObject(post.user[0]),
     communityId: post.community[0].id,
     tags: post.posttag.map((tagObject) => tagObject.tag[0]),
+    comments: post.comment,
   };
 };
 

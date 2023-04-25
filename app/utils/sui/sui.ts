@@ -6,13 +6,15 @@ import {
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
 
-const SUI_PACKAGE_ID = '0xda5b0dbe4ed7ee40fa2e60940345e7ceee38915cd208e02220900226af2022db';
+const SUI_PACKAGE_ID = '0x87fdd12300ec006cf986231983766ec193bea14c96b727a1d1b9a94241edf07d';
 export const USER_RATING_COLLECTION =
-  '0x5a8cda0a06c2613fefa5057f9fbea94fe7261f26a8f47ec76f6c602e4235d917';
+  '0xfa4ab7ac89a1801ae2a43018413f70c562331bab9d28f2ff9d092f378fecb3d3';
 export const PERIOD_REWARD_CONTAINER =
-  '0xc8c06ebf97cfdc6714d49032f7d5f3aa8de1c6fec95d55c6842317e597598245';
+  '0x94d9ef89b4e4f45ec706c4afffd1898b2789bcfe13d03f7e1e5c69b027e79c02';
 
-export const SUI_INDEXER_URL = 'https://dev2-query-index-api.testpeeranha.io/graphql';
+export const SUI_INDEXER_URL = 'https://dev3-query-index-api.testpeeranha.io/graphql';
+export const PERIOD_REWARD_CONTAINER =
+  '0x94d9ef89b4e4f45ec706c4afffd1898b2789bcfe13d03f7e1e5c69b027e79c02';
 
 // TODO: name these constants properly
 export const userLib = 'userLib';
