@@ -91,9 +91,18 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
           answerId,
           answerContent,
           official,
+          languagesEnum[locale],
         );
       } else {
-        yield call(moderatorEditSuiAnswer, wallet, profile.id, questionId, answerId, official);
+        yield call(
+          moderatorEditSuiAnswer,
+          wallet,
+          profile.id,
+          questionId,
+          answerId,
+          official,
+          languagesEnum[locale],
+        );
       }
     } else {
       const ethereumService = yield select(selectEthereum);

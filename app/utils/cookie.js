@@ -5,7 +5,12 @@ import {
   DEFAULT_ADMIN_ROLE,
   PROTOCOL_ADMIN_ROLE,
 } from 'utils/constants';
-import { getCommunityRole } from 'utils/properties';
+import {
+  getCommunityIdFromPermission,
+  getCommunityRole,
+  isMatchingBasePermission,
+} from 'utils/properties';
+import { isSuiBlockchain } from './sui/sui';
 
 export const NEVER_EXPIRES = 'Tue, 19 Jan 2038 01:14:07 GMT';
 export const DEFAULT_PATH = '/';
@@ -65,30 +70,33 @@ export const deleteCookie = (name) =>
   });
 
 export const formPermissionsCookie = (permissions) => {
-  const basePermissions = permissions.filter(
-    (permission) =>
-      BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE) ||
-      BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
+  const basePermissions = permissions.filter((permission) =>
+    isSuiBlockchain
+      ? permission === PROTOCOL_ADMIN_ROLE
+      : isMatchingBasePermission(permission, PROTOCOL_ADMIN_ROLE) ||
+        isMatchingBasePermission(permission, DEFAULT_ADMIN_ROLE),
   );
   const permissionsObject = {
     base: basePermissions,
   };
 
   const communitiesWhereAdmin = permissions.reduce((ids, permission) => {
-    if (permission.includes(COMMUNITY_ADMIN_ROLE.slice(0, 63))) {
-      return [
-        ...ids,
-        BigNumber.from(permission).sub(BigNumber.from(COMMUNITY_ADMIN_ROLE)).toNumber(),
-      ];
-    } else return ids;
+    if (
+      (isSuiBlockchain && permission.startsWith(COMMUNITY_ADMIN_ROLE)) ||
+      (!isSuiBlockchain && permission.includes(COMMUNITY_ADMIN_ROLE.slice(0, 63)))
+    ) {
+      return [...ids, getCommunityIdFromPermission(permission, COMMUNITY_ADMIN_ROLE)];
+    }
+    return ids;
   }, []);
   const communitiesWhereModerator = permissions.reduce((ids, permission) => {
-    if (permission.includes(COMMUNITY_MODERATOR_ROLE.slice(0, 63))) {
-      return [
-        ...ids,
-        BigNumber.from(permission).sub(BigNumber.from(COMMUNITY_MODERATOR_ROLE)).toNumber(),
-      ];
-    } else return ids;
+    if (
+      (isSuiBlockchain && permission.startsWith(COMMUNITY_MODERATOR_ROLE)) ||
+      (!isSuiBlockchain && permission.includes(COMMUNITY_MODERATOR_ROLE.slice(0, 63)))
+    ) {
+      return [...ids, getCommunityIdFromPermission(permission, COMMUNITY_MODERATOR_ROLE)];
+    }
+    return ids;
   }, []);
 
   if (communitiesWhereAdmin?.length) {
@@ -96,20 +104,22 @@ export const formPermissionsCookie = (permissions) => {
   }
 
   if (communitiesWhereModerator?.length) {
-    permissionsObject['ca6'] = communitiesWhereModerator;
+    permissionsObject.ca6 = communitiesWhereModerator;
   }
 
+  console.log(`Perm object for cookie - ${JSON.stringify(permissionsObject)}`);
   return permissionsObject;
 };
 
 export const parsePermissionsCookie = (permissionsObject) => {
+  console.log(`parse cookie`);
   const permissions = permissionsObject.base || [];
   const adminPermissions =
     permissionsObject['0a7c']?.map((communityId) =>
       getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
     ) || [];
   const moderatorPermissions =
-    permissionsObject['ca6']?.map((communityId) =>
+    permissionsObject.ca6?.map((communityId) =>
       getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
     ) || [];
   return [...permissions, ...adminPermissions, ...moderatorPermissions];

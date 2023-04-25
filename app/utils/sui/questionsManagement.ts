@@ -17,6 +17,7 @@ import {
   USER_RATING_COLLECTION_ID,
   votePost,
   voteReply,
+  USER_ROLES_COLLECTION_ID,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { CONTRACT_CONTENT, VOTE_ITEM } from 'utils/ethConstants';
@@ -28,6 +29,7 @@ export async function postSuiQuestion(
   questionData: object,
   postType: number,
   tags: Array<object>,
+  language: number,
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
@@ -35,9 +37,11 @@ export async function postSuiQuestion(
     USER_RATING_COLLECTION_ID,
     userSuiId,
     communitySuiId,
+    USER_ROLES_COLLECTION_ID,
     ipfsHash,
     postType,
     tags,
+    language,
   ]);
 }
 
@@ -50,6 +54,7 @@ export async function editSuiQuestion(
   questionData: object,
   postType: number,
   tags: Array<object>,
+  language: number,
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
@@ -57,12 +62,14 @@ export async function editSuiQuestion(
     USER_RATING_COLLECTION_ID,
     PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postSuiId,
     postMetaData,
     communitySuiId,
     ipfsHash,
     postType,
     tags,
+    language,
   ]);
 }
 
@@ -75,6 +82,7 @@ export async function deleteSuiQuestion(
     USER_RATING_COLLECTION_ID,
     PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
   ]);
 }
@@ -85,14 +93,17 @@ export async function postSuiComment(
   postId: string,
   answerId: number,
   ipfsLink: string,
+  language: number,
 ) {
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, CREATE_COMMENT_ACTION_NAME, [
     USER_RATING_COLLECTION_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
     answerId,
     ipfsHash,
+    language,
   ]);
 }
 
@@ -107,6 +118,7 @@ export async function deleteSuiComment(
     USER_RATING_COLLECTION_ID,
     PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
     parentId,
     commentId,
@@ -121,17 +133,20 @@ export async function editSuiComment(
   parentId: number,
   commentId: number,
   ipfsLink: string,
+  language: number,
 ) {
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
 
   return handleMoveCall(wallet, postLib, EDIT_COMMENT_ACTION_NAME, [
     USER_RATING_COLLECTION_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
     comment,
     parentId,
     commentId,
     ipfsHash,
+    language,
   ]);
 }
 
@@ -141,16 +156,19 @@ export async function postSuiAnswer(
   postId: string,
   ipfsLink: string,
   isOfficial: boolean,
+  language: number,
 ) {
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, CREATE_REPLY_ACTION_NAME, [
     USER_RATING_COLLECTION_ID,
     PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
     0, // parent reply id is always 0 for now
     ipfsHash,
     isOfficial,
+    language,
   ]);
 }
 
@@ -162,17 +180,20 @@ export async function authorEditSuiAnswer(
   answerId: number,
   answerData: any,
   isOfficial: boolean,
+  language: number,
 ) {
   const ipfsLink = await saveText(JSON.stringify(answerData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, AUTHOR_EDIT_REPLY_ACTION_NAME, [
     USER_RATING_COLLECTION_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
     answerObjectId,
     answerId,
     ipfsHash,
     isOfficial,
+    language,
   ]);
 }
 
@@ -184,15 +205,18 @@ export async function moderatorEditSuiAnswer(
   answerId: number,
   answerData: any,
   isOfficial: boolean,
+  language: number,
 ) {
   const ipfsLink = await saveText(JSON.stringify(answerData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, MODERATOR_EDIT_REPLY_ACTION_NAME, [
     USER_RATING_COLLECTION_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
     answerId,
     isOfficial,
+    language,
   ]);
 }
 
@@ -206,6 +230,7 @@ export async function deleteSuiAnswer(
     USER_RATING_COLLECTION_ID,
     PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
     answerId,
   ]);
@@ -221,6 +246,7 @@ export async function upVotePost(
     USER_RATING_COLLECTION_ID,
     PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
     isUpvote,
   ]);
@@ -237,6 +263,7 @@ export async function upVoteReply(
     USER_RATING_COLLECTION_ID,
     PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
+    USER_ROLES_COLLECTION_ID,
     postId,
     replyId,
     isUpvote,
@@ -262,9 +289,9 @@ export async function markAsAcceptedSuiReply(
   return handleMoveCall(wallet, postLib, CHANGE_BEST_REPLY_ACTION_NAME, [
     USER_RATING_COLLECTION_ID,
     PERIOD_REWARD_CONTAINER_ID,
+    USER_ROLES_COLLECTION_ID,
     userSuiId,
     postId,
-    answerId,
     answerId,
   ]);
 }

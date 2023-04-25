@@ -17,6 +17,7 @@ import {
   PROTOCOL_ADMIN_ROLE,
   BOT_ADDRESS,
 } from './constants';
+import { ApplicationError } from './errors';
 
 // todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
@@ -40,7 +41,9 @@ const createPermissionsObject = ({
     : translations('moderation.communityModerator'),
   h2: communityId
     ? `${
-        communities.find(({ id }) => Number(id) === Number(communityId))?.name || 'TestComm1'
+        communities.find(({ id }) =>
+          isSuiBlockchain ? id === communityId : Number(id) === Number(communityId),
+        )?.name || 'TestComm1'
       } ${translations('moderation.community')}`
     : role === DEFAULT_ADMIN_ROLE
     ? translations('moderation.defaultAdministrator')
@@ -56,6 +59,9 @@ const createPermissionsObject = ({
   communityId,
 });
 
+export const isMatchingBasePermission = (permission, role) =>
+  isSuiBlockchain ? permission === role : BigNumber.from(permission).eq(role);
+
 export const getModeratorPermissions = (
   globalModeratorProps,
   communitiesCount,
@@ -63,6 +69,7 @@ export const getModeratorPermissions = (
   translations,
 ) => {
   const values = getAllRoles(globalModeratorProps, communitiesCount);
+  console.log(`All permissions - ${JSON.stringify(getAllRoles)}`);
   const permissions1 = {};
   values.map(({ communityId = 0, role }, index) => {
     const rawPermissionsTypes = !communityId
@@ -131,9 +138,6 @@ export const isValidJsonFromCookie = (data, cookieName) => {
 };
 
 export const hasGlobalModeratorRole = (permissionsFromState) => {
-  if (isSuiBlockchain) {
-    return true;
-  }
   let permissions = permissionsFromState;
 
   if (!permissions) {
@@ -146,13 +150,27 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
     );
   }
 
-  return isSuiBlockchain
-    ? true
-    : Boolean(permissions.find((permission) => BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE)));
+  return Boolean(
+    permissions.find((permission) => isMatchingBasePermission(permission, DEFAULT_ADMIN_ROLE)),
+  );
 };
 
-export const getCommunityRole = (role, communityId) =>
-  BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();
+export const getCommunityRole = (role, communityId) => {
+  if (isSuiBlockchain) {
+    return `${role}${communityId.replace('0x', '')}`;
+  }
+  return BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();
+};
+
+export const getCommunityIdFromPermission = (permission, role) => {
+  if (isSuiBlockchain) {
+    if (!permission.startsWith(role)) {
+      throw new ApplicationError('Sui permmission must begin with role name');
+    }
+    return `0x${permission.substring(role.length)}`;
+  }
+  return BigNumber.from(permission).sub(BigNumber.from(role)).toNumber();
+};
 
 export const isBotAddress = (account) => account.id === BOT_ADDRESS;
 
@@ -163,24 +181,22 @@ export const isTemporaryAccount = async (account) => {
 
 export const getAllRoles = (userRoles = [], communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
-  if (userRoles.find((role) => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
+  if (userRoles.find((role) => isMatchingBasePermission(role, DEFAULT_ADMIN_ROLE))) {
     return [{ role: DEFAULT_ADMIN_ROLE }];
   }
-  if (userRoles.find((role) => BigNumber.from(role).eq(PROTOCOL_ADMIN_ROLE))) {
+  if (userRoles.find((role) => isMatchingBasePermission(role, PROTOCOL_ADMIN_ROLE))) {
     return [{ role: PROTOCOL_ADMIN_ROLE }];
   }
-  return userRoles.map((userRole) => {
+  return userRoles.map((permission) => {
     let communityId;
     let role;
     communityRoles.map((communityRole) => {
-      const id = BigNumber.from(userRole).sub(BigNumber.from(communityRole)).toString();
-      if (
-        id.length <= communitiesCount.toString().length &&
-        Number.parseInt(id) >= 1 &&
-        Number.parseInt(id) <= communitiesCount
-      ) {
-        communityId = id;
-        role = communityRole;
+      const id = getCommunityIdFromPermission(permission, communityRole);
+      if (!isSuiBlockchain) {
+        if (id >= 1 && id <= communitiesCount) {
+          communityId = id;
+          role = communityRole;
+        }
       }
     });
     return {
@@ -191,6 +207,7 @@ export const getAllRoles = (userRoles = [], communitiesCount) => {
 };
 
 export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
+  if (isSuiBlockchain) return true;
   let permissions = permissionsFromState;
 
   if (!permissions) {
@@ -202,24 +219,18 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
       ) || [],
     );
   }
-
-  return isSuiBlockchain
-    ? true
-    : !!permissions.filter(
-        (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
-      ).length;
+  return !!permissions.filter(
+    (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
+  ).length;
 };
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
-  isSuiBlockchain
-    ? true
-    : !!permissions.filter(
-        (permission) => permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
-      ).length;
+  !!permissions.filter(
+    (permission) => permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
+  ).length;
 
 export const hasProtocolAdminRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
-
   if (!permissions) {
     permissions = parsePermissionsCookie(
       JSON.parse(
@@ -230,9 +241,9 @@ export const hasProtocolAdminRole = (permissionsFromState) => {
     );
   }
 
-  return isSuiBlockchain
-    ? true
-    : Boolean(permissions.find((permission) => BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE)));
+  return Boolean(
+    permissions.find((permission) => isMatchingBasePermission(permission, PROTOCOL_ADMIN_ROLE)),
+  );
 };
 
 export const getCommunityRoles = (communityId) => {

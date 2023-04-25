@@ -30,6 +30,7 @@ import {
   GET_TAGS_ERROR,
   GET_COMMUNITY_TAGS,
 } from './constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 export const initialState = fromJS({
   communities: [],
@@ -87,44 +88,30 @@ function dataCacheProviderReducer(state = initialState, action) {
     case GET_FAQ:
       return state.set('getDocumentationLoading', true);
     case GET_FAQ_SUCCESS:
-      return state
-        .set('getDocumentationLoading', false)
-        .set('faq', fromJS(faq));
+      return state.set('getDocumentationLoading', false).set('faq', fromJS(faq));
     case GET_FAQ_ERROR:
-      return state
-        .set('getDocumentationLoading', false)
-        .set('getFaqError', getFaqError);
+      return state.set('getDocumentationLoading', false).set('getFaqError', getFaqError);
 
     case GET_TUTORIAL:
       return state.set('getTutorialLoading', true);
     case GET_TUTORIAL_SUCCESS:
-      return state
-        .set('getTutorialLoading', false)
-        .set('tutorial', fromJS(tutorial));
+      return state.set('getTutorialLoading', false).set('tutorial', fromJS(tutorial));
     case GET_TUTORIAL_ERROR:
-      return state
-        .set('getTutorialLoading', false)
-        .set('getTutorialError', getTutorialError);
+      return state.set('getTutorialLoading', false).set('getTutorialError', getTutorialError);
 
     case GET_COMMUNITIES:
       return state.set('communitiesLoading', true);
     case GET_COMMUNITIES_SUCCESS:
-      return state
-        .set('communitiesLoading', false)
-        .set('communities', fromJS(communities));
+      return state.set('communitiesLoading', false).set('communities', fromJS(communities));
 
     case GET_COMMUNITIES_ERROR:
-      return state
-        .set('communitiesLoading', false)
-        .set('getCommunitiesError', getCommunitiesError);
+      return state.set('communitiesLoading', false).set('getCommunitiesError', getCommunitiesError);
 
     case GET_TAGS:
     case GET_COMMUNITY_TAGS:
       return state.set('tagsLoading', true);
     case GET_TAGS_SUCCESS:
-      return state
-        .set('tagsLoading', false)
-        .set('tags', { ...state.get('tags'), ...tags });
+      return state.set('tagsLoading', false).set('tags', { ...state.get('tags'), ...tags });
 
     case GET_TAGS_ERROR:
       return state.set('tagsLoading', false).set('getTagsError', getTagsError);
@@ -165,7 +152,7 @@ function dataCacheProviderReducer(state = initialState, action) {
         profile
           ? fromJS({
               ...state.get('users').toJS(),
-              [profile.user]: {
+              [isSuiBlockchain ? profile.address : profile.user]: {
                 ...state.get('users').toJS()[profile.profile],
                 ...profile,
               },
@@ -173,15 +160,10 @@ function dataCacheProviderReducer(state = initialState, action) {
           : state.get('users'),
       );
     case GET_USER_PROFILE_ERROR:
-      return state
-        .set('usersLoading', false)
-        .set('getUserProfileError', getUserProfileError);
+      return state.set('usersLoading', false).set('getUserProfileError', getUserProfileError);
 
     case UPDATE_USER_ACHIEVEMENTS:
-      return state.setIn(
-        ['users', `${userForUpdate}`, 'achievements'],
-        updatedAchCount,
-      );
+      return state.setIn(['users', `${userForUpdate}`, 'achievements'], updatedAchCount);
 
     default:
       return state;

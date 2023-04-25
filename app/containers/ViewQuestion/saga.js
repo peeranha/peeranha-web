@@ -148,6 +148,7 @@ import {
   markAsAcceptedSuiReply,
 } from 'utils/sui/questionsManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { languagesEnum } from 'app/i18n';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -191,7 +192,9 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   } else {
     question = yield call(getQuestionFromGraph, questionId);
     question.commentCount = question.comments.length;
-    question.communityId = Number(question.communityId);
+    if (!isSuiBlockchain) {
+      question.communityId = Number(question.communityId);
+    }
 
     question.author = { ...question.author, user: question.author.id };
 
@@ -350,11 +353,10 @@ export function* saveCommentWorker({
       content: comment,
     };
     const ipfsLink = yield call(saveText, JSON.stringify(commentData));
-    const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
       const commentObjectId = yield call(getCommentId2, questionId, answerId, commentId);
-
       yield call(
         editSuiComment,
         wallet,
@@ -363,9 +365,11 @@ export function* saveCommentWorker({
         commentObjectId,
         answerId,
         commentId,
-        ipfsHash,
+        ipfsLink,
+        languagesEnum[locale],
       );
     } else {
+      const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
       const transaction = yield call(
         editComment,
         profileInfo.user,
@@ -669,6 +673,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         questionId,
         answerId,
         ipfsLink,
+        languagesEnum[locale],
       );
       txHash = transactionResult.digest;
     } else {
@@ -773,6 +778,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
         questionId,
         ipfsLink,
         official,
+        languagesEnum[locale],
       );
       txHash = transactionResult.digest;
     } else {

@@ -12,6 +12,7 @@ import {
 } from 'utils/properties';
 
 import history from '../createdHistory';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 export const useModeratorRole = (redirectPage, communityId = null) => {
   const [isModeratorRole, setModeratorRole] = useState(null);
@@ -29,8 +30,14 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
       hasProtocolAdminRole(permissions) ||
         hasGlobalModeratorRole(permissions) ||
         (Boolean(communityId) &&
-          (hasCommunityModeratorRole(permissions, Number(communityId)) ||
-            hasCommunityAdminRole(permissions, Number(communityId)))),
+          (hasCommunityModeratorRole(
+            permissions,
+            isSuiBlockchain ? communityId : Number(communityId),
+          ) ||
+            hasCommunityAdminRole(
+              permissions,
+              isSuiBlockchain ? communityId : Number(communityId),
+            ))),
     );
   }, []);
 

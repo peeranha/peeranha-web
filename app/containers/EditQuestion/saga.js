@@ -102,6 +102,7 @@ export function* editQuestionWorker({ question, questionId, id2 }) {
         questionData,
         Number(question.postType),
         question.tags,
+        languagesEnum[locale],
       );
     } else {
       const ethereumService = yield select(selectEthereum);
