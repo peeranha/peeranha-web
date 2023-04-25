@@ -107,12 +107,10 @@ export const formPermissionsCookie = (permissions) => {
     permissionsObject.ca6 = communitiesWhereModerator;
   }
 
-  console.log(`Perm object for cookie - ${JSON.stringify(permissionsObject)}`);
   return permissionsObject;
 };
 
 export const parsePermissionsCookie = (permissionsObject) => {
-  console.log(`parse cookie`);
   const permissions = permissionsObject.base || [];
   const adminPermissions =
     permissionsObject['0a7c']?.map((communityId) =>
