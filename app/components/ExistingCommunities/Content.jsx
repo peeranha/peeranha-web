@@ -31,6 +31,7 @@ import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
 
 import img from 'images/image-communityPage.svg?inline';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
@@ -122,11 +123,11 @@ const Content = ({ communities, sorting, locale, profile }) => {
       <Base>
         {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order]).map(
           (
-            { avatar, name, id, description, website, tagsCount, translations, ...x },
+            { avatar, name, id, suiId, description, website, tagsCount, translations, ...x },
             index,
             arr,
           ) => {
-            const value = id;
+            const value = isSuiBlockchain ? suiId : id;
             const origin = hasCommunitySingleWebsite(id);
             const communityTranslation = translations?.find(
               (translation) => translation.language === locale,
