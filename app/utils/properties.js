@@ -157,7 +157,11 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
 
 export const getCommunityRole = (role, communityId) => {
   if (isSuiBlockchain) {
-    return `${role}${communityId.replace('0x', '')}`;
+    if (typeof communityId === 'string' || communityId instanceof String) {
+      return `${role}${communityId.replace('0x', '')}`;
+    }
+    console.log(`Community id is expected to be hex string but got ${communityId}`);
+    return '';
   }
   return BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();
 };
