@@ -2,53 +2,123 @@ import { TEXT_SECONDARY } from 'style-constants';
 
 export const styles = {
   footer: {
-    minHeight: '140px',
+    minHeight: '220px',
     color: TEXT_SECONDARY,
   },
 
+  footerCommunityMode: {
+    minHeight: '150px',
+    '@media (max-width: 991px)': {
+      paddingBottom: '20px',
+    },
+  },
+
+  logo: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '32px',
+    '@media (max-width: 991px)': {
+      justifyContent: 'start',
+      marginLeft: '32px',
+    },
+    img: {
+      width: '180px',
+      marginBottom: '20px',
+    },
+  },
+
+  infoBlock: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    whiteSpace: 'nowrap',
+    '@media (max-width: 991px)': {
+      justifyContent: 'start',
+    },
+  },
+
   content: {
-    '@media (min-width: 576px)': {
-      display: 'block',
+    display: 'flex',
+    fontSize: '16px',
+    '@media (max-width: 991px)': {
+      flexDirection: 'column',
+    },
+  },
+
+  infoLinks: {
+    width: '100%',
+    margin: '0 32px',
+    color: '#667085',
+    fontWeight: 600,
+    '@media (max-width: 991px)': {
+      marginBottom: '12px',
     },
   },
 
   border: {
     borderBottom: '1px solid #c2c6d8',
-    marginBottom: '30px',
+    margin: '32px',
   },
 
-  infoBlock: {
-    marginBottom: '30px',
+  infoRules: {
+    '@media (max-width: 991px)': {
+      marginBottom: '25px',
+    },
+    '> span': {
+      whiteSpace: 'normal',
+    },
   },
 
-  infoLinks: {
-    width: '100%',
-    padding: '0 5px',
-    color: 'inherit',
-    '@media (min-width: 768px)': {
-      padding: '0 35px',
+  contacts: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: '32px',
+    '@media (max-width: 991px)': {
+      flexDirection: 'column-reverse',
+      alignItems: 'start',
+    },
+  },
+
+  contactsLogo: {
+    '@media (max-width: 991px)': {
+      marginLeft: '32px',
+      marginBottom: '25px',
+    },
+    svg: {
+      color: '#667085',
+      marginRight: '25px',
+      '@media (max-width: 400px)': {
+        marginBottom: '12px',
+      },
     },
   },
 
   infoData: {
-    fontSize: '12px',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '24px',
   },
 
-  infoRules: {
-    marginTop: '5px',
-    lineheight: '1.2',
-    fontSize: '10px',
-    padding: '10px',
-    '> span': {
-      whiteSpace: 'normal',
-    },
-    '@media (min-width: 576px)': {
-      padding: '0',
+  info: {
+    display: 'flex',
+    alignItems: 'start',
+    flexDirection: 'column',
+    marginLeft: '32px',
+  },
+
+  infoSingleComm: {
+    alignItems: 'center',
+    margin: '0 auto',
+    '@media (max-width: 991px)': {
+      alignItems: 'start',
+      flexDirection: 'column',
+      marginLeft: '32px',
     },
   },
 
   infoRulesLink: {
-    fontWeight: '600',
+    textDecoration: 'underline !important',
     transition: 'opacity 0.3s ease-out',
     color: 'inherit',
     ':hover': {
@@ -61,17 +131,18 @@ export const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     color: TEXT_SECONDARY,
-    fontSize: '12px',
+    fontSize: '16px',
+    marginBottom: '8px',
     ':hover': {
       color: TEXT_SECONDARY,
     },
     img: {
-      width: '60px',
-      height: '15px',
+      width: '90px',
+      height: '20px',
       marginLeft: '5px',
-      filter: 'grayscale(100%)',
+      filter: 'grayscale(0)',
       ':hover': {
-        filter: 'grayscale(0)',
+        filter: 'grayscale(100%)',
       },
     },
   },
