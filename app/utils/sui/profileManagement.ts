@@ -1,11 +1,4 @@
-import {
-  createUser,
-  handleMoveCall,
-  updateUser,
-  USER_RATING_COLLECTION_ID,
-  userLib,
-  userObject,
-} from 'utils/sui/sui';
+import { createUser, handleMoveCall, updateUser, userLib, userObject } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getIpfsHashFromBytes32, getText, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
@@ -66,12 +59,12 @@ export async function saveSuiProfile(wallet: WalletContextState, profile: object
   const suiUserObject = await getSuiUserObject(wallet.address);
   if (!suiUserObject) {
     return handleMoveCall(wallet, userLib, createUser, [
-      USER_RATING_COLLECTION_ID,
+      process.env.USER_RATING_COLLECTION_ID,
       transactionData,
     ]);
   }
   return handleMoveCall(wallet, userLib, updateUser, [
-    USER_RATING_COLLECTION_ID,
+    process.env.USER_RATING_COLLECTION_ID,
     suiUserObject.id.id,
     transactionData,
   ]);

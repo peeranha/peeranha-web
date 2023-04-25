@@ -11,11 +11,10 @@ import {
   followCommunityQuery,
   postsByCommunityIdQuery,
 } from 'utils/sui/suiQuerries';
-import { SUI_INDEXER_URL } from 'utils/sui/sui';
 import { getFileUrl } from 'utils/ipfs';
 
 const getDataFromIndexer = async (query: string, variables: object = {}) => {
-  const response = await fetch(SUI_INDEXER_URL, {
+  const response = await fetch(process.env.QUERY_INDEX_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query, variables }),

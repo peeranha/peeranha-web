@@ -1,22 +1,11 @@
 import {
   TransactionBlock,
   JsonRpcProvider,
-  devnetConnection,
+  Connection,
   PaginatedObjectsResponse,
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
-
-const SUI_PACKAGE_ID = '0x87fdd12300ec006cf986231983766ec193bea14c96b727a1d1b9a94241edf07d';
-export const USER_RATING_COLLECTION_ID =
-  '0xfa4ab7ac89a1801ae2a43018413f70c562331bab9d28f2ff9d092f378fecb3d3';
-export const PERIOD_REWARD_CONTAINER =
-  '0x94d9ef89b4e4f45ec706c4afffd1898b2789bcfe13d03f7e1e5c69b027e79c02';
-
-export const SUI_INDEXER_URL = 'https://dev3-query-index-api.testpeeranha.io/graphql';
-export const USER_ROLES_COLLECTION_ID =
-  '0xcc99b12d1c65b55553bad3a99d16bfb326f430b8464b3a26c74275475af7c1ea';
-export const PERIOD_REWARD_CONTAINER_ID =
-  '0x94d9ef89b4e4f45ec706c4afffd1898b2789bcfe13d03f7e1e5c69b027e79c02';
+import { ApplicationError } from 'utils/errors';
 
 // TODO: name these constants properly
 export const userLib = 'userLib';
@@ -55,6 +44,18 @@ export const IS_INDEXER_ON = true;
 
 export const CREATE_POST_EVENT_NAME = 'CreatePostEvent';
 
+export function createSuiProvider() {
+  if (!process.env.SUI_RPC_ENDPOINT) {
+    throw new ApplicationError('SUI_RPC_ENDPOINT is not configured');
+  }
+
+  const connection = new Connection({
+    fullnode: process.env.SUI_RPC_ENDPOINT,
+  });
+
+  return new JsonRpcProvider(connection);
+}
+
 export const waitForTransactionConfirmation = async (_transaction: string): Promise<void> =>
   // TODO: add actual implementation
   new Promise((resolve) => setTimeout(resolve, 4000));
@@ -69,7 +70,7 @@ export const handleMoveCall = async (
   tx.moveCall({
     // example
     // 0x4e05c416411b99d4a4b12dcd0599811fed668010f994b4cd37683d886f45262f::userLib::createUser
-    target: `${SUI_PACKAGE_ID}::${libName}::${action}`,
+    target: `${process.env.SUI_PACKAGE_ID}::${libName}::${action}`,
     arguments: data.map((item: unknown) => tx.pure(item)),
   });
 
@@ -88,13 +89,13 @@ export const getOwnedObject = async (
   ownerAddress: string | undefined,
 ): Promise<PaginatedObjectsResponse | null> => {
   if (!ownerAddress) return null;
-  const rpc = new JsonRpcProvider(devnetConnection);
+  const rpc = createSuiProvider();
   return rpc.getOwnedObjects({
     owner: ownerAddress,
     filter: {
       // example
       // 0x4e05c416411b99d4a4b12dcd0599811fed668010f994b4cd37683d886f45262f::userLib::User
-      StructType: `${SUI_PACKAGE_ID}::${libName}::${objectName}`,
+      StructType: `${process.env.SUI_PACKAGE_ID}::${libName}::${objectName}`,
     },
     options: {
       showType: true,
@@ -105,7 +106,7 @@ export const getOwnedObject = async (
 
 // getObjectById(userObjects.data[0].data.objectId)
 export const getObjectById = async (objectId: string): Promise<object> => {
-  const rpc = new JsonRpcProvider(devnetConnection);
+  const rpc = createSuiProvider();
   return rpc.getObject({
     id: objectId,
     options: {
@@ -134,7 +135,7 @@ export const getTransactionEventByName = async (
     }
   | undefined
 > => {
-  const rpc = new JsonRpcProvider(devnetConnection);
+  const rpc = createSuiProvider();
   const result = await rpc.getTransactionBlock({
     digest: transacion,
     options: {

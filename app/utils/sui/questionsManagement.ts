@@ -12,12 +12,9 @@ import {
   EDIT_COMMENT_ACTION_NAME,
   handleMoveCall,
   MODERATOR_EDIT_REPLY_ACTION_NAME,
-  PERIOD_REWARD_CONTAINER_ID,
   postLib,
-  USER_RATING_COLLECTION_ID,
   votePost,
   voteReply,
-  USER_ROLES_COLLECTION_ID,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 
@@ -33,10 +30,10 @@ export async function postSuiQuestion(
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, createPost, [
-    USER_RATING_COLLECTION_ID,
+    process.env.USER_RATING_COLLECTION_ID,
     userSuiId,
     communitySuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     ipfsHash,
     postType,
     tags,
@@ -58,10 +55,10 @@ export async function editSuiQuestion(
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, editPost, [
-    USER_RATING_COLLECTION_ID,
-    PERIOD_REWARD_CONTAINER_ID,
+    process.env.USER_RATING_COLLECTION_ID,
+    process.env.PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postSuiId,
     postMetaData,
     communitySuiId,
@@ -78,10 +75,10 @@ export async function deleteSuiQuestion(
   postId: string,
 ) {
   return handleMoveCall(wallet, postLib, DELETE_POST_ACTION_NAME, [
-    USER_RATING_COLLECTION_ID,
-    PERIOD_REWARD_CONTAINER_ID,
+    process.env.USER_RATING_COLLECTION_ID,
+    process.env.PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
   ]);
 }
@@ -96,9 +93,9 @@ export async function postSuiComment(
 ) {
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, CREATE_COMMENT_ACTION_NAME, [
-    USER_RATING_COLLECTION_ID,
+    process.env.USER_RATING_COLLECTION_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
     answerId,
     ipfsHash,
@@ -114,10 +111,10 @@ export async function deleteSuiComment(
   commentId: string,
 ) {
   return handleMoveCall(wallet, postLib, DELETE_COMMENT_ACTION_NAME, [
-    USER_RATING_COLLECTION_ID,
-    PERIOD_REWARD_CONTAINER_ID,
+    process.env.USER_RATING_COLLECTION_ID,
+    process.env.PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
     parentId,
     commentId,
@@ -137,9 +134,9 @@ export async function editSuiComment(
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
 
   return handleMoveCall(wallet, postLib, EDIT_COMMENT_ACTION_NAME, [
-    USER_RATING_COLLECTION_ID,
+    process.env.USER_RATING_COLLECTION_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
     comment,
     parentId,
@@ -159,10 +156,10 @@ export async function postSuiAnswer(
 ) {
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, CREATE_REPLY_ACTION_NAME, [
-    USER_RATING_COLLECTION_ID,
-    PERIOD_REWARD_CONTAINER_ID,
+    process.env.USER_RATING_COLLECTION_ID,
+    process.env.PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
     0, // parent reply id is always 0 for now
     ipfsHash,
@@ -184,9 +181,9 @@ export async function authorEditSuiAnswer(
   const ipfsLink = await saveText(JSON.stringify(answerData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, AUTHOR_EDIT_REPLY_ACTION_NAME, [
-    USER_RATING_COLLECTION_ID,
+    process.env.USER_RATING_COLLECTION_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
     answerObjectId,
     answerId,
@@ -209,9 +206,9 @@ export async function moderatorEditSuiAnswer(
   const ipfsLink = await saveText(JSON.stringify(answerData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
   return handleMoveCall(wallet, postLib, MODERATOR_EDIT_REPLY_ACTION_NAME, [
-    USER_RATING_COLLECTION_ID,
+    process.env.USER_RATING_COLLECTION_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
     answerId,
     isOfficial,
@@ -226,10 +223,10 @@ export async function deleteSuiAnswer(
   answerId: string,
 ) {
   return handleMoveCall(wallet, postLib, DELETE_ANSWER_ACTION_NAME, [
-    USER_RATING_COLLECTION_ID,
-    PERIOD_REWARD_CONTAINER_ID,
+    process.env.USER_RATING_COLLECTION_ID,
+    process.env.PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
     answerId,
   ]);
@@ -242,10 +239,10 @@ export async function voteSuiPost(
   isUpvote: boolean,
 ) {
   return handleMoveCall(wallet, postLib, votePost, [
-    USER_RATING_COLLECTION_ID,
-    PERIOD_REWARD_CONTAINER_ID,
+    process.env.USER_RATING_COLLECTION_ID,
+    process.env.PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
     isUpvote,
   ]);
@@ -259,10 +256,10 @@ export async function voteSuiReply(
   isUpvote: boolean,
 ) {
   return handleMoveCall(wallet, postLib, voteReply, [
-    USER_RATING_COLLECTION_ID,
-    PERIOD_REWARD_CONTAINER_ID,
+    process.env.USER_RATING_COLLECTION_ID,
+    process.env.PERIOD_REWARD_CONTAINER_ID,
     userSuiId,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     postId,
     replyId,
     isUpvote,
@@ -276,9 +273,9 @@ export async function markAsAcceptedSuiReply(
   answerId: string,
 ) {
   return handleMoveCall(wallet, postLib, CHANGE_BEST_REPLY_ACTION_NAME, [
-    USER_RATING_COLLECTION_ID,
-    PERIOD_REWARD_CONTAINER_ID,
-    USER_ROLES_COLLECTION_ID,
+    process.env.USER_RATING_COLLECTION_ID,
+    process.env.PERIOD_REWARD_CONTAINER_ID,
+    process.env.USER_ROLES_COLLECTION_ID,
     userSuiId,
     postId,
     answerId,
