@@ -152,7 +152,7 @@ function dataCacheProviderReducer(state = initialState, action) {
         profile
           ? fromJS({
               ...state.get('users').toJS(),
-              [isSuiBlockchain ? profile.address : profile.user]: {
+              [profile.user]: {
                 ...state.get('users').toJS()[profile.profile],
                 ...profile,
               },

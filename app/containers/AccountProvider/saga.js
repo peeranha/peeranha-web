@@ -207,10 +207,8 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
         yield put(getCurrentAccountSuccess(wallet.address, 0));
         return;
       }
-
-      // const userFromContract = yield call(getSuiProfileInfo, wallet.address);
-      // const profileInfo = yield call(getSuiUserById, userFromContract.id);
-      const profileInfo = yield call(getSuiProfileInfo, wallet.address);
+      const userFromContract = yield call(getSuiProfileInfo, wallet.address);
+      const profileInfo = yield call(getSuiUserById, userFromContract.id);
 
       setCookie({
         name: PROFILE_INFO_LS,
@@ -222,9 +220,7 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
       });
       yield put(addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}));
       yield put(getUserProfileSuccess(profileInfo));
-
-      yield put(getCurrentAccountSuccess(wallet.address, 0, 0, 0));
-      // yield put(getCurrentAccountSuccess(userFromContract.id, 0, 0, 0));
+      yield put(getCurrentAccountSuccess(userFromContract.id, 0, 0, 0));
     }
   } catch (err) {
     yield put(getCurrentAccountError(err));

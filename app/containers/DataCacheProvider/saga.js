@@ -159,9 +159,8 @@ export function* getUserProfileWorker({ user, getFullProfile, communityIdForRati
       const isLogin = wallet.address === user;
       let updatedUserInfo;
       if (isLogin) {
-        // const userFromContract = yield call(getSuiProfileInfo, wallet.address);
-        // updatedUserInfo = yield call(getSuiUserById, userFromContract.id);
-        updatedUserInfo = yield call(getSuiProfileInfo, wallet.address);
+        const userFromContract = yield call(getSuiProfileInfo, wallet.address);
+        updatedUserInfo = yield call(getSuiUserById, userFromContract.id);
       } else {
         updatedUserInfo = yield call(getSuiUserById, user);
       }
