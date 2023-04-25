@@ -207,7 +207,6 @@ export const getAllRoles = (userRoles = [], communitiesCount) => {
 };
 
 export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
-  if (isSuiBlockchain) return true;
   let permissions = permissionsFromState;
 
   if (!permissions) {

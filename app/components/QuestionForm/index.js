@@ -148,11 +148,15 @@ export const QuestionForm = ({
     ? question?.author.id === profile?.id
     : question?.author === profile?.user;
 
-  const communityId = formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
-  const isCommunityModerator = communityId
-    ? hasCommunityModeratorRole(getPermissions(profile), communityId)
+  const formCommunityId = isSuiBlockchain
+    ? formValues[FORM_COMMUNITY]?.suiId
+    : formValues[FORM_COMMUNITY]?.id;
+  const communityUniqueId = formCommunityId || single || question?.communityId;
+  const isCommunityModerator = communityUniqueId
+    ? hasCommunityModeratorRole(getPermissions(profile), communityUniqueId)
     : false;
 
+  const communityId = formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
   const isHasRoleGlobal =
     hasGlobalModeratorRole(getPermissions(profile)) ||
     hasProtocolAdminRole(getPermissions(profile));
