@@ -65,7 +65,6 @@ export const handleMoveCall = async (
   action: string,
   data: unknown[],
 ): Promise<object> => {
-  console.log(data);
   const tx = new TransactionBlock();
   tx.moveCall({
     // example

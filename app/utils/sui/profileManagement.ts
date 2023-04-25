@@ -9,7 +9,7 @@ import {
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getIpfsHashFromBytes32, getText, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
-import { getFollowCommunitySuiIds, getSuiCommunities } from './suiIndexer';
+import { getFollowCommunitySuiIds, getSuiCommunities, getSuiUserById } from './suiIndexer';
 import { getUser, getUserPermissions, getUserStats } from 'utils/theGraph';
 
 export const getRatingByCommunity = (

@@ -27,7 +27,7 @@ import {
   voteToDelete,
   votingStatus,
 } from 'utils/questionsManagement';
-import { getSuiPost } from 'utils/sui/suiIndexer';
+import { getSuiPost, getSuiUserById } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
@@ -795,8 +795,8 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     questionData.replyCount += 1;
     const replyId = questionData.replyCount;
-
-    const updatedProfileInfo = yield call(getSuiProfileInfo, profileInfo.address);
+    console.log(profileInfo);
+    const updatedProfileInfo = yield call(getSuiUserById, profileInfo.address);
 
     const newAnswer = {
       id: replyId,
