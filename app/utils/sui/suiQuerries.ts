@@ -119,7 +119,9 @@ const post = `
         ${tag}
       }
     }
-    reply {
+    reply (
+      where: { isDeleted: "0" }
+    ) {
       ${reply}
     }
 `;
