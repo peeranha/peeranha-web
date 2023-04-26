@@ -27,7 +27,7 @@ import {
   voteToDelete,
   votingStatus,
 } from 'utils/questionsManagement';
-import { getSuiPost, getSuiUserById } from 'utils/sui/suiIndexer';
+import { getSuiPost, getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
@@ -471,7 +471,8 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
-      yield call(deleteSuiAnswer, wallet, profileInfo.id, questionId, answerId);
+      const txResult = yield call(deleteSuiAnswer, wallet, profileInfo.id, questionId, answerId);
+      yield call(waitForPostTransactionToIndex, txResult.digest);
     } else {
       yield call(
         isAvailableAction,
@@ -569,7 +570,8 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
       );
     } else if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
-      yield call(deleteSuiQuestion, wallet, profileInfo.id, questionId);
+      const txResult = yield call(deleteSuiQuestion, wallet, profileInfo.id, questionId);
+      yield call(waitForPostTransactionToIndex, txResult.digest);
     } else {
       yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
     }
@@ -781,6 +783,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
         languagesEnum[locale],
       );
       txHash = transactionResult.digest;
+      yield call(waitForPostTransactionToIndex, txHash);
     } else {
       const transactionResult = yield call(
         postAnswer,

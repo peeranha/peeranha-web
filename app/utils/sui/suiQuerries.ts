@@ -230,6 +230,15 @@ export const postQuery = `
     }
 }`;
 
+export const historyIdQuery = `
+  query (
+    $id: String,
+  ) {
+    history(where: { id: $id }) {
+      id
+    }
+}`;
+
 export const postByIdQuery = `query($id: String) {
   post(where: { id: $id }) {
     ${post}

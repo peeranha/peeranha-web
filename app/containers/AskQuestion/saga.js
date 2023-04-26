@@ -50,6 +50,7 @@ import {
   MIN_RATING_TO_POST_QUESTION,
   POST_QUESTION_BUTTON,
 } from './constants';
+import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -85,6 +86,9 @@ export function* postQuestionWorker({ val }) {
         CREATE_POST_EVENT_NAME,
       );
       const id = postCreatedEvent.parsedJson.postMetaDataId;
+
+      yield call(waitForPostTransactionToIndex, txResult.digest);
+
       yield put(askQuestionSuccess(id));
 
       yield call(

@@ -34,6 +34,7 @@ import {
   editSuiAnswer,
   moderatorEditSuiAnswer,
 } from 'utils/sui/questionsManagement';
+import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
@@ -80,9 +81,10 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
       const questionData = yield call(getQuestionFromGraph, questionId);
       const answerData = questionData.answers[answerId - 1];
 
+      let txResult;
       if (profile.id === answerData.author.id) {
         const answerObjectId = yield call(getReplyId2, questionId, answerId);
-        yield call(
+        txResult = yield call(
           authorEditSuiAnswer,
           wallet,
           profile.id,
@@ -94,7 +96,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
           languagesEnum[locale],
         );
       } else {
-        yield call(
+        txResult = yield call(
           moderatorEditSuiAnswer,
           wallet,
           profile.id,
@@ -104,6 +106,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
           languagesEnum[locale],
         );
       }
+      yield call(waitForPostTransactionToIndex, txResult.digest);
     } else {
       const ethereumService = yield select(selectEthereum);
       const user = yield call(ethereumService.getSelectedAccount);

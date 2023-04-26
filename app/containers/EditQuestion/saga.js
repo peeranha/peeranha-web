@@ -15,7 +15,7 @@ import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 import { editSuiQuestion } from 'utils/sui/questionsManagement';
-import { getSuiPost } from 'utils/sui/suiIndexer';
+import { getSuiPost, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 
 import {
   EDIT_QUESTION,
@@ -91,8 +91,7 @@ export function* editQuestionWorker({ question, questionId, id2 }) {
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
-      console.log(profile);
-      yield call(
+      const txResult = yield call(
         editSuiQuestion,
         wallet,
         profile.id,
@@ -104,6 +103,7 @@ export function* editQuestionWorker({ question, questionId, id2 }) {
         question.tags,
         languagesEnum[locale],
       );
+      yield call(waitForPostTransactionToIndex, txResult.digest);
     } else {
       const ethereumService = yield select(selectEthereum);
       const selectedAccount = yield call(ethereumService.getSelectedAccount);

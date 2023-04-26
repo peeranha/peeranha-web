@@ -6,6 +6,8 @@ import {
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { ApplicationError } from 'utils/errors';
+import SuccessfulTransaction from '../../components/icons/SuccessfulTransaction';
+import { delay } from 'utils/reduxUtils';
 
 // TODO: name these constants properly
 export const userLib = 'userLib';
@@ -44,6 +46,8 @@ export const IS_INDEXER_ON = true;
 
 export const CREATE_POST_EVENT_NAME = 'CreatePostEvent';
 
+export const TX_WAIT_DELAY_MS = 500;
+
 export function createSuiProvider() {
   if (!process.env.SUI_RPC_ENDPOINT) {
     throw new ApplicationError('SUI_RPC_ENDPOINT is not configured');
@@ -56,9 +60,21 @@ export function createSuiProvider() {
   return new JsonRpcProvider(connection);
 }
 
-export const waitForTransactionConfirmation = async (_transaction: string): Promise<void> =>
-  // TODO: add actual implementation
-  new Promise((resolve) => setTimeout(resolve, 4000));
+export const waitForTransactionConfirmation = async (transactionDigest: string): Promise<void> => {
+  const provider = createSuiProvider();
+  let confirmed = false;
+  /* eslint-disable no-await-in-loop */
+  do {
+    try {
+      const confirmedTx = await provider.getTransactionBlock({
+        digest: transactionDigest,
+      });
+      confirmed = !confirmedTx.errors;
+    } catch {}
+    await delay(TX_WAIT_DELAY_MS);
+  } while (!confirmed);
+  /* eslint-enable no-await-in-loop */
+};
 
 export const handleMoveCall = async (
   wallet: WalletContextState,

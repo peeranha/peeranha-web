@@ -10,8 +10,10 @@ import {
   postQuery,
   followCommunityQuery,
   postsByCommunityIdQuery,
+  historyIdQuery,
 } from 'utils/sui/suiQuerries';
 import { getFileUrl } from 'utils/ipfs';
+import { delay } from 'utils/reduxUtils';
 
 const getDataFromIndexer = async (query: string, variables: object = {}) => {
   const response = await fetch(process.env.QUERY_INDEX_URL, {
@@ -34,6 +36,7 @@ type User = {
 };
 
 const formUserObject = (user: User) => {
+  console.log(`followedCommunities - ${JSON.stringify(user)}`);
   const ratings = user?.usercommunityrating;
   const highestRating = ratings?.length
     ? ratings.reduce((max: { rating: number }, current: { rating: number }) =>
@@ -106,6 +109,21 @@ export const getSuiPost = async (id) => {
     tags: post.posttag.map((tagObject) => tagObject.tag[0]),
     comments: post.comment,
   };
+};
+
+export const isPostTransactionIndexed = async (id) => {
+  const data = await getDataFromIndexer(historyIdQuery, { id });
+  return data.history && data.history.length > 0;
+};
+
+export const waitForPostTransactionToIndex = async (transaction) => {
+  let indexed = false;
+  /* eslint-disable no-await-in-loop */
+  do {
+    await delay(500);
+    indexed = await isPostTransactionIndexed(transaction);
+  } while (!indexed);
+  /* eslint-enable no-await-in-loop */
 };
 
 export const getSuiPostById = async (id: string) => {
