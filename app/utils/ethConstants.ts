@@ -146,6 +146,7 @@ const reply = `
 
 const replyMesh = `
   id
+  id2
   ipfsHash
   user {
     ${userMesh}

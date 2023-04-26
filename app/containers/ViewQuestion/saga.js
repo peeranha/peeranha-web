@@ -135,7 +135,7 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 import { getCommentId2, getQuestionFromGraph } from 'utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { getObjectById, isSuiBlockchain } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import {
   deleteSuiAnswer,
@@ -147,6 +147,7 @@ import {
   markAsAcceptedSuiReply,
   voteSuiPost,
   voteSuiReply,
+  suiVotingStatus,
 } from 'utils/sui/questionsManagement';
 import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { languagesEnum } from 'app/i18n';
@@ -193,12 +194,18 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
     }
   } else {
     question = yield call(getQuestionFromGraph, questionId);
+    // TODO: SUI - implement load of voting history from indexer
+    const statusData = yield call(getObjectById, question.id);
+    question.votingStatus = suiVotingStatus(
+      statusData?.data?.content?.fields?.historyVotes?.fields?.contents.find(
+        (history) => history.fields.key === user,
+      )?.fields?.value,
+    );
     question.commentCount = question.comments.length;
     question.communityId = isSuiBlockchain ? question.communityId : Number(question.communityId);
 
     question.author = { ...question.author, user: question.author.id };
 
-    // TODO: SUI - implement load of voting history
     if (!isSuiBlockchain && user) {
       const statusHistory = yield getStatusHistory(user, questionId, 0, 0, ethereumService);
 

@@ -18,6 +18,13 @@ import {
   CLOCK_OBJECT_ID,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
+import { DOWNVOTE_STATUS, UPVOTE_STATUS } from 'utils/ethConstants';
+
+export const suiVotingStatus = (statusHistory) => ({
+  isUpVoted: statusHistory === 3,
+  isDownVoted: statusHistory === 1,
+  isVotedToDelete: false,
+});
 
 export async function postSuiQuestion(
   wallet: WalletContextState,
