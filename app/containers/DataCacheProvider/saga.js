@@ -158,11 +158,12 @@ export function* getUserProfileWorker({ user, getFullProfile, communityIdForRati
       const wallet = yield select(selectSuiWallet());
       const isLogin = wallet.address === user;
       let updatedUserInfo;
+      const communities = yield select(selectCommunities());
       if (isLogin) {
         const userFromContract = yield call(getSuiProfileInfo, wallet.address);
-        updatedUserInfo = yield call(getSuiUserById, userFromContract.id);
+        updatedUserInfo = yield call(getSuiUserById, userFromContract.id, communities);
       } else {
-        updatedUserInfo = yield call(getSuiUserById, user);
+        updatedUserInfo = yield call(getSuiUserById, user, communities);
       }
       yield put(getUserProfileSuccess({ ...updatedUserInfo }));
       return yield updatedUserInfo;

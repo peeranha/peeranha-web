@@ -27,7 +27,7 @@ import {
   voteToDelete,
   votingStatus,
 } from 'utils/questionsManagement';
-import { getSuiPost, getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import { getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
@@ -130,7 +130,7 @@ import {
   upVoteValidator,
   voteToDeleteValidator,
 } from './validate';
-import { selectUsers } from '../DataCacheProvider/selectors';
+import { selectCommunities, selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getCommentId2, getQuestionFromGraph } from 'utils/theGraph';
 
@@ -798,8 +798,8 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     questionData.replyCount += 1;
     const replyId = questionData.replyCount;
-    console.log(profileInfo);
-    const updatedProfileInfo = yield call(getSuiUserById, profileInfo.address);
+    const communities = yield select(selectCommunities());
+    const updatedProfileInfo = yield call(getSuiUserById, profileInfo.address, communities);
 
     const newAnswer = {
       id: replyId,

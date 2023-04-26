@@ -1,3 +1,4 @@
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 import { useWallet } from '@suiet/wallet-kit';
 
@@ -207,8 +208,9 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
         yield put(getCurrentAccountSuccess(wallet.address, 0));
         return;
       }
+      const communities = yield select(selectCommunities());
       const userFromContract = yield call(getSuiProfileInfo, wallet.address);
-      const profileInfo = yield call(getSuiUserById, userFromContract.id);
+      const profileInfo = yield call(getSuiUserById, userFromContract.id, communities);
 
       setCookie({
         name: PROFILE_INFO_LS,

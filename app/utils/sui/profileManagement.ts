@@ -2,8 +2,8 @@ import { createUser, handleMoveCall, updateUser, userLib, userObject } from 'uti
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getIpfsHashFromBytes32, getText, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
-import { getFollowCommunitySuiIds, getSuiCommunities, getSuiUserById } from './suiIndexer';
-import { getUser, getUserPermissions, getUserStats } from 'utils/theGraph';
+import { getSuiCommunities } from './suiIndexer';
+import { getUserPermissions } from 'utils/theGraph';
 
 export const getRatingByCommunity = (
   user: { ratings: any[] },

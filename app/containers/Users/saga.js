@@ -1,3 +1,4 @@
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { getSuiUsers, getSuiUsersFromContract } from 'utils/sui/suiIndexer';
 import { IS_INDEXER_ON, isSuiBlockchain } from 'utils/sui/sui';
@@ -12,8 +13,8 @@ export function* getUsersWorker({ loadMore, reload, communityId }) {
     if (isSuiBlockchain) {
       let users = [];
       if (IS_INDEXER_ON) {
-        users = yield call(getSuiUsers);
-        console.log(users);
+        const communities = yield select(selectCommunities());
+        users = yield call(getSuiUsers, communities);
       } else {
         users = yield call(getSuiUsersFromContract);
       }
