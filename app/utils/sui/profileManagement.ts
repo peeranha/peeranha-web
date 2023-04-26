@@ -68,6 +68,26 @@ export async function saveSuiProfile(wallet: WalletContextState, profile: object
   ]);
 }
 
+export async function createSuiProfile(wallet: WalletContextState) {
+  const ipfsHash = await saveText(
+    JSON.stringify({
+      about: '',
+      avatar: '',
+      company: '',
+      displayName: `${wallet.address.substring(0, 6)}...${wallet.address.substring(
+        wallet.address.length - 4,
+      )}`,
+      location: '',
+      position: '',
+    }),
+  );
+  const transactionData = getVector8FromIpfsHash(ipfsHash);
+  return handleMoveCall(wallet, userLib, createUser, [
+    process.env.USER_RATING_COLLECTION_ID,
+    transactionData,
+  ]);
+}
+
 export const getSuiNotificationsInfo = async () =>
   // const response = await callService(NOTIFICATIONS_INFO_SERVICE, { user }, true);
   ({ all: 0, unread: 0 });
