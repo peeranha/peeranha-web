@@ -24,7 +24,7 @@
   "archive": "Archivo",
   "markAllAsRead": "Marcar todo como Leido",
   "edit": "Editar",
-  "editCommunity": "Editar comunidad",
+  "editCommunity": "Configuración de comunidad",
   "logout": "Cerrar sesión",
   "search": "Búsqueda",
   "login": "Iniciar sesión",
@@ -60,6 +60,7 @@
   "allQuestions": "Todas las preguntas",
   "manageMyComm": "Ver todas las comunidades",
   "asked": "Preguntó",
+  "lastUpdated": "Last updated on",
   "askedWhen": "Preguntó {{when}}",
   "answeredWhen": "Contestada {{when}}",
   "somebodyAsked": "{{account}} preguntó",
@@ -95,6 +96,10 @@
   "es": "Español",
   "zh": "简体中文",
   "vi": "Tiếng Việt",
+  "english": "Inglés",
+  "spanish": "Español",
+  "chinese": "Chino",
+  "vietnamese": "Vietnamita",
   "about": "Sobre",
   "contacts": "Contactos",
   "support": "Apoyo",
@@ -196,9 +201,7 @@
   "unsubscribe": "Cancelar la suscripción",
   "followSocialMedia": "Síganos en las redes sociales:",
   "standart": "Standart",
-  "blogger": "Blogger",
   "cannotTransferToYourself": "No puede transferirse a sí mismo",
-  "notEnoughCPUOrRAM": "No hay suficiente CPU o RAM",
   "metaMaskIsLocked": "Por favor, compruebe la conexión de Metamask e intente recargar la página",
   "ipfsHashValue": "IPFS",
   "source": "Fuente",
@@ -212,7 +215,6 @@
   "help": "Ayuda",
   "didntFindAnswer": "no encontre la respuesta?",
   "freeFeelToAsk": "No dude en preguntar a nuestro equipo. Ayudaremos a encontrar la respuesta.",
-  "voteForNewCommunities": "Vota por nuevas comunidades",
   "globalModerator": "Moderador global",
   "verifyFacebookAccount": "Verificación de la cuenta",
   "facebookButton": "Facebook",
@@ -276,13 +278,13 @@
     "Configuración técnica;",
     "'Guías' prácticas."
   ],
+  "seeOriginal": "Ver originales",
+  "seeTranslation": "Ver traducción",
   "promotedLabel": "Promover pregunta",
   "promotedTip": "Promover pregunta",
   "questionIsPromoting": "Promocionado hasta",
   "postTypeSelectionError": "Debe seleccionar el tipo de publicación",
   "leaveWithoutChanges": "Está a punto de salir de la página sin guardar los cambios. ¿Seguro que quieres continuar?",
-  "titleSuggestedCommunities": "Comunidades sugeridas",
-  "descriptionSuggestedCommunities": "Comunidades sugeridas | Descripción",
   "votingForNewComm": "Vota por la nueva comunidad",
   "whyWeeNeedIt": "Porque lo necesitamos?",
   "putReturnsBetweenParagraphs": "se admite la rebaja",
@@ -314,10 +316,7 @@
   "titleCommunities": "Comunidades",
   "descriptionCommunities": "Comunidades | Descripción",
   "suggestCommunity": "Crear comunidad",
-  "deleteAccount": "Borrar cuenta",
   "areYouLeaving": "Te vas??",
-  "iUnderstand": "Entiendo que esta operación no elimina mi cuenta en Telos blockchain. La cuenta se elimina solo del servicio de billetera.",
-  "iHaveBackup": "Tengo una copia de seguridad de mis claves privadas de Telos.",
   "faqPage": {
     "title": "PMF",
     "description": "PMF: Descripción",
@@ -394,7 +393,6 @@
     "description": "Usuarios: descripción"
   },
   "existingCommunities": {
-    "voteForNewCommunities": "Vota por nuevas comunidades",
     "singleCommunityTooltip": "Esta comunidad tiene un sitio web de preguntas y respuestas en otro dominio"
   },
   "ratingStatus": {
@@ -425,10 +423,18 @@
   "creatorCannotUpvoteOwnTag": "Los creadores no pueden votar su propia etiqueta",
   "editCommunityDesc": {
     "communityTitleTip": "Nombre de la comunidad",
-    "description": "Descripción de editarComunidad",
+    "description": "Descripción de la configuración de la comunidad",
     "editCommunity": "Ahorrar",
-    "header": "Editar comunidad",
-    "pageTitle": "Comunidad | Editar"
+    "header": "Configuración de la comunidad",
+    "pageTitle": "Comunidad | Ajustes",
+    "general": "General",
+    "translations": "Traducciones",
+    "interfaceLanguages": "Idiomas de la interfaz de la comunidad",
+    "interfaceTranslation": "El sitio de la comunidad ofrecerá traducción de la interfaz a los siguientes idiomas.",
+    "selectLanguages": "Seleccionar idiomas",
+    "enableAutotranslations": "Habilitar traducciones automáticas",
+    "translationsTooltip": "Las publicaciones, las respuestas y los comentarios publicados en la comunidad se traducirán automáticamente al idioma seleccionado. Este contenido también será indexado por los motores de búsqueda en ese idioma, lo que facilitará la búsqueda de los lectores.",
+    "deleteLanguage": "Eliminar idioma"
   },
   "editQuestion": {
     "description": "Editar descripción de la pregunta",
@@ -451,6 +457,7 @@
   },
   "answerForm": "Tu respuesta",
   "results": "Resultados",
+  "translatedFrom": "Traducido de ",
   "selectLanguage": "Seleccione el idioma",
   "transactionsText": "Elija su mejor experiencia de usuario en Peeranha:",
   "transactionsText_1": "Menos ventanas emergentes y sin tarifas",
@@ -487,5 +494,8 @@
   "enteringData": "Ingresando datos",
   "subArticleOf": "Sub-artículo de",
   "saveToDraft": "Guardar en borrador",
-  "editing": "Edición"
+  "editing": "Edición",
+  "aboutPeeranha": "Sobre Peeranha",
+  "postsAnswersComments": "Publicaciones, respuestas y comentarios",
+  "statusReputationPrivileges": "Estatus, Reputación y Privilegios"
 }

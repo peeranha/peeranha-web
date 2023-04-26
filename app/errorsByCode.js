@@ -4,7 +4,6 @@ export default {
   1000003: 'signUp.userNotSelected',
   1000004: 'common.wrongChainId',
   1000005: 'common.errorMinReputation',
-  3080002: 'common.notEnoughCPUOrRAM',
   4001: 'signUp.userRejectedSignatureRequest',
   600613: 'webIntegration.reCaptchaVerifyFailed',
 };

@@ -2,9 +2,7 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import i18next from 'i18next';
 import { sendMessage } from 'utils/homepageManagement';
 
-import { EMAIL_CHECKING } from 'containers/SignUp/constants';
 import { addToast } from 'containers/Toast/actions';
-import { emailCheckingWorker } from 'containers/SignUp/saga';
 import { EMAIL_FIELD, MESSAGE_FIELD, NAME_FIELD, SEND_MESSAGE } from './constants';
 
 import { sendMessageSuccess, sendMessageErr } from './actions';
@@ -44,5 +42,4 @@ export function* sendMessageWorker({ val }): Generator<any> {
 
 export default function* (): Generator<any> {
   yield takeLatest(SEND_MESSAGE, sendMessageWorker);
-  yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);
 }

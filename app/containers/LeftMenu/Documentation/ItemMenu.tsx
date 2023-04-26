@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { css } from '@emotion/react';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
 import { DocumentationSection, DocumentationItemMenuType } from 'pages/Documentation/types';
 import ArrowDownIcon from 'icons/ArrowDown';
-import Dropdown from 'common-components/Dropdown';
+import Dropdown from 'components/Dropdown';
 import AddSubArticleIcon from 'icons/AddSubArticle';
 import EditIcon from 'icons/Edit';
 import DeleteIcon from 'icons/Delete';
@@ -15,6 +17,7 @@ import Item from './Item';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
 import { singleCommunityColors, singleCommunityDocumentation } from 'utils/communityManagement';
 import { isEditableChildItem } from 'components/Documentation/helpers';
+import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
 type DocumentationMenuProps = {
   item: DocumentationSection;
@@ -57,6 +60,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   pinned,
   documentationMenu,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, open, close] = useTrigger(false);
   const route = window.location.pathname;
   const startDocumentionPostLight =
@@ -80,7 +84,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
     }
   }, [match?.params.sectionId, item.children]);
 
-  const onSelect = (value: number) => {
+  const onSelect = (event: React.MouseEvent) => {
+    const value = Number(event.currentTarget.getAttribute('value'));
     if (value === 1 && typeof setEditArticle === 'function') {
       setEditArticle({
         id: '',
@@ -125,6 +130,50 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
       });
     }
   };
+
+  const options = [
+    {
+      label: t('common.addNewSubArticle'),
+      value: 1,
+      icon: (
+        <AddSubArticleIcon
+          stroke={documentationColors.linkColor}
+          fill={documentationColors.iconsFillColor}
+        />
+      ),
+    },
+    {
+      label: t('common.editContent'),
+      value: 2,
+      icon: (
+        <EditIcon
+          stroke={documentationColors.linkColor}
+          fill={documentationColors.iconsFillColor}
+        />
+      ),
+    },
+    {
+      label: t(pinned === item.id ? 'common.unpin' : 'common.pin'),
+      value: 3,
+      icon: (
+        <PinIcon
+          css={{ fill: 'rgba(118, 153, 255, 0.2)' }}
+          stroke={documentationColors.linkColor}
+          fill={documentationColors.iconsFillColor}
+        />
+      ),
+    },
+    {
+      label: t('common.delete'),
+      value: 4,
+      icon: (
+        <DeleteIcon
+          stroke={documentationColors.linkColor}
+          fill={documentationColors.iconsFillColor}
+        />
+      ),
+    },
+  ];
 
   return (
     <>
@@ -186,53 +235,14 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               }}
             >
               <Dropdown
-                trigger={<AddCommentIcon css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }} />}
-                options={[
-                  {
-                    label: 'common.addNewSubArticle',
-                    value: 1,
-                    icon: (
-                      <AddSubArticleIcon
-                        stroke={documentationColors.linkColor}
-                        fill={documentationColors.iconsFillColor}
-                      />
-                    ),
-                  },
-                  {
-                    label: 'common.editContent',
-                    value: 2,
-                    icon: (
-                      <EditIcon
-                        stroke={documentationColors.linkColor}
-                        fill={documentationColors.iconsFillColor}
-                      />
-                    ),
-                  },
-                  {
-                    label: pinned === item.id ? 'common.unpin' : 'common.pin',
-                    value: 3,
-                    icon: (
-                      <PinIcon
-                        css={{ fill: 'rgba(118, 153, 255, 0.2)' }}
-                        stroke={documentationColors.linkColor}
-                        fill={documentationColors.iconsFillColor}
-                      />
-                    ),
-                  },
-                  {
-                    label: 'common.delete',
-                    value: 4,
-                    icon: (
-                      <DeleteIcon
-                        stroke={documentationColors.linkColor}
-                        fill={documentationColors.iconsFillColor}
-                      />
-                    ),
-                  },
-                ]}
-                isMultiple={false}
-                isEqualWidth={false}
-                onSelect={onSelect}
+                id="itemMenu_dropdown_id"
+                button={<AddCommentIcon css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }} />}
+                menu={options.map((item) => (
+                  <div value={item.value} css={css(styles.dropdownMenuItem)} onClick={onSelect}>
+                    {item.icon}
+                    <div>{item.label}</div>
+                  </div>
+                ))}
               />
             </div>
           )}

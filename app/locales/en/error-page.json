@@ -4,8 +4,6 @@
   "weAreSorry": "We're sorry, unexpected error has occured.",
   "accountDoesNotExist": "Account does not exist",
   "cannotTransferToSelf": "Cannot transfer to yourself",
-  "notEnoughCPU": "Not enough CPU",
-  "checkScatterConnection": "Check wallet connection",
   "weUpdatedTheApplication": "We’ve updated the application. ",
   "clearYourBrowser": "Clear your browser cache to restart it.  ",
   "holdDown": "Hold down <0>{{ctrl}}</0> and press <1>{{f5}}</1>. "

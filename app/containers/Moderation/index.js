@@ -6,10 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
 
-import {
-  getSectionCode,
-  getQuestionCode as getPermissionCode,
-} from 'utils/mdManagement';
+import { getSectionCode, getQuestionCode as getPermissionCode } from 'utils/mdManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
@@ -44,7 +41,7 @@ export const Moderation = ({
       <div className="flex-grow-1">
         <Header content={moderatorPermissions} />
         <Content
-          content={moderatorPermissions}
+          moderatorPermissions={moderatorPermissions}
           route={routes.moderation}
           getSectionCode={getSectionCode.bind(null, SECTION_ID)}
           getPermissionCode={getPermissionCode.bind(null, SECTION_ID)}

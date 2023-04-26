@@ -8,7 +8,7 @@ import slack from 'images/bot/bot_slack.svg?inline';
 import BotBlock from './BotBlock';
 import { styles } from './BotInfo.styled';
 
-const MessengerData = {
+export const messengerData = {
   [MessengerTypes.Unknown]: {
     name: 'Peeranha Bot',
   },
@@ -34,7 +34,7 @@ type BotInfoProps = {
 };
 
 const BotInfo: React.FC<BotInfoProps> = ({ postTime, locale, messengerType, isPost }) => {
-  const messenger = MessengerData[messengerType] ?? MessengerData[MessengerTypes.Unknown];
+  const messenger = messengerData[messengerType] ?? messengerData[MessengerTypes.Unknown];
 
   return (
     <div css={styles.container}>

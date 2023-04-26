@@ -27,22 +27,6 @@ const styles = {
         padding: '0 36px',
       },
   },
-  titleWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    '> span': {
-      marginRight: '5px',
-    },
-    '@media only screen and (min-width: 819px) and (max-width: 993px), only screen and (min-width: 1095px)':
-      {
-        flexDirection: 'column',
-        alignItems: 'start',
-      },
-  },
-  additionalInfo: {
-    color: '#7B7B7B',
-    lineHeight: '20px',
-  },
   unreadStyles: {
     borderLeft: `3px solid ${BORDER_PRIMARY_LIGHT}`,
     background: BG_SECONDARY_SPECIAL_4,

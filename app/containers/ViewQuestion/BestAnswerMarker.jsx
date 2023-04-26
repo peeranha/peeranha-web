@@ -19,7 +19,6 @@ import officialIcon from 'images/officialWhite.svg?external';
 import Button from 'components/Button/Contained/PrimaryMedium';
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { B } from './QuestionTitle';
-import SendTips from '../SendTips';
 
 import { MARK_AS_BUTTON } from './constants';
 
@@ -70,48 +69,16 @@ export const BestAnswerMarker = ({
   const { t } = useTranslation();
 
   if (answerId === 0) return null;
-  const isItWrittenByMe = profileInfo
-    ? author.user === profileInfo.user
-    : false;
-
-  const isTemporaryAccount = true;
-
-  const displayTips =
-    (!profileInfo && !isTemporaryAccount) ||
-    (!!profileInfo &&
-      !isItWrittenByMe &&
-      answerId !== 0 &&
-      !isTemporaryAccount);
 
   return (
     <Div>
-      {displayTips && (
-        <SendTips
-          form="tip-answer"
-          questionId={questionId}
-          answerId={answerId}
-          account={whoWasAccepted}
-        >
-          <B>
-            <IconMd
-              className="mr-1"
-              icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
-              color={BUTTON_COLOR}
-            />
-            {t('common.tipAnswer')}
-          </B>
-        </SendTips>
-      )}
-
       <MarkAsAcceptedIcon
         id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
         answerId={answerId}
         questionFrom={questionFrom}
         account={account}
         markAsAccepted={markAsAccepted}
-        disabled={ids.includes(
-          formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
-        )}
+        disabled={ids.includes(formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`))}
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
       />
@@ -124,18 +91,8 @@ export const BestAnswerMarker = ({
       )}
 
       {isOfficial && (
-        <Label
-          bg={`rgba(${BG_PRIMARY_RGB}, 0.2)`}
-          border={BG_PRIMARY}
-          color={BG_PRIMARY}
-          inactive
-        >
-          <Icon
-            className="d-inline-flex mr-2"
-            icon={officialIcon}
-            width="16"
-            color={BG_PRIMARY}
-          />
+        <Label bg={`rgba(${BG_PRIMARY_RGB}, 0.2)`} border={BG_PRIMARY} color={BG_PRIMARY} inactive>
+          <Icon className="d-inline-flex mr-2" icon={officialIcon} width="16" color={BG_PRIMARY} />
           {t('post.officialAnswer')}
         </Label>
       )}
