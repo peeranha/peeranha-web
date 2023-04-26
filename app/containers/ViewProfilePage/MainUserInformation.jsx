@@ -31,6 +31,7 @@ import { getUserName } from 'utils/user';
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import { singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 const InlineLoader = styled(LoadingIndicator)`
@@ -384,7 +385,7 @@ const MainUserInformation = ({
                     flex-direction: row;
                   `}
                 >
-                  <span>{t('common.walletAddress')}</span>
+                  <span>{t(isSuiBlockchain ? 'common.userId' : 'common.walletAddress')}</span>
                   <div>
                     <A
                       to={{ pathname: userPolygonScanAddress }}

@@ -1,5 +1,6 @@
 /* eslint camelcase: 0 */
 import { languagesEnum } from 'app/i18n';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
@@ -52,7 +53,8 @@ export function* getAskedQuestionWorker({ questionId }) {
 
     if (!cachedQuestion) {
       if (isSuiBlockchain) {
-        question = yield call(getSuiPost, questionId);
+        const communities = yield select(selectCommunities());
+        question = yield call(getSuiPost, questionId, communities);
       } else {
         questionFromContract = yield call(getQuestionById, ethereumService, questionId, account);
         question = {

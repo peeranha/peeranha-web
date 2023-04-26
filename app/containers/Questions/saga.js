@@ -62,7 +62,7 @@ export function* getQuestionsWorker({
         ]);
       }
       if (communityIdFilter === 0 && parentPage !== feed) {
-        questionsList = yield call(getSuiPosts, limit, skip, postTypes);
+        questionsList = yield call(getSuiPosts, limit, skip, postTypes, communities);
       }
       if (
         communityIdFilter === 0 &&

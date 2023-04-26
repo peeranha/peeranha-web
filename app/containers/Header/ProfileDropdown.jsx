@@ -33,6 +33,7 @@ import ModerationIcon from 'icons/Moderation';
 import NFTIcon from 'icons/NFT';
 import PostIcon from 'icons/Post';
 import LogOutIcon from 'icons/LogOut';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 const styles = singleCommunityStyles();
@@ -156,11 +157,12 @@ const Menu = ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) 
             {t('common.moderation')}
           </A>
         )}
-
-        <A to={routes.userSettings(user)}>
-          <SettingsIcon className="mr-2" stroke={colors.linkColor || TEXT_PRIMARY} />
-          {t('common.settings')}
-        </A>
+        {!isSuiBlockchain && (
+          <A to={routes.userSettings(user)}>
+            <SettingsIcon className="mr-2" stroke={colors.linkColor || TEXT_PRIMARY} />
+            {t('common.settings')}
+          </A>
+        )}
       </Ul>
 
       <Ul>
