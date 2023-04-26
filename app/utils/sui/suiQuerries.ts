@@ -261,7 +261,7 @@ export const postsByCommunityIdQuery = (postTypes: string, communityIds: string)
 }`;
 
 export const followCommunityQuery = `query($userId: String) {
-    usercommunity(where: { userId: $userId }) {
-      ${usercommunity}
-    }
+  usercommunity(where: { userId: $userId }) {
+    ${usercommunity}
+  }
 }`;

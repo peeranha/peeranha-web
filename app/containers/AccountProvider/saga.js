@@ -222,6 +222,8 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
       yield put(getUserProfileSuccess(profileInfo));
 
       yield put(getCurrentAccountSuccess(userFromContract.id, 0, 0, 0));
+    } else {
+      yield put(getCurrentAccountError());
     }
   } catch (err) {
     yield put(getCurrentAccountError(err));
