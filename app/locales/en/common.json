@@ -116,6 +116,7 @@
   "bounty": "Bounty amount",
   "password": "Password",
   "walletAddress": "Wallet address",
+  "userId": "User id",
   "successMessage": "Action completed successfully",
   "messageSendedSuccessfully": "Message sended successfully",
   "errorMessage": "An error occurred",
