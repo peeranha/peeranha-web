@@ -80,11 +80,9 @@ export function* postQuestionWorker({ val }) {
         tags,
         languagesEnum[locale],
       );
-      const postCreatedEvent = yield call(
-        getTransactionEventByName,
-        txResult.digest,
-        CREATE_POST_EVENT_NAME,
-      );
+      const postCreatedEvent = txResult.events.filter((event) =>
+        event.type.includes(CREATE_POST_EVENT_NAME),
+      )[0];
       const id = postCreatedEvent.parsedJson.postMetaDataId;
 
       yield call(waitForPostTransactionToIndex, txResult.digest);

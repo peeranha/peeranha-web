@@ -62,20 +62,30 @@ export function createSuiProvider() {
   return new JsonRpcProvider(connection);
 }
 
-export const waitForTransactionConfirmation = async (transactionDigest: string): Promise<void> => {
+export const waitForTransactionConfirmation = async (transactionDigest: string): Promise<any> => {
   const provider = createSuiProvider();
-  let confirmed = false;
+  const confirmed = false;
   /* eslint-disable no-await-in-loop */
   do {
     try {
       const confirmedTx = await provider.getTransactionBlock({
         digest: transactionDigest,
+        options: {
+          showInput: false,
+          showEffects: false,
+          showEvents: true,
+          showObjectChanges: false,
+          showBalanceChanges: false,
+        },
       });
-      confirmed = !confirmedTx.errors;
+      if (!confirmedTx.errors) {
+        return confirmedTx;
+      }
     } catch {}
     await delay(TX_WAIT_DELAY_MS);
   } while (!confirmed);
   /* eslint-enable no-await-in-loop */
+  return undefined;
 };
 
 export const handleMoveCall = async (
@@ -97,9 +107,8 @@ export const handleMoveCall = async (
     transactionBlock: tx,
   });
 
-  await waitForTransactionConfirmation(transactionResult.digest);
-
-  return transactionResult;
+  const confirmedTx = await waitForTransactionConfirmation(transactionResult.digest);
+  return confirmedTx;
 };
 
 export const getOwnedObject = async (
