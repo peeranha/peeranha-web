@@ -50,6 +50,8 @@ import {
   MIN_RATING_TO_POST_QUESTION,
   POST_QUESTION_BUTTON,
 } from './constants';
+import { getSuiUserObject } from 'utils/sui/accountManagement';
+import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 
 export function* postQuestionWorker({ val }) {
@@ -69,6 +71,13 @@ export function* postQuestionWorker({ val }) {
 
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
+      const suiUserObject = yield call(getSuiUserObject, wallet.address);
+      if (!suiUserObject) {
+        yield call(createSuiProfile, wallet);
+        const newProfile = yield call(getSuiProfileInfo, wallet.address);
+        profile.id = newProfile.id;
+      }
+
       const profile = yield select(makeSelectProfileInfo());
       const txResult = yield call(
         postSuiQuestion,

@@ -410,7 +410,10 @@ export const postsForSearch = async (text, single) => {
   const posts = isMeshService
     ? result?.post.map((item) => {
         const { user, posttag, ...post } = item;
-        const tags = posttag.map((postTag) => postTag.tagId);
+        const tags = posttag[0].tag.map((postTag) => ({
+          id: postTag.id.split('-')[1],
+          name: postTag.name,
+        }));
 
         return {
           ...post,

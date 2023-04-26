@@ -15,6 +15,8 @@ import { FOLLOW_HANDLER, MIN_RATING_TO_FOLLOW, MIN_ENERGY_TO_FOLLOW } from './co
 
 import { followHandlerSuccess, followHandlerErr } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { getSuiUserObject } from 'utils/sui/accountManagement';
+import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
 
 export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }) {
   try {
@@ -25,6 +27,14 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
       const suiCommunityId = communities.find(
         (community) => community.id === communityIdFilter,
       ).suiId;
+
+      const suiUserObject = yield call(getSuiUserObject, wallet.address);
+      if (!suiUserObject) {
+        yield call(createSuiProfile, wallet);
+        const newProfile = yield call(getSuiProfileInfo, wallet.address);
+        profile.id = newProfile.id;
+      }
+
       yield call(followSuiCommunity, wallet, profile.id, suiCommunityId, isFollowed);
     } else {
       const ethereumService = yield select(selectEthereum);

@@ -150,7 +150,9 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
     );
   }
 
-  return true;
+  return Boolean(
+    permissions.find((permission) => isMatchingBasePermission(permission, DEFAULT_ADMIN_ROLE)),
+  );
 };
 
 export const getCommunityRole = (role, communityId) => {

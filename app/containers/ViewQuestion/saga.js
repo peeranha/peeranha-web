@@ -148,8 +148,9 @@ import {
   voteSuiPost,
   voteSuiReply,
 } from 'utils/sui/questionsManagement';
-import { getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { languagesEnum } from 'app/i18n';
+import { getSuiUserObject } from 'utils/sui/accountManagement';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -773,6 +774,13 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
+      const suiUserObject = yield call(getSuiUserObject, wallet.address);
+      if (!suiUserObject) {
+        yield call(createSuiProfile, wallet);
+        const newProfile = yield call(getSuiProfileInfo, wallet.address);
+        profileInfo.id = newProfile.id;
+      }
+
       const transactionResult = yield call(
         postSuiAnswer,
         wallet,
