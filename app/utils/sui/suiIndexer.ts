@@ -36,7 +36,6 @@ type User = {
 };
 
 const formUserObject = (user: User) => {
-  console.log(`followedCommunities - ${JSON.stringify(user)}`);
   const ratings = user?.usercommunityrating;
   const highestRating = ratings?.length
     ? ratings.reduce((max: { rating: number }, current: { rating: number }) =>

@@ -46,7 +46,9 @@ export const IS_INDEXER_ON = true;
 
 export const CREATE_POST_EVENT_NAME = 'CreatePostEvent';
 
-export const TX_WAIT_DELAY_MS = 500;
+export const CLOCK_OBJECT_ID = '0x6';
+
+export const TX_WAIT_DELAY_MS = 1000;
 
 export function createSuiProvider() {
   if (!process.env.SUI_RPC_ENDPOINT) {
