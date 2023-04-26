@@ -33,13 +33,33 @@ type User = {
   replyCount: any;
 };
 
-const formUserObject = (user: User) => {
+export const getSuiCommunities = async () => {
+  const data = await getDataFromIndexer(communitiesQuery);
+  return data.community.map((community, index) => ({
+    ...community,
+    id: index + 1,
+    value: index + 1,
+    label: community.name,
+    postCount: +community.postCount,
+    deletedPostCount: +community.deletedPostCount,
+    creationTime: +community.creationTime,
+    followingUsers: +community.followingUsers,
+    replyCount: +community.replyCount,
+    suiId: community.id,
+  }));
+};
+
+const formUserObject = async (user: User) => {
   const ratings = user?.usercommunityrating;
   const highestRating = ratings?.length
     ? ratings.reduce((max: { rating: number }, current: { rating: number }) =>
         max.rating > current.rating ? max : current,
       )
     : 0;
+  const communities = await getSuiCommunities();
+  const followedCommunities = communities.filter((community: any) =>
+    community?.usercommunity.find((usercommunity: any) => usercommunity.user[0].id === user.id),
+  );
   return {
     ...user,
     profile: {
@@ -48,6 +68,7 @@ const formUserObject = (user: User) => {
       location: user.location,
       position: user.position,
     },
+    followedCommunities: followedCommunities.map((community: any) => community.id),
     user: user.id,
     ratings,
     permissions: user.userpermission,
@@ -63,23 +84,8 @@ export const getSuiUsers = async () => {
 
 export const getSuiUserById = async (id: string) => {
   const data = await getDataFromIndexer(userQuery, { id });
-  return formUserObject(data.user[0]);
-};
-
-export const getSuiCommunities = async () => {
-  const data = await getDataFromIndexer(communitiesQuery);
-  return data.community.map((community, index) => ({
-    ...community,
-    id: index + 1,
-    value: index + 1,
-    label: community.name,
-    postCount: +community.postCount,
-    deletedPostCount: +community.deletedPostCount,
-    creationTime: +community.creationTime,
-    followingUsers: +community.followingUsers,
-    replyCount: +community.replyCount,
-    suiId: community.id,
-  }));
+  const user = await formUserObject(data.user[0]);
+  return user;
 };
 
 export const getSuiPosts = async (limit, offset, postTypes) => {
@@ -144,8 +150,8 @@ export const getSuiCommunityTags = async (communityId: string) => {
   return data.tag;
 };
 
-export const getFollowCommunitySuiIds = async () => {
-  const data = await getDataFromIndexer(followCommunityQuery);
+export const getFollowCommunitySuiIds = async (userId: string) => {
+  const data = await getDataFromIndexer(followCommunityQuery, { userId });
   return data.usercommunity.map((usercommunity: any) => usercommunity.community[0].id);
 };
 

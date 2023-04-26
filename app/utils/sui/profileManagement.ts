@@ -30,12 +30,10 @@ export async function getSuiProfileInfo(address: string) {
 
   const ipfsHash = getIpfsHashFromBytes32(byteArrayToHexString(profileObject.ipfsDoc.fields.hash));
   const profile = JSON.parse(await getText(ipfsHash));
-  const followedCommunityIds = await getFollowCommunitySuiIds();
   const communities = await getSuiCommunities();
   const followedCommunities = communities.filter((community: any) =>
-    followedCommunityIds.includes(community.suiId),
+    community?.usercommunity.find((usercommunity: any) => usercommunity.user[0].id === userId),
   );
-
   const profileInfo = {
     id: userId,
     user: userId,
