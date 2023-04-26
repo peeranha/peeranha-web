@@ -39,7 +39,7 @@ export async function postSuiQuestion(
     postType,
     tags,
     language,
-    // CLOCK_OBJECT_ID,
+    CLOCK_OBJECT_ID,
   ]);
 }
 
@@ -82,7 +82,7 @@ export async function deleteSuiQuestion(
     userSuiId,
     process.env.USER_ROLES_COLLECTION_ID,
     postId,
-    // CLOCK_OBJECT_ID,
+    CLOCK_OBJECT_ID,
   ]);
 }
 
@@ -103,7 +103,7 @@ export async function postSuiComment(
     answerId,
     ipfsHash,
     language,
-    // CLOCK_OBJECT_ID,
+    CLOCK_OBJECT_ID,
   ]);
 }
 
@@ -169,7 +169,7 @@ export async function postSuiAnswer(
     ipfsHash,
     isOfficial,
     language,
-    // CLOCK_OBJECT_ID,
+    CLOCK_OBJECT_ID,
   ]);
 }
 
@@ -234,7 +234,7 @@ export async function deleteSuiAnswer(
     process.env.USER_ROLES_COLLECTION_ID,
     postId,
     answerId,
-    // CLOCK_OBJECT_ID,
+    CLOCK_OBJECT_ID,
   ]);
 }
 
