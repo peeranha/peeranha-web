@@ -29,11 +29,7 @@ import { isSuiBlockchain } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { getQuestionFromGraph, getReplyId2 } from 'utils/theGraph';
-import {
-  authorEditSuiAnswer,
-  editSuiAnswer,
-  moderatorEditSuiAnswer,
-} from 'utils/sui/questionsManagement';
+import { authorEditSuiAnswer, moderatorEditSuiAnswer } from 'utils/sui/questionsManagement';
 import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 
 export function* getAnswerWorker({ questionId, answerId }) {
@@ -44,7 +40,7 @@ export function* getAnswerWorker({ questionId, answerId }) {
 
     if (isSuiBlockchain) {
       question = yield call(getQuestionFromGraph, questionId);
-      answer = question.answers[answerId - 1];
+      answer = question.answers.reverse()[answerId - 1];
     } else {
       ethereumService = yield select(selectEthereum);
       answer = yield select(selectAnswer(answerId));
@@ -79,7 +75,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
       const questionData = yield call(getQuestionFromGraph, questionId);
-      const answerData = questionData.answers[answerId - 1];
+      const answerData = questionData.answers.reverse()[answerId - 1];
 
       let txResult;
       if (profile.id === answerData.author.id) {
