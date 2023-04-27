@@ -147,17 +147,6 @@ const community = `
     tag {
       ${tag}
     }
-    usercommunity {
-      user {
-        ${user}
-      }
-    }
-    usercommunityrating {
-      rating
-      user {
-        id
-      }
-    }
 `;
 
 const usercommunity = `

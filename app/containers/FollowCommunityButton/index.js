@@ -12,10 +12,15 @@ import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { DAEMON } from 'utils/constants';
 
-import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectFollowedCommunities,
+  makeSelectProfileInfo,
+} from 'containers/AccountProvider/selectors';
+import { loginWithSui } from 'containers/Login/actions';
 
 import { followHandler } from './actions';
 import reducer from './reducer';
@@ -24,21 +29,24 @@ import { selectIds } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FollowCommunityButton extends React.PureComponent {
-  followHandler = e => {
+  followHandler = (e) => {
     e.preventDefault();
 
     const isFollowed = JSON.parse(e.currentTarget.dataset.isfollowed);
     const { communityIdFilter } = this.props;
 
-    this.props.followHandlerDispatch(
-      communityIdFilter,
-      isFollowed,
-      e.currentTarget.id,
-    );
+    this.props.followHandlerDispatch(communityIdFilter, isFollowed, e.currentTarget.id);
   };
 
   render() /* istanbul ignore next */ {
-    const { communityIdFilter, followedCommunities, render, ids } = this.props;
+    const {
+      communityIdFilter,
+      followedCommunities,
+      render,
+      ids,
+      profileInfo,
+      loginWithSuiDispatch,
+    } = this.props;
     const id = `follow_community_${communityIdFilter}`;
     const disabled = ids.includes(id);
 
@@ -51,6 +59,8 @@ export class FollowCommunityButton extends React.PureComponent {
       onClick: this.followHandler,
       id,
       disabled,
+      profileInfo,
+      loginWithSuiDispatch,
     });
   }
 }
@@ -60,24 +70,25 @@ FollowCommunityButton.propTypes = {
   followedCommunities: PropTypes.array,
   ids: PropTypes.array,
   followHandlerDispatch: PropTypes.func,
+  loginWithSuiDispatch: PropTypes.func,
+  profileInfo: PropTypes.object,
   render: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   followedCommunities: makeSelectFollowedCommunities(),
   ids: selectIds(),
+  profileInfo: makeSelectProfileInfo(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     followHandlerDispatch: bindActionCreators(followHandler, dispatch),
+    loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'followCommunityButton', reducer });
 const withSaga = injectSaga({
@@ -87,8 +98,4 @@ const withSaga = injectSaga({
   disableEject: true,
 });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(FollowCommunityButton);
+export default compose(withReducer, withSaga, withConnect)(FollowCommunityButton);

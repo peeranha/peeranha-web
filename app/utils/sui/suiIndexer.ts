@@ -26,6 +26,7 @@ const getDataFromIndexer = async (query: string, variables: object = {}) => {
 
 type User = {
   usercommunityrating: any;
+  usercommunity: any;
   about: any;
   company: any;
   location: any;
@@ -59,7 +60,7 @@ const formUserObject = (user: User, communities: any[]) => {
       )
     : 0;
   const followedCommunities = communities.filter((community: any) =>
-    community?.usercommunity.find((usercommunity: any) => usercommunity.user[0].id === user.id),
+    user?.usercommunity.find((usercommunity: any) => usercommunity.communityId === community.suiId),
   );
   return {
     ...user,

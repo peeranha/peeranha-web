@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
+import InfoButton from 'components/Button/Outlined/InfoMedium';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 import { isSuiBlockchain } from 'utils/sui/sui';
 const styles = singleCommunityStyles();
 
-const ButtonGroupForNotAuthorizedUser = ({ loginWithWallet }) => {
+const ButtonGroupForNotAuthorizedUser = ({ loginWithWallet, isFollowButton = false }) => {
   const wallet = useWallet();
   const [showModal, setShowModal] = useState(false);
 
@@ -32,13 +33,17 @@ const ButtonGroupForNotAuthorizedUser = ({ loginWithWallet }) => {
           setShowModal(open);
         }}
       >
-        <LargeOutlinedButton
-          className="d-none d-sm-flex"
-          onClick={showModal}
-          customStyles={styles.headerLoginButtonStyles}
-        >
-          {t('common.login')}
-        </LargeOutlinedButton>
+        {!isFollowButton ? (
+          <LargeOutlinedButton
+            className="d-none d-sm-flex"
+            onClick={showModal}
+            customStyles={styles.headerLoginButtonStyles}
+          >
+            {t('common.login')}
+          </LargeOutlinedButton>
+        ) : (
+          <InfoButton onClick={showModal}>{t('common.followCommunity.subscribe')}</InfoButton>
+        )}
       </ConnectModal>
     );
   }

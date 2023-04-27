@@ -25,7 +25,9 @@ export async function getSuiProfileInfo(address: string) {
   const profile = JSON.parse(await getText(ipfsHash));
   const communities = await getSuiCommunities();
   const followedCommunities = communities.filter((community: any) =>
-    community?.usercommunity.find((usercommunity: any) => usercommunity.user[0].id === userId),
+    profileObject.followedCommunities.find(
+      (followCommunity: any) => followCommunity === community.suiId,
+    ),
   );
   const profileInfo = {
     id: userId,
