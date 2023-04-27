@@ -152,7 +152,12 @@ import {
 import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { languagesEnum } from 'app/i18n';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
-import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -361,6 +366,7 @@ export function* saveCommentWorker({
     const ipfsLink = yield call(saveText, JSON.stringify(commentData));
 
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const commentObjectId = yield call(getCommentId2, questionId, answerId, commentId);
 
@@ -375,6 +381,7 @@ export function* saveCommentWorker({
         ipfsLink,
         languagesEnum[locale],
       );
+      yield put(transactionInPending());
       yield put(transactionCompleted());
     } else {
       const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
@@ -439,8 +446,10 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
     );
 
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       yield call(deleteSuiComment, wallet, profileInfo.id, questionId, answerId, commentId);
+      yield put(transactionInPending());
       yield put(transactionCompleted());
     } else {
       const transaction = yield call(
@@ -485,8 +494,10 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
     const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const txResult = yield call(deleteSuiAnswer, wallet, profileInfo.id, questionId, answerId);
+      yield put(transactionInPending(txResult.digest));
       yield call(waitForPostTransactionToIndex, txResult.digest);
       yield put(transactionCompleted());
     } else {
@@ -588,8 +599,10 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
         ethereumService,
       );
     } else if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const txResult = yield call(deleteSuiQuestion, wallet, profileInfo.id, questionId);
+      yield put(transactionInPending(txResult.digest));
       yield call(waitForPostTransactionToIndex, txResult.digest);
       yield put(transactionCompleted());
     } else {
@@ -690,6 +703,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
 
     let txHash;
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const transactionResult = yield call(
         postSuiComment,
@@ -701,6 +715,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         languagesEnum[locale],
       );
       txHash = transactionResult.digest;
+      yield put(transactionInPending(txHash));
       yield put(transactionCompleted());
     } else {
       const transaction = yield call(
@@ -807,7 +822,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
         const newProfile = yield call(getSuiProfileInfo, wallet.address);
         profileInfo.id = newProfile.id;
       }
-
+      yield put(transactionInitialised());
       const transactionResult = yield call(
         postSuiAnswer,
         wallet,
@@ -818,6 +833,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
         languagesEnum[locale],
       );
       txHash = transactionResult.digest;
+      yield put(transactionInPending(txHash));
       yield call(waitForPostTransactionToIndex, txHash);
       yield put(transactionCompleted());
     } else {
@@ -903,6 +919,7 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
     );
 
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
       if (!answerId) {
@@ -910,6 +927,7 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
       } else {
         yield call(voteSuiReply, wallet, profile.id, questionId, answerId, false);
       }
+      yield put(transactionInPending());
       yield put(transactionCompleted());
     } else {
       yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
@@ -958,6 +976,7 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
       },
     );
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
       if (!answerId) {
@@ -965,6 +984,7 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
       } else {
         yield call(voteSuiReply, wallet, profile.id, questionId, answerId, true);
       }
+      yield put(transactionInPending());
       yield put(transactionCompleted());
     } else {
       yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
@@ -1012,8 +1032,10 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
       },
     );
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       yield call(markAsAcceptedSuiReply, wallet, profileInfo.id, questionId, correctAnswerId);
+      yield put(transactionInPending());
       yield put(transactionCompleted());
     } else {
       yield call(markAsAccepted, profileInfo.user, questionId, correctAnswerId, ethereumService);

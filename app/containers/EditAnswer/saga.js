@@ -31,7 +31,12 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { getQuestionFromGraph, getReplyId2 } from 'utils/theGraph';
 import { authorEditSuiAnswer, moderatorEditSuiAnswer } from 'utils/sui/questionsManagement';
 import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
-import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
@@ -73,6 +78,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
     };
 
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
       const questionData = yield call(getQuestionFromGraph, questionId);
@@ -103,6 +109,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
           languagesEnum[locale],
         );
       }
+      yield put(transactionInPending(txResult.digest));
       yield call(waitForPostTransactionToIndex, txResult.digest);
       yield put(transactionCompleted());
     } else {

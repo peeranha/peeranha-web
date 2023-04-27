@@ -53,7 +53,12 @@ import {
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
-import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -79,7 +84,7 @@ export function* postQuestionWorker({ val }) {
         const newProfile = yield call(getSuiProfileInfo, wallet.address);
         profile.id = newProfile.id;
       }
-
+      yield put(transactionInitialised());
       const profile = yield select(makeSelectProfileInfo());
       const txResult = yield call(
         postSuiQuestion,
@@ -91,6 +96,7 @@ export function* postQuestionWorker({ val }) {
         tags,
         languagesEnum[locale],
       );
+      yield put(transactionInPending(txResult.digest));
       yield put(transactionCompleted());
       const postCreatedEvent = txResult.events.filter((event) =>
         event.type.includes(CREATE_POST_EVENT_NAME),

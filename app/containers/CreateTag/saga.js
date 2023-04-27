@@ -13,7 +13,12 @@ import { getTagsSuccess } from 'containers/DataCacheProvider/actions';
 import { isSuiBlockchain } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { createSuiTag } from 'utils/sui/communityManagement';
-import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 import {
   suggestTagErr,
@@ -30,10 +35,12 @@ import { getPermissions } from '../../utils/properties';
 export function* suggestTagWorker({ communityId, tag, reset }) {
   try {
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const communities = yield select(selectCommunities());
       const suiCommunityId = communities.find((community) => community.id == communityId).suiId;
       yield call(createSuiTag, wallet, suiCommunityId, tag);
+      yield put(transactionInPending());
       yield put(transactionCompleted());
       const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
         ...tag,

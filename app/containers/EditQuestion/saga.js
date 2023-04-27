@@ -39,7 +39,12 @@ import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 import { isSuiBlockchain } from 'utils/sui/sui';
 import { getQuestionFromGraph } from 'utils/theGraph';
-import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -92,6 +97,7 @@ export function* editQuestionWorker({ question, questionId, id2 }) {
     };
 
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
       const txResult = yield call(
@@ -106,6 +112,7 @@ export function* editQuestionWorker({ question, questionId, id2 }) {
         question.tags,
         languagesEnum[locale],
       );
+      yield put(transactionInPending(txResult.digest));
       yield call(waitForPostTransactionToIndex, txResult.digest);
       yield put(transactionCompleted());
     } else {

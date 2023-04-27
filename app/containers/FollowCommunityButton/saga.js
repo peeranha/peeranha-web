@@ -17,7 +17,12 @@ import { followHandlerSuccess, followHandlerErr } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
-import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }) {
   try {
@@ -36,8 +41,9 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
         const newProfile = yield call(getSuiProfileInfo, wallet.address);
         profile.id = newProfile.id;
       }
-
+      yield put(transactionInitialised());
       yield call(followSuiCommunity, wallet, profile.id, suiCommunityId, isFollowed);
+      yield put(transactionInPending());
       yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);

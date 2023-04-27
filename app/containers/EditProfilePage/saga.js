@@ -13,7 +13,12 @@ import { isValid, isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { saveSuiProfile } from 'utils/sui/profileManagement';
-import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 import { isSuiBlockchain } from 'utils/sui/sui';
 
@@ -31,8 +36,10 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
       profile[AVATAR_FIELD] = imgHash;
     }
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       yield call(saveSuiProfile, wallet, profile);
+      yield put(transactionInPending());
       yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);

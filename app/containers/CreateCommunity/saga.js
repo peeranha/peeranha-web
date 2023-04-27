@@ -6,7 +6,12 @@ import { isSuiBlockchain } from 'utils/sui/sui';
 import { createCommunity } from 'utils/communityManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
-import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
 import { createSuiCommunity } from 'utils/sui/communityManagement';
@@ -28,10 +33,12 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 export function* createCommunityWorker({ community, reset }) {
   try {
     if (isSuiBlockchain) {
+      yield put(transactionInitialised());
       const { imgHash } = yield call(uploadImg, community.avatar);
       community.avatar = getFileUrl(imgHash);
       const wallet = yield select(selectSuiWallet());
       yield call(createSuiCommunity, wallet, community);
+      yield put(transactionInPending());
       yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);

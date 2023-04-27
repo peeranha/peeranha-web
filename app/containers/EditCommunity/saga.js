@@ -37,7 +37,12 @@ import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
 
 import { selectCommunity } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 export function* getCommunityWorker({ communityId }) {
   try {
@@ -85,8 +90,10 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     if (!isEqual) {
       if (isSuiBlockchain) {
+        yield put(transactionInitialised());
         const wallet = yield select(selectSuiWallet());
         yield call(updateSuiCommunity, wallet, communityDataCurrent.suiId, communityData);
+        yield put(transactionInPending());
         yield put(transactionCompleted());
         const communities = yield call(getSuiCommunities);
         yield put(getCommunitiesSuccess(communities));
