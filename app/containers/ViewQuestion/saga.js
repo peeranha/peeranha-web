@@ -919,16 +919,20 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
     );
 
     if (isSuiBlockchain) {
-      yield put(transactionInitialised());
-      const wallet = yield select(selectSuiWallet());
-      const profile = yield select(makeSelectProfileInfo());
-      if (!answerId) {
-        yield call(voteSuiPost, wallet, profile.id, questionId, false);
-      } else {
-        yield call(voteSuiReply, wallet, profile.id, questionId, answerId, false);
+      try {
+        yield put(transactionInitialised());
+        const wallet = yield select(selectSuiWallet());
+        const profile = yield select(makeSelectProfileInfo());
+        if (!answerId) {
+          yield call(voteSuiPost, wallet, profile.id, questionId, false);
+        } else {
+          yield call(voteSuiReply, wallet, profile.id, questionId, answerId, false);
+        }
+        yield put(transactionInPending());
+        yield put(transactionCompleted());
+      } catch (err) {
+        yield put(transactionFailed(err));
       }
-      yield put(transactionInPending());
-      yield put(transactionCompleted());
     } else {
       yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
     }
@@ -952,9 +956,6 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
 
     yield put(downVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
-    if (isSuiBlockchain) {
-      yield put(transactionFailed(err));
-    }
     yield put(downVoteErr(err, buttonId));
   }
 }
@@ -976,16 +977,20 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
       },
     );
     if (isSuiBlockchain) {
-      yield put(transactionInitialised());
-      const wallet = yield select(selectSuiWallet());
-      const profile = yield select(makeSelectProfileInfo());
-      if (!answerId) {
-        yield call(voteSuiPost, wallet, profile.id, questionId, true);
-      } else {
-        yield call(voteSuiReply, wallet, profile.id, questionId, answerId, true);
+      try {
+        yield put(transactionInitialised());
+        const wallet = yield select(selectSuiWallet());
+        const profile = yield select(makeSelectProfileInfo());
+        if (!answerId) {
+          yield call(voteSuiPost, wallet, profile.id, questionId, true);
+        } else {
+          yield call(voteSuiReply, wallet, profile.id, questionId, answerId, true);
+        }
+        yield put(transactionInPending());
+        yield put(transactionCompleted());
+      } catch (err) {
+        yield put(transactionFailed(err));
       }
-      yield put(transactionInPending());
-      yield put(transactionCompleted());
     } else {
       yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
     }
@@ -1009,9 +1014,6 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
 
     yield put(upVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
-    if (isSuiBlockchain) {
-      yield put(transactionFailed(err));
-    }
     yield put(upVoteErr(err, buttonId));
   }
 }
