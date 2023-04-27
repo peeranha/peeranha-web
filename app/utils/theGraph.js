@@ -351,7 +351,6 @@ export const getQuestionFromGraph = async (postId) => {
     },
     false,
   );
-  console.log(result);
   return isMeshService
     ? renameRepliesToAnswers(getPostDataFromMesh(result.post[0]))
     : renameRepliesToAnswers(result.post);

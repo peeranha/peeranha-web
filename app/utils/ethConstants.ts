@@ -164,6 +164,10 @@ const replyMesh = `
   isQuickReply
   handle
   messengerType
+  replyvotehistory {
+    userId
+    direction
+  }
 `;
 
 const post = `
@@ -243,6 +247,10 @@ const postMesh = `
     eventName
     actionUser
     timeStamp
+  }
+  postvotehistory {
+    userId
+    direction
   }
   reply (
     orderBy: { postTime: desc },

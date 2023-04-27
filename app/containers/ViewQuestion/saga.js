@@ -194,12 +194,8 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
     }
   } else {
     question = yield call(getQuestionFromGraph, questionId);
-    // TODO: SUI - implement load of voting history from indexer
-    const statusData = yield call(getObjectById, question.id);
     question.votingStatus = suiVotingStatus(
-      statusData?.data?.content?.fields?.historyVotes?.fields?.contents.find(
-        (history) => history.fields.key === user,
-      )?.fields?.value,
+      question.postvotehistory?.find((voteHistory) => voteHistory?.userId === user)?.direction,
     );
     question.commentCount = question.comments.length;
     question.communityId = isSuiBlockchain ? question.communityId : Number(question.communityId);
@@ -225,7 +221,9 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
           id: Number(comment.id.split('-')[2]),
         }));
 
-        // TODO: SUI - implement load of voting history
+        answer.votingStatus = suiVotingStatus(
+          answer.replyvotehistory?.find((voteHistory) => voteHistory?.userId === user)?.direction,
+        );
         if (!isSuiBlockchain && user) {
           const answerStatusHistory = yield call(
             getStatusHistory,
