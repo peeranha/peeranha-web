@@ -212,13 +212,14 @@ export const SuiMainStyles = {
     color: '#F3F3F3',
 
     button: {
-      color: 'rgb(255,255,255)',
+      color: '#011729',
       borderColor: 'rgb(255,255,255)',
 
-      background: 'none',
+      background: 'rgb(255,255,255)',
       ':hover': {
-        background: 'rgb(255,255,255)',
-        color: '#4BA3FF',
+        background: '#4BA3FF',
+        color: 'rgb(255,255,255)',
+        borderColor: 'rgb(255,255,255)',
       },
     },
   },

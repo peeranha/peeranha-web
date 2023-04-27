@@ -135,6 +135,8 @@
   "showLess": "显示较少 {{value}}",
   "poweredBy": "©{{year}} 供电 <0></0>",
   "poweredByPeeranha": "供电 {{image}}",
+  "footerMadeBy": "用 <0></0> 经过",
+  "reCaptchaMention": "本网站受 reCAPTCHA 和 Google 保护 <0>{{privacyPolicy}}</0> 和 <1>{{termsOfService}}</1> 申请。",
   "terms": "经营协议",
   "noResults": "没有结果",
   "iAcceptPrivacyPolicy": "我接受 ",

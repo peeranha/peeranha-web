@@ -13,6 +13,7 @@ import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaMetaLogo from 'images/PeeranhaMeta.svg?inline';
+import suiLogo from 'images/SuiLogo.svg?inline';
 import processIndicator from 'images/progress-indicator.svg?external';
 
 import {
@@ -44,7 +45,7 @@ import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 import ChangeLocale from 'containers/ChangeLocale';
-
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID, MIN_REPUTATION } from './constants';
 
 const single = isSingleCommunityWebsite();
@@ -151,11 +152,16 @@ const View = ({
     if (isSearchFormVisible) return null;
 
     const logo = single ? peeranhaMetaLogo : peeranhaLogo;
-    const src = styles.withoutSubHeader ? communitiesConfig[1].src : logo;
-    //add logo sui
+    const src = () => {
+      if (styles.withoutSubHeader) {
+        return !isSuiBlockchain ? communitiesConfig[single].src : suiLogo;
+      }
+      return logo;
+    };
+
     return (
       <LogoStyles to={single ? routes.feed() : routes.home()}>
-        <img src={src} alt="logo" />
+        <img src={src()} alt="logo" />
         {styles.logoText}
       </LogoStyles>
     );

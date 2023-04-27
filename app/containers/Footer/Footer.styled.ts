@@ -79,4 +79,9 @@ export const styles = {
       },
     },
   },
+  imgLogo: {
+    width: '61px',
+    height: '15px',
+    margin: '5px 25px 0 5px',
+  },
 };

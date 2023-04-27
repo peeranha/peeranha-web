@@ -20,6 +20,7 @@ import {
   CONTRACT_USER,
 } from './ethConstants';
 import { getCommunities, getCommunityById, getTags, getTagsByIds } from './theGraph';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
@@ -27,7 +28,7 @@ export const isSingleCommunityWebsite = () =>
   );
 
 const isSuiWebsite = () => {
-  const SUI = process.env.BLOCKCHAIN;
+  const SUI = isSuiBlockchain;
   const SUI_ID = 1;
   return SUI ? SUI_ID : undefined;
 };

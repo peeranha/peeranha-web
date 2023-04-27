@@ -9,8 +9,9 @@ import { DOCUMENTATION_ABOUT_LINK } from 'app/constants/documentation';
 import { styles } from './Footer.styled';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaLogoWhite from 'images/Logo.svg?inline';
+import HeartIcon from 'icons/Heart';
 import { INFO_LINKS, LINK_PRIVACY_POLICY, LINK_TERMS_OF_SERVICE } from './constants';
-
+import { isSuiBlockchain } from 'utils/sui/sui';
 type FooterLinkType = {
   path: string;
   message: string;
@@ -56,51 +57,68 @@ const Footer: React.FC = (): JSX.Element => {
               )}{' '}
             </div>
           </div>
-          <div className="df aic jcc fdc">
-            {Boolean(isSingleCommunityMode) ? (
-              <a css={styles.infoPoweredBy} href={process.env.APP_LOCATION}>
+          <div className={!isSuiBlockchain ? 'df aic jcc' : 'df aic jcsb'}>
+            <div className={!isSuiBlockchain ? 'df aic jcc fdc' : 'df ais jcc fdc ml-4'}>
+              {isSingleCommunityMode ? (
+                <a css={styles.infoPoweredBy} href={process.env.APP_LOCATION}>
+                  <Trans
+                    i18nKey="common.poweredBy"
+                    values={{ year: new Date().getFullYear() }}
+                    components={[
+                      <img
+                        key="peeranha"
+                        src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
+                        alt="peeranha"
+                      />,
+                    ]}
+                  />
+                </a>
+              ) : (
+                <div css={css(styles.infoData)}>
+                  {t('common.copyrightPeeranha', {
+                    year: new Date().getFullYear(),
+                  })}
+                </div>
+              )}
+              <div css={css(styles.infoRules)}>
                 <Trans
-                  i18nKey="common.poweredBy"
-                  values={{ year: new Date().getFullYear() }}
+                  i18nKey="common.reCaptchaMention"
+                  values={{
+                    privacyPolicy: t('common.privacyPolicy'),
+                    termsOfService: t('common.termsOfService'),
+                  }}
                   components={[
-                    <img
-                      key="peeranha"
-                      src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
-                      alt="peeranha"
+                    <a
+                      key="0"
+                      css={css(styles.infoRulesLink)}
+                      href={LINK_PRIVACY_POLICY}
+                      target="_blank"
+                    />,
+                    <a
+                      key="1"
+                      css={css(styles.infoRulesLink)}
+                      href={LINK_TERMS_OF_SERVICE}
+                      target="_blank"
                     />,
                   ]}
                 />
-              </a>
-            ) : (
-              <div css={css(styles.infoData)}>
-                {t('common.copyrightPeeranha', {
-                  year: new Date().getFullYear(),
-                })}
+              </div>
+            </div>
+            {isSuiBlockchain && (
+              <div className="df aic jcc">
+                <div css={css(styles.infoRules)}>
+                  <Trans i18nKey="common.footerMadeBy" components={[<HeartIcon key="0" />]} />
+                </div>
+                <a href={process.env.APP_LOCATION} target="_blank">
+                  <img
+                    css={styles.imgLogo}
+                    key="peeranha"
+                    src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
+                    alt="peeranha"
+                  />
+                </a>
               </div>
             )}
-            <div css={css(styles.infoRules)}>
-              <Trans
-                i18nKey="common.reCaptchaMention"
-                values={{
-                  privacyPolicy: t('common.privacyPolicy'),
-                  termsOfService: t('common.termsOfService'),
-                }}
-                components={[
-                  <a
-                    key="0"
-                    css={css(styles.infoRulesLink)}
-                    href={LINK_PRIVACY_POLICY}
-                    target="_blank"
-                  />,
-                  <a
-                    key="1"
-                    css={css(styles.infoRulesLink)}
-                    href={LINK_TERMS_OF_SERVICE}
-                    target="_blank"
-                  />,
-                ]}
-              />
-            </div>
           </div>
         </div>
       )}

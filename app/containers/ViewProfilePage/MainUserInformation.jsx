@@ -226,7 +226,7 @@ const MainUserInformation = ({
               alt="avatar"
               isBordered
               css={css`
-                border: 2px solid ${TEXT_PRIMARY};
+                border: 2px solid ${colors.btnColor || TEXT_PRIMARY};
                 padding: 2px;
               `}
             />
