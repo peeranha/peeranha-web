@@ -37,6 +37,7 @@ import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
 
 import { selectCommunity } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
 
 export function* getCommunityWorker({ communityId }) {
   try {
@@ -86,6 +87,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
       if (isSuiBlockchain) {
         const wallet = yield select(selectSuiWallet());
         yield call(updateSuiCommunity, wallet, communityDataCurrent.suiId, communityData);
+        yield put(transactionCompleted());
         const communities = yield call(getSuiCommunities);
         yield put(getCommunitiesSuccess(communities));
       } else {
@@ -106,6 +108,9 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
   } catch (error) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(error));
+    }
     yield put(editCommunityError(error));
   }
 }

@@ -25,6 +25,7 @@ import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { updateSuiTag } from 'utils/sui/communityManagement';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { getSuiCommunityTags } from 'utils/sui/suiIndexer';
+import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
 
 export function* getEditTagFormWorker({ communityId }) {
   try {
@@ -57,7 +58,7 @@ export function* editTagWorker({ tag, reset }) {
       const communities = yield select(selectCommunities());
       const suiCommunityId = communities.find((community) => community.id == tag.communityId).suiId;
       yield call(updateSuiTag, wallet, suiCommunityId, tag.tagId.split('-')[1], tag);
-
+      yield put(transactionCompleted());
       const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
         ...tag,
         label: tag.name,
@@ -90,6 +91,9 @@ export function* editTagWorker({ tag, reset }) {
     yield call(createdHistory.push, routes.communityTags(tag.communityId));
     yield put(editTagErr());
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(editTagErr(err));
   }
 }

@@ -31,6 +31,7 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { getQuestionFromGraph, getReplyId2 } from 'utils/theGraph';
 import { authorEditSuiAnswer, moderatorEditSuiAnswer } from 'utils/sui/questionsManagement';
 import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
 
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
@@ -103,6 +104,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
         );
       }
       yield call(waitForPostTransactionToIndex, txResult.digest);
+      yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);
       const user = yield call(ethereumService.getSelectedAccount);
@@ -131,6 +133,9 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
     yield put(editAnswerSuccess({ ...cachedQuestion }));
     yield call(createdHistory.push, routes.questionView(questionId, title, answerId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(editAnswerErr(err));
   }
 }

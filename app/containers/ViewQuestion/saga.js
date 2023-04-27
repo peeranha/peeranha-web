@@ -152,6 +152,7 @@ import {
 import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { languagesEnum } from 'app/i18n';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
+import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -374,6 +375,7 @@ export function* saveCommentWorker({
         ipfsLink,
         languagesEnum[locale],
       );
+      yield put(transactionCompleted());
     } else {
       const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
       const transaction = yield call(
@@ -417,6 +419,9 @@ export function* saveCommentWorker({
 
     yield put(saveCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(saveCommentErr(err, buttonId));
   }
 }
@@ -436,6 +441,7 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
       yield call(deleteSuiComment, wallet, profileInfo.id, questionId, answerId, commentId);
+      yield put(transactionCompleted());
     } else {
       const transaction = yield call(
         deleteComment,
@@ -467,6 +473,9 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
 
     yield put(deleteCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(deleteCommentErr(err, buttonId));
   }
 }
@@ -479,6 +488,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       const wallet = yield select(selectSuiWallet());
       const txResult = yield call(deleteSuiAnswer, wallet, profileInfo.id, questionId, answerId);
       yield call(waitForPostTransactionToIndex, txResult.digest);
+      yield put(transactionCompleted());
     } else {
       yield call(
         isAvailableAction,
@@ -519,6 +529,9 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
     yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(deleteAnswerErr(err, buttonId));
   }
 }
@@ -578,6 +591,7 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
       const wallet = yield select(selectSuiWallet());
       const txResult = yield call(deleteSuiQuestion, wallet, profileInfo.id, questionId);
       yield call(waitForPostTransactionToIndex, txResult.digest);
+      yield put(transactionCompleted());
     } else {
       yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
     }
@@ -586,6 +600,9 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
 
     yield call(createdHistory.push, getPostsRoute(questionData.postType));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(deleteQuestionErr(err, buttonId));
   }
 }
@@ -684,6 +701,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         languagesEnum[locale],
       );
       txHash = transactionResult.digest;
+      yield put(transactionCompleted());
     } else {
       const transaction = yield call(
         postComment,
@@ -748,6 +766,9 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
 
     yield put(postCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(postCommentErr(err, buttonId));
   }
 }
@@ -782,6 +803,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       const suiUserObject = yield call(getSuiUserObject, wallet.address);
       if (!suiUserObject) {
         yield call(createSuiProfile, wallet);
+        yield put(transactionCompleted());
         const newProfile = yield call(getSuiProfileInfo, wallet.address);
         profileInfo.id = newProfile.id;
       }
@@ -797,6 +819,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       );
       txHash = transactionResult.digest;
       yield call(waitForPostTransactionToIndex, txHash);
+      yield put(transactionCompleted());
     } else {
       const transactionResult = yield call(
         postAnswer,
@@ -855,6 +878,9 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     yield put(getQuestionDataSuccess(updatedQuestionData));
     yield put(postAnswerSuccess(questionData));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(postAnswerErr(err));
   }
 }
@@ -884,6 +910,7 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
       } else {
         yield call(voteSuiReply, wallet, profile.id, questionId, answerId, false);
       }
+      yield put(transactionCompleted());
     } else {
       yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
     }
@@ -907,6 +934,9 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
 
     yield put(downVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(downVoteErr(err, buttonId));
   }
 }
@@ -935,6 +965,7 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
       } else {
         yield call(voteSuiReply, wallet, profile.id, questionId, answerId, true);
       }
+      yield put(transactionCompleted());
     } else {
       yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
     }
@@ -958,6 +989,9 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
 
     yield put(upVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(upVoteErr(err, buttonId));
   }
 }
@@ -980,6 +1014,7 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
       yield call(markAsAcceptedSuiReply, wallet, profileInfo.id, questionId, correctAnswerId);
+      yield put(transactionCompleted());
     } else {
       yield call(markAsAccepted, profileInfo.user, questionId, correctAnswerId, ethereumService);
     }
@@ -990,6 +1025,9 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
 
     yield put(markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(markAsAcceptedErr(err, buttonId));
   }
 }

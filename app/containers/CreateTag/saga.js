@@ -13,6 +13,7 @@ import { getTagsSuccess } from 'containers/DataCacheProvider/actions';
 import { isSuiBlockchain } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { createSuiTag } from 'utils/sui/communityManagement';
+import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
 
 import {
   suggestTagErr,
@@ -33,7 +34,7 @@ export function* suggestTagWorker({ communityId, tag, reset }) {
       const communities = yield select(selectCommunities());
       const suiCommunityId = communities.find((community) => community.id == communityId).suiId;
       yield call(createSuiTag, wallet, suiCommunityId, tag);
-
+      yield put(transactionCompleted());
       const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
         ...tag,
         label: tag.name,
@@ -49,6 +50,9 @@ export function* suggestTagWorker({ communityId, tag, reset }) {
     yield call(reset);
     yield call(createdHistory.push, routes.communityTags(communityId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(suggestTagErr(err));
   }
 }

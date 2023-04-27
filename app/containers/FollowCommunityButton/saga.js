@@ -17,6 +17,7 @@ import { followHandlerSuccess, followHandlerErr } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
 
 export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }) {
   try {
@@ -31,11 +32,13 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
       const suiUserObject = yield call(getSuiUserObject, wallet.address);
       if (!suiUserObject) {
         yield call(createSuiProfile, wallet);
+        yield put(transactionCompleted());
         const newProfile = yield call(getSuiProfileInfo, wallet.address);
         profile.id = newProfile.id;
       }
 
       yield call(followSuiCommunity, wallet, profile.id, suiCommunityId, isFollowed);
+      yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);
       const account = yield select(makeSelectAccount());
@@ -61,10 +64,12 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
         ? profileInfo.followedCommunities.filter((commId) => commId !== +communityIdFilter)
         : [...profileInfo.followedCommunities, +communityIdFilter],
     };
-
     yield put(getUserProfileSuccess(updatedProfileInfo));
     yield put(followHandlerSuccess({ communityIdFilter, isFollowed, buttonId }));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(followHandlerErr(err, buttonId));
   }
 }

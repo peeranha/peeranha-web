@@ -53,6 +53,7 @@ import {
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import { transactionCompleted, transactionFailed } from 'containers/EthereumProvider/actions';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -74,6 +75,7 @@ export function* postQuestionWorker({ val }) {
       const suiUserObject = yield call(getSuiUserObject, wallet.address);
       if (!suiUserObject) {
         yield call(createSuiProfile, wallet);
+        yield put(transactionCompleted());
         const newProfile = yield call(getSuiProfileInfo, wallet.address);
         profile.id = newProfile.id;
       }
@@ -89,6 +91,7 @@ export function* postQuestionWorker({ val }) {
         tags,
         languagesEnum[locale],
       );
+      yield put(transactionCompleted());
       const postCreatedEvent = txResult.events.filter((event) =>
         event.type.includes(CREATE_POST_EVENT_NAME),
       )[0];
@@ -188,6 +191,9 @@ export function* postQuestionWorker({ val }) {
       );
     }
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(askQuestionError(err));
   }
 }
