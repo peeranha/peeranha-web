@@ -57,16 +57,14 @@ const Body = ({
   return (
     <Base className={displayTopQuestionMove ? 'pl-0' : ''} position="right" paddingTopMedia={20}>
       <QuestionLabels>
-        {Number(postLanguage) !== languagesEnum[locale] &&
-          isAutotranslationEnable &&
-          !isSuiBlockchain && (
-            <LanguageLabel
-              postLanguage={postLanguage}
-              language={language}
-              isAutotranslationEnable={isAutotranslationEnable}
-              isFeed={isFeed}
-            />
-          )}
+        {Number(postLanguage) !== languagesEnum[locale] && isAutotranslationEnable && (
+          <LanguageLabel
+            postLanguage={postLanguage}
+            language={language}
+            isAutotranslationEnable={isAutotranslationEnable}
+            isFeed={isFeed}
+          />
+        )}
 
         {(isFeed || isSearchPage) && (
           <QuestionType

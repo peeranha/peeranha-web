@@ -9,7 +9,6 @@ import Span from 'components/Span';
 import Img from 'components/Img';
 
 import { POST_TYPE } from 'utils/constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const single = isSingleCommunityWebsite();
 
@@ -42,9 +41,9 @@ const QuestionCommunity = ({
     (communityObject) => communityObject.id === Number(communityId),
   );
 
-  const communityTranslationTitle = isSuiBlockchain
-    ? undefined
-    : community.translations?.find((translation) => translation.language === locale)?.name;
+  const communityTranslationTitle = community.translations?.find(
+    (translation) => translation.language === locale,
+  )?.name;
 
   let route = null;
   let Link = A;

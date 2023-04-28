@@ -1,7 +1,6 @@
 import userBodyAvatar from 'images/user2.svg?inline';
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { getBytes32FromIpfsHash, getFileUrl, getText, saveFile, saveText } from './ipfs';
 
@@ -11,16 +10,9 @@ import { CONTRACT_USER, GET_USER_RATING, UPDATE_ACC } from './ethConstants';
 import { getUser, getUserPermissions, getUserStats } from './theGraph';
 import { isUserExists } from './accountManagement';
 
-export const getRatingByCommunity = (user, communityId, communities, isAlreadySui) => {
-  let id = communityId;
-  if (isSuiBlockchain && !isAlreadySui) {
-    id = communities?.find((community) => community.id === communityId)?.suiId;
-  }
-  return (
-    user?.ratings?.find((ratingObj) => ratingObj.communityId.toString() === id?.toString())
-      ?.rating ?? 0
-  );
-};
+export const getRatingByCommunity = (user, communityId) =>
+  user?.ratings?.find((ratingObj) => ratingObj.communityId.toString() === communityId?.toString())
+    ?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {

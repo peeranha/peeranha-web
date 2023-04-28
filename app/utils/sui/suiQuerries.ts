@@ -80,6 +80,7 @@ const post = `
     bestReply
     handle
     messengerType
+    language
     comment {
       id
       id2

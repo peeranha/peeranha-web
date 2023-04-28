@@ -40,7 +40,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, communi
           {!isBotAddress(author) && (
             <>
               <RatingStatus
-                rating={getRatingByCommunity(author, communityId, communities)}
+                rating={getRatingByCommunity(author, communityId)}
                 size="sm"
                 isRankOff
                 customRatingIconColors={customRatingIconColors}

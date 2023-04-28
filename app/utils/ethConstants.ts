@@ -194,6 +194,7 @@ const post = `
   properties
   handle
   messengerType
+  language
   replies (
     orderBy: postTime,
     orderDirection: desc,

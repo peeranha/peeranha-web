@@ -9,7 +9,6 @@ import Span from 'components/Span';
 
 import { singleCommunityFonts, isSingleCommunityWebsite } from 'utils/communityManagement';
 import Button from 'components/Button';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const fonts = singleCommunityFonts();
 const single = isSingleCommunityWebsite();

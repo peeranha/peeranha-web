@@ -84,6 +84,16 @@ export function* getQuestionsWorker({
       questionsList = questionsList.map((question) => ({
         ...question,
         communityId: communities?.find((community) => community.suiId === question.communityId)?.id,
+        author: {
+          ...question.author,
+          ratings: question.author.usercommunityrating.map((communityRating) => ({
+            communityId: communities.find(
+              (community) => community.suiId === communityRating.communityId,
+            ).id,
+            suiCommunityId: communityRating.communityId,
+            rating: communityRating.rating,
+          })),
+        },
       }));
 
       const clearQuestionsList = questionsList.filter((item) => item.title);
