@@ -402,7 +402,7 @@ const MainUserInformation = ({
                           line-height: 23px;
                         `}
                       >
-                        {userId}
+                        {userId.length < 40 ? userId : userId.substring(0, 40) + '...'}
                       </span>
                     </A>
                     <button

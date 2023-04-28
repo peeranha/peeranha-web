@@ -21,6 +21,7 @@ import MobileLinksInProfile from 'containers/LeftMenu/MobileLinksInProfile';
 import MobileAdditionalLinks from 'containers/LeftMenu/MobileAdditionalLinks';
 import MobileAutorizationButtons from 'containers/LeftMenu/MobileAutorizationButtons';
 import { ViewStyled } from 'containers/LeftMenu/Styles';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const single = isSingleCommunityWebsite();
 
@@ -63,10 +64,10 @@ const View = ({
       css={css`
         height: isDesktop ? calc(100vh - ${HEADER_HEIGHT}px) : 100vh;
         overflow: hidden;
-        padding-right: 6px;
+        padding-right: ${isSuiBlockchain} ? 0 : 6px;
 
         :hover {
-          overflow-y: scroll;
+          overflow-y: ${isSuiBlockchain} ? unset : scroll;
           padding-right: 0;
         }
 

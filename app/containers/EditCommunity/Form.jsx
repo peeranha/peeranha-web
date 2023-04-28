@@ -44,6 +44,7 @@ import {
 } from './constants';
 import { COMMUNITY_TYPE } from '../CreateCommunity/constants';
 import styles from './Form.styled';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 
@@ -194,7 +195,7 @@ const EditCommunityForm = ({
                 name={COMM_TRANSLATIONS_FIELD}
                 component={TranslationsField}
                 translations={community?.translations}
-                communityId={communityId}
+                communityId={isSuiBlockchain ? community?.id : communityId}
                 selectedLanguages={selectedLanguages}
                 setSelectedLanguages={setSelectedLanguages}
               />
