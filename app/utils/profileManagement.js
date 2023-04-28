@@ -11,7 +11,7 @@ import { getUser, getUserPermissions, getUserStats } from './theGraph';
 import { isUserExists } from './accountManagement';
 
 export const getRatingByCommunity = (user, communityId) =>
-  user?.ratings?.find((ratingObj) => ratingObj.communityId.toString() === communityId?.toString())
+  user?.ratings?.find((ratingObj) => ratingObj.communityId?.toString() === communityId?.toString())
     ?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
