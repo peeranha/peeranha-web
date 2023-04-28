@@ -42,10 +42,29 @@ const tag = `id
   postCount
   deletedPostCount`;
 
+const comment = `
+  id
+  id2
+  parentReplyId
+  author
+  user {
+    ${user}
+  }
+  content
+  postTime
+  language
+  commenttranslation {
+    language
+    content
+  }`;
+
 const reply = `
   id
   id2
   author
+  user {
+    ${user}
+  }
   rating
   postTime
   postId
@@ -59,6 +78,11 @@ const reply = `
   isQuickReply
   handle
   messengerType
+  language
+  replytranslation {
+    language
+    content
+  }
 `;
 // id - metadata
 // id2 - private id
@@ -82,11 +106,7 @@ const post = `
     messengerType
     language
     comment {
-      id
-      id2
-      author
-      content
-      postTime
+      ${comment}
     }
     history {
       postId
@@ -111,6 +131,14 @@ const post = `
       followingUsers
       ipfsHash
       ipfsHash2
+      communitytranslation {
+        communityId
+        description
+        enableAutotranslation
+        id
+        language
+        name
+      }
     }
     user {
       ${user}
@@ -124,6 +152,65 @@ const post = `
       where: { isDeleted: "0" }
     ) {
       ${reply}
+    }
+    posttranslation {
+      language
+      title
+      content
+    }
+`;
+
+const postShort = `
+    id
+    id2
+    ipfsHash
+    postType
+    author
+    rating
+    postTime
+    communityId
+    title
+    content
+    commentCount
+    replyCount
+    isDeleted
+    officialReply
+    bestReply
+    handle
+    messengerType
+    language
+    community {
+      id
+      name
+      description
+      language
+      avatar
+      communitytranslation {
+        communityId
+        description
+        enableAutotranslation
+        id
+        language
+        name
+      }
+    }
+    user {
+      ${user}
+    }
+    posttag {
+      tag {
+        ${tag}
+      }
+    }
+    reply (
+      where: { isDeleted: "0" }
+    ) {
+      id
+    }
+    posttranslation {
+      language
+      title
+      content
     }
 `;
 
@@ -147,6 +234,14 @@ const community = `
     ipfsHash2
     tag {
       ${tag}
+    }
+    communitytranslation {
+      communityId
+      description
+      enableAutotranslation
+      id
+      language
+      name
     }
 `;
 
@@ -209,7 +304,7 @@ export const postsQuery = (postTypes: string) => `
       offset: $skip,
       where: {isDeleted: "0", postType: "(${postTypes})" },
     ) {
-      ${post}
+      ${postShort}
     }
   }`;
 
@@ -248,7 +343,7 @@ export const postsByCommunityIdQuery = (postTypes: string, communityIds: string)
       offset: $skip,
       where: {isDeleted: "0", postType: "(${postTypes})", communityId: "(${communityIds})" },
     ) {
-      ${post}
+      ${postShort}
     }
 }`;
 

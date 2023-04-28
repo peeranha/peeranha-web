@@ -27,7 +27,7 @@ import {
   voteToDelete,
   votingStatus,
 } from 'utils/questionsManagement';
-import { getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import { getSuiPost, getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
@@ -199,7 +199,8 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
       }
     }
   } else {
-    question = yield call(getQuestionFromGraph, questionId);
+    const communities = yield select(selectCommunities());
+    question = yield call(getSuiPost, questionId, communities);
     question.votingStatus = suiVotingStatus(
       question.postvotehistory?.find((voteHistory) => voteHistory?.userId === user)?.direction,
     );

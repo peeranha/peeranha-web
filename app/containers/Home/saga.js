@@ -6,11 +6,7 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
 
 import { getQuestionsFilteredByCommunities, getQuestionById } from 'utils/questionsManagement';
-import {
-  getCommunityById,
-  isSingleCommunityWebsite,
-  getSingleCommunityDetails,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, getSingleCommunityDetails } from 'utils/communityManagement';
 import { getQuestionBounty } from 'utils/walletManagement';
 import { getUserAvatar } from 'utils/profileManagement';
 
@@ -22,7 +18,7 @@ import {
 } from 'containers/Questions/saga';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import { getSuiPostsByCommunityId, getSuiPostById } from 'utils/sui/suiIndexer';
+import { getSuiPostsByCommunityId, getSuiPost } from 'utils/sui/suiIndexer';
 
 import {
   GET_QUESTIONS,
@@ -58,7 +54,7 @@ export function* getQuestionsWorker({ communityId }) {
         yield all(
           topQuestionsIds.map(function* (id) {
             if (id) {
-              const question = yield call(getSuiPostById, id);
+              const question = yield call(getSuiPost, id, сommunities);
               questionsList.push(question);
             }
           }),
@@ -75,6 +71,7 @@ export function* getQuestionsWorker({ communityId }) {
           offset,
           [0, 1, 2],
           [communitySuiIdFilter],
+          сommunities,
         );
       }
       questionsList = questionsList.map((question) => ({

@@ -14,6 +14,7 @@ import {
 } from 'utils/sui/suiQuerries';
 import { getFileUrl } from 'utils/ipfs';
 import { delay } from 'utils/reduxUtils';
+import { map } from 'react-sortable-tree';
 
 const getDataFromIndexer = async (query: string, variables: object = {}) => {
   const response = await fetch(process.env.QUERY_INDEX_URL, {
@@ -36,7 +37,24 @@ type User = {
   replyCount: any;
 };
 
+export const getSuiCommunity = async (id: string) => {
+  const data = await getDataFromIndexer(communityQuery, { id });
+  return data.community.map((community) => ({
+    ...community,
+    avatar: getFileUrl(community.avatar),
+    label: community.name,
+    postCount: +community.postCount,
+    deletedPostCount: +community.deletedPostCount,
+    creationTime: +community.creationTime,
+    followingUsers: +community.followingUsers,
+    replyCount: +community.replyCount,
+    suiId: community.id,
+    translations: community.communitytranslation,
+  }))[0];
+};
+
 export const getSuiCommunities = async () => {
+  console.log(`Get Sui communities`);
   const data = await getDataFromIndexer(communitiesQuery);
   return data.community.map((community, index) => ({
     ...community,
@@ -49,10 +67,11 @@ export const getSuiCommunities = async () => {
     followingUsers: +community.followingUsers,
     replyCount: +community.replyCount,
     suiId: community.id,
+    translations: community.communitytranslation,
   }));
 };
 
-const formUserObject = (user: User, communities: any[]) => {
+const userFromIndexerResponse = (user: User, communities: any[]) => {
   const ratings = user?.usercommunityrating;
   const highestRating = ratings?.length
     ? ratings.reduce((max: { rating: number }, current: { rating: number }) =>
@@ -81,80 +100,91 @@ const formUserObject = (user: User, communities: any[]) => {
 
 export const getSuiUsers = async (communities: any[]) => {
   const data = await getDataFromIndexer(usersQuery);
-  return data.user.map((user: User) => formUserObject(user, communities));
+  return data.user.map((user: User) => userFromIndexerResponse(user, communities));
 };
 
 export const getSuiUserById = async (id: string, communities: any) => {
   const data = await getDataFromIndexer(userQuery, { id });
-  return formUserObject(data.user[0], communities);
+  return userFromIndexerResponse(data.user[0], communities);
 };
+
+const commentFromIndexerReponse = (commentFromIndexer: any, communities: any) => ({
+  ...commentFromIndexer,
+  author: userFromIndexerResponse(commentFromIndexer.user[0], communities),
+  translations: commentFromIndexer.commenttranslation,
+});
+
+const answerFromIndexerReponse = (
+  answerFromIndexer: any,
+  postId: string,
+  comments: any,
+  communities: any,
+) => ({
+  ...answerFromIndexer,
+  author: answerFromIndexer.user
+    ? userFromIndexerResponse(answerFromIndexer.user[0], communities)
+    : answerFromIndexer.author,
+  translations: answerFromIndexer.replytranslation || [],
+  comments: comments
+    ? comments
+        .filter(
+          (comment: any) =>
+            comment.parentReplyId > 0 &&
+            answerFromIndexer.id === `${postId}-${comment.parentReplyId}`,
+        )
+        .map((comment: any) => commentFromIndexerReponse(comment, communities))
+    : [],
+});
+
+const postFromIndexerResponse = (postFromIndexer: any, communities: any) => ({
+  ...postFromIndexer,
+  author: userFromIndexerResponse(postFromIndexer.user[0], communities),
+  answers: postFromIndexer.reply
+    ? postFromIndexer.reply.map((reply: any) =>
+        answerFromIndexerReponse(reply, postFromIndexer.id, postFromIndexer.comment, communities),
+      )
+    : [],
+  comments: postFromIndexer.comment
+    ? postFromIndexer.comment
+        .filter((comment: any) => comment.parentReplyId === 0)
+        .map((comment: any) => commentFromIndexerReponse(comment, communities))
+    : [],
+  community: postFromIndexer.community[0]
+    ? {
+        ...postFromIndexer.community[0],
+        translations: postFromIndexer.community[0]?.communitytranslation,
+      }
+    : {},
+  communityId: postFromIndexer.community[0].id,
+  tags: postFromIndexer.posttag.map((tagObject: any) => tagObject.tag[0]),
+  translations: postFromIndexer.posttranslation,
+});
 
 export const getSuiPosts = async (limit, offset, postTypes, communities) => {
   const data = await getDataFromIndexer(postsQuery(String(postTypes)), { limit, offset });
-  return data.post.map((post) => ({
-    ...post,
-    author: formUserObject(post.user[0], communities),
-    answers: post.reply || [],
-    community: post.community[0] || {},
-    communityId: post.community[0].id,
-    tags: post.posttag.map((tagObject) => tagObject.tag[0]),
-  }));
+  return data.post.map((post) => postFromIndexerResponse(post, communities));
 };
 
 export const getSuiPost = async (id, communities) => {
   const data = await getDataFromIndexer(postQuery, { id });
   const post = data.post[0];
-  return {
-    ...post,
-    answers: post.reply || [],
-    community: post.community[0] || {},
-    author: formUserObject(post.user[0], communities),
-    communityId: post.community[0].id,
-    tags: post.posttag.map((tagObject) => tagObject.tag[0]),
-    comments: post.comment,
-  };
+  const response = postFromIndexerResponse(post, communities);
+  console.log(`Post - ${JSON.stringify(response)}`);
+  return response;
 };
 
-export const isPostTransactionIndexed = async (id) => {
-  const data = await getDataFromIndexer(historyIdQuery, { id });
-  return data.history && data.history.length > 0;
-};
-
-export const waitForPostTransactionToIndex = async (transaction) => {
-  let indexed = false;
-  /* eslint-disable no-await-in-loop */
-  do {
-    await delay(500);
-    indexed = await isPostTransactionIndexed(transaction);
-  } while (!indexed);
-  /* eslint-enable no-await-in-loop */
-};
-
-export const getSuiPostById = async (id: string) => {
-  const data = await getDataFromIndexer(postByIdQuery, { id });
-  return {
-    ...data,
-    answers: data.reply || [],
-    community: data.community[0] || {},
-    author: data.user[0] || {},
-    communityId: data.community[0].id,
-    tags: data.posttag.map((tagObject) => tagObject.tag[0]),
-  };
-};
-
-export const getSuiCommunity = async (id: string) => {
-  const data = await getDataFromIndexer(communityQuery, { id });
-  return data.community.map((community) => ({
-    ...community,
-    avatar: getFileUrl(community.avatar),
-    label: community.name,
-    postCount: +community.postCount,
-    deletedPostCount: +community.deletedPostCount,
-    creationTime: +community.creationTime,
-    followingUsers: +community.followingUsers,
-    replyCount: +community.replyCount,
-    suiId: community.id,
-  }))[0];
+export const getSuiPostsByCommunityId = async (
+  limit,
+  offset,
+  postTypes,
+  communityIds,
+  communities,
+) => {
+  const data = await getDataFromIndexer(
+    postsByCommunityIdQuery(String(postTypes), String(communityIds)),
+    { limit, offset },
+  );
+  return data.post.map((post) => postFromIndexerResponse(post, communities));
 };
 
 export const getSuiTags = async () => {
@@ -172,17 +202,17 @@ export const getFollowCommunitySuiIds = async (userId: string) => {
   return data.usercommunity.map((usercommunity: any) => usercommunity.community[0].id);
 };
 
-export const getSuiPostsByCommunityId = async (limit, offset, postTypes, communityIds) => {
-  const data = await getDataFromIndexer(
-    postsByCommunityIdQuery(String(postTypes), String(communityIds)),
-    { limit, offset },
-  );
-  return data.post.map((post) => ({
-    ...post,
-    answers: post.reply || [],
-    community: post.community[0] || {},
-    author: post.user[0] || {},
-    communityId: post.community[0].id,
-    tags: post.posttag.map((tagObject) => tagObject.tag[0]),
-  }));
+export const isPostTransactionIndexed = async (id) => {
+  const data = await getDataFromIndexer(historyIdQuery, { id });
+  return data.history && data.history.length > 0;
+};
+
+export const waitForPostTransactionToIndex = async (transaction) => {
+  let indexed = false;
+  /* eslint-disable no-await-in-loop */
+  do {
+    await delay(500);
+    indexed = await isPostTransactionIndexed(transaction);
+  } while (!indexed);
+  /* eslint-enable no-await-in-loop */
 };

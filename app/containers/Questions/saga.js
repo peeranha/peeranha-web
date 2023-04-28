@@ -57,9 +57,14 @@ export function* getQuestionsWorker({
         const communitySuiIdFilter = communities.find(
           (community) => community.id === communityIdFilter,
         ).suiId;
-        questionsList = yield call(getSuiPostsByCommunityId, limit, skip, postTypes, [
-          communitySuiIdFilter,
-        ]);
+        questionsList = yield call(
+          getSuiPostsByCommunityId,
+          limit,
+          skip,
+          postTypes,
+          [communitySuiIdFilter],
+          communities,
+        );
       }
       if (communityIdFilter === 0 && parentPage !== feed) {
         questionsList = yield call(getSuiPosts, limit, skip, postTypes, communities);
@@ -79,6 +84,7 @@ export function* getQuestionsWorker({
           skip,
           postTypes,
           communitySuiIdsFilter.map((community) => community.suiId),
+          communities,
         );
       }
       questionsList = questionsList.map((question) => ({
