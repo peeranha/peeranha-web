@@ -93,6 +93,7 @@ export const handleMoveCall = async (
   libName: string,
   action: string,
   data: unknown[],
+  waitForConfirmaiton = true,
 ): Promise<object> => {
   const tx = new TransactionBlock();
   tx.moveCall({
@@ -105,6 +106,10 @@ export const handleMoveCall = async (
   const transactionResult = await wallet.signAndExecuteTransactionBlock({
     transactionBlock: tx,
   });
+
+  if (!waitForConfirmaiton) {
+    return transactionResult;
+  }
 
   const confirmedTx = await waitForTransactionConfirmation(transactionResult.digest);
   return confirmedTx;

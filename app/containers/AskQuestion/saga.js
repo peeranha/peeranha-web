@@ -33,6 +33,7 @@ import {
   isSuiBlockchain,
   postLib,
   USER_RATING_COLLECTION,
+  waitForTransactionConfirmation,
 } from 'utils/sui/sui';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
@@ -97,14 +98,15 @@ export function* postQuestionWorker({ val }) {
         languagesEnum[locale],
       );
       yield put(transactionInPending(txResult.digest));
-      yield put(transactionCompleted());
-      const postCreatedEvent = txResult.events.filter((event) =>
+
+      const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
+      const postCreatedEvent = confirmedTx.events.filter((event) =>
         event.type.includes(CREATE_POST_EVENT_NAME),
       )[0];
       const id = postCreatedEvent.parsedJson.postMetaDataId;
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
 
-      yield call(waitForPostTransactionToIndex, txResult.digest);
-
+      yield put(transactionCompleted());
       yield put(askQuestionSuccess(id));
 
       yield call(

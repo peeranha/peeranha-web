@@ -37,17 +37,23 @@ export async function postSuiQuestion(
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
-  return handleMoveCall(wallet, postLib, createPost, [
-    process.env.USER_RATING_COLLECTION_ID,
-    userSuiId,
-    communitySuiId,
-    process.env.USER_ROLES_COLLECTION_ID,
-    ipfsHash,
-    postType,
-    tags,
-    language,
-    CLOCK_OBJECT_ID,
-  ]);
+  return handleMoveCall(
+    wallet,
+    postLib,
+    createPost,
+    [
+      process.env.USER_RATING_COLLECTION_ID,
+      userSuiId,
+      communitySuiId,
+      process.env.USER_ROLES_COLLECTION_ID,
+      ipfsHash,
+      postType,
+      tags,
+      language,
+      CLOCK_OBJECT_ID,
+    ],
+    false,
+  );
 }
 
 export async function editSuiQuestion(
