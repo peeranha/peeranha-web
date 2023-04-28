@@ -85,6 +85,7 @@ import {
   hasProtocolAdminRole,
 } from '../../utils/properties';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const single = isSingleCommunityWebsite();
 const isDocumentationPositionTop = singleCommunityDocumentationPosition() == POSITION_TOP;
@@ -119,7 +120,7 @@ const App = ({
     }
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-    if (loginData && !single && pathname !== '/') {
+    if ((loginData && !single && pathname !== '/') || isSuiBlockchain) {
       redirectToFeedDispatch();
     }
   }, []);
