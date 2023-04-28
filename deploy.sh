@@ -6,6 +6,10 @@ if [ "$1" == "prod" ];
 then
   bucket="prod.peeranha.io"
   npm run build:prod
+elif [ "$1" == "prod-sui" ];
+then
+  bucket="suiqa.io"
+  npm run build:prod
 elif [ "$1" == "staging" ];
 then
   bucket="testpeeranha.io"
