@@ -23,234 +23,263 @@ import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { ValistStyles } from './communities-configs/valist';
 import { VyperStyles } from './communities-configs/vyper';
 import { SuiMainStyles } from './communities-configs/suiMain';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const communitiesConfig = {
-  prod: {
-    1: {
-      origin: 'https://meta.peeranha.io',
-    },
-    2: {
-      origin: 'https://functionland.peeranha.io',
-      src: 'https://images.peeranha.io/communities/functionland/logo.svg',
-      styles: FunctionlandStyles,
-    },
-    3: {
-      origin: 'https://polygon.peeranha.io',
-      src: 'https://images.peeranha.io/communities/polygon/logo.svg',
-      styles: PolygonStyles,
-    },
-    4: {
-      origin: 'https://filecoin.peeranha.io',
-      src: 'https://images.peeranha.io/communities/filecoin/logo.svg',
-      styles: FilecoinStyles,
-    },
-    6: {
-      origin: 'https://koii.peeranha.io',
-      src: 'https://images.peeranha.io/communities/koii/logo.svg',
-      styles: KoiiStyles,
-    },
-    7: {
-      origin: 'https://filebase.peeranha.io',
-      src: 'https://images.peeranha.io/communities/filebase/logo.svg',
-      styles: FilebaseStyles,
-    },
-    8: {
-      origin: 'https://polywrap.peeranha.io',
-      src: 'https://images.peeranha.io/communities/polywrap/logo.svg',
-      styles: PolywrapStyles,
-    },
-    9: {
-      origin: 'https://cyberconnect.peeranha.io',
-      src: 'https://images.peeranha.io/communities/cyberconnect/logo.svg',
-      styles: CyberconnectStyles,
-    },
-    10: {
-      origin: 'https://valist.peeranha.io',
-      src: 'https://images.peeranha.io/communities/valist/logo.svg',
-      styles: ValistStyles,
-    },
-    11: {
-      origin: 'https://suiglobal.peeranha.io',
-      src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
-      styles: SuiGlobalStyles,
-    },
-    12: {
-      origin: 'https://mintstatelabs.peeranha.io',
-      src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
-      styles: MintStateLabsStyles,
-    },
-    13: {
-      origin: 'https://aave.peeranha.io',
-      src: 'https://images.peeranha.io/communities/aave/logo.svg',
-      styles: AaveStyles,
-    },
-    14: {
-      origin: 'https://solidity.peeranha.io',
-      src: 'https://images.peeranha.io/communities/solidity/logo.svg',
-      styles: SolidityStyles,
-    },
-    15: {
-      origin: 'https://ankr.peeranha.io',
-      src: 'https://images.peeranha.io/communities/ankr/logo.svg',
-      styles: AnkrStyles,
-    },
-    16: {
-      origin: 'https://force.peeranha.io',
-      src: 'https://images.peeranha.io/communities/force/logo.svg',
-      styles: ForceStyles,
-    },
-    17: {
-      origin: 'https://vyper.peeranha.io',
-      src: 'https://images.peeranha.io/communities/vyper/logo.svg',
-      styles: VyperStyles,
-    },
-    18: {
-      origin: 'https://mark3d.peeranha.io',
-      src: 'https://images.peeranha.io/communities/mark3d/logo.svg',
-      styles: Mark3dStyles,
-    },
-    19: {
-      origin: 'https://orbis.peeranha.io',
-      src: 'https://images.peeranha.io/communities/orbis/logo.svg',
-      styles: OrbisStyles,
-    },
-    20: {
-      origin: 'https://fractalvisions.peeranha.io',
-      src: 'https://images.peeranha.io/communities/fractalVisions/logo.svg',
-      styles: FractalVisionsStyles,
-    },
-    21: {
-      origin: 'https://move.peeranha.io',
-      src: 'https://images.peeranha.io/communities/move/logo.svg',
-      styles: MoveStyles,
-    },
-    22: {
-      origin: 'https://developerdao.peeranha.io',
-      src: 'https://images.peeranha.io/communities/communityDAO/logo.svg',
-      styles: DeveloperDAOStyles,
-    },
-    23: {
-      origin: 'https://pl-launchpad.peeranha.io',
-      src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
-      styles: LaunchpadStyles,
-    },
-  },
-  staging: {
-    1: {
-      origin: 'https://demo-harmony.testpeeranha.io',
-      src: 'https://images.peeranha.io/communities/harmony/logo.svg',
-      styles: HarmonyStyles,
-    },
-    2: {
-      origin: 'https://demo-msl.testpeeranha.io',
-      src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
-      styles: MintStateLabsStyles,
-    },
-    3: {
-      origin: `https://demo-ankr.testpeeranha.io`,
-      src: 'https://images.peeranha.io/communities/ankr/logo.svg',
-      styles: AnkrStyles,
-    },
-    4: {
-      origin: 'https://demo-fxland.testpeeranha.io',
-      src: 'https://images.peeranha.io/communities/functionland/logo.svg',
-      styles: FunctionlandStyles,
-    },
-    5: {
-      origin: 'https://demo-mintstatelabs.peeranha.io',
-      src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
-      styles: MintStateLabsStyles,
-    },
-    6: {
-      origin: 'https://demo-sui.testpeeranha.io',
-      src: 'https://images.peeranha.io/communities/sui/logo.svg',
-      styles: SuiStyles,
-    },
-  },
-  test: {
-    1: {
-      origin: `https://mintstatelabs${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/functionland/logo.svg',
-      styles: FunctionlandStyles,
-    },
-    2: {
-      origin: `https://suiglobal${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
-      styles: SuiGlobalStyles,
-    },
-    3: {
-      origin: `https://indexerdao${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/indexerDAO/logo.jpg',
-      styles: IndexerDAOStyles,
-    },
-    4: {
-      origin: `https://aave${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/aave/logo.svg',
-      styles: AaveStyles,
-    },
-    5: {
-      origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/solidity/logo.svg',
-      styles: SolidityStyles,
-    },
-    6: {
-      origin: `https://vyper${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/vyper/logo.svg',
-      styles: VyperStyles,
-    },
-    7: {
-      origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/ankr/logo.svg',
-      styles: AnkrStyles,
-    },
-    8: {
-      origin: `https://force${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/force/logo.svg',
-      styles: ForceStyles,
-    },
-    9: {
-      origin: `https://mark3d${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/mark3d/logo.svg',
-      styles: Mark3dStyles,
-    },
-    10: {
-      origin: `https://move${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/move/logo.svg',
-      styles: MoveStyles,
-    },
-    11: {
-      origin: `https://orbis${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/orbis/logo.svg',
-      styles: OrbisStyles,
-    },
-    12: {
-      origin: `https://fractalvisions${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/fractalVisions/logo.svg',
-      styles: FractalVisionsStyles,
-    },
-    16: {
-      origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/polygon/logo.svg',
-      styles: PolygonStyles,
-    },
-    17: {
-      origin: `https://developerdao${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/communityDAO/logo.svg',
-      styles: DeveloperDAOStyles,
-    },
-    18: {
-      origin: `https://pl-launchpad${process.env.COOKIE_DOMAIN}`,
-      src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
-      styles: LaunchpadStyles,
-    },
-  },
-  dev: {
-    1: {
-      origin: 'http://localhost:31000',
-      src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
-      styles: SuiMainStyles,
-    },
-  },
+  prod: isSuiBlockchain
+    ? {
+        1: {
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiMainStyles,
+        },
+      }
+    : {
+        1: {
+          origin: 'https://meta.peeranha.io',
+        },
+        2: {
+          origin: 'https://functionland.peeranha.io',
+          src: 'https://images.peeranha.io/communities/functionland/logo.svg',
+          styles: FunctionlandStyles,
+        },
+        3: {
+          origin: 'https://polygon.peeranha.io',
+          src: 'https://images.peeranha.io/communities/polygon/logo.svg',
+          styles: PolygonStyles,
+        },
+        4: {
+          origin: 'https://filecoin.peeranha.io',
+          src: 'https://images.peeranha.io/communities/filecoin/logo.svg',
+          styles: FilecoinStyles,
+        },
+        6: {
+          origin: 'https://koii.peeranha.io',
+          src: 'https://images.peeranha.io/communities/koii/logo.svg',
+          styles: KoiiStyles,
+        },
+        7: {
+          origin: 'https://filebase.peeranha.io',
+          src: 'https://images.peeranha.io/communities/filebase/logo.svg',
+          styles: FilebaseStyles,
+        },
+        8: {
+          origin: 'https://polywrap.peeranha.io',
+          src: 'https://images.peeranha.io/communities/polywrap/logo.svg',
+          styles: PolywrapStyles,
+        },
+        9: {
+          origin: 'https://cyberconnect.peeranha.io',
+          src: 'https://images.peeranha.io/communities/cyberconnect/logo.svg',
+          styles: CyberconnectStyles,
+        },
+        10: {
+          origin: 'https://valist.peeranha.io',
+          src: 'https://images.peeranha.io/communities/valist/logo.svg',
+          styles: ValistStyles,
+        },
+        11: {
+          origin: 'https://suiglobal.peeranha.io',
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiGlobalStyles,
+        },
+        12: {
+          origin: 'https://mintstatelabs.peeranha.io',
+          src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
+          styles: MintStateLabsStyles,
+        },
+        13: {
+          origin: 'https://aave.peeranha.io',
+          src: 'https://images.peeranha.io/communities/aave/logo.svg',
+          styles: AaveStyles,
+        },
+        14: {
+          origin: 'https://solidity.peeranha.io',
+          src: 'https://images.peeranha.io/communities/solidity/logo.svg',
+          styles: SolidityStyles,
+        },
+        15: {
+          origin: 'https://ankr.peeranha.io',
+          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
+          styles: AnkrStyles,
+        },
+        16: {
+          origin: 'https://force.peeranha.io',
+          src: 'https://images.peeranha.io/communities/force/logo.svg',
+          styles: ForceStyles,
+        },
+        17: {
+          origin: 'https://vyper.peeranha.io',
+          src: 'https://images.peeranha.io/communities/vyper/logo.svg',
+          styles: VyperStyles,
+        },
+        18: {
+          origin: 'https://mark3d.peeranha.io',
+          src: 'https://images.peeranha.io/communities/mark3d/logo.svg',
+          styles: Mark3dStyles,
+        },
+        19: {
+          origin: 'https://orbis.peeranha.io',
+          src: 'https://images.peeranha.io/communities/orbis/logo.svg',
+          styles: OrbisStyles,
+        },
+        20: {
+          origin: 'https://fractalvisions.peeranha.io',
+          src: 'https://images.peeranha.io/communities/fractalVisions/logo.svg',
+          styles: FractalVisionsStyles,
+        },
+        21: {
+          origin: 'https://move.peeranha.io',
+          src: 'https://images.peeranha.io/communities/move/logo.svg',
+          styles: MoveStyles,
+        },
+        22: {
+          origin: 'https://developerdao.peeranha.io',
+          src: 'https://images.peeranha.io/communities/communityDAO/logo.svg',
+          styles: DeveloperDAOStyles,
+        },
+        23: {
+          origin: 'https://pl-launchpad.peeranha.io',
+          src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
+          styles: LaunchpadStyles,
+        },
+      },
+  staging: isSuiBlockchain
+    ? {
+        1: {
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiMainStyles,
+        },
+      }
+    : {
+        1: {
+          origin: 'https://demo-harmony.testpeeranha.io',
+          src: 'https://images.peeranha.io/communities/harmony/logo.svg',
+          styles: HarmonyStyles,
+        },
+        2: {
+          origin: 'https://demo-msl.testpeeranha.io',
+          src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
+          styles: MintStateLabsStyles,
+        },
+        3: {
+          origin: `https://demo-ankr.testpeeranha.io`,
+          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
+          styles: AnkrStyles,
+        },
+        4: {
+          origin: 'https://demo-fxland.testpeeranha.io',
+          src: 'https://images.peeranha.io/communities/functionland/logo.svg',
+          styles: FunctionlandStyles,
+        },
+        5: {
+          origin: 'https://demo-mintstatelabs.peeranha.io',
+          src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
+          styles: MintStateLabsStyles,
+        },
+        6: {
+          origin: 'https://demo-sui.testpeeranha.io',
+          src: 'https://images.peeranha.io/communities/sui/logo.svg',
+          styles: SuiStyles,
+        },
+      },
+  test: isSuiBlockchain
+    ? {
+        1: {
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiMainStyles,
+        },
+      }
+    : {
+        1: {
+          origin: `https://mintstatelabs${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/functionland/logo.svg',
+          styles: FunctionlandStyles,
+        },
+        2: {
+          origin: `https://suiglobal${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiGlobalStyles,
+        },
+        3: {
+          origin: `https://indexerdao${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/indexerDAO/logo.jpg',
+          styles: IndexerDAOStyles,
+        },
+        4: {
+          origin: `https://aave${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/aave/logo.svg',
+          styles: AaveStyles,
+        },
+        5: {
+          origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/solidity/logo.svg',
+          styles: SolidityStyles,
+        },
+        6: {
+          origin: `https://vyper${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/vyper/logo.svg',
+          styles: VyperStyles,
+        },
+        7: {
+          origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
+          styles: AnkrStyles,
+        },
+        8: {
+          origin: `https://force${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/force/logo.svg',
+          styles: ForceStyles,
+        },
+        9: {
+          origin: `https://mark3d${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/mark3d/logo.svg',
+          styles: Mark3dStyles,
+        },
+        10: {
+          origin: `https://move${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/move/logo.svg',
+          styles: MoveStyles,
+        },
+        11: {
+          origin: `https://orbis${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/orbis/logo.svg',
+          styles: OrbisStyles,
+        },
+        12: {
+          origin: `https://fractalvisions${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/fractalVisions/logo.svg',
+          styles: FractalVisionsStyles,
+        },
+        16: {
+          origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/polygon/logo.svg',
+          styles: PolygonStyles,
+        },
+        17: {
+          origin: `https://developerdao${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/communityDAO/logo.svg',
+          styles: DeveloperDAOStyles,
+        },
+        18: {
+          origin: `https://pl-launchpad${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
+          styles: LaunchpadStyles,
+        },
+      },
+  dev: isSuiBlockchain
+    ? {
+        1: {
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiMainStyles,
+        },
+      }
+    : {
+        1: {
+          origin: 'http://localhost:31000',
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiMainStyles,
+        },
+      },
 };
 
 const googleSiteVerificationsConfig = {

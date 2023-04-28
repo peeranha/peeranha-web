@@ -99,7 +99,7 @@ export const noAccess = () => `/no-access`;
 export const detailsHomePage = () => '/';
 
 export const feed = (communityId) =>
-  !singleCommId && !isSuiBlockchain
+  !singleCommId
     ? `/feed${communityId ? `/${communityId}` : ''}`
     : `/${communityId ? `feed/${communityId}` : 'feed'}`;
 
