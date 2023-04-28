@@ -95,7 +95,7 @@ export function* getQuestionsWorker({
           ratings: question.author.usercommunityrating.map((communityRating) => ({
             communityId: communities.find(
               (community) => community.suiId === communityRating.communityId,
-            ).id,
+            )?.id,
             suiCommunityId: communityRating.communityId,
             rating: communityRating.rating,
           })),
