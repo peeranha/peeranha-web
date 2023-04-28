@@ -166,7 +166,7 @@ export const customSubHeaderConfig = {
 };
 
 export const SuiMainStyles = {
-  name: 'sui',
+  name: 'suiMain',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
@@ -206,6 +206,7 @@ export const SuiMainStyles = {
     footerText: '#282828',
     userInformation: '#EAF7FF',
     pinnedPostBackground: '#4BA3FF',
+    secondaryAdditional: '#F1F5FE',
   },
   cookieConsentPopupStyles: {
     background: '#4CA3FF',

@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { BG_PRIMARY_SPECIAL_2, BG_LIGHT, BG_BLACK } from 'style-constants';
 
 import Img, { CELL } from './index';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const LABEL_SIZE_LG = 'lg';
 
@@ -22,7 +25,7 @@ export const MediumSpecialImage = Img.extend`
 `;
 
 export const MediumImageStyled = MediumImage.extend`
-  background: ${BG_PRIMARY_SPECIAL_2};
+  background: ${colors.userInformation || BG_PRIMARY_SPECIAL_2};
   margin-right: 18px;
   border-width: 1px;
   border-radius: 50%;

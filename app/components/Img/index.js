@@ -9,7 +9,8 @@ const Img = styled.img`
   border-radius: ${(x) => (x.notRounded ? 0 : 50)}%;
 
   border: ${({ customBorderStyle, isBordered }) =>
-    customBorderStyle || `${isBordered ? 1 : 0}px solid ${colors.blue || BORDER_SECONDARY}`};
+    customBorderStyle ||
+    `${isBordered ? 1 : 0}px solid ${colors.userInformation || BORDER_SECONDARY}`};
 
   padding: ${(x) => (x.isBordered ? '1' : '0')}px;
 

@@ -84,4 +84,9 @@ export const styles = {
     height: '15px',
     margin: '5px 25px 0 5px',
   },
+  borderBlock: {
+    paddingBottom: '30px',
+    margin: 0,
+    border: 'none',
+  },
 };

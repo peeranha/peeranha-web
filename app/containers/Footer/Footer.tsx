@@ -39,7 +39,7 @@ const Footer: React.FC = (): JSX.Element => {
     <>
       {isDesktop && (
         <div css={css(styles.footer)}>
-          <div css={css(styles.border)} />
+          <div css={{ ...styles.border, ...(isSuiBlockchain && styles.borderBlock) }} />
           <div className="df aic jcc " css={css(styles.infoBlock)}>
             <div className="df fz16" css={css(styles.content)}>
               {INFO_LINKS.map((element) => (
