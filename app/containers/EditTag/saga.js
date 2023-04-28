@@ -20,7 +20,7 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 import { editTag } from '../../utils/communityManagement';
 import { GET_EXISTING_TAGS } from '../Tags/constants';
 import { getExistingTagsWorker } from '../Tags/saga';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { updateSuiTag } from 'utils/sui/communityManagement';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
@@ -63,8 +63,15 @@ export function* editTagWorker({ tag, reset }) {
       const wallet = yield select(selectSuiWallet());
       const communities = yield select(selectCommunities());
       const suiCommunityId = communities.find((community) => community.id == tag.communityId).suiId;
-      yield call(updateSuiTag, wallet, suiCommunityId, tag.tagId.split('-')[1], tag);
-      yield put(transactionInPending());
+      const txResult = yield call(
+        updateSuiTag,
+        wallet,
+        suiCommunityId,
+        tag.tagId.split('-')[1],
+        tag,
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
       const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
         ...tag,

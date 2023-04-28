@@ -10,7 +10,7 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { getSuiCommunityTags } from 'utils/sui/suiIndexer';
 import { getTagsSuccess } from 'containers/DataCacheProvider/actions';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { createSuiTag } from 'utils/sui/communityManagement';
 import {
@@ -39,8 +39,9 @@ export function* suggestTagWorker({ communityId, tag, reset }) {
       const wallet = yield select(selectSuiWallet());
       const communities = yield select(selectCommunities());
       const suiCommunityId = communities.find((community) => community.id == communityId).suiId;
-      yield call(createSuiTag, wallet, suiCommunityId, tag);
-      yield put(transactionInPending());
+      const txResult = yield call(createSuiTag, wallet, suiCommunityId, tag);
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
       const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
         ...tag,

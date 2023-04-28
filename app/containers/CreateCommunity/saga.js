@@ -1,7 +1,7 @@
 import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 
 import { createCommunity } from 'utils/communityManagement';
 
@@ -37,8 +37,9 @@ export function* createCommunityWorker({ community, reset }) {
       const { imgHash } = yield call(uploadImg, community.avatar);
       community.avatar = getFileUrl(imgHash);
       const wallet = yield select(selectSuiWallet());
-      yield call(createSuiCommunity, wallet, community);
-      yield put(transactionInPending());
+      const txResult = yield call(createSuiCommunity, wallet, community);
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);

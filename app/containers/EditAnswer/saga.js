@@ -25,7 +25,7 @@ import { editAnswerErr, editAnswerSuccess, getAnswerErr, getAnswerSuccess } from
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY } from 'utils/constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { getQuestionFromGraph, getReplyId2 } from 'utils/theGraph';
@@ -110,7 +110,8 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
         );
       }
       yield put(transactionInPending(txResult.digest));
-      yield call(waitForPostTransactionToIndex, txResult.digest);
+      const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
       yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);

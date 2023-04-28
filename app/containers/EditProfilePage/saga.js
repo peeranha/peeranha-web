@@ -20,7 +20,7 @@ import {
   transactionInPending,
 } from 'containers/EthereumProvider/actions';
 
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 
 import { saveProfileSuccess, saveProfileErr } from './actions';
 
@@ -38,8 +38,9 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
-      yield call(saveSuiProfile, wallet, profile);
-      yield put(transactionInPending());
+      const txResult = yield call(saveSuiProfile, wallet, profile);
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);
