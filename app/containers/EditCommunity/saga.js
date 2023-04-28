@@ -52,7 +52,7 @@ export function* getCommunityWorker({ communityId }) {
       const communities = yield select(selectCommunities());
       const suiCommunityId = communities.find((community) => community.id == communityId).suiId;
       const community = yield call(getSuiCommunity, suiCommunityId);
-      yield put(getCommunitySuccess({ ...community, translations: [] }));
+      yield put(getCommunitySuccess(community));
     } else {
       const ethereumService = yield select(selectEthereum);
       const community = yield call(getCommunityFromContract, ethereumService, communityId);
