@@ -160,7 +160,7 @@ const View = ({
     };
 
     return (
-      <LogoStyles to={single ? routes.feed() : routes.home()}>
+      <LogoStyles to={single || isSuiBlockchain ? routes.feed() : routes.home()}>
         <img src={src()} alt="logo" />
         {styles.logoText}
       </LogoStyles>
