@@ -21,7 +21,7 @@ import {
 import { uploadImg } from 'utils/profileManagement';
 import { delay } from 'utils/reduxUtils';
 import { getCommunityById } from 'utils/theGraph';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { updateSuiCommunity } from 'utils/sui/communityManagement';
 import { getSuiCommunities, getSuiCommunity } from 'utils/sui/suiIndexer';
 import { getFileUrl } from 'utils/ipfs';
@@ -92,8 +92,14 @@ export function* editCommunityWorker({ communityId, communityData }) {
       if (isSuiBlockchain) {
         yield put(transactionInitialised());
         const wallet = yield select(selectSuiWallet());
-        yield call(updateSuiCommunity, wallet, communityDataCurrent.suiId, communityData);
-        yield put(transactionInPending());
+        const txResult = yield call(
+          updateSuiCommunity,
+          wallet,
+          communityDataCurrent.suiId,
+          communityData,
+        );
+        yield put(transactionInPending(txResult.digest));
+        yield call(waitForTransactionConfirmation, txResult.digest);
         yield put(transactionCompleted());
         const communities = yield call(getSuiCommunities);
         yield put(getCommunitiesSuccess(communities));

@@ -58,16 +58,21 @@ export async function saveSuiProfile(wallet: WalletContextState, profile: object
   const transactionData = getVector8FromIpfsHash(ipfsHash);
   const suiUserObject = await getSuiUserObject(wallet.address);
   if (!suiUserObject) {
-    return handleMoveCall(wallet, userLib, createUser, [
-      process.env.USER_RATING_COLLECTION_ID,
-      transactionData,
-    ]);
+    return handleMoveCall(
+      wallet,
+      userLib,
+      createUser,
+      [process.env.USER_RATING_COLLECTION_ID, transactionData],
+      false,
+    );
   }
-  return handleMoveCall(wallet, userLib, updateUser, [
-    process.env.USER_RATING_COLLECTION_ID,
-    suiUserObject.id.id,
-    transactionData,
-  ]);
+  return handleMoveCall(
+    wallet,
+    userLib,
+    updateUser,
+    [process.env.USER_RATING_COLLECTION_ID, suiUserObject.id.id, transactionData],
+    false,
+  );
 }
 
 export async function createSuiProfile(wallet: WalletContextState) {

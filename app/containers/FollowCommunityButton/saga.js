@@ -3,7 +3,7 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 import { followSuiCommunity } from 'utils/sui/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
@@ -42,8 +42,15 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
         profile.id = newProfile.id;
       }
       yield put(transactionInitialised());
-      yield call(followSuiCommunity, wallet, profile.id, suiCommunityId, isFollowed);
-      yield put(transactionInPending());
+      const txResult = yield call(
+        followSuiCommunity,
+        wallet,
+        profile.id,
+        suiCommunityId,
+        isFollowed,
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);

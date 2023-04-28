@@ -37,7 +37,7 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 import { makeSelectAccount, makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { getQuestionFromGraph } from 'utils/theGraph';
 import {
   transactionCompleted,
@@ -113,7 +113,8 @@ export function* editQuestionWorker({ question, questionId, id2 }) {
         languagesEnum[locale],
       );
       yield put(transactionInPending(txResult.digest));
-      yield call(waitForPostTransactionToIndex, txResult.digest);
+      const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
       yield put(transactionCompleted());
     } else {
       const ethereumService = yield select(selectEthereum);

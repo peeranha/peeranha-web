@@ -135,7 +135,7 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 import { getCommentId2, getQuestionFromGraph } from 'utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
-import { getObjectById, isSuiBlockchain } from 'utils/sui/sui';
+import { getObjectById, isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import {
   deleteSuiAnswer,
@@ -371,7 +371,7 @@ export function* saveCommentWorker({
       const wallet = yield select(selectSuiWallet());
       const commentObjectId = yield call(getCommentId2, questionId, answerId, commentId);
 
-      yield call(
+      const txResult = yield call(
         editSuiComment,
         wallet,
         profileInfo.id,
@@ -382,7 +382,8 @@ export function* saveCommentWorker({
         ipfsLink,
         languagesEnum[locale],
       );
-      yield put(transactionInPending());
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
     } else {
       const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
@@ -449,8 +450,16 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
-      yield call(deleteSuiComment, wallet, profileInfo.id, questionId, answerId, commentId);
-      yield put(transactionInPending());
+      const txResult = yield call(
+        deleteSuiComment,
+        wallet,
+        profileInfo.id,
+        questionId,
+        answerId,
+        commentId,
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
     } else {
       const transaction = yield call(
@@ -499,7 +508,8 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       const wallet = yield select(selectSuiWallet());
       const txResult = yield call(deleteSuiAnswer, wallet, profileInfo.id, questionId, answerId);
       yield put(transactionInPending(txResult.digest));
-      yield call(waitForPostTransactionToIndex, txResult.digest);
+      const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
       yield put(transactionCompleted());
     } else {
       yield call(
@@ -604,7 +614,8 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
       const wallet = yield select(selectSuiWallet());
       const txResult = yield call(deleteSuiQuestion, wallet, profileInfo.id, questionId);
       yield put(transactionInPending(txResult.digest));
-      yield call(waitForPostTransactionToIndex, txResult.digest);
+      const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
       yield put(transactionCompleted());
     } else {
       yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
@@ -717,6 +728,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
       );
       txHash = transactionResult.digest;
       yield put(transactionInPending(txHash));
+      yield call(waitForTransactionConfirmation, txHash);
       yield put(transactionCompleted());
     } else {
       const transaction = yield call(
@@ -835,7 +847,8 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       );
       txHash = transactionResult.digest;
       yield put(transactionInPending(txHash));
-      yield call(waitForPostTransactionToIndex, txHash);
+      const confirmedTx = yield call(waitForTransactionConfirmation, txHash);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
       yield put(transactionCompleted());
     } else {
       const transactionResult = yield call(
@@ -924,12 +937,14 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
         yield put(transactionInitialised());
         const wallet = yield select(selectSuiWallet());
         const profile = yield select(makeSelectProfileInfo());
+        let txResult;
         if (!answerId) {
-          yield call(voteSuiPost, wallet, profile.id, questionId, false);
+          txResult = yield call(voteSuiPost, wallet, profile.id, questionId, false);
         } else {
-          yield call(voteSuiReply, wallet, profile.id, questionId, answerId, false);
+          txResult = yield call(voteSuiReply, wallet, profile.id, questionId, answerId, false);
         }
-        yield put(transactionInPending());
+        yield put(transactionInPending(txResult.digest));
+        yield call(waitForTransactionConfirmation, txResult.digest);
         yield put(transactionCompleted());
       } catch (err) {
         yield put(transactionFailed(err));
@@ -982,12 +997,14 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
         yield put(transactionInitialised());
         const wallet = yield select(selectSuiWallet());
         const profile = yield select(makeSelectProfileInfo());
+        let txResult;
         if (!answerId) {
-          yield call(voteSuiPost, wallet, profile.id, questionId, true);
+          txResult = yield call(voteSuiPost, wallet, profile.id, questionId, true);
         } else {
-          yield call(voteSuiReply, wallet, profile.id, questionId, answerId, true);
+          txResult = yield call(voteSuiReply, wallet, profile.id, questionId, answerId, true);
         }
-        yield put(transactionInPending());
+        yield put(transactionInPending(txResult.digest));
+        yield call(waitForTransactionConfirmation, txResult.digest);
         yield put(transactionCompleted());
       } catch (err) {
         yield put(transactionFailed(err));
@@ -1037,8 +1054,15 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
-      yield call(markAsAcceptedSuiReply, wallet, profileInfo.id, questionId, correctAnswerId);
-      yield put(transactionInPending());
+      const txResult = yield call(
+        markAsAcceptedSuiReply,
+        wallet,
+        profileInfo.id,
+        questionId,
+        correctAnswerId,
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
     } else {
       yield call(markAsAccepted, profileInfo.user, questionId, correctAnswerId, ethereumService);

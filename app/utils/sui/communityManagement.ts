@@ -24,12 +24,18 @@ export const createSuiCommunity = async (wallet: WalletContextState, community) 
 
   const tagsTransactionData = tagsStringData.map((tag) => getVector8FromIpfsHash(tag));
 
-  return handleMoveCall(wallet, communityLib, createCommunity, [
-    userObj.id.id,
-    process.env.USER_ROLES_COLLECTION_ID,
-    communityTransactionData,
-    tagsTransactionData,
-  ]);
+  return handleMoveCall(
+    wallet,
+    communityLib,
+    createCommunity,
+    [
+      userObj.id.id,
+      process.env.USER_ROLES_COLLECTION_ID,
+      communityTransactionData,
+      tagsTransactionData,
+    ],
+    false,
+  );
 };
 
 export const updateSuiCommunity = async (wallet: WalletContextState, communityId, community) => {
@@ -37,12 +43,13 @@ export const updateSuiCommunity = async (wallet: WalletContextState, communityId
   const communityTransactionData = getVector8FromIpfsHash(communityIpfsHash);
   const userObj = await getSuiUserObject(wallet.address);
 
-  return handleMoveCall(wallet, communityLib, updateCommunity, [
-    userObj.id.id,
-    process.env.USER_ROLES_COLLECTION_ID,
-    communityId,
-    communityTransactionData,
-  ]);
+  return handleMoveCall(
+    wallet,
+    communityLib,
+    updateCommunity,
+    [userObj.id.id, process.env.USER_ROLES_COLLECTION_ID, communityId, communityTransactionData],
+    false,
+  );
 };
 
 export const createSuiTag = async (wallet: WalletContextState, communityId, tag) => {
@@ -50,12 +57,13 @@ export const createSuiTag = async (wallet: WalletContextState, communityId, tag)
   const tagTransactionData = getVector8FromIpfsHash(tagIpfsHash);
   const userObj = await getSuiUserObject(wallet.address);
 
-  return handleMoveCall(wallet, communityLib, createTag, [
-    userObj.id.id,
-    process.env.USER_ROLES_COLLECTION_ID,
-    communityId,
-    tagTransactionData,
-  ]);
+  return handleMoveCall(
+    wallet,
+    communityLib,
+    createTag,
+    [userObj.id.id, process.env.USER_ROLES_COLLECTION_ID, communityId, tagTransactionData],
+    false,
+  );
 };
 
 export const updateSuiTag = async (wallet: WalletContextState, communityId, tagId, tag) => {
@@ -63,13 +71,13 @@ export const updateSuiTag = async (wallet: WalletContextState, communityId, tagI
   const tagTransactionData = getVector8FromIpfsHash(tagIpfsHash);
   const userObj = await getSuiUserObject(wallet.address);
 
-  return handleMoveCall(wallet, communityLib, updateTag, [
-    userObj.id.id,
-    process.env.USER_ROLES_COLLECTION_ID,
-    communityId,
-    tagId,
-    tagTransactionData,
-  ]);
+  return handleMoveCall(
+    wallet,
+    communityLib,
+    updateTag,
+    [userObj.id.id, process.env.USER_ROLES_COLLECTION_ID, communityId, tagId, tagTransactionData],
+    false,
+  );
 };
 export const followSuiCommunity = async (
   wallet: WalletContextState,
@@ -77,8 +85,10 @@ export const followSuiCommunity = async (
   suiCommunityId: any,
   isFollow: boolean,
 ) =>
-  handleMoveCall(wallet, followCommunityLib, isFollow ? unfollowCommunity : followCommunity, [
-    process.env.USER_RATING_COLLECTION_ID,
-    userId,
-    suiCommunityId,
-  ]);
+  handleMoveCall(
+    wallet,
+    followCommunityLib,
+    isFollow ? unfollowCommunity : followCommunity,
+    [process.env.USER_RATING_COLLECTION_ID, userId, suiCommunityId],
+    false,
+  );
