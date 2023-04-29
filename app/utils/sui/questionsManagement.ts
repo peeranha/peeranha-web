@@ -16,6 +16,7 @@ import {
   votePost,
   voteReply,
   CLOCK_OBJECT_ID,
+  moderatorEditPost,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { DOWNVOTE_STATUS, UPVOTE_STATUS } from 'utils/ethConstants';
@@ -82,6 +83,47 @@ export async function editSuiQuestion(
       postMetaData,
       communitySuiId,
       ipfsHash,
+      postType,
+      tags,
+      language,
+    ],
+    false,
+  );
+}
+
+export async function moderatorEditSuiQuestion(
+  wallet: WalletContextState,
+  userSuiId: string,
+  postMetaData: string,
+  communitySuiId: string,
+  postType: number,
+  tags: Array<object>,
+  language: number,
+) {
+  console.log(
+    `${JSON.stringify([
+      process.env.USER_RATING_COLLECTION_ID,
+      process.env.PERIOD_REWARD_CONTAINER_ID,
+      userSuiId,
+      process.env.USER_ROLES_COLLECTION_ID,
+      postMetaData,
+      communitySuiId,
+      postType,
+      tags,
+      language,
+    ])}`,
+  );
+  return handleMoveCall(
+    wallet,
+    postLib,
+    moderatorEditPost,
+    [
+      process.env.USER_RATING_COLLECTION_ID,
+      process.env.PERIOD_REWARD_CONTAINER_ID,
+      userSuiId,
+      process.env.USER_ROLES_COLLECTION_ID,
+      postMetaData,
+      communitySuiId,
       postType,
       tags,
       language,

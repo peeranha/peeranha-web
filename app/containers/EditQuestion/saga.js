@@ -15,7 +15,7 @@ import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
-import { editSuiQuestion } from 'utils/sui/questionsManagement';
+import { editSuiQuestion, moderatorEditSuiQuestion } from 'utils/sui/questionsManagement';
 import { getSuiPost, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 
 import {
@@ -38,7 +38,6 @@ import { makeSelectAccount, makeSelectProfileInfo } from '../AccountProvider/sel
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
-import { getQuestionFromGraph } from 'utils/theGraph';
 import {
   transactionCompleted,
   transactionFailed,
@@ -87,7 +86,7 @@ export function* getAskedQuestionWorker({ questionId }) {
   }
 }
 
-export function* editQuestionWorker({ question, questionId, id2 }) {
+export function* editQuestionWorker({ question, questionId, id2, author }) {
   try {
     const locale = yield select(makeSelectLocale());
 
@@ -100,18 +99,33 @@ export function* editQuestionWorker({ question, questionId, id2 }) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
-      const txResult = yield call(
-        editSuiQuestion,
-        wallet,
-        profile.id,
-        id2,
-        questionId,
-        question.communityId,
-        questionData,
-        Number(question.postType),
-        question.tags,
-        languagesEnum[locale],
-      );
+      let txResult;
+      if (profile.id === author) {
+        txResult = yield call(
+          editSuiQuestion,
+          wallet,
+          profile.id,
+          id2,
+          questionId,
+          question.communityId,
+          questionData,
+          Number(question.postType),
+          question.tags,
+          languagesEnum[locale],
+        );
+      } else {
+        txResult = yield call(
+          moderatorEditSuiQuestion,
+          wallet,
+          profile.id,
+          questionId,
+          question.communityId,
+          Number(question.postType),
+          question.tags,
+          languagesEnum[locale],
+        );
+      }
+
       yield put(transactionInPending(txResult.digest));
       const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
       yield call(waitForPostTransactionToIndex, confirmedTx.digest);

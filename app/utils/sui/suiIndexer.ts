@@ -54,7 +54,6 @@ export const getSuiCommunity = async (id: string) => {
 };
 
 export const getSuiCommunities = async () => {
-  console.log(`Get Sui communities`);
   const data = await getDataFromIndexer(communitiesQuery);
   return data.community.map((community, index) => ({
     ...community,
@@ -169,7 +168,6 @@ export const getSuiPost = async (id, communities) => {
   const data = await getDataFromIndexer(postQuery, { id });
   const post = data.post[0];
   const response = postFromIndexerResponse(post, communities);
-  console.log(`Post - ${JSON.stringify(response)}`);
   return response;
 };
 

@@ -81,6 +81,7 @@ const EditQuestion = ({
         },
         questionid,
         question.id2,
+        question.author.id,
       );
     },
     [questionid, question],
