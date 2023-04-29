@@ -59,7 +59,7 @@ const EditCommunityForm = ({
 }) => {
   const { t } = useTranslation();
   const nextRoute = isSingleCommunityMode ? routes.feed : routes.communities;
-
+  const commId = isSuiBlockchain ? community?.id : communityId;
   const [selectedLanguages, setSelectedLanguages] = useState([]);
 
   const editCommunity = useCallback(
@@ -72,22 +72,18 @@ const EditCommunityForm = ({
         communitySite: values.get(COMM_PEERANHA_SITE_FIELD),
         isBlogger: false,
         translations: selectedLanguages.map((language) => ({
-          communityId,
-          id: `${communityId}-${language}`,
-          description: values.get(
-            `${COMM_TRANSLATIONS_DESCRIPTION_FIELD}-${communityId}-${language}`,
-          ),
-          enableAutotranslation: values.get(
-            `${COMM_AUTOTRANSLATIONS_FIELD}-${communityId}-${language}`,
-          ),
+          communityId: commId,
+          id: `${commId}-${language}`,
+          description: values.get(`${COMM_TRANSLATIONS_DESCRIPTION_FIELD}-${commId}-${language}`),
+          enableAutotranslation: values.get(`${COMM_AUTOTRANSLATIONS_FIELD}-${commId}-${language}`),
           language,
-          name: values.get(`${COMM_TRANSLATIONS_TITLE_FIELD}-${communityId}-${language}`),
+          name: values.get(`${COMM_TRANSLATIONS_TITLE_FIELD}-${commId}-${language}`),
         })),
       };
 
       editCommunityDispatch(communityId, communityData);
     },
-    [communityId, editCommunityDispatch, selectedLanguages],
+    [commId, editCommunityDispatch, selectedLanguages],
   );
 
   const setGeneralTab = (event) => {

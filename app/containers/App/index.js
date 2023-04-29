@@ -120,7 +120,13 @@ const App = ({
     }
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-    if ((loginData && !single && pathname !== '/') || isSuiBlockchain) {
+    if (loginData && !single && pathname !== '/') {
+      redirectToFeedDispatch();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isSuiBlockchain && pathname === '/') {
       redirectToFeedDispatch();
     }
   }, []);
