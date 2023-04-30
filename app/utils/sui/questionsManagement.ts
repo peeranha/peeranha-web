@@ -44,14 +44,15 @@ export async function postSuiQuestion(
     createPost,
     [
       process.env.USER_RATING_COLLECTION_ID,
+      process.env.USER_ROLES_COLLECTION_ID,
+      CLOCK_OBJECT_ID,
+
       userSuiId,
       communitySuiId,
-      process.env.USER_ROLES_COLLECTION_ID,
       ipfsHash,
       postType,
       tags,
       language,
-      CLOCK_OBJECT_ID,
     ],
     false,
   );
@@ -77,8 +78,9 @@ export async function editSuiQuestion(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.PERIOD_REWARD_CONTAINER_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+
+      userSuiId,
       postSuiId,
       postMetaData,
       communitySuiId,
@@ -100,19 +102,6 @@ export async function moderatorEditSuiQuestion(
   tags: Array<object>,
   language: number,
 ) {
-  console.log(
-    `${JSON.stringify([
-      process.env.USER_RATING_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
-      userSuiId,
-      process.env.USER_ROLES_COLLECTION_ID,
-      postMetaData,
-      communitySuiId,
-      postType,
-      tags,
-      language,
-    ])}`,
-  );
   return handleMoveCall(
     wallet,
     postLib,
@@ -120,8 +109,8 @@ export async function moderatorEditSuiQuestion(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.PERIOD_REWARD_CONTAINER_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      userSuiId,
       postMetaData,
       communitySuiId,
       postType,
@@ -144,10 +133,10 @@ export async function deleteSuiQuestion(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.PERIOD_REWARD_CONTAINER_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
-      postId,
       CLOCK_OBJECT_ID,
+      userSuiId,
+      postId,
     ],
     false,
   );
@@ -168,13 +157,13 @@ export async function postSuiComment(
     CREATE_COMMENT_ACTION_NAME,
     [
       process.env.USER_RATING_COLLECTION_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      CLOCK_OBJECT_ID,
+      userSuiId,
       postId,
       answerId,
       ipfsHash,
       language,
-      CLOCK_OBJECT_ID,
     ],
     false,
   );
@@ -194,8 +183,8 @@ export async function deleteSuiComment(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.PERIOD_REWARD_CONTAINER_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      userSuiId,
       postId,
       parentId,
       commentId,
@@ -222,8 +211,8 @@ export async function editSuiComment(
     EDIT_COMMENT_ACTION_NAME,
     [
       process.env.USER_RATING_COLLECTION_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      userSuiId,
       postId,
       comment,
       parentId,
@@ -251,14 +240,14 @@ export async function postSuiAnswer(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.PERIOD_REWARD_CONTAINER_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      CLOCK_OBJECT_ID,
+      userSuiId,
       postId,
       0, // parent reply id is always 0 for now
       ipfsHash,
       isOfficial,
       language,
-      CLOCK_OBJECT_ID,
     ],
     false,
   );
@@ -282,8 +271,8 @@ export async function authorEditSuiAnswer(
     AUTHOR_EDIT_REPLY_ACTION_NAME,
     [
       process.env.USER_RATING_COLLECTION_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      userSuiId,
       postId,
       answerObjectId,
       answerId,
@@ -313,8 +302,8 @@ export async function moderatorEditSuiAnswer(
     MODERATOR_EDIT_REPLY_ACTION_NAME,
     [
       process.env.USER_RATING_COLLECTION_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      userSuiId,
       postId,
       answerId,
       isOfficial,
@@ -337,8 +326,8 @@ export async function deleteSuiAnswer(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.PERIOD_REWARD_CONTAINER_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      userSuiId,
       postId,
       answerId,
       CLOCK_OBJECT_ID,
@@ -360,8 +349,8 @@ export async function voteSuiPost(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.PERIOD_REWARD_CONTAINER_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      userSuiId,
       postId,
       isUpvote,
     ],
@@ -383,8 +372,8 @@ export async function voteSuiReply(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.PERIOD_REWARD_CONTAINER_ID,
-      userSuiId,
       process.env.USER_ROLES_COLLECTION_ID,
+      userSuiId,
       postId,
       replyId,
       isUpvote,
