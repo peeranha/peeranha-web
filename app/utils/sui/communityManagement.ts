@@ -29,8 +29,8 @@ export const createSuiCommunity = async (wallet: WalletContextState, community) 
     communityLib,
     createCommunity,
     [
-      userObj.id.id,
       process.env.USER_ROLES_COLLECTION_ID,
+      userObj.id.id,
       communityTransactionData,
       tagsTransactionData,
     ],
@@ -47,7 +47,7 @@ export const updateSuiCommunity = async (wallet: WalletContextState, communityId
     wallet,
     communityLib,
     updateCommunity,
-    [userObj.id.id, process.env.USER_ROLES_COLLECTION_ID, communityId, communityTransactionData],
+    [process.env.USER_ROLES_COLLECTION_ID, userObj.id.id, communityId, communityTransactionData],
     false,
   );
 };
@@ -61,7 +61,7 @@ export const createSuiTag = async (wallet: WalletContextState, communityId, tag)
     wallet,
     communityLib,
     createTag,
-    [userObj.id.id, process.env.USER_ROLES_COLLECTION_ID, communityId, tagTransactionData],
+    [process.env.USER_ROLES_COLLECTION_ID, userObj.id.id, communityId, tagTransactionData],
     false,
   );
 };
@@ -75,7 +75,7 @@ export const updateSuiTag = async (wallet: WalletContextState, communityId, tagI
     wallet,
     communityLib,
     updateTag,
-    [userObj.id.id, process.env.USER_ROLES_COLLECTION_ID, communityId, tagId, tagTransactionData],
+    [process.env.USER_ROLES_COLLECTION_ID, userObj.id.id, communityId, tagId, tagTransactionData],
     false,
   );
 };
