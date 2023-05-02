@@ -1,3 +1,4 @@
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -28,6 +29,8 @@ export function* logoutWorker() {
 
       yield call(ethereumService.resetWalletState);
     }
+    const wallet = yield select(selectSuiWallet());
+    yield call(wallet.disconnect);
 
     yield call(createdHistory.push, routes.feed());
     yield put(getCurrentAccountSuccess());

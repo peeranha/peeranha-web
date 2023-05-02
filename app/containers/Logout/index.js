@@ -9,6 +9,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import { deleteCookie } from 'utils/cookie';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -25,6 +26,7 @@ export const Logout = /* istanbul ignore next */ ({ logoutDispatch, children }) 
   const suiLogout = () => {
     wallet.disconnect().then((r) => {
       logoutDispatch();
+      deleteCookie('connectedWallet');
     });
   };
   const logout = isSuiBlockchain ? suiLogout : logoutDispatch;

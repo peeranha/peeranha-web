@@ -2,13 +2,15 @@ import { ConnectModal, useWallet } from '@suiet/wallet-kit';
 import '@suiet/wallet-kit/style.css';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { getCookie, setCookie } from 'utils/cookie';
 
 const SuiConnectModals = ({ loginWithWallet, actionButtonWithLogin }) => {
   const wallet = useWallet();
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    if (wallet.connected) {
+    const previouslyConnectedWallet = getCookie('connectedWallet');
+    if (wallet.connected && previouslyConnectedWallet) {
       setShowModal(false);
       loginWithWallet(wallet.address);
     }
@@ -18,7 +20,13 @@ const SuiConnectModals = ({ loginWithWallet, actionButtonWithLogin }) => {
     <ConnectModal
       open={showModal}
       onOpenChange={(open) => {
-        if (wallet.connected) return;
+        setCookie({
+          name: 'connectedWallet',
+          value: wallet.name,
+        });
+        if (wallet.connected) {
+          wallet.disconnect().then(() => setShowModal(open));
+        }
         setShowModal(open);
       }}
     >
