@@ -327,10 +327,10 @@ export async function deleteSuiAnswer(
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
       process.env.PERIOD_REWARD_CONTAINER_ID,
+      CLOCK_OBJECT_ID,
       userSuiId,
       postId,
       answerId,
-      CLOCK_OBJECT_ID,
     ],
     false,
   );
