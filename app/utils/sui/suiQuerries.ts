@@ -52,6 +52,7 @@ const comment = `
   }
   content
   postTime
+  ipfsHash
   language
   commenttranslation {
     language
@@ -76,6 +77,7 @@ const reply = `
   isBestReply
   isFirstReply
   isQuickReply
+  ipfsHash
   handle
   messengerType
   language
