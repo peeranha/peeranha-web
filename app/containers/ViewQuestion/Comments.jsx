@@ -310,6 +310,8 @@ const Comments = (props) => {
         changeCommentsView={changeCommentsView}
         isAllCommentsView={isAllCommentsView}
         commentsNumber={props?.comments.length - DEFAULT_COMMENTS_NUMBER}
+        profileInfo={props?.profileInfo}
+        loginWithSuiDispatch={props?.loginWithSuiDispatch}
       />
     </div>
   );
@@ -324,6 +326,7 @@ Comments.propTypes = {
   sendComment: PropTypes.func,
   answerId: PropTypes.number,
   profileInfo: PropTypes.object,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 CommentEdit.propTypes = {

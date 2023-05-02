@@ -43,6 +43,7 @@ export const ContentBody = ({
   isOfficialReply,
   isOriginalLanguage,
   profile,
+  loginWithSuiDispatch,
 }) => {
   const { t } = useTranslation();
   const isOfficial = questionData.officialReply === answerId || isOfficialReply;
@@ -97,6 +98,7 @@ export const ContentBody = ({
         infiniteImpact={infiniteImpact}
         communityId={commId}
         histories={histories}
+        loginWithSuiDispatch={loginWithSuiDispatch}
       />
     </Base>
   );
@@ -134,6 +136,7 @@ ContentBody.propTypes = {
   infiniteImpact: PropTypes.bool,
   histories: PropTypes.array,
   commId: PropTypes.number,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 export default React.memo(ContentBody);

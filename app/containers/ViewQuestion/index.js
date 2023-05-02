@@ -21,6 +21,7 @@ import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProv
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
+import { loginWithSui } from 'containers/Login/actions';
 
 import {
   saveComment,
@@ -99,6 +100,7 @@ export const ViewQuestion = ({
   getHistoriesDispatch,
   match,
   profile,
+  loginWithSuiDispatch,
   history,
 }) => {
   const { t } = useTranslation();
@@ -199,6 +201,7 @@ export const ViewQuestion = ({
     isAnswered,
     commId,
     profile,
+    loginWithSuiDispatch,
   };
 
   const helmetTitle = questionData?.content.title || t('post.title');
@@ -274,6 +277,7 @@ ViewQuestion.propTypes = {
   redirectToEditAnswerPageDispatch: PropTypes.func,
   ids: PropTypes.array,
   profile: PropTypes.object,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -329,6 +333,7 @@ const withConnect = connect(
     redirectToEditQuestionPageDispatch: bindActionCreators(redirectToEditQuestionPage, dispatch),
     redirectToEditAnswerPageDispatch: bindActionCreators(redirectToEditAnswerPage, dispatch),
     getHistoriesDispatch: bindActionCreators(getHistories, dispatch),
+    loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
   }),
 );
 

@@ -35,6 +35,7 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import EditDocumentation from 'components/Documentation';
 import { IconSm, IconLm, IconLg } from 'components/Icon/IconWithSizes';
+import SuiConnectModals from 'components/SuiConnectModals';
 
 import styled from 'styled-components';
 import { Wrapper, MainSubHeader } from './Wrapper';
@@ -183,6 +184,35 @@ const View = ({
     isMinusReputation && !isHasRole ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
   };
 
+  const newPostButton = (onClickForModal) => (
+    <Button
+      id="header-ask-question"
+      onClick={onClickForModal}
+      css={css`
+        background: ${colors.btnHeaderColor};
+        :hover {
+          background: ${colors.btnHeaderHoverColor};
+          border: ${colors.btnHeaderHoverBorder};
+          opacity: ${colors.btnHeaderHoverOpacity};
+        }
+        @media only screen and (min-width: 992px) {
+          min-width: 130px;
+        }
+      `}
+    >
+      <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
+
+      <span
+        className="d-none d-lg-inline ml-2"
+        css={css`
+          color: ${colors.newPostButtonText};
+        `}
+      >
+        {t('common.askQuestion')}
+      </span>
+    </Button>
+  );
+
   return (
     <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
       {transactionInitialised && (
@@ -259,34 +289,14 @@ const View = ({
                   >
                     <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
                   </Button>
-                  <Button
-                    id="header-ask-question"
-                    onClick={
-                      profileInfo ? askQuestionHandler : showLoginModalWithRedirectToAskQuestionPage
-                    }
-                    css={css`
-                      background: ${colors.btnHeaderColor};
-                      :hover {
-                        background: ${colors.btnHeaderHoverColor};
-                        border: ${colors.btnHeaderHoverBorder};
-                        opacity: ${colors.btnHeaderHoverOpacity};
-                      }
-                      @media only screen and (min-width: 992px) {
-                        min-width: 130px;
-                      }
-                    `}
-                  >
-                    <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
-
-                    <span
-                      className="d-none d-lg-inline ml-2"
-                      css={css`
-                        color: ${colors.newPostButtonText};
-                      `}
-                    >
-                      {t('common.askQuestion')}
-                    </span>
-                  </Button>
+                  {profileInfo ? (
+                    newPostButton(askQuestionHandler)
+                  ) : (
+                    <SuiConnectModals
+                      loginWithWallet={showLoginModalWithRedirectToAskQuestionPage}
+                      actionButtonWithLogin={newPostButton}
+                    />
+                  )}
                 </>
               )}
 

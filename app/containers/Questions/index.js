@@ -29,7 +29,7 @@ import {
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
 
-import { showLoginModal } from 'containers/Login/actions';
+import { showLoginModal, loginWithSui } from 'containers/Login/actions';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -72,6 +72,7 @@ export const Questions = ({
   getQuestionsDispatch,
   questionFilter,
   isLastTopQuestionLoaded,
+  loginWithSuiDispatch,
   postsTypes,
   questionsCount,
 }) => {
@@ -213,6 +214,8 @@ export const Questions = ({
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
           isEmpty={questionsList.length === 0}
           isSingleCommunityMode={single}
+          profileInfo={profile}
+          loginWithSuiDispatch={loginWithSuiDispatch}
         />
       )}
       {questionsList.length > 0 && (
@@ -272,6 +275,7 @@ Questions.propTypes = {
   setTypeFilterDispatch: PropTypes.func,
   questionFilter: PropTypes.number,
   loadTopQuestionsDispatch: PropTypes.func,
+  loginWithSuiDispatch: PropTypes.func,
   isLastTopQuestionLoaded: PropTypes.bool,
 };
 
@@ -311,6 +315,7 @@ export default compose(
       showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
       redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
       loadTopQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+      loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
     }),
   ),
 )(Questions);

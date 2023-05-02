@@ -12,18 +12,16 @@ import disabledFingerDown from 'images/disabledFingerDown.svg?external';
 import emptyFingerUp from 'images/emptyFingerUp.svg?external';
 import emptyFingerDown from 'images/emptyFingerDown.svg?external';
 
-import {
-  BORDER_SUCCESS,
-  BORDER_ATTENTION_LIGHT,
-  BORDER_PRIMARY_LIGHT,
-} from 'style-constants';
+import { BORDER_SUCCESS, BORDER_ATTENTION_LIGHT, BORDER_PRIMARY_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
 import Button from 'components/Button/Contained/Transparent';
 import { IconLg } from 'components/Icon/IconWithSizes';
+import SuiConnectModals from 'components/SuiConnectModals';
 
 import { singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
 const colors = singleCommunityColors();
@@ -47,21 +45,15 @@ const ImgBox = styled.div`
     height: 42px;
     border-radius: 50%;
 
-    ${x =>
-      x.src === greenFingerUpSingleQuestion
-        ? `border: 1px solid ${BORDER_SUCCESS};`
-        : ``};
+    ${(x) => (x.src === greenFingerUpSingleQuestion ? `border: 1px solid ${BORDER_SUCCESS};` : ``)};
 
-    ${x =>
-      x.src === redFingerDownSingleQuestion
-        ? `border: 1px solid ${BORDER_ATTENTION_LIGHT};`
-        : ``};
+    ${(x) =>
+      x.src === redFingerDownSingleQuestion ? `border: 1px solid ${BORDER_ATTENTION_LIGHT};` : ``};
   }
 
   @media only screen and (max-width: 576px) {
-    ${x =>
-      x.src === greenFingerUpSingleQuestion ||
-      x.src === redFingerDownSingleQuestion
+    ${(x) =>
+      x.src === greenFingerUpSingleQuestion || x.src === redFingerDownSingleQuestion
         ? `width: 42px; height: 42px;`
         : ``};
   }
@@ -76,43 +68,59 @@ const ContentRating = ({
   downVote,
   author,
   ids,
-}) => (
-  <>
+  profile,
+  loginWithSuiDispatch,
+}) => {
+  const upVoteButtonWithLogin = (onClick) => (
     <Button
       className="overflow-initial"
-      onClick={upVote}
+      onClick={onClick}
       disabled={ids.includes(`${UP_VOTE_BUTTON}${answerId}`)}
       id={`${UP_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasupvoted={author.user}
     >
-      <UpvoteIcon
-        account={account}
-        author={author}
-        votingStatus={votingStatus}
-      />
+      <UpvoteIcon account={account} author={author} votingStatus={votingStatus} />
     </Button>
-
-    <Span fontSize="20" bold>
-      {getFormattedNum(rating)}
-    </Span>
-
+  );
+  const downVoteButtonWithLogin = (onClick) => (
     <Button
       className="overflow-initial"
-      onClick={downVote}
+      onClick={onClick}
       disabled={ids.includes(`${DOWN_VOTE_BUTTON}${answerId}`)}
       id={`${DOWN_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasdownvoted={author.user}
     >
-      <DownvoteIcon
-        account={account}
-        author={author}
-        votingStatus={votingStatus}
-      />
+      <DownvoteIcon account={account} author={author} votingStatus={votingStatus} />
     </Button>
-  </>
-);
+  );
+  return (
+    <>
+      {!profile && isSuiBlockchain ? (
+        <SuiConnectModals
+          loginWithWallet={loginWithSuiDispatch}
+          actionButtonWithLogin={upVoteButtonWithLogin}
+        />
+      ) : (
+        upVoteButtonWithLogin(upVote)
+      )}
+
+      <Span fontSize="20" bold>
+        {getFormattedNum(rating)}
+      </Span>
+
+      {!profile && isSuiBlockchain ? (
+        <SuiConnectModals
+          loginWithWallet={loginWithSuiDispatch}
+          actionButtonWithLogin={downVoteButtonWithLogin}
+        />
+      ) : (
+        downVoteButtonWithLogin(downVote)
+      )}
+    </>
+  );
+};
 
 ContentRating.propTypes = {
   rating: PropTypes.number,
@@ -123,6 +131,8 @@ ContentRating.propTypes = {
   downVote: PropTypes.func,
   ids: PropTypes.array,
   answerId: PropTypes.number,
+  profile: PropTypes.object,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 function UpvoteIcon({ account, author, votingStatus }) {

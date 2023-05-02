@@ -37,8 +37,10 @@ import {
 } from '../../style-constants';
 import SearchContent from './SearchContent';
 import { redirectToAskQuestionPage } from '../AskQuestion/actions';
-import { loginWithWallet } from '../Login/actions';
+import { loginWithWallet, loginWithSui } from '../Login/actions';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 const customColor = colors.linkColor || BORDER_PRIMARY;
@@ -53,6 +55,7 @@ const Search = ({
   profileInfo,
   redirectToAskQuestionPageDispatch,
   loginWithWalletDispatch,
+  loginWithSuiDispatch,
 }) => {
   const { t } = useTranslation();
   const query = match.params.q;
@@ -61,6 +64,8 @@ const Search = ({
       getResultsDispatch(query);
     }
   }, [getResultsDispatch, query]);
+
+  const loginDispatch = isSuiBlockchain ? loginWithSuiDispatch : loginWithWalletDispatch;
 
   return (
     <div>
@@ -127,7 +132,7 @@ const Search = ({
           <Banner
             profileInfo={profileInfo}
             redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-            showLoginModalWithRedirectToAskQuestionPage={() => loginWithWalletDispatch(true)}
+            showLoginModalWithRedirectToAskQuestionPage={() => loginDispatch(true)}
           />
         ))}
     </div>
@@ -143,6 +148,7 @@ Search.propTypes = {
   profileInfo: PropTypes.object,
   redirectToAskQuestionPageDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 export default compose(
@@ -160,6 +166,7 @@ export default compose(
       getResultsDispatch: bindActionCreators(getResults, dispatch),
       loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
       redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
+      loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
     }),
   ),
 )(Search);

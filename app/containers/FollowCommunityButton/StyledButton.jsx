@@ -6,13 +6,17 @@ import okayIcon from 'images/okay.svg?inline';
 
 import PrimaryButton from 'components/Button/Contained/PrimaryMedium';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
-import ButtonGroupForNotAuthorizedUser from 'containers/Header/ButtonGroupForNotAuthorizedUser';
+import SuiConnectModals from 'components/SuiConnectModals';
 import { isSuiBlockchain } from 'utils/sui/sui';
 
 import Button from './index';
 
 const B = ({ isFollowed, onClick, id, disabled, profileInfo, loginWithSuiDispatch }) => {
   const { t } = useTranslation();
+
+  const actionButtonWithLogin = (onClickForModal) => (
+    <InfoButton onClick={onClickForModal}>{t('common.followCommunity.subscribe')}</InfoButton>
+  );
 
   if (isFollowed) {
     return (
@@ -23,7 +27,10 @@ const B = ({ isFollowed, onClick, id, disabled, profileInfo, loginWithSuiDispatc
   }
 
   return !profileInfo && isSuiBlockchain ? (
-    <ButtonGroupForNotAuthorizedUser loginWithWallet={loginWithSuiDispatch} isFollowButton={true} />
+    <SuiConnectModals
+      loginWithWallet={loginWithSuiDispatch}
+      actionButtonWithLogin={actionButtonWithLogin}
+    />
   ) : (
     <InfoButton id={id} data-isfollowed={isFollowed} onClick={onClick} disabled={disabled}>
       {t('common.followCommunity.subscribe')}
