@@ -1,4 +1,5 @@
 /* eslint indent: 0 */
+import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
@@ -39,6 +40,9 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
         yield call(createSuiProfile, wallet);
         yield put(transactionCompleted());
         const newProfile = yield call(getSuiProfileInfo, wallet.address);
+
+        yield put(getUserProfileSuccess(newProfile));
+        yield put(getCurrentAccountSuccess(newProfile.id, 0, 0, 0));
         profile.id = newProfile.id;
       }
       yield put(transactionInitialised());

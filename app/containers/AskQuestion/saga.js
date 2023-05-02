@@ -1,7 +1,8 @@
 import { languagesEnum } from 'app/i18n';
+import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-import { POST_TYPES } from 'containers/ViewQuestion/constants';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -27,12 +28,7 @@ import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { postSuiQuestion } from 'utils/sui/questionsManagement';
 import {
   CREATE_POST_EVENT_NAME,
-  createPost,
-  getTransactionEventByName,
-  handleMoveCall,
   isSuiBlockchain,
-  postLib,
-  USER_RATING_COLLECTION,
   waitForTransactionConfirmation,
 } from 'utils/sui/sui';
 import { selectEthereum } from '../EthereumProvider/selectors';
@@ -79,14 +75,16 @@ export function* postQuestionWorker({ val }) {
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
       const suiUserObject = yield call(getSuiUserObject, wallet.address);
+      yield put(transactionInitialised());
+      const profile = yield select(makeSelectProfileInfo());
       if (!suiUserObject) {
         yield call(createSuiProfile, wallet);
         yield put(transactionCompleted());
         const newProfile = yield call(getSuiProfileInfo, wallet.address);
+        yield put(getUserProfileSuccess(newProfile));
+        yield put(getCurrentAccountSuccess(newProfile.id, 0, 0, 0));
         profile.id = newProfile.id;
       }
-      yield put(transactionInitialised());
-      const profile = yield select(makeSelectProfileInfo());
       const txResult = yield call(
         postSuiQuestion,
         wallet,

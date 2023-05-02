@@ -1,6 +1,5 @@
-import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
+import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
-import { getProfileInfo } from 'utils/profileManagement';
 import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -22,7 +21,6 @@ import {
   markAsAccepted,
   postAnswer,
   postComment,
-  updateDocumentationTree,
   upVote,
   voteToDelete,
   votingStatus,
@@ -39,11 +37,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
-import {
-  getCurrentAccountWorker,
-  isAvailableAction,
-  getCurrentSuiAccountWorker,
-} from 'containers/AccountProvider/saga';
+import { getCurrentAccountWorker, isAvailableAction } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
@@ -132,10 +126,10 @@ import {
 } from './validate';
 import { selectCommunities, selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getCommentId2, getQuestionFromGraph } from 'utils/theGraph';
+import { getCommentId2 } from 'utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
-import { getObjectById, isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import {
   deleteSuiAnswer,
@@ -833,6 +827,9 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
         yield call(createSuiProfile, wallet);
         yield put(transactionCompleted());
         const newProfile = yield call(getSuiProfileInfo, wallet.address);
+
+        yield put(getUserProfileSuccess(newProfile));
+        yield put(getCurrentAccountSuccess(newProfile.id, 0, 0, 0));
         profileInfo.id = newProfile.id;
       }
       yield put(transactionInitialised());
@@ -865,7 +862,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     questionData.replyCount += 1;
     const replyId = questionData.replyCount;
     const communities = yield select(selectCommunities());
-    const updatedProfileInfo = yield call(getSuiUserById, profileInfo.address, communities);
+    const updatedProfileInfo = yield call(getSuiUserById, profileInfo.id, communities);
 
     const newAnswer = {
       id: replyId,
@@ -903,7 +900,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     const updatedQuestionData = yield call(getQuestionData, {
       questionId,
-      user: account,
+      user: profileInfo.id,
     });
     yield put(getQuestionDataSuccess(updatedQuestionData));
     yield put(postAnswerSuccess(questionData));
