@@ -164,9 +164,6 @@ export const getCommunityRole = (role, communityId) => {
 
 export const getCommunityIdFromPermission = (permission, role) => {
   if (isSuiBlockchain) {
-    if (!permission.startsWith(role)) {
-      throw new ApplicationError('Sui permmission must begin with role name');
-    }
     return `0x${permission.substring(role.length)}`;
   }
   return BigNumber.from(permission).sub(BigNumber.from(role)).toNumber();
