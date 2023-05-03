@@ -60,6 +60,7 @@ import {
 } from 'utils/properties';
 
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const communityStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -306,7 +307,9 @@ const MainLinks = ({
           </A1>
         )}
 
-        {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
+        {(hasGlobalModeratorRole() ||
+          isModeratorModeSingleCommunity ||
+          (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
             {t(`common.users`)}
