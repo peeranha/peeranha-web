@@ -40,6 +40,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { GENERAL_TAB } from './constants';
 import { getSingleCommunityDetails } from '../../utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const EditCommunity = ({
   community,
@@ -55,7 +56,7 @@ const EditCommunity = ({
   },
 }) => {
   const { t } = useTranslation();
-  useModeratorRole(noAccessRoute, communityId);
+  useModeratorRole(noAccessRoute, isSuiBlockchain ? community?.suiId : communityId);
 
   useEffect(() => {
     getCommunityDispatch(communityId);
