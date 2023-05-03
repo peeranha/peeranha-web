@@ -7,19 +7,24 @@ import {
   COMM_TRANSLATIONS_TITLE_FIELD,
 } from 'containers/EditCommunity/constants';
 import TextInputField from 'components/FormFields/TextInputField';
-import { required, strLength250Max, strLength3x20 } from 'components/FormFields/validate';
+import {
+  required,
+  strLength250Max,
+  strLength3x20,
+  strLength20Max,
+} from 'components/FormFields/validate';
 import TextareaField from 'components/FormFields/TextareaField';
 import ToggleSwitchField from 'components/FormFields/ToggleSwitchField';
 import InformationIcon from 'icons/Information';
 import DeleteIcon from 'icons/Delete';
-
 import { useTranslation } from 'react-i18next';
 import { ArrowDown } from 'icons/index';
 import { BORDER_PRIMARY } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 import Popover from 'components/common/Popover';
 import useTrigger from 'hooks/useTrigger';
-
+import { CHINESE_LANG } from './constants';
+import i18next from 'i18next';
 const colors = singleCommunityColors();
 
 type TranslationSettingsProps = {
@@ -37,7 +42,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
   const [isOpen, open, close] = useTrigger(true);
-
+  const isChineseLang = i18next.language === CHINESE_LANG;
   const removeLanguage = () => {
     removeSelectedLanguage(value);
   };
@@ -102,8 +107,8 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
         <Field
           name={`${COMM_TRANSLATIONS_TITLE_FIELD}-${id}`}
           component={TextInputField}
-          validate={[strLength3x20, required]}
-          warn={[strLength3x20, required]}
+          validate={isChineseLang ? [strLength20Max, required] : [strLength3x20, required]}
+          warn={isChineseLang ? [strLength20Max, required] : [strLength3x20, required]}
           label={t('createCommunity.communityTitle')}
           splitInHalf
           tip={t('createCommunity.communityTitleTip')}

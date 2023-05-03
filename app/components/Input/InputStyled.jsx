@@ -35,7 +35,7 @@ const Input = ({ error, disabled }) =>
     min-height: 40px;
     ${ErrorHandling(error)}
     ${DisableHandling(disabled)}
-    padding: 9px 14px;
+    padding: 5px 14px;
     color: ${TEXT_DARK};
     font-family: ${APP_FONT};
     font-size: 16px;

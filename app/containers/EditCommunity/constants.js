@@ -28,3 +28,4 @@ export const GET_COMMUNITY_SUCCESS = 'app/EditCommunity/GET_COMMUNITY_SUCCESS';
 
 export const GENERAL_TAB = 'general';
 export const TRANSLATIONS_TAB = 'translations';
+export const CHINESE_LANG = 'zh';
