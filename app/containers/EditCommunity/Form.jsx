@@ -12,6 +12,7 @@ import {
   required,
   strLength3x20,
   strLength15x250,
+  strLength20Max,
   strLength100Max,
   validateURL,
 } from 'components/FormFields/validate';
@@ -41,9 +42,11 @@ import {
   EDIT_COMMUNITY_FORM,
   GENERAL_TAB,
   TRANSLATIONS_TAB,
+  CHINESE_LANG,
 } from './constants';
 import { COMMUNITY_TYPE } from '../CreateCommunity/constants';
 import styles from './Form.styled';
+import i18next from 'i18next';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 
@@ -55,12 +58,13 @@ const EditCommunityForm = ({
   handleSubmit,
   tab,
   setTab,
+  locale,
 }) => {
   const { t } = useTranslation();
   const nextRoute = isSingleCommunityMode ? routes.feed : routes.communities;
 
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-
+  const isChineseLang = i18next.language === CHINESE_LANG;
   const editCommunity = useCallback(
     (values) => {
       const communityData = {
@@ -138,8 +142,8 @@ const EditCommunityForm = ({
               <Field
                 name={COMM_NAME_FIELD}
                 component={TextInputField}
-                validate={[strLength3x20, required]}
-                warn={[strLength3x20, required]}
+                validate={isChineseLang ? [strLength20Max, required] : [strLength3x20, required]}
+                warn={isChineseLang ? [strLength20Max, required] : [strLength3x20, required]}
                 disabled={communityLoading}
                 label={t('createCommunity.communityTitle')}
                 splitInHalf
@@ -197,6 +201,7 @@ const EditCommunityForm = ({
                 communityId={communityId}
                 selectedLanguages={selectedLanguages}
                 setSelectedLanguages={setSelectedLanguages}
+                locale={locale}
               />
             </div>
           </div>
