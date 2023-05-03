@@ -6,7 +6,6 @@ import {
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { ApplicationError } from 'utils/errors';
-import SuccessfulTransaction from '../../components/icons/SuccessfulTransaction';
 import { delay } from 'utils/reduxUtils';
 
 // TODO: name these constants properly
@@ -96,23 +95,46 @@ export const handleMoveCall = async (
   data: unknown[],
   waitForConfirmaiton = true,
 ): Promise<object> => {
-  const tx = new TransactionBlock();
-  tx.moveCall({
-    // example
-    // 0x4e05c416411b99d4a4b12dcd0599811fed668010f994b4cd37683d886f45262f::userLib::createUser
-    target: `${process.env.SUI_PACKAGE_ID}::${libName}::${action}`,
-    arguments: data.map((item: unknown) => tx.pure(item)),
+  const response = await fetch('http://localhost:4000/blockchain/sui-sign-sponsored-transaction', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      sender: wallet.address,
+      module: libName,
+      action,
+      arguments: data,
+    }),
   });
 
-  const transactionResult = await wallet.signAndExecuteTransactionBlock({
-    transactionBlock: tx,
+  const sponsorSignedTransaction = await response.json();
+
+  console.log(`Co-signed transaction - ${JSON.stringify(sponsorSignedTransaction)}`);
+
+  const transactionBlock = TransactionBlock.from(sponsorSignedTransaction?.transactionBlockBytes);
+
+  const senderSignedTransaction = await wallet.signTransactionBlock({
+    transactionBlock,
   });
+
+  const provider = createSuiProvider();
+
+  const executeResponse = await provider.executeTransactionBlock({
+    transactionBlock: sponsorSignedTransaction?.transactionBlockBytes,
+    signature: [sponsorSignedTransaction?.signatureBytes, senderSignedTransaction.signature],
+    options: { showEffects: true },
+    requestType: 'WaitForLocalExecution',
+  });
+
+  console.log(`Execution response: ${executeResponse}`);
 
   if (!waitForConfirmaiton) {
-    return transactionResult;
+    return executeResponse;
   }
 
-  const confirmedTx = await waitForTransactionConfirmation(transactionResult.digest);
+  const confirmedTx = await waitForTransactionConfirmation(executeResponse.digest);
   return confirmedTx;
 };
 
