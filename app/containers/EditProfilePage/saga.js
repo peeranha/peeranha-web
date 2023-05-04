@@ -58,7 +58,11 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
 
     yield put(saveProfileSuccess());
 
-    if (isNavigateToProfile) {
+    if (isSuiBlockchain && window.location.pathname.slice(0, 12) === `/users/edit/`) {
+      yield call(createdHistory.push, routes.profileView(userKey));
+    }
+
+    if (!isSuiBlockchain && isNavigateToProfile) {
       yield call(createdHistory.push, routes.profileView(userKey));
     }
   } catch (err) {

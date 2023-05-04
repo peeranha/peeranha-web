@@ -86,6 +86,7 @@ import {
 } from '../../utils/properties';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 import { isSuiBlockchain } from 'utils/sui/sui';
+import NewUserRegistrationForm from 'containers/SuiProvider/NewUserRegistrationForm';
 
 const single = isSingleCommunityWebsite();
 const isDocumentationPositionTop = singleCommunityDocumentationPosition() == POSITION_TOP;
@@ -171,6 +172,8 @@ const App = ({
         <ScrollTo />
         <Popover />
         <CookieConsentPopup />
+
+        <NewUserRegistrationForm />
 
         <Switch>
           <Route exact path={routes.home()}>
