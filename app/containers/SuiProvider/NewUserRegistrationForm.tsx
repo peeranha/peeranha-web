@@ -55,6 +55,7 @@ const NewUserRegistrationForm: React.FC<NewUserRegistrationFormProps> = ({
     wallet.disconnect().then(() => {
       logoutDispatch();
       deleteCookie('connectedWallet');
+      dispatch(reset('newUserRegistrationForm'));
     });
   };
 
