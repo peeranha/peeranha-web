@@ -19,6 +19,7 @@ import {
   transactionInitialised,
   transactionInPending,
 } from 'containers/EthereumProvider/actions';
+import { getSuiUserObject } from 'utils/sui/accountManagement';
 
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 
@@ -42,19 +43,30 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
       yield put(transactionInPending(txResult.digest));
       yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
+
+      const fullProfileInfo = yield select(makeSelectProfileInfo());
+      const suiUserObject = yield call(getSuiUserObject, wallet.address);
+      const updatedProfileInfo = {
+        ...fullProfileInfo,
+        profile,
+        displayName: profile[DISPLAY_NAME_FIELD],
+        id: suiUserObject.id.id,
+      };
+
+      yield put(getUserProfileSuccess(updatedProfileInfo));
     } else {
       const ethereumService = yield select(selectEthereum);
 
       yield call(saveProfile, ethereumService, userKey, profile);
-    }
-    const fullProfileInfo = yield select(makeSelectProfileInfo());
-    const updatedProfileInfo = {
-      ...fullProfileInfo,
-      profile,
-      displayName: profile[DISPLAY_NAME_FIELD],
-    };
+      const fullProfileInfo = yield select(makeSelectProfileInfo());
+      const updatedProfileInfo = {
+        ...fullProfileInfo,
+        profile,
+        displayName: profile[DISPLAY_NAME_FIELD],
+      };
 
-    yield put(getUserProfileSuccess(updatedProfileInfo));
+      yield put(getUserProfileSuccess(updatedProfileInfo));
+    }
 
     yield put(saveProfileSuccess());
 
