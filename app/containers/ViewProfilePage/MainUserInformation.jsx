@@ -191,7 +191,17 @@ const MainUserInformation = ({
     };
 
   return (
-    <Box position="middle" className="pb-0" isLogin={userId !== account}>
+    <Box
+      position="middle"
+      className="pb-0"
+      isLogin={userId !== account}
+      css={
+        isSuiBlockchain && {
+          borderLeft: `1px solid ${colors.border}`,
+          borderRight: `1px solid ${colors.border}`,
+        }
+      }
+    >
       <div
         css={css`
           flex-direction: column;
@@ -402,7 +412,7 @@ const MainUserInformation = ({
                           line-height: 23px;
                         `}
                       >
-                        {userId.length < 40 ? userId : userId.substring(0, 40) + '...'}
+                        {userId.length < 40 ? userId : `${userId.substring(0, 40)}...`}
                       </span>
                     </A>
                     <button

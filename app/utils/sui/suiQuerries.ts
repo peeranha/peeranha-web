@@ -54,6 +54,7 @@ const comment = `
   postTime
   ipfsHash
   language
+  isDeleted
   commenttranslation {
     language
     content
@@ -107,7 +108,9 @@ const post = `
     handle
     messengerType
     language
-    comment {
+    comment (
+      where: { isDeleted: "0" }
+    ){
       ${comment}
     }
     history {

@@ -92,7 +92,11 @@ const UserNavigation = ({
     };
 
   return (
-    <Wrapper position="top" ref={ref}>
+    <Wrapper
+      position="top"
+      ref={ref}
+      css={!isSuiBlockchain && { borderBottom: '1px solid rgb(194, 198, 216)' }}
+    >
       <Ul>
         <Div className="d-flex align-items-center" isProfilePage={isProfilePage}>
           <ScrollContainer>

@@ -17,7 +17,7 @@ import { TransparentLinkDefault } from 'components/Button/Contained/Transparent'
 
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
-
+import { isSuiBlockchain } from 'utils/sui/sui';
 const colors = singleCommunityColors();
 
 const DEFAULT_NUMBER = 10;
@@ -52,7 +52,7 @@ const Activity = ({
         {t('profile.activity')}
       </H4>
 
-      <Base position="top">
+      <Base position="top" css={isSuiBlockchain && { border: `1px solid ${colors.border}` }}>
         <Button disabled={!myPosts.length} islink={tab !== 'posts'} onClick={() => setTab('posts')}>
           <Trans
             i18nKey="common.allActivitiesNumber"
@@ -113,7 +113,7 @@ const Activity = ({
         </Button>
       </Base>
 
-      <Base position="bottom">
+      <Base position="bottom" css={isSuiBlockchain && { border: `1px solid ${colors.border}` }}>
         <QuestionsProfileTab
           locale={locale}
           className={tab === 'posts' ? '' : 'd-none'}
