@@ -95,7 +95,11 @@ export const handleMoveCall = async (
   data: unknown[],
   waitForConfirmaiton = true,
 ): Promise<object> => {
-  const response = await fetch('http://localhost:4000/blockchain/sui-sign-sponsored-transaction', {
+  if (!process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT) {
+    throw new ApplicationError('SUI_SPONSORED_TRANSACTIONS_ENDPOINT is not configured');
+  }
+
+  const response = await fetch(process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -111,8 +115,6 @@ export const handleMoveCall = async (
 
   const sponsorSignedTransaction = await response.json();
 
-  console.log(`Co-signed transaction - ${JSON.stringify(sponsorSignedTransaction)}`);
-
   const transactionBlock = TransactionBlock.from(sponsorSignedTransaction?.transactionBlockBytes);
 
   const senderSignedTransaction = await wallet.signTransactionBlock({
@@ -127,8 +129,6 @@ export const handleMoveCall = async (
     options: { showEffects: true },
     requestType: 'WaitForLocalExecution',
   });
-
-  console.log(`Execution response: ${executeResponse}`);
 
   if (!waitForConfirmaiton) {
     return executeResponse;
