@@ -20,27 +20,25 @@ import Box from 'components/Base/AvatarBase';
 import H3 from 'components/H3';
 import FormBox from 'components/Form';
 
-import {
-  imageValidation,
-  required,
-  strLength3x20,
-} from 'components/FormFields/validate';
+import { imageValidation, required, strLength3x20 } from 'components/FormFields/validate';
 
 import AboutForm from './AboutForm';
 
 import { EDIT_PROFILE_BUTTON_ID, PROFILE_EDIT_FORM } from './constants';
 import { getUserName } from '../../utils/user';
+import { singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
-export const ProfileEditForm = ({
-  formValues,
-  handleSubmit,
-  saveProfile,
-  isProfileSaving,
-}) => {
+const colors = singleCommunityColors();
+
+export const ProfileEditForm = ({ formValues, handleSubmit, saveProfile, isProfileSaving }) => {
   const { t } = useTranslation();
 
   return (
-    <Box position="bottom">
+    <Box
+      position="bottom"
+      css={isSuiBlockchain && { border: `1px solid ${colors.border}`, borderTop: 'none' }}
+    >
       <Field
         name={AVATAR_FIELD}
         component={AvatarField}
@@ -98,11 +96,7 @@ export const ProfileEditForm = ({
 
         <AboutForm formValues={formValues} isProfileSaving={isProfileSaving} />
 
-        <Button
-          id={EDIT_PROFILE_BUTTON_ID}
-          disabled={isProfileSaving}
-          type="submit"
-        >
+        <Button id={EDIT_PROFILE_BUTTON_ID} disabled={isProfileSaving} type="submit">
           {t('profile.saveButton')}
         </Button>
       </FormBox>
@@ -130,10 +124,7 @@ FormClone = connect((state, props) => ({
   formValues: state.toJS().form[PROFILE_EDIT_FORM]?.values ?? {},
   initialValues: {
     ...(props?.profile?.profile || {}),
-    [DISPLAY_NAME_FIELD]: getUserName(
-      props?.profile?.displayName,
-      props?.profile?.id,
-    ),
+    [DISPLAY_NAME_FIELD]: getUserName(props?.profile?.displayName, props?.profile?.id),
     [AVATAR_FIELD]: props?.profile?.avatar,
   },
 }))(FormClone);

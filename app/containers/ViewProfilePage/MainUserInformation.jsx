@@ -189,6 +189,15 @@ const MainUserInformation = ({
         user,
       });
     };
+  const shortUserId = (id) => {
+    if (id.length > 40 && window.innerWidth > 576) {
+      return `${id.substring(0, 41)}...${id.substring(id.length - 5)}`;
+    }
+    if (id.length > 40 && window.innerWidth <= 576) {
+      return `${id.substring(0, 25)}...${id.substring(id.length - 5)}`;
+    }
+    return id;
+  };
 
   return (
     <Box
@@ -412,7 +421,7 @@ const MainUserInformation = ({
                           line-height: 23px;
                         `}
                       >
-                        {userId.length < 40 ? userId : `${userId.substring(0, 40)}...`}
+                        {shortUserId(userId)}
                       </span>
                     </A>
                     <button
