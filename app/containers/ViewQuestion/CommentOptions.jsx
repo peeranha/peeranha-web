@@ -37,6 +37,18 @@ const CommentEditStyled = styled.div`
   }
 `;
 
+const ActionButtonWithLogin = ({ onClick, buttonId }) => {
+  const { t } = useTranslation();
+  return (
+    <ButtonStyled id={buttonId} onClick={onClick}>
+      <IconMd icon={dotsIcon} fill={colors.commentOption || BORDER_PRIMARY} />
+      <Span className="ml-11" color={colors.commentOption || TEXT_PRIMARY}>
+        {t('post.addComment')}
+      </Span>
+    </ButtonStyled>
+  );
+};
+
 export const CommentOptions = ({
   form,
   submitButtonId,
@@ -60,12 +72,7 @@ export const CommentOptions = ({
     addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) || false;
 
   const actionButtonWithLogin = (onClick) => (
-    <ButtonStyled id={toggleFormButtonId} onClick={onClick}>
-      <IconMd icon={dotsIcon} fill={colors.commentOption || BORDER_PRIMARY} />
-      <Span className="ml-11" color={colors.commentOption || TEXT_PRIMARY}>
-        {t('post.addComment')}
-      </Span>
-    </ButtonStyled>
+    <ActionButtonWithLogin onClick={onClick} buttonId={toggleFormButtonId} />
   );
 
   return (
@@ -92,7 +99,10 @@ export const CommentOptions = ({
             actionButtonWithLogin={actionButtonWithLogin}
           />
         ) : (
-          actionButtonWithLogin(() => checkAddCommentAvailable(toggleFormButtonId, answerId))
+          <ActionButtonWithLogin
+            onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
+            buttonId={toggleFormButtonId}
+          />
         )}
       </div>
 

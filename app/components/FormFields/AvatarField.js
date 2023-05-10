@@ -15,12 +15,10 @@ import { formatStringToHtmlId } from 'utils/animation';
 
 import LargeImage from 'components/Img/LargeImage';
 import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
-
-import { AVATAR_FIELD } from 'containers/Profile/constants';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
 import { italicFont } from '../../global-styles';
-import { singleCommunityColors } from 'utils/communityManagement';
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
 export const HASH_CHARS_LIMIT = 1000;
 const IMG_SIZE_LIMIT_B = 5 * 1024 * 1024;

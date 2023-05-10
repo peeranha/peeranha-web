@@ -12,7 +12,6 @@ import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { DAEMON } from 'utils/constants';
 

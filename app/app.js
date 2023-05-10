@@ -5,6 +5,7 @@ import SuiProvider from 'containers/SuiProvider';
 import $ from 'jquery';
 // Needed for redux-saga es6 generator support
 import '@babel/polyfill';
+import TagManager from 'react-gtm-module';
 
 // Import all the third party stuff
 import React from 'react';
@@ -38,7 +39,6 @@ import i18n from './i18n';
 // Import CSS reset and Global Styles
 import './global-styles';
 import EthereumProvider from './containers/EthereumProvider';
-import TagManager from 'react-gtm-module';
 window.$ = $;
 if (process.env.GTM_ID) {
   const tagManagerArgs = {

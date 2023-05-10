@@ -4,8 +4,8 @@ import {
   TEXT_DARK,
   TEXT_SECONDARY,
   BORDER_PRIMARY,
-} from '../../../style-constants';
-import { singleCommunityColors } from '../../../utils/communityManagement';
+} from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
@@ -14,7 +14,7 @@ export const styles = {
     background: 'rgb(255,255,255)',
     boxShadow: '0px 2px 4px rgba(7, 16, 64, 0.1)',
     borderRadius: '5px',
-    border: `1px solid ${colors.border || '#fff'}`,
+    border: colors.border ? `1px solid ${colors.border}` : 'none',
     ':hover': {
       boxShadow: `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
     },

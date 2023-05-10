@@ -64,10 +64,10 @@ const View = ({
       css={css`
         height: isDesktop ? calc(100vh - ${HEADER_HEIGHT}px) : 100vh;
         overflow: hidden;
-        padding-right: ${isSuiBlockchain} ? 0 : 6px;
+        padding-right: ${isSuiBlockchain ? '0px' : '6px'};
 
         :hover {
-          overflow-y: ${isSuiBlockchain} ? unset : scroll;
+          overflow-y: ${isSuiBlockchain ? 'unset' : 'scroll'};
           padding-right: 0;
         }
 

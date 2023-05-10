@@ -12,9 +12,9 @@ import Span from 'components/Span';
 import Ul from 'components/Ul';
 import CheckedItem from 'components/Li/CheckedItem';
 import SubHeaderWrapper, { SubHeaderWrapperRightPanel } from 'components/Header/Complex';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 import sortingOptions from './sortingOptions';
-import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 const Button = ({ sorting, icon }) => {

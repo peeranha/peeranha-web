@@ -30,7 +30,7 @@ const TagsForm = ({ questionLoading, formValues, change, communityTags, tagsLoad
       component={TagSelector}
       disabled={tagsDisabled}
       setTags={setTags}
-      options={tagsOptions.map((tag) => tag)}
+      options={tagsOptions}
       validate={[required, strLength1x5]}
       warn={[required, strLength1x5]}
       splitInHalf

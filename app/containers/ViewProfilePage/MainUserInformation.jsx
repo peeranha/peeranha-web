@@ -169,7 +169,9 @@ const MainUserInformation = ({
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
-  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL.replace('{0}', userId);
+  const userAddress = isSuiBlockchain
+    ? process.env.BLOCKCHAIN_EXPLORERE_URL.replace('{0}', userId)
+    : process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
   const [copied, setCopied] = useState('');
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
@@ -406,11 +408,7 @@ const MainUserInformation = ({
                 >
                   <span>{t(isSuiBlockchain ? 'common.userId' : 'common.walletAddress')}</span>
                   <div>
-                    <A
-                      to={{ pathname: userPolygonScanAddress }}
-                      href={userPolygonScanAddress}
-                      target="_blank"
-                    >
+                    <A to={{ pathname: userAddress }} href={userAddress} target="_blank">
                       <span
                         id="copytext1"
                         css={css`

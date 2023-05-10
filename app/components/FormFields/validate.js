@@ -120,11 +120,7 @@ const requiredForObjectField = (value) => {
 };
 
 const requiredMinReputation = (...args) => {
-  let { id } = args[0];
-
-  if (isSuiBlockchain) {
-    id = args[0].suiId;
-  }
+  const id = isSuiBlockchain ? args[0].suiId : args[0].id;
 
   const { profile } = args[2];
   const MIN_REPUTATION = 0;

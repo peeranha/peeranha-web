@@ -86,7 +86,6 @@ export class Header extends React.PureComponent {
       toggleEditDocumentationDispatch,
       changeLocale,
       communities,
-
       loginWithSuiDispatch,
     } = this.props;
 

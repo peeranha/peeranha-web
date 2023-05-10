@@ -1,8 +1,7 @@
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { POST_TYPE } from './utils/constants';
-import { updateTitle } from './utils/seo';
+import { POST_TYPE } from 'utils/constants';
+import { updateTitle } from 'utils/seo';
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const userRedirect = (where) => (id) => `/users/${id}${where}`;
 

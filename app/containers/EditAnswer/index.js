@@ -7,6 +7,7 @@ import { bindActionCreators, compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import Seo from 'components/Seo';
 import AnswerForm from 'components/AnswerForm';
@@ -45,14 +46,14 @@ const EditAnswer = ({
 
   useEffect(() => {
     getQuestionDataDispatch(questionid);
-    getAnswerDispatch(questionid, +answerid);
+    getAnswerDispatch(isSuiBlockchain ? questionid : +questionid, +answerid);
   }, [questionid, answerid]);
 
   const sendAnswer = useCallback(
     (values) =>
       editAnswerDispatch(
         values.get(TEXT_EDITOR_ANSWER_FORM),
-        questionid,
+        isSuiBlockchain ? questionid : +questionid,
         +answerid,
         values.get(ANSWER_TYPE_FORM),
         questionTitle,

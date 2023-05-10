@@ -237,7 +237,11 @@ const View = ({
               <>
                 {t('common.transactionInPending')}{' '}
                 <a
-                  href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.replace('{0}', transactionHash)}
+                  href={
+                    isSuiBlockchain
+                      ? process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.replace('{0}', transactionHash)
+                      : process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(transactionHash)
+                  }
                   target="_blank"
                   css={css`
                     margin: 0 5px;

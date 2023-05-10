@@ -15,7 +15,6 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import { selectQuestionTitle } from '../ViewQuestion/selectors';
 import { selectCommunities, selectTagsLoading } from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';
@@ -37,6 +36,7 @@ import saga from './saga';
 
 import { getAskedQuestion, editQuestion } from './actions';
 import { getQuestionData } from '../ViewQuestion/actions';
+import { selectQuestionTitle } from '../ViewQuestion/selectors';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 
 const TITLE = ['common.editExpertQ&A', 'common.editDiscussion', 'common.editTutorial'];

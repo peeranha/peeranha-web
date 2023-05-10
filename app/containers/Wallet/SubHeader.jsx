@@ -17,6 +17,7 @@ import Span from 'components/Span';
 import A from 'components/A';
 import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const AvailableBalance = styled.span`
   @media (max-width: 590px) {
@@ -50,7 +51,9 @@ const SubHeader = ({
   stakedInNextPeriod,
 }) => {
   const { t } = useTranslation();
-  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL.replace('{0}', account);
+  const userAddress = isSuiBlockchain
+    ? process.env.BLOCKCHAIN_EXPLORERE_URL.replace('{0}', account)
+    : process.env.BLOCKCHAIN_EXPLORERE_URL + account;
 
   return (
     <Box position="bottom">
@@ -128,11 +131,7 @@ const SubHeader = ({
               )}
               <li>
                 {t('common.walletAddress')}
-                <A
-                  to={{ pathname: userPolygonScanAddress }}
-                  href={userPolygonScanAddress}
-                  target="_blank"
-                >
+                <A to={{ pathname: userAddress }} href={userAddress} target="_blank">
                   <Span>{account}</Span>
                 </A>
               </li>

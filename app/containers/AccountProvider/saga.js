@@ -1,6 +1,5 @@
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
-import { useWallet } from '@suiet/wallet-kit';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
@@ -43,7 +42,10 @@ import {
   POST_ANSWER_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
-import { formPermissionsCookie, getCookie, parsePermissionsCookie, setCookie } from 'utils/cookie';
+import { formPermissionsCookie, getCookie, setCookie } from 'utils/cookie';
+import { hasGlobalModeratorRole } from 'utils/properties';
+import { getNotificationsInfoWorker } from 'components/Notifications/saga';
+import { getCurrentPeriod } from 'utils/theGraph';
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
@@ -63,9 +65,6 @@ import {
 } from './actions';
 import { makeSelectProfileInfo } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { hasGlobalModeratorRole } from 'utils/properties';
-import { getNotificationsInfoWorker } from 'components/Notifications/saga';
-import { getCurrentPeriod } from 'utils/theGraph';
 
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function* (initAccount) {

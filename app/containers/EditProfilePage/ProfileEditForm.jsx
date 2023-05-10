@@ -21,13 +21,13 @@ import H3 from 'components/H3';
 import FormBox from 'components/Form';
 
 import { imageValidation, required, strLength3x20 } from 'components/FormFields/validate';
+import { getUserName } from 'utils/user';
+import { singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import AboutForm from './AboutForm';
 
 import { EDIT_PROFILE_BUTTON_ID, PROFILE_EDIT_FORM } from './constants';
-import { getUserName } from '../../utils/user';
-import { singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 

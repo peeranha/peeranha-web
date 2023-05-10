@@ -14,10 +14,11 @@ import Span from 'components/Span';
 
 import Button from 'components/Button/Contained/Navigation';
 import { TransparentLinkDefault } from 'components/Button/Contained/Transparent';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
-import { isSuiBlockchain } from 'utils/sui/sui';
+
 const colors = singleCommunityColors();
 
 const DEFAULT_NUMBER = 10;

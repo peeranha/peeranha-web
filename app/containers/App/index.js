@@ -41,6 +41,15 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import Wrapper from 'containers/AppWrapper';
 
 import saga from 'containers/App/saga';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import NewUserRegistrationForm from 'containers/SuiProvider/NewUserRegistrationForm';
+import {
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+import { getValueFromSearchString } from 'utils/url';
+import { getCookie, setCookie } from 'utils/cookie';
 import {
   EditCommunity,
   HomePage,
@@ -60,7 +69,6 @@ import {
   CreateTag,
   EditTag,
   NoAccess,
-  Home,
   Feed,
   Communities,
   Login,
@@ -74,19 +82,10 @@ import {
   TermsOfService,
   MetaTransactionAgreement,
 } from './imports';
-import { getValueFromSearchString } from '../../utils/url';
-import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed, redirectToDocumentation, redirectToPreload } from './actions';
-import {
-  hasCommunityAdminRole,
-  hasGlobalModeratorRole,
-  hasProtocolAdminRole,
-} from '../../utils/properties';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
-import { isSuiBlockchain } from 'utils/sui/sui';
-import NewUserRegistrationForm from 'containers/SuiProvider/NewUserRegistrationForm';
 
 const single = isSingleCommunityWebsite();
 const isDocumentationPositionTop = singleCommunityDocumentationPosition() == POSITION_TOP;

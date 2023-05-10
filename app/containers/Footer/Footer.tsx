@@ -4,14 +4,16 @@ import useMediaQuery from 'hooks/useMediaQuery';
 import { css } from '@emotion/react';
 import A, { ADefault } from 'components/A';
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { DOCUMENTATION_ABOUT_LINK } from 'app/constants/documentation';
-import { styles } from './Footer.styled';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaLogoWhite from 'images/Logo.svg?inline';
 import HeartIcon from 'icons/Heart';
+import { styles } from './Footer.styled';
+
 import { INFO_LINKS, LINK_PRIVACY_POLICY, LINK_TERMS_OF_SERVICE } from './constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+
 type FooterLinkType = {
   path: string;
   message: string;
@@ -107,7 +109,10 @@ const Footer: React.FC = (): JSX.Element => {
             {isSuiBlockchain && (
               <div className="df aic jcc">
                 <div css={css(styles.infoRules)}>
-                  <Trans i18nKey="common.footerMadeBy" components={[<HeartIcon key="0" />]} />
+                  <Trans
+                    i18nKey="common.footerMadeBy"
+                    components={[<HeartIcon key="0" fill={'#7699FF'} />]}
+                  />
                 </div>
                 <a href={process.env.APP_LOCATION} target="_blank">
                   <img

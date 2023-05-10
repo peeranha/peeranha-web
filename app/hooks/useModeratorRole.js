@@ -10,34 +10,36 @@ import {
   hasProtocolAdminRole,
   isValidJsonFromCookie,
 } from 'utils/properties';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import history from '../createdHistory';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 export const useModeratorRole = (redirectPage, communityId = null) => {
   const [isModeratorRole, setModeratorRole] = useState(null);
 
   useEffect(() => {
+    const cookieProfileInfo = getCookie(PROFILE_INFO_LS);
     const permissions = parsePermissionsCookie(
       JSON.parse(
-        isValidJsonFromCookie(getCookie(PROFILE_INFO_LS), PROFILE_INFO_LS)
-          ? getCookie(PROFILE_INFO_LS)
-          : '""',
+        isValidJsonFromCookie(cookieProfileInfo, PROFILE_INFO_LS) ? cookieProfileInfo : '""',
       ) || [],
     );
 
+    const isProtocolAdmin = hasProtocolAdminRole(permissions);
+    const isGlobalModerator = hasGlobalModeratorRole(permissions);
+    const isCommunityModerator = hasCommunityModeratorRole(
+      permissions,
+      isSuiBlockchain ? communityId : Number(communityId),
+    );
+    const isCommunityAdmin = hasCommunityAdminRole(
+      permissions,
+      isSuiBlockchain ? communityId : Number(communityId),
+    );
+
     setModeratorRole(
-      hasProtocolAdminRole(permissions) ||
-        hasGlobalModeratorRole(permissions) ||
-        (Boolean(communityId) &&
-          (hasCommunityModeratorRole(
-            permissions,
-            isSuiBlockchain ? communityId : Number(communityId),
-          ) ||
-            hasCommunityAdminRole(
-              permissions,
-              isSuiBlockchain ? communityId : Number(communityId),
-            ))),
+      isProtocolAdmin ||
+        isGlobalModerator ||
+        (Boolean(communityId) && (isCommunityModerator || isCommunityAdmin)),
     );
   }, []);
 

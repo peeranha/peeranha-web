@@ -68,11 +68,13 @@ const Users = ({
     });
   }, [getUsersDispatch]);
 
-  const suiUsers = [...users].sort((firstUser, secondUser) =>
-    sorting === 'asc'
-      ? firstUser.creationTime - secondUser.creationTime
-      : secondUser.creationTime - firstUser.creationTime,
-  );
+  const sortedUsers = isSuiBlockchain
+    ? [...users].sort((firstUser, secondUser) =>
+        sorting === 'asc'
+          ? firstUser.creationTime - secondUser.creationTime
+          : secondUser.creationTime - firstUser.creationTime,
+      )
+    : users;
   return (
     <>
       <Seo
@@ -85,7 +87,7 @@ const Users = ({
         userCount={userCount}
         getMoreUsers={getMoreUsers}
         dropdownFilter={dropdownFilter}
-        users={isSuiBlockchain ? suiUsers : users}
+        users={sortedUsers}
         usersLoading={usersLoading}
         sorting={sorting}
         searchText={searchText}

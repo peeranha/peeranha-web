@@ -1,3 +1,4 @@
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { AaveStyles } from './communities-configs/aave';
 import { AnkrStyles } from './communities-configs/ankr';
 import { CyberconnectStyles } from './communities-configs/cyberconnect';
@@ -23,7 +24,6 @@ import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { ValistStyles } from './communities-configs/valist';
 import { VyperStyles } from './communities-configs/vyper';
 import { SuiMainStyles } from './communities-configs/suiMain';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const communitiesConfig = {
   prod: isSuiBlockchain

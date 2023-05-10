@@ -16,6 +16,33 @@ import saga from './saga';
 import { getCurrentAccount, getCurrentSuiAccount } from './actions';
 import { selectLastUpdate } from './selectors';
 import { UPDATE_ACC_PERIOD } from './constants';
+const SuiAccountProvider = ({ children, getCurrentSuiAccountDispatch, setWalletDispatch }) => {
+  const wallet = useWallet();
+  useEffect(() => {
+    setWalletDispatch(wallet);
+    getCurrentSuiAccountDispatch(wallet);
+  }, [getCurrentSuiAccountDispatch, setWalletDispatch, wallet]);
+
+  return children;
+};
+
+const PolygonAccountProvider = ({ children, lastUpdate, getCurrentAccountDispatch }) => {
+  useEffect(() => {
+    getCurrentAccountDispatch();
+
+    setInterval(() => {
+      const diff = Date.now() - lastUpdate;
+
+      if (diff > UPDATE_ACC_PERIOD) {
+        getCurrentAccountDispatch();
+      }
+    }, UPDATE_ACC_PERIOD / 5);
+  }, []);
+
+  return children;
+};
+
+const MainAccountProvider = isSuiBlockchain ? SuiAccountProvider : PolygonAccountProvider;
 
 export const AccountProvider = ({
   children,
@@ -23,29 +50,16 @@ export const AccountProvider = ({
   getCurrentAccountDispatch,
   getCurrentSuiAccountDispatch,
   setWalletDispatch,
-}) => {
-  if (isSuiBlockchain) {
-    const wallet = useWallet();
-    useEffect(() => {
-      setWalletDispatch(wallet);
-      getCurrentSuiAccountDispatch(wallet);
-    }, [getCurrentSuiAccountDispatch, setWalletDispatch, wallet]);
-  } else {
-    useEffect(() => {
-      getCurrentAccountDispatch();
-
-      setInterval(() => {
-        const diff = Date.now() - lastUpdate;
-
-        if (diff > UPDATE_ACC_PERIOD) {
-          getCurrentAccountDispatch();
-        }
-      }, UPDATE_ACC_PERIOD / 5);
-    }, []);
-  }
-
-  return children;
-};
+}) => (
+  <MainAccountProvider
+    lastUpdate={lastUpdate}
+    getCurrentAccountDispatch={getCurrentAccountDispatch}
+    getCurrentSuiAccountDispatch={getCurrentSuiAccountDispatch}
+    setWalletDispatch={setWalletDispatch}
+  >
+    {children}
+  </MainAccountProvider>
+);
 
 AccountProvider.propTypes = {
   getCurrentAccountDispatch: PropTypes.func,

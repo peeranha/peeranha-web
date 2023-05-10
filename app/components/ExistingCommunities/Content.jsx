@@ -27,7 +27,7 @@ import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
+import { hasCommunitySingleWebsite } from 'utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
 

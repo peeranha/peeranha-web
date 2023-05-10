@@ -1,17 +1,24 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 import Button from 'components/common/Button';
 import SuiConnectModals from 'components/SuiConnectModals';
 import { isSuiBlockchain } from 'utils/sui/sui';
 
 import noSearchResults from 'images/noSearchResults.png';
 import { styled } from './Banner.styled';
-import { useTranslation } from 'react-i18next';
 
 type BannerProps = {
   profileInfo: object;
   redirectToAskQuestionPage: () => void;
   showLoginModalWithRedirectToAskQuestionPage: () => void;
+};
+const ButtonWithLogin = ({ onClick }) => {
+  const { t } = useTranslation();
+  return (
+    <Button onClick={onClick} className="mt24" css={styled.button}>
+      {t('common.askQuestion')}
+    </Button>
+  );
 };
 
 const Banner: React.FC<BannerProps> = ({
@@ -21,11 +28,7 @@ const Banner: React.FC<BannerProps> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
 
-  const actionButtonWithLogin = (onClick: any) => (
-    <Button onClick={onClick} className="mt24" css={styled.button}>
-      {t('common.askQuestion')}
-    </Button>
-  );
+  const actionButtonWithLogin = (onClick: any) => <ButtonWithLogin onClick={onClick} />;
 
   return (
     <div css={styled.banner}>
@@ -43,7 +46,7 @@ const Banner: React.FC<BannerProps> = ({
               actionButtonWithLogin={actionButtonWithLogin}
             />
           ) : (
-            actionButtonWithLogin(redirectToAskQuestionPage)
+            <ButtonWithLogin onClick={redirectToAskQuestionPage} />
           )}
         </div>
       </div>

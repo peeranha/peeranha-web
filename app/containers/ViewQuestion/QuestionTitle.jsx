@@ -12,6 +12,7 @@ import checkIcon from 'images/okayGreen.svg?inline';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
@@ -135,7 +136,11 @@ export const QuestionTitle = ({
         <TagList
           className="my-2"
           tags={tags}
-          communityId={communities.find((community) => community.suiId === communityId).id}
+          communityId={
+            isSuiBlockchain
+              ? communities.find((community) => community.suiId === communityId).id
+              : communityId
+          }
           communities={communities}
           bySuiId
         >
@@ -143,7 +148,11 @@ export const QuestionTitle = ({
             <QuestionCommunity
               className="my-1"
               communities={communities}
-              communityId={communities.find((community) => community.suiId === communityId).id}
+              communityId={
+                isSuiBlockchain
+                  ? communities.find((community) => community.suiId === communityId).id
+                  : communityId
+              }
               postType={postType}
               locale={locale}
             />

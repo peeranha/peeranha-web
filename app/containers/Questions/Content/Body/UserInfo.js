@@ -27,7 +27,7 @@ export const AuthorName = Span.extend`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, communities }) => (
+const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
   <p className="mb-3">
     <A to={routes.profileView(author.id)} className="d-inline-flex align-items-center">
       {!isSearchPage && (

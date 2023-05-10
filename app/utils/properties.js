@@ -17,7 +17,6 @@ import {
   PROTOCOL_ADMIN_ROLE,
   BOT_ADDRESS,
 } from './constants';
-import { ApplicationError } from './errors';
 
 // todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
@@ -69,7 +68,6 @@ export const getModeratorPermissions = (
   translations,
 ) => {
   const values = getAllRoles(globalModeratorProps, communitiesCount);
-  console.log(`All permissions - ${JSON.stringify(getAllRoles)}`);
   const permissions1 = {};
   values.map(({ communityId = 0, role }, index) => {
     const rawPermissionsTypes = !communityId

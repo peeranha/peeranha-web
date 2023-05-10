@@ -10,5 +10,8 @@
   "referralMessage": "This is the code your friend gave you.",
   "optionalReferralCode": "(optional)",
   "accountNotCreatedName": "Account is not created yet",
-  "inviterIsNotRegisterYet": "Inviter isn't register yet"
+  "inviterIsNotRegisterYet": "Inviter isn't register yet",
+  "create": "Create",
+  "createName": "Please create your display name",
+  "enterName": "Enter display name"
 }

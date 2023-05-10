@@ -18,6 +18,9 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
+import Loader from 'components/LoadingIndicator/WidthCentered';
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -28,19 +31,10 @@ import { getResults } from './actions';
 import Banner from './Banner/Banner';
 import { selectCommunities } from '../DataCacheProvider/selectors';
 
-import Loader from 'components/LoadingIndicator/WidthCentered';
-import {
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
-  TEXT_DARK,
-  TEXT_SECONDARY,
-} from '../../style-constants';
 import SearchContent from './SearchContent';
 import { redirectToAskQuestionPage } from '../AskQuestion/actions';
 import { loginWithWallet, loginWithSui } from '../Login/actions';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 const customColor = colors.linkColor || BORDER_PRIMARY;

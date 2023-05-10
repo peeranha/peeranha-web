@@ -26,14 +26,15 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import reducer from 'containers/EditProfilePage/reducer';
 import saga from 'containers/EditProfilePage/saga';
+import { WalletContextState } from '@suiet/wallet-kit';
 
 type NewUserRegistrationFormProps = {
   handleSubmit: (addRole: any) => FormEventHandler<HTMLFormElement> | undefined;
-  wallet: any;
+  wallet: WalletContextState;
   profile: any;
   dispatch: any;
-  logoutDispatch: any;
-  saveProfileDispatch: any;
+  logoutDispatch: () => void;
+  saveProfileDispatch: ({ profile: any, userKey: any }) => void;
 };
 const NewUserRegistrationForm: React.FC<NewUserRegistrationFormProps> = ({
   handleSubmit,
@@ -89,14 +90,14 @@ const NewUserRegistrationForm: React.FC<NewUserRegistrationFormProps> = ({
       {isSuiBlockchain && profile && !isSuiUserExists && isOpen && (
         <Popup size="tiny" onClose={suiLogout}>
           <h5 className="tc fz24 semi-bold mb24" css={styles.popupTitle}>
-            Please create your display name
+            {t('login.createName')}
           </h5>
 
           <form onSubmit={handleSubmit(suiUserRegistration)}>
             <Field
               name={DISPLAY_NAME_FIELD}
               component={TextInputField}
-              placeholder={'Enter display name'}
+              placeholder={t('administration.enterName')}
               validate={[required, strLength3x20]}
               warn={[required, strLength3x20]}
               warningStyle={styles.validationField}
@@ -108,7 +109,7 @@ const NewUserRegistrationForm: React.FC<NewUserRegistrationFormProps> = ({
               </OutlinedButton>
 
               <ContainedButton type="submit" id={ADD_MODERATOR_BUTTON_BUTTON}>
-                Create
+                {t('login.create')}
               </ContainedButton>
             </div>
           </form>

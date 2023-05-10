@@ -10,6 +10,7 @@ import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import A from 'components/A';
 import Span from 'components/Span';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const Label = styled.div`
   position: absolute;
@@ -49,8 +50,16 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
       transactionHash: (
         <A
           target="_blank"
-          to={{ pathname: explorerUrl.replace('{0}', transactionHash) }}
-          href={explorerUrl.replace('{0}', transactionHash)}
+          to={{
+            pathname: isSuiBlockchain
+              ? explorerUrl.replace('{0}', transactionHash)
+              : explorerUrl + transactionHash,
+          }}
+          href={
+            isSuiBlockchain
+              ? explorerUrl.replace('{0}', transactionHash)
+              : explorerUrl + transactionHash
+          }
         >
           {`${transactionHash.substring(0, 12)}...`}
         </A>
