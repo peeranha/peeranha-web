@@ -24,7 +24,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 import Popover from 'components/common/Popover';
 import useTrigger from 'hooks/useTrigger';
 import { CHINESE_LANG } from './constants';
-import i18next from 'i18next';
+
 const colors = singleCommunityColors();
 
 type TranslationSettingsProps = {
@@ -42,7 +42,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
   const [isOpen, open, close] = useTrigger(true);
-  const isChineseLang = i18next.language === CHINESE_LANG;
+  const isChineseLang = label === CHINESE_LANG;
   const removeLanguage = () => {
     removeSelectedLanguage(value);
   };
