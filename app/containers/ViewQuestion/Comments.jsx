@@ -11,8 +11,8 @@ import {
   BORDER_RADIUS_M,
 } from 'style-constants';
 
-import editSmallIcon from 'images/editSmallIcon.svg?external';
-import deleteSmallIcon from 'images/deleteSmallIcon.svg?external';
+import editIcon from 'images/pencil.svg?external';
+import deleteIcon from 'images/deleteIcon.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 
@@ -47,11 +47,11 @@ const CommentManage = styled.div`
   opacity: 0;
 
   button {
-    margin-left: 13px;
-    font-size: 14px;
+    margin-left: 20px;
+    font-size: 16px;
 
     > *:last-child {
-      margin-left: 4px;
+      margin-left: 7px;
     }
   }
 
@@ -202,8 +202,8 @@ const CommentView = (item) => {
             }}
             onClick={() => item.toggleView(!item.isView)}
           >
-            <Icon icon={editSmallIcon} width="13" fill={BORDER_PRIMARY} />
-            {t('post.editButton')}
+            <Icon icon={editIcon} width="18" fill={BORDER_PRIMARY} />
+            <span>{t('post.editButton')}</span>
           </Button>
 
           <div id={`delete-comment-${item.answerId}${item.id}`}>
@@ -221,8 +221,8 @@ const CommentView = (item) => {
                   onClick={onClick}
                   disabled={item.ids.includes(`delete-comment-${item.answerId}${item.id}`)}
                 >
-                  <Icon icon={deleteSmallIcon} width="13" fill={BORDER_PRIMARY} />
-                  {t('post.deleteButton')}
+                  <Icon icon={deleteIcon} width="18" fill={BORDER_PRIMARY} />
+                  <span>{t('post.deleteButton')}</span>
                 </Button>
               )}
             />
@@ -231,7 +231,7 @@ const CommentView = (item) => {
           <div className="position-relative">
             <Button show disabled={isPopoverOpen} onClick={() => setPopoverOpen(true)}>
               <IconMd icon={blockchainLogo} />
-              {t('common.source')}
+              <span>{t('common.source')}</span>
             </Button>
 
             {isPopoverOpen && (
