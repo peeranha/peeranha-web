@@ -5,12 +5,7 @@ import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
-import {
-  BG_PRIMARY_SPECIAL,
-  BORDER_DARK,
-  TEXT_PRIMARY,
-  TEXT_WARNING,
-} from 'style-constants';
+import { BG_PRIMARY_SPECIAL, BORDER_DARK, TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
 import avatarCloseIcon from 'images/avatarCloseIcon.png';
 import addIcon from 'images/tick.png';
 
@@ -237,11 +232,7 @@ const AvatarField = ({ input, meta, disabled }) => {
                 cropRadius={60}
                 closeIconColor="transparent"
                 onCrop={setY}
-                label={
-                  isFileTooLarge
-                    ? t('common.fileSizeErrorMsg')
-                    : t('common.chooseFile')
-                }
+                label={isFileTooLarge ? t('common.fileSizeErrorMsg') : t('common.chooseFile')}
                 labelStyle={isFileTooLarge ? labelErrorStyle : {}}
                 onBeforeFileLoad={(e) => {
                   if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
@@ -282,9 +273,7 @@ const AvatarField = ({ input, meta, disabled }) => {
           </div>
         )}
       </div>
-      <InfoMessage style={{ color: colors.btnColor }}>
-        {t('common.profilesUsersInfo')}
-      </InfoMessage>
+      <InfoMessage style={{ color: colors.btnColor }}>{t('common.profilesUsersInfo')}</InfoMessage>
       <WarningMessage {...meta} isSpecialPosition />
     </Div>
   );

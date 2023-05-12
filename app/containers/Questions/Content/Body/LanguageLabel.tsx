@@ -29,20 +29,14 @@ const LanguageLabel: React.FC<{
           }
         `}
       >
-        <Container
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-          size="sm"
-        >
+        <Container onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} size="sm">
           {visible && (
             <Popover
               label={
                 t('common.translatedFrom') +
                 t(
                   `common.${
-                    languagesWithDescriptions.find(
-                      (obj) => obj.language === language,
-                    ).description
+                    languagesWithDescriptions.find((obj) => obj.language === language).description
                   }`,
                 )
               }

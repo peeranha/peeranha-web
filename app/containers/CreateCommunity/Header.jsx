@@ -15,10 +15,7 @@ import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import Icon from 'components/Icon';
-import {
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
@@ -66,10 +63,7 @@ export const Header = ({ headerDescriptor }) => {
               color={colors.btnColor || BORDER_PRIMARY}
               isColorImportant={true}
             />
-            <Span
-              color={colors.btnColor || TEXT_PRIMARY}
-              className="button-label"
-            >
+            <Span color={colors.btnColor || TEXT_PRIMARY} className="button-label">
               {t('common.close')}
             </Span>
           </button>

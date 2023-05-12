@@ -7,11 +7,7 @@ import {
   COMM_TRANSLATIONS_TITLE_FIELD,
 } from 'containers/EditCommunity/constants';
 import TextInputField from 'components/FormFields/TextInputField';
-import {
-  required,
-  strLength250Max,
-  strLength3x20,
-} from 'components/FormFields/validate';
+import { required, strLength250Max, strLength3x20 } from 'components/FormFields/validate';
 import TextareaField from 'components/FormFields/TextareaField';
 import ToggleSwitchField from 'components/FormFields/ToggleSwitchField';
 import InformationIcon from 'icons/Information';
