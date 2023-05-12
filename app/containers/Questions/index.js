@@ -88,9 +88,7 @@ export const Questions = ({
 
   const skip = page * AMOUNT_POSTS_PAGINATION;
   const isFeed = window.location.pathname === routes.feed(params.communityid);
-  const isNotFollowedCommunities =
-    isEmpty(followedCommunities) ||
-    (followedCommunities.length === 1 && followedCommunities[0] === 0);
+  const isNotFollowedCommunities = isEmpty(followedCommunities) || followedCommunities[0] === 0;
   const isExpert = path === routes.expertPosts() || path === routes.expertPosts(':communityid');
   const isTopCommunitiesDisplay =
     isFeed &&
@@ -140,7 +138,7 @@ export const Questions = ({
     if (page !== 1) {
       setPage(1);
     }
-  }, [typeFilter, createdFilter, postsTypes, isNotFollowedCommunities]);
+  }, [typeFilter, createdFilter, postsTypes, followedCommunities.length]);
 
   useEffect(() => {
     setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
