@@ -15,11 +15,7 @@ import {
   REMOVE_ARTICLE,
   EDIT_ORDER,
 } from './constants';
-import {
-  PinnedArticleType,
-  DocumentationItemMenuType,
-  DocumentationArticle,
-} from './types';
+import { PinnedArticleType, DocumentationItemMenuType, DocumentationArticle } from './types';
 
 export function getArticleDocumentation(articleId: string) {
   return {
@@ -28,9 +24,7 @@ export function getArticleDocumentation(articleId: string) {
   };
 }
 
-export function getArticleDocumentationSuccess(
-  documentationArticle?: DocumentationArticle,
-) {
+export function getArticleDocumentationSuccess(documentationArticle?: DocumentationArticle) {
   return {
     type: GET_ARTICLE_SUCCESS,
     documentationArticle,
@@ -88,18 +82,14 @@ export function saveMenuDraft(menu: Array<DocumentationItemMenuType>) {
   };
 }
 
-export function saveDraftsIds(
-  draftsIds: Array<{ draftId: string; lastmod: string }>,
-) {
+export function saveDraftsIds(draftsIds: Array<{ draftId: string; lastmod: string }>) {
   return {
     type: SAVE_DRAFTS_IDS,
     draftsIds,
   };
 }
 
-export function updateDocumentationMenu(
-  menu: Array<DocumentationItemMenuType>,
-) {
+export function updateDocumentationMenu(menu: Array<DocumentationItemMenuType>) {
   return {
     type: UPDATE_DOCUMENTATION_MENU,
     menu,
@@ -118,9 +108,7 @@ export function updateDocumentationMenuFailed() {
   };
 }
 
-export function updateDocumentationMenuDraft(
-  menu: Array<DocumentationItemMenuType>,
-) {
+export function updateDocumentationMenuDraft(menu: Array<DocumentationItemMenuType>) {
   return {
     type: UPDATE_DOCUMENTATION_MENU_DRAFT,
     menu,

@@ -146,6 +146,7 @@ export const getCommunities = async (count) => {
     variables: {
       first: count,
     },
+    fetchPolicy: 'network-only',
   });
   return communities?.data.communities;
 };

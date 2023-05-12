@@ -79,6 +79,9 @@ export default css`
   .df {
     display: flex;
   }
+  .dif {
+    display: inline-flex;
+  }
   .dg {
     display: grid;
   }

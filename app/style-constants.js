@@ -57,8 +57,6 @@ const graySpecial3 = 'rgba(250, 250, 250, 1)';
 const graySpecial4 = '#f9f9f9';
 const primarySpecial = _get(colors, 'primarySpecial', 'rgba(53, 74, 137, 0.11)');
 
-export const FACEBOOK_MAIN = 'rgb(66, 103, 178)';
-
 const secondarySpecial = _get(colors, 'secondarySpecial', '#c2c6d8');
 
 export const LANDING_FONT = 'Open Sans, sans-serif';
