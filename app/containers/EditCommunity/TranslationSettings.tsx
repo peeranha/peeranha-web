@@ -42,7 +42,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
   const [isOpen, open, close] = useTrigger(true);
-  const isChineseLang = label === CHINESE_LANG;
+  const isChineseLang = CHINESE_LANG.includes(label);
   const removeLanguage = () => {
     removeSelectedLanguage(value);
   };
