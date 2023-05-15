@@ -42,7 +42,7 @@ export function* getQuestionsWorker({
   try {
     let followedCommunities = yield select(makeSelectFollowedCommunities());
     const communities = yield select(selectCommunities());
-    const unhiddenCommunities = communities.reduce((communityList, community) => {
+    const notHiddenCommunities = communities.reduce((communityList, community) => {
       if (!HIDDEN_COMMUNITIES_ID.includes(community.id)) {
         communityList.push(community.id);
       }
@@ -75,7 +75,7 @@ export function* getQuestionsWorker({
     if (communityIdFilter === 0 && parentPage !== feed) {
       questionsList = !hasHiddenCommunities
         ? yield call(getPosts, limit, skip, postTypes)
-        : yield call(getPostsByCommunityId, limit, skip, postTypes, unhiddenCommunities, tags);
+        : yield call(getPostsByCommunityId, limit, skip, postTypes, notHiddenCommunities, tags);
     }
 
     // Load questions for communities where I am

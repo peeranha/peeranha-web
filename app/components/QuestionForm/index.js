@@ -206,7 +206,7 @@ export const QuestionForm = ({
     title: 'Documentation',
   };
 
-  const unhiddenCommunities = communities.filter(
+  const notHiddenCommunities = communities.filter(
     (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
   );
   return (
@@ -227,7 +227,7 @@ export const QuestionForm = ({
           <BaseSpecialOne>
             <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
               <CommunityForm
-                communities={unhiddenCommunities}
+                communities={notHiddenCommunities}
                 communityId={communityId}
                 change={change}
                 questionLoading={questionLoading}
@@ -241,7 +241,7 @@ export const QuestionForm = ({
               {Boolean(!question && isDocumentation && isNaN(parentId)) && (
                 <SubArticleForm
                   locale={locale}
-                  communities={unhiddenCommunities}
+                  communities={notHiddenCommunities}
                   change={change}
                   questionLoading={questionLoading}
                   disableCommForm={isEditForm}

@@ -42,7 +42,7 @@ export const Communities = ({
     () => [communitiesLoading && route === routes.communities()],
     [communitiesLoading, route],
   );
-  const unhiddenCommunities = communities.filter(
+  const notHiddenCommunities = communities.filter(
     (community) => !HIDDEN_COMMUNITIES_ID.includes(community.id),
   );
 
@@ -63,12 +63,12 @@ export const Communities = ({
           SubHeader={SubHeader}
           changeSorting={changeSorting}
           sorting={sorting}
-          communitiesNumber={unhiddenCommunities?.length ?? 0}
+          communitiesNumber={notHiddenCommunities?.length ?? 0}
           profile={profile}
         />
 
         <Content
-          communities={unhiddenCommunities}
+          communities={notHiddenCommunities}
           sorting={sorting}
           locale={locale}
           profile={profile}
