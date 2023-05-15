@@ -54,6 +54,26 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
     return t('post.answer_reputationText');
   };
 
+  const viewStyles = () => {
+    if (!account) {
+      return styles.h3;
+    }
+    if (isAnswered) {
+      return styles.h3Replied;
+    }
+    return styles.h3Reputation;
+  };
+
+  const viewImgStyles = () => {
+    if (!account) {
+      return styles.imgLogin;
+    }
+    if (isAnswered) {
+      return styles.imgReplied;
+    }
+    return styles.imgReputation;
+  };
+
   return (
     <>
       <div css={styles.container}>
@@ -63,7 +83,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
           alt={BANNER_IMG}
         />
         <div css={styles.block}>
-          <div css={!account ? styles.h3 : styles.h3Replied}>
+          <div css={viewStyles()}>
             <div>{viewTitle()}</div>
             <div>{viewText()}</div>
             {!account && (
@@ -72,11 +92,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
               </button>
             )}
           </div>
-          <img
-            css={!account ? styles.imgLogin : styles.imgReplied}
-            src={viewImage()}
-            alt={ILLUSTRATION_IMG}
-          />
+          <img css={viewImgStyles()} src={viewImage()} alt={ILLUSTRATION_IMG} />
         </div>
       </div>
     </>
