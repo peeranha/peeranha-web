@@ -64,7 +64,7 @@ const View = ({
         overflow: hidden;
         padding-right: 6px;
         @media (min-width: 992px) {
-          height: calc(100vh - ${HEADER_HEIGHT}px);
+          height: ${single ? 'max-content' : `calc(100vh - ${HEADER_HEIGHT}px)`};
         }
         :hover {
           overflow-y: unset;
