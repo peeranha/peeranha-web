@@ -184,7 +184,7 @@
   "minutesAgo": "{{minutes}} hace minutos",
   "hoursAgo": "{{hours}} hace horas",
   "yesterday": "Yesterday",
-  "official": "Ayer",
+  "official": "Oficial",
   "profilesUsersInfo": "El tamaño del archivo no debe superar los 5Mb",
   "communityBannerInfo": "Utilice una imagen de al menos 1360 x 120 píxeles. El tamaño del archivo no debe superar 1Mb",
   "fileSizeErrorMsg": "El tamaño del archivo es superior a 5Mb. Elija otro...",
