@@ -107,8 +107,8 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
         <Field
           name={`${COMM_TRANSLATIONS_TITLE_FIELD}-${id}`}
           component={TextInputField}
-          validate={isChineseLang ? [strLength20Max, required] : [strLength3x20, required]}
-          warn={isChineseLang ? [strLength20Max, required] : [strLength3x20, required]}
+          validate={[isChineseLang ? strLength20Max : strLength3x20, required]}
+          warn={[isChineseLang ? strLength20Max : strLength3x20, required]}
           label={t('createCommunity.communityTitle')}
           splitInHalf
           tip={t('createCommunity.communityTitleTip')}
