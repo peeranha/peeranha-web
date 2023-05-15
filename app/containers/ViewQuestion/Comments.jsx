@@ -193,18 +193,6 @@ const CommentView = (item) => {
             locale={item.locale}
             language={item.language || item.questionData?.language}
           />
-          <Button
-            show={!!item.profileInfo && isItWrittenByMe}
-            params={{
-              ...item.buttonParams,
-              commentId: item.id,
-              whowasvoted: item.author.user,
-            }}
-            onClick={() => item.toggleView(!item.isView)}
-          >
-            <Icon icon={editIcon} width="18" fill={BORDER_PRIMARY} />
-            <span>{t('post.editButton')}</span>
-          </Button>
 
           <div id={`delete-comment-${item.answerId}${item.id}`}>
             <AreYouSure
@@ -244,6 +232,18 @@ const CommentView = (item) => {
               </div>
             )}
           </div>
+          <Button
+            show={!!item.profileInfo && isItWrittenByMe}
+            params={{
+              ...item.buttonParams,
+              commentId: item.id,
+              whowasvoted: item.author.user,
+            }}
+            onClick={() => item.toggleView(!item.isView)}
+          >
+            <Icon icon={editIcon} width="18" fill={BORDER_PRIMARY} />
+            <span>{t('post.editButton')}</span>
+          </Button>
         </CommentManage>
       </div>
 
