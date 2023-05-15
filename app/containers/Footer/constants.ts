@@ -38,6 +38,4 @@ export const LINK_PRIVACY_POLICY = 'https://policies.google.com/privacy';
 
 export const LINK_TERMS_OF_SERVICE = 'https://policies.google.com/terms';
 
-export const PEERANHA = 'Peeranha';
-
-export const TARGET_BLANK = '_blank';
+export const FOOTER_LINK_COLOR = '#667085';

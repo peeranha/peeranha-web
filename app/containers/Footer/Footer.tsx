@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
-
+import { APP_MAIN_NAME, TARGET_BLANK } from 'utils/constants';
 import { styles } from './Footer.styled';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaLogoWhite from 'images/Logo.svg?inline';
@@ -10,8 +10,7 @@ import {
   CONTACTS_LINKS,
   LINK_PRIVACY_POLICY,
   LINK_TERMS_OF_SERVICE,
-  PEERANHA,
-  TARGET_BLANK,
+  FOOTER_LINK_COLOR,
 } from './constants';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
@@ -28,9 +27,9 @@ const Footer: React.FC = (): JSX.Element => {
         <div css={styles.logo}>
           {!isSingleCommunityMode && (
             <img
-              key={PEERANHA}
+              key={APP_MAIN_NAME}
               src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
-              alt={PEERANHA}
+              alt={APP_MAIN_NAME}
             />
           )}
         </div>
@@ -69,9 +68,9 @@ const Footer: React.FC = (): JSX.Element => {
                 values={{ year: new Date().getFullYear() }}
                 components={[
                   <img
-                    key={PEERANHA}
+                    key={APP_MAIN_NAME}
                     src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
-                    alt={PEERANHA}
+                    alt={APP_MAIN_NAME}
                   />,
                 ]}
               />
@@ -111,7 +110,7 @@ const Footer: React.FC = (): JSX.Element => {
           <div css={styles.contactsLogo}>
             {CONTACTS_LINKS.map((link) => (
               <a key={link.title} href={link.route} target={TARGET_BLANK}>
-                <link.icon />
+                <link.icon fill={FOOTER_LINK_COLOR} />
               </a>
             ))}
           </div>
