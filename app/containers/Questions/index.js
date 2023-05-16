@@ -11,7 +11,7 @@ import usePagination from 'hooks/usePagination';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getSearchParams } from 'utils/url';
-import { DAEMON, AMOUNT_POSTS_PAGINATION } from 'utils/constants';
+import { DAEMON, POST_TYPE, AMOUNT_POSTS_PAGINATION } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getCookie } from 'utils/cookie';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
@@ -189,11 +189,28 @@ export const Questions = ({
     [profile],
   );
 
+  const getTabTitle = () => {
+    if (postsTypes.length === 1) {
+      switch (postsTypes[0]) {
+        case POST_TYPE.generalPost:
+          return 'common.discussions';
+        case POST_TYPE.expertPost:
+          return 'common.expertPosts';
+        case POST_TYPE.tutorial:
+          return 'common.tutorials';
+        default:
+          return 'post.questions.title';
+      }
+    } else {
+      return `common.${profile ? 'myFeed' : 'feed'}`;
+    }
+  };
+
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
     <div>
       <Seo
-        title={t('post.questions.title')}
+        title={t(getTabTitle())}
         description={t('post.questions.description')}
         language={locale}
       />
