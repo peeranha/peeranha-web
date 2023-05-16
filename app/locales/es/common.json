@@ -133,7 +133,7 @@
   "answer": "Responder",
   "showMore": "Mostrar más {{valor}}",
   "showLess": "Muestra menos {{valor}}",
-  "poweredBy": "©{{año}} Energizado por <0></0>",
+  "poweredBy": "©{{year}} Energizado por <0></0>",
   "poweredByPeeranha": "Energizado por {{image}}",
   "terms": "Acuerdo de operación",
   "noResults": "No hay resultados",

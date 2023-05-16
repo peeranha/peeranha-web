@@ -4,10 +4,7 @@ import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
 import { TEXT_SECONDARY, BORDER_PRIMARY, TEXT_PRIMARY } from 'style-constants';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
 import { css } from '@emotion/react';
 
 import icoTagIcon from 'images/icoTag.svg?external';
@@ -47,10 +44,7 @@ const Button = ({ sorting }) => {
   const { t } = useTranslation();
 
   return (
-    <Span
-      className="d-inline-flex align-items-center mr-2 text-capitalize"
-      bold
-    >
+    <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
       <MediumIcon>
         <IconMd
           className="mr-2"
@@ -70,12 +64,7 @@ const Menu = ({ sortTags, sorting }) => {
   return (
     <Ul>
       {Object.keys(options).map((item) => (
-        <CheckedItem
-          key={item}
-          data-key={item}
-          onClick={sortTags}
-          isActive={item === sorting}
-        >
+        <CheckedItem key={item} data-key={item} onClick={sortTags} isActive={item === sorting}>
           {t(options[item].message)}
         </CheckedItem>
       ))}
@@ -93,10 +82,7 @@ export const Header = ({
   locale,
 }) => {
   const { t } = useTranslation();
-  const path = useMemo(
-    () => window.location.pathname + window.location.hash,
-    [window.location],
-  );
+  const path = useMemo(() => window.location.pathname + window.location.hash, [window.location]);
 
   const profileWithModeratorRights = useMemo(
     () => (profile ? hasGlobalModeratorRole(getPermissions(profile)) : false),
@@ -143,9 +129,7 @@ export const Header = ({
             <A to={communitiesRoute}>
               <NavigationButton className="pl-0" islink>
                 <img src={arrowLeft} alt="x" />
-                <span className="d-none d-sm-inline ml-2">
-                  {t('tags.backToList')}
-                </span>
+                <span className="d-none d-sm-inline ml-2">{t('tags.backToList')}</span>
               </NavigationButton>
             </A>
           )}
@@ -172,11 +156,7 @@ export const Header = ({
                 />
               </MediumIcon>
 
-              <IconSm
-                className="d-inline-flex d-sm-none"
-                fill={BORDER_PRIMARY}
-                icon={addIcon}
-              />
+              <IconSm className="d-inline-flex d-sm-none" fill={BORDER_PRIMARY} icon={addIcon} />
 
               <span className="ml-1 button-label">{t('common.createTag')}</span>
             </NavigationButton>
@@ -186,11 +166,7 @@ export const Header = ({
 
       <Wrapper position="bottom">
         <H3>
-          <MediumImageStyled
-            className="bg-transparent"
-            src={currentCommunity.avatar}
-            alt="tags"
-          />
+          <MediumImageStyled className="bg-transparent" src={currentCommunity.avatar} alt="tags" />
 
           {`${communityTranslationTitle || currentCommunity.name || ''} `}
 

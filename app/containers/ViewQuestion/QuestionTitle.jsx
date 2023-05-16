@@ -24,10 +24,7 @@ import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 
 import { BOUNTY_PAID_CLASSNAME } from './constants';
 
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-} from '../AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 import QuestionLabel from './QuestionLabel';
 
@@ -88,20 +85,13 @@ export const QuestionTitle = ({
   } = questionData;
 
   const isActivePromotion = useMemo(
-    () =>
-      promote &&
-      promote.endsTime > dateNowInSeconds() &&
-      account === questionAuthor,
+    () => promote && promote.endsTime > dateNowInSeconds() && account === questionAuthor,
     [promote, account, questionAuthor],
   );
 
   const promotedQuestionEndsTime = useMemo(() => {
     if (typeof promote === 'object') {
-      return getFormattedDate(
-        promote.endsTime,
-        locale,
-        MONTH_3LETTERS__DAY_YYYY_TIME,
-      );
+      return getFormattedDate(promote.endsTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME);
     }
 
     return null;
@@ -110,13 +100,7 @@ export const QuestionTitle = ({
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
   return title ? (
-    <BaseExtnded
-      paddingTop="5"
-      paddingTopMedia="5"
-      position="middle"
-      paddingBottom="10"
-      withoutBR
-    >
+    <BaseExtnded paddingTop="5" paddingTopMedia="5" position="middle" paddingBottom="10" withoutBR>
       <Div>
         {!correctAnswerId && isItWrittenByMe && answers.length ? (
           <>
@@ -124,9 +108,7 @@ export const QuestionTitle = ({
               <img className="mr-2" src={checkIcon} alt="icon" />
               {t(
                 `post.${
-                  isGeneral
-                    ? 'markGeneralQuestionAndGetEarn'
-                    : 'markExpertQuestionAndGetEarn'
+                  isGeneral ? 'markGeneralQuestionAndGetEarn' : 'markExpertQuestionAndGetEarn'
                 }`,
               )}
             </MarkAnswerNotification>
@@ -148,12 +130,7 @@ export const QuestionTitle = ({
           <QuestionName>{title}</QuestionName>
         </TitleContainer>
 
-        <TagList
-          className="my-2"
-          tags={tags}
-          communityId={communityId}
-          communities={communities}
-        >
+        <TagList className="my-2" tags={tags} communityId={communityId} communities={communities}>
           {!isSingleCommunityWebsite() ? (
             <QuestionCommunity
               className="my-1"

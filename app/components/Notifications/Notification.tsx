@@ -1,54 +1,63 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
-
 import { trimRightZeros } from 'utils/numbers';
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { renderNotificationIcon } from 'utils/notifications';
 
 import {
+  ROUTES_BY_TYPE,
   NOTIFICATIONS_DATA,
   NOTIFICATIONS_TYPES,
   POST_TYPE_TO_LABEL,
-  ROUTES_BY_TYPE,
-} from 'components/Notifications/constants';
+} from './constants';
+import styles from './Notifications.styled';
+import { NotificationLinkProps, NotificationProps, NotificationTimeProps } from './types';
 
-import styles from './Notification.styled';
-
-const single = isSingleCommunityWebsite();
+const isSingleCommunityMode = isSingleCommunityWebsite();
 const communityStyles = singleCommunityStyles();
 
-const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => {
+const Time: React.FC<NotificationTimeProps> = ({
+  time: { rightNow, minutes, hours, yesterday, fullDate },
+}): JSX.Element => {
   const { t } = useTranslation();
+
+  const dateParts = fullDate?.split(' ');
+  const lastDatePart = dateParts?.pop();
+
   return (
-    <span css={styles.timestamp}>
+    <span css={styles.time}>
       {Boolean(rightNow) && t('common.rightNow')}
       {Boolean(minutes) && t('common.minutesAgo', { minutes })}
       {Boolean(hours) && t('common.hoursAgo', { hours })}
       {Boolean(yesterday) && t('common.yesterday')}
-      {Boolean(fullDate) && fullDate}
+      {Boolean(fullDate) && (
+        <p css={styles.fullDate}>
+          {dateParts.join(' ')} <span css={styles.lastDatePart}>{lastDatePart}</span>
+        </p>
+      )}
     </span>
   );
 };
 
-const NotificationLink = ({ isAnotherCommItem, href, text }) =>
-  /* eslint-disable */
+const NotificationLink: React.FC<NotificationLinkProps> = ({
+  isAnotherCommItem,
+  href,
+  children,
+}): JSX.Element =>
   isAnotherCommItem ? (
     <a css={styles.link} href={`${process.env.APP_LOCATION}${href}`}>
-      {text}
+      {children}
     </a>
   ) : (
     <Link css={styles.link} to={href}>
-      {text}
+      {children}
     </Link>
   );
 
-/* eslint-enable */
-
-const Notification = ({
+const Notification: React.FC<NotificationProps> = ({
   top,
   data,
   time,
@@ -58,8 +67,10 @@ const Notification = ({
   height,
   communities,
   notificationsNumber,
-}) => {
+}): JSX.Element => {
   const { t } = useTranslation();
+  const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
+  const href = route(data.question_id, data.title, data.answer_id);
   const isTippedType = [
     NOTIFICATIONS_TYPES.answerTipped,
     NOTIFICATIONS_TYPES.questionTipped,
@@ -68,8 +79,6 @@ const Notification = ({
     NOTIFICATIONS_TYPES.postTypeChanged,
     NOTIFICATIONS_TYPES.communityChanged,
   ].includes(type);
-  const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
-  const href = route(data.question_id, data.title, data.answer_id);
 
   const values = useMemo(() => {
     if (!isTippedType) {
@@ -78,19 +87,22 @@ const Notification = ({
     return {
       quantity: data.quantity
         .split(' ')
-        .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
+        .map((x: string, i: number) => (i === 0 ? trimRightZeros(x) : x))
         .join(' '),
     };
   }, [data.quantity, isTippedType]);
 
-  const isCommunityMode = Boolean(single) && Object.keys(communityStyles).length > 0;
-  const isAnotherCommItem = Boolean(single) && data.community_id !== single;
+  const isCommunityMode = Boolean(isSingleCommunityMode) && Object.keys(communityStyles).length > 0;
+  const isAnotherCommItem =
+    Boolean(isSingleCommunityMode) && data.community_id !== isSingleCommunityMode;
   const isLast = index === notificationsNumber - 1;
 
   const previousPostType = data.old_post_type;
-  const previousCommunity = communities?.find(({ id }) => data.old_community_id === id);
+  const previousCommunity = communities?.find(
+    ({ id }: { id: number }) => data.old_community_id === id,
+  );
   const postType = data.post_type;
-  const currentCommunity = communities?.find(({ id }) => data.community_id === id);
+  const currentCommunity = communities?.find(({ id }: { id: number }) => data.community_id === id);
 
   const notificationTextProps = {
     quantity: values,
@@ -109,50 +121,28 @@ const Notification = ({
   return (
     <div
       css={{
-        ...styles.root,
-        ...(!read ? styles.unreadStyles : {}),
-        ...(isLast && { border: 'none' }),
+        ...styles.container,
+        ...(!read && styles.unread),
+        ...(isLast && styles.lastNotification),
         height: `${height}px`,
         top: `${top}px`,
       }}
     >
-      {renderNotificationIcon(type, isCommunityMode, communityStyles)}
-      <div css={styles.textBlock}>
-        <div css={styles.titleWrapper}>
-          <span>
-            {isChangedType
-              ? notificationTitle.concat(' ', t(additionalTitle, notificationTextProps))
-              : notificationTitle}
-          </span>
+      <div css={styles.titleWrapper}>
+        <div css={styles.textAndIconWrapper}>
+          {renderNotificationIcon(type, isCommunityMode, communityStyles)}
+          <span css={styles.notificationTypeTitle}>{notificationTitle}</span>
         </div>
-        <Time time={time} />
-        <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href} text={data.title} />
+        {isChangedType && (
+          <span css={styles.additionalInfo}>{t(additionalTitle, notificationTextProps)}</span>
+        )}
       </div>
+      <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href}>
+        <span css={styles.notificationTitle}>{data.title}</span>
+      </NotificationLink>
+      <Time time={time} />
     </div>
   );
-};
-
-Notification.propTypes = {
-  read: PropTypes.bool,
-  top: PropTypes.number,
-  data: PropTypes.object,
-  time: PropTypes.object,
-  type: PropTypes.number,
-  small: PropTypes.bool,
-  index: PropTypes.number,
-  height: PropTypes.number,
-  paddingHorizontal: PropTypes.string,
-  notificationsNumber: PropTypes.number,
-};
-
-Time.propTypes = {
-  time: PropTypes.object,
-};
-
-NotificationLink.propTypes = {
-  children: PropTypes.element,
-  isAnotherCommItem: PropTypes.bool,
-  href: PropTypes.string,
 };
 
 export default Notification;
