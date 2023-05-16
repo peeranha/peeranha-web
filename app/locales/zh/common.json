@@ -60,7 +60,7 @@
   "allQuestions": "所有问题",
   "manageMyComm": "查看所有社区",
   "asked": "问",
-  "lastUpdated": "Last updated on",
+  "lastUpdated": "最近更新于",
   "askedWhen": "问 {{when}}",
   "answeredWhen": "已回答 {{when}}",
   "somebodyAsked": "{{account}} 问",
@@ -443,6 +443,7 @@
     "reloadPage": "重新加载页面"
   },
   "answerForm": "你的答案",
+  "reCaptchaMention": "本站受 reCAPTCHA 保护，适用于谷歌的{{privacyPolicy}}和{{termsOfService}}。",
   "results": "结果",
   "translatedFrom": "翻译为 ",
   "selectLanguage": "選擇語言",

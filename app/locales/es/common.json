@@ -60,7 +60,7 @@
   "allQuestions": "Todas las preguntas",
   "manageMyComm": "Ver todas las comunidades",
   "asked": "Preguntó",
-  "lastUpdated": "Last updated on",
+  "lastUpdated": "Última actualización el",
   "askedWhen": "Preguntó {{when}}",
   "answeredWhen": "Contestada {{when}}",
   "somebodyAsked": "{{account}} preguntó",
@@ -456,6 +456,7 @@
     "reloadPage": "Recargar página"
   },
   "answerForm": "Tu respuesta",
+  "reCaptchaMention": "Este sitio está protegido por reCAPTCHA y se aplican las {{privacyPolicy}} y {{termsOfService}} de Google.",
   "results": "Resultados",
   "translatedFrom": "Traducido de ",
   "selectLanguage": "Seleccione el idioma",
