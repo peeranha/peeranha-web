@@ -13,7 +13,7 @@ const POST_QUESTION_BUTTON = 'app_post_question_button';
 
 const MIN_RATING_TO_POST_QUESTION = 0;
 const MIN_ENERGY_TO_POST_QUESTION = 10;
-const NEW_POST_PATHNAME = '/discussions/ask';
+const NEW_POST_PATHNAME = '/ask';
 
 export {
   REDIRECT_TO_ASK_QUESTION_PAGE,
