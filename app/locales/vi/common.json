@@ -456,7 +456,7 @@
     "reloadPage": "Trang tải lại"
   },
   "answerForm": "Câu trả lời của bạn",
-  "reCaptchaMention": "Trang web này được bảo vệ bởi reCAPTCHA và áp dụng {{privacyPolicy}} và {{termsOfService}} của Google.",
+  "reCaptchaMention": "Trang web này được bảo vệ bởi reCAPTCHA và áp dụng <0>Privacy Policy</0> và <1>Terms of Service</1> của Google.",
   "results": "Kết quả",
   "translatedFrom": "Dịch từ ",
   "selectLanguage": "Chọn ngôn ngữ",
