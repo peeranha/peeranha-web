@@ -454,7 +454,7 @@
     "reloadPage": "Reload page"
   },
   "answerForm": "Your Answer",
-  "reCaptchaMention": "This site is protected by reCAPTCHA and the Google <0>{{privacyPolicy}}</0> and <1>{{termsOfService}}</1> apply.",
+  "reCaptchaMention": "This site is protected by reCAPTCHA and the Google <0>Privacy Policy</0> and <1>Terms of Service</1> apply.",
   "errorMinReputation": "To complete this action, your reputation has to be at least 0",
   "subscribers": "Subscribers",
   "markdownIsSupported": "Markdown is supported:",

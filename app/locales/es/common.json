@@ -456,7 +456,7 @@
     "reloadPage": "Recargar página"
   },
   "answerForm": "Tu respuesta",
-  "reCaptchaMention": "Este sitio está protegido por reCAPTCHA y se aplican las {{privacyPolicy}} y {{termsOfService}} de Google.",
+  "reCaptchaMention": "Este sitio está protegido por reCAPTCHA y se aplican las <0>Privacy Policy</0> y <1>Terms of Service</1> de Google.",
   "results": "Resultados",
   "translatedFrom": "Traducido de ",
   "selectLanguage": "Seleccione el idioma",

@@ -443,7 +443,7 @@
     "reloadPage": "重新加载页面"
   },
   "answerForm": "你的答案",
-  "reCaptchaMention": "本站受 reCAPTCHA 保护，适用于谷歌的{{privacyPolicy}}和{{termsOfService}}。",
+  "reCaptchaMention": "本站受 reCAPTCHA 保护，适用于谷歌的 <0>Privacy Policy</0> 和 <1>Terms of Service</1>。",
   "results": "结果",
   "translatedFrom": "翻译为 ",
   "selectLanguage": "選擇語言",
