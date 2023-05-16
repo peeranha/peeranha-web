@@ -19,32 +19,18 @@ const getOffset = () => {
   return 75;
 };
 
-const TopCommunities = ({
-  communities,
-  profile,
-  questions,
-  isTopCommunitiesOnly,
-}) => {
+const TopCommunities = ({ communities, profile, questions, isTopCommunitiesOnly, locale }) => {
   if (!communities || !profile || !communities.length) {
     return null;
   }
 
   const refCommunitiesSection = useRef(null);
 
-  useEffect(
-    () => {
-      if (
-        history.default?.location.hash === '#communities' &&
-        refCommunitiesSection.current
-      ) {
-        window.scrollTo(
-          0,
-          refCommunitiesSection.current.offsetTop - getOffset(),
-        );
-      }
-    },
-    [history.default?.location.hash, questions, refCommunitiesSection],
-  );
+  useEffect(() => {
+    if (history.default?.location.hash === '#communities' && refCommunitiesSection.current) {
+      window.scrollTo(0, refCommunitiesSection.current.offsetTop - getOffset());
+    }
+  }, [history.default?.location.hash, questions, refCommunitiesSection]);
 
   if (profile.ratings?.length && !isTopCommunitiesOnly) {
     return (
@@ -53,6 +39,7 @@ const TopCommunities = ({
         communities={communities}
         single={single}
         ref={refCommunitiesSection}
+        locale={locale}
       />
     );
   }
@@ -61,6 +48,7 @@ const TopCommunities = ({
       communities={communities}
       single={single}
       ref={refCommunitiesSection}
+      locale={locale}
     />
   );
 };
@@ -70,6 +58,7 @@ TopCommunities.propTypes = {
   profile: PropTypes.object,
   questions: PropTypes.array,
   isTopCommunitiesOnly: PropTypes.bool,
+  locale: PropTypes.string,
 };
 
 export default TopCommunities;

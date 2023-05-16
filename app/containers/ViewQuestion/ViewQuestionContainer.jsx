@@ -25,8 +25,7 @@ export const ViewQuestionContainer = (props) => {
 
   const { isAnswered } = props;
   const isTutorial = props.questionData.postType === POST_TYPE.tutorial;
-  const isMinusReputation =
-    getRatingByCommunity(props.profile, props.commId) < 0;
+  const isMinusReputation = getRatingByCommunity(props.profile, props.commId) < 0;
 
   const isHasRole =
     hasGlobalModeratorRole(getPermissions(props.profile)) ||
@@ -70,7 +69,7 @@ ViewQuestionContainer.propTypes = {
   postAnswer: PropTypes.func,
   postAnswerLoading: PropTypes.bool,
   locale: PropTypes.string,
-  translations: PropTypes.object,
+  translations: PropTypes.array,
   questionData: PropTypes.object,
   isAnswered: PropTypes.bool,
 };

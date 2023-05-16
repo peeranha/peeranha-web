@@ -7,17 +7,16 @@ import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
 import history from 'createdHistory';
 import * as routes from 'routes-config';
-
+import usePagination from 'hooks/usePagination';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getSearchParams } from 'utils/url';
-import { DAEMON, POST_TYPE } from 'utils/constants';
+import { DAEMON, POST_TYPE, AMOUNT_POSTS_PAGINATION } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getCookie } from 'utils/cookie';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   makeSelectAccount,
@@ -50,7 +49,6 @@ import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
 import ShowMoreButton from './Content/ShowMoreButton';
-
 import { QUESTION_FILTER } from './constants';
 
 const single = isSingleCommunityWebsite();
@@ -79,8 +77,16 @@ export const Questions = ({
   loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
   postsTypes,
+  questionsCount,
 }) => {
   const { t } = useTranslation();
+  const { firstContentIndex, lastContentIndex, nextPage, prevPage, page, setPage, totalPages } =
+    usePagination({
+      contentPerPage: AMOUNT_POSTS_PAGINATION,
+      count: questionsCount,
+    });
+
+  const skip = page * AMOUNT_POSTS_PAGINATION;
   const isFeed = window.location.pathname === routes.feed(params.communityid);
   const isNotFollowedCommunities = isEmpty(followedCommunities) || followedCommunities[0] === 0;
   const isExpert = path === routes.expertPosts() || path === routes.expertPosts(':communityid');
@@ -112,12 +118,12 @@ export const Questions = ({
     questionFilter,
     postsTypes,
   ]);
-  const getNextQuestions = useCallback(() => {
-    if (!questionFilter) {
+  useEffect(() => {
+    if (page > 1 && !questionFilter) {
       const searchParamsTags = getSearchParams(history.location.search);
       getQuestionsDispatch(
         nextLoadedItems,
-        loadedItems,
+        skip,
         postsTypes,
         searchParamsTags,
         Number(params.communityid) || 0,
@@ -125,20 +131,13 @@ export const Questions = ({
         true,
       );
     }
-  }, [
-    questionsList,
-    questionsList.length,
-    nextLoadedItems,
-    params.communityid,
-    history.location.search,
-    parentPage,
-    questionFilter,
-    loadTopQuestionsDispatch,
-    postsTypes,
-  ]);
+  }, [page]);
 
   useEffect(() => {
     getInitQuestions();
+    if (page !== 1) {
+      setPage(1);
+    }
   }, [typeFilter, createdFilter, postsTypes]);
 
   useEffect(() => {
@@ -226,6 +225,7 @@ export const Questions = ({
         questionFilterFromCookies={questionFilterFromCookies}
         isExpert={isExpert}
         postsTypes={postsTypes}
+        locale={locale}
       />
       {displayBanner && (
         <Banner
@@ -246,12 +246,24 @@ export const Questions = ({
           createdFilter={createdFilter}
           isModerator={isModerator}
           profileInfo={profile}
+          firstContentIndex={firstContentIndex}
+          lastContentIndex={lastContentIndex}
+          nextPage={nextPage}
+          prevPage={prevPage}
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
         />
       )}
       {isTopCommunitiesDisplay && (
-        <TopCommunities communities={communities} profile={profile} isTopCommunitiesOnly />
+        <TopCommunities
+          communities={communities}
+          profile={profile}
+          isTopCommunitiesOnly
+          locale={locale}
+        />
       )}
-      {displayLoader && <LoadingIndicator />}
+      {!questionsList.length && displayLoader && <LoadingIndicator />}
     </div>
   ) : (
     <NotFound />
@@ -275,7 +287,6 @@ Questions.propTypes = {
   match: PropTypes.object,
   getQuestionsDispatch: PropTypes.func,
   redirectToAskQuestionPageDispatch: PropTypes.func,
-  eosService: PropTypes.object,
   profile: PropTypes.object,
   typeFilter: PropTypes.any,
   createdFilter: PropTypes.any,
@@ -292,10 +303,10 @@ export default compose(
     createStructuredSelector({
       account: makeSelectAccount(),
       profile: makeSelectProfileInfo(),
-      eosService: selectEos,
       locale: makeSelectLocale(),
       communities: selectCommunities(),
       communitiesLoading: selectCommunitiesLoading(),
+      questionsCount: questionsSelector.selectQuestionsCount(),
       followedCommunities: makeSelectFollowedCommunities(),
       questionsLoading: questionsSelector.selectQuestionsLoading(),
       topQuestionsLoading: questionsSelector.selectTopQuestionsLoading(),

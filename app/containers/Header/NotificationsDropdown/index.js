@@ -63,9 +63,18 @@ const Div = styled.div`
   }
 `;
 
-const NotificationsDropdown = ({ unreadCount, notifications, filterReadTimestampsDispatch }) => {
+const NotificationsDropdown = ({
+  unreadCount: allUnreadCount,
+  notifications: allNotifications,
+  filterReadTimestampsDispatch,
+}) => {
   const ref = useRef(null);
   const [visible, setVisibility] = useState(false);
+
+  // Temporary fix, will be removed in PEER-682
+  const notifications = allNotifications.filter(({ type }) => NOTIFICATIONS_DATA[type]);
+  const unreadCount = allUnreadCount - (allNotifications.length - notifications.length);
+
   const onClick = useCallback(() => {
     if (visible) {
       filterReadTimestampsDispatch();

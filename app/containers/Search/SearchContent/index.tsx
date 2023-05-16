@@ -12,6 +12,7 @@ export type Post = {
   bestReply: number;
   communityId: string;
   content: string;
+  lastmod: string;
   postTime: string;
   postType: number;
   rating: number;
@@ -23,6 +24,7 @@ export type Post = {
 export type Community = {
   id: number;
   tags: Tag[];
+  translations: Translation[];
 };
 export type Tag = {
   id: string;
@@ -32,6 +34,15 @@ export type Author = {
   displayName: string;
   id: string;
   achievements: { id: string }[];
+};
+
+export type Translation = {
+  communityId: string;
+  description: string | null;
+  enableAutotranslation: boolean;
+  id: string;
+  language: string;
+  name: string;
 };
 
 const SearchContent: React.FC<SearchContentProps> = ({
@@ -46,6 +57,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
         id={post.id}
         locale={locale}
         communities={communities}
+        lastmod={post.lastmod}
         postType={post.postType}
         title={post.title}
         postTime={post.postTime}

@@ -65,7 +65,7 @@ const FooterStyled = styled.footer`
 `;
 
 const Img = styled.img`
-  width: ${({ alt }) => (alt === 'telos' ? 40 : 60)}px;
+  width: 60px;
   height: 15px;
   margin-left: 1px;
   filter: grayscale(100%);

@@ -138,13 +138,11 @@ CreateTag.propTypes = {
   locale: PropTypes.string,
   match: PropTypes.object,
   createTagLoading: PropTypes.bool,
-  suggestTagDispatch: PropTypes.func,
   communities: PropTypes.array,
   faqQuestions: PropTypes.array,
   permissions: PropTypes.array,
   isFormLoading: PropTypes.bool,
   getFormDispatch: PropTypes.func.isRequired,
-  getSuggestedTagsDispatch: PropTypes.func,
   isFormAvailable: PropTypes.bool,
 };
 

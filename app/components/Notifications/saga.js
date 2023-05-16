@@ -81,11 +81,7 @@ export function* loadMoreNotificationsWorker() {
     const newNotifications = response.OK ? response.body.notifications : [];
 
     if (newNotifications.length) {
-      yield put(
-        loadMoreNotificationsSuccess(
-          newNotifications.map(titleConverterMapper),
-        ),
-      );
+      yield put(loadMoreNotificationsSuccess(newNotifications.map(titleConverterMapper)));
     } else {
       yield put(loadMoreNotificationsSuccess([]));
     }
@@ -99,9 +95,6 @@ export function* loadMoreUnreadNotificationsWorker() {
     const now = new Date();
     const { user } = yield select(makeSelectProfileInfo());
     const notifications = yield select(selectUnreadNotifications());
-    const lastTimestamp = yield select(
-      selectUnreadNotificationsLastTimestamp(),
-    );
     const count = yield select(unreadNotificationsCount());
     const isInfoLoaded = yield select(isInfoLoadedSelect());
 
@@ -124,11 +117,7 @@ export function* loadMoreUnreadNotificationsWorker() {
     const newNotifications = response.OK ? response.body.notifications : [];
 
     if (newNotifications.length) {
-      yield put(
-        loadMoreUnreadNotificationsSuccess(
-          newNotifications.map(titleConverterMapper),
-        ),
-      );
+      yield put(loadMoreUnreadNotificationsSuccess(newNotifications.map(titleConverterMapper)));
     } else {
       yield put(loadMoreUnreadNotificationsSuccess([]));
     }
@@ -211,12 +200,9 @@ export function* markAsReadUnreadWorker() {
   yield call(markAsRead, notifications, first, last);
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(LOAD_MORE_NOTIFICATIONS, loadMoreNotificationsWorker);
-  yield takeLatest(
-    LOAD_MORE_UNREAD_NOTIFICATIONS,
-    loadMoreUnreadNotificationsWorker,
-  );
+  yield takeLatest(LOAD_MORE_UNREAD_NOTIFICATIONS, loadMoreUnreadNotificationsWorker);
   yield takeLatest(MARK_ALL_NOTIFICATIONS_AS_READ, markAllAsReadWorker);
   yield takeLatest(MARK_AS_READ_NOTIFICATIONS_ALL, markAsReadAllWorker);
   yield takeLatest(MARK_AS_READ_NOTIFICATIONS_UNREAD, markAsReadUnreadWorker);
