@@ -146,6 +146,7 @@ export const getCommunities = async (count) => {
     variables: {
       first: count,
     },
+    fetchPolicy: 'network-only',
   });
   return communities?.data.communities;
 };
@@ -294,12 +295,14 @@ export const getQuestionFromGraph = async (postId) => {
         },
         fetchPolicy: 'network-only',
       })
-    ).data.post,
+    ).data?.post,
   };
-  post.answers = post.replies.map((reply) => ({
-    ...reply,
-  }));
-  delete post.replies;
+  if (post?.id) {
+    post.answers = post.replies.map((reply) => ({
+      ...reply,
+    }));
+    delete post.replies;
+  }
   return post;
 };
 //

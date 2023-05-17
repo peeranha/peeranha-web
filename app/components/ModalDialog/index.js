@@ -14,20 +14,17 @@ export const modalRoot = document.getElementById('modal');
 export const el = document.createElement('div');
 
 export const ModalDialog = ({ children, show, closeModal }) => {
-  useEffect(
-    () => {
-      try {
-        if (show && modalRoot.childElementCount === 0) {
-          document.getElementsByTagName('body')[0].style.position = 'fixed';
-          modalRoot.appendChild(el);
-        } else if (!show && modalRoot.childElementCount !== 0) {
-          document.getElementsByTagName('body')[0].style.position = 'relative';
-          modalRoot.removeChild(el);
-        }
-      } catch (err) {}
-    },
-    [show],
-  );
+  useEffect(() => {
+    try {
+      if (show && modalRoot.childElementCount === 0) {
+        document.getElementsByTagName('body')[0].style.position = 'fixed';
+        modalRoot.appendChild(el);
+      } else if (!show && modalRoot.childElementCount !== 0) {
+        document.getElementsByTagName('body')[0].style.position = 'relative';
+        modalRoot.removeChild(el);
+      }
+    } catch (err) {}
+  }, [show]);
 
   if (!show) return null;
 
@@ -35,12 +32,7 @@ export const ModalDialog = ({ children, show, closeModal }) => {
     <React.Fragment>
       <ModalStyled>
         <div className="d-flex justify-content-end">
-          <Icon
-            onClick={closeModal}
-            icon={closeIcon}
-            width="16"
-            color={TEXT_SECONDARY_LIGHT}
-          />
+          <Icon onClick={closeModal} icon={closeIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
         </div>
         <div className="modal-children">{children}</div>
       </ModalStyled>

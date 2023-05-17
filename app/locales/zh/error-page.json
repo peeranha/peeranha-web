@@ -4,8 +4,6 @@
   "weAreSorry": "很抱歉，发生了意外错误。",
   "accountDoesNotExist": "帐号不存在",
   "cannotTransferToSelf": "不能转给自己",
-  "notEnoughCPU": "中央处理器不足",
-  "checkScatterConnection": "检查钱包连接",
   "weUpdatedTheApplication": "我们已经更新了应用程序。 ",
   "clearYourBrowser": "清除浏览器缓存以重新启动它。 ",
   "holdDown": "按住 <0>{{ctrl}}</0> 并按 <1>{{f5}}</1>. "

@@ -8,26 +8,16 @@ import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommuni
 
 const single = isSingleCommunityWebsite();
 
-const TagsContainer = ({
-  communities,
-  communityId,
-  tags,
-  postType,
-  isFeed = false,
-}) => (
+const TagsContainer = ({ communities, communityId, tags, postType, locale, isFeed = false }) => (
   <div className="d-flex align-items-center flex-wrap">
-    <Tags
-      className="my-1"
-      tags={tags}
-      communityId={communityId}
-      communities={communities}
-    >
+    <Tags className="my-1" tags={tags} communityId={communityId} communities={communities}>
       {!single ? (
         <QuestionCommunity
           className="my-1"
           communities={communities}
           communityId={communityId}
           postType={postType}
+          locale={locale}
           isFeed={isFeed}
         />
       ) : null}
@@ -40,6 +30,7 @@ TagsContainer.propTypes = {
   communities: PropTypes.array,
   tags: PropTypes.array,
   postType: PropTypes.number,
+  locale: PropTypes.string,
   isFeed: PropTypes.bool,
 };
 

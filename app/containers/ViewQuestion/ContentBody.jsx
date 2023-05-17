@@ -41,6 +41,7 @@ export const ContentBody = ({
   commId,
   histories,
   isOfficialReply,
+  isOriginalLanguage,
 }) => {
   const { t } = useTranslation();
   const isOfficial = questionData.officialReply === answerId || isOfficialReply;
@@ -70,6 +71,8 @@ export const ContentBody = ({
       <Comments
         postId={questionData.id}
         locale={locale}
+        questionData={questionData}
+        isOriginalLanguage={isOriginalLanguage}
         type={type}
         saveComment={saveComment}
         saveCommentLoading={saveCommentLoading}
@@ -101,7 +104,8 @@ ContentBody.propTypes = {
   type: PropTypes.string,
   locale: PropTypes.string,
   content: PropTypes.string,
-  translations: PropTypes.object,
+  translations: PropTypes.array,
+  isOriginalLanguage: PropTypes.bool,
   questionData: PropTypes.object,
   buttonParams: PropTypes.object,
   postCommentLoading: PropTypes.bool,

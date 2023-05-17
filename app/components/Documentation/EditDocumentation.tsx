@@ -31,7 +31,7 @@ import {
   selectDraftsIds,
 } from 'pages/Documentation/selectors';
 import { selectDocumentationMenu, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
-
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Header from './components/Header';
 import Pagination from './components/Pagination';
 
@@ -74,11 +74,12 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   isEditOrder,
   editOrderDispatch,
   draftsIds,
+  locale,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
   const [pinned, setPinned] = useState<string>(pinnedItemMenu.id);
-  const [saveToDraft, setSaveToDraft] = useState<Function>();
+  const [saveToDraft, setSaveToDraft] = useState<Function>(() => async () => {});
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -114,6 +115,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
 
   const viewDocumentationArticle = documentation.find((item) => item.id === viewArticleId);
 
+  const isDraft = draftsIds.find((draft) => draft.draftId === viewArticleId);
+
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
     setEditArticleDispatch({
@@ -128,7 +131,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
 
   const saveDocumentationMenu = () => {
     saveToDraft().then((draftFromSave: Array<DocumentationItemMenuType>) => {
-      if (_.isEqual(documentationMenu, documentationMenuDraft)) {
+      if (_.isEqual(documentationMenu, documentationMenuDraft) && draftFromSave) {
         updateDocumentationMenuDispatch(draftFromSave);
       } else {
         updateDocumentationMenuDispatch(documentationMenuDraft);
@@ -152,7 +155,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
     ) {
       setViewArticleDispatch(id);
       setEditArticleDispatch({
-        id: id,
+        id,
         parentId: '1',
         isEditArticle: false,
       });
@@ -243,6 +246,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                   <ViewContent
                     documentationArticle={viewDocumentationArticle}
                     isEditDocumentation
+                    locale={locale}
+                    isEditPost={Boolean(isDraft)}
                   />
                 )}
                 {editArticle.isEditArticle && (
@@ -300,6 +305,7 @@ export default compose(
       pinnedItemMenu: selectPinnedItemMenu(),
       isEditOrder: selectEditOrder(),
       draftsIds: selectDraftsIds(),
+      locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(getArticleDocumentation, dispatch),

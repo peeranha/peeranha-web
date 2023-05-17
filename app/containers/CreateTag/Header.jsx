@@ -16,15 +16,12 @@ import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
-import { singleCommunityColors } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const isSingleCommunityMode = isSingleCommunityWebsite();
 
-export const Header = ({
-  title,
-  closeRedirectPage,
-  closeButtonAction = null,
-}) => {
+export const Header = ({ title, closeRedirectPage, closeButtonAction = null }) => {
   const { t } = useTranslation();
 
   return (
@@ -43,7 +40,11 @@ export const Header = ({
 
       <WrapperRightPanel className="right-panel">
         <A
-          to={closeRedirectPage || routes.communities()}
+          to={
+            closeRedirectPage || isSingleCommunityMode
+              ? routes.communityTags()
+              : routes.communities()
+          }
           onClick={closeButtonAction}
         >
           <button>
@@ -53,10 +54,7 @@ export const Header = ({
               fill={colors.btnColor || BORDER_PRIMARY}
               isColorImportant
             />
-            <Span
-              color={colors.btnColor || TEXT_PRIMARY}
-              className="button-label"
-            >
+            <Span color={colors.btnColor || TEXT_PRIMARY} className="button-label">
               {t('common.close')}
             </Span>
           </button>

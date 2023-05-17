@@ -8,27 +8,16 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
-import { getCookie } from 'utils/cookie';
-import { AUTOLOGIN_DATA } from 'containers/Login/constants';
-
 import reducer from './reducer';
 import saga from './saga';
 import { getCurrentAccount } from './actions';
 import { selectLastUpdate } from './selectors';
 import { UPDATE_ACC_PERIOD } from './constants';
 
-export const AccountProvider = ({
-  children,
-  lastUpdate,
-  getCurrentAccountDispatch,
-}) => {
+export const AccountProvider = ({ children, lastUpdate, getCurrentAccountDispatch }) => {
   useEffect(() => {
-    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+    getCurrentAccountDispatch();
 
-    if (!autoLoginData?.loginWithFacebook) {
-      getCurrentAccountDispatch();
-    }
-    
     setInterval(() => {
       const diff = Date.now() - lastUpdate;
 
@@ -54,11 +43,8 @@ export default compose(
     createStructuredSelector({
       lastUpdate: selectLastUpdate(),
     }),
-    dispatch => ({
-      getCurrentAccountDispatch: bindActionCreators(
-        getCurrentAccount,
-        dispatch,
-      ),
+    (dispatch) => ({
+      getCurrentAccountDispatch: bindActionCreators(getCurrentAccount, dispatch),
     }),
   ),
 )(AccountProvider);

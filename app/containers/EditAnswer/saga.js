@@ -1,3 +1,5 @@
+import { languagesEnum } from 'app/i18n';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -5,13 +7,10 @@ import * as routes from 'routes-config';
 
 import { editAnswer, getAnswer, getQuestion } from 'utils/questionsManagement';
 
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
-import {
-  selectAnswer,
-  selectQuestionData,
-} from 'containers/ViewQuestion/selectors';
+import { selectAnswer, selectQuestionData } from 'containers/ViewQuestion/selectors';
 
 import {
   EDIT_ANSWER,
@@ -22,12 +21,7 @@ import {
   MIN_RATING_TO_EDIT_ANSWER,
 } from './constants';
 
-import {
-  editAnswerErr,
-  editAnswerSuccess,
-  getAnswerErr,
-  getAnswerSuccess,
-} from './actions';
+import { editAnswerErr, editAnswerSuccess, getAnswerErr, getAnswerSuccess } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY } from 'utils/constants';
@@ -54,14 +48,9 @@ export function* getAnswerWorker({ questionId, answerId }) {
   }
 }
 
-export function* editAnswerWorker({
-  answer,
-  questionId,
-  answerId,
-  official,
-  title,
-}) {
+export function* editAnswerWorker({ answer, questionId, answerId, official, title }) {
   try {
+    const locale = yield select(makeSelectLocale());
     const ethereumService = yield select(selectEthereum);
     const user = yield call(ethereumService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
@@ -75,6 +64,7 @@ export function* editAnswerWorker({
       answerId,
       answerData,
       official,
+      languagesEnum[locale],
       ethereumService,
     );
 
@@ -89,10 +79,7 @@ export function* editAnswerWorker({
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editAnswerSuccess({ ...cachedQuestion }));
-    yield call(
-      createdHistory.push,
-      routes.questionView(questionId, title, answerId),
-    );
+    yield call(createdHistory.push, routes.questionView(questionId, title, answerId));
   } catch (err) {
     yield put(editAnswerErr(err));
   }

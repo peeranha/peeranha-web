@@ -66,6 +66,7 @@ const Div = styled.div`
 const NotificationsDropdown = ({ unreadCount, notifications, filterReadTimestampsDispatch }) => {
   const ref = useRef(null);
   const [visible, setVisibility] = useState(false);
+
   const onClick = useCallback(() => {
     if (visible) {
       filterReadTimestampsDispatch();

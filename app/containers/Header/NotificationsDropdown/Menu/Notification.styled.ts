@@ -27,7 +27,7 @@ const styles = {
       borderBottom: 'none',
     },
   },
-  unreadStyles: {
+  unread: {
     borderLeft: `3px solid ${BORDER_PRIMARY_LIGHT}`,
     background: BG_SECONDARY_SPECIAL_4,
   },
@@ -41,6 +41,11 @@ const styles = {
     '& span': {
       whiteSpace: 'normal',
       lineHeight: '20px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: '-webkit-box !important',
+      '-webkit-line-clamp': '2',
+      '-webkit-box-orient': 'vertical',
     },
   },
   title: {
