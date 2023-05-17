@@ -199,9 +199,9 @@ export const ViewQuestion = ({
     profile,
   };
 
-  const helmetTitle = questionData?.title || t('post.title');
+  const helmetTitle = questionData?.title || t('post.Post');
 
-  const helmetDescription = questionData?.content ?? t('post.title');
+  const helmetDescription = questionData?.content ?? t('post.Post');
 
   const articlePublishedTime = questionData?.postTime ? new Date(questionData.postTime * 1000) : ``;
 
