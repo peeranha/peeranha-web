@@ -5,10 +5,10 @@ export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
 export const ContractsMapping = {
-  [CONTRACT_TOKEN]: 'token',
-  [CONTRACT_USER]: 'user',
-  [CONTRACT_CONTENT]: 'content',
-  [CONTRACT_COMMUNITY]: 'community',
+  [CONTRACT_TOKEN]: ['token', process.env.PEERANHA_TOKEN],
+  [CONTRACT_USER]: ['user', process.env.USER_ADDRESS],
+  [CONTRACT_CONTENT]: ['content', process.env.CONTENT_ADDRESS],
+  [CONTRACT_COMMUNITY]: ['community', process.env.COMMUNITY_ADDRESS],
 };
 
 // Transaction names
@@ -92,6 +92,11 @@ const comment = `
     content
     isDeleted
     properties
+    language
+    translations {
+      language
+      content
+    }
 `;
 
 const reply = `
@@ -112,6 +117,13 @@ const reply = `
     isFirstReply
     isQuickReply
     properties
+    language
+    translations {
+      language
+      content
+    }
+    handle
+    messengerType
     comments (
       orderBy: postTime,
       orderDirection: asc,
@@ -131,6 +143,12 @@ const post = `
     rating
     postTime
     communityId
+    language
+    translations {
+      language
+      content
+      title
+    }
     title
     content
     commentCount
@@ -142,6 +160,8 @@ const post = `
     isFirstReply
     isQuickReply
     properties
+    handle
+    messengerType
     replies (
       orderBy: postTime,
       orderDirection: desc,
@@ -159,6 +179,12 @@ const post = `
     tags {
       id
       name
+    }
+    language
+    translations {
+      language
+      title
+      content
     }
 `;
 
@@ -270,6 +296,14 @@ export const communitiesQuery = `
           description
           website
           language
+          translations {
+            communityId
+            description
+            enableAutotranslation
+            id
+            language
+            name
+          }
           isFrozen
           creationTime
           postCount
@@ -277,6 +311,10 @@ export const communitiesQuery = `
           deletedPostCount
           followingUsers
           replyCount
+          translations {
+            language
+            enableAutotranslation
+          }
         }
       }`;
 
@@ -359,12 +397,24 @@ export const communityQuery = `
           description
           website
           language
+          translations {
+            communityId
+            description
+            enableAutotranslation
+            id
+            language
+            name
+          }
           isFrozen
           creationTime
           postCount
           deletedPostCount
           followingUsers
           replyCount
+          translations {
+            language
+            enableAutotranslation
+          }
         }
       }`;
 

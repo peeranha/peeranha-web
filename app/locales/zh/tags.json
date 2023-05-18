@@ -18,18 +18,9 @@
   "suggestTagWhichWillbeUseful": "建议一个标签，这将对您和其他 100 位投票的用户有用。",
   "creatorCannotUpvoteOwnComm": "创作者不能为自己的标签投票",
   "descriptionTags": "标签说明",
-  "suggestedTags": "建议的标签",
   "createTag": "创建标签",
-  "voteForNewTags": "为新标签投票",
   "findTag": "查找标签",
   "tagsCollection": "标签集合",
   "tagsDescription": "标签 描述",
-  "suggested": {
-    "title": "建议的标签",
-    "description": "建议的标签 | 描述",
-    "noSuggestedTags": "没有建议的标签",
-    "topTagsInCommunity": "社区中的热门标签",
-    "tagDescription": "描述"
-  },
   "saveTag": "救"
 }

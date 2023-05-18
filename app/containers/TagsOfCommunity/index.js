@@ -35,7 +35,6 @@ import reducer from './reducer';
 import { setEditTagData } from './actions';
 
 import Content from './Content';
-import Aside from './Aside';
 import { getCommunityTags } from '../DataCacheProvider/actions';
 
 const single = isSingleCommunityWebsite();
@@ -123,7 +122,6 @@ export const TagsOfCommunity = ({
         communityId={communityId}
         tagsNumber={tags[communityId]?.length}
         currentCommunity={currentCommunity}
-        Aside={<Aside suggestedTags={[]} communityId={communityId} />}
         Content={
           <Content
             tags={existingTags}

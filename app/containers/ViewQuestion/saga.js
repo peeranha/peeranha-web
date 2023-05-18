@@ -1,4 +1,4 @@
-import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
+import { languagesEnum } from 'app/i18n';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getProfileInfo } from 'utils/profileManagement';
 import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
@@ -22,7 +22,6 @@ import {
   markAsAccepted,
   postAnswer,
   postComment,
-  updateDocumentationTree,
   upVote,
   voteToDelete,
   votingStatus,
@@ -127,7 +126,7 @@ import {
 } from './validate';
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getQuestionFromGraph } from '../../utils/theGraph';
+import { getQuestionFromGraph } from 'utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
@@ -214,31 +213,7 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
     }));
   }
 
-  // const bounty = yield call(getQuestionBounty, questionId, eosService);
-  // yield put(getQuestionBountySuccess(bounty));
   question.isGeneral = isGeneralQuestion(question);
-
-  // if (promote && promote.ends_time > dateNowInSeconds()) {
-  //   question.promote = { ...promote };
-  // } else {
-  //   const promotedQuestions = yield call(
-  //     getPromotedQuestions,
-  //     eosService,
-  //     question.communityId,
-  //   );
-  //
-  //   const promotedQuestion = promotedQuestions.find(
-  //     item => item.question_id === questionId,
-  //   );
-  //
-  //   if (promotedQuestion) {
-  //     question.promote = {
-  //       startTime: promotedQuestion.start_time,
-  //       endsTime: promotedQuestion.ends_time,
-  //     };
-  //   }
-  // }
-  //
 
   const users = new Map();
 
@@ -250,28 +225,8 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
         : [currentItem],
     );
 
-    // currentItem.votingStatus = votingStatus(currentItem);
     if (currentItem.content) return;
     currentItem.content = 'content';
-
-    // const content = yield call(getText, currentItem.ipfsLink);
-    //
-    // try {
-    //   if (
-    //     typeof JSON.parse(content) == 'string' ||
-    //     typeof JSON.parse(content) == 'number'
-    //   ) {
-    //     currentItem.content = content;
-    //   } else {
-    //     currentItem.content = JSON.parse(content);
-    //   }
-    // } catch (err) {
-    //   currentItem.content = content;
-    // }
-    //
-    // currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
-
-    //
   }
 
   function* processQuestion() {
@@ -369,6 +324,7 @@ export function* saveCommentWorker({
       answerId,
       commentId,
       ipfsHash,
+      languagesEnum[locale],
       ethereumService,
     );
 
@@ -408,7 +364,7 @@ export function* saveCommentWorker({
 
 export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -453,7 +409,7 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
 
 export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -548,10 +504,6 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
     } else {
       yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
     }
-    // if (questionBounty) {
-    //   yield call(payBounty, profileInfo?.user, questionId, true, eosService);
-    //   yield put(payBountySuccess(buttonId));
-    // }
 
     yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
 
@@ -632,7 +584,7 @@ export function* showAddCommentFormWorker({ toggleFormButtonId, answerId }) {
 
 export function* postCommentWorker({ answerId, questionId, comment, reset, toggleView, buttonId }) {
   try {
-    const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
+    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
     yield call(checkPostCommentAvailableWorker, buttonId, answerId);
     const commentData = {
@@ -648,6 +600,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
       questionId,
       answerId,
       ipfsHash,
+      languagesEnum[locale],
       ethereumService,
     );
 
@@ -708,7 +661,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, ethereumService, profileInfo, histories, account } = yield call(
+    const { questionData, ethereumService, locale, profileInfo, histories, account } = yield call(
       getParams,
     );
 
@@ -735,6 +688,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       questionId,
       ipfsHash,
       official,
+      languagesEnum[locale],
       ethereumService,
     );
 
@@ -909,7 +863,7 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
 
 export function* voteToDeleteWorker({ questionId, answerId, commentId, buttonId, whoWasVoted }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasVoted];
 
@@ -943,7 +897,7 @@ export function* voteToDeleteWorker({ questionId, answerId, commentId, buttonId,
       },
     );
 
-    yield call(voteToDelete, profileInfo.user, questionId, answerId, commentId, eosService);
+    yield call(voteToDelete, profileInfo.user, questionId, answerId, commentId, ethereumService);
 
     const isDeleteCommentButton = buttonId.includes('delete-comment-');
     const isDeleteAnswerButton = buttonId.includes(`${ANSWER_TYPE}_delete_`);
@@ -1078,8 +1032,8 @@ function* changeQuestionTypeWorker({ buttonId }) {
 
 function* payBountyWorker({ buttonId }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
-    yield call(payBounty, profileInfo?.user, questionData?.id, false, eosService);
+    const { questionData, ethereumService, profileInfo } = yield call(getParams);
+    yield call(payBounty, profileInfo?.user, questionData?.id, false, ethereumService);
     yield put(payBountySuccess(buttonId));
   } catch (err) {
     yield put(payBountyError(err, buttonId));

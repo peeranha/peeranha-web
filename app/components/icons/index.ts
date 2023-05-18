@@ -88,7 +88,6 @@ export { default as Official } from './Official';
 export { default as Loader } from './Loader';
 export { default as Reload } from './Reload';
 export { default as ReloadRounded } from './ReloadRounded';
-export { default as Scatter } from './Scatter';
 export { default as Search } from './Search';
 export { default as SingleCommunity } from './SingleCommunity';
 export { default as Telegram } from './Telegram';

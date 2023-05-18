@@ -131,22 +131,17 @@ const QuestionType = ({ postType, className, isPromoted = false, isSearch = fals
                 label={type.label}
                 items={type.items}
                 isSearch={isSearch}
+                width={290}
               />
             )}
             <Icon
               isExpert={type.isExpert}
               isTutorial={type.isTutorial}
               isDocumentation={type.isDocumentation}
-              className="mr-2"
+              className={`mr-2 ${!isSearch && 'ml4'}`}
               icon={type.icon}
             />
           </Container>
-        </LabelItem>
-      )}
-
-      {isPromoted && (
-        <LabelItem>
-          <PromotedLabel>{t('common.promoted')}</PromotedLabel>
         </LabelItem>
       )}
     </div>

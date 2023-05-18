@@ -26,10 +26,14 @@ export const Div = styled.div`
     img {
       margin-right: ${(x) => (x.isSpecialPosition ? '0px' : '12px')};
       transform: ${(x) => (x.isSpecialPosition ? 'rotate(90deg) translateX(8px)' : '0deg')};
+
+      @media only screen and (max-width: 1100px) {
+        display: none !important;
+      }
     }
 
     span {
-      min-width: 160px;
+      min-width: 155px;
     }
   }
 `;
