@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { TEXT_SECONDARY } from 'style-constants';
 
 import { languages } from 'app/i18n';
 
@@ -9,13 +7,41 @@ import { setCookie, getCookie } from 'utils/cookie';
 
 import { APP_LOCALE } from 'containers/LanguageProvider/constants';
 
-import Span from 'components/Span';
+import ChangeLocalePopup from './ChangeLocalePopup';
+import ChangeLocaleButton from './ChangeLocaleButton';
+
 import Dropdown from 'components/Dropdown';
 
 import { Flag, Li } from './Styled';
+import SelectedArrow from 'icons/SelectedArrow';
+import useMediaQuery from 'hooks/useMediaQuery';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
 
-export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
+const colors = singleCommunityColors();
+const singleCommunityId = isSingleCommunityWebsite();
+
+export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) => {
+  const [open, setOpen] = useState(false);
   const { t, i18n } = useTranslation();
+  const isDesktop = useMediaQuery('(min-width: 992px)');
+
+  const getAvailableLanguages = () => {
+    const communityTranslations = communities?.find(
+      (community) => community.id === singleCommunityId,
+    )?.translations;
+
+    if (singleCommunityId) {
+      return communityTranslations?.length
+        ? {
+            en: 'en',
+            ...communityTranslations
+              .map((translation) => translation.language)
+              .reduce((acc, value) => ({ ...acc, [value]: value }), {}),
+          }
+        : languages;
+    }
+    return languages;
+  };
 
   useEffect(() => {
     const lang = getCookie(APP_LOCALE);
@@ -38,41 +64,57 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
   };
 
   return (
-    <Dropdown
-      className="mr-3"
-      button={
-        <React.Fragment>
-          <Span
-            className="d-flex align-items-center mr-1"
-            fontSize="16"
-            lineHeight="20"
-            color={TEXT_SECONDARY}
-          >
-            <Flag src={require(`images/${locale}_lang.png`)} alt="country" />
-            {withTitle && t(`common.${locale}`)}
-          </Span>
-        </React.Fragment>
-      }
-      menu={
-        <ul>
-          {Object.keys(languages).map((item) => (
-            <Li
-              key={item}
-              role="presentation"
-              onClick={() => setLocale(item)}
-              isBold={item === locale}
-            >
-              <Flag src={require(`images/${item}_lang.png`)} alt="language" />
-              {t(`common.${item}`)}
-            </Li>
-          ))}
-        </ul>
-      }
-      id="choose-language-dropdown"
-      isArrowed
-      isMenuLabelMobile
-      isArrowMarginMobile
-    />
+    <>
+      {isDesktop ? (
+        <Dropdown
+          className="mr-3"
+          button={<ChangeLocaleButton locale={locale} />}
+          menu={
+            <ul>
+              {Object.keys(getAvailableLanguages()).map((item) => (
+                <Li
+                  key={item}
+                  role="presentation"
+                  onClick={() => setLocale(item)}
+                  isBold={item === locale}
+                  css={{
+                    ':hover': {
+                      color: `${colors.btnColor || 'var(--color-blue)'}`,
+                      backgroundColor: 'unset',
+                    },
+                  }}
+                >
+                  <Flag
+                    src={`https://images.peeranha.io/languages/${item}_lang.svg`}
+                    alt="language"
+                    css={{
+                      width: '18px',
+                      height: '18px',
+                    }}
+                  />
+                  {t(`common.${item}`)}
+                  {item === locale && (
+                    <SelectedArrow
+                      className="ml-3"
+                      css={{ path: { fill: 'none' } }}
+                      stroke={colors.linkColor || 'var(--color-blue)'}
+                    />
+                  )}
+                </Li>
+              ))}
+            </ul>
+          }
+          id="choose-language-dropdown"
+          isArrowed
+          isMenuLabelMobile
+          isArrowMarginMobile
+        />
+      ) : (
+        <div className="full-width df aic jcsb cup" onClick={() => setOpen(true)}>
+          <ChangeLocalePopup setLocale={setLocale} locale={locale} open={open} setOpen={setOpen} />
+        </div>
+      )}
+    </>
   );
 };
 

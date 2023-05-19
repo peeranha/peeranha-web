@@ -1,7 +1,6 @@
 {
   "title": "Wallet",
   "description": "Wallet | Description",
-  "eosAccount": "Telos account",
   "currentPeriod": "Current period in progress",
   "periodStillInProgress": "This period is still in progress. It's high time to increase your reputation and gain some tokens.",
   "payoutPending": "Payout pending",

@@ -1,5 +1,4 @@
 import ScrollContainer from './index';
-import wombatLogo from 'images/wombat.png';
 
 const Store = {
   component: ScrollContainer,
@@ -12,8 +11,7 @@ export const Variants = () => (
       <h4>Inactive scroll container</h4>
       <ScrollContainer>
         <div className="df">
-          <img src={wombatLogo} alt="" />
-          <img src={wombatLogo} alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
         </div>
       </ScrollContainer>
     </div>
@@ -21,13 +19,15 @@ export const Variants = () => (
       <h4>Active scroll container</h4>
       <ScrollContainer>
         <div className="df">
-          <img src={wombatLogo} alt="" />
-          <img src={wombatLogo} alt="" />
-          <img src={wombatLogo} alt="" />
-          <img src={wombatLogo} alt="" />
-          <img src={wombatLogo} alt="" />
-          <img src={wombatLogo} alt="" />
-          <img src={wombatLogo} alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
+          <img src="https://images.peeranha.io/communities/aave/aaveLogo.svg" alt="" />
         </div>
       </ScrollContainer>
     </div>

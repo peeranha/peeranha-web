@@ -6,12 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import {
-  TEXT_PRIMARY,
-  BG_PRIMARY,
-  BORDER_SECONDARY,
-  LINK_COLOR,
-} from 'style-constants';
+import { TEXT_PRIMARY, BG_PRIMARY, BORDER_SECONDARY, LINK_COLOR } from 'style-constants';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -82,18 +77,6 @@ const Link = styled.a`
   span {
     color: ${colors.linkColor || LINK_COLOR};
   }
-`;
-
-const Italic = styled.span`
-  width: max-content;
-  font-style: italic;
-  margin-right: 6px;
-`;
-
-const Bold = styled.span`
-  width: max-content;
-  font-weight: 600;
-  margin-left: 6px;
 `;
 
 const messagesArray = [

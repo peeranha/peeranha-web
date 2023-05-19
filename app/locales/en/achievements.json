@@ -128,7 +128,7 @@
   "progressBarPopover": {
     "ratingRelated": {
       "single": "rating point left to unlock this achievement",
-      "multiple": "rating points left to unlock this achievement"
+      "multiple": "reputation points left to unlock this achievement"
     },
     "questionAskedRelated": {
       "single": "question left to unlock this achievement",

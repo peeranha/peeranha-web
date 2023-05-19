@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
+import usePagination from 'hooks/usePagination';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,8 +19,9 @@ import {
 import AdditionalInfo from './AdditionalInfo';
 import MoveSection from './MoveSection';
 import Body from './Body';
+import Pagination from './Pagination';
 
-import { POST_TYPE } from '../../../utils/constants';
+import { POST_TYPE, AMOUNT_POSTS_PAGINATION } from '../../../utils/constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
@@ -79,18 +81,17 @@ const QI = ({
   postType,
   isFeed,
   isCommunityFeed,
+  language,
+  translations,
+  handle,
+  messengerType,
 }) => {
   const ref = useRef(null);
 
   const isExpert = postType === POST_TYPE.expertPost;
 
   const displayTopQuestionMove = useMemo(
-    () =>
-      isModerator &&
-      isTopQuestion &&
-      questionFilter === 1 &&
-      !isPromoted &&
-      !isHomePage,
+    () => isModerator && isTopQuestion && questionFilter === 1 && !isPromoted && !isHomePage,
     [isTopQuestion, isModerator, questionFilter, isPromoted, isHomePage],
   );
 
@@ -140,9 +141,7 @@ const QI = ({
       innerRef={ref}
       isTutorial={postType === POST_TYPE.tutorial}
       isDiscussion={postType === POST_TYPE.generalPost}
-      draggable={
-        isModerator && !isHomePage && questionFilter === 1 && !isPromoted
-      }
+      draggable={isModerator && !isHomePage && questionFilter === 1 && !isPromoted}
       onDrop={!isHomePage ? onDrop : undefined}
       onDragOver={!isHomePage ? onDragOver : undefined}
       onDragStart={!isHomePage ? onDragStart : undefined}
@@ -175,7 +174,11 @@ const QI = ({
           ipfsHash={ipfsHash}
           isModerator={isModerator}
           title={title}
-          author={author}
+          author={{
+            ...author,
+            handle,
+            messengerType,
+          }}
           postTime={postTime}
           locale={locale}
           communityId={communityId}
@@ -194,6 +197,8 @@ const QI = ({
           isFeed={isFeed}
           isExpert={isExpert}
           isCommunityFeed={isCommunityFeed}
+          postLanguage={language}
+          translations={translations}
         />
       </Div>
     </Box>
@@ -225,44 +230,59 @@ export const Content = ({
   isSearchPage,
   isFeed,
   isCommunityFeed,
-}) => (
-  <div className="position-relative">
-    {/* {promotedQuestionsList && */}
-    {/*  promotedQuestionsList.map((item, index) => ( */}
-    {/*    <QuestionItem */}
-    {/*      {...item} */}
-    {/*      index={index} */}
-    {/*      first={index === 0} */}
-    {/*      last={index === questionsList.length - 1} */}
-    {/*      locale={locale} */}
-    {/*      communities={communities} */}
-    {/*      key={item.id} */}
-    {/*      isModerator={isModerator} */}
-    {/*      profileInfo={profileInfo} */}
-    {/*      isPromoted */}
-    {/*      isHomePage={isHomePage} */}
-    {/*    /> */}
-    {/*  ))} */}
-    {questionsList.map((item, index) => (
-      <QuestionItem
-        {...item}
-        isGeneral={isGeneralQuestion(item)}
-        index={index}
-        first={index === 0}
-        last={index === questionsList.length - 1}
-        locale={locale}
-        communities={communities}
-        key={item.id}
-        isModerator={isModerator}
-        profileInfo={profileInfo}
-        isHomePage={isHomePage}
-        isSearchPage={isSearchPage}
-        isFeed={isFeed}
-        isCommunityFeed={isCommunityFeed}
+}) => {
+  const { firstContentIndex, lastContentIndex, nextPage, prevPage, page, setPage, totalPages } =
+    usePagination({
+      contentPerPage: AMOUNT_POSTS_PAGINATION,
+      count: questionsList.length,
+    });
+
+  return (
+    <div className="position-relative">
+      {/* {promotedQuestionsList && */}
+      {/*  promotedQuestionsList.map((item, index) => ( */}
+      {/*    <QuestionItem */}
+      {/*      {...item} */}
+      {/*      index={index} */}
+      {/*      first={index === 0} */}
+      {/*      last={index === questionsList.length - 1} */}
+      {/*      locale={locale} */}
+      {/*      communities={communities} */}
+      {/*      key={item.id} */}
+      {/*      isModerator={isModerator} */}
+      {/*      profileInfo={profileInfo} */}
+      {/*      isPromoted */}
+      {/*      isHomePage={isHomePage} */}
+      {/*    /> */}
+      {/*  ))} */}
+      {questionsList.slice(firstContentIndex, lastContentIndex).map((item, index) => (
+        <QuestionItem
+          {...item}
+          isGeneral={isGeneralQuestion(item)}
+          index={index}
+          first={index === 0}
+          last={index === questionsList.length - 1}
+          locale={locale}
+          communities={communities}
+          key={item.id}
+          isModerator={isModerator}
+          profileInfo={profileInfo}
+          isHomePage={isHomePage}
+          isSearchPage={isSearchPage}
+          isFeed={isFeed}
+          isCommunityFeed={isCommunityFeed}
+        />
+      ))}
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        prevPage={prevPage}
+        setPage={setPage}
+        nextPage={nextPage}
       />
-    ))}
-  </div>
-);
+    </div>
+  );
+};
 
 QI.propTypes = {
   id: PropTypes.string,
@@ -306,6 +326,13 @@ Content.propTypes = {
   isHomePage: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
   isFeed: PropTypes.bool,
+  firstContentIndex: PropTypes.number,
+  lastContentIndex: PropTypes.number,
+  nextPage: PropTypes.func,
+  prevPage: PropTypes.func,
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  totalPages: PropTypes.number,
 };
 
 export { QuestionItem };

@@ -166,16 +166,17 @@ export const customSubHeaderConfig = {
 };
 
 export const MintStateLabsStyles = {
+  name: 'mintStateLabs',
   documentationPosition: 'top',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/mintStateLabs/mintStateLabsIcon.svg',
-  favicon: 'https://images.peeranha.io/communities/mintStateLabs/MSLLogo.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/mintStateLabs/logo-signUp.svg',
 
   colors: {
+    appWindowsColor: '#2d89ef',
+    appSafarieColor: '#5bbad5',
     mainSubHeaderBgColor: '#282828',
     mainBackground: '#F5F5F5',
     linkColor: '#53A6EC',
@@ -184,7 +185,6 @@ export const MintStateLabsStyles = {
     headerPrimary: '#53A6EC',
     commentOption: '#53A6EC',
     contentHeader: '#53A6EC',
-    blockedInfoArea: '#DAEEFF',
     transparentIconColor: '#FFFF',
     loaderColor: '#53A6EC',
     votingIconColor: '#53A6EC',

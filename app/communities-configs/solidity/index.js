@@ -166,16 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const SolidityStyles = {
+  name: 'solidity',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/solidity/solidity-logo.svg',
-  favicon:
-    'https://images.peeranha.io/communities/solidity/favicon-solidity.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/solidity/logo.svg',
 
   colors: {
+    appWindowsColor: '#ffc40d',
+    appSafarieColor: '#5b81d5',
     mainSubHeaderBgColor: '#FAFAFA',
     mainBackground: '#EAECF4',
     linkColor: 'rgba(25, 68, 176, 1)',
@@ -184,7 +184,6 @@ export const SolidityStyles = {
     headerPrimary: 'rgba(25, 68, 176, 1)',
     commentOption: 'rgba(25, 68, 176, 1)',
     contentHeader: 'rgba(25, 68, 176, 1)',
-    blockedInfoArea: 'rgba(0, 47, 167,0.11)',
     transparentIconColor: '#fff',
     loaderColor: 'rgba(25, 68, 176, 1)',
     votingIconColor: 'rgba(25, 68, 176, 1)',

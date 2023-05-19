@@ -112,9 +112,9 @@ const SettingsOfUser = ({
   loginData,
   isAvailable,
   profile,
-  tgData,
 }) => {
   const { t } = useTranslation();
+
   const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(event.currentTarget.id, t('common.copied'));
@@ -122,16 +122,7 @@ const SettingsOfUser = ({
 
   return isAvailable ? (
     <div>
-      <AuthorizationData
-        locale={locale}
-        ownerKey={ownerKey}
-        loginData={loginData}
-        activeKey={activeKey}
-        className={className}
-        writeToBuffer={writeToBuffer}
-        tgData={tgData}
-        profile={profile}
-      />
+      <AuthorizationData className={className} />
     </div>
   ) : (
     <div className={className}>
@@ -150,7 +141,6 @@ SettingsOfUser.propTypes = {
   isAvailable: PropTypes.bool,
   profile: PropTypes.object,
   account: PropTypes.string,
-  tgData: PropTypes.object,
 };
 
 export default React.memo(SettingsOfUser);

@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-import {
-  BG_PRIMARY_SPECIAL_2,
-  BORDER_SECONDARY,
-  BORDER_PRIMARY,
-} from 'style-constants';
+import { BG_PRIMARY_SPECIAL_2, BORDER_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();

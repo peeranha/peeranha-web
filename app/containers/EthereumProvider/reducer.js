@@ -14,7 +14,7 @@ import {
   TRANSACTION_IN_PENDING,
   TRANSACTION_COMPLETED,
   TRANSACTION_FAILED,
-  TRANSACTION_INITIALISED,
+  TRANSACTION_INITIALIZED,
 } from './constants';
 
 export const initialState = fromJS({
@@ -41,12 +41,10 @@ function ethereumProviderReducer(state = initialState, action) {
       return state.set('showModal', true);
     case HIDE_MODAL:
       return state.set('showModal', false);
-    case TRANSACTION_INITIALISED:
+    case TRANSACTION_INITIALIZED:
       return state.set('transactionInitialised', true);
     case TRANSACTION_IN_PENDING:
-      return state
-        .set('inPending', true)
-        .set('transactionHash', transactionHash);
+      return state.set('inPending', true).set('transactionHash', transactionHash);
     case TRANSACTION_COMPLETED:
       return state.set('inPending', false).set('transactionInitialised', false);
     case TRANSACTION_FAILED:

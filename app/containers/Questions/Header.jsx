@@ -7,11 +7,9 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import {
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
-  TEXT_PRIMARY,
-} from 'style-constants';
+
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_PRIMARY } from 'style-constants';
+
 import TagFilter from 'components/TagFilter';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
@@ -139,9 +137,7 @@ export const Header = ({
   useEffect(() => {
     async function getTagsName() {
       if (single) {
-        const searchParamsTags = getSearchParams(
-          createdHistory.location.search,
-        );
+        const searchParamsTags = getSearchParams(createdHistory.location.search);
         setTags(searchParamsTags);
         setTagsNames(await getTagsNameByIds(searchParamsTags));
       }
@@ -250,13 +246,10 @@ export const Header = ({
             </PageContentHeaderRightPanel>
           )} */}
         </PageContentHeader>
-        {communityEditingAllowed && (
+        {communityEditingAllowed && isFeed && (
           <EditCommunityButton>
             <button onClick={routeToEditCommunity} className="aic">
-              <IconMd
-                icon={pencilIcon}
-                color={colors.btnColor || TEXT_PRIMARY}
-              />
+              <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
               <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
                 {t('common.editCommunity')}
               </Span>
@@ -264,11 +257,7 @@ export const Header = ({
           </EditCommunityButton>
         )}
         {Boolean(tags.length) && (
-          <TagFilter
-            tags={tags}
-            tagsNames={tagsNames}
-            communityId={single}
-          ></TagFilter>
+          <TagFilter tags={tags} tagsNames={tagsNames} communityId={single}></TagFilter>
         )}
       </PageContentHeaderContainer>
     </Wrapper>

@@ -67,6 +67,9 @@ export default css`
   .dib {
     display: inline-block;
   }
+  .dif {
+    display: inline-flex;
+  }
   .dn {
     display: none;
   }
@@ -76,8 +79,14 @@ export default css`
   .df {
     display: flex;
   }
+  .dif {
+    display: inline-flex;
+  }
   .dg {
     display: grid;
+  }
+  .clarity {
+    opacity: 0;
   }
   .jcsb {
     justify-content: space-between;
@@ -100,11 +109,17 @@ export default css`
   .aife {
     align-items: flex-end;
   }
+  .aifs {
+    align-items: flex-start;
+  }
   .fdc {
     flex-direction: column;
   }
   .fdr {
     flex-direction: row;
+  }
+  .fdrr {
+    flex-direction: row-reverse;
   }
   .f1 {
     flex: 1;
@@ -130,6 +145,9 @@ export default css`
   .tl {
     text-align: left;
   }
+  .fz10 {
+    font-size: 10px;
+  }
   .fz12 {
     font-size: 12px;
   }
@@ -142,8 +160,20 @@ export default css`
   .fz18 {
     font-size: 18px;
   }
+  .fz20 {
+    font-size: 20px;
+  }
+  .fz22 {
+    font-size: 22px;
+  }
   .fz24 {
     font-size: 24px;
+  }
+  .fz28 {
+    font-size: 28px;
+  }
+  .fz46 {
+    font-size: 46px;
   }
   .pr {
     position: relative;
@@ -183,6 +213,9 @@ export default css`
   }
   .bd0 {
     border: none;
+  }
+  .op0 {
+    opacity: 0;
   }
   .no-wrap {
     white-space: nowrap;

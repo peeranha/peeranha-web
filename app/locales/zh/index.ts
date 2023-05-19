@@ -1,6 +1,7 @@
 import about from './about.json';
 import achievements from './achievements.json';
 import boost from './boost.json';
+import administration from './administration.json';
 import common from './common.json';
 import createCommunity from './create-community.json';
 import errorPage from './error-page.json';
@@ -14,11 +15,13 @@ import signUp from './sign-up.json';
 import tags from './tags.json';
 import wallet from './wallet.json';
 import webIntegration from './web-integration.json';
+import moderation from './moderation.json';
 
 export default {
   translation: {
     about,
     achievements,
+    administration,
     boost,
     common,
     createCommunity,
@@ -33,5 +36,6 @@ export default {
     tags,
     wallet,
     webIntegration,
+    moderation,
   },
 };

@@ -3,13 +3,15 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import * as routes from 'routes-config';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import { getSectionCode } from 'utils/mdManagement';
-import { SECTION_ID } from 'containers/Faq/constants';
-
 import A from 'components/A';
+import {
+  DOCUMENTATION_ABOUT_LINK,
+  DOCUMENTATION_COMMUNITY_LINK,
+  DOCUMENTATION_POSTS_ANSWERS_COMMENTS_LINK,
+  DOCUMENTATION_REPUTATION_PRIVILEGES_LINK,
+} from 'app/constants/documentation';
 
 const Base = styled.div`
   h6 {
@@ -28,25 +30,34 @@ const Base = styled.div`
   }
 `;
 
+const links = [
+  { link: DOCUMENTATION_ABOUT_LINK, text: 'common.aboutPeeranha' },
+  { link: DOCUMENTATION_COMMUNITY_LINK, text: 'common.communities' },
+  {
+    link: DOCUMENTATION_POSTS_ANSWERS_COMMENTS_LINK,
+    text: 'common.postsAnswersComments',
+  },
+  {
+    link: DOCUMENTATION_REPUTATION_PRIVILEGES_LINK,
+    text: 'common.statusReputationPrivileges',
+  },
+];
+
 const FaqSections = ({ faq }) => {
   const { t } = useTranslation();
-  const faqBlocks = faq.blocks.slice(0, 5).filter((item, index) => index !== 1);
 
   return (
     <Base>
-      <h6>{t('common.faq')}</h6>
-
-      {faq && (
-        <ul>
-          {faqBlocks.map((x, sectionIndex) => (
-            <li key={x.h2}>
-              <A to={routes.faq(getSectionCode(SECTION_ID, sectionIndex))}>
-                {x.h2}
-              </A>
-            </li>
-          ))}
-        </ul>
-      )}
+      <h6>{t('common.documentation')}</h6>
+      <ul>
+        {links.map((x) => (
+          <li key={t(x.text)}>
+            <a href={x.link} target="_blank">
+              {t(x.text)}
+            </a>
+          </li>
+        ))}
+      </ul>
     </Base>
   );
 };

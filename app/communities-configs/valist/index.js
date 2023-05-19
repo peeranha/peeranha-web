@@ -166,14 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const ValistStyles = {
+  name: 'valist',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/valist/valist.svg',
-  favicon: 'https://images.peeranha.io/communities/valist/logo-vit.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/valist/logo.svg',
 
   colors: {
+    appWindowsColor: '#603cba',
+    appSafarieColor: '#656565',
     mainSubHeaderBgColor: '#030111',
     mainBackground: '#F9FAFB',
     linkColor: '#5850EC',
@@ -182,7 +184,6 @@ export const ValistStyles = {
     headerPrimary: '#5850EC',
     commentOption: '#5850EC',
     contentHeader: '#5850EC',
-    blockedInfoArea: 'rgba(255, 154, 158 ,0.11)',
     transparentIconColor: '#fff',
     loaderColor: '#5850EC',
     votingIconColor: '#5850EC',

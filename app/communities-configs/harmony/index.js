@@ -178,14 +178,15 @@ export const customSubHeaderConfig = {
 };
 
 export const HarmonyStyles = {
+  name: 'harmony',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/harmony/harmony-logo1.svg',
-  favicon: 'https://images.peeranha.io/communities/harmony/favicon-harmony.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/harmony/logo.svg',
   colors: {
+    appWindowsColor: '#ffffff',
+    appSafarieColor: 'rgba(2, 10, 45, .9)',
     mainSubHeaderBgColor: 'rgba(2, 10, 45, .9)',
     mainBackground: 'rgba(0, 85, 249, 0.08)',
 
@@ -195,7 +196,6 @@ export const HarmonyStyles = {
     headerPrimary: 'rgb(36,95,226)',
     commentOption: 'rgb(36,95,226)',
     contentHeader: 'rgb(36,95,226)',
-    blockedInfoArea: 'rgb(170,224,255)',
     transparentIconColor: 'rgb(170,224,255)',
     loaderColor: 'rgb(36,95,226)',
     votingIconColor: 'rgb(36,95,226)',

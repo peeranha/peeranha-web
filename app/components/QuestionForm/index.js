@@ -21,21 +21,22 @@ import {
 
 import icoTag from 'images/icoTag.svg?external';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
+import { getCommunityTags } from 'containers/DataCacheProvider/actions';
+import { selectTags } from 'containers/DataCacheProvider/selectors';
+import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from 'components/TextEditor/Tips';
 import FormBox from 'components/Form';
-import TipsBase from 'components/Base/TipsBase';
+import TipsBaseSmallPadding from 'components/Base/TipsBaseSmallPadding';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import DescriptionList from 'components/DescriptionList';
 
 import {
   FORM_TITLE,
@@ -55,17 +56,15 @@ import Header from './Header';
 import CommunityForm from './CommunityForm';
 import SubArticleForm from './SubArticleForm';
 import ExistingQuestions from './ExistingQuestions';
-import TypeForm from 'components/QuestionForm/TypeForm';
+import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
+import PostRules from './PostRules';
 
-import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import DescriptionList from 'components/DescriptionList';
-import { getCommunityTags } from '../../containers/DataCacheProvider/actions';
-import { selectTags } from '../../containers/DataCacheProvider/selectors';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -73,10 +72,7 @@ const history = createdHistory;
 
 const SuggestTag = ({ redirectToCreateTagDispatch, formValues }) => {
   const { t } = useTranslation();
-  const communityId = useMemo(
-    () => formValues?.[FORM_COMMUNITY]?.value ?? 0,
-    [formValues],
-  );
+  const communityId = useMemo(() => formValues?.[FORM_COMMUNITY]?.value ?? 0, [formValues]);
 
   const onClick = ({ currentTarget: { id, communityid } }) => {
     redirectToCreateTagDispatch({
@@ -149,8 +145,7 @@ export const QuestionForm = ({
   const postContent = question?.content;
   const isPostAuthor = question?.author === profile?.user;
 
-  const communityId =
-    formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
+  const communityId = formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
   const isCommunityModerator = communityId
     ? hasCommunityModeratorRole(getPermissions(profile), communityId)
     : false;
@@ -171,9 +166,7 @@ export const QuestionForm = ({
 
   const getExistingQuestions = (questions) => {
     if (single) {
-      return questions.filter(
-        (question) => question.communityId === String(single),
-      );
+      return questions.filter((question) => question.communityId === String(single));
     }
 
     return questions;
@@ -196,8 +189,7 @@ export const QuestionForm = ({
 
   const tagCreatingAllowed =
     hasGlobalModeratorRole(getPermissions(profile)) ||
-    (Boolean(single) &&
-      hasCommunityAdminRole(getPermissions(profile), single)) ||
+    (Boolean(single) && hasCommunityAdminRole(getPermissions(profile), single)) ||
     hasProtocolAdminRole(getPermissions(profile));
 
   const handleSetClicked = () => setIsClickSubmit(true);
@@ -207,15 +199,16 @@ export const QuestionForm = ({
       setSubmitPressed(true);
     }
   };
-  const isEdited =
-    formValues[FORM_TITLE] !== postTitle ||
-    formValues[FORM_CONTENT] !== postContent;
+  const isEdited = formValues[FORM_TITLE] !== postTitle || formValues[FORM_CONTENT] !== postContent;
 
   const defaultDocumentationArticle = {
     id: -1,
     title: 'Documentation',
   };
 
+  const notHiddenCommunities = communities.filter(
+    (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
+  );
   return (
     <Router history={history}>
       <Prompt
@@ -230,11 +223,11 @@ export const QuestionForm = ({
           postType={question?.postType}
           isDocumentation={isDocumentation}
         />
-        <TipsBase>
+        <TipsBaseSmallPadding>
           <BaseSpecialOne>
             <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
               <CommunityForm
-                communities={communities}
+                communities={notHiddenCommunities}
                 communityId={communityId}
                 change={change}
                 questionLoading={questionLoading}
@@ -248,15 +241,12 @@ export const QuestionForm = ({
               {Boolean(!question && isDocumentation && isNaN(parentId)) && (
                 <SubArticleForm
                   locale={locale}
-                  communities={communities}
+                  communities={notHiddenCommunities}
                   change={change}
                   questionLoading={questionLoading}
                   disableCommForm={isEditForm}
                   isDocumentation={isDocumentation}
-                  documentationMenu={[
-                    defaultDocumentationArticle,
-                    ...(documentationMenu ?? []),
-                  ]}
+                  documentationMenu={[defaultDocumentationArticle, ...(documentationMenu ?? [])]}
                 />
               )}
 
@@ -307,8 +297,7 @@ export const QuestionForm = ({
 
               {formValues[FORM_TITLE] &&
                 formValues[FORM_TITLE].length >= 3 &&
-                (getExistingQuestions(existingQuestions || []).length ?? 0) >
-                  0 &&
+                (getExistingQuestions(existingQuestions || []).length ?? 0) > 0 &&
                 !doSkipExistingQuestions &&
                 !isDocumentation && (
                   <ExistingQuestions
@@ -327,16 +316,15 @@ export const QuestionForm = ({
                 isPostAuthor={isPostAuthor}
               />
 
-              {!isDocumentation &&
-                Number(formValues[FORM_TYPE]) !== POST_TYPE.documentation && (
-                  <TagsForm
-                    questionLoading={questionLoading}
-                    formValues={formValues}
-                    change={change}
-                    communityTags={cachedTags[communityId]}
-                    tagsLoading={tagsLoading}
-                  />
-                )}
+              {!isDocumentation && Number(formValues[FORM_TYPE]) !== POST_TYPE.documentation && (
+                <TagsForm
+                  questionLoading={questionLoading}
+                  formValues={formValues}
+                  change={change}
+                  communityTags={cachedTags[communityId]}
+                  tagsLoading={tagsLoading}
+                />
+              )}
 
               {tagCreatingAllowed && (
                 <SuggestTag
@@ -355,9 +343,11 @@ export const QuestionForm = ({
               </Button>
             </FormBox>
           </BaseSpecialOne>
-
-          <Tips />
-        </TipsBase>
+          <div>
+            <PostRules />
+            <Tips />
+          </div>
+        </TipsBaseSmallPadding>
       </div>
     </Router>
   );
@@ -438,9 +428,7 @@ export default memo(
                 ...(isDocumentation
                   ? {
                       [FORM_TYPE]: POST_TYPE.documentation,
-                      [FORM_SUB_ARTICLE]: parentId
-                        ? { label: '', value: parentId }
-                        : undefined,
+                      [FORM_SUB_ARTICLE]: parentId ? { label: '', value: parentId } : undefined,
                     }
                   : {}),
               }
@@ -451,10 +439,7 @@ export default memo(
       };
     },
     (dispatch) => ({
-      redirectToCreateTagDispatch: bindActionCreators(
-        redirectToCreateTag,
-        dispatch,
-      ),
+      redirectToCreateTagDispatch: bindActionCreators(redirectToCreateTag, dispatch),
       getCommunityTagsDispatch: bindActionCreators(getCommunityTags, dispatch),
     }),
   )(FormClone),

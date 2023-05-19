@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
@@ -14,13 +13,6 @@ import NFTCard from './NFTCard';
 
 import {
   selectUserAchievements,
-  selectRatingAchievements,
-  selectQuestionAskedAchievements,
-  selectAnwerGivenAchievements,
-  selectBestAnswerAchievements,
-  selectFirstAnswerAchievements,
-  selectFirstIn15Achievements,
-  selectUniqueAchievements,
   selectAchievementsLoading,
   selectAllAchievements,
   selectCommunities,
@@ -59,7 +51,7 @@ const Achievements = ({
 
     return () => resetViewProfileAccountDispatch();
   }, [userId]);
-  console.log(profile, 'profile<---');
+
   return (
     <div>
       <div css={styles.base}>
@@ -92,53 +84,29 @@ const Achievements = ({
 };
 
 Achievements.propTypes = {
-  locale: PropTypes.string,
   userId: PropTypes.string,
-  ratingAchievements: PropTypes.array,
-  questionAskedAchievements: PropTypes.array,
-  anwerGivenAchievements: PropTypes.array,
-  bestAnswerAchievements: PropTypes.array,
-  firstAnswerAchievements: PropTypes.array,
-  firstIn15Achievements: PropTypes.array,
-  uniqueAchievements: PropTypes.array,
-  getUserAchievementsDispatch: PropTypes.func,
+  getAllAchievementsDispatch: PropTypes.func,
+  achievements: PropTypes.object,
+  userAchievements: PropTypes.object,
+  achievementsLoading: PropTypes.bool,
   setViewProfileAccountDispatch: PropTypes.func,
   resetViewProfileAccountDispatch: PropTypes.func,
-  achievementsLoading: PropTypes.bool,
   profile: PropTypes.object,
   communities: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
   achievements: selectAllAchievements(),
   userAchievements: selectUserAchievements(),
   communities: selectCommunities(),
-  ratingAchievements: selectRatingAchievements(),
-  questionAskedAchievements: selectQuestionAskedAchievements(),
-  anwerGivenAchievements: selectAnwerGivenAchievements(),
-  bestAnswerAchievements: selectBestAnswerAchievements(),
-  firstAnswerAchievements: selectFirstAnswerAchievements(),
-  firstIn15Achievements: selectFirstIn15Achievements(),
-  uniqueAchievements: selectUniqueAchievements(),
   achievementsLoading: selectAchievementsLoading(),
   profile: makeSelectProfileInfo(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
-  getUserAchievementsDispatch: bindActionCreators(
-    getUserAchievements,
-    dispatch,
-  ),
-  setViewProfileAccountDispatch: bindActionCreators(
-    setViewProfileAccount,
-    dispatch,
-  ),
-  resetViewProfileAccountDispatch: bindActionCreators(
-    resetViewProfileAccount,
-    dispatch,
-  ),
+  setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
+  resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

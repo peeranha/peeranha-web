@@ -40,7 +40,6 @@ import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
-import faqIcon from 'images/faq.svg?external';
 import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
@@ -175,7 +174,6 @@ const MainLinks = ({
   let route = pathname.split('/').filter((x) => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
@@ -183,15 +181,13 @@ const MainLinks = ({
       isProtocolAdmin
     : false;
 
-  if (!route) {
-    route = isBloggerMode ? 'home' : '/';
-  }
+  const isAdministratorModeSingleCommunity = singleCommId
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) || isProtocolAdmin
+    : false;
 
-  const hasCommunityOrProtocolAdminRole =
-    singleCommId &&
-    (hasGlobalModeratorRole() ||
-      hasProtocolAdminRole() ||
-      hasCommunityAdminRole(null, singleCommId));
+  if (!route) {
+    route = '/';
+  }
 
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
 
@@ -229,9 +225,7 @@ const MainLinks = ({
               >
                 <span
                   css={{
-                    borderRight: isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderRight: isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                     paddingRight: '10px',
                   }}
                 >
@@ -239,9 +233,7 @@ const MainLinks = ({
                 </span>
                 <span
                   css={{
-                    borderLeft: !isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderLeft: !isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                   }}
                 >
                   <PinIcon
@@ -278,13 +270,6 @@ const MainLinks = ({
           >
             {t('common.communityLabel')}
           </div>
-        )}
-
-        {isBloggerMode && (
-          <A1 to={routes.detailsHomePage()} name="home" route={route}>
-            <IconLg className="mr-2" icon={homeIcon} />
-            {t('common.home')}
-          </A1>
         )}
 
         <A1 to={routes.feed()} name="feed" route={route}>
@@ -324,18 +309,11 @@ const MainLinks = ({
         {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
-            {t(`common.${isBloggerMode ? 'followers' : 'users'}`)}
+            {t(`common.users`)}
           </A1>
         )}
 
-        {!singleCommId && (
-          <A1 to={routes.faq()} name="faq" route={route}>
-            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-            {t('common.faq')}
-          </A1>
-        )}
-
-        {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
+        {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
             <Administration className={'mr-2'} />
             {t('common.administration')}

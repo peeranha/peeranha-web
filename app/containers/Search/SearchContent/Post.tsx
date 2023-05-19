@@ -10,17 +10,15 @@ import { getFormattedNum, getFormattedNum2 } from '../../../utils/numbers';
 import { getPostRoute } from '../../../routes-config';
 import { styles } from './Post.styled';
 import QuestionType from '../../Questions/Content/Body/QuestionType';
-import {
-  MONTH_3LETTERS__DAY_YYYY_TIME,
-  POST_TYPE,
-} from '../../../utils/constants';
-import { Community, Tag, Author } from './index';
+import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from '../../../utils/constants';
+import { Community, Tag, Author, Translation } from './index';
 import { getFormattedDate } from '../../../utils/datetime';
 import {
   getFollowedCommunities,
   isSingleCommunityWebsite,
 } from '../../../utils/communityManagement';
 import * as routes from '../../../routes-config';
+import { css } from '@emotion/react';
 
 const single = isSingleCommunityWebsite();
 
@@ -30,6 +28,7 @@ type PostProps = {
   communities: Community[];
   postType: number;
   title: string;
+  lastmod: string;
   postTime: string;
   content: string;
   tags: Tag[];
@@ -45,6 +44,7 @@ const Post: React.FC<PostProps> = ({
   id,
   locale,
   communities,
+  lastmod,
   postType,
   title,
   postTime,
@@ -56,8 +56,7 @@ const Post: React.FC<PostProps> = ({
   replyCount,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const community =
-    getFollowedCommunities(communities, [Number(communityId)])[0] || {};
+  const community = getFollowedCommunities(communities, [Number(communityId)])[0] || {};
 
   const postLink = getPostRoute({ postType, id, title });
   const communityLink = () => {
@@ -73,6 +72,10 @@ const Post: React.FC<PostProps> = ({
     return routes.questions(communityId);
   };
 
+  const communityTranslationTitle = community.translations?.find(
+    (translation: Translation) => translation.language === locale,
+  )?.name;
+
   return (
     <div className="df mb8 border-box" css={styles.post}>
       <div className="m16 full-width" css={styles.container}>
@@ -84,15 +87,17 @@ const Post: React.FC<PostProps> = ({
           </Link>
         </div>
 
-        <div css={styles.mainInfo}>
-          {postType !== POST_TYPE.documentation && (
+        <div css={css(styles.mainInfo)}>
+          {lastmod && postType === POST_TYPE.documentation && (
+            <span className="db mt8 fz14 light" css={css(styles.creationTime)}>
+              {t('common.lastUpdated')}{' '}
+              {getFormattedDate(lastmod, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+            </span>
+          )}
+          {postTime && postType !== POST_TYPE.documentation && (
             <span className="db mt8 fz12 light" css={styles.creationTime}>
-              {t('common.asked')}
-              {getFormattedDate(
-                postTime,
-                locale,
-                MONTH_3LETTERS__DAY_YYYY_TIME,
-              )}
+              {t('common.asked')}{' '}
+              {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
             </span>
           )}
 
@@ -104,28 +109,17 @@ const Post: React.FC<PostProps> = ({
         <div css={styles.additionalInfo}>
           <div className="mt12" css={styles.tagsAndCommunity}>
             {tags.map((tag: Tag) => (
-              <span
-                key={tag.id}
-                className="dib fz14 light mr8 no-wrap mb8"
-                css={styles.tag}
-              >
+              <span key={tag.id} className="dib fz14 light mr8 no-wrap mb8" css={styles.tag}>
                 {tag.name}
               </span>
             ))}
             {!single && (
               <Link to={communityLink()} className="df aic full-height">
                 {community.avatar && (
-                  <img
-                    src={community.avatar}
-                    alt="community avatar"
-                    css={styles.communityAvatar}
-                  />
+                  <img src={community.avatar} alt="community avatar" css={styles.communityAvatar} />
                 )}
-                <span
-                  className="ml4 fz14 light no-wrap"
-                  css={styles.communityName}
-                >
-                  {community.name}
+                <span className="ml4 fz14 light no-wrap" css={styles.communityName}>
+                  {communityTranslationTitle || community.name}
                 </span>
               </Link>
             )}
@@ -134,16 +128,10 @@ const Post: React.FC<PostProps> = ({
           {postType !== POST_TYPE.documentation && (
             <div className="mt12 df">
               {postType !== POST_TYPE.tutorial && (
-                <div
-                  css={styles[bestReply ? 'bestReply' : 'noBestReply']}
-                  className="mr24"
-                >
+                <div css={styles[bestReply ? 'bestReply' : 'noBestReply']} className="mr24">
                   <span className="df aic">
                     {bestReply ? (
-                      <BestAnswerIcon
-                        stroke="rgb(40, 167, 69)"
-                        className="mr8"
-                      />
+                      <BestAnswerIcon stroke="rgb(40, 167, 69)" className="mr8" />
                     ) : (
                       <AnswerIcon stroke="rgb(53, 74, 137)" className="mr8" />
                     )}

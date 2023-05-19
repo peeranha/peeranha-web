@@ -166,15 +166,16 @@ export const customSubHeaderConfig = {
 };
 
 export const FilebaseStyles = {
+  name: 'filebase',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/filebase/filebaselogo.svg',
-  favicon: 'https://images.peeranha.io/communities/filebase/filebase-p.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/filebase/logo.svg',
 
   colors: {
+    appWindowsColor: '#da532c',
+    appSafarieColor: '#d5b75b',
     mainSubHeaderBgColor: '#FFFFF',
     mainBackground: '#F9FAFB',
     linkColor: '#FFA500',
@@ -183,7 +184,6 @@ export const FilebaseStyles = {
     headerPrimary: '#FFA500',
     commentOption: '#111827',
     contentHeader: '#FFA500',
-    blockedInfoArea: 'rgba(53,74,137,0.11)',
     transparentIconColor: '#FFF',
     loaderColor: '#111827',
     votingIconColor: '#111827',

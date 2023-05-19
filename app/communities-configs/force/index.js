@@ -166,14 +166,15 @@ export const customSubHeaderConfig = {
 };
 
 export const ForceStyles = {
+  name: 'force',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/force/Group.svg',
-  favicon: 'https://images.peeranha.io/communities/force/Vector.ico',
-
+  signUpPageLogo: 'https://images.peeranha.io/communities/force/logo.svg',
   colors: {
+    appWindowsColor: '#ffc40d',
+    appSafarieColor: '#000000',
     mainSubHeaderBgColor: '#FFF',
     mainBackground: 'rgba(27,32,48,0.02)',
     linkColor: '#251E67',
@@ -182,7 +183,6 @@ export const ForceStyles = {
     headerPrimary: '#251E67',
     commentOption: '#251E67',
     contentHeader: '#251E67',
-    blockedInfoArea: 'rgb(42 36 96 / 10%)',
     transparentIconColor: '#FFF',
     loaderColor: '#251E67',
     votingIconColor: '#251E67',

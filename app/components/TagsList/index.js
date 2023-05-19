@@ -7,10 +7,8 @@ import { TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
 
 import Span from 'components/Span';
 
-import {
-  singleCommunityFonts,
-  isSingleCommunityWebsite,
-} from 'utils/communityManagement';
+import { singleCommunityFonts, isSingleCommunityWebsite } from 'utils/communityManagement';
+
 import Button from 'components/Button';
 
 const fonts = singleCommunityFonts();
@@ -65,10 +63,7 @@ const TagsList = ({ tags, communities, communityId, children, className }) => {
   return (
     <Box>
       {tags.map((tag, index) => (
-        <li
-          key={community.id + (tag.name || index)}
-          className="d-flex flex-column"
-        >
+        <li key={community.id + (tag.name || index)} className="d-flex flex-column">
           <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
             {single ? (
               <Button

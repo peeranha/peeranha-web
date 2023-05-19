@@ -76,9 +76,7 @@ export const C3 = (isColumnForSM) => `
 export default BaseRounded.extend`
   ${({ isColumnForSM }) => C3(isColumnForSM)};
   flex-direction: row;
-  ${({ isQuestionsPage }) =>
-    isQuestionsPage ? 'padding: 0px 30px; display: block;' : ''};
-
+  ${({ isQuestionsPage }) => (isQuestionsPage ? 'padding: 0px 30px; display: block;' : '')};
   @media only screen and (max-width: 576px) {
     flex-direction: ${({ single }) => (single ? 'column' : 'row')};
     align-items: ${({ single }) => (single ? 'flex-start' : 'center')};

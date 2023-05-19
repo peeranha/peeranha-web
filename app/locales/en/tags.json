@@ -1,5 +1,5 @@
 {
-  "title": "Create tag",
+  "title": "Tags",
   "description": "Create tag | Description",
   "community": "Community",
   "communityTip": "Community where tag will be created",
@@ -8,8 +8,8 @@
   "descriptionField": "Description",
   "descriptionFieldTip": "Instructions on how to use tag",
   "newTag": "New tag",
-  "tagIsKeyword": "A tag is used as a keyword or a label to categorize your question.",
-  "usingTheRightTags": "Using the right tags makes it easier for other users to find your questions.",
+  "tagIsKeyword": "A tag is used as a keyword or a label to categorize your post.",
+  "usingTheRightTags": "Using the right tags makes it easier for other users to find your posts.",
   "titleEdit": "Edit tag",
   "descriptionSave": "Save | Description",
   "backToList": "Back to list",
@@ -18,18 +18,9 @@
   "suggestTagWhichWillbeUseful": "Suggest a tag, which will be useful to you and 100 other users who will vote for it.",
   "creatorCannotUpvoteOwnComm": "Creators cannot upvote their own tag",
   "descriptionTags": "Description of Tags",
-  "suggestedTags": "Suggested tags",
   "createTag": "Create tag",
-  "voteForNewTags": "Vote for new tags",
   "findTag": "Find a tag",
   "tagsCollection": "Tags collection",
   "tagsDescription": "Tags Description",
-  "suggested": {
-    "title": "Suggested tags",
-    "description": "Suggested tags | Description",
-    "noSuggestedTags": "There are no suggested tags",
-    "topTagsInCommunity": "Top tags in community",
-    "tagDescription": "Description"
-  },
   "saveTag": "Save"
 }

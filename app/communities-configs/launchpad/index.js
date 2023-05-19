@@ -166,14 +166,15 @@ export const customSubHeaderConfig = {
 };
 
 export const LaunchpadStyles = {
+  name: 'launchpad',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: 'https://images.peeranha.io/communities/launchpad/logo.svg',
-  favicon: 'https://images.peeranha.io/communities/launchpad/favicon.ico',
-
   colors: {
+    appWindowsColor: '#1A74FC',
+    appSafarieColor: '#1A74FC',
     mainSubHeaderBgColor:
       'linear-gradient(266.99deg, #4EF286 -7.91%, #1A74FC 70.58%, #1650A9 105.4%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
@@ -183,7 +184,6 @@ export const LaunchpadStyles = {
     headerPrimary: '#1A74FC',
     commentOption: '#1A74FC',
     contentHeader: '#1A74FC',
-    blockedInfoArea: 'rgba(0, 0, 0, 10%)',
     transparentIconColor: '#FFF',
     loaderColor: '#1A74FC',
     votingIconColor: '#1A74FC',

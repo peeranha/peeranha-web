@@ -15,10 +15,7 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { selectQuestionTitle } from '../ViewQuestion/selectors';
-import {
-  selectCommunities,
-  selectTagsLoading,
-} from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectTagsLoading } from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';
 import Seo from 'components/Seo';
@@ -41,11 +38,7 @@ import { getAskedQuestion, editQuestion } from './actions';
 import { getQuestionData } from '../ViewQuestion/actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 
-const TITLE = [
-  'common.editExpertQ&A',
-  'common.editDiscussion',
-  'common.editTutorial',
-];
+const TITLE = ['common.editExpertQ&A', 'common.editDiscussion', 'common.editTutorial'];
 
 const EditQuestion = ({
   match,
@@ -83,9 +76,7 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
           tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[1]),
-          postType: isNaN(val[FORM_TYPE])
-            ? question.postType
-            : Number(val[FORM_TYPE]),
+          postType: isNaN(val[FORM_TYPE]) ? question.postType : Number(val[FORM_TYPE]),
         },
         questionid,
       );
@@ -93,14 +84,11 @@ const EditQuestion = ({
     [questionid, question],
   );
 
-  const maxPromotingHours = useMemo(
-    () => Math.floor(balance / PROMOTE_HOUR_COST),
-    [balance],
-  );
+  const maxPromotingHours = useMemo(() => Math.floor(balance / PROMOTE_HOUR_COST), [balance]);
 
   const titleMessage = useMemo(
     () => (isDocumentation ? 'Edit article' : t(TITLE[question?.postType])),
-    [question?.postType],
+    [question?.postType, t],
   );
 
   const isFailed = editQuestionError !== null;
@@ -129,19 +117,11 @@ const EditQuestion = ({
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );
 
-  const [helmetTitle, helmetDescription] = useMemo(
-    () => [
-      question?.title ?? t('common.editQuestion.title'),
-      question?.content ?? t('common.editQuestion.description'),
-    ],
-    [question],
-  );
-
   return (
     <div>
       <Seo
-        title={helmetTitle || ''}
-        description={helmetDescription || ''}
+        title={t('common.editQuestion.title')}
+        description={t('common.editQuestion.description')}
         language={locale}
         index={false}
       />

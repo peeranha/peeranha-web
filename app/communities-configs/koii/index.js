@@ -178,13 +178,15 @@ export const customSubHeaderConfig = {
 };
 
 export const KoiiStyles = {
+  name: 'koii',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/koii/koii-logo.svg',
-  favicon: 'https://images.peeranha.io/communities/koii/favicon-koii.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/koii/logo.svg',
   colors: {
+    appWindowsColor: '#ffc40d',
+    appSafarieColor: '#000767',
     mainSubHeaderBgColor: 'rgb(236,251,250)',
     mainBackground: 'rgb(245 245 245)',
     linkColor: 'rgb(8,121,128)',
@@ -192,7 +194,6 @@ export const KoiiStyles = {
     headerPrimary: 'rgb(190,240,237)',
     commentOption: 'rgb(94,217,209)',
     contentHeader: 'rgb(94,217,209)',
-    blockedInfoArea: 'rgb(209, 255, 255)',
     transparentIconColor: 'rgb(117,211,211)',
     loaderColor: 'rgb(94,217,209)',
     votingIconColor: 'rgb(94,217,209)',

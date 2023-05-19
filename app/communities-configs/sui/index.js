@@ -178,20 +178,21 @@ export const customSubHeaderConfig = {
 };
 
 export const SuiStyles = {
+  name: 'sui',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/sui/sui-logo.svg',
-  favicon: 'https://images.peeranha.io/communities/sui/favicon-sui.ico',
+  signUpPageLogo: 'https://images.peeranha.io/communities/sui/logo.svg',
   colors: {
+    appWindowsColor: '#00aba9',
+    appSafarieColor: '#5b5cd5',
     mainBackground: 'rgb(230,239,254)',
     linkColor: 'rgb(111, 188, 240)',
     linkColorTransparent: 'rgb(111, 188, 240)',
     headerPrimary: 'rgb(111, 188, 240)',
     commentOption: 'rgb(111, 188, 240)',
     contentHeader: 'rgb(111, 188, 240)',
-    blockedInfoArea: 'rgb(111, 188, 240)',
     transparentIconColor: 'rgb(209, 255, 255)',
     loaderColor: 'rgb(111, 188, 240)',
     votingIconColor: 'rgb(111, 188, 240)',

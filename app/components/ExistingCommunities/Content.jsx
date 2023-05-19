@@ -122,12 +122,15 @@ const Content = ({ communities, sorting, locale, profile }) => {
       <Base>
         {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order]).map(
           (
-            { avatar, name, id, description, website, tagsCount, ...x },
+            { avatar, name, id, description, website, tagsCount, translations, ...x },
             index,
             arr,
           ) => {
             const value = id;
             const origin = hasCommunitySingleWebsite(id);
+            const communityTranslation = translations?.find(
+              (translation) => translation.language === locale,
+            );
 
             return (
               <BaseSpecial
@@ -140,7 +143,7 @@ const Content = ({ communities, sorting, locale, profile }) => {
                   <MediumImageStyled
                     className="bg-transparent"
                     src={avatar}
-                    alt={name}
+                    alt={communityTranslation?.name || name}
                   />
 
                   <div>
@@ -149,14 +152,12 @@ const Content = ({ communities, sorting, locale, profile }) => {
                         href={origin || routes.questions(id)}
                         css={{ position: 'relative' }}
                       >
-                        {name}
-                        {origin && (
-                          <SingleCommunityIcon locale={locale} id={id} />
-                        )}
+                        {communityTranslation?.name || name}
+                        {origin && <SingleCommunityIcon locale={locale} id={id} />}
                       </ADefault>
                     </P>
                     <DescriptionText fontSize="14" lineHeight="18">
-                      {description}
+                      {communityTranslation?.description || description}
                     </DescriptionText>
                     {website && <OfficialSiteLink website={website} />}
                   </div>
@@ -167,13 +168,9 @@ const Content = ({ communities, sorting, locale, profile }) => {
                     hasCommunityModeratorRole(getPermissions(profile), value) ||
                     hasCommunityAdminRole(getPermissions(profile), value)) && (
                     <Info>
-                      <SpanCenter>
-                        {getFormattedNum2(x.followingUsers)}
-                      </SpanCenter>
+                      <SpanCenter>{getFormattedNum2(x.followingUsers)}</SpanCenter>
                       <P>
-                        <span className="no-wrap">
-                          {t('common.subscribers')}
-                        </span>
+                        <span className="no-wrap">{t('common.subscribers')}</span>
                       </P>
                     </Info>
                   )}
@@ -210,15 +207,8 @@ const Content = ({ communities, sorting, locale, profile }) => {
 
                   <Info>
                     {(communityEditingAllowed ||
-                      hasCommunityAdminRole(
-                        getPermissions(profile),
-                        value,
-                      )) && (
-                      <InfoButton
-                        onClick={() =>
-                          createdHistory.push(routes.communitiesEdit(id))
-                        }
-                      >
+                      hasCommunityAdminRole(getPermissions(profile), value)) && (
+                      <InfoButton onClick={() => createdHistory.push(routes.communitiesEdit(id))}>
                         {t('common.edit')}
                       </InfoButton>
                     )}

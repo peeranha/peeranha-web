@@ -20,15 +20,10 @@
   "wrongByteLength": "Value byte length is too long",
   "numbersFromTo": "Value must contain digits from {{min}} to {{max}}",
   "onlyOneDotValue": "Value must contain only one dot",
-  "telosNameLength": "Telos account name must be 12 characters long",
-  "telosCorrectSymbols": "Only a-z letters and 1-5 numbers are allowed",
   "notAbleChangeAfterCreation": "You will not be able to change it after creation",
-  "thisTelosNameIsAvailable": "This Telos account name is available",
-  "thisTelosNameIsntAvailable": "This Telos account name is not available",
-  "atLeastOneLetter": "Telos name must contain at least one letter",
   "exactFromAndToAccounts": "Sender and receiver cannot be the same",
   "hasToBeMoreThanPrev": "You cannot set lower value",
   "valueIsNotPositiveInteger": "Value is not a positive integer",
   "requiredMinReputation": "Your reputation in this community is negative, you are not allowed to create a new post.",
-  "wrongAddressFormat": "Value is not an Ethereum address"
+  "wrongAddressFormat": "Invalid wallet address"
 }

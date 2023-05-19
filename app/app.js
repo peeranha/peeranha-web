@@ -1,8 +1,7 @@
 // Importing Bootstrap and its dependencies
 import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery'; //
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-
+import $ from 'jquery';
 // Needed for redux-saga es6 generator support
 import '@babel/polyfill';
 
@@ -20,7 +19,6 @@ import App from 'containers/App';
 // Import Providers
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
-import FacebookProvider from './containers/FacebookProvider';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -39,9 +37,7 @@ import i18n from './i18n';
 import './global-styles';
 import EthereumProvider from './containers/EthereumProvider';
 import TagManager from 'react-gtm-module';
-
 window.$ = $;
-
 if (process.env.GTM_ID) {
   const tagManagerArgs = {
     gtmId: process.env.GTM_ID,
@@ -61,13 +57,11 @@ const render = () => {
       <Provider store={store}>
         <EthereumProvider>
           <AccountProvider>
-            <FacebookProvider>
-              <DataCacheProvider>
-                <ConnectedRouter history={createdHistory}>
-                  <App />
-                </ConnectedRouter>
-              </DataCacheProvider>
-            </FacebookProvider>
+            <DataCacheProvider>
+              <ConnectedRouter history={createdHistory}>
+                <App />
+              </ConnectedRouter>
+            </DataCacheProvider>
           </AccountProvider>
         </EthereumProvider>
       </Provider>

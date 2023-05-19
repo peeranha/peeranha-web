@@ -7,9 +7,7 @@ import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import FormBox from 'components/Form';
 
-import SelectField, {
-  getSelectOptions,
-} from 'components/FormFields/SelectField';
+import SelectField, { getSelectOptions } from 'components/FormFields/SelectField';
 
 import Button from 'components/Button/Contained/InfoLarge';
 
@@ -21,12 +19,7 @@ import {
   strLength3x20,
 } from 'components/FormFields/validate';
 
-import {
-  EMAIL_FIELD,
-  NAME_FIELD,
-  SUBJECT_FIELD,
-  MESSAGE_FIELD,
-} from 'containers/HomePage/constants';
+import { EMAIL_FIELD, NAME_FIELD, SUBJECT_FIELD, MESSAGE_FIELD } from 'pages/HomePage/constants';
 
 const SendMessageForm = ({ handleSubmit, sendMessageLoading, sendMessage }) => {
   const { t } = useTranslation();

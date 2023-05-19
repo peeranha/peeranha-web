@@ -12,12 +12,7 @@ const setPopover = (elemId, message, position) => {
 };
 
 export const showPopover = (elemId, message, restParamets = {}) => {
-  const {
-    callback,
-    timeout = 2500,
-    timer = true,
-    position = 'top',
-  } = restParamets;
+  const { callback, timeout = 2500, timer = true, position = 'top' } = restParamets;
 
   // if there are no running timers
   if (timer && !timerOn) {
@@ -42,7 +37,7 @@ export const showPopover = (elemId, message, restParamets = {}) => {
   }
 };
 
-export const closePopover = callback => {
+export const closePopover = (callback) => {
   if (timerOn) {
     clearTimeout(timerId);
     currentElement = null;

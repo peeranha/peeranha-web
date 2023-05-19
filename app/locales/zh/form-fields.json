@@ -20,13 +20,10 @@
   "wrongByteLength": "值字节长度太长",
   "numbersFromTo": "值必须包含从 {{min}} 到 {{max}} 的数字",
   "onlyOneDotValue": "值必须只包含一个点",
-  "telosNameLength": "Telos 帐户名称必须为十二个字符长",
-  "telosCorrectSymbols": "只允许使用 a-z 字母和 1-5 个数字",
   "notAbleChangeAfterCreation": "创建后将无法更改",
-  "thisTelosNameIsAvailable": "此 Telos 帐户名可用",
-  "thisTelosNameIsntAvailable": "此 Telos 帐户名不可用",
-  "atLeastOneLetter": "Telos 名称必须至少包含一个字母",
   "exactFromAndToAccounts": "发送者和接收者不能相同",
   "hasToBeMoreThanPrev": "您不能设置较低的值",
-  "valueIsNotPositiveInteger": "值不是正整数"
+  "valueIsNotPositiveInteger": "值不是正整数",
+  "requiredMinReputation": "你在这个社区的声誉是负面的，你不能创建新帖子。",
+  "wrongAddressFormat": "值不是以太坊地址"
 }

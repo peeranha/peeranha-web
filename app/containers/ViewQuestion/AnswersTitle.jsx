@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { TEXT_SECONDARY } from 'style-constants';
 
-const colors = singleCommunityColors();
-
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const AnswersTitle = ({ answersNum }) => {
   const { t } = useTranslation();

@@ -65,11 +65,7 @@ export const getModerators = async (roles) => {
   return [...administrators?.data.userPermissions];
 };
 
-export const getUsersByCommunity = async ({
-  limit = 50,
-  skip,
-  communityId,
-}) => {
+export const getUsersByCommunity = async ({ limit = 50, skip, communityId }) => {
   const users = await client.query({
     query: gql(usersByCommunityQuery),
     variables: {
@@ -150,6 +146,7 @@ export const getCommunities = async (count) => {
     variables: {
       first: count,
     },
+    fetchPolicy: 'network-only',
   });
   return communities?.data.communities;
 };
@@ -210,13 +207,8 @@ export const getPosts = async (limit, skip, postTypes) => {
   }));
 };
 //
-export const getPostsByCommunityId = async (
-  limit,
-  skip,
-  postTypes,
-  communityIds,
-  tags,
-) => {
+
+export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds, tags) => {
   const posts = tags?.length
     ? await client.query({
         query: gql(postsByCommAndTagsQuery),
@@ -272,10 +264,7 @@ export const getCommunityDocumentation = async (id) => {
   return post?.data.post;
 };
 
-export const getCommunityDocumentationNotIncluded = async (
-  communityId,
-  includedIds,
-) => {
+export const getCommunityDocumentationNotIncluded = async (communityId, includedIds) => {
   const post = await client.query({
     query: gql(communityDocumentationNotIncludedQuery),
     variables: {
@@ -307,12 +296,14 @@ export const getQuestionFromGraph = async (postId) => {
         },
         fetchPolicy: 'network-only',
       })
-    ).data.post,
+    ).data?.post,
   };
-  post.answers = post.replies.map((reply) => ({
-    ...reply,
-  }));
-  delete post.replies;
+  if (post?.id) {
+    post.answers = post.replies.map((reply) => ({
+      ...reply,
+    }));
+    delete post.replies;
+  }
   return post;
 };
 //
@@ -335,9 +326,7 @@ export const postsForSearch = async (text, single) => {
     },
   });
   return posts?.data?.postSearch.filter(
-    (post) =>
-      !post.isDeleted &&
-      (single ? Number(post.communityId) === Number(single) : true),
+    (post) => !post.isDeleted && (single ? Number(post.communityId) === Number(single) : true),
   );
 };
 
@@ -367,11 +356,7 @@ export const getRewardStat = async (userId, ethereumService) => {
     },
     fetchPolicy: 'network-only',
   });
-  return [
-    response?.data?.userRewards,
-    response?.data?.periods,
-    response?.data?.user,
-  ];
+  return [response?.data?.userRewards, response?.data?.periods, response?.data?.user];
 };
 
 export const getCurrentPeriod = async () => {

@@ -22,25 +22,16 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import global from 'styles/global';
 import { theme } from 'themes/default';
-import {
-  selectDocumentationMenu,
-  selectPinnedItemMenu,
-} from 'containers/AppWrapper/selectors';
+import { selectDocumentationMenu, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
 
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
-import {
-  DAEMON,
-  POST_TYPE,
-  REWARD_CLAIMING_ENABLED,
-  POSITION_TOP,
-} from 'utils/constants';
+import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED, POSITION_TOP } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
   isSingleCommunityWebsite,
-  getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
@@ -53,7 +44,6 @@ import saga from 'containers/App/saga';
 import {
   EditCommunity,
   HomePage,
-  Faq,
   Administration,
   Users,
   EditQuestion,
@@ -68,21 +58,12 @@ import {
   CreateCommunity,
   TagsOfCommunity,
   CreateTag,
-  SuggestedTags,
   EditTag,
   NoAccess,
   Home,
   Feed,
   Communities,
-  SuggestedCommunities,
-  EmailEnteringForm,
-  EmailVerificationForm,
-  WalletsSignUpForm,
-  SignUpViaEmail,
-  RegistrationAlmostDoneWithAccount,
-  RegistrationAlmostDoneNoAccount,
   Login,
-  ForgotPassword,
   Toast,
   Wallet,
   Boost,
@@ -91,18 +72,13 @@ import {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
-  DeleteFacebookData,
   MetaTransactionAgreement,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
-import {
-  redirectToFeed,
-  redirectToDocumentation,
-  redirectToPreload,
-} from './actions';
+import { redirectToFeed, redirectToDocumentation, redirectToPreload } from './actions';
 import {
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
@@ -111,8 +87,7 @@ import {
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
-const isDocumentationPositionTop =
-  singleCommunityDocumentationPosition() == POSITION_TOP;
+const isDocumentationPositionTop = singleCommunityDocumentationPosition() == POSITION_TOP;
 const App = ({
   location: { pathname, search },
   redirectToFeedDispatch,
@@ -165,11 +140,8 @@ const App = ({
     : Object.keys(documentationMenu).length;
 
   useEffect(() => {
-    if (single && (pathname == '/' || pathname == '/feed')) {
-      if (
-        (hasPinnedPost || isDocumentationPositionTop) &&
-        isDocumentationExist
-      ) {
+    if (single && (pathname == '/' || pathname == '/feed') && !search) {
+      if ((hasPinnedPost || isDocumentationPositionTop) && isDocumentationExist) {
         redirectToDocumentationDispatch();
       } else {
         redirectToFeedDispatch();
@@ -177,13 +149,9 @@ const App = ({
     }
   }, [documentationMenu]);
 
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
   const hasCommunityOrProtocolAdminRole =
     single &&
-    (hasGlobalModeratorRole() ||
-      hasProtocolAdminRole() ||
-      hasCommunityAdminRole(null, single));
+    (hasGlobalModeratorRole() || hasProtocolAdminRole() || hasCommunityAdminRole(null, single));
 
   return (
     <ErrorBoundary>
@@ -192,8 +160,6 @@ const App = ({
         <Toast />
 
         <Login />
-        <ForgotPassword />
-        <MetaTransactionAgreement />
 
         <ScrollTo />
         <Popover />
@@ -212,19 +178,7 @@ const App = ({
             render={(props) => Wrapper(FullWidthPreloader, props)}
           />
 
-          {!!isBloggerMode && (
-            <Route
-              exact
-              path={routes.detailsHomePage()}
-              render={(props) => Wrapper(Home, props)}
-            />
-          )}
-
-          <Route
-            exact
-            path={routes.feed()}
-            render={(props) => Wrapper(Feed, props)}
-          />
+          <Route exact path={routes.feed()} render={(props) => Wrapper(Feed, props)} />
 
           {single && (hasPinnedPost || isDocumentationPositionTop) && (
             <Route
@@ -236,7 +190,7 @@ const App = ({
 
           {!single && (
             <Route
-              path={routes.feed(':communityid')}
+              path={routes.feed(':communityid', ':paginationpage')}
               render={(props) => Wrapper(Feed, props)}
             />
           )}
@@ -272,13 +226,6 @@ const App = ({
             render={(props) => Wrapper(EditCommunity, props)}
           />
 
-          {!single && (
-            <Route
-              path={routes.suggestedCommunities()}
-              render={(props) => Wrapper(SuggestedCommunities, props)}
-            />
-          )}
-
           <Route
             exact
             path={routes.communityTags(':communityid')}
@@ -296,43 +243,20 @@ const App = ({
           />
 
           <Route
-            path={routes.suggestedTags(':communityid')}
-            render={(props) => Wrapper(SuggestedTags, props)}
-          />
-
-          <Route
-            exact
-            path={routes.faq()}
-            render={(props) => Wrapper(Faq, props)}
-          />
-
-          <Route
             exact
             path={routes.termsAndConditions()}
             render={(props) => Wrapper(TermsOfService, props)}
           />
 
-          <Route
-            path={routes.userWallet(':id')}
-            render={(props) => Wrapper(Wallet, props)}
-          />
+          <Route path={routes.userWallet(':id')} render={(props) => Wrapper(Wallet, props)} />
 
           {REWARD_CLAIMING_ENABLED && (
-            <Route
-              path={routes.userBoost(':id')}
-              render={(props) => Wrapper(Boost, props)}
-            />
+            <Route path={routes.userBoost(':id')} render={(props) => Wrapper(Boost, props)} />
           )}
 
-          <Route
-            path={routes.support()}
-            render={(props) => Wrapper(Support, props)}
-          />
+          <Route path={routes.support()} render={(props) => Wrapper(Support, props)} />
 
-          <Route
-            path={routes.privacyPolicy()}
-            render={(props) => Wrapper(PrivacyPolicy, props)}
-          />
+          <Route path={routes.privacyPolicy()} render={(props) => Wrapper(PrivacyPolicy, props)} />
 
           <Route
             exact
@@ -357,7 +281,7 @@ const App = ({
           />
 
           <Route
-            path={routes.questions(':communityid')}
+            path={routes.questions(':communityid', ':paginationpage')}
             render={(props) =>
               Wrapper(Questions, {
                 ...props,
@@ -367,7 +291,7 @@ const App = ({
           />
 
           <Route
-            path={routes.expertPosts(':communityid')}
+            path={routes.expertPosts(':communityid', ':paginationpage')}
             render={(props) =>
               Wrapper(Questions, {
                 ...props,
@@ -379,22 +303,15 @@ const App = ({
           <Route
             exact
             path={routes.tutorials()}
-            render={(props) =>
-              Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
-            }
+            render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
           />
 
           <Route
-            path={routes.tutorials(':communityid')}
-            render={(props) =>
-              Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
-            }
+            path={routes.tutorials(':communityid', ':paginationpage')}
+            render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
           />
 
-          <Route
-            path={routes.questionAsk()}
-            render={(props) => Wrapper(AskQuestion, props)}
-          />
+          <Route path={routes.questionAsk()} render={(props) => Wrapper(AskQuestion, props)} />
 
           <Route
             path={routes.documentationCreate(':parentId')}
@@ -414,15 +331,13 @@ const App = ({
 
           <Route
             exact
-            path={'/questions/:id'}
+            path={routes.questionView(':id', ':title', false, true)}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
-          <Route
-            exact
-            path={'/discussions/:id'}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
+          <Route exact path={'/questions/:id'} render={(props) => Wrapper(ViewQuestion, props)} />
+
+          <Route exact path={'/discussions/:id'} render={(props) => Wrapper(ViewQuestion, props)} />
 
           <Route
             exact
@@ -430,11 +345,7 @@ const App = ({
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
-          <Route
-            exact
-            path={'/experts/:id'}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
+          <Route exact path={'/experts/:id'} render={(props) => Wrapper(ViewQuestion, props)} />
 
           <Route
             exact
@@ -442,11 +353,7 @@ const App = ({
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
-          <Route
-            exact
-            path={'/tutorials/:id'}
-            render={(props) => Wrapper(ViewQuestion, props)}
-          />
+          <Route exact path={'/tutorials/:id'} render={(props) => Wrapper(ViewQuestion, props)} />
 
           <Route
             path={routes.questionEdit(':postType', ':questionid', ':title')}
@@ -464,10 +371,14 @@ const App = ({
           />
 
           {(hasGlobalModeratorRole() || hasProtocolAdminRole() || single) && (
+            <Route exact path={routes.users()} render={(props) => Wrapper(Users, props)} />
+          )}
+
+          {single && hasCommunityOrProtocolAdminRole && (
             <Route
               exact
-              path={routes.users()}
-              render={(props) => Wrapper(Users, props)}
+              path={routes.administration()}
+              render={(props) => Wrapper(Administration, props)}
             />
           )}
 
@@ -479,66 +390,19 @@ const App = ({
             />
           )}
 
-          <Route
-            path={routes.noAccess()}
-            render={(props) => Wrapper(NoAccess, props)}
-          />
+          <Route path={routes.noAccess()} render={(props) => Wrapper(NoAccess, props)} />
 
-          <Route
-            exact
-            path={routes.search()}
-            render={(props) => Wrapper(Search, props)}
-          />
+          <Route exact path={routes.search()} render={(props) => Wrapper(Search, props)} />
 
-          <Route
-            path={routes.search(':q')}
-            render={(props) => Wrapper(Search, props)}
-          />
+          <Route path={routes.search(':q')} render={(props) => Wrapper(Search, props)} />
 
-          <Route
-            path={routes.errorPage()}
-            render={(props) => Wrapper(ErrorPage, props)}
-          />
-
-          <Route path={routes.signup.email.name}>
-            <React.Suspense fallback={<Loader />}>
-              <EmailEnteringForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.emailVerification.name}>
-            <React.Suspense fallback={null}>
-              <EmailVerificationForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.displayName.name}>
-            <React.Suspense fallback={null}>
-              <WalletsSignUpForm />
-            </React.Suspense>
-          </Route>
-
-          <Route exact path={routes.signup.accountSetup.name}>
-            <React.Suspense fallback={null}>
-              <SignUpViaEmail />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneWithAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneWithAccount />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneNoAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneNoAccount />
-            </React.Suspense>
-          </Route>
+          <Route path={routes.errorPage()} render={(props) => Wrapper(ErrorPage, props)} />
 
           <Route render={(props) => Wrapper(NotFoundPage, props)} />
         </Switch>
-        <div id="portal-root" />
+        <div id="portal-root">
+          <MetaTransactionAgreement />
+        </div>
       </ThemeProvider>
     </ErrorBoundary>
   );
@@ -560,10 +424,7 @@ export default compose(
   injectSaga({ key: 'app', saga, mode: DAEMON }),
   connect(mapStateToProps, (dispatch) => ({
     redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
-    redirectToDocumentationDispatch: bindActionCreators(
-      redirectToDocumentation,
-      dispatch,
-    ),
+    redirectToDocumentationDispatch: bindActionCreators(redirectToDocumentation, dispatch),
     redirectToPreloadDispatch: bindActionCreators(redirectToPreload, dispatch),
   })),
 )(App);

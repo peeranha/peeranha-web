@@ -178,23 +178,22 @@ export const customSubHeaderConfig = {
 };
 
 export const FilecoinStyles = {
+  name: 'filecoin',
   withoutCopyright: true,
   withoutSubHeader: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/filecoin/filecoin-logo-last.png',
+  signUpPageLogo: 'https://images.peeranha.io/communities/filecoin/logo.svg',
   logoText: 'Filecoin',
   logoColor: '#000000',
-  favicon:
-    'https://images.peeranha.io/communities/filecoin/favicon-filecoin.ico',
   colors: {
+    appWindowsColor: '#da532c',
+    appSafarieColor: '#082abe',
     mainBackground: '#F3F3F3',
     linkColor: '#0090FF', // Q&A color
     linkColorTransparent: 'rgba(0, 144, 255, 0.4)', // link color transparent
     headerPrimary: '#0090FF',
     commentOption: '#0090FF',
     contentHeader: '#0090FF',
-    blockedInfoArea: 'rgba(0, 144, 255, 0.1)', // link color transparent
     transparentIconColor: '#98cbf2',
     loaderColor: '#0090FF',
     votingIconColor: '#0090FF',
