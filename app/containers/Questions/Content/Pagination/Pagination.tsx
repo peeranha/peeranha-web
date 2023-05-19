@@ -19,7 +19,7 @@ const Pagination: React.FC<PaginationProps> = ({
   prevPage,
   nextPage,
   setPage,
-}): JSX.Element => {
+}): JSX.Element | null => {
   const isLastPage = page === totalPages;
   const isStartPage = page === 1;
   const scrollToTop = () => {
@@ -69,6 +69,7 @@ const Pagination: React.FC<PaginationProps> = ({
             .slice(page > 2 ? page - 3 : 0, page > 2 ? page + 2 : 5)
             .map((element) => (
               <ButtonPagination
+                key={element}
                 page={page}
                 element={element}
                 clickHandler={setPage}

@@ -30,7 +30,6 @@ import {
   selectReadNotificationsAll,
   selectReadNotificationsUnread,
   selectUnreadNotifications,
-  selectUnreadNotificationsLastTimestamp,
   unreadNotificationsCount,
 } from './selectors';
 

@@ -193,7 +193,6 @@ export const FunctionlandStyles = {
     headerPrimary: 'rgb(9, 147, 147)',
     commentOption: 'rgb(9, 147, 147)',
     contentHeader: 'rgb(9, 147, 147)',
-    blockedInfoArea: 'rgb(209, 255, 255)',
     transparentIconColor: 'rgb(209, 255, 255)',
     loaderColor: 'rgb(9, 147, 147)',
     votingIconColor: 'rgb(9, 147, 147)',

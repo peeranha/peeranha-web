@@ -183,7 +183,6 @@ export const OrbisStyles = {
     headerPrimary: '#DE73DA',
     commentOption: '#DE73DA',
     contentHeader: '#DE73DA',
-    blockedInfoArea: 'rgb(42 36 96 / 10%)',
     transparentIconColor: '#FFF',
     loaderColor: '#DE73DA',
     votingIconColor: '#DE73DA',

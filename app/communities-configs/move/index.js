@@ -185,7 +185,6 @@ export const MoveStyles = {
     headerPrimary: 'rgba(56, 78, 159, 1)',
     commentOption: 'rgba(56, 78, 159, 1)',
     contentHeader: 'rgba(56, 78, 159, 1)',
-    blockedInfoArea: 'rgb(16, 40, 71, 0.1)',
     transparentIconColor: '#FFF',
     loaderColor: 'rgba(56, 78, 159, 1)',
     votingIconColor: 'rgba(56, 78, 159, 1)',

@@ -23,7 +23,7 @@ type StepButtonPaginationProps = {
   alt: string;
   clickHandler: () => void;
   scrollToTop: () => void;
-  page: number;
+  page?: number;
 };
 
 const routeHandler = (element: number, direction: boolean) => {
@@ -46,24 +46,22 @@ const ButtonPagination: React.FC<ButtonPaginationProps> = ({
   element,
   clickHandler,
   scrollToTop,
-}): JSX.Element => {
-  return (
-    <button
-      css={css({
-        ...styles.basicStyles,
-        ...(page === element + 1 && styles.activeStyles),
-      })}
-      onClick={() => {
-        clickHandler(element + 1);
-        routeHandler(element, true);
-        scrollToTop();
-      }}
-      key={element}
-    >
-      {element + 1}
-    </button>
-  );
-};
+}): JSX.Element => (
+  <button
+    css={css({
+      ...styles.basicStyles,
+      ...(page === element + 1 && styles.activeStyles),
+    })}
+    onClick={() => {
+      clickHandler(element + 1);
+      routeHandler(element, true);
+      scrollToTop();
+    }}
+    key={element}
+  >
+    {element + 1}
+  </button>
+);
 
 const StepButtonPagination: React.FC<StepButtonPaginationProps> = ({
   clickHandler,
@@ -87,8 +85,6 @@ const StepButtonPagination: React.FC<StepButtonPaginationProps> = ({
   );
 };
 
-const ContinueButtonPagination: React.FC = (): JSX.Element => {
-  return <p>{CONTINUE}</p>;
-};
+const ContinueButtonPagination: React.FC = (): JSX.Element => <p>{CONTINUE}</p>;
 
 export { ButtonPagination, StepButtonPagination, ContinueButtonPagination };

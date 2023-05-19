@@ -38,6 +38,7 @@ import {
   MIN_ENERGY_TO_POST_QUESTION,
   MIN_RATING_TO_POST_QUESTION,
   POST_QUESTION_BUTTON,
+  NEW_POST_PATHNAME,
 } from './constants';
 
 export function* postQuestionWorker({ val }) {
@@ -167,11 +168,14 @@ export function* checkReadinessWorker({ buttonId }) {
 /* eslint no-empty: 0 */
 export function* redirectToAskQuestionPageWorker({ buttonId, isDocumentation, parentId }) {
   try {
+    const isNewPostPage = createdHistory.location.pathname === NEW_POST_PATHNAME;
     yield call(checkReadinessWorker, { buttonId });
-    yield call(
-      createdHistory.push,
-      isDocumentation ? routes.documentationCreate(parentId) : routes.questionAsk(),
-    );
+    if (!isNewPostPage) {
+      yield call(
+        createdHistory.push,
+        isDocumentation ? routes.documentationCreate(parentId) : routes.questionAsk(),
+      );
+    }
   } catch (err) {}
 }
 
