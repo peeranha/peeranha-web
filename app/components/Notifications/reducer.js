@@ -57,9 +57,7 @@ function notificationsReducer(state = initialState, action) {
     loadMoreUnreadNotificationsErr,
     lastUser,
   } = action;
-  const allSubState = state.get('all')?.toJS
-    ? state.get('all').toJS()
-    : state.get('all');
+  const allSubState = state.get('all')?.toJS ? state.get('all').toJS() : state.get('all');
   const unreadSubState = state.get('unread')?.toJS
     ? state.get('unread').toJS()
     : state.get('unread');
@@ -87,7 +85,7 @@ function notificationsReducer(state = initialState, action) {
       });
     case LOAD_MORE_NOTIFICATIONS_SUCCESS:
       if (notifications.length) {
-        notifications.forEach(notification => {
+        notifications.forEach((notification) => {
           if (!stateNotifications[notification.timestamp]) {
             stateNotifications[notification.timestamp] = notification;
           }
@@ -98,17 +96,15 @@ function notificationsReducer(state = initialState, action) {
           })
           .set('all', {
             ...allSubState,
-            lastTimestamp:
-              notifications[notifications.length - 1].timestamp - 1,
+            lastTimestamp: notifications[notifications.length - 1].timestamp - 1,
             loading: false,
           })
           .set('unread', {
             ...unreadSubState,
             timestamps: notifications
-              .filter(notification => !notification.read)
+              .filter((notification) => !notification.read)
               .map(({ timestamp }) => timestamp),
-            lastTimestamp:
-              notifications[notifications.length - 1].timestamp - 1,
+            lastTimestamp: notifications[notifications.length - 1].timestamp - 1,
             loading: false,
           });
       }
@@ -129,10 +125,8 @@ function notificationsReducer(state = initialState, action) {
       });
     case LOAD_MORE_UNREAD_NOTIFICATIONS_SUCCESS:
       if (notifications.length) {
-        const newNots = notifications.filter(
-          ({ timestamp }) => !stateNotifications[timestamp],
-        );
-        newNots.forEach(notification => {
+        const newNotes = notifications.filter(({ timestamp }) => !stateNotifications[timestamp]);
+        newNotes.forEach((notification) => {
           stateNotifications[notification.timestamp] = notification;
         });
 
@@ -143,16 +137,15 @@ function notificationsReducer(state = initialState, action) {
           .set('unread', {
             ...unreadSubState,
             timestamps: unreadSubState.timestamps.concat(
-              newNots.map(({ timestamp }) => timestamp),
+              newNotes.map(({ timestamp }) => timestamp),
             ),
-            lastTimestamp:
-              notifications[notifications.length - 1].timestamp - 1,
+            lastTimestamp: notifications[notifications.length - 1].timestamp - 1,
             loading: false,
           })
           .set('all', {
             ...allSubState,
             readNotifications: allSubState.readNotifications.map(
-              notification => notification + newNots.length,
+              (notification) => notification + newNotes.length,
             ),
             loading: false,
           });
@@ -168,8 +161,8 @@ function notificationsReducer(state = initialState, action) {
         .set('loadMoreUnreadNotificationsErr', loadMoreUnreadNotificationsErr);
 
     case MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS:
-      Object.keys(stateNotifications).forEach(timestamp => {
-        _update(stateNotifications, timestamp, notification => ({
+      Object.keys(stateNotifications).forEach((timestamp) => {
+        _update(stateNotifications, timestamp, (notification) => ({
           ...notification,
           read: true,
         }));
@@ -186,9 +179,9 @@ function notificationsReducer(state = initialState, action) {
         .set('notifications', { ...stateNotifications });
 
     case FILTER_READ_TIMESTAMPS:
-      Object.keys(stateNotifications).forEach(timestamp => {
+      Object.keys(stateNotifications).forEach((timestamp) => {
         if (stateReadTimestamps.includes(+timestamp)) {
-          _update(stateNotifications, timestamp, notification => ({
+          _update(stateNotifications, timestamp, (notification) => ({
             ...notification,
             read: true,
           }));
@@ -201,7 +194,7 @@ function notificationsReducer(state = initialState, action) {
           readNotifications: [0, 0],
           count: Math.max(0, unreadSubState.count - stateReadTimestamps.length),
           timestamps: unreadSubState.timestamps.filter(
-            timestamp => !stateNotifications[timestamp].read,
+            (timestamp) => !stateNotifications[timestamp].read,
           ),
         })
         .set('readTimestamps', [])
@@ -227,14 +220,8 @@ function notificationsReducer(state = initialState, action) {
         .set('unread', initialStateObject.unread)
         .set('isInfoLoaded', initialStateObject.isInfoLoaded)
         .set('notifications', {})
-        .set(
-          'loadMoreNotificationsError',
-          initialStateObject.loadMoreNotificationsError,
-        )
-        .set(
-          'loadMoreUnreadNotificationsErr',
-          initialStateObject.loadMoreUnreadNotificationsErr,
-        )
+        .set('loadMoreNotificationsError', initialStateObject.loadMoreNotificationsError)
+        .set('loadMoreUnreadNotificationsErr', initialStateObject.loadMoreUnreadNotificationsErr)
         .set('lastUser', initialStateObject.lastUser);
 
     default:

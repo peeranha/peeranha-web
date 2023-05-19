@@ -17,17 +17,16 @@ import injectReducer from 'utils/injectReducer';
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
 import bellIcon from 'images/Notifications_Disabled.svg?external';
+
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
 import { IconXl } from 'components/Icon/IconWithSizes';
-
 import saga from 'components/Notifications/saga';
-
 import reducer from 'components/Notifications/reducer';
-
 import {
   selectReadNotificationsUnread,
   selectUnreadNotificationsLoading,
 } from 'components/Notifications/selectors';
-
 import {
   loadMoreUnreadNotifications,
   markAsReadNotificationsUnread,
@@ -63,6 +62,7 @@ const Content = ({
   rowHeight,
   loading,
   notifications,
+  communities,
   readNotifications,
   markAsReadNotificationsUnreadDispatch,
   loadMoreUnreadNotificationsDispatch,
@@ -131,6 +131,7 @@ const Content = ({
       key={key}
       top={top}
       height={rowHeight}
+      communities={communities}
       notificationsNumber={notifications.length}
       paddingHorizontal="15"
       {...notifications[index]}
@@ -189,6 +190,7 @@ export default memo(
       (state) => ({
         loading: selectUnreadNotificationsLoading()(state),
         readNotifications: selectReadNotificationsUnread()(state),
+        communities: selectCommunities()(state),
       }),
       (dispatch) => ({
         markAsReadNotificationsUnreadDispatch: bindActionCreators(

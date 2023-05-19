@@ -30,12 +30,12 @@ const SeeAllButton = () => {
   );
 };
 
-const Footer = ({ onClose, profile, isEmpty }) => {
+const Footer = ({ onClose, profile, empty }) => {
   const { t } = useTranslation();
   return (
     <div css={styles.footerContainer}>
       <Link onClick={onClose} to={userNotifications(profile)}>
-        {isEmpty ? (
+        {empty ? (
           <>
             <IconXm
               className="mr-2"
@@ -49,13 +49,13 @@ const Footer = ({ onClose, profile, isEmpty }) => {
           <SeeAllButton />
         )}
       </Link>
-      {!isEmpty && <MarkAllAsReadButton />}
+      {!empty && <MarkAllAsReadButton />}
     </div>
   );
 };
 
 Footer.propTypes = {
-  isEmpty: PropTypes.bool,
+  empty: PropTypes.bool,
   onClose: PropTypes.func,
   profile: PropTypes.string,
 };

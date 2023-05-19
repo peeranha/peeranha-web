@@ -21,7 +21,7 @@ import { messengerData } from 'containers/ViewQuestion/BotInfo';
 
 export const AuthorName = Span.extend`
   width: max-content;
-  min-width: 55px;
+  min-width: min-content;
   padding-right: 8px;
   white-space: nowrap;
   overflow: hidden;

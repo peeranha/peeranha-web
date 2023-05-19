@@ -184,7 +184,6 @@ export const Mark3dStyles = {
     headerPrimary: 'rgba(135, 133, 244, 1)',
     commentOption: 'rgba(135, 133, 244, 1)',
     contentHeader: 'rgba(135, 133, 244, 1)',
-    blockedInfoArea: 'rgb(42 36 96 / 10%)',
     transparentIconColor: '#FFF',
     loaderColor: 'rgba(135, 133, 244, 1)',
     votingIconColor: 'rgba(135, 133, 244, 1)',

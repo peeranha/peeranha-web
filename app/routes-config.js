@@ -86,7 +86,7 @@ export const answerEdit = (questionId, answerId) =>
     ? `/discussions/${questionId}/answers/${answerId}/edit`
     : `/${questionId}/answers/${answerId}/edit`;
 
-export const questionAsk = () => (!singleCommId ? `/discussions/ask` : `/ask`);
+export const questionAsk = () => '/ask';
 
 export const documentationCreate = (parentId) =>
   parentId ? `/documentation/${parentId}/create` : `/documentation/create`;
