@@ -23,7 +23,7 @@ export const styles = {
     },
     img: {
       width: '180px',
-      marginBottom: '20px',
+      marginBottom: '45px',
     },
   },
 
@@ -105,6 +105,8 @@ export const styles = {
     alignItems: 'start',
     flexDirection: 'column',
     marginLeft: '32px',
+    color: '#667085',
+    lineHeight: '24px',
   },
 
   infoSingleComm: {
