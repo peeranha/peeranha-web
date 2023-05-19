@@ -193,7 +193,6 @@ export const SuiStyles = {
     headerPrimary: 'rgb(111, 188, 240)',
     commentOption: 'rgb(111, 188, 240)',
     contentHeader: 'rgb(111, 188, 240)',
-    blockedInfoArea: 'rgb(111, 188, 240)',
     transparentIconColor: 'rgb(209, 255, 255)',
     loaderColor: 'rgb(111, 188, 240)',
     votingIconColor: 'rgb(111, 188, 240)',

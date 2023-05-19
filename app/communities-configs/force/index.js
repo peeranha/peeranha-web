@@ -183,7 +183,6 @@ export const ForceStyles = {
     headerPrimary: '#251E67',
     commentOption: '#251E67',
     contentHeader: '#251E67',
-    blockedInfoArea: 'rgb(42 36 96 / 10%)',
     transparentIconColor: '#FFF',
     loaderColor: '#251E67',
     votingIconColor: '#251E67',
