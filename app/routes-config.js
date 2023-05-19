@@ -26,14 +26,23 @@ export const userWallet = userRedirect('/wallet');
 export const userBoost = userRedirect('/boost');
 export const uniqueAnswerId = (answerId) => `ans${answerId}`;
 
-export const questions = (communityId) =>
-  !communityId ? '/discussions' : `/discussions/community/${communityId}/`;
+export const questions = (communityId, paginationPage = 1) => {
+  const paginationRoute = paginationPage > 1 ? `?page=${paginationPage}` : '';
+  const communityRoute = communityId ? `/community/${communityId}` : '';
+  return `/discussions${communityRoute}${paginationRoute}`;
+};
 
-export const expertPosts = (communityId) =>
-  !communityId ? '/experts' : `/experts/community/${communityId}/`;
+export const expertPosts = (communityId, paginationPage = 1) => {
+  const paginationRoute = paginationPage > 1 ? `?page=${paginationPage}` : '';
+  const communityRoute = communityId ? `/community/${communityId}` : '';
+  return `/experts${communityRoute}${paginationRoute}`;
+};
 
-export const tutorials = (communityId) =>
-  !communityId ? '/tutorials' : `/tutorials/community/${communityId}/`;
+export const tutorials = (communityId, paginationPage = 1) => {
+  const paginationRoute = paginationPage > 1 ? `?page=${paginationPage}` : '';
+  const communityRoute = communityId ? `/community/${communityId}` : '';
+  return `/tutorials${communityRoute}${paginationRoute}`;
+};
 
 export const questionView = (id, title, answerId, isOldURL) => {
   const updatedTitle = updateTitle(title);
@@ -97,10 +106,11 @@ export const noAccess = () => `/no-access`;
 
 export const detailsHomePage = () => '/';
 
-export const feed = (communityId) =>
-  !singleCommId
-    ? `/feed${communityId ? `/${communityId}` : ''}`
-    : `/${communityId ? `feed/${communityId}` : 'feed'}`;
+export const feed = (communityId, paginationPage = 1) => {
+  const paginationRoute = paginationPage > 1 ? `?page=${paginationPage}` : '';
+  const communityRoute = communityId ? `/${communityId}` : '';
+  return `/feed${communityRoute}${paginationRoute}`;
+};
 
 export const communities = () => `/communities`;
 
