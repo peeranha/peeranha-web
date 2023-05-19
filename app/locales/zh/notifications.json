@@ -13,9 +13,5 @@
   "somebodyLeftACommentToYourQuestion": "你的帖子被评论了",
   "somebodyLeftACommentToYourAnswer": "你的回答被评论了",
   "yourQuestionWasTipped": "您的帖子被提示 {{quantity}}",
-  "yourAnswerWasTipped": "您的答案已提示 {{quantity}}",
-  "yourPostTypeWasChanged": "您的帖子类型已更改",
-  "communityWasChanged": "你的帖子被移动了",
-  "communityChangedFromTo": "从 {{previousCommunity}} 到 {{currentCommunity}} 社区",
-  "postTypeChangedFromTo": "从 {{previousPostType}} 到 {{postType}}"
+  "yourAnswerWasTipped": "您的答案已提示 {{quantity}}"
 }

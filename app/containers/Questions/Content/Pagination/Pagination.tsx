@@ -2,7 +2,7 @@ import React from 'react';
 import { ButtonPagination, StepButtonPagination } from './ButtonPagination';
 import prev from 'images/prev.svg?inline';
 import next from 'images/next.svg?inline';
-import { STEP_NEXT, STEP_PREV, CONTINUE } from './constants';
+import { STEP_NEXT, STEP_PREV } from './constants';
 import { START_DYNAMIC_PAGINATION } from 'containers/Questions/constants';
 import { styles } from './Pagination.styled';
 type PaginationProps = {
