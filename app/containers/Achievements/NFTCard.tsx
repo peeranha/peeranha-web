@@ -5,25 +5,15 @@ import LimitedLabel from './LimitedLabel';
 import ProgressBar from './ProgressBar';
 import CommunityLabel from './CommunityLabel';
 import LinkInfo from './LinkInfo';
-import { getNFTUrl } from '../../utils/ipfs';
-import { uniqueRatingRelated } from './constants';
-import { NFTType, CommunityType } from './types';
-
-const LIMITED_PEERANHA_NFT = 0;
-
-const getProgress = (currentValue: number, lowerValue: number) => {
-  const result = (currentValue / lowerValue) * 100;
-
-  return result > 100 ? 100 : result;
-};
-
-type NFTCardType = {
-  item: NFTType;
-  hasNFT: boolean;
-  isCurrentUser: boolean;
-  currentValue: number;
-  communities: Array<CommunityType>;
-};
+import { getNFTUrl } from 'utils/ipfs';
+import {
+  uniqueRatingRelated,
+  LIMITED_PEERANHA_NFT,
+  CLOSED_NFT_IMG,
+  COEFFICIENT_LOWER_VALUE,
+} from './constants';
+import { NFTCardType } from './types';
+import { styles } from './Achievements.styled';
 
 const NFTCard: React.FC<NFTCardType> = ({
   item,
@@ -45,7 +35,6 @@ const NFTCard: React.FC<NFTCardType> = ({
       if (refCard.current) {
         refCard.current.style.height = `${refCard.current?.offsetHeight}px`;
       }
-
       return true;
     });
   };
@@ -60,74 +49,35 @@ const NFTCard: React.FC<NFTCardType> = ({
     });
   };
 
+  const getProgress = (value: number, lowerValue: number) => {
+    const result = (value / lowerValue) * COEFFICIENT_LOWER_VALUE;
+    return result > COEFFICIENT_LOWER_VALUE ? COEFFICIENT_LOWER_VALUE : result;
+  };
+
+  const getNftImage = (): void =>
+    hasNFT ? getNFTUrl(item.image?.slice(7)) : CLOSED_NFT_IMG;
+
   return (
     <div>
       <div
-        className="pr p12"
-        css={{
-          background: 'rgba(255, 255, 255, 0.3)',
-          borderRadius: '5px',
-          minWidth: 148,
-
-          ...(hasNFT && {
-            background: 'var(--color-white)',
-            boxShadow: '0px 2px 4px rgba(7, 16, 64, 0.1)',
-          }),
-
-          '@media (min-width: 1024px)': {
-            padding: 16,
-            minWidth: 256,
-          },
-        }}
+        css={{ ...styles.nft, ...(hasNFT && styles.nftBG) }}
         onMouseEnter={hasNFT && isDesktop ? onHover : undefined}
         onMouseLeave={hasNFT && isDesktop ? onBlur : undefined}
       >
-        <div
-          css={{
-            ...(isHover &&
-              isDesktop &&
-              hasNFT && {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                zIndex: 2,
-                padding: 13,
-                border: '3px solid #A5BCFF',
-                boxShadow: '0px 10px 20px rgba(24, 39, 79, 0.1)',
-                borderRadius: '5px',
-                background: 'var(--color-white)',
-              }),
-          }}
-        >
+        <div css={isHover && isDesktop && hasNFT && styles.nftCard}>
           <div
             ref={ref}
-            className="pr df jcc"
             css={{
-              margin: 'auto',
-              width: '100%',
-              height: ref.current?.offsetWidth,
-              background: 'var(--color-gray-special)',
-              borderRadius: '5px',
-
-              ...(!hasNFT && {
-                background: 'rgba(249, 249, 249, 0.5)',
-              }),
+              ...styles.nftContainer,
+              ...{ height: ref.current?.offsetWidth },
+              ...(!hasNFT && styles.nftContainerBG),
             }}
           >
             <img
-              src={
-                hasNFT
-                  ? getNFTUrl(item.image?.slice(7))
-                  : 'https://images.peeranha.io/nft/closed-new.png'
-              }
+              src={getNftImage()}
               alt={`NFT ${item.name}`}
-              css={{
-                width: '100%',
-                height: 'auto',
-              }}
+              css={styles.nftImg}
             />
-
             <CommunityLabel
               communityId={item.communityId}
               communities={communities}
@@ -137,16 +87,7 @@ const NFTCard: React.FC<NFTCardType> = ({
             {isCurrentUser &&
               !hasNFT &&
               item.achievementsType === LIMITED_PEERANHA_NFT && (
-                <div
-                  className="pa full-width df jcc"
-                  css={{
-                    bottom: 8,
-
-                    '@media (min-width: 992px)': {
-                      bottom: 16,
-                    },
-                  }}
-                >
+                <div css={styles.achievementCard}>
                   <ProgressBar
                     achievementId={item.id}
                     progress={getProgress(
@@ -165,53 +106,17 @@ const NFTCard: React.FC<NFTCardType> = ({
                 </div>
               )}
           </div>
-          <div
-            className="pt12"
-            css={{
-              color: 'var(--color-black)',
-
-              '@media (min-width: 1024px)': {
-                paddingTop: 16,
-              },
-            }}
-          >
+          <div css={styles.achievementContainer}>
             <div
-              className="semi-bold fz12 ovh"
               css={{
-                ...(!isHover && {
-                  display: '-webkit-box',
-                  '-webkit-box-orient': 'vertical',
-                  '-webkit-line-clamp': '1',
-                }),
-                lineHeight: '15px',
-
-                '@media (min-width: 1024px)': {
-                  fontSize: 16,
-                  lineHeight: '20px',
-                },
+                ...styles.achievementTitle,
+                ...(!isHover && styles.achievementTitleHover),
               }}
             >
               {item.name}
             </div>
             <div
-              className="mt4 ovh"
-              css={{
-                display: '-webkit-box',
-                '-webkit-box-orient': 'vertical',
-                '-webkit-line-clamp': '1',
-                fontSize: 10,
-                lineHeight: '13px',
-
-                ...(isHover && {
-                  display: 'block',
-                }),
-
-                '@media (min-width: 1024px)': {
-                  marginTop: 8,
-                  fontSize: 14,
-                  lineHeight: '18px',
-                },
-              }}
+              css={{ ...styles.achievementCount, ...(isHover && styles.db) }}
             >
               {(hasNFT || item.achievementsType !== LIMITED_PEERANHA_NFT) &&
                 item.description}
@@ -219,19 +124,12 @@ const NFTCard: React.FC<NFTCardType> = ({
                 item.achievementsType === LIMITED_PEERANHA_NFT &&
                 t('achievements.available', {
                   count: availiableCount,
-                  maxCount: item.maxCount,
+                  maxCount: Number(item.maxCount),
                 })}
             </div>
           </div>
           {isHover && hasNFT && (
-            <div
-              className="mt8 fz14"
-              css={{
-                lineHeight: '18px',
-                color: '#7B7B7B',
-                fontStyle: 'italic',
-              }}
-            >
+            <div css={styles.link}>
               <div>ID: {item.id}</div>
               <LinkInfo
                 href={
@@ -246,7 +144,7 @@ const NFTCard: React.FC<NFTCardType> = ({
                     ${
                       process.env.IPFS_NFT_URL as string
                     }${item.achievementURI.replace('ipfs://', '')}`}
-                title="IPFS"
+                title={t('common.ipfsHashValue')}
                 titleLink={item.achievementURI}
               />
             </div>

@@ -160,5 +160,5 @@
     "firstAnswerRelated": "第一个答案"
   },
   "contract": "合同",
-  "available": "{{maxCount}} 个中有 {{count}} 个可用"
+  "available": "{{count}} 个中有 {{maxCount}} 个可用"
 }

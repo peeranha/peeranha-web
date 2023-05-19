@@ -297,6 +297,8 @@ export const APP_CURRENCY = 'PEER';
 // Social Media Data
 export const APP_TWITTER_NICKNAME = 'peeranhaio';
 export const APP_MAIN_NAME = 'Peeranha';
+export const LOGO_PEERANHA_IPFS =
+  'https://ipfs-cdn.peeranha.io/QmbEjRVUPyBffw1r5EGW7rAQHxd4NhoNtADy68bEV5YQT4';
 
 // Temporary Account Data
 export const TEMPORARY_ACCOUNT_KEY = 15;
@@ -336,3 +338,7 @@ export const CHANGED_POSTS_KEY = 'changed-posts';
 export const POSITION_TOP = 'top';
 
 export const LIMITED_EDITION_NFT_TYPE = 0;
+
+// Attributes
+
+export const TARGET_BLANK = '_blank';

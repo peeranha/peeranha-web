@@ -283,3 +283,9 @@ export {
   SET_MEMORIZED_ACHIEV_DATA,
   SET_MAX_GROUPS_LOWER_VALUES,
 };
+
+export const ERROR_IPFS2 = 'error IPFS2';
+export const LIMITED_PEERANHA_NFT = 0;
+export const CLOSED_NFT_IMG = 'https://images.peeranha.io/nft/closed-new.png';
+export const LABEL_WIDTH = 32;
+export const COEFFICIENT_LOWER_VALUE = 100;
