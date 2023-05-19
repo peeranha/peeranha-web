@@ -183,7 +183,6 @@ export const VyperStyles = {
     headerPrimary: '#637761',
     commentOption: '#637761',
     contentHeader: '#637761',
-    blockedInfoArea: '#EDEDEE',
     transparentIconColor: '#fff',
     loaderColor: '#637761',
     votingIconColor: '#637761',

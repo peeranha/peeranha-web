@@ -64,6 +64,7 @@ import PostRules from './PostRules';
 
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -205,6 +206,9 @@ export const QuestionForm = ({
     title: 'Documentation',
   };
 
+  const notHiddenCommunities = communities.filter(
+    (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
+  );
   return (
     <Router history={history}>
       <Prompt
@@ -223,7 +227,7 @@ export const QuestionForm = ({
           <BaseSpecialOne>
             <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
               <CommunityForm
-                communities={communities}
+                communities={notHiddenCommunities}
                 communityId={communityId}
                 change={change}
                 questionLoading={questionLoading}
@@ -237,7 +241,7 @@ export const QuestionForm = ({
               {Boolean(!question && isDocumentation && isNaN(parentId)) && (
                 <SubArticleForm
                   locale={locale}
-                  communities={communities}
+                  communities={notHiddenCommunities}
                   change={change}
                   questionLoading={questionLoading}
                   disableCommForm={isEditForm}

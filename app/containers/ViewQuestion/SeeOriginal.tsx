@@ -64,17 +64,13 @@ const SeeOriginal: React.FC<SeeOriginalProps> = ({
       <img
         src={
           showOriginal
-            ? imageByLanguage[
-                LANGUAGES_MAP[locale as keyof typeof LANGUAGES_MAP]
-              ]
+            ? imageByLanguage[LANGUAGES_MAP[locale as keyof typeof LANGUAGES_MAP]]
             : imageByLanguage[language]
         }
         alt="language"
         css={css(flagImageStyles)}
       />
-      <span>
-        {showOriginal ? t('common.seeTranslation') : t('common.seeOriginal')}
-      </span>
+      <span>{showOriginal ? t('common.seeTranslation') : t('common.seeOriginal')}</span>
     </div>
   ) : null;
 };

@@ -5,10 +5,7 @@ import {
   TEXT_LIGHT,
   TEXT_PRIMARY,
 } from 'style-constants';
-import {
-  singleCommunityColors,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 
 const communityColors = singleCommunityColors();
 const communityStyles = singleCommunityStyles();
