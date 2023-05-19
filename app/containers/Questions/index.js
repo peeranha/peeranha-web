@@ -138,7 +138,13 @@ export const Questions = ({
     if (page !== 1) {
       setPage(1);
     }
-  }, [typeFilter, createdFilter, postsTypes, communities]);
+  }, [
+    typeFilter,
+    createdFilter,
+    postsTypes,
+    JSON.stringify(communities),
+    JSON.stringify(followedCommunities),
+  ]);
 
   useEffect(() => {
     setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
