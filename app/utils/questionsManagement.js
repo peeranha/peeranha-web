@@ -64,13 +64,15 @@ export async function postQuestion(
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransaction(
+  const resultTransaction = await ethereumService.sendTransaction(
     CONTRACT_CONTENT,
     user,
     POST_QUESTION,
     [user, communityId, ipfsHash, postType, tags, language],
-    2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
+    3, // wait for additional confirmation to avoid 404 error when redirect to newly created post
   );
+  await waitForTransactionConfirmation();
+  return resultTransaction;
 }
 
 export async function deleteDocumentationPost(user, postId, documentationJSON, ethereumService) {
@@ -509,3 +511,6 @@ export const getHistoriesForPost = async (postId) => {
     }),
   );
 };
+
+export const waitForTransactionConfirmation = async () =>
+  new Promise((resolve) => setTimeout(resolve, 2000));

@@ -28,7 +28,7 @@ const Title = ({
   const link = getPostRoute({ postType, id, title });
   let translatedTitle = title;
   if (isAutotranslationEnable) {
-    const translation = translations.find((t) => Number(t.language) === languagesEnum[locale]);
+    const translation = translations?.find((t) => Number(t.language) === languagesEnum[locale]);
     if (translation) {
       translatedTitle = translation.title;
     }
