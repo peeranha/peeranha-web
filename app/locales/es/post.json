@@ -65,5 +65,11 @@
   "RulesBlock_3": "2. Asegúrate de que tu respuesta responde a la pregunta formulada en una publicación y no es solo un comentario o agradecimiento.",
   "RulesBlock_4": "3. Ser educado y respetuoso con los demás.",
   "inThisCommunity": "en esta comunidad",
-  "reputationBelowZero": "Tu reputación en esta comunidad es negativa, no puedes publicar ninguna respuesta."
+  "reputationBelowZero": "Tu reputación en esta comunidad es negativa, no puedes publicar ninguna respuesta.",
+  "answer_login": "Sabes la respuesta?",
+  "answer_loginText": "Please log in and share it.",
+  "answer_replied": "Inicie sesión y compártalo.",
+  "answer_repliedText": "Puede editar su respuesta si necesita agregar más información.",
+  "answer_reputation": "Desafortunadamente, su reputación en esta comunidad es negativa.",
+  "answer_reputationText": "No se le permite publicar ninguna respuesta."
 }

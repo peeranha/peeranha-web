@@ -31,16 +31,12 @@ const TranslationsField: React.FC<TranslationsFieldProps> = ({
   const { t } = useTranslation();
 
   const removeSelectedLanguage = (removedLanguage: string) => {
-    setSelectedLanguages(
-      selectedLanguages.filter((language) => language !== removedLanguage),
-    );
+    setSelectedLanguages(selectedLanguages.filter((language) => language !== removedLanguage));
   };
 
   useEffect(() => {
     if (translations) {
-      setSelectedLanguages(
-        translations.map((translation) => translation.language),
-      );
+      setSelectedLanguages(translations.map((translation) => translation.language));
     }
   }, [translations]);
 

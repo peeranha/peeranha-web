@@ -22,4 +22,10 @@ export const styles = {
   span: {
     paddingRight: '5px',
   },
+
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 };

@@ -43,31 +43,27 @@ const Body = ({
   translations,
 }) => {
   const language = Object.keys(languagesEnum)[Number(postLanguage)];
-  const community = communities.find(
-    (community) => community.id === Number(communityId),
-  );
+  const community = communities.find((community) => community.id === Number(communityId));
   const isAutotranslationEnable =
     locale === 'en' ||
-    community?.translations.find(
-      (translation) => translation.language === locale,
-    )?.enableAutotranslation;
+    community?.translations.find((translation) => translation.language === locale)
+      ?.enableAutotranslation;
+
+  const translation = translations.find((t) => Number(t.language) === languagesEnum[locale]);
+  const isTranslated =
+    translation && isAutotranslationEnable && Number(postLanguage) !== languagesEnum[locale];
 
   return (
-    <Base
-      className={displayTopQuestionMove ? 'pl-0' : ''}
-      position="right"
-      paddingTopMedia={20}
-    >
+    <Base className={displayTopQuestionMove ? 'pl-0' : ''} position="right" paddingTopMedia={20}>
       <QuestionLabels>
-        {Number(postLanguage) !== languagesEnum[locale] &&
-          isAutotranslationEnable && (
-            <LanguageLabel
-              postLanguage={postLanguage}
-              language={language}
-              isAutotranslationEnable={isAutotranslationEnable}
-              isFeed={isFeed}
-            />
-          )}
+        {isTranslated && (
+          <LanguageLabel
+            postLanguage={postLanguage}
+            language={language}
+            isAutotranslationEnable={isAutotranslationEnable}
+            isFeed={isFeed}
+          />
+        )}
 
         {(isFeed || isSearchPage) && (
           <QuestionType
@@ -85,7 +81,7 @@ const Body = ({
         id={id}
         questionBounty={questionBounty}
         postType={postType}
-        translations={translations}
+        translation={translation}
         isAutotranslationEnable={isAutotranslationEnable}
       />
 

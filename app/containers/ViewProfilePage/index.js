@@ -5,6 +5,8 @@ import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
+import Seo from 'components/Seo';
+import { useTranslation } from 'react-i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -70,6 +72,8 @@ const ViewProfilePage = ({
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     setViewProfileAccountDispatch(userId);
     getAllAchievementsDispatch();
@@ -79,6 +83,13 @@ const ViewProfilePage = ({
 
   return (
     <Profile userId={userId} isLogin={account === userId}>
+      <Seo
+        title={t('profile.profile')}
+        description={t('profile.profile')}
+        language={locale}
+        index={false}
+      />
+
       <UserNavigation
         userId={userId}
         account={account}

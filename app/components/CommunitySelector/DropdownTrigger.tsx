@@ -28,9 +28,7 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
   placeholder,
 }): JSX.Element => {
   const [isOpen, open, close] = useTrigger(false);
-  const dropdownMenuElement = document.querySelector(
-    '[data-dropdown="dropdownMenu"]',
-  );
+  const dropdownMenuElement = document.querySelector('[data-dropdown="dropdownMenu"]');
 
   const openHandler = (): void => {
     open();
@@ -66,27 +64,16 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
   };
 
   return (
-    <div
-      className="df jcsb aic"
-      css={styles.container}
-      onClick={dropdownListener}
-    >
+    <div className="df jcsb aic" css={styles.container} onClick={dropdownListener}>
       <div>
-        {selectedLanguages.length === 0 && (
-          <span css={styles.placeholder}>{placeholder}</span>
-        )}
+        {selectedLanguages.length === 0 && <span css={styles.placeholder}>{placeholder}</span>}
         {selectedLanguages.map((language) => {
           const selectedLanguage = allLanguages.find(
-            (languageWithDescription) =>
-              languageWithDescription.value === language,
+            (languageWithDescription) => languageWithDescription.value === language,
           );
 
           return (
-            <div
-              className="dif aic jcc fz14"
-              css={styles.language}
-              key={language}
-            >
+            <div className="dif aic jcc fz14" css={styles.language} key={language}>
               {selectedLanguage?.label}
               <button
                 type="button"

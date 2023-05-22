@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
+import classnames from 'classnames';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller';
 import List from 'react-virtualized/dist/commonjs/List';
 
@@ -16,9 +17,10 @@ import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 import { BG_LIGHT, BORDER_SECONDARY_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 
 import NotFound from 'containers/ErrorPage';
-import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { NOTIFICATIONS_DATA, ROW_HEIGHT } from './constants';
+import { ROW_HEIGHT, ROW_HEIGHT_FOR_SMALL } from './constants';
+import { NotificationsProps } from './types';
 import {
   allNotificationsCount,
   selectAllNotifications,
@@ -37,7 +39,6 @@ import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
 import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
-import classnames from 'classnames';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -78,28 +79,25 @@ const SubHeaderSeparator = styled.hr`
   }
 `;
 
-const Notifications = ({
+const Notifications: React.FC<NotificationsProps> = ({
   loading,
   unreadCount,
-  allCount: allCountUnfiltered,
+  allCount,
   className,
   isAvailable,
-  notifications: allNotifications,
+  notifications,
+  communities,
   readNotifications,
   loadMoreNotificationsDispatch,
   markAsReadNotificationsAllDispatch,
   filterReadNotificationsDispatch,
-}) => {
+}): JSX.Element => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
   const [containerWidth, setContainerWidth] = useState(0);
   const [y, setY] = useState(0);
   const ref = useRef(null);
   const containerRef = useRef(null);
-
-  // Temporary fix, will be removed in PEER-682
-  const notifications = allNotifications.filter(({ type }) => NOTIFICATIONS_DATA[type]);
-  const allCount = allCountUnfiltered - (allNotifications.length - notifications.length);
 
   useEffect(() => {
     markAsReadNotificationsAllDispatch([
@@ -180,7 +178,7 @@ const Notifications = ({
       index={index}
       height={rowHeight}
       notificationsNumber={notifications.length}
-      paddingHorizontal="36"
+      communities={communities}
       {...notifications[index]}
     />
   );
@@ -199,7 +197,7 @@ const Notifications = ({
 
       {Boolean(allCount) && (
         <Content innerRef={containerRef} height={notifications.length * rowHeight + ROW_HEIGHT}>
-          {Boolean(unreadCount) ? (
+          {unreadCount ? (
             <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
               <MarkAllAsReadButton />
             </SubHeader>
@@ -211,7 +209,7 @@ const Notifications = ({
               <div
                 ref={registerChild}
                 className={classnames('pb-2', {
-                  'pt-2': !Boolean(unreadCount),
+                  'pt-2': !unreadCount,
                 })}
               >
                 <List
@@ -243,19 +241,6 @@ const Notifications = ({
   );
 };
 
-Notifications.propTypes = {
-  loading: PropTypes.bool,
-  unreadCount: PropTypes.number,
-  allCount: PropTypes.number,
-  className: PropTypes.string,
-  isAvailable: PropTypes.bool,
-  loadMoreNotificationsDispatch: PropTypes.func,
-  markAsReadNotificationsAllDispatch: PropTypes.func,
-  notifications: PropTypes.arrayOf(PropTypes.object),
-  readNotifications: PropTypes.arrayOf(PropTypes.number),
-  filterReadNotificationsDispatch: PropTypes.func,
-};
-
 export default React.memo(
   compose(
     injectReducer({ key: 'notifications', reducer }),
@@ -267,6 +252,7 @@ export default React.memo(
         loading: selectAllNotificationsLoading()(state),
         readNotifications: selectReadNotificationsAll()(state),
         unreadCount: unreadNotificationsCount()(state),
+        communities: selectCommunities()(state),
       }),
       (dispatch) => ({
         loadMoreNotificationsDispatch: bindActionCreators(loadMoreNotifications, dispatch),

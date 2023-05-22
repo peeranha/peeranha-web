@@ -183,7 +183,6 @@ export const DeveloperDAOStyles = {
     headerPrimary: 'rgba(210, 84, 189, 1)',
     commentOption: 'rgba(210, 84, 189, 1)',
     contentHeader: 'rgba(210, 84, 189, 1)',
-    blockedInfoArea: 'rgba(0, 0, 0, 10%)',
     transparentIconColor: '#FFF',
     loaderColor: 'rgba(210, 84, 189, 1)',
     votingIconColor: 'rgba(210, 84, 189, 1)',

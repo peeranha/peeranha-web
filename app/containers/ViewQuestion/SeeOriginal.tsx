@@ -5,6 +5,9 @@ import { css } from '@emotion/react';
 import { BORDER_PRIMARY } from 'style-constants';
 
 import { LANGUAGES_MAP } from 'utils/constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 type imageByLanguageType = {
   [key: string]: any;
@@ -29,7 +32,7 @@ const containerStyles = {
   fontSize: '16px',
   display: 'flex',
   alignItems: 'center',
-  color: BORDER_PRIMARY,
+  color: colors.btnColor || BORDER_PRIMARY,
   cursor: 'pointer',
 };
 
@@ -61,17 +64,13 @@ const SeeOriginal: React.FC<SeeOriginalProps> = ({
       <img
         src={
           showOriginal
-            ? imageByLanguage[
-                LANGUAGES_MAP[locale as keyof typeof LANGUAGES_MAP]
-              ]
+            ? imageByLanguage[LANGUAGES_MAP[locale as keyof typeof LANGUAGES_MAP]]
             : imageByLanguage[language]
         }
         alt="language"
         css={css(flagImageStyles)}
       />
-      <span>
-        {showOriginal ? t('common.seeTranslation') : t('common.seeOriginal')}
-      </span>
+      <span>{showOriginal ? t('common.seeTranslation') : t('common.seeOriginal')}</span>
     </div>
   ) : null;
 };

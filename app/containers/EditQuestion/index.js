@@ -117,19 +117,11 @@ const EditQuestion = ({
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );
 
-  const [helmetTitle, helmetDescription] = useMemo(
-    () => [
-      question?.title ?? t('common.editQuestion.title'),
-      question?.content ?? t('common.editQuestion.description'),
-    ],
-    [question],
-  );
-
   return (
     <div>
       <Seo
-        title={helmetTitle || ''}
-        description={helmetDescription || ''}
+        title={t('common.editQuestion.title')}
+        description={t('common.editQuestion.description')}
         language={locale}
         index={false}
       />
