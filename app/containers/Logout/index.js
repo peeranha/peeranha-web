@@ -18,13 +18,10 @@ import saga from './saga';
 
 import { logout } from './actions';
 
-export const Logout = /* istanbul ignore next */ ({
-  logoutDispatch,
-  children,
-}) => (
-  <button className="d-flex align-items-center" onClick={logoutDispatch}>
+export const Logout = /* istanbul ignore next */ ({ logoutDispatch, children }) => (
+  <a className="d-flex align-items-center" onClick={logoutDispatch}>
     {children}
-  </button>
+  </a>
 );
 
 Logout.propTypes = {
@@ -38,16 +35,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  null,
-  mapDispatchToProps,
-);
+const withConnect = connect(null, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'logout', reducer });
 const withSaga = injectSaga({ key: 'logout', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Logout);
+export default compose(withReducer, withSaga, withConnect)(Logout);

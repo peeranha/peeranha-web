@@ -182,7 +182,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
         css={{
           ...(isEditDocumentation && { padding: '0 16px' }),
           ...(level === 0 && isEditDocumentation && { padding: '0 16px' }),
-          paddingLeft: 15 + 16 * level,
+          paddingLeft: 16 + 16 * level,
           ...(((match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
             editArticle?.id === item.id ||
@@ -251,14 +251,13 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             <ArrowDownIcon
               css={{
                 color: colors.linkColor || '#576FED',
-                width: 18,
-                height: 18,
                 transform: 'rotate(-90deg)',
                 transition: 'transform 0.25s',
                 marginLeft: 10,
+                marginRight: 13,
                 ...(isOpen && { transform: 'rotate(0deg)' }),
               }}
-              className="mr4 cup"
+              className="cup"
               onClick={isOpen ? close : open}
             />
           )}

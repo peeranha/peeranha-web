@@ -116,13 +116,9 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
 
   return (
     <div>
-      {!isEditDocumentation && documentationPosition !== 'top' && <div css={css(styles.divider)} />}
       <div
-        className={cn('df jcsb pl15', {
-          mt28:
-            (pinnedItemMenuId !== '' && documentationPosition === 'top') ||
-            documentationPosition !== 'top' ||
-            isEditDocumentation,
+        className={cn('df jcsb pl16', {
+          mt28: (pinnedItemMenuId !== '' && documentationPosition === 'top') || isEditDocumentation,
         })}
         css={{
           ...styles.menuSectionTitle,
@@ -174,7 +170,14 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           documentationMenu={documentationMenu}
         />
       ))}
-      {!isEditDocumentation && documentationPosition === 'top' && <div css={css(styles.divider)} />}
+      {!isEditDocumentation && (
+        <div
+          css={{
+            ...styles.dividerLinks,
+            ...(documentationPosition === 'top' && styles.mb0),
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -14,13 +14,14 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { LEFT_MENU_ID, NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY } from 'containers/LeftMenu/constants';
 
-import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
 import MobileLinksInWallet from 'containers/LeftMenu/MobileLinksInWallet';
 import MainLinks from 'containers/LeftMenu/MainLinks';
 import MobileLinksInProfile from 'containers/LeftMenu/MobileLinksInProfile';
 import MobileAdditionalLinks from 'containers/LeftMenu/MobileAdditionalLinks';
 import MobileAutorizationButtons from 'containers/LeftMenu/MobileAutorizationButtons';
+import Footer from 'containers/Footer';
 import { ViewStyled } from 'containers/LeftMenu/Styles';
+import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
 const single = isSingleCommunityWebsite();
 
@@ -62,13 +63,12 @@ const View = ({
       css={css`
         height: 100vh;
         overflow: hidden;
-        padding-right: 6px;
+
         @media (min-width: 992px) {
           height: ${single ? 'max-content' : `calc(100vh - ${HEADER_HEIGHT}px)`};
         }
         :hover {
           overflow-y: unset;
-          padding-right: 6px;
         }
 
         ::-webkit-scrollbar {
@@ -120,13 +120,13 @@ const View = ({
         toggleEditDocumentation={toggleEditDocumentation}
         isEditDocumentation={isEditDocumentation}
         pinnedItemMenu={pinnedItemMenu}
-      />
-      <AdditionalLinks
-        currClientHeight={currClientHeight}
         changeLocale={changeLocale}
         isMenuVisible={isMenuVisible}
         locale={locale}
       />
+      <div css={styles.footer}>
+        <Footer />
+      </div>
     </ViewStyled>
   );
 };

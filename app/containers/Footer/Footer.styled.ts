@@ -8,9 +8,6 @@ export const styles = {
 
   footerCommunityMode: {
     minHeight: '150px',
-    '@media (max-width: 991px)': {
-      paddingBottom: '20px',
-    },
   },
 
   logo: {
@@ -19,11 +16,15 @@ export const styles = {
     marginTop: '32px',
     '@media (max-width: 991px)': {
       justifyContent: 'start',
-      marginLeft: '32px',
+      marginLeft: '16px',
+      marginTop: 0,
     },
     img: {
       width: '180px',
-      marginBottom: '45px',
+      marginBottom: '32px',
+      '@media (max-width: 991px)': {
+        marginBottom: '24px',
+      },
     },
   },
 
@@ -51,13 +52,20 @@ export const styles = {
     color: '#667085',
     fontWeight: 600,
     '@media (max-width: 991px)': {
-      marginBottom: '12px',
+      margin: '0 32px 12px 16px',
+      fontWeight: 400,
+      ':last-child': {
+        marginBottom: 0,
+      },
     },
   },
 
   border: {
     borderBottom: '1px solid #c2c6d8',
     margin: '32px',
+    '@media (max-width: 991px)': {
+      margin: '28px 16px',
+    },
   },
 
   infoRules: {
@@ -77,12 +85,13 @@ export const styles = {
     '@media (max-width: 991px)': {
       flexDirection: 'column-reverse',
       alignItems: 'start',
+      paddingBottom: 0,
     },
   },
 
   contactsLogo: {
     '@media (max-width: 991px)': {
-      marginLeft: '32px',
+      marginLeft: '16px',
       marginBottom: '25px',
     },
     svg: {
@@ -107,6 +116,9 @@ export const styles = {
     marginLeft: '32px',
     color: '#667085',
     lineHeight: '24px',
+    '@media (max-width: 991px)': {
+      marginLeft: '16px',
+    },
   },
 
   infoSingleComm: {
@@ -115,7 +127,7 @@ export const styles = {
     '@media (max-width: 991px)': {
       alignItems: 'start',
       flexDirection: 'column',
-      marginLeft: '32px',
+      marginLeft: '16px',
     },
   },
 
