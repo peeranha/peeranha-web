@@ -323,3 +323,7 @@ export const AMOUNT_POSTS_PAGINATION = 20;
 export const POSITION_TOP = 'top';
 
 export const LIMITED_EDITION_NFT_TYPE = 0;
+
+// Attributes
+
+export const TARGET_BLANK = '_blank';

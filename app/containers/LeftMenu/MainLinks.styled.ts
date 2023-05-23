@@ -1,3 +1,4 @@
+import P from 'components/P';
 import { BORDER_SECONDARY } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -28,7 +29,7 @@ export const styles = {
   divider: {
     height: '1px',
     background: colors.secondaryAdditional || BORDER_SECONDARY,
-    marginTop: '28px',
+    margin: '28px 16px 0 16px',
   },
 
   dropdownMenu: {
@@ -61,5 +62,53 @@ export const styles = {
     svg: {
       marginRight: '8px',
     },
+  },
+
+  changeLocale: {
+    display: 'none',
+    '@media only screen and (max-width: 991px)': {
+      display: 'block',
+      margin: '28px 0',
+      paddingLeft: '16px',
+    },
+  },
+
+  dividerLocale: {
+    height: '1px',
+    background: colors.secondaryAdditional || BORDER_SECONDARY,
+    margin: '28px 16px',
+    display: 'none',
+    '@media (max-width: 991px)': {
+      display: 'block',
+    },
+  },
+
+  dividerLinks: {
+    height: '1px',
+    background: colors.secondaryAdditional || BORDER_SECONDARY,
+    margin: '28px 16px',
+    display: 'none',
+    '@media (max-width: 991px)': {
+      display: 'block',
+    },
+  },
+
+  footer: {
+    display: 'none',
+    '@media (max-width: 991px)': {
+      display: 'block',
+    },
+  },
+
+  logInButton: {
+    margin: '28px 16px 0 16px',
+  },
+
+  mb28: {
+    marginBottom: '28px',
+  },
+
+  mb0: {
+    marginBottom: 0,
   },
 };

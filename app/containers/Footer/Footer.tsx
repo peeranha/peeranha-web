@@ -1,110 +1,122 @@
 import React from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import useMediaQuery from 'hooks/useMediaQuery';
-import { css } from '@emotion/react';
-import A, { ADefault } from 'components/A';
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
-
-import { DOCUMENTATION_ABOUT_LINK } from 'app/constants/documentation';
+import { APP_MAIN_NAME, TARGET_BLANK } from 'utils/constants';
 import { styles } from './Footer.styled';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaLogoWhite from 'images/Logo.svg?inline';
-import { INFO_LINKS, LINK_PRIVACY_POLICY, LINK_TERMS_OF_SERVICE } from './constants';
-
-type FooterLinkType = {
-  path: string;
-  message: string;
-  cssStyles: string;
-};
+import {
+  INFO_LINKS,
+  CONTACTS_LINKS,
+  LINK_PRIVACY_POLICY,
+  LINK_TERMS_OF_SERVICE,
+  FOOTER_LINK_COLOR,
+} from './constants';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 const communityStyles = singleCommunityStyles();
 
-const Link: React.FC<FooterLinkType> = ({ path, message, cssStyles }): JSX.Element =>
-  document.location.origin === process.env.APP_LOCATION ? (
-    <A to={path} css={cssStyles}>
-      {message}
-    </A>
-  ) : (
-    <ADefault href={`${process.env.APP_LOCATION}${path}`} css={cssStyles}>
-      {message}
-    </ADefault>
-  );
-
 const Footer: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-  const isDesktop = useMediaQuery('(min-width: 992px)');
+
   return (
-    <>
-      {isDesktop && (
-        <div css={css(styles.footer)}>
-          <div css={css(styles.border)} />
-          <div className="df aic jcc " css={css(styles.infoBlock)}>
-            <div className="df fz16" css={css(styles.content)}>
-              {INFO_LINKS.map((element) => (
-                <Link
-                  path={element.route}
-                  key={element.route}
-                  message={t(`${element.title}`)}
-                  cssStyles={css(styles.infoLinks)}
-                />
-              ))}
-              {!isSingleCommunityMode && (
-                <a css={styles.infoLinks} href={DOCUMENTATION_ABOUT_LINK} target="_blank">
-                  {t('common.documentation')}
-                </a>
-              )}{' '}
-            </div>
-          </div>
-          <div className="df aic jcc fdc">
-            {Boolean(isSingleCommunityMode) ? (
-              <a css={styles.infoPoweredBy} href={process.env.APP_LOCATION}>
-                <Trans
-                  i18nKey="common.poweredBy"
-                  values={{ year: new Date().getFullYear() }}
-                  components={[
-                    <img
-                      key="peeranha"
-                      src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
-                      alt="peeranha"
-                    />,
-                  ]}
-                />
-              </a>
-            ) : (
-              <div css={css(styles.infoData)}>
-                {t('common.copyrightPeeranha', {
-                  year: new Date().getFullYear(),
-                })}
-              </div>
-            )}
-            <div css={css(styles.infoRules)}>
-              <Trans
-                i18nKey="common.reCaptchaMention"
-                values={{
-                  privacyPolicy: t('common.privacyPolicy'),
-                  termsOfService: t('common.termsOfService'),
-                }}
-                components={[
+    <div
+      css={{ ...styles.footer, ...(Boolean(isSingleCommunityMode) && styles.footerCommunityMode) }}
+    >
+      <div>
+        <div css={styles.logo}>
+          {!isSingleCommunityMode && (
+            <img
+              key={APP_MAIN_NAME}
+              src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
+              alt={APP_MAIN_NAME}
+            />
+          )}
+        </div>
+
+        <div>
+          <div css={styles.infoBlock}>
+            <div css={styles.content}>
+              {INFO_LINKS.map((link) => {
+                if (Boolean(isSingleCommunityMode)) {
+                  [INFO_LINKS[1], INFO_LINKS[3]] = [INFO_LINKS[3], INFO_LINKS[1]];
+                }
+
+                return (
                   <a
-                    key="0"
-                    css={css(styles.infoRulesLink)}
-                    href={LINK_PRIVACY_POLICY}
-                    target="_blank"
-                  />,
-                  <a
-                    key="1"
-                    css={css(styles.infoRulesLink)}
-                    href={LINK_TERMS_OF_SERVICE}
-                    target="_blank"
-                  />,
-                ]}
-              />
+                    key={link.title}
+                    href={link.route}
+                    target={TARGET_BLANK}
+                    css={styles.infoLinks}
+                  >
+                    {t(`${link.title}`)}
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
-      )}
-    </>
+      </div>
+      <div css={styles.border} />
+
+      <div css={styles.contacts}>
+        <div css={{ ...styles.info, ...(Boolean(isSingleCommunityMode) && styles.infoSingleComm) }}>
+          {Boolean(isSingleCommunityMode) ? (
+            <a css={styles.infoPoweredBy} href={process.env.APP_LOCATION}>
+              <Trans
+                i18nKey="common.poweredBy"
+                values={{ year: new Date().getFullYear() }}
+                components={[
+                  <img
+                    key={APP_MAIN_NAME}
+                    src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
+                    alt={APP_MAIN_NAME}
+                  />,
+                ]}
+              />
+            </a>
+          ) : (
+            <div css={styles.infoData}>
+              {t('common.copyrightPeeranha', {
+                year: new Date().getFullYear(),
+              })}
+            </div>
+          )}
+          <div css={styles.infoRules}>
+            <Trans
+              i18nKey="common.reCaptchaMention"
+              values={{
+                privacyPolicy: t('common.privacyPolicy'),
+                termsOfService: t('common.termsOfService'),
+              }}
+              components={[
+                <a
+                  key={LINK_PRIVACY_POLICY}
+                  css={styles.infoRulesLink}
+                  href={LINK_PRIVACY_POLICY}
+                  target={TARGET_BLANK}
+                />,
+                <a
+                  key={LINK_TERMS_OF_SERVICE}
+                  css={styles.infoRulesLink}
+                  href={LINK_TERMS_OF_SERVICE}
+                  target={TARGET_BLANK}
+                />,
+              ]}
+            />
+          </div>
+        </div>
+        {!isSingleCommunityMode && (
+          <div css={styles.contactsLogo}>
+            {CONTACTS_LINKS.map((link) => (
+              <a key={link.title} href={link.route} target={TARGET_BLANK}>
+                <link.icon fill={FOOTER_LINK_COLOR} />
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
