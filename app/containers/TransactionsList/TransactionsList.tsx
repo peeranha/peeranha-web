@@ -35,10 +35,10 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
   transactionInPending,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = useState<boolean>(false);
   const timer = useRef();
-  const [right, setRight] = useState(-289);
-  const [width, setWidth] = useState(289);
+  const [right, setRight] = useState<number>(-289);
+  const [width, setWidth] = useState<number>(289);
 
   useEffect(() => {
     if (!transactionList.length) {
@@ -80,43 +80,19 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
     <div id="transactions-status-block" css={{ ...styles.transactionsStatusBlock, right }}>
       {opened && <div css={styles.blocker} />}
 
-      <div
-        id="status-button"
-        className="df fdr aic pl16 pa"
-        css={{ ...styles.statusButton, width }}
-        onClick={onStatusButtonClick}
-      >
+      <div id="status-button" css={{ ...styles.statusButton, width }} onClick={onStatusButtonClick}>
         <TransactionStatus className="icon" />
-        <div id="transactions-popup" className="df fdc ml12">
-          <div
-            css={css`
-              font-size: 14px;
-              color: #ffffff;
-              font-weight: 400;
-            `}
-          >
+        <div id="transactions-popup" css={styles.transactionsPopup}>
+          <div>
             {transactionList.length &&
               t(`common.transactionsList.${transactionList[transactionList.length - 1].action}`)}
           </div>
-          <div
-            css={css`
-              font-size: 12px;
-              color: #ffffff;
-            `}
-          >
-            {t('common.inProgress')}
-          </div>
+          <div>{t('common.inProgress')}</div>
         </div>
       </div>
 
-      <div id="transaction-list" className="df fdc aifs pa" css={styles.transactionList}>
-        <p
-          css={css`
-            font-weight: 700;
-          `}
-        >
-          {t('common.transactions')}
-        </p>
+      <div id="transaction-list" css={styles.transactionList}>
+        <p>{t('common.transactions')}</p>
 
         {transactionsInProgress.map((transaction) => {
           const result = transaction.result?.status;
@@ -139,15 +115,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
         })}
 
         {Boolean(successfulTransactions.length && transactionsInProgress.length) && (
-          <div
-            css={css`
-              width: 213px;
-              height: 1px;
-              background: rgba(53, 74, 137, 0.15);
-              align-self: stretch;
-              flex-grow: 0;
-            `}
-          />
+          <div css={styles.successfulTransactions} />
         )}
 
         {successfulTransactions.map((transaction) => (

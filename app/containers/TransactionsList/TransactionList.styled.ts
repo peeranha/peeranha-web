@@ -6,7 +6,7 @@ export const styles = {
     transition: 'all 1s',
     'z-index': 100,
     'min-height': '100%',
-    background: 'black',
+    background: '#282828',
 
     '@media (min-width: 768px)': {
       top: '107px',
@@ -15,6 +15,11 @@ export const styles = {
   },
 
   statusButton: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: '16px',
+    position: 'absolute',
     width: '289px',
     height: '70px',
     background: '#A5BCFF',
@@ -31,6 +36,10 @@ export const styles = {
   },
 
   transactionList: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    position: 'absolute',
     padding: '24px 16px',
     width: '245px',
     'z-index': 100,
@@ -47,6 +56,9 @@ export const styles = {
       'min-height': '116px',
       top: '-21px',
       'border-radius': '5px 0 0 5px',
+    },
+    'p:first-child': {
+      fontWeight: 700,
     },
   },
 
@@ -73,5 +85,48 @@ export const styles = {
         transform: 'rotate(360deg)',
       },
     },
+  },
+
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
+  singleTransactionBlock: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    marginLeft: '12px',
+    '>p': {
+      fontSize: '12px',
+    },
+    'p:first-child': {
+      fontSize: '14px',
+      marginBottom: '8px',
+    },
+  },
+
+  transactionsPopup: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginLeft: '12px',
+    'div:first-child': {
+      fontSize: '14px',
+      fontWeight: 400,
+      color: '#fff',
+    },
+    'div:nth-child(2)': {
+      fontSize: '12px',
+      color: '#fff',
+    },
+  },
+
+  successfulTransactions: {
+    width: '213px',
+    height: '1px',
+    background: 'rgba(53, 74, 137, 0.15)',
+    alignSelf: 'stretch',
+    flexGrow: 0,
   },
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { styles } from './TransactionList.styled';
 
 export type Transaction = {
   transactionHash: string;
@@ -23,12 +24,11 @@ export const SingleTransaction: React.FC<TransactionProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="df fdr aic">
+    <div css={styles.container}>
       <StatusIcon />
-
-      <div className="df fdc aifs ml12">
-        <p className="fz14 mb8">{t(`common.transactionsList.${transaction.action}`)}</p>
-        <p className="fz12">{t(status)}</p>
+      <div css={styles.singleTransactionBlock}>
+        <p>{t(`common.transactionsList.${transaction.action}`)}</p>
+        <p>{t(status)}</p>
       </div>
     </div>
   );
