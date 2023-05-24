@@ -263,7 +263,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     setSaveToDraft={setSaveToDraft}
                   />
                 )}
-                {Boolean(viewArticleId) && (
+                {Boolean(viewArticleId) && !Boolean(isDraft) && !editArticle.isEditArticle && (
                   <Pagination
                     documentationMenu={documentationMenu}
                     id={viewArticleId}
