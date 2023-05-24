@@ -46,7 +46,7 @@ export const sendMetaTransactionMethod = async function (
   actor,
   action,
   data,
-  confirmations,
+  confirmations = 1,
   token,
 ) {
   await this.chainCheck();

@@ -215,7 +215,7 @@ class EthereumService {
       await getText(getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
     );
     return {
-      id: +id,
+      id: Number(id),
       name: communityInfo.name,
       avatar: communityInfo.avatar.imgUrl || getFileUrl(communityInfo.avatar),
       description: communityInfo.description,
@@ -224,7 +224,7 @@ class EthereumService {
       language: communityInfo.language,
       creationTime: rawCommunity.timeCreate,
       isFrozen: rawCommunity.isFrozen,
-      value: +id,
+      value: Number(id),
     };
   };
 }

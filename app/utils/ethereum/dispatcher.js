@@ -13,7 +13,7 @@ export const sendDispatcherTransactionMethod = async function (
   actor,
   action,
   data,
-  confirmations,
+  confirmations = 1,
   token,
 ) {
   await this.chainCheck();
@@ -53,7 +53,8 @@ export const sendDispatcherTransactionMethod = async function (
   }
 
   const response = await callService(BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress, {
-    contract: ContractsMapping[contract],
+    contractName: ContractsMapping[contract][0],
+    contractAddress: ContractsMapping[contract][1],
     action: action,
     args: data,
     reCaptchaToken: token,
