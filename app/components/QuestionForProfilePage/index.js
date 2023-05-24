@@ -35,6 +35,8 @@ const BaseStyled = Base.extend`
   position: relative;
   border-bottom-left-radius: ${BORDER_RADIUS_L};
   border-top-left-radius: ${BORDER_RADIUS_L};
+  border-top-right-radius: ${BORDER_RADIUS_L};
+  border-bottom-right-radius: ${BORDER_RADIUS_L};
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;

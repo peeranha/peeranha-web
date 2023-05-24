@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import createdHistory from 'createdHistory';
 
 type PaginationPropsType = {
   contentPerPage: number;
@@ -17,6 +18,10 @@ type PaginationType = {
 
 const usePagination = ({ contentPerPage, count }: PaginationPropsType): PaginationType => {
   const [page, setPage] = useState<number>(1);
+  useEffect(() => {
+    const currentPage = Number(createdHistory.location.search.slice(6));
+    setPage(currentPage > 1 ? currentPage : 1);
+  }, [createdHistory.location.pathname]);
 
   const pageCount = Math.ceil(count / contentPerPage);
 

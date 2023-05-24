@@ -18,7 +18,7 @@ const colors = singleCommunityColors();
 export const BasicLink = css`
   display: flex;
   align-items: center;
-  padding: 10px 0 10px 15px;
+  padding: 10px 0 10px 16px;
   border-left: 3px solid ${BORDER_TRANSPARENT};
   cursor: pointer;
 `;
@@ -70,17 +70,16 @@ export const ViewStyled = styled.nav`
     }
   }
 
-  > div:not(:last-child) {
-    border-bottom: 1px solid ${colors.secondaryAdditional || BORDER_SECONDARY};
-  }
-
   &.sticky {
     transform: translate(0px, -${HEADER_HEIGHT}px);
   }
 
   @media only screen and (max-width: 991px) {
     > div.lightbg {
-      padding: 2px 0 2px 5px;
+      padding: 2px 0;
+      button {
+        padding-left: 10px !important;
+      }
     }
 
     &.sticky {

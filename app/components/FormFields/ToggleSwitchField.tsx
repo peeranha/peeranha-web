@@ -5,9 +5,7 @@ type ToggleSwitchProps = {
   input: HTMLInputTypeAttribute;
 };
 
-const ToggleSwitchField: React.FC<ToggleSwitchProps> = ({
-  input,
-}): JSX.Element => (
+const ToggleSwitchField: React.FC<ToggleSwitchProps> = ({ input }): JSX.Element => (
   <label css={styles.toggleSwitch}>
     <input type="checkbox" {...input} />
     <span css={styles.switch} />

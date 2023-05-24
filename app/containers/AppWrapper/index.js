@@ -61,8 +61,16 @@ const Box = ({
           </div>
         </div>
       </Main>
-
-      <Footer />
+      <div
+        css={{
+          display: 'block',
+          '@media (max-width: 991px)': {
+            display: 'none',
+          },
+        }}
+      >
+        <Footer />
+      </div>
     </>
   );
 };

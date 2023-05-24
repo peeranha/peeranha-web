@@ -2,8 +2,9 @@ import React from 'react';
 import { ButtonPagination, StepButtonPagination } from './ButtonPagination';
 import prev from 'images/prev.svg?inline';
 import next from 'images/next.svg?inline';
+import { STEP_NEXT, STEP_PREV } from './constants';
 import { START_DYNAMIC_PAGINATION } from 'containers/Questions/constants';
-
+import { styles } from './Pagination.styled';
 type PaginationProps = {
   page: number;
   totalPages: number;
@@ -18,7 +19,7 @@ const Pagination: React.FC<PaginationProps> = ({
   prevPage,
   nextPage,
   setPage,
-}): JSX.Element => {
+}): JSX.Element | null => {
   const isLastPage = page === totalPages;
   const isStartPage = page === 1;
   const scrollToTop = () => {
@@ -37,7 +38,7 @@ const Pagination: React.FC<PaginationProps> = ({
   if (totalPages <= 4) {
     return (
       <>
-        <div className="df aic jcc">
+        <div css={styles.container}>
           {[...Array(totalPages).keys()].map((element, index) =>
             index <= 4 ? (
               <ButtonPagination
@@ -61,13 +62,14 @@ const Pagination: React.FC<PaginationProps> = ({
               clickHandler={prevPage}
               src={prev}
               scrollToTop={scrollToTop}
-              alt="prev"
+              alt={STEP_PREV}
             />
           )}
           {[...Array(totalPages).keys()]
             .slice(page > 2 ? page - 3 : 0, page > 2 ? page + 2 : 5)
             .map((element) => (
               <ButtonPagination
+                key={element}
                 page={page}
                 element={element}
                 clickHandler={setPage}
@@ -76,10 +78,11 @@ const Pagination: React.FC<PaginationProps> = ({
             ))}
           {!isLastPage && (
             <StepButtonPagination
+              page={page}
               clickHandler={nextPage}
               scrollToTop={scrollToTop}
               src={next}
-              alt="next"
+              alt={STEP_NEXT}
             />
           )}
         </div>
