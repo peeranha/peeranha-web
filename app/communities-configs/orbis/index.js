@@ -171,8 +171,7 @@ export const OrbisStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/orbis/GroupLogo.svg',
-
+  signUpPageLogo: 'https://images.peeranha.io/communities/orbis/logo.svg',
   colors: {
     appWindowsColor: '#2b5797',
     appSafarieColor: '#d55bbe',
@@ -184,7 +183,6 @@ export const OrbisStyles = {
     headerPrimary: '#DE73DA',
     commentOption: '#DE73DA',
     contentHeader: '#DE73DA',
-    blockedInfoArea: 'rgb(42 36 96 / 10%)',
     transparentIconColor: '#FFF',
     loaderColor: '#DE73DA',
     votingIconColor: '#DE73DA',
@@ -236,11 +234,7 @@ export const OrbisStyles = {
     border: 1px solid #fff;
     color: #fff;
     :hover {
-      background: linear-gradient(
-        135deg,
-        #f790bb 44.02%,
-        #b971ee 90.66%
-      ) !important;
+      background: linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
       color: #fff !important;
       border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
     }
@@ -249,11 +243,7 @@ export const OrbisStyles = {
     border: 1px solid #de73da;
     color: #de73da;
     :hover {
-      background: linear-gradient(
-        135deg,
-        #f790bb 44.02%,
-        #b971ee 90.66%
-      ) !important;
+      background: linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
       color: #fff !important;
       border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
     }

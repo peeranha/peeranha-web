@@ -62,15 +62,7 @@ const WrapperBlock = styled(Wrapper)`
   display: block;
 `;
 
-export const TextEditorField = ({
-  input,
-  label,
-  disabled,
-  meta,
-  tip,
-  splitInHalf,
-  mediaLink,
-}) => {
+export const TextEditorField = ({ input, label, disabled, meta, tip, splitInHalf, mediaLink }) => {
   useEffect(() => {
     if (mediaLink) {
       input.onChange(input.value + mediaLink);

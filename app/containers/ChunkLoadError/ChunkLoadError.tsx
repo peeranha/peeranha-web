@@ -25,11 +25,7 @@ const ChunkLoadError: React.FC<{ locale: string }> = ({ locale }) => {
         text-align: left;
       `}
     >
-      <img
-        className={ANIMATE_IMAGE}
-        src={chunkLoadErrorImage}
-        alt="simpleAndAffordable"
-      />
+      <img className={ANIMATE_IMAGE} src={chunkLoadErrorImage} alt="simpleAndAffordable" />
       <div
         css={css`
           display: flex;

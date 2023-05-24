@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
-import Dropdown from 'common-components/Dropdown';
+import Dropdown from 'components/Dropdown';
 import Button from 'common-components/Button';
 import TextEditor from 'components/TextEditor';
 import DropdownTrigger from './DropdownTrigger';
 import LoaderDocumentation from './Loader';
 import Validate from './Validate';
 import { saveText, getBytes32FromIpfsHash } from 'utils/ipfs';
-import {
-  saveDraft,
-  initMenu,
-  addArticle,
-  updateMenuDraft,
-  saveDraftsIds,
-} from '../helpers';
-import {
-  strLength3x100,
-  required,
-  strLength25x30000,
-} from 'components/FormFields/validate';
+import { saveDraft, initMenu, addArticle, updateMenuDraft, saveDraftsIds } from '../helpers';
+import { strLength3x100, required, strLength25x30000 } from 'components/FormFields/validate';
 import { DocumentationFormProps } from '../types';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
 import { singleCommunityDocumentation } from 'utils/communityManagement';
 import { styled } from 'components/Documentation/EditDocumentation.styled';
+import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
 const documentationColors = singleCommunityDocumentation();
 
@@ -35,6 +27,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   setEditArticle,
   isEditArticle,
   updateDraftsIds,
+  setSaveToDraft,
 }): JSX.Element => {
   const { t } = useTranslation();
   const [title, setTitle] = useState<string>('');
@@ -63,13 +56,12 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
 
   const options = initMenu(documentationMenu);
 
-  const onSelect = (value: string) => {
+  const onSelect = (event: React.MouseEvent) => {
+    const value = event.currentTarget.getAttribute('value');
     setParentId(value);
   };
 
-  const onChangeTitle = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeTitle = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(value);
   };
 
@@ -77,19 +69,18 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
     setBodyText(value);
   };
 
-  const onClickSaveDraft = () => {
+  const onClickSaveDraft = async () => {
     if (!isValidTitle || !isValidContent) {
       return;
     }
 
     setIsLoading(true);
 
-    saveText(JSON.stringify({ title, content: bodyText }))
+    return saveText(JSON.stringify({ title, content: bodyText }))
       .then((ipfsHash) => {
         const ipfsHashBytes32 = getBytes32FromIpfsHash(ipfsHash);
         const isEdit =
-          typeof documentationArticle !== 'undefined' &&
-          documentationArticle.id !== '';
+          typeof documentationArticle !== 'undefined' && documentationArticle.id !== '';
         let updatedMenu: Array<DocumentationItemMenuType> = [];
 
         if (!documentationArticle) {
@@ -110,7 +101,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
         }
 
         saveDraft(updatedMenu);
-        const updatedDraftsIds = saveDraftsIds(ipfsHashBytes32);
+        const updatedDraftsIds = saveDraftsIds(ipfsHashBytes32, (Date.now() / 1000).toString());
 
         updateDraftsIds(updatedDraftsIds);
         updateDocumentationMenuDraft(updatedMenu);
@@ -120,11 +111,16 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           isEditArticle: false,
         });
         setViewArticle(ipfsHashBytes32);
+        return updatedMenu;
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
+
+  useEffect(() => {
+    setSaveToDraft(() => onClickSaveDraft);
+  }, [title, bodyText]);
 
   const onClickCancel = () => {
     setEditArticle({
@@ -161,19 +157,16 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             {t('common.subArticleOf')}
           </div>
           <Dropdown
-            trigger={
-              <DropdownTrigger
-                value={parentId}
-                options={options}
-                placeholder="Select parent directory"
-              />
+            id="documentationForm_dropdown_id"
+            css={css(styled.disabledButton)}
+            button={
+              <DropdownTrigger value={parentId} options={options} isDisabled={isEditArticle} />
             }
-            options={options}
-            isMultiple={false}
-            isEqualWidth={false}
-            value={parentId}
-            onSelect={onSelect}
-            isDisabled={isEditArticle}
+            menu={options[0].items.map((item) => (
+              <div value={item.value} css={css(styles.dropdownMenuItem)} onClick={onSelect}>
+                <div>{item.label}</div>
+              </div>
+            ))}
           />
         </div>
         <div>
@@ -187,11 +180,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           >
             {t('common.titleLabel')}
           </div>
-          <Validate
-            validate={[strLength3x100, required]}
-            value={title}
-            onChange={onChangeTitle}
-          >
+          <Validate validate={[strLength3x100, required]} value={title} onChange={onChangeTitle}>
             {({ onChange, onBlur, isValid }) => {
               setIsValidTitle(title.length > 2);
 
@@ -263,12 +252,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
                     }),
                   }}
                 >
-                  <TextEditor
-                    locale="en"
-                    onChange={onChange}
-                    value={bodyText}
-                    onBlur={onBlur}
-                  />
+                  <TextEditor locale="en" onChange={onChange} value={bodyText} onBlur={onBlur} />
                 </div>
               );
             }}
@@ -289,10 +273,8 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           variant="primary"
           css={{
             background:
-              documentationColors.saveDraftButtonBackground ||
-              'var(--color-button-primary)',
-            color:
-              documentationColors.saveDraftButtonColor || 'var(--color-white)',
+              documentationColors.saveDraftButtonBackground || 'var(--color-button-primary)',
+            color: documentationColors.saveDraftButtonColor || 'var(--color-white)',
             borderWidth: 0,
             '&:hover .icon': { stroke: 'var(--color-white)' },
           }}

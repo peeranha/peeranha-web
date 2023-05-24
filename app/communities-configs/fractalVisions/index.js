@@ -171,8 +171,7 @@ export const FractalVisionsStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/fractalVisions/Rectangle.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/fractalVisions/logo.svg',
 
   colors: {
     appWindowsColor: '#6D00B3',
@@ -186,7 +185,6 @@ export const FractalVisionsStyles = {
     headerPrimary: '#6D00B3',
     commentOption: '#6D00B3',
     contentHeader: '#6D00B3',
-    blockedInfoArea: 'rgb(42 36 96 / 10%)',
     transparentIconColor: '#FFF',
     loaderColor: '#6D00B3',
     votingIconColor: '#6D00B3',

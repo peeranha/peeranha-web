@@ -58,10 +58,18 @@
   "Edit": "已编辑",
   "Create": "张贴",
   "Delete": "已删除",
+  "botAnswer": "通过回答 {{bot}}",
+  "botCreate": "创建于 {{bot}}",
   "RulesBlock_1": "以下是一些提示，可让您的回答有用且不会被版主删除：",
   "RulesBlock_2": "1.仔细阅读帖子以了解问题并提供最佳回复。",
   "RulesBlock_3": "2.确保您的回答回答了帖子中提出的问题，而不仅仅是评论或感谢。",
   "RulesBlock_4": "3. 对他人有礼貌和尊重。",
   "inThisCommunity": "在这个社区",
-  "reputationBelowZero": "你在这个社区的声誉是负面的，你不能发表任何回复。"
+  "reputationBelowZero": "你在这个社区的声誉是负面的，你不能发表任何回复。",
+  "answer_login": "你知道答案吗？",
+  "answer_loginText": "请登录并分享。",
+  "answer_replied": "你已经回复了这个帖子。",
+  "answer_repliedText": "如果需要添加更多信息，您可以编辑您的回复。",
+  "answer_reputation": "不幸的是，你在这个社区的声誉是负面的。",
+  "answer_reputationText": "您无权发表任何回复。"
 }

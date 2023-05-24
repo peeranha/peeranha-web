@@ -53,7 +53,7 @@ export function getQuestionsSuccess(
   next,
   toUpdateQuestions,
   questionFilter = 0,
-  promotedQuestions,
+  counter,
 ) {
   return {
     type: GET_QUESTIONS_SUCCESS,
@@ -61,7 +61,7 @@ export function getQuestionsSuccess(
     next,
     toUpdateQuestions,
     questionFilter,
-    promotedQuestions,
+    counter,
   };
 }
 
@@ -110,9 +110,7 @@ export const loadTopCommunityQuestionsSuccess = (
   lastIndex,
 });
 
-export const loadTopCommunityQuestionsErr = (
-  loadTopCommunityQuestionsError,
-) => ({
+export const loadTopCommunityQuestionsErr = (loadTopCommunityQuestionsError) => ({
   type: LOAD_COMMUNITY_TOP_QUESTIONS_ERROR,
   loadTopCommunityQuestionsError,
 });

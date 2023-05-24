@@ -31,10 +31,8 @@ const PartnersSection: React.FC = (): JSX.Element => {
   const titleBlock = useRef(null);
   const sliderBlock = useRef(null);
 
-  const [startTitleAnimation, setStartTitleAnimation] =
-    useState<boolean>(false);
-  const [startSliderAnimation, setStartSliderAnimation] =
-    useState<boolean>(false);
+  const [startTitleAnimation, setStartTitleAnimation] = useState<boolean>(false);
+  const [startSliderAnimation, setStartSliderAnimation] = useState<boolean>(false);
 
   useEffect(() => {
     scrollTrigger(titleBlock.current, () => setStartTitleAnimation(true));
@@ -62,10 +60,7 @@ const PartnersSection: React.FC = (): JSX.Element => {
             ...(startSliderAnimation && styles.sliderAnimation),
           }}
         >
-          <div
-            className="dib no-wrap"
-            css={startSliderAnimation && styles.slideTrackAnimation}
-          >
+          <div className="dib no-wrap" css={startSliderAnimation && styles.slideTrackAnimation}>
             {logos.map((logo, index) => (
               <div css={styles.slide} key={index}>
                 <img src={logo} alt="partner logo" />

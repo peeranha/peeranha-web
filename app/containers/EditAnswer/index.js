@@ -12,16 +12,9 @@ import Seo from 'components/Seo';
 import AnswerForm from 'components/AnswerForm';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  ANSWER_TYPE_FORM,
-  TEXT_EDITOR_ANSWER_FORM,
-} from 'components/AnswerForm/constants';
+import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
 
-import {
-  selectAnswer,
-  selectAnswerLoading,
-  selectEditAnswerLoading,
-} from './selectors';
+import { selectAnswer, selectAnswerLoading, selectEditAnswerLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -87,24 +80,7 @@ const EditAnswer = ({
       isOfficialReply,
       communityId,
     }),
-    [
-      sendAnswer,
-      editAnswerLoading,
-      answer,
-      locale,
-      properties,
-      communityId,
-      content,
-      t,
-    ],
-  );
-
-  const [title, description] = useMemo(
-    () => [
-      answer?.content ?? t('post.title'),
-      answer?.content ?? t('post.description'),
-    ],
-    [answer],
+    [sendAnswer, editAnswerLoading, answer, locale, properties, communityId, content, t],
   );
 
   const available = useMemo(
@@ -117,18 +93,14 @@ const EditAnswer = ({
       {available ? (
         <>
           <Seo
-            title={title}
-            description={description || ''}
+            title={t('post.title')}
+            description={t('post.description')}
             language={locale}
             index={false}
           />
 
           {!answerLoading && (
-            <Wrapper
-              questionid={questionid}
-              answerid={answerid}
-              title={questionTitle}
-            >
+            <Wrapper questionid={questionid} answerid={answerid} title={questionTitle}>
               <AnswerForm {...sendProps} />
             </Wrapper>
           )}

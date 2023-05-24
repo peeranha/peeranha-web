@@ -44,11 +44,7 @@ const PromotedLabel = styled.span`
 const Icon = styled(IconLabel)`
   ${({ isTutorial, isExpert }) =>
     svgDraw({
-      color: isTutorial
-        ? TUTORIAL_ICON_COLOR
-        : isExpert
-        ? TEXT_PRIMARY
-        : 'rgba(242, 163, 159, 1)',
+      color: isTutorial ? TUTORIAL_ICON_COLOR : isExpert ? TEXT_PRIMARY : 'rgba(242, 163, 159, 1)',
     })};
   display: flex;
   justify-content: center;
@@ -78,8 +74,7 @@ const Icon = styled(IconLabel)`
     fill: none !important;
   }
   .fill {
-    fill: ${({ isTutorial }) =>
-      isTutorial ? TUTORIAL_ICON_COLOR : 'BORDER_DARK'};
+    fill: ${({ isTutorial }) => (isTutorial ? TUTORIAL_ICON_COLOR : 'BORDER_DARK')};
   }
   .semitransparent {
     fill: none;
@@ -116,12 +111,7 @@ const types = {
   },
 };
 
-const QuestionType = ({
-  postType,
-  className,
-  isPromoted = false,
-  isSearch = false,
-}) => {
+const QuestionType = ({ postType, className, isPromoted = false, isSearch = false }) => {
   const { t } = useTranslation();
   const [visible, changeVisibility] = useState(false);
 
@@ -134,33 +124,24 @@ const QuestionType = ({
     <div className={className}>
       {type && (
         <LabelItem>
-          <Container
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            size="sm"
-          >
+          <Container onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} size="sm">
             {visible && (
               <Popover
                 title={type.title}
                 label={type.label}
                 items={type.items}
                 isSearch={isSearch}
+                width={290}
               />
             )}
             <Icon
               isExpert={type.isExpert}
               isTutorial={type.isTutorial}
               isDocumentation={type.isDocumentation}
-              className="mr-2"
+              className={`mr-2 ${!isSearch && 'ml4'}`}
               icon={type.icon}
             />
           </Container>
-        </LabelItem>
-      )}
-
-      {isPromoted && (
-        <LabelItem>
-          <PromotedLabel>{t('common.promoted')}</PromotedLabel>
         </LabelItem>
       )}
     </div>

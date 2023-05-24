@@ -1,9 +1,5 @@
 import { fromJS } from 'immutable';
-import {
-  SEND_MESSAGE,
-  SEND_MESSAGE_ERROR,
-  SEND_MESSAGE_SUCCESS,
-} from './constants';
+import { SEND_MESSAGE, SEND_MESSAGE_ERROR, SEND_MESSAGE_SUCCESS } from './constants';
 
 export const initialState = fromJS({
   sendMessageLoading: false,
@@ -25,9 +21,7 @@ function homepageReducer(
     case SEND_MESSAGE_SUCCESS:
       return state.set('sendMessageLoading', false);
     case SEND_MESSAGE_ERROR:
-      return state
-        .set('sendMessageLoading', false)
-        .set('sendMessageError', sendMessageError);
+      return state.set('sendMessageLoading', false).set('sendMessageError', sendMessageError);
 
     default:
       return state;

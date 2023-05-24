@@ -171,8 +171,7 @@ export const FilebaseStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/filebase/filebaselogo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/filebase/logo.svg',
 
   colors: {
     appWindowsColor: '#da532c',
@@ -185,7 +184,6 @@ export const FilebaseStyles = {
     headerPrimary: '#FFA500',
     commentOption: '#111827',
     contentHeader: '#FFA500',
-    blockedInfoArea: 'rgba(53,74,137,0.11)',
     transparentIconColor: '#FFF',
     loaderColor: '#111827',
     votingIconColor: '#111827',

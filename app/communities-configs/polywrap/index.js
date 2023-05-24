@@ -171,8 +171,7 @@ export const PolywrapStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/polywrap/polywrap-horizontal.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/polywrap/logo.svg',
 
   colors: {
     appWindowsColor: '#603cba',
@@ -185,7 +184,6 @@ export const PolywrapStyles = {
     headerPrimary: '#4ED39F',
     commentOption: '#4ED39F',
     contentHeader: '#4ED39F',
-    blockedInfoArea: 'rgba(255, 154, 158 ,0.11)',
     transparentIconColor: '#fff',
     loaderColor: '#4ED39F',
     votingIconColor: '#4ED39F',

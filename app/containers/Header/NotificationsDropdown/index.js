@@ -63,20 +63,9 @@ const Div = styled.div`
   }
 `;
 
-const NotificationsDropdown = ({
-  unreadCount: allUnreadCount,
-  notifications: allNotifications,
-  filterReadTimestampsDispatch,
-}) => {
+const NotificationsDropdown = ({ unreadCount, notifications, filterReadTimestampsDispatch }) => {
   const ref = useRef(null);
   const [visible, setVisibility] = useState(false);
-
-  // Temporary fix, will be removed in PEER-682
-  const notifications = allNotifications.filter(
-    ({ type }) => NOTIFICATIONS_DATA[type],
-  );
-  const unreadCount =
-    allUnreadCount - (allNotifications.length - notifications.length);
 
   const onClick = useCallback(() => {
     if (visible) {
@@ -85,10 +74,7 @@ const NotificationsDropdown = ({
 
     setVisibility(!visible);
   }, [visible]);
-  const number = useMemo(
-    () => (unreadCount < 100 ? unreadCount : '...'),
-    [unreadCount],
-  );
+  const number = useMemo(() => (unreadCount < 100 ? unreadCount : '...'), [unreadCount]);
 
   return (
     <Container
@@ -133,10 +119,7 @@ export default React.memo(
       notifications: selectUnreadNotifications()(state),
     }),
     (dispatch) => ({
-      filterReadTimestampsDispatch: bindActionCreators(
-        filterReadTimestamps,
-        dispatch,
-      ),
+      filterReadTimestampsDispatch: bindActionCreators(filterReadTimestamps, dispatch),
     }),
   )(NotificationsDropdown),
 );

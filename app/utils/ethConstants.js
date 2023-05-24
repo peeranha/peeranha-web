@@ -5,10 +5,10 @@ export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
 export const ContractsMapping = {
-  [CONTRACT_TOKEN]: 'token',
-  [CONTRACT_USER]: 'user',
-  [CONTRACT_CONTENT]: 'content',
-  [CONTRACT_COMMUNITY]: 'community',
+  [CONTRACT_TOKEN]: ['token', process.env.PEERANHA_TOKEN],
+  [CONTRACT_USER]: ['user', process.env.USER_ADDRESS],
+  [CONTRACT_CONTENT]: ['content', process.env.CONTENT_ADDRESS],
+  [CONTRACT_COMMUNITY]: ['community', process.env.COMMUNITY_ADDRESS],
 };
 
 // Transaction names
@@ -35,13 +35,10 @@ export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
 export const VOTE_ITEM = 'voteItem';
 export const CLAIM_REWARD = 'claimReward';
 export const SET_STAKE = 'setStake';
-export const GIVE_COMMUNITY_MODERATOR_PERMISSION =
-  'giveCommunityModeratorPermission';
-export const REVOKE_COMMUNITY_MODERATOR_PERMISSION =
-  'revokeCommunityModeratorPermission';
+export const GIVE_COMMUNITY_MODERATOR_PERMISSION = 'giveCommunityModeratorPermission';
+export const REVOKE_COMMUNITY_MODERATOR_PERMISSION = 'revokeCommunityModeratorPermission';
 export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
-export const REVOKE_COMMUNITY_ADMIN_PERMISSION =
-  'revokeCommunityAdminPermission';
+export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
 
 // Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
@@ -53,6 +50,7 @@ export const GET_POST = 'getPost';
 export const GET_REPLY = 'getReply';
 export const GET_STATUS_HISTORY = 'getStatusHistory';
 export const GET_COMMENT = 'getComment';
+export const GET_ITEM_PROPERTY = 'getItemProperty';
 export const GET_USER_BALANCE = 'balanceOf';
 export const GET_AVERAGE_STAKE = 'getAverageStake';
 export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
@@ -95,6 +93,11 @@ const comment = `
     content
     isDeleted
     properties
+    language
+    translations {
+      language
+      content
+    }
 `;
 
 const reply = `
@@ -115,6 +118,13 @@ const reply = `
     isFirstReply
     isQuickReply
     properties
+    language
+    translations {
+      language
+      content
+    }
+    handle
+    messengerType
     comments (
       orderBy: postTime,
       orderDirection: asc,
@@ -134,16 +144,25 @@ const post = `
     rating
     postTime
     communityId
+    language
+    translations {
+      language
+      content
+      title
+    }
     title
     content
     commentCount
     replyCount
     isDeleted
+    lastmod
     officialReply
     bestReply
     isFirstReply
     isQuickReply
     properties
+    handle
+    messengerType
     replies (
       orderBy: postTime,
       orderDirection: desc,
@@ -161,6 +180,12 @@ const post = `
     tags {
       id
       name
+    }
+    language
+    translations {
+      language
+      title
+      content
     }
 `;
 
@@ -272,6 +297,14 @@ export const communitiesQuery = `
           description
           website
           language
+          translations {
+            communityId
+            description
+            enableAutotranslation
+            id
+            language
+            name
+          }
           isFrozen
           creationTime
           postCount
@@ -279,6 +312,10 @@ export const communitiesQuery = `
           deletedPostCount
           followingUsers
           replyCount
+          translations {
+            language
+            enableAutotranslation
+          }
         }
       }`;
 
@@ -361,12 +398,24 @@ export const communityQuery = `
           description
           website
           language
+          translations {
+            communityId
+            description
+            enableAutotranslation
+            id
+            language
+            name
+          }
           isFrozen
           creationTime
           postCount
           deletedPostCount
           followingUsers
           replyCount
+          translations {
+            language
+            enableAutotranslation
+          }
         }
       }`;
 
@@ -522,6 +571,7 @@ export const postsForSearchQuery = `
         commentCount
         replyCount
         isDeleted
+        lastmod
         officialReply
         bestReply
         isFirstReply
@@ -532,7 +582,7 @@ export const postsForSearchQuery = `
 
 export const postQuery = `
       query (
-        $postId: Int,
+        $postId: String,
       ) {
         post (
           id: $postId,

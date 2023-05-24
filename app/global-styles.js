@@ -1,11 +1,6 @@
 import { injectGlobal } from 'styled-components';
 import reset from './reset-css';
-import {
-  BG_PRIMARY_LIGHT,
-  BG_LIGHT,
-  APP_FONT,
-  FACEBOOK_MAIN,
-} from 'style-constants';
+import { BG_PRIMARY_LIGHT, BG_LIGHT, APP_FONT } from 'style-constants';
 
 import _get from 'lodash/get';
 
@@ -13,8 +8,7 @@ import { singleCommunityStyles } from './utils/communityManagement';
 
 const styles = singleCommunityStyles();
 
-const getItalicFont = () =>
-  /iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'normal' : 'italic';
+const getItalicFont = () => (/iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'normal' : 'italic');
 export const italicFont = getItalicFont();
 
 /* eslint no-unused-expressions: 0 */
@@ -122,24 +116,6 @@ injectGlobal`
   @media only screen and (max-width: 768px) {
     .mb-to-md-2 {
       margin-bottom: 10px !important;
-    }
-  }
-
-  .fb-login-button {
-    height: 40px;
-    width: fit-content;
-    background: ${FACEBOOK_MAIN};
-    border-radius: 3px;
-    color: var(--color-white);
-    font-size: 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 20px;
-    font-family: ${APP_FONT};
-
-    > i {
-      margin-right: 16px;
     }
   }
 

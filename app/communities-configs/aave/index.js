@@ -171,7 +171,7 @@ export const AaveStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/aave/aaveLogo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/aave/logo.svg',
 
   colors: {
     appWindowsColor: '#2b5797',
@@ -185,7 +185,6 @@ export const AaveStyles = {
     headerPrimary: '#1b2030',
     commentOption: '#1b2030',
     contentHeader: '#1b2030',
-    blockedInfoArea: '#764A8931',
     transparentIconColor: '#fff',
     loaderColor: '#1b2030',
     votingIconColor: '#1b2030',
@@ -210,8 +209,7 @@ export const AaveStyles = {
       background: 'linear-gradient(90deg, #2FB9C5 0%, #7384B2 100%);',
       ':hover': {
         borderColor: '#fff',
-        background:
-          'linear-gradient(90deg, rgba(47,185,197,0.9) 0%, rgba(115,132,178,0.9) 100%);',
+        background: 'linear-gradient(90deg, rgba(47,185,197,0.9) 0%, rgba(115,132,178,0.9) 100%);',
         color: '#FFFFFF',
       },
     },

@@ -23,9 +23,15 @@ import saga from 'components/Notifications/saga';
 
 import reducer from 'components/Notifications/reducer';
 
-import { selectReadNotificationsUnread, selectUnreadNotificationsLoading } from 'components/Notifications/selectors';
+import {
+  selectReadNotificationsUnread,
+  selectUnreadNotificationsLoading,
+} from 'components/Notifications/selectors';
 
-import { loadMoreUnreadNotifications, markAsReadNotificationsUnread } from 'components/Notifications/actions';
+import {
+  loadMoreUnreadNotifications,
+  markAsReadNotificationsUnread,
+} from 'components/Notifications/actions';
 
 import Notification from './Notification';
 
@@ -185,8 +191,14 @@ export default memo(
         readNotifications: selectReadNotificationsUnread()(state),
       }),
       (dispatch) => ({
-        markAsReadNotificationsUnreadDispatch: bindActionCreators(markAsReadNotificationsUnread, dispatch),
-        loadMoreUnreadNotificationsDispatch: bindActionCreators(loadMoreUnreadNotifications, dispatch),
+        markAsReadNotificationsUnreadDispatch: bindActionCreators(
+          markAsReadNotificationsUnread,
+          dispatch,
+        ),
+        loadMoreUnreadNotificationsDispatch: bindActionCreators(
+          loadMoreUnreadNotifications,
+          dispatch,
+        ),
       }),
     ),
   )(Content),

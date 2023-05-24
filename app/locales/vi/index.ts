@@ -24,7 +24,6 @@ export default {
     boost,
     common,
     createCommunity,
-    administration,
     errorPage,
     formFields,
     login,

@@ -13,8 +13,7 @@ const communityDetails = getSingleCommunityDetails();
 
 export const PEER_PRIMARY_COLOR = communityDetails?.colors?.main || '#576fed';
 export const PEER_PRIMARY_TRANSPARENT_COLOR = '#dde2fb';
-export const PEER_WARNING_COLOR =
-  communityDetails?.colors?.highlight || '#fc6655';
+export const PEER_WARNING_COLOR = communityDetails?.colors?.highlight || '#fc6655';
 export const PEER_WARNING_TRANSPARENT_COLOR = '#FDE2DF';
 export const PEER_ERROR_COLOR = '#DC3545';
 export const PEER_ERROR_TRANSPARENT_COLOR = '#dc35452b';
@@ -30,11 +29,7 @@ const pink = PEER_WARNING_COLOR;
 const lightblue = '#edeff6';
 const blue = _get(colors, 'blue', PEER_PRIMARY_COLOR);
 const premium = _get(colors, 'premium', PEER_PREMIUM_COLOR);
-const premiumLight = _get(
-  colors,
-  'premiumLight',
-  PEER_PREMIUM_TRANSPARENT_COLOR,
-);
+const premiumLight = _get(colors, 'premiumLight', PEER_PREMIUM_TRANSPARENT_COLOR);
 const purple = _get(colors, 'purple', 'rgba(39, 56, 104, 0.85)');
 const darkblue = _get(colors, 'darkBlue', '#5065A5');
 const transparent = 'rgba(0, 0, 0, 0)';
@@ -60,13 +55,7 @@ const rulesBackground = '#ADBAFF33';
 const graySpecial2 = `rgba(${graySpecialRGB}, 0.1)`;
 const graySpecial3 = 'rgba(250, 250, 250, 1)';
 const graySpecial4 = '#f9f9f9';
-const primarySpecial = _get(
-  colors,
-  'primarySpecial',
-  'rgba(53, 74, 137, 0.11)',
-);
-
-export const FACEBOOK_MAIN = 'rgb(66, 103, 178)';
+const primarySpecial = _get(colors, 'primarySpecial', 'rgba(53, 74, 137, 0.11)');
 
 const secondarySpecial = _get(colors, 'secondarySpecial', '#c2c6d8');
 
@@ -94,11 +83,7 @@ export const TEXT_PRIMARY = blue;
 export const TEXT_PREMIUM = premium;
 
 export const LINK_COLOR = linkColor;
-export const LINK_COLOR_SECONDARY = _get(
-  colors,
-  'linkColorSecondary',
-  linkColor,
-);
+export const LINK_COLOR_SECONDARY = _get(colors, 'linkColorSecondary', linkColor);
 export const ICON_TRASPARENT_BLUE = iconTransparentBlue;
 
 export const BORDER_LIGHT = white;

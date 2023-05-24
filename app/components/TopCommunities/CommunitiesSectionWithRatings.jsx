@@ -19,16 +19,9 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const CommunitiesSectionWithRatings = ({
-  profile,
-  ref,
-  single,
-  communities,
-}) => {
+const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, locale }) => {
   const { t } = useTranslation();
-  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
-    routes.communities(),
-  );
+  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() => routes.communities());
   const AllCommunitiesLink = single ? ADefault : A;
 
   useEffect(() => {
@@ -55,6 +48,7 @@ const CommunitiesSectionWithRatings = ({
             single={single}
             communities={communities}
             key={item.communityId}
+            locale={locale}
           />
         ))}
 
@@ -77,9 +71,7 @@ const CommunitiesSectionWithRatings = ({
                 }
               `}
             />
-            <Span color={colors.btnColor || TEXT_PRIMARY}>
-              {t('common.allCommunities')}
-            </Span>
+            <Span color={colors.btnColor || TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
           </AllCommunitiesLink>
         </div>
       </Grid>
@@ -92,6 +84,7 @@ CommunitiesSectionWithRatings.propTypes = {
   ref: PropTypes.object,
   single: PropTypes.bool,
   communities: PropTypes.array,
+  locale: PropTypes.string,
 };
 
 export default React.memo(CommunitiesSectionWithRatings);

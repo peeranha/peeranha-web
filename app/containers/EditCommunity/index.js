@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +38,7 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { GENERAL_TAB } from './constants';
 import { getSingleCommunityDetails } from '../../utils/communityManagement';
 
 const EditCommunity = ({
@@ -56,11 +57,11 @@ const EditCommunity = ({
   const { t } = useTranslation();
   useModeratorRole(noAccessRoute, communityId);
 
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
   useEffect(() => {
     getCommunityDispatch(communityId);
   }, [communityId]);
+
+  const [tab, setTab] = useState(GENERAL_TAB);
 
   const formData = useMemo(
     () => ({
@@ -70,11 +71,11 @@ const EditCommunity = ({
       communityLoading: editCommunityLoading,
       locale,
       isModerator: hasGlobalModeratorRole(getPermissions(profileInfo)),
-      isBloggerMode,
+      tab,
+      setTab,
     }),
-    [community, communityId, editCommunityDispatch, editCommunityLoading],
+    [community, communityId, editCommunityDispatch, editCommunityLoading, tab],
   );
-
   return (
     <div>
       <Seo
@@ -86,12 +87,12 @@ const EditCommunity = ({
 
       <Header headerDescriptor="common.editCommunityDesc.header" />
 
-      <TipsBase className="overflow-hidden">
+      <TipsBase>
         {communityLoading && <LoadingIndicator />}
 
         {!communityLoading && <Form {...formData} />}
 
-        <Tips faqQuestions={faqQuestions} />
+        {tab === GENERAL_TAB && <Tips faqQuestions={faqQuestions} />}
       </TipsBase>
     </div>
   );
@@ -113,10 +114,7 @@ const withConnect = connect(
   createStructuredSelector({
     community: selectCommunity(),
     editCommunityLoading: selectEditCommunityLoading(),
-    faqQuestions: selectFaqQuestions([
-      WHAT_IS_COMMUNITY_QUESTION,
-      WHO_MANAGES_COMMUNITY_QUESTION,
-    ]),
+    faqQuestions: selectFaqQuestions([WHAT_IS_COMMUNITY_QUESTION, WHO_MANAGES_COMMUNITY_QUESTION]),
     getCommunityLoading: selectGetCommunityLoading(),
     locale: makeSelectLocale(),
     profileInfo: makeSelectProfileInfo(),

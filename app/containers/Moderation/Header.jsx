@@ -17,13 +17,9 @@ const Header = ({ content }) => {
   `}
     >
       <H3>
-        <span className="d-none d-md-inline-block">
-          {content.map((item) => item.role)}
-        </span>
+        <span className="d-none d-md-inline-block">{content.map((item) => item.role)}</span>
 
-        <span className="d-inline-block d-md-none">
-          {t('common.moderationHeader')}
-        </span>
+        <span className="d-inline-block d-md-none">{t('common.moderationHeader')}</span>
       </H3>
     </Wrapper>
   );

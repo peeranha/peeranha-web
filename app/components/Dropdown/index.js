@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { DARK_SECONDARY } from 'style-constants';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
-import {
-  singleCommunityColors,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import Icon from 'components/Icon/index';
@@ -30,6 +27,8 @@ export const Dropdown = ({
   isArrowed,
   isMenuLabelMobile,
   isArrowMarginMobile,
+  dataAttribute = null,
+  disabled = false,
 }) => (
   <DropdownStyled
     className={`dropdown ${className}`}
@@ -45,6 +44,7 @@ export const Dropdown = ({
       aria-expanded="false"
       data-icon="arrow"
       css={css`color: ${colors.localeArrowColor} : "" `}
+      disabled={disabled}
     >
       {button}
 
@@ -59,7 +59,7 @@ export const Dropdown = ({
       )}
     </button>
 
-    <MenuStyled className="dropdown-menu" ariaLabelledby={id}>
+    <MenuStyled className="dropdown-menu" data-dropdown={dataAttribute} ariaLabelledby={id}>
       {menu}
     </MenuStyled>
   </DropdownStyled>
@@ -73,6 +73,8 @@ Dropdown.propTypes = {
   isArrowed: PropTypes.bool,
   isMenuLabelMobile: PropTypes.bool,
   isArrowMarginMobile: PropTypes.bool,
+  dataAttribute: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default React.memo(Dropdown);

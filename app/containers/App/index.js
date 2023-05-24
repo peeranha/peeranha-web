@@ -32,7 +32,6 @@ import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
   isSingleCommunityWebsite,
-  getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
@@ -45,7 +44,6 @@ import saga from 'containers/App/saga';
 import {
   EditCommunity,
   HomePage,
-  Faq,
   Administration,
   Users,
   EditQuestion,
@@ -60,21 +58,12 @@ import {
   CreateCommunity,
   TagsOfCommunity,
   CreateTag,
-  SuggestedTags,
   EditTag,
   NoAccess,
   Home,
   Feed,
   Communities,
-  SuggestedCommunities,
-  EmailEnteringForm,
-  EmailVerificationForm,
-  WalletsSignUpForm,
-  SignUpViaEmail,
-  RegistrationAlmostDoneWithAccount,
-  RegistrationAlmostDoneNoAccount,
   Login,
-  ForgotPassword,
   Toast,
   Wallet,
   Boost,
@@ -151,7 +140,7 @@ const App = ({
     : Object.keys(documentationMenu).length;
 
   useEffect(() => {
-    if (single && (pathname == '/' || pathname == '/feed')) {
+    if (single && (pathname == '/' || pathname == '/feed') && !search) {
       if ((hasPinnedPost || isDocumentationPositionTop) && isDocumentationExist) {
         redirectToDocumentationDispatch();
       } else {
@@ -159,8 +148,6 @@ const App = ({
       }
     }
   }, [documentationMenu]);
-
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   const hasCommunityOrProtocolAdminRole =
     single &&
@@ -173,7 +160,6 @@ const App = ({
         <Toast />
 
         <Login />
-        <ForgotPassword />
 
         <ScrollTo />
         <Popover />
@@ -192,10 +178,6 @@ const App = ({
             render={(props) => Wrapper(FullWidthPreloader, props)}
           />
 
-          {!!isBloggerMode && (
-            <Route exact path={routes.detailsHomePage()} render={(props) => Wrapper(Home, props)} />
-          )}
-
           <Route exact path={routes.feed()} render={(props) => Wrapper(Feed, props)} />
 
           {single && (hasPinnedPost || isDocumentationPositionTop) && (
@@ -207,7 +189,10 @@ const App = ({
           )}
 
           {!single && (
-            <Route path={routes.feed(':communityid')} render={(props) => Wrapper(Feed, props)} />
+            <Route
+              path={routes.feed(':communityid', ':paginationpage')}
+              render={(props) => Wrapper(Feed, props)}
+            />
           )}
 
           <Route
@@ -241,13 +226,6 @@ const App = ({
             render={(props) => Wrapper(EditCommunity, props)}
           />
 
-          {!single && (
-            <Route
-              path={routes.suggestedCommunities()}
-              render={(props) => Wrapper(SuggestedCommunities, props)}
-            />
-          )}
-
           <Route
             exact
             path={routes.communityTags(':communityid')}
@@ -263,13 +241,6 @@ const App = ({
             path={routes.editTag(':communityId', ':tagid')}
             render={(props) => Wrapper(EditTag, props)}
           />
-
-          <Route
-            path={routes.suggestedTags(':communityid')}
-            render={(props) => Wrapper(SuggestedTags, props)}
-          />
-
-          <Route exact path={routes.faq()} render={(props) => Wrapper(Faq, props)} />
 
           <Route
             exact
@@ -310,7 +281,7 @@ const App = ({
           />
 
           <Route
-            path={routes.questions(':communityid')}
+            path={routes.questions(':communityid', ':paginationpage')}
             render={(props) =>
               Wrapper(Questions, {
                 ...props,
@@ -320,7 +291,7 @@ const App = ({
           />
 
           <Route
-            path={routes.expertPosts(':communityid')}
+            path={routes.expertPosts(':communityid', ':paginationpage')}
             render={(props) =>
               Wrapper(Questions, {
                 ...props,
@@ -336,7 +307,7 @@ const App = ({
           />
 
           <Route
-            path={routes.tutorials(':communityid')}
+            path={routes.tutorials(':communityid', ':paginationpage')}
             render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
           />
 
@@ -426,42 +397,6 @@ const App = ({
           <Route path={routes.search(':q')} render={(props) => Wrapper(Search, props)} />
 
           <Route path={routes.errorPage()} render={(props) => Wrapper(ErrorPage, props)} />
-
-          <Route path={routes.signup.email.name}>
-            <React.Suspense fallback={<Loader />}>
-              <EmailEnteringForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.emailVerification.name}>
-            <React.Suspense fallback={null}>
-              <EmailVerificationForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.displayName.name}>
-            <React.Suspense fallback={null}>
-              <WalletsSignUpForm />
-            </React.Suspense>
-          </Route>
-
-          <Route exact path={routes.signup.accountSetup.name}>
-            <React.Suspense fallback={null}>
-              <SignUpViaEmail />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneWithAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneWithAccount />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneNoAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneNoAccount />
-            </React.Suspense>
-          </Route>
 
           <Route render={(props) => Wrapper(NotFoundPage, props)} />
         </Switch>

@@ -171,8 +171,7 @@ export const CyberconnectStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/cyberconnect/CyberConnect_logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/cyberconnect/logo.svg',
   colors: {
     appWindowsColor: '#FFF',
     appSafarieColor: '#3c2525',
@@ -184,7 +183,6 @@ export const CyberconnectStyles = {
     headerPrimary: '#65908a',
     commentOption: '#65908a',
     contentHeader: '#65908a',
-    blockedInfoArea: 'rgba(101, 144, 138,0.11)',
     transparentIconColor: '#fff',
     loaderColor: '#65908a',
     votingIconColor: '#65908a',

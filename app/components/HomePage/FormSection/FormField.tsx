@@ -10,12 +10,7 @@ type FormFieldProps = {
   meta: any;
 };
 
-const FormField: React.FC<FormFieldProps> = ({
-  input,
-  label,
-  disabled,
-  meta,
-}): JSX.Element => {
+const FormField: React.FC<FormFieldProps> = ({ input, label, disabled, meta }): JSX.Element => {
   const [isShow, showTip, hideTip] = useTrigger(true);
 
   return (

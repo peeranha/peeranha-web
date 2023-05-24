@@ -9,7 +9,7 @@ import { LEFT_MENU_WIDTH } from './constants';
 const colors = singleCommunityColors();
 
 const Main = styled.div`
-  background: ${colors.mainBackground ? colors.mainBackground : 'rgb(234, 236, 244)'};
+  background: ${colors.mainBackground || 'rgb(234, 236, 244)'};
   min-height: 100vh;
   padding-top: ${(x) => {
     if (x.isMenuVisible) {
@@ -18,7 +18,7 @@ const Main = styled.div`
 
     return HEADER_HEIGHT;
   }}px;
-  padding-bottom: ${(x) => (!x.isMenuVisible ? 75 : 0)}px;
+  padding-bottom: ${(x) => (!x.isMenuVisible ? 25 : 0)}px;
 
   @media only screen and (max-width: 991px) {
     padding-top: ${(x) => {
@@ -28,7 +28,7 @@ const Main = styled.div`
 
       return MOBILE_HEADER_HEIGHT;
     }}px;
-    padding-bottom: 0px;
+    padding-bottom: 15px;
   }
 `;
 

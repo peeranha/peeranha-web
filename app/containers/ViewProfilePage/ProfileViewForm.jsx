@@ -25,12 +25,9 @@ const ProfileViewForm = ({
   const path = window.location.pathname + window.location.hash;
   const isProfilePage =
     profile.id === account &&
-    (path === routes.profileView(account) ||
-      path === routes.userCommunities(account));
+    (path === routes.profileView(account) || path === routes.userCommunities(account));
 
-  const onClickRedirectToEditProfilePage = ({
-    currentTarget: { id, user },
-  }) => {
+  const onClickRedirectToEditProfilePage = ({ currentTarget: { id, user } }) => {
     redirectToEditProfilePage({
       buttonId: id,
       user,
@@ -61,6 +58,7 @@ const ProfileViewForm = ({
           communities={communities}
           profile={profile}
           questions={questions}
+          locale={locale}
         />
       )}
 

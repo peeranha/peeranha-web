@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { css } from '@emotion/react';
-import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from 'style-constants';
+
+import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT, TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
@@ -95,6 +96,7 @@ const View = ({
   toggleEditDocumentation,
   locale,
   changeLocale,
+  communities,
 }) => {
   const { t } = useTranslation();
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
@@ -206,7 +208,14 @@ const View = ({
                   faqQuestions={faqQuestions}
                 />
               ) : null}
-              {isDesktop && <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />}
+              {isDesktop && (
+                <ChangeLocale
+                  withTitle
+                  changeLocale={changeLocale}
+                  locale={locale}
+                  communities={communities}
+                />
+              )}
             </Section>
           </div>
         </div>
@@ -225,9 +234,7 @@ View.propTypes = {
   showLoginModalWithRedirectToAskQuestionPage: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
   faqQuestions: PropTypes.array,
-  isTransactionInPending: PropTypes.bool,
-  transactionHash: PropTypes.string,
-  transactionInitialised: PropTypes.bool,
+  communities: PropTypes.array,
 };
 
 LoginProfile.propTypes = {

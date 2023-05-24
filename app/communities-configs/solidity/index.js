@@ -171,8 +171,7 @@ export const SolidityStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/solidity/solidity-logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/solidity/logo.svg',
 
   colors: {
     appWindowsColor: '#ffc40d',
@@ -185,7 +184,6 @@ export const SolidityStyles = {
     headerPrimary: 'rgba(25, 68, 176, 1)',
     commentOption: 'rgba(25, 68, 176, 1)',
     contentHeader: 'rgba(25, 68, 176, 1)',
-    blockedInfoArea: 'rgba(0, 47, 167,0.11)',
     transparentIconColor: '#fff',
     loaderColor: 'rgba(25, 68, 176, 1)',
     votingIconColor: 'rgba(25, 68, 176, 1)',

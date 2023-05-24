@@ -36,31 +36,23 @@ function moderationReducer(
     case GET_MODERATORS:
       return state.set('moderatorsLoading', true);
     case GET_MODERATORS_SUCCESS:
-      return state
-        .set('moderatorsLoading', false)
-        .set('moderatorsList', moderatorsList);
+      return state.set('moderatorsLoading', false).set('moderatorsList', moderatorsList);
     case GET_MODERATORS_ERROR:
-      return state
-        .set('moderatorsLoading', false)
-        .set('moderatorsError', moderatorsError);
+      return state.set('moderatorsLoading', false).set('moderatorsError', moderatorsError);
 
     case ADD_ROLE:
       return state.set('addRoleLoading', true);
     case ADD_ROLE_SUCCESS:
       return state.set('addRoleLoading', false);
     case ADD_ROLE_ERROR:
-      return state
-        .set('addRoleLoading', false)
-        .set('moderatorsError', moderatorsError);
+      return state.set('addRoleLoading', false).set('moderatorsError', moderatorsError);
 
     case REVOKE_ROLE:
       return state.set('revokeRoleLoading', true);
     case REVOKE_ROLE_SUCCESS:
       return state.set('revokeRoleLoading', false);
     case REVOKE_ROLE_ERROR:
-      return state
-        .set('revokeRoleLoading', false)
-        .set('moderatorsError', moderatorsError);
+      return state.set('revokeRoleLoading', false).set('moderatorsError', moderatorsError);
     default:
       return state;
   }

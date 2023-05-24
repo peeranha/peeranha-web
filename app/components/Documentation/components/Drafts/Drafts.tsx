@@ -9,7 +9,7 @@ type DraftsMenuSectionProps = {
   draftsMenu: Array<DocumentationSection>;
   setEditArticle?: (data: EditArticleType) => void;
   setViewArticle?: (id: string) => void;
-  draftsIds: Array<string>;
+  draftsIds: Array<{ draftId: string; lastmod: string }>;
 };
 
 const DOCUMENTATION_ID = '1';

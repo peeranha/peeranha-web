@@ -6,13 +6,7 @@ type VoteProps = {
 };
 
 const Vote: React.FC<IconProps & VoteProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="vote"
-    fill="currentColor"
-    viewBox="0 0 18 18"
-    size={[18, 18]}
-  >
+  <IconComponent {...props} id="vote" fill="currentColor" viewBox="0 0 18 18" size={[18, 18]}>
     <g fill="none">
       <circle
         stroke={props.stroke || '#282828'}

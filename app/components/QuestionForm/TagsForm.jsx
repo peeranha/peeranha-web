@@ -9,26 +9,16 @@ import { strLength1x5, required } from 'components/FormFields/validate';
 
 import { FORM_COMMUNITY, FORM_TAGS } from './constants';
 
-const TagsForm = ({
-  questionLoading,
-  formValues,
-  change,
-  communityTags,
-  tagsLoading,
-}) => {
+const TagsForm = ({ questionLoading, formValues, change, communityTags, tagsLoading }) => {
   const { t } = useTranslation();
-  const setTags = useCallback(
-    (updatedTags) => change(FORM_TAGS, updatedTags),
-    [change],
-  );
+  const setTags = useCallback((updatedTags) => change(FORM_TAGS, updatedTags), [change]);
 
   const tagsOptions = useMemo(
     () => formValues?.[FORM_COMMUNITY]?.tags || communityTags || [],
     [formValues, communityTags],
   );
   const tagsDisabled = useMemo(
-    () =>
-      questionLoading || tagsLoading || !formValues?.[FORM_COMMUNITY]?.value,
+    () => questionLoading || tagsLoading || !formValues?.[FORM_COMMUNITY]?.value,
     [formValues, questionLoading, tagsLoading],
   );
 

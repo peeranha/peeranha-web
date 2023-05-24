@@ -40,8 +40,7 @@ const Header: React.FC<any> = ({
           css={{
             background: documentationColors.buttonBackground || 'transparent',
             color: documentationColors.buttonText || 'var(--color-white)',
-            borderColor:
-              documentationColors.buttonBorder || 'var(--color-white)',
+            borderColor: documentationColors.buttonBorder || 'var(--color-white)',
           }}
           icon={
             <CloseRoundedIcon
@@ -60,8 +59,7 @@ const Header: React.FC<any> = ({
           css={{
             background: documentationColors.buttonBackground || 'transparent',
             color: documentationColors.buttonText || 'var(--color-white)',
-            borderColor:
-              documentationColors.buttonBorder || 'var(--color-white)',
+            borderColor: documentationColors.buttonBorder || 'var(--color-white)',
           }}
           icon={
             <CloseRoundedIcon
@@ -79,19 +77,14 @@ const Header: React.FC<any> = ({
           variant="secondary"
           css={{
             background: documentationColors.publishBackground || 'white',
-            color:
-              documentationColors.publishText ||
-              'var(--color-button-secondary)',
+            color: documentationColors.publishText || 'var(--color-button-secondary)',
             borderWidth: 0,
             '&:hover': {
               background:
-                documentationColors.publishBackgroundHover ||
-                'var(--color-button-secondary)',
-              color:
-                documentationColors.publishTextHover || 'var(--color-white)',
+                documentationColors.publishBackgroundHover || 'var(--color-button-secondary)',
+              color: documentationColors.publishTextHover || 'var(--color-white)',
               '.icon': {
-                stroke:
-                  documentationColors.publishTextHover || 'var(--color-white)',
+                stroke: documentationColors.publishTextHover || 'var(--color-white)',
               },
             },
           }}

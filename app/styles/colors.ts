@@ -27,5 +27,4 @@ export default {
   '--color-error': '#DC3545',
   '--color-link': '#576FED',
   '--color-attention': '#FF4026',
-  '--color-facebook': '#4267B2',
 };
