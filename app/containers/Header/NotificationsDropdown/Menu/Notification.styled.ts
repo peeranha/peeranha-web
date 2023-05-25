@@ -15,14 +15,11 @@ const styles = {
     position: 'absolute',
     display: 'flex',
     width: '100%',
-    padding: '10px 16px',
+    padding: '16px',
     margin: '0 auto',
     borderBottom: '1px solid rgba(53, 74, 137, 0.15)',
     alignItems: 'start',
     justifyContent: 'start',
-    svg: {
-      marginTop: '3px',
-    },
     '& :nth-last-child': {
       borderBottom: 'none',
     },

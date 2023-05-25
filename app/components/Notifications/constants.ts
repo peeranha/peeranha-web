@@ -52,8 +52,6 @@ export const NOTIFICATIONS_TYPES = {
   answerCommented: 12,
   questionTipped: 13,
   answerTipped: 14,
-  postTypeChanged: 15,
-  communityChanged: 16,
 };
 
 export const NOTIFICATIONS_DATA = {

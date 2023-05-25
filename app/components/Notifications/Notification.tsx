@@ -7,12 +7,7 @@ import { trimRightZeros } from 'utils/numbers';
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { renderNotificationIcon } from 'utils/notifications';
 
-import {
-  ROUTES_BY_TYPE,
-  NOTIFICATIONS_DATA,
-  NOTIFICATIONS_TYPES,
-  POST_TYPE_TO_LABEL,
-} from './constants';
+import { ROUTES_BY_TYPE, NOTIFICATIONS_DATA, NOTIFICATIONS_TYPES } from './constants';
 import styles from './Notifications.styled';
 import { NotificationLinkProps, NotificationProps, NotificationTimeProps } from './types';
 
@@ -75,10 +70,6 @@ const Notification: React.FC<NotificationProps> = ({
     NOTIFICATIONS_TYPES.answerTipped,
     NOTIFICATIONS_TYPES.questionTipped,
   ].includes(type);
-  const isChangedType = [
-    NOTIFICATIONS_TYPES.postTypeChanged,
-    NOTIFICATIONS_TYPES.communityChanged,
-  ].includes(type);
 
   const values = useMemo(() => {
     if (!isTippedType) {
@@ -106,17 +97,7 @@ const Notification: React.FC<NotificationProps> = ({
 
   const notificationTextProps = {
     quantity: values,
-    previousPostType: t(POST_TYPE_TO_LABEL[previousPostType]),
-    previousCommunity: previousCommunity?.label,
-    postType: t(POST_TYPE_TO_LABEL[postType]),
-    currentCommunity: currentCommunity?.label,
   };
-
-  const notificationTitle = t(NOTIFICATIONS_DATA[type]?.keyTranslate);
-  const additionalTitle =
-    type === NOTIFICATIONS_TYPES.communityChanged
-      ? 'notifications.communityChangedFromTo'
-      : 'notifications.postTypeChangedFromTo';
 
   return (
     <div

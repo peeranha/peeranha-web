@@ -129,7 +129,7 @@ export function* getCommunityWorker({ id }) {
 
 export function* getLogoWorker() {
   try {
-    let logo = '';
+    const logo = '';
 
     const single = isSingleCommunityWebsite();
     if (single) {

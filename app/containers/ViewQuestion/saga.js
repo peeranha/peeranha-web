@@ -1,8 +1,7 @@
-import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
+import { languagesEnum } from 'app/i18n';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getProfileInfo } from 'utils/profileManagement';
 import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
-import { languagesEnum } from 'app/i18n';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';

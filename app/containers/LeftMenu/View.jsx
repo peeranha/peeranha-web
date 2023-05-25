@@ -63,7 +63,6 @@ const View = ({
       css={css`
         height: 100vh;
         overflow: hidden;
-
         @media (min-width: 992px) {
           height: ${single ? 'max-content' : `calc(100vh - ${HEADER_HEIGHT}px)`};
         }

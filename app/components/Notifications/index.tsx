@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
-import classnames from 'classnames';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller';
 import List from 'react-virtualized/dist/commonjs/List';
 
@@ -19,7 +18,7 @@ import { BG_LIGHT, BORDER_SECONDARY_LIGHT, BORDER_RADIUS_L } from 'style-constan
 import NotFound from 'containers/ErrorPage';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { ROW_HEIGHT, ROW_HEIGHT_FOR_SMALL } from './constants';
+import { NOTIFICATIONS_DATA, ROW_HEIGHT, ROW_HEIGHT_FOR_SMALL } from './constants';
 import { NotificationsProps } from './types';
 import {
   allNotificationsCount,
@@ -39,6 +38,7 @@ import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
 import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
+import classnames from 'classnames';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -82,11 +82,10 @@ const SubHeaderSeparator = styled.hr`
 const Notifications: React.FC<NotificationsProps> = ({
   loading,
   unreadCount,
-  allCount,
+  allCount: allCountUnfiltered,
   className,
   isAvailable,
-  notifications,
-  communities,
+  notifications: allNotifications,
   readNotifications,
   loadMoreNotificationsDispatch,
   markAsReadNotificationsAllDispatch,
@@ -98,6 +97,10 @@ const Notifications: React.FC<NotificationsProps> = ({
   const [y, setY] = useState(0);
   const ref = useRef(null);
   const containerRef = useRef(null);
+
+  // Temporary fix, will be removed in PEER-682
+  const notifications = allNotifications.filter(({ type }) => NOTIFICATIONS_DATA[type]);
+  const allCount = allCountUnfiltered - (allNotifications.length - notifications.length);
 
   useEffect(() => {
     markAsReadNotificationsAllDispatch([
@@ -252,7 +255,6 @@ export default React.memo(
         loading: selectAllNotificationsLoading()(state),
         readNotifications: selectReadNotificationsAll()(state),
         unreadCount: unreadNotificationsCount()(state),
-        communities: selectCommunities()(state),
       }),
       (dispatch) => ({
         loadMoreNotificationsDispatch: bindActionCreators(loadMoreNotifications, dispatch),

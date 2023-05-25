@@ -63,7 +63,11 @@ const Div = styled.div`
   }
 `;
 
-const NotificationsDropdown = ({ unreadCount, notifications, filterReadTimestampsDispatch }) => {
+const NotificationsDropdown = ({
+  unreadCount: allUnreadCount,
+  notifications: allNotifications,
+  filterReadTimestampsDispatch,
+}) => {
   const ref = useRef(null);
   const [visible, setVisibility] = useState(false);
 
