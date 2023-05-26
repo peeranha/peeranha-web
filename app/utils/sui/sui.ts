@@ -22,12 +22,12 @@ export const updateCommunity = 'updateCommunity';
 export const createCommunity = 'createCommunity';
 export const updateTag = 'updateTag';
 export const createTag = 'createTag';
-export const createPost = 'createPost';
+export const createPost = 'createPostByUser';
 export const editPost = 'authorEditPost';
 export const moderatorEditPost = 'moderatorEditPostMetaData';
 export const votePost = 'votePost';
 export const voteReply = 'voteReply';
-export const CREATE_REPLY_ACTION_NAME = 'createReply';
+export const CREATE_REPLY_ACTION_NAME = 'createReplyByUser';
 export const CREATE_COMMENT_ACTION_NAME = 'createComment';
 
 export const AUTHOR_EDIT_REPLY_ACTION_NAME = 'authorEditReply';
