@@ -263,11 +263,13 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     setSaveToDraft={setSaveToDraft}
                   />
                 )}
-                <Pagination
-                  documentationMenu={documentationMenu}
-                  id={viewArticleId}
-                  onClickPaginationArticleEditDocumentation={onClickPaginationArticle}
-                />
+                {Boolean(viewArticleId) && !Boolean(isDraft) && !editArticle.isEditArticle && (
+                  <Pagination
+                    documentationMenu={documentationMenu}
+                    id={viewArticleId}
+                    onClickPaginationArticleEditDocumentation={onClickPaginationArticle}
+                  />
+                )}
               </>
             )}
           </div>
