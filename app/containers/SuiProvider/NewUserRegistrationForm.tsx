@@ -97,7 +97,7 @@ const NewUserRegistrationForm: React.FC<NewUserRegistrationFormProps> = ({
             <Field
               name={DISPLAY_NAME_FIELD}
               component={TextInputField}
-              placeholder={t('administration.enterName')}
+              placeholder={t('signUp.displayName')}
               validate={[required, strLength3x20]}
               warn={[required, strLength3x20]}
               warningStyle={styles.validationField}
