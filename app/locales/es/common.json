@@ -135,7 +135,7 @@
   "showLess": "Muestra menos {{valor}}",
   "poweredBy": "©{{año}} Energizado por <0></0>",
   "poweredByPeeranha": "Energizado por {{image}}",
-  "reCaptchaMention": "Este sitio está protegido por reCAPTCHA y Google <0>{{privacyPolicy}}</0> y <1>{{termsOfService}}</1> aplicar.",
+  "reCaptchaMention": "Este sitio está protegido por reCAPTCHA y se aplican las <0>Privacy Policy</0> y <1>Terms of Service</1> de Google.",
   "footerMadeBy": "Hecho con <0></0> por",
   "terms": "Acuerdo de operación",
   "noResults": "No hay resultados",

@@ -135,7 +135,7 @@
   "showLess": "Hiển thị ít hơn {{value}}",
   "poweredBy": "©{{year}} Cung cấp bởi <0></0>",
   "poweredByPeeranha": "Cung cấp bởi {{image}}",
-  "reCaptchaMention": "Trang web này được bảo vệ bởi reCAPTCHA và Google <0>{{privacyPolicy}}</0> và <1>{{termsOfService}}</1> áp dụng.",
+  "reCaptchaMention": "Trang web này được bảo vệ bởi reCAPTCHA và áp dụng <0>Privacy Policy</0> và <1>Terms of Service</1> của Google.",
   "footerMadeBy": "Làm với <0></0> qua",
   "terms": "Thỏa thuận điều hành",
   "noResults": "Không có kết quả",

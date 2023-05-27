@@ -85,10 +85,6 @@ const Footer: React.FC = (): JSX.Element => {
               <div css={css(styles.infoRules)}>
                 <Trans
                   i18nKey="common.reCaptchaMention"
-                  values={{
-                    privacyPolicy: t('common.privacyPolicy'),
-                    termsOfService: t('common.termsOfService'),
-                  }}
                   components={[
                     <a
                       key="0"
