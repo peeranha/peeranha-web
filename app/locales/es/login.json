@@ -11,7 +11,7 @@
   "optionalReferralCode": "(opcional)",
   "accountNotCreatedName": "La cuenta aún no se ha creado",
   "inviterIsNotRegisterYet": "El invitado aún no se ha registrado",
-  "create": "Create",
-  "createName": "Please create your display name",
-  "enterName": "Enter display name"
+  "create": "Crear",
+  "createName": "Por favor crea tu nombre para mostrar",
+  "enterName": "Ingrese el nombre para mostrar"
 }

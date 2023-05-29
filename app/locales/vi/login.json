@@ -11,7 +11,7 @@
   "optionalReferralCode": "(tùy chọn)",
   "accountNotCreatedName": "Tài khoản chưa được tạo",
   "inviterIsNotRegisterYet": "Inviter chưa đăng ký",
-  "create": "Create",
-  "createName": "Please create your display name",
-  "enterName": "Enter display name"
+  "create": "Tạo nên",
+  "createName": "Vui lòng tạo tên hiển thị của bạn",
+  "enterName": "Nhập tên hiển thị"
 }
