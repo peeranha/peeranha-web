@@ -69,9 +69,15 @@ export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => {
           menu={<Menu changeSorting={changeSorting} sorting={sorting} options={sortingOptions} />}
           id="existing-communities-dropdown"
           isArrowed
-          css={css`
-            z-index: 9;
-          `}
+          css={{
+            zIndex: 9,
+            '.dropdown-menu': {
+              transform: 'translate3d(-40px, 18px, 0px) !important',
+              '@media only screen and (min-width: 576px)': {
+                transform: 'translate3d(0px, 18px, 0px) !important',
+              },
+            },
+          }}
         />
       </SubHeaderWrapperRightPanel>
     </SubHeaderWrapper>
