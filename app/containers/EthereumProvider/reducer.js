@@ -25,6 +25,7 @@ export const initialState = fromJS({
   transactionInitialised: false,
   inPending: false,
   transactionHash: null,
+  // providerNetwork:
 });
 
 function ethereumProviderReducer(state = initialState, action) {

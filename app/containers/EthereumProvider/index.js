@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
@@ -57,6 +56,12 @@ const initWeb3Onboard = init({
       token: MATIC,
       label: networkLabel,
       rpcUrl: process.env.ETHEREUM_NETWORK,
+    },
+    {
+      id: `0x7e5`,
+      token: 'EDG',
+      label: 'Edgeware',
+      rpcUrl: 'https://edgeware-evm.jelliedowl.net/',
     },
   ],
   accountCenter: {
