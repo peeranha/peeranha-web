@@ -97,6 +97,14 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
             menu={<Menu sort={dropdownFilter} sorting={sorting} />}
             id="users-dropdown"
             isArrowed
+            css={{
+              '.dropdown-menu': {
+                transform: 'translate3d(-22px, 18px, 0px) !important',
+                '@media only screen and (min-width: 576px)': {
+                  transform: 'translate3d(0px, 18px, 0px) !important',
+                },
+              },
+            }}
           />
         </WrapperRightPanel>
       )}

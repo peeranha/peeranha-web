@@ -192,7 +192,7 @@ export const Header = ({
               isArrowed
               css={{
                 '.dropdown-menu': {
-                  transform: 'translate3d(-40px, 18px, 0px) !important',
+                  transform: 'translate3d(-58px, 18px, 0px) !important',
                   '@media only screen and (min-width: 576px)': {
                     transform: 'translate3d(0px, 18px, 0px) !important',
                   },
