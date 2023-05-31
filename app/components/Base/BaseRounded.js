@@ -6,8 +6,7 @@ import Base from './index';
 const colors = singleCommunityColors();
 
 const BaseRounded = Base.extend`
-  border-radius: ${({ notRoundedStyle }) =>
-    notRoundedStyle ? 'none' : BORDER_RADIUS_L};
+  border-radius: ${({ notRoundedStyle }) => (notRoundedStyle ? 'none' : BORDER_RADIUS_L)};
   box-shadow: 0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2};
   transition: 0.5s;
 

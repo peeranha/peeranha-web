@@ -2,31 +2,17 @@ import React from 'react';
 import { css } from '@emotion/react';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@uiw/react-markdown-preview/markdown.css';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { styles } from './Markdown.styled';
 
 type MarkdownPreviewProps = {
   content: string;
 };
 
-const colors = singleCommunityColors();
-const MarkdownPreviewBlock: React.FC<MarkdownPreviewProps> = ({
-  content,
-}): JSX.Element => (
+const MarkdownPreviewBlock: React.FC<MarkdownPreviewProps> = ({ content }): JSX.Element => (
   <MarkdownPreview
     source={content}
     warpperElement={{ 'data-color-mode': 'light' }}
-    css={css`
-      ol li {
-        list-style-type: decimal;
-      }
-      ul li {
-        list-style-type: disc;
-      }
-      iframe {
-        max-width: 100%;
-      }
-      background: ${colors.backgroundSpecial || ''};
-    `}
+    css={styles.markdownPreview}
     rehypeRewrite={(node, index, parent) => {
       if (node.tagName === 'input') {
         node.properties.disabled = false;
@@ -35,9 +21,7 @@ const MarkdownPreviewBlock: React.FC<MarkdownPreviewProps> = ({
         parent?.tagName === 'a' &&
         parent?.properties.href.slice(0, 24) == 'https://www.youtube.com/'
       ) {
-        const youtubeLink = `https://www.youtube.com/embed/${node.value.slice(
-          32,
-        )}`;
+        const youtubeLink = `https://www.youtube.com/embed/${node.value.slice(32)}`;
         node.value = (
           <iframe
             width="560"

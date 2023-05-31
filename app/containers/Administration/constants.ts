@@ -1,9 +1,7 @@
 const PATH = 'app/Administration/';
 
-export const ADD_MODERATOR_BUTTON_BUTTON =
-  'app_Administration_ADD_MODERATOR_BUTTON';
-export const OPEN_ADD_MODERATOR_FORM_BUTTON =
-  'app_Administration_OPEN_ADD_MODERATOR_FORM_BUTTON';
+export const ADD_MODERATOR_BUTTON_BUTTON = 'app_Administration_ADD_MODERATOR_BUTTON';
+export const OPEN_ADD_MODERATOR_FORM_BUTTON = 'app_Administration_OPEN_ADD_MODERATOR_FORM_BUTTON';
 
 export const WALLET_ADDRESS_FIELD = `${PATH}WALLET_ADDRESS_FIELD`;
 

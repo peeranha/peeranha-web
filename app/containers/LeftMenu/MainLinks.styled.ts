@@ -1,3 +1,4 @@
+import P from 'components/P';
 import { BORDER_SECONDARY } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -28,7 +29,7 @@ export const styles = {
   divider: {
     height: '1px',
     background: colors.secondaryAdditional || BORDER_SECONDARY,
-    marginTop: '28px',
+    margin: '28px 16px 0 16px',
   },
 
   dropdownMenu: {
@@ -43,14 +44,71 @@ export const styles = {
 
   dropdownMenuItem: {
     color: 'black',
-    padding: '12px 16px',
+    fontSize: '14px',
+    padding: '16px',
     textDecoration: 'none',
-    display: 'block',
+    textTransform: 'initial',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    cursor: 'pointer',
+    maxWidth: '310px',
+
     ':hover': {
       boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
-      background: 'rgba(255, 255, 255, 0.05)',
-      border: '1px solid #7699FF',
+      background: 'rgba(123, 123, 123, 0.1);',
       borderRadius: '5px',
     },
+    svg: {
+      marginRight: '8px',
+    },
+  },
+
+  changeLocale: {
+    display: 'none',
+    '@media only screen and (max-width: 991px)': {
+      display: 'block',
+      margin: '28px 0',
+      paddingLeft: '16px',
+    },
+  },
+
+  dividerLocale: {
+    height: '1px',
+    background: colors.secondaryAdditional || BORDER_SECONDARY,
+    margin: '28px 16px',
+    display: 'none',
+    '@media (max-width: 991px)': {
+      display: 'block',
+    },
+  },
+
+  dividerLinks: {
+    height: '1px',
+    background: colors.secondaryAdditional || BORDER_SECONDARY,
+    margin: '28px 16px',
+    display: 'none',
+    '@media (max-width: 991px)': {
+      display: 'block',
+    },
+  },
+
+  footer: {
+    display: 'none',
+    '@media (max-width: 991px)': {
+      display: 'block',
+    },
+  },
+
+  logInButton: {
+    margin: '28px 16px 0 16px',
+  },
+
+  mb28: {
+    marginBottom: '28px',
+  },
+
+  mb0: {
+    marginBottom: 0,
   },
 };

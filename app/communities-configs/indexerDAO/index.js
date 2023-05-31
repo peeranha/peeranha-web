@@ -171,8 +171,7 @@ export const IndexerDAOStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/indexerDAO/indDao1.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/indexerDAO/logo-signUp.svg',
 
   colors: {
     appWindowsColor: '#ffffff',
@@ -185,7 +184,6 @@ export const IndexerDAOStyles = {
     headerPrimary: '#6c3d60',
     commentOption: '#2c001e',
     contentHeader: '#2c001e',
-    blockedInfoArea: 'rgba(181, 232, 83, 0.4)',
     transparentIconColor: '#FFFF',
     loaderColor: '#2c001e',
     votingIconColor: '#2c001e',

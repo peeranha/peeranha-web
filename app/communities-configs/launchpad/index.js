@@ -184,7 +184,6 @@ export const LaunchpadStyles = {
     headerPrimary: '#1A74FC',
     commentOption: '#1A74FC',
     contentHeader: '#1A74FC',
-    blockedInfoArea: 'rgba(0, 0, 0, 10%)',
     transparentIconColor: '#FFF',
     loaderColor: '#1A74FC',
     votingIconColor: '#1A74FC',

@@ -172,8 +172,7 @@ export const MintStateLabsStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/mintStateLabs/mintStateLabsIcon.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/mintStateLabs/logo-signUp.svg',
 
   colors: {
     appWindowsColor: '#2d89ef',
@@ -186,7 +185,6 @@ export const MintStateLabsStyles = {
     headerPrimary: '#53A6EC',
     commentOption: '#53A6EC',
     contentHeader: '#53A6EC',
-    blockedInfoArea: '#DAEEFF',
     transparentIconColor: '#FFFF',
     loaderColor: '#53A6EC',
     votingIconColor: '#53A6EC',

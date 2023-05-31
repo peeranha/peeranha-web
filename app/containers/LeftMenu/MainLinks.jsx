@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-
+import ChangeLocale from 'containers/ChangeLocale';
 import cn from 'classnames';
 
 import isMobile from 'ismobilejs';
@@ -40,7 +40,6 @@ import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
-import faqIcon from 'images/faq.svg?external';
 import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
@@ -146,17 +145,9 @@ export const A1 = A.extend`
 
 const Box = styled.div`
   margin-top: 30px;
-  margin-bottom: ${({ currClientHeight }) => {
-    if (
-      communityStyles.withoutAdditionalLinks ||
-      (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
-    )
-      return '25px !important';
-    return '50px';
-  }};
-  padding-bottom: 30px;
-  @media only screen and (max-width: 576px) {
-    padding: 10px 0 20px 0;
+  @media only screen and (max-width: 991px) {
+    margin-top: 0;
+  }
   }
 `;
 
@@ -169,13 +160,14 @@ const MainLinks = ({
   match,
   toggleEditDocumentation,
   pinnedItemMenu,
+  changeLocale,
+  locale,
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
   let route = pathname.split('/').filter((x) => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
@@ -184,12 +176,11 @@ const MainLinks = ({
     : false;
 
   const isAdministratorModeSingleCommunity = singleCommId
-    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
-      isProtocolAdmin
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) || isProtocolAdmin
     : false;
 
   if (!route) {
-    route = isBloggerMode ? 'home' : '/';
+    route = '/';
   }
 
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
@@ -228,9 +219,7 @@ const MainLinks = ({
               >
                 <span
                   css={{
-                    borderRight: isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderRight: isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                     paddingRight: '10px',
                   }}
                 >
@@ -238,9 +227,7 @@ const MainLinks = ({
                 </span>
                 <span
                   css={{
-                    borderLeft: !isShortPinnedTitle
-                      ? '1px solid rgba(255, 255, 255, 0.3)'
-                      : '',
+                    borderLeft: !isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                   }}
                 >
                   <PinIcon
@@ -265,6 +252,13 @@ const MainLinks = ({
           }),
         }}
       >
+        {!profile && !singleCommId && <div css={styles.dividerLinks} />}
+
+        <div css={styles.changeLocale}>
+          <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
+        </div>
+
+        <div css={styles.dividerLinks} />
         {Boolean(singleCommId) && (
           <div
             className={cn('df jcsb pl15', {
@@ -277,13 +271,6 @@ const MainLinks = ({
           >
             {t('common.communityLabel')}
           </div>
-        )}
-
-        {isBloggerMode && (
-          <A1 to={routes.detailsHomePage()} name="home" route={route}>
-            <IconLg className="mr-2" icon={homeIcon} />
-            {t('common.home')}
-          </A1>
         )}
 
         <A1 to={routes.feed()} name="feed" route={route}>
@@ -323,23 +310,17 @@ const MainLinks = ({
         {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
-            {t(`common.${isBloggerMode ? 'followers' : 'users'}`)}
-          </A1>
-        )}
-
-        {!singleCommId && (
-          <A1 to={routes.faq()} name="faq" route={route}>
-            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-            {t('common.faq')}
+            {t(`common.users`)}
           </A1>
         )}
 
         {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
-            <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
+            <Administration className={'mr-2'} />
             {t('common.administration')}
           </A1>
         )}
+        <div css={styles.dividerLinks} />
       </div>
 
       {Boolean(singleCommId) &&

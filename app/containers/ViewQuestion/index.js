@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 import { useTranslation } from 'react-i18next';
-import { errorPage } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -17,13 +16,11 @@ import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
+import { loginWithWallet } from 'containers/Login/actions';
 
 import {
   saveComment,
@@ -103,9 +100,10 @@ export const ViewQuestion = ({
   match,
   profile,
   history,
+  loginWithWalletDispatch,
 }) => {
   const { t } = useTranslation();
-
+  const showLoginModal = () => loginWithWalletDispatch({ metaMask: true });
   useEffect(() => {
     if (questionData) {
       const route = getRoute(questionData.postType);
@@ -159,9 +157,7 @@ export const ViewQuestion = ({
     [profile, questionData],
   );
 
-  const isAnswered = !!questionData?.answers.filter(
-    (x) => x.author.user === account,
-  ).length;
+  const isAnswered = !!questionData?.answers.filter((x) => x.author.user === account).length;
 
   const commId = questionData?.communityId ?? null;
 
@@ -171,6 +167,7 @@ export const ViewQuestion = ({
     locale,
     communities,
     questionData,
+    translations: questionData?.translations,
     postAnswerLoading,
     postCommentLoading,
     saveCommentLoading,
@@ -202,37 +199,31 @@ export const ViewQuestion = ({
     isAnswered,
     commId,
     profile,
+    showLoginModal,
   };
 
-  const helmetTitle = questionData?.content.title || t('post.title');
+  const helmetTitle = questionData?.title || t('post.Post');
 
-  const helmetDescription = questionData?.content.content ?? t('post.title');
+  const helmetDescription = questionData?.content ?? t('post.Post');
 
-  const articlePublishedTime = questionData?.postTime
-    ? new Date(questionData.postTime * 1000)
-    : ``;
+  const articlePublishedTime = questionData?.postTime ? new Date(questionData.postTime * 1000) : ``;
 
   const articleModifiedTime = questionData?.lastEditedDate
     ? new Date(questionData.lastEditedDate * 1000)
     : ``;
 
-  const keywords = [
-    ...(questionData?.tags?.map((tag) => tag.name) ?? []),
-    helmetTitle,
-  ];
+  const keywords = [...(questionData?.tags?.map((tag) => tag.name) ?? []), helmetTitle];
 
   return (
     <>
-      {process.env.ENV !== 'dev' && (
-        <Seo
-          title={helmetTitle}
-          description={helmetDescription}
-          language={locale}
-          keywords={keywords}
-          articlePublishedTime={articlePublishedTime}
-          articleModifiedTime={articleModifiedTime}
-        />
-      )}
+      <Seo
+        title={helmetTitle}
+        description={helmetDescription}
+        language={locale}
+        keywords={keywords}
+        articlePublishedTime={articlePublishedTime}
+        articleModifiedTime={articleModifiedTime}
+      />
 
       {!questionDataLoading && !historiesLoading && questionData && (
         <ViewQuestionContainer {...sendProps} />
@@ -282,6 +273,7 @@ ViewQuestion.propTypes = {
   redirectToEditAnswerPageDispatch: PropTypes.func,
   ids: PropTypes.array,
   profile: PropTypes.object,
+  loginWithWalletDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -317,62 +309,27 @@ const withConnect = connect(
       },
     },
   ) => ({
-    postAnswerDispatch: bindActionCreators(
-      postAnswer.bind(null, questionId),
-      dispatch,
-    ),
-    deleteAnswerDispatch: bindActionCreators(
-      deleteAnswer.bind(null, questionId),
-      dispatch,
-    ),
+    postAnswerDispatch: bindActionCreators(postAnswer.bind(null, questionId), dispatch),
+    deleteAnswerDispatch: bindActionCreators(deleteAnswer.bind(null, questionId), dispatch),
     deleteQuestionDispatch: bindActionCreators(
       deleteQuestion.bind(null, questionId, false),
       dispatch,
     ),
-    postCommentDispatch: bindActionCreators(
-      postComment.bind(null, questionId),
-      dispatch,
-    ),
-    checkAddCommentAvailableDispatch: bindActionCreators(
-      checkAddCommentAvailable,
-      dispatch,
-    ),
-    hideAddCommentFormDispatch: bindActionCreators(
-      hideAddCommentForm,
-      dispatch,
-    ),
-    saveCommentDispatch: bindActionCreators(
-      saveComment.bind(null, questionId),
-      dispatch,
-    ),
-    deleteCommentDispatch: bindActionCreators(
-      deleteComment.bind(null, questionId),
-      dispatch,
-    ),
+    postCommentDispatch: bindActionCreators(postComment.bind(null, questionId), dispatch),
+    checkAddCommentAvailableDispatch: bindActionCreators(checkAddCommentAvailable, dispatch),
+    hideAddCommentFormDispatch: bindActionCreators(hideAddCommentForm, dispatch),
+    saveCommentDispatch: bindActionCreators(saveComment.bind(null, questionId), dispatch),
+    deleteCommentDispatch: bindActionCreators(deleteComment.bind(null, questionId), dispatch),
     upVoteDispatch: bindActionCreators(upVote.bind(null, questionId), dispatch),
-    downVoteDispatch: bindActionCreators(
-      downVote.bind(null, questionId),
-      dispatch,
-    ),
-    markAsAcceptedDispatch: bindActionCreators(
-      markAsAccepted.bind(null, questionId),
-      dispatch,
-    ),
-    voteToDeleteDispatch: bindActionCreators(
-      voteToDelete.bind(null, questionId),
-      dispatch,
-    ),
+    downVoteDispatch: bindActionCreators(downVote.bind(null, questionId), dispatch),
+    markAsAcceptedDispatch: bindActionCreators(markAsAccepted.bind(null, questionId), dispatch),
+    voteToDeleteDispatch: bindActionCreators(voteToDelete.bind(null, questionId), dispatch),
     getQuestionDataDispatch: bindActionCreators(getQuestionData, dispatch),
     resetStoreDispatch: bindActionCreators(resetStore, dispatch),
-    redirectToEditQuestionPageDispatch: bindActionCreators(
-      redirectToEditQuestionPage,
-      dispatch,
-    ),
-    redirectToEditAnswerPageDispatch: bindActionCreators(
-      redirectToEditAnswerPage,
-      dispatch,
-    ),
+    redirectToEditQuestionPageDispatch: bindActionCreators(redirectToEditQuestionPage, dispatch),
+    redirectToEditAnswerPageDispatch: bindActionCreators(redirectToEditAnswerPage, dispatch),
     getHistoriesDispatch: bindActionCreators(getHistories, dispatch),
+    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
   }),
 );
 

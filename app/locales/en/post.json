@@ -3,7 +3,7 @@
   "submitButtonName": "Save",
   "title": "Edit Answer",
   "editAnswer": "Edit Answer",
-  "lastEdited": "Last edited",
+  "lastEdited": "Last edited on",
   "voteToDelete": "Vote to delete",
   "notEnoughRating": "To complete this action, your reputation has to be at least",
   "cannotCompleteBecauseBlocked": "You can't complete this action. You voted to delete it earlier",
@@ -58,6 +58,8 @@
   "Edit": "edited",
   "Create": "created",
   "Delete": "deleted",
+  "botAnswer": "Answered via {{bot}}",
+  "botCreate": "Created via {{bot}}",
   "RulesBlock_1": "Here are some tips to make your answer helpful and doesn't get deleted by a moderator:",
   "RulesBlock_2": "1. Read the post carefully to understand the problem and provide the best reply you can.",
   "RulesBlock_3": "2. Make sure your answer replies the question asked in a post and isn't just a comment or gratitude.",
@@ -71,5 +73,11 @@
   "faqDescriptionLabel": "This section provides answers to a list of typical posts that users might ask regarding a particular community or subject.",
   "faqDescriptionList": [],
   "warningForAdmin": "This post can’t be changed to Tutorial as it has replies. Please delete all replies from this post to proceed",
-  "warningForUser": "This post can’t be changed to Tutorial as it has replies. Please contact support for assistance"
+  "warningForUser": "This post can’t be changed to Tutorial as it has replies. Please contact support for assistance",
+  "answer_login": "Do you know the answer?",
+  "answer_loginText": "Please log in and share it.",
+  "answer_replied": "You have already replied to this post.",
+  "answer_repliedText": "You can edit your reply if need to add more information.",
+  "answer_reputation": "Unfortunately, your reputation it this community is negative.",
+  "answer_reputationText": "You are not allowed to post any replies."
 }

@@ -17,10 +17,7 @@ import MarkdownPreviewBlock from './MarkdownPreview';
 import Wrapper from 'components/FormFields/Wrapper';
 import Span from 'components/Span';
 import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
-import {
-  singleCommunityColors,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
@@ -49,7 +46,9 @@ class TextEditor extends React.PureComponent {
               list-style-type: disc;
             }
             textarea {
-              -webkit-text-fill-color: ${TEXT_DARK};
+              ::selection {
+                -webkit-text-fill-color: ${TEXT_DARK};
+              }
             }
             .w-md-editor-toolbar {
               border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
@@ -82,7 +81,7 @@ class TextEditor extends React.PureComponent {
           ]}
         />
         <Wrapper
-          label={'Preview'}
+          label={t('common.preview')}
           className="pl-2 pt-2"
           css={css`
             h6 {

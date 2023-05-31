@@ -171,8 +171,7 @@ export const SuiGlobalStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/suiGlobal/suiGlobal.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
 
   colors: {
     appWindowsColor: '#2b5797',
@@ -185,7 +184,6 @@ export const SuiGlobalStyles = {
     headerPrimary: 'rgb(79,183,255)',
     commentOption: 'rgb(79,183,255)',
     contentHeader: 'rgb(79,183,255)',
-    blockedInfoArea: '#DAEEFF',
     transparentIconColor: '#FFFF',
     loaderColor: 'rgb(79,183,255)',
     votingIconColor: 'rgb(79,183,255)',

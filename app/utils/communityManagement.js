@@ -1,8 +1,6 @@
 import JSBI from 'jsbi';
 
-import communitiesConfig, {
-  googleVerificationConfig,
-} from 'communities-config';
+import communitiesConfig, { googleVerificationConfig } from 'communities-config';
 
 import _get from 'lodash/get';
 
@@ -10,11 +8,7 @@ import { getBytes32FromIpfsHash, getFileUrl, getText, saveText } from './ipfs';
 import { getCookie, setCookie } from './cookie';
 import { uploadImg } from './profileManagement';
 
-import {
-  ALL_COMMUNITIES_SCOPE,
-  COMMUNITIES_TABLE,
-  SINGLE_COMMUNITY_DETAILS,
-} from './constants';
+import { SINGLE_COMMUNITY_DETAILS } from './constants';
 import {
   CREATE_COMMUNITY,
   CREATE_TAG,
@@ -25,12 +19,7 @@ import {
   CONTRACT_COMMUNITY,
   CONTRACT_USER,
 } from './ethConstants';
-import {
-  getCommunities,
-  getCommunityById,
-  getTags,
-  getTagsByIds,
-} from './theGraph';
+import { getCommunities, getCommunityById, getTags, getTagsByIds } from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
@@ -40,11 +29,9 @@ export const isSingleCommunityWebsite = () =>
 export const singleCommunityStyles = () =>
   _get(communitiesConfig, [isSingleCommunityWebsite(), 'styles'], {});
 
-export const singleCommunityColors = () =>
-  _get(singleCommunityStyles(), 'colors', {});
+export const singleCommunityColors = () => _get(singleCommunityStyles(), 'colors', {});
 
-export const singleCommunityFonts = () =>
-  _get(singleCommunityStyles(), 'fonts', {});
+export const singleCommunityFonts = () => _get(singleCommunityStyles(), 'fonts', {});
 
 export const singleCommunityDocumentation = () =>
   _get(singleCommunityStyles(), 'documentationColors', {});
@@ -54,10 +41,6 @@ export const singleCommunityDocumentationPosition = () =>
 
 export const hasCommunitySingleWebsite = (commId) =>
   communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
-
-export const getGoogleVerificationData = () =>
-  googleVerificationConfig.communities?.[isSingleCommunityWebsite()] ||
-  googleVerificationConfig.default;
 
 export function getFollowedCommunities(allCommunities, followedCommunities) {
   if (!allCommunities || !followedCommunities) return [];
@@ -88,6 +71,7 @@ export const editCommunity = async (
     user,
     EDIT_COMMUNITY,
     [user, communityId, ipfsHash],
+    3,
   );
 };
 
@@ -103,21 +87,11 @@ export const checkIsColorsActual = (id, mainColor, highlightColor) => {
 };
 
 export const setSingleCommunityDetailsInCookie = (community, id) => {
-  const {
-    isBlogger,
-    banner,
-    facebook,
-    instagram,
-    youtube,
-    vk,
-    main_color,
-    highlight_color,
-  } = community;
+  const { banner, facebook, instagram, youtube, vk } = community;
 
   setCookie({
     name: `${SINGLE_COMMUNITY_DETAILS}_${id}`,
     value: JSON.stringify({
-      isBlogger,
       banner,
       socialNetworks: {
         facebook,
@@ -126,8 +100,8 @@ export const setSingleCommunityDetailsInCookie = (community, id) => {
         vk,
       },
       colors: {
-        main: isBlogger ? main_color : 'var(--color-blue)',
-        highlight: isBlogger ? highlight_color : 'var(--color-pink)',
+        main: 'var(--color-blue)',
+        highlight: 'var(--color-pink)',
       },
     }),
     options: {
@@ -137,82 +111,22 @@ export const setSingleCommunityDetailsInCookie = (community, id) => {
   });
 };
 
-export const setSingleCommunityDetails = async (eosService) => {
-  const id = isSingleCommunityWebsite();
+export const getSingleCommunityDetails = () => ({});
 
-  const row = await eosService.getTableRow(
-    COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    id,
-  );
-
-  const community = JSON.parse(await getText(row.ipfs_description));
-
-  // get previous isBloger field value
-
-  let prevIsBlogger = null;
-  const prevSingleCommDetails = getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`);
-  if (prevSingleCommDetails && prevSingleCommDetails.length) {
-    prevIsBlogger = JSON.parse(prevSingleCommDetails).isBlogger;
-  }
-
-  if (
-    community.isBlogger ||
-    (typeof prevIsBlogger === 'boolean' &&
-      community.isBlogger !== prevIsBlogger)
-  ) {
-    setSingleCommunityDetailsInCookie(community, id);
-  }
-
-  if (prevSingleCommDetails && prevSingleCommDetails.length) {
-    const prevValue = JSON.parse(prevSingleCommDetails);
-    if (
-      (community.isBlogger &&
-        (prevValue.colors.main !== community.main_color ||
-          prevValue.colors.highlight !== community.highlight_color)) ||
-      prevValue.isBlogger !== community.isBlogger
-    ) {
-      location.reload();
-    }
-  }
-
-  if (!prevSingleCommDetails && community.isBlogger) {
-    location.reload();
-  }
-};
-
-export const getSingleCommunityDetails = () => {
-  const id = isSingleCommunityWebsite();
-  const dataFromCookie = id
-    ? getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`)
-    : '';
-  const communityDetails = dataFromCookie.length
-    ? JSON.parse(dataFromCookie)
-    : {};
-  return communityDetails.isBlogger ? { ...communityDetails } : {};
-};
-
-/* eslint-disable */
 export function getTagScope(communityId) {
   const charmap = '.12345abcdefghijklmnopqrstuvwxyz';
   const mask = JSBI.BigInt('0xF800000000000000');
   const mask64 = JSBI.BigInt('0xFFFFFFFFFFFFFFFF');
   const zero = JSBI.BigInt(0);
   const five = JSBI.BigInt(5);
-  let v = JSBI.add(
-    JSBI.BigInt('3774731489195851776'),
-    JSBI.BigInt(communityId),
-  );
+  let v = JSBI.add(JSBI.BigInt('3774731489195851776'), JSBI.BigInt(communityId));
 
   let ret = '';
 
   for (let i = 0; i < 13; i++) {
     v = JSBI.bitwiseAnd(v, mask64);
     if (v.toString() === zero.toString()) break;
-    const indx = JSBI.signedRightShift(
-      JSBI.bitwiseAnd(v, mask),
-      JSBI.BigInt(i === 12 ? 60 : 59),
-    );
+    const indx = JSBI.signedRightShift(JSBI.bitwiseAnd(v, mask), JSBI.BigInt(i === 12 ? 60 : 59));
 
     ret += charmap[indx.toString()];
     v = JSBI.leftShift(v, five);
@@ -235,27 +149,13 @@ export async function getExistingTags(tags) {
 export async function editTag(user, ethereumService, tag, tagId) {
   const ipfsLink = await saveText(JSON.stringify(tag));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransaction(
-    CONTRACT_COMMUNITY,
+  return await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, EDIT_TAG, [
     user,
-    EDIT_TAG,
-    [user, tag.communityId, tagId, ipfsHash],
-  );
+    tag.communityId,
+    tagId,
+    ipfsHash,
+  ]);
 }
-
-export async function upVoteToCreateTag(
-  eosService,
-  selectedAccount,
-  communityId,
-  tagid,
-) {}
-
-export async function downVoteToCreateTag(
-  eosService,
-  selectedAccount,
-  communityId,
-  tagid,
-) {}
 
 const formCommunityObject = (rawCommunity) => {
   return {
@@ -280,10 +180,7 @@ const formattedTags = (tags) => {
       formattedTags[tags[i].id.split('-')[0]] = [tags[i]];
       continue;
     }
-    formattedTags[tags[i].id.split('-')[0]] = [
-      ...formattedTags[tags[i].id.split('-')[0]],
-      tags[i],
-    ];
+    formattedTags[tags[i].id.split('-')[0]] = [...formattedTags[tags[i].id.split('-')[0]], tags[i]];
   }
   return formattedTags;
 };
@@ -325,42 +222,22 @@ export const getCommunityFromContract = async (ethereumService, id) => {
   return await ethereumService.getCommunityFromContract(id);
 };
 
-export async function getSuggestedCommunities(eosService, lowerBound, limit) {
-  return [];
+export async function unfollowCommunity(ethereumService, communityIdFilter, account) {
+  await ethereumService.sendTransaction(CONTRACT_USER, account, UNFOLLOW_COMMUNITY, [
+    account,
+    communityIdFilter,
+  ]);
 }
 
-export async function unfollowCommunity(
-  ethereumService,
-  communityIdFilter,
-  account,
-) {
-  await ethereumService.sendTransaction(
-    CONTRACT_USER,
+export async function followCommunity(ethereumService, communityIdFilter, account) {
+  await ethereumService.sendTransaction(CONTRACT_USER, account, FOLLOW_COMMUNITY, [
     account,
-    UNFOLLOW_COMMUNITY,
-    [account, communityIdFilter],
-  );
-}
-
-export async function followCommunity(
-  ethereumService,
-  communityIdFilter,
-  account,
-) {
-  await ethereumService.sendTransaction(
-    CONTRACT_USER,
-    account,
-    FOLLOW_COMMUNITY,
-    [account, communityIdFilter],
-  );
+    communityIdFilter,
+  ]);
 }
 
 /* eslint camelcase: 0 */
-export async function createCommunity(
-  ethereumService,
-  selectedAccount,
-  community,
-) {
+export async function createCommunity(ethereumService, selectedAccount, community) {
   const { imgHash } = await uploadImg(community.avatar);
   const communityIpfsHash = await saveText(
     JSON.stringify({
@@ -383,20 +260,14 @@ export async function createCommunity(
   );
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
   const user = selectedAccount;
-  await ethereumService.sendTransaction(
-    CONTRACT_COMMUNITY,
+  await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, CREATE_COMMUNITY, [
     user,
-    CREATE_COMMUNITY,
-    [user, ipfsHash, tags],
-  );
+    ipfsHash,
+    tags,
+  ]);
 }
 
-export async function createTag(
-  ethereumService,
-  selectedAccount,
-  communityId,
-  tag,
-) {
+export async function createTag(ethereumService, selectedAccount, communityId, tag) {
   const ipfsHash = getBytes32FromIpfsHash(await saveText(JSON.stringify(tag)));
   const user = selectedAccount;
   await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, CREATE_TAG, [
@@ -405,15 +276,3 @@ export async function createTag(
     ipfsHash,
   ]);
 }
-
-export async function upVoteToCreateCommunity(
-  eosService,
-  selectedAccount,
-  communityId,
-) {}
-
-export async function downVoteToCreateCommunity(
-  eosService,
-  selectedAccount,
-  communityId,
-) {}

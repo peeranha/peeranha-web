@@ -39,6 +39,7 @@ const CommunitySelector = ({
   selectedCommunityId,
   disabled,
   toggle,
+  locale,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -48,12 +49,22 @@ const CommunitySelector = ({
     const followedFilteredCommunities = getFollowedCommunities(
       communities,
       followedCommunities || [],
-    );
+    ).map((community) => ({
+      ...community,
+      label:
+        community.translations?.find((translation) => translation.language === locale)?.name ||
+        community.name,
+    }));
 
     const unfollowedFilteredCommunities = getUnfollowedCommunities(
       communities,
       followedCommunities || [],
-    );
+    ).map((community) => ({
+      ...community,
+      label:
+        community.translations?.find((translation) => translation.language === locale)?.name ||
+        community.name,
+    }));
 
     let options = [];
 
@@ -115,13 +126,15 @@ const CommunitySelector = ({
     [toggleOpen, input, toggle],
   );
 
-  const selectedValue = getFollowedCommunities(communities, [
-    selectedCommunityId,
-  ])[0];
+  const selectedValue = getFollowedCommunities(communities, [selectedCommunityId])[0];
 
   const isItArrowed = useMemo(
     () => optionsNumber > 0 && !single && isArrowed,
     [optionsNumber, isArrowed],
+  );
+
+  const communityTranslation = selectedValue?.translations?.find(
+    (translation) => translation.language === locale,
   );
 
   return (
@@ -133,7 +146,7 @@ const CommunitySelector = ({
       target={
         <Button
           communityAvatar={selectedValue?.avatar}
-          communityLabel={selectedValue?.name}
+          communityLabel={communityTranslation?.name || selectedValue?.name}
         />
       }
     >

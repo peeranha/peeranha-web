@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { css } from '@emotion/react';
-import {
-  BG_LIGHT,
-  BORDER_SECONDARY,
-  TEXT_SECONDARY_LIGHT,
-  TEXT_PRIMARY,
-} from 'style-constants';
+import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT, TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
@@ -50,12 +45,7 @@ import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 import ChangeLocale from 'containers/ChangeLocale';
 
-import {
-  HEADER_ID,
-  LOADER_HEIGHT,
-  SEARCH_FORM_ID,
-  MIN_REPUTATION,
-} from './constants';
+import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID, MIN_REPUTATION } from './constants';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -79,9 +69,7 @@ export const LoginProfile = ({
 const colors = singleCommunityColors();
 
 const ProgressIndicator = styled.div`
-  background: ${colors.mainBackground
-    ? colors.mainBackground
-    : 'rgb(234, 236, 244)'};
+  background: ${colors.mainBackground ? colors.mainBackground : 'rgb(234, 236, 244)'};
   min-height: ${LOADER_HEIGHT}px;
   display: flex;
   align-items: center;
@@ -148,6 +136,7 @@ const View = ({
   toggleEditDocumentation,
   locale,
   changeLocale,
+  communities,
 }) => {
   const { t } = useTranslation();
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
@@ -174,12 +163,10 @@ const View = ({
 
   const isHasRole =
     hasGlobalModeratorRole(getPermissions(profileInfo)) ||
-    (Boolean(single) &&
-      hasCommunityModeratorRole(getPermissions(profileInfo), single)) ||
+    (Boolean(single) && hasCommunityModeratorRole(getPermissions(profileInfo), single)) ||
     hasProtocolAdminRole(getPermissions(profileInfo));
 
-  const isMinusReputation =
-    getRatingByCommunity(profileInfo, single) < MIN_REPUTATION;
+  const isMinusReputation = getRatingByCommunity(profileInfo, single) < MIN_REPUTATION;
 
   const showPopoverMinRating = (e) => {
     e.preventDefault();
@@ -187,9 +174,7 @@ const View = ({
   };
 
   const askQuestionHandler = (e) => {
-    isMinusReputation && !isHasRole
-      ? showPopoverMinRating(e)
-      : redirectToAskQuestionPage(e);
+    isMinusReputation && !isHasRole ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
   };
 
   return (
@@ -216,9 +201,7 @@ const View = ({
               <>
                 {t('common.transactionInPending')}{' '}
                 <a
-                  href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(
-                    transactionHash,
-                  )}
+                  href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(transactionHash)}
                   target="_blank"
                   css={css`
                     margin: 0 5px;
@@ -244,11 +227,7 @@ const View = ({
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
-              <button
-                className="mt-1 mr-3 d-flex d-lg-none"
-                onClick={showMenu}
-                type="button"
-              >
+              <button className="mt-1 mr-3 d-flex d-lg-none" onClick={showMenu} type="button">
                 <IconLm
                   icon={headerNavigationIcon}
                   color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
@@ -270,22 +249,14 @@ const View = ({
                   <Button
                     bg={BG_LIGHT}
                     className="d-flex d-lg-none"
-                    onClick={() =>
-                      setSearchFormVisibility(!isSearchFormVisible)
-                    }
+                    onClick={() => setSearchFormVisibility(!isSearchFormVisible)}
                   >
-                    <Icon
-                      icon={searchIcon}
-                      width="16"
-                      color={TEXT_SECONDARY_LIGHT}
-                    />
+                    <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
                   </Button>
                   <Button
                     id="header-ask-question"
                     onClick={
-                      profileInfo
-                        ? askQuestionHandler
-                        : showLoginModalWithRedirectToAskQuestionPage
+                      profileInfo ? askQuestionHandler : showLoginModalWithRedirectToAskQuestionPage
                     }
                     css={css`
                       background: ${colors.btnHeaderColor};
@@ -299,10 +270,7 @@ const View = ({
                       }
                     `}
                   >
-                    <IconSm
-                      fill={colors.newPostButtonText || BG_LIGHT}
-                      icon={addIcon}
-                    />
+                    <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
 
                     <span
                       className="d-none d-lg-inline ml-2"
@@ -329,6 +297,7 @@ const View = ({
                   withTitle
                   changeLocale={changeLocale}
                   locale={locale}
+                  communities={communities}
                 />
               )}
             </Section>
@@ -352,6 +321,7 @@ View.propTypes = {
   isTransactionInPending: PropTypes.bool,
   transactionHash: PropTypes.string,
   transactionInitialised: PropTypes.bool,
+  communities: PropTypes.array,
 };
 
 LoginProfile.propTypes = {

@@ -114,8 +114,7 @@ const Content = ({
 
   const tagEditingAllowed =
     hasGlobalModeratorRole(getPermissions(profileInfo)) ||
-    (Boolean(communityId) &&
-      hasCommunityAdminRole(getPermissions(profileInfo), communityId)) ||
+    (Boolean(communityId) && hasCommunityAdminRole(getPermissions(profileInfo), communityId)) ||
     hasProtocolAdminRole(getPermissions(profileInfo));
 
   const existingTags = Array.isArray(tags) ? tags : tags[communityId];
@@ -129,10 +128,7 @@ const Content = ({
       <Grid xl={3} md={2} xs={1}>
         {!!existingTags?.length || text ? (
           <li className="d-sm-flex align-items-center justify-content-center">
-            <Item
-              isInputBox
-              className="d-flex align-items-center justify-content-center p-2"
-            >
+            <Item isInputBox className="d-flex align-items-center justify-content-center p-2">
               <Input
                 input={{ onChange: typeInput, value: text }}
                 placeholder={t('tags.findTag')}
@@ -164,10 +160,7 @@ const Content = ({
               </Item>
               {tagEditingAllowed && (
                 <EditTagBtnContainer>
-                  <InfoButton
-                    className="ml-15"
-                    onClick={() => showEditTagForm(x.id)}
-                  >
+                  <InfoButton className="ml-15" onClick={() => showEditTagForm(x.id)}>
                     {t('common.edit')}
                   </InfoButton>
                 </EditTagBtnContainer>

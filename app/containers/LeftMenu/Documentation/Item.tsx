@@ -33,10 +33,7 @@ const Item: React.FC<ItemProps> = ({
   return (
     <>
       {pinned === item.id && (
-        <PinIcon
-          stroke="#7B7B7B"
-          css={{ fill: 'rgba(123, 123, 123, 0.2)', marginRight: '10px' }}
-        />
+        <PinIcon stroke="#7B7B7B" css={{ fill: 'rgba(123, 123, 123, 0.2)', marginRight: '10px' }} />
       )}
       <div
         className={cn('p0')}
@@ -49,9 +46,7 @@ const Item: React.FC<ItemProps> = ({
             color: '#7B7B7B',
           }),
           ...(level === 0 && { padding: '12px 0' }),
-          ...((isOpen ||
-            match.params.sectionId === item.id ||
-            editArticleId === item.id) && {
+          ...((isOpen || match.params.sectionId === item.id || editArticleId === item.id) && {
             fontWeight: 700,
             color: 'var(black)',
           }),

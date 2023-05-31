@@ -171,14 +171,12 @@ export const Mark3dStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/mark3d/Mark3dLogo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/mark3d/logo.svg',
 
   colors: {
     appWindowsColor: '#45aff4',
     appSafarieColor: '#45aff4',
-    mainSubHeaderBgColor:
-      'linear-gradient(90deg, #BBABF8 0%, #F6D4F5 65.04%, #CBC5F1 100%)',
+    mainSubHeaderBgColor: 'linear-gradient(90deg, #BBABF8 0%, #F6D4F5 65.04%, #CBC5F1 100%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
     linkColor: 'rgba(135, 133, 244, 1)',
     linkCookieColor: 'rgba(86, 79, 229, 1)',
@@ -186,7 +184,6 @@ export const Mark3dStyles = {
     headerPrimary: 'rgba(135, 133, 244, 1)',
     commentOption: 'rgba(135, 133, 244, 1)',
     contentHeader: 'rgba(135, 133, 244, 1)',
-    blockedInfoArea: 'rgb(42 36 96 / 10%)',
     transparentIconColor: '#FFF',
     loaderColor: 'rgba(135, 133, 244, 1)',
     votingIconColor: 'rgba(135, 133, 244, 1)',

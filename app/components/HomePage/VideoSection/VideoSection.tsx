@@ -6,20 +6,14 @@ import { styles } from './VideoSection.styled';
 const VideoSection: React.FC = (): JSX.Element => {
   const firstActionBlock = useRef(null);
 
-  const [startVideoAnimation, setStartVideoAnimation] =
-    useState<boolean>(false);
+  const [startVideoAnimation, setStartVideoAnimation] = useState<boolean>(false);
 
   useEffect(() => {
     scrollTrigger(firstActionBlock.current, () => setStartVideoAnimation(true));
   }, []);
 
   return (
-    <section
-      className="pr df jcc"
-      css={styles.background}
-      id="video"
-      ref={firstActionBlock}
-    >
+    <section className="pr df jcc" css={styles.background} id="video" ref={firstActionBlock}>
       <div
         className="pr op0"
         css={{
@@ -29,7 +23,7 @@ const VideoSection: React.FC = (): JSX.Element => {
       >
         <iframe
           css={styles.videoIframe}
-          src="https://www.youtube.com/embed/Bvt42RqWFKc"
+          src="https://www.youtube.com/embed/Udc5zr2aKCo"
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

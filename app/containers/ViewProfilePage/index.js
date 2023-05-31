@@ -5,6 +5,8 @@ import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
+import Seo from 'components/Seo';
+import { useTranslation } from 'react-i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,39 +22,24 @@ import UserNavigation from 'components/UserNavigation';
 import QuestionsOfUser from 'containers/QuestionsOfUser';
 import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 import ProfileViewForm from './ProfileViewForm';
+
 import Settings from './SettingsTab/Settings';
-import {
-  makeSelectAccount,
-  makeSelectLoginData,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectLoginData } from 'containers/AccountProvider/selectors';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  selectCommunities,
-  selectStat,
-  selectUsers,
-} from 'containers/DataCacheProvider/selectors';
-import {
-  selectQuestions,
-  selectQuestionsLoading,
-} from 'containers/QuestionsOfUser/selectors';
+import { selectCommunities, selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
+import { selectQuestions, selectQuestionsLoading } from 'containers/QuestionsOfUser/selectors';
 import {
   selectQuestionsLoading as selectQuestionsWithAnswersLoading,
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
-import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
-import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 import { getUserName } from 'utils/user';
-import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
-import {
-  selectEmail,
-  selectIsSubscribed,
-} from 'containers/EmailNotifications/selectors';
+import { selectEmail, selectIsSubscribed } from 'containers/EmailNotifications/selectors';
 
 import saga from '../QuestionsWithAnswersOfUser/saga';
 
 import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
 import questionsOfUserReducer from '../QuestionsOfUser/reducer';
-import telegramAccountActionReducer from '../TelegramAccountAction/reducer';
 import { selectUserAchievements } from '../Achievements/selectors';
 import {
   getAllAchievements,
@@ -83,7 +70,6 @@ const ViewProfilePage = ({
   activeKey,
   ownerKey,
   redirectToEditProfilePageDispatch,
-  userTgData,
   stat,
   userAchievements,
   getAllAchievementsDispatch,
@@ -97,6 +83,8 @@ const ViewProfilePage = ({
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     setViewProfileAccountDispatch(userId);
     getAllAchievementsDispatch();
@@ -106,6 +94,13 @@ const ViewProfilePage = ({
 
   return (
     <Profile userId={userId} isLogin={account === userId}>
+      <Seo
+        title={t('profile.profile')}
+        description={t('profile.profile')}
+        language={locale}
+        index={false}
+      />
+
       <UserNavigation
         userId={userId}
         account={account}
@@ -169,8 +164,7 @@ const ViewProfilePage = ({
 
       <ProfileViewForm
         className={
-          path === routes.profileView(userId) ||
-          path === routes.userCommunities(userId)
+          path === routes.profileView(userId) || path === routes.userCommunities(userId)
             ? ''
             : 'd-none'
         }
@@ -204,7 +198,6 @@ ViewProfilePage.propTypes = {
   questionsLoading: PropTypes.bool,
   questionsWithAnswersLoading: PropTypes.bool,
   redirectToEditProfilePageDispatch: PropTypes.func,
-  userTgData: PropTypes.object,
   stat: PropTypes.object,
   userAchievements: PropTypes.array,
   unsubscribeEmailAddressDispatch: PropTypes.func,
@@ -221,50 +214,22 @@ const withConnect = connect(
     questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
     questionsLoading: selectQuestionsLoading(),
     questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
-    activeKey: selectActiveKey(),
-    ownerKey: selectOwnerKey(),
-    userTgData: selectGetUserTgData(),
     stat: selectStat(),
     userAchievements: selectUserAchievements(),
     email: selectEmail(),
     isSubscribedEmail: selectIsSubscribed(),
   }),
   (dispatch) => ({
-    redirectToEditProfilePageDispatch: bindActionCreators(
-      redirectToEditProfilePage,
-      dispatch,
-    ),
-    getAllAchievementsDispatch: bindActionCreators(
-      getAllAchievements,
-      dispatch,
-    ),
-    getUserAchievementsDispatch: bindActionCreators(
-      getUserAchievements,
-      dispatch,
-    ),
-    setViewProfileAccountDispatch: bindActionCreators(
-      setViewProfileAccount,
-      dispatch,
-    ),
-    resetViewProfileAccountDispatch: bindActionCreators(
-      resetViewProfileAccount,
-      dispatch,
-    ),
-    showChangeEmailModalDispatch: bindActionCreators(
-      showChangeEmailModal,
-      dispatch,
-    ),
-    unsubscribeEmailAddressDispatch: bindActionCreators(
-      unsubscribeEmailAddress,
-      dispatch,
-    ),
+    redirectToEditProfilePageDispatch: bindActionCreators(redirectToEditProfilePage, dispatch),
+    getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
+    getUserAchievementsDispatch: bindActionCreators(getUserAchievements, dispatch),
+    setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
+    resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
+    showChangeEmailModalDispatch: bindActionCreators(showChangeEmailModal, dispatch),
+    unsubscribeEmailAddressDispatch: bindActionCreators(unsubscribeEmailAddress, dispatch),
   }),
 );
 
-const withTelegramAccountActionReducer = injectReducer({
-  key: 'questionsOfUser',
-  reducer: telegramAccountActionReducer,
-});
 const withQuestionsWithAnswersReducer = injectReducer({
   key: 'questionsOfUser',
   reducer: questionsWithAnswersOfUserReducer,
@@ -288,7 +253,6 @@ const withSaga = injectSaga({ key: 'questionsOfUser', saga, mode: DAEMON });
 export default compose(
   withQuestionsWithAnswersReducer,
   withQuestionsReducer,
-  withTelegramAccountActionReducer,
   withAchievementsReducer,
   withAchievementsSaga,
   withSaga,

@@ -23,13 +23,10 @@ const ChangeLocaleButton: React.FC<ChangeLocaleButtonProps> = ({
       className="d-flex align-items-center mr-1"
       fontSize="16"
       lineHeight="20"
-      color={colors.commHeadElemColor || 'var(--color-gray-dark)'}
+      color={colors.commHeadElemColor || '#667085'}
       onClick={() => setOpen(true)}
     >
-      <Flag
-        src={`https://images.peeranha.io/languages/${locale}_lang.svg`}
-        alt="country"
-      />
+      <Flag src={`https://images.peeranha.io/languages/${locale}_lang.svg`} alt="country" />
       {withTitle ? t(`common.${locale}`) : locale.toLocaleUpperCase()}
     </Span>
   );

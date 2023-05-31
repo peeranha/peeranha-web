@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import Header from './Header';
 import { Content } from './Content';
 import { bindActionCreators, compose, Dispatch } from 'redux';
+import Seo from 'components/Seo';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -15,11 +17,7 @@ import saga from 'containers/Administration/saga';
 import { noAccess as noAccessRoute } from 'routes-config';
 import { useModeratorRole } from 'hooks/useModeratorRole';
 
-import {
-  addRole,
-  getModerators,
-  revokeRole,
-} from 'containers/Administration/actions';
+import { addRole, getModerators, revokeRole } from 'containers/Administration/actions';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
   selectAddRoleLoading,
@@ -27,11 +25,7 @@ import {
   selectModeratorsLoading,
   selectRevokeRoleLoading,
 } from 'containers/Administration/selectors';
-import {
-  Moderator,
-  OutputSelector,
-  User,
-} from 'containers/Administration/types';
+import { Moderator, OutputSelector, User } from 'containers/Administration/types';
 
 type AdministrationProps = {
   locale: string;
@@ -39,17 +33,9 @@ type AdministrationProps = {
   moderators: Array<Moderator>;
   getModeratorsDispatch: (communityId: number) => void;
   moderatorsLoading: boolean;
-  addRoleDispatch: (
-    userAddress: string,
-    role: number,
-    communityId: number,
-  ) => void;
+  addRoleDispatch: (userAddress: string, role: number, communityId: number) => void;
   addRoleLoading: boolean;
-  revokeRoleDispatch: (
-    userAddress: string,
-    role: number,
-    communityId: number,
-  ) => void;
+  revokeRoleDispatch: (userAddress: string, role: number, communityId: number) => void;
   revokeRoleLoading: boolean;
 };
 
@@ -67,6 +53,7 @@ const Administration: React.FC<AdministrationProps> = ({
   revokeRoleLoading,
 }): JSX.Element => {
   useModeratorRole(noAccessRoute, single);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getModeratorsDispatch(single);
@@ -74,6 +61,12 @@ const Administration: React.FC<AdministrationProps> = ({
 
   return (
     <>
+      <Seo
+        title={t('common.administration')}
+        description={t('common.administration')}
+        language={locale}
+      />
+
       <Header
         locale={locale}
         single={single}

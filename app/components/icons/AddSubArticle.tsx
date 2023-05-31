@@ -3,13 +3,7 @@ import { css } from '@emotion/react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const AddSubArticle: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent
-    {...props}
-    id="plus"
-    fill="curentColor"
-    viewBox="0 0 18 18"
-    size={[18, 18]}
-  >
+  <IconComponent {...props} id="plus" fill="curentColor" viewBox="0 0 18 18" size={[18, 18]}>
     <path
       d="M16.4822 9C16.3668 7.37866 15.6893 5.78984 14.4497 4.55025C11.7161 1.81658 7.28392 1.81658 4.55025 4.55025C1.81658 7.28392 1.81658 11.7161 4.55025 14.4497C5.78984 15.6893 7.37866 16.3668 9 16.4822"
       stroke={props.stroke || '#576FED'}
@@ -39,12 +33,7 @@ const AddSubArticle: React.FC<IconProps> = (props): JSX.Element => (
     </g>
     <defs>
       <clipPath id="clip0_1156_1403">
-        <rect
-          width="18"
-          height="18"
-          fill="white"
-          transform="translate(0.5 0.5)"
-        />
+        <rect width="18" height="18" fill="white" transform="translate(0.5 0.5)" />
       </clipPath>
     </defs>
   </IconComponent>

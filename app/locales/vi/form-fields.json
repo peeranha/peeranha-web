@@ -20,14 +20,10 @@
   "wrongByteLength": "Giá trị byte dài quá dài",
   "numbersFromTo": "Giá trị phải chứa các chữ số từ {{min}} đến {{max}}",
   "onlyOneDotValue": "Giá trị chỉ chứa một dấu chấm",
-  "telosNameLength": "Tên tài khoản Telos phải dài 12 ký tự",
-  "telosCorrectSymbols": "Chỉ cho phép chữ a-z và số 1-5",
   "notAbleChangeAfterCreation": "Bạn sẽ không thể thay đổi nó sau khi tạo",
-  "thisTelosNameIsAvailable": "Tên tài khoản Telos này có sẵn",
-  "thisTelosNameIsntAvailable": "Tên tài khoản Telos này không có sẵn",
-  "atLeastOneLetter": "Telos name must contain at least one letter",
   "exactFromAndToAccounts": "Người gửi và người nhận không thể giống nhau",
   "hasToBeMoreThanPrev": "Bạn không thể đặt giá trị thấp hơn",
   "valueIsNotPositiveInteger": "Giá trị không phải là số nguyên dương",
+  "requiredMinReputation": "Danh tiếng của bạn trong cộng đồng này là tiêu cực, bạn không được phép tạo bài đăng mới.",
   "wrongAddressFormat": "Địa chỉ ví không hợp lệ"
 }

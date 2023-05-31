@@ -5,10 +5,7 @@ import { FORM_TYPE } from './constants';
 import { useTranslation } from 'react-i18next';
 import QuestionTypeField from './QuestionTypeField';
 import DescriptionList from 'components/DescriptionList';
-import {
-  labelConditional,
-  listConditional,
-} from 'components/QuestionForm/utils';
+import { labelConditional, listConditional } from 'components/QuestionForm/utils';
 
 type TypePostAnswers = {
   author: string;
@@ -115,10 +112,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
         isHasRole={isHasRole}
       />
       {hasSelectedType && (
-        <DescriptionList
-          label={descriptionListLabel}
-          items={descriptionListItems}
-        />
+        <DescriptionList label={descriptionListLabel} items={descriptionListItems} />
       )}
       <br />
     </div>

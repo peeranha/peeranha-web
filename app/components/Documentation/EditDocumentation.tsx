@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+
 import {
   getArticleDocumentation,
   saveMenuDraft,
@@ -29,11 +30,10 @@ import {
   selectEditOrder,
   selectDraftsIds,
 } from 'pages/Documentation/selectors';
-import {
-  selectDocumentationMenu,
-  selectPinnedItemMenu,
-} from 'containers/AppWrapper/selectors';
+import { selectDocumentationMenu, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Header from './components/Header';
+import Pagination from './components/Pagination';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
 import DraftsMenu from './components/Drafts/Drafts';
@@ -51,6 +51,8 @@ import {
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
+import { DocumentationItemMenuType } from '../../pages/Documentation/types';
+import _ from 'lodash';
 
 const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
@@ -72,10 +74,12 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   isEditOrder,
   editOrderDispatch,
   draftsIds,
+  locale,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
   const [pinned, setPinned] = useState<string>(pinnedItemMenu.id);
+  const [saveToDraft, setSaveToDraft] = useState<Function>(() => async () => {});
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -107,13 +111,11 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
     }
   }, []);
 
-  const editDocumentationArticle = documentation.find(
-    (item) => item.id === editArticle.id,
-  );
+  const editDocumentationArticle = documentation.find((item) => item.id === editArticle.id);
 
-  const viewDocumentationArticle = documentation.find(
-    (item) => item.id === viewArticleId,
-  );
+  const viewDocumentationArticle = documentation.find((item) => item.id === viewArticleId);
+
+  const isDraft = draftsIds.find((draft) => draft.draftId === viewArticleId);
 
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
@@ -128,10 +130,14 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   };
 
   const saveDocumentationMenu = () => {
-    updateDocumentationMenuDispatch(documentationMenuDraft);
-    toggleEditDocumentation();
-    document.querySelector('body').classList.remove('scroll-disabled');
-    document.querySelector('body').style = '';
+    saveToDraft().then((draftFromSave: Array<DocumentationItemMenuType>) => {
+      if (_.isEqual(documentationMenu, documentationMenuDraft) && draftFromSave) {
+        updateDocumentationMenuDispatch(draftFromSave);
+      } else {
+        updateDocumentationMenuDispatch(documentationMenuDraft);
+      }
+      toggleEditDocumentation();
+    });
   };
 
   const onClickAddArticle = () => {
@@ -140,6 +146,24 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
       parentId: '1',
       isEditArticle: true,
     });
+  };
+
+  const onClickArticle = (id: string): void => {
+    if (
+      typeof setViewArticleDispatch === 'function' &&
+      typeof setEditArticleDispatch === 'function'
+    ) {
+      setViewArticleDispatch(id);
+      setEditArticleDispatch({
+        id,
+        parentId: '1',
+        isEditArticle: false,
+      });
+    }
+  };
+
+  const onClickPaginationArticle = (arrayId: string): void => {
+    onClickArticle(arrayId);
   };
 
   const discardDrafts = () => {
@@ -164,12 +188,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
       <div
         css={{
           ...styled.container,
-          animation: `${animationDocumentation(
-            paddingLeft,
-          )} 1s ease-in forwards`,
-          width:
-            refOverlay?.current &&
-            refOverlay?.current.clientWidth - paddingLeft - 86,
+          animation: `${animationDocumentation(paddingLeft)} 1s ease-in forwards`,
+          width: refOverlay?.current && refOverlay?.current.clientWidth - paddingLeft - 86,
         }}
       >
         <Header
@@ -226,6 +246,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                   <ViewContent
                     documentationArticle={viewDocumentationArticle}
                     isEditDocumentation
+                    locale={locale}
+                    isEditPost={Boolean(isDraft)}
                   />
                 )}
                 {editArticle.isEditArticle && (
@@ -233,13 +255,19 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     documentationMenu={documentationMenuDraft}
                     documentationArticle={editDocumentationArticle}
                     articleParentId={editArticle.parentId}
-                    isEditArticle={
-                      editArticle.isEditArticle && editArticle.id !== ''
-                    }
+                    isEditArticle={editArticle.isEditArticle && editArticle.id !== ''}
                     updateDocumentationMenuDraft={saveMenuDraftDispatch}
                     setEditArticle={setEditArticleDispatch}
                     setViewArticle={setViewArticleDispatch}
                     updateDraftsIds={saveDraftsIdsDispatch}
+                    setSaveToDraft={setSaveToDraft}
+                  />
+                )}
+                {Boolean(viewArticleId) && !Boolean(isDraft) && !editArticle.isEditArticle && (
+                  <Pagination
+                    documentationMenu={documentationMenu}
+                    id={viewArticleId}
+                    onClickPaginationArticleEditDocumentation={onClickPaginationArticle}
                   />
                 )}
               </>
@@ -279,24 +307,16 @@ export default compose(
       pinnedItemMenu: selectPinnedItemMenu(),
       isEditOrder: selectEditOrder(),
       draftsIds: selectDraftsIds(),
+      locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
-      getArticleDocumentationDispatch: bindActionCreators(
-        getArticleDocumentation,
-        dispatch,
-      ),
+      getArticleDocumentationDispatch: bindActionCreators(getArticleDocumentation, dispatch),
       setEditArticleDispatch: bindActionCreators(setEditArticle, dispatch),
       saveMenuDraftDispatch: bindActionCreators(saveMenuDraft, dispatch),
       saveDraftsIdsDispatch: bindActionCreators(saveDraftsIds, dispatch),
-      updateDocumentationMenuDispatch: bindActionCreators(
-        updateDocumentationMenu,
-        dispatch,
-      ),
+      updateDocumentationMenuDispatch: bindActionCreators(updateDocumentationMenu, dispatch),
       setViewArticleDispatch: bindActionCreators(setViewArticle, dispatch),
-      pinnedArticleMenuDraftDispatch: bindActionCreators(
-        pinnedArticleMenuDraft,
-        dispatch,
-      ),
+      pinnedArticleMenuDraftDispatch: bindActionCreators(pinnedArticleMenuDraft, dispatch),
       removeArticleDispatch: bindActionCreators(removeArticle, dispatch),
       editOrderDispatch: bindActionCreators(editOrder, dispatch),
     }),

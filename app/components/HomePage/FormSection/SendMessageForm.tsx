@@ -12,19 +12,13 @@ import {
   strLength3x20,
 } from 'components/FormFields/validate';
 
-import {
-  EMAIL_FIELD,
-  NAME_FIELD,
-  MESSAGE_FIELD,
-} from '../../../pages/HomePage/constants';
+import { EMAIL_FIELD, NAME_FIELD, MESSAGE_FIELD } from '../../../pages/HomePage/constants';
 
 import FormField from './FormField';
 import { styles } from './FormSection.styled';
 
 type SendMessageForm = {
-  handleSubmit: (
-    sendMessage: () => void,
-  ) => FormEventHandler<HTMLFormElement> | undefined;
+  handleSubmit: (sendMessage: () => void) => FormEventHandler<HTMLFormElement> | undefined;
   sendMessage: () => void;
   sendMessageLoading: boolean;
 };
@@ -47,10 +41,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
   return (
     <form onSubmit={handleSubmit(sendMessage)} autoComplete="off">
       <div ref={formBlock}>
-        <div
-          className="op0"
-          css={{ ...(startFormAnimation && styles.firstFieldAnimation) }}
-        >
+        <div className="op0" css={{ ...(startFormAnimation && styles.firstFieldAnimation) }}>
           <Field
             name={NAME_FIELD}
             disabled={sendMessageLoading}
@@ -60,10 +51,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
             warn={[strLength3x20, required]}
           />
         </div>
-        <div
-          className="op0"
-          css={{ ...(startFormAnimation && styles.secondFieldAnimation) }}
-        >
+        <div className="op0" css={{ ...(startFormAnimation && styles.secondFieldAnimation) }}>
           <Field
             name={EMAIL_FIELD}
             disabled={sendMessageLoading}
@@ -73,10 +61,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
             warn={[validateEmail, required, strLength254Max]}
           />
         </div>
-        <div
-          className="op0"
-          css={{ ...(startFormAnimation && styles.thirdFieldAnimation) }}
-        >
+        <div className="op0" css={{ ...(startFormAnimation && styles.thirdFieldAnimation) }}>
           <Field
             name={MESSAGE_FIELD}
             multiline

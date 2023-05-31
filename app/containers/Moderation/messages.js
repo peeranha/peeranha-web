@@ -41,6 +41,9 @@ export const permissions = {
   permissionCommunityAdmin_5: {
     title: 'common.permissionCommunityAdmin_5',
   },
+  permissionCommunityAdmin_6: {
+    title: 'moderation.permissionCommunityAdmin_6',
+  },
   permissionCommunityModerator_1: {
     title: 'common.permissionCommunityModerator_1',
   },

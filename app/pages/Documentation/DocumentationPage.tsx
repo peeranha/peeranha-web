@@ -19,10 +19,7 @@ import { getArticleDocumentation } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import { selectDocumentation, selectDocumentationLoading } from './selectors';
-import {
-  selectDocumentationMenu,
-  selectPinnedItemMenu,
-} from 'containers/AppWrapper/selectors';
+import { selectDocumentationMenu, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   DocumentationArticle,
@@ -61,9 +58,7 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
     getArticleDocumentationDispatch(ipfsHasgBytes32);
   }, [ipfsHasgBytes32, getArticleDocumentationDispatch]);
 
-  const documentationSection = documentation.find(
-    (item) => item.id === ipfsHasgBytes32,
-  );
+  const documentationSection = documentation.find((item) => item.id === ipfsHasgBytes32);
 
   if (!documentation) {
     return null;
@@ -84,7 +79,11 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
         {isArticleLoading || !documentationSection ? (
           <Loader />
         ) : (
-          <ViewContent documentationArticle={documentationSection} />
+          <ViewContent
+            documentationArticle={documentationSection}
+            locale={locale}
+            documentationMenu={documentationMenu}
+          />
         )}
       </div>
     </>
@@ -104,14 +103,8 @@ export default compose(
       locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
-      getArticleDocumentationDispatch: bindActionCreators(
-        getArticleDocumentation,
-        dispatch,
-      ),
-      redirectToEditQuestionPageDispatch: bindActionCreators(
-        redirectToEditQuestionPage,
-        dispatch,
-      ),
+      getArticleDocumentationDispatch: bindActionCreators(getArticleDocumentation, dispatch),
+      redirectToEditQuestionPageDispatch: bindActionCreators(redirectToEditQuestionPage, dispatch),
     }),
   ),
 )(DocumentationPage);

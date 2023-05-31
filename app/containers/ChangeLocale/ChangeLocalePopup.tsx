@@ -14,7 +14,7 @@ type ChangeLocalePopupProps = {
   setLocale: () => void;
   locale: string;
   open: boolean;
-  setOpen: () => void;
+  setOpen: (argument: boolean) => void;
 };
 
 const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
@@ -29,14 +29,12 @@ const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
       <ChangeLocaleButton withTitle locale={locale} />
       <ArrowDownIcon
         className="transform270"
-        css={{ color: colors.localeArrowColor || `var(--color-blue)` }}
+        css={{ color: colors.localeArrowColor || `var(--color-blue)`, marginRight: '13px' }}
       />
       {open && (
         <Popup onClose={() => setOpen(false)}>
           <div className="mb-3 df fdc">
-            <div className="df aic jcc semi-bold fz24 mb-4">
-              {t(`common.selectLanguage`)}
-            </div>
+            <div className="df aic jcc semi-bold fz24 mb-4">{t(`common.selectLanguage`)}</div>
             {Object.keys(languages).map((item) => (
               <label>
                 <input

@@ -171,8 +171,7 @@ export const MoveStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo:
-    'https://images.peeranha.io/communities/move/move-logo-login.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/move/logo-signUp.svg',
 
   colors: {
     appWindowsColor: '#00aba9',
@@ -186,7 +185,6 @@ export const MoveStyles = {
     headerPrimary: 'rgba(56, 78, 159, 1)',
     commentOption: 'rgba(56, 78, 159, 1)',
     contentHeader: 'rgba(56, 78, 159, 1)',
-    blockedInfoArea: 'rgb(16, 40, 71, 0.1)',
     transparentIconColor: '#FFF',
     loaderColor: 'rgba(56, 78, 159, 1)',
     votingIconColor: 'rgba(56, 78, 159, 1)',

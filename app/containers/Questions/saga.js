@@ -1,53 +1,16 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
-import {
-  take,
-  takeLatest,
-  call,
-  put,
-  select,
-  all,
-  takeEvery,
-} from 'redux-saga/effects';
+import { take, takeLatest, call, put, select } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
-
-import { getCookie, setCookie, deleteCookie } from 'utils/cookie';
-import {
-  getQuestions,
-  getQuestionsFilteredByCommunities,
-  getQuestionsForFollowedCommunities,
-  FetcherOfQuestionsForFollowedCommunities,
-  getPromotedQuestions,
-  getRandomQuestions,
-} from 'utils/questionsManagement';
-import { getQuestionBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-
-import {
-  ADD_TO_TOP_COMMUNITY_METHOD,
-  ALL_TOP_QUESTIONS_SCOPE,
-  ALL_TOP_QUESTIONS_TABLE,
-  DOWN_QUESTION_METHOD,
-  MOVE_QUESTION_METHOD,
-  REMOVE_FROM_TOP_COMMUNITY_METHOD,
-  UP_QUESTION_METHOD,
-} from 'utils/constants';
 
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
-import {
-  makeSelectFollowedCommunities,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
-import {
-  getQuestionData,
-  isGeneralQuestion,
-} from 'containers/ViewQuestion/saga';
-
-import { getQuestionsWorker as getTopQuestions } from '../Home/saga';
+import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 
 import {
   CHANGE_QUESTION_FILTER,
@@ -55,45 +18,14 @@ import {
   GET_QUESTIONS,
   LOAD_COMMUNITY_TOP_QUESTIONS,
   MOVE_QUESTION,
-  QUESTION_FILTER,
   REMOVE_OR_ADD_TOP_QUESTION,
-  TOP_QUESTIONS_LOAD_NUMBER,
   UP_QUESTION,
-  PROMO_QUESTIONS_AMOUNT,
-  UPDATE_PROMO_QUESTIONS,
 } from './constants';
 
-import {
-  getQuestions as getQuestionsAction,
-  getQuestionsSuccess,
-  getQuestionsError,
-  loadTopCommunityQuestionsSuccess,
-  loadTopCommunityQuestionsErr,
-  removeOrAddTopQuestionSuccess,
-  removeOrAddTopQuestionErr,
-  upQuestionSuccess,
-  upQuestionErr,
-  downQuestionSuccess,
-  downQuestionErr,
-  moveQuestionErr,
-  moveQuestionSuccess,
-  changeQuestionFilter,
-} from './actions';
+import { getQuestionsSuccess, getQuestionsError } from './actions';
 
-import {
-  selectInitLoadedItems,
-  selectTopQuestionsInfoLoaded,
-  selectQuestionFilter,
-  selectLastLoadedTopQuestionIndex,
-  selectTopQuestionIds,
-  isQuestionTop,
-  selectPromotedQuestions,
-  selectTypeFilter,
-} from './selectors';
-import { getPosts, getPostsByCommunityId } from '../../utils/theGraph';
-import { getUserProfileWorker } from '../DataCacheProvider/saga';
-import { selectUsers } from '../DataCacheProvider/selectors';
-
+import { getPosts, getPostsByCommunityId } from 'utils/theGraph';
+import { HIDDEN_COMMUNITIES_ID } from '../Communities/constants';
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
 
@@ -108,9 +40,23 @@ export function* getQuestionsWorker({
   toUpdateQuestions,
 }) {
   try {
-    const followedCommunities = yield select(makeSelectFollowedCommunities());
+    let followedCommunities = yield select(makeSelectFollowedCommunities());
+    const communities = yield select(selectCommunities());
+    const notHiddenCommunities = communities.reduce((communityList, community) => {
+      if (!HIDDEN_COMMUNITIES_ID.includes(community.id)) {
+        communityList.push(community.id);
+      }
+      return communityList;
+    }, []);
 
+    const hasHiddenCommunities = HIDDEN_COMMUNITIES_ID.length > 0;
+    if (hasHiddenCommunities) {
+      followedCommunities = followedCommunities?.filter(
+        (community) => !HIDDEN_COMMUNITIES_ID?.includes(community),
+      );
+    }
     let questionsList = [];
+    let counter = skip;
 
     if (single) {
       communityIdFilter = single;
@@ -127,7 +73,9 @@ export function* getQuestionsWorker({
     }
 
     if (communityIdFilter === 0 && parentPage !== feed) {
-      questionsList = yield call(getPosts, limit, skip, postTypes);
+      questionsList = !hasHiddenCommunities
+        ? yield call(getPosts, limit, skip, postTypes)
+        : yield call(getPostsByCommunityId, limit, skip, postTypes, notHiddenCommunities, tags);
     }
 
     // Load questions for communities where I am
@@ -153,14 +101,8 @@ export function* getQuestionsWorker({
 
     const clearQuestionsList = questionsList.filter((item) => item.title);
 
-    yield put(
-      getQuestionsSuccess(
-        clearQuestionsList,
-        next,
-        toUpdateQuestions,
-        undefined,
-      ),
-    );
+    counter += clearQuestionsList.length;
+    yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, counter));
   } catch (err) {
     yield put(getQuestionsError(err));
   }
@@ -174,39 +116,7 @@ export function* redirectWorker({ communityIdFilter, isFollowed }) {
   }
 }
 
-export function* updateStoredQuestionsWorker() {
-  // TODO for updating promoted questions
-  // const eosService = yield select(selectEos);
-  // const initLoadedItems = yield select(selectInitLoadedItems());
-  // const offset = 0;
-  // const communityIdFilter = yield select(selectTypeFilter());
-  // const followedCommunities = yield select(makeSelectFollowedCommunities());
-  // const parentPage = window.location.pathname;
-  // const fetcher = new FetcherOfQuestionsForFollowedCommunities(
-  //   Math.floor(1.2 * initLoadedItems),
-  //   followedCommunities || [],
-  //   eosService,
-  // );
-  //
-  // const next = false;
-  // const toUpdateQuestions = true;
-  //
-  // setCookie({
-  //   name: UPDATE_PROMO_QUESTIONS,
-  //   value: true,
-  // });
-  // yield put(
-  //   getQuestionsAction(
-  //     initLoadedItems,
-  //     offset,
-  //     communityIdFilter,
-  //     parentPage,
-  //     fetcher,
-  //     next,
-  //     toUpdateQuestions,
-  //   ),
-  // );
-}
+export function* updateStoredQuestionsWorker() {}
 
 function* changeQuestionFilterWorker({ questionFilter }) {
   if (questionFilter) {
@@ -228,10 +138,7 @@ export default function* () {
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
   yield takeLatest(CHANGE_QUESTION_FILTER, changeQuestionFilterWorker);
-  yield takeLatest(
-    LOAD_COMMUNITY_TOP_QUESTIONS,
-    loadTopCommunityQuestionsWorker,
-  );
+  yield takeLatest(LOAD_COMMUNITY_TOP_QUESTIONS, loadTopCommunityQuestionsWorker);
   yield takeLatest(REMOVE_OR_ADD_TOP_QUESTION, removeOrAddTopQuestionWorker);
   yield takeLatest(UP_QUESTION, upQuestionWorker);
   yield takeLatest(DOWN_QUESTION, downQuestionWorker);
