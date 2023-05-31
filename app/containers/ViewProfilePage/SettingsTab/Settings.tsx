@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
 import TransactionHandler from './TransactionHandler';
 import Notifications from './Notifications';
@@ -36,11 +35,7 @@ const Settings: React.FC<SettingsProps> = ({
           showChangeEmailModal={showChangeEmailModal}
           unsubscribeEmail={unsubscribeEmail}
         />
-        <TransactionHandler
-          transaction={transaction}
-          setTransaction={setTransaction}
-          settings
-        />
+        <TransactionHandler transaction={transaction} setTransaction={setTransaction} settings />
       </div>
     </>
   );

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { css } from '@emotion/react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Span from 'components/Span';
 
@@ -118,6 +117,7 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
       <div className="fz16 pl-0">
         {Object.values(transactionTypes).map((item, index) => (
           <TransactionOption
+            key={Math.random()}
             transaction={transaction}
             transactionOption={item.transactionOption}
             transactionHandler={item.transactionHandler}

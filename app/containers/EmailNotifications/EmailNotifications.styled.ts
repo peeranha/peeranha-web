@@ -1,3 +1,4 @@
+import { CSSObject } from '@emotion/react';
 import {
   TEXT_LIGHT,
   TEXT_SECONDARY,
@@ -11,7 +12,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-export const styles = {
+export const styles: Record<string, CSSObject> = {
   confirmButton: {
     border: '1px solid #F76F60',
     width: '86px',

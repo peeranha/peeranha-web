@@ -1,9 +1,10 @@
+import { CSSObject } from '@emotion/react';
 import { singleCommunityColors } from 'utils/communityManagement';
 import { TEXT_SECONDARY } from 'style-constants';
 
 const colors = singleCommunityColors();
 
-export const styles = {
+export const styles: Record<string, CSSObject> = {
   line: {
     height: '1px',
     background: '#C2C6D8',

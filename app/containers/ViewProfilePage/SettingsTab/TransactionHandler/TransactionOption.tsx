@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from './TransactionHandler.styled';
+import { styles } from './TransactionHandler.styled';
 import { useTranslation } from 'react-i18next';
 
 type TransactionOptionProps = {
@@ -28,15 +28,15 @@ const TransactionOption: React.FC<TransactionOptionProps> = ({
           type="radio"
           checked={transaction === transactionOption}
           onChange={transactionHandler}
-          css={styled.input}
+          css={styles.input}
         />
-        <div className="df aic" css={styled.inputRadio}>
+        <div className="df aic" css={styles.inputRadio}>
           <div>
             <div
               className="mb-1 bold pr"
               css={
                 Recommended && {
-                  ...styled.recommended,
+                  ...styles.recommended,
                   ':after': {
                     content: `"${t('common.metaTransaction.recommended')}"`,
                   },
@@ -45,7 +45,7 @@ const TransactionOption: React.FC<TransactionOptionProps> = ({
             >
               {transactionTitle}
             </div>
-            <div css={styled.secondaryColor}>{transactionSubtitle}</div>
+            <div css={styles.secondaryColor}>{transactionSubtitle}</div>
           </div>
         </div>
       </label>

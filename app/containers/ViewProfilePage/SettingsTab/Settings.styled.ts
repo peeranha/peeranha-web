@@ -1,9 +1,10 @@
+import { CSSObject } from '@emotion/react';
 import { singleCommunityColors } from 'utils/communityManagement';
 import { TEXT_DARK, APP_FONT, BORDER_RADIUS_L } from 'style-constants';
 
 const colors = singleCommunityColors();
 
-export const styles = {
+export const styles: Record<string, CSSObject> = {
   h3: {
     color: TEXT_DARK,
     fontWeight: 600,

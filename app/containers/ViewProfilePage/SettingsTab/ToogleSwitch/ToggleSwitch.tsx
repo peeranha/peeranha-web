@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { reduxForm, reset } from 'redux-form/immutable';
-import { styled } from './ToogleSwitch.styled';
+import { styles } from './ToogleSwitch.styled';
 import { EMAIL_FORM } from 'containers/EmailNotifications/constants';
 
 type ToggleSwitchProps = {
@@ -23,9 +23,9 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   }, [isToggled]);
 
   return (
-    <label css={styled.toggleSwitch}>
+    <label css={styles.toggleSwitch}>
       <input type="checkbox" checked={isToggled} onChange={onToggle} />
-      <span css={styled.switch} />
+      <span css={styles.switch} />
     </label>
   );
 };

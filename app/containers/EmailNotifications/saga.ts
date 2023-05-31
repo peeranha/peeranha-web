@@ -1,6 +1,6 @@
 import { t } from 'i18next';
-import { takeLatest, put, call, select } from 'redux-saga/effects';
-
+import { Action } from 'redux';
+import { takeLatest, put, call, select, StrictEffect } from 'redux-saga/effects';
 import {
   getVerificationCode,
   unsubscribeLinkEmail,
@@ -40,12 +40,18 @@ import {
   unsubscribeEmailAddressErr,
 } from './actions';
 
-export function* showEmailNotificationsModalWorker({
-  email,
-}: {
-  email: string;
-}): Generator<any> {
+import { emailProps, codeProps, subscribeProps } from './types';
+
+export interface ActionResult<T> extends Action<string> {
+  type: string;
+  payload: T;
+}
+
+export function* showEmailNotificationsModalWorker(
+  action: ActionResult<emailProps>,
+): Generator<any> {
   try {
+    const { email } = action;
     const subscribedEmail = yield select(selectEmail());
     const content = yield select(selectContent());
     if (email !== subscribedEmail && !content) {
@@ -56,8 +62,9 @@ export function* showEmailNotificationsModalWorker({
   }
 }
 
-export function* sendEmailWorker({ email }: { email: string }): Generator<any> {
+export function* sendEmailWorker(action: ActionResult<emailProps>): Generator<any> {
   try {
+    const { email } = action;
     const response: any = yield call(getVerificationCode, email);
     if (!response.OK) {
       throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
@@ -78,12 +85,9 @@ export function* sendAnotherCodeSuccess() {
   yield call(successHandling);
 }
 
-export function* confirmEmailWorker({
-  code,
-}: {
-  code: string;
-}): Generator<any> {
+export function* confirmEmailWorker(action: ActionResult<codeProps>): Generator<any> {
   try {
+    const { code } = action;
     const email = yield select(selectCurrentEmail());
     const address = yield select(makeSelectAccount());
 
@@ -102,19 +106,12 @@ export function* confirmEmailWorker({
   }
 }
 
-export function* unsubscribeEmailWorker({
-  subscribe,
-}: {
-  subscribe: boolean;
-}): Generator<any> {
+export function* unsubscribeEmailWorker(action: ActionResult<subscribeProps>): Generator<any> {
   try {
+    const { subscribe } = action;
     const address = yield select(makeSelectAccount());
 
-    const response: any = yield call(
-      updateNotificationSettings,
-      address,
-      subscribe,
-    );
+    const response: any = yield call(updateNotificationSettings, address, subscribe);
 
     if (response.OK) {
       yield put(unsubscribeEmailAddressSuccess());
@@ -124,7 +121,7 @@ export function* unsubscribeEmailWorker({
   }
 }
 
-export default function* defaultSaga() {
+export default function* defaultSaga(): Generator<StrictEffect> {
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(SHOW_CHANGE_EMAIL_MODAL, showEmailNotificationsModalWorker);

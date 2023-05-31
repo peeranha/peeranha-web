@@ -1,8 +1,9 @@
+import { CSSObject } from '@emotion/react';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-export const styled = {
+export const styles: Record<string, CSSObject> = {
   inputRadio: {
     '::before': {
       content: "''",

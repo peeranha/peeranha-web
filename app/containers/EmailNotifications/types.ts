@@ -60,9 +60,7 @@ export type EmailNotificationsSelectorsProps = {
 };
 
 export type SendEmailFormProps = {
-  handleSubmit: (
-    sendEmail: () => void,
-  ) => React.FormEventHandler<HTMLFormElement> | undefined;
+  handleSubmit: (sendEmail: () => void) => React.FormEventHandler<HTMLFormElement> | undefined;
   sendEmail: () => void;
   sendEmailProcessing: boolean;
   emailAddress: string;
@@ -70,9 +68,7 @@ export type SendEmailFormProps = {
 };
 
 export type ConfirmEmailFormProps = {
-  handleSubmit: (
-    confirmEmail: () => void,
-  ) => React.FormEventHandler<HTMLFormElement> | undefined;
+  handleSubmit: (confirmEmail: () => void) => React.FormEventHandler<HTMLFormElement> | undefined;
   confirmEmail: () => void;
   confirmEmailProcessing: boolean;
   sendAnotherCode: () => void;
@@ -84,7 +80,14 @@ export type ConfirmEmailFormProps = {
   dispatch: () => void;
 };
 
-export interface ActionResult<T> extends Action<string> {
-  type: string;
-  payload: T;
+export interface emailProps {
+  email: string;
+}
+
+export interface codeProps {
+  code: string;
+}
+
+export interface subscribeProps {
+  subscribe: string;
 }
