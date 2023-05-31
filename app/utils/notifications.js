@@ -1,6 +1,18 @@
-import { BORDER_WARNING_LIGHT } from 'style-constants';
+import { BORDER_PRIMARY, BORDER_WARNING_LIGHT } from 'style-constants';
 import { NOTIFICATIONS_TYPES } from 'components/Notifications/constants';
-import { AnswerWithA, BestAnswer, Coins, DownVote, QuestionCircle, UpVote } from 'icons/index';
+import {
+  AnswerWithA,
+  BestAnswer,
+  ChangeType,
+  Coins,
+  Communities,
+  DownVote,
+  QuestionCircle,
+  UpVote,
+} from 'icons/index';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const renderNotificationIcon = (type, isCommunityMode, communityStyles) => {
   const coinStyles = isCommunityMode
@@ -29,6 +41,10 @@ export const renderNotificationIcon = (type, isCommunityMode, communityStyles) =
     case NOTIFICATIONS_TYPES.questionTipped:
     case NOTIFICATIONS_TYPES.answerTipped:
       return <Coins style={coinStyles} />;
+    case NOTIFICATIONS_TYPES.postTypeChanged:
+      return <ChangeType size={[18, 18]} stroke={colors.btnColor || BORDER_PRIMARY} />;
+    case NOTIFICATIONS_TYPES.communityChanged:
+      return <Communities stroke={colors.btnColor || BORDER_PRIMARY} />;
     default:
       return null;
   }
