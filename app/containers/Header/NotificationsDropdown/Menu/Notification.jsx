@@ -16,6 +16,8 @@ import {
   ROUTES_BY_TYPE,
 } from 'components/Notifications/constants';
 
+import { ROW_HEIGHT_DROPDOWN_SMALL } from '../constants';
+
 import styles from './Notification.styled';
 
 const single = isSingleCommunityWebsite();
@@ -112,7 +114,7 @@ const Notification = ({
         ...styles.root,
         ...(!read ? styles.unreadStyles : {}),
         ...(isLast && { border: 'none' }),
-        height: `${height}px`,
+        height: `${isChangedType ? height : ROW_HEIGHT_DROPDOWN_SMALL}px`,
         top: `${top}px`,
       }}
     >

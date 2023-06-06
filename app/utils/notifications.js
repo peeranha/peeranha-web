@@ -42,7 +42,7 @@ export const renderNotificationIcon = (type, isCommunityMode, communityStyles) =
     case NOTIFICATIONS_TYPES.answerTipped:
       return <Coins style={coinStyles} />;
     case NOTIFICATIONS_TYPES.postTypeChanged:
-      return <ChangeType size={[18, 18]} stroke={colors.btnColor || BORDER_PRIMARY} />;
+      return <ChangeType stroke={colors.btnColor || BORDER_PRIMARY} />;
     case NOTIFICATIONS_TYPES.communityChanged:
       return <Communities stroke={colors.btnColor || BORDER_PRIMARY} />;
     default:
