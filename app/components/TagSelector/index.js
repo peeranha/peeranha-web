@@ -40,11 +40,6 @@ const Tag = styled.li`
   border-radius: ${BORDER_RADIUS_S};
 `;
 
-const ScrollDropdown = styled.div`
-  overflow-y: scroll;
-  height: 175px;
-`;
-
 const Base = styled.div`
   margin-bottom: ${({ isOpen }) => (isOpen ? 120 : 0)}px;
   @media only screen and (min-width: 769px) and (max-width: 991px) {
@@ -80,10 +75,7 @@ export const TagSelector = ({
     return [v, fO];
   }, [input, input.value]);
 
-  const error = useMemo(
-    () => meta.touched && (meta.warning || meta.error),
-    [meta],
-  );
+  const error = useMemo(() => meta.touched && (meta.warning || meta.error), [meta]);
 
   const toggle = useCallback(() => toggleOpen(!isOpen), [isOpen]);
   const onChange = useCallback((x) => setTags([...value, x]), [setTags, value]);
@@ -126,23 +118,20 @@ export const TagSelector = ({
             </TagsContainer>
           }
         >
-          <ScrollDropdown>
-            <Select2
-              input={{
-                ...input,
-                value: null,
-                onBlur: null,
-                onChange,
-              }}
-              options={filteredOptions}
-              disabled={disabled}
-              autoFocus
-              menuIsOpen
-              isWrapped
-              disabledScrollbar
-              placeholder={t('common.selectCommunity')}
-            />
-          </ScrollDropdown>
+          <Select2
+            input={{
+              ...input,
+              value: null,
+              onBlur: null,
+              onChange,
+            }}
+            options={filteredOptions}
+            disabled={disabled}
+            autoFocus
+            menuIsOpen
+            isWrapped
+            placeholder={t('common.selectCommunity')}
+          />
         </Dropdown>
       </Wrapper>
     </Base>
