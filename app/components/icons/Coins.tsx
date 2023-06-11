@@ -2,7 +2,7 @@ import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Coins: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 20" size={props.size || [18, 20]}>
+  <IconComponent {...props} fill="currentColor" viewBox="0 0 18 20" size={props.size || [18, 18]}>
     <g
       id="energy-copy-ico_Tip"
       fill={props.fill || '#FEF1F1'}

@@ -24,6 +24,9 @@ export const styles = {
     '&:hover .dropdown-documentation': {
       display: 'block',
     },
+    '@media only screen and (min-width: 991px)': {
+      marginTop: '28px',
+    },
   },
 
   divider: {

@@ -8,7 +8,7 @@ import {
   HEADER_AND_FOOTER_HEIGHT,
   MENU_HEIGHT,
   MENU_WIDTH,
-  ROW_HEIGHT_DROPDOWN,
+  ROW_HEIGHT_DROPDOWN_LARGE,
 } from '../constants';
 
 import Header from './Header';
@@ -72,7 +72,7 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
           notifications={notifications}
           height={MENU_HEIGHT - HEADER_AND_FOOTER_HEIGHT}
           width={MENU_WIDTH}
-          rowHeight={ROW_HEIGHT_DROPDOWN}
+          rowHeight={ROW_HEIGHT_DROPDOWN_LARGE}
         />
         <Footer isEmpty={!unreadCount} onClose={onClose} />
       </MenuContainer>
