@@ -1,7 +1,7 @@
-import A from '../A';
+import styled from 'styled-components';
 import BackSide from './BackSide';
 
-const AStyled = A.extend`
+const AStyled = styled.a`
   display: flex;
   flex-direction: column;
   position: relative;
