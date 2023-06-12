@@ -25,11 +25,11 @@ const StyledBox = styled.div`
     > div:nth-child(2) {
       flex: 0 0 ${(x) => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
       max-width: ${(x) => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
-      padding-left: ${(x) => (x.splitInHalf ? '30px' : '0px')};
+      padding-left: ${(x) => (x.splitInHalf ? '10px' : '0px')};
       margin-top: ${(x) => (x.splitInHalf ? '0px' : '8px')};
     }
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1100px) {
     width: 100%;
     > div:nth-child(2) {
       align-items: initial;
@@ -37,13 +37,19 @@ const StyledBox = styled.div`
       flex-direction: column;
       > div:nth-child(1) {
         flex: 0 0 100%;
-        max-width: 100%;
       }
       > div:nth-child(2) {
         flex: 0 0 100%;
         max-width: 100%;
         padding-left: 0px;
         margin-top: 8px;
+      }
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    > div:nth-child(2) {
+      > div:nth-child(1) {
+        max-width: 100%;
       }
     }
   }

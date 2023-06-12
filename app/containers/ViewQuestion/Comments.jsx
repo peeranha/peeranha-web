@@ -11,8 +11,8 @@ import {
   BORDER_RADIUS_M,
 } from 'style-constants';
 
-import editSmallIcon from 'images/editSmallIcon.svg?external';
-import deleteSmallIcon from 'images/deleteSmallIcon.svg?external';
+import editIcon from 'images/pencil.svg?external';
+import deleteIcon from 'images/deleteIcon.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 
@@ -24,7 +24,9 @@ import { useOnClickOutside } from 'utils/click-listners';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import SeeOriginal from 'containers/ViewQuestion/SeeOriginal';
 import { getUserName } from 'utils/user';
+import { LANGUAGES_MAP } from 'utils/constants';
 import {
   getPermissions,
   hasCommunityModeratorRole,
@@ -45,11 +47,11 @@ const CommentManage = styled.div`
   opacity: 0;
 
   button {
-    margin-left: 13px;
-    font-size: 14px;
+    margin-left: 20px;
+    font-size: 16px;
 
     > *:last-child {
-      margin-left: 4px;
+      margin-left: 7px;
     }
   }
 
@@ -132,6 +134,10 @@ const CommentView = (item) => {
   const { t } = useTranslation();
   const isItWrittenByMe = item.profileInfo ? item.author?.user === item.profileInfo.user : false;
 
+  const translation = item.translations?.find(
+    ({ language }) => +language === LANGUAGES_MAP[item.locale],
+  );
+
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const refPopover = useRef(null);
 
@@ -145,6 +151,13 @@ const CommentView = (item) => {
   const formattedHistories = item.histories?.filter(
     (history) => history.comment?.id === `${item.postId}-${item.answerId}-${item.id}`,
   );
+
+  const getContent = () => {
+    if (Number(item.language) === LANGUAGES_MAP[item.locale] || item.showOriginal) {
+      return item.content;
+    }
+    return translation ? translation.content : item.content;
+  };
 
   return (
     <li
@@ -172,18 +185,14 @@ const CommentView = (item) => {
         />
 
         <CommentManage>
-          <Button
-            show={!!item.profileInfo && isItWrittenByMe}
-            params={{
-              ...item.buttonParams,
-              commentId: item.id,
-              whowasvoted: item.author.user,
-            }}
-            onClick={() => item.toggleView(!item.isView)}
-          >
-            <Icon icon={editSmallIcon} width="13" fill={BORDER_PRIMARY} />
-            {t('post.editButton')}
-          </Button>
+          <SeeOriginal
+            isOriginalLanguage={Number(item.language) === LANGUAGES_MAP[item.locale]}
+            translation={translation}
+            showOriginal={item.showOriginal}
+            setShowOriginal={item.setShowOriginal}
+            locale={item.locale}
+            language={item.language || item.questionData?.language}
+          />
 
           <div id={`delete-comment-${item.answerId}${item.id}`}>
             <AreYouSure
@@ -200,8 +209,8 @@ const CommentView = (item) => {
                   onClick={onClick}
                   disabled={item.ids.includes(`delete-comment-${item.answerId}${item.id}`)}
                 >
-                  <Icon icon={deleteSmallIcon} width="13" fill={BORDER_PRIMARY} />
-                  {t('post.deleteButton')}
+                  <Icon icon={deleteIcon} width="18" fill={BORDER_PRIMARY} />
+                  <span>{t('post.deleteButton')}</span>
                 </Button>
               )}
             />
@@ -210,7 +219,7 @@ const CommentView = (item) => {
           <div className="position-relative">
             <Button show disabled={isPopoverOpen} onClick={() => setPopoverOpen(true)}>
               <IconMd icon={blockchainLogo} />
-              {t('common.source')}
+              <span>{t('common.source')}</span>
             </Button>
 
             {isPopoverOpen && (
@@ -223,6 +232,18 @@ const CommentView = (item) => {
               </div>
             )}
           </div>
+          <Button
+            show={!!item.profileInfo && isItWrittenByMe}
+            params={{
+              ...item.buttonParams,
+              commentId: item.id,
+              whowasvoted: item.author.user,
+            }}
+            onClick={() => item.toggleView(!item.isView)}
+          >
+            <Icon icon={editIcon} width="18" fill={BORDER_PRIMARY} />
+            <span>{t('post.editButton')}</span>
+          </Button>
         </CommentManage>
       </div>
 
@@ -230,7 +251,7 @@ const CommentView = (item) => {
         fontSize="16"
         lineHeight="20"
         className="d-block mb-2"
-        dangerouslySetInnerHTML={{ __html: item.content }}
+        dangerouslySetInnerHTML={{ __html: getContent() }}
       />
     </li>
   );
@@ -238,13 +259,20 @@ const CommentView = (item) => {
 
 const Comment = (item) => {
   const [isView, toggleView] = useState(true);
+  const [showOriginal, setShowOriginal] = useState(false);
 
   return (
     <React.Fragment>
       {!isView ? (
         <CommentEdit toggleView={() => toggleView(!isView)} {...item} />
       ) : (
-        <CommentView isView={isView} toggleView={toggleView} {...item} />
+        <CommentView
+          {...item}
+          isView={isView}
+          toggleView={toggleView}
+          showOriginal={showOriginal}
+          setShowOriginal={setShowOriginal}
+        />
       )}
     </React.Fragment>
   );

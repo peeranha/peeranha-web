@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
-import Dropdown from 'common-components/Dropdown';
+import Dropdown from 'components/Dropdown';
 import Button from 'common-components/Button';
 import TextEditor from 'components/TextEditor';
 import DropdownTrigger from './DropdownTrigger';
@@ -13,6 +14,7 @@ import { DocumentationFormProps } from '../types';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
 import { singleCommunityDocumentation } from 'utils/communityManagement';
 import { styled } from 'components/Documentation/EditDocumentation.styled';
+import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
 const documentationColors = singleCommunityDocumentation();
 
@@ -54,7 +56,8 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
 
   const options = initMenu(documentationMenu);
 
-  const onSelect = (value: string) => {
+  const onSelect = (event: React.MouseEvent) => {
+    const value = event.currentTarget.getAttribute('value');
     setParentId(value);
   };
 
@@ -98,7 +101,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
         }
 
         saveDraft(updatedMenu);
-        const updatedDraftsIds = saveDraftsIds(ipfsHashBytes32);
+        const updatedDraftsIds = saveDraftsIds(ipfsHashBytes32, (Date.now() / 1000).toString());
 
         updateDraftsIds(updatedDraftsIds);
         updateDocumentationMenuDraft(updatedMenu);
@@ -154,19 +157,16 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             {t('common.subArticleOf')}
           </div>
           <Dropdown
-            trigger={
-              <DropdownTrigger
-                value={parentId}
-                options={options}
-                placeholder="Select parent directory"
-              />
+            id="documentationForm_dropdown_id"
+            css={css(styled.disabledButton)}
+            button={
+              <DropdownTrigger value={parentId} options={options} isDisabled={isEditArticle} />
             }
-            options={options}
-            isMultiple={false}
-            isEqualWidth={false}
-            value={parentId}
-            onSelect={onSelect}
-            isDisabled={isEditArticle}
+            menu={options[0].items.map((item) => (
+              <div value={item.value} css={css(styles.dropdownMenuItem)} onClick={onSelect}>
+                <div>{item.label}</div>
+              </div>
+            ))}
           />
         </div>
         <div>

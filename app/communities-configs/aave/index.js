@@ -185,7 +185,6 @@ export const AaveStyles = {
     headerPrimary: '#1b2030',
     commentOption: '#1b2030',
     contentHeader: '#1b2030',
-    blockedInfoArea: '#764A8931',
     transparentIconColor: '#fff',
     loaderColor: '#1b2030',
     votingIconColor: '#1b2030',

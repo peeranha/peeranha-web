@@ -29,11 +29,11 @@ export const styles = {
 
   messengerImage: {
     position: 'absolute',
-    bottom: '2px',
-    right: '2px',
+    bottom: '-2px',
+    right: '-2px',
 
-    width: '15px',
-    height: '15px',
+    width: '14.7px',
+    height: '14.7px',
 
     borderRadius: '50%',
     border: `1.5px solid ${hexToRgbaString(PEER_PRIMARY_COLOR, 0.4)}`,

@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-
+import ChangeLocale from 'containers/ChangeLocale';
 import cn from 'classnames';
 
 import isMobile from 'ismobilejs';
@@ -33,6 +33,7 @@ import {
   singleCommunityFonts,
   getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
+  singleSubcommunity,
 } from 'utils/communityManagement';
 
 import homeIcon from 'images/house.svg?external';
@@ -64,6 +65,7 @@ import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 const communityStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
+const hasSingleSubcommunity = singleSubcommunity();
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
@@ -145,17 +147,9 @@ export const A1 = A.extend`
 
 const Box = styled.div`
   margin-top: 30px;
-  margin-bottom: ${({ currClientHeight }) => {
-    if (
-      communityStyles.withoutAdditionalLinks ||
-      (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
-    )
-      return '25px !important';
-    return '50px';
-  }};
-  padding-bottom: 30px;
-  @media only screen and (max-width: 576px) {
-    padding: 10px 0 20px 0;
+  @media only screen and (max-width: 991px) {
+    margin-top: 0;
+  }
   }
 `;
 
@@ -168,13 +162,14 @@ const MainLinks = ({
   match,
   toggleEditDocumentation,
   pinnedItemMenu,
+  changeLocale,
+  locale,
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
   let route = pathname.split('/').filter((x) => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
@@ -187,7 +182,7 @@ const MainLinks = ({
     : false;
 
   if (!route) {
-    route = isBloggerMode ? 'home' : '/';
+    route = '/';
   }
 
   const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
@@ -259,6 +254,13 @@ const MainLinks = ({
           }),
         }}
       >
+        {!profile && !singleCommId && <div css={styles.dividerLinks} />}
+
+        <div css={styles.changeLocale}>
+          <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
+        </div>
+
+        <div css={styles.dividerLinks} />
         {Boolean(singleCommId) && (
           <div
             className={cn('df jcsb pl15', {
@@ -271,13 +273,6 @@ const MainLinks = ({
           >
             {t('common.communityLabel')}
           </div>
-        )}
-
-        {isBloggerMode && (
-          <A1 to={routes.detailsHomePage()} name="home" route={route}>
-            <IconLg className="mr-2" icon={homeIcon} />
-            {t('common.home')}
-          </A1>
         )}
 
         <A1 to={routes.feed()} name="feed" route={route}>
@@ -307,7 +302,7 @@ const MainLinks = ({
           </A1>
         )}
 
-        {Boolean(singleCommId) && (
+        {Boolean(singleCommId) && Boolean(hasSingleSubcommunity.length) && (
           <A1 to={routes.subcommunities()} name="subcommunities" route={route}>
             <IconLg className="mr-2" icon={communitiesIcon} />
             {t('common.subcommunities')}
@@ -324,7 +319,7 @@ const MainLinks = ({
         {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
-            {t(`common.${isBloggerMode ? 'followers' : 'users'}`)}
+            {t(`common.users`)}
           </A1>
         )}
 
@@ -334,6 +329,7 @@ const MainLinks = ({
             {t('common.administration')}
           </A1>
         )}
+        <div css={styles.dividerLinks} />
       </div>
 
       {Boolean(singleCommId) &&
