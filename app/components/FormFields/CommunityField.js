@@ -37,13 +37,21 @@ export const CommunityField = ({
   isCommunityModerator,
   isEditForm,
   isPostAuthor,
+  subcommunityIds,
 }) => {
   if (input) {
     input.value = input.value.toJS ? input.value.toJS() : input.value;
   }
-  const AllThingsWeb3Comm = options.filter(
-    (item) => item.id === DEFAULT_COMMUNITY_ID || item.id === communityId,
-  );
+
+  const communityList = () => {
+    if (isEditForm && isCommunityModerator && !isHasRoleGlobal && !isPostAuthor) {
+      return options.filter((item) => item.id === DEFAULT_COMMUNITY_ID || item.id === communityId);
+    }
+    if (subcommunityIds) {
+      return options.filter((item) => subcommunityIds.includes(item.id));
+    }
+    return options;
+  };
 
   return (
     <Wrapper
@@ -58,14 +66,7 @@ export const CommunityField = ({
         input={input}
         disabled={disabled}
         selectedCommunityId={input.value?.id ?? 0}
-        communities={
-          isEditForm &&
-          isCommunityModerator &&
-          !isHasRoleGlobal &&
-          !isPostAuthor
-            ? AllThingsWeb3Comm
-            : options
-        }
+        communities={communityList()}
         Button={({ communityAvatar, communityLabel }) => (
           <Div
             className="d-flex align-items-center"
@@ -95,6 +96,7 @@ CommunityField.propTypes = {
   disabled: PropTypes.bool,
   splitInHalf: PropTypes.bool,
   options: PropTypes.array,
+  subcommunityIds: PropTypes.array,
 };
 
 export default CommunityField;

@@ -65,13 +65,13 @@ export const getModerators = async (roles) => {
   return [...administrators?.data.userPermissions];
 };
 
-export const getUsersByCommunity = async ({ limit = 50, skip, communityId }) => {
+export const getUsersByCommunity = async ({ limit = 50, skip, communityIds }) => {
   const users = await client.query({
     query: gql(usersByCommunityQuery),
     variables: {
       first: limit,
       skip,
-      communityId,
+      communityIds,
     },
   });
   return users?.data.userCommunityRatings.map((item) => item.user);
@@ -306,7 +306,7 @@ export const getQuestionFromGraph = async (postId) => {
   return post;
 };
 //
-export const postsForSearch = async (text, single) => {
+export const postsForSearch = async (text, communityIds) => {
   const query = text
     .replace(/\s+/g, ' ')
     .trim()
@@ -325,7 +325,8 @@ export const postsForSearch = async (text, single) => {
     },
   });
   return posts?.data?.postSearch.filter(
-    (post) => !post.isDeleted && (single ? Number(post.communityId) === Number(single) : true),
+    (post) =>
+      !post.isDeleted && (communityIds ? communityIds.includes(Number(post.communityId)) : true),
   );
 };
 

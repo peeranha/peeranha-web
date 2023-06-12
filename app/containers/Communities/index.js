@@ -23,7 +23,7 @@ import Header from './Header';
 import { HIDDEN_COMMUNITIES_ID, SUBCOMMUNITIES_ID_ARRAY } from './constants';
 
 const isSingleMode = isSingleCommunityWebsite();
-const singleSubcommunityArray = singleSubcommunity();
+const subcommunityIds = singleSubcommunity();
 
 export const Communities = ({
   locale,
@@ -51,7 +51,7 @@ export const Communities = ({
 
   const notHiddenCommunities = communities.filter((community) =>
     isSingleMode
-      ? singleSubcommunityArray.includes(community.id)
+      ? subcommunityIds.includes(community.id)
       : ![...HIDDEN_COMMUNITIES_ID, ...SUBCOMMUNITIES_ID_ARRAY].includes(community.id),
   );
 

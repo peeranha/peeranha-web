@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import * as routes from 'routes-config';
-import Aside from 'components/ExistingCommunities/Aside';
 import Content from 'components/ExistingCommunities/Content';
 import SubHeader from 'components/ExistingCommunities/SubHeader';
 import sortingOptions from 'components/ExistingCommunities/sortingOptions';
@@ -21,11 +20,11 @@ const Subcommunities: React.FC = (): JSX.Element => {
     <>
       <Communities
         Content={Content}
-        Aside={Aside}
         SubHeader={SubHeader}
         sorting={sorting}
         changeSorting={changeSorting}
         route={routes.communities()}
+        isSubCommunity
       />
     </>
   );

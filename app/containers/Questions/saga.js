@@ -28,7 +28,7 @@ import { getPosts, getPostsByCommunityId } from 'utils/theGraph';
 import { HIDDEN_COMMUNITIES_ID } from '../Communities/constants';
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
-const hasSingleSubcommunity = singleSubcommunity();
+const subcommunityIds = singleSubcommunity();
 export function* getQuestionsWorker({
   limit,
   skip,
@@ -57,9 +57,8 @@ export function* getQuestionsWorker({
     }
     let questionsList = [];
 
-    const isEmptySubcommunityList = Boolean(hasSingleSubcommunity.length);
-    const subcommunityList =
-      isEmptySubcommunityList && !single ? [] : [...hasSingleSubcommunity, single];
+    const isEmptySubcommunityList = Boolean(subcommunityIds.length);
+    const subcommunityList = isEmptySubcommunityList && !single ? [] : [...subcommunityIds, single];
 
     let counter = skip;
 

@@ -8,9 +8,7 @@ import addIcon from 'images/add.svg?external';
 
 import { IconSm } from 'components/Icon/IconWithSizes';
 import TransparentButton from 'components/Button/Contained/Transparent';
-import SubHeaderWrapper, {
-  SubHeaderWrapperRightPanel,
-} from 'components/Header/Complex';
+import SubHeaderWrapper, { SubHeaderWrapperRightPanel } from 'components/Header/Complex';
 
 import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
 import {
@@ -26,6 +24,7 @@ const Header = ({
   sorting,
   communitiesNumber,
   profile,
+  isSubCommunity,
 }) => {
   const { t } = useTranslation();
   const profileWithEditingRights =
@@ -35,7 +34,7 @@ const Header = ({
 
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
-      {profileWithEditingRights && (
+      {profileWithEditingRights && !isSubCommunity && (
         <SubHeaderWrapper position="top">
           <SubHeaderWrapperRightPanel className="right-panel">
             <TransparentButton
@@ -44,22 +43,12 @@ const Header = ({
               className="d-flex align-items-center"
             >
               <span>
-                <img
-                  className="d-none d-sm-inline-block"
-                  src={createCommunityIcon}
-                  alt="icon"
-                />
+                <img className="d-none d-sm-inline-block" src={createCommunityIcon} alt="icon" />
 
-                <IconSm
-                  className="d-inline-flex d-sm-none"
-                  fill={BORDER_PRIMARY}
-                  icon={addIcon}
-                />
+                <IconSm className="d-inline-flex d-sm-none" fill={BORDER_PRIMARY} icon={addIcon} />
               </span>
 
-              <span className="ml-1 button-label">
-                {t('common.suggestCommunity')}
-              </span>
+              <span className="ml-1 button-label">{t('common.suggestCommunity')}</span>
             </TransparentButton>
           </SubHeaderWrapperRightPanel>
         </SubHeaderWrapper>

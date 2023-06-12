@@ -105,7 +105,7 @@ const CommunitySelector = ({
   }, [communities]);
 
   const toggleOpen = useCallback(() => {
-    if (optionsNumber > 0 && !single && !disabled) {
+    if (optionsNumber > 0 && !disabled) {
       setIsOpen(!isOpen);
     }
   }, [disabled, isOpen, optionsNumber]);

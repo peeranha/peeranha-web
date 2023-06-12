@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleSubcommunity } from 'utils/communityManagement';
 
-import {
-  requiredForObjectField,
-  requiredMinReputation,
-} from 'components/FormFields/validate';
+import { requiredForObjectField, requiredMinReputation } from 'components/FormFields/validate';
 import CommunityField from 'components/FormFields/CommunityField';
 
 import { FORM_COMMUNITY, FORM_TAGS } from './constants';
 
 const single = isSingleCommunityWebsite();
+const subcommunityIds = singleSubcommunity();
 
 const CommunityForm = ({
   communities,
@@ -31,7 +29,7 @@ const CommunityForm = ({
 
   return (
     <Field
-      className={single ? 'd-none' : ''}
+      className={single && !subcommunityIds ? 'd-none' : ''}
       name={FORM_COMMUNITY}
       component={CommunityField}
       onChange={onChange}
@@ -47,6 +45,7 @@ const CommunityForm = ({
       isCommunityModerator={isCommunityModerator}
       isEditForm={isEditForm}
       isPostAuthor={isPostAuthor}
+      subcommunityIds={subcommunityIds}
     />
   );
 };
