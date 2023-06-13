@@ -79,6 +79,12 @@ const user = `
   avatar
   creationTime
   achievements { id }
+  usercommunity {
+    communityId
+  }
+  userpermission {
+    permission
+  }
 `;
 
 const userMesh = editUserQuery(user);
@@ -238,7 +244,13 @@ const postMesh = `
     where: { isDeleted: "0" },
   ) {
     ${commentMesh}
-  }`;
+  }
+  posttranslation {
+     language
+     title
+     content
+  }
+  `;
 
 const usersQuery = `
       query(
@@ -577,7 +589,7 @@ const tagsQuery = `
         }
       }`;
 
-const tagsQueryMesh = tagsQuery.replace('ID!', 'Int').replace('tags', 'tag');
+const tagsQueryMesh = tagsQuery.replace('ID!', 'String').replace('tags', 'tag');
 
 const tagsByIdsQuery = `
       query(
@@ -850,7 +862,7 @@ const postQuery = `
 
 const postQueryMesh = `
   query (
-    $postId: Int,
+    $postId: String,
   ) {
     post (
       where: { id: $postId, isDeleted: "0" },
@@ -869,7 +881,7 @@ const achievement = `
   lowerValue
   name
   description
-  image  
+  image
 `;
 
 const allAchievementsQuery = `

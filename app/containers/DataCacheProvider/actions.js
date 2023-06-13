@@ -49,12 +49,6 @@ export function getCommunitiesErr(getCommunitiesError) {
   };
 }
 
-export function getTags() {
-  return {
-    type: GET_TAGS,
-  };
-}
-
 export function getCommunityTags(communityId) {
   return {
     type: GET_COMMUNITY_TAGS,

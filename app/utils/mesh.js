@@ -1,5 +1,5 @@
 export async function executeMeshQuery(props) {
-  const response = await fetch(process.env.MESH_QUERY_URL, {
+  const response = await fetch(process.env.QUERY_INDEX_URL, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -12,7 +12,7 @@ export async function executeMeshQuery(props) {
 }
 
 export const getUserDataFromMesh = (item) => {
-  const { userachievement, usercommunityrating, ...user } = item;
+  const { userachievement, usercommunityrating, usercommunity, userpermission, ...user } = item;
   const achievements = userachievement.map(({ achievementId }) => ({
     id: achievementId,
   }));
@@ -20,6 +20,8 @@ export const getUserDataFromMesh = (item) => {
     ...user,
     achievements,
     ratings: usercommunityrating,
+    followedCommunities: usercommunity.map((community) => community.communityId),
+    permissions: userpermission.map((permission) => permission.permission),
   };
 };
 
@@ -42,7 +44,14 @@ const getReplyDataFromMesh = (item, postComments) => {
 };
 
 export const getPostDataFromMesh = (item) => {
-  const { posttag, reply: repliesMesh, comment: commentsMesh, user, ...post } = item;
+  const {
+    posttag,
+    reply: repliesMesh,
+    comment: commentsMesh,
+    user,
+    posttranslation,
+    ...post
+  } = item;
 
   const tags = posttag.map((postTag) => postTag.tag[0]);
   const replies = repliesMesh.map((reply) => getReplyDataFromMesh(reply, commentsMesh));
@@ -56,6 +65,7 @@ export const getPostDataFromMesh = (item) => {
     author: getUserDataFromMesh(user[0]),
     replies,
     comments,
+    translations: posttranslation,
   };
 };
 

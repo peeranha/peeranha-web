@@ -156,8 +156,7 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   let question;
 
   const isQuestionChanged = isItemChanged(CHANGED_POSTS_KEY, questionId);
-  const isQuestionJustCreated = postedAnswerIds.includes(Number(questionId));
-
+  const isQuestionJustCreated = postedAnswerIds.includes(questionId);
   if (user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
     if (question.officialReply) {
@@ -169,20 +168,24 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   } else {
     question = yield call(getQuestionFromGraph, questionId);
     question.commentCount = question.comments.length;
-    question.communityId = Number(question.communityId);
 
     question.author = { ...question.author, user: question.author.id };
 
     if (user) {
-      const statusHistory = yield getStatusHistory(user, questionId, 0, 0, ethereumService);
-
+      const statusHistory = yield getStatusHistory(
+        user,
+        questionId.split('-')[1],
+        0,
+        0,
+        ethereumService,
+      );
       question.votingStatus = votingStatus(Number(statusHistory));
     }
 
     yield all(
       question.answers.map(function* (answer) {
         answer.commentCount = answer.comments.length;
-        answer.id = Number(answer.id.split('-')[1]);
+        answer.id = Number(answer.id.split('-')[3]);
 
         answer.author = { ...answer.author, user: answer.author.id };
 
@@ -196,7 +199,7 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
           const answerStatusHistory = yield call(
             getStatusHistory,
             user,
-            questionId,
+            questionId.split('-')[1],
             answer.id,
             0,
             ethereumService,

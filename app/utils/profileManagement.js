@@ -52,12 +52,13 @@ export async function getProfileInfo(
   let profileInfo;
   let userStats;
 
-  if (isLogin) {
+  if (false) {
     const isUserRegistered = await isUserExists(user, ethereumService);
     if (!isUserRegistered) {
       return;
     }
     profileInfo = await ethereumService.getProfile(user);
+    console.log(profileInfo);
     profileInfo.permissions = await getUserPermissions(user);
     userStats = await getUserStats(user);
     profileInfo.ratings = userStats?.ratings ?? [];
@@ -68,7 +69,7 @@ export async function getProfileInfo(
   } else {
     profileInfo = await getUser(user);
   }
-
+  console.log(profileInfo);
   if (communityIdForRating) {
     const newRating =
       (await ethereumService.getUserDataWithArgs(GET_USER_RATING, [user, communityIdForRating])) ||
@@ -91,14 +92,17 @@ export async function getProfileInfo(
       }));
     }
   }
+  console.log(profileInfo);
 
   profileInfo.highestRating = profileInfo.ratings?.length
     ? profileInfo.ratings?.reduce((max, current) => (max.rating > current.rating ? max : current))
     : 0;
+  console.log(profileInfo);
   profileInfo.user = user;
-
+  console.log(profileInfo);
   let profile;
-  if (isLogin) {
+  console.log(profileInfo);
+  if (false) {
     profile = JSON.parse(await getText(profileInfo.ipfsHash));
     profileInfo.displayName = profile.displayName;
     profileInfo.avatar = profile.avatar;
@@ -106,6 +110,7 @@ export async function getProfileInfo(
   } else {
     profile = profileInfo;
   }
+  console.log(profileInfo);
 
   profileInfo.profile = {
     about: profile.about,
@@ -113,9 +118,12 @@ export async function getProfileInfo(
     location: profile.location,
     position: profile.position,
   };
+  console.log(profileInfo);
+
   profileInfo.id = user;
   profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
   profileInfo.answersGiven = profileInfo.replyCount ?? userStats?.replyCount ?? 0;
+  console.log(profileInfo);
   return profileInfo;
 }
 

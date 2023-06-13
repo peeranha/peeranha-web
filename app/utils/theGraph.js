@@ -278,7 +278,7 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
   }
 
   const query = isMeshService
-    ? queries.PostsByCommunity.Mesh(dataToString(postTypes), dataToString(communityIds))
+    ? queries.PostsByCommunity.Mesh(dataToString(postTypes), communityIds)
     : queries.PostsByCommunity.TheGraph;
 
   const result = await executeQuery(

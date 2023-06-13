@@ -1,10 +1,8 @@
-import JSBI from 'jsbi';
-
-import communitiesConfig, { googleVerificationConfig } from 'communities-config';
+import communitiesConfig from 'communities-config';
 
 import _get from 'lodash/get';
 
-import { getBytes32FromIpfsHash, getFileUrl, getText, saveText } from './ipfs';
+import { getBytes32FromIpfsHash, getFileUrl, saveText } from './ipfs';
 import { getCookie, setCookie } from './cookie';
 import { uploadImg } from './profileManagement';
 
@@ -43,8 +41,10 @@ export const hasCommunitySingleWebsite = (commId) =>
   communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 
 export function getFollowedCommunities(allCommunities, followedCommunities) {
+  console.log(allCommunities);
+  console.log(followedCommunities);
   if (!allCommunities || !followedCommunities) return [];
-  return allCommunities.filter((x) => followedCommunities.includes(+x.id));
+  return allCommunities.filter((x) => followedCommunities.includes(x.id));
 }
 
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
@@ -112,44 +112,10 @@ export const setSingleCommunityDetailsInCookie = (community, id) => {
 };
 
 export const getSingleCommunityDetails = () => ({});
-
-export function getTagScope(communityId) {
-  const charmap = '.12345abcdefghijklmnopqrstuvwxyz';
-  const mask = JSBI.BigInt('0xF800000000000000');
-  const mask64 = JSBI.BigInt('0xFFFFFFFFFFFFFFFF');
-  const zero = JSBI.BigInt(0);
-  const five = JSBI.BigInt(5);
-  let v = JSBI.add(JSBI.BigInt('3774731489195851776'), JSBI.BigInt(communityId));
-
-  let ret = '';
-
-  for (let i = 0; i < 13; i++) {
-    v = JSBI.bitwiseAnd(v, mask64);
-    if (v.toString() === zero.toString()) break;
-    const indx = JSBI.signedRightShift(JSBI.bitwiseAnd(v, mask), JSBI.BigInt(i === 12 ? 60 : 59));
-
-    ret += charmap[indx.toString()];
-    v = JSBI.leftShift(v, five);
-  }
-
-  return ret;
-}
-
-export async function getExistingTags(tags) {
-  await Promise.all(
-    tags.map(async (x) => {
-      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
-      x.description = ipfsDescription.description;
-    }),
-  );
-
-  return tags;
-}
-
 export async function editTag(user, ethereumService, tag, tagId) {
   const ipfsLink = await saveText(JSON.stringify(tag));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, EDIT_TAG, [
+  return ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, EDIT_TAG, [
     user,
     tag.communityId,
     tagId,
@@ -157,30 +123,28 @@ export async function editTag(user, ethereumService, tag, tagId) {
   ]);
 }
 
-const formCommunityObject = (rawCommunity) => {
-  return {
-    ...rawCommunity,
-    avatar: getFileUrl(rawCommunity.avatar),
-    id: +rawCommunity.id,
-    value: +rawCommunity.id,
-    label: rawCommunity.name,
-    postCount: +rawCommunity.postCount,
-    deletedPostCount: +rawCommunity.deletedPostCount,
-    creationTime: +rawCommunity.creationTime,
-    followingUsers: +rawCommunity.followingUsers,
-    replyCount: +rawCommunity.replyCount,
-  };
-};
+const formCommunityObject = (rawCommunity) => ({
+  ...rawCommunity,
+  avatar: getFileUrl(rawCommunity.avatar),
+  id: rawCommunity.id,
+  value: rawCommunity.id,
+  label: rawCommunity.name,
+  postCount: +rawCommunity.postCount,
+  deletedPostCount: +rawCommunity.deletedPostCount,
+  creationTime: +rawCommunity.creationTime,
+  followingUsers: +rawCommunity.followingUsers,
+  replyCount: +rawCommunity.replyCount,
+});
 
-const formattedTags = (tags) => {
+const formattedTags = (tags, commuityId) => {
   const formattedTags = {};
 
   for (let i = 0; i < tags.length; i++) {
-    if (!formattedTags[tags[i].id.split('-')[0]]) {
-      formattedTags[tags[i].id.split('-')[0]] = [tags[i]];
+    if (!formattedTags[commuityId]) {
+      formattedTags[commuityId] = [tags[i]];
       continue;
     }
-    formattedTags[tags[i].id.split('-')[0]] = [...formattedTags[tags[i].id.split('-')[0]], tags[i]];
+    formattedTags[commuityId] = [...formattedTags[commuityId], tags[i]];
   }
   return formattedTags;
 };
@@ -188,41 +152,34 @@ const formattedTags = (tags) => {
 /* eslint no-param-reassign: 0 */
 export const getAllCommunities = async (ethereumService, count) => {
   const communities = await getCommunities(count);
-
-  return communities.map((community) => {
-    return formCommunityObject(community);
-  });
+  return communities.map((community) => formCommunityObject(community));
 };
 
 export const getCommunityWithTags = async (id) => {
   const community = await getCommunityById(id);
-  const tags = (await getTags(community.id)).map((tag) => {
-    return { ...tag, label: tag.name };
-  });
+  const tags = (await getTags(community.id)).map((tag) => ({ ...tag, label: tag.name }));
 
   return [formCommunityObject(community), formattedTags(tags)];
 };
 
-export const getCommunityTags = async (id) => {
-  const tags = (await getTags(id)).map((tag) => {
-    return { ...tag, label: tag.name };
-  });
+export const getCommunityTags = async (commuityId) => {
+  const tags = (await getTags(commuityId)).map((tag) => ({ ...tag, label: tag.name }));
 
-  return formattedTags(tags);
+  return formattedTags(tags, commuityId);
 };
 
 export const getTagsNameByIds = async (ids) => {
   const tags = await getTagsByIds(ids);
-  let TagsNameByIds = {};
+  const TagsNameByIds = {};
   tags.forEach((tag) => (TagsNameByIds[tag.id] = tag.name));
   return TagsNameByIds;
 };
 
-export const getCommunityFromContract = async (ethereumService, id) => {
-  return await ethereumService.getCommunityFromContract(id);
-};
+export const getCommunityFromContract = async (ethereumService, id) =>
+  await ethereumService.getCommunityFromContract(id);
 
 export async function unfollowCommunity(ethereumService, communityIdFilter, account) {
+  console.log(communityIdFilter);
   await ethereumService.sendTransaction(CONTRACT_USER, account, UNFOLLOW_COMMUNITY, [
     account,
     communityIdFilter,
@@ -230,9 +187,10 @@ export async function unfollowCommunity(ethereumService, communityIdFilter, acco
 }
 
 export async function followCommunity(ethereumService, communityIdFilter, account) {
+  console.log(communityIdFilter);
   await ethereumService.sendTransaction(CONTRACT_USER, account, FOLLOW_COMMUNITY, [
     account,
-    communityIdFilter,
+    communityIdFilter.split('-')[1],
   ]);
 }
 

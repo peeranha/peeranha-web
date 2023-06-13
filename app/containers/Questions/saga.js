@@ -61,7 +61,7 @@ export function* getQuestionsWorker({
     if (single) {
       communityIdFilter = single;
     }
-    if (communityIdFilter > 0) {
+    if (communityIdFilter) {
       questionsList = yield call(
         getPostsByCommunityId,
         limit,
@@ -72,7 +72,7 @@ export function* getQuestionsWorker({
       );
     }
 
-    if (communityIdFilter === 0 && parentPage !== feed) {
+    if (!communityIdFilter && parentPage !== feed) {
       questionsList = !hasHiddenCommunities
         ? yield call(getPosts, limit, skip, postTypes)
         : yield call(getPostsByCommunityId, limit, skip, postTypes, notHiddenCommunities, tags);
@@ -80,7 +80,7 @@ export function* getQuestionsWorker({
 
     // Load questions for communities where I am
     if (
-      communityIdFilter === 0 &&
+      !communityIdFilter &&
       parentPage === feed &&
       followedCommunities &&
       followedCommunities.length > 0

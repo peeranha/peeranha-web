@@ -20,6 +20,8 @@ import {
 // todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
+const getActualCommunityId = (communityIdWithNetwork) => communityIdWithNetwork.split('-')[1];
+
 const createPermissionsObject = ({
   role,
   translations,
@@ -141,7 +143,9 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
   }
 
   return Boolean(
-    permissions.find((permission) => BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE)),
+    permissions.find((permission) =>
+      BigNumber.from(permission.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
+    ),
   );
 };
 
@@ -198,14 +202,23 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
   }
 
   return !!permissions.filter(
-    (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
+    (permission) =>
+      permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualCommunityId(communityId)),
   ).length;
 };
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
-  !!permissions.filter(
-    (permission) => permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
-  ).length;
+  !!permissions.filter((permission) => {
+    const networkFromPermission = permission.split('-')[0];
+    const networkFromCommunityId = communityId.split('-')[0];
+    const actualPermission = permission.split('-')[1];
+    const actualCommunityId = communityId.split('-')[1];
+
+    return (
+      actualPermission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, actualCommunityId) &&
+      networkFromPermission === networkFromCommunityId
+    );
+  }).length;
 
 export const hasProtocolAdminRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
@@ -221,7 +234,9 @@ export const hasProtocolAdminRole = (permissionsFromState) => {
   }
 
   return Boolean(
-    permissions.find((permission) => BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE)),
+    permissions.find((permission) =>
+      BigNumber.from(permission.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE),
+    ),
   );
 };
 

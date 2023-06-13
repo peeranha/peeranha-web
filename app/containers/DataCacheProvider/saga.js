@@ -69,15 +69,6 @@ export function* getCommunitiesWorker() {
   }
 }
 
-export function* getTagsWorker() {
-  try {
-    const tags = yield call(getTags);
-    yield put(getTagsSuccess(tags));
-  } catch (err) {
-    yield put(getTagsErr(err));
-  }
-}
-
 export function* getCommunityTagsWorker({ communityId }) {
   try {
     const tags = yield call(getCommunityTags, communityId);
@@ -165,7 +156,6 @@ export function* getUserProfileWorker({ user, getFullProfile, communityIdForRati
 
 export default function* () {
   yield takeLatest(GET_COMMUNITIES, getCommunitiesWorker);
-  yield takeLatest(GET_TAGS, getTagsWorker);
   yield takeLatest(GET_COMMUNITY_TAGS, getCommunityTagsWorker);
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(GET_STAT, getStatWorker);

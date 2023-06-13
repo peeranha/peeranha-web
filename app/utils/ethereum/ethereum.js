@@ -63,8 +63,6 @@ class EthereumService {
   };
 
   initEthereum = async () => {
-    console.log('ffff');
-    // console.log(process.env.POSTLIB_ADDRESS);
     this.provider = ethers.providers.getDefaultProvider(process.env.ETHEREUM_NETWORK);
     this.edgewareProvider = ethers.providers.getDefaultProvider(process.env.EDGEWARE_NETWORK);
     this.providerReads = ethers.providers.getDefaultProvider(process.env.ETHEREUM_NETWORK);
@@ -111,10 +109,7 @@ class EthereumService {
   };
 
   chainCheck = async (chainId) => {
-    console.log('aaa');
     chainId = process.env.EDGEWARE_CHAIN_ID;
-    console.log(this.connectedChain.id);
-    console.log(chainId);
     if (this.connectedChain.id !== `0x${Number(chainId).toString(16)}`) {
       await this.setChain({
         chainId: `0x${Number(chainId).toString(16)}`,

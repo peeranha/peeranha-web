@@ -45,6 +45,7 @@ const CommunitySelector = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const [optionsNumber, options] = useMemo(() => {
+    console.log(followedCommunities);
     // To form options array I need to get 2 groups: communities where I AM and NOT
     const followedFilteredCommunities = getFollowedCommunities(
       communities,
@@ -126,7 +127,7 @@ const CommunitySelector = ({
     [toggleOpen, input, toggle],
   );
 
-  const selectedValue = getFollowedCommunities(communities, [selectedCommunityId])[0];
+  const selectedValue = communities.find((community) => community.id === selectedCommunityId);
 
   const isItArrowed = useMemo(
     () => optionsNumber > 0 && !single && isArrowed,

@@ -4,20 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import {
-  TEXT_SECONDARY,
-  BORDER_SUCCESS,
-  TEXT_SUCCESS,
-  BORDER_SECONDARY,
-} from 'style-constants';
+import { TEXT_SECONDARY, BORDER_SUCCESS, TEXT_SUCCESS, BORDER_SECONDARY } from 'style-constants';
 
 import { getTimeFromDateToNow } from 'utils/datetime';
 
 import communitiesConfig from 'communities-config';
-import {
-  POST_TYPE_ANSWER,
-  POST_TYPE_QUESTION,
-} from 'containers/Profile/constants';
+import { POST_TYPE_ANSWER, POST_TYPE_QUESTION } from 'containers/Profile/constants';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Span from 'components/Span';
@@ -41,14 +33,10 @@ const Rating = Span.extend`
   font-size: 14px;
   border: 1px solid
     ${({ acceptedAnswer, isMyPost, isMyAnswerAccepted }) =>
-      (acceptedAnswer && isMyPost) || isMyAnswerAccepted
-        ? BORDER_SUCCESS
-        : BORDER_SECONDARY};
+      (acceptedAnswer && isMyPost) || isMyAnswerAccepted ? BORDER_SUCCESS : BORDER_SECONDARY};
 
   color: ${({ acceptedAnswer, isMyPost, isMyAnswerAccepted }) =>
-    (acceptedAnswer && isMyPost) || isMyAnswerAccepted
-      ? TEXT_SUCCESS
-      : TEXT_SECONDARY};
+    (acceptedAnswer && isMyPost) || isMyAnswerAccepted ? TEXT_SUCCESS : TEXT_SECONDARY};
   display: inline-block;
   text-align: center;
   border-radius: 3px;
@@ -119,9 +107,7 @@ const Note = ({
 }) => {
   const { t } = useTranslation();
   const LinkStyled = single && single !== communityId ? ADefault : A;
-
-  const answerRouteId =
-    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
 
   const route =
     single && single !== communityId
@@ -132,10 +118,7 @@ const Note = ({
   return (
     <LinkStyled to={route} href={route}>
       <Block>
-        <PostTypeIcon
-          elementType={elementType}
-          isMyAnswerAccepted={isMyAnswerAccepted}
-        />
+        <PostTypeIcon elementType={elementType} isMyAnswerAccepted={isMyAnswerAccepted} />
 
         <Rating
           acceptedAnswer={acceptedAnswer}
@@ -152,12 +135,7 @@ const Note = ({
           <QuestionType locale={locale} postType={postType} />
         </div>
 
-        <PostDate
-          className="d-inline-block"
-          color={TEXT_SECONDARY}
-          fontSize="14"
-          mobileFS="12"
-        >
+        <PostDate className="d-inline-block" color={TEXT_SECONDARY} fontSize="14" mobileFS="12">
           {getTimeFromDateToNow(myPostTime, locale)} {t('common.ago')}
         </PostDate>
       </Block>
@@ -165,13 +143,7 @@ const Note = ({
   );
 };
 
-const QuestionsProfileTab = ({
-  questions,
-  className,
-  loading,
-  locale,
-  userId,
-}) => (
+const QuestionsProfileTab = ({ questions, className, loading, locale, userId }) => (
   <div className={className}>
     <div>
       {questions.map((item) => (

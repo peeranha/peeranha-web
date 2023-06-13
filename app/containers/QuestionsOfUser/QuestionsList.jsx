@@ -91,7 +91,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
 
       <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
         {t('profile.lastAnswer')}{' '}
-        {getFormattedDate(lastAnswer.postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+        {getFormattedDate(lastAnswer?.postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
     </span>
   );
