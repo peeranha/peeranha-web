@@ -1,6 +1,6 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
-import EthereumService from 'utils/ethereum';
+import EthereumService from 'utils/ethereum/ethereum';
 import { ApplicationError } from 'utils/errors';
 
 import {
@@ -11,10 +11,7 @@ import {
 
 import { loginWithWallet } from 'containers/Login/actions';
 
-import {
-  updateAccWorker,
-  isAvailableAction,
-} from 'containers/AccountProvider/saga';
+import { updateAccWorker, isAvailableAction } from 'containers/AccountProvider/saga';
 
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { initEthereumSuccess, initEthereumError } from './actions';
@@ -55,8 +52,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
   const selectedAccount = yield select(makeSelectAccount());
   const permissions = yield select(selectPermissions());
 
-  const isGlobalAdmin =
-    hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
+  const isGlobalAdmin = hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
   const isCommunityAdmin = single && hasCommunityAdminRole(permissions, single);
 
   yield call(
