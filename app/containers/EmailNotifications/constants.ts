@@ -1,31 +1,23 @@
 export const SEND_ANOTHER_CODE = 'app/emailNotifications/SEND_ANOTHER_CODE';
-export const SEND_VERIFICATION_CODE =
-  'app/emailNotifications/SEND_VERIFICATION_CODE';
+export const SEND_VERIFICATION_CODE = 'app/emailNotifications/SEND_VERIFICATION_CODE';
 
 export const SEND_EMAIL = 'app/emailNotifications/SEND_EMAIL';
 export const SEND_EMAIL_SUCCESS = 'app/emailNotifications/SEND_EMAIL_SUCCESS';
 export const SEND_EMAIL_ERROR = 'app/emailNotifications/SEND_EMAIL_ERROR';
 
 export const CONFIRM_EMAIL = 'app/emailNotifications/CONFIRM_EMAIL';
-export const CONFIRM_EMAIL_SUCCESS =
-  'app/emailNotifications/CONFIRM_EMAIL_SUCCESS';
+export const CONFIRM_EMAIL_SUCCESS = 'app/emailNotifications/CONFIRM_EMAIL_SUCCESS';
 export const CONFIRM_EMAIL_ERROR = 'app/emailNotifications/CONFIRM_EMAIL_ERROR';
 
-export const SHOW_CHANGE_EMAIL_MODAL =
-  'app/emailNotifications/SHOW_CHANGE_EMAIL_MODAL';
+export const SHOW_CHANGE_EMAIL_MODAL = 'app/emailNotifications/SHOW_CHANGE_EMAIL_MODAL';
 export const SHOW_CHANGE_EMAIL_MODAL_SUCCESS =
   'app/emailNotifications/SHOW_CHANGE_EMAIL_MODAL_SUCCESS';
-export const SHOW_CHANGE_EMAIL_MODAL_ERROR =
-  'app/emailNotifications/SHOW_CHANGE_EMAIL_MODAL_ERROR';
-export const HIDE_CHANGE_EMAIL_MODAL =
-  'app/emailNotifications/HIDE_CHANGE_EMAIL_MODAL';
+export const SHOW_CHANGE_EMAIL_MODAL_ERROR = 'app/emailNotifications/SHOW_CHANGE_EMAIL_MODAL_ERROR';
+export const HIDE_CHANGE_EMAIL_MODAL = 'app/emailNotifications/HIDE_CHANGE_EMAIL_MODAL';
 export const GET_EMAIL_ADDRESS = 'app/emailNotifications/GET_EMAIL_ADDRESS';
-export const GET_EMAIL_ADDRESS_SUCCESS =
-  'app/emailNotifications/GET_EMAIL_ADDRESS_SUCCESS';
-export const GET_EMAIL_ADDRESS_ERROR =
-  'app/emailNotifications/GET_EMAIL_ADDRESS_ERROR';
-export const UNSUBSCRIBE_EMAIL_ADDRESS =
-  'app/emailNotifications/UNSUBSCRIBE_EMAIL_ADDRESS';
+export const GET_EMAIL_ADDRESS_SUCCESS = 'app/emailNotifications/GET_EMAIL_ADDRESS_SUCCESS';
+export const GET_EMAIL_ADDRESS_ERROR = 'app/emailNotifications/GET_EMAIL_ADDRESS_ERROR';
+export const UNSUBSCRIBE_EMAIL_ADDRESS = 'app/emailNotifications/UNSUBSCRIBE_EMAIL_ADDRESS';
 export const UNSUBSCRIBE_EMAIL_ADDRESS_SUCCESS =
   'app/emailNotifications/UNSUBSCRIBE_EMAIL_ADDRESS_SUCCESS';
 export const UNSUBSCRIBE_EMAIL_ADDRESS_ERROR =

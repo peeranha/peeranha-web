@@ -6,12 +6,7 @@ import letterImg from 'images/letter.svg?inline';
 import TextInputField from 'components/FormFields/TextInputField';
 import { required } from 'components/FormFields/validate';
 
-import {
-  CODE_FIELD,
-  CONFIRM_EMAIL_FORM,
-  EMAIL_FORM,
-  CHECK_EMAIL_IMG_ALT,
-} from './constants';
+import { CODE_FIELD, CONFIRM_EMAIL_FORM, EMAIL_FORM, CHECK_EMAIL_IMG_ALT } from './constants';
 import { styles } from './EmailNotifications.styled';
 import { ConfirmEmailFormProps } from './types';
 
@@ -28,19 +23,23 @@ const ConfirmEmailForm: React.FC<ConfirmEmailFormProps> = ({
   dispatch,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const [incorrectCode, setIncorrectCode] = useState<boolean>(
-    verificationCodeError,
-  );
+  const [incorrectCode, setIncorrectCode] = useState<boolean>(verificationCodeError);
   const [seconds, setSeconds] = useState<number>(0);
   const [timerActive, setTimerActive] = useState<boolean>(false);
   const [currentEmail, setCurrentEmail] = useState<string>('');
 
   useEffect(() => {
+    let timeoutId;
     if (seconds > 0 && timerActive) {
-      setTimeout(setSeconds, 1000, seconds - 1);
+      timeoutId = setTimeout(setSeconds, 1000, seconds - 1);
     } else {
       setTimerActive(false);
     }
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, [seconds, timerActive]);
 
   useEffect(() => {
@@ -56,18 +55,14 @@ const ConfirmEmailForm: React.FC<ConfirmEmailFormProps> = ({
   }, [verificationCodeError]);
 
   useEffect(() => {
-    if (
-      verificationCodeRequest >= 2 &&
-      (!currentEmail || currentEmail === emailAddress)
-    ) {
+    if (verificationCodeRequest >= 2 && (!currentEmail || currentEmail === emailAddress)) {
       setSeconds(60);
       setTimerActive(true);
     }
   }, [verificationCodeRequest]);
 
-  const verificationCodeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => setIncorrectCode(verificationCode === event.target.value);
+  const verificationCodeHandler = (event: React.ChangeEvent<HTMLInputElement>): void =>
+    setIncorrectCode(verificationCode === event.target.value);
 
   const closeModalHandler = (): void => {
     setCurrentEmail(emailAddress);
@@ -85,10 +80,7 @@ const ConfirmEmailForm: React.FC<ConfirmEmailFormProps> = ({
         <button onClick={closeModalHandler}>{t('profile.changeEmail')}</button>
         <div></div>
       </div>
-      <form
-        css={incorrectCode && styles.inputWarning}
-        onSubmit={handleSubmit(confirmEmail)}
-      >
+      <form css={incorrectCode && styles.inputWarning} onSubmit={handleSubmit(confirmEmail)}>
         <Field
           name={CODE_FIELD}
           disabled={confirmEmailProcessing}
@@ -98,26 +90,16 @@ const ConfirmEmailForm: React.FC<ConfirmEmailFormProps> = ({
           warn={required}
           onChange={verificationCodeHandler}
         />
-        {incorrectCode && (
-          <div css={styles.textWarning}>{t('common.incorrectCode')}</div>
-        )}
+        {incorrectCode && <div css={styles.textWarning}>{t('common.incorrectCode')}</div>}
         <span>{t('common.notGetCode')}</span>
         {!seconds ? (
-          <button
-            css={styles.timerButton}
-            onClick={sendAnotherCode}
-            type="button"
-          >
+          <button css={styles.timerButton} onClick={sendAnotherCode} type="button">
             {t('common.sendAnotherCode')}
           </button>
         ) : (
           <span css={styles.timer}>
             <span>{t('common.notGetCodeTimer')}</span>
-            <span>
-              {seconds.toString().length > 1
-                ? `00:${seconds}`
-                : `00:0${seconds}`}
-            </span>
+            <span>{seconds.toString().length > 1 ? `00:${seconds}` : `00:0${seconds}`}</span>
           </span>
         )}
         <button

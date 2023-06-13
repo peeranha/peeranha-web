@@ -61,9 +61,7 @@ const Notifications: React.FC<NotificationsProps> = ({
           <div>
             <div css={styles.emailNotifications}>
               <div>{t('profile.emailNotifications')}</div>
-              <div css={styles.secondaryText}>
-                {t('profile.emailNotificationsText')}
-              </div>
+              <div css={styles.secondaryText}>{t('profile.emailNotificationsText')}</div>
             </div>
           </div>
           <div>
@@ -85,10 +83,7 @@ const Notifications: React.FC<NotificationsProps> = ({
                 </div>
               </div>
             ) : (
-              <form
-                css={styles.form}
-                onSubmit={handleSubmit(showChangeEmailModal)}
-              >
+              <form css={styles.form} onSubmit={handleSubmit(showChangeEmailModal)}>
                 <div>
                   <div css={styles.profileEmail}>{t('profile.email')}</div>
 
@@ -96,12 +91,7 @@ const Notifications: React.FC<NotificationsProps> = ({
                     ref={refInput}
                     name={EMAIL_FIELD}
                     component={TextInputField}
-                    validate={[
-                      validateEmail,
-                      required,
-                      strLength254Max,
-                      checkEmail,
-                    ]}
+                    validate={[validateEmail, required, strLength254Max, checkEmail]}
                     warn={[validateEmail, required, checkEmail]}
                     placeholder={t('profile.email')}
                     emailTo={email}

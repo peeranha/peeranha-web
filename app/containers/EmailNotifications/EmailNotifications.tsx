@@ -36,10 +36,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 import EditIcon from 'icons/Edit';
 import { styles } from './EmailNotifications.styled';
 
-import {
-  EmailNotificationsProps,
-  EmailNotificationsSelectorsProps,
-} from './types';
+import { EmailNotificationsProps, EmailNotificationsSelectorsProps } from './types';
 
 const colors = singleCommunityColors();
 
@@ -60,7 +57,7 @@ const EmailNotifications: React.FC<EmailNotificationsProps> = ({
 }): JSX.Element => {
   const [emailAddress, setEmailAddress] = useState<null | string>(null);
 
-  const clickEmailHandler = (event: React.MouseEvent): void => {
+  const clickEmailHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     setEmailAddress(event.target.form[0].value);
   };
   const clickButtonHandler = useCallback(() => {
@@ -100,11 +97,7 @@ const EmailNotifications: React.FC<EmailNotificationsProps> = ({
         {content === CHANGE_EMAIL_FORM && <ChangeEmailForm />}
       </Modal>
       {!open ? (
-        <button
-          onClick={clickEmailHandler}
-          type="submit"
-          css={styles.confirmButton}
-        >
+        <button onClick={clickEmailHandler} type="submit" css={styles.confirmButton}>
           {t('common.telegram.confirm')}
         </button>
       ) : (
@@ -117,10 +110,7 @@ const EmailNotifications: React.FC<EmailNotificationsProps> = ({
   );
 };
 
-const mapStateToProps = createStructuredSelector<
-  any,
-  EmailNotificationsSelectorsProps
->({
+const mapStateToProps = createStructuredSelector<any, EmailNotificationsSelectorsProps>({
   content: selectors.selectContent(),
   showModal: selectors.selectShowModal(),
   sendEmailProcessing: selectors.selectSendEmailProcessing(),
@@ -135,10 +125,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
     sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
     sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
     confirmEmailDispatch: bindActionCreators(confirmEmail, dispatch),
-    hideChangeEmailModalDispatch: bindActionCreators(
-      hideChangeEmailModal,
-      dispatch,
-    ),
+    hideChangeEmailModalDispatch: bindActionCreators(hideChangeEmailModal, dispatch),
   };
 }
 
