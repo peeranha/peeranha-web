@@ -9,15 +9,11 @@ import { LEFT_MENU_WIDTH } from './constants';
 const colors = singleCommunityColors();
 
 const Main = styled.div`
-  background: ${colors.mainBackground ? colors.mainBackground : 'rgb(234, 236, 244)'};
+  background: ${colors.mainBackground || 'rgb(234, 236, 244)'};
   min-height: 100vh;
   padding-top: ${(x) => {
     if (x.isMenuVisible) {
       return 0;
-    }
-
-    if (x.transactionInitialised) {
-      return HEADER_HEIGHT + LOADER_HEIGHT;
     }
 
     return HEADER_HEIGHT;
@@ -28,10 +24,6 @@ const Main = styled.div`
     padding-top: ${(x) => {
       if (x.isMenuVisible) {
         return 0;
-      }
-
-      if (x.transactionInitialised) {
-        return MOBILE_HEADER_HEIGHT + LOADER_HEIGHT;
       }
 
       return MOBILE_HEADER_HEIGHT;
