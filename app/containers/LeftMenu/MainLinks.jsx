@@ -307,7 +307,7 @@ const MainLinks = ({
           </A1>
         )}
 
-        {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
+        {(hasGlobalModeratorRole() || hasProtocolAdminRole() || isModeratorModeSingleCommunity) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
             {t(`common.users`)}
