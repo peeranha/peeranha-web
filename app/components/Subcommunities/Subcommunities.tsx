@@ -17,16 +17,14 @@ const Subcommunities: React.FC = (): JSX.Element => {
   );
 
   return (
-    <>
-      <Communities
-        Content={Content}
-        SubHeader={SubHeader}
-        sorting={sorting}
-        changeSorting={changeSorting}
-        route={routes.communities()}
-        isSubCommunity
-      />
-    </>
+    <Communities
+      Content={Content}
+      SubHeader={SubHeader}
+      sorting={sorting}
+      changeSorting={changeSorting}
+      route={routes.communities()}
+      isSubCommunity
+    />
   );
 };
 

@@ -20,7 +20,7 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Seo from 'components/Seo';
 
 import Header from './Header';
-import { HIDDEN_COMMUNITIES_ID, SUBCOMMUNITIES_ID_ARRAY } from './constants';
+import { HIDDEN_COMMUNITIES_ID, SUBCOMMUNITY_IDS_ARRAY } from './constants';
 
 const isSingleMode = isSingleCommunityWebsite();
 const subcommunityIds = singleSubcommunity();
@@ -52,7 +52,7 @@ export const Communities = ({
   const notHiddenCommunities = communities.filter((community) =>
     isSingleMode
       ? subcommunityIds.includes(community.id)
-      : ![...HIDDEN_COMMUNITIES_ID, ...SUBCOMMUNITIES_ID_ARRAY].includes(community.id),
+      : ![...HIDDEN_COMMUNITIES_ID, ...SUBCOMMUNITY_IDS_ARRAY].includes(community.id),
   );
 
   return (

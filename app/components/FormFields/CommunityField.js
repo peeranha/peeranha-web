@@ -48,7 +48,8 @@ export const CommunityField = ({
       return options.filter((item) => item.id === DEFAULT_COMMUNITY_ID || item.id === communityId);
     }
     if (subcommunityIds) {
-      return options.filter((item) => subcommunityIds.includes(item.id));
+      const subcommunityList = [communityId, ...subcommunityIds];
+      return options.filter((item) => subcommunityList.includes(item.id));
     }
     return options;
   };
