@@ -17,17 +17,16 @@ import injectReducer from 'utils/injectReducer';
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
 import bellIcon from 'images/Notifications_Disabled.svg?external';
+
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
 import { IconXl } from 'components/Icon/IconWithSizes';
-
 import saga from 'components/Notifications/saga';
-
 import reducer from 'components/Notifications/reducer';
-
 import {
   selectReadNotificationsUnread,
   selectUnreadNotificationsLoading,
 } from 'components/Notifications/selectors';
-
 import {
   loadMoreUnreadNotifications,
   markAsReadNotificationsUnread,
@@ -35,7 +34,13 @@ import {
 
 import Notification from './Notification';
 
-import { HEADER_AND_FOOTER_HEIGHT, MENU_HEIGHT, THRESHOLD } from '../constants';
+import {
+  HEADER_AND_FOOTER_HEIGHT,
+  MENU_HEIGHT,
+  THRESHOLD,
+  ROW_HEIGHT_DROPDOWN_SMALL,
+} from '../constants';
+import { NOTIFICATIONS_TYPES } from 'components/Notifications/constants';
 
 const Container = styled.div`
   width: 100%;
@@ -63,6 +68,7 @@ const Content = ({
   rowHeight,
   loading,
   notifications,
+  communities,
   readNotifications,
   markAsReadNotificationsUnreadDispatch,
   loadMoreUnreadNotificationsDispatch,
@@ -131,6 +137,7 @@ const Content = ({
       key={key}
       top={top}
       height={rowHeight}
+      communities={communities}
       notificationsNumber={notifications.length}
       paddingHorizontal="15"
       {...notifications[index]}
@@ -152,20 +159,31 @@ const Content = ({
         </>
       ) : (
         <AutoSizer onResize={onResize}>
-          {({ height, width }) => (
-            <List
-              ref={listRef}
-              width={width || 100}
-              height={height}
-              rowHeight={rowHeight}
-              onScroll={onScroll}
-              overscanRowCount={5}
-              rowRenderer={rowRenderer}
-              rowCount={notifications.length}
-              onRowsRendered={onRowsRendered}
-              style={{ outline: 'none' }}
-            />
-          )}
+          {({ height, width }) => {
+            const rowHeightSize = ({ index }) => {
+              const { type } = notifications[index];
+              const isChangedType = [
+                NOTIFICATIONS_TYPES.postTypeChanged,
+                NOTIFICATIONS_TYPES.communityChanged,
+              ].includes(type);
+
+              return isChangedType ? rowHeight : ROW_HEIGHT_DROPDOWN_SMALL;
+            };
+            return (
+              <List
+                ref={listRef}
+                width={width || 100}
+                height={height}
+                rowHeight={rowHeightSize}
+                onScroll={onScroll}
+                overscanRowCount={5}
+                rowRenderer={rowRenderer}
+                rowCount={notifications.length}
+                onRowsRendered={onRowsRendered}
+                style={{ outline: 'none' }}
+              />
+            );
+          }}
         </AutoSizer>
       )}
     </Container>
@@ -189,6 +207,7 @@ export default memo(
       (state) => ({
         loading: selectUnreadNotificationsLoading()(state),
         readNotifications: selectReadNotificationsUnread()(state),
+        communities: selectCommunities()(state),
       }),
       (dispatch) => ({
         markAsReadNotificationsUnreadDispatch: bindActionCreators(

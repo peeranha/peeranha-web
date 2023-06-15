@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { hasCommunitySingleWebsite } from 'utils/communityManagement';
 import * as routes from '../../routes-config';
 import BaseRoundedNoPadding from '../Base/BaseRoundedNoPadding';
 import MediumImage from '../Img/MediumImage';
@@ -18,7 +19,7 @@ const CommunityItemWithRating = ({ communities, single, communityId, rating, loc
   const { t } = useTranslation();
   const [route, setRoute] = useState(() => routes.questions(communityId));
   const Link = single && communityId !== single ? ADefaultStyled : AStyled;
-
+  const communityWebsite = hasCommunitySingleWebsite(communityId);
   useEffect(() => {
     if (single && communityId !== single) {
       setRoute(`${process.env.APP_LOCATION}${route}`);
@@ -36,7 +37,7 @@ const CommunityItemWithRating = ({ communities, single, communityId, rating, loc
 
   return (
     <BaseRoundedNoPadding>
-      <Link href={route} to={route}>
+      <Link href={communityWebsite || route}>
         <FrontSide>
           {community && (
             <div>

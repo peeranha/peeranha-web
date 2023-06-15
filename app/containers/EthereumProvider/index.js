@@ -29,15 +29,16 @@ import {
   transactionFailed,
   transactionInPending,
   transactionInitialised,
+  setTransactionList,
 } from './actions';
-import { MATIC, POLYGON, POLYGON_TESTNET, POSITION_BOTTOM_RIGHT, PROD_ENV } from './constants';
+import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
 const injected = injectedModule();
 const coinbase = coinbaseModule();
 const walletConnect = walletConnectModule();
 const torus = torusModule({
-  buttonPosition: POSITION_BOTTOM_RIGHT,
+  showTorusButton: false,
   network: {
     host: process.env.ETHEREUM_NETWORK,
     chainId: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
@@ -95,6 +96,7 @@ export const EthereumProvider = ({
   transactionInPendingDispatch,
   transactionCompletedDispatch,
   waitForConfirmDispatch,
+  setTransactionListDispatch,
   transactionFailedDispatch,
   initializing,
   ethereum,
@@ -150,7 +152,7 @@ export const EthereumProvider = ({
         connectedChain,
       });
     }
-  }, [wallet, connectedWallets, web3Onboard]);
+  }, [wallet, connectedWallets, web3Onboard, ethereum]);
 
   const sendProps = {
     connect,
@@ -164,6 +166,7 @@ export const EthereumProvider = ({
     transactionFailedDispatch,
     waitForConfirmDispatch,
     addToast,
+    setTransactionListDispatch,
   };
 
   useEffect(() => {
@@ -206,6 +209,7 @@ const withConnect = connect(
     transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
     waitForConfirmDispatch: bindActionCreators(transactionInitialised, dispatch),
     addToast: bindActionCreators(addToast, dispatch),
+    setTransactionListDispatch: bindActionCreators(setTransactionList, dispatch),
   }),
 );
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { hasCommunitySingleWebsite } from 'utils/communityManagement';
 import * as routes from '../../routes-config';
 import BaseRoundedNoPadding from '../Base/BaseRoundedNoPadding';
 import MediumImage from '../Img/MediumImage';
@@ -14,19 +15,11 @@ import ADefaultStyled from './ADefaultStyled';
 import FrontSide from './FrontSide';
 import BackSide from './BackSide';
 
-const CommunityItem = ({
-  single,
-  id,
-  followingUsers,
-  avatar,
-  name,
-  postCount,
-  description,
-}) => {
+const CommunityItem = ({ single, id, followingUsers, avatar, name, postCount, description }) => {
   const { t } = useTranslation();
   const [route, setRoute] = useState(() => routes.questions(id));
   const Link = single && id !== single ? ADefaultStyled : AStyled;
-
+  const communityWebsite = hasCommunitySingleWebsite(id);
   useEffect(() => {
     if (single && id !== single) {
       setRoute(`${process.env.APP_LOCATION}${route}`);
@@ -38,7 +31,7 @@ const CommunityItem = ({
   }, [single, id]);
   return (
     <BaseRoundedNoPadding>
-      <Link href={route} to={route}>
+      <Link href={communityWebsite || route}>
         <FrontSide>
           <div>
             <MediumImage src={avatar} alt="comm_img" />
