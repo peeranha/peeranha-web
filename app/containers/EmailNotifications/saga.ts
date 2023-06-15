@@ -82,7 +82,6 @@ export function* sendAnotherCode(): Generator<any> {
 
 export function* sendAnotherCodeSuccess() {
   yield put(sendVerificationCodeSuccess());
-  yield call(successHandling);
 }
 
 export function* confirmEmailWorker(action: ActionResult<codeProps>): Generator<any> {

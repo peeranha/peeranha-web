@@ -35,8 +35,5 @@ export const styles: Record<string, CSSObject> = {
     ':hover': {
       boxShadow: '5px 5px 5px rgba(40, 40, 40, 0.1)',
     },
-    '@media (max-width: 991px)': {
-      height: '150px',
-    },
   },
 };
