@@ -1,5 +1,4 @@
-import { isSingleCommunityWebsite, getSingleCommunityDetails } from 'utils/communityManagement';
-import { REFERRAL_CODE_URI } from './containers/App/constants';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { POST_TYPE } from './utils/constants';
 import { updateTitle } from './utils/seo';
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
@@ -7,7 +6,6 @@ import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 const userRedirect = (where) => (id) => `/users/${id}${where}`;
 
 const singleCommId = isSingleCommunityWebsite();
-const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
 export const home = () => (singleCommId ? `/about` : `/`);
 
@@ -28,20 +26,23 @@ export const userWallet = userRedirect('/wallet');
 export const userBoost = userRedirect('/boost');
 export const uniqueAnswerId = (answerId) => `ans${answerId}`;
 
-export const questions = (communityId) =>
-  !communityId
-    ? `${!isBloggerMode ? '/discussions' : '/discussions'}`
-    : `/discussions/community/${communityId}/`;
+export const questions = (communityId, paginationPage = 1) => {
+  const paginationRoute = paginationPage > 1 ? `?page=${paginationPage}` : '';
+  const communityRoute = communityId ? `/community/${communityId}` : '';
+  return `/discussions${communityRoute}${paginationRoute}`;
+};
 
-export const expertPosts = (communityId) =>
-  !communityId
-    ? `${!isBloggerMode ? '/experts' : '/experts'}`
-    : `/experts/community/${communityId}/`;
+export const expertPosts = (communityId, paginationPage = 1) => {
+  const paginationRoute = paginationPage > 1 ? `?page=${paginationPage}` : '';
+  const communityRoute = communityId ? `/community/${communityId}` : '';
+  return `/experts${communityRoute}${paginationRoute}`;
+};
 
-export const tutorials = (communityId) =>
-  !communityId
-    ? `${!isBloggerMode ? '/tutorials' : '/experts'}`
-    : `/tutorials/community/${communityId}/`;
+export const tutorials = (communityId, paginationPage = 1) => {
+  const paginationRoute = paginationPage > 1 ? `?page=${paginationPage}` : '';
+  const communityRoute = communityId ? `/community/${communityId}` : '';
+  return `/tutorials${communityRoute}${paginationRoute}`;
+};
 
 export const questionView = (id, title, answerId, isOldURL) => {
   const updatedTitle = updateTitle(title);
@@ -94,7 +95,7 @@ export const answerEdit = (questionId, answerId) =>
     ? `/discussions/${questionId}/answers/${answerId}/edit`
     : `/${questionId}/answers/${answerId}/edit`;
 
-export const questionAsk = () => (!singleCommId ? `/discussions/ask` : `/ask`);
+export const questionAsk = () => '/ask';
 
 export const documentationCreate = (parentId) =>
   parentId ? `/documentation/${parentId}/create` : `/documentation/create`;
@@ -105,12 +106,13 @@ export const noAccess = () => `/no-access`;
 
 export const detailsHomePage = () => '/';
 
-export const feed = (communityId) =>
-  !singleCommId
-    ? `/feed${communityId ? `/${communityId}` : ''}`
-    : `/${communityId ? `feed/${communityId}` : 'feed'}`;
+export const feed = (communityId, paginationPage = 1) => {
+  const paginationRoute = paginationPage > 1 ? `?page=${paginationPage}` : '';
+  const communityRoute = communityId ? `/${communityId}` : '';
+  return `/feed${communityRoute}${paginationRoute}`;
+};
 
-export const communities = () => (!isBloggerMode ? `/communities` : `/`);
+export const communities = () => `/communities`;
 
 export const users = () => '/users';
 
@@ -128,16 +130,11 @@ export const termsAndConditions = (section) =>
   `/terms-and-conditions/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
-export const communitiesEdit = (communityId) =>
-  !isBloggerMode ? `/communities/${communityId}/edit` : `/${communityId}/edit`;
+export const communitiesEdit = (communityId) => `/communities/${communityId}/edit`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
-export const suggestedCommunities = () => `/communities/suggested`;
 
 export const communityTags = (communityId) =>
   !singleCommId ? `/communities/${communityId}/tags` : `/tags`;
-
-export const suggestedTags = (communityId) =>
-  !singleCommId ? `/communities/${communityId}/tags/suggested` : `/tags/suggested`;
 
 export const tagsCreate = (communityId) =>
   !singleCommId ? `/tags/community/${communityId || 0}/create` : `/tags/create`;
@@ -148,8 +145,6 @@ export const editTag = (communityId, tagId) =>
 export const registrationStage = 'signup';
 
 export const preloaderPage = () => '/preloader-page';
-
-export const referralPage = (user) => `/?${REFERRAL_CODE_URI}=${user}`;
 
 export const documentation = (sectionId, title) =>
   `/documentation/${sectionId}/${updateTitle(title)}`;
@@ -170,21 +165,6 @@ export const signup = {
   emailVerification: {
     step: 2,
     name: `/${registrationStage}/email-verification`,
-    scatter: false,
-  },
-  accountSetup: {
-    step: 3,
-    name: `/${registrationStage}/account-setup`,
-    scatter: false,
-  },
-  almostDoneWithAccount: {
-    step: 4,
-    name: `/${registrationStage}/account/almost-done`,
-    scatter: false,
-  },
-  almostDoneNoAccount: {
-    step: 4,
-    name: `/${registrationStage}/almost-done`,
     scatter: false,
   },
 };

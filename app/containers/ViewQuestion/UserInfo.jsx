@@ -66,23 +66,13 @@ export const UserInfo = ({
   <A to={routes.profileView(account)} className="d-flex flex-shrink-0">
     {type !== COMMENT_TYPE && (
       <MediumImageWrapper>
-        <MediumImage
-          className="mr-2"
-          isBordered
-          src={avatar || noAvatar}
-          alt="avatar"
-        />
+        <MediumImage className="mr-2" isBordered src={avatar || noAvatar} alt="avatar" />
       </MediumImageWrapper>
     )}
 
     <Block type={type}>
       <span className={`d-flex align-items-center ${isComment ? '' : 'mr-2'}`}>
-        <Span
-          className="mr-2"
-          fontSize="14"
-          lineHeight="18"
-          textOverflow="ellipsis"
-        >
+        <Span className="mr-2" fontSize="14" lineHeight="18" textOverflow="ellipsis">
           {name}
         </Span>
         <RatingStatus

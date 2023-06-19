@@ -22,8 +22,8 @@ import { makeSelectToasts } from './selectors';
 
 import { errHandlingTypes, otherTypes } from './imports';
 import errorMessages from 'errorsByCode';
-import { TRANSACTION_COMPLETED, TRANSACTION_FAILED } from '../EthereumProvider/constants';
 import errorsByCode from 'errorsByCode';
+import { TRANSACTION_COMPLETED, TRANSACTION_FAILED } from '../EthereumProvider/constants';
 
 export function* errHandling(error = {}) {
   try {

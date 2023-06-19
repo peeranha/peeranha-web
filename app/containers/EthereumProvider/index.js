@@ -29,14 +29,21 @@ import {
   transactionFailed,
   transactionInPending,
   transactionInitialised,
+  setTransactionList,
 } from './actions';
-import communitiesConfig from '../../communities-config';
+import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
+const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
 const injected = injectedModule();
 const coinbase = coinbaseModule();
 const walletConnect = walletConnectModule();
 const torus = torusModule({
-  buttonPosition: 'bottom-right',
+  showTorusButton: false,
+  network: {
+    host: process.env.ETHEREUM_NETWORK,
+    chainId: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
+    networkName: networkLabel,
+  },
 });
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -48,8 +55,8 @@ const initWeb3Onboard = init({
   chains: [
     {
       id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
-      token: 'MATIC',
-      label: 'Polygon',
+      token: MATIC,
+      label: networkLabel,
       rpcUrl: process.env.ETHEREUM_NETWORK,
     },
   ],
@@ -89,6 +96,7 @@ export const EthereumProvider = ({
   transactionInPendingDispatch,
   transactionCompletedDispatch,
   waitForConfirmDispatch,
+  setTransactionListDispatch,
   transactionFailedDispatch,
   initializing,
   ethereum,
@@ -144,7 +152,7 @@ export const EthereumProvider = ({
         connectedChain,
       });
     }
-  }, [wallet, connectedWallets, web3Onboard]);
+  }, [wallet, connectedWallets, web3Onboard, ethereum]);
 
   const sendProps = {
     connect,
@@ -158,6 +166,7 @@ export const EthereumProvider = ({
     transactionFailedDispatch,
     waitForConfirmDispatch,
     addToast,
+    setTransactionListDispatch,
   };
 
   useEffect(() => {
@@ -200,6 +209,7 @@ const withConnect = connect(
     transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
     waitForConfirmDispatch: bindActionCreators(transactionInitialised, dispatch),
     addToast: bindActionCreators(addToast, dispatch),
+    setTransactionListDispatch: bindActionCreators(setTransactionList, dispatch),
   }),
 );
 

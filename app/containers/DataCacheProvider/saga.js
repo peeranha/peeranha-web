@@ -12,18 +12,9 @@ import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
 import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
-import {
-  FINISH_REGISTRATION_SUCCESS,
-  LOGIN_WITH_EMAIL,
-  LOGIN_WITH_WALLET,
-} from 'containers/Login/constants';
+import { LOGIN_WITH_WALLET } from 'containers/Login/constants';
 
-import { SIGNUP_WITH_WALLET_SUCCESS } from 'containers/SignUp/constants';
-
-import {
-  selectStat,
-  selectUsers,
-} from 'containers/DataCacheProvider/selectors';
+import { selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import {
   getCommunities,
@@ -70,11 +61,7 @@ export function* getCommunitiesWorker() {
   try {
     const ethereumService = yield select(selectEthereum);
     const stat = yield select(selectStat());
-    const communities = yield call(
-      getAllCommunities,
-      ethereumService,
-      stat.communitiesCount,
-    );
+    const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
 
     yield put(getCommunitiesSuccess(communities));
   } catch (err) {
@@ -123,11 +110,7 @@ export function* getTutorialWorker() {
 }
 
 /* eslint consistent-return: 0 */
-export function* getUserProfileWorker({
-  user,
-  getFullProfile,
-  communityIdForRating,
-}) {
+export function* getUserProfileWorker({ user, getFullProfile, communityIdForRating }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
@@ -167,9 +150,7 @@ export function* getUserProfileWorker({
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||
-      (updatedUserInfo &&
-        cachedUserInfo &&
-        getHash(updatedUserInfo) !== getHash(cachedUserInfo))
+      (updatedUserInfo && cachedUserInfo && getHash(updatedUserInfo) !== getHash(cachedUserInfo))
     ) {
       yield put(getUserProfileSuccess({ ...updatedUserInfo }));
     }
@@ -187,14 +168,11 @@ export default function* () {
   yield takeLatest(GET_TAGS, getTagsWorker);
   yield takeLatest(GET_COMMUNITY_TAGS, getCommunityTagsWorker);
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
-  yield takeLatest(
-    [GET_STAT, FINISH_REGISTRATION_SUCCESS, SIGNUP_WITH_WALLET_SUCCESS],
-    getStatWorker,
-  );
+  yield takeLatest(GET_STAT, getStatWorker);
   yield takeLatest(GET_FAQ, getFaqWorker);
   yield takeLatest(GET_TUTORIAL, getTutorialWorker);
   yield takeLatest(
-    [LOGOUT_SUCCESS, LOGIN_WITH_WALLET, LOGIN_WITH_EMAIL, SAVE_PROFILE_SUCCESS],
+    [LOGOUT_SUCCESS, LOGIN_WITH_WALLET, SAVE_PROFILE_SUCCESS],
     updateStoredQuestionsWorker,
   );
 }

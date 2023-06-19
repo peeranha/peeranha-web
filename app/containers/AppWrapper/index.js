@@ -1,3 +1,4 @@
+import TransactionsList from 'containers/TransactionsList';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -47,6 +48,7 @@ const Box = ({
   return (
     <>
       <Header />
+      <TransactionsList />
 
       <Main isMenuVisible={isMenuVisible} transactionInitialised={transactionInitialised}>
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
@@ -61,8 +63,16 @@ const Box = ({
           </div>
         </div>
       </Main>
-
-      <Footer />
+      <div
+        css={{
+          display: 'block',
+          '@media (max-width: 991px)': {
+            display: 'none',
+          },
+        }}
+      >
+        <Footer />
+      </div>
     </>
   );
 };
@@ -74,6 +84,7 @@ Box.propTypes = {
   isMenuVisible: PropTypes.bool,
   showLeftMenuDispatch: PropTypes.func,
   hideLeftMenuDispatch: PropTypes.func,
+  getDocumentationMenuDispatch: PropTypes.func,
 };
 
 const WrapperConnection = compose(

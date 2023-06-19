@@ -12,17 +12,13 @@ import {
 } from 'utils/properties';
 import { strLength15x30000, required } from 'components/FormFields/validate';
 
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { useTranslation } from 'react-i18next';
 
 import Checkbox from 'components/Input/Checkbox';
 import TextEditorField from 'components/FormFields/TextEditorField';
 import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
-import BlockedInfoArea from 'components/BlockedInfoArea';
 
 import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
 
@@ -49,22 +45,11 @@ export const AnswerForm = ({
   isOfficialRepresentative,
   isAnswered,
   account,
-  isMinusReputation,
-  isHasRole,
 }) => {
   const { t } = useTranslation();
 
   return (
     <FormBox onSubmit={handleSubmit(sendAnswer)}>
-      {isAnswered && (
-        <BlockedInfoArea>{t('common.questionIsAnswered')}</BlockedInfoArea>
-      )}
-      {!account && (
-        <BlockedInfoArea>{t('common.logInToAnswer')}</BlockedInfoArea>
-      )}
-      {isMinusReputation && !isHasRole && (
-        <BlockedInfoArea>{t('common.reputationBelowZero')}</BlockedInfoArea>
-      )}
       <Field
         name={TEXT_EDITOR_ANSWER_FORM}
         component={TextEditorField}
@@ -119,32 +104,24 @@ const FormClone = reduxForm({
 })(AnswerForm);
 
 export default React.memo(
-  connect(
-    (
-      state,
-      { answer, communityId, questionView, isOfficialReply, form: formName },
-    ) => {
-      const form = state.toJS().form[formName] || { values: {} };
-      const profileInfo = makeSelectProfileInfo()(state);
-      const isOfficialRepresentative =
-        hasProtocolAdminRole(profileInfo?.permissions) ||
-        hasCommunityModeratorRole(profileInfo?.permissions, communityId || 0) ||
-        (Boolean(communityId) &&
-          hasCommunityAdminRole(profileInfo?.permissions, communityId));
-      const account = makeSelectAccount()(state);
+  connect((state, { answer, communityId, questionView, isOfficialReply, form: formName }) => {
+    const form = state.toJS().form[formName] || { values: {} };
+    const profileInfo = makeSelectProfileInfo()(state);
+    const isOfficialRepresentative =
+      hasProtocolAdminRole(profileInfo?.permissions) ||
+      hasCommunityModeratorRole(profileInfo?.permissions, communityId || 0) ||
+      (Boolean(communityId) && hasCommunityAdminRole(profileInfo?.permissions, communityId));
+    const account = makeSelectAccount()(state);
 
-      return {
-        account,
-        enableReinitialize: true,
-        isOfficialRepresentative,
-        textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
-        initialValues: {
-          [TEXT_EDITOR_ANSWER_FORM]: answer,
-          [ANSWER_TYPE_FORM]: questionView
-            ? isOfficialRepresentative
-            : isOfficialReply,
-        },
-      };
-    },
-  )(FormClone),
+    return {
+      account,
+      enableReinitialize: true,
+      isOfficialRepresentative,
+      textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
+      initialValues: {
+        [TEXT_EDITOR_ANSWER_FORM]: answer,
+        [ANSWER_TYPE_FORM]: questionView ? isOfficialRepresentative : isOfficialReply,
+      },
+    };
+  })(FormClone),
 );

@@ -29,7 +29,6 @@ export const initialState = fromJS({
   authToken: null,
   passwordUserPart: null,
   encryptedKeys: null,
-  hasOwnerEosKey: false,
   loginWithMetaMask: false,
 });
 
@@ -47,7 +46,6 @@ function accountProviderReducer(state = initialState, action) {
     authToken,
     passwordUserPart,
     encryptedKeys,
-    hasOwnerEosKey,
     loginWithMetaMask,
   } = action;
 
@@ -60,19 +58,13 @@ function accountProviderReducer(state = initialState, action) {
         .set('lastUpdate', Date.now())
         .set('account', account || initialState.get('account'))
         .set('balance', balance || initialState.get('balance'))
-        .set(
-          'availableBalance',
-          availableBalance || initialState.get('availableBalance'),
-        )
+        .set('availableBalance', availableBalance || initialState.get('availableBalance'))
         .set('boost', boost || initialState.get('boost'))
         .set(
           'stakedInCurrentPeriod',
           stakedInCurrentPeriod || initialState.get('stakedInCurrentPeriod'),
         )
-        .set(
-          'stakedInNextPeriod',
-          stakedInNextPeriod || initialState.get('stakedInNextPeriod'),
-        );
+        .set('stakedInNextPeriod', stakedInNextPeriod || initialState.get('stakedInNextPeriod'));
     case GET_CURRENT_ACCOUNT_ERROR:
       return state.set('loading', false).set('error', err);
 
@@ -83,7 +75,6 @@ function accountProviderReducer(state = initialState, action) {
         .set('account', account || state.get('account'))
         .set('passwordUserPart', passwordUserPart)
         .set('encryptedKeys', encryptedKeys)
-        .set('hasOwnerEosKey', hasOwnerEosKey)
         .set('loginWithMetaMask', loginWithMetaMask);
     case REMOVE_LOGIN_DATA:
       return state
@@ -91,7 +82,6 @@ function accountProviderReducer(state = initialState, action) {
         .set('authToken', null)
         .set('passwordUserPart', null)
         .set('encryptedKeys', null)
-        .set('hasOwnerEosKey', null)
         .set('loginWithMetaMask', null);
 
     case CHANGE_STAKED_IN_NEXT_PERIOD:

@@ -15,10 +15,13 @@ import { TEXT_SECONDARY } from 'style-constants';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { customRatingIconColors } from 'constants/customRating';
 import { getUserName } from 'utils/user';
+import { isBotAddress } from 'utils/properties';
+import { t } from 'i18next';
+import { messengerData } from 'containers/ViewQuestion/BotInfo';
 
 export const AuthorName = Span.extend`
   width: max-content;
-  min-width: 55px;
+  min-width: min-content;
   padding-right: 8px;
   white-space: nowrap;
   overflow: hidden;
@@ -26,33 +29,29 @@ export const AuthorName = Span.extend`
 `;
 const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
   <p className="mb-3">
-    <A
-      to={routes.profileView(author.id)}
-      className="d-inline-flex align-items-center"
-    >
+    <A to={routes.profileView(author.id)} className="d-inline-flex align-items-center">
       {!isSearchPage && (
         <>
-          <AuthorName
-            fontSize="14"
-            title={getUserName(author.displayName, author.id)}
-          >
-            {getUserName(author.displayName, author.id)}
+          <AuthorName fontSize="14">
+            {isBotAddress(author)
+              ? t('post.botCreate', { bot: messengerData[author.messengerType].name })
+              : getUserName(author.displayName, author.id)}
           </AuthorName>
-          <RatingStatus
-            rating={getRatingByCommunity(author, communityId)}
-            size="sm"
-            isRankOff
-            customRatingIconColors={customRatingIconColors}
-          />
-          <AchievementsStatus count={author.achievements?.length} />
+          {!isBotAddress(author) && (
+            <>
+              <RatingStatus
+                rating={getRatingByCommunity(author, communityId)}
+                size="sm"
+                isRankOff
+                customRatingIconColors={customRatingIconColors}
+              />
+              <AchievementsStatus count={author.achievements?.length} />
+            </>
+          )}
         </>
       )}
 
-      <Span
-        className="text-capitalize mr-3"
-        fontSize="14"
-        color={TEXT_SECONDARY}
-      >
+      <Span className="text-capitalize mr-3" fontSize="14" color={TEXT_SECONDARY}>
         {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
     </A>

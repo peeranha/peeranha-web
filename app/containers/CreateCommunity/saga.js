@@ -4,11 +4,9 @@ import * as routes from 'routes-config';
 
 import { createCommunity } from 'utils/communityManagement';
 
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
-
-import { getSuggestedCommunities } from 'containers/Communities/actions';
 
 import {
   createCommunitySuccess,
@@ -18,11 +16,7 @@ import {
   getFormError,
 } from './actions';
 
-import {
-  CREATE_COMMUNITY,
-  CREATE_COMMUNITY_BUTTON,
-  GET_FORM,
-} from './constants';
+import { CREATE_COMMUNITY, CREATE_COMMUNITY_BUTTON, GET_FORM } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* createCommunityWorker({ community, reset }) {
@@ -31,8 +25,6 @@ export function* createCommunityWorker({ community, reset }) {
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
     yield call(createCommunity, ethereumService, selectedAccount, community);
-
-    yield put(getSuggestedCommunities(true));
 
     yield put(createCommunitySuccess());
 
@@ -75,7 +67,7 @@ export function* getFormWorker() {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_FORM, getFormWorker);
   yield takeLatest(CREATE_COMMUNITY, createCommunityWorker);
 }

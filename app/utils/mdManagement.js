@@ -1,5 +1,4 @@
 import { ApplicationError } from './errors';
-import faqEn from '../faq/en.md';
 import tutorialEn from '../tutorial/en.md';
 
 function parseMD(md) {
@@ -28,11 +27,7 @@ function parseMD(md) {
     const htmlOneLine = html.replace(/(\r\n|\n|\r)/gm, '');
 
     html.split('').forEach((x, i) => {
-      if (
-        htmlOneLine[i] === '<' &&
-        htmlOneLine[i + 1] === 'h' &&
-        +htmlOneLine[i + 2] === +level
-      ) {
+      if (htmlOneLine[i] === '<' && htmlOneLine[i + 1] === 'h' && +htmlOneLine[i + 2] === +level) {
         indexes.push(i);
       }
     });
@@ -67,9 +62,6 @@ function getMD(prefix) {
   let md = null;
 
   switch (prefix) {
-    case 'faq':
-      md = faqEn;
-      break;
     case 'tutorial':
       md = tutorialEn;
       break;

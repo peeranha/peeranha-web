@@ -185,7 +185,6 @@ export const FractalVisionsStyles = {
     headerPrimary: '#6D00B3',
     commentOption: '#6D00B3',
     contentHeader: '#6D00B3',
-    blockedInfoArea: 'rgb(42 36 96 / 10%)',
     transparentIconColor: '#FFF',
     loaderColor: '#6D00B3',
     votingIconColor: '#6D00B3',

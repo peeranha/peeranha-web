@@ -41,6 +41,7 @@ import { getSearchParams } from 'utils/url';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -131,6 +132,10 @@ export const Header = ({
       hasProtocolAdminRole(getPermissions(profile)) ||
       hasCommunityAdminRole(getPermissions(profile), single)
     : false;
+
+  const notHiddenCommunities = communities.filter(
+    (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
+  );
 
   useEffect(() => {
     async function getTagsName() {
@@ -230,7 +235,7 @@ export const Header = ({
             }}
             showOnlyFollowed={isFeed}
             selectedCommunityId={communityIdFilter}
-            communities={communities}
+            communities={notHiddenCommunities}
           />
           {/* PEER-451: Hide Subscribe button from single community mode
           {!!displaySubscribeButton && (

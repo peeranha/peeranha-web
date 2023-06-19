@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 import { useTranslation } from 'react-i18next';
-import { errorPage } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,6 +20,7 @@ import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProv
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
+import { loginWithWallet } from 'containers/Login/actions';
 
 import {
   saveComment,
@@ -100,9 +100,10 @@ export const ViewQuestion = ({
   match,
   profile,
   history,
+  loginWithWalletDispatch,
 }) => {
   const { t } = useTranslation();
-
+  const showLoginModal = () => loginWithWalletDispatch({ metaMask: true });
   useEffect(() => {
     if (questionData) {
       const route = getRoute(questionData.postType);
@@ -166,6 +167,7 @@ export const ViewQuestion = ({
     locale,
     communities,
     questionData,
+    translations: questionData?.translations,
     postAnswerLoading,
     postCommentLoading,
     saveCommentLoading,
@@ -197,11 +199,12 @@ export const ViewQuestion = ({
     isAnswered,
     commId,
     profile,
+    showLoginModal,
   };
 
-  const helmetTitle = questionData?.content.title || t('post.title');
+  const helmetTitle = questionData?.title || t('post.Post');
 
-  const helmetDescription = questionData?.content.content ?? t('post.title');
+  const helmetDescription = questionData?.content ?? t('post.Post');
 
   const articlePublishedTime = questionData?.postTime ? new Date(questionData.postTime * 1000) : ``;
 
@@ -213,16 +216,14 @@ export const ViewQuestion = ({
 
   return (
     <>
-      {process.env.ENV !== 'dev' && (
-        <Seo
-          title={helmetTitle}
-          description={helmetDescription}
-          language={locale}
-          keywords={keywords}
-          articlePublishedTime={articlePublishedTime}
-          articleModifiedTime={articleModifiedTime}
-        />
-      )}
+      <Seo
+        title={helmetTitle}
+        description={helmetDescription}
+        language={locale}
+        keywords={keywords}
+        articlePublishedTime={articlePublishedTime}
+        articleModifiedTime={articleModifiedTime}
+      />
 
       {!questionDataLoading && !historiesLoading && questionData && (
         <ViewQuestionContainer {...sendProps} />
@@ -272,6 +273,7 @@ ViewQuestion.propTypes = {
   redirectToEditAnswerPageDispatch: PropTypes.func,
   ids: PropTypes.array,
   profile: PropTypes.object,
+  loginWithWalletDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -327,6 +329,7 @@ const withConnect = connect(
     redirectToEditQuestionPageDispatch: bindActionCreators(redirectToEditQuestionPage, dispatch),
     redirectToEditAnswerPageDispatch: bindActionCreators(redirectToEditAnswerPage, dispatch),
     getHistoriesDispatch: bindActionCreators(getHistories, dispatch),
+    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
   }),
 );
 

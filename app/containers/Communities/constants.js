@@ -1,15 +1,8 @@
-/*
- *
- * Communities constants
- *
- */
-
 export const GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID =
   'app_Communities_GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID';
 
-export const GET_SUGGESTED_COMMUNITIES =
-  'app/Communities/GET_SUGGESTED_COMMUNITIES';
-export const GET_SUGGESTED_COMMUNITIES_SUCCESS =
-  'app/Communities/GET_SUGGESTED_COMMUNITIES_SUCCESS';
-export const GET_SUGGESTED_COMMUNITIES_ERROR =
-  'app/Communities/GET_SUGGESTED_COMMUNITIES_ERROR';
+export const HIDDEN_COMMUNITIES_ID = process.env.HIDDEN_COMMUNITIES_ID
+  ? process.env.HIDDEN_COMMUNITIES_ID.split(',').map((communityIdStr) =>
+      parseInt(communityIdStr, 10),
+    )
+  : [];

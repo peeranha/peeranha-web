@@ -13,7 +13,8 @@ import {
   TRANSACTION_COMPLETED,
   TRANSACTION_IN_PENDING,
   TRANSACTION_FAILED,
-  TRANSACTION_INITIALISED,
+  SET_TRANSACTION_LIST,
+  TRANSACTION_INITIALIZED,
 } from './constants';
 
 export function initEthereum(data) {
@@ -51,21 +52,29 @@ export function hideModal() {
 
 export function transactionInitialised() {
   return {
-    type: TRANSACTION_INITIALISED,
+    type: TRANSACTION_INITIALIZED,
   };
 }
 
-export function transactionInPending(transactionHash) {
+export function transactionInPending(transactionHash, transactionList) {
   return {
     type: TRANSACTION_IN_PENDING,
     transactionHash,
+    transactionList,
   };
 }
 
-export function transactionCompleted(translation) {
+export function transactionCompleted(transactionList) {
   return {
     type: TRANSACTION_COMPLETED,
-    translation,
+    transactionList,
+  };
+}
+
+export function setTransactionList(transactionList) {
+  return {
+    type: SET_TRANSACTION_LIST,
+    transactionList,
   };
 }
 
