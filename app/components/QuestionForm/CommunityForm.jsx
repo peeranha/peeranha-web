@@ -29,7 +29,7 @@ const CommunityForm = ({
 
   return (
     <Field
-      className={single && !subcommunityIds ? 'd-none' : ''}
+      className={single && !subcommunityIds?.length ? 'd-none' : ''}
       name={FORM_COMMUNITY}
       component={CommunityField}
       onChange={onChange}

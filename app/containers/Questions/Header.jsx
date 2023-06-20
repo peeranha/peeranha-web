@@ -28,6 +28,7 @@ import {
   isSingleCommunityWebsite,
   singleCommunityColors,
   getTagsNameByIds,
+  singleSubcommunity,
 } from 'utils/communityManagement';
 import {
   getPermissions,
@@ -45,6 +46,7 @@ import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
+const subcommunityIds = singleSubcommunity();
 
 const PageContentHeaderContainer = styled.div`
   display: flex;
@@ -133,8 +135,10 @@ export const Header = ({
       hasCommunityAdminRole(getPermissions(profile), single)
     : false;
 
-  const notHiddenCommunities = communities.filter(
-    (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
+  const notHiddenCommunities = communities.filter((community) =>
+    single
+      ? [single, ...subcommunityIds].includes(community.id)
+      : !HIDDEN_COMMUNITIES_ID?.includes(community.id),
   );
 
   useEffect(() => {
@@ -236,6 +240,7 @@ export const Header = ({
             showOnlyFollowed={isFeed}
             selectedCommunityId={communityIdFilter}
             communities={notHiddenCommunities}
+            isPostList
           />
           {/* PEER-451: Hide Subscribe button from single community mode
           {!!displaySubscribeButton && (

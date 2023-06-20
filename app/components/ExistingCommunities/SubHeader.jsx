@@ -2,21 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
-import { TEXT_SECONDARY } from 'style-constants';
-
-import communitiesHeader from 'images/communitiesHeader.svg?inline';
-import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
-
+import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import communitiesHeader from 'images/communitiesHeader.svg?external';
+import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
+import { IconMd } from 'components/Icon/IconWithSizes';
+import Icon from 'components/Icon';
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
 import Ul from 'components/Ul';
 import CheckedItem from 'components/Li/CheckedItem';
-import { MediumImageStyled } from 'components/Img/MediumImage';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import SubHeaderWrapper, { SubHeaderWrapperRightPanel } from 'components/Header/Complex';
 
 import sortingOptions from './sortingOptions';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const isSingleMode = isSingleCommunityWebsite();
 
@@ -25,7 +27,12 @@ const Button = ({ sorting, icon }) => {
 
   return (
     <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
-      <img className="mr-2" src={icon} alt="icon" />
+      <IconMd
+        className="mr-2"
+        icon={icon}
+        color={colors.btnColor || BORDER_PRIMARY}
+        isColorImportant={true}
+      />
       {t(sorting.message)}
     </Span>
   );
@@ -55,10 +62,22 @@ export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => {
   return (
     <SubHeaderWrapper position="bottom">
       <H3>
-        <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
-
+        <MediumIconStyled>
+          <Icon
+            icon={communitiesHeader}
+            width="43"
+            css={css`
+              circle {
+                stroke: ${colors.btnColor || BORDER_PRIMARY};
+              }
+              path {
+                fill: ${colors.btnColor || BORDER_PRIMARY};
+              }
+            `}
+          />
+        </MediumIconStyled>
         <span>
-          {!Boolean(isSingleMode) ? t('common.communities') : t('common.subcommunities')}
+          {!isSingleMode ? t('common.communities') : t('common.subcommunities')}
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {communitiesNumber}
           </Span>

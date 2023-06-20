@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import arrowDownIcon from 'images/arrowDown.svg?inline';
 
 import CommunitySelector from 'components/CommunitySelector';
@@ -11,6 +11,8 @@ import { Input } from 'components/Input/InputStyled';
 import Span from 'components/Span';
 import { DEFAULT_COMMUNITY_ID } from 'components/QuestionForm/constants';
 import Wrapper from './Wrapper';
+
+const single = isSingleCommunityWebsite();
 
 const Div = styled.div`
   position: relative;
@@ -47,8 +49,8 @@ export const CommunityField = ({
     if (isEditForm && isCommunityModerator && !isHasRoleGlobal && !isPostAuthor) {
       return options.filter((item) => item.id === DEFAULT_COMMUNITY_ID || item.id === communityId);
     }
-    if (subcommunityIds) {
-      const subcommunityList = [communityId, ...subcommunityIds];
+    if (Boolean(subcommunityIds?.length)) {
+      const subcommunityList = [single, ...subcommunityIds];
       return options.filter((item) => subcommunityList.includes(item.id));
     }
     return options;

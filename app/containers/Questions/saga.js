@@ -57,7 +57,7 @@ export function* getQuestionsWorker({
     }
     let questionsList = [];
 
-    const isEmptySubcommunityList = Boolean(subcommunityIds.length);
+    const isEmptySubcommunityList = Boolean(subcommunityIds?.length);
     const subcommunityList = isEmptySubcommunityList && !single ? [] : [...subcommunityIds, single];
 
     let counter = skip;
@@ -72,7 +72,7 @@ export function* getQuestionsWorker({
         limit,
         skip,
         postTypes,
-        isEmptySubcommunityList ? [communityIdFilter] : subcommunityList,
+        isEmptySubcommunityList ? subcommunityList : [communityIdFilter],
         tags,
       );
     }
