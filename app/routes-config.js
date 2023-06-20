@@ -113,6 +113,7 @@ export const feed = (communityId, paginationPage = 1) => {
 };
 
 export const communities = () => `/communities`;
+export const subcommunities = () => `/subcommunities`;
 
 export const users = () => '/users';
 

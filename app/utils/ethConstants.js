@@ -226,12 +226,12 @@ export const usersByCommunityQuery = `
       query(
         $first: Int,
         $skip: Int,
-        $communityId: Int,
+        $communityIds: [Int],
       ) {
         userCommunityRatings(
           first: $first,
           skip: $skip,
-          where: { communityId: $communityId }
+          where: { communityId_in: $communityIds }
         ) {
           user {
             ${user}

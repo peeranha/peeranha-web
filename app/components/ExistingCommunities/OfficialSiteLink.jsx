@@ -8,13 +8,16 @@ import globe from 'images/globe-outline-16.svg?external';
 import Icon from 'components/Icon';
 
 import { ADefault } from 'components/A';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const SiteIcon = styled(Icon)`
   display: flex;
   align-items: center;
   margin-right: 4px;
   .globeStroke {
-    stroke: ${TEXT_PRIMARY};
+    stroke: ${colors.linkColor || TEXT_PRIMARY};
   }
 `;
 
@@ -30,26 +33,22 @@ const SiteText = styled.span`
 const SiteLink = styled(ADefault)`
   display: inline-flex;
   align-items: center;
-  color: ${TEXT_PRIMARY};
+  color: ${colors.linkColor || TEXT_PRIMARY};
   margin-top: 4px;
 `;
 
-const getShortUrl = url => {
+const getShortUrl = (url) => {
   if (/^https?:\/\//.test(url)) return url.replace(/https?:\/\//, '');
   return url;
 };
 
-const getFullUrl = url => {
+const getFullUrl = (url) => {
   if (/^https?:\/\//.test(url)) return url;
   return `https://${url}`;
 };
 
 const OfficialSiteLink = ({ website }) => (
-  <SiteLink
-    href={getFullUrl(website)}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
+  <SiteLink href={getFullUrl(website)} target="_blank" rel="noopener noreferrer">
     <SiteIcon icon={globe} width="12" height="12" />
     <SiteText>{getShortUrl(website)}</SiteText>
   </SiteLink>

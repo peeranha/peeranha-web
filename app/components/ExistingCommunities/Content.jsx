@@ -26,11 +26,13 @@ import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
+import { hasCommunitySingleWebsite, singleCommunityColors } from 'utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
 
 import img from 'images/image-communityPage.svg?inline';
+
+const colors = singleCommunityColors();
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
@@ -91,7 +93,7 @@ const Info = styled.div`
   }
 
   a:nth-child(2) {
-    color: ${TEXT_PRIMARY};
+    color: ${colors.linkColor || TEXT_PRIMARY};
   }
 
   p:nth-child(2),
@@ -249,7 +251,15 @@ const Content = ({ communities, sorting, locale, profile }) => {
               {t('createCommunity.suggestCommunityBlock_2')}
               {t('createCommunity.suggestCommunityBlock_3')}
               {t('createCommunity.suggestCommunityBlock_4')}
-              <a href="mailto:hello@peeranha.io">hello@peeranha.io.</a>
+              <a
+                css={{
+                  color: colors.linkColor || TEXT_PRIMARY,
+                  ':hover': { color: colors.linkColor || TEXT_PRIMARY },
+                }}
+                href="mailto:hello@peeranha.io"
+              >
+                hello@peeranha.io.
+              </a>
             </div>
           </div>
         </div>

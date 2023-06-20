@@ -4,7 +4,7 @@ import { take, takeLatest, call, put, select } from 'redux-saga/effects';
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleSubcommunity } from 'utils/communityManagement';
 
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
@@ -28,7 +28,7 @@ import { getPosts, getPostsByCommunityId } from 'utils/theGraph';
 import { HIDDEN_COMMUNITIES_ID } from '../Communities/constants';
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
-
+const subcommunityIds = singleSubcommunity();
 export function* getQuestionsWorker({
   limit,
   skip,
@@ -56,18 +56,23 @@ export function* getQuestionsWorker({
       );
     }
     let questionsList = [];
+
+    const isEmptySubcommunityList = Boolean(subcommunityIds?.length);
+    const subcommunityList = isEmptySubcommunityList && !single ? [] : [...subcommunityIds, single];
+
     let counter = skip;
 
     if (single) {
       communityIdFilter = single;
     }
+
     if (communityIdFilter > 0) {
       questionsList = yield call(
         getPostsByCommunityId,
         limit,
         skip,
         postTypes,
-        [communityIdFilter],
+        isEmptySubcommunityList ? subcommunityList : [communityIdFilter],
         tags,
       );
     }

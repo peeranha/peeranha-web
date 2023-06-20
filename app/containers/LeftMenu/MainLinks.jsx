@@ -33,6 +33,7 @@ import {
   singleCommunityFonts,
   getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
+  singleSubcommunity,
 } from 'utils/communityManagement';
 
 import homeIcon from 'images/house.svg?external';
@@ -64,6 +65,7 @@ import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 const communityStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
+const subcommunityIds = singleSubcommunity();
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
@@ -297,6 +299,13 @@ const MainLinks = ({
           <A1 to={routes.communities()} name="communities" route={route}>
             <IconLg className="mr-2" icon={communitiesIcon} />
             {t('common.communities')}
+          </A1>
+        )}
+
+        {Boolean(singleCommId) && Boolean(subcommunityIds.length) && (
+          <A1 to={routes.subcommunities()} name="subcommunities" route={route}>
+            <IconLg className="mr-2" icon={communitiesIcon} />
+            {t('common.subcommunities')}
           </A1>
         )}
 

@@ -548,12 +548,7 @@ export function* getQuestionDataWorker({ questionId }) {
         }),
       );
     }
-
-    if (isAnotherCommQuestion) {
-      yield put(getQuestionDataSuccess(null));
-    } else {
-      yield put(getQuestionDataSuccess(questionData));
-    }
+    yield put(getQuestionDataSuccess(questionData));
   } catch (err) {
     console.log(err);
     yield put(getQuestionDataErr(err));

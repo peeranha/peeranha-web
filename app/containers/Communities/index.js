@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import * as routes from 'routes-config';
-
+import { isSingleCommunityWebsite, singleSubcommunity } from 'utils/communityManagement';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
@@ -20,7 +20,10 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Seo from 'components/Seo';
 
 import Header from './Header';
-import { HIDDEN_COMMUNITIES_ID } from './constants';
+import { HIDDEN_COMMUNITIES_ID, SUBCOMMUNITY_IDS_ARRAY } from './constants';
+
+const isSingleMode = isSingleCommunityWebsite();
+const subcommunityIds = singleSubcommunity();
 
 export const Communities = ({
   locale,
@@ -33,17 +36,23 @@ export const Communities = ({
   redirectToCreateCommunityDispatch,
   route,
   profile,
+  isSubCommunity,
 }) => {
   const { t } = useTranslation();
 
   const keywords = useMemo(() => communities.map((x) => x.name), [communities]);
 
   const [displayLoadingIndicator] = useMemo(
-    () => [communitiesLoading && route === routes.communities()],
+    () => [
+      communitiesLoading && (route === routes.communities() || route === routes.subcommunities()),
+    ],
     [communitiesLoading, route],
   );
-  const notHiddenCommunities = communities.filter(
-    (community) => !HIDDEN_COMMUNITIES_ID.includes(community.id),
+
+  const notHiddenCommunities = communities.filter((community) =>
+    isSingleMode
+      ? subcommunityIds.includes(community.id)
+      : ![...HIDDEN_COMMUNITIES_ID, ...SUBCOMMUNITY_IDS_ARRAY].includes(community.id),
   );
 
   return (
@@ -65,6 +74,7 @@ export const Communities = ({
           sorting={sorting}
           communitiesNumber={notHiddenCommunities?.length ?? 0}
           profile={profile}
+          isSubCommunity={isSubCommunity}
         />
 
         <Content
@@ -91,6 +101,7 @@ Communities.propTypes = {
   communitiesLoading: PropTypes.bool,
   redirectToCreateCommunityDispatch: PropTypes.func,
   profile: PropTypes.object,
+  isSubCommunity: PropTypes.bool,
 };
 
 export default memo(

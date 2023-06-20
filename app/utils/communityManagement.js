@@ -39,6 +39,9 @@ export const singleCommunityDocumentation = () =>
 export const singleCommunityDocumentationPosition = () =>
   _get(singleCommunityStyles(), 'documentationPosition', 'bottom');
 
+export const singleSubcommunity = () =>
+  _get(communitiesConfig, [isSingleCommunityWebsite(), 'subcommunity'], []);
+
 export const hasCommunitySingleWebsite = (commId) =>
   communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 

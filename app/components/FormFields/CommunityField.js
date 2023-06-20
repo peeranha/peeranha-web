@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import arrowDownIcon from 'images/arrowDown.svg?inline';
 
 import CommunitySelector from 'components/CommunitySelector';
@@ -11,6 +11,8 @@ import { Input } from 'components/Input/InputStyled';
 import Span from 'components/Span';
 import { DEFAULT_COMMUNITY_ID } from 'components/QuestionForm/constants';
 import Wrapper from './Wrapper';
+
+const single = isSingleCommunityWebsite();
 
 const Div = styled.div`
   position: relative;
@@ -37,13 +39,22 @@ export const CommunityField = ({
   isCommunityModerator,
   isEditForm,
   isPostAuthor,
+  subcommunityIds,
 }) => {
   if (input) {
     input.value = input.value.toJS ? input.value.toJS() : input.value;
   }
-  const AllThingsWeb3Comm = options.filter(
-    (item) => item.id === DEFAULT_COMMUNITY_ID || item.id === communityId,
-  );
+
+  const communityList = () => {
+    if (isEditForm && isCommunityModerator && !isHasRoleGlobal && !isPostAuthor) {
+      return options.filter((item) => item.id === DEFAULT_COMMUNITY_ID || item.id === communityId);
+    }
+    if (Boolean(subcommunityIds?.length)) {
+      const subcommunityList = [single, ...subcommunityIds];
+      return options.filter((item) => subcommunityList.includes(item.id));
+    }
+    return options;
+  };
 
   return (
     <Wrapper
@@ -58,14 +69,7 @@ export const CommunityField = ({
         input={input}
         disabled={disabled}
         selectedCommunityId={input.value?.id ?? 0}
-        communities={
-          isEditForm &&
-          isCommunityModerator &&
-          !isHasRoleGlobal &&
-          !isPostAuthor
-            ? AllThingsWeb3Comm
-            : options
-        }
+        communities={communityList()}
         Button={({ communityAvatar, communityLabel }) => (
           <Div
             className="d-flex align-items-center"
@@ -95,6 +99,7 @@ CommunityField.propTypes = {
   disabled: PropTypes.bool,
   splitInHalf: PropTypes.bool,
   options: PropTypes.array,
+  subcommunityIds: PropTypes.array,
 };
 
 export default CommunityField;

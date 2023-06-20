@@ -36,6 +36,7 @@ const Communities = React.lazy(() => import('components/ExistingCommunities'));
 const FullWidthPreloader = React.lazy(() =>
   import('components/LoadingIndicator/FullWidthPreloader'),
 );
+const Subcommunities = React.lazy(() => import('components/Subcommunities'));
 
 export {
   EditCommunity,
@@ -70,4 +71,5 @@ export {
   FullWidthPreloader,
   TermsOfService,
   MetaTransactionAgreement,
+  Subcommunities,
 };

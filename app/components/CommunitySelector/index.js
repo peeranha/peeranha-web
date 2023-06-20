@@ -40,6 +40,7 @@ const CommunitySelector = ({
   disabled,
   toggle,
   locale,
+  isPostList = false,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -105,7 +106,7 @@ const CommunitySelector = ({
   }, [communities]);
 
   const toggleOpen = useCallback(() => {
-    if (optionsNumber > 0 && !single && !disabled) {
+    if (optionsNumber > 0 && !disabled && (single ? !isPostList : true)) {
       setIsOpen(!isOpen);
     }
   }, [disabled, isOpen, optionsNumber]);
@@ -169,7 +170,7 @@ const CommunitySelector = ({
           isWrapped
           placeholder={t('common.selectCommunity')}
         />
-        <ManageMyCommunities />
+        {!single && <ManageMyCommunities />}
       </Wrapper>
     </Dropdown>
   );
