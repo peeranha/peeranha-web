@@ -9,17 +9,13 @@ export function ipfsApi() {
   return create(process.env.IPFS_API_URL);
 }
 
-function ipfsApiTheGraph() {
-  return create(process.env.IPFS_API_URL_THE_GRAPH);
-}
-
 async function saveDataToAllStorages(content, buf, encoding) {
   const dataIpfsS3 = {
     content,
     encoding,
   };
 
-  const [resultIpfsS3] = await Promise.all([saveDataIpfsS3(dataIpfsS3), saveDataTheGraph(buf)]);
+  const resultIpfsS3 = await saveDataIpfsS3(dataIpfsS3);
   return resultIpfsS3.body.cid;
 }
 
@@ -47,11 +43,7 @@ export async function saveText(text) {
 
   const buf = Buffer.from(parsedText, 'utf8');
 
-  return saveDataToAllStorages(buf, buf, 'utf8');
-}
-
-async function saveDataTheGraph(buf) {
-  return ipfsApiTheGraph().add(buf);
+  return saveDataToAllStorages(buf, 'utf8');
 }
 
 export async function saveDataIpfsS3(file, signal) {
@@ -59,9 +51,7 @@ export async function saveDataIpfsS3(file, signal) {
 }
 
 export async function saveFile(file) {
-  const buf = Buffer.from(file);
-
-  return saveDataToAllStorages(file, buf, 'base64');
+  return saveDataToAllStorages(file, 'base64');
 }
 
 export async function getText(hash) {
