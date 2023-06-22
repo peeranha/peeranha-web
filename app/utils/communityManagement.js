@@ -1,6 +1,7 @@
 import communitiesConfig from 'communities-config';
 
 import _get from 'lodash/get';
+import { getActualId, getNetwork } from 'utils/properties';
 
 import { getBytes32FromIpfsHash, getFileUrl, saveText } from './ipfs';
 import { getCookie, setCookie } from './cookie';
@@ -41,8 +42,6 @@ export const hasCommunitySingleWebsite = (commId) =>
   communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 
 export function getFollowedCommunities(allCommunities, followedCommunities) {
-  console.log(allCommunities);
-  console.log(followedCommunities);
   if (!allCommunities || !followedCommunities) return [];
   return allCommunities.filter((x) => followedCommunities.includes(x.id));
 }
@@ -67,10 +66,11 @@ export const editCommunity = async (
   const user = selectedAccount;
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
   await ethereumService.sendTransaction(
-    CONTRACT_COMMUNITY,
+    getNetwork(communityId),
+    CONTRACT_COMMUNITY[getNetwork(communityId)],
     user,
     EDIT_COMMUNITY,
-    [user, communityId, ipfsHash],
+    [user, getActualId(communityId), ipfsHash],
     3,
   );
 };
@@ -113,14 +113,16 @@ export const setSingleCommunityDetailsInCookie = (community, id) => {
 
 export const getSingleCommunityDetails = () => ({});
 export async function editTag(user, ethereumService, tag, tagId) {
+  console.log(tagId);
   const ipfsLink = await saveText(JSON.stringify(tag));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, EDIT_TAG, [
+  return ethereumService.sendTransaction(
+    getNetwork(tagId),
+    CONTRACT_COMMUNITY[getNetwork(tagId)],
     user,
-    tag.communityId,
-    tagId,
-    ipfsHash,
-  ]);
+    EDIT_TAG,
+    [user, tag.communityId.splice('-')[3], tagId, ipfsHash],
+  );
 }
 
 const formCommunityObject = (rawCommunity) => ({
@@ -150,8 +152,8 @@ const formattedTags = (tags, commuityId) => {
 };
 
 /* eslint no-param-reassign: 0 */
-export const getAllCommunities = async (ethereumService, count) => {
-  const communities = await getCommunities(count);
+export const getAllCommunities = async () => {
+  const communities = await getCommunities();
   return communities.map((community) => formCommunityObject(community));
 };
 
@@ -175,27 +177,28 @@ export const getTagsNameByIds = async (ids) => {
   return TagsNameByIds;
 };
 
-export const getCommunityFromContract = async (ethereumService, id) =>
-  await ethereumService.getCommunityFromContract(id);
-
 export async function unfollowCommunity(ethereumService, communityIdFilter, account) {
-  console.log(communityIdFilter);
-  await ethereumService.sendTransaction(CONTRACT_USER, account, UNFOLLOW_COMMUNITY, [
+  await ethereumService.sendTransaction(
+    getNetwork(communityIdFilter),
+    CONTRACT_USER[getNetwork(communityIdFilter)],
     account,
-    communityIdFilter,
-  ]);
+    UNFOLLOW_COMMUNITY,
+    [account, getActualId(communityIdFilter)],
+  );
 }
 
 export async function followCommunity(ethereumService, communityIdFilter, account) {
-  console.log(communityIdFilter);
-  await ethereumService.sendTransaction(CONTRACT_USER, account, FOLLOW_COMMUNITY, [
+  await ethereumService.sendTransaction(
+    getNetwork(communityIdFilter),
+    CONTRACT_USER[getNetwork(communityIdFilter)],
     account,
-    communityIdFilter.split('-')[1],
-  ]);
+    FOLLOW_COMMUNITY,
+    [account, getActualId(communityIdFilter)],
+  );
 }
 
 /* eslint camelcase: 0 */
-export async function createCommunity(ethereumService, selectedAccount, community) {
+export async function createCommunity(network, ethereumService, selectedAccount, community) {
   const { imgHash } = await uploadImg(community.avatar);
   const communityIpfsHash = await saveText(
     JSON.stringify({
@@ -218,19 +221,23 @@ export async function createCommunity(ethereumService, selectedAccount, communit
   );
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
   const user = selectedAccount;
-  await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, CREATE_COMMUNITY, [
+  await ethereumService.sendTransaction(
+    network - 1,
+    CONTRACT_COMMUNITY[network - 1],
     user,
-    ipfsHash,
-    tags,
-  ]);
+    CREATE_COMMUNITY,
+    [user, ipfsHash, tags],
+  );
 }
 
 export async function createTag(ethereumService, selectedAccount, communityId, tag) {
   const ipfsHash = getBytes32FromIpfsHash(await saveText(JSON.stringify(tag)));
   const user = selectedAccount;
-  await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, CREATE_TAG, [
+  await ethereumService.sendTransaction(
+    getNetwork(communityId),
+    CONTRACT_COMMUNITY[getNetwork(communityId)],
     user,
-    communityId,
-    ipfsHash,
-  ]);
+    CREATE_TAG,
+    [user, getActualId(communityId), ipfsHash],
+  );
 }

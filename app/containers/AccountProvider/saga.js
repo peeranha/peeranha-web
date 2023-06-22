@@ -107,7 +107,6 @@ export const getCurrentAccountWorker = function* (initAccount) {
       call(getAvailableBalance, ethereumService, account),
       call(getUserBoost, ethereumService, account, currentPeriod?.id || 0),
     ]);
-    console.log(profileInfo);
 
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);

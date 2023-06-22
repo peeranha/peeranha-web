@@ -25,6 +25,15 @@ import { getCommunityTags } from 'containers/DataCacheProvider/actions';
 
 import { WHAT_IS_TAG_QUESTION, HOW_TO_USE_IT_QUESTION } from 'containers/Faq/constants';
 
+import {
+  getAllRoles,
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+
+import { useModeratorRole } from 'hooks/useModeratorRole';
+
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -39,14 +48,6 @@ import Header from './Header';
 
 import tagsReducer from '../Tags/reducer';
 import tagsSaga from '../Tags/saga';
-import {
-  getAllRoles,
-  hasCommunityAdminRole,
-  hasGlobalModeratorRole,
-  hasProtocolAdminRole,
-} from '../../utils/properties';
-
-import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 const single = isSingleCommunityWebsite();
 
@@ -75,7 +76,7 @@ const CreateTag = ({
     (...args) => {
       const values = args[0].toJS();
       suggestTagDispatch(
-        +values[FORM_COMMUNITY].id,
+        values[FORM_COMMUNITY].id,
         {
           name: values[NAME_FIELD],
           description: values[DESCRIPTION_FIELD],
@@ -97,7 +98,7 @@ const CreateTag = ({
       isGlobalAdmin || profileWithCommunityAdminRights
         ? communities.map((x) => x.id)
         : roles.map((role) => role.communityid),
-    [communities, roles],
+    [communities, isGlobalAdmin, profileWithCommunityAdminRights, roles],
   );
 
   if (isFormLoading) return <LoadingIndicator />;

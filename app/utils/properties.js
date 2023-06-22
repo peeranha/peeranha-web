@@ -20,7 +20,8 @@ import {
 // todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
-const getActualCommunityId = (communityIdWithNetwork) => communityIdWithNetwork.split('-')[1];
+export const getActualId = (idWithNetwork) => idWithNetwork.split('-')[1];
+export const getNetwork = (idWithNetwork) => idWithNetwork.split('-')[0] - 1;
 
 const createPermissionsObject = ({
   role,
@@ -41,7 +42,7 @@ const createPermissionsObject = ({
     : translations('moderation.communityModerator'),
   h2: communityId
     ? `${
-        communities.find(({ id }) => Number(id) === Number(communityId))?.name || 'TestComm1'
+        communities.find(({ id }) => Number(id) === communityId)?.name || 'TestComm1'
       } ${translations('moderation.community')}`
     : role === DEFAULT_ADMIN_ROLE
     ? translations('moderation.defaultAdministrator')
@@ -154,30 +155,33 @@ export const getCommunityRole = (role, communityId) =>
 
 export const isBotAddress = (account) => account.id === BOT_ADDRESS;
 
-export const isTemporaryAccount = async (account) => {
-  const ethereumService = await selectEthereum();
-  return ethereumService.getSelectedAccount() === account;
-};
-
 export const getAllRoles = (userRoles = [], communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
-  if (userRoles.find((role) => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
-    return [{ role: DEFAULT_ADMIN_ROLE }];
+  const defaultAdminRole = userRoles.find((role) =>
+    BigNumber.from(role.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
+  );
+  if (defaultAdminRole) {
+    return [{ role: defaultAdminRole }];
   }
-  if (userRoles.find((role) => BigNumber.from(role).eq(PROTOCOL_ADMIN_ROLE))) {
-    return [{ role: PROTOCOL_ADMIN_ROLE }];
+  const protocolAdminRole = userRoles.find((role) =>
+    BigNumber.from(role.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
+  );
+  if (protocolAdminRole) {
+    return [{ role: protocolAdminRole }];
   }
   return userRoles.map((userRole) => {
     let communityId;
     let role;
     communityRoles.map((communityRole) => {
-      const id = BigNumber.from(userRole).sub(BigNumber.from(communityRole)).toString();
+      const id = BigNumber.from(userRole.split('-')[1])
+        .sub(BigNumber.from(communityRole))
+        .toString();
       if (
         id.length <= communitiesCount.toString().length &&
         Number.parseInt(id) >= 1 &&
         Number.parseInt(id) <= communitiesCount
       ) {
-        communityId = id;
+        communityId = `${userRole.split('-')[0]}-${id}`;
         role = communityRole;
       }
     });
@@ -202,8 +206,7 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
   }
 
   return !!permissions.filter(
-    (permission) =>
-      permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualCommunityId(communityId)),
+    (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualId(communityId)),
   ).length;
 };
 

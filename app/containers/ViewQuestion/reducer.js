@@ -38,14 +38,7 @@ import {
   SAVE_COMMENT,
   SAVE_COMMENT_SUCCESS,
   SAVE_COMMENT_ERROR,
-  VOTE_TO_DELETE,
-  VOTE_TO_DELETE_SUCCESS,
-  VOTE_TO_DELETE_ERROR,
-  SET_VOTE_TO_DELETE_LOADING,
   RESET_STORE,
-  CHANGE_QUESTION_TYPE,
-  CHANGE_QUESTION_TYPE_SUCCESS,
-  CHANGE_QUESTION_TYPE_ERROR,
   PAY_BOUNTY,
   PAY_BOUNTY_SUCCESS,
   PAY_BOUNTY_ERROR,
@@ -107,9 +100,7 @@ function viewQuestionReducer(state = initialState, action) {
     deleteAnswerError,
     deleteCommentError,
     saveCommentError,
-    voteToDeleteError,
     buttonId,
-    voteToDeleteLoading,
     histories,
     getHistoriesError,
   } = action;
@@ -118,9 +109,7 @@ function viewQuestionReducer(state = initialState, action) {
     case GET_QUESTION_DATA:
       return state.set('questionDataLoading', true);
     case GET_QUESTION_DATA_SUCCESS:
-      return state
-        .set('questionDataLoading', false)
-        .set('questionData', questionData);
+      return state.set('questionDataLoading', false).set('questionData', questionData);
     case GET_QUESTION_DATA_ERROR:
       return state
         .set('questionData', null)
@@ -132,190 +121,180 @@ function viewQuestionReducer(state = initialState, action) {
     case POST_ANSWER_SUCCESS:
       return state.set('postAnswerLoading', false);
     case POST_ANSWER_ERROR:
-      return state
-        .set('postAnswerLoading', false)
-        .set('postAnswerError', postAnswerError);
+      return state.set('postAnswerLoading', false).set('postAnswerError', postAnswerError);
 
     case SHOW_ADD_COMMENT_FORM:
-      return state.updateIn(['addCommentFormDisplay'], arr =>
-        arr.push(toggleFormButtonId),
-      );
+      return state.updateIn(['addCommentFormDisplay'], (arr) => arr.push(toggleFormButtonId));
 
     case HIDE_ADD_COMMENT_FORM:
       return state.set(
         'addCommentFormDisplay',
-        state
-          .get('addCommentFormDisplay')
-          .filterNot(el => el === toggleFormButtonId),
+        state.get('addCommentFormDisplay').filterNot((el) => el === toggleFormButtonId),
       );
 
     case POST_COMMENT:
-      return state
-        .set('postCommentLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
+      return state.set('postCommentLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case POST_COMMENT_SUCCESS:
-      return state
-        .set('postCommentLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+      return state.set('postCommentLoading', false).set(
+        'ids',
+        state.toJS().ids.filter((x) => x !== buttonId),
+      );
     case POST_COMMENT_ERROR:
       return state
         .set('postCommentLoading', false)
         .set('postCommentError', postCommentError)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     case UP_VOTE:
-      return state
-        .set('upVoteLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
+      return state.set('upVoteLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case UP_VOTE_SUCCESS:
       return state
         .set('upVoteLoading', false)
         .set('questionData', questionData)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
     case UP_VOTE_ERROR:
       return state
         .set('upVoteLoading', false)
         .set('upVoteError', upVoteError)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     case DOWN_VOTE:
-      return state
-        .set('downVoteLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
+      return state.set('downVoteLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DOWN_VOTE_SUCCESS:
       return state
         .set('downVoteLoading', false)
         .set('questionData', questionData)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
     case DOWN_VOTE_ERROR:
       return state
         .set('downVoteLoading', false)
         .set('downVoteError', downVoteError)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     case MARK_AS_ACCEPTED:
-      return state
-        .set('markAsAcceptedLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
+      return state.set('markAsAcceptedLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case MARK_AS_ACCEPTED_SUCCESS:
       return state
         .set('markAsAcceptedLoading', false)
         .set('questionData', questionData)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
     case MARK_AS_ACCEPTED_ERROR:
       return state
         .set('markAsAcceptedLoading', false)
         .set('markAsAcceptedError', markAsAcceptedError)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     case DELETE_QUESTION:
-      return state
-        .set('deleteQuestionLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
+      return state.set('deleteQuestionLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DELETE_QUESTION_SUCCESS:
-      return state
-        .set('deleteQuestionLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+      return state.set('deleteQuestionLoading', false).set(
+        'ids',
+        state.toJS().ids.filter((x) => x !== buttonId),
+      );
     case DELETE_QUESTION_ERROR:
       return state
         .set('deleteQuestionError', deleteQuestionError)
         .set('deleteQuestionLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     case DELETE_ANSWER:
-      return state
-        .set('deleteAnswerLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
+      return state.set('deleteAnswerLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DELETE_ANSWER_SUCCESS:
       return state
         .set('questionData', questionData)
         .set('deleteAnswerLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
     case DELETE_ANSWER_ERROR:
       return state
         .set('deleteAnswerError', deleteAnswerError)
         .set('deleteAnswerLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     case DELETE_COMMENT:
-      return state
-        .set('deleteCommentLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
+      return state.set('deleteCommentLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DELETE_COMMENT_SUCCESS:
       return state
         .set('questionData', questionData)
         .set('deleteCommentLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
     case DELETE_COMMENT_ERROR:
       return state
         .set('deleteCommentError', deleteCommentError)
         .set('deleteCommentLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     case SAVE_COMMENT:
-      return state
-        .set('saveCommentLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
+      return state.set('saveCommentLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case SAVE_COMMENT_SUCCESS:
       return state
         .set('questionData', questionData)
         .set('saveCommentLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
     case SAVE_COMMENT_ERROR:
       return state
         .set('saveCommentError', saveCommentError)
         .set('saveCommentLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
-
-    case VOTE_TO_DELETE:
-      return state
-        .set('voteToDeleteLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
-    case VOTE_TO_DELETE_SUCCESS:
-      return state
-        .set('questionData', questionData)
-        .set('voteToDeleteLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
-    case VOTE_TO_DELETE_ERROR:
-      return state
-        .set('voteToDeleteError', voteToDeleteError)
-        .set('voteToDeleteLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
-    case SET_VOTE_TO_DELETE_LOADING:
-      return state.set('voteToDeleteLoading', voteToDeleteLoading);
-
-    case CHANGE_QUESTION_TYPE:
-      return state
-        .set('changeQuestionTypeLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
-    case CHANGE_QUESTION_TYPE_SUCCESS:
-      return state
-        .set('changeQuestionTypeLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
-    case CHANGE_QUESTION_TYPE_ERROR:
-      return state
-        .set('changeQuestionTypeLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     case PAY_BOUNTY:
-      return state
-        .set('giveBountyLoading', true)
-        .set('ids', [...state.toJS().ids, buttonId]);
+      return state.set('giveBountyLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case PAY_BOUNTY_SUCCESS:
-      return state
-        .set('giveBountyLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+      return state.set('giveBountyLoading', false).set(
+        'ids',
+        state.toJS().ids.filter((x) => x !== buttonId),
+      );
     case PAY_BOUNTY_ERROR:
-      return state
-        .set('giveBountyLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+      return state.set('giveBountyLoading', false).set(
+        'ids',
+        state.toJS().ids.filter((x) => x !== buttonId),
+      );
 
     case GET_QUESTION_BOUNTY:
       return state.set('questionBountyLoading', true);
     case GET_QUESTION_BOUNTY_SUCCESS:
-      return state
-        .set('questionBountyLoading', false)
-        .set('questionBounty', questionBounty);
+      return state.set('questionBountyLoading', false).set('questionBounty', questionBounty);
     case GET_QUESTION_BOUNTY_ERROR:
       return state
         .set('questionBounty', null)

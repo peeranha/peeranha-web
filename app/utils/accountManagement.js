@@ -1,4 +1,5 @@
 import { getCommunityRole } from 'utils/properties';
+import { getUser } from 'utils/theGraph';
 
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from './constants';
 
@@ -7,7 +8,6 @@ import {
   CONTRACT_USER,
   GIVE_COMMUNITY_ADMIN_PERMISSION,
   GIVE_COMMUNITY_MODERATOR_PERMISSION,
-  IS_USER_EXISTS,
   REVOKE_COMMUNITY_ADMIN_PERMISSION,
   REVOKE_COMMUNITY_MODERATOR_PERMISSION,
 } from './ethConstants';
@@ -64,13 +64,13 @@ export async function revokeRolePermission(user, userToRevoke, role, communityId
   );
 }
 
-export const isUserExists = async (userAddress, ethereumService) => {
+export const isUserExists = async (userAddress) => {
   if (!userAddress) throw new ApplicationError('No profile');
-
-  return await ethereumService.getUserDataWithArgs(IS_USER_EXISTS, [userAddress]);
+  const profileInfo = await getUser(userAddress);
+  return Boolean(profileInfo);
 };
 
-export const updateAcc = async (profile, ethereumService) => {
+export const updateAcc = async (profile) => {
   if (!profile) throw new ApplicationError('No profile');
 };
 

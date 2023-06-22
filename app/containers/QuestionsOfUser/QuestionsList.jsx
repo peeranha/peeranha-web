@@ -113,7 +113,7 @@ const Question = ({
   elementType,
   answerId,
 }) => {
-  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[3] : null;
 
   const route = getPostRoute({ postType, id, answerId: answerRouteId, title });
 

@@ -8,6 +8,7 @@ import {
 import Web3Token from 'web3-token';
 
 export async function sendDispatcherTransactionMethod(
+  network,
   contract,
   actor,
   action,
@@ -15,7 +16,7 @@ export async function sendDispatcherTransactionMethod(
   confirmations = 1,
   token,
 ) {
-  await this.chainCheck();
+  await this.chainCheck(network);
   const userAddress = data.shift();
 
   const isWeb3Token = getCookie(WEB3_TOKEN);
@@ -52,12 +53,13 @@ export async function sendDispatcherTransactionMethod(
   }
 
   const response = await callService(BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress, {
-    contractName: ContractsMapping[contract][0],
-    contractAddress: ContractsMapping[contract][1],
+    contractName: ContractsMapping[contract],
+    contractAddress: '0xC9C21AC7A400d1956A13C171973D7307c3E2db6D',
     action,
     args: data,
     reCaptchaToken: token,
     wait: false,
+    network: network + 1,
   });
 
   if (response.errorCode) {

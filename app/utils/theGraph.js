@@ -157,7 +157,7 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
 
   const ids = isMeshService
     ? postIds.reply.map((reply) => reply.postId)
-    : postIds.replies.map((reply) => Number(reply.postId));
+    : postIds.replies.map((reply) => reply.postId);
   const query = isMeshService
     ? queries.AnsweredPosts.Mesh(dataToString(ids))
     : queries.AnsweredPosts.TheGraph;
@@ -173,12 +173,9 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
     : answeredPosts?.posts.map((post) => ({ ...post }));
 };
 
-export const getCommunities = async (count) => {
+export const getCommunities = async () => {
   const communities = await executeQuery({
     query: queries.Communities[graphService],
-    variables: {
-      first: count,
-    },
   });
   return isMeshService ? communities?.community : communities?.communities;
 };
@@ -200,7 +197,9 @@ export const getCommunityById = async (id) => {
       id,
     },
   });
-  return isMeshService ? community?.community[0] : community?.community;
+  return isMeshService
+    ? { ...community?.community[0], translations: community?.community[0].communitytranslation }
+    : community?.community;
 };
 
 export const getTags = async (communityId) => {
@@ -387,9 +386,7 @@ export const postsForSearch = async (text, single) => {
         };
       })
     : result?.postSearch;
-  return posts.filter(
-    (post) => !post.isDeleted && (single ? Number(post.communityId) === Number(single) : true),
-  );
+  return posts.filter((post) => !post.isDeleted && (single ? post.communityId === single : true));
 };
 
 export const getAllAchievements = async (userId) => {

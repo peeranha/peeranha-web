@@ -52,7 +52,7 @@ export function* postQuestionWorker({ val }) {
     const postType = +val[FORM_TYPE];
     const tags =
       postType !== POST_TYPE.documentation
-        ? val[FORM_TAGS].map((tag) => Number(tag.id.split('-')[1]))
+        ? val[FORM_TAGS].map((tag) => Number(tag.id.split('-')[3]))
         : [];
     const communityId = val[FORM_COMMUNITY].id;
 

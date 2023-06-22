@@ -1,9 +1,5 @@
 import { Contract, ethers } from 'ethers';
-
-import { GET_COMMUNITY, GET_USER_BY_ADDRESS } from 'app/utils/ethConstants';
-
-import { getFileUrl, getIpfsHashFromBytes32, getText } from 'app/utils/ipfs';
-import { deleteCookie } from 'app/utils/cookie';
+import { deleteCookie, getCookie, setCookie } from 'app/utils/cookie';
 
 import { sendDispatcherTransactionMethod } from 'utils/ethereum/dispatcher';
 import { sendMetaTransactionMethod } from 'utils/ethereum/metaTransactions';
@@ -14,6 +10,9 @@ import PeeranhaContent from '../../../../peeranha-subgraph/abis/PeeranhaContent.
 import PeeranhaToken from '../../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaUser from '../../../../peeranha-subgraph/abis/PeeranhaUser.json';
 
+const CHAIN_IDS = [process.env.CHAIN_ID, process.env.EDGEWARE_CHAIN_ID];
+export const NETWORK_ID = 'networkid';
+
 class EthereumService {
   constructor(data) {
     this.contractUser = null;
@@ -21,11 +20,12 @@ class EthereumService {
     this.contractContent = null;
     this.contractCommunity = null;
 
-    this.contractUserReads = null;
     this.contractTokenReads = null;
     this.contractContentReads = null;
-    this.contractCommunityReads = null;
-    this.edgewareContractUser = null;
+    this.edgewreContractContentReads = null;
+    this.edgewareContractCommunity = null;
+    this.edgewareContractContent = null;
+    this.edgewareContractToken = null;
     this.connect = data.connect;
     this.setChain = data.setChain;
     this.disconnect = data.disconnect;
@@ -65,12 +65,12 @@ class EthereumService {
   initEthereum = async () => {
     this.provider = ethers.providers.getDefaultProvider(process.env.ETHEREUM_NETWORK);
     this.edgewareProvider = ethers.providers.getDefaultProvider(process.env.EDGEWARE_NETWORK);
+    this.edgewareProviderReads = ethers.providers.getDefaultProvider(process.env.EDGEWARE_NETWORK);
     this.providerReads = ethers.providers.getDefaultProvider(process.env.ETHEREUM_NETWORK);
 
-    this.c1ontractUser = new Contract(process.env.USER_ADDRESS, PeeranhaUser, this.provider);
-
-    this.contractUser = new Contract(
-      process.env.EDGEWARE_USERLIB_ADDRESS,
+    this.contractUser = new Contract(process.env.USER_ADDRESS, PeeranhaUser, this.provider);
+    this.edgewareContractUser = new Contract(
+      process.env.EDGEWARE_USER_ADDRESS,
       PeeranhaUser,
       this.edgewareProvider,
     );
@@ -79,27 +79,36 @@ class EthereumService {
       PeeranhaCommunity,
       this.provider,
     );
+    this.edgewareContractCommunity = new Contract(
+      process.env.EDGEWARE_COMMUNITY_ADDRESS,
+      PeeranhaCommunity,
+      this.edgewareProvider,
+    );
     this.contractContent = new Contract(
       process.env.CONTENT_ADDRESS,
       PeeranhaContent,
       this.provider,
     );
-    this.contractToken = new Contract(process.env.PEERANHA_TOKEN, PeeranhaToken, this.provider);
-
-    this.contractUserReads = new Contract(
-      process.env.USER_ADDRESS,
-      PeeranhaUser,
-      this.providerReads,
+    this.edgewareContractContent = new Contract(
+      process.env.EDGEWARE_CONTENT_ADDRESS,
+      PeeranhaContent,
+      this.edgewareProvider,
     );
-    this.contractCommunityReads = new Contract(
-      process.env.COMMUNITY_ADDRESS,
-      PeeranhaCommunity,
-      this.providerReads,
+    this.contractToken = new Contract(process.env.PEERANHA_TOKEN, PeeranhaToken, this.provider);
+    this.edgewareContractToken = new Contract(
+      process.env.EDGEWARE_TOKEN_ADDRESS,
+      PeeranhaToken,
+      this.edgewareProvider,
     );
     this.contractContentReads = new Contract(
       process.env.CONTENT_ADDRESS,
       PeeranhaContent,
       this.providerReads,
+    );
+    this.edgewreContractContentReads = new Contract(
+      process.env.EDGEWARE_CONTENT_ADDRESS,
+      PeeranhaContent,
+      this.edgewareProviderReads,
     );
     this.contractTokenReads = new Contract(
       process.env.PEERANHA_TOKEN,
@@ -107,12 +116,23 @@ class EthereumService {
       this.providerReads,
     );
   };
-
-  chainCheck = async (chainId) => {
-    chainId = process.env.EDGEWARE_CHAIN_ID;
+  chainCheck = async (network) => {
+    if (network === undefined) {
+      network = getCookie(NETWORK_ID);
+    }
+    const chainId = CHAIN_IDS[Number(network) || 0];
     if (this.connectedChain.id !== `0x${Number(chainId).toString(16)}`) {
       await this.setChain({
         chainId: `0x${Number(chainId).toString(16)}`,
+      });
+
+      setCookie({
+        name: NETWORK_ID,
+        value: JSON.stringify(network),
+        options: {
+          defaultPath: true,
+          allowSubdomains: true,
+        },
       });
     }
   };
@@ -134,9 +154,9 @@ class EthereumService {
       return;
     }
 
-    await this.chainCheck(process.env.chainId);
+    await this.chainCheck();
 
-    this.provider = new ethers.providers.Web3Provider(this.wallet.provider);
+    this.provider = new ethers.providers.Web3Provider(this.wallet.provider, 'any');
     const signer = await this.provider.getSigner();
     this.contractUser = new Contract(process.env.USER_ADDRESS, PeeranhaUser, signer);
     this.contractCommunity = new Contract(process.env.COMMUNITY_ADDRESS, PeeranhaCommunity, signer);
@@ -159,19 +179,6 @@ class EthereumService {
   };
 
   getSelectedAccount = () => this.selectedAccount;
-
-  getProfile = async (userAddress) => {
-    const user = await this.getUserDataWithArgs(GET_USER_BY_ADDRESS, [userAddress]);
-
-    return {
-      creationTime: user.creationTime,
-      ipfsDoc: user.ipfsDoc,
-      rating: user.rating,
-      followedCommunities: user.followedCommunities,
-      ipfsHash: getIpfsHashFromBytes32(user.ipfsDoc.hash),
-    };
-  };
-
   waitForCloseModal() {
     return new Promise((resolve) => {
       this.stopWaiting = function () {
@@ -179,33 +186,11 @@ class EthereumService {
       };
     });
   }
-
-  getUserDataWithArgs = async (action, args) => this.contractUserReads[action](...args);
-
-  getCommunityDataWithArgs = async (action, args) => this.contractCommunityReads[action](...args);
-
   getContentDataWithArgs = async (action, args) => this.contractContentReads[action](...args);
+  getEdgewareContentDataWithArgs = async (action, args) =>
+    this.edgewreContractContentReads[action](...args);
 
   getTokenDataWithArgs = async (action, args) => this.contractTokenReads[action](...args);
-
-  getCommunityFromContract = async (id) => {
-    const rawCommunity = await this.getCommunityDataWithArgs(GET_COMMUNITY, [id]);
-    const communityInfo = JSON.parse(
-      await getText(getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
-    );
-    return {
-      id: +id,
-      name: communityInfo.name,
-      avatar: communityInfo.avatar.imgUrl || getFileUrl(communityInfo.avatar),
-      description: communityInfo.description,
-      website: communityInfo.website,
-      communitySite: communityInfo?.communitySite,
-      language: communityInfo.language,
-      creationTime: rawCommunity.timeCreate,
-      isFrozen: rawCommunity.isFrozen,
-      value: +id,
-    };
-  };
 }
 
 export default EthereumService;

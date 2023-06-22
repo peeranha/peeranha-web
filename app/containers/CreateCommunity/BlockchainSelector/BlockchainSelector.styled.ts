@@ -4,11 +4,6 @@ export const styles = {
     alignItems: 'center',
   },
 
-  arrowDown: {
-    transform: `rotate(${isOpen ? '180deg' : '0deg'})`,
-    transition: '0.5s',
-  },
-
   transactionList: {},
 
   blocker: {},

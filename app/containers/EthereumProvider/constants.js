@@ -16,6 +16,7 @@ export const TRANSACTION_FAILED = 'app/EthereumProvider/TRANSACTION_FAILED';
 export const POLYGON = 'Polygon';
 export const POLYGON_TESTNET = 'Polygon Testnet';
 export const MATIC = 'MATIC';
+export const EDG = 'EDG';
 export const POSITION_BOTTOM_RIGHT = 'bottom-right';
 export const PROD_ENV = 'prod';
 export const CHANGE_PROVIDER = 'app/EthereumProvider/CHANGE_PROVIDER';

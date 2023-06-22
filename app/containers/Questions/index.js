@@ -218,7 +218,7 @@ export const Questions = ({
       />
       <ScrollToTop />
       <Header
-        communityIdFilter={Number(params.communityid) || 0}
+        communityIdFilter={params.communityid || 0}
         followedCommunities={followedCommunities}
         parentPage={parentPage}
         typeFilter={typeFilter}
@@ -320,10 +320,7 @@ export default compose(
       isLastFetch: questionsSelector.selectIsLastFetch(),
       questionFilter: questionsSelector.selectQuestionFilter(),
       questionsList: (state, props) =>
-        questionsSelector.selectQuestions(
-          props.parentPage,
-          Number(props.match.params.communityid),
-        )(state),
+        questionsSelector.selectQuestions(props.parentPage, props.match.params.communityid)(state),
       isLastTopQuestionLoaded: questionsSelector.isLastTopQuestionLoadedSelector,
       promotedQuestions: questionsSelector.selectPromotedQuestions(),
     }),

@@ -18,6 +18,7 @@ export const getUserDataFromMesh = (item) => {
   }));
   return {
     ...user,
+    id: user.id.toLowerCase(),
     achievements,
     ratings: usercommunityrating,
     followedCommunities: usercommunity.map((community) => community.communityId),
@@ -33,9 +34,10 @@ const getCommentDataFromMesh = (item) => {
 const getReplyDataFromMesh = (item, postComments) => {
   const { user, ...reply } = item;
   const comments = postComments
-    .filter((comment) => comment.parentReplyId === Number(reply.id.split('-')[1]))
+    .filter(
+      (comment) => comment.parentReplyId === `${reply.id.split('-')[2]}-${reply.id.split('-')[3]}`,
+    )
     .map((comment) => getCommentDataFromMesh(comment));
-
   return {
     ...reply,
     author: getUserDataFromMesh(user[0]),

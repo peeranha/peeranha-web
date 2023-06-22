@@ -1,54 +1,49 @@
 // Contracts
-export const CONTRACT_TOKEN = 'contractToken';
-export const CONTRACT_USER = 'contractUser';
-export const CONTRACT_CONTENT = 'contractContent';
-export const CONTRACT_COMMUNITY = 'contractCommunity';
+export const CONTRACT_TOKEN = ['contractToken', 'edgewareContractToken'];
+export const CONTRACT_USER = ['contractUser', 'edgewareContractUser'];
+export const CONTRACT_CONTENT = ['contractContent', 'edgewareContractContent'];
+export const CONTRACT_COMMUNITY = ['contractCommunity', 'edgewareContractCommunity'];
+
+export const getContentData = ['getContentDataWithArgs', 'getEdgewareContentDataWithArgs'];
 
 export const ContractsMapping = {
-  [CONTRACT_TOKEN]: 'token',
-  [CONTRACT_USER]: 'user',
-  [CONTRACT_CONTENT]: 'content',
-  [CONTRACT_COMMUNITY]: 'community',
+  contractToken: 'token',
+  contractUser: 'user',
+  contractContent: 'content',
+  contractCommunity: 'community',
 };
 
 // Transaction names
-export const UPDATE_ACC = 'updateUser';
-export const CREATE_COMMUNITY = 'createCommunity';
-export const EDIT_COMMUNITY = 'updateCommunity';
-export const FOLLOW_COMMUNITY = 'followCommunity';
-export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
-export const CREATE_TAG = 'createTag';
-export const EDIT_TAG = 'updateTag';
-export const POST_QUESTION = 'createPost';
+export const UPDATE_ACC = 'updateUser'; // done
+export const CREATE_COMMUNITY = 'createCommunity'; // done
+export const EDIT_COMMUNITY = 'updateCommunity'; // done
+export const FOLLOW_COMMUNITY = 'followCommunity'; // done
+export const UNFOLLOW_COMMUNITY = 'unfollowCommunity'; // done
+export const CREATE_TAG = 'createTag'; // done
+export const EDIT_TAG = 'updateTag'; // done not working
+export const POST_QUESTION = 'createPost'; // done
 export const UPDATE_DOCUMENTATION_TREE = 'updateDocumentationTree';
 export const DELETE_DOCUMENTATION_POST = 'deleteDocumentationPost';
-export const CHANGE_POST_TYPE = 'changePostType';
-export const POST_ANSWER = 'createReply';
-export const EDIT_ANSWER = 'editReply';
-export const DELETE_ANSWER = 'deleteReply';
-export const EDIT_POST = 'editPost';
+export const POST_ANSWER = 'createReply'; // done
+export const EDIT_ANSWER = 'editReply'; // done
+export const DELETE_ANSWER = 'deleteReply'; // done
+export const EDIT_POST = 'editPost'; // done
 export const DELETE_POST = 'deletePost';
-export const POST_COMMENT = 'createComment';
-export const EDIT_COMMENT = 'editComment';
-export const DELETE_COMMENT = 'deleteComment';
+export const POST_COMMENT = 'createComment'; // done
+export const EDIT_COMMENT = 'editComment'; // done
+export const DELETE_COMMENT = 'deleteComment'; // done
 export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
-export const VOTE_ITEM = 'voteItem';
-export const CLAIM_REWARD = 'claimReward';
-export const SET_STAKE = 'setStake';
+export const VOTE_ITEM = 'voteItem'; // done
+export const CLAIM_REWARD = 'claimReward'; // skip
+export const SET_STAKE = 'setStake'; // skip
 export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
 export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
 
 // Query names
-export const GET_USER_BY_ADDRESS = 'getUserByAddress';
-export const IS_USER_EXISTS = 'isUserExists';
-export const GET_USERS_COUNT = 'getUsersCount';
-export const GET_COMMUNITIES_COUNT = 'getCommunitiesCount';
-export const GET_COMMUNITY = 'getCommunity';
 export const GET_POST = 'getPost';
 export const GET_REPLY = 'getReply';
 export const GET_STATUS_HISTORY = 'getStatusHistory';
 export const GET_COMMENT = 'getComment';
-export const GET_ITEM_PROPERTY = 'getItemProperty';
 export const GET_USER_BALANCE = 'balanceOf';
 export const GET_AVERAGE_STAKE = 'getAverageStake';
 export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
@@ -430,6 +425,13 @@ const community = `
   deletedPostCount
   followingUsers
   replyCount
+  communitytranslation {
+    communityId
+    name
+    description
+    language
+    enableAutotranslation
+  }
 `;
 
 const communitiesQuery = `
@@ -444,9 +446,7 @@ const communitiesQuery = `
       }`;
 
 const communitiesQueryMesh = `
-      query(
-        $first: Int,
-      ) {
+      query {
         community (
          limit: $first,
         ) {
@@ -564,16 +564,14 @@ const allTagsQueryMesh = allTagsQuery.replace('tags', 'tag');
 
 const communityQuery = `
       query(
-        $id: ID!,
+        $id: String,
       ) {
-        community(
-         id: $id,
-        ) {
+        community(where: { id: $id }) {
           ${community}
         }
       }`;
 
-const communityQueryMesh = communityQuery.replace('ID!', 'Int');
+const communityQueryMesh = communityQuery;
 
 const tagsQuery = `
       query(

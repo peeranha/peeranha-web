@@ -13,9 +13,15 @@ import {
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
 
-export async function sendTransactionMethod(contract, actor, action, data, confirmations = 1) {
+export async function sendTransactionMethod(
+  network,
+  contract,
+  actor,
+  action,
+  data,
+  confirmations = 1,
+) {
   let dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
-  console.log(this);
   const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
   const transactionsAllowed = dataFromCookies === TRANSACTIONS_ALLOWED;
   if (!dataFromCookies) {
@@ -51,8 +57,10 @@ export async function sendTransactionMethod(contract, actor, action, data, confi
     }
 
     if (dispatcherTransactionsAllowed) {
+      console.log('dispatchec');
       const token = await this.getRecaptchaToken();
       return await this.sendDispatcherTransaction(
+        network,
         contract,
         actor,
         action,
@@ -62,7 +70,7 @@ export async function sendTransactionMethod(contract, actor, action, data, confi
       );
     }
 
-    await this.chainCheck();
+    await this.chainCheck(network);
     const transaction = await this[contract]
       .connect(this.provider.getSigner(actor))
       [action](...data);

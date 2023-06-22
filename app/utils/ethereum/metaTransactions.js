@@ -49,6 +49,7 @@ export async function sendMetaTransactionMethod(
   confirmations = 1,
   token,
 ) {
+  console.log(contract, actor, action, data, token);
   await this.chainCheck();
   // use Reads contract to connect to the same provider that is used to listen for completed transactions
   const metaTxContract = this[`${contract}Reads`];

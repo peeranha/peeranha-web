@@ -55,7 +55,6 @@ const makeSelectProfileInfo = () =>
       const boost = makeSelectBoost()(state);
       const loginData = makeSelectLoginData()(state);
       const profileInfo = selectUsers(account)(state);
-      console.log(profileInfo);
 
       if (typeof profileInfo === 'object') {
         return {
@@ -78,7 +77,6 @@ const makeSelectFollowedCommunities = () =>
     (state) => state,
     (state) => {
       const profileInfo = makeSelectProfileInfo()(state);
-      console.log(profileInfo);
       return profileInfo ? profileInfo.followedCommunities : null;
     },
   );

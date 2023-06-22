@@ -107,7 +107,7 @@ const Note = ({
 }) => {
   const { t } = useTranslation();
   const LinkStyled = single && single !== communityId ? ADefault : A;
-  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[3] : null;
 
   const route =
     single && single !== communityId
