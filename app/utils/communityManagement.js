@@ -21,7 +21,7 @@ import {
 import { getCommunities, getCommunityById, getTags, getTagsByIds } from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
-  +Object.keys(communitiesConfig).find(
+  Object.keys(communitiesConfig).find(
     (id) => communitiesConfig[id].origin === window.location.origin,
   );
 

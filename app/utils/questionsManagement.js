@@ -67,10 +67,11 @@ export async function deleteDocumentationPost(user, postId, documentationJSON, e
   const ipfsLink = await saveText(JSON.stringify(documentationJSON));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+    getNetwork(postId),
+    CONTRACT_CONTENT[getNetwork(postId)],
     user,
     DELETE_DOCUMENTATION_POST,
-    [postId, ipfsHash],
+    [getActualId(postId), ipfsHash],
     2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
   );
 }
@@ -85,10 +86,11 @@ export async function updateDocumentationTree(
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
 
   return ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+    getNetwork(communityId),
+    CONTRACT_CONTENT[getNetwork(communityId)],
     user,
     UPDATE_DOCUMENTATION_TREE,
-    [user, communityId, ipfsHash],
+    [user, getActualId(communityId), ipfsHash],
     2,
   );
 }

@@ -17,16 +17,23 @@ import PeeranhaToken from '../../../../peeranha-subgraph/abis/PeeranhaToken.json
 import PeeranhaUser from '../../../../peeranha-subgraph/abis/PeeranhaUser.json';
 
 const CONTRACT_TO_ABI = {};
-CONTRACT_TO_ABI[CONTRACT_TOKEN] = PeeranhaToken;
-CONTRACT_TO_ABI[CONTRACT_USER] = PeeranhaUser;
-CONTRACT_TO_ABI[CONTRACT_COMMUNITY] = PeeranhaCommunity;
-CONTRACT_TO_ABI[CONTRACT_CONTENT] = PeeranhaContent;
-
 const CONTRACT_TO_NAME = {};
-CONTRACT_TO_NAME[CONTRACT_TOKEN] = 'PEER';
-CONTRACT_TO_NAME[CONTRACT_USER] = 'PeeranhaUser';
-CONTRACT_TO_NAME[CONTRACT_COMMUNITY] = 'PeeranhaCommunity';
-CONTRACT_TO_NAME[CONTRACT_CONTENT] = 'PeeranhaContent';
+
+const processContracts = (aggregator, contractList, contractType) => {
+  contractList.forEach((contractName) => {
+    aggregator[contractName] = contractType;
+  });
+};
+
+processContracts(CONTRACT_TO_ABI, CONTRACT_TOKEN, PeeranhaToken);
+processContracts(CONTRACT_TO_ABI, CONTRACT_USER, PeeranhaUser);
+processContracts(CONTRACT_TO_ABI, CONTRACT_COMMUNITY, PeeranhaCommunity);
+processContracts(CONTRACT_TO_ABI, CONTRACT_CONTENT, PeeranhaContent);
+
+processContracts(CONTRACT_TO_NAME, CONTRACT_TOKEN, 'PEER');
+processContracts(CONTRACT_TO_NAME, CONTRACT_USER, 'PeeranhaUser');
+processContracts(CONTRACT_TO_NAME, CONTRACT_COMMUNITY, 'PeeranhaCommunity');
+processContracts(CONTRACT_TO_NAME, CONTRACT_CONTENT, 'PeeranhaContent');
 
 const getSignatureParameters = (signature) => {
   const r = signature.slice(0, 66);
@@ -42,6 +49,7 @@ const getSignatureParameters = (signature) => {
 };
 
 export async function sendMetaTransactionMethod(
+  network,
   contract,
   actor,
   action,
@@ -49,8 +57,7 @@ export async function sendMetaTransactionMethod(
   confirmations = 1,
   token,
 ) {
-  console.log(contract, actor, action, data, token);
-  await this.chainCheck();
+  // await this.chainCheck();
   // use Reads contract to connect to the same provider that is used to listen for completed transactions
   const metaTxContract = this[`${contract}Reads`];
   const nonce = await metaTxContract.getNonce(actor);
@@ -108,6 +115,7 @@ export async function sendMetaTransactionMethod(
     sigV: v,
     wait: false,
     reCaptchaToken: token,
+    network: network + 1,
   });
 
   if (response.errorCode) {

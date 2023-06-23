@@ -1,4 +1,4 @@
-import { getCommunityRole } from 'utils/properties';
+import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
 import { getUser } from 'utils/theGraph';
 
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from './constants';
@@ -46,20 +46,22 @@ export const emptyProfile = (account) => ({
 
 export async function giveRolePermission(user, userToGive, role, communityId, ethereumService) {
   await ethereumService.sendTransaction(
-    CONTRACT_USER,
+    getNetwork(communityId),
+    CONTRACT_USER[getNetwork(communityId)],
     user,
     addRolePermissionEthConstants[role],
-    [user, userToGive, communityId],
+    [user, userToGive, getActualId(communityId)],
     2,
   );
 }
 
 export async function revokeRolePermission(user, userToRevoke, role, communityId, ethereumService) {
   await ethereumService.sendTransaction(
-    CONTRACT_USER,
+    getNetwork(communityId),
+    CONTRACT_USER[getNetwork(communityId)],
     user,
     revokeRolePermissionEthConstants[role],
-    [user, userToRevoke, communityId],
+    [user, userToRevoke, getActualId(communityId)],
     2,
   );
 }
@@ -84,12 +86,12 @@ export const getUsersModeratorByRoles = (usersModerator, communityId, moderators
   usersModerator.map((user) => {
     const moderatorPermission = moderators.find(
       (moderator) =>
-        moderator.permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId) &&
-        moderator.user.id === user.id,
+        getActualId(moderator.permission) ===
+          getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId) && moderator.user.id === user.id,
     );
     const adminPermission = moderators.find(
       (moderator) =>
-        moderator.permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId) &&
+        getActualId(moderator.permission) === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId) &&
         moderator.user.id === user.id,
     );
 

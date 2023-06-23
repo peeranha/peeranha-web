@@ -21,8 +21,15 @@ class EthereumService {
     this.contractCommunity = null;
 
     this.contractTokenReads = null;
+    this.contractUserReads = null;
     this.contractContentReads = null;
-    this.edgewreContractContentReads = null;
+    this.contractCommunityReads = null;
+
+    this.edgewareCntractTokenReads = null;
+    this.edgewareContractUserReads = null;
+    this.edgewareContractContentReads = null;
+    this.edgewareContractCommunityReads = null;
+
     this.edgewareContractCommunity = null;
     this.edgewareContractContent = null;
     this.edgewareContractToken = null;
@@ -100,6 +107,26 @@ class EthereumService {
       PeeranhaToken,
       this.edgewareProvider,
     );
+    this.contractUserReads = new Contract(
+      process.env.USER_ADDRESS,
+      PeeranhaUser,
+      this.providerReads,
+    );
+    this.edgewareContractUserReads = new Contract(
+      process.env.EDGEWARE_USER_ADDRESS,
+      PeeranhaUser,
+      this.edgewareProviderReads,
+    );
+    this.contractCommunityReads = new Contract(
+      process.env.COMMUNITY_ADDRESS,
+      PeeranhaCommunity,
+      this.providerReads,
+    );
+    this.edgewareContractCommunityReads = new Contract(
+      process.env.EDGEWARE_COMMUNITY_ADDRESS,
+      PeeranhaUser,
+      this.edgewareProviderReads,
+    );
     this.contractContentReads = new Contract(
       process.env.CONTENT_ADDRESS,
       PeeranhaContent,
@@ -114,6 +141,11 @@ class EthereumService {
       process.env.PEERANHA_TOKEN,
       PeeranhaToken,
       this.providerReads,
+    );
+    this.edgewreContractTokenReads = new Contract(
+      process.env.EDGEWARE_TOKEN_ADDRESS,
+      PeeranhaContent,
+      this.edgewareProviderReads,
     );
   };
   chainCheck = async (network) => {

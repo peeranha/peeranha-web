@@ -53,11 +53,18 @@ export async function sendTransactionMethod(
   try {
     if (metaTransactionsAllowed) {
       const token = await this.getRecaptchaToken();
-      return await this.sendMetaTransaction(contract, actor, action, data, confirmations, token);
+      return await this.sendMetaTransaction(
+        network,
+        contract,
+        actor,
+        action,
+        data,
+        confirmations,
+        token,
+      );
     }
 
     if (dispatcherTransactionsAllowed) {
-      console.log('dispatchec');
       const token = await this.getRecaptchaToken();
       return await this.sendDispatcherTransaction(
         network,

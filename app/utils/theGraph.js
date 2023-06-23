@@ -323,6 +323,7 @@ export const getCommunityDocumentation = async (id) => {
 };
 
 export const getDocumentationMenu = async (communityId) => {
+  console.log(communityId);
   const result = await executeQuery(
     {
       query: queries.DocumentationMenu[graphService],

@@ -18,6 +18,9 @@ import { GET_ARTICLE, UPDATE_DOCUMENTATION_MENU } from './constants';
 import { clearSavedDrafts } from 'components/Documentation/helpers';
 import { DocumentationArticle, DocumentationItemMenuType } from './types';
 import { Post } from 'containers/Search/SearchContent';
+import { getNetwork } from 'utils/properties';
+
+const single = isSingleCommunityWebsite();
 
 export function* getArticleDocumentationWorker({
   articleId,
@@ -46,7 +49,10 @@ export function* getArticleDocumentationWorker({
           }),
         );
       } else {
-        const documentationArticleFromGraph = yield call(getQuestionFromGraph, articleId);
+        const documentationArticleFromGraph = yield call(
+          getQuestionFromGraph,
+          `${getNetwork(single)}-${articleId}`,
+        );
         yield put(
           getArticleDocumentationSuccess({
             id: articleId,

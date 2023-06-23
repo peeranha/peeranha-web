@@ -53,8 +53,8 @@ export async function sendDispatcherTransactionMethod(
   }
 
   const response = await callService(BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress, {
-    contractName: ContractsMapping[contract],
-    contractAddress: '0xC9C21AC7A400d1956A13C171973D7307c3E2db6D',
+    contractName: ContractsMapping[contract][0],
+    contractAddress: ContractsMapping[contract][1],
     action,
     args: data,
     reCaptchaToken: token,

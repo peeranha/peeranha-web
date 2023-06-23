@@ -7,10 +7,14 @@ export const CONTRACT_COMMUNITY = ['contractCommunity', 'edgewareContractCommuni
 export const getContentData = ['getContentDataWithArgs', 'getEdgewareContentDataWithArgs'];
 
 export const ContractsMapping = {
-  contractToken: 'token',
-  contractUser: 'user',
-  contractContent: 'content',
-  contractCommunity: 'community',
+  contractToken: ['token', process.env.PEERANHA_TOKEN],
+  edgewareContractToken: ['token', process.env.EDGEWARE_TOKEN_ADDRESS],
+  contractUser: ['user', process.env.USER_ADDRESS],
+  edgewareContractUser: ['user', process.env.EDGEWARE_USER_ADDRESS],
+  contractContent: ['content', process.env.CONTENT_ADDRESS],
+  edgewareContractContent: ['content', process.env.EDGEWARE_CONTENT_ADDRESS],
+  contractCommunity: ['community', process.env.COMMUNITY_ADDRESS],
+  edgewareContractCommunity: ['community', process.env.EDGEWARE_COMMUNITY_ADDRESS],
 };
 
 // Transaction names
@@ -32,12 +36,14 @@ export const DELETE_POST = 'deletePost';
 export const POST_COMMENT = 'createComment'; // done
 export const EDIT_COMMENT = 'editComment'; // done
 export const DELETE_COMMENT = 'deleteComment'; // done
-export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
+export const CHANGE_STATUS_BEST = 'changeStatusBestReply'; // done
 export const VOTE_ITEM = 'voteItem'; // done
 export const CLAIM_REWARD = 'claimReward'; // skip
 export const SET_STAKE = 'setStake'; // skip
 export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
+export const GIVE_COMMUNITY_MODERATOR_PERMISSION = 'giveCommunityModeratorPermission';
 export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
+export const REVOKE_COMMUNITY_MODERATOR_PERMISSION = 'revokeCommunityModeratorPermission';
 
 // Query names
 export const GET_POST = 'getPost';
@@ -778,7 +784,7 @@ const documentationMenuQuery = `
 
 const documentationMenuQueryMesh = `
       query (
-        $id: Int
+        $id: String
       ) {
         communitydocumentation (where: { id: $id }) {
           id
