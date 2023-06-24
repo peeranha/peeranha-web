@@ -141,6 +141,7 @@ export const QuestionForm = ({
   const [isError, setIsError] = useState(false);
   const [submitPressed, setSubmitPressed] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
+  const titleFromForm = formValues[FORM_TITLE];
   const postTitle = question?.title;
   const postContent = question?.content;
   const isPostAuthor = question?.author === profile?.user;
@@ -173,10 +174,10 @@ export const QuestionForm = ({
   };
 
   useEffect(() => {
-    if (formValues[FORM_TITLE] && getQuestions) {
-      getQuestions(formValues[FORM_TITLE], true);
+    if (titleFromForm && titleFromForm.length >= 3 && getQuestions) {
+      getQuestions(titleFromForm, true);
     }
-  }, [formValues[FORM_TITLE]]);
+  }, [getQuestions, titleFromForm]);
 
   useEffect(() => {
     getCommunityTagsDispatch(communityId);
@@ -184,7 +185,7 @@ export const QuestionForm = ({
 
   const showMoreQuestions = (e) => {
     e.preventDefault();
-    createdHistory.push(routes.search(formValues[FORM_TITLE]));
+    createdHistory.push(routes.search(titleFromForm));
   };
 
   const tagCreatingAllowed =
@@ -199,7 +200,7 @@ export const QuestionForm = ({
       setSubmitPressed(true);
     }
   };
-  const isEdited = formValues[FORM_TITLE] !== postTitle || formValues[FORM_CONTENT] !== postContent;
+  const isEdited = titleFromForm !== postTitle || formValues[FORM_CONTENT] !== postContent;
 
   const defaultDocumentationArticle = {
     id: -1,
@@ -295,8 +296,8 @@ export const QuestionForm = ({
                 isPostAuthor={isPostAuthor}
               />
 
-              {formValues[FORM_TITLE] &&
-                formValues[FORM_TITLE].length >= 3 &&
+              {titleFromForm &&
+                titleFromForm.length >= 3 &&
                 (getExistingQuestions(existingQuestions || []).length ?? 0) > 0 &&
                 !doSkipExistingQuestions &&
                 !isDocumentation && (

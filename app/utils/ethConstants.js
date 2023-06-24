@@ -543,15 +543,12 @@ export const documentationMenuQuery = `
          }
       }`;
 
-export const postsForSearchQuery = `
+export const postsByIdsQuery = `
   query (
-    $text: String,
-    $first: Int,
+    $ids: [String]
   ) {
-    postSearch (
-      text: $text,
-      first: $first,
-      where: {isDeleted: false, title_not: ""},
+    posts (
+      where: { id_in: $ids, isDeleted: false }
     ) {
         id
         ipfsHash

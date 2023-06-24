@@ -145,6 +145,8 @@ module.exports = {
         'prefer-const': 'error',
         'prefer-rest-params': 'error',
         'prefer-spread': 'error',
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'error',
       },
     },
   ],

@@ -15,7 +15,7 @@ import {
   postQuery,
   postsByCommQuery,
   postsByCommAndTagsQuery,
-  postsForSearchQuery,
+  postsByIdsQuery,
   postsQuery,
   rewardsQuery,
   tagsQuery,
@@ -30,6 +30,7 @@ import {
   communityDocumentationNotIncludedQuery,
   moderationQuery,
 } from './ethConstants';
+import { getSearchResults, Network } from './semantic-search';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -58,7 +59,7 @@ export const getModerators = async (roles) => {
   const administrators = await client.query({
     query: gql(moderationQuery),
     variables: {
-      roles: roles,
+      roles,
     },
     fetchPolicy: 'network-only',
   });
@@ -305,28 +306,26 @@ export const getQuestionFromGraph = async (postId) => {
   }
   return post;
 };
-//
+
 export const postsForSearch = async (text, single) => {
-  const query = text
-    .replace(/\s+/g, ' ')
-    .trim()
-    .split(' ')
-    .reduce((textChar, word) => {
-      if (textChar.length === 0) {
-        return `${word}:*`;
-      }
-      return `${textChar} & ${word}:*`;
-    }, '');
+  const communityId = single || undefined;
+
+  const ids = await getSearchResults(text, [Network.Polygon], communityId);
+
   const posts = await client.query({
-    query: gql(postsForSearchQuery),
+    query: gql(postsByIdsQuery),
     variables: {
-      text: query,
-      first: 100,
+      ids,
     },
   });
-  return posts?.data?.postSearch.filter(
-    (post) => !post.isDeleted && (single ? Number(post.communityId) === Number(single) : true),
-  );
+
+  const sortedPosts = [...posts?.data?.posts].sort((a, b) => {
+    if (ids.indexOf(a.id) < ids.indexOf(b.id)) return -1;
+    if (ids.indexOf(a.id) > ids.indexOf(b.id)) return 1;
+    return 0;
+  });
+
+  return sortedPosts;
 };
 
 export const getAllAchievements = async (userId) => {
