@@ -12,6 +12,7 @@ import {
 } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
+import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
 
 export const sendTransactionMethod = async function (
   contract,
@@ -68,7 +69,7 @@ export const sendTransactionMethod = async function (
       action,
       transactionHash: transaction.hash,
     });
-
+    localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
     this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);
     this.transactionList.find(
