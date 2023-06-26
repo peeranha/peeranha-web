@@ -51,7 +51,7 @@ export function* getArticleDocumentationWorker({
       } else {
         const documentationArticleFromGraph = yield call(
           getQuestionFromGraph,
-          `${getNetwork(single)}-${articleId}`,
+          `${getNetwork(single) + 1}-${articleId}`,
         );
         yield put(
           getArticleDocumentationSuccess({
