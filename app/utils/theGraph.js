@@ -308,7 +308,7 @@ export const getQuestionFromGraph = async (postId) => {
 };
 
 export const postsForSearch = async (text, single) => {
-  const communityId = single || undefined;
+  const communityId = single ? String(single) : undefined;
 
   const ids = await getSearchResults(text, [Network.Polygon], communityId);
 

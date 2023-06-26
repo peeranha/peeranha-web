@@ -6,10 +6,10 @@ export enum Network {
 
 export async function getSearchResults(
   query: string,
-  blockchains: number[],
+  blockchains: Network[],
   communityId?: number,
 ): Promise<string[]> {
-  const searchResponse = await fetch(process.env.SEARCH_ENDPOINT!, {
+  const searchResponse = await fetch(process.env.SEARCH_ENDPOINT as RequestInfo, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -18,5 +18,5 @@ export async function getSearchResults(
   });
   const result = await searchResponse.json();
   const { ids } = result;
-  return ids;
+  return ids.map((id: string) => (id.includes('-') ? id.split('-')[1] : id));
 }
