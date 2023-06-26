@@ -60,18 +60,15 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
     if (Boolean(transactionList.length) && transactionInPending && !opened) {
       setWidth(449);
       timer.current = setTimeout(() => setWidth(289), 3000);
-
-      return () => {
-        clearTimeout(timer.current);
-      };
     }
-  }, [transactionInPending]);
+  }, [opened, transactionInPending, transactionList.length]);
 
   const onStatusButtonClick = () => {
     if (opened) {
       setRight(-245);
     } else {
       setRight(0);
+      setWidth(289);
     }
     setOpened(!opened);
   };
