@@ -13,6 +13,7 @@ export const KEY_QUESTIONS_TYPE = 28;
 export const PROMOTE_HOUR_COST = 2;
 
 export const DEFAULT_COMMUNITY_ID = 5;
+// DEFAULT_COMMUNITY_ID_TEST_ENV = 6;
 
 export const POST_TYPE = {
   expertPost: 0,

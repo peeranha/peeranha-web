@@ -6,6 +6,7 @@ import {
   CONTRACT_USER,
 } from 'utils/ethConstants';
 
+import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
 import {
   BLOCKCHAIN_SEND_META_TRANSACTION,
   callService,
@@ -57,15 +58,18 @@ export async function sendMetaTransactionMethod(
   confirmations = 1,
   token,
 ) {
-  // await this.chainCheck();
-  // use Reads contract to connect to the same provider that is used to listen for completed transactions
   const metaTxContract = this[`${contract}Reads`];
   const nonce = await metaTxContract.getNonce(actor);
-  // eslint-disable-next-line no-console
   console.log(`Nonce from contract: ${nonce}`);
 
-  const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
+  if (nonce.lte(this.previousNonce)) {
+    nonce = this.previousNonce.add(1);
+    this.previousNonce = nonce;
+  } else {
+    this.previousNonce = nonce;
+  }
 
+  const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
   const functionSignature = iface.encodeFunctionData(action, data);
   const message = {};
   message.nonce = parseInt(nonce, 10);
@@ -118,16 +122,40 @@ export async function sendMetaTransactionMethod(
     network: network + 1,
   });
 
+  this.transactionList.push({
+    action,
+    transactionHash: response.body.transactionHash,
+  });
+
+  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+
   if (response.errorCode) {
     throw response;
   }
 
-  this.transactionInPending(response.body.transactionHash);
+  this.transactionInPending(response.body.transactionHash, this.transactionList);
   const result = await this.providerReads.waitForTransaction(
     response.body.transactionHash,
     confirmations,
   );
-  this.transactionCompleted();
-  this.setTransactionInitialised(false);
+  const pendingTransaction = this.transactionList.find(
+    (transactionFromList) => transactionFromList.transactionHash === response.body.transactionHash,
+  );
+  if (pendingTransaction) {
+    pendingTransaction.result = result;
+  }
+  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+  setTimeout(() => {
+    const index = this.transactionList
+      .map((transactionFromList) => transactionFromList.transactionHash)
+      .indexOf(response.body.transactionHash);
+    if (index !== -1) {
+      this.transactionList.splice(index, 1);
+      this.setTransactionList(this.transactionList);
+      localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+    }
+  }, 30000);
+
+  this.transactionCompleted(this.transactionList);
   return result;
 }

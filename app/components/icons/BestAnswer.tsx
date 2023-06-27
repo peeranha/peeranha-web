@@ -7,7 +7,7 @@ const BestAnswer: React.FC<IconProps> = (props): JSX.Element => (
     id="best-answer"
     fill="currentColor"
     viewBox="0 0 19 20"
-    size={[19, 20]}
+    size={[18, 18]}
   >
     <g stroke={props.stroke || '#282828'} fill="none">
       <path

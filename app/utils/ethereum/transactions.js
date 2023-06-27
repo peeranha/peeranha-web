@@ -12,6 +12,7 @@ import {
 } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
+import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
 
 export async function sendTransactionMethod(
   network,
@@ -37,15 +38,7 @@ export async function sendTransactionMethod(
   if (!dataFromCookies) {
     return;
   }
-  if (this.isTransactionInitialised) {
-    this.addToast({
-      type: 'info',
-      text: 'Wait for the end of the current transaction.',
-    });
-    throw new Error('Wait for the end of the current transaction.');
-  }
 
-  this.setTransactionInitialised(true);
   this.waitForConfirm();
 
   const metaTransactionsAllowed = dataFromCookies === META_TRANSACTIONS_ALLOWED;
@@ -81,14 +74,31 @@ export async function sendTransactionMethod(
     const transaction = await this[contract]
       .connect(this.provider.getSigner(actor))
       [action](...data);
-    this.transactionInPending(transaction.hash);
+
+    this.transactionList.push({
+      action,
+      transactionHash: transaction.hash,
+    });
+    localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+    this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);
-    this.transactionCompleted();
-    this.setTransactionInitialised(false);
+    this.transactionList.find(
+      (transactionFromList) => transactionFromList.transactionHash === transaction.hash,
+    ).result = result;
+    setTimeout(() => {
+      const index = this.transactionList
+        .map((transactionFromList) => transactionFromList.transactionHash)
+        .indexOf(transaction.hash);
+      if (index !== -1) {
+        this.transactionList.splice(index, 1);
+        this.setTransactionList(this.transactionList);
+      }
+    }, '30000');
+
+    this.transactionCompleted(this.transactionList);
+
     return result;
   } catch (err) {
-    this.setTransactionInitialised(false);
-
     switch (err.code) {
       case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
         this.transactionFailed(new WebIntegrationErrorByCode(METAMASK_ERROR_CODE));

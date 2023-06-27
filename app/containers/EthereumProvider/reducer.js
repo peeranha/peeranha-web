@@ -15,6 +15,7 @@ import {
   TRANSACTION_COMPLETED,
   TRANSACTION_FAILED,
   TRANSACTION_INITIALIZED,
+  SET_TRANSACTION_LIST,
 } from './constants';
 
 export const initialState = fromJS({
@@ -25,11 +26,11 @@ export const initialState = fromJS({
   transactionInitialised: false,
   inPending: false,
   transactionHash: null,
-  // providerNetwork:
+  transactionList: [],
 });
 
 function ethereumProviderReducer(state = initialState, action) {
-  const { type, error, ethereum, transactionHash } = action;
+  const { type, error, ethereum, transactionHash, transactionList = [] } = action;
 
   switch (type) {
     case INIT_ETHEREUM:
@@ -45,11 +46,22 @@ function ethereumProviderReducer(state = initialState, action) {
     case TRANSACTION_INITIALIZED:
       return state.set('transactionInitialised', true);
     case TRANSACTION_IN_PENDING:
-      return state.set('inPending', true).set('transactionHash', transactionHash);
+      return state
+        .set('inPending', true)
+        .set('transactionHash', transactionHash)
+        .set('transactionList', [...transactionList]);
     case TRANSACTION_COMPLETED:
-      return state.set('inPending', false).set('transactionInitialised', false);
+      return state
+        .set('inPending', false)
+        .set('transactionInitialised', false)
+        .set('transactionList', [...transactionList]);
     case TRANSACTION_FAILED:
-      return state.set('inPending', false).set('transactionInitialised', false);
+      return state
+        .set('inPending', false)
+        .set('transactionInitialised', false)
+        .set('transactionList', [...transactionList]);
+    case SET_TRANSACTION_LIST:
+      return state.set('transactionList', [...transactionList]);
     default:
       return state;
   }

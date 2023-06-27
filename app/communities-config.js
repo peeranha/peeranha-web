@@ -245,7 +245,7 @@ const communitiesConfig = {
   },
   dev: {
     '1-1': {
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:31000',
       src: 'https://images.peeranha.io/communities/harmony/logo.svg',
       styles: HarmonyStyles,
     },

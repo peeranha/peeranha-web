@@ -1,6 +1,7 @@
 import { ONE_MONTH, WEB3_TOKEN, WEB3_TOKEN_USER_ADDRESS } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
 import { ContractsMapping } from 'utils/ethConstants';
+import { setTransactionResult, TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
 import {
   BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
   callService,
@@ -62,16 +63,26 @@ export async function sendDispatcherTransactionMethod(
     network: network + 1,
   });
 
+  this.transactionList.push({
+    action,
+    transactionHash: response.body.transactionHash,
+  });
+
+  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+
   if (response.errorCode) {
     throw response;
   }
 
-  this.transactionInPending(response.body.transactionHash);
+  this.transactionInPending(response.body.transactionHash, this.transactionList);
+
   const result = await this.provider.waitForTransaction(
     response.body.transactionHash,
     confirmations,
   );
-  this.transactionCompleted();
-  this.setTransactionInitialised(false);
+
+  setTransactionResult(response, result, this.transactionList, this.setTransactionList);
+
+  this.transactionCompleted(this.transactionList);
   return result;
 }

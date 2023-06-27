@@ -1,8 +1,9 @@
-import { Contract, ethers } from 'ethers';
+import { BigNumber, Contract, ethers } from 'ethers';
 import { deleteCookie, getCookie, setCookie } from 'app/utils/cookie';
 
 import { sendDispatcherTransactionMethod } from 'utils/ethereum/dispatcher';
 import { sendMetaTransactionMethod } from 'utils/ethereum/metaTransactions';
+import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
 import { sendTransactionMethod } from 'utils/ethereum/transactions';
 
 import PeeranhaCommunity from '../../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
@@ -50,8 +51,12 @@ class EthereumService {
     this.showModalDispatch = data.showModalDispatch;
     this.waitForConfirm = data.waitForConfirmDispatch;
     this.transactionFailed = data.transactionFailedDispatch;
+    this.setTransactionList = data.setTransactionListDispatch;
     this.transactionInPending = data.transactionInPendingDispatch;
     this.transactionCompleted = data.transactionCompletedDispatch;
+
+    this.previousNonce = BigNumber.from(0);
+    this.transactionList = [];
 
     this.sendTransaction = sendTransactionMethod;
     this.sendMetaTransaction = sendMetaTransactionMethod;
@@ -147,6 +152,34 @@ class EthereumService {
       PeeranhaContent,
       this.edgewareProviderReads,
     );
+
+    const transactionList = JSON.parse(localStorage.getItem(TRANSACTION_LIST))?.filter(
+      (transaction) => !transaction.result,
+    );
+    if (transactionList && transactionList.length) {
+      transactionList.map(async (transaction) => {
+        this.transactionList.push(transaction);
+        this.transactionList.find(
+          (transactionFromList) =>
+            transactionFromList.transactionHash === transaction.transactionHash,
+        ).result = await this.provider.waitForTransaction(transaction.transactionHash);
+
+        setTimeout(() => {
+          const index = this.transactionList
+            .map((transactionFromList) => transactionFromList.transactionHash)
+            .indexOf(transaction.transactionHash);
+          if (index !== -1) {
+            this.transactionList.splice(index, 1);
+            this.setTransactionList(this.transactionList);
+          }
+        }, '30000');
+
+        this.setTransactionList(this.transactionList);
+        localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+      });
+    }
+    this.setTransactionList(this.transactionList);
+    localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
   };
   chainCheck = async (network) => {
     if (network === undefined) {

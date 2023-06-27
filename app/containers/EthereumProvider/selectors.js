@@ -32,6 +32,9 @@ const selectTransactionInitialised = () =>
     substate.get('transactionInitialised'),
   );
 
+const selectTransactionList = () =>
+  createSelector(selectEthereumProviderDomain, (substate) => substate.get('transactionList'));
+
 export {
   selectEthereumProviderDomain,
   selectEthereum,
@@ -41,4 +44,5 @@ export {
   selectTransactionInPending,
   selectTransactionHash,
   selectTransactionInitialised,
+  selectTransactionList,
 };
