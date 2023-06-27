@@ -7,7 +7,7 @@ export enum Network {
 export async function getSearchResults(
   query: string,
   blockchains: Network[],
-  communityId?: number,
+  communityId?: string,
 ): Promise<string[]> {
   const searchResponse = await fetch(process.env.SEARCH_ENDPOINT as RequestInfo, {
     method: 'POST',

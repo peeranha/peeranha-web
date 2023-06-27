@@ -19,6 +19,7 @@ const B = ({ isFollowed, onClick, id, disabled }) => {
         data-isfollowed={isFollowed}
         onClick={onClick}
         disabled={disabled}
+        block={disabled}
       >
         <img className="py-1" src={okayIcon} alt="icon" />
       </PrimaryButton>
@@ -31,6 +32,7 @@ const B = ({ isFollowed, onClick, id, disabled }) => {
       data-isfollowed={isFollowed}
       onClick={onClick}
       disabled={disabled}
+      block={disabled}
     >
       {t('common.followCommunity.subscribe')}
     </InfoButton>
@@ -41,12 +43,7 @@ export const StyledButton = ({ communityIdFilter }) => (
   <Button
     communityIdFilter={communityIdFilter}
     render={({ isFollowed, onClick, id, disabled }) => (
-      <B
-        id={id}
-        isFollowed={isFollowed}
-        onClick={onClick}
-        disabled={disabled}
-      />
+      <B id={id} isFollowed={isFollowed} onClick={onClick} disabled={disabled} />
     )}
   />
 );
