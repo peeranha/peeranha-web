@@ -15,6 +15,7 @@ import {
   TRANSACTION_FAILED,
   SET_TRANSACTION_LIST,
   TRANSACTION_INITIALIZED,
+  CHANGE_PROVIDER,
 } from './constants';
 
 export function initEthereum(data) {
@@ -82,5 +83,12 @@ export function transactionFailed(data) {
   return {
     type: TRANSACTION_FAILED,
     data,
+  };
+}
+
+export function changeProvider(network) {
+  return {
+    type: CHANGE_PROVIDER,
+    network,
   };
 }

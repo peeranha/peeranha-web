@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
@@ -31,7 +30,7 @@ import {
   transactionInitialised,
   setTransactionList,
 } from './actions';
-import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
+import { EDG, MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
 const injected = injectedModule();
@@ -45,7 +44,6 @@ const torus = torusModule({
     networkName: networkLabel,
   },
 });
-const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
@@ -58,6 +56,12 @@ const initWeb3Onboard = init({
       token: MATIC,
       label: networkLabel,
       rpcUrl: process.env.ETHEREUM_NETWORK,
+    },
+    {
+      id: `0x${Number(process.env.EDGEWARE_CHAIN_ID).toString(16)}`,
+      token: 'SepoliaETH',
+      label: 'Sepolia test network',
+      rpcUrl: process.env.EDGEWARE_NETWORK,
     },
   ],
   accountCenter: {

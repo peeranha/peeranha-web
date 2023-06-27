@@ -24,14 +24,16 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
     const offset = questionsFromStore?.length || 0;
 
     const questions = yield call(getAnsweredUsersPosts, userId, limit, offset);
-    questions?.map(post => {
+    questions?.map((post) => {
       post.elementType = POST_TYPE_ANSWER;
       post.acceptedAnswer = post.bestReply > 0;
       post.isGeneral = isGeneralQuestion(post);
-      post.replies = post.replies.filter(reply => reply.author.id === userId);
+      post.replies = post.replies.filter(
+        (reply) => reply.author.id.toUpperCase() === userId.toUpperCase(),
+      );
       const mostRatingAnswer = maxBy(post.replies, 'rating');
 
-      post.replies.map(reply => {
+      post.replies.map((reply) => {
         post.myPostTime = reply.postTime;
         post.isMyAnswerAccepted = reply.isBestReply;
 
@@ -50,7 +52,7 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_ANSWERED_QUESTIONS, getQuestionsWithAnswersWorker);
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(REDIRECT_TO_FEED, redirectToFeedWorker);

@@ -52,7 +52,7 @@ const Post: React.FC<PostProps> = ({
   replyCount,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const community = getFollowedCommunities(communities, [Number(communityId)])[0] || {};
+  const community = getFollowedCommunities(communities, [communityId])[0] || {};
 
   const postLink = getPostRoute({ postType, id, title });
   const communityLink = () => {

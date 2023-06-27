@@ -35,6 +35,14 @@ import {
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
+import { getValueFromSearchString } from 'utils/url';
+import { getCookie, setCookie } from 'utils/cookie';
+import {
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ErrorBoundary from 'components/ErrorBoundary';
 
@@ -60,7 +68,6 @@ import {
   CreateTag,
   EditTag,
   NoAccess,
-  Home,
   Feed,
   Communities,
   Login,
@@ -74,20 +81,13 @@ import {
   TermsOfService,
   MetaTransactionAgreement,
 } from './imports';
-import { getValueFromSearchString } from '../../utils/url';
-import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed, redirectToDocumentation, redirectToPreload } from './actions';
-import {
-  hasCommunityAdminRole,
-  hasGlobalModeratorRole,
-  hasProtocolAdminRole,
-} from '../../utils/properties';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
-const isDocumentationPositionTop = singleCommunityDocumentationPosition() == POSITION_TOP;
+const isDocumentationPositionTop = singleCommunityDocumentationPosition() === POSITION_TOP;
 const App = ({
   location: { pathname, search },
   redirectToFeedDispatch,
@@ -130,7 +130,7 @@ const App = ({
 
   useEffect(() => {
     const isVisitedSite = getCookie('isVisitedSite');
-    if (isVisitedSite && !single && pathname == '/') {
+    if (isVisitedSite && !single && pathname === '/') {
       redirectToFeedDispatch();
     }
   }, []);
@@ -140,7 +140,7 @@ const App = ({
     : Object.keys(documentationMenu).length;
 
   useEffect(() => {
-    if (single && (pathname == '/' || pathname == '/feed') && !search) {
+    if (single && (pathname === '/' || pathname === '/feed') && !search) {
       if ((hasPinnedPost || isDocumentationPositionTop) && isDocumentationExist) {
         redirectToDocumentationDispatch();
       } else {

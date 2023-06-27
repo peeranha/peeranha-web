@@ -126,7 +126,7 @@ const CommunitySelector = ({
     [toggleOpen, input, toggle],
   );
 
-  const selectedValue = getFollowedCommunities(communities, [selectedCommunityId])[0];
+  const selectedValue = communities.find((community) => community.id === selectedCommunityId);
 
   const isItArrowed = useMemo(
     () => optionsNumber > 0 && !single && isArrowed,

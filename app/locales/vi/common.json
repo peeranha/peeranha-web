@@ -246,6 +246,7 @@
   "attach": "gắn",
   "communityLabel": "Cộng đồng",
   "tagsLabel": "Thẻ",
+  "blockchainLabel": "Blockchain",
   "invalidFileFormat": "Định dạng tập tin không hợp lệ. Các định dạng được phép: jpeg, jpg, png, gif, mp4.",
   "invalidFileSize": "Kích thước tệp không hợp lệ. Tối đa cho phép là 1,8mb cho hình ảnh và 1Gb cho video.",
   "bountyLabel": "Tiền thưởng",

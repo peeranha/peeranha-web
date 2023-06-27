@@ -42,7 +42,6 @@ import saga from './saga';
 
 import UniqueAchievement from './UniqueAchievement';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-import { achievementsArr } from './constants';
 
 const BaseRoundedStyled = styled(BaseRounded)`
   border-top-left-radius: 0 !important;
@@ -118,7 +117,7 @@ const Achievements = ({
           <UniqueAchievementsBlock>
             {/* TODO revert for PROD */}
             {achievements.map(
-              (achievement, index) =>
+              (achievement) =>
                 achievement.name !== 'error IPFS2' && (
                   <UniqueAchievement
                     reached={userAchievements.some(

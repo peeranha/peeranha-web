@@ -16,18 +16,25 @@ import {
 } from 'containers/Administration/actions';
 
 import { getModerators } from 'utils/theGraph';
-import { getCommunityRole } from 'utils/properties';
+import { getActualId, getCommunityRole } from 'utils/properties';
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from 'utils/constants';
 import { giveRolePermission, revokeRolePermission } from 'utils/accountManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 
-export function* getModeratorsWorker(props: { communityId: number }): Generator<{}> {
+export function* getModeratorsWorker(props: { communityId: string }): Generator<{}> {
   try {
-    const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, props.communityId);
-    const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, props.communityId);
-    const moderators: any = yield call(getModerators, [moderatorRole, adminRole]);
-
+    const moderatorRole = getCommunityRole(
+      COMMUNITY_MODERATOR_ROLE,
+      getActualId(props.communityId),
+    );
+    const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualId(props.communityId));
+    const moderators: any = yield call(getModerators, [
+      `1-${moderatorRole}`,
+      `2-${moderatorRole}`,
+      `1-${adminRole}`,
+      `2-${adminRole}`,
+    ]);
     yield put(getModeratorsSuccess(moderators.sort()));
   } catch (err) {
     yield put(getModeratorsError(err));

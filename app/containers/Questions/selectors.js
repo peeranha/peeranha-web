@@ -53,7 +53,7 @@ export const selectQuestions = (isFeed, communityId, questionId, getTopQuestions
       }
 
       if (communityId) {
-        return questionsList.filter((x) => Number(x.communityId) === Number(communityId));
+        return questionsList.filter((x) => x.communityId === communityId);
       }
 
       if (isFeed && single) {
@@ -61,20 +61,16 @@ export const selectQuestions = (isFeed, communityId, questionId, getTopQuestions
       }
 
       if (isFeed && followedCommunities) {
-        return questionsList.filter((x) => followedCommunities.includes(+x.communityId));
+        return questionsList.filter((x) => followedCommunities.includes(x.communityId));
       }
 
       if (questionId) {
-        return questionsList?.find((x) => Number(x.id) === Number(questionId));
+        return questionsList?.find((x) => x.id === questionId);
       }
 
       return questionsList;
     },
   );
-
-export const selectQuestionsError = () =>
-  createSelector(selectQuestionsDomain, (substate) => substate.get('questionsError'));
-
 export const selectPromotedQuestions = () =>
   createSelector(selectQuestionsDomain, (substate) => substate.toJS().promotedQuestions);
 
@@ -89,15 +85,6 @@ export const selectNextLoadedItems = () =>
 
 export const selectIsLastFetch = () =>
   createSelector(selectQuestionsDomain, (substate) => substate.get('isLastFetch'));
-
-export const selectFollowedCommunities = () =>
-  createSelector(selectQuestionsDomain, (substate) => substate.get('followedCommunities'));
-
-export const selectFollowHandlerLoading = () =>
-  createSelector(selectQuestionsDomain, (substate) => substate.get('followHandlerLoading'));
-
-export const selectFollowHandlerError = () =>
-  createSelector(selectQuestionsDomain, (substate) => substate.get('followHandlerError'));
 
 export const selectTypeFilter = () =>
   createSelector(selectQuestionsDomain, (substate) => substate.get('typeFilter'));

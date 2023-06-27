@@ -34,7 +34,6 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import ScrollToTop from 'components/ScrollToTop/index';
-import InfinityLoader from 'components/InfinityLoader';
 import TopCommunities from 'components/TopCommunities';
 import Seo from 'components/Seo';
 
@@ -48,7 +47,6 @@ import Content from './Content/Content';
 import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
-import ShowMoreButton from './Content/ShowMoreButton';
 import { QUESTION_FILTER } from './constants';
 
 const single = isSingleCommunityWebsite();
@@ -58,7 +56,6 @@ export const Questions = ({
   questionsList,
   questionsLoading,
   topQuestionsLoading,
-  isLastFetch,
   communities,
   followedCommunities,
   parentPage,
@@ -70,11 +67,9 @@ export const Questions = ({
   createdFilter,
   setTypeFilterDispatch,
   initLoadedItems,
-  loadedItems,
   nextLoadedItems,
   getQuestionsDispatch,
   questionFilter,
-  loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
   postsTypes,
   questionsCount,
@@ -104,7 +99,7 @@ export const Questions = ({
         0,
         postsTypes,
         searchParamsTags,
-        Number(params.communityid) || 0,
+        params.communityid || 0,
         parentPage,
         false,
         true,
@@ -126,12 +121,21 @@ export const Questions = ({
         skip,
         postsTypes,
         searchParamsTags,
-        Number(params.communityid) || 0,
+        params.communityid || 0,
         parentPage,
         true,
       );
     }
-  }, [page]);
+  }, [
+    getQuestionsDispatch,
+    nextLoadedItems,
+    page,
+    params.communityid,
+    parentPage,
+    postsTypes,
+    questionFilter,
+    skip,
+  ]);
 
   useEffect(() => {
     getInitQuestions();
@@ -148,12 +152,9 @@ export const Questions = ({
 
   useEffect(() => {
     setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
-  }, [params.communityid]);
+  }, [params.communityid, setTypeFilterDispatch]);
 
-  const display = useMemo(
-    () => !(single && path === routes.questions(':communityid')),
-    [single, path],
-  );
+  const display = useMemo(() => !(single && path === routes.questions(':communityid')), [path]);
 
   const displayBanner = useMemo(
     () =>
@@ -167,11 +168,6 @@ export const Questions = ({
       communitiesLoading,
       questionFilter,
     ],
-  );
-
-  const lastFetched = useMemo(
-    () => (!questionFilter ? isLastFetch : isLastTopQuestionLoaded),
-    [isLastFetch, isLastTopQuestionLoaded, questionFilter],
   );
 
   const displayLoader = useMemo(
@@ -222,7 +218,7 @@ export const Questions = ({
       />
       <ScrollToTop />
       <Header
-        communityIdFilter={Number(params.communityid) || 0}
+        communityIdFilter={params.communityid || 0}
         followedCommunities={followedCommunities}
         parentPage={parentPage}
         typeFilter={typeFilter}
@@ -324,10 +320,7 @@ export default compose(
       isLastFetch: questionsSelector.selectIsLastFetch(),
       questionFilter: questionsSelector.selectQuestionFilter(),
       questionsList: (state, props) =>
-        questionsSelector.selectQuestions(
-          props.parentPage,
-          Number(props.match.params.communityid),
-        )(state),
+        questionsSelector.selectQuestions(props.parentPage, props.match.params.communityid)(state),
       isLastTopQuestionLoaded: questionsSelector.isLastTopQuestionLoadedSelector,
       promotedQuestions: questionsSelector.selectPromotedQuestions(),
     }),

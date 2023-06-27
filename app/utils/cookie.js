@@ -67,28 +67,37 @@ export const deleteCookie = (name) =>
 export const formPermissionsCookie = (permissions) => {
   const basePermissions = permissions.filter(
     (permission) =>
-      BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE) ||
-      BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
+      BigNumber.from(permission.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE) ||
+      BigNumber.from(permission.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
   );
   const permissionsObject = {
     base: basePermissions,
   };
 
   const communitiesWhereAdmin = permissions.reduce((ids, permission) => {
+    const chainId = permission.split('-')[0];
+    const actualPermission = permission.split('-')[1];
+
     if (permission.includes(COMMUNITY_ADMIN_ROLE.slice(0, 63))) {
-      return [
-        ...ids,
-        BigNumber.from(permission).sub(BigNumber.from(COMMUNITY_ADMIN_ROLE)).toNumber(),
-      ];
-    } else return ids;
+      const communityId = BigNumber.from(actualPermission)
+        .sub(BigNumber.from(COMMUNITY_ADMIN_ROLE))
+        .toNumber();
+      return [...ids, `${chainId}-${communityId}`];
+    }
+    return ids;
   }, []);
+
   const communitiesWhereModerator = permissions.reduce((ids, permission) => {
-    if (permission.includes(COMMUNITY_MODERATOR_ROLE.slice(0, 63))) {
-      return [
-        ...ids,
-        BigNumber.from(permission).sub(BigNumber.from(COMMUNITY_MODERATOR_ROLE)).toNumber(),
-      ];
-    } else return ids;
+    const chainId = permission.split('-')[0];
+    const actualPermission = permission.split('-')[1];
+
+    if (actualPermission.includes(COMMUNITY_MODERATOR_ROLE.slice(0, 63))) {
+      const communityId = BigNumber.from(actualPermission)
+        .sub(BigNumber.from(COMMUNITY_MODERATOR_ROLE))
+        .toNumber();
+      return [...ids, `${chainId}-${communityId}`];
+    }
+    return ids;
   }, []);
 
   if (communitiesWhereAdmin?.length) {
@@ -96,7 +105,7 @@ export const formPermissionsCookie = (permissions) => {
   }
 
   if (communitiesWhereModerator?.length) {
-    permissionsObject['ca6'] = communitiesWhereModerator;
+    permissionsObject.ca6 = communitiesWhereModerator;
   }
 
   return permissionsObject;
@@ -106,11 +115,11 @@ export const parsePermissionsCookie = (permissionsObject) => {
   const permissions = permissionsObject.base || [];
   const adminPermissions =
     permissionsObject['0a7c']?.map((communityId) =>
-      getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
+      getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId.split('-')[1]),
     ) || [];
   const moderatorPermissions =
-    permissionsObject['ca6']?.map((communityId) =>
-      getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
+    permissionsObject.ca6?.map((communityId) =>
+      getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId.split('-')[1]),
     ) || [];
   return [...permissions, ...adminPermissions, ...moderatorPermissions];
 };

@@ -61,10 +61,7 @@ export const BestAnswerMarker = ({
   whoWasAccepted,
   isTheLargestRating,
   ids,
-  questionId,
   isOfficial,
-  profileInfo,
-  author,
 }) => {
   const { t } = useTranslation();
 
@@ -83,14 +80,14 @@ export const BestAnswerMarker = ({
         whoWasAccepted={whoWasAccepted}
       />
 
-      {isTheLargestRating && (
+      {Boolean(isTheLargestRating) && (
         <Label bg={BG_PRIMARY} inactive>
           <Icon className="d-inline-flex mr-2" icon={crownIcon} width="11" />
           {t('post.communityChoice')}
         </Label>
       )}
 
-      {isOfficial && (
+      {Boolean(isOfficial) && (
         <Label bg={`rgba(${BG_PRIMARY_RGB}, 0.2)`} border={BG_PRIMARY} color={BG_PRIMARY} inactive>
           <Icon className="d-inline-flex mr-2" icon={officialIcon} width="16" color={BG_PRIMARY} />
           {t('post.officialAnswer')}
