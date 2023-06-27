@@ -345,6 +345,16 @@ export const getQuestionFromGraph = async (postId) => {
     },
     false,
   );
+  /*
+  *  const result = await executeQuery({
+    query: queries.Posts.Mesh(dataToString([127])),
+    variables: {
+      first: 1000,
+      skip: 0,
+      postTypes: [0],
+    },
+  });
+  * */
 
   return isMeshService
     ? renameRepliesToAnswers(getPostDataFromMesh(result.post[0]))

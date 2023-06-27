@@ -43,7 +43,6 @@ export const Tags = ({
   profile,
   locale,
 }) => {
-  console.log(communityId);
   useEffect(() => {
     getExistingTagsDispatch({ communityId });
   }, [communityId]);

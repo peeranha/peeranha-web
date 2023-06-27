@@ -127,20 +127,13 @@ export const BlockchainSelector: React.FC<IconComponentProps> = ({
             error={meta.visited && (meta.error || meta.warning)}
             disabled={disabled}
           >
-            {blockchainIcon && <Img className="mr-2" src={blockchainIcon} alt="comm_img" />}
-            <Span
-              css={css`
-                padding-left: 9px;
-              `}
-            >
-              {input.value.label}
-            </Span>
+            {blockchainIcon && <Img src={blockchainIcon} alt="comm_img" />}
+            <Span>{input.value.label}</Span>
             <img
               css={css`
                 transform: rotate(${isOpen ? '180deg' : '0deg'});
                 transition: 0.5s;
               `}
-              className="mr-2"
               src={arrowDownIcon}
               alt="icon"
             />

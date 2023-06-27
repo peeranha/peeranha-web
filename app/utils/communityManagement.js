@@ -113,7 +113,6 @@ export const setSingleCommunityDetailsInCookie = (community, id) => {
 
 export const getSingleCommunityDetails = () => ({});
 export async function editTag(user, ethereumService, tag, tagId) {
-  console.log(tagId);
   const ipfsLink = await saveText(JSON.stringify(tag));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return ethereumService.sendTransaction(

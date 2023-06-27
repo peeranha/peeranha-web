@@ -4,17 +4,14 @@ export const styles = {
     alignItems: 'center',
   },
 
-  transactionList: {},
-
-  blocker: {},
-
-  transactionLoader: {},
-
-  container: {},
-
-  singleTransactionBlock: {},
-
-  transactionsPopup: {},
-
-  successfulTransactions: {},
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    img: {
+      marginRight: '4px',
+    },
+    span: {
+      paddingLeft: '9px',
+    },
+  },
 };

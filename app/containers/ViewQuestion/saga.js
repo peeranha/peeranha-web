@@ -673,7 +673,6 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     questionData.replyCount += 1;
     const replyId = questionData.replyCount;
-    console.log(profileInfo.user);
     const updatedProfileInfo = yield call(
       getProfileInfo,
       profileInfo.user,
