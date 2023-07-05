@@ -1,14 +1,15 @@
-import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
+import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
+import { getProfileInfo } from 'utils/profileManagement';
 import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { getBytes32FromIpfsHash, getText, saveText } from 'utils/ipfs';
+import { getActualId, getNetwork } from 'utils/properties';
 
 import {
-  changeQuestionType,
   deleteAnswer,
   deleteComment,
   deleteDocumentationPost,
@@ -22,7 +23,6 @@ import {
   postAnswer,
   postComment,
   upVote,
-  voteToDelete,
   votingStatus,
 } from 'utils/questionsManagement';
 import { getSuiPost, getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
@@ -44,8 +44,6 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import { isItemChanged, saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import {
-  ANSWER_TYPE,
-  CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
   CHECK_ADD_COMMENT_AVAILABLE,
   DELETE_ANSWER,
@@ -66,20 +64,15 @@ import {
   POST_ANSWER_SUCCESS,
   POST_COMMENT,
   POST_COMMENT_SUCCESS,
-  QUESTION_TYPE,
   SAVE_COMMENT,
   SAVE_COMMENT_SUCCESS,
   UP_VOTE,
   UP_VOTE_SUCCESS,
-  VOTE_TO_DELETE,
-  VOTE_TO_DELETE_SUCCESS,
   GET_HISTORIES,
   GET_HISTORIES_SUCCESS,
 } from './constants';
 
 import {
-  changeQuestionTypeErr,
-  changeQuestionTypeSuccess,
   deleteAnswerErr,
   deleteAnswerSuccess,
   deleteCommentErr,
@@ -100,12 +93,9 @@ import {
   postCommentSuccess,
   saveCommentErr,
   saveCommentSuccess,
-  setVoteToDeleteLoading,
   showAddCommentForm,
   upVoteErr,
   upVoteSuccess,
-  voteToDeleteErr,
-  voteToDeleteSuccess,
   getHistoriesErr,
   getHistoriesSuccess,
 } from './actions';
@@ -122,11 +112,10 @@ import {
   postAnswerValidator,
   postCommentValidator,
   upVoteValidator,
-  voteToDeleteValidator,
 } from './validate';
 import { selectCommunities, selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getCommentId2 } from 'utils/theGraph';
+import { getQuestionFromGraph, getCommentId2 } from 'utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
@@ -162,11 +151,10 @@ const getPostsRoute = (postType) => {
       return routes.questions();
     case 2:
       return routes.tutorials();
+    default:
+      return routes.questions();
   }
 };
-
-export const getQuestionTypeValue = (postType) =>
-  postType === POST_TYPE.generalPost ? POST_TYPE.expertPost : POST_TYPE.generalPost;
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
@@ -177,75 +165,60 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   if (!isSuiBlockchain) {
     ethereumService = yield select(selectEthereum);
   }
-
   const postedAnswerIds = yield select(selectPostedAnswerIds());
-  let question;
+  const question = yield call(getQuestionFromGraph, questionId);
 
   const isQuestionChanged = isItemChanged(CHANGED_POSTS_KEY, questionId);
-  const isQuestionJustCreated = postedAnswerIds.includes(Number(questionId));
+  const isQuestionJustCreated = postedAnswerIds.includes(questionId);
+  question.commentCount = question.comments.length;
 
-  if (!isSuiBlockchain && user && (isQuestionChanged || isQuestionJustCreated)) {
-    question = yield call(getQuestionById, ethereumService, questionId, user);
-    if (question.officialReply) {
-      const officialReply = question.answers.find((answer) => answer.id === question.officialReply);
-      if (officialReply) {
-        officialReply.isOfficialReply = true;
-      }
-    }
-  } else {
-    const communities = yield select(selectCommunities());
-    question = yield call(getSuiPost, questionId, communities);
-    question.votingStatus = suiVotingStatus(
-      question.postvotehistory?.find((voteHistory) => voteHistory?.userId === user)?.direction,
+  question.author = { ...question.author, user: question.author.id };
+
+  if (!isSuiBlockchain && user) {
+    const statusHistory = yield getStatusHistory(
+      getNetwork(questionId),
+      user,
+      getActualId(questionId),
+      0,
+      0,
+      ethereumService,
     );
-    question.commentCount = question.comments.length;
-    question.communityId = isSuiBlockchain ? question.communityId : Number(question.communityId);
-
-    question.author = { ...question.author, user: question.author.id };
-
-    if (!isSuiBlockchain && user) {
-      const statusHistory = yield getStatusHistory(user, questionId, 0, 0, ethereumService);
-
-      question.votingStatus = votingStatus(Number(statusHistory));
-    }
-
-    yield all(
-      question.answers.map(function* (answer) {
-        answer.commentCount = isSuiBlockchain ? answer.commentCount : answer.comments.length;
-        answer.id = Number(answer.id.split('-')[1]);
-
-        answer.author = { ...answer.author, user: answer.author.id };
-
-        answer.comments = answer.comments?.map((comment) => ({
-          ...comment,
-          author: { ...comment.author, user: comment.author.id },
-          id: Number(comment.id.split('-')[2]),
-        }));
-
-        answer.votingStatus = suiVotingStatus(
-          answer.replyvotehistory?.find((voteHistory) => voteHistory?.userId === user)?.direction,
-        );
-        if (!isSuiBlockchain && user) {
-          const answerStatusHistory = yield call(
-            getStatusHistory,
-            user,
-            questionId,
-            answer.id,
-            0,
-            ethereumService,
-          );
-
-          answer.votingStatus = votingStatus(Number(answerStatusHistory));
-        }
-      }),
-    );
-
-    question.comments = question.comments.map((comment) => ({
-      ...comment,
-      author: { ...comment.author, user: comment.author.id },
-      id: Number(comment.id.split('-')[2]),
-    }));
+    question.votingStatus = votingStatus(Number(statusHistory));
   }
+
+  yield all(
+    question.answers.map(function* (answer) {
+      answer.commentCount = answer.comments.length;
+      answer.id = Number(answer.id.split('-')[3]);
+
+      answer.author = { ...answer.author, user: answer.author.id };
+
+      answer.comments = answer.comments.map((comment) => ({
+        ...comment,
+        author: { ...comment.author, user: comment.author.id },
+        id: Number(comment.id.split('-')[2]),
+      }));
+      if (!isSuiBlockchain && user) {
+        const answerStatusHistory = yield call(
+          getStatusHistory,
+          getNetwork(questionId),
+          user,
+          getActualId(questionId),
+          answer.id,
+          0,
+          ethereumService,
+        );
+
+        answer.votingStatus = votingStatus(Number(answerStatusHistory));
+      }
+    }),
+  );
+
+  question.comments = question.comments.map((comment) => ({
+    ...comment,
+    author: { ...comment.author, user: comment.author.id },
+    id: Number(comment.id.split('-')[2]),
+  }));
 
   question.isGeneral = isGeneralQuestion(question);
 
@@ -294,11 +267,11 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   }
 
   // To avoid of fetching same user profiles - remember it and to write author here
-  if (!isSuiBlockchain && ((user && isQuestionChanged) || isQuestionJustCreated)) {
+  if ((!isSuiBlockchain && user && isQuestionChanged) || isQuestionJustCreated) {
     yield all(
       Array.from(users.keys()).map(function* (userFromItem) {
         const author = yield call(getUserProfileWorker, {
-          user: userFromItem,
+          user: userFromItem.user || userFromItem,
           getFullProfile: true,
           communityIdForRating: question.communityId,
         });
@@ -431,7 +404,7 @@ export function* saveCommentWorker({
 
 export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -495,7 +468,7 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
 
 export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
@@ -554,7 +527,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
 export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId }) {
   try {
-    let { questionData, ethereumService, locale, profileInfo } = yield call(getParams);
+    let { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     if (!questionData) {
       if (isSuiBlockchain) {
@@ -667,8 +640,7 @@ export function* getQuestionDataWorker({ questionId }) {
       yield put(getQuestionDataSuccess(questionData));
     }
   } catch (err) {
-    console.log(err);
-    // yield put(getQuestionDataErr(err));
+    yield put(getQuestionDataErr(err));
   }
 }
 
@@ -819,6 +791,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
 
     let txHash;
+    let updatedProfileInfo;
 
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
@@ -847,22 +820,34 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       const confirmedTx = yield call(waitForTransactionConfirmation, txHash);
       yield call(waitForPostTransactionToIndex, confirmedTx.digest);
       yield put(transactionCompleted());
+      const communities = yield select(selectCommunities());
+      updatedProfileInfo = yield call(getSuiUserById, profileInfo.id, communities);
     } else {
-      const transactionResult = yield call(
+      const transaction = yield call(
         postAnswer,
         profileInfo.user,
         questionId,
         ipfsHash,
         official,
+        languagesEnum[locale],
         ethereumService,
       );
-      txHash = transactionResult.transactionHash;
+
+      questionData.replyCount += 1;
+      updatedProfileInfo = yield call(
+        getProfileInfo,
+        profileInfo.user,
+        ethereumService,
+        true,
+        true,
+        questionData.communityId,
+      );
+
+      txHash = transaction.transactionHash;
     }
 
     questionData.replyCount += 1;
     const replyId = questionData.replyCount;
-    const communities = yield select(selectCommunities());
-    const updatedProfileInfo = yield call(getSuiUserById, profileInfo.id, communities);
 
     const newAnswer = {
       id: replyId,
@@ -1078,109 +1063,6 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
   }
 }
 
-export function* voteToDeleteWorker({ questionId, answerId, commentId, buttonId, whoWasVoted }) {
-  try {
-    const { questionData, ethereumService, profileInfo } = yield call(getParams);
-
-    const usersForUpdate = [whoWasVoted];
-
-    yield call(isAuthorized);
-
-    const item = {
-      questionId,
-      answerId,
-      commentId,
-    };
-
-    let itemData;
-    if (!item.answerId && !item.commentId) {
-      itemData = questionData;
-    } else if (!item.answerId && item.commentId) {
-      itemData = questionData.comments.filter((x) => x.id === item.commentId)[0];
-    } else if (item.answerId && !item.commentId) {
-      itemData = questionData.answers.filter((x) => x.id === item.answerId)[0];
-    } else if (item.answerId && item.commentId) {
-      itemData = questionData.answers
-        .filter((x) => x.id === item.answerId)[0]
-        .comments.filter((y) => y.id === item.commentId)[0];
-    }
-
-    yield call(
-      isAvailableAction,
-      () => voteToDeleteValidator(profileInfo, questionData, buttonId, item),
-      {
-        communityID: questionData.communityId,
-        skipPermissions: itemData.votingStatus?.isUpVoted,
-      },
-    );
-
-    yield call(voteToDelete, profileInfo.user, questionId, answerId, commentId, ethereumService);
-
-    const isDeleteCommentButton = buttonId.includes('delete-comment-');
-    const isDeleteAnswerButton = buttonId.includes(`${ANSWER_TYPE}_delete_`);
-    const isDeleteQuestionButton = buttonId.includes(`${QUESTION_TYPE}_delete_`);
-
-    const isModeratorDelete =
-      isDeleteCommentButton || isDeleteAnswerButton || isDeleteQuestionButton;
-
-    // handle moderator delete action
-    if (isModeratorDelete) {
-      if (isDeleteCommentButton) {
-        // delete comment
-        if (answerId === 0) {
-          questionData.comments = questionData.comments.filter((x) => x.id !== commentId);
-        } else if (answerId > 0) {
-          const answer = questionData.answers.find((x) => x.id === answerId);
-          answer.comments = answer.comments.filter((x) => x.id !== commentId);
-        }
-
-        yield put(deleteCommentSuccess({ ...questionData }, buttonId));
-      }
-
-      if (isDeleteAnswerButton) {
-        // delete answer
-        questionData.answers = questionData.answers.filter((x) => x.id !== answerId);
-
-        yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
-      }
-
-      if (isDeleteQuestionButton) {
-        // delete question
-        yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
-
-        yield call(createdHistory.push, routes.questions());
-      }
-
-      yield put(setVoteToDeleteLoading(false));
-    }
-
-    // handle common vote to delete action
-    else {
-      let item;
-
-      if (!answerId && !commentId) {
-        item = questionData;
-      } else if (!answerId && commentId) {
-        item = questionData.comments.find((x) => x.id === commentId);
-      } else if (answerId && !commentId) {
-        item = questionData.answers.find((x) => x.id === answerId);
-      } else if (answerId && commentId) {
-        item = questionData.answers
-          .find((x) => x.id === answerId)
-          .comments.find((x) => x.id === commentId);
-      }
-
-      item.votingStatus.isVotedToDelete = true;
-
-      yield put(voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId));
-    }
-
-    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
-  } catch (err) {
-    yield put(voteToDeleteErr(err, buttonId));
-  }
-}
-
 // Do not spent time for main action - update author as async action after main action
 // TODO after Graph hooks
 export function* updateQuestionDataAfterTransactionWorker({ usersForUpdate = [], questionData }) {
@@ -1224,31 +1106,6 @@ export function* updateQuestionDataAfterTransactionWorker({ usersForUpdate = [],
   }
 }
 
-function* changeQuestionTypeWorker({ buttonId }) {
-  try {
-    const { questionData, ethereumService, profileInfo } = yield call(getParams);
-    yield call(
-      changeQuestionType,
-      ethereumService,
-      profileInfo.user,
-      questionData.id,
-      getQuestionTypeValue(questionData.postType),
-    );
-
-    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionData.id);
-
-    yield put(
-      getQuestionDataSuccess({
-        ...questionData,
-        postType: getQuestionTypeValue(questionData.postType),
-      }),
-    );
-    yield put(changeQuestionTypeSuccess(buttonId));
-  } catch (err) {
-    yield put(changeQuestionTypeErr(err, buttonId));
-  }
-}
-
 function* payBountyWorker({ buttonId }) {
   try {
     const { questionData, ethereumService, profileInfo } = yield call(getParams);
@@ -1286,8 +1143,6 @@ export default function* () {
   yield takeEvery(DELETE_ANSWER, deleteAnswerWorker);
   yield takeEvery(DELETE_COMMENT, deleteCommentWorker);
   yield takeEvery(SAVE_COMMENT, saveCommentWorker);
-  yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
-  yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
   yield takeEvery(PAY_BOUNTY, payBountyWorker);
   yield takeEvery(GET_HISTORIES, getHistoriesWorker);
   yield takeEvery(
@@ -1306,7 +1161,6 @@ export default function* () {
       DELETE_ANSWER_SUCCESS,
       DELETE_COMMENT_SUCCESS,
       SAVE_COMMENT_SUCCESS,
-      VOTE_TO_DELETE_SUCCESS,
       CHANGE_QUESTION_TYPE_SUCCESS,
       GET_HISTORIES_SUCCESS,
     ],

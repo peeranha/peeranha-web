@@ -3,6 +3,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
+import { styles } from 'containers/LeftMenu/MainLinks.styled';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+const singleCommId = isSingleCommunityWebsite();
 
 const MobileAutorizationButtons = ({ profile, isMenuVisible, showLoginModal }) => {
   const { t } = useTranslation();
@@ -11,14 +15,15 @@ const MobileAutorizationButtons = ({ profile, isMenuVisible, showLoginModal }) =
     return null;
   }
 
-  const buttonWithLogin = () => (
-    <LargeOutlinedButton className="d-flex align-items-center" onClick={showLoginModal}>
-      {t('common.login')}
-    </LargeOutlinedButton>
-  );
-
   return (
-    <SuiConnectModals loginWithWallet={showLoginModal} actionButtonWithLogin={buttonWithLogin} />
+    <div className="d-flex align-items-center">
+      <LargeOutlinedButton
+        css={{ ...styles.logInButton, ...(singleCommId && styles.mb28) }}
+        onClick={showLoginModal}
+      >
+        {t('common.login')}
+      </LargeOutlinedButton>
+    </div>
   );
 };
 

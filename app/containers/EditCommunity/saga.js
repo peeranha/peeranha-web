@@ -8,14 +8,11 @@ import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 
 import { getCommunitiesSuccess } from 'containers/DataCacheProvider/actions';
 
-import { selectCommunities, selectStat } from 'containers/DataCacheProvider/selectors';
+import { selectStat } from 'containers/DataCacheProvider/selectors';
 
 import {
   editCommunity,
   getAllCommunities,
-  getCommunityFromContract,
-  getSingleCommunityDetails,
-  setSingleCommunityDetailsInCookie,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 import { uploadImg } from 'utils/profileManagement';
@@ -54,16 +51,8 @@ export function* getCommunityWorker({ communityId }) {
       const community = yield call(getSuiCommunity, suiCommunityId);
       yield put(getCommunitySuccess(community));
     } else {
-      const ethereumService = yield select(selectEthereum);
-      const community = yield call(getCommunityFromContract, ethereumService, communityId);
-      const { translations } = yield call(getCommunityById, communityId);
-
-      yield put(
-        getCommunitySuccess({
-          ...community,
-          translations,
-        }),
-      );
+      const community = yield call(getCommunityById, communityId);
+      yield put(getCommunitySuccess(community));
     }
   } catch (error) {
     yield put(getCommunityError(error));

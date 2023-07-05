@@ -1,10 +1,9 @@
-import JSBI from 'jsbi';
-
-import communitiesConfig, { googleVerificationConfig } from 'communities-config';
+import communitiesConfig from 'communities-config';
 
 import _get from 'lodash/get';
+import { getActualId, getNetwork } from 'utils/properties';
 
-import { getBytes32FromIpfsHash, getFileUrl, getText, saveText } from './ipfs';
+import { getBytes32FromIpfsHash, getFileUrl, saveText } from './ipfs';
 import { getCookie, setCookie } from './cookie';
 import { uploadImg } from './profileManagement';
 
@@ -23,7 +22,7 @@ import { getCommunities, getCommunityById, getTags, getTagsByIds } from './theGr
 import { isSuiBlockchain } from 'utils/sui/sui';
 
 export const isSingleCommunityWebsite = () =>
-  +Object.keys(communitiesConfig).find(
+  Object.keys(communitiesConfig).find(
     (id) => communitiesConfig[id].origin === window.location.origin,
   );
 
@@ -51,7 +50,7 @@ export const hasCommunitySingleWebsite = (commId) =>
 
 export function getFollowedCommunities(allCommunities, followedCommunities) {
   if (!allCommunities || !followedCommunities) return [];
-  return allCommunities.filter((x) => followedCommunities.includes(+x.id));
+  return allCommunities.filter((x) => followedCommunities.includes(x.id));
 }
 
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
@@ -74,10 +73,11 @@ export const editCommunity = async (
   const user = selectedAccount;
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
   await ethereumService.sendTransaction(
-    CONTRACT_COMMUNITY,
+    getNetwork(communityId),
+    CONTRACT_COMMUNITY[getNetwork(communityId)],
     user,
     EDIT_COMMUNITY,
-    [user, communityId, ipfsHash],
+    [user, getActualId(communityId), ipfsHash],
     3,
   );
 };
@@ -119,56 +119,23 @@ export const setSingleCommunityDetailsInCookie = (community, id) => {
 };
 
 export const getSingleCommunityDetails = () => ({});
-
-export function getTagScope(communityId) {
-  const charmap = '.12345abcdefghijklmnopqrstuvwxyz';
-  const mask = JSBI.BigInt('0xF800000000000000');
-  const mask64 = JSBI.BigInt('0xFFFFFFFFFFFFFFFF');
-  const zero = JSBI.BigInt(0);
-  const five = JSBI.BigInt(5);
-  let v = JSBI.add(JSBI.BigInt('3774731489195851776'), JSBI.BigInt(communityId));
-
-  let ret = '';
-
-  for (let i = 0; i < 13; i++) {
-    v = JSBI.bitwiseAnd(v, mask64);
-    if (v.toString() === zero.toString()) break;
-    const indx = JSBI.signedRightShift(JSBI.bitwiseAnd(v, mask), JSBI.BigInt(i === 12 ? 60 : 59));
-
-    ret += charmap[indx.toString()];
-    v = JSBI.leftShift(v, five);
-  }
-
-  return ret;
-}
-
-export async function getExistingTags(tags) {
-  await Promise.all(
-    tags.map(async (x) => {
-      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
-      x.description = ipfsDescription.description;
-    }),
-  );
-
-  return tags;
-}
-
 export async function editTag(user, ethereumService, tag, tagId) {
   const ipfsLink = await saveText(JSON.stringify(tag));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, EDIT_TAG, [
+  return ethereumService.sendTransaction(
+    getNetwork(tagId),
+    CONTRACT_COMMUNITY[getNetwork(tagId)],
     user,
-    tag.communityId,
-    tagId,
-    ipfsHash,
-  ]);
+    EDIT_TAG,
+    [user, tag.communityId.splice('-')[3], tagId, ipfsHash],
+  );
 }
 
 const formCommunityObject = (rawCommunity) => ({
   ...rawCommunity,
   avatar: getFileUrl(rawCommunity.avatar),
-  id: +rawCommunity.id,
-  value: +rawCommunity.id,
+  id: rawCommunity.id,
+  value: rawCommunity.id,
   label: rawCommunity.name,
   postCount: +rawCommunity.postCount,
   deletedPostCount: +rawCommunity.deletedPostCount,
@@ -177,23 +144,22 @@ const formCommunityObject = (rawCommunity) => ({
   replyCount: +rawCommunity.replyCount,
 });
 
-const formattedTags = (tags) => {
+const formattedTags = (tags, commuityId) => {
   const formattedTags = {};
 
   for (let i = 0; i < tags.length; i++) {
-    if (!formattedTags[tags[i].id.split('-')[0]]) {
-      formattedTags[tags[i].id.split('-')[0]] = [tags[i]];
+    if (!formattedTags[commuityId]) {
+      formattedTags[commuityId] = [tags[i]];
       continue;
     }
-    formattedTags[tags[i].id.split('-')[0]] = [...formattedTags[tags[i].id.split('-')[0]], tags[i]];
+    formattedTags[commuityId] = [...formattedTags[commuityId], tags[i]];
   }
   return formattedTags;
 };
 
 /* eslint no-param-reassign: 0 */
-export const getAllCommunities = async (ethereumService, count) => {
-  const communities = await getCommunities(count);
-
+export const getAllCommunities = async () => {
+  const communities = await getCommunities();
   return communities.map((community) => formCommunityObject(community));
 };
 
@@ -204,10 +170,10 @@ export const getCommunityWithTags = async (id) => {
   return [formCommunityObject(community), formattedTags(tags)];
 };
 
-export const getCommunityTags = async (id) => {
-  const tags = (await getTags(id)).map((tag) => ({ ...tag, label: tag.name }));
+export const getCommunityTags = async (commuityId) => {
+  const tags = (await getTags(commuityId)).map((tag) => ({ ...tag, label: tag.name }));
 
-  return formattedTags(tags);
+  return formattedTags(tags, commuityId);
 };
 
 export const getTagsNameByIds = async (ids) => {
@@ -217,25 +183,28 @@ export const getTagsNameByIds = async (ids) => {
   return TagsNameByIds;
 };
 
-export const getCommunityFromContract = async (ethereumService, id) =>
-  await ethereumService.getCommunityFromContract(id);
-
 export async function unfollowCommunity(ethereumService, communityIdFilter, account) {
-  await ethereumService.sendTransaction(CONTRACT_USER, account, UNFOLLOW_COMMUNITY, [
+  await ethereumService.sendTransaction(
+    getNetwork(communityIdFilter),
+    CONTRACT_USER[getNetwork(communityIdFilter)],
     account,
-    communityIdFilter,
-  ]);
+    UNFOLLOW_COMMUNITY,
+    [account, getActualId(communityIdFilter)],
+  );
 }
 
 export async function followCommunity(ethereumService, communityIdFilter, account) {
-  await ethereumService.sendTransaction(CONTRACT_USER, account, FOLLOW_COMMUNITY, [
+  await ethereumService.sendTransaction(
+    getNetwork(communityIdFilter),
+    CONTRACT_USER[getNetwork(communityIdFilter)],
     account,
-    communityIdFilter,
-  ]);
+    FOLLOW_COMMUNITY,
+    [account, getActualId(communityIdFilter)],
+  );
 }
 
 /* eslint camelcase: 0 */
-export async function createCommunity(ethereumService, selectedAccount, community) {
+export async function createCommunity(network, ethereumService, selectedAccount, community) {
   const { imgHash } = await uploadImg(community.avatar);
   const communityIpfsHash = await saveText(
     JSON.stringify({
@@ -258,19 +227,23 @@ export async function createCommunity(ethereumService, selectedAccount, communit
   );
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
   const user = selectedAccount;
-  await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, CREATE_COMMUNITY, [
+  await ethereumService.sendTransaction(
+    network - 1,
+    CONTRACT_COMMUNITY[network - 1],
     user,
-    ipfsHash,
-    tags,
-  ]);
+    CREATE_COMMUNITY,
+    [user, ipfsHash, tags],
+  );
 }
 
 export async function createTag(ethereumService, selectedAccount, communityId, tag) {
   const ipfsHash = getBytes32FromIpfsHash(await saveText(JSON.stringify(tag)));
   const user = selectedAccount;
-  await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, CREATE_TAG, [
+  await ethereumService.sendTransaction(
+    getNetwork(communityId),
+    CONTRACT_COMMUNITY[getNetwork(communityId)],
     user,
-    communityId,
-    ipfsHash,
-  ]);
+    CREATE_TAG,
+    [user, getActualId(communityId), ipfsHash],
+  );
 }

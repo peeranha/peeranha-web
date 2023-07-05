@@ -2,22 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
-import { getFormattedDate } from 'utils/datetime';
-import { getFollowedCommunities, isSingleCommunityWebsite } from 'utils/communityManagement';
-import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
-import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
-import { getPostRoute } from 'routes-config';
-import { isSuiBlockchain } from 'utils/sui/sui';
-
 import DisLikeIcon from 'icons/DisLike';
 import LikeIcon from 'icons/Like';
 import BestAnswerIcon from 'icons/BestAnswer';
 import AnswerIcon from 'icons/Answer';
-
+import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
+import { getPostRoute } from 'routes-config';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { styles } from './Post.styled';
 import QuestionType from '../../Questions/Content/Body/QuestionType';
+import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
 import { Community, Tag, Author, Translation } from './index';
-
+import { getFormattedDate } from 'utils/datetime';
+import { getFollowedCommunities, isSingleCommunityWebsite } from 'utils/communityManagement';
 import * as routes from '../../../routes-config';
 
 const single = isSingleCommunityWebsite();
@@ -56,10 +53,9 @@ const Post: React.FC<PostProps> = ({
   replyCount,
 }): JSX.Element => {
   const { t } = useTranslation();
-  // const community = getFollowedCommunities(communities, [communityId])[0] || {};
   const community = isSuiBlockchain
     ? communities.find((community) => community.suiId === communityId)
-    : getFollowedCommunities(communities, [Number(communityId)])[0] || {};
+    : getFollowedCommunities(communities, [communityId])[0] || {};
 
   const postLink = getPostRoute({ postType, id, title });
   const communityLink = () => {

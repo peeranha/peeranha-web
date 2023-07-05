@@ -98,7 +98,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
 
       <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
         {t('profile.lastAnswer')}{' '}
-        {getFormattedDate(lastAnswer.postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+        {getFormattedDate(lastAnswer?.postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
     </span>
   );
@@ -120,7 +120,7 @@ const Question = ({
   elementType,
   answerId,
 }) => {
-  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[3] : null;
 
   const route = getPostRoute({ postType, id, answerId: answerRouteId, title });
 

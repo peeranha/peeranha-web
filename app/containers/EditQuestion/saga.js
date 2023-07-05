@@ -8,8 +8,8 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { editQuestion, getQuestionById } from 'utils/questionsManagement';
-import { getCommunityWithTags } from 'utils/communityManagement';
+import { editQuestion } from 'utils/questionsManagement';
+import { getCommunityTags, getCommunityWithTags } from 'utils/communityManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
@@ -17,6 +17,7 @@ import { updateQuestionList } from 'containers/ViewQuestion/saga';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 import { editSuiQuestion, moderatorEditSuiQuestion } from 'utils/sui/questionsManagement';
 import { getSuiPost, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import { getQuestionFromGraph } from 'utils/theGraph';
 
 import {
   EDIT_QUESTION,
@@ -34,7 +35,7 @@ import {
   getAskedQuestionSuccess,
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { makeSelectAccount, makeSelectProfileInfo } from '../AccountProvider/selectors';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
@@ -47,33 +48,26 @@ import {
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
-    let ethereumService;
-    if (!isSuiBlockchain) {
-      ethereumService = yield select(selectEthereum);
-    }
     const cachedQuestion = yield select(selectQuestionData());
-    const account = yield select(makeSelectAccount());
     let question;
-    let questionFromContract;
 
     if (!cachedQuestion) {
       if (isSuiBlockchain) {
         const communities = yield select(selectCommunities());
         question = yield call(getSuiPost, questionId, communities);
       } else {
-        questionFromContract = yield call(getQuestionById, ethereumService, questionId, account);
-        question = {
-          ...questionFromContract,
-          isGeneral: !!questionFromContract.postType,
-        };
+        const question = yield call(getQuestionFromGraph, questionId);
         const { communityId } = question;
 
         if (communityId) {
-          const [community, tags] = yield call(getCommunityWithTags, communityId);
+          const [community] = yield call(getCommunityWithTags, communityId);
+          const tags = yield call(getCommunityTags, communityId);
+          const questionTags = tags[communityId].filter((tag) =>
+            question.tags.map((questionTag) => questionTag.id).includes(tag.id),
+          );
 
           question.community = community;
-
-          question.tags = questionFromContract.tags;
+          question.tags = questionTags;
         }
       }
     } else {
@@ -135,9 +129,10 @@ export function* editQuestionWorker({ question, questionId, id2, author }) {
       const selectedAccount = yield call(ethereumService.getSelectedAccount);
       yield call(
         editQuestion,
+        questionId.split('-')[0],
         selectedAccount,
-        Number(questionId),
-        Number(question.communityId),
+        questionId,
+        question.communityId,
         questionData,
         question.tags,
         Number(question.postType),

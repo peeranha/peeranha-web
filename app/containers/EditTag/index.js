@@ -68,7 +68,7 @@ const EditTag = ({
 
   if (!Object.keys(editTagData).length) {
     tagId = match.params.tagid;
-    editTagData = { communityId: isSuiBlockchain ? communityId : Number(communityId), tagId };
+    editTagData = { communityId, tagId };
     setEditTagDataDispatch(tagId, communityId);
   }
 

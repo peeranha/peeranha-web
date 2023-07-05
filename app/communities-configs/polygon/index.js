@@ -270,7 +270,6 @@ export const PolygonStyles = {
     warningLight: '#FF4026',
     darkBlue: 'rgb(123, 63, 228)',
     mainBackground: '#312246',
-    blockedInfoArea: 'rgba(123, 63, 228, 0.1)',
 
     transparentIconColor: '#b19bdd',
     loaderColor: '#843bed',

@@ -184,7 +184,6 @@ export const AnkrStyles = {
     headerPrimary: '#356DF3',
     commentOption: '#356DF3',
     contentHeader: '#356DF3',
-    blockedInfoArea: '#356EF30C',
     transparentIconColor: '#fff',
     loaderColor: '#356DF3',
     votingIconColor: '#356DF3',

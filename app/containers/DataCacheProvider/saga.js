@@ -4,7 +4,6 @@ import getHash from 'object-hash';
 
 import { getAllCommunities, getCommunityTags } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
-import { getStat } from 'utils/statisticsManagement';
 import { getMD } from 'utils/mdManagement';
 import { getAchievements } from 'utils/achievementsManagement';
 import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
@@ -15,13 +14,12 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import { LOGIN_WITH_WALLET } from 'containers/Login/constants';
 
-import { selectCommunities, selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
+import { selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import {
   getCommunities,
   getCommunitiesErr,
   getCommunitiesSuccess,
-  getTags,
   getTagsErr,
   getTagsSuccess,
   getFaqErr,
@@ -65,10 +63,7 @@ export function* getStatWorker() {
       );
       yield put(getCommunities());
     } else {
-      const ethereumService = yield select(selectEthereum);
-      const stat = yield call(getStat, ethereumService);
-
-      yield put(getStatSuccess(stat));
+      yield put(getStatSuccess({}));
       yield put(getCommunities());
     }
   } catch (err) {

@@ -65,6 +65,7 @@ import PostRules from './PostRules';
 
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -107,7 +108,6 @@ const SuggestTag = ({ redirectToCreateTagDispatch, formValues }) => {
 
 export const QuestionForm = ({
   locale,
-  path,
   sendQuestion,
   formTitle,
   questionLoading,
@@ -183,10 +183,12 @@ export const QuestionForm = ({
     if (formValues[FORM_TITLE] && getQuestions) {
       getQuestions(formValues[FORM_TITLE], true);
     }
-  }, [formValues[FORM_TITLE]]);
+  }, [formValues, getQuestions]);
 
   useEffect(() => {
-    getCommunityTagsDispatch(communityId);
+    if (communityId) {
+      getCommunityTagsDispatch(communityId);
+    }
   }, [communityId, getCommunityTagsDispatch]);
 
   const showMoreQuestions = (e) => {
@@ -213,6 +215,9 @@ export const QuestionForm = ({
     title: 'Documentation',
   };
 
+  const notHiddenCommunities = communities.filter(
+    (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
+  );
   return (
     <Router history={history}>
       <Prompt
@@ -231,7 +236,7 @@ export const QuestionForm = ({
           <BaseSpecialOne>
             <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
               <CommunityForm
-                communities={communities}
+                communities={notHiddenCommunities}
                 communityId={communityId}
                 change={change}
                 questionLoading={questionLoading}
@@ -245,7 +250,7 @@ export const QuestionForm = ({
               {Boolean(!question && isDocumentation && isNaN(parentId)) && (
                 <SubArticleForm
                   locale={locale}
-                  communities={communities}
+                  communities={notHiddenCommunities}
                   change={change}
                   questionLoading={questionLoading}
                   disableCommForm={isEditForm}

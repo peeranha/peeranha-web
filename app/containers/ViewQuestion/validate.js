@@ -162,7 +162,7 @@ export const markAsAcceptedValidator = (profileInfo, questionData, postButtonId)
   const communityId = questionData.communityId;
   let message;
   const user = isSuiBlockchain ? profileInfo.id : profileInfo.user;
-  if (user !== questionData.author.user) {
+  if (user.toLowerCase() !== questionData.author.user.toLowerCase()) {
     message = t('post.noRootsToVote');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&

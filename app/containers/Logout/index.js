@@ -30,13 +30,13 @@ export const Logout = /* istanbul ignore next */ ({ logoutDispatch, children }) 
     });
   };
   const logout = isSuiBlockchain ? suiLogout : logoutDispatch;
+
   return (
-    <button className="d-flex align-items-center" onClick={logout}>
+    <a className="d-flex align-items-center" onClick={logout}>
       {children}
-    </button>
+    </a>
   );
 };
-
 Logout.propTypes = {
   logoutDispatch: PropTypes.func.isRequired,
   children: PropTypes.any.isRequired,

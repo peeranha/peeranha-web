@@ -125,7 +125,7 @@ export default React.memo(
       account,
       enableReinitialize: true,
       isOfficialRepresentative,
-      textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
+      textEditorValue: form.values ? form.values[TEXT_EDITOR_ANSWER_FORM] : '',
       initialValues: {
         [TEXT_EDITOR_ANSWER_FORM]: answer,
         [ANSWER_TYPE_FORM]: questionView ? isOfficialRepresentative : isOfficialReply,

@@ -88,7 +88,7 @@ import { redirectToFeed, redirectToDocumentation, redirectToPreload } from './ac
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
-const isDocumentationPositionTop = singleCommunityDocumentationPosition() == POSITION_TOP;
+const isDocumentationPositionTop = singleCommunityDocumentationPosition() === POSITION_TOP;
 const App = ({
   location: { pathname, search },
   redirectToFeedDispatch,
@@ -137,7 +137,7 @@ const App = ({
 
   useEffect(() => {
     const isVisitedSite = getCookie('isVisitedSite');
-    if (isVisitedSite && !single && pathname == '/') {
+    if (isVisitedSite && !single && pathname === '/') {
       redirectToFeedDispatch();
     }
   }, []);
@@ -147,7 +147,7 @@ const App = ({
     : Object.keys(documentationMenu).length;
 
   useEffect(() => {
-    if (single && (pathname == '/' || pathname == '/feed')) {
+    if (single && (pathname === '/' || pathname === '/feed') && !search) {
       if ((hasPinnedPost || isDocumentationPositionTop) && isDocumentationExist) {
         redirectToDocumentationDispatch();
       } else {
@@ -198,7 +198,10 @@ const App = ({
           )}
 
           {!single && (
-            <Route path={routes.feed(':communityid')} render={(props) => Wrapper(Feed, props)} />
+            <Route
+              path={routes.feed(':communityid', ':paginationpage')}
+              render={(props) => Wrapper(Feed, props)}
+            />
           )}
 
           <Route
@@ -287,7 +290,7 @@ const App = ({
           />
 
           <Route
-            path={routes.questions(':communityid')}
+            path={routes.questions(':communityid', ':paginationpage')}
             render={(props) =>
               Wrapper(Questions, {
                 ...props,
@@ -297,7 +300,7 @@ const App = ({
           />
 
           <Route
-            path={routes.expertPosts(':communityid')}
+            path={routes.expertPosts(':communityid', ':paginationpage')}
             render={(props) =>
               Wrapper(Questions, {
                 ...props,
@@ -313,7 +316,7 @@ const App = ({
           />
 
           <Route
-            path={routes.tutorials(':communityid')}
+            path={routes.tutorials(':communityid', ':paginationpage')}
             render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
           />
 

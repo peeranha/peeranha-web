@@ -46,6 +46,7 @@ import {
   MIN_ENERGY_TO_POST_QUESTION,
   MIN_RATING_TO_POST_QUESTION,
   POST_QUESTION_BUTTON,
+  NEW_POST_PATHNAME,
 } from './constants';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
@@ -63,7 +64,7 @@ export function* postQuestionWorker({ val }) {
     const postType = +val[FORM_TYPE];
     const tags =
       postType !== POST_TYPE.documentation
-        ? val[FORM_TAGS].map((tag) => Number(tag.id.split('-')[1]))
+        ? val[FORM_TAGS].map((tag) => Number(tag.id.split('-')[3]))
         : [];
     const communityId = val[FORM_COMMUNITY].id;
 
@@ -226,11 +227,14 @@ export function* checkReadinessWorker({ buttonId }) {
 /* eslint no-empty: 0 */
 export function* redirectToAskQuestionPageWorker({ buttonId, isDocumentation, parentId }) {
   try {
+    const isNewPostPage = createdHistory.location.pathname === NEW_POST_PATHNAME;
     yield call(checkReadinessWorker, { buttonId });
-    yield call(
-      createdHistory.push,
-      isDocumentation ? routes.documentationCreate(parentId) : routes.questionAsk(),
-    );
+    if (!isNewPostPage) {
+      yield call(
+        createdHistory.push,
+        isDocumentation ? routes.documentationCreate(parentId) : routes.questionAsk(),
+      );
+    }
   } catch (err) {}
 }
 

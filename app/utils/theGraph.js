@@ -162,7 +162,7 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
 
   const ids = isMeshService
     ? postIds.reply.map((reply) => reply.postId)
-    : postIds.replies.map((reply) => Number(reply.postId));
+    : postIds.replies.map((reply) => reply.postId);
   const query = isMeshService
     ? queries.AnsweredPosts.Mesh(dataToString(ids))
     : queries.AnsweredPosts.TheGraph;
@@ -178,12 +178,9 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
     : answeredPosts?.posts.map((post) => ({ ...post }));
 };
 
-export const getCommunities = async (count) => {
+export const getCommunities = async () => {
   const communities = await executeQuery({
     query: queries.Communities[graphService],
-    variables: {
-      first: count,
-    },
   });
   return isMeshService ? communities?.community : communities?.communities;
 };
@@ -205,7 +202,9 @@ export const getCommunityById = async (id) => {
       id,
     },
   });
-  return isMeshService ? community?.community[0] : community?.community;
+  return isMeshService
+    ? { ...community?.community[0], translations: community?.community[0].communitytranslation }
+    : community?.community;
 };
 
 export const getTags = async (communityId) => {
@@ -283,7 +282,7 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
   }
 
   const query = isMeshService
-    ? queries.PostsByCommunity.Mesh(dataToString(postTypes), dataToString(communityIds))
+    ? queries.PostsByCommunity.Mesh(dataToString(postTypes), communityIds)
     : queries.PostsByCommunity.TheGraph;
 
   const result = await executeQuery(
@@ -409,10 +408,7 @@ export const postsForSearch = async (text, single) => {
   const posts = isMeshService
     ? result?.post.map((item) => {
         const { user, posttag, ...post } = item;
-        const tags = posttag[0].tag.map((postTag) => ({
-          id: postTag.id.split('-')[1],
-          name: postTag.name,
-        }));
+        const tags = posttag.map((postTag) => postTag.tagId);
 
         return {
           ...post,
@@ -421,9 +417,7 @@ export const postsForSearch = async (text, single) => {
         };
       })
     : result?.postSearch;
-  return posts.filter(
-    (post) => !post.isDeleted && (single ? Number(post.communityId) === Number(single) : true),
-  );
+  return posts.filter((post) => !post.isDeleted && (single ? post.communityId === single : true));
 };
 
 export const getAllAchievements = async (userId) => {

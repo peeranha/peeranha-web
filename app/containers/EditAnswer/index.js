@@ -7,7 +7,6 @@ import { bindActionCreators, compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import Seo from 'components/Seo';
 import AnswerForm from 'components/AnswerForm';
@@ -46,15 +45,15 @@ const EditAnswer = ({
 
   useEffect(() => {
     getQuestionDataDispatch(questionid);
-    getAnswerDispatch(isSuiBlockchain ? questionid : +questionid, +answerid);
+    getAnswerDispatch(questionid, answerid);
   }, [questionid, answerid]);
 
   const sendAnswer = useCallback(
     (values) =>
       editAnswerDispatch(
         values.get(TEXT_EDITOR_ANSWER_FORM),
-        isSuiBlockchain ? questionid : +questionid,
-        +answerid,
+        questionid,
+        answerid,
         values.get(ANSWER_TYPE_FORM),
         questionTitle,
       ),
@@ -84,11 +83,6 @@ const EditAnswer = ({
     [sendAnswer, editAnswerLoading, answer, locale, properties, communityId, content, t],
   );
 
-  const [title, description] = useMemo(
-    () => [answer?.content ?? t('post.title'), answer?.content ?? t('post.description')],
-    [answer],
-  );
-
   const available = useMemo(
     () => (!!profile && answer?.user === profile.user) || !answer?.user,
     [answer, profile, answer, editAnswerLoading],
@@ -98,7 +92,12 @@ const EditAnswer = ({
     <div>
       {available ? (
         <>
-          <Seo title={title} description={description || ''} language={locale} index={false} />
+          <Seo
+            title={t('post.title')}
+            description={t('post.description')}
+            language={locale}
+            index={false}
+          />
 
           {!answerLoading && (
             <Wrapper questionid={questionid} answerid={answerid} title={questionTitle}>

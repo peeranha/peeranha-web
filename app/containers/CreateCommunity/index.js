@@ -41,6 +41,7 @@ import {
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
   STATE_KEY,
+  COMM_BLOCKCHAIN_FIELD,
 } from './constants';
 
 import Form from './Form';
@@ -88,6 +89,7 @@ export const CreateCommunity = ({
       website: values[COMM_OFFICIAL_SITE_FIELD],
       communitySite: values[COMM_PEERANHA_SITE_FIELD],
       tags,
+      network: values[COMM_BLOCKCHAIN_FIELD],
     };
     createCommunityDispatch(community, reset);
   };

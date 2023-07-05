@@ -27,7 +27,7 @@ import {
 import { getQuestionsSuccess, getQuestionsError } from './actions';
 
 import { getPosts, getPostsByCommunityId } from 'utils/theGraph';
-
+import { HIDDEN_COMMUNITIES_ID } from '../Communities/constants';
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
 
@@ -42,8 +42,21 @@ export function* getQuestionsWorker({
   toUpdateQuestions,
 }) {
   try {
-    const followedCommunities = yield select(makeSelectFollowedCommunities());
+    let followedCommunities = yield select(makeSelectFollowedCommunities());
+    const communities = yield select(selectCommunities());
+    const notHiddenCommunities = communities.reduce((communityList, community) => {
+      if (!HIDDEN_COMMUNITIES_ID.includes(community.id)) {
+        communityList.push(community.id);
+      }
+      return communityList;
+    }, []);
 
+    const hasHiddenCommunities = HIDDEN_COMMUNITIES_ID.length > 0;
+    if (hasHiddenCommunities) {
+      followedCommunities = followedCommunities?.filter(
+        (community) => !HIDDEN_COMMUNITIES_ID?.includes(community),
+      );
+    }
     let questionsList = [];
     let counter = skip;
 
@@ -119,13 +132,15 @@ export function* getQuestionsWorker({
         );
       }
 
-      if (communityIdFilter === 0 && parentPage !== feed) {
-        questionsList = yield call(getPosts, limit, skip, postTypes);
+      if (!communityIdFilter && parentPage !== feed) {
+        questionsList = !hasHiddenCommunities
+          ? yield call(getPosts, limit, skip, postTypes)
+          : yield call(getPostsByCommunityId, limit, skip, postTypes, notHiddenCommunities, tags);
       }
 
       // Load questions for communities where I am
       if (
-        communityIdFilter === 0 &&
+        !communityIdFilter &&
         parentPage === feed &&
         followedCommunities &&
         followedCommunities.length > 0

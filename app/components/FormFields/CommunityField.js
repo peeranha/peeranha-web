@@ -59,10 +59,7 @@ export const CommunityField = ({
         disabled={disabled}
         selectedCommunityId={input.value?.id ?? 0}
         communities={
-          isEditForm &&
-          isCommunityModerator &&
-          !isHasRoleGlobal &&
-          !isPostAuthor
+          isEditForm && isCommunityModerator && !isHasRoleGlobal && !isPostAuthor
             ? AllThingsWeb3Comm
             : options
         }

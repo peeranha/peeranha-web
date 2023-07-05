@@ -34,8 +34,9 @@ const Box = styled.ul`
 `;
 
 const TagsList = ({ tags, communities, communityId, children, className }) => {
-  const community = communities.find(
-    (communityObject) => communityObject.id === Number(communityId),
+  const community = useMemo(
+    () => communities.filter((x) => communityId === x.id)[0] || { tags: [] },
+    [communities, communities.length],
   );
 
   if (!community || !tags?.length) return null;

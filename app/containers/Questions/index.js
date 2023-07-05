@@ -11,7 +11,7 @@ import usePagination from 'hooks/usePagination';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getSearchParams } from 'utils/url';
-import { DAEMON, AMOUNT_POSTS_PAGINATION } from 'utils/constants';
+import { DAEMON, POST_TYPE, AMOUNT_POSTS_PAGINATION } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getCookie } from 'utils/cookie';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
@@ -56,7 +56,6 @@ export const Questions = ({
   questionsList,
   questionsLoading,
   topQuestionsLoading,
-  isLastFetch,
   communities,
   followedCommunities,
   parentPage,
@@ -101,7 +100,7 @@ export const Questions = ({
         0,
         postsTypes,
         searchParamsTags,
-        Number(params.communityid) || 0,
+        params.communityid || 0,
         parentPage,
         false,
         true,
@@ -123,28 +122,40 @@ export const Questions = ({
         skip,
         postsTypes,
         searchParamsTags,
-        Number(params.communityid) || 0,
+        params.communityid || 0,
         parentPage,
         true,
       );
     }
-  }, [page]);
+  }, [
+    getQuestionsDispatch,
+    nextLoadedItems,
+    page,
+    params.communityid,
+    parentPage,
+    postsTypes,
+    questionFilter,
+    skip,
+  ]);
 
   useEffect(() => {
     getInitQuestions();
     if (page !== 1) {
       setPage(1);
     }
-  }, [typeFilter, createdFilter, postsTypes]);
+  }, [
+    typeFilter,
+    createdFilter,
+    postsTypes,
+    JSON.stringify(communities),
+    JSON.stringify(followedCommunities),
+  ]);
 
   useEffect(() => {
     setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
-  }, [params.communityid]);
+  }, [params.communityid, setTypeFilterDispatch]);
 
-  const display = useMemo(
-    () => !(single && path === routes.questions(':communityid')),
-    [single, path],
-  );
+  const display = useMemo(() => !(single && path === routes.questions(':communityid')), [path]);
 
   const displayBanner = useMemo(
     () =>
@@ -158,11 +169,6 @@ export const Questions = ({
       communitiesLoading,
       questionFilter,
     ],
-  );
-
-  const lastFetched = useMemo(
-    () => (!questionFilter ? isLastFetch : isLastTopQuestionLoaded),
-    [isLastFetch, isLastTopQuestionLoaded, questionFilter],
   );
 
   const displayLoader = useMemo(
@@ -186,17 +192,34 @@ export const Questions = ({
     [profile],
   );
 
+  const getTabTitle = () => {
+    if (postsTypes.length === 1) {
+      switch (postsTypes[0]) {
+        case POST_TYPE.generalPost:
+          return 'common.discussions';
+        case POST_TYPE.expertPost:
+          return 'common.expertPosts';
+        case POST_TYPE.tutorial:
+          return 'common.tutorials';
+        default:
+          return 'post.questions.title';
+      }
+    } else {
+      return `common.${profile ? 'myFeed' : 'feed'}`;
+    }
+  };
+
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
     <div>
       <Seo
-        title={t('post.questions.title')}
+        title={t(getTabTitle())}
         description={t('post.questions.description')}
         language={locale}
       />
       <ScrollToTop />
       <Header
-        communityIdFilter={Number(params.communityid) || 0}
+        communityIdFilter={params.communityid || 0}
         followedCommunities={followedCommunities}
         parentPage={parentPage}
         typeFilter={typeFilter}
@@ -301,10 +324,7 @@ export default compose(
       isLastFetch: questionsSelector.selectIsLastFetch(),
       questionFilter: questionsSelector.selectQuestionFilter(),
       questionsList: (state, props) =>
-        questionsSelector.selectQuestions(
-          props.parentPage,
-          Number(props.match.params.communityid),
-        )(state),
+        questionsSelector.selectQuestions(props.parentPage, props.match.params.communityid)(state),
       isLastTopQuestionLoaded: questionsSelector.isLastTopQuestionLoadedSelector,
       promotedQuestions: questionsSelector.selectPromotedQuestions(),
     }),

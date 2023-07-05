@@ -21,6 +21,9 @@ import {
 // todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
+export const getActualId = (idWithNetwork) => idWithNetwork.split('-')[1];
+export const getNetwork = (idWithNetwork) => idWithNetwork.split('-')[0] - 1;
+
 const createPermissionsObject = ({
   role,
   translations,
@@ -39,11 +42,9 @@ const createPermissionsObject = ({
     ? translations('moderation.communityAdministrator')
     : translations('moderation.communityModerator'),
   h2: communityId
-    ? `${
-        communities.find(({ id }) =>
-          isSuiBlockchain ? id === communityId : Number(id) === Number(communityId),
-        )?.name || 'TestComm1'
-      } ${translations('moderation.community')}`
+    ? `${communities.find(({ id }) => id === communityId)?.name || 'TestComm1'} ${translations(
+        'moderation.community',
+      )}`
     : role === DEFAULT_ADMIN_ROLE
     ? translations('moderation.defaultAdministrator')
     : translations('moderation.protocolAdministratorCommunities'),
@@ -58,6 +59,7 @@ const createPermissionsObject = ({
   communityId,
 });
 
+//TODO fix
 export const isMatchingBasePermission = (permission, role) =>
   isSuiBlockchain ? permission === role : BigNumber.from(permission).eq(role);
 
@@ -149,7 +151,9 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
   }
 
   return Boolean(
-    permissions.find((permission) => isMatchingBasePermission(permission, DEFAULT_ADMIN_ROLE)),
+    permissions.find((permission) =>
+      BigNumber.from(permission.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
+    ),
   );
 };
 
@@ -169,29 +173,34 @@ export const getCommunityIdFromPermission = (permission, role) => {
 
 export const isBotAddress = (account) => account.id === BOT_ADDRESS;
 
-export const isTemporaryAccount = async (account) => {
-  const ethereumService = await selectEthereum();
-  return ethereumService.getSelectedAccount() === account;
-};
-
 export const getAllRoles = (userRoles = [], communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
-  if (userRoles.find((role) => isMatchingBasePermission(role, DEFAULT_ADMIN_ROLE))) {
-    return [{ role: DEFAULT_ADMIN_ROLE }];
+  const defaultAdminRole = userRoles.find((role) =>
+    BigNumber.from(role.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
+  );
+  if (defaultAdminRole) {
+    return [{ role: defaultAdminRole }];
   }
-  if (userRoles.find((role) => isMatchingBasePermission(role, PROTOCOL_ADMIN_ROLE))) {
-    return [{ role: PROTOCOL_ADMIN_ROLE }];
+  const protocolAdminRole = userRoles.find((role) =>
+    BigNumber.from(role.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
+  );
+  if (protocolAdminRole) {
+    return [{ role: protocolAdminRole }];
   }
-  return userRoles.map((permission) => {
+  return userRoles.map((userRole) => {
     let communityId;
     let role;
     communityRoles.map((communityRole) => {
-      const id = getCommunityIdFromPermission(permission, communityRole);
-      if (!isSuiBlockchain) {
-        if (id >= 1 && id <= communitiesCount) {
-          communityId = id;
-          role = communityRole;
-        }
+      const id = BigNumber.from(userRole.split('-')[1])
+        .sub(BigNumber.from(communityRole))
+        .toString();
+      if (
+        id.length <= communitiesCount.toString().length &&
+        Number.parseInt(id) >= 1 &&
+        Number.parseInt(id) <= communitiesCount
+      ) {
+        communityId = `${userRole.split('-')[0]}-${id}`;
+        role = communityRole;
       }
     });
     return {
@@ -214,14 +223,22 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
     );
   }
   return !!permissions.filter(
-    (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
+    (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualId(communityId)),
   ).length;
 };
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
-  !!permissions.filter(
-    (permission) => permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
-  ).length;
+  !!permissions.filter((permission) => {
+    const networkFromPermission = permission.split('-')[0];
+    const networkFromCommunityId = communityId.split('-')[0];
+    const actualPermission = permission.split('-')[1];
+    const actualCommunityId = communityId.split('-')[1];
+
+    return (
+      actualPermission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, actualCommunityId) &&
+      networkFromPermission === networkFromCommunityId
+    );
+  }).length;
 
 export const hasProtocolAdminRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
@@ -236,7 +253,9 @@ export const hasProtocolAdminRole = (permissionsFromState) => {
   }
 
   return Boolean(
-    permissions.find((permission) => isMatchingBasePermission(permission, PROTOCOL_ADMIN_ROLE)),
+    permissions.find((permission) =>
+      BigNumber.from(permission.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE),
+    ),
   );
 };
 

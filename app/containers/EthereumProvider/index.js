@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
@@ -29,22 +28,22 @@ import {
   transactionFailed,
   transactionInPending,
   transactionInitialised,
+  setTransactionList,
 } from './actions';
-import { MATIC, POLYGON, POLYGON_TESTNET, POSITION_BOTTOM_RIGHT, PROD_ENV } from './constants';
+import { EDG, MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
 const injected = injectedModule();
 const coinbase = coinbaseModule();
 const walletConnect = walletConnectModule();
 const torus = torusModule({
-  buttonPosition: POSITION_BOTTOM_RIGHT,
+  showTorusButton: false,
   network: {
     host: process.env.ETHEREUM_NETWORK,
     chainId: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
     networkName: networkLabel,
   },
 });
-const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
@@ -57,6 +56,12 @@ const initWeb3Onboard = init({
       token: MATIC,
       label: networkLabel,
       rpcUrl: process.env.ETHEREUM_NETWORK,
+    },
+    {
+      id: `0x${Number(process.env.EDGEWARE_CHAIN_ID).toString(16)}`,
+      token: 'SepoliaETH',
+      label: 'Sepolia test network',
+      rpcUrl: process.env.EDGEWARE_NETWORK,
     },
   ],
   accountCenter: {
@@ -95,6 +100,7 @@ export const EthereumProvider = ({
   transactionInPendingDispatch,
   transactionCompletedDispatch,
   waitForConfirmDispatch,
+  setTransactionListDispatch,
   transactionFailedDispatch,
   initializing,
   ethereum,
@@ -150,7 +156,7 @@ export const EthereumProvider = ({
         connectedChain,
       });
     }
-  }, [wallet, connectedWallets, web3Onboard]);
+  }, [wallet, connectedWallets, web3Onboard, ethereum]);
 
   const sendProps = {
     connect,
@@ -164,6 +170,7 @@ export const EthereumProvider = ({
     transactionFailedDispatch,
     waitForConfirmDispatch,
     addToast,
+    setTransactionListDispatch,
   };
 
   useEffect(() => {
@@ -206,6 +213,7 @@ const withConnect = connect(
     transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
     waitForConfirmDispatch: bindActionCreators(transactionInitialised, dispatch),
     addToast: bindActionCreators(addToast, dispatch),
+    setTransactionListDispatch: bindActionCreators(setTransactionList, dispatch),
   }),
 );
 

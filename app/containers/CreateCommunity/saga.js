@@ -44,10 +44,10 @@ export function* createCommunityWorker({ community, reset }) {
     } else {
       const ethereumService = yield select(selectEthereum);
       const selectedAccount = yield call(ethereumService.getSelectedAccount);
+      const network = community.network.id;
 
-      yield call(createCommunity, ethereumService, selectedAccount, community);
+      yield call(createCommunity, network, ethereumService, selectedAccount, community);
     }
-
     yield put(createCommunitySuccess());
     yield call(reset);
 

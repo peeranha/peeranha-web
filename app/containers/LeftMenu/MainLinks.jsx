@@ -5,10 +5,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-
+import ChangeLocale from 'containers/ChangeLocale';
 import cn from 'classnames';
-
-import isMobile from 'ismobilejs';
 
 import {
   BORDER_PRIMARY_DARK,
@@ -28,14 +26,11 @@ import * as routes from 'routes-config';
 
 import {
   isSingleCommunityWebsite,
-  singleCommunityStyles,
   singleCommunityColors,
   singleCommunityFonts,
-  getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
-import homeIcon from 'images/house.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
@@ -49,7 +44,7 @@ import { svgDraw } from 'components/Icon/IconStyled';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
-import { FULL_SIZE, PINNED_TITLE_LENGTH } from 'containers/LeftMenu/constants';
+import { PINNED_TITLE_LENGTH } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
 import {
   hasGlobalModeratorRole,
@@ -62,7 +57,6 @@ import {
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 import { isSuiBlockchain } from 'utils/sui/sui';
 
-const communityStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
 
@@ -146,17 +140,9 @@ export const A1 = A.extend`
 
 const Box = styled.div`
   margin-top: 30px;
-  margin-bottom: ${({ currClientHeight }) => {
-    if (
-      communityStyles.withoutAdditionalLinks ||
-      (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
-    )
-      return '25px !important';
-    return '50px';
-  }};
-  padding-bottom: 30px;
-  @media only screen and (max-width: 576px) {
-    padding: 10px 0 20px 0;
+  @media only screen and (max-width: 991px) {
+    margin-top: 0;
+  }
   }
 `;
 
@@ -169,12 +155,14 @@ const MainLinks = ({
   match,
   toggleEditDocumentation,
   pinnedItemMenu,
+  changeLocale,
+  locale,
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
   let route = pathname.split('/').filter((x) => x)[0];
 
-  const singleCommId = +isSingleCommunityWebsite();
+  const singleCommId = isSingleCommunityWebsite();
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
@@ -259,6 +247,13 @@ const MainLinks = ({
           }),
         }}
       >
+        {!profile && !singleCommId && <div css={styles.dividerLinks} />}
+
+        <div css={styles.changeLocale}>
+          <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
+        </div>
+
+        <div css={styles.dividerLinks} />
         {Boolean(singleCommId) && (
           <div
             className={cn('df jcsb pl15', {
@@ -308,6 +303,7 @@ const MainLinks = ({
         )}
 
         {(hasGlobalModeratorRole() ||
+          hasProtocolAdminRole() ||
           isModeratorModeSingleCommunity ||
           (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>
@@ -322,6 +318,7 @@ const MainLinks = ({
             {t('common.administration')}
           </A1>
         )}
+        <div css={styles.dividerLinks} />
       </div>
 
       {Boolean(singleCommId) &&

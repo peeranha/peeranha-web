@@ -33,7 +33,7 @@ export const Div = styled.div`
     }
 
     span {
-      min-width: 157px;
+      min-width: 155px;
     }
   }
 `;

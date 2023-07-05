@@ -37,9 +37,11 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
     );
 
     setModeratorRole(
-      isProtocolAdmin ||
-        isGlobalModerator ||
-        (Boolean(communityId) && (isCommunityModerator || isCommunityAdmin)),
+      hasProtocolAdminRole(permissions) ||
+        hasGlobalModeratorRole(permissions) ||
+        (Boolean(communityId) &&
+          (hasCommunityModeratorRole(permissions, communityId) ||
+            hasCommunityAdminRole(permissions, communityId))),
     );
   }, []);
 

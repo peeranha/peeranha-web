@@ -15,16 +15,19 @@ const styles = {
     position: 'absolute',
     display: 'flex',
     width: '100%',
-    padding: '16px',
+    padding: '10px 16px',
     margin: '0 auto',
     borderBottom: '1px solid rgba(53, 74, 137, 0.15)',
     alignItems: 'start',
     justifyContent: 'start',
+    svg: {
+      marginTop: '3px',
+    },
     '& :nth-last-child': {
       borderBottom: 'none',
     },
   },
-  unreadStyles: {
+  unread: {
     borderLeft: `3px solid ${BORDER_PRIMARY_LIGHT}`,
     background: BG_SECONDARY_SPECIAL_4,
   },
@@ -33,6 +36,17 @@ const styles = {
     marginLeft: '12px',
     display: 'flex',
     flexDirection: 'column',
+  },
+  titleWrapper: {
+    '& span': {
+      whiteSpace: 'normal',
+      lineHeight: '20px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: '-webkit-box !important',
+      '-webkit-line-clamp': '2',
+      '-webkit-box-orient': 'vertical',
+    },
   },
   title: {
     fontSize: '16px',

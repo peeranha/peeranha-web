@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { css } from '@emotion/react';
+
 import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT, TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -34,10 +35,9 @@ import useMediaQuery from 'hooks/useMediaQuery';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import EditDocumentation from 'components/Documentation';
-import { IconSm, IconLm, IconLg } from 'components/Icon/IconWithSizes';
+import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
 import SuiConnectModals from 'components/SuiConnectModals';
 
-import styled from 'styled-components';
 import { Wrapper, MainSubHeader } from './Wrapper';
 import Section from './Section';
 import LogoStyles from './Logo';
@@ -47,7 +47,7 @@ import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 import ChangeLocale from 'containers/ChangeLocale';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID, MIN_REPUTATION } from './constants';
+import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION } from './constants';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -69,42 +69,6 @@ export const LoginProfile = ({
   );
 
 const colors = singleCommunityColors();
-
-const ProgressIndicator = styled.div`
-  background: ${colors.mainBackground ? colors.mainBackground : 'rgb(234, 236, 244)'};
-  min-height: ${LOADER_HEIGHT}px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  animation: animation 0.5s forwards;
-
-  @keyframes animation {
-    0% {
-      transform: translateY(-100%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-  svg {
-    animation: rotation 1s infinite linear;
-  }
-
-  div {
-    display: flex;
-    align-items: center;
-  }
-
-  @keyframes rotation {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`;
 
 const Button = LargeButton.extend`
   background-color: ${(x) => x.bg};
@@ -131,9 +95,6 @@ const View = ({
   redirectToAskQuestionPage,
   showLoginModalWithRedirectToAskQuestionPage,
   faqQuestions,
-  isTransactionInPending,
-  transactionHash,
-  transactionInitialised,
   isEditDocumentation,
   toggleEditDocumentation,
   locale,
@@ -214,55 +175,7 @@ const View = ({
   );
 
   return (
-    <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
-      {transactionInitialised && (
-        <ProgressIndicator>
-          <div
-            css={css`
-              > span {
-                margin-left: 10px;
-              }
-              color: ${colors.white || ''};
-            `}
-          >
-            <IconLg
-              icon={processIndicator}
-              css={css`
-                path {
-                  fill: ${colors.linkColor || TEXT_PRIMARY};
-                }
-              `}
-            />
-            {isTransactionInPending ? (
-              <>
-                {t('common.transactionInPending')}{' '}
-                <a
-                  href={
-                    isSuiBlockchain
-                      ? process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.replace('{0}', transactionHash)
-                      : process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(transactionHash)
-                  }
-                  target="_blank"
-                  css={css`
-                    margin: 0 5px;
-                    color: ${colors.linkColor || TEXT_PRIMARY};
-                    :hover {
-                      color: ${colors.linkColor || TEXT_PRIMARY};
-                      opacity: 0.5;
-                    }
-                  `}
-                >
-                  {t('common.transaction')}
-                </a>{' '}
-                {t('common.transactionInPendingEnd')}
-              </>
-            ) : (
-              t('common.waitingForConfirm')
-            )}
-          </div>
-        </ProgressIndicator>
-      )}
-
+    <Wrapper id={HEADER_ID}>
       <MainSubHeader mainSubHeaderBgColor={colors.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
@@ -304,7 +217,7 @@ const View = ({
                 </>
               )}
 
-              {!single.withoutSubHeader || !profileInfo ? (
+              {!single?.withoutSubHeader || !profileInfo ? (
                 <LoginProfile
                   isSearchFormVisible={isSearchFormVisible}
                   loginWithWalletDispatch={loginWithWalletDispatch}
@@ -338,9 +251,6 @@ View.propTypes = {
   showLoginModalWithRedirectToAskQuestionPage: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
   faqQuestions: PropTypes.array,
-  isTransactionInPending: PropTypes.bool,
-  transactionHash: PropTypes.string,
-  transactionInitialised: PropTypes.bool,
   communities: PropTypes.array,
 };
 

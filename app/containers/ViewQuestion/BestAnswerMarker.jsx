@@ -61,10 +61,7 @@ export const BestAnswerMarker = ({
   whoWasAccepted,
   isTheLargestRating,
   ids,
-  questionId,
   isOfficial,
-  profileInfo,
-  author,
   profile,
 }) => {
   const { t } = useTranslation();

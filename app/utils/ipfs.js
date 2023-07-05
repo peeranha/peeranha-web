@@ -3,29 +3,10 @@ import bs58 from 'bs58';
 import { create } from 'ipfs-http-client';
 
 import { callService, SAVE_FILE_SERVICE } from 'utils/web_integration/src/util/aws-connector';
-import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import { ApplicationError } from './errors';
 
 export function ipfsApi() {
   return create(process.env.IPFS_API_URL);
-}
-
-function ipfsApiTheGraph() {
-  return create(process.env.IPFS_API_URL_THE_GRAPH);
-}
-
-function web3StorageApi() {
-  const token = process.env.WEB3_STORAGE_API_TOKEN;
-
-  if (!token) {
-    throw new Error('WEB3_STORAGE_API_TOKEN environment variable is not defined');
-  }
-
-  return new Web3Storage({ token });
-}
-
-async function saveDataWeb3Storage(data) {
-  return web3StorageApi().put([new File([data], 'data')]);
 }
 
 async function saveDataToAllStorages(content, buf, encoding) {
@@ -34,11 +15,7 @@ async function saveDataToAllStorages(content, buf, encoding) {
     encoding,
   };
 
-  const [resultIpfsS3] = await Promise.all([
-    saveDataIpfsS3(dataIpfsS3),
-    saveDataTheGraph(buf),
-    saveDataWeb3Storage(buf),
-  ]);
+  const resultIpfsS3 = await saveDataIpfsS3(dataIpfsS3);
   return resultIpfsS3.body.cid;
 }
 
@@ -66,11 +43,7 @@ export async function saveText(text) {
 
   const buf = Buffer.from(parsedText, 'utf8');
 
-  return saveDataToAllStorages(buf, buf, 'utf8');
-}
-
-async function saveDataTheGraph(buf) {
-  return ipfsApiTheGraph().add(buf);
+  return saveDataToAllStorages(buf, 'utf8');
 }
 
 export async function saveDataIpfsS3(file, signal) {
@@ -78,9 +51,7 @@ export async function saveDataIpfsS3(file, signal) {
 }
 
 export async function saveFile(file) {
-  const buf = Buffer.from(file);
-
-  return saveDataToAllStorages(file, buf, 'base64');
+  return saveDataToAllStorages(file, 'base64');
 }
 
 export async function getText(hash) {

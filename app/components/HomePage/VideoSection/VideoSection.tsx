@@ -23,7 +23,7 @@ const VideoSection: React.FC = (): JSX.Element => {
       >
         <iframe
           css={styles.videoIframe}
-          src="https://www.youtube.com/embed/Bvt42RqWFKc"
+          src="https://www.youtube.com/embed/Udc5zr2aKCo"
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

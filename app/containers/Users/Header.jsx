@@ -82,12 +82,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
           />
         </MediumIconStyled>
 
-        <span>
-          {t(`common.${usersCondition}`)}
-          <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
-            {getFormattedNum2(userCount)}
-          </Span>
-        </span>
+        <span>{t(`common.${usersCondition}`)}</span>
       </H3>
 
       {!single && (

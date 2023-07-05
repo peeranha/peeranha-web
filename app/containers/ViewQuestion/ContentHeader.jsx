@@ -1,6 +1,5 @@
-import React, { useState, useRef, useMemo, useCallback } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -35,7 +34,6 @@ import AreYouSure from './AreYouSure';
 import SharingModal from './SharingModal';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
 import BotInfo from './BotInfo';
 
@@ -144,7 +142,6 @@ const ContentHeader = (props) => {
     editItem,
     commentId,
     deleteItem,
-    changeQuestionTypeDispatch,
     questionData,
     profile,
     infiniteImpact,
@@ -183,33 +180,22 @@ const ContentHeader = (props) => {
       hasGlobalModeratorRole(getPermissions(profile)) ||
       hasCommunityModeratorRole(getPermissions(profile), questionData.communityId) ||
       hasProtocolAdminRole(getPermissions(profile)),
-    [profile],
+    [profile, questionData.communityId],
   );
 
   const isBot = isBotAddress(author);
 
   const isItWrittenByMe = useMemo(
-    () => (profile ? author.user === profile.user || author.user === profile.id : false),
+    () => (profile ? author.user.toLowerCase() === profile.user.toLowerCase() : false),
     [profile, author],
   );
 
   const isMarkedTheBest = useMemo(
     () => (bestReplyId !== 0 ? bestReplyId === answerId : false),
-    [bestReplyId],
+    [answerId, bestReplyId],
   );
 
-  const changeQuestionTypeWithRatingRestore = useCallback(
-    (event) => changeQuestionTypeDispatch(event),
-    [changeQuestionTypeDispatch],
-  );
-
-  // eslint-disable-next-line camelcase
-  const correctAnswerId = questionData?.correct_answer_id;
-  const correctAnswer = questionData?.answers?.find(({ id }) => id === correctAnswerId);
-  const correctAnswerUserName = correctAnswer?.user;
-  const currentUserName = profile?.user;
-
-  let deleteAction = null;
+  let deleteAction;
   if (isItWrittenByMe) {
     deleteAction = deleteItem;
   } else {
@@ -377,13 +363,7 @@ ContentHeader.propTypes = {
 };
 
 export default React.memo(
-  connect(
-    (state) => ({
-      profile: makeSelectProfileInfo()(state),
-    }),
-    (dispatch) => ({
-      changeQuestionTypeDispatch: bindActionCreators(changeQuestionType, dispatch),
-      giveBountyDispatch: bindActionCreators(payBounty, dispatch),
-    }),
-  )(ContentHeader),
+  connect((state) => ({
+    profile: makeSelectProfileInfo()(state),
+  }))(ContentHeader),
 );

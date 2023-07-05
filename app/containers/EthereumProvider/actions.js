@@ -13,7 +13,9 @@ import {
   TRANSACTION_COMPLETED,
   TRANSACTION_IN_PENDING,
   TRANSACTION_FAILED,
+  SET_TRANSACTION_LIST,
   TRANSACTION_INITIALIZED,
+  CHANGE_PROVIDER,
 } from './constants';
 
 export function initEthereum(data) {
@@ -55,17 +57,25 @@ export function transactionInitialised() {
   };
 }
 
-export function transactionInPending(transactionHash) {
+export function transactionInPending(transactionHash, transactionList) {
   return {
     type: TRANSACTION_IN_PENDING,
     transactionHash,
+    transactionList,
   };
 }
 
-export function transactionCompleted(translation) {
+export function transactionCompleted(transactionList) {
   return {
     type: TRANSACTION_COMPLETED,
-    translation,
+    transactionList,
+  };
+}
+
+export function setTransactionList(transactionList) {
+  return {
+    type: SET_TRANSACTION_LIST,
+    transactionList,
   };
 }
 
@@ -73,5 +83,12 @@ export function transactionFailed(data) {
   return {
     type: TRANSACTION_FAILED,
     data,
+  };
+}
+
+export function changeProvider(network) {
+  return {
+    type: CHANGE_PROVIDER,
+    network,
   };
 }

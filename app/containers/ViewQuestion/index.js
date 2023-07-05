@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 import { useTranslation } from 'react-i18next';
-import { errorPage } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,6 +20,7 @@ import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProv
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
+import { loginWithWallet } from 'containers/Login/actions';
 import { loginWithSui } from 'containers/Login/actions';
 
 import {
@@ -102,9 +102,10 @@ export const ViewQuestion = ({
   profile,
   loginWithSuiDispatch,
   history,
+  loginWithWalletDispatch,
 }) => {
   const { t } = useTranslation();
-
+  const showLoginModal = () => loginWithWalletDispatch({ metaMask: true });
   useEffect(() => {
     if (questionData) {
       const route = getRoute(questionData.postType);
@@ -113,7 +114,7 @@ export const ViewQuestion = ({
         history.push(routes[route](match.params.id, questionData.title));
       }
     }
-  }, [questionData]);
+  }, [history, match.params.id, match.url, questionData]);
 
   useEffect(() => {
     window.isRendered = false;
@@ -122,11 +123,11 @@ export const ViewQuestion = ({
     return () => {
       resetStoreDispatch();
     };
-  }, []);
+  }, [resetStoreDispatch]);
 
   useEffect(() => {
     getQuestionDataDispatch(match.params.id);
-  }, [match.params.id, account]);
+  }, [match.params.id, account, getQuestionDataDispatch]);
 
   useEffect(() => {
     getHistoriesDispatch(match.params.id);
@@ -202,11 +203,12 @@ export const ViewQuestion = ({
     commId,
     profile,
     loginWithSuiDispatch,
+    showLoginModal,
   };
 
-  const helmetTitle = questionData?.content.title || t('post.title');
+  const helmetTitle = questionData?.title || t('post.Post');
 
-  const helmetDescription = questionData?.content.content ?? t('post.title');
+  const helmetDescription = questionData?.content ?? t('post.Post');
 
   const articlePublishedTime = questionData?.postTime ? new Date(questionData.postTime * 1000) : ``;
 
@@ -218,16 +220,14 @@ export const ViewQuestion = ({
 
   return (
     <>
-      {process.env.ENV !== 'dev' && (
-        <Seo
-          title={helmetTitle}
-          description={helmetDescription}
-          language={locale}
-          keywords={keywords}
-          articlePublishedTime={articlePublishedTime}
-          articleModifiedTime={articleModifiedTime}
-        />
-      )}
+      <Seo
+        title={helmetTitle}
+        description={helmetDescription}
+        language={locale}
+        keywords={keywords}
+        articlePublishedTime={articlePublishedTime}
+        articleModifiedTime={articleModifiedTime}
+      />
 
       {!questionDataLoading && !historiesLoading && questionData && (
         <ViewQuestionContainer {...sendProps} />
@@ -277,6 +277,7 @@ ViewQuestion.propTypes = {
   redirectToEditAnswerPageDispatch: PropTypes.func,
   ids: PropTypes.array,
   profile: PropTypes.object,
+  loginWithWalletDispatch: PropTypes.func,
   loginWithSuiDispatch: PropTypes.func,
 };
 
@@ -333,6 +334,7 @@ const withConnect = connect(
     redirectToEditQuestionPageDispatch: bindActionCreators(redirectToEditQuestionPage, dispatch),
     redirectToEditAnswerPageDispatch: bindActionCreators(redirectToEditAnswerPage, dispatch),
     getHistoriesDispatch: bindActionCreators(getHistories, dispatch),
+    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
   }),
 );

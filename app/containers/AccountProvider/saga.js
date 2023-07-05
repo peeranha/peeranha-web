@@ -63,6 +63,7 @@ import {
   updateAccErr,
   updateAccSuccess,
 } from './actions';
+
 import { makeSelectProfileInfo } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
@@ -107,7 +108,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
       call(getProfileInfo, account, ethereumService, true, true),
       call(getBalance, ethereumService, account),
       call(getAvailableBalance, ethereumService, account),
-      call(getUserBoost, ethereumService, account, currentPeriod.id),
+      call(getUserBoost, ethereumService, account, currentPeriod?.id || 0),
     ]);
 
     if (profileInfo) {

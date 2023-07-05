@@ -73,28 +73,35 @@ export const formPermissionsCookie = (permissions) => {
   const basePermissions = permissions.filter((permission) =>
     isSuiBlockchain
       ? permission === PROTOCOL_ADMIN_ROLE
-      : isMatchingBasePermission(permission, PROTOCOL_ADMIN_ROLE) ||
-        isMatchingBasePermission(permission, DEFAULT_ADMIN_ROLE),
+      : BigNumber.from(permission.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE) ||
+        BigNumber.from(permission.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
   );
   const permissionsObject = {
     base: basePermissions,
   };
 
   const communitiesWhereAdmin = permissions.reduce((ids, permission) => {
-    if (
-      (isSuiBlockchain && permission.startsWith(COMMUNITY_ADMIN_ROLE)) ||
-      (!isSuiBlockchain && permission.includes(COMMUNITY_ADMIN_ROLE.slice(0, 63)))
-    ) {
-      return [...ids, getCommunityIdFromPermission(permission, COMMUNITY_ADMIN_ROLE)];
+    const chainId = permission.split('-')[0];
+    const actualPermission = permission.split('-')[1];
+
+    if (permission.includes(COMMUNITY_ADMIN_ROLE.slice(0, 63))) {
+      const communityId = BigNumber.from(actualPermission)
+        .sub(BigNumber.from(COMMUNITY_ADMIN_ROLE))
+        .toNumber();
+      return [...ids, `${chainId}-${communityId}`];
     }
     return ids;
   }, []);
+
   const communitiesWhereModerator = permissions.reduce((ids, permission) => {
-    if (
-      (isSuiBlockchain && permission.startsWith(COMMUNITY_MODERATOR_ROLE)) ||
-      (!isSuiBlockchain && permission.includes(COMMUNITY_MODERATOR_ROLE.slice(0, 63)))
-    ) {
-      return [...ids, getCommunityIdFromPermission(permission, COMMUNITY_MODERATOR_ROLE)];
+    const chainId = permission.split('-')[0];
+    const actualPermission = permission.split('-')[1];
+
+    if (actualPermission.includes(COMMUNITY_MODERATOR_ROLE.slice(0, 63))) {
+      const communityId = BigNumber.from(actualPermission)
+        .sub(BigNumber.from(COMMUNITY_MODERATOR_ROLE))
+        .toNumber();
+      return [...ids, `${chainId}-${communityId}`];
     }
     return ids;
   }, []);
@@ -114,11 +121,11 @@ export const parsePermissionsCookie = (permissionsObject) => {
   const permissions = permissionsObject.base || [];
   const adminPermissions =
     permissionsObject['0a7c']?.map((communityId) =>
-      getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
+      getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId.split('-')[1]),
     ) || [];
   const moderatorPermissions =
     permissionsObject.ca6?.map((communityId) =>
-      getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
+      getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId.split('-')[1]),
     ) || [];
   return [...permissions, ...adminPermissions, ...moderatorPermissions];
 };

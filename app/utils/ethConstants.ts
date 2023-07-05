@@ -1,49 +1,51 @@
 // Contracts
-export const CONTRACT_TOKEN = 'contractToken';
-export const CONTRACT_USER = 'contractUser';
-export const CONTRACT_CONTENT = 'contractContent';
-export const CONTRACT_COMMUNITY = 'contractCommunity';
+export const CONTRACT_TOKEN = ['contractToken', 'edgewareContractToken'];
+export const CONTRACT_USER = ['contractUser', 'edgewareContractUser'];
+export const CONTRACT_CONTENT = ['contractContent', 'edgewareContractContent'];
+export const CONTRACT_COMMUNITY = ['contractCommunity', 'edgewareContractCommunity'];
+
+export const getContentData = ['getContentDataWithArgs', 'getEdgewareContentDataWithArgs'];
 
 export const ContractsMapping = {
-  [CONTRACT_TOKEN]: 'token',
-  [CONTRACT_USER]: 'user',
-  [CONTRACT_CONTENT]: 'content',
-  [CONTRACT_COMMUNITY]: 'community',
+  contractToken: ['token', process.env.PEERANHA_TOKEN],
+  edgewareContractToken: ['token', process.env.EDGEWARE_TOKEN_ADDRESS],
+  contractUser: ['user', process.env.USER_ADDRESS],
+  edgewareContractUser: ['user', process.env.EDGEWARE_USER_ADDRESS],
+  contractContent: ['content', process.env.CONTENT_ADDRESS],
+  edgewareContractContent: ['content', process.env.EDGEWARE_CONTENT_ADDRESS],
+  contractCommunity: ['community', process.env.COMMUNITY_ADDRESS],
+  edgewareContractCommunity: ['community', process.env.EDGEWARE_COMMUNITY_ADDRESS],
 };
 
 // Transaction names
-export const UPDATE_ACC = 'updateUser';
-export const CREATE_COMMUNITY = 'createCommunity';
-export const EDIT_COMMUNITY = 'updateCommunity';
-export const FOLLOW_COMMUNITY = 'followCommunity';
-export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
-export const CREATE_TAG = 'createTag';
-export const EDIT_TAG = 'updateTag';
-export const POST_QUESTION = 'createPost';
+export const UPDATE_ACC = 'updateUser'; // done
+export const CREATE_COMMUNITY = 'createCommunity'; // done
+export const EDIT_COMMUNITY = 'updateCommunity'; // done
+export const FOLLOW_COMMUNITY = 'followCommunity'; // done
+export const UNFOLLOW_COMMUNITY = 'unfollowCommunity'; // done
+export const CREATE_TAG = 'createTag'; // done
+export const EDIT_TAG = 'updateTag'; // done not working
+export const POST_QUESTION = 'createPost'; // done
 export const UPDATE_DOCUMENTATION_TREE = 'updateDocumentationTree';
 export const DELETE_DOCUMENTATION_POST = 'deleteDocumentationPost';
-export const CHANGE_POST_TYPE = 'changePostType';
-export const POST_ANSWER = 'createReply';
-export const EDIT_ANSWER = 'editReply';
-export const DELETE_ANSWER = 'deleteReply';
-export const EDIT_POST = 'editPost';
+export const POST_ANSWER = 'createReply'; // done
+export const EDIT_ANSWER = 'editReply'; // done
+export const DELETE_ANSWER = 'deleteReply'; // done
+export const EDIT_POST = 'editPost'; // done
 export const DELETE_POST = 'deletePost';
-export const POST_COMMENT = 'createComment';
-export const EDIT_COMMENT = 'editComment';
-export const DELETE_COMMENT = 'deleteComment';
-export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
-export const VOTE_ITEM = 'voteItem';
-export const CLAIM_REWARD = 'claimReward';
-export const SET_STAKE = 'setStake';
+export const POST_COMMENT = 'createComment'; // done
+export const EDIT_COMMENT = 'editComment'; // done
+export const DELETE_COMMENT = 'deleteComment'; // done
+export const CHANGE_STATUS_BEST = 'changeStatusBestReply'; // done
+export const VOTE_ITEM = 'voteItem'; // done
+export const CLAIM_REWARD = 'claimReward'; // skip
+export const SET_STAKE = 'setStake'; // skip
 export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
+export const GIVE_COMMUNITY_MODERATOR_PERMISSION = 'giveCommunityModeratorPermission';
 export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
+export const REVOKE_COMMUNITY_MODERATOR_PERMISSION = 'revokeCommunityModeratorPermission';
 
 // Query names
-export const GET_USER_BY_ADDRESS = 'getUserByAddress';
-export const IS_USER_EXISTS = 'isUserExists';
-export const GET_USERS_COUNT = 'getUsersCount';
-export const GET_COMMUNITIES_COUNT = 'getCommunitiesCount';
-export const GET_COMMUNITY = 'getCommunity';
 export const GET_POST = 'getPost';
 export const GET_REPLY = 'getReply';
 export const GET_STATUS_HISTORY = 'getStatusHistory';
@@ -79,6 +81,12 @@ const user = `
   avatar
   creationTime
   achievements { id }
+  usercommunity {
+    communityId
+  }
+  userpermission {
+    permission
+  }
 `;
 
 const userMesh = editUserQuery(user);
@@ -264,7 +272,13 @@ const postMesh = `
     where: { isDeleted: "0" },
   ) {
     ${commentMesh}
-  }`;
+  }
+  posttranslation {
+     language
+     title
+     content
+  }
+  `;
 
 const usersQuery = `
       query(
@@ -444,6 +458,13 @@ const community = `
   deletedPostCount
   followingUsers
   replyCount
+  communitytranslation {
+    communityId
+    name
+    description
+    language
+    enableAutotranslation
+  }
 `;
 
 const communitiesQuery = `
@@ -458,9 +479,7 @@ const communitiesQuery = `
       }`;
 
 const communitiesQueryMesh = `
-      query(
-        $first: Int,
-      ) {
+      query {
         community (
          limit: $first,
         ) {
@@ -578,16 +597,14 @@ const allTagsQueryMesh = allTagsQuery.replace('tags', 'tag');
 
 const communityQuery = `
       query(
-        $id: ID!,
+        $id: String,
       ) {
-        community(
-         id: $id,
-        ) {
+        community(where: { id: $id }) {
           ${community}
         }
       }`;
 
-const communityQueryMesh = communityQuery.replace('ID!', 'String');
+const communityQueryMesh = communityQuery;
 
 const tagsQuery = `
       query(
@@ -794,7 +811,7 @@ const documentationMenuQuery = `
 
 const documentationMenuQueryMesh = `
       query (
-        $id: Int
+        $id: String
       ) {
         communitydocumentation (where: { id: $id }) {
           id
@@ -876,10 +893,10 @@ const postQuery = `
 
 const postQueryMesh = `
   query (
-    $postId: String
+    $postId: String,
   ) {
     post (
-      where: { id: $postId, isDeleted: "0" }
+      where: { id: $postId, isDeleted: "0" },
     ) {
       ${postMesh}
     }

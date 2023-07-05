@@ -20,7 +20,13 @@ const B = ({ isFollowed, onClick, id, disabled, profileInfo, loginWithSuiDispatc
 
   if (isFollowed) {
     return (
-      <PrimaryButton id={id} data-isfollowed={isFollowed} onClick={onClick} disabled={disabled}>
+      <PrimaryButton
+        id={id}
+        data-isfollowed={isFollowed}
+        onClick={onClick}
+        disabled={disabled}
+        block={disabled}
+      >
         <img className="py-1" src={okayIcon} alt="icon" />
       </PrimaryButton>
     );
@@ -32,7 +38,13 @@ const B = ({ isFollowed, onClick, id, disabled, profileInfo, loginWithSuiDispatc
       actionButtonWithLogin={actionButtonWithLogin}
     />
   ) : (
-    <InfoButton id={id} data-isfollowed={isFollowed} onClick={onClick} disabled={disabled}>
+    <InfoButton
+      id={id}
+      data-isfollowed={isFollowed}
+      onClick={onClick}
+      disabled={disabled}
+      block={disabled}
+    >
       {t('common.followCommunity.subscribe')}
     </InfoButton>
   );

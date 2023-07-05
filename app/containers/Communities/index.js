@@ -20,6 +20,7 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Seo from 'components/Seo';
 
 import Header from './Header';
+import { HIDDEN_COMMUNITIES_ID } from './constants';
 
 export const Communities = ({
   locale,
@@ -41,6 +42,9 @@ export const Communities = ({
     () => [communitiesLoading && route === routes.communities()],
     [communitiesLoading, route],
   );
+  const notHiddenCommunities = communities.filter(
+    (community) => !HIDDEN_COMMUNITIES_ID.includes(community.id),
+  );
 
   return (
     <div className="d-xl-flex">
@@ -59,11 +63,16 @@ export const Communities = ({
           SubHeader={SubHeader}
           changeSorting={changeSorting}
           sorting={sorting}
-          communitiesNumber={communities?.length ?? 0}
+          communitiesNumber={notHiddenCommunities?.length ?? 0}
           profile={profile}
         />
 
-        <Content communities={communities} sorting={sorting} locale={locale} profile={profile} />
+        <Content
+          communities={notHiddenCommunities}
+          sorting={sorting}
+          locale={locale}
+          profile={profile}
+        />
 
         {displayLoadingIndicator && <LoadingIndicator />}
       </div>

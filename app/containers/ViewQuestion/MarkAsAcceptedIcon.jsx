@@ -94,7 +94,12 @@ export const MarkAsAcceptedIcon = ({
   }
 
   // I am question's author
-  if (answerId !== 0 && (isSuiBlockchain ? profile?.id : account) === questionFrom) {
+  if (
+    answerId !== 0 &&
+    (isSuiBlockchain
+      ? profile?.id.toLowerCase()
+      : account.toLowerCase() === questionFrom?.toLowerCase())
+  ) {
     return (
       <Label
         className={className}
