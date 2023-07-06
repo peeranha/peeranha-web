@@ -66,7 +66,7 @@ export function* getQuestionsWorker({
 
     if (isSuiBlockchain) {
       const communities = yield select(selectCommunities());
-      if (communityIdFilter > 0) {
+      if (communityIdFilter) {
         const communitySuiIdFilter = communities.find(
           (community) => community.id === communityIdFilter,
         ).suiId;
@@ -79,11 +79,11 @@ export function* getQuestionsWorker({
           communities,
         );
       }
-      if (communityIdFilter === 0 && parentPage !== feed) {
+      if (!communityIdFilter && parentPage !== feed) {
         questionsList = yield call(getSuiPosts, limit, skip, postTypes, communities);
       }
       if (
-        communityIdFilter === 0 &&
+        !communityIdFilter &&
         parentPage === feed &&
         followedCommunities &&
         followedCommunities.length > 0
@@ -121,7 +121,7 @@ export function* getQuestionsWorker({
         getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, counter),
       );
     } else {
-      if (communityIdFilter > 0) {
+      if (communityIdFilter) {
         questionsList = yield call(
           getPostsByCommunityId,
           limit,

@@ -14,7 +14,7 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import { LOGIN_WITH_WALLET } from 'containers/Login/constants';
 
-import { selectUsers } from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import {
   getCommunities,
@@ -37,19 +37,13 @@ import {
   GET_COMMUNITY_TAGS,
   GET_FAQ,
   GET_STAT,
-  GET_TAGS,
   GET_TUTORIAL,
   GET_USER_PROFILE,
 } from 'containers/DataCacheProvider/constants';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import {
-  getSuiUserById,
-  getSuiCommunities,
-  getSuiTags,
-  getSuiCommunityTags,
-} from 'utils/sui/suiIndexer';
+import { getSuiUserById, getSuiCommunities, getSuiCommunityTags } from 'utils/sui/suiIndexer';
 import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
@@ -77,28 +71,12 @@ export function* getCommunitiesWorker() {
       const communities = yield call(getSuiCommunities);
       yield put(getCommunitiesSuccess(communities));
     } else {
-      const ethereumService = yield select(selectEthereum);
-      const stat = yield select(selectStat());
-      const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
+      const communities = yield call(getAllCommunities);
 
       yield put(getCommunitiesSuccess(communities));
     }
   } catch (err) {
     yield put(getCommunitiesErr(err));
-  }
-}
-
-export function* getTagsWorker() {
-  try {
-    if (isSuiBlockchain) {
-      const tags = yield call(getSuiTags);
-      yield put(getTagsSuccess(tags));
-    } else {
-      const tags = yield call(getTags);
-      yield put(getTagsSuccess(tags));
-    }
-  } catch (err) {
-    yield put(getTagsErr(err));
   }
 }
 
@@ -108,7 +86,7 @@ export function* getCommunityTagsWorker({ communityId }) {
       const suiCommunities = yield call(getSuiCommunities);
       yield put(getCommunitiesSuccess(suiCommunities));
       const communities = yield select(selectCommunities());
-      const suiCommunityId = communities.find((community) => community.id == communityId).suiId;
+      const suiCommunityId = communities.find((community) => community.id === communityId).suiId;
       const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
         ...tag,
         label: tag.name,
@@ -216,7 +194,6 @@ export function* getUserProfileWorker({ user, getFullProfile, communityIdForRati
 
 export default function* () {
   yield takeLatest(GET_COMMUNITIES, getCommunitiesWorker);
-  yield takeLatest(GET_TAGS, getTagsWorker);
   yield takeLatest(GET_COMMUNITY_TAGS, getCommunityTagsWorker);
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(GET_STAT, getStatWorker);

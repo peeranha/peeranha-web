@@ -98,7 +98,7 @@ export const MarkAsAcceptedIcon = ({
     answerId !== 0 &&
     (isSuiBlockchain
       ? profile?.id.toLowerCase()
-      : account.toLowerCase() === questionFrom?.toLowerCase())
+      : account?.toLowerCase() === questionFrom?.toLowerCase())
   ) {
     return (
       <Label

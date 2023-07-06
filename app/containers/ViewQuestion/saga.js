@@ -932,7 +932,7 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
         yield put(transactionFailed(err));
       }
     } else {
-      yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
+      yield call(downVote, profileInfo.user, questionId, answerId, ethereumService);
     }
 
     const item =

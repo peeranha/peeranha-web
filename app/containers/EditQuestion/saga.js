@@ -56,7 +56,7 @@ export function* getAskedQuestionWorker({ questionId }) {
         const communities = yield select(selectCommunities());
         question = yield call(getSuiPost, questionId, communities);
       } else {
-        const question = yield call(getQuestionFromGraph, questionId);
+        question = yield call(getQuestionFromGraph, questionId);
         const { communityId } = question;
 
         if (communityId) {

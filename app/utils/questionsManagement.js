@@ -254,16 +254,16 @@ export async function markAsAccepted(user, questionId, correctAnswerId, ethereum
 
 export const getCreatedPostId = async (ethereumService, block, user, communityId) => {
   const network = getCookie(NETWORK_ID);
-  const filter = ethereumService[network - 1].filters.PostCreated();
-  const events = await ethereumService.contractContent.queryFilter(filter, block, block);
-
-  return bigNumberToNumber(
+  const filter = ethereumService[CONTRACT_CONTENT[network]].filters.PostCreated();
+  const events = await ethereumService[CONTRACT_CONTENT[network]].queryFilter(filter, block, block);
+  const postId = bigNumberToNumber(
     events.filter(
       (event) =>
         event.args.user.toLowerCase() === user.toLowerCase() &&
-        event.args.communityId === communityId,
+        Number(event.args.communityId) === Number(getActualId(communityId)),
     )[0].args.postId,
   );
+  return `${Number(network) + 1}-${postId}`;
 };
 
 const formCommonInfo = (object, statusHistory) => ({

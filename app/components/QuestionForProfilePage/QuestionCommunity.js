@@ -37,11 +37,9 @@ const QuestionCommunity = ({
     return null;
   }
 
-  const community = communities.find(
-    (communityObject) => communityObject.id === Number(communityId),
-  );
+  const community = communities.find((communityObject) => communityObject.id === communityId);
 
-  const communityTranslationTitle = community.translations?.find(
+  const communityTranslationTitle = community?.translations?.find(
     (translation) => translation.language === locale,
   )?.name;
 
@@ -62,8 +60,8 @@ const QuestionCommunity = ({
 
   return (
     <Link to={route} href={route} className={`d-flex align-items-center ${className}`}>
-      <Img className="mr-1" src={community.avatar} alt="comm_avatar" />
-      <Span font-size="14">{communityTranslationTitle || community.name}</Span>
+      <Img className="mr-1" src={community?.avatar} alt="comm_avatar" />
+      <Span font-size="14">{communityTranslationTitle || community?.name}</Span>
     </Link>
   );
 };

@@ -25,17 +25,6 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
       ) || [],
     );
 
-    const isProtocolAdmin = hasProtocolAdminRole(permissions);
-    const isGlobalModerator = hasGlobalModeratorRole(permissions);
-    const isCommunityModerator = hasCommunityModeratorRole(
-      permissions,
-      isSuiBlockchain ? communityId : Number(communityId),
-    );
-    const isCommunityAdmin = hasCommunityAdminRole(
-      permissions,
-      isSuiBlockchain ? communityId : Number(communityId),
-    );
-
     setModeratorRole(
       hasProtocolAdminRole(permissions) ||
         hasGlobalModeratorRole(permissions) ||
