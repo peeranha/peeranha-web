@@ -2,6 +2,7 @@ import { PROFILE_INFO_LS } from 'containers/Login/constants';
 import { BigNumber } from 'ethers';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getCookie, deleteCookie, parsePermissionsCookie } from 'utils/cookie';
+import { NETWORK_ID } from 'utils/ethereum/ethereum';
 import { isSuiBlockchain } from 'utils/sui/sui';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
@@ -59,7 +60,7 @@ const createPermissionsObject = ({
   communityId,
 });
 
-//TODO fix
+// TODO fix
 export const isMatchingBasePermission = (permission, role) =>
   isSuiBlockchain ? permission === role : BigNumber.from(permission).eq(role);
 
@@ -157,11 +158,14 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
   );
 };
 
-export const getCommunityRole = (role, communityId) => {
+export const getCommunityRole = (role, communityId, network) => {
+  if (!network) {
+    network = getCookie(NETWORK_ID);
+  }
   if (isSuiBlockchain) {
     return `${role}${String(communityId).replace('0x', '')}`;
   }
-  return BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();
+  return `${network}-${BigNumber.from(role).add(BigNumber.from(communityId)).toHexString()}`;
 };
 
 export const getCommunityIdFromPermission = (permission, role) => {

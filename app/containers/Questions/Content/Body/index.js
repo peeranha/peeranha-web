@@ -52,7 +52,7 @@ const Body = ({
   );
   const isAutotranslationEnable =
     locale === 'en' ||
-    community?.translations.find((translation) => translation.language === locale)
+    community?.translations?.find((translation) => translation.language === locale)
       ?.enableAutotranslation;
 
   const translation = translations.find((t) => Number(t.language) === languagesEnum[locale]);

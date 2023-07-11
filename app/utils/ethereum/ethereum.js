@@ -182,7 +182,7 @@ class EthereumService {
     localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
   };
   chainCheck = async (network) => {
-    if (network === undefined) {
+    if (!network) {
       network = getCookie(NETWORK_ID);
     }
     const chainId = CHAIN_IDS[Number(network) || 0];

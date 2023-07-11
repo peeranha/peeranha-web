@@ -16,7 +16,7 @@ import {
 } from 'containers/Administration/actions';
 
 import { getModerators } from 'utils/theGraph';
-import { getActualId, getCommunityRole } from 'utils/properties';
+import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from 'utils/constants';
 import { giveRolePermission, revokeRolePermission } from 'utils/accountManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -27,8 +27,13 @@ export function* getModeratorsWorker(props: { communityId: string }): Generator<
     const moderatorRole = getCommunityRole(
       COMMUNITY_MODERATOR_ROLE,
       getActualId(props.communityId),
+      getNetwork(props.communityId),
     );
-    const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualId(props.communityId));
+    const adminRole = getCommunityRole(
+      COMMUNITY_ADMIN_ROLE,
+      getActualId(props.communityId),
+      getNetwork(props.communityId),
+    );
     const moderators: any = yield call(getModerators, [
       `1-${moderatorRole}`,
       `2-${moderatorRole}`,

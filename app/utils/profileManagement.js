@@ -93,7 +93,7 @@ export async function getProfileInfo(
 }
 
 export async function saveProfile(ethereumService, user, profile) {
-  const network = getCookie(NETWORK_ID);
+  const network = getCookie(NETWORK_ID) || 0;
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
   await ethereumService.sendTransaction(network, CONTRACT_USER[network], user, UPDATE_ACC, [
