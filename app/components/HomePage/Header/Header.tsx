@@ -57,11 +57,11 @@ const Header: React.FC = (): JSX.Element => {
             </span>
             <a
               className="df jcc aic fz14"
-              href="https://google.com"
+              href="https://docs.google.com/forms/d/1CUJdcntRUtavuURb0fcvjakfhVDYl6Q5nSjESth_Evo/edit"
               target="_blank"
               css={styles.linkButton}
             >
-              <span className="cup">{t('homePage.signUp')}</span>
+              {t('homePage.signUp')}
             </a>
             <button
               className="df jcc aic fz14"
