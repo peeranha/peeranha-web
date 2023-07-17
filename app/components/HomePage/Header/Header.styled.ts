@@ -78,4 +78,33 @@ export const styles = {
       background: 'rgb(247, 111, 96)',
     },
   },
+
+  linkButton: {
+    width: '66px',
+    height: '28px',
+    marginRight: '8px',
+    lineHeight: '18px',
+    background: 'rgba(247, 111, 96, 1)',
+    borderRadius: '2px',
+    color: 'rgb(255, 255, 255)',
+    transition: '0.4s',
+    zIndex: 10,
+
+    ':hover': {
+      background: 'rgba(247, 111, 96, 0.8)',
+      color: 'rgb(255, 255, 255)',
+    },
+
+    '@media (min-width: 768px)': {
+      width: '84px',
+      height: '30px',
+      fontSize: '16px',
+      lineHeight: '20px',
+    },
+
+    '@media (min-width: 1366px)': {
+      height: '40px',
+      marginRight: '16px',
+    },
+  },
 };
