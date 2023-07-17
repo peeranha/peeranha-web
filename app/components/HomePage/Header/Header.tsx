@@ -55,6 +55,14 @@ const Header: React.FC = (): JSX.Element => {
             >
               {t('homePage.service')}
             </span>
+            <a
+              className="df jcc aic fz14"
+              href="https://google.com"
+              target="_blank"
+              css={styles.linkButton}
+            >
+              <span className="cup">{t('homePage.signUp')}</span>
+            </a>
             <button
               className="df jcc aic fz14"
               css={styles.button}
