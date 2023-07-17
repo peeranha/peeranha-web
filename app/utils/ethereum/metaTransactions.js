@@ -4,6 +4,7 @@ import {
   CONTRACT_CONTENT,
   CONTRACT_TOKEN,
   CONTRACT_USER,
+  ContractsMapping,
 } from 'utils/ethConstants';
 
 import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
@@ -58,8 +59,9 @@ export async function sendMetaTransactionMethod(
   confirmations = 1,
   token,
 ) {
+  await this.chainCheck(network);
   const metaTxContract = this[`${contract}Reads`];
-  const nonce = await metaTxContract.getNonce(actor);
+  let nonce = await metaTxContract.getNonce(actor);
   console.log(`Nonce from contract: ${nonce}`);
 
   if (nonce.lte(this.previousNonce)) {
@@ -112,6 +114,7 @@ export async function sendMetaTransactionMethod(
 
   const response = await callService(BLOCKCHAIN_SEND_META_TRANSACTION, {
     contractAddress: metaTxContract.address,
+    contractName: ContractsMapping[contract][0],
     userAddress: actor,
     functionSignature,
     sigR: r,

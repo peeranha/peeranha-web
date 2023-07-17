@@ -144,9 +144,7 @@ export const QuestionForm = ({
   const postTitle = question?.title;
   const postContent = question?.content;
 
-  const isPostAuthor = isSuiBlockchain
-    ? question?.author.id === profile?.id
-    : question?.author === profile?.user;
+  const isPostAuthor = question?.author.id === profile?.id;
 
   const formCommunityId = isSuiBlockchain
     ? formValues[FORM_COMMUNITY]?.suiId

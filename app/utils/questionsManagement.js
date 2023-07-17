@@ -1,6 +1,4 @@
 import { orderBy } from 'lodash/collection';
-import { getCookie } from 'utils/cookie';
-import { NETWORK_ID } from 'utils/ethereum/ethereum';
 import { getActualId, getNetwork } from 'utils/properties';
 import { getCommunityTags } from 'utils/communityManagement';
 import { getBytes32FromIpfsHash, getIpfsHashFromBytes32, getText, saveText } from './ipfs';
@@ -106,6 +104,7 @@ export const editQuestion = async (
   language,
   ethereumService,
 ) => {
+  console.log(tags);
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return ethereumService.sendTransaction(

@@ -99,10 +99,10 @@ const Notification: React.FC<NotificationProps> = ({
 
   const previousPostType = data.old_post_type;
   const previousCommunity = communities?.find(
-    ({ id }: { id: number }) => data.old_community_id === id,
+    ({ id }: { id: string }) => data.old_community_id === id,
   );
   const postType = data.post_type;
-  const currentCommunity = communities?.find(({ id }: { id: number }) => data.community_id === id);
+  const currentCommunity = communities?.find(({ id }: { id: string }) => data.community_id === id);
 
   const notificationTextProps = {
     quantity: values,

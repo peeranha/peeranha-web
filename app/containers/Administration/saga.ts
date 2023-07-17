@@ -35,10 +35,10 @@ export function* getModeratorsWorker(props: { communityId: string }): Generator<
       getNetwork(props.communityId),
     );
     const moderators: any = yield call(getModerators, [
-      `1-${moderatorRole}`,
-      `2-${moderatorRole}`,
-      `1-${adminRole}`,
-      `2-${adminRole}`,
+      moderatorRole,
+      moderatorRole,
+      adminRole,
+      adminRole,
     ]);
     yield put(getModeratorsSuccess(moderators.sort()));
   } catch (err) {

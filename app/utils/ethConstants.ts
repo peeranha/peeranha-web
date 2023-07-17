@@ -480,9 +480,7 @@ const communitiesQuery = `
 
 const communitiesQueryMesh = `
       query {
-        community (
-         limit: $first,
-        ) {
+        community {
           ${community}
         }
       }`;

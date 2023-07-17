@@ -2,11 +2,11 @@ import { ONE_MONTH, WEB3_TOKEN, WEB3_TOKEN_USER_ADDRESS } from 'utils/constants'
 import { getCookie, setCookie } from 'utils/cookie';
 import { ContractsMapping } from 'utils/ethConstants';
 import { setTransactionResult, TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
+import Web3Token from 'web3-token';
 import {
   BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
   callService,
-} from 'utils/web_integration/src/util/aws-connector';
-import Web3Token from 'web3-token';
+} from '../web_integration/src/util/aws-connector';
 
 export async function sendDispatcherTransactionMethod(
   network,
@@ -52,7 +52,19 @@ export async function sendDispatcherTransactionMethod(
       },
     });
   }
-
+  console.log({
+    b: BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress,
+    a: {
+      contractName: ContractsMapping[contract][0],
+      contractAddress: ContractsMapping[contract][1],
+      action,
+      args: data,
+      reCaptchaToken: token,
+      wait: false,
+      network: Number(network) + 1,
+    },
+  });
+  console.log(action);
   const response = await callService(BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress, {
     contractName: ContractsMapping[contract][0],
     contractAddress: ContractsMapping[contract][1],
@@ -60,7 +72,7 @@ export async function sendDispatcherTransactionMethod(
     args: data,
     reCaptchaToken: token,
     wait: false,
-    network: network + 1,
+    network: Number(network) + 1,
   });
 
   this.transactionList.push({

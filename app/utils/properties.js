@@ -159,13 +159,15 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
 };
 
 export const getCommunityRole = (role, communityId, network) => {
-  if (!network) {
-    network = getCookie(NETWORK_ID);
+  if (network !== undefined) {
+    network = JSON.parse(getCookie(NETWORK_ID));
   }
   if (isSuiBlockchain) {
     return `${role}${String(communityId).replace('0x', '')}`;
   }
-  return `${network}-${BigNumber.from(role).add(BigNumber.from(communityId)).toHexString()}`;
+  return `${Number(network) + 1}-${BigNumber.from(role)
+    .add(BigNumber.from(communityId))
+    .toHexString()}`;
 };
 
 export const getCommunityIdFromPermission = (permission, role) => {
