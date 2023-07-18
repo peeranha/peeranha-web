@@ -345,7 +345,7 @@ const usersByCommunityQuery = `
       query(
         $limit: Int,
         $offset: Int,
-        $communityId: Int,
+        $communityId: String,
       ) {
         userCommunityRatings(
           first: $limit,
@@ -364,7 +364,7 @@ const usersByCommunityQueryMesh = `
   query(
     $limit: Int,
     $offset: Int,
-    $communityId: Int,
+    $communityId: String,
   ) {
     usercommunityrating (
       limit: $limit,
@@ -606,7 +606,7 @@ const communityQueryMesh = communityQuery;
 
 const tagsQuery = `
       query(
-        $communityId: ID!,
+        $communityId: String,
       ) {
         tags(
          where: { communityId: $communityId },
@@ -682,7 +682,7 @@ const postsByCommQuery = `
       query (
         $limit: Int,
         $offset: Int,
-        $communityIds: [Int],
+        $communityIds: [String],
         $postTypes: [Int],
       ) {
         posts (
@@ -715,7 +715,7 @@ const postsByCommAndTagsQuery = `
   query (
     $first: Int,
     $skip: Int,
-    $communityIds: [Int],
+    $communityIds: [String],
     $postTypes: [Int],
     $tags: [String],
   ) {
@@ -756,7 +756,7 @@ const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
 
 const faqByCommQuery = `
       query (
-        $communityId: Int,
+        $communityId: String,
       ) {
         posts (
           orderBy: postTime,
@@ -769,7 +769,7 @@ const faqByCommQuery = `
 
 const faqByCommQueryMesh = `
       query (
-        $communityId: Int,
+        $communityId: String,
       ) {
         post (
           orderBy: { postTime: desc },

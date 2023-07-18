@@ -29,7 +29,6 @@ const Link: React.FC<LinkProps> = ({
   const ipfsHash = getIpfsHashFromBytes32(item.id);
   const isPinnedPost = pinnedItemMenuId == item.id;
   const route = window.location.pathname;
-
   return (
     <A1
       to={routes.documentation(ipfsHash, item.title)}

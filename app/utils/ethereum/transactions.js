@@ -113,6 +113,7 @@ export async function sendTransactionMethod(
         this.transactionFailed();
         break;
     }
+    console.log(err);
     throw new Error(err.message);
   }
 }

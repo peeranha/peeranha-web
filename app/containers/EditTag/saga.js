@@ -34,6 +34,7 @@ export function* getEditTagFormWorker() {
 
 export function* editTagWorker({ tag, reset }) {
   try {
+    console.log(tag);
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
@@ -60,7 +61,9 @@ export function* editTagWorker({ tag, reset }) {
       const selectedAccount = yield call(ethereumService.getSelectedAccount);
       const { communityId, tagId } = yield select(selectEditTagData());
       const tags = yield select(selectExistingTags());
-      const editingTag = tags[communityId].find((tg) => tg.id === tagId);
+      console.log(tags);
+      console.log(communityId);
+      const editingTag = tags[communityId]?.find((tg) => tg.id === tagId);
 
       const tagIpfsHash = yield saveText(JSON.stringify(tag));
       const updatedTag = {

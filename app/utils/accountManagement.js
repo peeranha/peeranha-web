@@ -86,13 +86,21 @@ export const getUsersModeratorByRoles = (usersModerator, communityId, moderators
   usersModerator.map((user) => {
     const moderatorPermission = moderators.find(
       (moderator) =>
-        moderator.permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId) &&
-        moderator.user.id === user.id,
+        moderator.permission ===
+          getCommunityRole(
+            COMMUNITY_MODERATOR_ROLE,
+            getActualId(communityId),
+            getNetwork(communityId),
+          ) && moderator.user.id === user.id,
     );
     const adminPermission = moderators.find(
       (moderator) =>
-        moderator.permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId) &&
-        moderator.user.id === user.id,
+        moderator.permission ===
+          getCommunityRole(
+            COMMUNITY_ADMIN_ROLE,
+            getActualId(communityId),
+            getNetwork(communityId),
+          ) && moderator.user.id === user.id,
     );
 
     const userRoles = [];

@@ -10,12 +10,11 @@ import PeeranhaCommunity from '../../../../peeranha-subgraph/abis/PeeranhaCommun
 import PeeranhaContent from '../../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaToken from '../../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaUser from '../../../../peeranha-subgraph/abis/PeeranhaUser.json';
-
-const CHAIN_IDS = [process.env.CHAIN_ID, process.env.EDGEWARE_CHAIN_ID];
 export const NETWORK_ID = 'networkid';
 
 class EthereumService {
   constructor(data) {
+    this.CHAIN_IDS = [process.env.CHAIN_ID, process.env.EDGEWARE_CHAIN_ID];
     this.contractUser = null;
     this.contractToken = null;
     this.contractContent = null;
@@ -185,7 +184,7 @@ class EthereumService {
     if (network === undefined) {
       network = getCookie(NETWORK_ID);
     }
-    const chainId = CHAIN_IDS[Number(network) || 0];
+    const chainId = this.CHAIN_IDS[Number(network) || 0];
     if (this.connectedChain.id !== `0x${Number(chainId).toString(16)}`) {
       await this.setChain({
         chainId: `0x${Number(chainId).toString(16)}`,

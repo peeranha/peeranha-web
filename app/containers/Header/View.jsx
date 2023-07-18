@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { css } from '@emotion/react';
 
-import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT, TEXT_PRIMARY } from 'style-constants';
+import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from 'style-constants';
 
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
@@ -15,7 +15,6 @@ import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaMetaLogo from 'images/PeeranhaMeta.svg?inline';
 import suiLogo from 'images/SuiLogo.svg?inline';
-import processIndicator from 'images/progress-indicator.svg?external';
 
 import {
   isSingleCommunityWebsite,
@@ -148,7 +147,7 @@ const View = ({
   const newPostButton = (onClickForModal) => (
     <Button
       id="header-ask-question"
-      onClick={onClickForModal}
+      onClick={profileInfo ? onClickForModal : showLoginModalWithRedirectToAskQuestionPage}
       css={css`
         background: ${colors.btnHeaderColor};
         :hover {
@@ -162,7 +161,6 @@ const View = ({
       `}
     >
       <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
-
       <span
         className="d-none d-lg-inline ml-2"
         css={css`
@@ -206,7 +204,7 @@ const View = ({
                   >
                     <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
                   </Button>
-                  {profileInfo ? (
+                  {!isSuiBlockchain ? (
                     newPostButton(askQuestionHandler)
                   ) : (
                     <SuiConnectModals

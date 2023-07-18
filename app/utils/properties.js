@@ -159,7 +159,7 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
 };
 
 export const getCommunityRole = (role, communityId, network) => {
-  if (network !== undefined) {
+  if (network === undefined) {
     network = JSON.parse(getCookie(NETWORK_ID));
   }
   if (isSuiBlockchain) {
@@ -229,7 +229,9 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
     );
   }
   return !!permissions.filter(
-    (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualId(communityId)),
+    (permission) =>
+      permission ===
+      getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualId(communityId), getNetwork(communityId)),
   ).length;
 };
 
@@ -241,7 +243,8 @@ export const hasCommunityModeratorRole = (permissions = [], communityId) =>
     const actualCommunityId = communityId.split('-')[1];
 
     return (
-      actualPermission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, actualCommunityId) &&
+      actualPermission ===
+        getCommunityRole(COMMUNITY_MODERATOR_ROLE, actualCommunityId, networkFromCommunityId) &&
       networkFromPermission === networkFromCommunityId
     );
   }).length;

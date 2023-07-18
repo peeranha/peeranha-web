@@ -88,7 +88,7 @@ export const getUsersByCommunity = async ({ limit = 50, skip: offset, communityI
       communityId,
     },
   });
-
+  console.log(result);
   return isMeshService
     ? result.usercommunityrating.map((item) => getUserDataFromMesh(item.user[0]))
     : result.userCommunityRatings.map((item) => item.user);

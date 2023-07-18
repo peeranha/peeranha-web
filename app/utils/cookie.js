@@ -6,8 +6,10 @@ import {
   PROTOCOL_ADMIN_ROLE,
 } from 'utils/constants';
 import {
+  getActualId,
   getCommunityIdFromPermission,
   getCommunityRole,
+  getNetwork,
   isMatchingBasePermission,
 } from 'utils/properties';
 import { isSuiBlockchain } from './sui/sui';
@@ -121,11 +123,11 @@ export const parsePermissionsCookie = (permissionsObject) => {
   const permissions = permissionsObject.base || [];
   const adminPermissions =
     permissionsObject['0a7c']?.map((communityId) =>
-      getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId.split('-')[1]),
+      getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualId(communityId), getNetwork(communityId)),
     ) || [];
   const moderatorPermissions =
     permissionsObject.ca6?.map((communityId) =>
-      getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId.split('-')[1]),
+      getCommunityRole(COMMUNITY_MODERATOR_ROLE, getActualId(communityId), getNetwork(communityId)),
     ) || [];
   return [...permissions, ...adminPermissions, ...moderatorPermissions];
 };

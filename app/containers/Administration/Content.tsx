@@ -59,7 +59,7 @@ export const Content: React.FC<ContentProps> = ({
 
   const usersModeratorByRoles = getUsersModeratorByRoles(
     filterDuplicatesById(moderators.map((moderator) => moderator.user)),
-    getActualId(communityId),
+    communityId,
     moderators,
     Roles,
   );
