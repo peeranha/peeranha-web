@@ -84,7 +84,7 @@ export const styles = {
     height: '28px',
     marginRight: '8px',
     lineHeight: '18px',
-    background: 'rgba(247, 111, 96, 1)',
+    background: 'rgba(252, 102, 85, 1)',
     borderRadius: '2px',
     color: 'rgb(255, 255, 255)',
     transition: '0.4s',
