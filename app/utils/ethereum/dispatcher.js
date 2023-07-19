@@ -52,19 +52,7 @@ export async function sendDispatcherTransactionMethod(
       },
     });
   }
-  console.log({
-    b: BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress,
-    a: {
-      contractName: ContractsMapping[contract][0],
-      contractAddress: ContractsMapping[contract][1],
-      action,
-      args: data,
-      reCaptchaToken: token,
-      wait: false,
-      network: Number(network) + 1,
-    },
-  });
-  console.log(action);
+
   const response = await callService(BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress, {
     contractName: ContractsMapping[contract][0],
     contractAddress: ContractsMapping[contract][1],

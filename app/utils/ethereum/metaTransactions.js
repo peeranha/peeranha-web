@@ -97,7 +97,7 @@ export async function sendMetaTransactionMethod(
     verifyingContract: metaTxContract.address,
     salt: `0x${parseInt(this.CHAIN_IDS[Number(network)], 10).toString(16).padStart(64, '0')}`,
   };
-  console.log(domainData);
+
   const dataToSign = JSON.stringify({
     types: {
       EIP712Domain: domainType,

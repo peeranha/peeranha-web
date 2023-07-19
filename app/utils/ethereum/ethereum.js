@@ -218,8 +218,6 @@ class EthereumService {
       return;
     }
 
-    await this.chainCheck();
-
     this.provider = new ethers.providers.Web3Provider(this.wallet.provider, 'any');
     const signer = await this.provider.getSigner();
     this.contractUser = new Contract(process.env.USER_ADDRESS, PeeranhaUser, signer);

@@ -237,15 +237,14 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
   !!permissions.filter((permission) => {
-    const networkFromPermission = permission.split('-')[0];
-    const networkFromCommunityId = communityId.split('-')[0];
     const actualPermission = permission.split('-')[1];
-    const actualCommunityId = communityId.split('-')[1];
-
     return (
       actualPermission ===
-        getCommunityRole(COMMUNITY_MODERATOR_ROLE, actualCommunityId, networkFromCommunityId) &&
-      networkFromPermission === networkFromCommunityId
+        getCommunityRole(
+          COMMUNITY_MODERATOR_ROLE,
+          getActualId(communityId),
+          getNetwork(communityId),
+        ) && getNetwork(permission) === getNetwork(communityId)
     );
   }).length;
 
@@ -269,7 +268,15 @@ export const hasProtocolAdminRole = (permissionsFromState) => {
 };
 
 export const getCommunityRoles = (communityId) => {
-  const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
-  const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
+  const moderatorRole = getCommunityRole(
+    COMMUNITY_MODERATOR_ROLE,
+    getActualId(communityId),
+    getNetwork(communityId),
+  );
+  const adminRole = getCommunityRole(
+    COMMUNITY_ADMIN_ROLE,
+    getActualId(communityId),
+    getNetwork(communityId),
+  );
   return [adminRole, moderatorRole];
 };

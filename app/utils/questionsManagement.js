@@ -104,7 +104,6 @@ export const editQuestion = async (
   language,
   ethereumService,
 ) => {
-  console.log(tags);
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return ethereumService.sendTransaction(

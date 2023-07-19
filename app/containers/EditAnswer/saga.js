@@ -5,24 +5,13 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { editAnswer, getAnswer, getQuestion } from 'utils/questionsManagement';
+import { editAnswer, getAnswer } from 'utils/questionsManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import { selectAnswer, selectQuestionData } from 'containers/ViewQuestion/selectors';
 
-import {
-  EDIT_ANSWER,
-  EDIT_ANSWER_BUTTON,
-  EDIT_ANSWER_SUCCESS,
-  GET_ANSWER,
-  MIN_ENERGY_TO_EDIT_ANSWER,
-  MIN_RATING_TO_EDIT_ANSWER,
-} from './constants';
-
-import { editAnswerErr, editAnswerSuccess, getAnswerErr, getAnswerSuccess } from './actions';
-import { selectEthereum } from '../EthereumProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY } from 'utils/constants';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
@@ -38,6 +27,17 @@ import {
   transactionInPending,
 } from 'containers/EthereumProvider/actions';
 
+import {
+  EDIT_ANSWER,
+  EDIT_ANSWER_BUTTON,
+  EDIT_ANSWER_SUCCESS,
+  GET_ANSWER,
+  MIN_ENERGY_TO_EDIT_ANSWER,
+  MIN_RATING_TO_EDIT_ANSWER,
+} from './constants';
+
+import { editAnswerErr, editAnswerSuccess, getAnswerErr, getAnswerSuccess } from './actions';
+import { selectEthereum } from '../EthereumProvider/selectors';
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
     let question;
@@ -50,7 +50,7 @@ export function* getAnswerWorker({ questionId, answerId }) {
     } else {
       ethereumService = yield select(selectEthereum);
       answer = yield select(selectAnswer(answerId));
-      question = yield call(getQuestion, ethereumService, questionId);
+      question = yield call(getQuestionFromGraph, questionId);
     }
 
     if (!isSuiBlockchain && !answer) {
