@@ -90,9 +90,14 @@ const Notification = ({
   const isLast = index === notificationsNumber - 1;
 
   const previousPostType = data.old_post_type;
-  const previousCommunity = communities?.find(({ id }) => data.old_community_id === id);
+
+  const previousCommunity = communities?.find(({ id }) =>
+    data.network ? `${data.network}-${data.old_community_id}` : `1-${data.old_community_id}` === id,
+  );
   const postType = data.post_type;
-  const currentCommunity = communities?.find(({ id }) => data.community_id === id);
+  const currentCommunity = communities?.find(({ id }) =>
+    data.network ? `${data.network}-${data.community_id}` : `1-${data.community_id}` === id,
+  );
 
   const notificationTextProps = {
     quantity: values,

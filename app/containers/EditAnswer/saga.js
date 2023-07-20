@@ -4,13 +4,14 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { getNetwork } from 'utils/properties';
 
 import { editAnswer, getAnswer } from 'utils/questionsManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
-import { selectAnswer, selectQuestionData } from 'containers/ViewQuestion/selectors';
+import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { CHANGED_POSTS_KEY } from 'utils/constants';
@@ -43,20 +44,20 @@ export function* getAnswerWorker({ questionId, answerId }) {
     let question;
     let answer;
     let ethereumService;
-
     if (isSuiBlockchain) {
       question = yield call(getQuestionFromGraph, questionId);
       answer = question.answers.reverse()[answerId - 1];
     } else {
       ethereumService = yield select(selectEthereum);
-      answer = yield select(selectAnswer(answerId));
       question = yield call(getQuestionFromGraph, questionId);
+      answer = question.answers.find(
+        (reply) => reply.id === `${questionId}-${getNetwork(questionId) + 1}-${answerId}`,
+      );
     }
 
     if (!isSuiBlockchain && !answer) {
       answer = yield call(getAnswer, ethereumService, questionId, answerId);
     }
-
     yield put(
       getAnswerSuccess({
         ...answer,

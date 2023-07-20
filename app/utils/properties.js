@@ -236,17 +236,19 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
 };
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
-  !!permissions.filter((permission) => {
-    const actualPermission = permission.split('-')[1];
-    return (
-      actualPermission ===
-        getCommunityRole(
-          COMMUNITY_MODERATOR_ROLE,
-          getActualId(communityId),
-          getNetwork(communityId),
-        ) && getNetwork(permission) === getNetwork(communityId)
-    );
-  }).length;
+  communityId
+    ? !!permissions.filter((permission) => {
+        const actualPermission = permission.split('-')[1];
+        return (
+          actualPermission ===
+            getCommunityRole(
+              COMMUNITY_MODERATOR_ROLE,
+              getActualId(communityId),
+              getNetwork(communityId),
+            ) && getNetwork(permission) === getNetwork(communityId)
+        );
+      }).length
+    : false;
 
 export const hasProtocolAdminRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
