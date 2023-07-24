@@ -35,7 +35,7 @@ const Box = styled.ul`
 
 const TagsList = ({ tags, communities, communityId, children, className }) => {
   const community = useMemo(
-    () => communities.filter((x) => +communityId === x.id)[0] || { tags: [] },
+    () => communities.filter((x) => communityId === x.id)[0] || { tags: [] },
     [communities, communities.length],
   );
 

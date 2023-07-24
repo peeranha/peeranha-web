@@ -6,19 +6,11 @@ import Span from 'components/Span';
 
 import _get from 'lodash/get';
 import { getFormattedDate } from '../../utils/datetime';
-import {
-  MONTH_3LETTERS__DAY_YYYY,
-  MONTH_3LETTERS__DAY_YYYY_TIME,
-} from '../../utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY, MONTH_3LETTERS__DAY_YYYY_TIME } from '../../utils/constants';
 
 const Item = ({ title, id, content, postTime, locale }) => {
-  console.log('ItemItemItemItemItemItemItemItemItem');
   const link = `${process.env.APP_LOCATION}/discussions/${id}`;
-  const formattedDate = getFormattedDate(
-    postTime,
-    locale,
-    MONTH_3LETTERS__DAY_YYYY_TIME,
-  );
+  const formattedDate = getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME);
   const snippetWithLocale = `${formattedDate} / ${content}`;
   return (
     <li className="mb-3">

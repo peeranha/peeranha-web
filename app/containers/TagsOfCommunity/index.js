@@ -49,10 +49,7 @@ export const TagsOfCommunity = ({
   getCommunityTagsDispatch,
 }) => {
   const { t } = useTranslation();
-  const communityId = useMemo(
-    () => single || +match.params.communityid,
-    [match.params.communityid, single],
-  );
+  const communityId = useMemo(() => single || match.params.communityid, [match.params.communityid]);
 
   useEffect(() => {
     getCommunityTagsDispatch(communityId);
@@ -68,7 +65,7 @@ export const TagsOfCommunity = ({
         communityId: currentCommunity.id,
         text: ev.target.value,
       }),
-    [currentCommunity.id],
+    [currentCommunity.id, getExistingTagsDispatch],
   );
 
   const sortTags = useCallback(
@@ -77,7 +74,7 @@ export const TagsOfCommunity = ({
         communityId: currentCommunity.id,
         sorting: ev.currentTarget.dataset.key,
       }),
-    [currentCommunity.id],
+    [currentCommunity.id, getExistingTagsDispatch],
   );
 
   const loadMoreTags = useCallback(
@@ -86,7 +83,7 @@ export const TagsOfCommunity = ({
         communityId: currentCommunity.id,
         loadMore: true,
       }),
-    [currentCommunity.id],
+    [currentCommunity.id, getExistingTagsDispatch],
   );
 
   const keywords = useMemo(
@@ -99,7 +96,7 @@ export const TagsOfCommunity = ({
       loadMore: false,
       communityId: currentCommunity.id,
     });
-  }, [communityId, communities.length, currentCommunity]);
+  }, [communityId, communities.length, currentCommunity, getExistingTagsDispatch]);
 
   return (
     <div>

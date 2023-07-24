@@ -1,10 +1,6 @@
-import {
-  ANSWER_TYPE_FORM,
-  TEXT_EDITOR_ANSWER_FORM,
-} from 'components/AnswerForm/constants';
+import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
 
 import {
-  CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_ERROR,
   CHANGE_QUESTION_TYPE_SUCCESS,
   DELETE_ANSWER,
@@ -19,9 +15,6 @@ import {
   DOWN_VOTE,
   DOWN_VOTE_ERROR,
   DOWN_VOTE_SUCCESS,
-  GET_QUESTION_BOUNTY,
-  GET_QUESTION_BOUNTY_ERROR,
-  GET_QUESTION_BOUNTY_SUCCESS,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_ERROR,
   GET_QUESTION_DATA_SUCCESS,
@@ -51,9 +44,6 @@ import {
   UP_VOTE_ERROR,
   UP_VOTE_SUCCESS,
   VOTE_TO_DELETE,
-  VOTE_TO_DELETE_ERROR,
-  VOTE_TO_DELETE_SUCCESS,
-  SET_VOTE_TO_DELETE_LOADING,
   GET_HISTORIES,
   GET_HISTORIES_SUCCESS,
   GET_HISTORIES_ERROR,
@@ -352,33 +342,11 @@ export function voteToDelete(questionId, ev) {
   };
 }
 
-export function voteToDeleteSuccess(questionData, usersForUpdate, buttonId) {
-  return {
-    type: VOTE_TO_DELETE_SUCCESS,
-    questionData,
-    usersForUpdate,
-    buttonId,
-  };
-}
-
-export function voteToDeleteErr(voteToDeleteError, buttonId) {
-  return {
-    type: VOTE_TO_DELETE_ERROR,
-    voteToDeleteError,
-    buttonId,
-  };
-}
-
 export function resetStore() {
   return {
     type: RESET_STORE,
   };
 }
-
-export const changeQuestionType = (event) => ({
-  type: CHANGE_QUESTION_TYPE,
-  buttonId: event.currentTarget.id,
-});
 
 export const changeQuestionTypeSuccess = (buttonId) => ({
   type: CHANGE_QUESTION_TYPE_SUCCESS,
@@ -405,32 +373,6 @@ export const payBountyError = (giveBountyErr, buttonId) => ({
   type: PAY_BOUNTY_ERROR,
   giveBountyErr,
   buttonId,
-});
-
-export function getQuestionBounty(questionId) {
-  return {
-    type: GET_QUESTION_BOUNTY,
-    questionId,
-  };
-}
-
-export function getQuestionBountySuccess(questionBounty) {
-  return {
-    type: GET_QUESTION_BOUNTY_SUCCESS,
-    questionBounty,
-  };
-}
-
-export function getQuestionBountyErr(getQuestionBountyError) {
-  return {
-    type: GET_QUESTION_BOUNTY_ERROR,
-    getQuestionBountyError,
-  };
-}
-
-export const setVoteToDeleteLoading = (voteToDeleteLoading) => ({
-  type: SET_VOTE_TO_DELETE_LOADING,
-  voteToDeleteLoading,
 });
 
 export function getHistories(postId) {

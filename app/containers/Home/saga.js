@@ -1,18 +1,12 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
 import { call, put, select, all, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
 
-import { getQuestionsFilteredByCommunities, getQuestionById } from 'utils/questionsManagement';
-import {
-  getCommunityById,
-  isSingleCommunityWebsite,
-  getSingleCommunityDetails,
-} from 'utils/communityManagement';
+import { getQuestionById } from 'utils/questionsManagement';
+import { getCommunityById, isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getQuestionBounty } from 'utils/walletManagement';
-import { getUserAvatar } from 'utils/profileManagement';
 
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
@@ -36,21 +30,20 @@ import {
   getLogoSuccess,
   getLogoError,
 } from './actions';
-import { selectCommunity } from './selectors';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { REMOVE_OR_ADD_TOP_QUESTION } from '../Questions/constants';
 import { followHandlerWorker } from '../FollowCommunityButton/saga';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 
-export function* getQuestionsWorker({ communityId }) {
+export function* getQuestionsWorker() {
   try {
     const ethereumService = yield select(selectEthereum);
     yield call(loadTopCommunityQuestionsWorker, { init: true });
 
     const topQuestionsIds = yield select(selectTopQuestionIds);
 
-    let questionsList = [];
+    const questionsList = [];
 
     if (topQuestionsIds && topQuestionsIds.length) {
       yield all(
@@ -61,17 +54,6 @@ export function* getQuestionsWorker({ communityId }) {
             questionsList.push(question);
           }
         }),
-      );
-    } else {
-      const limit = 5;
-      const offset = 0;
-
-      questionsList = yield call(
-        getQuestionsFilteredByCommunities,
-        ethereumService,
-        limit,
-        offset,
-        communityId,
       );
     }
 
@@ -129,7 +111,7 @@ export function* getCommunityWorker({ id }) {
 
 export function* getLogoWorker() {
   try {
-    let logo = '';
+    const logo = '';
 
     const single = isSingleCommunityWebsite();
     if (single) {

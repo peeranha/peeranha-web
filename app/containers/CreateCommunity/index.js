@@ -41,6 +41,7 @@ import {
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
   STATE_KEY,
+  COMM_BLOCKCHAIN_FIELD,
 } from './constants';
 
 import Form from './Form';
@@ -83,13 +84,12 @@ export const CreateCommunity = ({
     const community = {
       avatar: values[COMM_AVATAR_FIELD],
       name: values[COMM_NAME_FIELD],
-      language: values[LANGUAGE_FIELD]
-        ? values[LANGUAGE_FIELD].value
-        : DEFAULT_LOCALE,
+      language: values[LANGUAGE_FIELD] ? values[LANGUAGE_FIELD].value : DEFAULT_LOCALE,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       website: values[COMM_OFFICIAL_SITE_FIELD],
       communitySite: values[COMM_PEERANHA_SITE_FIELD],
       tags,
+      network: values[COMM_BLOCKCHAIN_FIELD],
     };
     createCommunityDispatch(community, reset);
   };
@@ -143,10 +143,7 @@ CreateCommunity.propTypes = {
 const withConnect = connect(
   createStructuredSelector({
     locale: makeSelectLocale(),
-    faqQuestions: selectFaqQuestions([
-      WHAT_IS_COMMUNITY_QUESTION,
-      WHO_MANAGES_COMMUNITY_QUESTION,
-    ]),
+    faqQuestions: selectFaqQuestions([WHAT_IS_COMMUNITY_QUESTION, WHO_MANAGES_COMMUNITY_QUESTION]),
     createCommunityLoading: selectors.selectCreateCommunityLoading(),
     isFormLoading: selectors.selectIsFormLoading(),
     profile: makeSelectProfileInfo(),

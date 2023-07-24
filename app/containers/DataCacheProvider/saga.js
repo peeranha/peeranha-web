@@ -3,7 +3,6 @@ import getHash from 'object-hash';
 
 import { getAllCommunities, getCommunityTags } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
-import { getStat } from 'utils/statisticsManagement';
 import { getMD } from 'utils/mdManagement';
 import { getAchievements } from 'utils/achievementsManagement';
 import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
@@ -14,13 +13,12 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import { LOGIN_WITH_WALLET } from 'containers/Login/constants';
 
-import { selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
+import { selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import {
   getCommunities,
   getCommunitiesErr,
   getCommunitiesSuccess,
-  getTags,
   getTagsErr,
   getTagsSuccess,
   getFaqErr,
@@ -47,10 +45,7 @@ import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const stat = yield call(getStat, ethereumService);
-
-    yield put(getStatSuccess(stat));
+    yield put(getStatSuccess({}));
     yield put(getCommunities());
   } catch (err) {
     yield put(getStatErr(err));
@@ -59,22 +54,11 @@ export function* getStatWorker() {
 
 export function* getCommunitiesWorker() {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const stat = yield select(selectStat());
-    const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
+    const communities = yield call(getAllCommunities);
 
     yield put(getCommunitiesSuccess(communities));
   } catch (err) {
     yield put(getCommunitiesErr(err));
-  }
-}
-
-export function* getTagsWorker() {
-  try {
-    const tags = yield call(getTags);
-    yield put(getTagsSuccess(tags));
-  } catch (err) {
-    yield put(getTagsErr(err));
   }
 }
 
@@ -165,7 +149,6 @@ export function* getUserProfileWorker({ user, getFullProfile, communityIdForRati
 
 export default function* () {
   yield takeLatest(GET_COMMUNITIES, getCommunitiesWorker);
-  yield takeLatest(GET_TAGS, getTagsWorker);
   yield takeLatest(GET_COMMUNITY_TAGS, getCommunityTagsWorker);
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(GET_STAT, getStatWorker);

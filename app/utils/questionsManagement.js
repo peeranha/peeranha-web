@@ -1,9 +1,12 @@
 import { orderBy } from 'lodash/collection';
+import { getCookie } from 'utils/cookie';
+import { NETWORK_ID } from 'utils/ethereum/ethereum';
+import { getActualId, getNetwork } from 'utils/properties';
+import { getCommunityTags } from 'utils/communityManagement';
 import { getBytes32FromIpfsHash, getIpfsHashFromBytes32, getText, saveText } from './ipfs';
 import { bigNumberToNumber } from './converters';
 
 import {
-  CHANGE_POST_TYPE,
   CHANGE_STATUS_BEST,
   CONTRACT_CONTENT,
   DELETE_ANSWER,
@@ -18,6 +21,7 @@ import {
   GET_POST,
   GET_REPLY,
   GET_STATUS_HISTORY,
+  getContentData,
   POST_ANSWER,
   POST_COMMENT,
   POST_QUESTION,
@@ -26,31 +30,13 @@ import {
   VOTE_ITEM,
 } from './ethConstants';
 import { getUsersAnsweredQuestions, getUsersQuestions, historiesForPost } from './theGraph';
-import { getCommunityTags } from 'utils/communityManagement';
 
 export async function getQuestionsPostedByUser(id, limit, offset) {
-  return await getUsersQuestions(id, limit, offset);
+  return getUsersQuestions(id, limit, offset);
 }
 
 export async function getAnsweredUsersPosts(id, limit, offset) {
-  return await getUsersAnsweredQuestions(id, limit, offset);
-}
-
-/* eslint no-param-reassign: ["error", { "props": false }] */
-export async function getQuestions(ethereumService, limit, offset) {}
-
-/* eslint no-bitwise: 0 no-undef: 0 */
-export async function getQuestionsFilteredByCommunities(
-  ethereumService,
-  limit,
-  offset,
-  communityId,
-) {}
-
-export async function voteToDelete(user, questionId, answerId, commentId, ethereumService) {}
-
-export async function getAskedQuestion(link) {
-  return JSON.parse(await getText(link));
+  return getUsersAnsweredQuestions(id, limit, offset);
 }
 
 export async function postQuestion(
@@ -64,11 +50,13 @@ export async function postQuestion(
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+  const network = communityId.split('-')[0];
   const resultTransaction = await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+    network - 1,
+    CONTRACT_CONTENT[network - 1],
     user,
     POST_QUESTION,
-    [user, communityId, ipfsHash, postType, tags, language],
+    [user, getActualId(communityId), ipfsHash, postType, tags, language],
     3, // wait for additional confirmation to avoid 404 error when redirect to newly created post
   );
   await waitForTransactionConfirmation();
@@ -78,11 +66,12 @@ export async function postQuestion(
 export async function deleteDocumentationPost(user, postId, documentationJSON, ethereumService) {
   const ipfsLink = await saveText(JSON.stringify(documentationJSON));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+  return ethereumService.sendTransaction(
+    getNetwork(postId),
+    CONTRACT_CONTENT[getNetwork(postId)],
     user,
     DELETE_DOCUMENTATION_POST,
-    [postId, ipfsHash],
+    [getActualId(postId), ipfsHash],
     2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
   );
 }
@@ -96,16 +85,18 @@ export async function updateDocumentationTree(
   const ipfsLink = await saveText(JSON.stringify(documentationJSON));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
 
-  return await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+  return ethereumService.sendTransaction(
+    getNetwork(communityId),
+    CONTRACT_CONTENT[getNetwork(communityId)],
     user,
     UPDATE_DOCUMENTATION_TREE,
-    [user, communityId, ipfsHash],
+    [user, getActualId(communityId), ipfsHash],
     2,
   );
 }
 
 export const editQuestion = async (
+  network,
   user,
   postId,
   communityId,
@@ -117,46 +108,34 @@ export const editQuestion = async (
 ) => {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, EDIT_POST, [
+  return ethereumService.sendTransaction(
+    network - 1,
+    CONTRACT_CONTENT[network - 1],
     user,
-    postId,
-    ipfsHash,
-    tags,
-    communityId,
-    postType,
-    language,
-  ]);
+    EDIT_POST,
+    [user, getActualId(postId), ipfsHash, tags, getActualId(communityId), postType, language],
+  );
 };
 
-// export const getEditQuestTrActData = async (user, id, question) => {
-//   const ipfsLink = await saveText(JSON.stringify(question));
-//
-//   return {
-//     action: EDIT_QUESTION_METHOD,
-//     data: {
-//       user,
-//       question_id: +id,
-//       name: question.name,
-//       ipfs_link: ipfsLink,
-//       communityId: question.community.value,
-//       tags: question.tags.map(x => x.id),
-//     },
-//   };
-// };
-
 export async function deleteQuestion(user, questionId, ethereumService) {
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_POST, [user, questionId], 2);
+  await ethereumService.sendTransaction(
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
+    user,
+    DELETE_POST,
+    [user, getActualId(questionId)],
+    2,
+  );
 }
 
 export async function postAnswer(user, questionId, ipfsHash, official, language, ethereumService) {
-  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, POST_ANSWER, [
+  return ethereumService.sendTransaction(
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
     user,
-    questionId,
-    0,
-    ipfsHash,
-    official,
-    language,
-  ]);
+    POST_ANSWER,
+    [user, getActualId(questionId), 0, ipfsHash, official, language],
+  );
 }
 
 export async function editAnswer(
@@ -171,30 +150,33 @@ export async function editAnswer(
   const ipfsLink = await saveText(JSON.stringify(answerData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     EDIT_ANSWER,
-    [user, questionId, answerId, ipfsHash, official, locale],
+    [user, getActualId(questionId), answerId, ipfsHash, official, locale],
     2,
   );
 }
 
 export async function deleteAnswer(user, questionId, answerId, ethereumService) {
-  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_ANSWER, [
+  return ethereumService.sendTransaction(
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
     user,
-    questionId,
-    answerId,
-  ]);
+    DELETE_ANSWER,
+    [user, getActualId(questionId), answerId],
+  );
 }
 
 export async function postComment(user, questionId, answerId, ipfsHash, language, ethereumService) {
-  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, POST_COMMENT, [
+  return ethereumService.sendTransaction(
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
     user,
-    questionId,
-    answerId,
-    ipfsHash,
-    language,
-  ]);
+    POST_COMMENT,
+    [user, getActualId(questionId), answerId, ipfsHash, language],
+  );
 }
 
 export async function editComment(
@@ -206,47 +188,54 @@ export async function editComment(
   locale,
   ethereumService,
 ) {
-  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, EDIT_COMMENT, [
+  return ethereumService.sendTransaction(
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
     user,
-    questionId,
-    answerId,
-    commentId,
-    ipfsHash,
-    locale,
-  ]);
+    EDIT_COMMENT,
+    [user, getActualId(questionId), answerId, commentId, ipfsHash, locale],
+  );
 }
 
 export async function deleteComment(user, questionId, answerId, commentId, ethereumService) {
-  return await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_COMMENT, [
+  return ethereumService.sendTransaction(
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
     user,
-    questionId,
-    answerId,
-    commentId,
-  ]);
+    DELETE_COMMENT,
+    [user, getActualId(questionId), answerId, commentId],
+  );
 }
 
 export async function upVote(user, questionId, answerId, ethereumService) {
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, VOTE_ITEM, [
+  await ethereumService.sendTransaction(
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
     user,
-    questionId,
-    answerId,
-    0,
-    true,
-  ]);
+    VOTE_ITEM,
+    [user, getActualId(questionId), answerId, 0, true],
+  );
 }
 
 export async function downVote(user, questionId, answerId, ethereumService) {
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, VOTE_ITEM, [
+  await ethereumService.sendTransaction(
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
     user,
-    questionId,
-    answerId,
-    0,
-    false,
-  ]);
+    VOTE_ITEM,
+    [user, getActualId(questionId), answerId, 0, false],
+  );
 }
 
-export const getStatusHistory = async (user, questionId, answerId, commentId, ethereumService) =>
-  await ethereumService.getContentDataWithArgs(GET_STATUS_HISTORY, [
+export const getStatusHistory = async (
+  network,
+  user,
+  questionId,
+  answerId,
+  commentId,
+  ethereumService,
+) =>
+  ethereumService[getContentData[network]](GET_STATUS_HISTORY, [
     user,
     questionId,
     answerId,
@@ -254,22 +243,25 @@ export const getStatusHistory = async (user, questionId, answerId, commentId, et
   ]);
 
 export async function markAsAccepted(user, questionId, correctAnswerId, ethereumService) {
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, CHANGE_STATUS_BEST, [
+  await ethereumService.sendTransaction(
+    getNetwork(questionId),
+    CONTRACT_CONTENT[getNetwork(questionId)],
     user,
-    questionId,
-    correctAnswerId,
-  ]);
+    CHANGE_STATUS_BEST,
+    [user, getActualId(questionId), correctAnswerId],
+  );
 }
 
 export const getCreatedPostId = async (ethereumService, block, user, communityId) => {
-  const filter = ethereumService.contractContent.filters.PostCreated();
+  const network = getCookie(NETWORK_ID);
+  const filter = ethereumService[network - 1].filters.PostCreated();
   const events = await ethereumService.contractContent.queryFilter(filter, block, block);
 
   return bigNumberToNumber(
     events.filter(
       (event) =>
         event.args.user.toLowerCase() === user.toLowerCase() &&
-        Number(event.args.communityId) === Number(communityId),
+        event.args.communityId === communityId,
     )[0].args.postId,
   );
 };
@@ -343,13 +335,13 @@ export const votingStatus = (statusHistory) => ({
   isVotedToDelete: false,
 });
 
-export async function getQuestionById(ethereumService, questionId, user) {
-  const rawQuestion = await ethereumService.getContentDataWithArgs(GET_POST, [questionId]);
+export async function getQuestionById(network, ethereumService, questionId, user) {
+  const rawQuestion = await ethereumService[getContentData[network - 1]](GET_POST, [questionId]);
   const statusHistory = await getStatusHistory(user, questionId, 0, 0, ethereumService);
   const tags = await getCommunityTags(rawQuestion.communityId);
 
   const questionTags = tags[rawQuestion.communityId].filter((tag) =>
-    rawQuestion.tags.includes(Number(tag.id.split('-')[1])),
+    rawQuestion.tags.includes(Number(tag.id.split('-')[3])),
   );
 
   const replies = [];
@@ -358,8 +350,8 @@ export async function getQuestionById(ethereumService, questionId, user) {
     new Array(rawQuestion.replyCount).fill().map(async (reply, replyIndex) => {
       let replyObj;
       try {
-        const rawReply = await ethereumService.getContentDataWithArgs(GET_REPLY, [
-          questionId,
+        const rawReply = await ethereumService[getContentData[getNetwork(questionId)]](GET_REPLY, [
+          getActualId(questionId),
           replyIndex + 1,
         ]);
         const replyStatusHistory = await getStatusHistory(
@@ -375,11 +367,10 @@ export async function getQuestionById(ethereumService, questionId, user) {
           new Array(rawReply.commentCount).fill().map(async (comment, commentIndex) => {
             let commentObj;
             try {
-              const rawComment = await ethereumService.getContentDataWithArgs(GET_COMMENT, [
-                questionId,
-                replyIndex + 1,
-                commentIndex + 1,
-              ]);
+              const rawComment = await ethereumService[getContentData[getNetwork(questionId)]](
+                GET_COMMENT,
+                [getActualId(questionId), replyIndex + 1, commentIndex + 1],
+              );
               const commentStatusHistory = await getStatusHistory(
                 user,
                 questionId,
@@ -428,7 +419,11 @@ export async function getQuestionById(ethereumService, questionId, user) {
       let commentObj;
       try {
         commentObj = await formCommentObject(
-          await ethereumService.getContentDataWithArgs(GET_COMMENT, [questionId, 0, index + 1]),
+          await ethereumService[getContentData[getNetwork(questionId)]](GET_COMMENT, [
+            getActualId(questionId),
+            0,
+            index + 1,
+          ]),
           index + 1,
           ethereumService,
           await getStatusHistory(user, questionId, 0, index + 1, ethereumService),
@@ -441,7 +436,7 @@ export async function getQuestionById(ethereumService, questionId, user) {
       }
     }),
   );
-  return await formQuestionObject(
+  return formQuestionObject(
     { ...rawQuestion, tags: questionTags },
     orderBy(replies, 'postTime'),
     orderBy(comments, 'postTime'),
@@ -452,51 +447,19 @@ export async function getQuestionById(ethereumService, questionId, user) {
 }
 
 export const getQuestion = async (ethereumService, questionId) => {
-  const question = await ethereumService.getContentDataWithArgs(GET_POST, [questionId]);
-  return await formQuestionObject(question, [], [], ethereumService);
+  const question = await ethereumService[getContentData[getNetwork(questionId)]](GET_POST, [
+    getActualId(questionId),
+  ]);
+  return formQuestionObject(question, [], [], ethereumService);
 };
 
 export const getAnswer = async (ethereumService, questionId, answerId) => {
-  const answer = await ethereumService.getContentDataWithArgs(GET_REPLY, [questionId, answerId]);
-  return await formReplyObject(answer, [], answerId, ethereumService);
-};
-
-export const changeQuestionType = async (ethereumService, user, questionId, type) => {
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, CHANGE_POST_TYPE, [
-    questionId,
-    type,
+  const answer = await ethereumService[getContentData[getNetwork(questionId)]](GET_REPLY, [
+    getActualId(questionId),
+    answerId,
   ]);
+  return formReplyObject(answer, [], answerId, ethereumService);
 };
-
-export const getRandomQuestions = (questions, amount) => {
-  const result = [];
-
-  if (questions.length > amount) {
-    const showingPromotedQuestionsIds = [];
-
-    do {
-      const randomId = Math.floor(Math.random() * Math.floor(questions.length));
-
-      if (!showingPromotedQuestionsIds.includes(randomId)) {
-        showingPromotedQuestionsIds.push(randomId);
-      }
-    } while (showingPromotedQuestionsIds.length < amount);
-
-    showingPromotedQuestionsIds.forEach((id) => {
-      result.push(questions[id]);
-    });
-  } else {
-    result.push(...questions);
-  }
-
-  return result;
-};
-
-export const getQuestionTags = (question, tagList) =>
-  question.tags.map((tagId) =>
-    tagList.find((tag) => tag.id === `${question.communityId}-${tagId}`),
-  );
-
 export const getHistoriesForPost = async (postId) => {
   const histories = await historiesForPost(postId);
   return histories.map(

@@ -14,7 +14,8 @@ import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
 import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
 
-export const sendTransactionMethod = async function (
+export async function sendTransactionMethod(
+  network,
   contract,
   actor,
   action,
@@ -45,12 +46,8 @@ export const sendTransactionMethod = async function (
   try {
     if (metaTransactionsAllowed) {
       const token = await this.getRecaptchaToken();
-      return await this.sendMetaTransaction(contract, actor, action, data, confirmations, token);
-    }
-
-    if (dispatcherTransactionsAllowed) {
-      const token = await this.getRecaptchaToken();
-      return await this.sendDispatcherTransaction(
+      return await this.sendMetaTransaction(
+        network,
         contract,
         actor,
         action,
@@ -60,7 +57,20 @@ export const sendTransactionMethod = async function (
       );
     }
 
-    await this.chainCheck();
+    if (dispatcherTransactionsAllowed) {
+      const token = await this.getRecaptchaToken();
+      return await this.sendDispatcherTransaction(
+        network,
+        contract,
+        actor,
+        action,
+        data,
+        confirmations,
+        token,
+      );
+    }
+
+    await this.chainCheck(network);
     const transaction = await this[contract]
       .connect(this.provider.getSigner(actor))
       [action](...data);
@@ -105,4 +115,4 @@ export const sendTransactionMethod = async function (
     }
     throw new Error(err.message);
   }
-};
+}

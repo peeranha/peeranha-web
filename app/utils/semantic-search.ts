@@ -1,3 +1,5 @@
+import { callService, SEARCH_SERVICE } from 'utils/web_integration/src/util/aws-connector';
+
 export enum Network {
   Polygon = 1,
   Edgeware = 2,
@@ -9,14 +11,7 @@ export async function getSearchResults(
   blockchains: Network[],
   communityId?: string,
 ): Promise<string[]> {
-  const searchResponse = await fetch(process.env.SEARCH_ENDPOINT as RequestInfo, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ query, blockchains, communityId }),
-  });
-  const result = await searchResponse.json();
-  const { ids } = result;
+  const searchResponse = await callService(SEARCH_SERVICE, { query, blockchains, communityId });
+  const { ids } = searchResponse.body;
   return ids.map((id: string) => (id.includes('-') ? id.split('-')[1] : id));
 }

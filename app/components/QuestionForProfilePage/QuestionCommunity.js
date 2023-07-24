@@ -37,7 +37,7 @@ const QuestionCommunity = ({
     return null;
   }
 
-  const community = getFollowedCommunities(communities, [+communityId])[0] || {};
+  const community = getFollowedCommunities(communities, [communityId])[0] || {};
 
   const communityTranslationTitle = community.translations?.find(
     (translation) => translation.language === locale,

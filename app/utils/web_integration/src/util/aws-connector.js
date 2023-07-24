@@ -25,6 +25,8 @@ const NOTIFICATIONS_TIPS_SERVICE = 'notifications/tips';
 
 const SAVE_FILE_SERVICE = 'save-file';
 
+const SEARCH_SERVICE = 'semantic-search';
+
 async function callService(service, props, isGet = false, signal) {
   const url = new URL(process.env.WALLET_API_ENDPOINT + service);
 
@@ -88,4 +90,5 @@ module.exports = {
   BLOCKCHAIN_SEND_META_TRANSACTION,
   BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
   SAVE_FILE_SERVICE,
+  SEARCH_SERVICE,
 };

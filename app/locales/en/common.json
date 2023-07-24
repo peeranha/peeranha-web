@@ -246,6 +246,7 @@
   "attach": "attach",
   "communityLabel": "Community",
   "tagsLabel": "Tags",
+  "blockchainLabel": "Blockchain",
   "invalidFileFormat": "Invalid file format. Allowed formats: jpeg, jpg, png, gif, mp4.",
   "invalidFileSize": "Invalid file size. Max allowed is 1.8mb for images and 1Gb for videos.",
   "bountyLabel": "Bounty",

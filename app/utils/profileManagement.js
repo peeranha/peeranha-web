@@ -1,6 +1,8 @@
 import userBodyAvatar from 'images/user2.svg?inline';
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
+import { getCookie } from 'utils/cookie';
+import { NETWORK_ID } from 'utils/ethereum/ethereum';
 
 import { getBytes32FromIpfsHash, getFileUrl, getText, saveFile, saveText } from './ipfs';
 
@@ -49,30 +51,10 @@ export async function getProfileInfo(
   communityIdForRating,
 ) {
   if (!user) return null;
-  let profileInfo;
+  const profileInfo = await getUser(user);
   let userStats;
-
-  if (isLogin) {
-    const isUserRegistered = await isUserExists(user, ethereumService);
-    if (!isUserRegistered) {
-      return;
-    }
-    profileInfo = await ethereumService.getProfile(user);
-    profileInfo.permissions = await getUserPermissions(user);
-    userStats = await getUserStats(user);
-    profileInfo.ratings = userStats?.ratings ?? [];
-    if (!profileInfo.creationTime) {
-      const profile = await getUser(user);
-      profileInfo.creationTime = profile.creationTime;
-    }
-  } else {
-    profileInfo = await getUser(user);
-  }
-
   if (communityIdForRating) {
-    const newRating =
-      (await ethereumService.getUserDataWithArgs(GET_USER_RATING, [user, communityIdForRating])) ||
-      INIT_RATING;
+    const newRating = 10;
 
     const foundRating = profileInfo.ratings.find(
       (ratingData) => ratingData.communityId === communityIdForRating,
@@ -97,22 +79,13 @@ export async function getProfileInfo(
     : 0;
   profileInfo.user = user;
 
-  let profile;
-  if (isLogin) {
-    profile = JSON.parse(await getText(profileInfo.ipfsHash));
-    profileInfo.displayName = profile.displayName;
-    profileInfo.avatar = profile.avatar;
-    profileInfo.achievements = userStats?.achievements ?? [];
-  } else {
-    profile = profileInfo;
-  }
-
   profileInfo.profile = {
-    about: profile.about,
-    company: profile.company,
-    location: profile.location,
-    position: profile.position,
+    about: profileInfo.about,
+    company: profileInfo.company,
+    location: profileInfo.location,
+    position: profileInfo.position,
   };
+
   profileInfo.id = user;
   profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
   profileInfo.answersGiven = profileInfo.replyCount ?? userStats?.replyCount ?? 0;
@@ -120,9 +93,13 @@ export async function getProfileInfo(
 }
 
 export async function saveProfile(ethereumService, user, profile) {
+  const network = getCookie(NETWORK_ID);
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
-  await ethereumService.sendTransaction(CONTRACT_USER, user, UPDATE_ACC, [user, transactionData]);
+  await ethereumService.sendTransaction(network, CONTRACT_USER[network], user, UPDATE_ACC, [
+    user,
+    transactionData,
+  ]);
 }
 
 export const getNotificationsInfo = async (user) => {

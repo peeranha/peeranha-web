@@ -95,12 +95,7 @@ export const Select2 = ({
       components={{
         Group,
         DropdownIndicator: () => (
-          <Icon
-            className="mr-1"
-            icon={arrowDown}
-            width="16"
-            color={TEXT_SECONDARY_LIGHT}
-          />
+          <Icon className="mr-1" icon={arrowDown} width="16" color={TEXT_SECONDARY_LIGHT} />
         ),
         IndicatorSeparator: null,
         Option: CustomOption || DefaultOption,
@@ -125,8 +120,7 @@ export const Select2 = ({
           }`,
           boxShadow: `0 0 0 3px ${
             (error && `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
-            (state.isFocused &&
-              (colors.textColorShadow || `rgba(${BORDER_PRIMARY_RGB}, 0.4)`)) ||
+            (state.isFocused && (colors.textColorShadow || `rgba(${BORDER_PRIMARY_RGB}, 0.4)`)) ||
             BORDER_TRANSPARENT
           }`,
           borderRadius: '3px',
@@ -168,10 +162,7 @@ export const SelectField = (props) => (
     splitInHalf={props.splitInHalf}
     id={props.input.name}
   >
-    <Select2
-      {...props}
-      error={props.meta.touched && (props.meta.error || props.meta.warning)}
-    />
+    <Select2 {...props} error={props.meta.touched && (props.meta.error || props.meta.warning)} />
   </Wrapper>
 );
 

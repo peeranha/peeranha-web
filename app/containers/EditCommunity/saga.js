@@ -7,14 +7,11 @@ import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 
 import { getCommunitiesSuccess } from 'containers/DataCacheProvider/actions';
 
-import { selectCommunities, selectStat } from 'containers/DataCacheProvider/selectors';
+import { selectStat } from 'containers/DataCacheProvider/selectors';
 
 import {
   editCommunity,
   getAllCommunities,
-  getCommunityFromContract,
-  getSingleCommunityDetails,
-  setSingleCommunityDetailsInCookie,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 import { uploadImg } from 'utils/profileManagement';
@@ -35,17 +32,8 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* getCommunityWorker({ communityId }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const community = yield call(getCommunityFromContract, ethereumService, communityId);
-
-    const { translations } = yield call(getCommunityById, communityId);
-
-    yield put(
-      getCommunitySuccess({
-        ...community,
-        translations,
-      }),
-    );
+    const community = yield call(getCommunityById, communityId);
+    yield put(getCommunitySuccess(community));
   } catch (error) {
     yield put(getCommunityError(error));
   }
@@ -65,9 +53,9 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     const communityDataCurrent = yield select(selectCommunity());
     const isSingleCommunityMode = !!isSingleCommunityWebsite();
-    const isEqual = Object.keys(communityData).every((key) => {
-      return !(key === 'isBlogger') ? communityData[key] === communityDataCurrent[key] : true;
-    });
+    const isEqual = Object.keys(communityData).every((key) =>
+      !(key === 'isBlogger') ? communityData[key] === communityDataCurrent[key] : true,
+    );
 
     if (!isEqual) {
       const ethereumService = yield select(selectEthereum);

@@ -8,7 +8,8 @@ import {
 } from 'utils/web_integration/src/util/aws-connector';
 import Web3Token from 'web3-token';
 
-export const sendDispatcherTransactionMethod = async function (
+export async function sendDispatcherTransactionMethod(
+  network,
   contract,
   actor,
   action,
@@ -16,7 +17,7 @@ export const sendDispatcherTransactionMethod = async function (
   confirmations = 1,
   token,
 ) {
-  await this.chainCheck();
+  await this.chainCheck(network);
   const userAddress = data.shift();
 
   const isWeb3Token = getCookie(WEB3_TOKEN);
@@ -24,11 +25,11 @@ export const sendDispatcherTransactionMethod = async function (
 
   if (!isWeb3Token || !isWeb3TokenUserAddress) {
     const signer = this.provider.getSigner();
-    const web3token = await Web3Token.sign(async (msg) => await signer.signMessage(msg), {
+    const web3token = await Web3Token.sign(async (msg) => signer.signMessage(msg), {
       uri: 'https://peeranha.io/',
       domain: 'peeranha.io',
       web3tokenversion: '1',
-      statement: 'I allow Peeranha to sign transactions on your behalf for 30 days.',
+      statement: 'I allow Peeranha to sign transactions on my behalf for 30 days.',
       expires_in: '30d',
     });
 
@@ -55,10 +56,11 @@ export const sendDispatcherTransactionMethod = async function (
   const response = await callService(BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION + userAddress, {
     contractName: ContractsMapping[contract][0],
     contractAddress: ContractsMapping[contract][1],
-    action: action,
+    action,
     args: data,
     reCaptchaToken: token,
     wait: false,
+    network: network + 1,
   });
 
   this.transactionList.push({
@@ -83,4 +85,4 @@ export const sendDispatcherTransactionMethod = async function (
 
   this.transactionCompleted(this.transactionList);
   return result;
-};
+}

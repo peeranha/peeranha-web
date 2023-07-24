@@ -1,3 +1,6 @@
+import CommunityField from 'components/FormFields/CommunityField';
+import { FORM_COMMUNITY } from 'components/QuestionForm/constants';
+import BlockchainSelector from 'containers/CreateCommunity/BlockchainSelector/BlockchainSelector';
 import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -22,6 +25,9 @@ import {
   imageValidation,
   valueHasNotBeInListMoreThanOneTime,
   validateURL,
+  strLength1x5,
+  requiredForObjectField,
+  requiredMinReputation,
 } from 'components/FormFields/validate';
 
 import { ExtendedBase } from 'components/Base/AvatarBase';
@@ -50,6 +56,7 @@ import {
   HIGHLIGHT_COLOR_FIELD,
   FORM_TYPE,
   ANY_TYPE,
+  COMM_BLOCKCHAIN_FIELD,
 } from './constants';
 
 const MIN_TAGS_NUMBER = 5;
@@ -63,15 +70,7 @@ for (let i = 0; i < MIN_TAGS_NUMBER; i++) {
   DEFAULT_TAGS_ARRAY.push(i);
 }
 
-// TODO: return language for multi lang.
-
-const CreateCommunityForm = ({
-  handleSubmit,
-  createCommunity,
-  createCommunityLoading,
-  change,
-  formValues,
-}) => {
+const CreateCommunityForm = ({ handleSubmit, createCommunity, createCommunityLoading, change }) => {
   const { t } = useTranslation();
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
 
@@ -154,6 +153,17 @@ const CreateCommunityForm = ({
           warn={[strLength100Max]}
           placeholder="subdomain.peeranha.io"
           tip={t('createCommunity.communityWebsiteTip')}
+          splitInHalf
+        />
+
+        <Field
+          disabled={createCommunityLoading}
+          name={COMM_BLOCKCHAIN_FIELD}
+          label={t('common.blockchainLabel')}
+          tip={t('common.communityTip')}
+          component={BlockchainSelector}
+          validate={[required, strLength1x5]}
+          warn={[required, strLength1x5]}
           splitInHalf
         />
 
