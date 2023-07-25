@@ -50,7 +50,7 @@ export const hasCommunitySingleWebsite = (commId) =>
 
 export function getFollowedCommunities(allCommunities, followedCommunities) {
   if (!allCommunities || !followedCommunities) return [];
-  return allCommunities.filter((x) => followedCommunities.includes(x.id));
+  return allCommunities.filter((x) => followedCommunities.includes(String(x.id)));
 }
 
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {

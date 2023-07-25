@@ -184,36 +184,36 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
       ethereumService,
     );
     question.votingStatus = votingStatus(Number(statusHistory));
+
+    yield all(
+      question.answers.map(function* (answer) {
+        answer.commentCount = answer.comments.length;
+        answer.id = Number(answer.id.split('-')[3]);
+
+        answer.author = { ...answer.author, user: answer.author.id };
+
+        answer.comments = answer.comments.map((comment) => ({
+          ...comment,
+          author: { ...comment.author, user: comment.author.id },
+          id: Number(comment.id.split('-')[2]),
+        }));
+        if (!isSuiBlockchain && user) {
+          const answerStatusHistory = yield call(
+            getStatusHistory,
+            getNetwork(questionId),
+            user,
+            getActualId(questionId),
+            answer.id,
+            0,
+            ethereumService,
+          );
+
+          answer.votingStatus = votingStatus(Number(answerStatusHistory));
+        }
+      }),
+    );
   }
-
-  yield all(
-    question.answers.map(function* (answer) {
-      answer.commentCount = answer.comments.length;
-      answer.id = Number(answer.id.split('-')[3]);
-
-      answer.author = { ...answer.author, user: answer.author.id };
-
-      answer.comments = answer.comments.map((comment) => ({
-        ...comment,
-        author: { ...comment.author, user: comment.author.id },
-        id: Number(comment.id.split('-')[2]),
-      }));
-      if (!isSuiBlockchain && user) {
-        const answerStatusHistory = yield call(
-          getStatusHistory,
-          getNetwork(questionId),
-          user,
-          getActualId(questionId),
-          answer.id,
-          0,
-          ethereumService,
-        );
-
-        answer.votingStatus = votingStatus(Number(answerStatusHistory));
-      }
-    }),
-  );
-
+  console.log(question);
   question.comments = question.comments.map((comment) => ({
     ...comment,
     author: { ...comment.author, user: comment.author.id },

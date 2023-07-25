@@ -17,7 +17,7 @@ import { delay } from 'utils/reduxUtils';
 import { map } from 'react-sortable-tree';
 
 const getDataFromIndexer = async (query: string, variables: object = {}) => {
-  const response = await fetch(process.env.QUERY_INDEX_URL, {
+  const response = await fetch(new URL(process.env.SUI_QUERY_INDEX_URL), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query, variables }),

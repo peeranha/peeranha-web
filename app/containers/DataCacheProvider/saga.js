@@ -85,8 +85,9 @@ export function* getCommunityTagsWorker({ communityId }) {
     if (isSuiBlockchain) {
       const suiCommunities = yield call(getSuiCommunities);
       yield put(getCommunitiesSuccess(suiCommunities));
-      const communities = yield select(selectCommunities());
-      const suiCommunityId = communities.find((community) => community.id === communityId).suiId;
+      const suiCommunityId = suiCommunities.find(
+        (community) => String(community.id) === String(communityId),
+      ).suiId;
       const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
         ...tag,
         label: tag.name,

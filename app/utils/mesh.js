@@ -1,12 +1,17 @@
+import { isSuiBlockchain } from 'utils/sui/sui';
+
 export async function executeMeshQuery(props) {
-  const response = await fetch(process.env.QUERY_INDEX_URL, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    isSuiBlockchain ? process.env.SUI_QUERY_INDEX_URL : process.env.QUERY_INDEX_URL,
+    {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(props),
     },
-    body: JSON.stringify(props),
-  });
+  );
 
   return response.json();
 }

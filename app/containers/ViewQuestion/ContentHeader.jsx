@@ -25,6 +25,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import SeeOriginal from 'containers/ViewQuestion/SeeOriginal';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { getUserName } from 'utils/user';
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
 import UserInfo from './UserInfo';
@@ -184,11 +185,10 @@ const ContentHeader = (props) => {
   );
 
   const isBot = isBotAddress(author);
-
-  const isItWrittenByMe = useMemo(
-    () => (profile ? author.user.toLowerCase() === profile.user.toLowerCase() : false),
-    [profile, author],
-  );
+  const isItWrittenByMe = useMemo(() => {
+    const authorId = isSuiBlockchain ? author.id.toLowerCase() : author.user.toLowerCase();
+    return profile ? authorId === profile.user.toLowerCase() : false;
+  }, [profile, author]);
 
   const isMarkedTheBest = useMemo(
     () => (bestReplyId !== 0 ? bestReplyId === answerId : false),
