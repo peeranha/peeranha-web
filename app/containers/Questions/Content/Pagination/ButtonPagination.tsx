@@ -1,6 +1,5 @@
 import React from 'react';
 import { styles } from './Pagination.styled';
-import { css } from '@emotion/react';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
@@ -9,8 +8,8 @@ import {
   POST_TYPE_EXPERTS,
   POST_TYPE_TUTORIALS,
   STEP_NEXT,
-  CONTINUE,
 } from './constants';
+
 type ButtonPaginationProps = {
   page: number;
   element: number;
@@ -23,68 +22,64 @@ type StepButtonPaginationProps = {
   alt: string;
   clickHandler: () => void;
   scrollToTop: () => void;
-  page?: number;
+  page: number;
 };
 
 const routeHandler = (element: number, direction: boolean) => {
-  const route = createdHistory.location.pathname.split('/')[1];
+  const [, route, feedCommunityId, communityId] = createdHistory.location.pathname.split('/');
   const step = direction ? element + 1 : element - 1;
+
   if (route === POST_TYPE_DISCUSSIONS) {
-    return createdHistory.push(routes.questions(null, step));
+    return createdHistory.push(routes.questions(communityId, step));
   }
   if (route === POST_TYPE_EXPERTS) {
-    return createdHistory.push(routes.expertPosts(null, step));
+    return createdHistory.push(routes.expertPosts(communityId, step));
   }
   if (route === POST_TYPE_TUTORIALS) {
-    return createdHistory.push(routes.tutorials(null, step));
+    return createdHistory.push(routes.tutorials(communityId, step));
   }
-  return createdHistory.push(routes.feed(null, step));
+  return createdHistory.push(routes.feed(feedCommunityId, step));
 };
 
-const ButtonPagination: React.FC<ButtonPaginationProps> = ({
-  page,
-  element,
-  clickHandler,
-  scrollToTop,
-}): JSX.Element => (
-  <button
-    css={css({
-      ...styles.basicStyles,
-      ...(page === element + 1 && styles.activeStyles),
-    })}
-    onClick={() => {
-      clickHandler(element + 1);
-      routeHandler(element, true);
-      scrollToTop();
-    }}
-    key={element}
-  >
-    {element + 1}
-  </button>
-);
+const ButtonPagination = ({ page, element, clickHandler, scrollToTop }: ButtonPaginationProps) => {
+  const buttonClickHandler = () => {
+    clickHandler(element + 1);
+    routeHandler(element, true);
+    scrollToTop();
+  };
 
-const StepButtonPagination: React.FC<StepButtonPaginationProps> = ({
+  return (
+    <button
+      key={element}
+      css={{
+        ...styles.basicStyles,
+        ...(page === element + 1 && styles.activeStyles),
+      }}
+      onClick={buttonClickHandler}
+    >
+      {element + 1}
+    </button>
+  );
+};
+
+const StepButtonPagination = ({
   clickHandler,
   src,
   alt,
   scrollToTop,
   page,
-}): JSX.Element => {
+}: StepButtonPaginationProps) => {
   const direction = alt === STEP_NEXT;
+  const stepButtonClickHandler = () => {
+    clickHandler();
+    routeHandler(page, direction);
+    scrollToTop();
+  };
   return (
-    <button
-      onClick={() => {
-        clickHandler();
-        routeHandler(page, direction);
-        scrollToTop();
-      }}
-      css={css(styles.basicStyles)}
-    >
+    <button css={styles.basicStyles} onClick={stepButtonClickHandler}>
       <img src={src} alt={alt} />
     </button>
   );
 };
 
-const ContinueButtonPagination: React.FC = (): JSX.Element => <p>{CONTINUE}</p>;
-
-export { ButtonPagination, StepButtonPagination, ContinueButtonPagination };
+export { ButtonPagination, StepButtonPagination };
