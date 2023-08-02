@@ -39,8 +39,7 @@ const tag = `id
   communityId
   name
   description
-  postCount
-  deletedPostCount`;
+  postCount`;
 
 const comment = `
   id
@@ -130,7 +129,6 @@ const post = `
       creationTime
       postCount
       documentationCount
-      deletedPostCount
       replyCount
       tagsCount
       followingUsers
@@ -231,7 +229,6 @@ const community = `
     creationTime
     postCount
     documentationCount
-    deletedPostCount
     replyCount
     tagsCount
     followingUsers

@@ -138,7 +138,6 @@ const formCommunityObject = (rawCommunity) => ({
   value: rawCommunity.id,
   label: rawCommunity.name,
   postCount: +rawCommunity.postCount,
-  deletedPostCount: +rawCommunity.deletedPostCount,
   creationTime: +rawCommunity.creationTime,
   followingUsers: +rawCommunity.followingUsers,
   replyCount: +rawCommunity.replyCount,
