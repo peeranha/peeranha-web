@@ -87,8 +87,8 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
           moderatorEditSuiAnswer,
           wallet,
           profile.id,
-          questionId,
-          answerId,
+          getActualId(questionId),
+          answerId.split('-')[2],
           official,
           languagesEnum[locale],
         );

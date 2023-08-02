@@ -184,7 +184,6 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
         answer.comments = answer.comments.map((comment) => ({
           ...comment,
           author: { ...comment.author, user: comment.author.id },
-          id: Number(comment.id.split('-')[2]),
         }));
         if (!isSuiBlockchain && user) {
           const answerStatusHistory = yield call(
@@ -205,7 +204,6 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   question.comments = question.comments.map((comment) => ({
     ...comment,
     author: { ...comment.author, user: comment.author.id },
-    id: Number(comment.id.split('-')[2]),
   }));
 
   question.isGeneral = isGeneralQuestion(question);
@@ -324,16 +322,16 @@ export function* saveCommentWorker({
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
-      const commentObjectId = yield call(getCommentId2, questionId, answerId, commentId);
+      const commentObjectId = yield call(getCommentId2, commentId);
 
       const txResult = yield call(
         editSuiComment,
         wallet,
         profileInfo.id,
-        questionId,
+        getActualId(questionId),
         commentObjectId,
-        answerId,
-        commentId,
+        answerId ? answerId.split('-')[2] : answerId,
+        commentId.split('-')[3],
         ipfsLink,
         languagesEnum[locale],
       );
@@ -345,9 +343,9 @@ export function* saveCommentWorker({
       const transaction = yield call(
         editComment,
         profileInfo.user,
-        questionId,
-        answerId,
-        commentId,
+        getActualId(questionId),
+        answerId ? answerId.split('-')[2] : answerId,
+        commentId.split('-')[3],
         ipfsHash,
         languagesEnum[locale],
         ethereumService,
@@ -366,10 +364,9 @@ export function* saveCommentWorker({
     }
 
     let item;
-
-    if (answerId === 0) {
+    if (!answerId) {
       item = questionData.comments?.find((x) => x.id === commentId);
-    } else if (answerId > 0) {
+    } else {
       item = questionData.answers
         .find((x) => x.id === answerId)
         .comments.find((x) => x.id === commentId);
@@ -409,9 +406,9 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
         deleteSuiComment,
         wallet,
         profileInfo.id,
-        questionId,
-        answerId,
-        commentId,
+        getActualId(questionId),
+        answerId.split('-')[2],
+        commentId.split('-')[3],
       );
       yield put(transactionInPending(txResult.digest));
       yield call(waitForTransactionConfirmation, txResult.digest);
@@ -461,7 +458,13 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
-      const txResult = yield call(deleteSuiAnswer, wallet, profileInfo.id, questionId, answerId);
+      const txResult = yield call(
+        deleteSuiAnswer,
+        wallet,
+        profileInfo.id,
+        getActualId(questionId),
+        answerId.split('-')[2],
+      );
       yield put(transactionInPending(txResult.digest));
       const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
       yield call(waitForPostTransactionToIndex, confirmedTx.digest);
@@ -567,7 +570,12 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
     } else if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
-      const txResult = yield call(deleteSuiQuestion, wallet, profileInfo.id, questionId);
+      const txResult = yield call(
+        deleteSuiQuestion,
+        wallet,
+        profileInfo.id,
+        getActualId(questionId),
+      );
       yield put(transactionInPending(txResult.digest));
       const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
       yield call(waitForPostTransactionToIndex, confirmedTx.digest);
@@ -676,7 +684,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         wallet,
         profileInfo.id,
         getActualId(questionId),
-        answerId,
+        answerId ? answerId.split('-')[2] : answerId,
         ipfsLink,
         languagesEnum[locale],
       );

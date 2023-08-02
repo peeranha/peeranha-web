@@ -348,12 +348,12 @@ export const getReplyId2 = async (answerId) => {
   return result.reply[0].id2;
 };
 
-export const getCommentId2 = async (postId, answerId, commentId) => {
+export const getCommentId2 = async (commentId) => {
   const result = await executeQuery(
     {
       query: commentId2QueryMesh,
       variables: {
-        commentId: `${postId}-${answerId}-${commentId}`,
+        commentId,
       },
     },
     false,

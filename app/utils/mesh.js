@@ -34,9 +34,7 @@ const getCommentDataFromMesh = (item) => {
 export const getReplyDataFromMesh = (item, postComments) => {
   const { user, ...reply } = item;
   const comments = postComments
-    .filter(
-      (comment) => comment.parentReplyId === `${reply.id.split('-')[2]}-${reply.id.split('-')[2]}`,
-    )
+    .filter((comment) => comment.parentReplyId.toString() === reply.id.split('-')[2])
     .map((comment) => getCommentDataFromMesh(comment));
   return {
     ...reply,

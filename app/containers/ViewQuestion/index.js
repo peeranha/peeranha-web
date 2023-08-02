@@ -20,8 +20,7 @@ import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProv
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
-import { loginWithWallet } from 'containers/Login/actions';
-import { loginWithSui } from 'containers/Login/actions';
+import { loginWithWallet, loginWithSui } from 'containers/Login/actions';
 
 import {
   saveComment,
@@ -46,7 +45,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
-import { POST_TYPE } from '../../utils/constants';
+import { POST_TYPE } from 'utils/constants';
 
 const getRoute = (postType) => {
   if (postType === POST_TYPE.generalPost) {

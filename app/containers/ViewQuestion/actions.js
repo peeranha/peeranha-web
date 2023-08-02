@@ -99,7 +99,7 @@ export function deleteAnswer(questionId, ev) {
   return {
     type: DELETE_ANSWER,
     questionId,
-    answerId: +ev.currentTarget.dataset.answerid,
+    answerId: ev.currentTarget.dataset.answerid,
     buttonId: ev.currentTarget.id,
   };
 }
@@ -124,8 +124,8 @@ export function deleteComment(questionId, ev) {
   return {
     type: DELETE_COMMENT,
     questionId,
-    answerId: +ev.currentTarget.dataset.answerid,
-    commentId: +ev.currentTarget.dataset.commentid,
+    answerId: ev.currentTarget.dataset.answerid,
+    commentId: ev.currentTarget.dataset.commentid,
     buttonId: ev.currentTarget.id,
   };
 }
@@ -254,7 +254,7 @@ export function upVote(questionId, ev) {
   return {
     type: UP_VOTE,
     questionId,
-    answerId: +ev.currentTarget.dataset.answerid,
+    answerId: ev.currentTarget.dataset.answerid,
     buttonId: ev.currentTarget.id,
     whoWasUpvoted: ev.currentTarget.dataset.whowasupvoted,
   };
@@ -281,7 +281,7 @@ export function downVote(questionId, ev) {
   return {
     type: DOWN_VOTE,
     questionId,
-    answerId: +ev.currentTarget.dataset.answerid,
+    answerId: ev.currentTarget.dataset.answerid,
     buttonId: ev.currentTarget.id,
     whoWasDownvoted: ev.currentTarget.dataset.whowasdownvoted,
   };
@@ -308,7 +308,7 @@ export function markAsAccepted(questionId, ev) {
   return {
     type: MARK_AS_ACCEPTED,
     questionId,
-    correctAnswerId: +ev.currentTarget.dataset.answerid,
+    correctAnswerId: ev.currentTarget.dataset.answerid,
     buttonId: ev.currentTarget.id,
     whoWasAccepted: ev.currentTarget.dataset.whowasaccepted,
   };
@@ -335,8 +335,8 @@ export function voteToDelete(questionId, ev) {
   return {
     type: VOTE_TO_DELETE,
     questionId,
-    answerId: +ev.currentTarget.dataset.answerid,
-    commentId: +ev.currentTarget.dataset.commentid,
+    answerId: ev.currentTarget.dataset.answerid,
+    commentId: ev.currentTarget.dataset.commentid,
     buttonId: ev.currentTarget.id,
     whoWasVoted: ev.currentTarget.dataset.whowasvoted,
   };
