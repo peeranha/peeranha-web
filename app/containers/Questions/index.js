@@ -141,7 +141,7 @@ export const Questions = ({
   }, [
     typeFilter,
     createdFilter,
-    postsTypes,
+    JSON.stringify(postsTypes),
     JSON.stringify(communities),
     JSON.stringify(followedCommunities),
   ]);
