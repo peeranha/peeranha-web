@@ -203,12 +203,6 @@ const ContentHeader = (props) => {
     [changeQuestionTypeDispatch],
   );
 
-  // eslint-disable-next-line camelcase
-  const correctAnswerId = questionData?.correct_answer_id;
-  const correctAnswer = questionData?.answers?.find(({ id }) => id === correctAnswerId);
-  const correctAnswerUserName = correctAnswer?.user;
-  const currentUserName = profile?.user;
-
   let deleteAction = null;
   if (isItWrittenByMe) {
     deleteAction = deleteItem;
