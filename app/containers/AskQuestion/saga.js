@@ -6,7 +6,7 @@ import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-import { getActualId } from 'utils/properties';
+import { getActualId, getNetwork } from 'utils/properties';
 
 import { postQuestion, getCreatedPostId, updateDocumentationTree } from 'utils/questionsManagement';
 
@@ -103,7 +103,8 @@ export function* postQuestionWorker({ val }) {
       const postCreatedEvent = confirmedTx.events.filter((event) =>
         event.type.includes(CREATE_POST_EVENT_NAME),
       )[0];
-      const id = postCreatedEvent.parsedJson.postMetaDataId;
+      const idFromContract = postCreatedEvent.parsedJson.postMetaDataId;
+      const id = `${getNetwork(communityId) + 1}-${idFromContract}`;
       yield call(waitForPostTransactionToIndex, confirmedTx.digest);
 
       yield put(transactionCompleted());
