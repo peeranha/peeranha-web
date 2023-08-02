@@ -198,7 +198,7 @@ export const QuestionForProfilePage = ({
               communities={communities}
               communityId={
                 isSuiBlockchain
-                  ? communities.find((community) => community.suiId === communityId).id
+                  ? communities.find((community) => community.id === communityId).id
                   : communityId
               }
               postType={postType}
