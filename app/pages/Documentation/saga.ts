@@ -1,7 +1,7 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { getIpfsHashFromBytes32, getText } from 'utils/ipfs';
 import { updateDocumentationTree } from 'utils/questionsManagement';
-import { getQuestionFromGraph } from 'utils/theGraph';
+import { getPost } from 'utils/theGraph';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
@@ -49,7 +49,7 @@ export function* getArticleDocumentationWorker({
           }),
         );
       } else {
-        const documentationArticleFromGraph = yield call(getQuestionFromGraph, `${articleId}`);
+        const documentationArticleFromGraph = yield call(getPost, `${articleId}`);
         yield put(
           getArticleDocumentationSuccess({
             id: articleId,

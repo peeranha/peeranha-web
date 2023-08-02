@@ -20,7 +20,6 @@ import { delay } from 'utils/reduxUtils';
 import { getCommunityById } from 'utils/theGraph';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { updateSuiCommunity } from 'utils/sui/communityManagement';
-import { getSuiCommunities, getSuiCommunity } from 'utils/sui/suiIndexer';
 import { getFileUrl } from 'utils/ipfs';
 
 import {
@@ -43,17 +42,8 @@ import {
 
 export function* getCommunityWorker({ communityId }) {
   try {
-    if (isSuiBlockchain) {
-      const suiCommunities = yield call(getSuiCommunities);
-      yield put(getCommunitiesSuccess(suiCommunities));
-      const communities = yield select(selectCommunities());
-      const suiCommunityId = communities.find((community) => community.id == communityId).suiId;
-      const community = yield call(getSuiCommunity, suiCommunityId);
-      yield put(getCommunitySuccess(community));
-    } else {
-      const community = yield call(getCommunityById, communityId);
-      yield put(getCommunitySuccess(community));
-    }
+    const community = yield call(getCommunityById, communityId);
+    yield put(getCommunitySuccess(community));
   } catch (error) {
     yield put(getCommunityError(error));
   }
@@ -90,7 +80,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
         yield put(transactionInPending(txResult.digest));
         yield call(waitForTransactionConfirmation, txResult.digest);
         yield put(transactionCompleted());
-        const communities = yield call(getSuiCommunities);
+        const communities = yield call(getAllCommunities);
         yield put(getCommunitiesSuccess(communities));
       } else {
         const ethereumService = yield select(selectEthereum);

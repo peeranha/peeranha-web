@@ -339,7 +339,7 @@ export async function getQuestionById(network, ethereumService, questionId, user
   const tags = await getCommunityTags(rawQuestion.communityId);
 
   const questionTags = tags[rawQuestion.communityId].filter((tag) =>
-    rawQuestion.tags.includes(Number(tag.id.split('-')[3])),
+    rawQuestion.tags.includes(Number(tag.id.split('-')[2])),
   );
 
   const replies = [];

@@ -1,23 +1,16 @@
 import {
-  communitiesQuery,
-  communityQuery,
   communityTagsQuery,
-  followCommunityQuery,
   historyIdQuery,
-  postByIdQuery,
   postQuery,
   postsByCommunityIdQuery,
   postsQuery,
-  tagsQuery,
   userQuery,
   usersQuery,
 } from 'utils/sui/suiQuerries';
-import { getFileUrl } from 'utils/ipfs';
 import { delay } from 'utils/reduxUtils';
-import { map } from 'react-sortable-tree';
 
 const getDataFromIndexer = async (query: string, variables: object = {}) => {
-  const response = await fetch(new URL(process.env.SUI_QUERY_INDEX_URL), {
+  const response = await fetch(new URL(process.env.QUERY_INDEX_URL), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query, variables }),
@@ -35,39 +28,6 @@ type User = {
   id: any;
   userpermission: any;
   replyCount: any;
-};
-
-export const getSuiCommunity = async (id: string) => {
-  const data = await getDataFromIndexer(communityQuery, { id });
-  return data.community.map((community) => ({
-    ...community,
-    avatar: getFileUrl(community.avatar),
-    label: community.name,
-    postCount: +community.postCount,
-    deletedPostCount: +community.deletedPostCount,
-    creationTime: +community.creationTime,
-    followingUsers: +community.followingUsers,
-    replyCount: +community.replyCount,
-    suiId: community.id,
-    translations: community.communitytranslation,
-  }))[0];
-};
-
-export const getSuiCommunities = async () => {
-  const data = await getDataFromIndexer(communitiesQuery);
-  return data.community.map((community, index) => ({
-    ...community,
-    id: index + 1,
-    value: index + 1,
-    label: community.name,
-    postCount: +community.postCount,
-    deletedPostCount: +community.deletedPostCount,
-    creationTime: +community.creationTime,
-    followingUsers: +community.followingUsers,
-    replyCount: +community.replyCount,
-    suiId: community.id,
-    translations: community.communitytranslation,
-  }));
 };
 
 const userFromIndexerResponse = (user: User, communities: any[]) => {
@@ -167,8 +127,7 @@ export const getSuiPosts = async (limit, offset, postTypes, communities) => {
 export const getSuiPost = async (id, communities) => {
   const data = await getDataFromIndexer(postQuery, { id });
   const post = data.post[0];
-  const response = postFromIndexerResponse(post, communities);
-  return response;
+  return postFromIndexerResponse(post, communities);
 };
 
 export const getSuiPostsByCommunityId = async (
@@ -185,19 +144,9 @@ export const getSuiPostsByCommunityId = async (
   return data.post.map((post) => postFromIndexerResponse(post, communities));
 };
 
-export const getSuiTags = async () => {
-  const data = await getDataFromIndexer(tagsQuery);
-  return data.tag;
-};
-
 export const getSuiCommunityTags = async (communityId: string) => {
   const data = await getDataFromIndexer(communityTagsQuery, { communityId });
   return data.tag;
-};
-
-export const getFollowCommunitySuiIds = async (userId: string) => {
-  const data = await getDataFromIndexer(followCommunityQuery, { userId });
-  return data.usercommunity.map((usercommunity: any) => usercommunity.community[0].id);
 };
 
 export const isPostTransactionIndexed = async (id) => {

@@ -75,8 +75,8 @@ const EditQuestion = ({
         {
           title: val[FORM_TITLE],
           content: val[FORM_CONTENT],
-          communityId: isSuiBlockchain ? val[FORM_COMMUNITY].suiId : val[FORM_COMMUNITY].id,
-          tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[3]),
+          communityId: val[FORM_COMMUNITY].id,
+          tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[2]),
           postType: isNaN(val[FORM_TYPE]) ? question.postType : Number(val[FORM_TYPE]),
         },
         questionid,

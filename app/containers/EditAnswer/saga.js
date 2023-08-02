@@ -18,7 +18,7 @@ import { CHANGED_POSTS_KEY } from 'utils/constants';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { getQuestionFromGraph, getReplyId2 } from 'utils/theGraph';
+import { getPost, getReply, getReplyId2 } from 'utils/theGraph';
 import { authorEditSuiAnswer, moderatorEditSuiAnswer } from 'utils/sui/questionsManagement';
 import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import {
@@ -45,11 +45,13 @@ export function* getAnswerWorker({ questionId, answerId }) {
     let answer;
     let ethereumService;
     if (isSuiBlockchain) {
-      question = yield call(getQuestionFromGraph, questionId);
-      answer = question.answers.reverse()[answerId - 1];
+      question = yield call(getPost, questionId);
+      answer = yield call(getReply, answerId);
+      console.log(question);
+      console.log(answer);
     } else {
       ethereumService = yield select(selectEthereum);
-      question = yield call(getQuestionFromGraph, questionId);
+      question = yield call(getPost, questionId);
       answer = question.answers.find(
         (reply) => reply.id === `${questionId}-${getNetwork(questionId) + 1}-${answerId}`,
       );
@@ -82,7 +84,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
-      const questionData = yield call(getQuestionFromGraph, questionId);
+      const questionData = yield call(getPost, questionId);
       const answerData = questionData.answers.reverse()[answerId - 1];
 
       let txResult;

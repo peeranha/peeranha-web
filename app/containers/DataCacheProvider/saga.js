@@ -8,12 +8,6 @@ import { getMD } from 'utils/mdManagement';
 import { getAchievements } from 'utils/achievementsManagement';
 import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
 
-import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
-import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
-import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
-
-import { LOGIN_WITH_WALLET } from 'containers/Login/constants';
-
 import { selectCommunities, selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import {
@@ -43,23 +37,13 @@ import {
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import { getSuiUserById, getSuiCommunities, getSuiCommunityTags } from 'utils/sui/suiIndexer';
+import { getSuiUserById } from 'utils/sui/suiIndexer';
 import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
   try {
-    if (isSuiBlockchain) {
-      yield put(
-        getStatSuccess({
-          usersCount: 0,
-          communitiesCount: 0,
-        }),
-      );
-      yield put(getCommunities());
-    } else {
-      yield put(getStatSuccess({}));
-      yield put(getCommunities());
-    }
+    yield put(getStatSuccess({}));
+    yield put(getCommunities());
   } catch (err) {
     yield put(getStatErr(err));
   }
@@ -67,14 +51,9 @@ export function* getStatWorker() {
 
 export function* getCommunitiesWorker() {
   try {
-    if (isSuiBlockchain) {
-      const communities = yield call(getSuiCommunities);
-      yield put(getCommunitiesSuccess(communities));
-    } else {
-      const communities = yield call(getAllCommunities);
+    const communities = yield call(getAllCommunities);
 
-      yield put(getCommunitiesSuccess(communities));
-    }
+    yield put(getCommunitiesSuccess(communities));
   } catch (err) {
     yield put(getCommunitiesErr(err));
   }
@@ -82,22 +61,8 @@ export function* getCommunitiesWorker() {
 
 export function* getCommunityTagsWorker({ communityId }) {
   try {
-    if (isSuiBlockchain) {
-      const suiCommunities = yield call(getSuiCommunities);
-      yield put(getCommunitiesSuccess(suiCommunities));
-      const suiCommunityId = suiCommunities.find(
-        (community) => String(community.id) === String(communityId),
-      ).suiId;
-      const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
-        ...tag,
-        label: tag.name,
-      }));
-
-      yield put(getTagsSuccess({ [communityId]: tags }));
-    } else {
-      const tags = yield call(getCommunityTags, communityId);
-      yield put(getTagsSuccess(tags));
-    }
+    const tags = yield call(getCommunityTags, communityId);
+    yield put(getTagsSuccess(tags));
   } catch (err) {
     yield put(getTagsErr(err));
   }
@@ -200,8 +165,4 @@ export default function* () {
   yield takeLatest(GET_STAT, getStatWorker);
   yield takeLatest(GET_FAQ, getFaqWorker);
   yield takeLatest(GET_TUTORIAL, getTutorialWorker);
-  yield takeLatest(
-    [LOGOUT_SUCCESS, LOGIN_WITH_WALLET, SAVE_PROFILE_SUCCESS],
-    updateStoredQuestionsWorker,
-  );
 }

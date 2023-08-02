@@ -204,13 +204,15 @@ const View = ({
                   >
                     <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
                   </Button>
-                  {!isSuiBlockchain ? (
+                  {profileInfo ? (
                     newPostButton(askQuestionHandler)
-                  ) : (
+                  ) : isSuiBlockchain ? (
                     <SuiConnectModals
                       loginWithWallet={showLoginModalWithRedirectToAskQuestionPage}
                       actionButtonWithLogin={newPostButton}
                     />
+                  ) : (
+                    showLoginModalWithRedirectToAskQuestionPage
                   )}
                 </>
               )}

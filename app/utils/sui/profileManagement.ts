@@ -2,8 +2,8 @@ import { createUser, handleMoveCall, updateUser, userLib, userObject } from 'uti
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getIpfsHashFromBytes32, getText, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
-import { getSuiCommunities } from './suiIndexer';
 import { getUserPermissions } from 'utils/theGraph';
+import { getAllCommunities } from 'utils/communityManagement';
 
 export const getRatingByCommunity = (
   user: { ratings: any[] },
@@ -23,7 +23,7 @@ export async function getSuiProfileInfo(address: string) {
 
   const ipfsHash = getIpfsHashFromBytes32(byteArrayToHexString(profileObject.ipfsDoc.fields.hash));
   const profile = JSON.parse(await getText(ipfsHash));
-  const communities = await getSuiCommunities();
+  const communities = await getAllCommunities();
   const followedCommunities = communities.filter((community: any) =>
     profileObject.followedCommunities.find(
       (followCommunity: any) => followCommunity === community.suiId,

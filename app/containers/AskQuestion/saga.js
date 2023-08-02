@@ -6,6 +6,7 @@ import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { getActualId } from 'utils/properties';
 
 import { postQuestion, getCreatedPostId, updateDocumentationTree } from 'utils/questionsManagement';
 
@@ -61,10 +62,10 @@ import {
 export function* postQuestionWorker({ val }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const postType = +val[FORM_TYPE];
+    const postType = val[FORM_TYPE];
     const tags =
       postType !== POST_TYPE.documentation
-        ? val[FORM_TAGS].map((tag) => Number(tag.id.split('-')[3]))
+        ? val[FORM_TAGS].map((tag) => Number(tag.id.split('-')[2]))
         : [];
     const communityId = val[FORM_COMMUNITY].id;
 
@@ -90,7 +91,7 @@ export function* postQuestionWorker({ val }) {
         postSuiQuestion,
         wallet,
         profile.id,
-        val[FORM_COMMUNITY].suiId,
+        getActualId(val[FORM_COMMUNITY].id),
         questionData,
         postType,
         tags,

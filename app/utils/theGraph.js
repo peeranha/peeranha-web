@@ -6,6 +6,7 @@ import {
   postsIdsByTagsQueryMesh,
   replyId2QueryMesh,
   commentId2QueryMesh,
+  replyQuery,
 } from './ethConstants';
 import {
   executeMeshQuery,
@@ -13,6 +14,7 @@ import {
   getUserDataFromMesh,
   renameRepliesToAnswers,
   getHistoryDataFromMesh,
+  getReplyDataFromMesh,
 } from './mesh';
 
 const client = new ApolloClient({
@@ -184,16 +186,6 @@ export const getCommunities = async () => {
   return isMeshService ? communities?.community : communities?.communities;
 };
 
-export const getAllTags = async (skip) => {
-  const result = await executeQuery({
-    query: queries.AllTags[graphService],
-    variables: {
-      skip,
-    },
-  });
-  return isMeshService ? result?.tag : result?.tags;
-};
-
 export const getCommunityById = async (id) => {
   const community = await executeQuery({
     query: queries.Community[graphService],
@@ -302,30 +294,6 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
     : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
 };
 
-export const getFaqByCommunityId = async (communityId) => {
-  const result = await executeQuery({
-    query: queries.FaqByComm[graphService],
-    variables: {
-      communityId,
-    },
-  });
-
-  return isMeshService
-    ? result?.post.map((rawPost) => renameRepliesToAnswers(getPostDataFromMesh(rawPost)))
-    : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
-};
-
-export const getCommunityDocumentation = async (id) => {
-  const result = await executeQuery({
-    query: queries.CommunityDocumentation[graphService],
-    variables: {
-      id,
-    },
-  });
-
-  return isMeshService ? getPostDataFromMesh(result?.post[0]) : result?.post;
-};
-
 export const getDocumentationMenu = async (communityId) => {
   const result = await executeQuery(
     {
@@ -339,7 +307,7 @@ export const getDocumentationMenu = async (communityId) => {
   return isMeshService ? result?.communitydocumentation[0] : result?.communityDocumentation;
 };
 
-export const getQuestionFromGraph = async (postId) => {
+export const getPost = async (postId) => {
   const result = await executeQuery(
     {
       query: queries.Post[graphService],
@@ -352,6 +320,19 @@ export const getQuestionFromGraph = async (postId) => {
   return isMeshService
     ? renameRepliesToAnswers(getPostDataFromMesh(result.post[0]))
     : renameRepliesToAnswers(result.post);
+};
+
+export const getReply = async (replyId) => {
+  const result = await executeQuery(
+    {
+      query: replyQuery,
+      variables: {
+        replyId,
+      },
+    },
+    false,
+  );
+  return getReplyDataFromMesh(result.reply[0], []);
 };
 
 export const getReplyId2 = async (postId, answerId) => {

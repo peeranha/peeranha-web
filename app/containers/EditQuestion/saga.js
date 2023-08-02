@@ -7,6 +7,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { getActualId } from 'utils/properties';
 
 import { editQuestion } from 'utils/questionsManagement';
 import { getCommunityTags, getCommunityWithTags } from 'utils/communityManagement';
@@ -17,7 +18,7 @@ import { updateQuestionList } from 'containers/ViewQuestion/saga';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 import { editSuiQuestion, moderatorEditSuiQuestion } from 'utils/sui/questionsManagement';
 import { getSuiPost, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
-import { getQuestionFromGraph } from 'utils/theGraph';
+import { getPost } from 'utils/theGraph';
 
 import {
   EDIT_QUESTION,
@@ -52,23 +53,18 @@ export function* getAskedQuestionWorker({ questionId }) {
     let question;
 
     if (!cachedQuestion) {
-      if (isSuiBlockchain) {
-        const communities = yield select(selectCommunities());
-        question = yield call(getSuiPost, questionId, communities);
-      } else {
-        question = yield call(getQuestionFromGraph, questionId);
-        const { communityId } = question;
+      question = yield call(getPost, questionId);
+      const { communityId } = question;
 
-        if (communityId) {
-          const [community] = yield call(getCommunityWithTags, communityId);
-          const tags = yield call(getCommunityTags, communityId);
-          const questionTags = tags[communityId].filter((tag) =>
-            question.tags.map((questionTag) => questionTag.id).includes(tag.id),
-          );
+      if (communityId) {
+        const [community] = yield call(getCommunityWithTags, communityId);
+        const tags = yield call(getCommunityTags, communityId);
+        const questionTags = tags[communityId].filter((tag) =>
+          question.tags.map((questionTag) => questionTag.id).includes(tag.id),
+        );
 
-          question.community = community;
-          question.tags = questionTags;
-        }
+        question.community = community;
+        question.tags = questionTags;
       }
     } else {
       question = cachedQuestion;
@@ -88,7 +84,6 @@ export function* editQuestionWorker({ question, questionId, id2, author }) {
       title: question.title,
       content: question.content,
     };
-
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
@@ -100,8 +95,8 @@ export function* editQuestionWorker({ question, questionId, id2, author }) {
           wallet,
           profile.id,
           id2,
-          questionId,
-          question.communityId,
+          getActualId(questionId),
+          getActualId(question.communityId),
           questionData,
           Number(question.postType),
           question.tags,

@@ -1,4 +1,5 @@
 // Contracts
+import { isSuiBlockchain } from 'utils/sui/sui';
 export const CONTRACT_TOKEN = ['contractToken', 'edgewareContractToken'];
 export const CONTRACT_USER = ['contractUser', 'edgewareContractUser'];
 export const CONTRACT_CONTENT = ['contractContent', 'edgewareContractContent'];
@@ -18,28 +19,28 @@ export const ContractsMapping = {
 };
 
 // Transaction names
-export const UPDATE_ACC = 'updateUser'; // done
-export const CREATE_COMMUNITY = 'createCommunity'; // done
-export const EDIT_COMMUNITY = 'updateCommunity'; // done
-export const FOLLOW_COMMUNITY = 'followCommunity'; // done
-export const UNFOLLOW_COMMUNITY = 'unfollowCommunity'; // done
-export const CREATE_TAG = 'createTag'; // done
-export const EDIT_TAG = 'updateTag'; // done not working
-export const POST_QUESTION = 'createPost'; // done
+export const UPDATE_ACC = 'updateUser';
+export const CREATE_COMMUNITY = 'createCommunity';
+export const EDIT_COMMUNITY = 'updateCommunity';
+export const FOLLOW_COMMUNITY = 'followCommunity';
+export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
+export const CREATE_TAG = 'createTag';
+export const EDIT_TAG = 'updateTag';
+export const POST_QUESTION = 'createPost';
 export const UPDATE_DOCUMENTATION_TREE = 'updateDocumentationTree';
 export const DELETE_DOCUMENTATION_POST = 'deleteDocumentationPost';
-export const POST_ANSWER = 'createReply'; // done
-export const EDIT_ANSWER = 'editReply'; // done
-export const DELETE_ANSWER = 'deleteReply'; // done
-export const EDIT_POST = 'editPost'; // done
+export const POST_ANSWER = 'createReply';
+export const EDIT_ANSWER = 'editReply';
+export const DELETE_ANSWER = 'deleteReply';
+export const EDIT_POST = 'editPost';
 export const DELETE_POST = 'deletePost';
-export const POST_COMMENT = 'createComment'; // done
-export const EDIT_COMMENT = 'editComment'; // done
-export const DELETE_COMMENT = 'deleteComment'; // done
-export const CHANGE_STATUS_BEST = 'changeStatusBestReply'; // done
-export const VOTE_ITEM = 'voteItem'; // done
-export const CLAIM_REWARD = 'claimReward'; // skip
-export const SET_STAKE = 'setStake'; // skip
+export const POST_COMMENT = 'createComment';
+export const EDIT_COMMENT = 'editComment';
+export const DELETE_COMMENT = 'deleteComment';
+export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
+export const VOTE_ITEM = 'voteItem';
+export const CLAIM_REWARD = 'claimReward';
+export const SET_STAKE = 'setStake';
 export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
 export const GIVE_COMMUNITY_MODERATOR_PERMISSION = 'giveCommunityModeratorPermission';
 export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
@@ -66,6 +67,8 @@ const editUserQuery = (query: string) =>
   query
     .replace('ratings', 'usercommunityrating')
     .replace('achievements { id }', 'userachievement { achievementId }');
+
+const getNetworkIds = () => (isSuiBlockchain ? '3' : '1, 2');
 
 const user = `
   id
@@ -228,11 +231,11 @@ const postMesh = `
       name
     }
   }
-  ipfsHash
   postType
   user {
     ${userMesh}
   }
+  networkId
   rating
   postTime
   communityId
@@ -243,9 +246,7 @@ const postMesh = `
   isDeleted
   officialReply
   bestReply
-  handle
   messengerType
-  lastMod
   history {
     id
     transactionHash
@@ -455,7 +456,7 @@ const community = `
   creationTime
   postCount
   tagsCount
-  deletedPostCount
+  networkId
   followingUsers
   replyCount
   communitytranslation {
@@ -480,7 +481,7 @@ const communitiesQuery = `
 
 const communitiesQueryMesh = `
       query {
-        community {
+        community (where: {networkId: "(${getNetworkIds()})"}) {
           ${community}
         }
       }`;
@@ -512,7 +513,7 @@ const usersPostsQueryMesh = `
           orderBy: { postTime: desc },
           limit: $offset,
           offset: $limit,
-          where: { isDeleted: "0", author: $id, postType: "<3" },
+          where: { isDeleted: "0", author: $id, postType: "<3", networkId: "(${getNetworkIds()})" },
         ) {
            ${postMesh}
         }
@@ -672,7 +673,7 @@ const postsQueryMesh = (postTypes: string) => `
       orderBy: { postTime: desc },
       limit: $first,
       offset: $skip,
-      where: {isDeleted: "0", postType: "(${postTypes})" },
+      where: {isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
     ) {
       ${postMesh}
     }
@@ -705,7 +706,7 @@ const postsByCommQueryMesh = (postTypes: string, communityIds: string) => `
       orderBy: { postTime: desc },
       limit: $limit,
       offset: $offset,
-      where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})" },
+      where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
     ) {
       ${postMesh}
     }
@@ -738,7 +739,7 @@ export const postsIdsByTagsQueryMesh = (tags: string) => `
     posttag (
       limit: $first,
       offset: $skip,
-      where: { id: "(${tags})", },
+      where: { id: "(${tags})", networkId: "(${getNetworkIds()})" },
     ) {
       postId
     }
@@ -747,7 +748,7 @@ export const postsIdsByTagsQueryMesh = (tags: string) => `
 const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
   query {
     post (
-      where: { id: "(${ids})", postType: "(${postTypes})",},
+      where: { id: "(${ids})", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
       orderBy: { postTime: desc }
     ) {
       ${postMesh}
@@ -861,7 +862,7 @@ const postsForSearchQueryMesh = (text: string) => `
   ) {
     post (
       first: $first,
-      where: { postContent: "*${text}*", isDeleted: "0"},
+      where: { postContent: "*${text}*", isDeleted: "0", networkId: "(${getNetworkIds()})"},
     ) {
         ${postForSearch}
         posttag {
@@ -897,6 +898,18 @@ const postQueryMesh = `
       where: { id: $postId, isDeleted: "0" },
     ) {
       ${postMesh}
+    }
+  }
+`;
+
+export const replyQuery = `
+  query (
+    $replyId: String,
+  ) {
+    reply (
+      where: { id: $replyId, isDeleted: "0" },
+    ) {
+      ${replyMesh}
     }
   }
 `;

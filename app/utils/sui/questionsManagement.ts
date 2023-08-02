@@ -19,7 +19,6 @@ import {
   moderatorEditPost,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
-import { DOWNVOTE_STATUS, UPVOTE_STATUS } from 'utils/ethConstants';
 
 export const suiVotingStatus = (statusHistory) => ({
   isUpVoted: statusHistory === 3,
@@ -46,7 +45,6 @@ export async function postSuiQuestion(
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
       CLOCK_OBJECT_ID,
-
       userSuiId,
       communitySuiId,
       ipfsHash,
@@ -78,8 +76,7 @@ export async function editSuiQuestion(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
-
+      process.env.ACHIEVEMENT_COLLECTION,
       userSuiId,
       postSuiId,
       postMetaData,
@@ -109,7 +106,7 @@ export async function moderatorEditSuiQuestion(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
+      process.env.ACHIEVEMENT_COLLECTION,
 
       userSuiId,
       postMetaData,
@@ -134,7 +131,7 @@ export async function deleteSuiQuestion(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
+      process.env.ACHIEVEMENT_COLLECTION,
       CLOCK_OBJECT_ID,
       userSuiId,
       postId,
@@ -184,7 +181,7 @@ export async function deleteSuiComment(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
+      process.env.ACHIEVEMENT_COLLECTION,
       userSuiId,
       postId,
       parentId,
@@ -240,7 +237,7 @@ export async function postSuiAnswer(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
+      process.env.ACHIEVEMENT_COLLECTION,
       CLOCK_OBJECT_ID,
       userSuiId,
       postId,
@@ -326,7 +323,7 @@ export async function deleteSuiAnswer(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
+      process.env.ACHIEVEMENT_COLLECTION,
       CLOCK_OBJECT_ID,
       userSuiId,
       postId,
@@ -349,7 +346,7 @@ export async function voteSuiPost(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
+      process.env.ACHIEVEMENT_COLLECTION,
       userSuiId,
       postId,
       isUpvote,
@@ -372,7 +369,7 @@ export async function voteSuiReply(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
+      process.env.ACHIEVEMENT_COLLECTION,
       userSuiId,
       postId,
       replyId,
@@ -395,7 +392,7 @@ export async function markAsAcceptedSuiReply(
     [
       process.env.USER_RATING_COLLECTION_ID,
       process.env.USER_ROLES_COLLECTION_ID,
-      process.env.PERIOD_REWARD_CONTAINER_ID,
+      process.env.ACHIEVEMENT_COLLECTION,
       userSuiId,
       postId,
       answerId,

@@ -25,10 +25,10 @@ import {
   upVote,
   votingStatus,
 } from 'utils/questionsManagement';
-import { getSuiPost, getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import { getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
+import { CHANGED_POSTS_KEY } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
 import { getUserProfileSuccess, removeUserProfile } from 'containers/DataCacheProvider/actions';
@@ -40,36 +40,49 @@ import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProv
 import { getCurrentAccountWorker, isAvailableAction } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
-import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import { isItemChanged, saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { getPost, getCommentId2 } from 'utils/theGraph';
 import {
-  CHANGE_QUESTION_TYPE_SUCCESS,
+  deleteSuiAnswer,
+  deleteSuiComment,
+  deleteSuiQuestion,
+  editSuiComment,
+  postSuiAnswer,
+  postSuiComment,
+  markAsAcceptedSuiReply,
+  voteSuiPost,
+  voteSuiReply,
+} from 'utils/sui/questionsManagement';
+import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { languagesEnum } from 'app/i18n';
+import { getSuiUserObject } from 'utils/sui/accountManagement';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
+import {
   CHECK_ADD_COMMENT_AVAILABLE,
   DELETE_ANSWER,
-  DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT,
-  DELETE_COMMENT_SUCCESS,
   DELETE_QUESTION,
-  DELETE_QUESTION_SUCCESS,
   DOWN_VOTE,
   DOWN_VOTE_SUCCESS,
   GET_QUESTION_DATA,
-  GET_QUESTION_DATA_SUCCESS,
   PAY_BOUNTY,
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_SUCCESS,
   POST_ANSWER,
   POST_ANSWER_BUTTON,
-  POST_ANSWER_SUCCESS,
   POST_COMMENT,
-  POST_COMMENT_SUCCESS,
   SAVE_COMMENT,
-  SAVE_COMMENT_SUCCESS,
   UP_VOTE,
   UP_VOTE_SUCCESS,
   GET_HISTORIES,
-  GET_HISTORIES_SUCCESS,
 } from './constants';
 
 import {
@@ -115,32 +128,8 @@ import {
 } from './validate';
 import { selectCommunities, selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getQuestionFromGraph, getCommentId2 } from 'utils/theGraph';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
-import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-import {
-  deleteSuiAnswer,
-  deleteSuiComment,
-  deleteSuiQuestion,
-  editSuiComment,
-  postSuiAnswer,
-  postSuiComment,
-  markAsAcceptedSuiReply,
-  voteSuiPost,
-  voteSuiReply,
-  suiVotingStatus,
-} from 'utils/sui/questionsManagement';
-import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
-import { languagesEnum } from 'app/i18n';
-import { getSuiUserObject } from 'utils/sui/accountManagement';
-import {
-  transactionCompleted,
-  transactionFailed,
-  transactionInitialised,
-  transactionInPending,
-} from 'containers/EthereumProvider/actions';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -166,7 +155,7 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
     ethereumService = yield select(selectEthereum);
   }
   const postedAnswerIds = yield select(selectPostedAnswerIds());
-  const question = yield call(getQuestionFromGraph, questionId);
+  const question = yield call(getPost, questionId);
 
   const isQuestionChanged = isItemChanged(CHANGED_POSTS_KEY, questionId);
   const isQuestionJustCreated = postedAnswerIds.includes(questionId);
@@ -188,7 +177,7 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
     yield all(
       question.answers.map(function* (answer) {
         answer.commentCount = answer.comments.length;
-        answer.id = Number(answer.id.split('-')[3]);
+        answer.id = Number(answer.id.split('-')[2]);
 
         answer.author = { ...answer.author, user: answer.author.id };
 
@@ -213,7 +202,6 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
       }),
     );
   }
-  console.log(question);
   question.comments = question.comments.map((comment) => ({
     ...comment,
     author: { ...comment.author, user: comment.author.id },
@@ -687,7 +675,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         postSuiComment,
         wallet,
         profileInfo.id,
-        questionId,
+        getActualId(questionId),
         answerId,
         ipfsLink,
         languagesEnum[locale],
@@ -810,7 +798,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
         postSuiAnswer,
         wallet,
         profileInfo.id,
-        questionId,
+        getActualId(questionId),
         ipfsLink,
         official,
         languagesEnum[locale],
@@ -1148,22 +1136,5 @@ export default function* () {
   yield takeEvery(
     [UP_VOTE_SUCCESS, DOWN_VOTE_SUCCESS, MARK_AS_ACCEPTED_SUCCESS],
     updateQuestionDataAfterTransactionWorker,
-  );
-  yield takeEvery(
-    [
-      GET_QUESTION_DATA_SUCCESS,
-      POST_COMMENT_SUCCESS,
-      POST_ANSWER_SUCCESS,
-      UP_VOTE_SUCCESS,
-      DOWN_VOTE_SUCCESS,
-      MARK_AS_ACCEPTED_SUCCESS,
-      DELETE_QUESTION_SUCCESS,
-      DELETE_ANSWER_SUCCESS,
-      DELETE_COMMENT_SUCCESS,
-      SAVE_COMMENT_SUCCESS,
-      CHANGE_QUESTION_TYPE_SUCCESS,
-      GET_HISTORIES_SUCCESS,
-    ],
-    updateStoredQuestionsWorker,
   );
 }

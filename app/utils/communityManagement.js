@@ -127,7 +127,7 @@ export async function editTag(user, ethereumService, tag, tagId) {
     CONTRACT_COMMUNITY[getNetwork(tagId)],
     user,
     EDIT_TAG,
-    [user, tag.communityId.split('-')[1], `${tagId.split('-')[3]}`, ipfsHash],
+    [user, tag.communityId.split('-')[1], `${tagId.split('-')[2]}`, ipfsHash],
   );
 }
 

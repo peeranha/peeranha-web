@@ -75,7 +75,6 @@ export const QuestionTitle = ({
   const { t } = useTranslation();
   const {
     tags,
-    communityId,
     bestReply: correctAnswerId,
     answers,
     questionBounty,
@@ -133,26 +132,12 @@ export const QuestionTitle = ({
           <QuestionName>{title}</QuestionName>
         </TitleContainer>
 
-        <TagList
-          className="my-2"
-          tags={tags}
-          communityId={
-            isSuiBlockchain
-              ? communities.find((community) => community.suiId === communityId).id
-              : communityId
-          }
-          communities={communities}
-          bySuiId
-        >
+        <TagList className="my-2" tags={tags} communityId communities={communities} bySuiId>
           {!isSingleCommunityWebsite() ? (
             <QuestionCommunity
               className="my-1"
               communities={communities}
-              communityId={
-                isSuiBlockchain
-                  ? communities.find((community) => community.suiId === communityId).id
-                  : communityId
-              }
+              communityId
               postType={postType}
               locale={locale}
             />

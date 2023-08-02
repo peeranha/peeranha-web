@@ -1,17 +1,12 @@
-import { isSuiBlockchain } from 'utils/sui/sui';
-
 export async function executeMeshQuery(props) {
-  const response = await fetch(
-    isSuiBlockchain ? process.env.SUI_QUERY_INDEX_URL : process.env.QUERY_INDEX_URL,
-    {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(props),
+  const response = await fetch(process.env.QUERY_INDEX_URL, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify(props),
+  });
 
   return response.json();
 }
@@ -36,11 +31,11 @@ const getCommentDataFromMesh = (item) => {
   return { ...comment, author: getUserDataFromMesh(user[0]) };
 };
 
-const getReplyDataFromMesh = (item, postComments) => {
+export const getReplyDataFromMesh = (item, postComments) => {
   const { user, ...reply } = item;
   const comments = postComments
     .filter(
-      (comment) => comment.parentReplyId === `${reply.id.split('-')[2]}-${reply.id.split('-')[3]}`,
+      (comment) => comment.parentReplyId === `${reply.id.split('-')[2]}-${reply.id.split('-')[2]}`,
     )
     .map((comment) => getCommentDataFromMesh(comment));
   return {
