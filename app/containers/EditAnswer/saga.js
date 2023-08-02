@@ -4,9 +4,9 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-import { getNetwork } from 'utils/properties';
+import { getActualId } from 'utils/properties';
 
-import { editAnswer, getAnswer } from 'utils/questionsManagement';
+import { editAnswer } from 'utils/questionsManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
@@ -62,24 +62,22 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
     const answerContent = {
       content: answer,
     };
-
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
-      const questionData = yield call(getPost, questionId);
-      const answerData = questionData.answers.reverse()[answerId - 1];
+      const answerData = yield call(getReply, answerId);
 
       let txResult;
       if (profile.id === answerData.author.id) {
-        const answerObjectId = yield call(getReplyId2, questionId, answerId);
+        const answerObjectId = yield call(getReplyId2, answerId);
         txResult = yield call(
           authorEditSuiAnswer,
           wallet,
           profile.id,
-          questionId,
+          getActualId(questionId),
           answerObjectId,
-          answerId,
+          answerId.split('-')[2],
           answerContent,
           official,
           languagesEnum[locale],

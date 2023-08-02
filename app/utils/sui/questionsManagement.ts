@@ -202,6 +202,7 @@ export async function editSuiComment(
   language: number,
 ) {
   const ipfsHash = getVector8FromIpfsHash(ipfsLink);
+
   return handleMoveCall(
     wallet,
     postLib,

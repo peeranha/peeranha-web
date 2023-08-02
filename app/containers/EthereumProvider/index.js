@@ -30,12 +30,19 @@ import {
   transactionInitialised,
   setTransactionList,
 } from './actions';
-import { EDG, MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
+import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
 const injected = injectedModule();
 const coinbase = coinbaseModule();
-const walletConnect = walletConnectModule();
+
+const wcV2InitOptions = {
+  projectId: 'Peeranha',
+  requiredChains: [1, 56],
+  dappUrl: process.env.APP_LOCATION,
+};
+
+const walletConnect = walletConnectModule(wcV2InitOptions);
 const torus = torusModule({
   showTorusButton: false,
   network: {

@@ -335,12 +335,12 @@ export const getReply = async (replyId) => {
   return getReplyDataFromMesh(result.reply[0], []);
 };
 
-export const getReplyId2 = async (postId, answerId) => {
+export const getReplyId2 = async (answerId) => {
   const result = await executeQuery(
     {
       query: replyId2QueryMesh,
       variables: {
-        replyId: `${postId}-${answerId}`,
+        replyId: answerId,
       },
     },
     false,
