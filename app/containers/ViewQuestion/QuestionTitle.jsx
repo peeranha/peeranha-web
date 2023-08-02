@@ -82,6 +82,7 @@ export const QuestionTitle = ({
     promote,
     author: questionAuthor,
     postType,
+    communityId,
   } = questionData;
 
   const isActivePromotion = useMemo(
@@ -137,7 +138,7 @@ export const QuestionTitle = ({
             <QuestionCommunity
               className="my-1"
               communities={communities}
-              communityId
+              communityId={communityId}
               postType={postType}
               locale={locale}
             />

@@ -419,9 +419,7 @@ export default memo(
                 [FORM_CONTENT]: question?.content,
                 [FORM_COMMUNITY]: isSuiBlockchain
                   ? {
-                      ...communities?.find(
-                        (community) => community.suiId === question?.community?.id,
-                      ),
+                      ...communities?.find((community) => community.id === question?.community?.id),
                     }
                   : {
                       ...question?.community,
