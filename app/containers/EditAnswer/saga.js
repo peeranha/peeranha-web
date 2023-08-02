@@ -41,25 +41,8 @@ import { editAnswerErr, editAnswerSuccess, getAnswerErr, getAnswerSuccess } from
 import { selectEthereum } from '../EthereumProvider/selectors';
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
-    let question;
-    let answer;
-    let ethereumService;
-    if (isSuiBlockchain) {
-      question = yield call(getPost, questionId);
-      answer = yield call(getReply, answerId);
-      console.log(question);
-      console.log(answer);
-    } else {
-      ethereumService = yield select(selectEthereum);
-      question = yield call(getPost, questionId);
-      answer = question.answers.find(
-        (reply) => reply.id === `${questionId}-${getNetwork(questionId) + 1}-${answerId}`,
-      );
-    }
-
-    if (!isSuiBlockchain && !answer) {
-      answer = yield call(getAnswer, ethereumService, questionId, answerId);
-    }
+    const question = yield call(getPost, questionId);
+    const answer = yield call(getReply, answerId);
     yield put(
       getAnswerSuccess({
         ...answer,
