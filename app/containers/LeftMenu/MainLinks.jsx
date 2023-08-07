@@ -163,6 +163,7 @@ const MainLinks = ({
   pinnedItemMenu,
   changeLocale,
   locale,
+  isMenuVisible,
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
@@ -324,7 +325,7 @@ const MainLinks = ({
         <div css={styles.dividerLinks} />
       </div>
 
-      <FreeTrialBanner></FreeTrialBanner>
+      <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner>
 
       <div css={styles.dividerLinks} />
 

@@ -1,18 +1,20 @@
-import { BORDER_RADIUS_L } from 'style-constants';
+import { BORDER_RADIUS_L, BG_LIGHT, BORDER_SECONDARY } from 'style-constants';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const styles = {
   container: {
-    width: '260px',
-    height: '272px',
+    maxWidth: '260px',
     background: 'rgba(255, 255, 255, 1)',
-    margin: '0px 0px 0px 16px',
+    margin: '16px 0px 0px 0px',
     padding: '20px',
     overflow: 'hidden',
     borderRadius: BORDER_RADIUS_L,
     textAlign: 'center',
-    '@media (min-width: 992px)': {
-      margin: '16px 0px 0px 0px',
-    },
+  },
+  visibleMenu: {
+    margin: '0px 0px 0px 16px',
   },
   h3: {
     maxWidth: '160px',
@@ -31,15 +33,20 @@ export const styles = {
     fontStyle: 'normal',
     fontWeight: 400,
     lineHeight: '18px',
-    background: 'rgba(252, 102, 85, 1)',
+    backgroundColor: isSingleCommunityWebsite()
+      ? colors.btnHeaderColor
+      : 'var(--color-button-secondary)',
     borderRadius: '2px',
-    color: 'rgb(255, 255, 255)',
+    color: colors.newPostButtonText || BG_LIGHT,
     transition: '0.4s',
     zIndex: 10,
 
     ':hover': {
-      background: 'rgba(247, 111, 96, 0.8)',
-      color: 'rgb(255, 255, 255)',
+      backgroundColor: isSingleCommunityWebsite()
+        ? colors.btnHeaderHoverColor
+        : 'var(--color-button-secondary)',
+      color: colors.newPostButtonText || BG_LIGHT,
+      opacity: colors.btnHeaderHoverOpacity || 0.8,
     },
   },
   img: {
