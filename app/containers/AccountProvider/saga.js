@@ -105,7 +105,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
     const currentPeriod = yield call(getCurrentPeriod);
 
     const [profileInfo, balance, availableBalance, userCurrentBoost] = yield all([
-      call(getProfileInfo, account, ethereumService, true, true),
+      call(getProfileInfo, account),
       call(getBalance, ethereumService, account),
       call(getAvailableBalance, ethereumService, account),
       call(getUserBoost, ethereumService, account, currentPeriod?.id || 0),
@@ -209,9 +209,9 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
         yield put(getCurrentAccountSuccess(wallet.address, 0));
         return;
       }
-      const communities = yield select(selectCommunities());
+
       const userFromContract = yield call(getSuiProfileInfo, wallet.address);
-      const profileInfo = yield call(getSuiUserById, userFromContract.id, communities);
+      const profileInfo = yield call(getProfileInfo, userFromContract.id);
 
       setCookie({
         name: PROFILE_INFO_LS,

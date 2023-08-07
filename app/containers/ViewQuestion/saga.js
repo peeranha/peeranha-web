@@ -830,14 +830,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       );
 
       questionData.replyCount += 1;
-      updatedProfileInfo = yield call(
-        getProfileInfo,
-        profileInfo.user,
-        ethereumService,
-        true,
-        true,
-        questionData.communityId,
-      );
+      updatedProfileInfo = yield call(getProfileInfo, profileInfo.user);
 
       txHash = transaction.transactionHash;
     }
@@ -916,10 +909,17 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
         const wallet = yield select(selectSuiWallet());
         const profile = yield select(makeSelectProfileInfo());
         let txResult;
-        if (!answerId) {
+        if (!answerId || answerId === '0') {
           txResult = yield call(voteSuiPost, wallet, profile.id, questionId, false);
         } else {
-          txResult = yield call(voteSuiReply, wallet, profile.id, questionId, answerId, false);
+          txResult = yield call(
+            voteSuiReply,
+            wallet,
+            profile.id,
+            getActualId(questionId),
+            getActualId(answerId),
+            false,
+          );
         }
         yield put(transactionInPending(txResult.digest));
         yield call(waitForTransactionConfirmation, txResult.digest);
@@ -932,8 +932,7 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
     }
 
     const item =
-      answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);
-
+      answerId === '0' ? questionData : questionData.answers.find((x) => x.id === answerId);
     if (item.votingStatus.isDownVoted) {
       item.rating += 1;
       item.votingStatus.isDownVoted = false;
@@ -976,10 +975,17 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
         const wallet = yield select(selectSuiWallet());
         const profile = yield select(makeSelectProfileInfo());
         let txResult;
-        if (!answerId) {
-          txResult = yield call(voteSuiPost, wallet, profile.id, questionId, true);
+        if (!answerId || answerId === '0') {
+          txResult = yield call(voteSuiPost, wallet, profile.id, getActualId(questionId), true);
         } else {
-          txResult = yield call(voteSuiReply, wallet, profile.id, questionId, answerId, true);
+          txResult = yield call(
+            voteSuiReply,
+            wallet,
+            profile.id,
+            getActualId(questionId),
+            getActualId(answerId),
+            true,
+          );
         }
         yield put(transactionInPending(txResult.digest));
         yield call(waitForTransactionConfirmation, txResult.digest);
@@ -992,8 +998,7 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
     }
 
     const item =
-      answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);
-
+      answerId === '0' ? questionData : questionData.answers.find((x) => x.id === answerId);
     if (item.votingStatus.isUpVoted) {
       item.rating -= 1;
       item.votingStatus.isUpVoted = false;

@@ -190,12 +190,12 @@ export const upVoteValidator = (profileInfo, questionData, postButtonId, answerI
   let message;
 
   if (
-    (answerId === 0 && questionData.votingStatus?.isVotedToDelete) ||
+    (answerId === '0' && questionData.votingStatus?.isVotedToDelete) ||
     (isOwnItem[0] && isOwnItem[0].votingStatus?.isVotedToDelete)
   ) {
     message = t('post.cannotCompleteBecauseBlocked');
   } else if (
-    (questionData.author.user === profileInfo.user && answerId === 0) ||
+    (questionData.author.user === profileInfo.user && answerId === '0') ||
     (isOwnItem[0] && isOwnItem[0].author.user === profileInfo.user)
   ) {
     message = t('post.noRootsToVote');
@@ -224,11 +224,12 @@ export const downVoteValidator = (profileInfo, questionData, postButtonId, answe
   const communityId = questionData.communityId;
 
   const minEnergy =
-    answerId === 0 ? MIN_ENERGY_TO_DOWNVOTE_QUESTION : MIN_ENERGY_TO_DOWNVOTE_ANSWER;
+    answerId === '0' ? MIN_ENERGY_TO_DOWNVOTE_QUESTION : MIN_ENERGY_TO_DOWNVOTE_ANSWER;
 
   let message;
 
-  const item = answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);
+  const item =
+    answerId === '0' ? questionData : questionData.answers.find((x) => x.id === answerId);
 
   if (item.votingStatus?.isVotedToDelete) {
     message = t('post.cannotCompleteBecauseBlocked');

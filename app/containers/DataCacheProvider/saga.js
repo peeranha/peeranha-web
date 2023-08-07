@@ -91,7 +91,7 @@ export function* getTutorialWorker() {
 }
 
 /* eslint consistent-return: 0 */
-export function* getUserProfileWorker({ user, getFullProfile, communityIdForRating }) {
+export function* getUserProfileWorker({ user, getFullProfile }) {
   try {
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
@@ -134,14 +134,7 @@ export function* getUserProfileWorker({ user, getFullProfile, communityIdForRati
     }
 
     // get userProfile and put to STORE
-    const updatedUserInfo = yield call(
-      getProfileInfo,
-      user,
-      ethereumService,
-      getFullProfile,
-      isLogin,
-      communityIdForRating,
-    );
+    const updatedUserInfo = yield call(getProfileInfo, user);
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||

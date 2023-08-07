@@ -43,36 +43,10 @@ export async function uploadImg(img) {
 }
 
 /* eslint camelcase: 0 */
-export async function getProfileInfo(
-  user,
-  ethereumService,
-  getExtendedProfile,
-  isLogin,
-  communityIdForRating,
-) {
+export async function getProfileInfo(user) {
   if (!user) return null;
   const profileInfo = await getUser(user);
   let userStats;
-  if (communityIdForRating) {
-    const newRating = 10;
-
-    const foundRating = profileInfo.ratings.find(
-      (ratingData) => ratingData.communityId === communityIdForRating,
-    );
-    if (!foundRating) {
-      // avoiding "Cannot assign to read only property" error
-      profileInfo.ratings = profileInfo.ratings.concat({
-        communityId: communityIdForRating,
-        rating: newRating,
-      });
-    } else {
-      // avoiding "Cannot assign to read only property" error
-      profileInfo.ratings = profileInfo.ratings.map((ratingData) => ({
-        communityId: ratingData.communityId,
-        rating: ratingData.communityId === communityIdForRating ? ratingData.rating : newRating,
-      }));
-    }
-  }
 
   profileInfo.highestRating = profileInfo.ratings?.length
     ? profileInfo.ratings?.reduce((max, current) => (max.rating > current.rating ? max : current))
