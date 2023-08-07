@@ -3,12 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { styles } from './FreeTrialBanner.styled';
 
 import ideaBox from 'images/ideaBox.svg?inline';
+type Props = {
+  isMenuVisible: boolean;
+};
 
-const FreeTrialBanner = (): JSX.Element => {
+const FreeTrialBanner = ({ isMenuVisible }: Props): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <div css={styles.container}>
+    <div css={{ ...styles.container, ...(isMenuVisible && styles.visibleMenu) }}>
       <h3 css={styles.h3}>{t('common.bannerText')}</h3>
       <img css={styles.img} src={ideaBox} />
       <a
