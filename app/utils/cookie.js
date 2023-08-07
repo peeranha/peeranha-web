@@ -74,7 +74,7 @@ export const deleteCookie = (name) =>
 export const formPermissionsCookie = (permissions) => {
   const basePermissions = permissions.filter((permission) =>
     isSuiBlockchain
-      ? permission === PROTOCOL_ADMIN_ROLE
+      ? permission.split('-')[1] === PROTOCOL_ADMIN_ROLE
       : BigNumber.from(permission.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE) ||
         BigNumber.from(permission.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
   );

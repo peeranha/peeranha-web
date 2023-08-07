@@ -7,6 +7,7 @@ import {
   replyId2QueryMesh,
   commentId2QueryMesh,
   replyQuery,
+  voteHistory,
 } from './ethConstants';
 import {
   executeMeshQuery,
@@ -320,6 +321,20 @@ export const getPost = async (postId) => {
   return isMeshService
     ? renameRepliesToAnswers(getPostDataFromMesh(result.post[0]))
     : renameRepliesToAnswers(result.post);
+};
+
+export const getVoteHistory = async (postId, userId) => {
+  const result = await executeQuery(
+    {
+      query: voteHistory,
+      variables: {
+        postId,
+        userId,
+      },
+    },
+    false,
+  );
+  return result.postvotehistory[0]?.direction;
 };
 
 export const getReply = async (replyId) => {

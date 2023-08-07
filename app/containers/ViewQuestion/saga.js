@@ -7,7 +7,7 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { getBytes32FromIpfsHash, getText, saveText } from 'utils/ipfs';
-import { getActualId, getNetwork } from 'utils/properties';
+import { getActualId } from 'utils/properties';
 
 import {
   deleteAnswer,
@@ -18,7 +18,6 @@ import {
   editComment,
   getHistoriesForPost,
   getQuestionById,
-  getStatusHistory,
   markAsAccepted,
   postAnswer,
   postComment,
@@ -44,7 +43,7 @@ import { getUniqQuestions } from 'containers/Questions/actions';
 import { isItemChanged, saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-import { getPost, getCommentId2 } from 'utils/theGraph';
+import { getPost, getCommentId2, getVoteHistory } from 'utils/theGraph';
 import {
   deleteSuiAnswer,
   deleteSuiComment,
@@ -150,10 +149,6 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.answers.find((x) => x.id === answerId)?.user === profileInfo.user;
 
 export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
-  let ethereumService;
-  if (!isSuiBlockchain) {
-    ethereumService = yield select(selectEthereum);
-  }
   const postedAnswerIds = yield select(selectPostedAnswerIds());
   const question = yield call(getPost, questionId);
 
@@ -163,43 +158,9 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
 
   question.author = { ...question.author, user: question.author.id };
 
-  if (!isSuiBlockchain && user) {
-    const statusHistory = yield getStatusHistory(
-      getNetwork(questionId),
-      user,
-      getActualId(questionId),
-      0,
-      0,
-      ethereumService,
-    );
+  if (user) {
+    const statusHistory = yield call(getVoteHistory, questionId, user);
     question.votingStatus = votingStatus(Number(statusHistory));
-
-    yield all(
-      question.answers.map(function* (answer) {
-        answer.commentCount = answer.comments.length;
-        answer.id = Number(answer.id.split('-')[2]);
-
-        answer.author = { ...answer.author, user: answer.author.id };
-
-        answer.comments = answer.comments.map((comment) => ({
-          ...comment,
-          author: { ...comment.author, user: comment.author.id },
-        }));
-        if (!isSuiBlockchain && user) {
-          const answerStatusHistory = yield call(
-            getStatusHistory,
-            getNetwork(questionId),
-            user,
-            getActualId(questionId),
-            answer.id,
-            0,
-            ethereumService,
-          );
-
-          answer.votingStatus = votingStatus(Number(answerStatusHistory));
-        }
-      }),
-    );
   }
   question.comments = question.comments.map((comment) => ({
     ...comment,
@@ -910,7 +871,7 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
         const profile = yield select(makeSelectProfileInfo());
         let txResult;
         if (!answerId || answerId === '0') {
-          txResult = yield call(voteSuiPost, wallet, profile.id, questionId, false);
+          txResult = yield call(voteSuiPost, wallet, profile.id, getActualId(questionId), false);
         } else {
           txResult = yield call(
             voteSuiReply,

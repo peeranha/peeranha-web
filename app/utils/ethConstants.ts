@@ -60,8 +60,8 @@ export const GET_STAKE = 'getStake';
 export const GET_USER_STAKE = 'getUserStake';
 export const GET_USER_RATING = 'getUserRating';
 
-export const UPVOTE_STATUS = 1;
-export const DOWNVOTE_STATUS = -1;
+export const UPVOTE_STATUS = 3;
+export const DOWNVOTE_STATUS = 1;
 
 const editUserQuery = (query: string) =>
   query
@@ -258,10 +258,6 @@ const postMesh = `
     actionUser
     timeStamp
   }
-  postvotehistory {
-    userId
-    direction
-  }
   reply (
     orderBy: { postTime: desc },
     where: { isDeleted: "0" },
@@ -280,6 +276,21 @@ const postMesh = `
      content
   }
   `;
+
+export const voteHistory = `
+      query(
+        $postId: String,
+        $userId: String,
+      ) {
+        postvotehistory(
+          where: {
+            postId: $postId,
+            userId: $userId,
+          }
+        ) {
+          direction
+        }
+      }`;
 
 const usersQuery = `
       query(
