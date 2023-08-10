@@ -16,6 +16,7 @@ import {
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 import { uploadImg } from 'utils/profileManagement';
+import { getActualId } from 'utils/properties';
 import { delay } from 'utils/reduxUtils';
 import { getCommunityById } from 'utils/theGraph';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
@@ -74,7 +75,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
         const txResult = yield call(
           updateSuiCommunity,
           wallet,
-          communityDataCurrent.suiId,
+          getActualId(communityId),
           communityData,
         );
         yield put(transactionInPending(txResult.digest));

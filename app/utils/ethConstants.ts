@@ -225,6 +225,7 @@ const post = `
 const postMesh = `
   id
   id2
+  ipfsHash
   posttag {
     tag {
       id

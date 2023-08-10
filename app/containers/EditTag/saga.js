@@ -7,6 +7,7 @@ import { selectExistingTags } from 'containers/Tags/selectors';
 
 import { getTagsSuccess, updateTagOfCommunity } from 'containers/DataCacheProvider/actions';
 import { editTag } from 'utils/communityManagement';
+import { getActualId } from 'utils/properties';
 import { getEditTagFormSuccess, getEditTagFormErr, editTagSuccess, editTagErr } from './actions';
 import { EDIT_TAG, GET_EDIT_TAG_FORM } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
@@ -15,7 +16,6 @@ import { getExistingTagsWorker } from '../Tags/saga';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { updateSuiTag } from 'utils/sui/communityManagement';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { getSuiCommunityTags } from 'utils/sui/suiIndexer';
 import {
   transactionCompleted,
@@ -34,22 +34,21 @@ export function* getEditTagFormWorker() {
 
 export function* editTagWorker({ tag, reset }) {
   try {
+    const { communityId } = yield select(selectEditTagData());
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
-      const communities = yield select(selectCommunities());
-      const suiCommunityId = communities.find((community) => community.id == tag.communityId).suiId;
       const txResult = yield call(
         updateSuiTag,
         wallet,
-        suiCommunityId,
+        getActualId(communityId),
         tag.tagId.split('-')[1],
         tag,
       );
       yield put(transactionInPending(txResult.digest));
       yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
-      const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
+      const tags = (yield call(getSuiCommunityTags, communityId)).map((tag) => ({
         ...tag,
         label: tag.name,
       }));
@@ -58,7 +57,7 @@ export function* editTagWorker({ tag, reset }) {
     } else {
       const ethereumService = yield select(selectEthereum);
       const selectedAccount = yield call(ethereumService.getSelectedAccount);
-      const { communityId, tagId } = yield select(selectEditTagData());
+      const { tagId } = yield select(selectEditTagData());
       const tags = yield select(selectExistingTags());
       const editingTag = tags[communityId]?.find((tg) => tg.id === tagId);
 

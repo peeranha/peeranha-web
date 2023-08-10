@@ -7,7 +7,7 @@ import {
   ContractsMapping,
 } from 'utils/ethConstants';
 
-import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
+import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 import {
   BLOCKCHAIN_SEND_META_TRANSACTION,
   callService,

@@ -12,7 +12,7 @@ import {
 } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
-import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
+import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 
 export async function sendTransactionMethod(
   network,

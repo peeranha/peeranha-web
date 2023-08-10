@@ -7,7 +7,6 @@ import { createTag } from 'utils/communityManagement';
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { getSuiCommunityTags } from 'utils/sui/suiIndexer';
 import { getTagsSuccess } from 'containers/DataCacheProvider/actions';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
@@ -30,20 +29,18 @@ import {
 
 import { SUGGEST_TAG, TAGFORM_SUBMIT_BUTTON, GET_FORM } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getPermissions } from 'utils/properties';
+import { getActualId, getPermissions } from 'utils/properties';
 
 export function* suggestTagWorker({ communityId, tag, reset }) {
   try {
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
-      const communities = yield select(selectCommunities());
-      const suiCommunityId = communities.find((community) => community.id == communityId).suiId;
-      const txResult = yield call(createSuiTag, wallet, suiCommunityId, tag);
+      const txResult = yield call(createSuiTag, wallet, getActualId(communityId), tag);
       yield put(transactionInPending(txResult.digest));
       yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
-      const tags = (yield call(getSuiCommunityTags, suiCommunityId)).map((tag) => ({
+      const tags = (yield call(getSuiCommunityTags, communityId)).map((tag) => ({
         ...tag,
         label: tag.name,
       }));

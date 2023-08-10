@@ -5,13 +5,7 @@ import {
   DEFAULT_ADMIN_ROLE,
   PROTOCOL_ADMIN_ROLE,
 } from 'utils/constants';
-import {
-  getActualId,
-  getCommunityIdFromPermission,
-  getCommunityRole,
-  getNetwork,
-  isMatchingBasePermission,
-} from 'utils/properties';
+import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
 import { isSuiBlockchain } from './sui/sui';
 
 export const NEVER_EXPIRES = 'Tue, 19 Jan 2038 01:14:07 GMT';
@@ -85,8 +79,12 @@ export const formPermissionsCookie = (permissions) => {
   const communitiesWhereAdmin = permissions.reduce((ids, permission) => {
     const chainId = permission.split('-')[0];
     const actualPermission = permission.split('-')[1];
-
-    if (permission.includes(COMMUNITY_ADMIN_ROLE.slice(0, 63))) {
+    if (isSuiBlockchain) {
+      if (actualPermission.substring(0, 2) === COMMUNITY_ADMIN_ROLE) {
+        const communityId = actualPermission.substring(2);
+        return [...ids, `${chainId}-${communityId}`];
+      }
+    } else if (permission.includes(COMMUNITY_ADMIN_ROLE.slice(0, 63))) {
       const communityId = BigNumber.from(actualPermission)
         .sub(BigNumber.from(COMMUNITY_ADMIN_ROLE))
         .toNumber();
@@ -98,13 +96,18 @@ export const formPermissionsCookie = (permissions) => {
   const communitiesWhereModerator = permissions.reduce((ids, permission) => {
     const chainId = permission.split('-')[0];
     const actualPermission = permission.split('-')[1];
-
-    if (actualPermission.includes(COMMUNITY_MODERATOR_ROLE.slice(0, 63))) {
+    if (isSuiBlockchain) {
+      if (actualPermission.substring(0, 2) === COMMUNITY_MODERATOR_ROLE) {
+        const communityId = permission.substring(2);
+        return [...ids, `${chainId}-${communityId}`];
+      }
+    } else if (actualPermission.includes(COMMUNITY_MODERATOR_ROLE.slice(0, 63))) {
       const communityId = BigNumber.from(actualPermission)
         .sub(BigNumber.from(COMMUNITY_MODERATOR_ROLE))
         .toNumber();
       return [...ids, `${chainId}-${communityId}`];
     }
+
     return ids;
   }, []);
 
@@ -116,6 +119,7 @@ export const formPermissionsCookie = (permissions) => {
     permissionsObject.ca6 = communitiesWhereModerator;
   }
 
+  console.log(permissionsObject);
   return permissionsObject;
 };
 

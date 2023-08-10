@@ -3,12 +3,12 @@ import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
+import { getActualId } from 'utils/properties';
 import { followSuiCommunity } from 'utils/sui/communityManagement';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 
@@ -29,11 +29,7 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
   try {
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
-      const communities = yield select(selectCommunities());
       const profile = yield select(makeSelectProfileInfo());
-      const suiCommunityId = communities.find(
-        (community) => community.id === communityIdFilter,
-      ).suiId;
 
       const suiUserObject = yield call(getSuiUserObject, wallet.address);
       if (!suiUserObject) {
@@ -50,7 +46,7 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
         followSuiCommunity,
         wallet,
         profile.id,
-        suiCommunityId,
+        getActualId(communityIdFilter),
         isFollowed,
       );
       yield put(transactionInPending(txResult.digest));

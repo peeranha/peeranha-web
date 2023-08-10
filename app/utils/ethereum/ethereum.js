@@ -3,7 +3,7 @@ import { deleteCookie, getCookie, setCookie } from 'app/utils/cookie';
 
 import { sendDispatcherTransactionMethod } from 'utils/ethereum/dispatcher';
 import { sendMetaTransactionMethod } from 'utils/ethereum/metaTransactions';
-import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
+import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 import { sendTransactionMethod } from 'utils/ethereum/transactions';
 
 import PeeranhaCommunity from '../../../../peeranha-subgraph/abis/PeeranhaCommunity.json';

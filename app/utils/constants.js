@@ -14,13 +14,8 @@ export const HUBSPOT_SEND_MESSAGE_FORM_ID = 'eb947c08-4d59-4fb5-87b7-3732e487dbd
 
 export const ENDPOINTS_LIST = 'best_nodes_list';
 
-// question/answers properties
-export const OFFICIAL_ANSWER_KEYS = [1, 3];
-
 // permissions
 export const MODERATOR_KEY = 48;
-export const MODERATOR_CREATE_COMMUNITY = 3;
-
 export const DEFAULT_ADMIN_ROLE = 0x00;
 export const PROTOCOL_ADMIN_ROLE = isSuiBlockchain
   ? '02'
@@ -32,17 +27,11 @@ export const COMMUNITY_MODERATOR_ROLE = isSuiBlockchain
   ? '04'
   : keccak256(toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'));
 
-export const COMMUNITY_ADMIN_VALUE = 255;
 export const COMMUNITY_ADMIN_INFINITE_IMPACT = 1;
 export const COMMUNITY_ADMIN_CREATE_TAG = 4;
-export const COMMUNITY_ADMIN_QUESTION_TYPE = 5;
 export const COMMUNITY_ADMIN_TOP_QUESTIONS = 6;
 export const COMMUNITY_ADMIN_OFFICIAL_ANSWER = 7;
 export const SECTION_ID = 'section_id';
-export const PERMISSION_GRANTED = '1';
-
-export const PROPERTY_ANSWER_15_MINUTES = 12;
-export const PROPERTY_FIRST_ANSWER = 13;
 
 export const REWARD_CLAIMING_ENABLED = process.env.REWARD_CLAIMING_ENABLED === 'true';
 
@@ -162,106 +151,9 @@ export const communityModeratorPermissions = {
     title: 'permissionCommunityModerator_6',
   },
 };
-
-export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
-export const GET_QUESTIONS_KEY_TYPE = 'i64';
-
-export const GOOGLE_SEARCH_FORM_PATH = (key, cx) =>
-  `https://www.googleapis.com/customsearch/v1?key=${key}&cx=${cx}`;
-
-// Tables
-
-export const ACCOUNT_TABLE = 'account';
-export const ACCOUNTS_TABLE = 'accounts';
-export const QUESTION_TABLE = 'question';
-export const BOUNTY_TABLE = 'bounty';
-export const USER_QUESTIONS_TABLE = 'usrquestions';
-export const USER_ANSWERS_TABLE = 'usranswers';
-export const TAGS_TABLE = 'tags';
-export const COMMUNITIES_TABLE = 'communities';
-export const CREATED_TAGS_TABLE = 'crtagtb';
-export const CREATED_COMMUNITIES_TABLE = 'crcommtb';
-export const GLOBAL_STAT_TABLE = 'globalstat';
-export const PERIOD_REWARD_TABLE = 'periodreward';
-export const PERIOD_RATING_TABLE = 'periodrating';
-export const TOTAL_REWARD_TABLE = 'totalreward';
-export const TOTAL_RATING_TABLE = 'totalrating';
-export const USER_SUPPLY_TABLE = 'stat';
-export const ALL_TOP_QUESTIONS_TABLE = 'topquestion';
-export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
 export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
 export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
-export const BOOST_STATISTICS_TABLE = 'statboost';
-export const USER_BOOST_TABLE = 'boost';
-export const PROMOTED_QUESTIONS_TABLES = 'promquestion';
-export const TOKEN_AWARDS_TABLE = 'tokenawards';
-
-// Scopes
-
-export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
-export const ALL_QUESTIONS_SCOPE = 'allquestions';
-export const ALL_BOUNTIES_SCOPE = 'allbounties';
-export const ALL_COMMUNITIES_SCOPE = 'allcomm';
-export const ALL_STAT_SCOPE = 'allstat';
-export const ALL_PERIODS_SCOPE = 'allperiods';
-export const USER_SUPPLY_SCOPE = 'PEER';
-export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
-export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
-export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
 export const ALL_ACHIEVEMENTS_SCOPE = 'allachieve';
-export const BOOST_STATISTICS_SCOPE = 'allboost';
-export const TOKEN_AWARDS_SCOPE = 'allawards';
-
-// Inf. limit
-export const INF_LIMIT = -1;
-
-// Methods
-
-export const SAVE_PROFILE_METHOD = 'setaccprof';
-
-export const CHANGE_QUESTION_TYPE_METHOD = 'chgqsttype';
-
-export const POST_QUESTION_METHOD = 'postquestion';
-export const SET_BOUNTY_METHOD = 'setbounty';
-export const EDIT_BOUNTY_METHOD = 'editbounty';
-export const PAY_BOUNTY_METHOD = 'paybounty';
-export const EDIT_QUESTION_METHOD = 'modquestion';
-export const DEL_QUESTION_METHOD = 'delquestion';
-
-export const POST_ANSWER_METHOD = 'postanswer';
-export const EDIT_ANSWER_METHOD = 'modanswer';
-export const DEL_ANSWER_METHOD = 'delanswer';
-
-export const EDIT_COMMENT_METHOD = 'modcomment';
-export const DEL_COMMENT_METHOD = 'delcomment';
-
-export const UP_VOTE_METHOD = 'upvote';
-export const DOWN_VOTE_METHOD = 'downvote';
-export const MARK_AS_CORRECT_METHOD = 'mrkascorrect';
-
-export const UNFOLLOW_COMM = 'unfollowcomm';
-export const FOLLOW_COMM = 'followcomm';
-export const CREATE_COMMUNITY = 'crcommunity';
-export const EDIT_COMMUNITY = 'editcomm';
-export const VOTE_TO_CREATE_COMMUNITY = 'vtcrcomm';
-export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';
-export const CREATE_TAG = 'crtag';
-export const EDIT_TAG_ACTION = 'edittag';
-export const VOTE_TO_CREATE_TAG = 'vtcrtag';
-export const VOTE_TO_DELETE_TAG = 'vtdeltag';
-
-export const PICKUP_REWARD_METHOD = 'pickupreward';
-export const ADD_BOOST_METHOD = 'addboost';
-
-export const PROMOTE_QUESTION_METHOD = 'addhotquestn';
-export const CHANGE_PROMO_QUEST_COMM = 'chngpromcomm';
-
-// Top community questions methods
-export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';
-export const REMOVE_FROM_TOP_COMMUNITY_METHOD = 'remfrmtopcom';
-export const UP_QUESTION_METHOD = 'upquestion';
-export const DOWN_QUESTION_METHOD = 'downquestion';
-export const MOVE_QUESTION_METHOD = 'movequestion';
 
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
@@ -272,10 +164,6 @@ export const DD_MM_YY = 'datetime/DD_MM_YY';
 export const FULL_MONTH_NAME_DAY_YEAR = 'datetime/FULL_MONTH_NAME_DAY_YEAR';
 
 export const NO_AVATAR = 'QmUyiWb3p3W16pAGJudZsZuQ59eiW4RtHwCjDCRNqqMwPE';
-export const NO_AVATAR_EDIT = 'QmVu3aRQU2fYJ12W632f1ST2LhBdH3FDYpWeKeiLsTVt9E';
-
-// Currency
-export const APP_CURRENCY = 'PEER';
 
 // Social Media Data
 export const APP_TWITTER_NICKNAME = 'peeranhaio';
@@ -302,7 +190,6 @@ export const BOUNTY_STATUS_PENDING = 3;
 // Cookies constants
 export const SINGLE_COMMUNITY_DETAILS = 'singleCommunityDetails';
 
-export const KEY_LAST_RATING_UPDATE_TIME = 18;
 export const ONE_MONTH = 2592000;
 export const TYPE_OF_TRANSACTIONS = 'transactionType';
 export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
@@ -318,14 +205,9 @@ export const WEB3_TOKEN_USER_ADDRESS = 'web3Token_userAddress';
 
 export const METAMASK_ERROR_CODE = 1000001;
 export const USER_MIN_RATING_ERROR_CODE = 1000005;
-export const ETHEREUM_USER_ERROR_CODE = 1000002;
-export const USER_NOT_SELECTED_ERROR_CODE = 1000003;
-export const CHAIN_ID_ERROR_CODE = 1000004;
 export const INVALID_ETHEREUM_PARAMETERS_ERROR_CODE = -32602;
 export const INVALID_MIN_RATING_ERROR_CODE = -32603;
 export const REJECTED_SIGNATURE_REQUEST = 4001;
-export const RECAPTCHA_VERIFY_FAILED_CODE = 600613;
-
 // session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';
 

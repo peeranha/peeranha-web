@@ -1,8 +1,8 @@
 import {
-  TransactionBlock,
-  JsonRpcProvider,
   Connection,
+  JsonRpcProvider,
   PaginatedObjectsResponse,
+  TransactionBlock,
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { ApplicationError } from 'utils/errors';
@@ -50,6 +50,13 @@ export const CLOCK_OBJECT_ID = '0x6';
 
 export const TX_WAIT_DELAY_MS = 1000;
 
+let setTransactionList = null;
+const transactionList = [];
+
+export const initSetter = (setter: any) => {
+  setTransactionList = setter;
+};
+
 export function createSuiProvider() {
   if (!process.env.SUI_RPC_ENDPOINT) {
     throw new ApplicationError('SUI_RPC_ENDPOINT is not configured');
@@ -78,6 +85,7 @@ export const waitForTransactionConfirmation = async (transactionDigest: string):
           showBalanceChanges: false,
         },
       });
+      console.log(confirmedTx);
       if (!confirmedTx.errors) {
         return confirmedTx;
       }
@@ -95,7 +103,6 @@ export const handleMoveCall = async (
   data: unknown[],
   waitForConfirmaiton = true,
 ): Promise<object> => {
-  console.log([wallet, libName, action, data]);
   if (!process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT) {
     throw new ApplicationError('SUI_SPONSORED_TRANSACTIONS_ENDPOINT is not configured');
   }
@@ -113,15 +120,17 @@ export const handleMoveCall = async (
       arguments: data,
     }),
   });
+  console.log(response);
 
   const sponsorSignedTransaction = await response.json();
 
   const transactionBlock = TransactionBlock.from(sponsorSignedTransaction?.transactionBlockBytes);
+  console.log(transactionBlock);
 
   const senderSignedTransaction = await wallet.signTransactionBlock({
     transactionBlock,
   });
-
+  console.log(senderSignedTransaction);
   const provider = createSuiProvider();
 
   const executeResponse = await provider.executeTransactionBlock({
@@ -130,13 +139,17 @@ export const handleMoveCall = async (
     options: { showEffects: true },
     requestType: 'WaitForLocalExecution',
   });
+  console.log(executeResponse);
+  // transactionList.push({
+  //   action,
+  //   transactionHash: transaction.hash,
+  // });
 
   if (!waitForConfirmaiton) {
     return executeResponse;
   }
 
-  const confirmedTx = await waitForTransactionConfirmation(executeResponse.digest);
-  return confirmedTx;
+  return await waitForTransactionConfirmation(executeResponse.digest);
 };
 
 export const getOwnedObject = async (
@@ -158,61 +171,4 @@ export const getOwnedObject = async (
       showContent: true,
     },
   });
-};
-
-// getObjectById(userObjects.data[0].data.objectId)
-export const getObjectById = async (objectId: string): Promise<object> => {
-  const rpc = createSuiProvider();
-  return rpc.getObject({
-    id: objectId,
-    options: {
-      showType: true,
-      showContent: true,
-    },
-  });
-};
-
-export const getTransactionEventByName = async (
-  transacion: string,
-  eventName: string,
-): Promise<
-  | {
-      id: {
-        txDigest: string;
-        eventSeq: string;
-      };
-      packageId: string;
-      transactionModule: string;
-      sender: string;
-      type: string;
-      parsedJson?: Record<string, any> | undefined;
-      bcs?: string | undefined;
-      timestampMs?: string | undefined;
-    }
-  | undefined
-> => {
-  const rpc = createSuiProvider();
-  const result = await rpc.getTransactionBlock({
-    digest: transacion,
-    options: {
-      showInput: false,
-      showEffects: false,
-      showEvents: true,
-      showObjectChanges: false,
-      showBalanceChanges: false,
-    },
-  });
-  const { events } = result;
-
-  if (!events) {
-    return undefined;
-  }
-
-  const resultEvent = events.filter((event) => event.type.includes(eventName));
-
-  if (!resultEvent) {
-    return undefined;
-  }
-
-  return resultEvent[0];
 };

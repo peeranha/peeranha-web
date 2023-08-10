@@ -86,7 +86,6 @@ export function* getQuestionsWorker({
         tags,
       );
     }
-    console.log(questionsList);
     questionsList.forEach((question) => {
       question.isGeneral = isGeneralQuestion(question);
     });

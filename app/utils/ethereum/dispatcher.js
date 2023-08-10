@@ -1,7 +1,7 @@
 import { ONE_MONTH, WEB3_TOKEN, WEB3_TOKEN_USER_ADDRESS } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
 import { ContractsMapping } from 'utils/ethConstants';
-import { setTransactionResult, TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
+import { setTransactionResult, TRANSACTION_LIST } from 'utils/transactionsListManagement';
 import Web3Token from 'web3-token';
 import {
   BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,

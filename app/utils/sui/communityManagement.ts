@@ -89,6 +89,6 @@ export const followSuiCommunity = async (
     wallet,
     followCommunityLib,
     isFollow ? unfollowCommunity : followCommunity,
-    [process.env.USER_RATING_COLLECTION_ID, userId, suiCommunityId],
+    [userId, suiCommunityId],
     false,
   );
