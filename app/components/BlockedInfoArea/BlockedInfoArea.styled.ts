@@ -1,8 +1,10 @@
+import { CSSObject } from '@emotion/react';
 import { BORDER_RADIUS_L } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
+
 const colors = singleCommunityColors();
 
-export const styles = {
+export const styles: Record<string, CSSObject> = {
   container: {
     background: '#fff',
     height: '180px',
@@ -160,8 +162,8 @@ export const styles = {
     width: '92px',
     height: '40px',
     background: '#FFF',
-    border: `1px solid #F76F60`,
-    color: '#F76F60',
+    border: `1px solid ${colors.btnColor || '#F76F60'}`,
+    color: `${colors.btnColor || '#F76F60'}`,
     borderRadius: '3px',
     transition: '0.5s',
     '@media (max-width: 576px)': {
@@ -171,8 +173,8 @@ export const styles = {
       marginTop: '21px',
     },
     ':hover': {
-      background: '#F76F60',
-      border: `1px solid #FFF`,
+      background: `${colors.btnHoverColor || '#F76F60'}`,
+      border: `1px solid ${colors.btnHoverColor || '#FFF'}`,
       color: '#FFF',
     },
   },

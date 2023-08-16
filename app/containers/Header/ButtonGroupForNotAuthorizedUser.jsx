@@ -8,15 +8,16 @@ import SuiConnectModals from 'components/SuiConnectModals';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 import { isSuiBlockchain } from 'utils/sui/sui';
+
 const styles = singleCommunityStyles();
 
 const ButtonGroupForNotAuthorizedUser = ({ loginWithWallet }) => {
   const { t } = useTranslation();
 
-  const buttonWithLogin = (onClick) => (
+  const buttonWithLogin = (clickHandler) => (
     <LargeOutlinedButton
       className="d-none d-sm-flex"
-      onClick={onClick}
+      onClick={clickHandler}
       customStyles={styles.headerLoginButtonStyles}
     >
       {t('common.login')}
