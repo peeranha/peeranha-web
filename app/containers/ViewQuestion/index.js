@@ -158,7 +158,7 @@ export const ViewQuestion = ({
     [profile, questionData],
   );
 
-  const isAnswered = !!questionData?.answers.filter((x) => x.author.user === account).length;
+  const isAnswered = !!questionData?.answers.filter((x) => x.author.id === account).length;
 
   const commId = questionData?.communityId ?? null;
 
