@@ -101,6 +101,15 @@ export const getBytes32FromIpfsHash = (ipfsListing) =>
 export const getVector8FromIpfsHash = (ipfsListing) =>
   `${bs58.decode(ipfsListing).slice(2).toString('hex')}`;
 
+export const getVector8FromRole = (roleId, suiCommunityId) => {
+  const role = `0${roleId}${suiCommunityId.split('0x')[1]}`;
+  const bytes = [];
+  for (let index = 0; index < role.length; index += 2) {
+    bytes.push(parseInt(role.substr(index, 2), 16));
+  }
+  return bytes;
+};
+
 export const getIpfsHashFromBytes32 = (bytes32Hex) => {
   const hashHex = `1220${bytes32Hex.slice(2)}`;
   const hashBytes = Buffer.from(hashHex, 'hex');

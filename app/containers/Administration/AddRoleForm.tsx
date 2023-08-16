@@ -13,6 +13,7 @@ import {
 } from 'containers/Administration/constants';
 import { Moderator } from 'containers/Administration/types';
 
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { getCommunityRoles } from 'utils/properties';
 
 import useTrigger from 'hooks/useTrigger';
@@ -76,7 +77,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
     if (!administratorRole && !moderatorRole) {
       setRoleValidation(t('administration.EmptyRole'));
     } else {
-      const role = administratorRole ? 0 : 1;
+      let role = administratorRole ? 0 : 1;
       const walletAddress = values.get(WALLET_ADDRESS_FIELD);
 
       const communityRoles = getCommunityRoles(single);
@@ -94,6 +95,9 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
           ),
         );
       } else {
+        if (isSuiBlockchain) {
+          role = administratorRole ? 3 : 4;
+        }
         addRole(walletAddress, role, single, Boolean(isUserHasRole));
         clearAndCloseForm();
       }
@@ -162,9 +166,9 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
             <Field
               name={WALLET_ADDRESS_FIELD}
               component={TextInputField}
-              placeholder={t('common.walletAddress')}
-              validate={[required, stringHasToBeEthereumAddress]}
-              warn={[required, stringHasToBeEthereumAddress]}
+              placeholder={t(`common.${isSuiBlockchain ? 'userId' : 'walletAddress'}`)}
+              validate={[required, isSuiBlockchain ? '' : stringHasToBeEthereumAddress]}
+              warn={[required, isSuiBlockchain ? '' : stringHasToBeEthereumAddress]}
               warningStyle={styles.validationField}
               onFocus={isEmptyRoleHandler}
             />
