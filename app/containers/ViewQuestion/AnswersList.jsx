@@ -66,6 +66,7 @@ export const AnswersList = (props) => {
               ...author,
               handle,
               messengerType,
+              user: author.id,
             }}
             postTime={+postTime}
             lastEditedDate={lastEditedDate}
