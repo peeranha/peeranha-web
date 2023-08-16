@@ -24,18 +24,12 @@ export const createSuiCommunity = async (wallet: WalletContextState, community) 
 
   const tagsTransactionData = tagsStringData.map((tag) => getVector8FromIpfsHash(tag));
 
-  return handleMoveCall(
-    wallet,
-    communityLib,
-    createCommunity,
-    [
-      process.env.USER_ROLES_COLLECTION_ID,
-      userObj.id.id,
-      communityTransactionData,
-      tagsTransactionData,
-    ],
-    false,
-  );
+  return handleMoveCall(wallet, communityLib, createCommunity, [
+    process.env.USER_ROLES_COLLECTION_ID,
+    userObj.id.id,
+    communityTransactionData,
+    tagsTransactionData,
+  ]);
 };
 
 export const updateSuiCommunity = async (wallet: WalletContextState, communityId, community) => {
@@ -57,27 +51,25 @@ export const createSuiTag = async (wallet: WalletContextState, communityId, tag)
   const tagTransactionData = getVector8FromIpfsHash(tagIpfsHash);
   const userObj = await getSuiUserObject(wallet.address);
 
-  return handleMoveCall(
-    wallet,
-    communityLib,
-    createTag,
-    [process.env.USER_ROLES_COLLECTION_ID, userObj.id.id, communityId, tagTransactionData],
-    false,
-  );
+  return handleMoveCall(wallet, communityLib, createTag, [
+    process.env.USER_ROLES_COLLECTION_ID,
+    userObj.id.id,
+    communityId,
+    tagTransactionData,
+  ]);
 };
 
 export const updateSuiTag = async (wallet: WalletContextState, communityId, tagId, tag) => {
   const tagIpfsHash = await saveText(JSON.stringify(tag));
   const tagTransactionData = getVector8FromIpfsHash(tagIpfsHash);
   const userObj = await getSuiUserObject(wallet.address);
-
-  return handleMoveCall(
-    wallet,
-    communityLib,
-    updateTag,
-    [process.env.USER_ROLES_COLLECTION_ID, userObj.id.id, communityId, tagId, tagTransactionData],
-    false,
-  );
+  return handleMoveCall(wallet, communityLib, updateTag, [
+    process.env.USER_ROLES_COLLECTION_ID,
+    userObj.id.id,
+    communityId,
+    tagId,
+    tagTransactionData,
+  ]);
 };
 export const followSuiCommunity = async (
   wallet: WalletContextState,

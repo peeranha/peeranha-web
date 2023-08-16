@@ -62,10 +62,6 @@ class EthereumService {
     this.sendDispatcherTransaction = sendDispatcherTransactionMethod;
   }
 
-  setTransactionInitialised = (toggle) => {
-    this.isTransactionInitialised = toggle;
-  };
-
   setData = (data) => {
     this.wallet = data.wallet;
     this.connectedWallets = data.connectedWallets;

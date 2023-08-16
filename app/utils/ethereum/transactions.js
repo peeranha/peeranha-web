@@ -12,7 +12,7 @@ import {
 } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
-import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
+import { setTransactionResult, TRANSACTION_LIST } from 'utils/transactionsListManagement';
 
 export async function sendTransactionMethod(
   network,
@@ -82,18 +82,7 @@ export async function sendTransactionMethod(
     localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
     this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);
-    this.transactionList.find(
-      (transactionFromList) => transactionFromList.transactionHash === transaction.hash,
-    ).result = result;
-    setTimeout(() => {
-      const index = this.transactionList
-        .map((transactionFromList) => transactionFromList.transactionHash)
-        .indexOf(transaction.hash);
-      if (index !== -1) {
-        this.transactionList.splice(index, 1);
-        this.setTransactionList(this.transactionList);
-      }
-    }, '30000');
+    setTransactionResult(transaction.hash, result, this.transactionList, this.setTransactionList);
 
     this.transactionCompleted(this.transactionList);
 

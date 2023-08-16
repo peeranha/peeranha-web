@@ -509,7 +509,12 @@
     "giveCommunityAdminPermission": "Cấp quyền cho quản trị viên cộng đồng",
     "revokeCommunityAdminPermission": "Thu hồi quyền quản trị viên cộng đồng",
     "successful": "Thành công",
-    "failed": "Thất bại"
+    "failed": "Thất bại",
+    "authorEditPost": "Chỉnh sửa bài",
+    "moderatorEditPost": "Chỉnh sửa bài",
+    "authorEditReply": "Chỉnh sửa câu trả lời",
+    "moderatorEditReply": "Chỉnh sửa câu trả lời",
+    "moderatorEditPostMetaData": "Chỉnh sửa bài"
   },
   "aboutPeeranha": "Giới thiệu về Peeranha",
   "postsAnswersComments": "Bài viết, câu trả lời và bình luận",

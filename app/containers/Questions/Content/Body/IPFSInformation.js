@@ -42,7 +42,9 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
   };
 
   const hashString = getIpfsHashFromBytes32(ipfsHash);
-  const explorerUrl = process.env.BLOCKCHAIN_TRANSACTION_INFO_URL;
+  const explorerUrl = isSuiBlockchain
+    ? process.env.SUI_TRANSACTION_INFO_URL
+    : process.env.POLYGON_TRANSACTION_INFO_URL;
   const ipfsURL = process.env.IPFS_CDN_URL;
 
   const formattedData = histories?.map(

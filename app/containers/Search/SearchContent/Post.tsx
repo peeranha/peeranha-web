@@ -54,7 +54,7 @@ const Post: React.FC<PostProps> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
   const community = isSuiBlockchain
-    ? communities.find((community) => community.suiId === communityId)
+    ? communities.find((community) => community.id === communityId)
     : getFollowedCommunities(communities, [communityId])[0] || {};
 
   const postLink = getPostRoute({ postType, id, title });

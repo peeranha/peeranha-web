@@ -107,12 +107,12 @@ export const Questions = ({
       );
     }
   }, [
-    initLoadedItems,
-    params.communityid,
-    history.location.search,
-    parentPage,
     questionFilter,
+    getQuestionsDispatch,
+    initLoadedItems,
     postsTypes,
+    params.communityid,
+    parentPage,
   ]);
   useEffect(() => {
     if (page > 1 && !questionFilter) {
@@ -143,13 +143,7 @@ export const Questions = ({
     if (page !== 1) {
       setPage(1);
     }
-  }, [
-    typeFilter,
-    createdFilter,
-    postsTypes,
-    JSON.stringify(communities),
-    JSON.stringify(followedCommunities),
-  ]);
+  }, [postsTypes]);
 
   useEffect(() => {
     setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
@@ -297,7 +291,6 @@ Questions.propTypes = {
   createdFilter: PropTypes.any,
   setTypeFilterDispatch: PropTypes.func,
   questionFilter: PropTypes.number,
-  loadTopQuestionsDispatch: PropTypes.func,
   loginWithSuiDispatch: PropTypes.func,
   isLastTopQuestionLoaded: PropTypes.bool,
 };
@@ -334,7 +327,6 @@ export default compose(
       getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
       showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
       redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
-      loadTopQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
       loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
     }),
   ),

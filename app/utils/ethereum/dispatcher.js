@@ -81,7 +81,12 @@ export async function sendDispatcherTransactionMethod(
     confirmations,
   );
 
-  setTransactionResult(response, result, this.transactionList, this.setTransactionList);
+  setTransactionResult(
+    response.body.transactionList,
+    result,
+    this.transactionList,
+    this.setTransactionList,
+  );
 
   this.transactionCompleted(this.transactionList);
   return result;

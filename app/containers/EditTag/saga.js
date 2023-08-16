@@ -42,7 +42,7 @@ export function* editTagWorker({ tag, reset }) {
         updateSuiTag,
         wallet,
         getActualId(communityId),
-        tag.tagId.split('-')[1],
+        tag.tagId.split('-')[2],
         tag,
       );
       yield put(transactionInPending(txResult.digest));

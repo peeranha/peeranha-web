@@ -46,12 +46,12 @@ export const ContentBody = ({
   loginWithSuiDispatch,
 }) => {
   const { t } = useTranslation();
-  const isOfficial = questionData.officialReply === answerId || isOfficialReply;
-
+  const actualAnswerId = answerId ? answerId.split('-')[2] : 0;
+  const isOfficial = questionData.officialReply === Number(actualAnswerId) || isOfficialReply;
   return (
     <Base position="bottom" paddingTop="10">
       <BestAnswerMarker
-        answerId={answerId}
+        answerId={Number(actualAnswerId)}
         questionFrom={questionFrom}
         account={account}
         markAsAccepted={markAsAccepted}

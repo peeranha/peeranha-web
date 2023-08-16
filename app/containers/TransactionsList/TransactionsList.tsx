@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import reducer from 'containers/Administration/reducer';
 import saga from 'containers/Administration/saga';
 
-import { css } from '@emotion/react';
 import {
   SuccessfulTransaction,
   FailedTransaction,
@@ -24,6 +23,8 @@ import {
 } from 'containers/EthereumProvider/selectors';
 import { SingleTransaction, Transaction } from 'containers/TransactionsList/SingleTransaction';
 import { styles } from 'containers/TransactionsList/TransactionList.styled';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { selectSuiTransactionList } from 'containers/SuiProvider/selectors';
 
 type TransactionsListProps = {
   transactionList: Array<Transaction>;
@@ -134,7 +135,7 @@ export default compose(
   connect(
     createStructuredSelector<any>({
       locale: makeSelectLocale(),
-      transactionList: selectTransactionList(),
+      transactionList: isSuiBlockchain ? selectSuiTransactionList() : selectTransactionList(),
       transactionInPending: selectTransactionInPending(),
     }),
   ),

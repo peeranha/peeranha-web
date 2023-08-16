@@ -512,7 +512,13 @@
     "giveCommunityAdminPermission": "Give community admin permission",
     "revokeCommunityAdminPermission": "Revoke community admin permission",
     "successful": "Successful",
-    "failed": "Failed"
+    "failed": "Failed",
+    "authorEditPost": "Edit post",
+    "moderatorEditPost": "Edit post",
+    "authorEditReply": "Edit reply",
+    "moderatorEditReply": "Edit reply",
+    "moderatorEditPostMetaData": "Edit post meta data",
+    "createUser": "Create user"
   },
   "aboutPeeranha": "About Peeranha",
   "postsAnswersComments": "Posts, Answers and Comments",

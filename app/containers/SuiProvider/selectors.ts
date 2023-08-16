@@ -5,3 +5,6 @@ const selectSuiProviderDomain = (state: any) => state.get('suiProvider', initial
 
 export const selectSuiWallet = () =>
   createSelector(selectSuiProviderDomain, (substate) => substate.wallet);
+
+export const selectSuiTransactionList = () =>
+  createSelector(selectSuiProviderDomain, (substate) => substate.transactionList);

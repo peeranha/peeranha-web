@@ -726,9 +726,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories, account } = yield call(
-      getParams,
-    );
+    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
     yield call(isAuthorized);
 
@@ -1002,8 +1000,8 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
         markAsAcceptedSuiReply,
         wallet,
         profileInfo.id,
-        questionId,
-        correctAnswerId,
+        getActualId(questionId),
+        correctAnswerId.split('-')[2],
       );
       yield put(transactionInPending(txResult.digest));
       yield call(waitForTransactionConfirmation, txResult.digest);

@@ -6,7 +6,7 @@ import {
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { ApplicationError } from 'utils/errors';
-import { delay } from 'utils/reduxUtils';
+import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 
 // TODO: name these constants properly
 export const userLib = 'userLib';
@@ -52,8 +52,8 @@ export const CLOCK_OBJECT_ID = '0x6';
 
 export const TX_WAIT_DELAY_MS = 1000;
 
-let setTransactionList = null;
-const transactionList = [];
+let setTransactionList: ((arg0: any[]) => void) | null = null;
+const transactionList: any[] = [];
 
 export const initSetter = (setter: any) => {
   setTransactionList = setter;
@@ -73,29 +73,16 @@ export function createSuiProvider() {
 
 export const waitForTransactionConfirmation = async (transactionDigest: string): Promise<any> => {
   const provider = createSuiProvider();
-  const confirmed = false;
-  /* eslint-disable no-await-in-loop */
-  do {
-    try {
-      const confirmedTx = await provider.getTransactionBlock({
-        digest: transactionDigest,
-        options: {
-          showInput: false,
-          showEffects: false,
-          showEvents: true,
-          showObjectChanges: false,
-          showBalanceChanges: false,
-        },
-      });
-      console.log(confirmedTx);
-      if (!confirmedTx.errors) {
-        return confirmedTx;
-      }
-    } catch {}
-    await delay(TX_WAIT_DELAY_MS);
-  } while (!confirmed);
-  /* eslint-enable no-await-in-loop */
-  return undefined;
+  return provider.getTransactionBlock({
+    digest: transactionDigest,
+    options: {
+      showInput: false,
+      showEffects: false,
+      showEvents: true,
+      showObjectChanges: false,
+      showBalanceChanges: false,
+    },
+  });
 };
 
 export const handleMoveCall = async (
@@ -103,12 +90,10 @@ export const handleMoveCall = async (
   libName: string,
   action: string,
   data: unknown[],
-  waitForConfirmaiton = true,
 ): Promise<object> => {
   if (!process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT) {
     throw new ApplicationError('SUI_SPONSORED_TRANSACTIONS_ENDPOINT is not configured');
   }
-
   const response = await fetch(process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -122,36 +107,48 @@ export const handleMoveCall = async (
       arguments: data,
     }),
   });
-  console.log(response);
 
   const sponsorSignedTransaction = await response.json();
 
   const transactionBlock = TransactionBlock.from(sponsorSignedTransaction?.transactionBlockBytes);
-  console.log(transactionBlock);
 
   const senderSignedTransaction = await wallet.signTransactionBlock({
     transactionBlock,
   });
-  console.log(senderSignedTransaction);
   const provider = createSuiProvider();
-
   const executeResponse = await provider.executeTransactionBlock({
     transactionBlock: sponsorSignedTransaction?.transactionBlockBytes,
     signature: [sponsorSignedTransaction?.signatureBytes, senderSignedTransaction.signature],
     options: { showEffects: true },
     requestType: 'WaitForLocalExecution',
   });
-  console.log(executeResponse);
-  // transactionList.push({
-  //   action,
-  //   transactionHash: transaction.hash,
-  // });
-
-  if (!waitForConfirmaiton) {
-    return executeResponse;
+  transactionList.push({
+    action,
+    transactionHash: executeResponse.digest,
+  });
+  if (setTransactionList) {
+    setTransactionList(transactionList);
   }
 
-  return await waitForTransactionConfirmation(executeResponse.digest);
+  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
+  const result = await waitForTransactionConfirmation(executeResponse.digest);
+  transactionList.find(
+    (transactionFromList) => transactionFromList.transactionHash === executeResponse.digest,
+  ).result = { status: result.error ? 0 : 1 };
+
+  setTimeout(() => {
+    const index = transactionList
+      .map((transactionFromList) => transactionFromList.transactionHash)
+      .indexOf(executeResponse.digest);
+    if (index !== -1) {
+      transactionList.splice(index, 1);
+      if (setTransactionList) {
+        setTransactionList(transactionList);
+      }
+    }
+  }, '30000');
+
+  return result;
 };
 
 export const getOwnedObject = async (

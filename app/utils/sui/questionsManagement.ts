@@ -174,15 +174,6 @@ export async function deleteSuiComment(
   parentId: string,
   commentId: string,
 ) {
-  console.log([
-    process.env.USER_RATING_COLLECTION_ID,
-    process.env.USER_ROLES_COLLECTION_ID,
-    process.env.ACHIEVEMENT_COLLECTION,
-    userSuiId,
-    postId,
-    parentId,
-    commentId,
-  ]);
   return handleMoveCall(
     wallet,
     postLib,

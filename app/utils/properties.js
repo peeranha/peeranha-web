@@ -166,7 +166,7 @@ export const getCommunityIdFromPermission = (permission, role) => {
 
 export const isBotAddress = (account) => account.id === BOT_ADDRESS;
 
-export const getAllRoles = (userRoles = [], communitiesCount) => {
+export const getAllRoles = (userRoles = []) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
 
   const defaultAdminRole = userRoles.find((role) =>

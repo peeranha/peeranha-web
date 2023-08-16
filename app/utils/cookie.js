@@ -119,7 +119,6 @@ export const formPermissionsCookie = (permissions) => {
     permissionsObject.ca6 = communitiesWhereModerator;
   }
 
-  console.log(permissionsObject);
   return permissionsObject;
 };
 

@@ -496,7 +496,12 @@
     "giveCommunityAdminPermission": "授予社区管理员权限",
     "revokeCommunityAdminPermission": "撤销社区管理员权限",
     "successful": "成功的",
-    "failed": "失败的"
+    "failed": "失败的",
+    "authorEditPost": "编辑帖子",
+    "moderatorEditPost": "编辑帖子",
+    "authorEditReply": "编辑回复",
+    "moderatorEditReply": "编辑回复",
+    "moderatorEditPostMetaData": "编辑帖子"
   },
   "aboutPeeranha": "关于 Peeranha",
   "postsAnswersComments": "帖子、答案和评论",

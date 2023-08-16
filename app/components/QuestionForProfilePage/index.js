@@ -151,7 +151,6 @@ export const QuestionForProfilePage = ({
   isMyAnswerAccepted,
   isTheLargestRating,
   route,
-  isGeneral,
   isAnswer,
   elementType,
 }) => {
