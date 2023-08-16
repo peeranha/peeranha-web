@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { hasCommunitySingleWebsite } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import * as routes from '../../routes-config';
 import BaseRoundedNoPadding from '../Base/BaseRoundedNoPadding';
 import MediumImage from '../Img/MediumImage';
@@ -31,9 +30,7 @@ const CommunityItemWithRating = ({ communities, single, communityId, rating, loc
     }
   }, [single, communityId]);
 
-  const community = communities?.find((item) =>
-    isSuiBlockchain ? item.suiId === communityId : item.id === communityId,
-  );
+  const community = communities?.find((item) => item.id === communityId);
   const communityTranslation = community?.translations?.find(
     (translation) => translation.language === locale,
   );
