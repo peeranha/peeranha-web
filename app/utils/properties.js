@@ -150,7 +150,7 @@ export const getCommunityRole = (role, communityId, network) => {
     network = JSON.parse(getCookie(NETWORK_ID));
   }
   if (isSuiBlockchain) {
-    return `${role}${String(communityId).replace('0x', '')}`;
+    return `3-${role}${String(communityId).replace('0x', '')}`;
   }
   return `${Number(network) + 1}-${BigNumber.from(role)
     .add(BigNumber.from(communityId))

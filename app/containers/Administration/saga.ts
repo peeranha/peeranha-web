@@ -9,6 +9,7 @@ import {
 } from 'containers/Administration/constants';
 import {
   addRoleSuccess,
+  addRoleError,
   getModeratorsError,
   getModeratorsSuccess,
   revokeRoleError,
@@ -19,8 +20,21 @@ import { getModerators } from 'utils/theGraph';
 import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from 'utils/constants';
 import { giveRolePermission, revokeRolePermission } from 'utils/accountManagement';
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import {
+  giveSuiRolePermission,
+  revokeSuiRolePermission,
+  getSuiUserObject,
+} from 'utils/sui/accountManagement';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 
 export function* getModeratorsWorker(props: { communityId: string }): Generator<{}> {
   try {
@@ -53,18 +67,42 @@ export function* addRoleWorker(props: {
   isUserHasRole?: boolean;
 }): Generator<any> {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const account = yield select(makeSelectAccount());
-    yield call(
-      giveRolePermission,
-      account,
-      props.userAddress,
-      props.role,
-      props.communityId,
-      ethereumService,
-    );
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const profile = yield select(makeSelectProfileInfo());
+      // const suiUserObject = yield call(getSuiUserObject, props.userAddress);
+      // @ts-ignore
+      const txResult = yield call(
+        giveSuiRolePermission,
+        wallet,
+        profile.id,
+        props.userAddress,
+        props.role,
+        props.communityId,
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
+      yield put(transactionCompleted());
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const account = yield select(makeSelectAccount());
+      yield call(
+        giveRolePermission,
+        account,
+        props.userAddress,
+        props.role,
+        props.communityId,
+        ethereumService,
+      );
+    }
     yield put(addRoleSuccess(props.communityId));
-  } catch (err) {}
+  } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
+    yield put(revokeRoleError(err));
+  }
 }
 
 export function* revokeRoleWorker(props: {
@@ -73,19 +111,40 @@ export function* revokeRoleWorker(props: {
   communityId: number;
 }): Generator<any> {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const account = yield select(makeSelectAccount());
-    yield call(
-      revokeRolePermission,
-      account,
-      props.userAddress,
-      props.role,
-      props.communityId,
-      ethereumService,
-    );
-
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const profile = yield select(makeSelectProfileInfo());
+      // const suiUserObject = yield call(getSuiUserObject, props.userAddress);
+      // @ts-ignore
+      const txResult = yield call(
+        revokeSuiRolePermission,
+        wallet,
+        profile.id,
+        props.userAddress,
+        props.role,
+        props.communityId,
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
+      yield put(transactionCompleted());
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const account = yield select(makeSelectAccount());
+      yield call(
+        revokeRolePermission,
+        account,
+        props.userAddress,
+        props.role,
+        props.communityId,
+        ethereumService,
+      );
+    }
     yield put(revokeRoleSuccess(props.communityId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(revokeRoleError(err));
   }
 }
