@@ -46,7 +46,10 @@ export const ContentBody = ({
   loginWithSuiDispatch,
 }) => {
   const { t } = useTranslation();
-  const actualAnswerId = answerId ? answerId.split('-')[2] : 0;
+  let actualAnswerId = answerId;
+  if (typeof answerId === 'string') {
+    actualAnswerId = answerId?.split('-')?.[2] || answerId;
+  }
   const isOfficial = questionData.officialReply === Number(actualAnswerId) || isOfficialReply;
   return (
     <Base position="bottom" paddingTop="10">

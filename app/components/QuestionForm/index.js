@@ -181,7 +181,7 @@ export const QuestionForm = ({
     if (formValues[FORM_TITLE] && getQuestions) {
       getQuestions(formValues[FORM_TITLE], true);
     }
-  }, [formValues, getQuestions]);
+  }, [formValues[FORM_TITLE]]);
 
   useEffect(() => {
     if (communityId) {
