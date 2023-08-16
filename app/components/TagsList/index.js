@@ -14,6 +14,8 @@ const fonts = singleCommunityFonts();
 const single = isSingleCommunityWebsite();
 
 const Tag = Span.extend`
+  max-width: 100%;
+  overflow: hidden;
   border: 1px solid ${TAG_COLOR};
   color: ${TAG_COLOR};
   font-size: 14px;
