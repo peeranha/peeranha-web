@@ -136,7 +136,7 @@ class EthereumService {
       PeeranhaContent,
       this.providerReads,
     );
-    this.edgewreContractContentReads = new Contract(
+    this.edgewareContractContentReads = new Contract(
       process.env.EDGEWARE_CONTENT_ADDRESS,
       PeeranhaContent,
       this.edgewareProviderReads,
@@ -146,7 +146,7 @@ class EthereumService {
       PeeranhaToken,
       this.providerReads,
     );
-    this.edgewreContractTokenReads = new Contract(
+    this.edgewareContractTokenReads = new Contract(
       process.env.EDGEWARE_TOKEN_ADDRESS,
       PeeranhaContent,
       this.edgewareProviderReads,
@@ -250,7 +250,7 @@ class EthereumService {
   }
   getContentDataWithArgs = async (action, args) => this.contractContentReads[action](...args);
   getEdgewareContentDataWithArgs = async (action, args) =>
-    this.edgewreContractContentReads[action](...args);
+    this.edgewareContractContentReads[action](...args);
 
   getTokenDataWithArgs = async (action, args) => this.contractTokenReads[action](...args);
 }
