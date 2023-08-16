@@ -1,3 +1,4 @@
+import { isSuiBlockchain } from 'utils/sui/sui';
 import {
   BG_LIGHT,
   BORDER_RADIUS_L,
@@ -14,6 +15,7 @@ export const styled = {
     background: BG_LIGHT,
     borderRadius: BORDER_RADIUS_L,
     boxShadow: `0 2px 2px 0 ${SECONDARY_SPECIAL_2}`,
+    border: `1px solid ${isSuiBlockchain ? '#D0DAE6' : '#fff'}`,
   },
 
   container: {
