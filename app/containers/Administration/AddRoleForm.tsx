@@ -167,8 +167,8 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
               name={WALLET_ADDRESS_FIELD}
               component={TextInputField}
               placeholder={t(`common.${isSuiBlockchain ? 'userId' : 'walletAddress'}`)}
-              validate={[required, isSuiBlockchain ? '' : stringHasToBeEthereumAddress]}
-              warn={[required, isSuiBlockchain ? '' : stringHasToBeEthereumAddress]}
+              validate={isSuiBlockchain ? [required] : [required, stringHasToBeEthereumAddress]}
+              warn={isSuiBlockchain ? [required] : [required, stringHasToBeEthereumAddress]}
               warningStyle={styles.validationField}
               onFocus={isEmptyRoleHandler}
             />

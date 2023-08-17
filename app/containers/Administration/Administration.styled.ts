@@ -1,4 +1,5 @@
 import { TEXT_DARK } from 'style-constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 export const styles = {
   mainInfo: {
@@ -8,7 +9,7 @@ export const styles = {
   },
 
   contentGrid: {
-    gridTemplateColumns: '3fr 5fr 6fr',
+    gridTemplateColumns: isSuiBlockchain ? '3fr 6fr 3fr' : '3fr 5fr 6fr',
   },
 
   addModeratorButton: {
