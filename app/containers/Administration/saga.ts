@@ -71,13 +71,13 @@ export function* addRoleWorker(props: {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
-      // const suiUserObject = yield call(getSuiUserObject, props.userAddress);
+      const suiUserObject = yield call(getSuiUserObject, props.userAddress);
       // @ts-ignore
       const txResult = yield call(
         giveSuiRolePermission,
         wallet,
         profile.id,
-        props.userAddress,
+        suiUserObject?.id?.id || props.userAddress,
         props.role,
         props.communityId,
       );
@@ -115,13 +115,13 @@ export function* revokeRoleWorker(props: {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
-      // const suiUserObject = yield call(getSuiUserObject, props.userAddress);
+      const suiUserObject = yield call(getSuiUserObject, props.userAddress);
       // @ts-ignore
       const txResult = yield call(
         revokeSuiRolePermission,
         wallet,
         profile.id,
-        props.userAddress,
+        suiUserObject?.id?.id || props.userAddress,
         props.role,
         props.communityId,
       );
