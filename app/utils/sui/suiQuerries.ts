@@ -1,3 +1,5 @@
+import { postMeshShallow } from 'utils/mesh';
+
 const user = `
   id
   displayName
@@ -163,60 +165,6 @@ const post = `
     }
 `;
 
-const postShort = `
-    id
-    id2
-    ipfsHash
-    postType
-    author
-    rating
-    postTime
-    communityId
-    title
-    content
-    commentCount
-    replyCount
-    isDeleted
-    officialReply
-    bestReply
-    handle
-    messengerType
-    language
-    community {
-      id
-      name
-      description
-      language
-      avatar
-      communitytranslation {
-        communityId
-        description
-        enableAutotranslation
-        id
-        language
-        name
-      }
-    }
-    user {
-      ${user}
-    }
-    posttag {
-      tag {
-        ${tag}
-      }
-    }
-    reply (
-      where: { isDeleted: "0" }
-    ) {
-      id
-    }
-    posttranslation {
-      language
-      title
-      content
-    }
-`;
-
 const community = `
     id
     name
@@ -306,7 +254,7 @@ export const postsQuery = (postTypes: string) => `
       offset: $skip,
       where: {isDeleted: "0", postType: "(${postTypes})" },
     ) {
-      ${postShort}
+      ${postMeshShallow}
     }
   }`;
 
@@ -345,7 +293,7 @@ export const postsByCommunityIdQuery = (postTypes: string, communityIds: string)
       offset: $skip,
       where: {isDeleted: "0", postType: "(${postTypes})", communityId: "(${communityIds})" },
     ) {
-      ${postShort}
+      ${postMeshShallow}
     }
 }`;
 

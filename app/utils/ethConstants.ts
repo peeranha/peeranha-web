@@ -1,5 +1,6 @@
 // Contracts
 import { isSuiBlockchain } from 'utils/sui/sui';
+import { postMeshShallow } from './mesh';
 export const CONTRACT_TOKEN = ['contractToken', 'edgewareContractToken'];
 export const CONTRACT_USER = ['contractUser', 'edgewareContractUser'];
 export const CONTRACT_CONTENT = ['contractContent', 'edgewareContractContent'];
@@ -527,7 +528,7 @@ const usersPostsQueryMesh = `
           offset: $limit,
           where: { isDeleted: "0", author: $id, postType: "<3", networkId: "(${getNetworkIds()})" },
         ) {
-           ${postMesh}
+           ${postMeshShallow}
         }
       }`;
 
@@ -687,7 +688,7 @@ const postsQueryMesh = (postTypes: string) => `
       offset: $skip,
       where: {isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
     ) {
-      ${postMesh}
+      ${postMeshShallow}
     }
   }`;
 
@@ -720,7 +721,7 @@ const postsByCommQueryMesh = (postTypes: string, communityIds: string) => `
       offset: $offset,
       where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
     ) {
-      ${postMesh}
+      ${postMeshShallow}
     }
   }`;
 
@@ -763,7 +764,7 @@ const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
       where: { id: "(${ids})", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
       orderBy: { postTime: desc }
     ) {
-      ${postMesh}
+      ${postMeshShallow}
     }
   }`;
 
