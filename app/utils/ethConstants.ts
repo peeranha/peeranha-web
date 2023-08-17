@@ -751,7 +751,7 @@ export const postsIdsByTagsQueryMesh = (tags: string) => `
     posttag (
       limit: $first,
       offset: $skip,
-      where: { id: "(${tags})", networkId: "(${getNetworkIds()})" },
+      where: { tagId: "(${tags})" },
     ) {
       postId
     }

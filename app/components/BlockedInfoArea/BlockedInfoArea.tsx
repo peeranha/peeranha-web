@@ -28,7 +28,6 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
   showLoginModal,
 }): JSX.Element => {
   const { t } = useTranslation();
-  console.log(communityStyles?.headerLoginButtonStyles, 'communityStyles<---');
   const viewImage = () => {
     if (!account) {
       return loginImage;

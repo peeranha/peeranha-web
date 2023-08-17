@@ -90,7 +90,7 @@ export const handleMoveCall = async (
   libName: string,
   action: string,
   data: unknown[],
-): Promise<object> => {
+): Promise<string> => {
   if (!process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT) {
     throw new ApplicationError('SUI_SPONSORED_TRANSACTIONS_ENDPOINT is not configured');
   }
@@ -111,31 +111,33 @@ export const handleMoveCall = async (
   const sponsorSignedTransaction = await response.json();
 
   const transactionBlock = TransactionBlock.from(sponsorSignedTransaction?.transactionBlockBytes);
-
+  transactionList.push({
+    action,
+    transactionHash: await transactionBlock.getDigest(),
+  });
+  if (setTransactionList) {
+    setTransactionList(transactionList);
+  }
   const senderSignedTransaction = await wallet.signTransactionBlock({
     transactionBlock,
   });
   const provider = createSuiProvider();
+
   const executeResponse = await provider.executeTransactionBlock({
     transactionBlock: sponsorSignedTransaction?.transactionBlockBytes,
     signature: [sponsorSignedTransaction?.signatureBytes, senderSignedTransaction.signature],
     options: { showEffects: true },
     requestType: 'WaitForLocalExecution',
   });
-  transactionList.push({
-    action,
-    transactionHash: executeResponse.digest,
-  });
-  if (setTransactionList) {
-    setTransactionList(transactionList);
-  }
 
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
   const result = await waitForTransactionConfirmation(executeResponse.digest);
   transactionList.find(
     (transactionFromList) => transactionFromList.transactionHash === executeResponse.digest,
-  ).result = { status: result.error ? 0 : 1 };
-
+  ).result = { status: executeResponse?.effects.status.status === 'failure' ? 2 : 1 };
+  if (setTransactionList) {
+    setTransactionList(transactionList);
+  }
   setTimeout(() => {
     const index = transactionList
       .map((transactionFromList) => transactionFromList.transactionHash)
@@ -147,6 +149,10 @@ export const handleMoveCall = async (
       }
     }
   }, '30000');
+
+  if (executeResponse?.effects.status.status === 'failure') {
+    throw new Error('Transaction Failed');
+  }
 
   return result;
 };

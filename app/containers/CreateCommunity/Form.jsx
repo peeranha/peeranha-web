@@ -39,6 +39,7 @@ import { IconSm } from 'components/Icon/IconWithSizes';
 import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import {
   FORM_NAME,
@@ -155,17 +156,18 @@ const CreateCommunityForm = ({ handleSubmit, createCommunity, createCommunityLoa
           tip={t('createCommunity.communityWebsiteTip')}
           splitInHalf
         />
-
-        <Field
-          disabled={createCommunityLoading}
-          name={COMM_BLOCKCHAIN_FIELD}
-          label={t('common.blockchainLabel')}
-          tip={t('common.communityTip')}
-          component={BlockchainSelector}
-          validate={[required, strLength1x5]}
-          warn={[required, strLength1x5]}
-          splitInHalf
-        />
+        {!isSuiBlockchain && (
+          <Field
+            disabled={createCommunityLoading}
+            name={COMM_BLOCKCHAIN_FIELD}
+            label={t('common.blockchainLabel')}
+            tip={t('common.communityTip')}
+            component={BlockchainSelector}
+            validate={[required, strLength1x5]}
+            warn={[required, strLength1x5]}
+            splitInHalf
+          />
+        )}
 
         <div>
           <Wrapper label={t('createCommunity.tags')} splitInHalf>

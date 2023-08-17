@@ -1001,7 +1001,7 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
         wallet,
         profileInfo.id,
         getActualId(questionId),
-        correctAnswerId.split('-')[2],
+        correctAnswerId,
       );
       yield put(transactionInPending(txResult.digest));
       yield call(waitForTransactionConfirmation, txResult.digest);
