@@ -5,6 +5,7 @@ import next from 'images/next.svg?inline';
 import { STEP_NEXT, STEP_PREV } from './constants';
 import { START_DYNAMIC_PAGINATION } from 'containers/Questions/constants';
 import { styles } from './Pagination.styled';
+
 type PaginationProps = {
   page: number;
   totalPages: number;
@@ -13,13 +14,7 @@ type PaginationProps = {
   setPage: (num: number) => void;
 };
 
-const Pagination: React.FC<PaginationProps> = ({
-  page,
-  totalPages,
-  prevPage,
-  nextPage,
-  setPage,
-}): JSX.Element | null => {
+const Pagination = ({ page, totalPages, prevPage, nextPage, setPage }: PaginationProps) => {
   const isLastPage = page === totalPages;
   const isStartPage = page === 1;
   const scrollToTop = () => {
@@ -37,56 +32,53 @@ const Pagination: React.FC<PaginationProps> = ({
   }
   if (totalPages <= 4) {
     return (
-      <>
-        <div css={styles.container}>
-          {[...Array(totalPages).keys()].map((element, index) =>
-            index <= 4 ? (
-              <ButtonPagination
-                page={page}
-                element={element}
-                clickHandler={setPage}
-                scrollToTop={scrollToTop}
-              />
-            ) : null,
-          )}
-        </div>
-      </>
+      <div css={styles.container}>
+        {[...Array(totalPages).keys()].map((element, index) =>
+          index <= 4 ? (
+            <ButtonPagination
+              page={page}
+              element={element}
+              clickHandler={setPage}
+              scrollToTop={scrollToTop}
+            />
+          ) : null,
+        )}
+      </div>
     );
   }
   if (totalPages > START_DYNAMIC_PAGINATION) {
     return (
-      <>
-        <div className="df aic jcc">
-          {!isStartPage && (
-            <StepButtonPagination
-              clickHandler={prevPage}
-              src={prev}
-              scrollToTop={scrollToTop}
-              alt={STEP_PREV}
-            />
-          )}
-          {[...Array(totalPages).keys()]
-            .slice(page > 2 ? page - 3 : 0, page > 2 ? page + 2 : 5)
-            .map((element) => (
-              <ButtonPagination
-                key={element}
-                page={page}
-                element={element}
-                clickHandler={setPage}
-                scrollToTop={scrollToTop}
-              />
-            ))}
-          {!isLastPage && (
-            <StepButtonPagination
+      <div css={styles.container}>
+        {!isStartPage && (
+          <StepButtonPagination
+            page={page}
+            clickHandler={prevPage}
+            src={prev}
+            scrollToTop={scrollToTop}
+            alt={STEP_PREV}
+          />
+        )}
+        {[...Array(totalPages).keys()]
+          .slice(page > 2 ? page - 3 : 0, page > 2 ? page + 2 : 5)
+          .map((element) => (
+            <ButtonPagination
+              key={element}
               page={page}
-              clickHandler={nextPage}
+              element={element}
+              clickHandler={setPage}
               scrollToTop={scrollToTop}
-              src={next}
-              alt={STEP_NEXT}
             />
-          )}
-        </div>
-      </>
+          ))}
+        {!isLastPage && (
+          <StepButtonPagination
+            page={page}
+            clickHandler={nextPage}
+            scrollToTop={scrollToTop}
+            src={next}
+            alt={STEP_NEXT}
+          />
+        )}
+      </div>
     );
   }
 };

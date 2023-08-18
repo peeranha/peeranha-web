@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import usePagination from 'hooks/usePagination';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,7 +20,7 @@ import MoveSection from './MoveSection';
 import Body from './Body';
 import Pagination from './Pagination';
 
-import { POST_TYPE, AMOUNT_POSTS_PAGINATION } from '../../../utils/constants';
+import { POST_TYPE } from 'utils/constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
@@ -230,59 +229,58 @@ export const Content = ({
   isSearchPage,
   isFeed,
   isCommunityFeed,
-}) => {
-  const { firstContentIndex, lastContentIndex, nextPage, prevPage, page, setPage, totalPages } =
-    usePagination({
-      contentPerPage: AMOUNT_POSTS_PAGINATION,
-      count: questionsList.length,
-    });
-
-  return (
-    <div className="position-relative">
-      {/* {promotedQuestionsList && */}
-      {/*  promotedQuestionsList.map((item, index) => ( */}
-      {/*    <QuestionItem */}
-      {/*      {...item} */}
-      {/*      index={index} */}
-      {/*      first={index === 0} */}
-      {/*      last={index === questionsList.length - 1} */}
-      {/*      locale={locale} */}
-      {/*      communities={communities} */}
-      {/*      key={item.id} */}
-      {/*      isModerator={isModerator} */}
-      {/*      profileInfo={profileInfo} */}
-      {/*      isPromoted */}
-      {/*      isHomePage={isHomePage} */}
-      {/*    /> */}
-      {/*  ))} */}
-      {questionsList.slice(firstContentIndex, lastContentIndex).map((item, index) => (
-        <QuestionItem
-          {...item}
-          isGeneral={isGeneralQuestion(item)}
-          index={index}
-          first={index === 0}
-          last={index === questionsList.length - 1}
-          locale={locale}
-          communities={communities}
-          key={item.id}
-          isModerator={isModerator}
-          profileInfo={profileInfo}
-          isHomePage={isHomePage}
-          isSearchPage={isSearchPage}
-          isFeed={isFeed}
-          isCommunityFeed={isCommunityFeed}
-        />
-      ))}
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        prevPage={prevPage}
-        setPage={setPage}
-        nextPage={nextPage}
+  firstContentIndex,
+  lastContentIndex,
+  nextPage,
+  prevPage,
+  page,
+  setPage,
+  totalPages,
+}) => (
+  <div className="position-relative">
+    {/* {promotedQuestionsList && */}
+    {/*  promotedQuestionsList.map((item, index) => ( */}
+    {/*    <QuestionItem */}
+    {/*      {...item} */}
+    {/*      index={index} */}
+    {/*      first={index === 0} */}
+    {/*      last={index === questionsList.length - 1} */}
+    {/*      locale={locale} */}
+    {/*      communities={communities} */}
+    {/*      key={item.id} */}
+    {/*      isModerator={isModerator} */}
+    {/*      profileInfo={profileInfo} */}
+    {/*      isPromoted */}
+    {/*      isHomePage={isHomePage} */}
+    {/*    /> */}
+    {/*  ))} */}
+    {questionsList.slice(firstContentIndex, lastContentIndex).map((item, index) => (
+      <QuestionItem
+        {...item}
+        isGeneral={isGeneralQuestion(item)}
+        index={index}
+        first={index === 0}
+        last={index === questionsList.length - 1}
+        locale={locale}
+        communities={communities}
+        key={item.id}
+        isModerator={isModerator}
+        profileInfo={profileInfo}
+        isHomePage={isHomePage}
+        isSearchPage={isSearchPage}
+        isFeed={isFeed}
+        isCommunityFeed={isCommunityFeed}
       />
-    </div>
-  );
-};
+    ))}
+    <Pagination
+      page={page}
+      totalPages={totalPages}
+      prevPage={prevPage}
+      setPage={setPage}
+      nextPage={nextPage}
+    />
+  </div>
+);
 
 QI.propTypes = {
   id: PropTypes.string,
