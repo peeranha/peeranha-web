@@ -188,10 +188,15 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
-        '3-0x933eedd6e0ebbbdc00a3c6d5a6da78f63b92bd4cd0a50eba02042ec8d5cf05a9': {
+        '3-0x6320fa169fcf93bd30666e5612e799599ac6021fa59e84dab1d48fa120f56c47': {
           origin: `https://mark3d${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/mark3d/logo.svg',
           styles: Mark3dStyles,
+        },
+        '3-0x02e943bd6dd5ca34a8fdeb4f595f6c20bf8b529bdf03e830b0713ddc1f74d95c': {
+          origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/solidity/logo.svg',
+          styles: SolidityStyles,
         },
       }
     : {

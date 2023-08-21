@@ -103,8 +103,9 @@ export const getUser = async (id) => {
       id: dataToString(id).toLowerCase(),
     },
   });
-
-  return isMeshService ? getUserDataFromMesh(result.user[0]) : { ...result.user };
+  return isMeshService && result.user.length
+    ? getUserDataFromMesh(result.user[0])
+    : { ...result.user };
 };
 
 export const getUserPermissions = async (id) => {

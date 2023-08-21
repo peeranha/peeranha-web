@@ -251,7 +251,9 @@ export const hasProtocolAdminRole = (permissionsFromState) => {
 
   return Boolean(
     permissions.find((permission) =>
-      BigNumber.from(permission.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE),
+      isSuiBlockchain
+        ? permission.split('-')[1] === PROTOCOL_ADMIN_ROLE
+        : BigNumber.from(permission.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE),
     ),
   );
 };

@@ -13,6 +13,7 @@ import { getVector8FromRole } from 'utils/ipfs';
 export const isSuiUserExists = async (wallet: WalletContextState) => {
   if (!wallet.connected) throw new ApplicationError('No profile');
   const userObjects = await getOwnedObject(userLib, userObject, wallet.address);
+  console.log(userObjects);
   return Boolean(userObjects?.data?.length);
 };
 

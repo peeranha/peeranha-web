@@ -69,6 +69,8 @@ export async function revokeRolePermission(user, userToRevoke, role, communityId
 export const isUserExists = async (userAddress) => {
   if (!userAddress) throw new ApplicationError('No profile');
   const profileInfo = await getUser(userAddress);
+  console.log(profileInfo);
+  console.log(Boolean(profileInfo));
   return Boolean(profileInfo);
 };
 

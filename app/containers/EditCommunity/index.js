@@ -26,7 +26,7 @@ import { noAccess as noAccessRoute } from 'routes-config';
 import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { useModeratorRole } from '../../hooks/useModeratorRole';
+import { useModeratorRole } from 'hooks/useModeratorRole';
 
 import Form from './Form';
 
@@ -39,8 +39,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import { GENERAL_TAB } from './constants';
-import { getSingleCommunityDetails } from '../../utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const EditCommunity = ({
   community,
@@ -56,7 +54,7 @@ const EditCommunity = ({
   },
 }) => {
   const { t } = useTranslation();
-  useModeratorRole(noAccessRoute, isSuiBlockchain ? community?.suiId : communityId);
+  useModeratorRole(noAccessRoute, communityId);
 
   useEffect(() => {
     getCommunityDispatch(communityId);

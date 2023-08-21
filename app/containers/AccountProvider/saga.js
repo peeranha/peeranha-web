@@ -201,9 +201,11 @@ export function* updateAccWorker({ ethereum }) {
 
 export const getCurrentSuiAccountWorker = function* ({ wallet }) {
   try {
+    console.log('isUserRegistered');
     const previouslyConnectedWallet = getCookie('connectedWallet');
     if (wallet.connected && previouslyConnectedWallet) {
       const isUserRegistered = yield call(isSuiUserExists, wallet);
+      console.log(isUserRegistered);
       if (isUserRegistered === false) {
         yield put(getUserProfileSuccess(emptyProfile(wallet.address)));
         yield put(getCurrentAccountSuccess(wallet.address, 0));

@@ -76,7 +76,7 @@ export async function executeMeshQuery(props) {
 
 export const getUserDataFromMesh = (item) => {
   const { userachievement, usercommunityrating, usercommunity, userpermission, ...user } = item;
-  const achievements = userachievement.map(({ achievementId }) => ({
+  const achievements = userachievement?.map(({ achievementId }) => ({
     id: achievementId,
   }));
   return {
