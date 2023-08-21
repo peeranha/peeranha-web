@@ -6,6 +6,7 @@ import {
   postsQuery,
   userQuery,
   usersQuery,
+  usersByCommunityQuery,
 } from 'utils/sui/suiQuerries';
 import { delay } from 'utils/reduxUtils';
 
@@ -28,6 +29,10 @@ type User = {
   id: any;
   userpermission: any;
   replyCount: any;
+};
+
+type UsersByCommunityId = {
+  user: User[];
 };
 
 const userFromIndexerResponse = (user: User, communities: any[]) => {
@@ -65,6 +70,13 @@ export const getSuiUsers = async (communities: any[]) => {
 export const getSuiUserById = async (id: string, communities: any) => {
   const data = await getDataFromIndexer(userQuery, { id });
   return userFromIndexerResponse(data.user[0], communities);
+};
+
+export const getSuiUsersByCommunityId = async (communityId: string, communities: any) => {
+  const data = await getDataFromIndexer(usersByCommunityQuery, { communityId });
+  return data.usercommunityrating.map((users: UsersByCommunityId) =>
+    userFromIndexerResponse(users.user[0], communities),
+  );
 };
 
 const commentFromIndexerReponse = (commentFromIndexer: any, communities: any) => ({

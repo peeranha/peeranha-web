@@ -1,5 +1,7 @@
 import { postMeshShallow } from 'utils/mesh';
 
+const suiNetworkId = '3';
+
 const user = `
   id
   displayName
@@ -13,6 +15,7 @@ const user = `
   creationTime
   ipfsHash
   ipfsHash2
+  networkId
   userachievement {
     id
     achievementId
@@ -214,10 +217,25 @@ export const userQuery = `query($id: String) {
   }`;
 
 export const usersQuery = `query {
-    user {
+    user (where: {networkId: "${suiNetworkId}"}) {
       ${user}
     }
   }`;
+
+export const usersByCommunityQuery = `
+      query(
+        $communityId: String,
+      ) {
+        usercommunityrating(
+          where: { communityId: $communityId }
+        ) {
+          user {
+            ${user}
+            postCount
+            replyCount
+          }
+        }
+      }`;
 
 export const communitiesQuery = `query {
     community {
