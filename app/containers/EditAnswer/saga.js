@@ -47,7 +47,8 @@ export function* getAnswerWorker({ questionId, answerId }) {
       getAnswerSuccess({
         ...answer,
         communityId: question.communityId,
-        isOfficialReply: question.officialReply === answerId,
+        isOfficialReply:
+          question.officialReply === (isSuiBlockchain ? Number(answerId.split('-')[2]) : answerId),
       }),
     );
   } catch (err) {
