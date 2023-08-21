@@ -514,7 +514,8 @@
     "moderatorEditPost": "Editar post",
     "authorEditReply": "Editar respuesta",
     "moderatorEditReply": "Editar respuesta",
-    "moderatorEditPostMetaData": "Editar post"
+    "moderatorEditPostMetaData": "Editar post",
+    "votePost": "Votar publicación"
   },
   "aboutPeeranha": "Sobre Peeranha",
   "postsAnswersComments": "Publicaciones, respuestas y comentarios",

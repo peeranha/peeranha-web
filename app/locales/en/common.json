@@ -518,7 +518,8 @@
     "authorEditReply": "Edit reply",
     "moderatorEditReply": "Edit reply",
     "moderatorEditPostMetaData": "Edit post meta data",
-    "createUser": "Create user"
+    "createUser": "Create user",
+    "votePost": "Voute post"
   },
   "aboutPeeranha": "About Peeranha",
   "postsAnswersComments": "Posts, Answers and Comments",
