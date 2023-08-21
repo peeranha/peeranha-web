@@ -1,10 +1,13 @@
 import { TEXT_PRIMARY } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const styles = {
   markAllButton: {
     display: 'flex',
     alignItems: 'center',
-    color: TEXT_PRIMARY,
+    color: colors.btnColor || TEXT_PRIMARY,
   },
 
   markAllIcon: {

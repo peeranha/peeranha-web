@@ -71,7 +71,7 @@ const styles = {
     padding: '16px',
   },
   seeAll: {
-    color: TEXT_PRIMARY,
+    color: colors.btnColor || TEXT_PRIMARY,
     marginLeft: '2px',
     marginRight: '25px',
   },
