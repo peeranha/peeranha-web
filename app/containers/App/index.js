@@ -172,7 +172,7 @@ const App = ({
         <Popover />
         <CookieConsentPopup />
 
-        <NewUserRegistrationForm />
+        {isSuiBlockchain && <NewUserRegistrationForm />}
 
         <Switch>
           <Route exact path={routes.home()}>

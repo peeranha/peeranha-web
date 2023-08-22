@@ -81,6 +81,8 @@ const user = `
   company
   position
   location
+  customName
+  walletAddress
   about
   avatar
   creationTime

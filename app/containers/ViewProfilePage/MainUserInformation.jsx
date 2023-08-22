@@ -21,7 +21,7 @@ import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
-import { showPopover } from 'utils/popover';
+import { closePopover, showPopover } from 'utils/popover';
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -32,6 +32,7 @@ import useMediaQuery from 'hooks/useMediaQuery';
 
 import { singleCommunityColors } from 'utils/communityManagement';
 import { isSuiBlockchain } from 'utils/sui/sui';
+import { SuiNS } from 'icons/index';
 
 const colors = singleCommunityColors();
 const InlineLoader = styled(LoadingIndicator)`
@@ -170,17 +171,27 @@ const MainUserInformation = ({
     (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userAddress = isSuiBlockchain
-    ? process.env.SUI_EXPLORERE_URL.replace('{0}', userId)
+    ? process.env.SUI_EXPLORERE_URL.replace(
+        '{0}',
+        profile?.customName ? profile?.walletAddress : userId,
+      )
     : process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
   const [copied, setCopied] = useState('');
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const writeToBuffer = (event) => {
-    navigator.clipboard.writeText(userId);
+    navigator.clipboard.writeText(profile?.customName || userId);
     setCopied(colors.btnColor || LINK_COLOR);
     if (isDesktop) {
       showPopover(event.currentTarget.id, t('common.copied'));
     }
+  };
+
+  const showSuiNSPopover = (event) => {
+    showPopover(event.currentTarget.id, 'Sui Name Service', { timer: false });
+  };
+  const hideSuiNSPopover = (event) => {
+    closePopover(event.currentTarget.id);
   };
 
   const onClickRedirectToEditProfilePage =
@@ -406,9 +417,32 @@ const MainUserInformation = ({
                     flex-direction: row;
                   `}
                 >
-                  <span>{t(isSuiBlockchain ? 'common.userId' : 'common.walletAddress')}</span>
+                  <span>
+                    {t(
+                      isSuiBlockchain && !profile?.customName
+                        ? 'common.userId'
+                        : 'common.walletAddress',
+                    )}
+                  </span>
                   <div>
                     <A to={{ pathname: userAddress }} href={userAddress} target="_blank">
+                      {profile?.customName && (
+                        <button
+                          onMouseEnter={showSuiNSPopover}
+                          onMouseLeave={hideSuiNSPopover}
+                          id="sui-ns-banner"
+                          css={css`
+                            margin-right: 3px !important;
+                          `}
+                        >
+                          <SuiNS
+                            size={[19, 19]}
+                            css={css`
+                              margin-right: 0 !important;
+                            `}
+                          />
+                        </button>
+                      )}
                       <span
                         id="copytext1"
                         css={css`
@@ -419,7 +453,7 @@ const MainUserInformation = ({
                           line-height: 23px;
                         `}
                       >
-                        {shortUserId(userId)}
+                        {profile?.customName || shortUserId(userId)}
                       </span>
                     </A>
                     <button

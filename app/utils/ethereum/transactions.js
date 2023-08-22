@@ -79,6 +79,7 @@ export async function sendTransactionMethod(
       action,
       transactionHash: transaction.hash,
     });
+    this.setTransactionList(this.transactionList);
     localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
     this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);

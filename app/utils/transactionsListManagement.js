@@ -11,6 +11,7 @@ export const setTransactionResult = (
   if (pendingTransaction) {
     pendingTransaction.result = result;
   }
+  setTransactionList(transactionList);
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
   setTimeout(() => {
     const index = transactionList

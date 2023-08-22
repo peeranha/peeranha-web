@@ -13,6 +13,8 @@ const user = `
   about
   avatar
   creationTime
+  customName
+  walletAddress
   ipfsHash
   ipfsHash2
   networkId
