@@ -90,10 +90,8 @@ export const getPostRoute = ({ postType, id, answerId = null, title }) => {
 export const questionEdit = (postType, questionId, title) =>
   `/${postType}/${questionId}/${updateTitle(title)}/edit`;
 
-export const answerEdit = (questionId, answerId) =>
-  !singleCommId
-    ? `/discussions/${questionId}/answers/${answerId}/edit`
-    : `/${questionId}/answers/${answerId}/edit`;
+export const answerEdit = (postType, questionId, answerId) =>
+  `/${postType}/${questionId}/answers/${answerId}/edit`;
 
 export const questionAsk = () => '/ask';
 
