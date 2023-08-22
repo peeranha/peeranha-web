@@ -29,6 +29,8 @@ type User = {
   id: any;
   userpermission: any;
   replyCount: any;
+  walletAddress: string;
+  customName: string;
 };
 
 type UsersByCommunityId = {

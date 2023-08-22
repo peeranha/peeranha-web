@@ -19,6 +19,8 @@ import Span from 'components/Span';
 import A from 'components/A';
 
 import { COMMENT_TYPE } from './constants';
+import { SuiNS } from 'icons/index';
+import { css } from '@emotion/react';
 
 const Block = styled.div`
   display: flex;
@@ -62,6 +64,7 @@ export const UserInfo = ({
   locale,
   achievementsCount,
   isComment,
+  customName,
 }) => (
   <A to={routes.profileView(account)} className="d-flex flex-shrink-0">
     {type !== COMMENT_TYPE && (
@@ -72,7 +75,30 @@ export const UserInfo = ({
 
     <Block type={type}>
       <span className={`d-flex align-items-center ${isComment ? '' : 'mr-2'}`}>
-        <Span className="mr-2" fontSize="14" lineHeight="18" textOverflow="ellipsis">
+        <Span
+          className="mr-2"
+          fontSize="14"
+          lineHeight="18"
+          textOverflow="ellipsis"
+          css={
+            customName &&
+            css`
+              border-radius: 4px;
+              background-color: #eaf7ff;
+              padding: 0 8px;
+              margin-right: 8px;
+              display: flex;
+              align-items: center;
+            `
+          }
+        >
+          {customName && (
+            <SuiNS
+              css={css`
+                margin-right: 3px !important;
+              `}
+            />
+          )}
           {name}
         </Span>
         <RatingStatus

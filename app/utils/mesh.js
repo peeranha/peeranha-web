@@ -2,6 +2,8 @@ const userMeshShallow = `
   id
   displayName
   avatar
+  customName
+  walletAddress
   userachievement {
     id
   }

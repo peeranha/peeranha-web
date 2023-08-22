@@ -232,6 +232,7 @@ const ContentHeader = (props) => {
             isBot={isBot}
             handle={author.handle}
             messengerType={author.messengerType}
+            customName={author.customName}
           />
         )}
         <ButtonContainer>

@@ -18,6 +18,8 @@ import { getUserName } from 'utils/user';
 import { isBotAddress } from 'utils/properties';
 import { t } from 'i18next';
 import { messengerData } from 'containers/ViewQuestion/BotInfo';
+import { css } from '@emotion/react';
+import { SuiNS } from 'icons/index';
 
 export const AuthorName = Span.extend`
   width: max-content;
@@ -26,16 +28,36 @@ export const AuthorName = Span.extend`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-content: center;
 `;
 const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
   <p className="mb-3">
     <A to={routes.profileView(author.id)} className="d-inline-flex align-items-center">
       {!isSearchPage && (
         <>
-          <AuthorName fontSize="14">
+          <AuthorName
+            fontSize="14"
+            css={
+              author.customName &&
+              css`
+                border-radius: 4px;
+                background-color: #eaf7ff;
+                padding: 4px 8px;
+                margin-right: 8px;
+              `
+            }
+          >
+            {author.customName && (
+              <SuiNS
+                css={css`
+                  margin-right: 3px !important;
+                `}
+              />
+            )}
             {isBotAddress(author)
               ? t('post.botCreate', { bot: messengerData[author.messengerType].name })
-              : getUserName(author.displayName, author.id)}
+              : getUserName(author.customName || author.displayName, author.id)}
           </AuthorName>
           {!isBotAddress(author) && (
             <>
