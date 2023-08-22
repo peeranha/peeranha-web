@@ -129,7 +129,7 @@ export async function sendMetaTransactionMethod(
     action,
     transactionHash: response.body.transactionHash,
   });
-
+  this.setTransactionList(this.transactionList);
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
 
   if (response.errorCode) {
@@ -147,6 +147,7 @@ export async function sendMetaTransactionMethod(
   if (pendingTransaction) {
     pendingTransaction.result = result;
   }
+  this.setTransactionList(this.transactionList);
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
   setTimeout(() => {
     const index = this.transactionList

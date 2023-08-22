@@ -149,12 +149,7 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.answers.find((x) => x.id === answerId)?.user === profileInfo.user;
 
 export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
-  const postedAnswerIds = yield select(selectPostedAnswerIds());
   const question = yield call(getPost, questionId);
-
-  const isQuestionChanged = isItemChanged(CHANGED_POSTS_KEY, questionId);
-  const isQuestionJustCreated = postedAnswerIds.includes(questionId);
-  question.commentCount = question.comments.length;
 
   question.author = { ...question.author, user: question.author.id };
 
@@ -168,66 +163,6 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   }));
 
   question.isGeneral = isGeneralQuestion(question);
-
-  const users = new Map();
-
-  function* addOptions(currentItem) {
-    users.set(
-      currentItem.author,
-      users.get(currentItem.author)
-        ? [...users.get(currentItem.author), currentItem]
-        : [currentItem],
-    );
-
-    if (currentItem.content) return;
-    currentItem.content = 'content';
-  }
-
-  function* processQuestion() {
-    yield call(addOptions, question);
-  }
-
-  function* processAnswers() {
-    yield all(
-      question.answers.map(function* (x) {
-        yield call(addOptions, x);
-
-        yield all(
-          x.comments.map(function* (y) {
-            yield call(addOptions, y);
-          }),
-        );
-      }),
-    );
-  }
-
-  function* processCommentsOfQuestion() {
-    yield all(
-      question.comments.map(function* (y) {
-        yield call(addOptions, y);
-      }),
-    );
-  }
-
-  if (!isSuiBlockchain && user && (isQuestionChanged || isQuestionJustCreated)) {
-    yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
-  }
-
-  // To avoid of fetching same user profiles - remember it and to write author here
-  if ((!isSuiBlockchain && user && isQuestionChanged) || isQuestionJustCreated) {
-    yield all(
-      Array.from(users.keys()).map(function* (userFromItem) {
-        const author = yield call(getUserProfileWorker, {
-          user: userFromItem.user || userFromItem,
-          getFullProfile: true,
-          communityIdForRating: question.communityId,
-        });
-        users.get(userFromItem).map((cachedItem) => {
-          cachedItem.author = author;
-        });
-      }),
-    );
-  }
 
   return question;
 }
@@ -572,25 +507,6 @@ export function* getQuestionDataWorker({ questionId }) {
       throw new Error(`No question data, id: ${questionId}`);
     }
 
-    const { author, answers } = questionData;
-
-    if (account === questionData.author.id) {
-      yield all(
-        answers.map(function* ({ author: answerUserInfo }) {
-          const answerProfileInfo = yield select(selectUsers(author.id));
-          if (answerProfileInfo && !answerProfileInfo.profile) {
-            const profile = JSON.parse(yield call(getText, answerUserInfo.ipfs_profile));
-            yield put(
-              getUserProfileSuccess({
-                ...answerUserInfo,
-                profile,
-              }),
-            );
-          }
-        }),
-      );
-    }
-
     if (isAnotherCommQuestion) {
       yield put(getQuestionDataSuccess(null));
     } else {
@@ -658,7 +574,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         postComment,
         profileInfo.user,
         questionId,
-        answerId,
+        answerId ? answerId.split('-')[2] : answerId,
         ipfsHash,
         languagesEnum[locale],
         ethereumService,

@@ -67,7 +67,7 @@ export async function sendDispatcherTransactionMethod(
     action,
     transactionHash: response.body.transactionHash,
   });
-
+  this.setTransactionList(this.transactionList);
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
 
   if (response.errorCode) {
@@ -82,7 +82,7 @@ export async function sendDispatcherTransactionMethod(
   );
 
   setTransactionResult(
-    response.body.transactionList,
+    response.body.transactionHash,
     result,
     this.transactionList,
     this.setTransactionList,
