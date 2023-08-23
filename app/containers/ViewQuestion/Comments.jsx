@@ -132,7 +132,9 @@ const CommentEdit = ({ answerId, id, content, saveCommentLoading, saveComment, t
 
 const CommentView = (item) => {
   const { t } = useTranslation();
-  const isItWrittenByMe = item.profileInfo ? item.author?.user === item.profileInfo.user : false;
+  const isItWrittenByMe = item.profileInfo
+    ? item.author?.user.toLowerCase() === item.profileInfo.user.toLowerCase()
+    : false;
 
   const translation = item.translations?.find(
     ({ language }) => +language === LANGUAGES_MAP[item.locale],

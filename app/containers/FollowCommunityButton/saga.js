@@ -35,8 +35,8 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
     const updatedProfileInfo = {
       ...profileInfo,
       followedCommunities: isFollowed
-        ? profileInfo.followedCommunities.filter((commId) => commId !== +communityIdFilter)
-        : [...profileInfo.followedCommunities, +communityIdFilter],
+        ? profileInfo.followedCommunities.filter((commId) => commId !== communityIdFilter)
+        : [...profileInfo.followedCommunities, communityIdFilter],
     };
 
     yield put(getUserProfileSuccess(updatedProfileInfo));

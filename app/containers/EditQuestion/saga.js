@@ -6,13 +6,15 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { editQuestion, getQuestionById } from 'utils/questionsManagement';
-import { getCommunityWithTags } from 'utils/communityManagement';
+import { editQuestion } from 'utils/questionsManagement';
+import { getCommunityTags, getCommunityWithTags } from 'utils/communityManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
-import { selectQuestionData } from 'containers/ViewQuestion/selectors';
+import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
+import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
+import { getQuestionFromGraph } from 'utils/theGraph';
 
 import {
   EDIT_QUESTION,
@@ -30,35 +32,21 @@ import {
   getAskedQuestionSuccess,
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { makeSelectAccount } from '../AccountProvider/selectors';
-import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const cachedQuestion = yield select(selectQuestionData());
-    const account = yield select(makeSelectAccount());
-    let question;
-    let questionFromContract;
-
-    if (!cachedQuestion) {
-      questionFromContract = yield call(getQuestionById, ethereumService, questionId, account);
-      question = {
-        ...questionFromContract,
-        isGeneral: !!questionFromContract.postType,
-      };
-    } else {
-      question = cachedQuestion;
-    }
+    const question = yield call(getQuestionFromGraph, questionId);
     const { communityId } = question;
 
     if (communityId) {
-      const [community, tags] = yield call(getCommunityWithTags, communityId);
+      const [community] = yield call(getCommunityWithTags, communityId);
+      const tags = yield call(getCommunityTags, communityId);
+      const questionTags = tags[communityId].filter((tag) =>
+        question.tags.map((questionTag) => questionTag.id).includes(tag.id),
+      );
 
       question.community = community;
-
-      question.tags = questionFromContract.tags;
+      question.tags = questionTags;
     }
 
     yield put(getAskedQuestionSuccess(question));
@@ -80,9 +68,10 @@ export function* editQuestionWorker({ question, questionId }) {
 
     yield call(
       editQuestion,
+      questionId.split('-')[0],
       selectedAccount,
-      Number(questionId),
-      Number(question.communityId),
+      questionId,
+      question.communityId,
       questionData,
       question.tags,
       Number(question.postType),

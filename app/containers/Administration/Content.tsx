@@ -24,6 +24,7 @@ import { BORDER_PRIMARY } from 'style-constants';
 
 import { getUsersModeratorByRoles } from 'utils/accountManagement';
 import { singleCommunityColors } from 'utils/communityManagement';
+import { getActualId } from 'utils/properties';
 
 enum Roles {
   communityAdmin = 0,
@@ -51,10 +52,14 @@ export const Content: React.FC<ContentProps> = ({
   communityId,
   moderatorsLoading,
 }): JSX.Element | null => {
-  const usersModerator = [...new Set(moderators.map((moderator) => moderator.user))];
+  function filterDuplicatesById(arr: any[]) {
+    const idSet = new Set();
+    return arr.filter((obj) => !idSet.has(obj.id) && idSet.add(obj.id));
+  }
+
   const usersModeratorByRoles = getUsersModeratorByRoles(
-    usersModerator,
-    communityId,
+    filterDuplicatesById(moderators.map((moderator) => moderator.user)),
+    getActualId(communityId),
     moderators,
     Roles,
   );

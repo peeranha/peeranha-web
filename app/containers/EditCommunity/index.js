@@ -67,7 +67,7 @@ const EditCommunity = ({
     () => ({
       community,
       editCommunityDispatch,
-      communityId: +communityId,
+      communityId,
       communityLoading: editCommunityLoading,
       locale,
       isModerator: hasGlobalModeratorRole(getPermissions(profileInfo)),

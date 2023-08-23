@@ -39,6 +39,9 @@ import {
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 import { formPermissionsCookie, getCookie, parsePermissionsCookie, setCookie } from 'utils/cookie';
+import { hasGlobalModeratorRole } from 'utils/properties';
+import { getNotificationsInfoWorker } from 'components/Notifications/saga';
+import { getCurrentPeriod } from 'utils/theGraph';
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
@@ -55,11 +58,9 @@ import {
   updateAccErr,
   updateAccSuccess,
 } from './actions';
+
 import { makeSelectProfileInfo } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { hasGlobalModeratorRole } from '../../utils/properties';
-import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
-import { getCurrentPeriod } from '../../utils/theGraph';
 
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function* (initAccount) {
@@ -104,7 +105,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
       call(getProfileInfo, account, ethereumService, true, true),
       call(getBalance, ethereumService, account),
       call(getAvailableBalance, ethereumService, account),
-      call(getUserBoost, ethereumService, account, currentPeriod.id),
+      call(getUserBoost, ethereumService, account, currentPeriod?.id || 0),
     ]);
 
     if (profileInfo) {

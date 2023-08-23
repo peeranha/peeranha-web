@@ -29,8 +29,8 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
       hasProtocolAdminRole(permissions) ||
         hasGlobalModeratorRole(permissions) ||
         (Boolean(communityId) &&
-          (hasCommunityModeratorRole(permissions, Number(communityId)) ||
-            hasCommunityAdminRole(permissions, Number(communityId)))),
+          (hasCommunityModeratorRole(permissions, communityId) ||
+            hasCommunityAdminRole(permissions, communityId))),
     );
   }, []);
 

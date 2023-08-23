@@ -13,12 +13,11 @@ type CommunityDocumentationMenu = {
   documentationJSON: string;
 };
 
-export function* getDocumentationMenuWorker(props: {
-  communityId: number;
-}): Generator<any> {
+export function* getDocumentationMenuWorker(props: { communityId: number }): Generator<any> {
   try {
-    const documentation = yield call(getDocumentationMenu, props.communityId);
-
+    const documentation = props.communityId
+      ? yield call(getDocumentationMenu, props.communityId)
+      : undefined;
     if (!documentation) {
       yield put(setPinnedItemMenu({ id: '', title: '' }));
       yield put(getDocumentationMenuSuccess([]));
@@ -43,9 +42,6 @@ export function* getDocumentationMenuWorker(props: {
 
 export default function* (): Generator<any> {
   try {
-    yield takeLatest(
-      [GET_DOCUMENTATION_MENU, ASK_QUESTION_SUCCESS],
-      getDocumentationMenuWorker,
-    );
+    yield takeLatest([GET_DOCUMENTATION_MENU, ASK_QUESTION_SUCCESS], getDocumentationMenuWorker);
   } catch (error) {}
 }

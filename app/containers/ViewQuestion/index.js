@@ -112,7 +112,7 @@ export const ViewQuestion = ({
         history.push(routes[route](match.params.id, questionData.title));
       }
     }
-  }, [questionData]);
+  }, [history, match.params.id, match.url, questionData]);
 
   useEffect(() => {
     window.isRendered = false;
@@ -121,11 +121,11 @@ export const ViewQuestion = ({
     return () => {
       resetStoreDispatch();
     };
-  }, []);
+  }, [resetStoreDispatch]);
 
   useEffect(() => {
     getQuestionDataDispatch(match.params.id);
-  }, [match.params.id, account]);
+  }, [match.params.id, account, getQuestionDataDispatch]);
 
   useEffect(() => {
     getHistoriesDispatch(match.params.id);

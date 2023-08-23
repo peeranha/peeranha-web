@@ -60,24 +60,24 @@ const PageContentHeaderContainer = styled.div`
 `;
 
 const PageContentHeader = styled.div`
-  padding: 20px 0px;
+  padding: 20px 0;
   @media only screen and (max-width: 768px) {
     grid-row-start: 1;
     grid-row-end: 2;
-    padding: 10px 0px;
+    padding: 10px 0;
   }
   @media only screen and (max-width: 576px) {
     justify-content: space-between;
     width: 100%;
-    padding: 0px;
+    padding: 0;
   }
 `;
 
 const EditCommunityButton = styled.div`
   position: absolute;
   text-align: right;
-  padding: 8px 0px;
-  right: 0px;
+  padding: 8px 0;
+  right: 0;
   @media only screen and (max-width: 768px) {
     position: relative;
     display: flex;
@@ -91,7 +91,7 @@ const EditCommunityButton = styled.div`
   }
   @media only screen and (max-width: 576px) {
     display: block;
-    padding: 0px;
+    padding: 0;
     text-align: left;
   }
 `;
@@ -114,12 +114,9 @@ const StyledCustomIconButtonContainer = styled.div`
 export const Header = ({
   communityIdFilter,
   communities,
-  followedCommunities,
   parentPage,
   setTypeFilter,
   topQuestions,
-  topQuestionsInfoLoaded,
-  questionFilterFromCookies,
   postsTypes,
   profile,
 }) => {
@@ -179,12 +176,7 @@ export const Header = ({
     defaultLabel = t(`common.${profile && !single ? 'myFeed' : 'feed'}`);
     defaultAvatarWidth = '38';
   }
-
-  const displayQuestionFilter = useMemo(
-    () => !!single && !!topQuestions.length,
-    [single, topQuestionsInfoLoaded, topQuestions.length],
-  );
-
+  useMemo(() => !!single && !!topQuestions.length, [topQuestions.length]);
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
@@ -205,13 +197,6 @@ export const Header = ({
       <span>{communityLabel || defaultLabel}</span>
     </H3>
   );
-
-  const displaySubscribeButton =
-    !!single &&
-    isFeed &&
-    window.location.pathname !== routes.questions() &&
-    window.location.pathname !== routes.expertPosts() &&
-    window.location.pathname !== routes.tutorials();
 
   const routeToEditCommunity = () => {
     createdHistory.push(routes.communitiesEdit(single));

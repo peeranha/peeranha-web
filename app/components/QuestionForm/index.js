@@ -107,7 +107,6 @@ const SuggestTag = ({ redirectToCreateTagDispatch, formValues }) => {
 
 export const QuestionForm = ({
   locale,
-  path,
   sendQuestion,
   formTitle,
   questionLoading,
@@ -176,10 +175,12 @@ export const QuestionForm = ({
     if (formValues[FORM_TITLE] && getQuestions) {
       getQuestions(formValues[FORM_TITLE], true);
     }
-  }, [formValues[FORM_TITLE]]);
+  }, [formValues, getQuestions]);
 
   useEffect(() => {
-    getCommunityTagsDispatch(communityId);
+    if (communityId) {
+      getCommunityTagsDispatch(communityId);
+    }
   }, [communityId, getCommunityTagsDispatch]);
 
   const showMoreQuestions = (e) => {

@@ -18,7 +18,7 @@ import {
 
 import { SUGGEST_TAG, TAGFORM_SUBMIT_BUTTON, GET_FORM } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getPermissions } from '../../utils/properties';
+import { getPermissions } from 'utils/properties';
 
 export function* suggestTagWorker({ communityId, tag, reset }) {
   try {

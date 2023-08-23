@@ -5,6 +5,7 @@ import {
   CONTRACT_TOKEN,
   CONTRACT_USER,
 } from 'utils/ethConstants';
+
 import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
 import {
   BLOCKCHAIN_SEND_META_TRANSACTION,
@@ -17,16 +18,23 @@ import PeeranhaToken from '../../../../peeranha-subgraph/abis/PeeranhaToken.json
 import PeeranhaUser from '../../../../peeranha-subgraph/abis/PeeranhaUser.json';
 
 const CONTRACT_TO_ABI = {};
-CONTRACT_TO_ABI[CONTRACT_TOKEN] = PeeranhaToken;
-CONTRACT_TO_ABI[CONTRACT_USER] = PeeranhaUser;
-CONTRACT_TO_ABI[CONTRACT_COMMUNITY] = PeeranhaCommunity;
-CONTRACT_TO_ABI[CONTRACT_CONTENT] = PeeranhaContent;
-
 const CONTRACT_TO_NAME = {};
-CONTRACT_TO_NAME[CONTRACT_TOKEN] = 'PEER';
-CONTRACT_TO_NAME[CONTRACT_USER] = 'PeeranhaUser';
-CONTRACT_TO_NAME[CONTRACT_COMMUNITY] = 'PeeranhaCommunity';
-CONTRACT_TO_NAME[CONTRACT_CONTENT] = 'PeeranhaContent';
+
+const processContracts = (aggregator, contractList, contractType) => {
+  contractList.forEach((contractName) => {
+    aggregator[contractName] = contractType;
+  });
+};
+
+processContracts(CONTRACT_TO_ABI, CONTRACT_TOKEN, PeeranhaToken);
+processContracts(CONTRACT_TO_ABI, CONTRACT_USER, PeeranhaUser);
+processContracts(CONTRACT_TO_ABI, CONTRACT_COMMUNITY, PeeranhaCommunity);
+processContracts(CONTRACT_TO_ABI, CONTRACT_CONTENT, PeeranhaContent);
+
+processContracts(CONTRACT_TO_NAME, CONTRACT_TOKEN, 'PEER');
+processContracts(CONTRACT_TO_NAME, CONTRACT_USER, 'PeeranhaUser');
+processContracts(CONTRACT_TO_NAME, CONTRACT_COMMUNITY, 'PeeranhaCommunity');
+processContracts(CONTRACT_TO_NAME, CONTRACT_CONTENT, 'PeeranhaContent');
 
 const getSignatureParameters = (signature) => {
   const r = signature.slice(0, 66);
@@ -41,7 +49,8 @@ const getSignatureParameters = (signature) => {
   };
 };
 
-export const sendMetaTransactionMethod = async function (
+export async function sendMetaTransactionMethod(
+  network,
   contract,
   actor,
   action,
@@ -49,9 +58,8 @@ export const sendMetaTransactionMethod = async function (
   confirmations = 1,
   token,
 ) {
-  await this.chainCheck();
-  const metaTxContract = this[contract + 'Reads'];
-  let nonce = await metaTxContract.getNonce(actor); //orders the list of transactions
+  const metaTxContract = this[`${contract}Reads`];
+  const nonce = await metaTxContract.getNonce(actor);
   console.log(`Nonce from contract: ${nonce}`);
 
   if (nonce.lte(this.previousNonce)) {
@@ -64,7 +72,7 @@ export const sendMetaTransactionMethod = async function (
   const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
   const functionSignature = iface.encodeFunctionData(action, data);
   const message = {};
-  message.nonce = parseInt(nonce);
+  message.nonce = parseInt(nonce, 10);
   message.from = actor;
   message.functionSignature = functionSignature;
 
@@ -111,6 +119,7 @@ export const sendMetaTransactionMethod = async function (
     sigV: v,
     wait: false,
     reCaptchaToken: token,
+    network: network + 1,
   });
 
   this.transactionList.push({
@@ -149,4 +158,4 @@ export const sendMetaTransactionMethod = async function (
 
   this.transactionCompleted(this.transactionList);
   return result;
-};
+}

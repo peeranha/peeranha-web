@@ -200,7 +200,7 @@ const View = ({
                 </>
               )}
 
-              {!single.withoutSubHeader || !profileInfo ? (
+              {!single?.withoutSubHeader || !profileInfo ? (
                 <LoginProfile
                   isSearchFormVisible={isSearchFormVisible}
                   showLoginModalDispatch={showLoginModalDispatch}

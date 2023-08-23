@@ -8,8 +8,6 @@ import styled from 'styled-components';
 import ChangeLocale from 'containers/ChangeLocale';
 import cn from 'classnames';
 
-import isMobile from 'ismobilejs';
-
 import {
   BORDER_PRIMARY_DARK,
   BORDER_TRANSPARENT,
@@ -28,14 +26,11 @@ import * as routes from 'routes-config';
 
 import {
   isSingleCommunityWebsite,
-  singleCommunityStyles,
   singleCommunityColors,
   singleCommunityFonts,
-  getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
-import homeIcon from 'images/house.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
@@ -50,7 +45,7 @@ import { svgDraw } from 'components/Icon/IconStyled';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
-import { FULL_SIZE, PINNED_TITLE_LENGTH } from 'containers/LeftMenu/constants';
+import { PINNED_TITLE_LENGTH } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
 import {
   hasGlobalModeratorRole,
@@ -62,7 +57,6 @@ import {
 
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 
-const communityStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
 
@@ -169,7 +163,7 @@ const MainLinks = ({
   const { pathname } = window.location;
   let route = pathname.split('/').filter((x) => x)[0];
 
-  const singleCommId = +isSingleCommunityWebsite();
+  const singleCommId = isSingleCommunityWebsite();
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
@@ -309,7 +303,7 @@ const MainLinks = ({
           </A1>
         )}
 
-        {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
+        {(hasGlobalModeratorRole() || hasProtocolAdminRole() || isModeratorModeSingleCommunity) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
             {t(`common.users`)}

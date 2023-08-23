@@ -45,15 +45,15 @@ const EditAnswer = ({
 
   useEffect(() => {
     getQuestionDataDispatch(questionid);
-    getAnswerDispatch(+questionid, +answerid);
+    getAnswerDispatch(questionid, answerid);
   }, [questionid, answerid]);
 
   const sendAnswer = useCallback(
     (values) =>
       editAnswerDispatch(
         values.get(TEXT_EDITOR_ANSWER_FORM),
-        +questionid,
-        +answerid,
+        questionid,
+        answerid,
         values.get(ANSWER_TYPE_FORM),
         questionTitle,
       ),
