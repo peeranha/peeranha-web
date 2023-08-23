@@ -502,7 +502,8 @@
     "authorEditReply": "编辑回复",
     "moderatorEditReply": "编辑回复",
     "moderatorEditPostMetaData": "编辑帖子",
-    "votePost": "投票帖子"
+    "votePost": "投票帖子",
+    "voteReply": "投票回复"
   },
   "aboutPeeranha": "关于 Peeranha",
   "postsAnswersComments": "帖子、答案和评论",

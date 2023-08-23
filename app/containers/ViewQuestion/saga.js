@@ -156,6 +156,9 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   if (user) {
     const statusHistory = yield call(getVoteHistory, questionId, user);
     question.votingStatus = votingStatus(Number(statusHistory));
+    question.answers.map((reply) => {
+      reply.votingStatus = votingStatus(Number(statusHistory));
+    });
   }
   question.comments = question.comments.map((comment) => ({
     ...comment,
@@ -220,13 +223,18 @@ export function* saveCommentWorker({
       const wallet = yield select(selectSuiWallet());
       const commentObjectId = yield call(getCommentId2, commentId);
 
+      let actualAnswerId = answerId;
+      if (answerId) {
+        actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+      }
+
       const txResult = yield call(
         editSuiComment,
         wallet,
         profileInfo.id,
         getActualId(questionId),
         commentObjectId,
-        answerId ? answerId.split('-')[2] : answerId,
+        actualAnswerId,
         commentId.split('-')[3],
         ipfsLink,
         languagesEnum[locale],
@@ -294,16 +302,19 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
         communityID: questionData.communityId,
       },
     );
-
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
+      let actualAnswerId = answerId;
+      if (answerId) {
+        actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+      }
       const txResult = yield call(
         deleteSuiComment,
         wallet,
         profileInfo.id,
         getActualId(questionId),
-        answerId.split('-')[2],
+        actualAnswerId,
         commentId.split('-')[3],
       );
       yield put(transactionInPending(txResult.digest));
@@ -506,7 +517,7 @@ export function* getQuestionDataWorker({ questionId }) {
     if (!questionData) {
       throw new Error(`No question data, id: ${questionId}`);
     }
-
+    console.log(questionData);
     if (isAnotherCommQuestion) {
       yield put(getQuestionDataSuccess(null));
     } else {
@@ -787,12 +798,16 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
         if (!answerId || answerId === '0') {
           txResult = yield call(voteSuiPost, wallet, profile.id, getActualId(questionId), false);
         } else {
+          let actualAnswerId = answerId;
+          if (answerId) {
+            actualAnswerId = Number(answerId === '0' ? 0 : answerId.split('-')[2]);
+          }
           txResult = yield call(
             voteSuiReply,
             wallet,
             profile.id,
             getActualId(questionId),
-            getActualId(answerId),
+            actualAnswerId,
             false,
           );
         }
@@ -853,12 +868,16 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
         if (!answerId || answerId === '0') {
           txResult = yield call(voteSuiPost, wallet, profile.id, getActualId(questionId), true);
         } else {
+          let actualAnswerId = answerId;
+          if (answerId) {
+            actualAnswerId = Number(answerId === '0' ? 0 : answerId.split('-')[2]);
+          }
           txResult = yield call(
             voteSuiReply,
             wallet,
             profile.id,
             getActualId(questionId),
-            getActualId(answerId),
+            actualAnswerId,
             true,
           );
         }
