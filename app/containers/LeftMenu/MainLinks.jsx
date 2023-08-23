@@ -38,6 +38,7 @@ import usersIcon from 'images/users.svg?external';
 import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
+import FreeTrialBanner from 'components/FreeTrialBanner';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import { svgDraw } from 'components/Icon/IconStyled';
 
@@ -157,6 +158,7 @@ const MainLinks = ({
   pinnedItemMenu,
   changeLocale,
   locale,
+  isMenuVisible,
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
@@ -320,6 +322,10 @@ const MainLinks = ({
         )}
         <div css={styles.dividerLinks} />
       </div>
+
+      <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner>
+
+      <div css={styles.dividerLinks} />
 
       {Boolean(singleCommId) &&
         (documentationMenu.length > 0 || isModeratorModeSingleCommunity) && (
