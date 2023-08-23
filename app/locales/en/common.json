@@ -521,7 +521,8 @@
     "moderatorEditReply": "Edit reply",
     "moderatorEditPostMetaData": "Edit post meta data",
     "createUser": "Create user",
-    "votePost": "Voute post"
+    "votePost": "Voute post",
+    "voteReply": "Voute reply"
   },
   "aboutPeeranha": "About Peeranha",
   "postsAnswersComments": "Posts, Answers and Comments",

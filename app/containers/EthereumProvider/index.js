@@ -66,8 +66,8 @@ const initWeb3Onboard = init({
     },
     {
       id: `0x${Number(process.env.EDGEWARE_CHAIN_ID).toString(16)}`,
-      token: 'SepoliaETH',
-      label: 'Sepolia test network',
+      token: 'EDG',
+      label: 'Edgeware',
       rpcUrl: process.env.EDGEWARE_NETWORK,
     },
   ],
