@@ -7,6 +7,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { getNetworkIds } from 'utils/ethConstants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
@@ -116,29 +117,31 @@ const Achievements = ({
 
           <UniqueAchievementsBlock>
             {/* TODO revert for PROD */}
-            {achievements.map(
-              (achievement) =>
-                achievement.name !== 'error IPFS2' && (
-                  <UniqueAchievement
-                    reached={userAchievements.some(
-                      (achievementId) => achievementId === achievement.id,
-                    )}
-                    key={achievement.id}
-                    maxCount={achievement.maxCount}
-                    factCount={achievement.factCount}
-                    currentValue={profile?.highestRating?.rating || null}
-                    lowerValue={achievement.lowerValue}
-                    name={achievement.name}
-                    description={achievement.description}
-                    image={achievement.image}
-                    id={achievement.id}
-                    achievementURI={achievement.achievementURI}
-                    achievementsType={achievement.achievementsType}
-                    locale={locale}
-                    currentUser={profile?.id === userId}
-                  />
-                ),
-            )}
+            {achievements
+              .filter((achievement) => getNetworkIds().includes(achievement?.id.split('')[0]))
+              .map(
+                (achievement) =>
+                  achievement.name !== 'error IPFS2' && (
+                    <UniqueAchievement
+                      reached={userAchievements?.some(
+                        (achievementId) => achievementId === achievement.id,
+                      )}
+                      key={achievement.id}
+                      maxCount={achievement.maxCount}
+                      factCount={achievement.factCount}
+                      currentValue={profile?.highestRating?.rating || null}
+                      lowerValue={achievement.lowerValue}
+                      name={achievement.name}
+                      description={achievement.description}
+                      image={achievement.image}
+                      id={achievement.id}
+                      achievementURI={achievement.achievementURI}
+                      achievementsType={achievement.achievementsType}
+                      locale={locale}
+                      currentUser={profile?.id === userId}
+                    />
+                  ),
+              )}
           </UniqueAchievementsBlock>
         </UniqueAchievementsWrapper>
       )}
