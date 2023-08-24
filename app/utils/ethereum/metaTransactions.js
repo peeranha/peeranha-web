@@ -59,12 +59,10 @@ export async function sendMetaTransactionMethod(
   confirmations = 1,
   token,
 ) {
-  await this.chainCheck(network);
   const metaTxContract = this[`${contract}Reads`];
   let nonce = await metaTxContract.getNonce(actor);
   console.log(`Nonce from contract: ${nonce}`);
-
-  if (nonce.lte(this.previousNonce)) {
+  if (nonce.eq(this.previousNonce)) {
     nonce = this.previousNonce.add(1);
     this.previousNonce = nonce;
   } else {
@@ -128,6 +126,7 @@ export async function sendMetaTransactionMethod(
   this.transactionList.push({
     action,
     transactionHash: response.body.transactionHash,
+    network,
   });
   this.setTransactionList(this.transactionList);
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
@@ -137,7 +136,7 @@ export async function sendMetaTransactionMethod(
   }
 
   this.transactionInPending(response.body.transactionHash, this.transactionList);
-  const result = await this.providerReads.waitForTransaction(
+  const result = await this[this.providerForWaiting[Number(network)]].waitForTransaction(
     response.body.transactionHash,
     confirmations,
   );

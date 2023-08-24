@@ -99,7 +99,7 @@ export const UserInfo = ({
               `}
             />
           )}
-          {name}
+          {customName || name}
         </Span>
         <RatingStatus
           rating={rating}

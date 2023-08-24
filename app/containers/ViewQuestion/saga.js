@@ -247,9 +247,9 @@ export function* saveCommentWorker({
       const transaction = yield call(
         editComment,
         profileInfo.user,
-        getActualId(questionId),
-        answerId ? answerId.split('-')[2] : answerId,
-        commentId.split('-')[3],
+        questionId,
+        answerId,
+        commentId,
         ipfsHash,
         languagesEnum[locale],
         ethereumService,
@@ -517,7 +517,6 @@ export function* getQuestionDataWorker({ questionId }) {
     if (!questionData) {
       throw new Error(`No question data, id: ${questionId}`);
     }
-    console.log(questionData);
     if (isAnotherCommQuestion) {
       yield put(getQuestionDataSuccess(null));
     } else {
@@ -585,7 +584,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         postComment,
         profileInfo.user,
         questionId,
-        answerId ? answerId.split('-')[2] : answerId,
+        answerId,
         ipfsHash,
         languagesEnum[locale],
         ethereumService,
@@ -612,7 +611,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
       commentId = questionData.commentCount;
       questionData.comments.push({
         ...newComment,
-        id: commentId,
+        id: `${questionId}-${answerId ? answerId.split('-')[2] : 0}-${commentId}`,
       });
     } else {
       const { comments, commentCount } = questionData.answers.find((x) => x.id === answerId);
@@ -620,7 +619,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
       commentId = commentCount + 1;
       comments.push({
         ...newComment,
-        id: commentId,
+        id: `${questionId}-${answerId ? answerId.split('-')[2] : 0}-${commentId}`,
       });
     }
 

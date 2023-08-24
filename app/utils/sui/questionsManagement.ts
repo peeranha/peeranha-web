@@ -20,12 +20,6 @@ import {
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 
-export const suiVotingStatus = (statusHistory) => ({
-  isUpVoted: statusHistory === 3,
-  isDownVoted: statusHistory === 1,
-  isVotedToDelete: false,
-});
-
 export async function postSuiQuestion(
   wallet: WalletContextState,
   userSuiId: string,

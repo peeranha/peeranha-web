@@ -66,6 +66,7 @@ export async function sendDispatcherTransactionMethod(
   this.transactionList.push({
     action,
     transactionHash: response.body.transactionHash,
+    network,
   });
   this.setTransactionList(this.transactionList);
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));

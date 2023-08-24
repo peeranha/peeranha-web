@@ -121,7 +121,7 @@ const Achievements = ({
                 achievement.name !== 'error IPFS2' && (
                   <UniqueAchievement
                     reached={userAchievements.some(
-                      (achievementId) => Number(achievementId) === achievement.id,
+                      (achievementId) => achievementId === achievement.id,
                     )}
                     key={achievement.id}
                     maxCount={achievement.maxCount}

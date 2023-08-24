@@ -80,7 +80,7 @@ export const initialState = fromJS({
   ids: [],
   histories: null,
   getHistoriesError: null,
-  historiesLoading: true,
+  historiesLoading: false,
 });
 
 function viewQuestionReducer(state = initialState, action) {
