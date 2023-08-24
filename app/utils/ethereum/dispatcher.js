@@ -17,6 +17,7 @@ export async function sendDispatcherTransactionMethod(
   confirmations = 1,
   token,
 ) {
+  await this.chainCheck(network);
   const userAddress = data.shift();
   this.transactionList.push({
     action,

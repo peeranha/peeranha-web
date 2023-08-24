@@ -1,12 +1,12 @@
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { getProfileInfo } from 'utils/profileManagement';
-import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { getBytes32FromIpfsHash, getText, saveText } from 'utils/ipfs';
+import { getBytes32FromIpfsHash, saveText } from 'utils/ipfs';
 import { getActualId } from 'utils/properties';
 
 import {

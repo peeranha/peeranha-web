@@ -116,7 +116,6 @@ const Achievements = ({
           <UniqueAchievementsTitle>{t('common.limitedEdition')}</UniqueAchievementsTitle>
 
           <UniqueAchievementsBlock>
-            {/* TODO revert for PROD */}
             {achievements
               .filter((achievement) => getNetworkIds().includes(achievement?.id.split('')[0]))
               .map(
