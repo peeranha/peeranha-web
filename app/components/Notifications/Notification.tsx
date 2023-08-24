@@ -15,7 +15,6 @@ import {
 } from './constants';
 import styles from './Notifications.styled';
 import { NotificationLinkProps, NotificationProps, NotificationTimeProps } from './types';
-import { BigNumber } from 'ethers';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 const communityStyles = singleCommunityStyles();
@@ -74,11 +73,7 @@ const Notification: React.FC<NotificationProps> = ({
   let href;
 
   if (data.network) {
-    href = route(
-      `${data.network}-${BigNumber.from(data.question_id).toNumber()}`,
-      data.title,
-      data.answer_id,
-    );
+    href = route(`${data.network}-${data.question_id}`, data.title, data.answer_id);
   } else {
     href = route(`1-${data.question_id}`, data.title, data.answer_id);
   }
