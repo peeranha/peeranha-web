@@ -53,6 +53,7 @@ class EthereumService {
     this.setTransactionList = data.setTransactionListDispatch;
     this.transactionInPending = data.transactionInPendingDispatch;
     this.transactionCompleted = data.transactionCompletedDispatch;
+    this.providerForWaiting = ['providerReads', 'edgewareProviderReads'];
 
     this.previousNonce = BigNumber.from(0);
     this.transactionList = [];
@@ -157,7 +158,9 @@ class EthereumService {
         this.transactionList.find(
           (transactionFromList) =>
             transactionFromList.transactionHash === transaction.transactionHash,
-        ).result = await this.provider.waitForTransaction(transaction.transactionHash);
+        ).result = await this[
+          this.providerForWaiting[Number(transaction.network)]
+        ].waitForTransaction(transaction.transactionHash);
 
         setTimeout(() => {
           const index = this.transactionList

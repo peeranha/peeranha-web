@@ -282,7 +282,7 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
-        '3-0x933eedd6e0ebbbdc00a3c6d5a6da78f63b92bd4cd0a50eba02042ec8d5cf05a9': {
+        '3-0x6320fa169fcf93bd30666e5612e799599ac6021fa59e84dab1d48fa120f56c47': {
           origin: `http://localhost:31000`,
           src: 'https://images.peeranha.io/communities/mark3d/logo.svg',
           styles: Mark3dStyles,

@@ -228,11 +228,8 @@ export const ViewQuestion = ({
         articleModifiedTime={articleModifiedTime}
       />
 
-      {!questionDataLoading && !historiesLoading && questionData && (
-        <ViewQuestionContainer {...sendProps} />
-      )}
-
-      {(questionDataLoading || historiesLoading) && <LoadingIndicator />}
+      {questionData && <ViewQuestionContainer {...sendProps} />}
+      {!questionData && <LoadingIndicator />}
     </>
   );
 };
