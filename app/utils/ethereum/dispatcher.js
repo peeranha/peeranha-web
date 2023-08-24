@@ -17,8 +17,13 @@ export async function sendDispatcherTransactionMethod(
   confirmations = 1,
   token,
 ) {
-  await this.chainCheck(network);
   const userAddress = data.shift();
+  this.transactionList.push({
+    action,
+    transactionHash: JSON.stringify(data),
+    network,
+  });
+  this.setTransactionList(this.transactionList);
 
   const isWeb3Token = getCookie(WEB3_TOKEN);
   const isWeb3TokenUserAddress = getCookie(WEB3_TOKEN_USER_ADDRESS) === actor;
@@ -63,13 +68,19 @@ export async function sendDispatcherTransactionMethod(
     network: Number(network) + 1,
   });
 
-  this.transactionList.push({
-    action,
-    transactionHash: response.body.transactionHash,
-    network,
-  });
+  const pendingTransaction = this.transactionList.find(
+    (transactionFromList) => transactionFromList.transactionHash === JSON.stringify(data),
+  );
+  if (pendingTransaction) {
+    if (response?.body?.transactionHash) {
+      pendingTransaction.transactionHash = response.body.transactionHash;
+      localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+    } else {
+      pendingTransaction.result = { status: 2 };
+    }
+  }
+
   this.setTransactionList(this.transactionList);
-  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
 
   if (response.errorCode) {
     throw response;
@@ -77,7 +88,7 @@ export async function sendDispatcherTransactionMethod(
 
   this.transactionInPending(response.body.transactionHash, this.transactionList);
 
-  const result = await this.provider.waitForTransaction(
+  const result = await this[this.providerForWaiting[Number(network)]].waitForTransaction(
     response.body.transactionHash,
     confirmations,
   );
