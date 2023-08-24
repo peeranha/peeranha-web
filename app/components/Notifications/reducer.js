@@ -98,6 +98,7 @@ function notificationsReducer(state = initialState, action) {
             ...allSubState,
             lastTimestamp: notifications[notifications.length - 1].timestamp - 1,
             loading: false,
+            count: notifications.length,
           })
           .set('unread', {
             ...unreadSubState,

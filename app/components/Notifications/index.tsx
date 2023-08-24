@@ -36,9 +36,12 @@ import Header from './Header';
 import Wrapper from '../Header/Complex';
 
 import Notification from './Notification';
+import styles from './Notifications.styled';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
 import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
+
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -211,6 +214,7 @@ const Notifications: React.FC<NotificationsProps> = ({
                 className={classnames('pb-2', {
                   'pt-2': !unreadCount,
                 })}
+                css={isSuiBlockchain && styles.containerBorders}
               >
                 <List
                   autoHeight
