@@ -279,6 +279,10 @@ const postMesh = `
      title
      content
   }
+   postvotehistory {
+    userId
+    direction
+  }
   `;
 
 export const voteHistory = `
