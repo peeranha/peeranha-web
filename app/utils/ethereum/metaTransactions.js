@@ -59,6 +59,7 @@ export async function sendMetaTransactionMethod(
   confirmations = 1,
   token,
 ) {
+  await this.chainCheck(network);
   const metaTxContract = this[`${contract}Reads`];
   let nonce = await metaTxContract.getNonce(actor);
   console.log(`Nonce from contract: ${nonce}`);

@@ -69,7 +69,7 @@ const editUserQuery = (query: string) =>
     .replace('ratings', 'usercommunityrating')
     .replace('achievements { id }', 'userachievement { achievementId }');
 
-const getNetworkIds = () => (isSuiBlockchain ? '3' : '1, 2');
+export const getNetworkIds = () => (isSuiBlockchain ? '3' : '1, 2');
 
 const user = `
   id
@@ -278,6 +278,10 @@ const postMesh = `
      language
      title
      content
+  }
+   postvotehistory {
+    userId
+    direction
   }
   `;
 

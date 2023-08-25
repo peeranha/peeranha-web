@@ -1,12 +1,12 @@
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { getProfileInfo } from 'utils/profileManagement';
-import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { getBytes32FromIpfsHash, getText, saveText } from 'utils/ipfs';
+import { getBytes32FromIpfsHash, saveText } from 'utils/ipfs';
 import { getActualId } from 'utils/properties';
 
 import {
@@ -125,10 +125,9 @@ import {
   postCommentValidator,
   upVoteValidator,
 } from './validate';
-import { selectCommunities, selectUsers } from '../DataCacheProvider/selectors';
+import { selectCommunities } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
-import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -157,7 +156,10 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
     const statusHistory = yield call(getVoteHistory, questionId, user);
     question.votingStatus = votingStatus(Number(statusHistory));
     question.answers.map((reply) => {
-      reply.votingStatus = votingStatus(Number(statusHistory));
+      const replyStatusHistory = reply.replyvotehistory.find(
+        (voting) => voting.userId === user,
+      )?.direction;
+      reply.votingStatus = votingStatus(Number(replyStatusHistory));
     });
   }
   question.comments = question.comments.map((comment) => ({
@@ -342,7 +344,7 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
 
     if (answerId === 0) {
       questionData.comments = questionData.comments.filter((x) => x.id !== commentId);
-    } else if (answerId > 0) {
+    } else {
       const answer = questionData.answers.find((x) => x.id === answerId);
       answer.comments = answer.comments.filter((x) => x.id !== commentId);
     }
