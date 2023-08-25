@@ -9,14 +9,14 @@ import Button from 'components/Button/Outlined/PrimaryStretching';
 import { LANGUAGES_MAP } from 'utils/constants';
 
 import Content from './Content';
-import { ANSWER_TYPE } from './constants';
+import { ANSWER_TYPE, POST_TYPES } from './constants';
 
 const DEFAULT_NUMBER = 10;
 
 export const AnswersList = (props) => {
   const { t } = useTranslation();
   const [allVisible, setAllVisible] = useState(false);
-  const { answers } = props.questionData;
+  const { answers, postType } = props.questionData;
 
   const changeVisibility = useCallback(() => setAllVisible(!allVisible), [allVisible]);
 
@@ -24,6 +24,8 @@ export const AnswersList = (props) => {
     () => answers.slice(0, allVisible ? answers.length : DEFAULT_NUMBER),
     [answers, allVisible],
   );
+
+  const type = useMemo(() => POST_TYPES[postType], [postType]);
 
   return (
     <>
@@ -74,7 +76,7 @@ export const AnswersList = (props) => {
             deleteItemLoading={props.deleteAnswerLoading}
             editItem={[
               props.redirectToEditAnswerPage,
-              routes.answerEdit(props.questionData.id, id),
+              routes.answerEdit(type, props.questionData.id, id),
             ]}
             saveComment={props.saveComment}
             deleteComment={props.deleteComment}
