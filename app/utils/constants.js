@@ -212,7 +212,7 @@ export const REJECTED_SIGNATURE_REQUEST = 4001;
 export const CHANGED_POSTS_KEY = 'changed-posts';
 
 // amount of posts pagination
-export const AMOUNT_POSTS_PAGINATION = 20;
+export const AMOUNT_POSTS_PAGINATION = 5;
 
 // position documentation
 export const POSITION_TOP = 'top';

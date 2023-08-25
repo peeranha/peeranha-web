@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import createdHistory from 'createdHistory';
+import { AMOUNT_POSTS_PAGINATION } from 'utils/constants';
 
 type PaginationPropsType = {
   contentPerPage: number;
@@ -14,6 +15,8 @@ type PaginationType = {
   firstContentIndex: number;
   lastContentIndex: number;
   page: number;
+  limit: number;
+  skip: number;
 };
 
 const usePagination = ({ contentPerPage, count }: PaginationPropsType): PaginationType => {
@@ -28,6 +31,10 @@ const usePagination = ({ contentPerPage, count }: PaginationPropsType): Paginati
   const lastContentIndex = page * contentPerPage;
 
   const firstContentIndex = lastContentIndex - contentPerPage;
+
+  const skip = (page - 1) * AMOUNT_POSTS_PAGINATION;
+
+  const limit = AMOUNT_POSTS_PAGINATION;
 
   const changePage = (direction: boolean) => {
     setPage((state) => {
@@ -57,6 +64,8 @@ const usePagination = ({ contentPerPage, count }: PaginationPropsType): Paginati
     firstContentIndex,
     lastContentIndex,
     page,
+    limit,
+    skip,
   };
 };
 export default usePagination;

@@ -29,9 +29,6 @@ import {
 import { MARK_AS_ACCEPTED_SUCCESS } from '../ViewQuestion/constants';
 
 export const initialState = fromJS({
-  initLoadedItems: 100,
-  loadedItems: 100,
-  nextLoadedItems: 100,
   questionsLoading: true,
   questionsList: [],
   questionsError: '',
@@ -55,7 +52,6 @@ function questionsReducer(state = initialState, action) {
     type,
     questionsList = [],
     questionsError,
-    toUpdateQuestions,
     typeFilter,
     createdFilter,
     topQuestionsIds,
@@ -74,7 +70,6 @@ function questionsReducer(state = initialState, action) {
     questions: stateQuestions,
     lastLoadedTopQuestionIndex,
     questionsList: stateQuestionsList,
-    initLoadedItems,
   } = state.toJS();
   const mappedQuestionsList = questionsList.map(({ id: questionId }) => questionId);
 
@@ -95,20 +90,7 @@ function questionsReducer(state = initialState, action) {
       return state
         .set('questionsLoading', false)
         .set('questionsCount', counter)
-        .set(
-          'questionsList',
-          fromJS(
-            toUpdateQuestions
-              ? mappedQuestionsList
-              : [...new Set(stateQuestionsList.concat(mappedQuestionsList))],
-          ),
-        )
-        .set(
-          'loadedItems',
-          toUpdateQuestions
-            ? initLoadedItems
-            : Object.keys(stateQuestionsList).length + questionsList.length,
-        )
+        .set('questionsList', fromJS(mappedQuestionsList))
         .set(
           'questions',
           fromJS({

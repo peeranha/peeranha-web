@@ -66,8 +66,6 @@ export const Questions = ({
   typeFilter,
   createdFilter,
   setTypeFilterDispatch,
-  initLoadedItems,
-  nextLoadedItems,
   getQuestionsDispatch,
   questionFilter,
   isLastTopQuestionLoaded,
@@ -76,13 +74,11 @@ export const Questions = ({
   questionsCount,
 }) => {
   const { t } = useTranslation();
-  const { firstContentIndex, lastContentIndex, nextPage, prevPage, page, setPage, totalPages } =
-    usePagination({
-      contentPerPage: AMOUNT_POSTS_PAGINATION,
-      count: questionsCount,
-    });
+  const { nextPage, prevPage, page, setPage, totalPages, limit, skip } = usePagination({
+    contentPerPage: AMOUNT_POSTS_PAGINATION,
+    count: questionsCount,
+  });
 
-  const skip = page * AMOUNT_POSTS_PAGINATION;
   const isFeed = window.location.pathname === routes.feed(params.communityid);
   const isNotFollowedCommunities = isEmpty(followedCommunities) || followedCommunities[0] === 0;
   const isExpert = path === routes.expertPosts() || path === routes.expertPosts(':communityid');
@@ -92,58 +88,33 @@ export const Questions = ({
     questionsList.length === 0 &&
     !questionsLoading &&
     isNotFollowedCommunities;
-  const getInitQuestions = useCallback(() => {
+
+  const getPosts = useCallback(() => {
     if (!questionFilter) {
       const searchParamsTags = getSearchParams(history.location.search);
       getQuestionsDispatch(
-        initLoadedItems,
-        0,
-        postsTypes,
-        searchParamsTags,
-        params.communityid || 0,
-        parentPage,
-        false,
-        true,
-      );
-    }
-  }, [
-    questionFilter,
-    getQuestionsDispatch,
-    initLoadedItems,
-    postsTypes,
-    params.communityid,
-    parentPage,
-  ]);
-  useEffect(() => {
-    if (page > 1 && !questionFilter) {
-      const searchParamsTags = getSearchParams(history.location.search);
-      getQuestionsDispatch(
-        nextLoadedItems,
+        limit,
         skip,
         postsTypes,
         searchParamsTags,
         params.communityid || 0,
         parentPage,
-        true,
       );
     }
-  }, [
-    getQuestionsDispatch,
-    nextLoadedItems,
-    page,
-    params.communityid,
-    parentPage,
-    postsTypes,
-    questionFilter,
-    skip,
-  ]);
+  }, [params.communityid, history.location.search, parentPage, questionFilter, postsTypes, skip]);
 
   useEffect(() => {
-    getInitQuestions();
+    if (!questionFilter) {
+      getPosts();
+    }
+  }, [page, params.communityid, parentPage, skip]);
+
+  useEffect(() => {
+    getPosts();
     if (page !== 1) {
       setPage(1);
     }
-  }, [postsTypes]);
+  }, [JSON.stringify(postsTypes)]);
 
   useEffect(() => {
     setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
@@ -235,7 +206,9 @@ export const Questions = ({
           loginWithSuiDispatch={loginWithSuiDispatch}
         />
       )}
-      {questionsList.length > 0 && (
+      {!questionsList.length || displayLoader ? (
+        <LoadingIndicator />
+      ) : (
         <Content
           isFeed={isFeed}
           questionsList={questionsList}
@@ -245,8 +218,6 @@ export const Questions = ({
           createdFilter={createdFilter}
           isModerator={isModerator}
           profileInfo={profile}
-          firstContentIndex={firstContentIndex}
-          lastContentIndex={lastContentIndex}
           nextPage={nextPage}
           prevPage={prevPage}
           page={page}
@@ -262,7 +233,6 @@ export const Questions = ({
           locale={locale}
         />
       )}
-      {!questionsList.length && displayLoader && <LoadingIndicator />}
     </div>
   ) : (
     <NotFound />
@@ -280,7 +250,6 @@ Questions.propTypes = {
   topQuestionsLoading: PropTypes.bool,
   promotedQuestions: PropTypes.object,
   communitiesLoading: PropTypes.bool,
-  initLoadedItems: PropTypes.number,
   nextLoadedItems: PropTypes.number,
   match: PropTypes.object,
   getQuestionsDispatch: PropTypes.func,
@@ -308,8 +277,6 @@ export default compose(
       followedCommunities: makeSelectFollowedCommunities(),
       questionsLoading: questionsSelector.selectQuestionsLoading(),
       topQuestionsLoading: questionsSelector.selectTopQuestionsLoading(),
-      initLoadedItems: questionsSelector.selectInitLoadedItems(),
-      nextLoadedItems: questionsSelector.selectNextLoadedItems(),
       typeFilter: questionsSelector.selectTypeFilter(),
       createdFilter: questionsSelector.selectCreatedFilter(),
       questionFilter: questionsSelector.selectQuestionFilter(),

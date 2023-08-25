@@ -681,17 +681,20 @@ const postsQuery = `
 
 const postsQueryMesh = (postTypes: string) => `
   query (
-    $first: Int,
-    $skip: Int
+    $limit: Int,
+    $offset: Int
   ) {
     post (
       orderBy: { postTime: desc },
-      limit: $first,
-      offset: $skip,
+      limit: $limit,
+      offset: $offset,
       where: {isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
     ) {
       ${postMeshShallow}
     }
+    count_post (
+      where: {isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
+    )
   }`;
 
 const postsByCommQuery = `
@@ -725,6 +728,9 @@ const postsByCommQueryMesh = (postTypes: string, communityIds: string) => `
     ) {
       ${postMeshShallow}
     }
+    count_post (
+      where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
+    )
   }`;
 
 const postsByCommAndTagsQuery = `

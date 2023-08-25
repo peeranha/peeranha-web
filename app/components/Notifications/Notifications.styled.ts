@@ -33,6 +33,7 @@ const styles: Record<string, CSSObject> = {
 
   containerBorders: {
     border: `1px solid ${communityColors.border}`,
+    borderRadius: '5px',
   },
 
   titleWrapper: {
