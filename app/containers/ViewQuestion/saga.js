@@ -341,8 +341,7 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
 
       histories.push(newHistory);
     }
-
-    if (answerId === 0) {
+    if (answerId === 0 || answerId === '0') {
       questionData.comments = questionData.comments.filter((x) => x.id !== commentId);
     } else {
       const answer = questionData.answers.find((x) => x.id === answerId);
