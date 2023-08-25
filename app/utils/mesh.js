@@ -160,3 +160,14 @@ export const getHistoryDataFromMesh = (item) => {
     comment,
   };
 };
+
+export const getPostsDataFromMesh = ({ count_post, post }) => {
+  const updatedPosts = post.map((postItem) =>
+    renameRepliesToAnswers(getPostDataFromMesh(postItem)),
+  );
+
+  return {
+    postCount: count_post,
+    updatedPosts,
+  };
+};

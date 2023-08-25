@@ -12,6 +12,7 @@ import {
 import {
   executeMeshQuery,
   getPostDataFromMesh,
+  getPostsDataFromMesh,
   getUserDataFromMesh,
   renameRepliesToAnswers,
   getHistoryDataFromMesh,
@@ -224,7 +225,7 @@ export const getTagsByIds = async (ids) => {
   return isMeshService ? result?.tag : result?.tags;
 };
 
-export const getPosts = async (limit, skip, postTypes) => {
+export const getPosts = async (limit, offset, postTypes) => {
   const query = isMeshService
     ? queries.Posts.Mesh(dataToString(postTypes))
     : queries.Posts.TheGraph;
@@ -233,8 +234,8 @@ export const getPosts = async (limit, skip, postTypes) => {
     {
       query,
       variables: {
-        first: limit,
-        skip,
+        limit,
+        offset,
         postTypes,
       },
     },
@@ -242,7 +243,7 @@ export const getPosts = async (limit, skip, postTypes) => {
   );
 
   return isMeshService
-    ? result.post.map((post) => renameRepliesToAnswers(getPostDataFromMesh(post)))
+    ? getPostsDataFromMesh(result)
     : result?.posts.map((post) => renameRepliesToAnswers(post));
 };
 
@@ -292,7 +293,7 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
   );
 
   return isMeshService
-    ? result?.post.map((rawPost) => renameRepliesToAnswers(getPostDataFromMesh(rawPost)))
+    ? getPostsDataFromMesh(result)
     : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
 };
 

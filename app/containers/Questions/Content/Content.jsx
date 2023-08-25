@@ -220,7 +220,6 @@ const QuestionItem = connect(
 
 export const Content = ({
   questionsList,
-  // promotedQuestionsList,
   locale,
   communities,
   isModerator,
@@ -229,8 +228,6 @@ export const Content = ({
   isSearchPage,
   isFeed,
   isCommunityFeed,
-  firstContentIndex,
-  lastContentIndex,
   nextPage,
   prevPage,
   page,
@@ -238,23 +235,7 @@ export const Content = ({
   totalPages,
 }) => (
   <div className="position-relative">
-    {/* {promotedQuestionsList && */}
-    {/*  promotedQuestionsList.map((item, index) => ( */}
-    {/*    <QuestionItem */}
-    {/*      {...item} */}
-    {/*      index={index} */}
-    {/*      first={index === 0} */}
-    {/*      last={index === questionsList.length - 1} */}
-    {/*      locale={locale} */}
-    {/*      communities={communities} */}
-    {/*      key={item.id} */}
-    {/*      isModerator={isModerator} */}
-    {/*      profileInfo={profileInfo} */}
-    {/*      isPromoted */}
-    {/*      isHomePage={isHomePage} */}
-    {/*    /> */}
-    {/*  ))} */}
-    {questionsList.slice(firstContentIndex, lastContentIndex).map((item, index) => (
+    {questionsList.map((item, index) => (
       <QuestionItem
         {...item}
         isGeneral={isGeneralQuestion(item)}
@@ -324,8 +305,6 @@ Content.propTypes = {
   isHomePage: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
   isFeed: PropTypes.bool,
-  firstContentIndex: PropTypes.number,
-  lastContentIndex: PropTypes.number,
   nextPage: PropTypes.func,
   prevPage: PropTypes.func,
   page: PropTypes.number,

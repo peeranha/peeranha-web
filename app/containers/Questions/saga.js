@@ -28,11 +28,10 @@ export function* getQuestionsWorker({
   tags,
   communityIdFilter,
   parentPage,
-  next,
-  toUpdateQuestions,
 }) {
   try {
     let followedCommunities = yield select(makeSelectFollowedCommunities());
+
     const communities = yield select(selectCommunities());
     const notHiddenCommunities = communities.reduce((communityList, community) => {
       if (!HIDDEN_COMMUNITIES_ID.includes(community.id)) {
@@ -48,7 +47,6 @@ export function* getQuestionsWorker({
       );
     }
     let questionsList = [];
-    let counter = skip;
 
     if (single) {
       communityIdFilter = single;
@@ -86,14 +84,14 @@ export function* getQuestionsWorker({
         tags,
       );
     }
-    questionsList.forEach((question) => {
-      question.isGeneral = isGeneralQuestion(question);
-    });
+    // questionsList.forEach((question) => {
+    //   question.isGeneral = isGeneralQuestion(question);
+    // });
 
-    const clearQuestionsList = questionsList.filter((item) => item.title);
+    const { postCount, updatedPosts } = questionsList;
+    const clearQuestionsList = updatedPosts.filter((item) => item.title);
 
-    counter += clearQuestionsList.length;
-    yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, counter));
+    yield put(getQuestionsSuccess(clearQuestionsList, undefined, postCount));
   } catch (err) {
     yield put(getQuestionsError(err));
   }
