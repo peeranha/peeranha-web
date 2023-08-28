@@ -213,6 +213,10 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
       const userFromContract = yield call(getSuiProfileInfo, wallet.address);
       const profileInfo = yield call(getProfileInfo, userFromContract.id);
 
+      if (profileInfo) {
+        yield call(getNotificationsInfoWorker, profileInfo.user);
+      }
+
       setCookie({
         name: PROFILE_INFO_LS,
         value: JSON.stringify(formPermissionsCookie(profileInfo?.permissions)),

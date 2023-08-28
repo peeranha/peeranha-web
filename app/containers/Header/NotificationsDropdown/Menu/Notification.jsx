@@ -71,7 +71,13 @@ const Notification = ({
     NOTIFICATIONS_TYPES.communityChanged,
   ].includes(type);
   const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
-  const href = route(data.question_id, data.title, data.answer_id);
+
+  let href;
+  if (data.network) {
+    href = route(`${data.network}-${data.question_id}`, data.title, data.answer_id);
+  } else {
+    href = route(`1-${data.question_id}`, data.title, data.answer_id);
+  }
 
   const values = useMemo(() => {
     if (!isTippedType) {
