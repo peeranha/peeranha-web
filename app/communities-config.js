@@ -283,14 +283,14 @@ const communitiesConfig = {
           styles: SuiMainStyles,
         },
         '3-0x6320fa169fcf93bd30666e5612e799599ac6021fa59e84dab1d48fa120f56c47': {
-          origin: `http://localhost:31000`,
+          origin: `http://localhost:3000`,
           src: 'https://images.peeranha.io/communities/mark3d/logo.svg',
           styles: Mark3dStyles,
         },
       }
     : {
         '1-1': {
-          origin: 'http://localhost:31000',
+          origin: 'http://localhost:3000',
           src: 'https://images.peeranha.io/communities/harmony/logo.svg',
           styles: HarmonyStyles,
         },

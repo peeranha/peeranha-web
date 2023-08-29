@@ -54,7 +54,7 @@ import {
   selectMemorizedUserAchievements,
   selectMaxGroupsLowerValues,
 } from './selectors';
-import { getAllAchievements } from '../../utils/theGraph';
+import { getAllAchievements } from 'utils/theGraph';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* getAchievementsWorker() {

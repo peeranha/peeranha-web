@@ -719,6 +719,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       updatedProfileInfo = yield call(getProfileInfo, profileInfo.user);
 
       txHash = transaction.transactionHash;
+      yield call(waitForPostTransactionToIndex, txHash);
     }
 
     questionData.replyCount += 1;
