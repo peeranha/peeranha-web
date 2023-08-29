@@ -398,7 +398,8 @@ const MainUserInformation = ({
               >
                 <span>{t('profile.achievements')}</span>
 
-                {typeof profile.achievements === 'object' ? (
+                {typeof (isSuiBlockchain ? profile.userachievement : profile.achievements) ===
+                'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
                     count={userAchievementsLength}
