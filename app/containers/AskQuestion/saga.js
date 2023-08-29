@@ -189,7 +189,7 @@ export function* postQuestionWorker({ val }) {
           ethereumService,
         );
       }
-
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
       yield put(askQuestionSuccess(id));
 
       yield call(

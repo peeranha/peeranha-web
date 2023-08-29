@@ -192,7 +192,6 @@ export async function editComment(
   locale,
   ethereumService,
 ) {
-  console.log(commentId);
   let actualAnswerId = answerId;
   if (answerId) {
     actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
@@ -207,32 +206,44 @@ export async function editComment(
 }
 
 export async function deleteComment(user, questionId, answerId, commentId, ethereumService) {
+  let actualAnswerId = answerId;
+  if (answerId) {
+    actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+  }
   return ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     DELETE_COMMENT,
-    [user, getActualId(questionId), answerId, commentId],
+    [user, getActualId(questionId), actualAnswerId, commentId.split('-')[3]],
   );
 }
 
 export async function upVote(user, questionId, answerId, ethereumService) {
+  let actualAnswerId = answerId;
+  if (answerId) {
+    actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+  }
   await ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     VOTE_ITEM,
-    [user, getActualId(questionId), answerId ? answerId.split('-')[2] : answerId, 0, true],
+    [user, getActualId(questionId), actualAnswerId, 0, true],
   );
 }
 
 export async function downVote(user, questionId, answerId, ethereumService) {
+  let actualAnswerId = answerId;
+  if (answerId) {
+    actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+  }
   await ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     VOTE_ITEM,
-    [user, getActualId(questionId), answerId ? answerId.split('-')[2] : answerId, 0, false],
+    [user, getActualId(questionId), actualAnswerId, 0, false],
   );
 }
 
