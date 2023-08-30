@@ -10,6 +10,14 @@ import {
   selectFirstIn15AnswersValue,
 } from 'containers/DataCacheProvider/selectors';
 
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
+
 import { updateCachedUserAchievements } from 'containers/DataCacheProvider/actions';
 
 import { getAchievements } from 'utils/achievementsManagement';
@@ -36,6 +44,7 @@ import {
   firstAnswerIn15Related,
   firstAnswerRelated,
   GET_ALL_ACHIEVEMENTS,
+  MINT_SUI_ACHIEVEMENT,
 } from './constants';
 
 import {
@@ -47,6 +56,8 @@ import {
   setMaxGroupsLowerValues,
   getAllAchievementsSuccess,
   getAllAchievementsError,
+  mintAchievementSuccess,
+  mintAchievementError,
 } from './actions';
 
 import {
@@ -56,12 +67,17 @@ import {
 } from './selectors';
 import { getAllAchievements } from '../../utils/theGraph';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { mintSuiAchievement } from 'utils/sui/achievementsManagement';
+import { getSuiUserObject } from 'utils/sui/accountManagement';
 
 export function* getAchievementsWorker() {
   try {
     const viewProfileAccount = yield select(selectViewProfileAccount());
     let { allAchievements, userAchievements } = yield call(getAllAchievements, viewProfileAccount);
-    userAchievements = userAchievements.map((achievement) => achievement.id);
+    if (!isSuiBlockchain) {
+      userAchievements = userAchievements.map((achievement) => achievement.id);
+    }
     yield put(getAllAchievementsSuccess(allAchievements, userAchievements));
   } catch (err) {
     yield put(getAllAchievementsError(err));
@@ -414,7 +430,24 @@ export function* updateUserAchievementsWorker(
   }
 }
 
+export function* mintSuiAchievementWorker(suiAchievementId) {
+  try {
+    yield put(transactionInitialised());
+    const wallet = yield select(selectSuiWallet());
+    const suiUserObject = yield call(getSuiUserObject, wallet.address);
+    const txResult = yield call(mintSuiAchievement, wallet, suiUserObject, suiAchievementId);
+    yield put(transactionInPending(txResult.digest));
+    yield call(waitForTransactionConfirmation, txResult.digest);
+    yield put(transactionCompleted());
+    yield put(mintAchievementSuccess());
+  } catch (err) {
+    yield put(transactionFailed(err));
+    yield put(mintAchievementError(err));
+  }
+}
+
 export default function* () {
   yield takeLatest(GET_USER_ACHIEVEMENTS, getUserAchievementsWorker);
   yield takeLatest(GET_ALL_ACHIEVEMENTS, getAchievementsWorker);
+  yield takeLatest(MINT_SUI_ACHIEVEMENT, mintSuiAchievementWorker);
 }

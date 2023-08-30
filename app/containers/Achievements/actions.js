@@ -16,6 +16,9 @@ import {
   GET_ALL_ACHIEVEMENTS,
   GET_ALL_ACHIEVEMENTS_SUCCESS,
   GET_ALL_ACHIEVEMENTS_ERROR,
+  MINT_SUI_ACHIEVEMENT,
+  MINT_SUI_ACHIEVEMENT_SUCCESS,
+  MINT_SUI_ACHIEVEMENT_ERROR,
 } from './constants';
 
 export function getAllAchievements() {
@@ -94,13 +97,30 @@ export function setMaxGroupsLowerValues(maxGroupsLowerValues) {
   };
 }
 
-export function setMemorizedAchievementData(
-  viewProfileAccount,
-  memorizedAchievData,
-) {
+export function setMemorizedAchievementData(viewProfileAccount, memorizedAchievData) {
   return {
     type: SET_MEMORIZED_ACHIEV_DATA,
     viewProfileAccount,
     memorizedAchievData,
+  };
+}
+
+export function mintAchievement(suiAchievementId) {
+  return {
+    type: MINT_SUI_ACHIEVEMENT,
+    suiAchievementId,
+  };
+}
+
+export function mintAchievementSuccess() {
+  return {
+    type: MINT_SUI_ACHIEVEMENT_SUCCESS,
+  };
+}
+
+export function mintAchievementError(error) {
+  return {
+    type: MINT_SUI_ACHIEVEMENT_ERROR,
+    error,
   };
 }

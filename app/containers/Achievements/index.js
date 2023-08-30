@@ -36,13 +36,16 @@ import {
   setViewProfileAccount,
   resetViewProfileAccount,
   getAllAchievements,
+  mintAchievement,
 } from './actions';
 
 import reducer from './reducer';
 import saga from './saga';
+import { IS_MINTED_ACHIEVEMENT, CAN_MINT_ACHIEVEMENT } from './constants';
 
 import UniqueAchievement from './UniqueAchievement';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const BaseRoundedStyled = styled(BaseRounded)`
   border-top-left-radius: 0 !important;
@@ -93,6 +96,7 @@ const Achievements = ({
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
   profile,
+  mintAchievementDispatch,
 }) => {
   const { t } = useTranslation();
 
@@ -103,6 +107,11 @@ const Achievements = ({
     return () => resetViewProfileAccountDispatch();
   }, [userId]);
 
+  let suiUserAchievements;
+  if (isSuiBlockchain) {
+    suiUserAchievements = userAchievements?.map((achievement) => achievement.id);
+  }
+  const personalUserAchievements = isSuiBlockchain ? suiUserAchievements : userAchievements;
   return (
     <div>
       <BaseRoundedStyled>
@@ -122,7 +131,7 @@ const Achievements = ({
                 (achievement) =>
                   achievement.name !== 'error IPFS2' && (
                     <UniqueAchievement
-                      reached={userAchievements?.some(
+                      reached={personalUserAchievements?.some(
                         (achievementId) => achievementId === achievement.id,
                       )}
                       key={achievement.id}
@@ -138,6 +147,9 @@ const Achievements = ({
                       achievementsType={achievement.achievementsType}
                       locale={locale}
                       currentUser={profile?.id === userId}
+                      isMinted={userAchievements?.isMinted === IS_MINTED_ACHIEVEMENT}
+                      canMintAchievement={userAchievements?.isMinted === CAN_MINT_ACHIEVEMENT}
+                      mintAchievement={mintAchievementDispatch}
                     />
                   ),
               )}
@@ -163,6 +175,7 @@ Achievements.propTypes = {
   resetViewProfileAccountDispatch: PropTypes.func,
   achievementsLoading: PropTypes.bool,
   profile: PropTypes.object,
+  mintAchievementDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -185,6 +198,7 @@ const mapDispatchToProps = (dispatch) => ({
   getUserAchievementsDispatch: bindActionCreators(getUserAchievements, dispatch),
   setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
   resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
+  mintAchievementDispatch: bindActionCreators(mintAchievement, dispatch),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

@@ -16,6 +16,7 @@ import { italicFont } from '../../global-styles';
 import { getNFTUrl } from '../../utils/ipfs';
 import { LIMITED_EDITION_NFT_TYPE } from '../../utils/constants';
 import NFTInformation from './NFTInformation';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const ImageBlock = styled.div`
   margin-right: 15px;
@@ -64,10 +65,14 @@ const UniqueAchievement = ({
   achievementURI,
   achievementsType,
   currentUser,
+  isMinted,
+  canMintAchievement,
+  mintAchievement,
 }) => {
   const { t } = useTranslation();
   const availiableCount = maxCount - factCount;
   const pointsToNext = lowerValue - (currentValue || 0);
+  const isAchievementVisible = isSuiBlockchain ? isMinted : reached;
   const getProgress = () => (currentValue / lowerValue) * 100;
 
   const [visible, changeVisibility] = useState(false);
@@ -80,7 +85,7 @@ const UniqueAchievement = ({
       {(reached || achievementsType == LIMITED_EDITION_NFT_TYPE) && (
         <Bage>
           <ImageBlock>
-            {reached && (
+            {isAchievementVisible ? (
               <div
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
@@ -100,9 +105,10 @@ const UniqueAchievement = ({
                   alt={'image'}
                 />
               </div>
+            ) : (
+              <Icon icon={achievementNotReached} width="160" height="148" />
             )}
-            {!reached && <Icon icon={achievementNotReached} width="160" height="148" />}
-            {currentUser && !reached && (
+            {currentUser && !isAchievementVisible && (
               <ProgressBar
                 achievementId={id}
                 width="60%"
@@ -120,12 +126,30 @@ const UniqueAchievement = ({
             </TitleBlock>
             <DescriptionBlock>
               {description}
-              {!reached && (
+              {!isAchievementVisible && (
                 <LimitPhrase>
                   Available {availiableCount} out of {maxCount}
                 </LimitPhrase>
               )}
             </DescriptionBlock>
+            {isSuiBlockchain && !isMinted && (
+              <button
+                css={{
+                  width: '96px',
+                  height: '40px',
+                  backgroundColor: canMintAchievement ? '#4BA3FF' : '#FFF',
+                  color: canMintAchievement ? '#fff' : '#95A3B0',
+                  border: `1px solid ${canMintAchievement ? '#4BA3FF' : '#95A3B0'}`,
+                  cursor: canMintAchievement ? 'pointer' : 'not-allowed',
+                  borderRadius: '3px',
+                  marginTop: '16px',
+                }}
+                disabled={!canMintAchievement}
+                onClick={() => mintAchievement(id)}
+              >
+                {t('achievements.receive')}
+              </button>
+            )}
           </div>
         </Bage>
       )}
@@ -146,6 +170,9 @@ UniqueAchievement.propTypes = {
   achievementURI: PropTypes.string,
   achievementsType: PropTypes.number,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isMinted: PropTypes.bool,
+  canMintAchievement: PropTypes.bool,
+  mintAchievement: PropTypes.func,
 };
 
 export default UniqueAchievement;

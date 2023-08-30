@@ -971,7 +971,10 @@ const allAchievementsQueryMesh = `
       ${achievement}
     }
     user (where: { id: $userId }) {
-      userachievement { achievementId }
+      userachievement { 
+        achievementId
+        isMinted 
+      }
     }
   }`;
 
