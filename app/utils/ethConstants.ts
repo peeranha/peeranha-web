@@ -251,6 +251,7 @@ const postMesh = `
   officialReply
   bestReply
   messengerType
+  language
   history {
     id
     transactionHash

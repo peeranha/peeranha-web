@@ -62,7 +62,6 @@ const getRoute = (postType) => {
 export const ViewQuestion = ({
   locale,
   histories,
-  historiesLoading,
   account,
   questionData,
   postAnswerLoading,
@@ -115,14 +114,12 @@ export const ViewQuestion = ({
     }
   }, [history, match.params.id, match.url, questionData]);
 
+  // eslint-disable-next-line
   useEffect(() => {
-    window.isRendered = false;
-    resetStoreDispatch();
-
     return () => {
       resetStoreDispatch();
     };
-  }, [resetStoreDispatch]);
+  }, []);
 
   useEffect(() => {
     getQuestionDataDispatch(match.params.id);

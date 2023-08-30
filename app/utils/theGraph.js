@@ -428,7 +428,7 @@ export const getAllAchievements = async (userId) => {
     ? {
         allAchievements: response?.achievement,
         userAchievements:
-          response?.user[0].userachievement.map(({ achievementId, ...achievement }) => ({
+          response?.user[0]?.userachievement.map(({ achievementId, ...achievement }) => ({
             ...achievement,
             id: achievementId,
           })) || [],

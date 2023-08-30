@@ -65,7 +65,7 @@ import {
   selectMemorizedUserAchievements,
   selectMaxGroupsLowerValues,
 } from './selectors';
-import { getAllAchievements } from '../../utils/theGraph';
+import { getAllAchievements } from 'utils/theGraph';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { mintSuiAchievement } from 'utils/sui/achievementsManagement';

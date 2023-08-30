@@ -206,24 +206,26 @@ export const Questions = ({
           loginWithSuiDispatch={loginWithSuiDispatch}
         />
       )}
-      {!questionsList.length || displayLoader ? (
+      {displayLoader ? (
         <LoadingIndicator />
       ) : (
-        <Content
-          isFeed={isFeed}
-          questionsList={questionsList}
-          locale={locale}
-          communities={communities}
-          typeFilter={typeFilter}
-          createdFilter={createdFilter}
-          isModerator={isModerator}
-          profileInfo={profile}
-          nextPage={nextPage}
-          prevPage={prevPage}
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-        />
+        Boolean(questionsList.length) && (
+          <Content
+            isFeed={isFeed}
+            questionsList={questionsList}
+            locale={locale}
+            communities={communities}
+            typeFilter={typeFilter}
+            createdFilter={createdFilter}
+            isModerator={isModerator}
+            profileInfo={profile}
+            nextPage={nextPage}
+            prevPage={prevPage}
+            page={page}
+            setPage={setPage}
+            totalPages={totalPages}
+          />
+        )
       )}
       {isTopCommunitiesDisplay && (
         <TopCommunities

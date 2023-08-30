@@ -29,11 +29,7 @@ const single = isSingleCommunityWebsite();
 const View = ({
   profile,
   isMenuVisible,
-  balance,
   showLoginModal,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
-  boost,
   changeLocale,
   locale,
   documentationMenu,
