@@ -95,6 +95,9 @@ const EditQuestion = ({
   );
 
   const isFailed = editQuestionError !== null;
+  const networkCommunities = communities.filter(
+    ({ networkId }) => networkId === question?.networkId,
+  );
 
   const sendProps = useMemo(
     () => ({
@@ -106,7 +109,7 @@ const EditQuestion = ({
       sendQuestion,
       questionLoading: editQuestionLoading,
       valueHasToBeLessThan: balance,
-      communities,
+      communities: networkCommunities,
       question,
       questionid,
       locale,
