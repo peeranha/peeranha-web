@@ -126,6 +126,10 @@ const commentMesh = `
   parentReplyId
   content
   isDeleted
+  commenttranslation {
+    language
+    content
+  }
 `;
 
 const reply = `
@@ -181,6 +185,10 @@ const replyMesh = `
   replyvotehistory {
     userId
     direction
+  }
+  replytranslation {
+    language
+    content
   }
 `;
 
