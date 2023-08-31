@@ -82,7 +82,8 @@ const TranslationsField: React.FC<TranslationsFieldProps> = ({
             <TranslationSettings
               key={language.value}
               label={language.label}
-              id={`${communityId}-${language.value}`}
+              // TODO Fix after graph redeploy
+              id={`${communityId}-${communityId}-${language.value}`}
               value={language.value}
               removeSelectedLanguage={removeSelectedLanguage}
             />

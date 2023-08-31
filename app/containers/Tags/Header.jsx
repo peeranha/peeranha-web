@@ -110,10 +110,10 @@ export const Header = ({
     [path, communityTagsRoute, tagsNumber],
   );
 
-  const onClickNavigationButton = ({ currentTarget: { id, communityid } }) => {
+  const onClickNavigationButton = ({ currentTarget: { id } }) => {
     goToCreateTagScreen({
       buttonId: id,
-      communityId: communityid,
+      communityId: currentCommunity.id,
     });
   };
 

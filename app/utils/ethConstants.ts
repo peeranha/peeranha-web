@@ -485,6 +485,7 @@ const community = `
     description
     language
     enableAutotranslation
+    id
   }
 `;
 
@@ -972,9 +973,9 @@ const allAchievementsQueryMesh = `
       ${achievement}
     }
     user (where: { id: $userId }) {
-      userachievement { 
+      userachievement {
         achievementId
-        isMinted 
+        isMinted
       }
     }
   }`;

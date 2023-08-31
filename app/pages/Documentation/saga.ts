@@ -49,7 +49,10 @@ export function* getArticleDocumentationWorker({
           }),
         );
       } else {
-        const documentationArticleFromGraph = yield call(getPost, `${articleId}`);
+        const documentationArticleFromGraph = yield call(
+          getPost,
+          `${getNetwork(single) + 1}-${articleId}`,
+        );
         yield put(
           getArticleDocumentationSuccess({
             id: articleId,

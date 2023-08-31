@@ -311,6 +311,7 @@ export const getDocumentationMenu = async (communityId) => {
 };
 
 export const getPost = async (postId) => {
+  console.log(postId);
   const result = await executeQuery(
     {
       query: queries.Post[graphService],

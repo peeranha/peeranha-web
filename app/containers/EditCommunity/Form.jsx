@@ -61,7 +61,6 @@ const EditCommunityForm = ({
   const nextRoute = isSingleCommunityMode ? routes.feed : routes.communities;
   const commId = isSuiBlockchain ? community?.id : communityId;
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-
   const editCommunity = useCallback(
     (values) => {
       const communityData = {
@@ -191,7 +190,7 @@ const EditCommunityForm = ({
                 name={COMM_TRANSLATIONS_FIELD}
                 component={TranslationsField}
                 translations={community?.translations}
-                communityId={isSuiBlockchain ? community?.id : communityId}
+                communityId={communityId}
                 selectedLanguages={selectedLanguages}
                 setSelectedLanguages={setSelectedLanguages}
               />
