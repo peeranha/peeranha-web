@@ -33,13 +33,12 @@ export const giveSuiRolePermission = async (
   suiCommunityId: string,
 ) => {
   const roleTransactionData = getVector8FromRole(role, suiCommunityId);
-  return handleMoveCall(
-    wallet,
-    userLib,
-    grantRole,
-    [process.env.USER_ROLES_COLLECTION_ID, adminId, userId, roleTransactionData],
-    false,
-  );
+  return handleMoveCall(wallet, userLib, grantRole, [
+    process.env.USER_ROLES_COLLECTION_ID,
+    adminId,
+    userId,
+    roleTransactionData,
+  ]);
 };
 
 export const revokeSuiRolePermission = async (
@@ -50,11 +49,10 @@ export const revokeSuiRolePermission = async (
   suiCommunityId: string,
 ) => {
   const roleTransactionData = getVector8FromRole(role, suiCommunityId);
-  return handleMoveCall(
-    wallet,
-    userLib,
-    revokeRole,
-    [process.env.USER_ROLES_COLLECTION_ID, adminId, userId, roleTransactionData],
-    false,
-  );
+  return handleMoveCall(wallet, userLib, revokeRole, [
+    process.env.USER_ROLES_COLLECTION_ID,
+    adminId,
+    userId,
+    roleTransactionData,
+  ]);
 };
