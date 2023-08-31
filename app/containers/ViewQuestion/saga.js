@@ -945,8 +945,12 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
     } else {
       yield call(markAsAccepted, profileInfo.user, questionId, correctAnswerId, ethereumService);
     }
-
-    questionData.bestReply = questionData.bestReply === correctAnswerId ? 0 : correctAnswerId;
+    questionData.bestReply =
+      String(questionData.bestReply) === String(correctAnswerId) ? 0 : correctAnswerId;
+    const reply = questionData.answers.find(
+      (reply) => reply.id === `${questionData.id}-${correctAnswerId}`,
+    );
+    reply.isBestReply = reply.isBestReply ? 0 : 1;
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 

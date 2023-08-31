@@ -43,7 +43,7 @@ const createPermissionsObject = ({
     ? translations('moderation.communityAdministrator')
     : translations('moderation.communityModerator'),
   h2: communityId
-    ? `${communities.find(({ id }) => id === communityId)?.name || 'TestComm1'} ${translations(
+    ? `${communities.find(({ id }) => id === communityId)?.name} ${translations(
         'moderation.community',
       )}`
     : role === DEFAULT_ADMIN_ROLE
@@ -189,11 +189,15 @@ export const getAllRoles = (userRoles = []) => {
     let communityId;
     let role;
     communityRoles.map((communityRole) => {
-      const id = isSuiBlockchain
-        ? userRole.split('-')[1].substring(2)
-        : BigNumber.from(userRole.split('-')[1]).sub(BigNumber.from(communityRole)).toString();
-
-      communityId = `${userRole.split('-')[0]}-${id}`;
+      if (isSuiBlockchain) {
+        const id = userRole.split('-')[1].substring(2);
+        communityId = `${userRole.split('-')[0]}-${id}`;
+      } else if (userRole.includes(communityRole.substring(0, 16))) {
+        const id = BigNumber.from(userRole.split('-')[1])
+          .sub(BigNumber.from(communityRole))
+          .toString();
+        communityId = `${userRole.split('-')[0]}-${id}`;
+      }
       role = communityRole;
     });
     return {

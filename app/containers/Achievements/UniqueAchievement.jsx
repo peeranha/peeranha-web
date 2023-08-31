@@ -63,7 +63,6 @@ const UniqueAchievement = ({
   image,
   id,
   achievementURI,
-  achievementsType,
   currentUser,
   isMinted,
   canMintAchievement,
@@ -82,7 +81,7 @@ const UniqueAchievement = ({
 
   return (
     <>
-      {(reached || achievementsType == LIMITED_EDITION_NFT_TYPE) && (
+      {reached && (
         <Bage>
           <ImageBlock>
             {isAchievementVisible ? (
