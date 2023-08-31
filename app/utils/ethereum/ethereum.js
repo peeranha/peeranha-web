@@ -55,7 +55,7 @@ class EthereumService {
     this.transactionCompleted = data.transactionCompletedDispatch;
     this.providerForWaiting = ['providerReads', 'edgewareProviderReads'];
 
-    this.previousNonce = BigNumber.from(0);
+    this.previousNonce = BigNumber.from(-1);
     this.transactionList = [];
 
     this.sendTransaction = sendTransactionMethod;

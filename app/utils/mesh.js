@@ -99,7 +99,7 @@ const getCommentDataFromMesh = (item) => {
 };
 
 export const getReplyDataFromMesh = (item, postComments) => {
-  const { user, ...reply } = item;
+  const { replytranslation, user, ...reply } = item;
   const comments = postComments
     ? postComments
         .filter((comment) => comment.parentReplyId.toString() === reply.id.split('-')[2])
@@ -109,6 +109,7 @@ export const getReplyDataFromMesh = (item, postComments) => {
     ...reply,
     author: user ? getUserDataFromMesh(user[0]) : {},
     comments,
+    translations: replytranslation,
   };
 };
 
