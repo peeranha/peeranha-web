@@ -31,6 +31,7 @@ export const voteReply = 'voteReply';
 export const CREATE_REPLY_ACTION_NAME = 'createReply';
 export const CREATE_COMMENT_ACTION_NAME = 'createComment';
 export const grantRole = 'grantRole';
+export const revokeRole = 'revokeRole';
 export const mintUserNFT = 'mintUserNFT';
 
 export const AUTHOR_EDIT_REPLY_ACTION_NAME = 'authorEditReply';

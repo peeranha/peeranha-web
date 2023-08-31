@@ -271,7 +271,7 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
     });
 
     return isMeshService
-      ? result?.post.map((rawPost) => renameRepliesToAnswers(getPostDataFromMesh(rawPost)))
+      ? getPostsDataFromMesh(result)
       : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
   }
 
