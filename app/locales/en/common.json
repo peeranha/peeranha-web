@@ -522,7 +522,9 @@
     "moderatorEditPostMetaData": "Edit post meta data",
     "createUser": "Create user",
     "votePost": "Voute post",
-    "voteReply": "Voute reply"
+    "voteReply": "Voute reply",
+    "grantRole": "Give permission",
+    "revokeRole": "Revoke permission"
   },
   "aboutPeeranha": "About Peeranha",
   "postsAnswersComments": "Posts, Answers and Comments",

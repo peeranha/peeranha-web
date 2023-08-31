@@ -518,7 +518,9 @@
     "moderatorEditReply": "Chỉnh sửa câu trả lời",
     "moderatorEditPostMetaData": "Chỉnh sửa bài",
     "votePost": "Bài bình chọn",
-    "voteReply": "Bình chọn trả lời"
+    "voteReply": "Bình chọn trả lời",
+    "grantRole": "Cho phép",
+    "revokeRole": "Thu hồi quyền"
   },
   "aboutPeeranha": "Giới thiệu về Peeranha",
   "postsAnswersComments": "Bài viết, câu trả lời và bình luận",

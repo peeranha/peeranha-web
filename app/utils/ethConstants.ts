@@ -125,6 +125,7 @@ const commentMesh = `
   postId
   parentReplyId
   content
+  language
   isDeleted
   commenttranslation {
     language
@@ -180,6 +181,7 @@ const replyMesh = `
   isBestReply
   isFirstReply
   isQuickReply
+  language
   handle
   messengerType
   replyvotehistory {

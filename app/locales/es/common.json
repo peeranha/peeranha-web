@@ -518,7 +518,9 @@
     "moderatorEditReply": "Editar respuesta",
     "moderatorEditPostMetaData": "Editar post",
     "votePost": "Votar publicación",
-    "voteReply": "Votar respuesta"
+    "voteReply": "Votar respuesta",
+    "grantRole": "Dar permiso",
+    "revokeRole": "Revocar permiso"
   },
   "aboutPeeranha": "Sobre Peeranha",
   "postsAnswersComments": "Publicaciones, respuestas y comentarios",
