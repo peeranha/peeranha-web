@@ -45,7 +45,7 @@ export const CHANGE_BEST_REPLY_ACTION_NAME = 'changeStatusBestReply';
 
 export const followCommunity = 'followCommunity';
 export const unfollowCommunity = 'unfollowCommunity';
-export const isSuiBlockchain = process.env.BLOCKCHAIN !== 'sui';
+export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const IS_INDEXER_ON = true;
 
 export const CREATE_POST_EVENT_NAME = 'CreatePostEvent';
