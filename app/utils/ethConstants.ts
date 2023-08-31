@@ -779,6 +779,9 @@ const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
     ) {
       ${postMeshShallow}
     }
+    count_post (
+      where: { communityId: "(${ids})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
+    )
   }`;
 
 const faqByCommQuery = `
