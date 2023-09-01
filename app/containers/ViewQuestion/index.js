@@ -123,7 +123,7 @@ export const ViewQuestion = ({
 
   useEffect(() => {
     getQuestionDataDispatch(match.params.id);
-  }, [match.params.id, account, getQuestionDataDispatch]);
+  }, [match.params.id, account]);
 
   useEffect(() => {
     getHistoriesDispatch(match.params.id);
