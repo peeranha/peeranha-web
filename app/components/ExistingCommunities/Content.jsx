@@ -123,13 +123,13 @@ const Content = ({ communities, sorting, locale, profile }) => {
       <Base>
         {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order]).map(
           (
-            { avatar, name, id, description, website, tagsCount, translations, ...x },
+            { avatar, name, id, description, website, tagsCount, communitytranslation, ...x },
             index,
             arr,
           ) => {
             const value = id;
             const origin = hasCommunitySingleWebsite(id);
-            const communityTranslation = translations?.find(
+            const communityTranslation = communitytranslation?.find(
               (translation) => translation.language === locale,
             );
 
