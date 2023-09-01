@@ -95,7 +95,11 @@ export const getUserDataFromMesh = (item) => {
 
 const getCommentDataFromMesh = (item) => {
   const { user, ...comment } = item;
-  return { ...comment, author: getUserDataFromMesh(user[0]) };
+  return {
+    ...comment,
+    translations: comment.commenttranslation,
+    author: getUserDataFromMesh(user[0]),
+  };
 };
 
 export const getReplyDataFromMesh = (item, postComments) => {
