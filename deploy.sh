@@ -14,6 +14,10 @@ elif [ "$1" == "staging" ];
 then
   bucket="testpeeranha.io"
   npm run build:staging
+elif [ "$1" == "sui-staging" ];
+then
+  bucket="sui-staging.testpeeranha.io"
+  npm run build:staging
 elif [ "$1" == "dev1" ];
 then
   bucket="dev1.testpeeranha.io"
