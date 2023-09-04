@@ -24,6 +24,7 @@ import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { ValistStyles } from './communities-configs/valist';
 import { VyperStyles } from './communities-configs/vyper';
 import { SuiMainStyles } from './communities-configs/suiMain';
+import { CartesiStyles } from './communities-configs/cartesi';
 
 const communitiesConfig = {
   prod: isSuiBlockchain
@@ -284,6 +285,11 @@ const communitiesConfig = {
           origin: `https://pl-launchpad${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
           styles: LaunchpadStyles,
+        },
+        '1-21': {
+          origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
+          styles: CartesiStyles,
         },
       },
   dev: isSuiBlockchain
