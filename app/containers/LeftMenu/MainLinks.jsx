@@ -230,7 +230,7 @@ const MainLinks = ({
                   <PinIcon
                     stroke="#FFF"
                     css={{
-                      fill: colors.white || '#A5BCFF',
+                      fill: colors.pinnedPostBackground || '#A5BCFF',
                       marginLeft: '10px',
                     }}
                   />
