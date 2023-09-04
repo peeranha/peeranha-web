@@ -42,14 +42,19 @@ export const ContentBody = ({
   histories,
   isOfficialReply,
   isOriginalLanguage,
+  profile,
+  loginWithSuiDispatch,
 }) => {
   const { t } = useTranslation();
-  const isOfficial = questionData.officialReply === answerId || isOfficialReply;
-
+  let actualAnswerId = answerId;
+  if (typeof answerId === 'string') {
+    actualAnswerId = answerId?.split('-')?.[2] || answerId;
+  }
+  const isOfficial = questionData.officialReply === Number(actualAnswerId) || isOfficialReply;
   return (
     <Base position="bottom" paddingTop="10">
       <BestAnswerMarker
-        answerId={answerId}
+        answerId={Number(actualAnswerId)}
         questionFrom={questionFrom}
         account={account}
         markAsAccepted={markAsAccepted}
@@ -64,6 +69,7 @@ export const ContentBody = ({
         questionId={questionData.id}
         isOfficial={isOfficial}
         author={author}
+        profile={profile}
       />
 
       <MarkdownPreviewBlock content={content} />
@@ -95,6 +101,7 @@ export const ContentBody = ({
         infiniteImpact={infiniteImpact}
         communityId={commId}
         histories={histories}
+        loginWithSuiDispatch={loginWithSuiDispatch}
       />
     </Base>
   );
@@ -132,6 +139,7 @@ ContentBody.propTypes = {
   infiniteImpact: PropTypes.bool,
   histories: PropTypes.array,
   commId: PropTypes.number,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 export default React.memo(ContentBody);

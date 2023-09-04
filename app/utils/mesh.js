@@ -1,3 +1,68 @@
+const userMeshShallow = `
+  id
+  displayName
+  avatar
+  customName
+  walletAddress
+  userachievement {
+    id
+  }
+  usercommunityrating {
+    communityId
+    rating
+  }
+`;
+
+const tagMeshShallow = `id
+  name`;
+
+export const postMeshShallow = `
+    id
+    id2
+    postType
+    author
+    rating
+    postTime
+    communityId
+    title
+    replyCount
+    isDeleted
+    officialReply
+    bestReply
+    handle
+    messengerType
+    language
+    community {
+      id
+      name
+      language
+      avatar
+      communitytranslation {
+        communityId
+        id
+        language
+        name
+      }
+    }
+    user {
+      ${userMeshShallow}
+    }
+    posttag {
+      tag {
+        ${tagMeshShallow}
+      }
+    }
+    reply (
+      where: { isDeleted: "0" }
+    ) {
+      id
+    }
+    posttranslation {
+      language
+      title
+    }
+`;
+
 export async function executeMeshQuery(props) {
   const response = await fetch(process.env.QUERY_INDEX_URL, {
     method: 'POST',
@@ -13,7 +78,7 @@ export async function executeMeshQuery(props) {
 
 export const getUserDataFromMesh = (item) => {
   const { userachievement, usercommunityrating, usercommunity, userpermission, ...user } = item;
-  const achievements = userachievement.map(({ achievementId }) => ({
+  const achievements = userachievement?.map(({ achievementId }) => ({
     id: achievementId,
   }));
   return {
@@ -21,27 +86,34 @@ export const getUserDataFromMesh = (item) => {
     id: user.id.toLowerCase(),
     achievements,
     ratings: usercommunityrating,
-    followedCommunities: usercommunity.map((community) => community.communityId),
-    permissions: userpermission.map((permission) => permission.permission),
+    followedCommunities: usercommunity
+      ? usercommunity.map((community) => community.communityId)
+      : [],
+    permissions: userpermission ? userpermission.map((permission) => permission.permission) : [],
   };
 };
 
 const getCommentDataFromMesh = (item) => {
   const { user, ...comment } = item;
-  return { ...comment, author: getUserDataFromMesh(user[0]) };
+  return {
+    ...comment,
+    translations: comment.commenttranslation,
+    author: getUserDataFromMesh(user[0]),
+  };
 };
 
-const getReplyDataFromMesh = (item, postComments) => {
-  const { user, ...reply } = item;
+export const getReplyDataFromMesh = (item, postComments) => {
+  const { replytranslation, user, ...reply } = item;
   const comments = postComments
-    .filter(
-      (comment) => comment.parentReplyId === `${reply.id.split('-')[2]}-${reply.id.split('-')[3]}`,
-    )
-    .map((comment) => getCommentDataFromMesh(comment));
+    ? postComments
+        .filter((comment) => comment.parentReplyId.toString() === reply.id.split('-')[2])
+        .map((comment) => getCommentDataFromMesh(comment))
+    : [];
   return {
     ...reply,
-    author: getUserDataFromMesh(user[0]),
+    author: user ? getUserDataFromMesh(user[0]) : {},
     comments,
+    translations: replytranslation,
   };
 };
 
@@ -58,8 +130,10 @@ export const getPostDataFromMesh = (item) => {
   const tags = posttag.map((postTag) => postTag.tag[0]);
   const replies = repliesMesh.map((reply) => getReplyDataFromMesh(reply, commentsMesh));
   const comments = commentsMesh
-    .filter((comment) => comment.parentReplyId === 0)
-    .map((comment) => getCommentDataFromMesh(comment));
+    ? commentsMesh
+        .filter((comment) => comment.parentReplyId === 0)
+        .map((comment) => getCommentDataFromMesh(comment))
+    : [];
 
   return {
     ...post,
@@ -89,5 +163,16 @@ export const getHistoryDataFromMesh = (item) => {
     ...history,
     reply,
     comment,
+  };
+};
+
+export const getPostsDataFromMesh = ({ count_post, post }) => {
+  const updatedPosts = post.map((postItem) =>
+    renameRepliesToAnswers(getPostDataFromMesh(postItem)),
+  );
+
+  return {
+    postCount: count_post,
+    updatedPosts,
   };
 };

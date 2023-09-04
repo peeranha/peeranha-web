@@ -35,9 +35,13 @@ const styles = {
   },
   close: {
     zIndex: 1,
-    right: 16,
-    top: 16,
+    right: 8,
+    top: 8,
     color: '#576FED',
+    '@media (min-width: 576px)': {
+      top: 16,
+      right: 16,
+    },
   },
 
   full: {

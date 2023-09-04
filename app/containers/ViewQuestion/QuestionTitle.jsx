@@ -12,6 +12,7 @@ import checkIcon from 'images/okayGreen.svg?inline';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
@@ -74,7 +75,6 @@ export const QuestionTitle = ({
   const { t } = useTranslation();
   const {
     tags,
-    communityId,
     bestReply: correctAnswerId,
     answers,
     questionBounty,
@@ -82,6 +82,7 @@ export const QuestionTitle = ({
     promote,
     author: questionAuthor,
     postType,
+    communityId,
   } = questionData;
 
   const isActivePromotion = useMemo(
@@ -97,7 +98,9 @@ export const QuestionTitle = ({
     return null;
   }, [promote]);
 
-  const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
+  const isItWrittenByMe = profileInfo
+    ? user === profileInfo.user || user === profileInfo.id
+    : false;
 
   return title ? (
     <BaseExtnded paddingTop="5" paddingTopMedia="5" position="middle" paddingBottom="10" withoutBR>
@@ -130,7 +133,7 @@ export const QuestionTitle = ({
           <QuestionName>{title}</QuestionName>
         </TitleContainer>
 
-        <TagList className="my-2" tags={tags} communityId={communityId} communities={communities}>
+        <TagList className="my-2" tags={tags} communityId communities={communities} bySuiId>
           {!isSingleCommunityWebsite() ? (
             <QuestionCommunity
               className="my-1"

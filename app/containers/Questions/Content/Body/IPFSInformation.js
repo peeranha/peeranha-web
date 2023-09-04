@@ -10,6 +10,7 @@ import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import A from 'components/A';
 import Span from 'components/Span';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const Label = styled.div`
   position: absolute;
@@ -41,7 +42,9 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
   };
 
   const hashString = getIpfsHashFromBytes32(ipfsHash);
-  const polygonURL = process.env.BLOCKCHAIN_TRANSACTION_INFO_URL;
+  const explorerUrl = isSuiBlockchain
+    ? process.env.SUI_TRANSACTION_INFO_URL
+    : process.env.POLYGON_TRANSACTION_INFO_URL;
   const ipfsURL = process.env.IPFS_CDN_URL;
 
   const formattedData = histories?.map(
@@ -49,18 +52,22 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
       transactionHash: (
         <A
           target="_blank"
-          to={{ pathname: polygonURL + transactionHash }}
-          href={polygonURL + transactionHash}
+          to={{
+            pathname: isSuiBlockchain
+              ? explorerUrl.replace('{0}', transactionHash)
+              : explorerUrl + transactionHash,
+          }}
+          href={
+            isSuiBlockchain
+              ? explorerUrl.replace('{0}', transactionHash)
+              : explorerUrl + transactionHash
+          }
         >
           {`${transactionHash.substring(0, 12)}...`}
         </A>
       ),
       eventName: `${t(`post.${eventEntity}`)} ${t(`post.${eventName}`)}`,
-      timeStamp: getFormattedDate(
-        timeStamp,
-        locale,
-        MONTH_3LETTERS__DAY_YYYY_TIME,
-      ),
+      timeStamp: getFormattedDate(timeStamp, locale, MONTH_3LETTERS__DAY_YYYY_TIME),
     }),
   );
 
@@ -70,11 +77,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
       <Span fontSize="14">
         {t('common.ipfsHashValue')}
         {': '}
-        <A
-          target="_blank"
-          to={{ pathname: ipfsURL + hashString }}
-          href={ipfsURL + hashString}
-        >
+        <A target="_blank" to={{ pathname: ipfsURL + hashString }} href={ipfsURL + hashString}>
           {hashString}
         </A>
       </Span>

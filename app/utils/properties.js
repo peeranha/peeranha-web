@@ -2,6 +2,8 @@ import { PROFILE_INFO_LS } from 'containers/Login/constants';
 import { BigNumber } from 'ethers';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getCookie, deleteCookie, parsePermissionsCookie } from 'utils/cookie';
+import { NETWORK_ID } from 'utils/ethereum/ethereum';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -41,9 +43,9 @@ const createPermissionsObject = ({
     ? translations('moderation.communityAdministrator')
     : translations('moderation.communityModerator'),
   h2: communityId
-    ? `${
-        communities.find(({ id }) => Number(id) === communityId)?.name || 'TestComm1'
-      } ${translations('moderation.community')}`
+    ? `${communities.find(({ id }) => id === communityId)?.name} ${translations(
+        'moderation.community',
+      )}`
     : role === DEFAULT_ADMIN_ROLE
     ? translations('moderation.defaultAdministrator')
     : translations('moderation.protocolAdministratorCommunities'),
@@ -57,6 +59,10 @@ const createPermissionsObject = ({
   sectionCode: index,
   communityId,
 });
+
+// TODO fix
+export const isMatchingBasePermission = (permission, role) =>
+  isSuiBlockchain ? permission === role : BigNumber.from(permission).eq(role);
 
 export const getModeratorPermissions = (
   globalModeratorProps,
@@ -102,22 +108,6 @@ export const isAnswerOfficial = ({ isOfficialReply }) => !!isOfficialReply;
 
 export const officialAnswersCount = (questionData) =>
   questionData.answers.filter((answer) => isAnswerOfficial(answer)).length;
-
-export const communityAdminOfficialAnswerPermission = (properties = [], communityId) =>
-  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_OFFICIAL_ANSWER]).filter(
-    ({ community }) => communityId === community,
-  ).length;
-
-export const communityAdminCreateTagPermission = (properties = [], communityId) =>
-  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_CREATE_TAG]).filter(
-    ({ community }) => communityId === community,
-  ).length;
-
-export const communityAdminInfiniteImpactPermission = (properties, communityId) =>
-  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_INFINITE_IMPACT]).filter(
-    ({ community }) => communityId === community,
-  ).length;
-
 export const getPermissions = (profile) => profile?.permissions ?? [];
 
 export const isValidJsonFromCookie = (data, cookieName) => {
@@ -143,6 +133,11 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
     );
   }
 
+  if (isSuiBlockchain) {
+    return Boolean(
+      permissions.find((permission) => permission.split('-')[1]) === DEFAULT_ADMIN_ROLE,
+    );
+  }
   return Boolean(
     permissions.find((permission) =>
       BigNumber.from(permission.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
@@ -150,21 +145,42 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
   );
 };
 
-export const getCommunityRole = (role, communityId) =>
-  BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();
+export const getCommunityRole = (role, communityId, network) => {
+  if (network === undefined) {
+    network = JSON.parse(getCookie(NETWORK_ID));
+  }
+  if (isSuiBlockchain) {
+    return `3-${role}${String(communityId).replace('0x', '')}`;
+  }
+  return `${Number(network) + 1}-${BigNumber.from(role)
+    .add(BigNumber.from(communityId))
+    .toHexString()}`;
+};
+
+export const getCommunityIdFromPermission = (permission, role) => {
+  if (isSuiBlockchain) {
+    return `0x${permission.substring(role.length)}`;
+  }
+  return BigNumber.from(permission).sub(BigNumber.from(role)).toNumber();
+};
 
 export const isBotAddress = (account) => account.id === BOT_ADDRESS;
 
-export const getAllRoles = (userRoles = [], communitiesCount) => {
+export const getAllRoles = (userRoles = []) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
+
   const defaultAdminRole = userRoles.find((role) =>
-    BigNumber.from(role.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
+    isSuiBlockchain
+      ? role.split('-')[1] === DEFAULT_ADMIN_ROLE
+      : BigNumber.from(role.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
   );
   if (defaultAdminRole) {
     return [{ role: defaultAdminRole }];
   }
   const protocolAdminRole = userRoles.find((role) =>
-    BigNumber.from(role.split('-')[1]).eq(DEFAULT_ADMIN_ROLE),
+    isSuiBlockchain
+      ? role.split('-')[1] === PROTOCOL_ADMIN_ROLE
+      : BigNumber.from(role.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE),
   );
   if (protocolAdminRole) {
     return [{ role: protocolAdminRole }];
@@ -173,17 +189,16 @@ export const getAllRoles = (userRoles = [], communitiesCount) => {
     let communityId;
     let role;
     communityRoles.map((communityRole) => {
-      const id = BigNumber.from(userRole.split('-')[1])
-        .sub(BigNumber.from(communityRole))
-        .toString();
-      if (
-        id.length <= communitiesCount.toString().length &&
-        Number.parseInt(id) >= 1 &&
-        Number.parseInt(id) <= communitiesCount
-      ) {
+      if (isSuiBlockchain) {
+        const id = userRole.split('-')[1].substring(2);
         communityId = `${userRole.split('-')[0]}-${id}`;
-        role = communityRole;
+      } else if (userRole.includes(communityRole.substring(0, 16))) {
+        const id = BigNumber.from(userRole.split('-')[1])
+          .sub(BigNumber.from(communityRole))
+          .toString();
+        communityId = `${userRole.split('-')[0]}-${id}`;
       }
+      role = communityRole;
     });
     return {
       communityId,
@@ -204,28 +219,30 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
       ) || [],
     );
   }
-
   return !!permissions.filter(
-    (permission) => permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualId(communityId)),
+    (permission) =>
+      permission ===
+      getCommunityRole(COMMUNITY_ADMIN_ROLE, getActualId(communityId), getNetwork(communityId)),
   ).length;
 };
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
-  !!permissions.filter((permission) => {
-    const networkFromPermission = permission.split('-')[0];
-    const networkFromCommunityId = communityId.split('-')[0];
-    const actualPermission = permission.split('-')[1];
-    const actualCommunityId = communityId.split('-')[1];
-
-    return (
-      actualPermission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, actualCommunityId) &&
-      networkFromPermission === networkFromCommunityId
-    );
-  }).length;
+  communityId
+    ? !!permissions.filter((permission) => {
+        const actualPermission = permission.split('-')[1];
+        return (
+          actualPermission ===
+            getCommunityRole(
+              COMMUNITY_MODERATOR_ROLE,
+              getActualId(communityId),
+              getNetwork(communityId),
+            ) && getNetwork(permission) === getNetwork(communityId)
+        );
+      }).length
+    : false;
 
 export const hasProtocolAdminRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
-
   if (!permissions) {
     permissions = parsePermissionsCookie(
       JSON.parse(
@@ -238,13 +255,23 @@ export const hasProtocolAdminRole = (permissionsFromState) => {
 
   return Boolean(
     permissions.find((permission) =>
-      BigNumber.from(permission.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE),
+      isSuiBlockchain
+        ? permission.split('-')[1] === PROTOCOL_ADMIN_ROLE
+        : BigNumber.from(permission.split('-')[1]).eq(PROTOCOL_ADMIN_ROLE),
     ),
   );
 };
 
 export const getCommunityRoles = (communityId) => {
-  const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
-  const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
+  const moderatorRole = getCommunityRole(
+    COMMUNITY_MODERATOR_ROLE,
+    getActualId(communityId),
+    getNetwork(communityId),
+  );
+  const adminRole = getCommunityRole(
+    COMMUNITY_ADMIN_ROLE,
+    getActualId(communityId),
+    getNetwork(communityId),
+  );
   return [adminRole, moderatorRole];
 };

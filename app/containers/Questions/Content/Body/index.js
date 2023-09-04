@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Base from 'components/Base';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import QuestionType from './QuestionType';
 import Title from './Title';
 import UserInfo from './UserInfo';
@@ -43,10 +44,15 @@ const Body = ({
   translations,
 }) => {
   const language = Object.keys(languagesEnum)[Number(postLanguage)];
-  const community = communities.find((community) => community.id === communityId);
+
+  const community = communities.find((communityObject) =>
+    isSuiBlockchain
+      ? communityObject.id === communityId || communityObject.suiId === communityId
+      : communityObject.id === communityId,
+  );
   const isAutotranslationEnable =
     locale === 'en' ||
-    community?.translations.find((translation) => translation.language === locale)
+    community?.translations?.find((translation) => translation.language === locale)
       ?.enableAutotranslation;
 
   const translation = translations.find((t) => Number(t.language) === languagesEnum[locale]);
@@ -91,6 +97,7 @@ const Body = ({
         postTime={postTime}
         isSearchPage={isSearchPage}
         communityId={communityId}
+        communities={communities}
       />
 
       <div className="df jcsb aic">

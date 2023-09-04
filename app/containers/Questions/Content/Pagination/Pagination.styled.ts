@@ -1,3 +1,7 @@
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
+
 export const styles = {
   basicStyles: {
     width: '30px',
@@ -5,7 +9,7 @@ export const styles = {
     borderRadius: '5px',
     ':hover': {
       backgroundColor: 'rgba(53, 74, 137, 0.05)',
-      color: '#576FED',
+      color: colors.linkColor || '#576FED',
     },
     '@media (min-width: 450px)': {
       width: '40px',
@@ -14,9 +18,9 @@ export const styles = {
   },
 
   activeStyles: {
-    backgroundColor: '#F76F60',
+    backgroundColor: colors.footerBG || '#F76F60',
     borderRadius: '5px',
-    color: '#FFF',
+    color: colors.footerText || '#FFF',
   },
 
   span: {

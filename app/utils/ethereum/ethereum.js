@@ -3,19 +3,18 @@ import { deleteCookie, getCookie, setCookie } from 'app/utils/cookie';
 
 import { sendDispatcherTransactionMethod } from 'utils/ethereum/dispatcher';
 import { sendMetaTransactionMethod } from 'utils/ethereum/metaTransactions';
-import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
+import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 import { sendTransactionMethod } from 'utils/ethereum/transactions';
 
 import PeeranhaCommunity from '../../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
 import PeeranhaContent from '../../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaToken from '../../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaUser from '../../../../peeranha-subgraph/abis/PeeranhaUser.json';
-
-const CHAIN_IDS = [process.env.CHAIN_ID, process.env.EDGEWARE_CHAIN_ID];
 export const NETWORK_ID = 'networkid';
 
 class EthereumService {
   constructor(data) {
+    this.CHAIN_IDS = [process.env.CHAIN_ID, process.env.EDGEWARE_CHAIN_ID];
     this.contractUser = null;
     this.contractToken = null;
     this.contractContent = null;
@@ -54,18 +53,15 @@ class EthereumService {
     this.setTransactionList = data.setTransactionListDispatch;
     this.transactionInPending = data.transactionInPendingDispatch;
     this.transactionCompleted = data.transactionCompletedDispatch;
+    this.providerForWaiting = ['providerReads', 'edgewareProviderReads'];
 
-    this.previousNonce = BigNumber.from(0);
+    this.previousNonce = BigNumber.from(-1);
     this.transactionList = [];
 
     this.sendTransaction = sendTransactionMethod;
     this.sendMetaTransaction = sendMetaTransactionMethod;
     this.sendDispatcherTransaction = sendDispatcherTransactionMethod;
   }
-
-  setTransactionInitialised = (toggle) => {
-    this.isTransactionInitialised = toggle;
-  };
 
   setData = (data) => {
     this.wallet = data.wallet;
@@ -137,7 +133,7 @@ class EthereumService {
       PeeranhaContent,
       this.providerReads,
     );
-    this.edgewreContractContentReads = new Contract(
+    this.edgewareContractContentReads = new Contract(
       process.env.EDGEWARE_CONTENT_ADDRESS,
       PeeranhaContent,
       this.edgewareProviderReads,
@@ -147,7 +143,7 @@ class EthereumService {
       PeeranhaToken,
       this.providerReads,
     );
-    this.edgewreContractTokenReads = new Contract(
+    this.edgewareContractTokenReads = new Contract(
       process.env.EDGEWARE_TOKEN_ADDRESS,
       PeeranhaContent,
       this.edgewareProviderReads,
@@ -162,7 +158,9 @@ class EthereumService {
         this.transactionList.find(
           (transactionFromList) =>
             transactionFromList.transactionHash === transaction.transactionHash,
-        ).result = await this.provider.waitForTransaction(transaction.transactionHash);
+        ).result = await this[
+          this.providerForWaiting[Number(transaction.network)]
+        ].waitForTransaction(transaction.transactionHash);
 
         setTimeout(() => {
           const index = this.transactionList
@@ -185,7 +183,7 @@ class EthereumService {
     if (network === undefined) {
       network = getCookie(NETWORK_ID);
     }
-    const chainId = CHAIN_IDS[Number(network) || 0];
+    const chainId = this.CHAIN_IDS[Number(network) || 0];
     if (this.connectedChain.id !== `0x${Number(chainId).toString(16)}`) {
       await this.setChain({
         chainId: `0x${Number(chainId).toString(16)}`,
@@ -219,8 +217,6 @@ class EthereumService {
       return;
     }
 
-    await this.chainCheck();
-
     this.provider = new ethers.providers.Web3Provider(this.wallet.provider, 'any');
     const signer = await this.provider.getSigner();
     this.contractUser = new Contract(process.env.USER_ADDRESS, PeeranhaUser, signer);
@@ -253,7 +249,7 @@ class EthereumService {
   }
   getContentDataWithArgs = async (action, args) => this.contractContentReads[action](...args);
   getEdgewareContentDataWithArgs = async (action, args) =>
-    this.edgewreContractContentReads[action](...args);
+    this.edgewareContractContentReads[action](...args);
 
   getTokenDataWithArgs = async (action, args) => this.contractTokenReads[action](...args);
 }

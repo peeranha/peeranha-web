@@ -19,6 +19,7 @@ import Checkbox from 'components/Input/Checkbox';
 import TextEditorField from 'components/FormFields/TextEditorField';
 import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
+import BlockedInfoArea from 'components/BlockedInfoArea';
 
 import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
 
@@ -45,11 +46,18 @@ export const AnswerForm = ({
   isOfficialRepresentative,
   isAnswered,
   account,
+  isMinusReputation,
+  isHasRole,
 }) => {
   const { t } = useTranslation();
 
   return (
     <FormBox onSubmit={handleSubmit(sendAnswer)}>
+      {isAnswered && <BlockedInfoArea>{t('common.questionIsAnswered')}</BlockedInfoArea>}
+      {!account && <BlockedInfoArea>{t('common.logInToAnswer')}</BlockedInfoArea>}
+      {isMinusReputation && !isHasRole && (
+        <BlockedInfoArea>{t('common.reputationBelowZero')}</BlockedInfoArea>
+      )}
       <Field
         name={TEXT_EDITOR_ANSWER_FORM}
         component={TextEditorField}
@@ -89,7 +97,7 @@ AnswerForm.propTypes = {
   label: PropTypes.string,
   previewLabel: PropTypes.string,
   sendAnswerLoading: PropTypes.bool,
-  communityId: PropTypes.number,
+  communityId: PropTypes.string,
   textEditorValue: PropTypes.string,
   isOfficialRepresentative: PropTypes.bool,
   properties: PropTypes.array,

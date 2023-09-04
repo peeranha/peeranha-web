@@ -10,5 +10,8 @@
   "referralMessage": "Đây là mã mà bạn của bạn đã cho bạn.",
   "optionalReferralCode": "(tùy chọn)",
   "accountNotCreatedName": "Tài khoản chưa được tạo",
-  "inviterIsNotRegisterYet": "Inviter chưa đăng ký"
+  "inviterIsNotRegisterYet": "Inviter chưa đăng ký",
+  "create": "Tạo nên",
+  "createName": "Vui lòng tạo tên hiển thị của bạn",
+  "enterName": "Nhập tên hiển thị"
 }

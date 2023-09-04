@@ -1,3 +1,4 @@
+import { CSSObject } from '@emotion/react';
 import { singleCommunityColors } from 'utils/communityManagement';
 import {
   BG_SECONDARY_SPECIAL_4,
@@ -9,7 +10,7 @@ import {
 
 const communityColors = singleCommunityColors();
 
-const styles = {
+const styles: Record<string, CSSObject> = {
   container: {
     position: 'absolute',
     padding: '16px',
@@ -29,6 +30,12 @@ const styles = {
         padding: '0 36px',
       },
   },
+
+  containerBorders: {
+    border: `1px solid ${communityColors.border}`,
+    borderRadius: '5px',
+  },
+
   titleWrapper: {
     display: 'flex',
     flexDirection: 'column',

@@ -3,7 +3,7 @@ import IconComponent, { IconProps } from './IconComponent';
 
 type CloseRoundedProps = {
   circleFill: string;
-  fillOpacity: string;
+  fillOpacity?: string;
 };
 
 const CloseRounded: React.FC<IconProps & CloseRoundedProps> = (props): JSX.Element => (

@@ -26,7 +26,7 @@ import { noAccess as noAccessRoute } from 'routes-config';
 import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { useModeratorRole } from '../../hooks/useModeratorRole';
+import { useModeratorRole } from 'hooks/useModeratorRole';
 
 import Form from './Form';
 
@@ -39,7 +39,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import { GENERAL_TAB } from './constants';
-import { getSingleCommunityDetails } from '../../utils/communityManagement';
 
 const EditCommunity = ({
   community,

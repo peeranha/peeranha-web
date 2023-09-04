@@ -1,9 +1,3 @@
-/* 
-  *
-  * TagsOfCommunity reducer
-  * 
- */
-
 import { fromJS } from 'immutable';
 import { RESET_EDIT_TAG_DATA, SET_EDIT_TAG_DATA } from './constants';
 

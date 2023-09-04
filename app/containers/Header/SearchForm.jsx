@@ -11,7 +11,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const [lastPathName, changeLastPathName] = useState('');
 
   const onSubmit = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       createdHistory.push(routes.search(text));
       changeLastPathName(routes.search());
@@ -24,7 +24,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
       id: searchFormId,
       name: searchFormId,
       value: text,
-      onChange: e => changeText(e.target.value),
+      onChange: (e) => changeText(e.target.value),
       onBlur,
     }),
     [text, searchFormId, onBlur],
@@ -48,6 +48,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
         placeholder={placeholder}
         isSearchable
         onClick={onSubmit}
+        css={{ input: { paddingRight: '35px' } }}
       />
     </form>
   );

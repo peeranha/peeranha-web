@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import * as routes from 'routes-config';
 import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
 import suggestTagIcon from 'images/tagsHeaderIcon.svg?external';
@@ -16,10 +15,9 @@ import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
-import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
-const isSingleCommunityMode = isSingleCommunityWebsite();
 
 export const Header = ({ title, closeRedirectPage, closeButtonAction = null }) => {
   const { t } = useTranslation();
@@ -39,14 +37,7 @@ export const Header = ({ title, closeRedirectPage, closeButtonAction = null }) =
       </H3>
 
       <WrapperRightPanel className="right-panel">
-        <A
-          to={
-            closeRedirectPage || isSingleCommunityMode
-              ? routes.communityTags()
-              : routes.communities()
-          }
-          onClick={closeButtonAction}
-        >
+        <A to={closeRedirectPage} onClick={closeButtonAction}>
           <button>
             <IconMd
               className="mr-1"

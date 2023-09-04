@@ -10,10 +10,9 @@ import { getQuestionBounty } from 'utils/walletManagement';
 
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
-import {
-  loadTopCommunityQuestionsWorker,
-  removeOrAddTopQuestionWorker,
-} from 'containers/Questions/saga';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { getSuiPostsByCommunityId, getSuiPost } from 'utils/sui/suiIndexer';
 
 import {
   GET_QUESTIONS,
@@ -32,29 +31,57 @@ import {
 } from './actions';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import { REMOVE_OR_ADD_TOP_QUESTION } from '../Questions/constants';
 import { followHandlerWorker } from '../FollowCommunityButton/saga';
-import { selectEthereum } from 'containers/EthereumProvider/selectors';
 
 export function* getQuestionsWorker() {
   try {
-    const ethereumService = yield select(selectEthereum);
-    yield call(loadTopCommunityQuestionsWorker, { init: true });
-
     const topQuestionsIds = yield select(selectTopQuestionIds);
 
     const questionsList = [];
 
-    if (topQuestionsIds && topQuestionsIds.length) {
-      yield all(
-        topQuestionsIds.map(function* (id) {
-          if (id) {
-            const question = yield call(getQuestionById, ethereumService, id);
+    if (isSuiBlockchain) {
+      const сommunities = yield select(selectCommunities());
+      if (topQuestionsIds && topQuestionsIds.length) {
+        yield all(
+          topQuestionsIds.map(function* (id) {
+            if (id) {
+              const question = yield call(getSuiPost, id, сommunities);
+              questionsList.push(question);
+            }
+          }),
+        );
+      } else {
+        const limit = 5;
+        const offset = 0;
+        const communitySuiIdFilter = сommunities.find(
+          (community) => community.id === communityId,
+        ).suiId;
+        questionsList = yield call(
+          getSuiPostsByCommunityId,
+          limit,
+          offset,
+          [0, 1, 2],
+          [communitySuiIdFilter],
+          сommunities,
+        );
+      }
+      questionsList = questionsList.map((question) => ({
+        ...question,
+        communityId: сommunities.find((community) => community.suiId === question.communityId).id,
+      }));
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      if (topQuestionsIds && topQuestionsIds.length) {
+        yield all(
+          topQuestionsIds.map(function* (id) {
+            if (id) {
+              const question = yield call(getQuestionById, ethereumService, id);
 
-            questionsList.push(question);
-          }
-        }),
-      );
+              questionsList.push(question);
+            }
+          }),
+        );
+      }
     }
 
     const users = new Map();
@@ -135,6 +162,5 @@ export default function* () {
   yield takeEvery(GET_COMMUNITY, getCommunityWorker);
   yield takeEvery(GET_LOGO, getLogoWorker);
   yield takeLatest(REDIRECT_TO_EDIT_COMMUNITY_PAGE, redirectToEditCommunityPageWorker);
-  yield takeEvery(REMOVE_OR_ADD_TOP_QUESTION, removeOrAddTopQuestionWorker);
   yield takeEvery(FOLLOW_HANDLER, followHandlerWorker);
 }

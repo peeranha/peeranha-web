@@ -10,5 +10,8 @@
   "referralMessage": "这是你朋友给你的代码。",
   "optionalReferralCode": "（可选的）",
   "accountNotCreatedName": "帐户尚未创建",
-  "inviterIsNotRegisterYet": "邀请人尚未注册"
+  "inviterIsNotRegisterYet": "邀请人尚未注册",
+  "create": "创造",
+  "createName": "请创建您的显示名称",
+  "enterName": "输入显示名称"
 }

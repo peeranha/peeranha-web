@@ -1,3 +1,4 @@
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import getHash from 'object-hash';
 
@@ -7,13 +8,7 @@ import { getMD } from 'utils/mdManagement';
 import { getAchievements } from 'utils/achievementsManagement';
 import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
 
-import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
-import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
-import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
-
-import { LOGIN_WITH_WALLET } from 'containers/Login/constants';
-
-import { selectUsers } from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import {
   getCommunities,
@@ -36,11 +31,13 @@ import {
   GET_COMMUNITY_TAGS,
   GET_FAQ,
   GET_STAT,
-  GET_TAGS,
   GET_TUTORIAL,
   GET_USER_PROFILE,
 } from 'containers/DataCacheProvider/constants';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { getSuiUserById } from 'utils/sui/suiIndexer';
 import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
@@ -94,8 +91,22 @@ export function* getTutorialWorker() {
 }
 
 /* eslint consistent-return: 0 */
-export function* getUserProfileWorker({ user, getFullProfile, communityIdForRating }) {
+export function* getUserProfileWorker({ user, getFullProfile }) {
   try {
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const isLogin = wallet.address === user;
+      let updatedUserInfo;
+      const communities = yield select(selectCommunities());
+      if (isLogin) {
+        const userFromContract = yield call(getSuiProfileInfo, wallet.address);
+        updatedUserInfo = yield call(getSuiUserById, userFromContract.id, communities);
+      } else {
+        updatedUserInfo = yield call(getSuiUserById, user, communities);
+      }
+      yield put(getUserProfileSuccess({ ...updatedUserInfo }));
+      return yield updatedUserInfo;
+    }
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
     const isLogin = selectedAccount === user;
@@ -123,14 +134,7 @@ export function* getUserProfileWorker({ user, getFullProfile, communityIdForRati
     }
 
     // get userProfile and put to STORE
-    const updatedUserInfo = yield call(
-      getProfileInfo,
-      user,
-      ethereumService,
-      getFullProfile,
-      isLogin,
-      communityIdForRating,
-    );
+    const updatedUserInfo = yield call(getProfileInfo, user);
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||
@@ -154,8 +158,4 @@ export default function* () {
   yield takeLatest(GET_STAT, getStatWorker);
   yield takeLatest(GET_FAQ, getFaqWorker);
   yield takeLatest(GET_TUTORIAL, getTutorialWorker);
-  yield takeLatest(
-    [LOGOUT_SUCCESS, LOGIN_WITH_WALLET, SAVE_PROFILE_SUCCESS],
-    updateStoredQuestionsWorker,
-  );
 }

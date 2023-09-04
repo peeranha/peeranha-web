@@ -14,6 +14,8 @@ const fonts = singleCommunityFonts();
 const single = isSingleCommunityWebsite();
 
 const Tag = Span.extend`
+  max-width: 100%;
+  overflow: hidden;
   border: 1px solid ${TAG_COLOR};
   color: ${TAG_COLOR};
   font-size: 14px;
@@ -62,7 +64,7 @@ const TagsList = ({ tags, communities, communityId, children, className }) => {
   return (
     <Box>
       {tags.map((tag, index) => (
-        <li key={community.id + (tag.name || index)} className="d-flex flex-column">
+        <li key={community.id + (tag.id || index)} className="d-flex flex-column">
           <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
             {single ? (
               <Button

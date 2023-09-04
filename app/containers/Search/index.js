@@ -18,6 +18,9 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
+import Loader from 'components/LoadingIndicator/WidthCentered';
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -28,16 +31,9 @@ import { getResults } from './actions';
 import Banner from './Banner/Banner';
 import { selectCommunities } from '../DataCacheProvider/selectors';
 
-import Loader from 'components/LoadingIndicator/WidthCentered';
-import {
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
-  TEXT_DARK,
-  TEXT_SECONDARY,
-} from '../../style-constants';
 import SearchContent from './SearchContent';
 import { redirectToAskQuestionPage } from '../AskQuestion/actions';
-import { loginWithWallet } from '../Login/actions';
+import { loginWithWallet, loginWithSui } from '../Login/actions';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const colors = singleCommunityColors();
@@ -53,6 +49,7 @@ const Search = ({
   profileInfo,
   redirectToAskQuestionPageDispatch,
   loginWithWalletDispatch,
+  loginWithSuiDispatch,
 }) => {
   const { t } = useTranslation();
   const query = match.params.q;
@@ -61,6 +58,8 @@ const Search = ({
       getResultsDispatch(query);
     }
   }, [getResultsDispatch, query]);
+
+  const loginDispatch = isSuiBlockchain ? loginWithSuiDispatch : loginWithWalletDispatch;
 
   return (
     <div>
@@ -127,9 +126,7 @@ const Search = ({
           <Banner
             profileInfo={profileInfo}
             redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-            showLoginModalWithRedirectToAskQuestionPage={() =>
-              loginWithWalletDispatch({ metaMask: true }, true)
-            }
+            showLoginModalWithRedirectToAskQuestionPage={() => loginDispatch(true)}
           />
         ))}
     </div>
@@ -145,6 +142,7 @@ Search.propTypes = {
   profileInfo: PropTypes.object,
   redirectToAskQuestionPageDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 export default compose(
@@ -162,6 +160,7 @@ export default compose(
       getResultsDispatch: bindActionCreators(getResults, dispatch),
       loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
       redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
+      loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
     }),
   ),
 )(Search);

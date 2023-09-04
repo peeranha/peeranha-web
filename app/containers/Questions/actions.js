@@ -23,17 +23,7 @@ import {
   MOVE_QUESTION_ERROR,
 } from './constants';
 
-export function getQuestions(
-  limit,
-  skip,
-  postTypes,
-  tags,
-  communityIdFilter,
-  parentPage,
-  next,
-  toUpdateQuestions,
-  isNotUpdatePromotedQuestions,
-) {
+export function getQuestions(limit, skip, postTypes, tags, communityIdFilter, parentPage) {
   return {
     type: GET_QUESTIONS,
     limit,
@@ -42,24 +32,13 @@ export function getQuestions(
     tags,
     communityIdFilter,
     parentPage,
-    next,
-    toUpdateQuestions,
-    isNotUpdatePromotedQuestions,
   };
 }
 
-export function getQuestionsSuccess(
-  questionsList,
-  next,
-  toUpdateQuestions,
-  questionFilter = 0,
-  counter,
-) {
+export function getQuestionsSuccess(questionsList, questionFilter = 0, counter) {
   return {
     type: GET_QUESTIONS_SUCCESS,
     questionsList,
-    next,
-    toUpdateQuestions,
     questionFilter,
     counter,
   };

@@ -70,7 +70,13 @@ const Notification: React.FC<NotificationProps> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
   const route = ROUTES_BY_TYPE[data.post_type] || routes.tutorialView;
-  const href = route(data.question_id, data.title, data.answer_id);
+  let href;
+
+  if (data.network) {
+    href = route(`${data.network}-${data.question_id}`, data.title, data.answer_id);
+  } else {
+    href = route(`1-${data.question_id}`, data.title, data.answer_id);
+  }
   const isTippedType = [
     NOTIFICATIONS_TYPES.answerTipped,
     NOTIFICATIONS_TYPES.questionTipped,
@@ -98,12 +104,14 @@ const Notification: React.FC<NotificationProps> = ({
   const isLast = index === notificationsNumber - 1;
 
   const previousPostType = data.old_post_type;
-  const previousCommunity = communities?.find(
-    ({ id }: { id: number }) => data.old_community_id === id,
+
+  const previousCommunity = communities?.find(({ id }: { id: string }) =>
+    data.network ? `${data.network}-${data.old_community_id}` : `1-${data.old_community_id}` === id,
   );
   const postType = data.post_type;
-  const currentCommunity = communities?.find(({ id }: { id: number }) => data.community_id === id);
-
+  const currentCommunity = communities?.find(({ id }: { id: string }) =>
+    data.network ? `${data.network}-${data.community_id}` : `1-${data.community_id}` === id,
+  );
   const notificationTextProps = {
     quantity: values,
     previousPostType: t(POST_TYPE_TO_LABEL[previousPostType]),

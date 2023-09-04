@@ -1,9 +1,12 @@
 import { TEXT_SECONDARY } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const styles = {
   footer: {
     minHeight: '220px',
-    color: TEXT_SECONDARY,
+    color: colors.footerText || TEXT_SECONDARY,
   },
 
   footerCommunityMode: {
@@ -61,7 +64,7 @@ export const styles = {
   },
 
   border: {
-    borderBottom: '1px solid #c2c6d8',
+    borderBottom: `1px solid ${colors.footer || '#c2c6d8'}`,
     margin: '32px',
     '@media (max-width: 991px)': {
       margin: '28px 16px',
@@ -159,5 +162,15 @@ export const styles = {
         filter: 'grayscale(100%)',
       },
     },
+  },
+  imgLogo: {
+    width: '61px',
+    height: '15px',
+    margin: '5px 25px 0 5px',
+  },
+  borderBlock: {
+    paddingBottom: '30px',
+    margin: 0,
+    border: 'none',
   },
 };

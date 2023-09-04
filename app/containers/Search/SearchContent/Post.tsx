@@ -8,6 +8,7 @@ import BestAnswerIcon from 'icons/BestAnswer';
 import AnswerIcon from 'icons/Answer';
 import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
 import { getPostRoute } from 'routes-config';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { styles } from './Post.styled';
 import QuestionType from '../../Questions/Content/Body/QuestionType';
 import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
@@ -52,7 +53,9 @@ const Post: React.FC<PostProps> = ({
   replyCount,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const community = getFollowedCommunities(communities, [communityId])[0] || {};
+  const community = isSuiBlockchain
+    ? communities.find((community) => community.id === communityId)
+    : getFollowedCommunities(communities, [communityId])[0] || {};
 
   const postLink = getPostRoute({ postType, id, title });
   const communityLink = () => {

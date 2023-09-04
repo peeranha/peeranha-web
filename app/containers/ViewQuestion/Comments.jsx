@@ -133,7 +133,7 @@ const CommentEdit = ({ answerId, id, content, saveCommentLoading, saveComment, t
 const CommentView = (item) => {
   const { t } = useTranslation();
   const isItWrittenByMe = item.profileInfo
-    ? item.author?.user.toLowerCase() === item.profileInfo.user.toLowerCase()
+    ? item.author?.id?.toLowerCase() === item.profileInfo.user.toLowerCase()
     : false;
 
   const translation = item.translations?.find(
@@ -289,7 +289,7 @@ const Comments = (props) => {
 
   return (
     <div>
-      {props.comments.length > 0 && (
+      {props.comments?.length > 0 && (
         <CommentsStyled>
           {props.comments.slice(0, commentsNum).map((item) => (
             <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
@@ -309,7 +309,9 @@ const Comments = (props) => {
         answerId={props.answerId}
         changeCommentsView={changeCommentsView}
         isAllCommentsView={isAllCommentsView}
-        commentsNumber={props.comments.length - DEFAULT_COMMENTS_NUMBER}
+        commentsNumber={props?.comments.length - DEFAULT_COMMENTS_NUMBER}
+        profileInfo={props?.profileInfo}
+        loginWithSuiDispatch={props?.loginWithSuiDispatch}
       />
     </div>
   );
@@ -324,6 +326,7 @@ Comments.propTypes = {
   sendComment: PropTypes.func,
   answerId: PropTypes.number,
   profileInfo: PropTypes.object,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 CommentEdit.propTypes = {

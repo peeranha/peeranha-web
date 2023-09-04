@@ -37,6 +37,7 @@ import FormBox from 'components/Form';
 import TipsBaseSmallPadding from 'components/Base/TipsBaseSmallPadding';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import DescriptionList from 'components/DescriptionList';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import {
   FORM_TITLE,
@@ -142,13 +143,18 @@ export const QuestionForm = ({
   const [isClickSubmit, setIsClickSubmit] = useState(false);
   const postTitle = question?.title;
   const postContent = question?.content;
-  const isPostAuthor = question?.author === profile?.user;
 
-  const communityId = formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
-  const isCommunityModerator = communityId
-    ? hasCommunityModeratorRole(getPermissions(profile), communityId)
+  const isPostAuthor = question?.author.id === profile?.id;
+
+  const formCommunityId = isSuiBlockchain
+    ? formValues[FORM_COMMUNITY]?.suiId
+    : formValues[FORM_COMMUNITY]?.id;
+  const communityUniqueId = formCommunityId || single || question?.communityId;
+  const isCommunityModerator = communityUniqueId
+    ? hasCommunityModeratorRole(getPermissions(profile), communityUniqueId)
     : false;
 
+  const communityId = formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
   const isHasRoleGlobal =
     hasGlobalModeratorRole(getPermissions(profile)) ||
     hasProtocolAdminRole(getPermissions(profile));
@@ -175,7 +181,7 @@ export const QuestionForm = ({
     if (formValues[FORM_TITLE] && getQuestions) {
       getQuestions(formValues[FORM_TITLE], true);
     }
-  }, [formValues, getQuestions]);
+  }, [formValues[FORM_TITLE]]);
 
   useEffect(() => {
     if (communityId) {
@@ -411,11 +417,15 @@ export default memo(
                 [FORM_TYPE]: question?.type,
                 [FORM_TITLE]: question?.title,
                 [FORM_CONTENT]: question?.content,
-                [FORM_COMMUNITY]: {
-                  ...question?.community,
-                  tags: cachedTags[question?.community.id],
-                },
-                [FORM_TAGS]: question?.tags,
+                [FORM_COMMUNITY]: isSuiBlockchain
+                  ? {
+                      ...communities?.find((community) => community.id === question?.community?.id),
+                    }
+                  : {
+                      ...question?.community,
+                      tags: cachedTags[question?.community?.id],
+                    },
+                [FORM_TAGS]: question?.tags.map((tag) => ({ ...tag, label: tag.name })),
                 [FORM_BOUNTY]: question?.bounty ?? '',
                 [FORM_BOUNTY_HOURS]: question?.bountyHours,
               }

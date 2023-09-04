@@ -1,3 +1,5 @@
+import { useWallet } from '@suiet/wallet-kit';
+import { setWallet } from 'containers/SuiProvider/actions';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,14 +9,24 @@ import { bindActionCreators, compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import reducer from './reducer';
 import saga from './saga';
-import { getCurrentAccount } from './actions';
+import { getCurrentAccount, getCurrentSuiAccount } from './actions';
 import { selectLastUpdate } from './selectors';
 import { UPDATE_ACC_PERIOD } from './constants';
+const SuiAccountProvider = ({ children, getCurrentSuiAccountDispatch, setWalletDispatch }) => {
+  const wallet = useWallet();
+  useEffect(() => {
+    setWalletDispatch(wallet);
+    getCurrentSuiAccountDispatch(wallet);
+  }, [getCurrentSuiAccountDispatch, setWalletDispatch, wallet]);
 
-export const AccountProvider = ({ children, lastUpdate, getCurrentAccountDispatch }) => {
+  return children;
+};
+
+const PolygonAccountProvider = ({ children, lastUpdate, getCurrentAccountDispatch }) => {
   useEffect(() => {
     getCurrentAccountDispatch();
 
@@ -29,6 +41,25 @@ export const AccountProvider = ({ children, lastUpdate, getCurrentAccountDispatc
 
   return children;
 };
+
+const MainAccountProvider = isSuiBlockchain ? SuiAccountProvider : PolygonAccountProvider;
+
+export const AccountProvider = ({
+  children,
+  lastUpdate,
+  getCurrentAccountDispatch,
+  getCurrentSuiAccountDispatch,
+  setWalletDispatch,
+}) => (
+  <MainAccountProvider
+    lastUpdate={lastUpdate}
+    getCurrentAccountDispatch={getCurrentAccountDispatch}
+    getCurrentSuiAccountDispatch={getCurrentSuiAccountDispatch}
+    setWalletDispatch={setWalletDispatch}
+  >
+    {children}
+  </MainAccountProvider>
+);
 
 AccountProvider.propTypes = {
   getCurrentAccountDispatch: PropTypes.func,
@@ -45,6 +76,8 @@ export default compose(
     }),
     (dispatch) => ({
       getCurrentAccountDispatch: bindActionCreators(getCurrentAccount, dispatch),
+      getCurrentSuiAccountDispatch: bindActionCreators(getCurrentSuiAccount, dispatch),
+      setWalletDispatch: bindActionCreators(setWallet, dispatch),
     }),
   ),
 )(AccountProvider);

@@ -24,7 +24,7 @@ const MediumIconStyled = MediumIcon.extend`
 
   border: 1px solid ${colors.secondaryAdditional || BORDER_SECONDARY};
 
-  background: ${BG_PRIMARY_SPECIAL_2};
+  background: ${colors.userInformation || BG_PRIMARY_SPECIAL_2};
   margin-right: 18px;
   border-radius: 50%;
   padding: 1px;

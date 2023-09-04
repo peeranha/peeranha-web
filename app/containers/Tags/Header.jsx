@@ -110,10 +110,10 @@ export const Header = ({
     [path, communityTagsRoute, tagsNumber],
   );
 
-  const onClickNavigationButton = ({ currentTarget: { id, communityid } }) => {
+  const onClickNavigationButton = ({ currentTarget: { id } }) => {
     goToCreateTagScreen({
       buttonId: id,
-      communityId: communityid,
+      communityId: currentCommunity.id,
     });
   };
 
@@ -190,6 +190,14 @@ export const Header = ({
               menu={<Menu sortTags={sortTags} sorting={sorting} />}
               id="tags-dropdown"
               isArrowed
+              css={{
+                '.dropdown-menu': {
+                  transform: 'translate3d(-58px, 18px, 0px) !important',
+                  '@media only screen and (min-width: 576px)': {
+                    transform: 'translate3d(0px, 18px, 0px) !important',
+                  },
+                },
+              }}
             />
           </WrapperRightPanel>
         )}

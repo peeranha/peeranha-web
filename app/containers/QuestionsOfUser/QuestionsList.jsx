@@ -13,6 +13,9 @@ import {
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { getPostRoute } from 'routes-config';
+import { singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 
@@ -24,7 +27,8 @@ import QuestionForProfilePage from 'components/QuestionForProfilePage';
 
 import { getUserName } from 'utils/user';
 import { POST_TYPE_ANSWER } from '../Profile/constants';
-import { getPostRoute } from '../../routes-config';
+
+const colors = singleCommunityColors();
 
 const RightBlock = Base.extend`
   display: flex;
@@ -42,7 +46,10 @@ const RightBlock = Base.extend`
 
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
-  border: ${(x) => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
+  border: ${(x) =>
+    x.bordered || isSuiBlockchain
+      ? `1px solid ${colors.border || BORDER_PRIMARY} !important`
+      : 'none'};
 
   > div:nth-child(1) {
     border-top-left-radius: ${BORDER_RADIUS_L} !important;
@@ -113,7 +120,7 @@ const Question = ({
   elementType,
   answerId,
 }) => {
-  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[3] : null;
+  const answerRouteId = elementType === POST_TYPE_ANSWER ? answerId.split('-')[2] : null;
 
   const route = getPostRoute({ postType, id, answerId: answerRouteId, title });
 

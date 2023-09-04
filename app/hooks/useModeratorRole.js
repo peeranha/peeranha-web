@@ -10,6 +10,7 @@ import {
   hasProtocolAdminRole,
   isValidJsonFromCookie,
 } from 'utils/properties';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import history from '../createdHistory';
 
@@ -17,11 +18,10 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
   const [isModeratorRole, setModeratorRole] = useState(null);
 
   useEffect(() => {
+    const cookieProfileInfo = getCookie(PROFILE_INFO_LS);
     const permissions = parsePermissionsCookie(
       JSON.parse(
-        isValidJsonFromCookie(getCookie(PROFILE_INFO_LS), PROFILE_INFO_LS)
-          ? getCookie(PROFILE_INFO_LS)
-          : '""',
+        isValidJsonFromCookie(cookieProfileInfo, PROFILE_INFO_LS) ? cookieProfileInfo : '""',
       ) || [],
     );
 

@@ -13,7 +13,7 @@ import { getUser, getUserPermissions, getUserStats } from './theGraph';
 import { isUserExists } from './accountManagement';
 
 export const getRatingByCommunity = (user, communityId) =>
-  user?.ratings?.find((ratingObj) => ratingObj.communityId.toString() === communityId?.toString())
+  user?.ratings?.find((ratingObj) => ratingObj.communityId?.toString() === communityId?.toString())
     ?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
@@ -43,36 +43,10 @@ export async function uploadImg(img) {
 }
 
 /* eslint camelcase: 0 */
-export async function getProfileInfo(
-  user,
-  ethereumService,
-  getExtendedProfile,
-  isLogin,
-  communityIdForRating,
-) {
+export async function getProfileInfo(user) {
   if (!user) return null;
   const profileInfo = await getUser(user);
   let userStats;
-  if (communityIdForRating) {
-    const newRating = 10;
-
-    const foundRating = profileInfo.ratings.find(
-      (ratingData) => ratingData.communityId === communityIdForRating,
-    );
-    if (!foundRating) {
-      // avoiding "Cannot assign to read only property" error
-      profileInfo.ratings = profileInfo.ratings.concat({
-        communityId: communityIdForRating,
-        rating: newRating,
-      });
-    } else {
-      // avoiding "Cannot assign to read only property" error
-      profileInfo.ratings = profileInfo.ratings.map((ratingData) => ({
-        communityId: ratingData.communityId,
-        rating: ratingData.communityId === communityIdForRating ? ratingData.rating : newRating,
-      }));
-    }
-  }
 
   profileInfo.highestRating = profileInfo.ratings?.length
     ? profileInfo.ratings?.reduce((max, current) => (max.rating > current.rating ? max : current))
@@ -93,7 +67,7 @@ export async function getProfileInfo(
 }
 
 export async function saveProfile(ethereumService, user, profile) {
-  const network = getCookie(NETWORK_ID);
+  const network = getCookie(NETWORK_ID) || 0;
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
   await ethereumService.sendTransaction(network, CONTRACT_USER[network], user, UPDATE_ACC, [

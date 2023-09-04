@@ -4,13 +4,29 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { getActualId } from 'utils/properties';
 
-import { editAnswer, getAnswer, getQuestion } from 'utils/questionsManagement';
+import { editAnswer } from 'utils/questionsManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
-import { selectAnswer, selectQuestionData } from 'containers/ViewQuestion/selectors';
+import { selectQuestionData } from 'containers/ViewQuestion/selectors';
+
+import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
+import { CHANGED_POSTS_KEY } from 'utils/constants';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { getPost, getReply, getReplyId2 } from 'utils/theGraph';
+import { authorEditSuiAnswer, moderatorEditSuiAnswer } from 'utils/sui/questionsManagement';
+import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 import {
   EDIT_ANSWER,
@@ -23,24 +39,15 @@ import {
 
 import { editAnswerErr, editAnswerSuccess, getAnswerErr, getAnswerSuccess } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { CHANGED_POSTS_KEY } from 'utils/constants';
-
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    let answer = yield select(selectAnswer(answerId));
-    const question = yield call(getQuestion, ethereumService, questionId);
-
-    if (!answer) {
-      answer = yield call(getAnswer, ethereumService, questionId, answerId);
-    }
-
+    const question = yield call(getPost, questionId);
+    const answer = yield call(getReply, answerId);
     yield put(
       getAnswerSuccess({
         ...answer,
         communityId: question.communityId,
-        isOfficialReply: question.officialReply === answerId,
+        isOfficialReply: question.officialReply === Number(answerId.split('-')[2]),
       }),
     );
   } catch (err) {
@@ -51,22 +58,59 @@ export function* getAnswerWorker({ questionId, answerId }) {
 export function* editAnswerWorker({ answer, questionId, answerId, official, title }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const ethereumService = yield select(selectEthereum);
-    const user = yield call(ethereumService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
-    const answerData = {
+    const answerContent = {
       content: answer,
     };
-    yield call(
-      editAnswer,
-      user,
-      questionId,
-      answerId,
-      answerData,
-      official,
-      languagesEnum[locale],
-      ethereumService,
-    );
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const profile = yield select(makeSelectProfileInfo());
+      const answerData = yield call(getReply, answerId);
+
+      let txResult;
+      if (profile.id === answerData.author.id) {
+        const answerObjectId = yield call(getReplyId2, answerId);
+        txResult = yield call(
+          authorEditSuiAnswer,
+          wallet,
+          profile.id,
+          getActualId(questionId),
+          answerObjectId,
+          answerId.split('-')[2],
+          answerContent,
+          official,
+          languagesEnum[locale],
+        );
+      } else {
+        txResult = yield call(
+          moderatorEditSuiAnswer,
+          wallet,
+          profile.id,
+          getActualId(questionId),
+          answerId.split('-')[2],
+          official,
+          languagesEnum[locale],
+        );
+      }
+      yield put(transactionInPending(txResult.digest));
+      const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
+      yield put(transactionCompleted());
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const user = yield call(ethereumService.getSelectedAccount);
+      yield call(
+        editAnswer,
+        user,
+        questionId,
+        answerId,
+        answerContent,
+        official,
+        languagesEnum[locale],
+        ethereumService,
+      );
+    }
 
     if (cachedQuestion) {
       const item = cachedQuestion.answers.find((x) => x.id.toString() === answerId.toString());
@@ -81,6 +125,9 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
     yield put(editAnswerSuccess({ ...cachedQuestion }));
     yield call(createdHistory.push, routes.questionView(questionId, title, answerId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(editAnswerErr(err));
   }
 }

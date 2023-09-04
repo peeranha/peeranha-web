@@ -1,6 +1,4 @@
 import { orderBy } from 'lodash/collection';
-import { getCookie } from 'utils/cookie';
-import { NETWORK_ID } from 'utils/ethereum/ethereum';
 import { getActualId, getNetwork } from 'utils/properties';
 import { getCommunityTags } from 'utils/communityManagement';
 import { getBytes32FromIpfsHash, getIpfsHashFromBytes32, getText, saveText } from './ipfs';
@@ -154,7 +152,7 @@ export async function editAnswer(
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     EDIT_ANSWER,
-    [user, getActualId(questionId), answerId, ipfsHash, official, locale],
+    [user, getActualId(questionId), answerId.split('-')[2], ipfsHash, official, locale],
     2,
   );
 }
@@ -165,7 +163,7 @@ export async function deleteAnswer(user, questionId, answerId, ethereumService) 
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     DELETE_ANSWER,
-    [user, getActualId(questionId), answerId],
+    [user, getActualId(questionId), answerId.split('-')[2]],
   );
 }
 
@@ -175,7 +173,13 @@ export async function postComment(user, questionId, answerId, ipfsHash, language
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     POST_COMMENT,
-    [user, getActualId(questionId), answerId, ipfsHash, language],
+    [
+      user,
+      getActualId(questionId),
+      answerId ? answerId.split('-')[2] : answerId,
+      ipfsHash,
+      language,
+    ],
   );
 }
 
@@ -188,42 +192,58 @@ export async function editComment(
   locale,
   ethereumService,
 ) {
+  let actualAnswerId = answerId;
+  if (answerId) {
+    actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+  }
   return ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     EDIT_COMMENT,
-    [user, getActualId(questionId), answerId, commentId, ipfsHash, locale],
+    [user, getActualId(questionId), actualAnswerId, commentId.split('-')[3], ipfsHash, locale],
   );
 }
 
 export async function deleteComment(user, questionId, answerId, commentId, ethereumService) {
+  let actualAnswerId = answerId;
+  if (answerId) {
+    actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+  }
   return ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     DELETE_COMMENT,
-    [user, getActualId(questionId), answerId, commentId],
+    [user, getActualId(questionId), actualAnswerId, commentId.split('-')[3]],
   );
 }
 
 export async function upVote(user, questionId, answerId, ethereumService) {
+  let actualAnswerId = answerId;
+  if (answerId) {
+    actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+  }
   await ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     VOTE_ITEM,
-    [user, getActualId(questionId), answerId, 0, true],
+    [user, getActualId(questionId), actualAnswerId, 0, true],
   );
 }
 
 export async function downVote(user, questionId, answerId, ethereumService) {
+  let actualAnswerId = answerId;
+  if (answerId) {
+    actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+  }
   await ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
     VOTE_ITEM,
-    [user, getActualId(questionId), answerId, 0, false],
+    [user, getActualId(questionId), actualAnswerId, 0, false],
   );
 }
 
@@ -253,17 +273,17 @@ export async function markAsAccepted(user, questionId, correctAnswerId, ethereum
 }
 
 export const getCreatedPostId = async (ethereumService, block, user, communityId) => {
-  const network = getCookie(NETWORK_ID);
-  const filter = ethereumService[network - 1].filters.PostCreated();
-  const events = await ethereumService.contractContent.queryFilter(filter, block, block);
-
-  return bigNumberToNumber(
+  const network = getNetwork(communityId);
+  const filter = ethereumService[CONTRACT_CONTENT[network]].filters.PostCreated();
+  const events = await ethereumService[CONTRACT_CONTENT[network]].queryFilter(filter, block, block);
+  const postId = bigNumberToNumber(
     events.filter(
       (event) =>
         event.args.user.toLowerCase() === user.toLowerCase() &&
-        event.args.communityId === communityId,
+        Number(event.args.communityId) === Number(getActualId(communityId)),
     )[0].args.postId,
   );
+  return `${Number(network) + 1}-${postId}`;
 };
 
 const formCommonInfo = (object, statusHistory) => ({
@@ -341,7 +361,7 @@ export async function getQuestionById(network, ethereumService, questionId, user
   const tags = await getCommunityTags(rawQuestion.communityId);
 
   const questionTags = tags[rawQuestion.communityId].filter((tag) =>
-    rawQuestion.tags.includes(Number(tag.id.split('-')[3])),
+    rawQuestion.tags.includes(Number(tag.id.split('-')[2])),
   );
 
   const replies = [];

@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-import {
-  BG_PRIMARY_LIGHT,
-  TEXT_SECONDARY_LIGHT,
-  TEXT_PRIMARY,
-} from 'style-constants';
+import { BG_PRIMARY_LIGHT, TEXT_SECONDARY_LIGHT, TEXT_PRIMARY } from 'style-constants';
 
 import currencyPeerImage from 'images/currencyPeer.svg?external';
 import lockBoostImage from 'images/lock.svg?external';
@@ -21,6 +17,7 @@ import Span from 'components/Span';
 import A from 'components/A';
 import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const AvailableBalance = styled.span`
   @media (max-width: 590px) {
@@ -54,7 +51,9 @@ const SubHeader = ({
   stakedInNextPeriod,
 }) => {
   const { t } = useTranslation();
-  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + account;
+  const userAddress = isSuiBlockchain
+    ? process.env.BLOCKCHAIN_EXPLORERE_URL.replace('{0}', account)
+    : process.env.BLOCKCHAIN_EXPLORERE_URL + account;
 
   return (
     <Box position="bottom">
@@ -72,15 +71,9 @@ const SubHeader = ({
         <div>
           <div className="d-flex align-items-center">
             <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-              <IconLg
-                className="mr-2"
-                icon={currencyPeerImage}
-                color={TEXT_PRIMARY}
-              />
+              <IconLg className="mr-2" icon={currencyPeerImage} color={TEXT_PRIMARY} />
               <AvailableBalance>
-                {getFormattedNum3(
-                  Math.round(availableBalance * 1000000) / 1000000,
-                )}
+                {getFormattedNum3(Math.round(availableBalance * 1000000) / 1000000)}
               </AvailableBalance>
             </Span>
             <Span
@@ -138,11 +131,7 @@ const SubHeader = ({
               )}
               <li>
                 {t('common.walletAddress')}
-                <A
-                  to={{ pathname: userPolygonScanAddress }}
-                  href={userPolygonScanAddress}
-                  target="_blank"
-                >
+                <A to={{ pathname: userAddress }} href={userAddress} target="_blank">
                   <Span>{account}</Span>
                 </A>
               </li>

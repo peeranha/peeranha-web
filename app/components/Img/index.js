@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { BORDER_SECONDARY, BG_TRANSPARENT } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 export const CELL = 24;
@@ -9,7 +10,10 @@ const Img = styled.img`
   border-radius: ${(x) => (x.notRounded ? 0 : 50)}%;
 
   border: ${({ customBorderStyle, isBordered }) =>
-    customBorderStyle || `${isBordered ? 1 : 0}px solid ${colors.blue || BORDER_SECONDARY}`};
+    customBorderStyle ||
+    `${isBordered ? 1 : 0}px solid ${
+      (isSuiBlockchain ? colors.linkColor : colors.userInformation) || BORDER_SECONDARY
+    }`};
 
   padding: ${(x) => (x.isBordered ? '1' : '0')}px;
 

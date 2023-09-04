@@ -24,7 +24,12 @@ const SeeAllButton = () => {
   const { t } = useTranslation();
   return (
     <div css={styles.seeAll}>
-      <IconXm className="mr-2" icon={notificationsIcon} />
+      <IconXm
+        className="mr-2"
+        icon={notificationsIcon}
+        color={colors.btnColor || BORDER_PRIMARY}
+        fill={colors.btnColor || BORDER_PRIMARY}
+      />
       {t('common.seeAll')}
     </div>
   );

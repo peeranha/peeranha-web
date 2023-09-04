@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useTranslation } from 'react-i18next';
 import { compose, bindActionCreators } from 'redux';
+import * as routes from 'routes-config';
 import { noAccess } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
@@ -43,7 +44,6 @@ import { suggestTag, getForm } from './actions';
 import { NAME_FIELD, DESCRIPTION_FIELD, FORM_COMMUNITY, STATE_KEY } from './constants';
 
 import Form from './Form';
-import Tips from './Tips';
 import Header from './Header';
 
 import tagsReducer from '../Tags/reducer';
@@ -56,7 +56,6 @@ const CreateTag = ({
   createTagLoading,
   communities,
   match,
-  faqQuestions,
   suggestTagDispatch,
   permissions = [],
   getFormDispatch,
@@ -65,7 +64,7 @@ const CreateTag = ({
 }) => {
   const { t } = useTranslation();
 
-  const commId = useMemo(() => single || +match.params.communityid, [match]);
+  const commId = useMemo(() => single || match.params.communityid, [match]);
   useModeratorRole(noAccess, commId);
 
   useEffect(() => {
@@ -112,7 +111,7 @@ const CreateTag = ({
         index={false}
       />
 
-      <Header />
+      <Header title={t('tags.titleEdit')} closeRedirectPage={routes.communityTags(commId)} />
 
       {communities[0] && (
         <TipsBase>
@@ -126,7 +125,7 @@ const CreateTag = ({
             />
           </BaseSpecialOne>
 
-          <Tips faqQuestions={faqQuestions} />
+          {/* <Tips faqQuestions={faqQuestions} /> */}
         </TipsBase>
       )}
 

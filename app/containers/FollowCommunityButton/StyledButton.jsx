@@ -6,11 +6,17 @@ import okayIcon from 'images/okay.svg?inline';
 
 import PrimaryButton from 'components/Button/Contained/PrimaryMedium';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
+import SuiConnectModals from 'components/SuiConnectModals';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import Button from './index';
 
-const B = ({ isFollowed, onClick, id, disabled }) => {
+const B = ({ isFollowed, onClick, id, disabled, profileInfo, loginWithSuiDispatch }) => {
   const { t } = useTranslation();
+
+  const actionButtonWithLogin = (onClickForModal) => (
+    <InfoButton onClick={onClickForModal}>{t('common.followCommunity.subscribe')}</InfoButton>
+  );
 
   if (isFollowed) {
     return (
@@ -26,7 +32,12 @@ const B = ({ isFollowed, onClick, id, disabled }) => {
     );
   }
 
-  return (
+  return !profileInfo && isSuiBlockchain ? (
+    <SuiConnectModals
+      loginWithWallet={loginWithSuiDispatch}
+      actionButtonWithLogin={actionButtonWithLogin}
+    />
+  ) : (
     <InfoButton
       id={id}
       data-isfollowed={isFollowed}
@@ -42,8 +53,15 @@ const B = ({ isFollowed, onClick, id, disabled }) => {
 export const StyledButton = ({ communityIdFilter }) => (
   <Button
     communityIdFilter={communityIdFilter}
-    render={({ isFollowed, onClick, id, disabled }) => (
-      <B id={id} isFollowed={isFollowed} onClick={onClick} disabled={disabled} />
+    render={({ isFollowed, onClick, id, disabled, profileInfo, loginWithSuiDispatch }) => (
+      <B
+        id={id}
+        isFollowed={isFollowed}
+        onClick={onClick}
+        disabled={disabled}
+        profileInfo={profileInfo}
+        loginWithSuiDispatch={loginWithSuiDispatch}
+      />
     )}
   />
 );
@@ -53,6 +71,8 @@ B.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   id: PropTypes.string.isRequired,
+  profileInfo: PropTypes.object,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 StyledButton.propTypes = {

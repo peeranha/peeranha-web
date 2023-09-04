@@ -12,15 +12,7 @@ import { makeSelectFollowedCommunities } from 'containers/AccountProvider/select
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 
-import {
-  CHANGE_QUESTION_FILTER,
-  DOWN_QUESTION,
-  GET_QUESTIONS,
-  LOAD_COMMUNITY_TOP_QUESTIONS,
-  MOVE_QUESTION,
-  REMOVE_OR_ADD_TOP_QUESTION,
-  UP_QUESTION,
-} from './constants';
+import { GET_QUESTIONS } from './constants';
 
 import { getQuestionsSuccess, getQuestionsError } from './actions';
 
@@ -36,11 +28,10 @@ export function* getQuestionsWorker({
   tags,
   communityIdFilter,
   parentPage,
-  next,
-  toUpdateQuestions,
 }) {
   try {
     let followedCommunities = yield select(makeSelectFollowedCommunities());
+
     const communities = yield select(selectCommunities());
     const notHiddenCommunities = communities.reduce((communityList, community) => {
       if (!HIDDEN_COMMUNITIES_ID.includes(community.id)) {
@@ -56,7 +47,6 @@ export function* getQuestionsWorker({
       );
     }
     let questionsList = [];
-    let counter = skip;
 
     if (single) {
       communityIdFilter = single;
@@ -94,21 +84,20 @@ export function* getQuestionsWorker({
         tags,
       );
     }
+    // questionsList.forEach((question) => {
+    //   question.isGeneral = isGeneralQuestion(question);
+    // });
 
-    questionsList.forEach((question) => {
-      question.isGeneral = isGeneralQuestion(question);
-    });
+    const { postCount, updatedPosts } = questionsList;
+    const clearQuestionsList = updatedPosts.filter((item) => item.title);
 
-    const clearQuestionsList = questionsList.filter((item) => item.title);
-
-    counter += clearQuestionsList.length;
-    yield put(getQuestionsSuccess(clearQuestionsList, next, toUpdateQuestions, undefined, counter));
+    yield put(getQuestionsSuccess(clearQuestionsList, undefined, postCount));
   } catch (err) {
     yield put(getQuestionsError(err));
   }
 }
 
-export function* redirectWorker({ communityIdFilter, isFollowed }) {
+export function* redirectWorker() {
   yield take(GET_USER_PROFILE_SUCCESS);
 
   if (window.location.pathname.includes(routes.feed())) {
@@ -116,31 +105,7 @@ export function* redirectWorker({ communityIdFilter, isFollowed }) {
   }
 }
 
-export function* updateStoredQuestionsWorker() {}
-
-function* changeQuestionFilterWorker({ questionFilter }) {
-  if (questionFilter) {
-    yield call(loadTopCommunityQuestionsWorker, { init: true });
-  }
-}
-
-export function* loadTopCommunityQuestionsWorker({ init }) {}
-
-export function* removeOrAddTopQuestionWorker({ id }) {}
-
-function* upQuestionWorker({ id }) {}
-
-function* downQuestionWorker({ id }) {}
-
-function* moveQuestionWorker({ id, position }) {}
-
 export default function* () {
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
-  yield takeLatest(CHANGE_QUESTION_FILTER, changeQuestionFilterWorker);
-  yield takeLatest(LOAD_COMMUNITY_TOP_QUESTIONS, loadTopCommunityQuestionsWorker);
-  yield takeLatest(REMOVE_OR_ADD_TOP_QUESTION, removeOrAddTopQuestionWorker);
-  yield takeLatest(UP_QUESTION, upQuestionWorker);
-  yield takeLatest(DOWN_QUESTION, downQuestionWorker);
-  yield takeLatest(MOVE_QUESTION, moveQuestionWorker);
 }

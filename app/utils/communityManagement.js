@@ -19,14 +19,21 @@ import {
   CONTRACT_USER,
 } from './ethConstants';
 import { getCommunities, getCommunityById, getTags, getTagsByIds } from './theGraph';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 export const isSingleCommunityWebsite = () =>
   Object.keys(communitiesConfig).find(
     (id) => communitiesConfig[id].origin === window.location.origin,
   );
 
+const isSuiWebsite = () => {
+  const SUI = isSuiBlockchain;
+  const SUI_ID = 1;
+  return SUI ? SUI_ID : undefined;
+};
+
 export const singleCommunityStyles = () =>
-  _get(communitiesConfig, [isSingleCommunityWebsite(), 'styles'], {});
+  _get(communitiesConfig, [isSingleCommunityWebsite() || isSuiWebsite(), 'styles'], {});
 
 export const singleCommunityColors = () => _get(singleCommunityStyles(), 'colors', {});
 
@@ -43,7 +50,7 @@ export const hasCommunitySingleWebsite = (commId) =>
 
 export function getFollowedCommunities(allCommunities, followedCommunities) {
   if (!allCommunities || !followedCommunities) return [];
-  return allCommunities.filter((x) => followedCommunities.includes(x.id));
+  return allCommunities.filter((x) => followedCommunities.includes(String(x.id)));
 }
 
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
@@ -120,7 +127,7 @@ export async function editTag(user, ethereumService, tag, tagId) {
     CONTRACT_COMMUNITY[getNetwork(tagId)],
     user,
     EDIT_TAG,
-    [user, tag.communityId.splice('-')[3], tagId, ipfsHash],
+    [user, tag.communityId.split('-')[1], `${tagId.split('-')[2]}`, ipfsHash],
   );
 }
 
@@ -131,7 +138,6 @@ const formCommunityObject = (rawCommunity) => ({
   value: rawCommunity.id,
   label: rawCommunity.name,
   postCount: +rawCommunity.postCount,
-  deletedPostCount: +rawCommunity.deletedPostCount,
   creationTime: +rawCommunity.creationTime,
   followingUsers: +rawCommunity.followingUsers,
   replyCount: +rawCommunity.replyCount,

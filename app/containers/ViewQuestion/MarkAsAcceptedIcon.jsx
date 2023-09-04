@@ -20,6 +20,7 @@ import { Icon } from 'components/Input/Checkbox';
 import AcceptAnswerView from 'components/Button/Contained/SuccessMedium';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const styles = singleCommunityStyles();
 
@@ -74,11 +75,16 @@ export const MarkAsAcceptedIcon = ({
   disabled,
   whoWasAccepted,
   className,
+  profile,
 }) => {
   const { t } = useTranslation();
 
   // There is accepted answer && I am not question's author
-  if (correctAnswerId === answerId && answerId !== 0 && account !== questionFrom) {
+  if (
+    correctAnswerId === answerId &&
+    answerId !== 0 &&
+    (isSuiBlockchain ? profile?.id : account) !== questionFrom
+  ) {
     return (
       <Label className={className} inactive value>
         <img className="d-inline-flex mr-2" src={okayIconWhite} alt="icon" />
@@ -88,7 +94,11 @@ export const MarkAsAcceptedIcon = ({
   }
 
   // I am question's author
-  if (answerId !== 0 && Boolean(account?.toLowerCase() === questionFrom?.toLowerCase())) {
+  if (
+    answerId !== 0 &&
+    (isSuiBlockchain ? profile?.id.toLowerCase() : account?.toLowerCase()) ===
+      questionFrom?.toLowerCase()
+  ) {
     return (
       <Label
         className={className}

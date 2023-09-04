@@ -5,13 +5,24 @@ import { saveText } from 'utils/ipfs';
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
 import { selectExistingTags } from 'containers/Tags/selectors';
 
-import { updateTagOfCommunity } from 'containers/DataCacheProvider/actions';
+import { getTagsSuccess, updateTagOfCommunity } from 'containers/DataCacheProvider/actions';
 import { editTag } from 'utils/communityManagement';
+import { getActualId } from 'utils/properties';
 import { getEditTagFormSuccess, getEditTagFormErr, editTagSuccess, editTagErr } from './actions';
 import { EDIT_TAG, GET_EDIT_TAG_FORM } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { GET_EXISTING_TAGS } from '../Tags/constants';
 import { getExistingTagsWorker } from '../Tags/saga';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { updateSuiTag } from 'utils/sui/communityManagement';
+import { getSuiCommunityTags } from 'utils/sui/suiIndexer';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 export function* getEditTagFormWorker() {
   try {
@@ -23,31 +34,56 @@ export function* getEditTagFormWorker() {
 
 export function* editTagWorker({ tag, reset }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const selectedAccount = yield call(ethereumService.getSelectedAccount);
-    const { communityId, tagId } = yield select(selectEditTagData());
-    const tags = yield select(selectExistingTags());
-    const editingTag = tags[communityId].find((tg) => tg.id === tagId);
+    const { communityId } = yield select(selectEditTagData());
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const txResult = yield call(
+        updateSuiTag,
+        wallet,
+        getActualId(communityId),
+        tag.tagId.split('-')[2],
+        tag,
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
+      yield put(transactionCompleted());
+      const tags = (yield call(getSuiCommunityTags, communityId)).map((tag) => ({
+        ...tag,
+        label: tag.name,
+      }));
 
-    const tagIpfsHash = yield saveText(JSON.stringify(tag));
-    const updatedTag = {
-      ...editingTag,
-      name: tag.name,
-      label: tag.name,
-      description: tag.description,
-      ipfs_description: tagIpfsHash,
-    };
+      yield put(getTagsSuccess({ [tag.communityId]: tags }));
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const selectedAccount = yield call(ethereumService.getSelectedAccount);
+      const { tagId } = yield select(selectEditTagData());
+      const tags = yield select(selectExistingTags());
+      const editingTag = tags[communityId]?.find((tg) => tg.id === tagId);
 
-    yield call(editTag, selectedAccount, ethereumService, tag, tag.tagId);
-    yield put(updateTagOfCommunity(communityId, tagId, updatedTag));
+      const tagIpfsHash = yield saveText(JSON.stringify(tag));
+      const updatedTag = {
+        ...editingTag,
+        name: tag.name,
+        label: tag.name,
+        description: tag.description,
+        ipfs_description: tagIpfsHash,
+      };
+
+      yield call(editTag, selectedAccount, ethereumService, tag, tag.tagId);
+      yield put(updateTagOfCommunity(communityId, tagId, updatedTag));
+    }
 
     yield put(editTagSuccess());
 
     yield call(reset);
 
-    yield call(createdHistory.push, routes.communityTags(communityId));
+    yield call(createdHistory.push, routes.communityTags(tag.communityId));
     yield put(editTagErr());
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(editTagErr(err));
   }
 }

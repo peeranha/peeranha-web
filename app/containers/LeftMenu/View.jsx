@@ -22,17 +22,14 @@ import MobileAutorizationButtons from 'containers/LeftMenu/MobileAutorizationBut
 import Footer from 'containers/Footer';
 import { ViewStyled } from 'containers/LeftMenu/Styles';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const single = isSingleCommunityWebsite();
 
 const View = ({
   profile,
   isMenuVisible,
-  balance,
   showLoginModal,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
-  boost,
   changeLocale,
   locale,
   documentationMenu,
@@ -63,12 +60,14 @@ const View = ({
       css={css`
         height: 100vh;
         overflow: hidden;
+        padding-right: ${isSuiBlockchain ? '0px' : '6px'};
 
         @media (min-width: 992px) {
           height: ${single ? 'max-content' : `calc(100vh - ${HEADER_HEIGHT}px)`};
         }
         :hover {
-          overflow-y: unset;
+          overflow-y: ${isSuiBlockchain ? 'unset' : 'scroll'};
+          padding-right: 0;
         }
 
         ::-webkit-scrollbar {

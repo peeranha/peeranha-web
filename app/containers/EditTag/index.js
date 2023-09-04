@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
+import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
 
@@ -26,15 +27,17 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { Header } from 'containers/CreateTag/Header';
 import Form from 'containers/CreateTag/Form';
+import { useModeratorRole } from 'hooks/useModeratorRole';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { Tips } from '../CreateTag/Tips';
-import { useModeratorRole } from '../../hooks/useModeratorRole';
-
+import reducer from '../TagsOfCommunity/reducer';
 import editTagSaga from './saga';
 import { getEditTagForm, resetEditTagReducer, editTag } from './actions';
 import { selectEditTagFormLoading, selectEditTagProcessing } from './selectors';
 import { getExistingTags } from '../Tags/actions';
-import { isSingleCommunityWebsite } from '../../utils/communityManagement';
+
 import { getCommunityTags } from '../DataCacheProvider/actions';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 
@@ -61,7 +64,7 @@ const EditTag = ({
 
   useEffect(() => {
     getCommunityTagsDispatch(communityId);
-  }, [communityId]);
+  }, [communityId, getCommunityTagsDispatch]);
 
   useModeratorRole(routes.noAccess, communityId);
 
@@ -91,7 +94,7 @@ const EditTag = ({
         {
           name: values[NAME_FIELD],
           description: values[DESCRIPTION_FIELD],
-          communityId: +values[FORM_COMMUNITY].id,
+          communityId: values[FORM_COMMUNITY].id,
           tagId,
         },
         args[2].reset,
@@ -172,5 +175,6 @@ export default compose(
     saga: editTagSaga,
     disableEject: true,
   }),
+  injectReducer({ key: 'tagsOfCommunity', reducer }),
   connect(mapStateToProps, mapDispatchToProps),
 )(EditTag);

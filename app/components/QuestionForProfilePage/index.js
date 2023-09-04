@@ -24,6 +24,7 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { POST_TYPE_ANSWER, POST_TYPE_QUESTION } from 'containers/Profile/constants';
 
@@ -150,7 +151,6 @@ export const QuestionForProfilePage = ({
   isMyAnswerAccepted,
   isTheLargestRating,
   route,
-  isGeneral,
   isAnswer,
   elementType,
 }) => {
@@ -195,7 +195,11 @@ export const QuestionForProfilePage = ({
             </Span>
             <QuestionCommunity
               communities={communities}
-              communityId={communityId}
+              communityId={
+                isSuiBlockchain
+                  ? communities.find((community) => community.id === communityId).id
+                  : communityId
+              }
               postType={postType}
               locale={locale}
             />

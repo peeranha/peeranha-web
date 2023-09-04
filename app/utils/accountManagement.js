@@ -69,7 +69,7 @@ export async function revokeRolePermission(user, userToRevoke, role, communityId
 export const isUserExists = async (userAddress) => {
   if (!userAddress) throw new ApplicationError('No profile');
   const profileInfo = await getUser(userAddress);
-  return Boolean(profileInfo);
+  return Object.keys(profileInfo).length !== 0;
 };
 
 export const updateAcc = async (profile) => {
@@ -86,13 +86,21 @@ export const getUsersModeratorByRoles = (usersModerator, communityId, moderators
   usersModerator.map((user) => {
     const moderatorPermission = moderators.find(
       (moderator) =>
-        getActualId(moderator.permission) ===
-          getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId) && moderator.user.id === user.id,
+        moderator.permission ===
+          getCommunityRole(
+            COMMUNITY_MODERATOR_ROLE,
+            getActualId(communityId),
+            getNetwork(communityId),
+          ) && moderator.user.id === user.id,
     );
     const adminPermission = moderators.find(
       (moderator) =>
-        getActualId(moderator.permission) === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId) &&
-        moderator.user.id === user.id,
+        moderator.permission ===
+          getCommunityRole(
+            COMMUNITY_ADMIN_ROLE,
+            getActualId(communityId),
+            getNetwork(communityId),
+          ) && moderator.user.id === user.id,
     );
 
     const userRoles = [];

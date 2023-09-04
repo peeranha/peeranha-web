@@ -1,10 +1,13 @@
 /* eslint camelcase: 0 */
 import { languagesEnum } from 'app/i18n';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { getActualId } from 'utils/properties';
 
 import { editQuestion } from 'utils/questionsManagement';
 import { getCommunityTags, getCommunityWithTags } from 'utils/communityManagement';
@@ -12,9 +15,10 @@ import { getCommunityTags, getCommunityWithTags } from 'utils/communityManagemen
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
-import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
-import { getQuestionFromGraph } from 'utils/theGraph';
+import { selectQuestionData } from 'containers/ViewQuestion/selectors';
+import { editSuiQuestion, moderatorEditSuiQuestion } from 'utils/sui/questionsManagement';
+import { getSuiPost, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import { getPost } from 'utils/theGraph';
 
 import {
   EDIT_QUESTION,
@@ -32,21 +36,38 @@ import {
   getAskedQuestionSuccess,
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
+import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
-    const question = yield call(getQuestionFromGraph, questionId);
-    const { communityId } = question;
+    const cachedQuestion = yield select(selectQuestionData());
+    let question;
 
-    if (communityId) {
-      const [community] = yield call(getCommunityWithTags, communityId);
-      const tags = yield call(getCommunityTags, communityId);
-      const questionTags = tags[communityId].filter((tag) =>
-        question.tags.map((questionTag) => questionTag.id).includes(tag.id),
-      );
+    if (!cachedQuestion) {
+      question = yield call(getPost, questionId);
+      const { communityId } = question;
 
-      question.community = community;
-      question.tags = questionTags;
+      if (communityId) {
+        const [community] = yield call(getCommunityWithTags, communityId);
+        const tags = yield call(getCommunityTags, communityId);
+        const questionTags = tags[communityId].filter((tag) =>
+          question.tags.map((questionTag) => questionTag.id).includes(tag.id),
+        );
+
+        question.community = community;
+        question.tags = questionTags;
+      }
+    } else {
+      question = cachedQuestion;
     }
 
     yield put(getAskedQuestionSuccess(question));
@@ -55,29 +76,65 @@ export function* getAskedQuestionWorker({ questionId }) {
   }
 }
 
-export function* editQuestionWorker({ question, questionId }) {
+export function* editQuestionWorker({ question, questionId, id2, author }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const ethereumService = yield select(selectEthereum);
-    const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
     const questionData = {
       title: question.title,
       content: question.content,
     };
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const profile = yield select(makeSelectProfileInfo());
+      let txResult;
+      if (profile.id === author) {
+        txResult = yield call(
+          editSuiQuestion,
+          wallet,
+          profile.id,
+          id2,
+          getActualId(questionId),
+          getActualId(question.communityId),
+          questionData,
+          Number(question.postType),
+          question.tags,
+          languagesEnum[locale],
+        );
+      } else {
+        txResult = yield call(
+          moderatorEditSuiQuestion,
+          wallet,
+          profile.id,
+          getActualId(questionId),
+          getActualId(question.communityId),
+          Number(question.postType),
+          question.tags,
+          languagesEnum[locale],
+        );
+      }
 
-    yield call(
-      editQuestion,
-      questionId.split('-')[0],
-      selectedAccount,
-      questionId,
-      question.communityId,
-      questionData,
-      question.tags,
-      Number(question.postType),
-      languagesEnum[locale],
-      ethereumService,
-    );
+      yield put(transactionInPending(txResult.digest));
+      const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
+      yield put(transactionCompleted());
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const selectedAccount = yield call(ethereumService.getSelectedAccount);
+      yield call(
+        editQuestion,
+        questionId.split('-')[0],
+        selectedAccount,
+        questionId,
+        question.communityId,
+        questionData,
+        question.tags,
+        Number(question.postType),
+        languagesEnum[locale],
+        ethereumService,
+      );
+    }
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
@@ -89,6 +146,9 @@ export function* editQuestionWorker({ question, questionId }) {
         : routes.questionView(questionId, question.title),
     );
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(editQuestionErr(err));
   }
 }

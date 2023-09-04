@@ -1,6 +1,7 @@
 import {
   ADD_ROLE,
   ADD_ROLE_SUCCESS,
+  ADD_ROLE_ERROR,
   GET_MODERATORS,
   GET_MODERATORS_ERROR,
   GET_MODERATORS_SUCCESS,
@@ -50,6 +51,13 @@ export function addRoleSuccess(communityId: number) {
   return {
     type: ADD_ROLE_SUCCESS,
     communityId,
+  };
+}
+
+export function addRoleError(moderatorsError: Error) {
+  return {
+    type: ADD_ROLE_ERROR,
+    moderatorsError,
   };
 }
 

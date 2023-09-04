@@ -1,4 +1,3 @@
-import P from 'components/P';
 import { BORDER_SECONDARY } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -101,6 +100,11 @@ export const styles = {
     '@media (max-width: 991px)': {
       display: 'block',
     },
+  },
+
+  logInButtonContainer: {
+    display: 'flex',
+    alignItems: 'center',
   },
 
   logInButton: {

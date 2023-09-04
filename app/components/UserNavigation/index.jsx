@@ -14,11 +14,12 @@ import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
-import { getPermissions } from '../../utils/properties';
+import { getPermissions } from 'utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
 import useMediaQuery from 'hooks/useMediaQuery';
 import { css } from '@emotion/react';
 import ScrollContainer from 'components/common/ScrollContainer';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 
@@ -91,7 +92,11 @@ const UserNavigation = ({
     };
 
   return (
-    <Wrapper position="top" ref={ref}>
+    <Wrapper
+      position="top"
+      ref={ref}
+      css={!isSuiBlockchain && { borderBottom: '1px solid rgb(194, 198, 216)' }}
+    >
       <Ul>
         <Div className="d-flex align-items-center" isProfilePage={isProfilePage}>
           <ScrollContainer>
@@ -190,13 +195,15 @@ const UserNavigation = ({
               </NavigationLink>
             )}
 
-            <NavigationLink
-              className={userId !== account ? 'd-none' : ''}
-              to={routes.userSettings(userId)}
-              islink={path !== routes.userSettings(userId) ? 1 : 0}
-            >
-              {t('common.settings')}
-            </NavigationLink>
+            {!isSuiBlockchain && (
+              <NavigationLink
+                className={userId !== account ? 'd-none' : ''}
+                to={routes.userSettings(userId)}
+                islink={path !== routes.userSettings(userId) ? 1 : 0}
+              >
+                {t('common.settings')}
+              </NavigationLink>
+            )}
           </ScrollContainer>
 
           {isDesktop && (

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-
+import { singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import Base from 'components/Base';
 import { C3 } from './Simple';
-
+singleCommunityColors();
 export const SubHeaderWrapperRightPanel = styled.div`
   align-self: center;
   width: auto !important;
@@ -19,4 +20,5 @@ export const SubHeaderWrapperRightPanel = styled.div`
 
 export default Base.extend`
   ${({ isColumnForSM }) => C3(isColumnForSM)};
+  border: 1px solid ${isSuiBlockchain ? '#D0DAE6' : '#fff'};
 `;

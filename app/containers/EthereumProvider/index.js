@@ -30,17 +30,24 @@ import {
   transactionInitialised,
   setTransactionList,
 } from './actions';
-import { EDG, MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
+import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
 const injected = injectedModule();
 const coinbase = coinbaseModule();
-const walletConnect = walletConnectModule();
+
+const wcV2InitOptions = {
+  projectId: 'Peeranha',
+  requiredChains: [1, 56],
+  dappUrl: process.env.APP_LOCATION,
+};
+
+const walletConnect = walletConnectModule(wcV2InitOptions);
 const torus = torusModule({
   showTorusButton: false,
   network: {
     host: process.env.ETHEREUM_NETWORK,
-    chainId: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
+    chainId: `${Number(process.env.CHAIN_ID).toString(16)}`,
     networkName: networkLabel,
   },
 });
@@ -59,8 +66,8 @@ const initWeb3Onboard = init({
     },
     {
       id: `0x${Number(process.env.EDGEWARE_CHAIN_ID).toString(16)}`,
-      token: 'SepoliaETH',
-      label: 'Sepolia test network',
+      token: 'EDG',
+      label: 'Edgeware',
       rpcUrl: process.env.EDGEWARE_NETWORK,
     },
   ],

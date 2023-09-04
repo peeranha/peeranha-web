@@ -38,6 +38,7 @@ import usersIcon from 'images/users.svg?external';
 import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
+import FreeTrialBanner from 'components/FreeTrialBanner';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import { svgDraw } from 'components/Icon/IconStyled';
 
@@ -55,6 +56,7 @@ import {
 } from 'utils/properties';
 
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
@@ -79,7 +81,7 @@ export const A1 = A.extend`
   ${({ route, name }) =>
     route === name
       ? `
-          background-color: ${PRIMARY_SPECIAL};
+          background-color: ${colors.userInformation || PRIMARY_SPECIAL};
           border-color: ${colors.linkColor || BORDER_PRIMARY_DARK};
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
@@ -156,6 +158,7 @@ const MainLinks = ({
   pinnedItemMenu,
   changeLocale,
   locale,
+  isMenuVisible,
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
@@ -301,7 +304,10 @@ const MainLinks = ({
           </A1>
         )}
 
-        {(hasGlobalModeratorRole() || hasProtocolAdminRole() || isModeratorModeSingleCommunity) && (
+        {(hasGlobalModeratorRole() ||
+          hasProtocolAdminRole() ||
+          isModeratorModeSingleCommunity ||
+          (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
             {t(`common.users`)}
@@ -316,6 +322,10 @@ const MainLinks = ({
         )}
         <div css={styles.dividerLinks} />
       </div>
+
+      <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner>
+
+      <div css={styles.dividerLinks} />
 
       {Boolean(singleCommId) &&
         (documentationMenu.length > 0 || isModeratorModeSingleCommunity) && (

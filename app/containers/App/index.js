@@ -35,20 +35,21 @@ import {
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
-import { getValueFromSearchString } from 'utils/url';
-import { getCookie, setCookie } from 'utils/cookie';
-import {
-  hasCommunityAdminRole,
-  hasGlobalModeratorRole,
-  hasProtocolAdminRole,
-} from 'utils/properties';
-
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ErrorBoundary from 'components/ErrorBoundary';
 
 import Wrapper from 'containers/AppWrapper';
 
 import saga from 'containers/App/saga';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import NewUserRegistrationForm from 'containers/SuiProvider/NewUserRegistrationForm';
+import {
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+import { getValueFromSearchString } from 'utils/url';
+import { getCookie, setCookie } from 'utils/cookie';
 import {
   EditCommunity,
   HomePage,
@@ -125,6 +126,12 @@ const App = ({
   }, []);
 
   useEffect(() => {
+    if (isSuiBlockchain && pathname === '/') {
+      redirectToFeedDispatch();
+    }
+  }, []);
+
+  useEffect(() => {
     window.goto = (page) => history.push(page);
   }, [history]);
 
@@ -164,6 +171,8 @@ const App = ({
         <ScrollTo />
         <Popover />
         <CookieConsentPopup />
+
+        {isSuiBlockchain && <NewUserRegistrationForm />}
 
         <Switch>
           <Route exact path={routes.home()}>
@@ -366,7 +375,7 @@ const App = ({
           />
 
           <Route
-            path={routes.answerEdit(':questionid', ':answerid')}
+            path={routes.answerEdit(':postType', ':questionid', ':answerid')}
             render={(props) => Wrapper(EditAnswer, props)}
           />
 

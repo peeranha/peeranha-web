@@ -1,6 +1,6 @@
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { POST_TYPE } from './utils/constants';
-import { updateTitle } from './utils/seo';
+import { POST_TYPE } from 'utils/constants';
+import { updateTitle } from 'utils/seo';
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 
 const userRedirect = (where) => (id) => `/users/${id}${where}`;
@@ -90,10 +90,8 @@ export const getPostRoute = ({ postType, id, answerId = null, title }) => {
 export const questionEdit = (postType, questionId, title) =>
   `/${postType}/${questionId}/${updateTitle(title)}/edit`;
 
-export const answerEdit = (questionId, answerId) =>
-  !singleCommId
-    ? `/discussions/${questionId}/answers/${answerId}/edit`
-    : `/${questionId}/answers/${answerId}/edit`;
+export const answerEdit = (postType, questionId, answerId) =>
+  `/${postType}/${questionId}/answers/${answerId}/edit`;
 
 export const questionAsk = () => '/ask';
 

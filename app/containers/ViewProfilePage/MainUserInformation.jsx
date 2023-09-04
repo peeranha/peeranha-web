@@ -21,7 +21,7 @@ import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
-import { showPopover } from 'utils/popover';
+import { closePopover, showPopover } from 'utils/popover';
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -31,6 +31,8 @@ import { getUserName } from 'utils/user';
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import { singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { SuiNS } from 'icons/index';
 
 const colors = singleCommunityColors();
 const InlineLoader = styled(LoadingIndicator)`
@@ -168,16 +170,25 @@ const MainUserInformation = ({
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
-  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
+  const userAddress = isSuiBlockchain
+    ? process.env.SUI_EXPLORERE_URL.replace('{0}', userId)
+    : process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
   const [copied, setCopied] = useState('');
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const writeToBuffer = (event) => {
-    navigator.clipboard.writeText(userId);
+    navigator.clipboard.writeText(profile?.customName || userId);
     setCopied(colors.btnColor || LINK_COLOR);
     if (isDesktop) {
       showPopover(event.currentTarget.id, t('common.copied'));
     }
+  };
+
+  const showSuiNSPopover = (event) => {
+    showPopover(event.currentTarget.id, 'Sui Name Service', { timer: false });
+  };
+  const hideSuiNSPopover = (event) => {
+    closePopover(event.currentTarget.id);
   };
 
   const onClickRedirectToEditProfilePage =
@@ -188,22 +199,41 @@ const MainUserInformation = ({
         user,
       });
     };
+  const shortUserId = (id) => {
+    if (id.length > 40 && window.innerWidth > 576) {
+      return `${id.substring(0, 41)}...${id.substring(id.length - 5)}`;
+    }
+    if (id.length > 40 && window.innerWidth <= 576) {
+      return `${id.substring(0, 25)}...${id.substring(id.length - 5)}`;
+    }
+    return id;
+  };
 
   return (
-    <Box position="middle" className="pb-0" isLogin={userId !== account}>
+    <Box
+      position="middle"
+      className="pb-0"
+      isLogin={userId !== account}
+      css={
+        isSuiBlockchain && {
+          borderLeft: `1px solid ${colors.border}`,
+          borderRight: `1px solid ${colors.border}`,
+        }
+      }
+    >
       <div
         css={css`
           flex-direction: column;
           @media (min-width: 768px) {
             flex-direction: row;
-            background: rgba(165, 188, 255, 0.1);
+            background: ${colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
             border-radius: 170px;
           }
         `}
       >
         <div
           css={css`
-            background: rgba(165, 188, 255, 0.1);
+            background: ${colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
             border-radius: 170px;
             min-width: calc(100% - 5px);
             @media (min-width: 768px) {
@@ -225,7 +255,7 @@ const MainUserInformation = ({
               alt="avatar"
               isBordered
               css={css`
-                border: 2px solid ${TEXT_PRIMARY};
+                border: 2px solid ${colors.btnColor || TEXT_PRIMARY};
                 padding: 2px;
               `}
             />
@@ -368,7 +398,8 @@ const MainUserInformation = ({
               >
                 <span>{t('profile.achievements')}</span>
 
-                {typeof profile.achievements === 'object' ? (
+                {typeof (isSuiBlockchain ? profile.userachievement : profile.achievements) ===
+                'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
                     count={userAchievementsLength}
@@ -384,13 +415,32 @@ const MainUserInformation = ({
                     flex-direction: row;
                   `}
                 >
-                  <span>{t('common.walletAddress')}</span>
+                  <span>
+                    {t(
+                      isSuiBlockchain && !profile?.customName
+                        ? 'common.userId'
+                        : 'common.walletAddress',
+                    )}
+                  </span>
                   <div>
-                    <A
-                      to={{ pathname: userPolygonScanAddress }}
-                      href={userPolygonScanAddress}
-                      target="_blank"
-                    >
+                    <A to={{ pathname: userAddress }} href={userAddress} target="_blank">
+                      {profile?.customName && (
+                        <button
+                          onMouseEnter={showSuiNSPopover}
+                          onMouseLeave={hideSuiNSPopover}
+                          id="sui-ns-banner"
+                          css={css`
+                            margin-right: 3px !important;
+                          `}
+                        >
+                          <SuiNS
+                            size={[19, 19]}
+                            css={css`
+                              margin-right: 0 !important;
+                            `}
+                          />
+                        </button>
+                      )}
                       <span
                         id="copytext1"
                         css={css`
@@ -401,7 +451,7 @@ const MainUserInformation = ({
                           line-height: 23px;
                         `}
                       >
-                        {userId}
+                        {profile?.customName || shortUserId(userId)}
                       </span>
                     </A>
                     <button

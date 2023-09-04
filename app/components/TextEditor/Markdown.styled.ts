@@ -19,7 +19,7 @@ export const styles = {
     },
     iframe: {
       maxWidth: '100%',
-      background: colors.backgroundSpecial || '',
     },
+    background: colors.backgroundSpecial || '',
   },
 };

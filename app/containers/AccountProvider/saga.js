@@ -1,7 +1,11 @@
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
+import { isSuiUserExists } from 'utils/sui/accountManagement';
+import { getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { getSuiUserById } from 'utils/sui/suiIndexer';
 import { getAvailableBalance, getBalance, getUserBoost } from 'utils/walletManagement';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
@@ -38,13 +42,14 @@ import {
   POST_ANSWER_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
-import { formPermissionsCookie, getCookie, parsePermissionsCookie, setCookie } from 'utils/cookie';
+import { formPermissionsCookie, getCookie, setCookie } from 'utils/cookie';
 import { hasGlobalModeratorRole } from 'utils/properties';
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
 import { getCurrentPeriod } from 'utils/theGraph';
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
+  GET_CURRENT_SUI_ACCOUNT,
   NO_REFERRAL_INVITER,
   REFERRAL_REWARD_RATING,
   REFERRAL_REWARD_RECEIVED,
@@ -66,8 +71,6 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 export const getCurrentAccountWorker = function* (initAccount) {
   try {
     const ethereumService = yield select(selectEthereum);
-
-    if (ethereumService.withMetaMask) yield put(addLoginData({ loginWithMetaMask: true }));
 
     let account = yield typeof initAccount === 'string'
       ? initAccount
@@ -102,7 +105,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
     const currentPeriod = yield call(getCurrentPeriod);
 
     const [profileInfo, balance, availableBalance, userCurrentBoost] = yield all([
-      call(getProfileInfo, account, ethereumService, true, true),
+      call(getProfileInfo, account),
       call(getBalance, ethereumService, account),
       call(getAvailableBalance, ethereumService, account),
       call(getUserBoost, ethereumService, account, currentPeriod?.id || 0),
@@ -196,6 +199,44 @@ export function* updateAccWorker({ ethereum }) {
   }
 }
 
+export const getCurrentSuiAccountWorker = function* ({ wallet }) {
+  try {
+    const previouslyConnectedWallet = getCookie('connectedWallet');
+    if (wallet.connected && previouslyConnectedWallet) {
+      const isUserRegistered = yield call(isSuiUserExists, wallet);
+      if (isUserRegistered === false) {
+        yield put(getUserProfileSuccess(emptyProfile(wallet.address)));
+        yield put(getCurrentAccountSuccess(wallet.address, 0));
+        return;
+      }
+
+      const userFromContract = yield call(getSuiProfileInfo, wallet.address);
+      const profileInfo = yield call(getProfileInfo, userFromContract.id);
+
+      if (profileInfo) {
+        yield call(getNotificationsInfoWorker, profileInfo.user);
+      }
+
+      setCookie({
+        name: PROFILE_INFO_LS,
+        value: JSON.stringify(formPermissionsCookie(profileInfo?.permissions)),
+        options: {
+          defaultPath: true,
+          allowSubdomains: true,
+        },
+      });
+      yield put(addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}));
+      yield put(getUserProfileSuccess(profileInfo));
+
+      yield put(getCurrentAccountSuccess(userFromContract.id, 0, 0, 0));
+    } else {
+      yield put(getCurrentAccountError());
+    }
+  } catch (err) {
+    yield put(getCurrentAccountError(err));
+  }
+};
+
 export default function* defaultSaga() {
   yield takeLatest(REDIRECT_TO_EDIT_ANSWER_PAGE, redirectToEditAnswerPageWorker);
   yield takeLatest(REDIRECT_TO_EDIT_QUESTION_PAGE, redirectToEditQuestionPageWorker);
@@ -220,4 +261,6 @@ export default function* defaultSaga() {
     ],
     getCurrentAccountWorker,
   );
+
+  yield takeLatest(GET_CURRENT_SUI_ACCOUNT, getCurrentSuiAccountWorker);
 }

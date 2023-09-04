@@ -1,12 +1,12 @@
 import { ONE_MONTH, WEB3_TOKEN, WEB3_TOKEN_USER_ADDRESS } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
 import { ContractsMapping } from 'utils/ethConstants';
-import { setTransactionResult, TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
+import { setTransactionResult, TRANSACTION_LIST } from 'utils/transactionsListManagement';
+import Web3Token from 'web3-token';
 import {
   BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
   callService,
-} from 'utils/web_integration/src/util/aws-connector';
-import Web3Token from 'web3-token';
+} from '../web_integration/src/util/aws-connector';
 
 export async function sendDispatcherTransactionMethod(
   network,
@@ -19,6 +19,12 @@ export async function sendDispatcherTransactionMethod(
 ) {
   await this.chainCheck(network);
   const userAddress = data.shift();
+  this.transactionList.push({
+    action,
+    transactionHash: JSON.stringify(data),
+    network,
+  });
+  this.setTransactionList(this.transactionList);
 
   const isWeb3Token = getCookie(WEB3_TOKEN);
   const isWeb3TokenUserAddress = getCookie(WEB3_TOKEN_USER_ADDRESS) === actor;
@@ -60,15 +66,22 @@ export async function sendDispatcherTransactionMethod(
     args: data,
     reCaptchaToken: token,
     wait: false,
-    network: network + 1,
+    network: Number(network) + 1,
   });
 
-  this.transactionList.push({
-    action,
-    transactionHash: response.body.transactionHash,
-  });
+  const pendingTransaction = this.transactionList.find(
+    (transactionFromList) => transactionFromList.transactionHash === JSON.stringify(data),
+  );
+  if (pendingTransaction) {
+    if (response?.body?.transactionHash) {
+      pendingTransaction.transactionHash = response.body.transactionHash;
+      localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+    } else {
+      pendingTransaction.result = { status: 2 };
+    }
+  }
 
-  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+  this.setTransactionList(this.transactionList);
 
   if (response.errorCode) {
     throw response;
@@ -76,12 +89,17 @@ export async function sendDispatcherTransactionMethod(
 
   this.transactionInPending(response.body.transactionHash, this.transactionList);
 
-  const result = await this.provider.waitForTransaction(
+  const result = await this[this.providerForWaiting[Number(network)]].waitForTransaction(
     response.body.transactionHash,
     confirmations,
   );
 
-  setTransactionResult(response, result, this.transactionList, this.setTransactionList);
+  setTransactionResult(
+    response.body.transactionHash,
+    result,
+    this.transactionList,
+    this.setTransactionList,
+  );
 
   this.transactionCompleted(this.transactionList);
   return result;

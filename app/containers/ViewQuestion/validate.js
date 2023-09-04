@@ -9,6 +9,7 @@ import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (profileInfo, questionData, postButtonId, item) => {
@@ -145,7 +146,7 @@ export const postCommentValidator = (profileInfo, questionData, postButtonId, an
     message = `${t('post.notEnoughRating')} ${MIN_RATING_FOR_OTHER_ITEMS} ${t(
       'post.inThisCommunity',
     )}`;
-  } else if (profileInfo.energy < MIN_ENERGY) {
+  } else if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
 
@@ -160,8 +161,8 @@ export const markAsAcceptedValidator = (profileInfo, questionData, postButtonId)
   const MIN_ENERGY = 1;
   const communityId = questionData.communityId;
   let message;
-
-  if (profileInfo.user.toLowerCase() !== questionData.author.user.toLowerCase()) {
+  const user = isSuiBlockchain ? profileInfo.id : profileInfo.user;
+  if (user.toLowerCase() !== questionData.author.user.toLowerCase()) {
     message = t('post.noRootsToVote');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
@@ -169,7 +170,7 @@ export const markAsAcceptedValidator = (profileInfo, questionData, postButtonId)
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING
   ) {
     message = `${t('post.notEnoughRating')} ${MIN_RATING} ${t('post.inThisCommunity')}`;
-  } else if (profileInfo.energy < MIN_ENERGY) {
+  } else if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
 
@@ -189,12 +190,12 @@ export const upVoteValidator = (profileInfo, questionData, postButtonId, answerI
   let message;
 
   if (
-    (answerId === 0 && questionData.votingStatus?.isVotedToDelete) ||
+    (answerId === '0' && questionData.votingStatus?.isVotedToDelete) ||
     (isOwnItem[0] && isOwnItem[0].votingStatus?.isVotedToDelete)
   ) {
     message = t('post.cannotCompleteBecauseBlocked');
   } else if (
-    (questionData.author.user === profileInfo.user && answerId === 0) ||
+    (questionData.author.user === profileInfo.user && answerId === '0') ||
     (isOwnItem[0] && isOwnItem[0].author.user === profileInfo.user)
   ) {
     message = t('post.noRootsToVote');
@@ -205,7 +206,7 @@ export const upVoteValidator = (profileInfo, questionData, postButtonId, answerI
     !hasProtocolAdminRole(profileInfo.permissions)
   ) {
     message = `${t('post.notEnoughRating')} ${MIN_RATING_TO_UPVOTE} ${t('post.inThisCommunity')}`;
-  } else if (profileInfo.energy < MIN_ENERGY) {
+  } else if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
 
@@ -223,11 +224,12 @@ export const downVoteValidator = (profileInfo, questionData, postButtonId, answe
   const communityId = questionData.communityId;
 
   const minEnergy =
-    answerId === 0 ? MIN_ENERGY_TO_DOWNVOTE_QUESTION : MIN_ENERGY_TO_DOWNVOTE_ANSWER;
+    answerId === '0' ? MIN_ENERGY_TO_DOWNVOTE_QUESTION : MIN_ENERGY_TO_DOWNVOTE_ANSWER;
 
   let message;
 
-  const item = answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);
+  const item =
+    answerId === '0' ? questionData : questionData.answers.find((x) => x.id === answerId);
 
   if (item.votingStatus?.isVotedToDelete) {
     message = t('post.cannotCompleteBecauseBlocked');
@@ -241,8 +243,10 @@ export const downVoteValidator = (profileInfo, questionData, postButtonId, answe
   ) {
     message = `${t('post.notEnoughRating')} ${MIN_RATING_TO_DOWNVOTE} ${t('post.inThisCommunity')}`;
   } else if (
-    (item.votingStatus.isDownVoted && profileInfo.energy < MIN_ENERGY_TO_CHANGE_DECISION) ||
-    (!item.votingStatus.isDownVoted && profileInfo.energy < minEnergy)
+    (!isSuiBlockchain &&
+      item.votingStatus.isDownVoted &&
+      profileInfo.energy < MIN_ENERGY_TO_CHANGE_DECISION) ||
+    (!isSuiBlockchain && !item.votingStatus.isDownVoted && profileInfo.energy < minEnergy)
   ) {
     message = t('post.notEnoughEnergy');
   }
@@ -260,7 +264,7 @@ export const deleteQuestionValidator = (postButtonId, profileInfo, questionData)
 
   if (questionData.votingStatus?.isUpVoted) {
     message = t('post.cannotCompleteBecauseVoted');
-  } else if (profileInfo.energy < MIN_ENERGY) {
+  } else if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
 
@@ -288,7 +292,7 @@ export const deleteAnswerValidator = (
 
   if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = t('post.cannotCompleteBecauseVoted');
-  } else if (profileInfo.energy < MIN_ENERGY) {
+  } else if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
 
@@ -306,7 +310,7 @@ export const deleteCommentValidator = (profileInfo, postButtonId, commentId, que
 
   if (itemData?.votingStatus?.isUpVoted) {
     message = t('post.cannotCompleteBecauseVoted');
-  } else if (profileInfo.energy < MIN_ENERGY) {
+  } else if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
 
@@ -322,7 +326,7 @@ export const editCommentValidator = (profileInfo, postButtonId) => {
 
   let message;
 
-  if (profileInfo.energy < MIN_ENERGY) {
+  if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
 

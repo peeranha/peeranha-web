@@ -1,4 +1,6 @@
 // Contracts
+import { isSuiBlockchain } from 'utils/sui/sui';
+import { postMeshShallow } from './mesh';
 export const CONTRACT_TOKEN = ['contractToken', 'edgewareContractToken'];
 export const CONTRACT_USER = ['contractUser', 'edgewareContractUser'];
 export const CONTRACT_CONTENT = ['contractContent', 'edgewareContractContent'];
@@ -18,28 +20,28 @@ export const ContractsMapping = {
 };
 
 // Transaction names
-export const UPDATE_ACC = 'updateUser'; // done
-export const CREATE_COMMUNITY = 'createCommunity'; // done
-export const EDIT_COMMUNITY = 'updateCommunity'; // done
-export const FOLLOW_COMMUNITY = 'followCommunity'; // done
-export const UNFOLLOW_COMMUNITY = 'unfollowCommunity'; // done
-export const CREATE_TAG = 'createTag'; // done
-export const EDIT_TAG = 'updateTag'; // done not working
-export const POST_QUESTION = 'createPost'; // done
+export const UPDATE_ACC = 'updateUser';
+export const CREATE_COMMUNITY = 'createCommunity';
+export const EDIT_COMMUNITY = 'updateCommunity';
+export const FOLLOW_COMMUNITY = 'followCommunity';
+export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
+export const CREATE_TAG = 'createTag';
+export const EDIT_TAG = 'updateTag';
+export const POST_QUESTION = 'createPost';
 export const UPDATE_DOCUMENTATION_TREE = 'updateDocumentationTree';
 export const DELETE_DOCUMENTATION_POST = 'deleteDocumentationPost';
-export const POST_ANSWER = 'createReply'; // done
-export const EDIT_ANSWER = 'editReply'; // done
-export const DELETE_ANSWER = 'deleteReply'; // done
-export const EDIT_POST = 'editPost'; // done
+export const POST_ANSWER = 'createReply';
+export const EDIT_ANSWER = 'editReply';
+export const DELETE_ANSWER = 'deleteReply';
+export const EDIT_POST = 'editPost';
 export const DELETE_POST = 'deletePost';
-export const POST_COMMENT = 'createComment'; // done
-export const EDIT_COMMENT = 'editComment'; // done
-export const DELETE_COMMENT = 'deleteComment'; // done
-export const CHANGE_STATUS_BEST = 'changeStatusBestReply'; // done
-export const VOTE_ITEM = 'voteItem'; // done
-export const CLAIM_REWARD = 'claimReward'; // skip
-export const SET_STAKE = 'setStake'; // skip
+export const POST_COMMENT = 'createComment';
+export const EDIT_COMMENT = 'editComment';
+export const DELETE_COMMENT = 'deleteComment';
+export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
+export const VOTE_ITEM = 'voteItem';
+export const CLAIM_REWARD = 'claimReward';
+export const SET_STAKE = 'setStake';
 export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
 export const GIVE_COMMUNITY_MODERATOR_PERMISSION = 'giveCommunityModeratorPermission';
 export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
@@ -50,6 +52,7 @@ export const GET_POST = 'getPost';
 export const GET_REPLY = 'getReply';
 export const GET_STATUS_HISTORY = 'getStatusHistory';
 export const GET_COMMENT = 'getComment';
+export const GET_ITEM_PROPERTY = 'getItemProperty';
 export const GET_USER_BALANCE = 'balanceOf';
 export const GET_AVERAGE_STAKE = 'getAverageStake';
 export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
@@ -58,13 +61,15 @@ export const GET_STAKE = 'getStake';
 export const GET_USER_STAKE = 'getUserStake';
 export const GET_USER_RATING = 'getUserRating';
 
-export const UPVOTE_STATUS = 1;
-export const DOWNVOTE_STATUS = -1;
+export const UPVOTE_STATUS = 3;
+export const DOWNVOTE_STATUS = 1;
 
 const editUserQuery = (query: string) =>
   query
     .replace('ratings', 'usercommunityrating')
     .replace('achievements { id }', 'userachievement { achievementId }');
+
+export const getNetworkIds = () => (isSuiBlockchain ? '3' : '1, 2');
 
 const user = `
   id
@@ -76,6 +81,8 @@ const user = `
   company
   position
   location
+  customName
+  walletAddress
   about
   avatar
   creationTime
@@ -92,6 +99,7 @@ const userMesh = editUserQuery(user);
 
 const comment = `
   id
+  id2
   ipfsHash
   author {
     ${user}
@@ -107,6 +115,7 @@ const comment = `
 
 const commentMesh = `
   id
+  id2
   ipfsHash
   user {
     ${userMesh}
@@ -116,11 +125,17 @@ const commentMesh = `
   postId
   parentReplyId
   content
+  language
   isDeleted
+  commenttranslation {
+    language
+    content
+  }
 `;
 
 const reply = `
   id
+  id2
   ipfsHash
   author {
     ${user}
@@ -150,6 +165,7 @@ const reply = `
 
 const replyMesh = `
   id
+  id2
   ipfsHash
   user {
     ${userMesh}
@@ -165,8 +181,17 @@ const replyMesh = `
   isBestReply
   isFirstReply
   isQuickReply
+  language
   handle
   messengerType
+  replyvotehistory {
+    userId
+    direction
+  }
+  replytranslation {
+    language
+    content
+  }
 `;
 
 const post = `
@@ -193,6 +218,7 @@ const post = `
   properties
   handle
   messengerType
+  language
   replies (
     orderBy: postTime,
     orderDirection: desc,
@@ -211,17 +237,19 @@ const post = `
 
 const postMesh = `
   id
+  id2
+  ipfsHash
   posttag {
     tag {
       id
       name
     }
   }
-  ipfsHash
   postType
   user {
     ${userMesh}
   }
+  networkId
   rating
   postTime
   communityId
@@ -232,8 +260,19 @@ const postMesh = `
   isDeleted
   officialReply
   bestReply
-  handle
   messengerType
+  language
+  history {
+    id
+    transactionHash
+    postId
+    replyId
+    commentId
+    eventEntity
+    eventName
+    actionUser
+    timeStamp
+  }
   reply (
     orderBy: { postTime: desc },
     where: { isDeleted: "0" },
@@ -251,7 +290,26 @@ const postMesh = `
      title
      content
   }
+   postvotehistory {
+    userId
+    direction
+  }
   `;
+
+export const voteHistory = `
+      query(
+        $postId: String,
+        $userId: String,
+      ) {
+        postvotehistory(
+          where: {
+            postId: $postId,
+            userId: $userId,
+          }
+        ) {
+          direction
+        }
+      }`;
 
 const usersQuery = `
       query(
@@ -318,7 +376,7 @@ const usersByCommunityQuery = `
       query(
         $limit: Int,
         $offset: Int,
-        $communityId: Int,
+        $communityId: String,
       ) {
         userCommunityRatings(
           first: $limit,
@@ -337,7 +395,7 @@ const usersByCommunityQueryMesh = `
   query(
     $limit: Int,
     $offset: Int,
-    $communityId: Int,
+    $communityId: String,
   ) {
     usercommunityrating (
       limit: $limit,
@@ -428,7 +486,7 @@ const community = `
   creationTime
   postCount
   tagsCount
-  deletedPostCount
+  networkId
   followingUsers
   replyCount
   communitytranslation {
@@ -437,6 +495,7 @@ const community = `
     description
     language
     enableAutotranslation
+    id
   }
 `;
 
@@ -453,9 +512,7 @@ const communitiesQuery = `
 
 const communitiesQueryMesh = `
       query {
-        community (
-         limit: $first,
-        ) {
+        community (where: {networkId: "(${getNetworkIds()})"}) {
           ${community}
         }
       }`;
@@ -487,9 +544,9 @@ const usersPostsQueryMesh = `
           orderBy: { postTime: desc },
           limit: $offset,
           offset: $limit,
-          where: { isDeleted: "0", author: $id, postType: "<3" },
+          where: { isDeleted: "0", author: $id, postType: "<3", networkId: "(${getNetworkIds()})" },
         ) {
-           ${postMesh}
+           ${postMeshShallow}
         }
       }`;
 
@@ -581,7 +638,7 @@ const communityQueryMesh = communityQuery;
 
 const tagsQuery = `
       query(
-        $communityId: ID!,
+        $communityId: String,
       ) {
         tags(
          where: { communityId: $communityId },
@@ -640,24 +697,27 @@ const postsQuery = `
 
 const postsQueryMesh = (postTypes: string) => `
   query (
-    $first: Int,
-    $skip: Int
+    $limit: Int,
+    $offset: Int
   ) {
     post (
       orderBy: { postTime: desc },
-      limit: $first,
-      offset: $skip,
-      where: {isDeleted: "0", postType: "(${postTypes})" },
+      limit: $limit,
+      offset: $offset,
+      where: {isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
     ) {
-      ${postMesh}
+      ${postMeshShallow}
     }
+    count_post (
+      where: {isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
+    )
   }`;
 
 const postsByCommQuery = `
       query (
         $limit: Int,
         $offset: Int,
-        $communityIds: [Int],
+        $communityIds: [String],
         $postTypes: [Int],
       ) {
         posts (
@@ -680,17 +740,20 @@ const postsByCommQueryMesh = (postTypes: string, communityIds: string) => `
       orderBy: { postTime: desc },
       limit: $limit,
       offset: $offset,
-      where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})" },
+      where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
     ) {
-      ${postMesh}
+      ${postMeshShallow}
     }
+    count_post (
+      where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
+    )
   }`;
 
 const postsByCommAndTagsQuery = `
   query (
     $first: Int,
     $skip: Int,
-    $communityIds: [Int],
+    $communityIds: [String],
     $postTypes: [Int],
     $tags: [String],
   ) {
@@ -713,7 +776,7 @@ export const postsIdsByTagsQueryMesh = (tags: string) => `
     posttag (
       limit: $first,
       offset: $skip,
-      where: { id: "(${tags})", },
+      where: { tagId: "(${tags})" },
     ) {
       postId
     }
@@ -722,16 +785,19 @@ export const postsIdsByTagsQueryMesh = (tags: string) => `
 const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
   query {
     post (
-      where: { id: "(${ids})", postType: "(${postTypes})",},
+      where: { id: "(${ids})", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
       orderBy: { postTime: desc }
     ) {
-      ${postMesh}
+      ${postMeshShallow}
     }
+    count_post (
+      where: { communityId: "(${ids})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
+    )
   }`;
 
 const faqByCommQuery = `
       query (
-        $communityId: Int,
+        $communityId: String,
       ) {
         posts (
           orderBy: postTime,
@@ -744,7 +810,7 @@ const faqByCommQuery = `
 
 const faqByCommQueryMesh = `
       query (
-        $communityId: Int,
+        $communityId: String,
       ) {
         post (
           orderBy: { postTime: desc },
@@ -836,7 +902,7 @@ const postsForSearchQueryMesh = (text: string) => `
   ) {
     post (
       first: $first,
-      where: { postContent: "*${text}*", isDeleted: "0"},
+      where: { postContent: "*${text}*", isDeleted: "0", networkId: "(${getNetworkIds()})"},
     ) {
         ${postForSearch}
         posttag {
@@ -876,6 +942,18 @@ const postQueryMesh = `
   }
 `;
 
+export const replyQuery = `
+  query (
+    $replyId: String,
+  ) {
+    reply (
+      where: { id: $replyId, isDeleted: "0" },
+    ) {
+      ${replyMesh}
+    }
+  }
+`;
+
 const achievement = `
   id
   factCount
@@ -908,7 +986,10 @@ const allAchievementsQueryMesh = `
       ${achievement}
     }
     user (where: { id: $userId }) {
-      userachievement { achievementId }
+      userachievement {
+        achievementId
+        isMinted
+      }
     }
   }`;
 
@@ -1166,3 +1247,27 @@ export const queries: {
     Mesh: tagsByIdsQueryMesh,
   },
 };
+
+export const replyId2QueryMesh = `
+  query (
+    $replyId: String,
+  ) {
+    reply (
+      where: { id: $replyId },
+    ) {
+      id2
+    }
+  }
+`;
+
+export const commentId2QueryMesh = `
+  query (
+    $commentId: String,
+  ) {
+    comment (
+      where: { id: $commentId }
+    ) {
+      id2
+    }
+  }
+`;

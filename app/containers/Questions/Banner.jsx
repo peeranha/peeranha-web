@@ -5,11 +5,24 @@ import { useTranslation } from 'react-i18next';
 import Wrapper from 'components/Banner';
 import FeedBanner from 'components/Feed/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
+import SuiConnectModals from 'components/SuiConnectModals';
 
 import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?inline';
 
-export const AllQuestionsBanner = ({ redirectToAskQuestionPage }) => {
+import { isSuiBlockchain } from 'utils/sui/sui';
+
+export const AllQuestionsBanner = ({
+  redirectToAskQuestionPage,
+  profileInfo,
+  loginWithSuiDispatch,
+}) => {
   const { t } = useTranslation();
+
+  const actionButtonWithLogin = (onClick) => (
+    <Button id="banner-ask-question" onClick={onClick}>
+      {t('common.askQuestion')}
+    </Button>
+  );
 
   return (
     <Wrapper>
@@ -19,9 +32,14 @@ export const AllQuestionsBanner = ({ redirectToAskQuestionPage }) => {
 
         <p>{t('common.thisIsNewCommunity')}</p>
 
-        <Button id="banner-ask-question" onClick={redirectToAskQuestionPage}>
-          {t('common.askQuestion')}
-        </Button>
+        {!profileInfo && isSuiBlockchain ? (
+          <SuiConnectModals
+            loginWithWallet={loginWithSuiDispatch}
+            actionButtonWithLogin={actionButtonWithLogin}
+          />
+        ) : (
+          actionButtonWithLogin(redirectToAskQuestionPage)
+        )}
       </div>
     </Wrapper>
   );
@@ -33,15 +51,18 @@ export const Banner = ({
   redirectToAskQuestionPage,
   isEmpty,
   isSingleCommunityMode,
+  profileInfo,
+  loginWithSuiDispatch,
 }) =>
-  (!isSingleCommunityMode &&
-    isFeed &&
-    followedCommunities &&
-    !followedCommunities[0]) ||
+  (!isSingleCommunityMode && isFeed && followedCommunities && !followedCommunities[0]) ||
   (isSingleCommunityMode && !isEmpty) ? (
     <FeedBanner />
   ) : (
-    <AllQuestionsBanner redirectToAskQuestionPage={redirectToAskQuestionPage} />
+    <AllQuestionsBanner
+      redirectToAskQuestionPage={redirectToAskQuestionPage}
+      profileInfo={profileInfo}
+      loginWithSuiDispatch={loginWithSuiDispatch}
+    />
   );
 
 Banner.propTypes = {
@@ -50,10 +71,14 @@ Banner.propTypes = {
   redirectToAskQuestionPage: PropTypes.func,
   isEmpty: PropTypes.bool,
   isSingleCommunityMode: PropTypes.bool,
+  profileInfo: PropTypes.object,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 AllQuestionsBanner.propTypes = {
   redirectToAskQuestionPage: PropTypes.func,
+  profileInfo: PropTypes.object,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 export default React.memo(Banner);

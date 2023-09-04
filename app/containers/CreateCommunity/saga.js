@@ -1,12 +1,23 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
 
 import { createCommunity } from 'utils/communityManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
+import { createSuiCommunity } from 'utils/sui/communityManagement';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { uploadImg } from 'utils/profileManagement';
+import { getFileUrl } from 'utils/ipfs';
 
 import {
   createCommunitySuccess,
@@ -21,18 +32,30 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* createCommunityWorker({ community, reset }) {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const selectedAccount = yield call(ethereumService.getSelectedAccount);
-    const network = community.network.id;
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const { imgHash } = yield call(uploadImg, community.avatar);
+      community.avatar = getFileUrl(imgHash);
+      const wallet = yield select(selectSuiWallet());
+      const txResult = yield call(createSuiCommunity, wallet, community);
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
+      yield put(transactionCompleted());
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const selectedAccount = yield call(ethereumService.getSelectedAccount);
+      const network = community.network.id;
 
-    yield call(createCommunity, network, ethereumService, selectedAccount, community);
-
+      yield call(createCommunity, network, ethereumService, selectedAccount, community);
+    }
     yield put(createCommunitySuccess());
-
     yield call(reset);
 
     yield call(createdHistory.push, routes.communitiesCreatedBanner());
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(createCommunityErr(err));
   }
 }

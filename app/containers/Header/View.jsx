@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { css } from '@emotion/react';
 
-import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT, TEXT_PRIMARY } from 'style-constants';
+import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from 'style-constants';
 
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
@@ -14,6 +14,7 @@ import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaMetaLogo from 'images/PeeranhaMeta.svg?inline';
+import suiLogo from 'images/SuiLogo.svg?inline';
 
 import {
   isSingleCommunityWebsite,
@@ -34,6 +35,7 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import EditDocumentation from 'components/Documentation';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
+import SuiConnectModals from 'components/SuiConnectModals';
 
 import { Wrapper, MainSubHeader } from './Wrapper';
 import Section from './Section';
@@ -43,7 +45,7 @@ import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 import ChangeLocale from 'containers/ChangeLocale';
-
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION } from './constants';
 
 const single = isSingleCommunityWebsite();
@@ -51,7 +53,7 @@ const styles = singleCommunityStyles();
 
 export const LoginProfile = ({
   profileInfo,
-  showLoginModalDispatch,
+  loginWithWalletDispatch,
   faqQuestions,
   isSearchFormVisible,
 }) =>
@@ -62,7 +64,7 @@ export const LoginProfile = ({
       isSearchFormVisible={isSearchFormVisible}
     />
   ) : (
-    <ButtonGroupForNotAuthorizedUser showLoginModal={showLoginModalDispatch} />
+    <ButtonGroupForNotAuthorizedUser loginWithWallet={loginWithWalletDispatch} />
   );
 
 const colors = singleCommunityColors();
@@ -88,7 +90,7 @@ const Button = LargeButton.extend`
 const View = ({
   showMenu,
   profileInfo,
-  showLoginModalDispatch,
+  loginWithWalletDispatch,
   redirectToAskQuestionPage,
   showLoginModalWithRedirectToAskQuestionPage,
   faqQuestions,
@@ -111,11 +113,16 @@ const View = ({
     if (isSearchFormVisible) return null;
 
     const logo = single ? peeranhaMetaLogo : peeranhaLogo;
-    const src = styles.withoutSubHeader ? communitiesConfig[single].src : logo;
+    const src = () => {
+      if (styles.withoutSubHeader) {
+        return !isSuiBlockchain ? communitiesConfig[single].src : suiLogo;
+      }
+      return logo;
+    };
 
     return (
-      <LogoStyles to={single ? routes.feed() : routes.home()}>
-        <img src={src} alt="logo" />
+      <LogoStyles to={single || isSuiBlockchain ? routes.feed() : routes.home()}>
+        <img src={src()} alt="logo" />
         {styles.logoText}
       </LogoStyles>
     );
@@ -136,6 +143,34 @@ const View = ({
   const askQuestionHandler = (e) => {
     isMinusReputation && !isHasRole ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
   };
+
+  const newPostButton = (onClickForModal) => (
+    <Button
+      id="header-ask-question"
+      onClick={profileInfo ? onClickForModal : showLoginModalWithRedirectToAskQuestionPage}
+      css={css`
+        background: ${colors.btnHeaderColor};
+        :hover {
+          background: ${colors.btnHeaderHoverColor};
+          border: ${colors.btnHeaderHoverBorder};
+          opacity: ${colors.btnHeaderHoverOpacity};
+        }
+        @media only screen and (min-width: 992px) {
+          min-width: 130px;
+        }
+      `}
+    >
+      <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
+      <span
+        className="d-none d-lg-inline ml-2"
+        css={css`
+          color: ${colors.newPostButtonText};
+        `}
+      >
+        {t('common.askQuestion')}
+      </span>
+    </Button>
+  );
 
   return (
     <Wrapper id={HEADER_ID}>
@@ -169,41 +204,23 @@ const View = ({
                   >
                     <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
                   </Button>
-                  <Button
-                    id="header-ask-question"
-                    onClick={
-                      profileInfo ? askQuestionHandler : showLoginModalWithRedirectToAskQuestionPage
-                    }
-                    css={css`
-                      background: ${colors.btnHeaderColor};
-                      :hover {
-                        background: ${colors.btnHeaderHoverColor};
-                        border: ${colors.btnHeaderHoverBorder};
-                        opacity: ${colors.btnHeaderHoverOpacity};
-                      }
-                      @media only screen and (min-width: 992px) {
-                        min-width: 130px;
-                      }
-                    `}
-                  >
-                    <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
-
-                    <span
-                      className="d-none d-lg-inline ml-2"
-                      css={css`
-                        color: ${colors.newPostButtonText};
-                      `}
-                    >
-                      {t('common.askQuestion')}
-                    </span>
-                  </Button>
+                  {profileInfo ? (
+                    newPostButton(askQuestionHandler)
+                  ) : isSuiBlockchain ? (
+                    <SuiConnectModals
+                      loginWithWallet={showLoginModalWithRedirectToAskQuestionPage}
+                      actionButtonWithLogin={newPostButton}
+                    />
+                  ) : (
+                    showLoginModalWithRedirectToAskQuestionPage
+                  )}
                 </>
               )}
 
               {!single?.withoutSubHeader || !profileInfo ? (
                 <LoginProfile
                   isSearchFormVisible={isSearchFormVisible}
-                  showLoginModalDispatch={showLoginModalDispatch}
+                  loginWithWalletDispatch={loginWithWalletDispatch}
                   profileInfo={profileInfo}
                   faqQuestions={faqQuestions}
                 />
@@ -230,7 +247,7 @@ const View = ({
 View.propTypes = {
   profileInfo: PropTypes.object,
   showMenu: PropTypes.func,
-  showLoginModalDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
   showLoginModalWithRedirectToAskQuestionPage: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
   faqQuestions: PropTypes.array,
@@ -240,7 +257,7 @@ View.propTypes = {
 LoginProfile.propTypes = {
   isSearchFormVisible: PropTypes.bool,
   profileInfo: PropTypes.object,
-  showLoginModalDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
   faqQuestions: PropTypes.array,
 };
 

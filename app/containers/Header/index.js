@@ -7,7 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
-import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { loginWithSui, loginWithWallet, showLoginModal } from 'containers/Login/actions';
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectCommunities, selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { showLeftMenu, changeLocale } from 'containers/AppWrapper/actions';
@@ -17,6 +17,7 @@ import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import { WHAT_IS_ENERGY, HOW_TO_CHARGE, VALUE_OF_ACTIONS } from 'containers/Faq/constants';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 import View from './View';
 import { HEADER_ID } from './constants';
@@ -85,7 +86,10 @@ export class Header extends React.PureComponent {
       toggleEditDocumentationDispatch,
       changeLocale,
       communities,
+      loginWithSuiDispatch,
     } = this.props;
+
+    const loginDispatch = isSuiBlockchain ? loginWithSuiDispatch : loginWithWalletDispatch;
 
     if (isMenuVisible) return null;
 
@@ -93,10 +97,8 @@ export class Header extends React.PureComponent {
       <View
         account={account}
         profileInfo={profileInfo}
-        showLoginModalDispatch={() => loginWithWalletDispatch({ metaMask: true })}
-        showLoginModalWithRedirectToAskQuestionPage={() =>
-          loginWithWalletDispatch({ metaMask: true }, true)
-        }
+        loginWithWalletDispatch={loginDispatch}
+        showLoginModalWithRedirectToAskQuestionPage={() => loginDispatch(true)}
         showMenu={showLeftMenuDispatch}
         redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         faqQuestions={faqQuestions}
@@ -145,6 +147,8 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
     toggleEditDocumentationDispatch: bindActionCreators(toggleEditDocumentation, dispatch),
     changeLocale: bindActionCreators(changeLocale, dispatch),
+
+    loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
   };
 }
 

@@ -1,13 +1,13 @@
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
+import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { getProfileInfo } from 'utils/profileManagement';
-import { all, call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
-import { languagesEnum } from 'app/i18n';
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { getBytes32FromIpfsHash, getText, saveText } from 'utils/ipfs';
-import { getActualId, getNetwork } from 'utils/properties';
+import { getBytes32FromIpfsHash, saveText } from 'utils/ipfs';
+import { getActualId } from 'utils/properties';
 
 import {
   deleteAnswer,
@@ -18,16 +18,16 @@ import {
   editComment,
   getHistoriesForPost,
   getQuestionById,
-  getStatusHistory,
   markAsAccepted,
   postAnswer,
   postComment,
   upVote,
   votingStatus,
 } from 'utils/questionsManagement';
+import { getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
+import { CHANGED_POSTS_KEY } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
 import { getUserProfileSuccess, removeUserProfile } from 'containers/DataCacheProvider/actions';
@@ -39,36 +39,49 @@ import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProv
 import { getCurrentAccountWorker, isAvailableAction } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
-import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import { isItemChanged, saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { getPost, getCommentId2, getVoteHistory } from 'utils/theGraph';
 import {
-  CHANGE_QUESTION_TYPE_SUCCESS,
+  deleteSuiAnswer,
+  deleteSuiComment,
+  deleteSuiQuestion,
+  editSuiComment,
+  postSuiAnswer,
+  postSuiComment,
+  markAsAcceptedSuiReply,
+  voteSuiPost,
+  voteSuiReply,
+} from 'utils/sui/questionsManagement';
+import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { languagesEnum } from 'app/i18n';
+import { getSuiUserObject } from 'utils/sui/accountManagement';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
+import {
   CHECK_ADD_COMMENT_AVAILABLE,
   DELETE_ANSWER,
-  DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT,
-  DELETE_COMMENT_SUCCESS,
   DELETE_QUESTION,
-  DELETE_QUESTION_SUCCESS,
   DOWN_VOTE,
   DOWN_VOTE_SUCCESS,
   GET_QUESTION_DATA,
-  GET_QUESTION_DATA_SUCCESS,
   PAY_BOUNTY,
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_SUCCESS,
   POST_ANSWER,
   POST_ANSWER_BUTTON,
-  POST_ANSWER_SUCCESS,
   POST_COMMENT,
-  POST_COMMENT_SUCCESS,
   SAVE_COMMENT,
-  SAVE_COMMENT_SUCCESS,
   UP_VOTE,
   UP_VOTE_SUCCESS,
   GET_HISTORIES,
-  GET_HISTORIES_SUCCESS,
 } from './constants';
 
 import {
@@ -112,11 +125,9 @@ import {
   postCommentValidator,
   upVoteValidator,
 } from './validate';
-import { selectUsers } from '../DataCacheProvider/selectors';
+import { selectCommunities } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { getQuestionFromGraph } from 'utils/theGraph';
 
-import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
 const getPostsRoute = (postType) => {
@@ -137,135 +148,49 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.answers.find((x) => x.id === answerId)?.user === profileInfo.user;
 
 export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
-  const ethereumService = yield select(selectEthereum);
-  const postedAnswerIds = yield select(selectPostedAnswerIds());
-  const question = yield call(getQuestionFromGraph, questionId);
-
-  const isQuestionChanged = isItemChanged(CHANGED_POSTS_KEY, questionId);
-  const isQuestionJustCreated = postedAnswerIds.includes(questionId);
-  question.commentCount = question.comments.length;
+  const question = yield call(getPost, questionId);
 
   question.author = { ...question.author, user: question.author.id };
 
   if (user) {
-    const statusHistory = yield getStatusHistory(
-      getNetwork(questionId),
-      user,
-      getActualId(questionId),
-      0,
-      0,
-      ethereumService,
-    );
+    const statusHistory = yield call(getVoteHistory, questionId, user);
     question.votingStatus = votingStatus(Number(statusHistory));
+    question.answers.map((reply) => {
+      const replyStatusHistory = reply.replyvotehistory.find(
+        (voting) => voting.userId === user,
+      )?.direction;
+      reply.votingStatus = votingStatus(Number(replyStatusHistory));
+    });
   }
-
-  yield all(
-    question.answers.map(function* (answer) {
-      answer.commentCount = answer.comments.length;
-      answer.id = Number(answer.id.split('-')[3]);
-
-      answer.author = { ...answer.author, user: answer.author.id };
-
-      answer.comments = answer.comments.map((comment) => ({
-        ...comment,
-        author: { ...comment.author, user: comment.author.id },
-        id: Number(comment.id.split('-')[2]),
-      }));
-      if (user) {
-        const answerStatusHistory = yield call(
-          getStatusHistory,
-          getNetwork(questionId),
-          user,
-          getActualId(questionId),
-          answer.id,
-          0,
-          ethereumService,
-        );
-
-        answer.votingStatus = votingStatus(Number(answerStatusHistory));
-      }
-    }),
-  );
-
   question.comments = question.comments.map((comment) => ({
     ...comment,
     author: { ...comment.author, user: comment.author.id },
-    id: Number(comment.id.split('-')[2]),
   }));
 
   question.isGeneral = isGeneralQuestion(question);
-
-  const users = new Map();
-
-  function* addOptions(currentItem) {
-    users.set(
-      currentItem.author,
-      users.get(currentItem.author)
-        ? [...users.get(currentItem.author), currentItem]
-        : [currentItem],
-    );
-
-    if (currentItem.content) return;
-    currentItem.content = 'content';
-  }
-
-  function* processQuestion() {
-    yield call(addOptions, question);
-  }
-
-  function* processAnswers() {
-    yield all(
-      question.answers.map(function* (x) {
-        yield call(addOptions, x);
-
-        yield all(
-          x.comments.map(function* (y) {
-            yield call(addOptions, y);
-          }),
-        );
-      }),
-    );
-  }
-
-  function* processCommentsOfQuestion() {
-    yield all(
-      question.comments.map(function* (y) {
-        yield call(addOptions, y);
-      }),
-    );
-  }
-
-  if (user && (isQuestionChanged || isQuestionJustCreated)) {
-    yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
-  }
-
-  // To avoid of fetching same user profiles - remember it and to write author here
-  if ((user && isQuestionChanged) || isQuestionJustCreated) {
-    yield all(
-      Array.from(users.keys()).map(function* (userFromItem) {
-        const author = yield call(getUserProfileWorker, {
-          user: userFromItem.user || userFromItem,
-          getFullProfile: true,
-          communityIdForRating: question.communityId,
-        });
-        users.get(userFromItem).map((cachedItem) => {
-          cachedItem.author = author;
-        });
-      }),
-    );
-  }
 
   return question;
 }
 
 export function* getParams() {
   const questionData = yield select(selectQuestionData());
-  const ethereumService = yield select(selectEthereum);
   const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
-  const account = yield select(makeSelectAccount());
   const questionBounty = yield select(selectQuestionBounty());
   const histories = yield select(selectHistories());
+
+  let ethereumService;
+  if (!isSuiBlockchain) {
+    ethereumService = yield select(selectEthereum);
+  }
+
+  let account;
+  if (isSuiBlockchain) {
+    const profile = yield select(makeSelectProfileInfo());
+    account = profile?.id;
+  } else {
+    account = yield select(makeSelectAccount());
+  }
 
   return {
     questionData,
@@ -289,48 +214,71 @@ export function* saveCommentWorker({
 }) {
   try {
     const { questionData, ethereumService, profileInfo, locale, histories } = yield call(getParams);
-
     yield call(isAvailableAction, () => editCommentValidator(profileInfo, buttonId));
     const commentData = {
       content: comment,
     };
     const ipfsLink = yield call(saveText, JSON.stringify(commentData));
-    const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
 
-    const transaction = yield call(
-      editComment,
-      profileInfo.user,
-      questionId,
-      answerId,
-      commentId,
-      ipfsHash,
-      languagesEnum[locale],
-      ethereumService,
-    );
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const commentObjectId = yield call(getCommentId2, commentId);
+
+      let actualAnswerId = answerId;
+      if (answerId) {
+        actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+      }
+
+      const txResult = yield call(
+        editSuiComment,
+        wallet,
+        profileInfo.id,
+        getActualId(questionId),
+        commentObjectId,
+        actualAnswerId,
+        commentId.split('-')[3],
+        ipfsLink,
+        languagesEnum[locale],
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
+      yield put(transactionCompleted());
+    } else {
+      const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+      const transaction = yield call(
+        editComment,
+        profileInfo.user,
+        questionId,
+        answerId,
+        commentId,
+        ipfsHash,
+        languagesEnum[locale],
+        ethereumService,
+      );
+
+      const newHistory = {
+        transactionHash: transaction.transactionHash,
+        post: { id: questionId },
+        reply: { id: `${questionId}-${answerId}` },
+        comment: { id: `${questionId}-${answerId}-${commentId}` },
+        eventEntity: 'Comment',
+        eventName: 'Edit',
+        timeStamp: String(dateNowInSeconds()),
+      };
+      histories.push(newHistory);
+    }
 
     let item;
-
-    if (answerId === 0) {
+    if (!answerId) {
       item = questionData.comments?.find((x) => x.id === commentId);
-    } else if (answerId > 0) {
+    } else {
       item = questionData.answers
         .find((x) => x.id === answerId)
         .comments.find((x) => x.id === commentId);
     }
 
-    const newHistory = {
-      transactionHash: transaction.transactionHash,
-      post: { id: questionId },
-      reply: { id: `${questionId}-${answerId}` },
-      comment: { id: `${questionId}-${answerId}-${commentId}` },
-      eventEntity: 'Comment',
-      eventName: 'Edit',
-      timeStamp: String(dateNowInSeconds()),
-    };
-
     item.content = comment;
-
-    histories.push(newHistory);
 
     yield call(toggleView, true);
 
@@ -338,6 +286,9 @@ export function* saveCommentWorker({
 
     yield put(saveCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(saveCommentErr(err, buttonId));
   }
 }
@@ -353,36 +304,57 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
         communityID: questionData.communityId,
       },
     );
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      let actualAnswerId = answerId;
+      if (answerId) {
+        actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
+      }
+      const txResult = yield call(
+        deleteSuiComment,
+        wallet,
+        profileInfo.id,
+        getActualId(questionId),
+        actualAnswerId,
+        commentId.split('-')[3],
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
+      yield put(transactionCompleted());
+    } else {
+      const transaction = yield call(
+        deleteComment,
+        profileInfo.user,
+        questionId,
+        answerId,
+        commentId,
+        ethereumService,
+      );
 
-    const transaction = yield call(
-      deleteComment,
-      profileInfo.user,
-      questionId,
-      answerId,
-      commentId,
-      ethereumService,
-    );
+      const newHistory = {
+        transactionHash: transaction.transactionHash,
+        eventEntity: 'Comment',
+        eventName: 'Delete',
+        timeStamp: String(dateNowInSeconds()),
+      };
 
-    if (answerId === 0) {
+      histories.push(newHistory);
+    }
+    if (answerId === 0 || answerId === '0') {
       questionData.comments = questionData.comments.filter((x) => x.id !== commentId);
-    } else if (answerId > 0) {
+    } else {
       const answer = questionData.answers.find((x) => x.id === answerId);
       answer.comments = answer.comments.filter((x) => x.id !== commentId);
     }
-
-    const newHistory = {
-      transactionHash: transaction.transactionHash,
-      eventEntity: 'Comment',
-      eventName: 'Delete',
-      timeStamp: String(dateNowInSeconds()),
-    };
-
-    histories.push(newHistory);
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(deleteCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(deleteCommentErr(err, buttonId));
   }
 }
@@ -391,37 +363,53 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
     const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
-    yield call(
-      isAvailableAction,
-      () =>
-        deleteAnswerValidator(
-          buttonId,
-          answerId,
-          questionData.bestReply,
-          profileInfo,
-          questionData,
-        ),
-      {
-        communityID: questionData.communityId,
-      },
-    );
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const txResult = yield call(
+        deleteSuiAnswer,
+        wallet,
+        profileInfo.id,
+        getActualId(questionId),
+        answerId.split('-')[2],
+      );
+      yield put(transactionInPending(txResult.digest));
+      const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
+      yield put(transactionCompleted());
+    } else {
+      yield call(
+        isAvailableAction,
+        () =>
+          deleteAnswerValidator(
+            buttonId,
+            answerId,
+            questionData.bestReply,
+            profileInfo,
+            questionData,
+          ),
+        {
+          communityID: questionData.communityId,
+        },
+      );
 
-    const transaction = yield call(
-      deleteAnswer,
-      profileInfo.user,
-      questionId,
-      answerId,
-      ethereumService,
-    );
+      const transaction = yield call(
+        deleteAnswer,
+        profileInfo.user,
+        questionId,
+        answerId,
+        ethereumService,
+      );
 
-    const newHistory = {
-      transactionHash: transaction.transactionHash,
-      eventEntity: 'Reply',
-      eventName: 'Delete',
-      timeStamp: String(dateNowInSeconds()),
-    };
+      const newHistory = {
+        transactionHash: transaction.transactionHash,
+        eventEntity: 'Reply',
+        eventName: 'Delete',
+        timeStamp: String(dateNowInSeconds()),
+      };
 
-    histories.push(newHistory);
+      histories.push(newHistory);
+    }
 
     questionData.answers = questionData.answers.filter((x) => x.id !== answerId);
 
@@ -429,6 +417,9 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
     yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(deleteAnswerErr(err, buttonId));
   }
 }
@@ -438,6 +429,9 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
     let { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     if (!questionData) {
+      if (isSuiBlockchain) {
+        console.log('WARN: questionData is empty. Unable to delete');
+      }
       questionData = yield call(getQuestionById, ethereumService, questionId, profileInfo.user);
     }
 
@@ -481,6 +475,19 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
         documentationJSON,
         ethereumService,
       );
+    } else if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const txResult = yield call(
+        deleteSuiQuestion,
+        wallet,
+        profileInfo.id,
+        getActualId(questionId),
+      );
+      yield put(transactionInPending(txResult.digest));
+      const confirmedTx = yield call(waitForTransactionConfirmation, txResult.digest);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
+      yield put(transactionCompleted());
     } else {
       yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
     }
@@ -489,6 +496,9 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
 
     yield call(createdHistory.push, getPostsRoute(questionData.postType));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(deleteQuestionErr(err, buttonId));
   }
 }
@@ -508,26 +518,6 @@ export function* getQuestionDataWorker({ questionId }) {
     if (!questionData) {
       throw new Error(`No question data, id: ${questionId}`);
     }
-
-    const { author, answers } = questionData;
-
-    if (account === questionData.author.id) {
-      yield all(
-        answers.map(function* ({ author: answerUserInfo }) {
-          const answerProfileInfo = yield select(selectUsers(author.id));
-          if (!answerProfileInfo.profile) {
-            const profile = JSON.parse(yield call(getText, answerUserInfo.ipfs_profile));
-            yield put(
-              getUserProfileSuccess({
-                ...answerUserInfo,
-                profile,
-              }),
-            );
-          }
-        }),
-      );
-    }
-
     if (isAnotherCommQuestion) {
       yield put(getQuestionDataSuccess(null));
     } else {
@@ -573,15 +563,35 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
     const ipfsLink = yield call(saveText, JSON.stringify(commentData));
     const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
 
-    const transaction = yield call(
-      postComment,
-      profileInfo.user,
-      questionId,
-      answerId,
-      ipfsHash,
-      languagesEnum[locale],
-      ethereumService,
-    );
+    let txHash;
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const transactionResult = yield call(
+        postSuiComment,
+        wallet,
+        profileInfo.id,
+        getActualId(questionId),
+        answerId ? answerId.split('-')[2] : answerId,
+        ipfsLink,
+        languagesEnum[locale],
+      );
+      txHash = transactionResult.digest;
+      yield put(transactionInPending(txHash));
+      yield call(waitForTransactionConfirmation, txHash);
+      yield put(transactionCompleted());
+    } else {
+      const transaction = yield call(
+        postComment,
+        profileInfo.user,
+        questionId,
+        answerId,
+        ipfsHash,
+        languagesEnum[locale],
+        ethereumService,
+      );
+      txHash = transaction.transactionHash;
+    }
 
     const newComment = {
       ipfsHash,
@@ -602,7 +612,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
       commentId = questionData.commentCount;
       questionData.comments.push({
         ...newComment,
-        id: commentId,
+        id: `${questionId}-${answerId ? answerId.split('-')[2] : 0}-${commentId}`,
       });
     } else {
       const { comments, commentCount } = questionData.answers.find((x) => x.id === answerId);
@@ -610,12 +620,12 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
       commentId = commentCount + 1;
       comments.push({
         ...newComment,
-        id: commentId,
+        id: `${questionId}-${answerId ? answerId.split('-')[2] : 0}-${commentId}`,
       });
     }
 
     const newHistory = {
-      transactionHash: transaction.transactionHash,
+      transactionHash: txHash,
       post: { id: questionId },
       reply: { id: `${questionId}-${answerId}` },
       comment: { id: `${questionId}-${answerId}-${commentId}` },
@@ -634,15 +644,16 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
 
     yield put(postCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(postCommentErr(err, buttonId));
   }
 }
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo, histories, account } = yield call(
-      getParams,
-    );
+    const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
     yield call(isAuthorized);
 
@@ -661,26 +672,58 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     const ipfsLink = yield call(saveText, JSON.stringify(answerData));
     const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
 
-    const transaction = yield call(
-      postAnswer,
-      profileInfo.user,
-      questionId,
-      ipfsHash,
-      official,
-      languagesEnum[locale],
-      ethereumService,
-    );
+    let txHash;
+    let updatedProfileInfo;
+
+    if (isSuiBlockchain) {
+      const wallet = yield select(selectSuiWallet());
+      const suiUserObject = yield call(getSuiUserObject, wallet.address);
+      if (!suiUserObject) {
+        yield call(createSuiProfile, wallet);
+        yield put(transactionCompleted());
+        const newProfile = yield call(getSuiProfileInfo, wallet.address);
+
+        yield put(getUserProfileSuccess(newProfile));
+        yield put(getCurrentAccountSuccess(newProfile.id, 0, 0, 0));
+        profileInfo.id = newProfile.id;
+      }
+      yield put(transactionInitialised());
+      const transactionResult = yield call(
+        postSuiAnswer,
+        wallet,
+        profileInfo.id,
+        getActualId(questionId),
+        ipfsLink,
+        official,
+        languagesEnum[locale],
+      );
+      txHash = transactionResult.digest;
+      yield put(transactionInPending(txHash));
+      const confirmedTx = yield call(waitForTransactionConfirmation, txHash);
+      yield call(waitForPostTransactionToIndex, confirmedTx.digest);
+      yield put(transactionCompleted());
+      const communities = yield select(selectCommunities());
+      updatedProfileInfo = yield call(getSuiUserById, profileInfo.id, communities);
+    } else {
+      const transaction = yield call(
+        postAnswer,
+        profileInfo.user,
+        questionId,
+        ipfsHash,
+        official,
+        languagesEnum[locale],
+        ethereumService,
+      );
+
+      questionData.replyCount += 1;
+      updatedProfileInfo = yield call(getProfileInfo, profileInfo.user);
+
+      txHash = transaction.transactionHash;
+      yield call(waitForPostTransactionToIndex, txHash);
+    }
 
     questionData.replyCount += 1;
     const replyId = questionData.replyCount;
-    const updatedProfileInfo = yield call(
-      getProfileInfo,
-      profileInfo.user,
-      ethereumService,
-      true,
-      true,
-      questionData.communityId,
-    );
 
     const newAnswer = {
       id: replyId,
@@ -700,7 +743,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     };
 
     const newHistory = {
-      transactionHash: transaction.transactionHash,
+      transactionHash: txHash,
       post: { id: questionId },
       reply: { id: `${questionId}-${newAnswer.id}` },
       eventEntity: 'Reply',
@@ -718,11 +761,14 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     const updatedQuestionData = yield call(getQuestionData, {
       questionId,
-      user: account,
+      user: profileInfo.id,
     });
     yield put(getQuestionDataSuccess(updatedQuestionData));
     yield put(postAnswerSuccess(questionData));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(postAnswerErr(err));
   }
 }
@@ -744,11 +790,40 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
       },
     );
 
-    yield call(downVote, profileInfo.user, questionId, answerId, ethereumService);
+    if (isSuiBlockchain) {
+      try {
+        yield put(transactionInitialised());
+        const wallet = yield select(selectSuiWallet());
+        const profile = yield select(makeSelectProfileInfo());
+        let txResult;
+        if (!answerId || answerId === '0') {
+          txResult = yield call(voteSuiPost, wallet, profile.id, getActualId(questionId), false);
+        } else {
+          let actualAnswerId = answerId;
+          if (answerId) {
+            actualAnswerId = Number(answerId === '0' ? 0 : answerId.split('-')[2]);
+          }
+          txResult = yield call(
+            voteSuiReply,
+            wallet,
+            profile.id,
+            getActualId(questionId),
+            actualAnswerId,
+            false,
+          );
+        }
+        yield put(transactionInPending(txResult.digest));
+        yield call(waitForTransactionConfirmation, txResult.digest);
+        yield put(transactionCompleted());
+      } catch (err) {
+        yield put(transactionFailed(err));
+      }
+    } else {
+      yield call(downVote, profileInfo.user, questionId, answerId, ethereumService);
+    }
 
     const item =
-      answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);
-
+      answerId === '0' ? questionData : questionData.answers.find((x) => x.id === answerId);
     if (item.votingStatus.isDownVoted) {
       item.rating += 1;
       item.votingStatus.isDownVoted = false;
@@ -785,12 +860,40 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
         skipPermissions: isOwnItem(questionData, profileInfo, answerId),
       },
     );
-
-    yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
+    if (isSuiBlockchain) {
+      try {
+        yield put(transactionInitialised());
+        const wallet = yield select(selectSuiWallet());
+        const profile = yield select(makeSelectProfileInfo());
+        let txResult;
+        if (!answerId || answerId === '0') {
+          txResult = yield call(voteSuiPost, wallet, profile.id, getActualId(questionId), true);
+        } else {
+          let actualAnswerId = answerId;
+          if (answerId) {
+            actualAnswerId = Number(answerId === '0' ? 0 : answerId.split('-')[2]);
+          }
+          txResult = yield call(
+            voteSuiReply,
+            wallet,
+            profile.id,
+            getActualId(questionId),
+            actualAnswerId,
+            true,
+          );
+        }
+        yield put(transactionInPending(txResult.digest));
+        yield call(waitForTransactionConfirmation, txResult.digest);
+        yield put(transactionCompleted());
+      } catch (err) {
+        yield put(transactionFailed(err));
+      }
+    } else {
+      yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
+    }
 
     const item =
-      answerId === 0 ? questionData : questionData.answers.find((x) => x.id === answerId);
-
+      answerId === '0' ? questionData : questionData.answers.find((x) => x.id === answerId);
     if (item.votingStatus.isUpVoted) {
       item.rating -= 1;
       item.votingStatus.isUpVoted = false;
@@ -826,15 +929,36 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
         communityID: questionData.communityId,
       },
     );
-
-    yield call(markAsAccepted, profileInfo.user, questionId, correctAnswerId, ethereumService);
-
-    questionData.bestReply = questionData.bestReply === correctAnswerId ? 0 : correctAnswerId;
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      const txResult = yield call(
+        markAsAcceptedSuiReply,
+        wallet,
+        profileInfo.id,
+        getActualId(questionId),
+        correctAnswerId,
+      );
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
+      yield put(transactionCompleted());
+    } else {
+      yield call(markAsAccepted, profileInfo.user, questionId, correctAnswerId, ethereumService);
+    }
+    questionData.bestReply =
+      String(questionData.bestReply) === String(correctAnswerId) ? 0 : correctAnswerId;
+    const reply = questionData.answers.find(
+      (reply) => reply.id === `${questionData.id}-${correctAnswerId}`,
+    );
+    reply.isBestReply = reply.isBestReply ? 0 : 1;
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(markAsAcceptedErr(err, buttonId));
   }
 }
@@ -846,7 +970,9 @@ export function* updateQuestionDataAfterTransactionWorker({ usersForUpdate = [],
     let userInfoOpponent;
     const user = yield select(makeSelectAccount());
 
-    yield call(getCurrentAccountWorker);
+    if (!isSuiBlockchain) {
+      yield call(getCurrentAccountWorker);
+    }
 
     if (user !== usersForUpdate[0]) {
       yield put(removeUserProfile(usersForUpdate[0]));
@@ -922,22 +1048,5 @@ export default function* () {
   yield takeEvery(
     [UP_VOTE_SUCCESS, DOWN_VOTE_SUCCESS, MARK_AS_ACCEPTED_SUCCESS],
     updateQuestionDataAfterTransactionWorker,
-  );
-  yield takeEvery(
-    [
-      GET_QUESTION_DATA_SUCCESS,
-      POST_COMMENT_SUCCESS,
-      POST_ANSWER_SUCCESS,
-      UP_VOTE_SUCCESS,
-      DOWN_VOTE_SUCCESS,
-      MARK_AS_ACCEPTED_SUCCESS,
-      DELETE_QUESTION_SUCCESS,
-      DELETE_ANSWER_SUCCESS,
-      DELETE_COMMENT_SUCCESS,
-      SAVE_COMMENT_SUCCESS,
-      CHANGE_QUESTION_TYPE_SUCCESS,
-      GET_HISTORIES_SUCCESS,
-    ],
-    updateStoredQuestionsWorker,
   );
 }

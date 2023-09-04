@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { LEFT_MENU_WIDTH } from 'containers/AppWrapper/constants';
 import { TITLE_FONT, LINK_COLOR } from 'style-constants';
-
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { singleCommunityStyles } from 'utils/communityManagement';
 
 const styles = singleCommunityStyles();
@@ -17,7 +17,7 @@ const Logo = styled.div`
   ${styles.logoColor ? `color: ${styles.logoColor}` : ''};
 
   img {
-    width: ${styles.logoText ? 62 : 180}px;
+    width: ${styles.logoText ? 62 : isSuiBlockchain ? 157 : 180}px;
     height: 40px;
     object-fit: contain;
     margin-top: 5px;

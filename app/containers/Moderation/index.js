@@ -19,20 +19,15 @@ import Header from './Header';
 import Content from './Content';
 import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
 
-export const Moderation = ({
-  communities = [],
-  profile: { permissions },
-  communitiesCount = 0,
-}) => {
+export const Moderation = ({ communities = [], profile: { permissions } }) => {
   const { t } = useTranslation();
 
   if (!permissions) {
     redirectToFeed();
   }
-
   const moderatorPermissions = getModeratorPermissions(
     permissions,
-    communitiesCount,
+    communities.length,
     communities,
     t,
   );

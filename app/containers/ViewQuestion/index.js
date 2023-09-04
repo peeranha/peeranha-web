@@ -20,7 +20,7 @@ import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProv
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
-import { loginWithWallet } from 'containers/Login/actions';
+import { loginWithWallet, loginWithSui } from 'containers/Login/actions';
 
 import {
   saveComment,
@@ -45,7 +45,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
-import { POST_TYPE } from '../../utils/constants';
+import { POST_TYPE } from 'utils/constants';
 
 const getRoute = (postType) => {
   if (postType === POST_TYPE.generalPost) {
@@ -62,7 +62,6 @@ const getRoute = (postType) => {
 export const ViewQuestion = ({
   locale,
   histories,
-  historiesLoading,
   account,
   questionData,
   postAnswerLoading,
@@ -99,6 +98,7 @@ export const ViewQuestion = ({
   getHistoriesDispatch,
   match,
   profile,
+  loginWithSuiDispatch,
   history,
   loginWithWalletDispatch,
 }) => {
@@ -114,18 +114,16 @@ export const ViewQuestion = ({
     }
   }, [history, match.params.id, match.url, questionData]);
 
+  // eslint-disable-next-line
   useEffect(() => {
-    window.isRendered = false;
-    resetStoreDispatch();
-
     return () => {
       resetStoreDispatch();
     };
-  }, [resetStoreDispatch]);
+  }, []);
 
   useEffect(() => {
     getQuestionDataDispatch(match.params.id);
-  }, [match.params.id, account, getQuestionDataDispatch]);
+  }, [match.params.id, account]);
 
   useEffect(() => {
     getHistoriesDispatch(match.params.id);
@@ -157,7 +155,7 @@ export const ViewQuestion = ({
     [profile, questionData],
   );
 
-  const isAnswered = !!questionData?.answers.filter((x) => x.author.user === account).length;
+  const isAnswered = !!questionData?.answers.filter((x) => x.author.id === account).length;
 
   const commId = questionData?.communityId ?? null;
 
@@ -168,6 +166,7 @@ export const ViewQuestion = ({
     communities,
     questionData,
     translations: questionData?.translations,
+    id2: questionData?.id2,
     postAnswerLoading,
     postCommentLoading,
     saveCommentLoading,
@@ -199,6 +198,7 @@ export const ViewQuestion = ({
     isAnswered,
     commId,
     profile,
+    loginWithSuiDispatch,
     showLoginModal,
   };
 
@@ -225,11 +225,8 @@ export const ViewQuestion = ({
         articleModifiedTime={articleModifiedTime}
       />
 
-      {!questionDataLoading && !historiesLoading && questionData && (
-        <ViewQuestionContainer {...sendProps} />
-      )}
-
-      {(questionDataLoading || historiesLoading) && <LoadingIndicator />}
+      {questionData && <ViewQuestionContainer {...sendProps} />}
+      {!questionData && <LoadingIndicator />}
     </>
   );
 };
@@ -274,6 +271,7 @@ ViewQuestion.propTypes = {
   ids: PropTypes.array,
   profile: PropTypes.object,
   loginWithWalletDispatch: PropTypes.func,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -330,6 +328,7 @@ const withConnect = connect(
     redirectToEditAnswerPageDispatch: bindActionCreators(redirectToEditAnswerPage, dispatch),
     getHistoriesDispatch: bindActionCreators(getHistories, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
+    loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
   }),
 );
 

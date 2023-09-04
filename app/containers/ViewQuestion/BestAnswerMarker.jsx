@@ -62,6 +62,7 @@ export const BestAnswerMarker = ({
   isTheLargestRating,
   ids,
   isOfficial,
+  profile,
 }) => {
   const { t } = useTranslation();
 
@@ -71,12 +72,13 @@ export const BestAnswerMarker = ({
     <Div>
       <MarkAsAcceptedIcon
         id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
-        answerId={answerId}
+        answerId={String(answerId)}
         questionFrom={questionFrom}
         account={account}
+        profile={profile}
         markAsAccepted={markAsAccepted}
         disabled={ids.includes(formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`))}
-        correctAnswerId={correctAnswerId}
+        correctAnswerId={String(correctAnswerId)}
         whoWasAccepted={whoWasAccepted}
       />
 

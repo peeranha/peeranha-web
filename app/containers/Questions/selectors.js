@@ -74,14 +74,8 @@ export const selectQuestions = (isFeed, communityId, questionId, getTopQuestions
 export const selectPromotedQuestions = () =>
   createSelector(selectQuestionsDomain, (substate) => substate.toJS().promotedQuestions);
 
-export const selectInitLoadedItems = () =>
-  createSelector(selectQuestionsDomain, (substate) => substate.get('initLoadedItems'));
-
 export const selectLoadedItems = () =>
   createSelector(selectQuestionsDomain, (substate) => substate.get('loadedItems'));
-
-export const selectNextLoadedItems = () =>
-  createSelector(selectQuestionsDomain, (substate) => substate.get('nextLoadedItems'));
 
 export const selectIsLastFetch = () =>
   createSelector(selectQuestionsDomain, (substate) => substate.get('isLastFetch'));

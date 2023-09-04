@@ -17,6 +17,9 @@ import {
   GET_ALL_ACHIEVEMENTS,
   GET_ALL_ACHIEVEMENTS_SUCCESS,
   GET_ALL_ACHIEVEMENTS_ERROR,
+  MINT_SUI_ACHIEVEMENT,
+  MINT_SUI_ACHIEVEMENT_SUCCESS,
+  MINT_SUI_ACHIEVEMENT_ERROR,
 } from './constants';
 import { allAchievementsQuery } from '../../utils/ethConstants';
 
@@ -31,6 +34,7 @@ export const initialState = fromJS({
   maxGroupsLowerValues: {},
   allAchievementsError: null,
   userAchievementsError: null,
+  mintAchievementError: null,
   allAchievementsLoading: true,
   userAchievementsLoading: true,
 });
@@ -67,10 +71,7 @@ function achievementsReducer(state = initialState, action) {
         .set('userProgressValues', userProgressValues)
         .set('userAchievementsLoading', false);
     case SET_MEMORIZED_ACHIEV_DATA:
-      return state.setIn(
-        ['memorizedAchievData', `${viewProfileAccount}`],
-        memorizedAchievData,
-      );
+      return state.setIn(['memorizedAchievData', `${viewProfileAccount}`], memorizedAchievData);
 
     case SET_MAX_GROUPS_LOWER_VALUES:
       return state.set('maxGroupsLowerValues', maxGroupsLowerValues);
@@ -88,6 +89,9 @@ function achievementsReducer(state = initialState, action) {
 
     case GET_USER_ACHIEVEMENTS_ERROR:
       return state.set('userAchievementsError', error);
+
+    case MINT_SUI_ACHIEVEMENT_ERROR:
+      return state.set('mintAchievementError', error);
 
     default:
       return state;

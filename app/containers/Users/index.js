@@ -20,6 +20,7 @@ import saga from 'containers/Users/saga';
 
 import View from 'containers/Users/View';
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import * as selectors from './selectors';
 
 const single = isSingleCommunityWebsite();
@@ -43,7 +44,7 @@ const Users = ({
   }, [getUsersDispatch]);
 
   const userCount = useMemo(
-    () => (single ? users.length : stat.usersCount),
+    () => (single || isSuiBlockchain ? users.length : stat.usersCount),
     [stat.usersCount, users.length],
   );
 
@@ -67,6 +68,13 @@ const Users = ({
     });
   }, [getUsersDispatch]);
 
+  const sortedUsers = isSuiBlockchain
+    ? [...users].sort((firstUser, secondUser) =>
+        sorting === 'asc'
+          ? firstUser.creationTime - secondUser.creationTime
+          : secondUser.creationTime - firstUser.creationTime,
+      )
+    : users;
   return (
     <>
       <Seo
@@ -79,7 +87,7 @@ const Users = ({
         userCount={userCount}
         getMoreUsers={getMoreUsers}
         dropdownFilter={dropdownFilter}
-        users={users}
+        users={sortedUsers}
         usersLoading={usersLoading}
         sorting={sorting}
         searchText={searchText}

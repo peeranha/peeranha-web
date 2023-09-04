@@ -29,7 +29,7 @@ import {
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
 
-import { showLoginModal } from 'containers/Login/actions';
+import { showLoginModal, loginWithSui } from 'containers/Login/actions';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -66,22 +66,19 @@ export const Questions = ({
   typeFilter,
   createdFilter,
   setTypeFilterDispatch,
-  initLoadedItems,
-  nextLoadedItems,
   getQuestionsDispatch,
   questionFilter,
   isLastTopQuestionLoaded,
+  loginWithSuiDispatch,
   postsTypes,
   questionsCount,
 }) => {
   const { t } = useTranslation();
-  const { firstContentIndex, lastContentIndex, nextPage, prevPage, page, setPage, totalPages } =
-    usePagination({
-      contentPerPage: AMOUNT_POSTS_PAGINATION,
-      count: questionsCount,
-    });
+  const { nextPage, prevPage, page, setPage, totalPages, limit, skip } = usePagination({
+    contentPerPage: AMOUNT_POSTS_PAGINATION,
+    count: questionsCount,
+  });
 
-  const skip = page * AMOUNT_POSTS_PAGINATION;
   const isFeed = window.location.pathname === routes.feed(params.communityid);
   const isNotFollowedCommunities = isEmpty(followedCommunities) || followedCommunities[0] === 0;
   const isExpert = path === routes.expertPosts() || path === routes.expertPosts(':communityid');
@@ -91,64 +88,32 @@ export const Questions = ({
     questionsList.length === 0 &&
     !questionsLoading &&
     isNotFollowedCommunities;
-  const getInitQuestions = useCallback(() => {
+
+  const getPosts = useCallback(() => {
     if (!questionFilter) {
       const searchParamsTags = getSearchParams(history.location.search);
       getQuestionsDispatch(
-        initLoadedItems,
-        0,
-        postsTypes,
-        searchParamsTags,
-        params.communityid || 0,
-        parentPage,
-        false,
-        true,
-      );
-    }
-  }, [
-    initLoadedItems,
-    params.communityid,
-    history.location.search,
-    parentPage,
-    questionFilter,
-    postsTypes,
-  ]);
-  useEffect(() => {
-    if (page > 1 && !questionFilter) {
-      const searchParamsTags = getSearchParams(history.location.search);
-      getQuestionsDispatch(
-        nextLoadedItems,
+        limit,
         skip,
         postsTypes,
         searchParamsTags,
         params.communityid || 0,
         parentPage,
-        true,
       );
     }
-  }, [
-    getQuestionsDispatch,
-    nextLoadedItems,
-    page,
-    params.communityid,
-    parentPage,
-    postsTypes,
-    questionFilter,
-    skip,
-  ]);
+  }, [params.communityid, history.location.search, parentPage, questionFilter, postsTypes, skip]);
 
   useEffect(() => {
-    getInitQuestions();
+    if (!questionFilter) {
+      getPosts();
+    }
+  }, [page, params.communityid, parentPage, skip, postsTypes]);
+
+  useEffect(() => {
     if (page !== 1) {
       setPage(1);
     }
-  }, [
-    typeFilter,
-    createdFilter,
-    postsTypes,
-    JSON.stringify(communities),
-    JSON.stringify(followedCommunities),
-  ]);
+  }, [JSON.stringify(postsTypes)]);
 
   useEffect(() => {
     setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
@@ -236,26 +201,30 @@ export const Questions = ({
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
           isEmpty={questionsList.length === 0}
           isSingleCommunityMode={single}
+          profileInfo={profile}
+          loginWithSuiDispatch={loginWithSuiDispatch}
         />
       )}
-      {questionsList.length > 0 && (
-        <Content
-          isFeed={isFeed}
-          questionsList={questionsList}
-          locale={locale}
-          communities={communities}
-          typeFilter={typeFilter}
-          createdFilter={createdFilter}
-          isModerator={isModerator}
-          profileInfo={profile}
-          firstContentIndex={firstContentIndex}
-          lastContentIndex={lastContentIndex}
-          nextPage={nextPage}
-          prevPage={prevPage}
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-        />
+      {displayLoader ? (
+        <LoadingIndicator />
+      ) : (
+        Boolean(questionsList.length) && (
+          <Content
+            isFeed={isFeed}
+            questionsList={questionsList}
+            locale={locale}
+            communities={communities}
+            typeFilter={typeFilter}
+            createdFilter={createdFilter}
+            isModerator={isModerator}
+            profileInfo={profile}
+            nextPage={nextPage}
+            prevPage={prevPage}
+            page={page}
+            setPage={setPage}
+            totalPages={totalPages}
+          />
+        )
       )}
       {isTopCommunitiesDisplay && (
         <TopCommunities
@@ -265,7 +234,6 @@ export const Questions = ({
           locale={locale}
         />
       )}
-      {!questionsList.length && displayLoader && <LoadingIndicator />}
     </div>
   ) : (
     <NotFound />
@@ -283,8 +251,6 @@ Questions.propTypes = {
   topQuestionsLoading: PropTypes.bool,
   promotedQuestions: PropTypes.object,
   communitiesLoading: PropTypes.bool,
-  isLastFetch: PropTypes.bool,
-  initLoadedItems: PropTypes.number,
   nextLoadedItems: PropTypes.number,
   match: PropTypes.object,
   getQuestionsDispatch: PropTypes.func,
@@ -294,7 +260,7 @@ Questions.propTypes = {
   createdFilter: PropTypes.any,
   setTypeFilterDispatch: PropTypes.func,
   questionFilter: PropTypes.number,
-  loadTopQuestionsDispatch: PropTypes.func,
+  loginWithSuiDispatch: PropTypes.func,
   isLastTopQuestionLoaded: PropTypes.bool,
 };
 
@@ -312,12 +278,8 @@ export default compose(
       followedCommunities: makeSelectFollowedCommunities(),
       questionsLoading: questionsSelector.selectQuestionsLoading(),
       topQuestionsLoading: questionsSelector.selectTopQuestionsLoading(),
-      initLoadedItems: questionsSelector.selectInitLoadedItems(),
-      loadedItems: questionsSelector.selectLoadedItems(),
-      nextLoadedItems: questionsSelector.selectNextLoadedItems(),
       typeFilter: questionsSelector.selectTypeFilter(),
       createdFilter: questionsSelector.selectCreatedFilter(),
-      isLastFetch: questionsSelector.selectIsLastFetch(),
       questionFilter: questionsSelector.selectQuestionFilter(),
       questionsList: (state, props) =>
         questionsSelector.selectQuestions(props.parentPage, props.match.params.communityid)(state),
@@ -330,7 +292,7 @@ export default compose(
       getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
       showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
       redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
-      loadTopQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+      loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
     }),
   ),
 )(Questions);

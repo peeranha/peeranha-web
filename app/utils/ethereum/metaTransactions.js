@@ -4,9 +4,10 @@ import {
   CONTRACT_CONTENT,
   CONTRACT_TOKEN,
   CONTRACT_USER,
+  ContractsMapping,
 } from 'utils/ethConstants';
 
-import { TRANSACTION_LIST } from 'utils/ethereum/transactionsListManagement';
+import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 import {
   BLOCKCHAIN_SEND_META_TRANSACTION,
   callService,
@@ -58,11 +59,11 @@ export async function sendMetaTransactionMethod(
   confirmations = 1,
   token,
 ) {
+  await this.chainCheck(network);
   const metaTxContract = this[`${contract}Reads`];
-  const nonce = await metaTxContract.getNonce(actor);
+  let nonce = await metaTxContract.getNonce(actor);
   console.log(`Nonce from contract: ${nonce}`);
-
-  if (nonce.lte(this.previousNonce)) {
+  if (nonce.eq(this.previousNonce)) {
     nonce = this.previousNonce.add(1);
     this.previousNonce = nonce;
   } else {
@@ -93,7 +94,7 @@ export async function sendMetaTransactionMethod(
     name: CONTRACT_TO_NAME[contract],
     version: '1',
     verifyingContract: metaTxContract.address,
-    salt: `0x${parseInt(process.env.CHAIN_ID, 10).toString(16).padStart(64, '0')}`,
+    salt: `0x${parseInt(this.CHAIN_IDS[Number(network)], 10).toString(16).padStart(64, '0')}`,
   };
 
   const dataToSign = JSON.stringify({
@@ -112,6 +113,7 @@ export async function sendMetaTransactionMethod(
 
   const response = await callService(BLOCKCHAIN_SEND_META_TRANSACTION, {
     contractAddress: metaTxContract.address,
+    contractName: ContractsMapping[contract][0],
     userAddress: actor,
     functionSignature,
     sigR: r,
@@ -125,8 +127,9 @@ export async function sendMetaTransactionMethod(
   this.transactionList.push({
     action,
     transactionHash: response.body.transactionHash,
+    network,
   });
-
+  this.setTransactionList(this.transactionList);
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
 
   if (response.errorCode) {
@@ -134,7 +137,7 @@ export async function sendMetaTransactionMethod(
   }
 
   this.transactionInPending(response.body.transactionHash, this.transactionList);
-  const result = await this.providerReads.waitForTransaction(
+  const result = await this[this.providerForWaiting[Number(network)]].waitForTransaction(
     response.body.transactionHash,
     confirmations,
   );
@@ -144,6 +147,7 @@ export async function sendMetaTransactionMethod(
   if (pendingTransaction) {
     pendingTransaction.result = result;
   }
+  this.setTransactionList(this.transactionList);
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
   setTimeout(() => {
     const index = this.transactionList

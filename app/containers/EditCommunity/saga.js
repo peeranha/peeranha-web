@@ -4,6 +4,7 @@ import { communities as communitiesRoute, feed } from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 
 import { getCommunitiesSuccess } from 'containers/DataCacheProvider/actions';
 
@@ -15,8 +16,12 @@ import {
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 import { uploadImg } from 'utils/profileManagement';
+import { getActualId } from 'utils/properties';
 import { delay } from 'utils/reduxUtils';
 import { getCommunityById } from 'utils/theGraph';
+import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { updateSuiCommunity } from 'utils/sui/communityManagement';
+import { getFileUrl } from 'utils/ipfs';
 
 import {
   editCommunityError,
@@ -29,6 +34,12 @@ import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
 
 import { selectCommunity } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
 
 export function* getCommunityWorker({ communityId }) {
   try {
@@ -43,12 +54,12 @@ export function* editCommunityWorker({ communityId, communityData }) {
   try {
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
-      communityData.avatar = imgHash;
+      communityData.avatar = isSuiBlockchain ? getFileUrl(imgHash) : imgHash;
     }
 
     if (communityData.banner && communityData.banner.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.banner);
-      communityData.banner = imgHash;
+      communityData.banner = isSuiBlockchain ? getFileUrl(imgHash) : imgHash;
     }
 
     const communityDataCurrent = yield select(selectCommunity());
@@ -58,15 +69,30 @@ export function* editCommunityWorker({ communityId, communityData }) {
     );
 
     if (!isEqual) {
-      const ethereumService = yield select(selectEthereum);
-      const selectedAccount = yield call(ethereumService.getSelectedAccount);
+      if (isSuiBlockchain) {
+        yield put(transactionInitialised());
+        const wallet = yield select(selectSuiWallet());
+        const txResult = yield call(
+          updateSuiCommunity,
+          wallet,
+          getActualId(communityId),
+          communityData,
+        );
+        yield put(transactionInPending(txResult.digest));
+        yield call(waitForTransactionConfirmation, txResult.digest);
+        yield put(transactionCompleted());
+        const communities = yield call(getAllCommunities);
+        yield put(getCommunitiesSuccess(communities));
+      } else {
+        const ethereumService = yield select(selectEthereum);
+        const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
-      yield call(editCommunity, ethereumService, selectedAccount, communityId, communityData);
+        yield call(editCommunity, ethereumService, selectedAccount, communityId, communityData);
 
-      const stat = yield select(selectStat());
-      const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
-
-      yield put(getCommunitiesSuccess(communities));
+        const stat = yield select(selectStat());
+        const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
+        yield put(getCommunitiesSuccess(communities));
+      }
     } else {
       yield call(delay, 1e3);
     }
@@ -75,6 +101,9 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
   } catch (error) {
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(error));
+    }
     yield put(editCommunityError(error));
   }
 }

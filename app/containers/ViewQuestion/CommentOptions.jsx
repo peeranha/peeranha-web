@@ -11,6 +11,9 @@ import Span from 'components/Span';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { TextareaStyled } from 'components/Textarea';
+import SuiConnectModals from 'components/SuiConnectModals';
+
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { singleCommunityColors } from 'utils/communityManagement';
 import CommentForm from './CommentForm';
 
@@ -34,6 +37,18 @@ const CommentEditStyled = styled.div`
   }
 `;
 
+const ActionButtonWithLogin = ({ onClick, buttonId }) => {
+  const { t } = useTranslation();
+  return (
+    <ButtonStyled id={buttonId} onClick={onClick}>
+      <IconMd icon={dotsIcon} fill={colors.commentOption || BORDER_PRIMARY} />
+      <Span className="ml-11" color={colors.commentOption || TEXT_PRIMARY}>
+        {t('post.addComment')}
+      </Span>
+    </ButtonStyled>
+  );
+};
+
 export const CommentOptions = ({
   form,
   submitButtonId,
@@ -47,12 +62,18 @@ export const CommentOptions = ({
   changeCommentsView,
   isAllCommentsView,
   commentsNumber,
+  profileInfo,
+  loginWithSuiDispatch,
 }) => {
   const { t } = useTranslation();
   const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
 
   const showCommentForm =
     addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) || false;
+
+  const actionButtonWithLogin = (onClick) => (
+    <ActionButtonWithLogin onClick={onClick} buttonId={toggleFormButtonId} />
+  );
 
   return (
     <div className="my-3">
@@ -72,15 +93,17 @@ export const CommentOptions = ({
           </ButtonStyled>
         )}
 
-        <ButtonStyled
-          id={toggleFormButtonId}
-          onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
-        >
-          <IconMd icon={dotsIcon} fill={colors.commentOption || BORDER_PRIMARY} />
-          <Span className="ml-1" color={colors.commentOption || TEXT_PRIMARY}>
-            {t('post.addComment')}
-          </Span>
-        </ButtonStyled>
+        {!profileInfo && isSuiBlockchain ? (
+          <SuiConnectModals
+            loginWithWallet={loginWithSuiDispatch}
+            actionButtonWithLogin={actionButtonWithLogin}
+          />
+        ) : (
+          <ActionButtonWithLogin
+            onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
+            buttonId={toggleFormButtonId}
+          />
+        )}
       </div>
 
       {showCommentForm && (
@@ -114,6 +137,8 @@ CommentOptions.propTypes = {
   changeCommentsView: PropTypes.func,
   isAllCommentsView: PropTypes.bool,
   commentsNumber: PropTypes.number,
+  profileInfo: PropTypes.object,
+  loginWithSuiDispatch: PropTypes.func,
 };
 
 export default React.memo(CommentOptions);
