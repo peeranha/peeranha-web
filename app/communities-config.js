@@ -149,6 +149,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
+        '3-0x176d1ff622ed604802c42ec15df79e67e1b97d9421f93ba1e77f19c569897b1d': {
+          origin: `https://scm-sui-staging${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/move/logo.svg',
+          styles: MoveStyles,
+        },
       }
     : {
         '1-1': {
