@@ -1,9 +1,13 @@
+import { CSSObject } from '@emotion/react';
 import { TEXT_SECONDARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
+const isSingleCommunityMode = isSingleCommunityWebsite();
+const isSuiFooter = isSuiBlockchain && !isSingleCommunityMode;
 
-export const styles = {
+export const styles: Record<string, CSSObject> = {
   footer: {
     minHeight: '220px',
     color: colors.footerText || TEXT_SECONDARY,
@@ -11,12 +15,15 @@ export const styles = {
 
   footerCommunityMode: {
     minHeight: '150px',
+    background: isSuiFooter
+      ? 'rgb(234, 247, 255)'
+      : colors.footerBackgroundColor || colors.mainBackground || 'rgb(234, 236, 244)',
   },
 
   logo: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '32px',
+    paddingTop: isSuiFooter ? 0 : '32px',
     '@media (max-width: 991px)': {
       justifyContent: 'start',
       marginLeft: '16px',
@@ -24,7 +31,7 @@ export const styles = {
     },
     img: {
       width: '180px',
-      marginBottom: '32px',
+      paddingBottom: '32px',
       '@media (max-width: 991px)': {
         marginBottom: '24px',
       },
@@ -32,7 +39,7 @@ export const styles = {
   },
 
   infoBlock: {
-    display: 'flex',
+    display: isSuiFooter ? 'none' : 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     whiteSpace: 'nowrap',
@@ -52,7 +59,7 @@ export const styles = {
   infoLinks: {
     width: '100%',
     margin: '0 32px',
-    color: '#667085',
+    color: colors.footerText || '#667085',
     fontWeight: 600,
     '@media (max-width: 991px)': {
       margin: '0 32px 12px 16px',
@@ -64,8 +71,8 @@ export const styles = {
   },
 
   border: {
-    borderBottom: `1px solid ${colors.footer || '#c2c6d8'}`,
-    margin: '32px',
+    borderBottom: `1px solid ${colors.footerBorderColor || '#c2c6d8'}`,
+    margin: isSuiFooter ? '0 0 32px' : '32px',
     '@media (max-width: 991px)': {
       margin: '28px 16px',
     },
@@ -117,7 +124,7 @@ export const styles = {
     alignItems: 'start',
     flexDirection: 'column',
     marginLeft: '32px',
-    color: '#667085',
+    color: colors.footerText || '#667085',
     lineHeight: '24px',
     '@media (max-width: 991px)': {
       marginLeft: '16px',
@@ -147,7 +154,7 @@ export const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: TEXT_SECONDARY,
+    color: colors.footerText || TEXT_SECONDARY,
     fontSize: '16px',
     marginBottom: '8px',
     ':hover': {
