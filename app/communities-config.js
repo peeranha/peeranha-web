@@ -149,8 +149,13 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
-        '3-0x176d1ff622ed604802c42ec15df79e67e1b97d9421f93ba1e77f19c569897b1d': {
+        '3-0x4a8832772ffd5abe1807e6ff51daef45a827f7a4f55c102a84ffe99f9f878426': {
           origin: `https://scm-sui-staging${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiGlobalStyles,
+        },
+        '3-0x176d1ff622ed604802c42ec15df79e67e1b97d9421f93ba1e77f19c569897b1d': {
+          origin: `https://second-sui-staging${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/move/logo.svg',
           styles: MoveStyles,
         },
