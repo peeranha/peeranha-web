@@ -215,12 +215,12 @@ export const CartesiStyles = {
     color: '#FFF',
 
     button: {
-      color: '#1B1A1E',
-      borderColor: '#00F6FF',
-      background: '#00F6FF',
+      color: '#FFF',
+      borderColor: '#008DA5',
+      background: '#008DA5',
       ':hover': {
-        background: '#008DA5',
-        color: '#1B1A1E',
+        background: '#FFF',
+        color: '#008DA5',
         borderColor: '#008DA5',
       },
     },
@@ -242,7 +242,7 @@ export const CartesiStyles = {
     }
   `,
   headerLoginButtonStyles: css`
-    border: 2px solid #008da5;
+    border: 1px solid #008da5;
     color: #008da5;
     :hover {
       background: #008da5 !important;
