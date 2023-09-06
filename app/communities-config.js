@@ -171,11 +171,6 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
           styles: MintStateLabsStyles,
         },
-        '1-3': {
-          origin: `https://demo-ankr.testpeeranha.io`,
-          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
-          styles: AnkrStyles,
-        },
         '1-4': {
           origin: 'https://demo-fxland.testpeeranha.io',
           src: 'https://images.peeranha.io/communities/functionland/logo.svg',
@@ -190,6 +185,11 @@ const communitiesConfig = {
           origin: 'https://demo-sui.testpeeranha.io',
           src: 'https://images.peeranha.io/communities/sui/logo.svg',
           styles: SuiStyles,
+        },
+        '2-2': {
+          origin: `https://demo-ankr.testpeeranha.io`,
+          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
+          styles: AnkrStyles,
         },
       },
   test: isSuiBlockchain
