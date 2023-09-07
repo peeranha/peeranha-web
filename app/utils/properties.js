@@ -17,6 +17,7 @@ import {
   communityModeratorPermissions,
   PROTOCOL_ADMIN_ROLE,
   BOT_ADDRESS,
+  SUI_BOT_ADDRESS,
 } from './constants';
 
 // todo change to "findRole"
@@ -164,7 +165,8 @@ export const getCommunityIdFromPermission = (permission, role) => {
   return BigNumber.from(permission).sub(BigNumber.from(role)).toNumber();
 };
 
-export const isBotAddress = (account) => account.id === BOT_ADDRESS;
+export const isBotAddress = (account) =>
+  isSuiBlockchain ? account.id === SUI_BOT_ADDRESS : account.id === BOT_ADDRESS;
 
 export const getAllRoles = (userRoles = []) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
