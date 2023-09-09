@@ -11,12 +11,13 @@ export const styles = {
 
   footerCommunityMode: {
     minHeight: '150px',
+    background: colors.footerBackgroundColor || 'rgb(234, 236, 244)',
   },
 
   logo: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '32px',
+    paddingTop: '32px',
     '@media (max-width: 991px)': {
       justifyContent: 'start',
       marginLeft: '16px',
@@ -24,7 +25,7 @@ export const styles = {
     },
     img: {
       width: '180px',
-      marginBottom: '32px',
+      paddingBottom: '32px',
       '@media (max-width: 991px)': {
         marginBottom: '24px',
       },
@@ -52,7 +53,7 @@ export const styles = {
   infoLinks: {
     width: '100%',
     margin: '0 32px',
-    color: '#667085',
+    color: colors.footerText || '#667085',
     fontWeight: 600,
     '@media (max-width: 991px)': {
       margin: '0 32px 12px 16px',
@@ -64,7 +65,7 @@ export const styles = {
   },
 
   border: {
-    borderBottom: `1px solid ${colors.footer || '#c2c6d8'}`,
+    borderBottom: `1px solid ${colors.footerBorderColor || '#c2c6d8'}`,
     margin: '32px',
     '@media (max-width: 991px)': {
       margin: '28px 16px',
@@ -117,7 +118,7 @@ export const styles = {
     alignItems: 'start',
     flexDirection: 'column',
     marginLeft: '32px',
-    color: '#667085',
+    color: colors.footerText || '#667085',
     lineHeight: '24px',
     '@media (max-width: 991px)': {
       marginLeft: '16px',
@@ -147,7 +148,7 @@ export const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: TEXT_SECONDARY,
+    color: colors.footerText || TEXT_SECONDARY,
     fontSize: '16px',
     marginBottom: '8px',
     ':hover': {
