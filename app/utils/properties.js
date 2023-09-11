@@ -192,13 +192,14 @@ export const getAllRoles = (userRoles = []) => {
       if (isSuiBlockchain) {
         const id = userRole.split('-')[1].substring(2);
         communityId = `${userRole.split('-')[0]}-${id}`;
+        role = communityRole;
       } else if (userRole.includes(communityRole.substring(0, 16))) {
         const id = BigNumber.from(userRole.split('-')[1])
           .sub(BigNumber.from(communityRole))
           .toString();
         communityId = `${userRole.split('-')[0]}-${id}`;
+        role = communityRole;
       }
-      role = communityRole;
     });
     return {
       communityId,
@@ -228,17 +229,15 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
   communityId
-    ? !!permissions.filter((permission) => {
-        const actualPermission = permission.split('-')[1];
-        return (
-          actualPermission ===
+    ? !!permissions.filter(
+        (permission) =>
+          permission ===
             getCommunityRole(
               COMMUNITY_MODERATOR_ROLE,
               getActualId(communityId),
               getNetwork(communityId),
-            ) && getNetwork(permission) === getNetwork(communityId)
-        );
-      }).length
+            ) && getNetwork(permission) === getNetwork(communityId),
+      ).length
     : false;
 
 export const hasProtocolAdminRole = (permissionsFromState) => {

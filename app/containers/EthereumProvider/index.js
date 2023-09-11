@@ -34,15 +34,7 @@ import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
 const injected = injectedModule();
-const coinbase = coinbaseModule();
 
-const wcV2InitOptions = {
-  projectId: 'Peeranha',
-  requiredChains: [1, 56],
-  dappUrl: process.env.APP_LOCATION,
-};
-
-const walletConnect = walletConnectModule(wcV2InitOptions);
 const torus = torusModule({
   showTorusButton: false,
   network: {
@@ -56,7 +48,7 @@ const styles = singleCommunityStyles();
 const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
 
 const initWeb3Onboard = init({
-  wallets: [torus, injected, walletConnect, coinbase],
+  wallets: [torus, injected],
   chains: [
     {
       id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,

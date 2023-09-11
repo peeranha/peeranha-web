@@ -61,8 +61,8 @@ export const GET_STAKE = 'getStake';
 export const GET_USER_STAKE = 'getUserStake';
 export const GET_USER_RATING = 'getUserRating';
 
-export const UPVOTE_STATUS = 3;
-export const DOWNVOTE_STATUS = 1;
+export const UPVOTE_STATUS = 1;
+export const DOWNVOTE_STATUS = -1;
 
 const editUserQuery = (query: string) =>
   query
@@ -546,7 +546,7 @@ const usersPostsQueryMesh = `
           offset: $limit,
           where: { isDeleted: "0", author: $id, postType: "<3", networkId: "(${getNetworkIds()})" },
         ) {
-           ${postMeshShallow}
+           ${postMesh}
         }
       }`;
 
