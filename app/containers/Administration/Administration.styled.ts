@@ -8,6 +8,14 @@ export const styles = {
     minWidth: '0',
   },
 
+  contentBlock: {
+    flexDirection: 'column',
+    marginBottom: '16px',
+    'div:last-child': {
+      borderBottom: 'none',
+    },
+  },
+
   contentGrid: {
     gridTemplateColumns: isSuiBlockchain ? '3fr 6fr 3fr' : '3fr 5fr 6fr',
   },
