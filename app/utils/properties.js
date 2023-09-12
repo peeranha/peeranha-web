@@ -86,7 +86,9 @@ export const getModeratorPermissions = (
       role,
       translations,
       permissionsTypes,
-      communityId,
+      communityId: isSuiBlockchain
+        ? `${communityId.split('-')[0]}-0x${communityId.split('-')[1]}`
+        : communityId,
       communities,
       index,
     });

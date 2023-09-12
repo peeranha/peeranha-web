@@ -328,7 +328,8 @@ const MainLinks = ({
       <div css={styles.dividerLinks} />
 
       {Boolean(singleCommId) &&
-        (documentationMenu.length > 0 || isModeratorModeSingleCommunity) && (
+        (documentationMenu.length > 0 || isModeratorModeSingleCommunity) &&
+        !isSuiBlockchain && (
           <Documentation
             documentationMenu={documentationMenu}
             isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}

@@ -489,6 +489,7 @@ const community = `
   networkId
   followingUsers
   replyCount
+  communitySite
   communitytranslation {
     communityId
     name

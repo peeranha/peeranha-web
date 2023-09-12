@@ -157,7 +157,8 @@ export const QuestionForm = ({
   const communityId = formValues[FORM_COMMUNITY]?.id || single || question?.communityId;
   const isHasRoleGlobal =
     hasGlobalModeratorRole(getPermissions(profile)) ||
-    hasProtocolAdminRole(getPermissions(profile));
+    hasProtocolAdminRole(getPermissions(profile)) ||
+    hasCommunityModeratorRole(getPermissions(profile), communityId);
 
   const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
