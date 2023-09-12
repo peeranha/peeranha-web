@@ -5,6 +5,10 @@ import { css } from '@emotion/react';
 import Label from 'components/FormFields/Label';
 import { FULL_RULES_LINK } from 'app/constants/rules';
 import { styles } from './PostRules.styled';
+import { singleCommunityColors } from 'utils/communityManagement';
+import { LINK_COLOR } from 'style-constants';
+
+const colors = singleCommunityColors();
 
 const messagesArray = [
   'common.contentPopupBlock_3',
@@ -31,7 +35,17 @@ const PostRules = () => {
         <span css={css(styles.fullRules)}>
           <Trans
             i18nKey="common.contentPopupBlock_8"
-            components={[<a href={FULL_RULES_LINK} key="0" target="_blank" />]}
+            components={[
+              <a
+                href={FULL_RULES_LINK}
+                key="0"
+                target="_blank"
+                css={{
+                  color: colors.linkColor || LINK_COLOR,
+                  ':hover': { color: colors.linkColor || LINK_COLOR },
+                }}
+              />,
+            ]}
           />
         </span>
         <span>{t('common.moderatorsCanDeletePosts')}</span>

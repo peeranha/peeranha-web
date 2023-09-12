@@ -2,6 +2,9 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
 import { RULES_BACKGROUND } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const RulesBlock: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -9,11 +12,11 @@ const RulesBlock: React.FC = (): JSX.Element => {
   return (
     <div
       className="full-width full-height p20 df"
-      css={css`
-        background-color: ${RULES_BACKGROUND};
-        border-radius: 10px;
-        margin-bottom: 16px;
-      `}
+      css={{
+        backgroundColor: colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
+        borderRadius: '10px',
+        marginBottom: '16px',
+      }}
     >
       <div
         css={css`

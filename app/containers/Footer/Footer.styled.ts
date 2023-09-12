@@ -1,4 +1,4 @@
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY, LINK_COLOR } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
@@ -55,6 +55,9 @@ export const styles = {
     margin: '0 32px',
     color: colors.footerText || '#667085',
     fontWeight: 600,
+    ':hover': {
+      color: colors.linkColor || LINK_COLOR,
+    },
     '@media (max-width: 991px)': {
       margin: '0 32px 12px 16px',
       fontWeight: 400,
