@@ -167,9 +167,7 @@ const MainLinks = ({
   const singleCommId = isSingleCommunityWebsite();
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
-    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
-      hasCommunityModeratorRole(getPermissions(profile), singleCommId) ||
-      isProtocolAdmin
+    ? hasCommunityModeratorRole(getPermissions(profile), singleCommId) || isProtocolAdmin
     : false;
 
   const isAdministratorModeSingleCommunity = singleCommId
@@ -305,7 +303,6 @@ const MainLinks = ({
         )}
 
         {(hasGlobalModeratorRole() ||
-          hasProtocolAdminRole() ||
           isModeratorModeSingleCommunity ||
           (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>

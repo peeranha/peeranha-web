@@ -71,7 +71,7 @@ export const getModeratorPermissions = (
   translations,
 ) => {
   const values = getAllRoles(globalModeratorProps, communitiesCount);
-  const permissions1 = {};
+  const permissions = {};
   values.map(({ communityId = 0, role }, index) => {
     const rawPermissionsTypes = !communityId
       ? globalAdminPermissions
@@ -86,19 +86,20 @@ export const getModeratorPermissions = (
       role,
       translations,
       permissionsTypes,
-      communityId: isSuiBlockchain
-        ? `${communityId.split('-')[0]}-0x${communityId.split('-')[1]}`
-        : communityId,
+      communityId:
+        isSuiBlockchain && communityId
+          ? `${communityId.split('-')[0]}-0x${communityId.split('-')[1]}`
+          : communityId,
       communities,
       index,
     });
-    if (permissions1[communityId]) {
-      permissions1[communityId].push(permissionObject);
+    if (permissions[communityId]) {
+      permissions[communityId].push(permissionObject);
     } else {
-      permissions1[communityId] = [permissionObject];
+      permissions[communityId] = [permissionObject];
     }
   });
-  return Object.values(permissions1);
+  return Object.values(permissions);
 };
 
 export const isUserTopCommunityQuestionsModerator = (properties = [], communityId) =>
@@ -191,7 +192,7 @@ export const getAllRoles = (userRoles = []) => {
     let communityId;
     let role;
     communityRoles.map((communityRole) => {
-      if (isSuiBlockchain) {
+      if (isSuiBlockchain && userRole.split('-')[1].substring(0, 2) === communityRole) {
         const id = userRole.split('-')[1].substring(2);
         communityId = `${userRole.split('-')[0]}-${id}`;
         role = communityRole;
