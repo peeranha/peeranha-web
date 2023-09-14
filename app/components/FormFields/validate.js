@@ -8,7 +8,6 @@ import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 // TODO: test
 const imageValidation = (img) => (img && img.length > 2000000 ? 'formFields.fileSize' : undefined);
@@ -120,8 +119,7 @@ const requiredForObjectField = (value) => {
 };
 
 const requiredMinReputation = (...args) => {
-  const id = isSuiBlockchain ? args[0].suiId : args[0].id;
-
+  const { id } = args[0];
   const { profile } = args[2];
   const MIN_REPUTATION = 0;
 
