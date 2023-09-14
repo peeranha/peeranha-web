@@ -14,7 +14,6 @@ import ProgressBar from './ProgressBar';
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
 import { getNFTUrl } from '../../utils/ipfs';
-import { LIMITED_EDITION_NFT_TYPE } from '../../utils/constants';
 import NFTInformation from './NFTInformation';
 import { isSuiBlockchain } from 'utils/sui/sui';
 
@@ -131,7 +130,7 @@ const UniqueAchievement = ({
                 </LimitPhrase>
               )}
             </DescriptionBlock>
-            {isSuiBlockchain && !isMinted && (
+            {isSuiBlockchain && !isMinted && currentUser && (
               <button
                 css={{
                   width: '96px',
@@ -144,7 +143,7 @@ const UniqueAchievement = ({
                   marginTop: '16px',
                 }}
                 disabled={!canMintAchievement}
-                onClick={() => mintAchievement(id)}
+                onClick={() => mintAchievement(id.split('-')[1])}
               >
                 {t('achievements.receive')}
               </button>

@@ -430,12 +430,17 @@ export function* updateUserAchievementsWorker(
   }
 }
 
-export function* mintSuiAchievementWorker(suiAchievementId) {
+export function* mintSuiAchievementWorker({ suiAchievementId }) {
   try {
     yield put(transactionInitialised());
     const wallet = yield select(selectSuiWallet());
     const suiUserObject = yield call(getSuiUserObject, wallet.address);
-    const txResult = yield call(mintSuiAchievement, wallet, suiUserObject, suiAchievementId);
+    const txResult = yield call(
+      mintSuiAchievement,
+      wallet,
+      suiUserObject?.id?.id,
+      suiAchievementId,
+    );
     yield put(transactionInPending(txResult.digest));
     yield call(waitForTransactionConfirmation, txResult.digest);
     yield put(transactionCompleted());

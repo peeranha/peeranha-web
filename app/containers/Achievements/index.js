@@ -1,5 +1,5 @@
 import React, { useEffect, memo } from 'react';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useTranslation } from 'react-i18next';
@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { getNetworkIds } from 'utils/ethConstants';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 
 import { BORDER_SECONDARY } from 'style-constants';
 
@@ -39,8 +37,6 @@ import {
   mintAchievement,
 } from './actions';
 
-import reducer from './reducer';
-import saga from './saga';
 import { IS_MINTED_ACHIEVEMENT, CAN_MINT_ACHIEVEMENT } from './constants';
 
 import UniqueAchievement from './UniqueAchievement';
@@ -147,8 +143,16 @@ const Achievements = ({
                       achievementsType={achievement.achievementsType}
                       locale={locale}
                       currentUser={profile?.id === userId}
-                      isMinted={userAchievements?.isMinted === IS_MINTED_ACHIEVEMENT}
-                      canMintAchievement={userAchievements?.isMinted === CAN_MINT_ACHIEVEMENT}
+                      isMinted={userAchievements?.some(
+                        (achievementId) =>
+                          achievementId.id === achievement.id &&
+                          achievementId?.isMinted === IS_MINTED_ACHIEVEMENT,
+                      )}
+                      canMintAchievement={userAchievements?.some(
+                        (achievementId) =>
+                          achievementId.id === achievement.id &&
+                          achievementId?.isMinted === CAN_MINT_ACHIEVEMENT,
+                      )}
                       mintAchievement={mintAchievementDispatch}
                     />
                   ),
@@ -201,9 +205,4 @@ const mapDispatchToProps = (dispatch) => ({
   mintAchievementDispatch: bindActionCreators(mintAchievement, dispatch),
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'userAchievements', reducer });
-const withSaga = injectSaga({ key: 'userAchievements', saga });
-
-export default memo(compose(withReducer, withSaga, withConnect)(Achievements));
+export default memo(connect(mapStateToProps, mapDispatchToProps)(Achievements));
