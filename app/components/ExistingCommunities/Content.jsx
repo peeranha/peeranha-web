@@ -208,7 +208,7 @@ const Content = ({ communities, sorting, locale, profile }) => {
 
                   <Info>
                     {(communityEditingAllowed ||
-                      hasCommunityAdminRole(getPermissions(profile), value)) && (
+                      hasCommunityModeratorRole(getPermissions(profile), value)) && (
                       <InfoButton onClick={() => createdHistory.push(routes.communitiesEdit(id))}>
                         {t('common.edit')}
                       </InfoButton>
