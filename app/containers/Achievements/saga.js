@@ -445,6 +445,7 @@ export function* mintSuiAchievementWorker({ suiAchievementId }) {
     yield call(waitForTransactionConfirmation, txResult.digest);
     yield put(transactionCompleted());
     yield put(mintAchievementSuccess());
+    yield call(getAchievementsWorker);
   } catch (err) {
     yield put(transactionFailed(err));
     yield put(mintAchievementError(err));
