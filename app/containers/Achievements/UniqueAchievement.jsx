@@ -145,7 +145,7 @@ const UniqueAchievement = ({
                 disabled={!canMintAchievement}
                 onClick={() => mintAchievement(id.split('-')[1])}
               >
-                {t('achievements.receive')}
+                {t('achievements.claim')}
               </button>
             )}
           </div>

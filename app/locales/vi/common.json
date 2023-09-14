@@ -520,7 +520,8 @@
     "votePost": "Bài bình chọn",
     "voteReply": "Bình chọn trả lời",
     "grantRole": "Cho phép",
-    "revokeRole": "Thu hồi quyền"
+    "revokeRole": "Thu hồi quyền",
+    "mintUserNFT": "Yêu cầu NFT"
   },
   "aboutPeeranha": "Giới thiệu về Peeranha",
   "postsAnswersComments": "Bài viết, câu trả lời và bình luận",
