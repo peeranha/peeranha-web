@@ -10,6 +10,20 @@ export const styles = {
     fontWeight: 400,
   },
 
+  searchLabel: {
+    background: colors.btnColor || 'rgba(87, 111, 237, 1)',
+    color: 'rgba(255, 255, 255, 1)',
+    width: '39px',
+    height: '20px',
+    borderRadius: '3px',
+    fontWeight: 600,
+    fontSize: '14px',
+    lineHeight: '16px',
+    padding: '1.5px 6px 2.5px 6px',
+    gap: '10px',
+    marginLeft: '8px',
+  },
+
   menuSectionTitle: {
     textTransform: 'uppercase',
     fontSize: '14px',

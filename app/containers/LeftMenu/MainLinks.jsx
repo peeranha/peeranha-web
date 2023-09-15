@@ -31,6 +31,7 @@ import {
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
+import aiIcon from 'images/aiIcon.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
@@ -143,7 +144,6 @@ const Box = styled.div`
   margin-top: 30px;
   @media only screen and (max-width: 991px) {
     margin-top: 0;
-  }
   }
 `;
 
@@ -268,6 +268,14 @@ const MainLinks = ({
           >
             {t('common.communityLabel')}
           </div>
+        )}
+
+        {singleCommId && (
+          <A1 to={routes.defaultPath} name={routes.defaultPath} route={route}>
+            <IconLg className="mr-2" icon={aiIcon} />
+            AI-Powered Search
+            <span css={styles.searchLabel}>New</span>
+          </A1>
         )}
 
         <A1 to={routes.feed()} name="feed" route={route}>
