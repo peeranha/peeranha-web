@@ -58,7 +58,7 @@ export const styles = {
 
     ':hover': {
       boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
-      background: 'rgba(123, 123, 123, 0.1);',
+      background: colors.navMenuBackgroundColor || 'rgba(123, 123, 123, 0.1)',
       borderRadius: '5px',
     },
     svg: {
