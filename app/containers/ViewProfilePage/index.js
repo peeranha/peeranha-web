@@ -85,7 +85,7 @@ const ViewProfilePage = ({
     const mintedUserAchievements = userAchievements?.filter(
       (achievement) => achievement.isMinted === IS_MINTED_ACHIEVEMENT,
     );
-    return account === profile?.user ? userAchievements?.length : mintedUserAchievements.length;
+    return account === profile?.user ? userAchievements?.length : mintedUserAchievements?.length;
   };
 
   return (
