@@ -45,7 +45,7 @@ import {
   resetViewProfileAccount,
   setViewProfileAccount,
 } from '../Achievements/actions';
-
+import { IS_MINTED_ACHIEVEMENT } from '../Achievements/constants';
 import achievementsSaga from '../Achievements/saga';
 import achievementsReducer from '../Achievements/reducer';
 
@@ -81,6 +81,13 @@ const ViewProfilePage = ({
     return () => resetViewProfileAccountDispatch();
   }, [userId]);
 
+  const achievementsCount = () => {
+    const mintedUserAchievements = userAchievements?.filter(
+      (achievement) => achievement.isMinted === IS_MINTED_ACHIEVEMENT,
+    );
+    return account === profile?.user ? userAchievements?.length : mintedUserAchievements.length;
+  };
+
   return (
     <Profile userId={userId} isLogin={account === userId}>
       <Seo
@@ -97,7 +104,7 @@ const ViewProfilePage = ({
         loginData={loginData}
         questionsLength={profile?.postCount ?? 0}
         questionsWithUserAnswersLength={profile?.answersGiven ?? 0}
-        userAchievementsLength={userAchievements?.length ?? null}
+        userAchievementsLength={achievementsCount()}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 
@@ -171,7 +178,7 @@ const ViewProfilePage = ({
         questionsWithAnswersLoading={questionsWithAnswersLoading}
         locale={locale}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
-        userAchievementsLength={userAchievements?.length ?? null}
+        userAchievementsLength={achievementsCount()}
       />
     </Profile>
   );

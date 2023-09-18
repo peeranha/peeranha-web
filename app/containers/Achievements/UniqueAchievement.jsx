@@ -70,7 +70,6 @@ const UniqueAchievement = ({
   const { t } = useTranslation();
   const availiableCount = maxCount - factCount;
   const pointsToNext = lowerValue - (currentValue || 0);
-  const isAchievementVisible = isSuiBlockchain ? isMinted : reached;
   const getProgress = () => (currentValue / lowerValue) * 100;
 
   const [visible, changeVisibility] = useState(false);
@@ -80,10 +79,10 @@ const UniqueAchievement = ({
 
   return (
     <>
-      {reached && (
+      {(currentUser ? reached : isMinted) && (
         <Bage>
           <ImageBlock>
-            {isAchievementVisible ? (
+            {isMinted ? (
               <div
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
@@ -106,7 +105,7 @@ const UniqueAchievement = ({
             ) : (
               <Icon icon={achievementNotReached} width="160" height="148" />
             )}
-            {currentUser && !isAchievementVisible && (
+            {currentUser && !isMinted && !isSuiBlockchain && (
               <ProgressBar
                 achievementId={id}
                 width="60%"
@@ -124,7 +123,7 @@ const UniqueAchievement = ({
             </TitleBlock>
             <DescriptionBlock>
               {description}
-              {!isAchievementVisible && (
+              {!isMinted && !isSuiBlockchain && (
                 <LimitPhrase>
                   Available {availiableCount} out of {maxCount}
                 </LimitPhrase>

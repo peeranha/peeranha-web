@@ -103,11 +103,8 @@ const Achievements = ({
     return () => resetViewProfileAccountDispatch();
   }, [userId]);
 
-  let suiUserAchievements;
-  if (isSuiBlockchain) {
-    suiUserAchievements = userAchievements?.map((achievement) => achievement.id);
-  }
-  const personalUserAchievements = isSuiBlockchain ? suiUserAchievements : userAchievements;
+  const userAchievementsIds = userAchievements?.map((achievement) => achievement.id);
+
   return (
     <div>
       <BaseRoundedStyled>
@@ -127,7 +124,7 @@ const Achievements = ({
                 (achievement) =>
                   achievement.name !== 'error IPFS2' && (
                     <UniqueAchievement
-                      reached={personalUserAchievements?.some(
+                      reached={userAchievementsIds?.some(
                         (achievementId) => achievementId === achievement.id,
                       )}
                       key={achievement.id}

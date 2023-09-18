@@ -74,10 +74,11 @@ import { getSuiUserObject } from 'utils/sui/accountManagement';
 export function* getAchievementsWorker() {
   try {
     const viewProfileAccount = yield select(selectViewProfileAccount());
-    let { allAchievements, userAchievements } = yield call(getAllAchievements, viewProfileAccount);
-    if (!isSuiBlockchain) {
-      userAchievements = userAchievements.map((achievement) => achievement.id);
-    }
+    const { allAchievements, userAchievements } = yield call(
+      getAllAchievements,
+      viewProfileAccount,
+    );
+
     yield put(getAllAchievementsSuccess(allAchievements, userAchievements));
   } catch (err) {
     yield put(getAllAchievementsError(err));
