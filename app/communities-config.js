@@ -199,6 +199,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/solidity/logo.svg',
           styles: SolidityStyles,
         },
+        '3-0xf1ec216ce7573b9b7f625d1cb618374b94f241787919f35da28f93c416e55cc6': {
+          origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
+          styles: CartesiStyles,
+        },
       }
     : {
         '1-1': {
@@ -277,9 +282,9 @@ const communitiesConfig = {
           styles: LaunchpadStyles,
         },
         '1-21': {
-          origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
-          styles: CartesiStyles,
+          origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
+          styles: AnkrStyles,
         },
       },
   dev: isSuiBlockchain

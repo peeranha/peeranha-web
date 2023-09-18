@@ -210,6 +210,8 @@ export const CartesiStyles = {
     newPostButtonText: '#FFF',
     secondaryAdditional: '#008DA5',
     newPostMediaBackgroundColor: 'rgba(0, 246, 255, 0.06)',
+    navMenuBackgroundColor: '#00F6FF',
+    navMenuTextColor: '#1B1A1E',
   },
   cookieConsentPopupStyles: {
     background: '#1B1A1E',
