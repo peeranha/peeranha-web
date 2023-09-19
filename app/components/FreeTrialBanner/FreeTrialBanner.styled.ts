@@ -57,7 +57,7 @@ export const styles = {
         isSingleCommunityWebsite() || isSuiBlockchain
           ? colors.btnHeaderHoverColor
           : 'var(--color-button-secondary)',
-      color: colors.newPostButtonText || BG_LIGHT,
+      color: colors.navMenuTextColor || colors.newPostButtonText || BG_LIGHT,
       opacity: colors.btnHeaderHoverOpacity || 0.8,
     },
   },
