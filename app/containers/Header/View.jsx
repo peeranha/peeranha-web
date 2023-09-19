@@ -46,7 +46,7 @@ import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 import ChangeLocale from 'containers/ChangeLocale';
 import { isSuiBlockchain } from 'utils/sui/sui';
-import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION } from './constants';
+import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION, IS_SUI_MAIN } from './constants';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -115,7 +115,7 @@ const View = ({
     const logo = single ? peeranhaMetaLogo : peeranhaLogo;
     const src = () => {
       if (styles.withoutSubHeader) {
-        return !isSuiBlockchain ? communitiesConfig[single].src : suiLogo;
+        return IS_SUI_MAIN ? suiLogo : communitiesConfig[single].src;
       }
       return logo;
     };
