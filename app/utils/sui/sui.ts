@@ -33,6 +33,7 @@ export const CREATE_COMMENT_ACTION_NAME = 'createComment';
 export const grantRole = 'grantRole';
 export const revokeRole = 'revokeRole';
 export const mintUserNFT = 'mintUserNFT';
+export const updateDocumentationTree = 'updateDocumentationTree';
 
 export const AUTHOR_EDIT_REPLY_ACTION_NAME = 'authorEditReply';
 export const MODERATOR_EDIT_REPLY_ACTION_NAME = 'moderatorEditReply';
