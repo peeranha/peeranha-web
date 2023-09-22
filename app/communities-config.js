@@ -296,9 +296,7 @@ const communitiesConfig = {
       }
     : {
         '1-1': {
-          origin: 'http://localhost:31000',
-          src: 'https://images.peeranha.io/communities/harmony/logo.svg',
-          styles: HarmonyStyles,
+          origin: 'http://localhost:3000',
         },
       },
 };

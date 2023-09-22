@@ -50,6 +50,7 @@ import {
 } from 'utils/properties';
 import { getValueFromSearchString } from 'utils/url';
 import { getCookie, setCookie } from 'utils/cookie';
+import AISearch from 'containers/AISearch';
 import {
   EditCommunity,
   HomePage,
@@ -189,13 +190,17 @@ const App = ({
 
           <Route exact path={routes.feed()} render={(props) => Wrapper(Feed, props)} />
 
-          {single && (hasPinnedPost || isDocumentationPositionTop) && (
-            <Route
-              exact
-              path={routes.documentationStartPage()}
-              render={(props) => Wrapper(Documentation, props)}
-            />
+          {single && (
+            <Route exact path={routes.defaultPath} render={(props) => Wrapper(AISearch, props)} />
           )}
+
+          {/* {single && (hasPinnedPost || isDocumentationPositionTop) && ( */}
+          {/*  <Route */}
+          {/*    exact */}
+          {/*    path={routes.documentationStartPage()} */}
+          {/*    render={(props) => Wrapper(Documentation, props)} */}
+          {/*  /> */}
+          {/* )} */}
 
           {!single && (
             <Route
