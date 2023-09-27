@@ -149,12 +149,11 @@ const AISearch = ({
                 align-items: center;
               }
 
-              background: ${colors.btnHeaderColor};
-
+              background: ${colors.btnColor};
               :hover {
-                background: ${colors.btnHeaderHoverColor};
-                border: ${colors.btnHeaderHoverBorder};
-                opacity: ${colors.btnHeaderHoverOpacity};
+                background: ${colors.btnHoverColor};
+                border: ${colors.btnHoverColor};
+                opacity: 0.8;
               }
             `}
           >
