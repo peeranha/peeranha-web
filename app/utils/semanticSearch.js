@@ -7,6 +7,7 @@ const executeQuery = async ({ query, reCaptchaToken, communityId }) => {
     }),
     headers: {
       'Content-Type': 'application/json',
+      reCaptchaToken,
     },
   });
 
