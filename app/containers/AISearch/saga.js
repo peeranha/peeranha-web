@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { GET_SEARCH_RESULT } from 'containers/AISearch/constants';
-import { getSearchResultError } from 'containers/AISearch/actions';
+import { getSearchResultError, getSearchResultSuccess } from 'containers/AISearch/actions';
 import { getSearchResult } from 'utils/semanticSearch';
 
 const getRecaptchaToken = () =>
@@ -11,9 +11,8 @@ const getRecaptchaToken = () =>
 export function* getSearchResultWorker({ query, communityId }) {
   try {
     const token = yield call(getRecaptchaToken);
-    console.log('token', token);
     const searchResult = yield call(getSearchResult, query, token, communityId);
-    console.log('searchResult', searchResult);
+    yield put(getSearchResultSuccess({ ...searchResult, question: query }));
   } catch (e) {
     yield put(getSearchResultError(e));
   }

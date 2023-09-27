@@ -273,7 +273,7 @@ const MainLinks = ({
         {singleCommId && (
           <A1 to={routes.defaultPath} name={routes.defaultPath} route={route}>
             <IconLg className="mr-2" icon={aiIcon} />
-            AI-Powered Search
+            {t('common.aiPoweredSearch')}
             <span css={styles.searchLabel}>New</span>
           </A1>
         )}

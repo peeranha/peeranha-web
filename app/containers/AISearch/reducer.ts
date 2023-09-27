@@ -7,7 +7,7 @@ import {
 
 export const initialState = fromJS({
   searchResult: {},
-  searchResultLoading: true,
+  searchResultLoading: false,
   searchResultError: '',
 });
 
@@ -18,7 +18,7 @@ function aiSearchReducer(state = initialState, action: any) {
     case GET_SEARCH_RESULT:
       return state.set('searchResultLoading', true);
     case GET_SEARCH_RESULT_SUCCESS:
-      return state.set('searchResultLoading', false).set('searchResult', fromJS(searchResult));
+      return state.set('searchResultLoading', false).set('searchResult', searchResult);
     case GET_SEARCH_RESULT_ERROR:
       return state.set('searchResultLoading', false).set('searchResultError', error);
     default:

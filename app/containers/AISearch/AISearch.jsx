@@ -13,14 +13,21 @@ import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import AIIcon from 'images/aiIcon.svg?external';
-
+import { useTranslation } from 'react-i18next';
+import Banner from 'containers/AISearch/Banner/Banner';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+import { isSuiBlockchain } from 'utils/sui/sui';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
-import { styles } from 'containers/AISearch/AISearch.styled';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
+import { selectSearchResult, selectSearchResultLoading } from 'containers/AISearch/selectors';
 import { TrendingUp, Time, OutlinedBurger, SearchAI, Close } from 'components/icons';
 import Button from 'components/common/Button';
-import { getSearchResult } from './actions';
 
+import { getSearchResult } from './actions';
+import { styles } from './AISearch.styled';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -28,14 +35,43 @@ const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
-const AISearch = ({ locale, getSearchResultDispatch }) => {
+const AISearch = ({
+  locale,
+  getSearchResultDispatch,
+  profileInfo,
+  redirectToAskQuestionPageDispatch,
+  loginWithWalletDispatch,
+  loginWithSuiDispatch,
+  searchResultLoading,
+  searchResult,
+}) => {
+  const { t } = useTranslation();
+  const loginDispatch = isSuiBlockchain ? loginWithSuiDispatch : loginWithWalletDispatch;
   const [searchText, setSearchText] = useState('');
+  const onChangeInputHandler = (e) => {
+    if (searchText.length < 1000) {
+      setSearchText(e.currentTarget.value);
+    }
+  };
+  const onKeyDownHandler = (e) => {
+    if (e.key === 'Enter' && searchText.length > 0 && searchText.length < 1000) {
+      getSearchResultDispatch(searchText, single);
+    }
+  };
+  const clearInputHandler = () => {
+    setSearchText('');
+  };
+  const getSearchResultHandler = () => {
+    if (searchText.length > 0 && searchText.length < 1000) {
+      getSearchResultDispatch(searchText, single);
+    }
+  };
 
   return (
     <>
       <Seo
-        title={'AI-Powered search'}
-        description={'AI-Powered search'}
+        title={t('common.aiPoweredSearch')}
+        description={t('common.aiPoweredSearch')}
         language={locale}
         index={false}
       />
@@ -57,6 +93,10 @@ const AISearch = ({ locale, getSearchResultDispatch }) => {
                 fill: ${customColor};
               }
 
+              .white {
+                fill: #fff !important;
+              }
+
               .stroke {
                 stroke: ${customColor};
               }
@@ -70,35 +110,28 @@ const AISearch = ({ locale, getSearchResultDispatch }) => {
               <IconLg icon={AIIcon} width={32} fill={BORDER_PRIMARY} />
             </MediumIconStyled>
           </div>
-          AI-Powered search
+          {t('common.aiPoweredSearch')}
         </H3>
         <div css={styles.headerSearchField}>
           <input
             type="text"
             css={styles.searchInput}
-            placeholder={'Let the magic begin, Ask a question'}
+            placeholder={t('common.aiPoweredSearchInputPlaceholder')}
             value={searchText}
-            onChange={(e) => {
-              setSearchText(e.currentTarget.value);
-            }}
+            onChange={onChangeInputHandler}
+            onKeyDown={onKeyDownHandler}
           />
           {searchText ? (
-            <Close
-              fill={'#BDBDBD'}
-              onClick={() => {
-                setSearchText('');
-              }}
-              css={styles.closeInputIcon}
-            />
+            <Close fill={'#BDBDBD'} onClick={clearInputHandler} css={styles.closeInputIcon} />
           ) : (
             <SearchAI size={[30, 30]} stroke={'#BDBDBD'} css={styles.searchInputIcon} />
           )}
           <Button
             id="header-ask-question"
-            onClick={() => {
-              getSearchResultDispatch(searchText, single);
-            }}
+            onClick={getSearchResultHandler}
+            disabled={searchResultLoading}
             css={css`
+              opacity: ${searchResultLoading ? '0.8' : '1'};
               position: absolute;
               top: 10px;
               right: 15px;
@@ -132,7 +165,7 @@ const AISearch = ({ locale, getSearchResultDispatch }) => {
                 color: ${colors.newPostButtonText};
               `}
             >
-              Ask AI
+              {t('common.askAI')}
             </span>
           </Button>
         </div>
@@ -142,30 +175,23 @@ const AISearch = ({ locale, getSearchResultDispatch }) => {
           <input
             type="text"
             css={styles.searchInput}
-            placeholder={'Ask a question'}
+            placeholder={t('common.askAIQuestion')}
             value={searchText}
-            onChange={(e) => {
-              setSearchText(e.currentTarget.value);
-            }}
+            onChange={onChangeInputHandler}
+            onKeyDown={onKeyDownHandler}
           />
           {searchText ? (
-            <Close
-              fill={'#BDBDBD'}
-              css={styles.closeInputIcon}
-              onClick={() => {
-                setSearchText('');
-              }}
-            />
+            <Close fill={'#BDBDBD'} css={styles.closeInputIcon} onClick={clearInputHandler} />
           ) : (
             <SearchAI size={[30, 30]} stroke={'#BDBDBD'} css={styles.searchInputIcon} />
           )}
         </div>
         <Button
           id="header-ask-question"
-          onClick={() => {
-            getSearchResultDispatch(searchText, single);
-          }}
+          onClick={getSearchResultHandler}
+          disabled={searchResultLoading}
           css={css`
+            opacity: ${searchResultLoading ? '0.8' : '1'};
             margin-top: 15px;
 
             .fill {
@@ -197,41 +223,72 @@ const AISearch = ({ locale, getSearchResultDispatch }) => {
               color: ${colors.newPostButtonText};
             `}
           >
-            Ask AI
+            {t('common.askAI')}
           </span>
         </Button>
       </div>
-      <h3 css={styles.subTitle}>Explore your advanced AI search engine</h3>
-      <div css={styles.additionalInfo}>
-        <div css={styles.additionalInfoItem}>
-          <MediumIconStyled>
-            <Time stroke={customColor} />
-          </MediumIconStyled>
-          <h4 css={styles.additionalInfoItemTitle}>Time-efficiency</h4>
-          <p css={styles.additionalInfoItemContent}>
-            Unlock the potencial for swift data exploration and enjoy efficient results.
-          </p>
-        </div>
-        <div css={styles.additionalInfoItem}>
-          <MediumIconStyled>
-            <OutlinedBurger stroke={customColor} />
-          </MediumIconStyled>
-          <h4 css={styles.additionalInfoItemTitle}>Broad knowledge base</h4>
-          <p css={styles.additionalInfoItemContent}>
-            Connect to our advanced AI search engine, honed from a vast array of sources. Tap into
-            community support whenever you need it.
-          </p>
-        </div>
-        <div css={styles.additionalInfoItem}>
-          <MediumIconStyled>
-            <TrendingUp stroke={customColor} />
-          </MediumIconStyled>
-          <h4 css={styles.additionalInfoItemTitle}>Continious improvement</h4>
-          <p css={styles.additionalInfoItemContent}>
-            Experience a stream of quality enhancements with our ongoing updates.
-          </p>
-        </div>
-      </div>
+      {!searchResultLoading && !searchResult.hasOwnProperty('found') && (
+        <>
+          <h3 css={styles.subTitle}>{t('common.exploreAI')}</h3>
+          <div css={styles.additionalInfo}>
+            <div css={styles.additionalInfoItem}>
+              <MediumIconStyled>
+                <Time stroke={customColor} />
+              </MediumIconStyled>
+              <h4 css={styles.additionalInfoItemTitle}>{t('common.timeEfficiency')}</h4>
+              <p css={styles.additionalInfoItemContent}>{t('common.unlockPotencial')}</p>
+            </div>
+            <div css={styles.additionalInfoItem}>
+              <MediumIconStyled>
+                <OutlinedBurger stroke={customColor} />
+              </MediumIconStyled>
+              <h4 css={styles.additionalInfoItemTitle}>{t('common.broadBase')}</h4>
+              <p css={styles.additionalInfoItemContent}>{t('common.connectAI')}</p>
+            </div>
+            <div css={styles.additionalInfoItem}>
+              <MediumIconStyled>
+                <TrendingUp stroke={customColor} />
+              </MediumIconStyled>
+              <h4 css={styles.additionalInfoItemTitle}>{t('common.continuousImprovement')}</h4>
+              <p css={styles.additionalInfoItemContent}>{t('common.experienceEnhancements')}</p>
+            </div>
+          </div>
+        </>
+      )}
+      {!searchResultLoading && searchResult.found === true && (
+        <>
+          <h3 css={styles.subTitle}>{t('common.results')}</h3>
+          <div css={styles.searchMainBlock}>
+            <div css={styles.searchResult}>
+              <h2 css={styles.searchResultTitle}>{searchResult.question}</h2>
+              <MarkdownPreviewBlock content={searchResult.answer} />
+            </div>
+            <div css={styles.sources}>
+              <h3 css={styles.sourcesTitle}>{t('common.sources')}</h3>
+              <ul css={styles.sourcesList}>
+                {searchResult.resources.map((resource) => (
+                  <li css={styles.sourcesListItem} key={resource.url}>
+                    <a href={resource.url} target="_blank">
+                      <h4 css={styles.sourcesListItemTitle}>{resource.title}</h4>
+                      <p css={styles.sourcesListItemText}>{resource.content}</p>
+                      <span css={styles.sourcesListItemLink}>{resource.url}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </>
+      )}
+      {!searchResultLoading && searchResult.found === false && (
+        <Banner
+          profileInfo={profileInfo}
+          redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+          showLoginModalWithRedirectToAskQuestionPage={() => loginDispatch(true)}
+        />
+      )}
+
+      {searchResultLoading && <LoadingIndicator />}
     </>
   );
 };
@@ -242,9 +299,13 @@ export default compose(
   connect(
     createStructuredSelector({
       locale: makeSelectLocale(),
+      profileInfo: makeSelectProfileInfo(),
+      searchResultLoading: selectSearchResultLoading(),
+      searchResult: selectSearchResult(),
     }),
     (dispatch) => ({
       getSearchResultDispatch: bindActionCreators(getSearchResult, dispatch),
+      redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
     }),
   ),
 )(AISearch);

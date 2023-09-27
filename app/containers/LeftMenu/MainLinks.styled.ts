@@ -12,8 +12,8 @@ export const styles = {
 
   searchLabel: {
     background: colors.btnColor || 'rgba(87, 111, 237, 1)',
-    color: 'rgba(255, 255, 255, 1)',
-    width: '39px',
+    color: colors.newPostButtonText || 'rgba(255, 255, 255, 1)',
+    minWidth: '39px',
     height: '20px',
     borderRadius: '3px',
     fontWeight: 600,
@@ -32,7 +32,7 @@ export const styles = {
     span: {
       'text-transform': 'uppercase',
     },
-    color: colors.sectionHeader || '#7B7B7B',
+    color: colors.sectionHeader || 'rgba(123, 123, 123, 1)',
 
     '&:hover .dropdown-documentation': {
       display: 'block',
