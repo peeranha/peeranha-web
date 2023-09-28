@@ -160,6 +160,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/move/logo.svg',
           styles: MoveStyles,
         },
+        '3-0x6a7962ea448c1e7cec7a42a926b19c8c022e33c701d54ac587145eb2720377ba': {
+          origin: `https://cartesi-sui-staging${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
+          styles: CartesiStyles,
+        },
       }
     : {
         '1-1': {
