@@ -108,3 +108,28 @@ export const getUsersModeratorByRoles = (usersModerator, communityId, moderators
     if (adminPermission) userRoles.push(Roles.communityAdmin);
     return { user, userRoles };
   });
+
+export const emailSignIn = async (email) =>
+  fetch(new URL('https://dev1-api.testpeeranha.io/account/get-verification-code'), {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+export const verifyEmail = async (email, code) => {
+  const response = await fetch(new URL('https://dev1-api.testpeeranha.io/account/login'), {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      code,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return { ok: response.ok, response: await response.json() };
+};

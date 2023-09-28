@@ -1,9 +1,10 @@
+import { getCurrentSuiAccount } from 'containers/AccountProvider/actions';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { updateAcc, emptyProfile } from 'utils/accountManagement';
+import { updateAcc, emptyProfile, emailSignIn, verifyEmail } from 'utils/accountManagement';
 import { WebIntegrationError } from 'utils/errors';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { setCookie } from 'utils/cookie';
@@ -16,9 +17,22 @@ import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
-import { loginWithWalletSuccess, loginWithWalletErr } from './actions';
+import {
+  loginWithWalletSuccess,
+  loginWithWalletErr,
+  signInWithEmailErr,
+  signInWithEmailSuccess,
+  verifyEmailSuccess,
+  verifyEmailError,
+} from './actions';
 
-import { LOGIN_WITH_SUI, LOGIN_WITH_WALLET } from './constants';
+import {
+  EMAIL_LOGIN_DATA,
+  LOGIN_WITH_SUI,
+  LOGIN_WITH_WALLET,
+  SIGN_IN_WITH_EMAIL,
+  VERIFY_EMAIL,
+} from './constants';
 
 import { selectEthereum } from '../EthereumProvider/selectors';
 
@@ -75,7 +89,44 @@ export function* loginWithWalletWorker({ t }) {
   }
 }
 
-export function* loginWithSuiWorker({ address }) {
+export function* signInWithEmailWorker({ email }) {
+  try {
+    yield call(emailSignIn, email);
+
+    yield put(signInWithEmailSuccess());
+  } catch (err) {
+    yield put(signInWithEmailErr(err));
+  }
+}
+
+export function* verifyEmailWorker({ email, verificationCode, resolve, reject }) {
+  try {
+    const { ok, response } = yield call(verifyEmail, email, verificationCode);
+    const expirationDate = new Date();
+    expirationDate.setTime(expirationDate.getTime() + 24 * 60 * 60 * 1000);
+    setCookie({
+      name: EMAIL_LOGIN_DATA,
+      value: JSON.stringify({ address: response.address, token: response.token }),
+      options: {
+        defaultPath: true,
+        allowSubdomains: true,
+        expires: expirationDate,
+      },
+    });
+    if (!ok) {
+      reject();
+      yield put(verifyEmailError());
+    } else {
+      resolve();
+      yield put(verifyEmailSuccess());
+    }
+    yield put(getCurrentSuiAccount());
+  } catch (err) {
+    yield put(verifyEmailError(err));
+  }
+}
+
+export function* loginWithSuiWorker() {
   try {
     yield put(loginWithWalletSuccess());
   } catch (err) {
@@ -104,4 +155,6 @@ export function* redirectToFeedWorker() {
 export default function* () {
   yield takeLatest(LOGIN_WITH_WALLET, loginWithWalletWorker);
   yield takeLatest(LOGIN_WITH_SUI, loginWithSuiWorker);
+  yield takeLatest(SIGN_IN_WITH_EMAIL, signInWithEmailWorker);
+  yield takeLatest(VERIFY_EMAIL, verifyEmailWorker);
 }

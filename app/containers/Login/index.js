@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import CodeWasSent from 'containers/Login/CodeWasSent';
+import VerificationForm from 'containers/Login/VerificationForm/VerificationForm';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
@@ -11,41 +12,89 @@ import { DAEMON } from 'utils/constants';
 import ModalDialog from 'components/ModalDialog';
 
 import notificationsReducer from 'components/Notifications/reducer';
+import EmailForm from 'containers/Login/SignIn/EmailForm';
 
 import * as selectors from './selectors';
 
-import { hideLoginModal } from './actions';
+import {
+  hideSignInModal,
+  loginWithSui,
+  loginWithWallet,
+  signInWithEmail,
+  startVerifying,
+  verifyEmail,
+} from './actions';
 
 import reducer from './reducer';
 import saga from './saga';
+
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 export const Login = ({
-  content,
-  showModal,
-  hideLoginModalDispatch,
-  loginWithWalletProcessing,
-  ethereumService,
-}) => <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}></ModalDialog>;
+  showEmailPasswordFormDispatch,
+  loginWithSuiDispatch,
+  showSignInModal,
+  showSentCodeModal,
+  showVerificationModal,
+  signInWithEmailDispatch,
+  startVerifyingDispatch,
+  verifyEmailDispatch,
+  hideSignInModalDispatch,
+}) => {
+  const [email, setEmail] = useState('');
+  const [isWalletLogin, setIsWalletLogin] = useState(false);
 
-Login.propTypes = {
-  content: PropTypes.string,
-  showModal: PropTypes.bool,
-  hideLoginModalDispatch: PropTypes.func,
-  email: PropTypes.string,
-  loginWithWalletProcessing: PropTypes.bool,
+  useEffect(() => {
+    if (isWalletLogin) {
+      hideSignInModalDispatch();
+      setIsWalletLogin(false);
+    }
+  }, [hideSignInModalDispatch, isWalletLogin]);
+
+  return (
+    <>
+      <ModalDialog show={showSignInModal} closeModal={hideSignInModalDispatch}>
+        {!showSentCodeModal && !showVerificationModal && (
+          <EmailForm
+            showEmailPasswordForm={showEmailPasswordFormDispatch}
+            loginWithWallet={loginWithSuiDispatch}
+            setIsWalletLogin={setIsWalletLogin}
+            signInWithEmailDispatch={signInWithEmailDispatch}
+            setEmail={setEmail}
+          />
+        )}
+
+        {showSentCodeModal && <CodeWasSent startVerifying={startVerifyingDispatch} />}
+
+        {showVerificationModal && (
+          <VerificationForm
+            email={email}
+            verifyEmail={verifyEmailDispatch}
+            signInWithEmail={signInWithEmailDispatch}
+            hideModal={hideSignInModalDispatch}
+          />
+        )}
+      </ModalDialog>
+    </>
+  );
 };
 
 const withConnect = connect(
   createStructuredSelector({
     content: selectors.makeSelectContent(),
-    showModal: selectors.makeSelectShowModal(),
+    showSignInModal: selectors.makeSelectShowSignInModal(),
+    showSentCodeModal: selectors.makeSelectSentCodeModal(),
+    showVerificationModal: selectors.makeSelectShowVerificationModal(),
     email: selectors.makeSelectEmail(),
-    loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
     ethereumService: selectEthereum,
   }),
   (dispatch) => ({
-    hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
+    hideSignInModalDispatch: bindActionCreators(hideSignInModal, dispatch),
+    signInWithEmailDispatch: bindActionCreators(signInWithEmail, dispatch),
+    loginWithEthereumDispatch: bindActionCreators(loginWithWallet, dispatch),
+    loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
+    startVerifyingDispatch: bindActionCreators(startVerifying, dispatch),
+    verifyEmailDispatch: bindActionCreators(verifyEmail, dispatch),
   }),
 );
 

@@ -1,5 +1,11 @@
 {
   "authUserHasMore": "授权用户有更多选择",
+  "walletInOne": "一键生成您的区块链钱包。",
+  "emailForm": "输入您的电子邮件",
+  "getStarted": "开始",
+  "connectWithWallet": "连接钱包",
+  "codeWasSent": "验证码已发送到您的电子邮件。",
+  "incorrectCode": "验证码不正确。请再试一次。",
   "staySignedIn": "保持登录",
   "userIsNotRegistered": "用户未注册",
   "userIsNotSelected": "未选择用户",

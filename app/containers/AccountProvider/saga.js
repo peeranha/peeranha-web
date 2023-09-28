@@ -1,11 +1,9 @@
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
 import { isSuiUserExists } from 'utils/sui/accountManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
-import { getSuiUserById } from 'utils/sui/suiIndexer';
 import { getAvailableBalance, getBalance, getUserBoost } from 'utils/walletManagement';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
@@ -33,7 +31,7 @@ import {
   REDIRECT_TO_EDIT_QUESTION_PAGE,
 } from 'containers/EditQuestion/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
-import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA, EMAIL_LOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
 import {
   DELETE_ANSWER_SUCCESS,
@@ -201,7 +199,14 @@ export function* updateAccWorker({ ethereum }) {
 
 export const getCurrentSuiAccountWorker = function* ({ wallet }) {
   try {
+    const emailCookieValue = getCookie(EMAIL_LOGIN_DATA);
+    const parsedEmailData = emailCookieValue ? JSON.parse(emailCookieValue) : null;
     const previouslyConnectedWallet = getCookie('connectedWallet');
+    if (parsedEmailData) {
+      yield put(getUserProfileSuccess(emptyProfile(parsedEmailData.address)));
+      yield put(getCurrentAccountSuccess(parsedEmailData.address, 0));
+      return;
+    }
     if (wallet.connected && previouslyConnectedWallet) {
       const isUserRegistered = yield call(isSuiUserExists, wallet);
       if (isUserRegistered === false) {

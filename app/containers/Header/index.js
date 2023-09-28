@@ -86,10 +86,10 @@ export class Header extends React.PureComponent {
       toggleEditDocumentationDispatch,
       changeLocale,
       communities,
-      loginWithSuiDispatch,
+      showLoginModalDispatch,
     } = this.props;
 
-    const loginDispatch = isSuiBlockchain ? loginWithSuiDispatch : loginWithWalletDispatch;
+    const loginDispatch = isSuiBlockchain ? showLoginModalDispatch : loginWithWalletDispatch;
 
     if (isMenuVisible) return null;
 

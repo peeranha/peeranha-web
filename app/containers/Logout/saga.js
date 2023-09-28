@@ -6,7 +6,7 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import { deleteCookie } from 'utils/cookie';
 
-import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA, EMAIL_LOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 import { WEB3_TOKEN, META_TRANSACTIONS_ALLOWED } from 'utils/constants';
 import { getCurrentAccountSuccess, addLoginData } from 'containers/AccountProvider/actions';
 import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
@@ -27,6 +27,7 @@ export function* logoutWorker() {
       deleteCookie(PROFILE_INFO_LS);
       deleteCookie(META_TRANSACTIONS_ALLOWED);
       deleteCookie(WEB3_TOKEN);
+      deleteCookie(EMAIL_LOGIN_DATA);
       ethereumService.transactionList = [];
 
       yield call(ethereumService.resetWalletState);
