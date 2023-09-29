@@ -45,7 +45,7 @@ const userFromIndexerResponse = (user: User, communities: any[]) => {
       )
     : 0;
   const followedCommunities = communities.filter((community: any) =>
-    user?.usercommunity.find((usercommunity: any) => usercommunity.communityId === community.suiId),
+    user?.usercommunity.find((usercommunity: any) => usercommunity.communityId === community.id),
   );
   return {
     ...user,
