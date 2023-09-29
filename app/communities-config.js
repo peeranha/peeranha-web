@@ -24,6 +24,7 @@ import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { ValistStyles } from './communities-configs/valist';
 import { VyperStyles } from './communities-configs/vyper';
 import { SuiMainStyles } from './communities-configs/suiMain';
+import { CartesiStyles } from './communities-configs/cartesi';
 
 const communitiesConfig = {
   prod: isSuiBlockchain
@@ -159,6 +160,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/move/logo.svg',
           styles: MoveStyles,
         },
+        '3-0x6a7962ea448c1e7cec7a42a926b19c8c022e33c701d54ac587145eb2720377ba': {
+          origin: `https://cartesi-sui-staging${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
+          styles: CartesiStyles,
+        },
       }
     : {
         '1-1': {
@@ -207,6 +213,11 @@ const communitiesConfig = {
           origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/solidity/logo.svg',
           styles: SolidityStyles,
+        },
+        '3-0xf1ec216ce7573b9b7f625d1cb618374b94f241787919f35da28f93c416e55cc6': {
+          origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
+          styles: CartesiStyles,
         },
       }
     : {
@@ -284,6 +295,11 @@ const communitiesConfig = {
           origin: `https://pl-launchpad${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
           styles: LaunchpadStyles,
+        },
+        '1-21': {
+          origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
+          styles: AnkrStyles,
         },
       },
   dev: isSuiBlockchain

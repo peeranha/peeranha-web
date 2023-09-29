@@ -18,7 +18,7 @@ export const styles = {
   },
 
   activeStyles: {
-    backgroundColor: colors.footerBG || '#F76F60',
+    backgroundColor: colors.paginationButtonBackgroundColor || '#F76F60',
     borderRadius: '5px',
     color: colors.footerText || '#FFF',
   },

@@ -81,7 +81,9 @@ export const A1 = A.extend`
   ${({ route, name }) =>
     route === name
       ? `
-          background-color: ${colors.userInformation || PRIMARY_SPECIAL};
+          background-color: ${
+            colors.navMenuBackgroundColor || colors.userInformation || PRIMARY_SPECIAL
+          };
           border-color: ${colors.linkColor || BORDER_PRIMARY_DARK};
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
@@ -228,7 +230,7 @@ const MainLinks = ({
                   <PinIcon
                     stroke="#FFF"
                     css={{
-                      fill: colors.white || '#A5BCFF',
+                      fill: colors.pinnedPostBackground || '#A5BCFF',
                       marginLeft: '10px',
                     }}
                   />

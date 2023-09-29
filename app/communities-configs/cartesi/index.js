@@ -1,10 +1,10 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-const domainName = 'https://suiglobal.crew3.xyz/questboard';
+const domainName = 'https://cartesi.io/';
 
 export const customSubHeaderConfig = {
-  design: 'suiGlobal_style',
+  design: 'cartesi_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -165,85 +165,109 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const SuiMainStyles = {
-  name: 'suiMain',
+export const CartesiStyles = {
+  name: 'cartesi',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
-
+  logoWhite: true,
+  signUpPageLogo: 'https://images.peeranha.io/communities/cartesi/logo.svg',
   colors: {
-    appWindowsColor: '#2b5797',
-    appSafarieColor: '#5bbad5',
+    appWindowsColor: '#008DA5',
+    appSafarieColor: '#008DA5',
     mainSubHeaderBgColor: 'rgb(255,255,255)',
-    mainBackground: 'linear-gradient(45deg, #EAF7FF -66%, #fff 80%, #EAF7FF 90%)',
+    mainBackground: '#F1F7F9',
     border: '#D0DAE6',
-    linkColor: '#4BA3FF',
-    linkCookieColor: '#011729',
-    linkColorTransparent: '#4BA3FF',
-    headerPrimary: '#4BA3FF',
-    commentOption: '#4BA3FF',
-    contentHeader: '#4BA3FF',
+    linkColor: '#008DA5',
+    linkCookieColor: '#008DA5',
+    linkColorTransparent: 'rgba(0, 141, 165, 0.4)',
+    headerPrimary: '#008DA5',
+    commentOption: '#008DA5',
+    contentHeader: '#008DA5',
     blockedInfoArea: '#DAEEFF',
     transparentIconColor: '#FFFF',
-    loaderColor: '#4BA3FF',
-    votingIconColor: '#4BA3FF',
-    linkColorSecondary: '#4BA3FF',
-    walletButton: '#4BA3FF',
-    btnColor: '#4BA3FF',
-    btnHoverColor: '#4BA3FF',
-    btnHeaderColor: '#4BA3FF',
-    btnHeaderHoverColor: '#4BA3FF',
-    tagColor: '#4BA3FF',
-    localeArrowColor: '#95A3B0',
-    textColor: '#4BA3FF',
-    textColorShadow: '#4BA3FF',
-    commHeadElemColor: '#282828',
-    darkBlue: '#4BA3FF',
-    paginationButtonBackgroundColor: '#EAF7FF',
-    footerText: '#282828',
-    userInformation: '#EAF7FF',
-    pinnedPostBackground: '#4BA3FF',
-    secondaryAdditional: '#F1F5FE',
+    loaderColor: '#008DA5',
+    votingIconColor: '#008DA5',
+    linkColorSecondary: '#008DA5',
+    walletButton: '#008DA5',
+    btnColor: '#008DA5',
+    btnHoverColor: '#008DA5',
+    btnHeaderColor: '#1B1A1E',
+    // btnHeaderHoverColor: '#008DA5',
+    tagColor: '#008DA5',
+    // localeArrowColor: '#95A3B0',
+    textColor: '#008DA5',
+    textColorShadow: '#008DA5',
+    commHeadElemColor: '#1B1A1E',
+    darkBlue: '#00F6FF',
+    paginationButtonBackgroundColor: '#008DA5',
+    footerBackgroundColor: '#1B1A1E',
+    footerText: '#FFF',
+    footerBorderColor: '#3D3C40',
+    userInformation: 'rgba(0, 141, 165, 0.1)',
+    pinnedPostBackground: '#00F6FF',
+    newPostButtonText: '#FFF',
+    secondaryAdditional: '#008DA5',
+    newPostMediaBackgroundColor: 'rgba(0, 246, 255, 0.06)',
+    navMenuBackgroundColor: '#00F6FF',
+    navMenuTextColor: '#1B1A1E',
   },
   cookieConsentPopupStyles: {
-    background: '#4CA3FF',
-    color: '#F3F3F3',
+    background: '#1B1A1E',
+    color: '#FFF',
 
     button: {
-      color: '#011729',
-      borderColor: 'rgb(255,255,255)',
-
-      background: 'rgb(255,255,255)',
+      color: '#FFF',
+      borderColor: '#008DA5',
+      background: '#008DA5',
       ':hover': {
-        background: '#4BA3FF',
-        color: 'rgb(255,255,255)',
-        borderColor: 'rgb(255,255,255)',
+        background: '#FFF',
+        color: '#008DA5',
+        borderColor: '#008DA5',
       },
     },
   },
   headerHeight: 80,
   // projectBorderRadius: '20px',
   domainName,
-  communityBorderStyle: '2px solid #4BA3FF',
+  communityBorderStyle: '2px solid #008DA5',
   dropDownIconStyles: css`
     path {
-      stroke: #4ba3ff !important;
+      stroke: #008da5 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #4ba3ff;
+      stroke: #008da5;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 2px solid #4ba3ff;
-    color: #4ba3ff;
+    border: 1px solid #008da5;
+    color: #008da5;
     :hover {
-      background: #4ba3ff !important;
+      background: #008da5 !important;
     }
   `,
+  documentationColors: {
+    headerBackground: '#008DA5',
+    headerText: '#F3F3F3',
+    buttonBackground: 'transparent',
+    buttonText: '#F3F3F3',
+    buttonBorder: '#F3F3F3',
+
+    publishBackground: '#F3F3F3',
+    publishText: '#008DA5',
+    publishBackgroundHover: 'rgba(243,243,243,0.7)',
+    publishTextHover: '#008DA5',
+
+    linkColor: '#008DA5',
+    iconsFillColor: '#008DA5',
+
+    saveDraftButtonBackground: '#008DA5',
+    saveDraftButtonText: '#008DA5',
+    saveDraftButtonHover: '#008DA5',
+  },
 };
