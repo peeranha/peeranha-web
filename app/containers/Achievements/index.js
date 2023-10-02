@@ -7,6 +7,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { isSuiBlockchain } from 'utils/constants';
 import { getNetworkIds } from 'utils/ethConstants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -45,7 +46,6 @@ import { IS_MINTED_ACHIEVEMENT, CAN_MINT_ACHIEVEMENT } from './constants';
 
 import UniqueAchievement from './UniqueAchievement';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const BaseRoundedStyled = styled(BaseRounded)`
   border-top-left-radius: 0 !important;

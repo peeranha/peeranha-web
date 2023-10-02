@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
-import SuiConnectModals from 'components/SuiConnectModals';
 
 const singleCommId = isSingleCommunityWebsite();
 
@@ -27,12 +25,6 @@ const MobileAutorizationButtons = ({ profile, isMenuVisible, showLoginModal }) =
       </LargeOutlinedButton>
     </div>
   );
-
-  if (isSuiBlockchain) {
-    return (
-      <SuiConnectModals loginWithWallet={showLoginModal} actionButtonWithLogin={buttonWithLogin} />
-    );
-  }
 
   return <>{buttonWithLogin(showLoginModal)}</>;
 };

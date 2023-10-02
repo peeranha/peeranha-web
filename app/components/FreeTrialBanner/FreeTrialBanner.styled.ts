@@ -1,10 +1,10 @@
 import { BORDER_RADIUS_L, BG_LIGHT, BORDER_SECONDARY } from 'style-constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
   singleCommunityStyles,
 } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
 const singleStyles = singleCommunityStyles();

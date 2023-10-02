@@ -12,8 +12,8 @@ import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { TextareaStyled } from 'components/Textarea';
 import SuiConnectModals from 'components/SuiConnectModals';
+import { isSuiBlockchain } from 'utils/constants';
 
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { singleCommunityColors } from 'utils/communityManagement';
 import CommentForm from './CommentForm';
 

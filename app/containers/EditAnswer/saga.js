@@ -14,8 +14,8 @@ import { updateQuestionList } from 'containers/ViewQuestion/saga';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { CHANGED_POSTS_KEY } from 'utils/constants';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { CHANGED_POSTS_KEY, isSuiBlockchain } from 'utils/constants';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { getPost, getReply, getReplyId2 } from 'utils/theGraph';

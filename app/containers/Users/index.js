@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 import { useTranslation } from 'react-i18next';
+import { isSuiBlockchain } from 'utils/constants';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,7 +21,6 @@ import saga from 'containers/Users/saga';
 
 import View from 'containers/Users/View';
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import * as selectors from './selectors';
 
 const single = isSingleCommunityWebsite();

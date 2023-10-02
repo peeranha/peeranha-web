@@ -7,7 +7,7 @@ import okayIcon from 'images/okay.svg?inline';
 import PrimaryButton from 'components/Button/Contained/PrimaryMedium';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 import SuiConnectModals from 'components/SuiConnectModals';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 import Button from './index';
 

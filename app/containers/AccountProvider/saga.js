@@ -1,3 +1,4 @@
+import { setEmailLoginData } from 'containers/SuiProvider/actions';
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
@@ -199,23 +200,23 @@ export function* updateAccWorker({ ethereum }) {
 
 export const getCurrentSuiAccountWorker = function* ({ wallet }) {
   try {
+    let accountData = wallet;
     const emailCookieValue = getCookie(EMAIL_LOGIN_DATA);
     const parsedEmailData = emailCookieValue ? JSON.parse(emailCookieValue) : null;
     const previouslyConnectedWallet = getCookie('connectedWallet');
     if (parsedEmailData) {
-      yield put(getUserProfileSuccess(emptyProfile(parsedEmailData.address)));
-      yield put(getCurrentAccountSuccess(parsedEmailData.address, 0));
-      return;
+      accountData = { ...parsedEmailData, connected: true };
     }
-    if (wallet.connected && previouslyConnectedWallet) {
-      const isUserRegistered = yield call(isSuiUserExists, wallet);
+    if ((accountData.connected && previouslyConnectedWallet) || parsedEmailData) {
+      const isUserRegistered = yield call(isSuiUserExists, accountData);
       if (isUserRegistered === false) {
-        yield put(getUserProfileSuccess(emptyProfile(wallet.address)));
-        yield put(getCurrentAccountSuccess(wallet.address, 0));
+        yield put(getUserProfileSuccess(emptyProfile(accountData.address)));
+        yield put(setEmailLoginData(parsedEmailData));
+        yield put(getCurrentAccountSuccess(accountData.address, 0));
         return;
       }
 
-      const userFromContract = yield call(getSuiProfileInfo, wallet.address);
+      const userFromContract = yield call(getSuiProfileInfo, accountData.address);
       const profileInfo = yield call(getProfileInfo, userFromContract.id);
 
       if (profileInfo) {
@@ -232,7 +233,7 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
       });
       yield put(addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}));
       yield put(getUserProfileSuccess(profileInfo));
-
+      yield put(setEmailLoginData(parsedEmailData));
       yield put(getCurrentAccountSuccess(userFromContract.id, 0, 0, 0));
     } else {
       yield put(getCurrentAccountError());

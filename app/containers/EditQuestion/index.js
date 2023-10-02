@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useTranslation } from 'react-i18next';
 import { compose, bindActionCreators } from 'redux';
+import { isSuiBlockchain } from 'utils/constants';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -14,7 +15,6 @@ import {
   makeSelectBalance,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { selectCommunities, selectTagsLoading } from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';

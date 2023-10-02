@@ -13,6 +13,7 @@ import emptyFingerUp from 'images/emptyFingerUp.svg?external';
 import emptyFingerDown from 'images/emptyFingerDown.svg?external';
 
 import { BORDER_SUCCESS, BORDER_ATTENTION_LIGHT, BORDER_PRIMARY_LIGHT } from 'style-constants';
+import { isSuiBlockchain } from 'utils/constants';
 import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
@@ -21,7 +22,6 @@ import { IconLg } from 'components/Icon/IconWithSizes';
 import SuiConnectModals from 'components/SuiConnectModals';
 
 import { singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
 const colors = singleCommunityColors();

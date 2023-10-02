@@ -14,9 +14,8 @@ import ProgressBar from './ProgressBar';
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
 import { getNFTUrl } from '../../utils/ipfs';
-import { LIMITED_EDITION_NFT_TYPE } from '../../utils/constants';
+import { isSuiBlockchain, LIMITED_EDITION_NFT_TYPE } from '../../utils/constants';
 import NFTInformation from './NFTInformation';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const ImageBlock = styled.div`
   margin-right: 15px;

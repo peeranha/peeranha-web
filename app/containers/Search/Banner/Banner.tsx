@@ -2,10 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from 'components/common/Button';
 import SuiConnectModals from 'components/SuiConnectModals';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import noSearchResults from 'images/noSearchResults.png';
 import { styled } from './Banner.styled';
+import { isSuiBlockchain } from 'utils/constants';
 
 type BannerProps = {
   profileInfo: object;

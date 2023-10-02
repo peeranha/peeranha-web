@@ -4,30 +4,35 @@
  *
  */
 
-import { useWallet } from '@suiet/wallet-kit';
+import { EMAIL_LOGIN_DATA } from 'containers/Login/constants';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import { deleteCookie } from 'utils/cookie';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DAEMON } from 'utils/constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { DAEMON, isSuiBlockchain } from 'utils/constants';
 
 import reducer from './reducer';
 import saga from './saga';
 
 import { logout } from './actions';
 
-export const Logout = /* istanbul ignore next */ ({ logoutDispatch, children }) => {
-  const wallet = useWallet();
+export const Logout = /* istanbul ignore next */ ({ logoutDispatch, children, wallet }) => {
   const suiLogout = () => {
-    wallet.disconnect().then((r) => {
+    if (!wallet.disconnect) {
+      deleteCookie(EMAIL_LOGIN_DATA);
       logoutDispatch();
-      deleteCookie('connectedWallet');
-    });
+    } else {
+      wallet.disconnect().then(() => {
+        logoutDispatch();
+        deleteCookie('connectedWallet');
+      });
+    }
   };
   const logout = isSuiBlockchain ? suiLogout : logoutDispatch;
 
@@ -48,7 +53,11 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
+const mapStateToProps = createStructuredSelector({
+  wallet: selectSuiWallet(),
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'logout', reducer });
 const withSaga = injectSaga({ key: 'logout', saga, mode: DAEMON });

@@ -1,4 +1,5 @@
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
+
 export const EMAIL_FIELD = 'email';
 export const VERIFICATION_CODE_FIELD = 'verificationCode';
 export const EMAIL_LOGIN_DATA = 'emailLoginData';

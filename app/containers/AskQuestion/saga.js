@@ -6,6 +6,7 @@ import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { isSuiBlockchain } from 'utils/constants';
 import { getActualId, getNetwork } from 'utils/properties';
 
 import { postQuestion, getCreatedPostId, updateDocumentationTree } from 'utils/questionsManagement';
@@ -27,11 +28,7 @@ import {
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { postSuiQuestion } from 'utils/sui/questionsManagement';
-import {
-  CREATE_POST_EVENT_NAME,
-  isSuiBlockchain,
-  waitForTransactionConfirmation,
-} from 'utils/sui/sui';
+import { CREATE_POST_EVENT_NAME, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 import {

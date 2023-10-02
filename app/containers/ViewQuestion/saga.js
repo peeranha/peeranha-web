@@ -27,7 +27,7 @@ import {
 import { getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { CHANGED_POSTS_KEY } from 'utils/constants';
+import { CHANGED_POSTS_KEY, isSuiBlockchain } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
 import { getUserProfileSuccess, removeUserProfile } from 'containers/DataCacheProvider/actions';
@@ -41,7 +41,7 @@ import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
 
 import { isItemChanged, saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { getPost, getCommentId2, getVoteHistory } from 'utils/theGraph';
 import {

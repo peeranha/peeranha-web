@@ -1,4 +1,5 @@
 import { getCurrentSuiAccount } from 'containers/AccountProvider/actions';
+import { setEmailLoginData } from 'containers/SuiProvider/actions';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -101,12 +102,13 @@ export function* signInWithEmailWorker({ email }) {
 
 export function* verifyEmailWorker({ email, verificationCode, resolve, reject }) {
   try {
+    const isNewPostCreationAfterLogin = yield select(selectIsNewPostCreationAfterLogin());
     const { ok, response } = yield call(verifyEmail, email, verificationCode);
     const expirationDate = new Date();
     expirationDate.setTime(expirationDate.getTime() + 24 * 60 * 60 * 1000);
     setCookie({
       name: EMAIL_LOGIN_DATA,
-      value: JSON.stringify({ address: response.address, token: response.token }),
+      value: JSON.stringify({ address: response.address, token: response.token, email }),
       options: {
         defaultPath: true,
         allowSubdomains: true,
@@ -118,7 +120,13 @@ export function* verifyEmailWorker({ email, verificationCode, resolve, reject })
       yield put(verifyEmailError());
     } else {
       resolve();
+      yield put(setEmailLoginData({ address: response.address, token: response.token, email }));
       yield put(verifyEmailSuccess());
+    }
+    if (isNewPostCreationAfterLogin) {
+      const ev = { currentTarget: { id: 1 } };
+
+      yield put(redirectToAskQuestionPage(ev));
     }
     yield put(getCurrentSuiAccount());
   } catch (err) {
@@ -128,7 +136,13 @@ export function* verifyEmailWorker({ email, verificationCode, resolve, reject })
 
 export function* loginWithSuiWorker() {
   try {
+    const isNewPostCreationAfterLogin = yield select(selectIsNewPostCreationAfterLogin());
     yield put(loginWithWalletSuccess());
+    if (isNewPostCreationAfterLogin) {
+      const ev = { currentTarget: { id: 1 } };
+
+      yield put(redirectToAskQuestionPage(ev));
+    }
   } catch (err) {
     document.getElementsByTagName('body')[0].style.position = 'relative';
 

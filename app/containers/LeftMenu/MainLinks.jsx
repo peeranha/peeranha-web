@@ -47,6 +47,7 @@ import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 import { PINNED_TITLE_LENGTH } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
+import { isSuiBlockchain } from 'utils/constants';
 import {
   hasGlobalModeratorRole,
   hasCommunityAdminRole,
@@ -56,7 +57,6 @@ import {
 } from 'utils/properties';
 
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();

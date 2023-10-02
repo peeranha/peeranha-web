@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { DAEMON } from 'utils/constants';
+import { DAEMON, isSuiBlockchain } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { createStructuredSelector } from 'reselect';
@@ -23,7 +23,6 @@ import {
 } from 'containers/EthereumProvider/selectors';
 import { SingleTransaction, Transaction } from 'containers/TransactionsList/SingleTransaction';
 import { styles } from 'containers/TransactionsList/TransactionList.styled';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { selectSuiTransactionList } from 'containers/SuiProvider/selectors';
 
 type TransactionsListProps = {

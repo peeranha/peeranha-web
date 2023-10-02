@@ -3,6 +3,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { isSuiBlockchain } from 'utils/constants';
 
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 
@@ -21,7 +22,7 @@ import {
 } from 'containers/EthereumProvider/actions';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 
 import { saveProfileSuccess, saveProfileErr } from './actions';
 

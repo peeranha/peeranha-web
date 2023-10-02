@@ -7,7 +7,7 @@ import { getBytes32FromIpfsHash, getFileUrl, saveText } from './ipfs';
 import { getCookie, setCookie } from './cookie';
 import { uploadImg } from './profileManagement';
 
-import { SINGLE_COMMUNITY_DETAILS } from './constants';
+import { isSuiBlockchain, SINGLE_COMMUNITY_DETAILS } from './constants';
 import {
   CREATE_COMMUNITY,
   CREATE_TAG,
@@ -19,7 +19,6 @@ import {
   CONTRACT_USER,
 } from './ethConstants';
 import { getCommunities, getCommunityById, getTags, getTagsByIds } from './theGraph';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 export const isSingleCommunityWebsite = () =>
   Object.keys(communitiesConfig).find(

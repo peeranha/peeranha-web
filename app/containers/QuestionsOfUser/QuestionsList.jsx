@@ -12,10 +12,9 @@ import {
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import { getPostRoute } from 'routes-config';
 import { singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 

@@ -3,9 +3,10 @@ import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/constants';
 import { getActualId } from 'utils/properties';
 import { followSuiCommunity } from 'utils/sui/communityManagement';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';

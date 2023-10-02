@@ -46,7 +46,10 @@ function loginReducer(state = initialState, action) {
   } = action;
   switch (type) {
     case SHOW_LOGIN_MODAL:
-      return state.set('showSignInModal', true).set('content', EMAIL_FORM);
+      return state
+        .set('showSignInModal', true)
+        .set('content', EMAIL_FORM)
+        .set('isNewPostCreationAfterLogin', isNewPostCreationAfterLogin);
     case HIDE_LOGIN_MODAL:
       return state.set('showSignInModal', false);
     case LOGIN_WITH_WALLET:

@@ -1,11 +1,12 @@
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { put, takeLatest, select, call } from 'redux-saga/effects';
+import { isSuiBlockchain } from 'utils/constants';
 import {
   getSuiUsers,
   getSuiUsersFromContract,
   getSuiUsersByCommunityId,
 } from 'utils/sui/suiIndexer';
-import { IS_INDEXER_ON, isSuiBlockchain } from 'utils/sui/sui';
+import { IS_INDEXER_ON } from 'utils/sui/sui';
 import { getUsers, getUsersByCommunity } from 'utils/theGraph';
 
 import { GET_USERS } from './constants';

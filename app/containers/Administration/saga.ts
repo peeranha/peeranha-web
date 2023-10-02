@@ -18,11 +18,11 @@ import {
 
 import { getModerators } from 'utils/theGraph';
 import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
-import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from 'utils/constants';
+import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE, isSuiBlockchain } from 'utils/constants';
 import { giveRolePermission, revokeRolePermission } from 'utils/accountManagement';
 import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import {
   giveSuiRolePermission,
   revokeSuiRolePermission,

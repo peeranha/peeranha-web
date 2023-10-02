@@ -8,8 +8,7 @@ import Button from 'components/Button/Contained/InfoLarge';
 import SuiConnectModals from 'components/SuiConnectModals';
 
 import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?inline';
-
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 export const AllQuestionsBanner = ({
   redirectToAskQuestionPage,

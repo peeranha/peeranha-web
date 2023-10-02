@@ -5,6 +5,8 @@ import {
   TransactionBlock,
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
+import { EMAIL_LOGIN_DATA } from 'containers/Login/constants';
+import { getCookie } from 'utils/cookie';
 import { ApplicationError } from 'utils/errors';
 import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 
@@ -45,7 +47,6 @@ export const CHANGE_BEST_REPLY_ACTION_NAME = 'changeStatusBestReply';
 
 export const followCommunity = 'followCommunity';
 export const unfollowCommunity = 'unfollowCommunity';
-export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const IS_INDEXER_ON = true;
 
 export const CREATE_POST_EVENT_NAME = 'CreatePostEvent';
@@ -73,9 +74,10 @@ export function createSuiProvider() {
   return new JsonRpcProvider(connection);
 }
 
-export const waitForTransactionConfirmation = async (transactionDigest: string): Promise<any> => {
-  const provider = createSuiProvider();
-  return provider.getTransactionBlock({
+const suiProvider = createSuiProvider();
+
+export const waitForTransactionConfirmation = async (transactionDigest: string): Promise<any> =>
+  suiProvider.getTransactionBlock({
     digest: transactionDigest,
     options: {
       showInput: false,
@@ -85,7 +87,6 @@ export const waitForTransactionConfirmation = async (transactionDigest: string):
       showBalanceChanges: false,
     },
   });
-};
 
 export const handleMoveCall = async (
   wallet: WalletContextState,
@@ -93,6 +94,32 @@ export const handleMoveCall = async (
   action: string,
   data: unknown[],
 ): Promise<string> => {
+  const emailCookieValue = getCookie(EMAIL_LOGIN_DATA);
+  const emailData = emailCookieValue ? JSON.parse(emailCookieValue) : null;
+  if (emailData) {
+    if (!process.env.SUI_GASLESS_TRANSACTIONS_ENDPOINT) {
+      throw new ApplicationError('SUI_GASLESS_TRANSACTIONS_ENDPOINT is not configured');
+    }
+    const response = await fetch(process.env.SUI_GASLESS_TRANSACTIONS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: emailData.token,
+      },
+      body: JSON.stringify({
+        userId: emailData.email,
+        module: libName,
+        action,
+        arguments: data,
+      }),
+    });
+    const responseBody = await response.json();
+    if (responseBody.success) {
+      return responseBody;
+    }
+    throw new Error('Transaction Failed');
+  }
   if (!process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT) {
     throw new ApplicationError('SUI_SPONSORED_TRANSACTIONS_ENDPOINT is not configured');
   }

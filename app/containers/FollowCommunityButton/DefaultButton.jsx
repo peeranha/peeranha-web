@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import OutlinedButton from 'components/Button/Outlined/InfoMedium';
 import SuiConnectModals from 'components/SuiConnectModals';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 import Button from './index';
 import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';

@@ -1,3 +1,4 @@
+import { isSuiBlockchain } from 'utils/constants';
 import { showPopover } from 'utils/popover';
 import { ApplicationError } from 'utils/errors';
 import { t } from 'i18next';
@@ -9,7 +10,6 @@ import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (profileInfo, questionData, postButtonId, item) => {

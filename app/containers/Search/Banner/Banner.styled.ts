@@ -1,4 +1,3 @@
-import { isSuiBlockchain } from 'utils/sui/sui';
 import {
   BG_LIGHT,
   BORDER_RADIUS_L,
@@ -7,6 +6,7 @@ import {
   TEXT_LIGHT,
 } from '../../../style-constants';
 import { singleCommunityColors } from '../../../utils/communityManagement';
+import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
 

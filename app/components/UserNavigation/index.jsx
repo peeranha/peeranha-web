@@ -14,12 +14,12 @@ import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import { isSuiBlockchain } from 'utils/constants';
 import { getPermissions } from 'utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
 import useMediaQuery from 'hooks/useMediaQuery';
 import { css } from '@emotion/react';
 import ScrollContainer from 'components/common/ScrollContainer';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 

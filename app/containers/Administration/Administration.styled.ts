@@ -1,5 +1,6 @@
 import { TEXT_DARK } from 'style-constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+
+import { isSuiBlockchain } from 'utils/constants';
 
 export const styles = {
   mainInfo: {

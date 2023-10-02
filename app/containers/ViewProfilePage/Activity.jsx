@@ -14,7 +14,7 @@ import Span from 'components/Span';
 
 import Button from 'components/Button/Contained/Navigation';
 import { TransparentLinkDefault } from 'components/Button/Contained/Transparent';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';

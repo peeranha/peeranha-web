@@ -25,7 +25,8 @@ import { BORDER_PRIMARY } from 'style-constants';
 import { getUsersModeratorByRoles } from 'utils/accountManagement';
 import { singleCommunityColors } from 'utils/communityManagement';
 import { getActualId } from 'utils/properties';
-import { isSuiBlockchain } from 'utils/sui/sui';
+
+import { isSuiBlockchain } from 'utils/constants';
 
 enum Roles {
   communityAdmin = isSuiBlockchain ? 3 : 0,
