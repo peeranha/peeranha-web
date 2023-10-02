@@ -10,6 +10,20 @@ export const styles = {
     fontWeight: 400,
   },
 
+  searchLabel: {
+    background: colors.btnColor || 'rgba(87, 111, 237, 1)',
+    color: colors.newPostButtonText || 'rgba(255, 255, 255, 1)',
+    minWidth: '39px',
+    height: '20px',
+    borderRadius: '3px',
+    fontWeight: 600,
+    fontSize: '14px',
+    lineHeight: '16px',
+    padding: '1.5px 6px 2.5px 6px',
+    gap: '10px',
+    marginLeft: '8px',
+  },
+
   menuSectionTitle: {
     textTransform: 'uppercase',
     fontSize: '14px',
@@ -18,7 +32,7 @@ export const styles = {
     span: {
       'text-transform': 'uppercase',
     },
-    color: colors.sectionHeader || '#7B7B7B',
+    color: colors.sectionHeader || 'rgba(123, 123, 123, 1)',
 
     '&:hover .dropdown-documentation': {
       display: 'block',
