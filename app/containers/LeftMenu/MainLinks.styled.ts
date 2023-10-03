@@ -1,4 +1,4 @@
-import { BORDER_SECONDARY } from 'style-constants';
+import { BORDER_SECONDARY, TEXT_LIGHT } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
@@ -12,7 +12,7 @@ export const styles = {
 
   searchLabel: {
     background: colors.btnColor || 'rgba(87, 111, 237, 1)',
-    color: colors.newPostButtonText || 'rgba(255, 255, 255, 1)',
+    color: TEXT_LIGHT,
     minWidth: '39px',
     height: '20px',
     borderRadius: '3px',
