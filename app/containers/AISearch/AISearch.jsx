@@ -111,7 +111,7 @@ const AISearch = ({
               <IconLg icon={AIIcon} width={32} fill={BORDER_PRIMARY} />
             </MediumIconStyled>
           </div>
-          {t('common.aiPoweredSearch')}
+          <span css={styles.aiPoweredSearchText}>{t('common.aiPoweredSearch')}</span>
         </H3>
         <div css={styles.headerSearchField}>
           <input
@@ -205,7 +205,7 @@ const AISearch = ({
               align-items: center;
             }
 
-            background: ${colors.btnHeaderColor};
+            background: ${colors.btnColor};
 
             :hover {
               opacity: 0.8;

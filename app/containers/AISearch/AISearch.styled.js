@@ -65,6 +65,12 @@ export const styles = {
     },
   },
 
+  aiPoweredSearchText: {
+    '@media (max-width: 576px)': {
+      color: colors.sectionHeader || 'rgba(40, 40, 40, 1)',
+    },
+  },
+
   additionalInfoItemTitle: {
     fontWeight: 600,
     fontSize: '18px',
