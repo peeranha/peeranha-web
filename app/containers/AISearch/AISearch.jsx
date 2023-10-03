@@ -3,7 +3,7 @@ import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
 import { css } from '@emotion/react';
 import H3 from 'components/H3';
-import { BG_LIGHT, BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_LIGHT } from 'style-constants';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import { bindActionCreators, compose } from 'redux';
@@ -30,6 +30,7 @@ import { getSearchResult } from './actions';
 import { styles } from './AISearch.styled';
 import reducer from './reducer';
 import saga from './saga';
+import { loginWithSui, loginWithWallet } from 'containers/Login/actions';
 
 const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
@@ -137,11 +138,11 @@ const AISearch = ({
               right: 15px;
 
               .fill {
-                fill: ${colors.newPostButtonText || BG_LIGHT};
+                fill: ${TEXT_LIGHT};
               }
 
               .stroke {
-                stroke: ${colors.newPostButtonText || BG_LIGHT};
+                stroke: ${TEXT_LIGHT};
               }
 
               span {
@@ -151,17 +152,15 @@ const AISearch = ({
 
               background: ${colors.btnColor};
               :hover {
-                background: ${colors.btnHoverColor};
-                border: ${colors.btnHoverColor};
                 opacity: 0.8;
               }
             `}
           >
-            <IconLg fill={colors.newPostButtonText || BG_LIGHT} icon={AIIcon} />
+            <IconLg fill={TEXT_LIGHT} icon={AIIcon} />
             <span
               className="ml-2"
               css={css`
-                color: ${colors.newPostButtonText};
+                color: ${TEXT_LIGHT};
               `}
             >
               {t('common.askAI')}
@@ -194,11 +193,11 @@ const AISearch = ({
             margin-top: 15px;
 
             .fill {
-              fill: ${colors.newPostButtonText || BG_LIGHT};
+              fill: ${TEXT_LIGHT};
             }
 
             .stroke {
-              stroke: ${colors.newPostButtonText || BG_LIGHT};
+              stroke: ${TEXT_LIGHT};
             }
 
             span {
@@ -209,17 +208,15 @@ const AISearch = ({
             background: ${colors.btnHeaderColor};
 
             :hover {
-              background: ${colors.btnHeaderHoverColor};
-              border: ${colors.btnHeaderHoverBorder};
-              opacity: ${colors.btnHeaderHoverOpacity};
+              opacity: 0.8;
             }
           `}
         >
-          <IconLg fill={colors.newPostButtonText || BG_LIGHT} icon={AIIcon} />
+          <IconLg fill={TEXT_LIGHT} icon={AIIcon} />
           <span
             className="ml-2"
             css={css`
-              color: ${colors.newPostButtonText};
+              color: ${TEXT_LIGHT};
             `}
           >
             {t('common.askAI')}
@@ -305,6 +302,8 @@ export default compose(
     (dispatch) => ({
       getSearchResultDispatch: bindActionCreators(getSearchResult, dispatch),
       redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
+      loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
+      loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     }),
   ),
 )(AISearch);

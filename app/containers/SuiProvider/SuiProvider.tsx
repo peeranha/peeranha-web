@@ -9,6 +9,33 @@ import { initSetter } from 'utils/sui/sui';
 
 const SuiProvider = ({ children, setWalletDispatch, wallet, setTransactionListDispatch }) => {
   useEffect(() => {
+    const loadScriptByURL = (id, url, callback) => {
+      const isScriptExist = document.getElementById(id);
+
+      if (!isScriptExist) {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        script.id = id;
+        script.onload = () => {
+          if (callback) callback();
+        };
+        document.body.appendChild(script);
+      }
+
+      if (isScriptExist && callback) callback();
+    };
+
+    loadScriptByURL(
+      'recaptcha-key',
+      `https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_SITE_KEY}`,
+      () => {
+        console.log('Script loaded!');
+      },
+    );
+  }, []);
+
+  useEffect(() => {
     setWalletDispatch(wallet);
     initSetter(setTransactionListDispatch);
   }, [setTransactionListDispatch, setWalletDispatch, wallet]);
