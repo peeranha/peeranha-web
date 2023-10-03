@@ -32,7 +32,7 @@ export const styles = {
     fontSize: '22px',
     lineHeight: '28px',
     margin: '40px 0 23px',
-    color: 'rgba(40, 40, 40, 1)',
+    color: colors.sectionHeader || 'rgba(40, 40, 40, 1)',
 
     '@media (min-width: 768px)': {
       fontSize: '30px',
@@ -62,6 +62,12 @@ export const styles = {
 
     ':hover': {
       boxShadow: `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
+    },
+  },
+
+  aiPoweredSearchText: {
+    '@media (max-width: 576px)': {
+      color: colors.sectionHeader || 'rgba(40, 40, 40, 1)',
     },
   },
 
