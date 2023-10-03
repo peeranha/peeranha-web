@@ -127,7 +127,7 @@ const App = ({
   }, []);
 
   useEffect(() => {
-    if (isSuiBlockchain && pathname === '/') {
+    if (isSuiBlockchain && !single && pathname === '/') {
       redirectToFeedDispatch();
     }
   }, []);
@@ -152,7 +152,7 @@ const App = ({
       if ((hasPinnedPost || isDocumentationPositionTop) && isDocumentationExist) {
         redirectToDocumentationDispatch();
       } else {
-        redirectToFeedDispatch();
+        single ? redirectToDocumentationDispatch() : redirectToFeedDispatch();
       }
     }
   }, [documentationMenu]);
