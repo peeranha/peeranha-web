@@ -32,7 +32,7 @@ export const styles = {
     fontSize: '22px',
     lineHeight: '28px',
     margin: '40px 0 23px',
-    color: 'rgba(40, 40, 40, 1)',
+    color: colors.sectionHeader || 'rgba(40, 40, 40, 1)',
 
     '@media (min-width: 768px)': {
       fontSize: '30px',
