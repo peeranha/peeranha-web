@@ -8,7 +8,7 @@ then
   npm run build:prod
 elif [ "$1" == "prod-sui" ];
 then
-  bucket="suiqa.io"
+  bucket="sui.peeranha.io"
   npm run build:prod
 elif [ "$1" == "staging" ];
 then
