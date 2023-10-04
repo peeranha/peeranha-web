@@ -17,7 +17,7 @@ import { init, useConnectWallet, useSetChain, useWallets } from '@web3-onboard/r
 import injectedModule from '@web3-onboard/injected-wallets';
 import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
-import torusModule from '@web3-onboard/torus';
+import torusModule from './torusModule';
 import logo from 'images/LogoBlackOnboard.svg?inline';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import { addToast } from '../Toast/actions';
