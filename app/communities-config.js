@@ -42,8 +42,8 @@ const communitiesConfig = {
         },
         '3-0xb44dbb445e89a75120188af82d83abec2dfbce87d9825edb38e10e3c2ed5f42e': {
           origin: `https://suins${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/suins/logo.svg',
-          styles: CartesiStyles,
+          src: 'https://images.peeranha.io/communities/suins/logo-2.svg',
+          styles: SuiNSStyles,
         },
       }
     : {
@@ -157,8 +157,8 @@ const communitiesConfig = {
         },
         '2-1': {
           origin: 'https://edgeware.peeranha.io',
-          src: 'https://images.peeranha.io/communities/edgeware/logo.svg',
-          styles: CartesiStyles,
+          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
+          styles: EdgewareStyles,
         },
       },
   staging: isSuiBlockchain
