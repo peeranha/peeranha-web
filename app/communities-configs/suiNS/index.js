@@ -4,7 +4,7 @@ import { css } from 'styled-components';
 const domainName = 'https://suins.io/';
 
 export const customSubHeaderConfig = {
-  design: 'suiGlobal_style',
+  design: 'suiNS_style',
   styles: {
     bg: {
       header: '#FFFFFF',
