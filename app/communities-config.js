@@ -25,6 +25,8 @@ import { ValistStyles } from './communities-configs/valist';
 import { VyperStyles } from './communities-configs/vyper';
 import { SuiMainStyles } from './communities-configs/suiMain';
 import { CartesiStyles } from './communities-configs/cartesi';
+import { EdgewareStyles } from './communities-configs/edgeware';
+import { SuiNSStyles } from './communities-configs/suiNS';
 
 const communitiesConfig = {
   prod: isSuiBlockchain
@@ -226,8 +228,8 @@ const communitiesConfig = {
         },
         '3-0x02e943bd6dd5ca34a8fdeb4f595f6c20bf8b529bdf03e830b0713ddc1f74d95c': {
           origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/solidity/logo.svg',
-          styles: SolidityStyles,
+          src: 'https://images.peeranha.io/communities/suins/suins.svg',
+          styles: SuiNSStyles,
         },
         '3-0xf1ec216ce7573b9b7f625d1cb618374b94f241787919f35da28f93c416e55cc6': {
           origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
@@ -315,6 +317,11 @@ const communitiesConfig = {
           origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/ankr/logo.svg',
           styles: AnkrStyles,
+        },
+        '2-1': {
+          origin: `https://edgeware${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
+          styles: EdgewareStyles,
         },
       },
   dev: isSuiBlockchain
