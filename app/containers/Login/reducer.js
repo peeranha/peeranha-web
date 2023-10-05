@@ -74,10 +74,7 @@ function loginReducer(state = initialState, action) {
         .set('signInWithEmailError', signInWithEmailError);
 
     case START_VERIFYING:
-      return state
-        .set('showSentCodeModal', false)
-        .set('showVerificationModal', true)
-        .set('verifyEmailProcessing', true);
+      return state.set('showSentCodeModal', false).set('showVerificationModal', true);
 
     case VERIFY_EMAIL:
       return state.set('verifyEmailProcessing', true);

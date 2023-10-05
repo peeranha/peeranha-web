@@ -17,6 +17,7 @@ const Content = ({
   handleSubmit,
   setEmail,
   formValues,
+  signInWithEmailProcessing,
 }: EmailFormProps) => {
   const { t } = useTranslation();
 
@@ -51,7 +52,7 @@ const Content = ({
           placeholder={t('login.emailForm')}
         />
 
-        <Button css={{ width: '100%' }} type="submit">
+        <Button css={{ width: '100%' }} type="submit" disabled={signInWithEmailProcessing}>
           {t('login.getStarted')}
         </Button>
       </form>

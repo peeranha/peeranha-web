@@ -40,6 +40,8 @@ export const Login = ({
   startVerifyingDispatch,
   verifyEmailDispatch,
   hideSignInModalDispatch,
+  verifyEmailProcessing,
+  signInWithEmailProcessing,
 }) => {
   const [email, setEmail] = useState('');
   const [isWalletLogin, setIsWalletLogin] = useState(false);
@@ -61,6 +63,7 @@ export const Login = ({
             setIsWalletLogin={setIsWalletLogin}
             signInWithEmailDispatch={signInWithEmailDispatch}
             setEmail={setEmail}
+            signInWithEmailProcessing={signInWithEmailProcessing}
           />
         )}
 
@@ -72,6 +75,7 @@ export const Login = ({
             verifyEmail={verifyEmailDispatch}
             signInWithEmail={signInWithEmailDispatch}
             hideModal={hideSignInModalDispatch}
+            verifyEmailProcessing={verifyEmailProcessing}
           />
         )}
       </ModalDialog>
@@ -87,6 +91,8 @@ const withConnect = connect(
     showVerificationModal: selectors.makeSelectShowVerificationModal(),
     email: selectors.makeSelectEmail(),
     ethereumService: selectEthereum,
+    verifyEmailProcessing: selectors.makeSelectVerifyEmailProcessing(),
+    signInWithEmailProcessing: selectors.selectSignInWithEmailProcessing(),
   }),
   (dispatch) => ({
     hideSignInModalDispatch: bindActionCreators(hideSignInModal, dispatch),

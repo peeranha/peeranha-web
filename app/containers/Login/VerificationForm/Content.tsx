@@ -13,6 +13,7 @@ const Content = ({
   handleSubmit,
   signInWithEmail,
   hideModal,
+  verifyEmailProcessing,
 }: VerificationFormProps) => {
   const { t } = useTranslation();
 
@@ -70,7 +71,11 @@ const Content = ({
           <OutlinedButton onClick={hideModal} css={{ minHeight: '40px' }}>
             {t('common.cancel')}
           </OutlinedButton>
-          <ContainedButton type={'submit'} css={{ minHeight: '40px' }}>
+          <ContainedButton
+            type={'submit'}
+            css={{ minHeight: '40px' }}
+            disabled={verifyEmailProcessing}
+          >
             {t('login.confirm')}
           </ContainedButton>
         </div>

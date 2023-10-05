@@ -16,6 +16,7 @@ export interface EmailFormProps {
   handleSubmit: (handler: SubmitHandler<{ email: string }>) => FormEventHandler<HTMLFormElement>;
   setEmail: (email: string) => void;
   formValues: { email: string };
+  signInWithEmailProcessing: boolean;
 }
 
 const EmailForm = ({
@@ -25,6 +26,7 @@ const EmailForm = ({
   handleSubmit,
   setEmail,
   formValues,
+  signInWithEmailProcessing,
 }: EmailFormProps) => (
   <>
     <Header />
@@ -35,6 +37,7 @@ const EmailForm = ({
       handleSubmit={handleSubmit}
       setEmail={setEmail}
       formValues={formValues}
+      signInWithEmailProcessing={signInWithEmailProcessing}
     />
   </>
 );

@@ -27,6 +27,9 @@ export const makeSelectEmail = () =>
 export const selectLoginWithWalletProcessing = () =>
   createSelector(selectLoginDomain, (substate) => substate.get('loginWithWalletProcessing'));
 
+export const selectSignInWithEmailProcessing = () =>
+  createSelector(selectLoginDomain, (substate) => substate.get('signInWithEmailProcessing'));
+
 export const selectLoginWithWalletError = () =>
   createSelector(selectLoginDomain, (substate) => substate.get('loginWithWalletError'));
 

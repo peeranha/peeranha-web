@@ -17,6 +17,7 @@ export interface VerificationFormProps {
   signInWithEmail: (email: string) => void;
   hideModal: () => void;
   email: string;
+  verifyEmailProcessing: boolean;
 }
 
 const VerificationForm = ({
@@ -25,6 +26,7 @@ const VerificationForm = ({
   handleSubmit,
   signInWithEmail,
   hideModal,
+  verifyEmailProcessing,
 }: VerificationFormProps) => (
   <>
     <Header />
@@ -34,6 +36,7 @@ const VerificationForm = ({
       handleSubmit={handleSubmit}
       signInWithEmail={signInWithEmail}
       hideModal={hideModal}
+      verifyEmailProcessing={verifyEmailProcessing}
     />
   </>
 );

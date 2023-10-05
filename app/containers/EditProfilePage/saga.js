@@ -1,4 +1,5 @@
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { delay } from 'redux-saga';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -42,6 +43,7 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
       const wallet = yield select(selectSuiWallet());
       const txResult = yield call(saveSuiProfile, wallet, profile);
       yield put(transactionInPending(txResult.digest));
+      yield call(delay, 2000);
       yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
 
