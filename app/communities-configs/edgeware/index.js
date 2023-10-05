@@ -167,6 +167,7 @@ export const customSubHeaderConfig = {
 
 export const EdgewareStyles = {
   name: 'Edgeware',
+  favicon: 'https://images.peeranha.io/communities/edgeware/favicon.svg',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
