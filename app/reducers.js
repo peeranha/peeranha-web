@@ -34,6 +34,7 @@ import searchReducer from 'containers/Search/reducer';
 import appWrapperReducer from 'containers/AppWrapper/reducer';
 import notificationsReducer from './components/Notifications/reducer';
 import homeReducer from './containers/Home/reducer';
+import aiSearchReducer from './containers/AISearch/reducer';
 
 /*
  * routeReducer
@@ -75,6 +76,7 @@ export default (injectedReducers) =>
     account: accountProviderReducer,
     editProfileReducer,
     questionsReducer,
+    aiSearchReducer,
     documentationReducer,
     askQuestionReducer,
     existingQuestionReducer,

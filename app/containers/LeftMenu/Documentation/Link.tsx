@@ -45,8 +45,7 @@ const Link: React.FC<LinkProps> = ({
         ...(level === 0 && { padding: '12px 0' }),
         ...((isOpen ||
           (match.params.sectionId && getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
-          editArticleId === item.id ||
-          (route === '/' && startDocumentionPostLight)) && {
+          editArticleId === item.id) && {
           fontWeight: 700,
           color: 'var(black)',
         }),

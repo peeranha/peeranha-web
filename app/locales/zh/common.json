@@ -512,5 +512,20 @@
   },
   "aboutPeeranha": "关于 Peeranha",
   "postsAnswersComments": "帖子、答案和评论",
-  "statusReputationPrivileges": "地位、声誉和特权"
+  "statusReputationPrivileges": "地位、声誉和特权",
+  "new": "新的",
+  "aiPoweredSearch": "人工智能驱动搜索",
+  "aiPoweredSearchInputPlaceholder": "让魔法开始，提问一个问题",
+  "askAI": "问AI",
+  "askAIQuestion": "提出一个问题",
+  "exploreAI": "探索您的先进人工智能搜索引擎",
+  "timeEfficiency": "时间效率",
+  "unlockPotencial": "释放快速数据探索的潜力，享受高效的结果。",
+  "broadBase": "广泛的知识库",
+  "connectAI": "连接到我们的先进人工智能搜索引擎，从各种信息源中精练而成。无论何时需要，都可以获取社区支持。",
+  "continuousImprovement": "持续改进",
+  "experienceEnhancements": "通过我们的持续更新体验质量的不断提升。",
+  "noResultsFound": "未找到结果",
+  "askingCommunity": "很抱歉，我们找不到任何匹配的结果。\n请尝试向我们的社区提问。",
+  "sources": "来源"
 }

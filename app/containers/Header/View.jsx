@@ -114,7 +114,11 @@ const View = ({
     const logo = single ? peeranhaMetaLogo : peeranhaLogo;
     const src = () => {
       if (styles.withoutSubHeader) {
-        return !isSuiBlockchain ? communitiesConfig[single].src : suiLogo;
+        return isSuiBlockchain
+          ? single
+            ? communitiesConfig[single].src
+            : suiLogo
+          : communitiesConfig[single].src;
       }
       return logo;
     };

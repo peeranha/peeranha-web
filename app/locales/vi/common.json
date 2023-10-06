@@ -525,5 +525,20 @@
   },
   "aboutPeeranha": "Giới thiệu về Peeranha",
   "postsAnswersComments": "Bài viết, câu trả lời và bình luận",
-  "statusReputationPrivileges": "Địa vị, danh tiếng và đặc quyền"
+  "statusReputationPrivileges": "Địa vị, danh tiếng và đặc quyền",
+  "new": "Mới",
+  "aiPoweredSearch": "Tìm kiếm được động bằng Trí tuệ Nhân tạo",
+  "aiPoweredSearchInputPlaceholder": "Hãy để phép màu bắt đầu, Hỏi một câu hỏi",
+  "askAI": "Hỏi Trí tuệ Nhân tạo",
+  "askAIQuestion": "Hỏi một câu hỏi",
+  "exploreAI": "Khám phá công cụ tìm kiếm Trí tuệ Nhân tạo tiên tiến của bạn",
+  "timeEfficiency": "Hiệu suất thời gian",
+  "unlockPotencial": "Mở khóa tiềm năng để khám phá dữ liệu nhanh chóng và tận hưởng kết quả hiệu quả.",
+  "broadBase": "Nền tảng kiến thức rộng lớn",
+  "connectAI": "Kết nối với công cụ tìm kiếm Trí tuệ Nhân tạo tiên tiến của chúng tôi, được hoàn thiện từ nhiều nguồn tài liệu. Truy cập hỗ trợ từ cộng đồng bất cứ khi nào bạn cần.",
+  "continuousImprovement": "Cải tiến liên tục",
+  "experienceEnhancements": "Trải nghiệm sự cải thiện chất lượng liên tục thông qua các cập nhật liên tục của chúng tôi.",
+  "noResultsFound": "Không tìm thấy kết quả nào",
+  "askingCommunity": "Rất tiếc, chúng tôi không tìm thấy kết quả phù hợp nào. \nHãy thử hỏi cộng đồng của chúng tôi.",
+  "sources": "Nguồn"
 }
