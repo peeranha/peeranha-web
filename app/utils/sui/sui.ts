@@ -76,17 +76,57 @@ export function createSuiProvider() {
 
 const suiProvider = createSuiProvider();
 
-export const waitForTransactionConfirmation = async (transactionDigest: string): Promise<any> =>
-  suiProvider.getTransactionBlock({
-    digest: transactionDigest,
-    options: {
-      showInput: false,
-      showEffects: false,
-      showEvents: true,
-      showObjectChanges: false,
-      showBalanceChanges: false,
-    },
-  });
+export const waitForTransactionConfirmation = async (
+  transactionDigest: string,
+  maxAttempts = 3,
+): Promise<any> => {
+  let attempts = 0;
+
+  const getTransactionBlock = async () => {
+    try {
+      await suiProvider.getTransactionBlock({
+        digest: transactionDigest,
+        options: {
+          showInput: false,
+          showEffects: false,
+          showEvents: true,
+          showObjectChanges: false,
+          showBalanceChanges: false,
+        },
+      });
+    } catch (error) {
+      attempts += 1;
+
+      if (attempts < maxAttempts) {
+        setTimeout(() => getTransactionBlock(), 2000);
+      } else {
+        throw error;
+      }
+    }
+  };
+
+  return getTransactionBlock();
+};
+
+const setTransactionResult = (digest: string, status: number) => {
+  transactionList.find(
+    (transactionFromList) => transactionFromList.transactionHash === digest,
+  ).result = { status };
+  if (setTransactionList) {
+    setTransactionList(transactionList);
+  }
+  setTimeout(() => {
+    const index = transactionList
+      .map((transactionFromList) => transactionFromList.transactionHash)
+      .indexOf(digest);
+    if (index !== -1) {
+      transactionList.splice(index, 1);
+      if (setTransactionList) {
+        setTransactionList(transactionList);
+      }
+    }
+  }, '30000');
+};
 
 export const handleMoveCall = async (
   wallet: WalletContextState,
@@ -99,6 +139,14 @@ export const handleMoveCall = async (
   if (emailData) {
     if (!process.env.SUI_GASLESS_TRANSACTIONS_ENDPOINT) {
       throw new ApplicationError('SUI_GASLESS_TRANSACTIONS_ENDPOINT is not configured');
+    }
+    const hash = action + data.join('');
+    transactionList.push({
+      action,
+      transactionHash: hash,
+    });
+    if (setTransactionList) {
+      setTransactionList(transactionList);
     }
     const response = await fetch(process.env.SUI_GASLESS_TRANSACTIONS_ENDPOINT, {
       method: 'POST',
@@ -115,6 +163,9 @@ export const handleMoveCall = async (
       }),
     });
     const responseBody = await response.json();
+    setTransactionResult(hash, responseBody?.success ? 1 : 2);
+    await waitForTransactionConfirmation(responseBody.digest);
+
     if (responseBody.success) {
       return responseBody;
     }
@@ -161,23 +212,10 @@ export const handleMoveCall = async (
 
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
   const result = await waitForTransactionConfirmation(executeResponse.digest);
-  transactionList.find(
-    (transactionFromList) => transactionFromList.transactionHash === executeResponse.digest,
-  ).result = { status: executeResponse?.effects.status.status === 'failure' ? 2 : 1 };
-  if (setTransactionList) {
-    setTransactionList(transactionList);
-  }
-  setTimeout(() => {
-    const index = transactionList
-      .map((transactionFromList) => transactionFromList.transactionHash)
-      .indexOf(executeResponse.digest);
-    if (index !== -1) {
-      transactionList.splice(index, 1);
-      if (setTransactionList) {
-        setTransactionList(transactionList);
-      }
-    }
-  }, '30000');
+  setTransactionResult(
+    executeResponse.digest,
+    executeResponse?.effects.status.status === 'failure' ? 2 : 1,
+  );
 
   if (executeResponse?.effects.status.status === 'failure') {
     throw new Error('Transaction Failed');
