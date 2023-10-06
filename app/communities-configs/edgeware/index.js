@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-const domainName = 'https://suiglobal.crew3.xyz/questboard';
+const domainName = 'https://www.edgeware.io/';
 
 export const customSubHeaderConfig = {
   design: 'suiGlobal_style',
@@ -165,85 +165,80 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const SuiMainStyles = {
-  name: 'suiMain',
+export const EdgewareStyles = {
+  name: 'Edgeware',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
 
   colors: {
     appWindowsColor: '#2b5797',
     appSafarieColor: '#5bbad5',
     mainSubHeaderBgColor: 'rgb(255,255,255)',
-    mainBackground: 'linear-gradient(45deg, #EAF7FF -66%, #fff 80%, #EAF7FF 90%)',
-    border: '#D0DAE6',
-    linkColor: '#4BA3FF',
-    linkCookieColor: '#011729',
-    linkColorTransparent: '#4BA3FF',
-    headerPrimary: '#4BA3FF',
-    commentOption: '#4BA3FF',
-    contentHeader: '#4BA3FF',
-    blockedInfoArea: '#DAEEFF',
+
+    mainBackground: '#F0F0F0',
+
+    linkColor: 'rgba(160, 43, 80, 1)',
+    linkCookieColor: 'rgba(255, 59, 127, 1)',
+    linkColorTransparent: 'rgba(160, 43, 80, 1)',
+    headerPrimary: 'rgba(255, 59, 127, 1)',
+    commentOption: 'rgba(255, 59, 127, 1)',
+    contentHeader: 'rgba(255, 59, 127, 1)',
     transparentIconColor: '#FFFF',
-    loaderColor: '#4BA3FF',
-    votingIconColor: '#4BA3FF',
-    linkColorSecondary: '#4BA3FF',
-    walletButton: '#4BA3FF',
-    btnColor: '#4BA3FF',
-    btnHoverColor: '#4BA3FF',
-    btnHeaderColor: '#4BA3FF',
-    btnHeaderHoverColor: '#4BA3FF',
-    tagColor: '#4BA3FF',
-    localeArrowColor: '#95A3B0',
-    textColor: '#4BA3FF',
-    textColorShadow: '#4BA3FF',
+    loaderColor: 'rgba(255, 59, 127, 1)',
+    votingIconColor: 'rgba(255, 59, 127, 1)',
+    linkColorSecondary: 'rgba(255, 59, 127, 1)',
+    walletButton: 'rgba(255, 59, 127, 1)',
+    btnColor: 'rgba(255, 59, 127, 1)',
+    btnHoverColor: 'rgba(255, 59, 127, 1)',
+    btnHeaderColor: 'rgba(255, 59, 127, 1)',
+    btnHeaderHoverColor: 'rgba(255, 59, 127, 1)',
+    tagColor: 'rgba(255, 59, 127, 1)',
+    localeArrowColor: '#F3F3F3',
+    textColor: 'rgba(255, 59, 127, 1)',
+    textColorShadow: 'rgba(255, 59, 127, 1)',
+    paginationButtonBackgroundColor: 'rgba(160, 43, 80, 1)',
     commHeadElemColor: '#282828',
-    darkBlue: '#4BA3FF',
-    paginationButtonBackgroundColor: '#EAF7FF',
-    footerText: '#282828',
-    userInformation: '#EAF7FF',
-    pinnedPostBackground: '#4BA3FF',
-    secondaryAdditional: '#F1F5FE',
+    darkBlue: '#1a1c20',
   },
   cookieConsentPopupStyles: {
-    background: '#4CA3FF',
-    color: '#F3F3F3',
+    background: 'rgba(21, 21, 21, 1)',
+    color: 'rgba(255, 255, 255, 1)',
 
     button: {
-      color: '#011729',
-      borderColor: 'rgb(255,255,255)',
+      color: 'rgb(255,255,255)',
+      borderColor: 'rgba(255, 59, 127, 1)',
 
-      background: 'rgb(255,255,255)',
+      background: 'rgba(255, 59, 127, 1)',
       ':hover': {
-        background: '#4BA3FF',
+        background: 'rgba(255, 59, 127, 0.8)',
         color: 'rgb(255,255,255)',
-        borderColor: 'rgb(255,255,255)',
       },
     },
   },
   headerHeight: 80,
-  // projectBorderRadius: '20px',
+  projectBorderRadius: '3px',
   domainName,
-  communityBorderStyle: '2px solid #4BA3FF',
+  communityBorderStyle: '1px solid rgba(255, 59, 127, 1)',
   dropDownIconStyles: css`
     path {
-      stroke: #4ba3ff !important;
-      stroke-width: 1.5px;
+      stroke: rgba(255, 59, 127, 1) !important;
+      stroke-width: 1px;
       fill: none !important;
     }
     circle {
-      stroke: #4ba3ff;
-      stroke-width: 1.5px;
+      stroke: rgba(255, 59, 127, 1);
+      stroke-width: 1px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 2px solid #4ba3ff;
-    color: #4ba3ff;
+    border: 1px solid rgba(255, 59, 127, 1);
+    color: rgba(255, 59, 127, 1);
     :hover {
-      background: #4ba3ff !important;
+      background: rgba(255, 59, 127, 1) !important;
     }
   `,
 };

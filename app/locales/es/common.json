@@ -524,5 +524,20 @@
   },
   "aboutPeeranha": "Sobre Peeranha",
   "postsAnswersComments": "Publicaciones, respuestas y comentarios",
-  "statusReputationPrivileges": "Estatus, Reputación y Privilegios"
+  "statusReputationPrivileges": "Estatus, Reputación y Privilegios",
+  "new": "Nuevo",
+  "aiPoweredSearch": "Búsqueda impulsada por IA",
+  "aiPoweredSearchInputPlaceholder": "Deja que comience la magia, haz una pregunta",
+  "askAI": "Preguntar a la IA",
+  "askAIQuestion": "Hacer una pregunta",
+  "exploreAI": "Explora tu motor de búsqueda avanzado de IA",
+  "timeEfficiency": "Eficiencia en el tiempo",
+  "unlockPotencial": "Desbloquea el potencial para una exploración de datos rápida y disfruta de resultados eficientes.",
+  "broadBase": "Amplia base de conocimientos",
+  "connectAI": "Conéctate a nuestro avanzado motor de búsqueda de IA, perfeccionado a partir de una amplia variedad de fuentes. Accede al soporte de la comunidad siempre que lo necesites.",
+  "continuousImprovement": "Mejora continua",
+  "experienceEnhancements": "Experimenta una corriente de mejoras de calidad con nuestras actualizaciones continuas.",
+  "noResultsFound": "No se encontraron resultados",
+  "askingCommunity": "Lamentablemente, no pudimos encontrar resultados coincidentes. \nIntente preguntar a nuestra comunidad.",
+  "sources": "Fuentes"
 }

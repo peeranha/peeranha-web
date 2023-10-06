@@ -121,7 +121,7 @@ export async function sendMetaTransactionMethod(
     sigV: v,
     wait: false,
     reCaptchaToken: token,
-    network: network + 1,
+    network: Number(network) + 1,
   });
 
   this.transactionList.push({

@@ -24,6 +24,9 @@ import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { ValistStyles } from './communities-configs/valist';
 import { VyperStyles } from './communities-configs/vyper';
 import { SuiMainStyles } from './communities-configs/suiMain';
+import { CartesiStyles } from './communities-configs/cartesi';
+import { EdgewareStyles } from './communities-configs/edgeware';
+import { SuiNSStyles } from './communities-configs/suiNS';
 
 const communitiesConfig = {
   prod: isSuiBlockchain
@@ -195,8 +198,8 @@ const communitiesConfig = {
         },
         '3-0x02e943bd6dd5ca34a8fdeb4f595f6c20bf8b529bdf03e830b0713ddc1f74d95c': {
           origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/solidity/logo.svg',
-          styles: SolidityStyles,
+          src: 'https://images.peeranha.io/communities/suins/suins.svg',
+          styles: SuiNSStyles,
         },
       }
     : {
@@ -275,6 +278,16 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
           styles: LaunchpadStyles,
         },
+        '1-21': {
+          origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
+          styles: CartesiStyles,
+        },
+        '2-1': {
+          origin: `https://edgeware${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
+          styles: EdgewareStyles,
+        },
       },
   dev: isSuiBlockchain
     ? {
@@ -290,9 +303,7 @@ const communitiesConfig = {
       }
     : {
         '1-1': {
-          origin: 'http://localhost:31000',
-          src: 'https://images.peeranha.io/communities/harmony/logo.svg',
-          styles: HarmonyStyles,
+          origin: 'http://localhost:3000',
         },
       },
 };

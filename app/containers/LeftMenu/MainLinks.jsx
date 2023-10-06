@@ -31,6 +31,7 @@ import {
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
+import aiIcon from 'images/aiIcon.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
@@ -144,7 +145,6 @@ const Box = styled.div`
   @media only screen and (max-width: 991px) {
     margin-top: 0;
   }
-  }
 `;
 
 const documentationPosition = singleCommunityDocumentationPosition();
@@ -230,7 +230,7 @@ const MainLinks = ({
                   <PinIcon
                     stroke="#FFF"
                     css={{
-                      fill: colors.white || '#A5BCFF',
+                      fill: colors.pinnedPostBackground || '#A5BCFF',
                       marginLeft: '10px',
                     }}
                   />
@@ -268,6 +268,14 @@ const MainLinks = ({
           >
             {t('common.communityLabel')}
           </div>
+        )}
+
+        {singleCommId && (
+          <A1 to={routes.defaultPath} name={routes.defaultPath} route={route}>
+            <IconLg className="mr-2" icon={aiIcon} />
+            {t('common.aiPoweredSearch')}
+            <span css={styles.searchLabel}>New</span>
+          </A1>
         )}
 
         <A1 to={routes.feed()} name="feed" route={route}>
