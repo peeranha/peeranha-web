@@ -10,6 +10,7 @@ type MarkdownPreviewProps = {
 
 const MarkdownPreviewBlock: React.FC<MarkdownPreviewProps> = ({ content }): JSX.Element => (
   <MarkdownPreview
+    linkTarget="_blank"
     source={content}
     warpperElement={{ 'data-color-mode': 'light' }}
     css={styles.markdownPreview}
