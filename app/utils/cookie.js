@@ -66,6 +66,9 @@ export const deleteCookie = (name) =>
   });
 
 export const formPermissionsCookie = (permissions) => {
+  if (!permissions) {
+    return {};
+  }
   const basePermissions = permissions.filter((permission) =>
     isSuiBlockchain
       ? permission.split('-')[1] === PROTOCOL_ADMIN_ROLE
