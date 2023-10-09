@@ -147,7 +147,7 @@ const View = ({
     isMinusReputation && !isHasRole ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
   };
 
-  const NewPostButton = (onClickForModal) => (
+  const NewPostButton = ({ onClickForModal }) => (
     <Button
       id="header-ask-question"
       onClick={profileInfo ? onClickForModal : showLoginModalWithRedirectToAskQuestionPage}
@@ -209,7 +209,7 @@ const View = ({
                   </Button>
 
                   <NewPostButton
-                    askQuestionHandler={
+                    onClickForModal={
                       profileInfo ? askQuestionHandler : showLoginModalWithRedirectToAskQuestionPage
                     }
                   />

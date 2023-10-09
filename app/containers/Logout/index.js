@@ -24,14 +24,16 @@ import { logout } from './actions';
 
 export const Logout = /* istanbul ignore next */ ({ logoutDispatch, children, wallet }) => {
   const suiLogout = () => {
-    if (!wallet.disconnect) {
+    if (!wallet.connected) {
       deleteCookie(EMAIL_LOGIN_DATA);
       logoutDispatch();
     } else {
-      wallet.disconnect().then(() => {
-        logoutDispatch();
-        deleteCookie('connectedWallet');
-      });
+      wallet.select(wallet.name).then(() =>
+        wallet.disconnect().then(() => {
+          logoutDispatch();
+          deleteCookie('connectedWallet');
+        }),
+      );
     }
   };
   const logout = isSuiBlockchain ? suiLogout : logoutDispatch;

@@ -84,7 +84,7 @@ export const waitForTransactionConfirmation = async (
 
   const getTransactionBlock = async () => {
     try {
-      await suiProvider.getTransactionBlock({
+      return await suiProvider.getTransactionBlock({
         digest: transactionDigest,
         options: {
           showInput: false,
@@ -98,10 +98,11 @@ export const waitForTransactionConfirmation = async (
       attempts += 1;
 
       if (attempts < maxAttempts) {
-        setTimeout(() => getTransactionBlock(), 2000);
-      } else {
-        throw error;
+        return new Promise((resolve) => {
+          setTimeout(() => resolve(getTransactionBlock()), 2000);
+        });
       }
+      throw error;
     }
   };
 

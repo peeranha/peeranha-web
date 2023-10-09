@@ -11,8 +11,6 @@ import Span from 'components/Span';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { TextareaStyled } from 'components/Textarea';
-import SuiConnectModals from 'components/SuiConnectModals';
-import { isSuiBlockchain } from 'utils/constants';
 
 import { singleCommunityColors } from 'utils/communityManagement';
 import CommentForm from './CommentForm';
@@ -62,19 +60,12 @@ export const CommentOptions = ({
   changeCommentsView,
   isAllCommentsView,
   commentsNumber,
-  profileInfo,
-  loginWithSuiDispatch,
 }) => {
   const { t } = useTranslation();
   const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
 
   const showCommentForm =
     addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) || false;
-
-  const actionButtonWithLogin = (onClick) => (
-    <ActionButtonWithLogin onClick={onClick} buttonId={toggleFormButtonId} />
-  );
-
   return (
     <div className="my-3">
       <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
@@ -93,17 +84,10 @@ export const CommentOptions = ({
           </ButtonStyled>
         )}
 
-        {!profileInfo && isSuiBlockchain ? (
-          <SuiConnectModals
-            loginWithWallet={loginWithSuiDispatch}
-            actionButtonWithLogin={actionButtonWithLogin}
-          />
-        ) : (
-          <ActionButtonWithLogin
-            onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
-            buttonId={toggleFormButtonId}
-          />
-        )}
+        <ActionButtonWithLogin
+          onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
+          buttonId={toggleFormButtonId}
+        />
       </div>
 
       {showCommentForm && (

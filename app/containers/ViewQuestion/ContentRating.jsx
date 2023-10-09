@@ -13,13 +13,11 @@ import emptyFingerUp from 'images/emptyFingerUp.svg?external';
 import emptyFingerDown from 'images/emptyFingerDown.svg?external';
 
 import { BORDER_SUCCESS, BORDER_ATTENTION_LIGHT, BORDER_PRIMARY_LIGHT } from 'style-constants';
-import { isSuiBlockchain } from 'utils/constants';
 import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
 import Button from 'components/Button/Contained/Transparent';
 import { IconLg } from 'components/Icon/IconWithSizes';
-import SuiConnectModals from 'components/SuiConnectModals';
 
 import { singleCommunityColors } from 'utils/communityManagement';
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
@@ -68,13 +66,11 @@ const ContentRating = ({
   downVote,
   author,
   ids,
-  profile,
-  loginWithSuiDispatch,
-}) => {
-  const upVoteButtonWithLogin = (onClick) => (
+}) => (
+  <>
     <Button
       className="overflow-initial"
-      onClick={onClick}
+      onClick={upVote}
       disabled={ids.includes(`${UP_VOTE_BUTTON}${answerId}`)}
       id={`${UP_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
@@ -82,11 +78,14 @@ const ContentRating = ({
     >
       <UpvoteIcon account={account} author={author} votingStatus={votingStatus} />
     </Button>
-  );
-  const downVoteButtonWithLogin = (onClick) => (
+
+    <Span fontSize="20" bold>
+      {getFormattedNum(rating)}
+    </Span>
+
     <Button
       className="overflow-initial"
-      onClick={onClick}
+      onClick={downVote}
       disabled={ids.includes(`${DOWN_VOTE_BUTTON}${answerId}`)}
       id={`${DOWN_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
@@ -94,33 +93,8 @@ const ContentRating = ({
     >
       <DownvoteIcon account={account} author={author} votingStatus={votingStatus} />
     </Button>
-  );
-  return (
-    <>
-      {!profile && isSuiBlockchain ? (
-        <SuiConnectModals
-          loginWithWallet={loginWithSuiDispatch}
-          actionButtonWithLogin={upVoteButtonWithLogin}
-        />
-      ) : (
-        upVoteButtonWithLogin(upVote)
-      )}
-
-      <Span fontSize="20" bold>
-        {getFormattedNum(rating)}
-      </Span>
-
-      {!profile && isSuiBlockchain ? (
-        <SuiConnectModals
-          loginWithWallet={loginWithSuiDispatch}
-          actionButtonWithLogin={downVoteButtonWithLogin}
-        />
-      ) : (
-        downVoteButtonWithLogin(downVote)
-      )}
-    </>
-  );
-};
+  </>
+);
 
 ContentRating.propTypes = {
   rating: PropTypes.number,

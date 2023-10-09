@@ -1,5 +1,7 @@
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
+import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { ApplicationError } from 'utils/errors';
 import { getProfileInfo } from 'utils/profileManagement';
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
@@ -40,7 +42,7 @@ import { getCurrentAccountWorker, isAvailableAction } from 'containers/AccountPr
 import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
 
-import { isItemChanged, saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
+import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { getPost, getCommentId2, getVoteHistory } from 'utils/theGraph';
@@ -530,8 +532,14 @@ export function* getQuestionDataWorker({ questionId }) {
 
 export function* checkPostCommentAvailableWorker(buttonId, answerId) {
   const { questionData, profileInfo } = yield call(getParams);
-
-  yield call(isAuthorized);
+  if (isSuiBlockchain) {
+    if (!profileInfo) {
+      yield put(showLoginModal());
+      throw new ApplicationError('Not authorized');
+    }
+  } else {
+    yield call(isAuthorized);
+  }
 
   yield call(
     isAvailableAction,
@@ -655,7 +663,14 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
     const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
-    yield call(isAuthorized);
+    if (isSuiBlockchain) {
+      if (!profileInfo) {
+        yield put(showLoginModal());
+        throw new ApplicationError('Not authorized');
+      }
+    } else {
+      yield call(isAuthorized);
+    }
 
     yield call(
       isAvailableAction,
@@ -779,7 +794,14 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
 
     const usersForUpdate = [whoWasDownvoted];
 
-    yield call(isAuthorized);
+    if (isSuiBlockchain) {
+      if (!profileInfo) {
+        yield put(showLoginModal());
+        throw new ApplicationError('Not authorized');
+      }
+    } else {
+      yield call(isAuthorized);
+    }
 
     yield call(
       isAvailableAction,
@@ -850,7 +872,14 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
 
     const usersForUpdate = [whoWasUpvoted];
 
-    yield call(isAuthorized);
+    if (isSuiBlockchain) {
+      if (!profileInfo) {
+        yield put(showLoginModal());
+        throw new ApplicationError('Not authorized');
+      }
+    } else {
+      yield call(isAuthorized);
+    }
 
     yield call(
       isAvailableAction,
@@ -919,8 +948,14 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
     const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasAccepted];
-
-    yield call(isAuthorized);
+    if (isSuiBlockchain) {
+      if (!profileInfo) {
+        yield put(showLoginModal());
+        throw new ApplicationError('Not authorized');
+      }
+    } else {
+      yield call(isAuthorized);
+    }
 
     yield call(
       isAvailableAction,

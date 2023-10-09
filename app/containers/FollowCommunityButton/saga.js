@@ -1,9 +1,11 @@
 /* eslint indent: 0 */
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
+import { showLoginModal } from 'containers/Login/actions';
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 import { isSuiBlockchain } from 'utils/constants';
+import { ApplicationError } from 'utils/errors';
 import { getActualId } from 'utils/properties';
 import { followSuiCommunity } from 'utils/sui/communityManagement';
 import { waitForTransactionConfirmation } from 'utils/sui/sui';
@@ -12,11 +14,6 @@ import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-
-import { FOLLOW_HANDLER, MIN_RATING_TO_FOLLOW, MIN_ENERGY_TO_FOLLOW } from './constants';
-
-import { followHandlerSuccess, followHandlerErr } from './actions';
-import { selectEthereum } from '../EthereumProvider/selectors';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
 import {
@@ -26,11 +23,20 @@ import {
   transactionInPending,
 } from 'containers/EthereumProvider/actions';
 
+import { FOLLOW_HANDLER, MIN_RATING_TO_FOLLOW, MIN_ENERGY_TO_FOLLOW } from './constants';
+
+import { followHandlerSuccess, followHandlerErr } from './actions';
+import { selectEthereum } from '../EthereumProvider/selectors';
+
 export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }) {
   try {
     if (isSuiBlockchain) {
-      const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
+      if (!profile) {
+        yield put(showLoginModal());
+        throw new ApplicationError('Not authorized');
+      }
+      const wallet = yield select(selectSuiWallet());
 
       const suiUserObject = yield call(getSuiUserObject, wallet.address);
       if (!suiUserObject) {
@@ -81,9 +87,6 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
     yield put(getUserProfileSuccess(updatedProfileInfo));
     yield put(followHandlerSuccess({ communityIdFilter, isFollowed, buttonId }));
   } catch (err) {
-    if (isSuiBlockchain) {
-      yield put(transactionFailed(err));
-    }
     yield put(followHandlerErr(err, buttonId));
   }
 }

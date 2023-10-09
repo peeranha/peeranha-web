@@ -1,6 +1,4 @@
 import { setTransactionList } from 'containers/EthereumProvider/actions';
-import { clearEmailLoginData } from 'containers/SuiProvider/actions';
-import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -31,13 +29,7 @@ export function* logoutWorker() {
 
       yield call(ethereumService.resetWalletState);
     } else {
-      const wallet = yield select(selectSuiWallet());
-      if (!wallet.disconnect) {
-        deleteCookie(EMAIL_LOGIN_DATA);
-        yield put(clearEmailLoginData());
-      } else {
-        yield call(wallet.disconnect);
-      }
+      deleteCookie(EMAIL_LOGIN_DATA);
     }
 
     yield call(createdHistory.push, routes.feed());

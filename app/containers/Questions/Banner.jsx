@@ -5,24 +5,10 @@ import { useTranslation } from 'react-i18next';
 import Wrapper from 'components/Banner';
 import FeedBanner from 'components/Feed/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
-import SuiConnectModals from 'components/SuiConnectModals';
 
 import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?inline';
-import { isSuiBlockchain } from 'utils/constants';
-
-export const AllQuestionsBanner = ({
-  redirectToAskQuestionPage,
-  profileInfo,
-  loginWithSuiDispatch,
-}) => {
+export const AllQuestionsBanner = ({ redirectToAskQuestionPage }) => {
   const { t } = useTranslation();
-
-  const actionButtonWithLogin = (onClick) => (
-    <Button id="banner-ask-question" onClick={onClick}>
-      {t('common.askQuestion')}
-    </Button>
-  );
-
   return (
     <Wrapper>
       <img src={noQuestionsAllQuestionsPage} alt="posts-banner" />
@@ -31,14 +17,9 @@ export const AllQuestionsBanner = ({
 
         <p>{t('common.thisIsNewCommunity')}</p>
 
-        {!profileInfo && isSuiBlockchain ? (
-          <SuiConnectModals
-            loginWithWallet={loginWithSuiDispatch}
-            actionButtonWithLogin={actionButtonWithLogin}
-          />
-        ) : (
-          actionButtonWithLogin(redirectToAskQuestionPage)
-        )}
+        <Button id="banner-ask-question" onClick={redirectToAskQuestionPage}>
+          {t('common.askQuestion')}
+        </Button>
       </div>
     </Wrapper>
   );
@@ -51,7 +32,6 @@ export const Banner = ({
   isEmpty,
   isSingleCommunityMode,
   profileInfo,
-  loginWithSuiDispatch,
 }) =>
   (!isSingleCommunityMode && isFeed && followedCommunities && !followedCommunities[0]) ||
   (isSingleCommunityMode && !isEmpty) ? (
@@ -60,7 +40,6 @@ export const Banner = ({
     <AllQuestionsBanner
       redirectToAskQuestionPage={redirectToAskQuestionPage}
       profileInfo={profileInfo}
-      loginWithSuiDispatch={loginWithSuiDispatch}
     />
   );
 
