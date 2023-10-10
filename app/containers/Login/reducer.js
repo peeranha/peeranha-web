@@ -34,6 +34,8 @@ export const initialState = fromJS({
   loginWithWalletProcessing: false,
   isNewPostCreationAfterLogin: false,
   loginWithWalletError: null,
+
+  onceSend: false,
 });
 
 function loginReducer(state = initialState, action) {
@@ -65,7 +67,17 @@ function loginReducer(state = initialState, action) {
         .set('loginWithWalletProcessing', false)
         .set('loginWithWalletError', loginWithWalletError);
     case SIGN_IN_WITH_EMAIL:
-      return state.set('signInWithEmailProcessing', true).set('showVerificationModal', false);
+      if (state.get('onceSend')) {
+        return state
+          .set('signInWithEmailProcessing', true)
+          .set('showVerificationModal', false)
+          .set('showSentCodeModal', true);
+      }
+      return state
+        .set('signInWithEmailProcessing', true)
+        .set('showVerificationModal', false)
+        .set('onceSend', true);
+
     case SIGN_IN_WITH_EMAIL_SUCCESS:
       return state.set('signInWithEmailProcessing', false).set('showSentCodeModal', true);
     case SIGN_IN_WITH_EMAIL_ERROR:
@@ -82,14 +94,16 @@ function loginReducer(state = initialState, action) {
       return state
         .set('verifyEmailProcessing', false)
         .set('showSignInModal', false)
-        .set('showVerificationModal', false);
+        .set('showVerificationModal', false)
+        .set('onceSend', false);
     case VERIFY_EMAIL_ERROR:
       return state.set('verifyEmailProcessing', false).set('verificationError', verificationError);
     case HIDE_SIGN_IN_MODAL:
       return state
         .set('showSignInModal', false)
         .set('showVerificationModal', false)
-        .set('showSentCodeModal', false);
+        .set('showSentCodeModal', false)
+        .set('onceSend', false);
     default:
       return state;
   }
