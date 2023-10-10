@@ -35,6 +35,22 @@ import {
   transactionInPending,
 } from 'containers/EthereumProvider/actions';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import {
+  GIVE_COMMUNITY_ADMIN_PERMISSION,
+  GIVE_COMMUNITY_MODERATOR_PERMISSION,
+  REVOKE_COMMUNITY_ADMIN_PERMISSION,
+  REVOKE_COMMUNITY_MODERATOR_PERMISSION,
+} from 'utils/ethConstants';
+
+const addRolePermissionConstants = [
+  GIVE_COMMUNITY_ADMIN_PERMISSION,
+  GIVE_COMMUNITY_MODERATOR_PERMISSION,
+];
+
+const revokeRolePermissionConstants = [
+  REVOKE_COMMUNITY_ADMIN_PERMISSION,
+  REVOKE_COMMUNITY_MODERATOR_PERMISSION,
+];
 
 export function* getModeratorsWorker(props: { communityId: string }): Generator<{}> {
   try {
@@ -76,9 +92,9 @@ export function* addRoleWorker(props: {
       const txResult = yield call(
         giveSuiRolePermission,
         wallet,
+        addRolePermissionConstants[props.role],
         profile.id,
         suiUserObject?.id?.id || props.userAddress,
-        props.role,
         props.communityId,
       );
       yield put(transactionInPending(txResult.digest));
@@ -91,7 +107,7 @@ export function* addRoleWorker(props: {
         giveRolePermission,
         account,
         props.userAddress,
-        props.role,
+        addRolePermissionConstants[props.role],
         props.communityId,
         ethereumService,
       );
@@ -120,9 +136,9 @@ export function* revokeRoleWorker(props: {
       const txResult = yield call(
         revokeSuiRolePermission,
         wallet,
+        revokeRolePermissionConstants[props.role],
         profile.id,
         suiUserObject?.id?.id || props.userAddress,
-        props.role,
         props.communityId,
       );
       yield put(transactionInPending(txResult.digest));
@@ -135,7 +151,7 @@ export function* revokeRoleWorker(props: {
         revokeRolePermission,
         account,
         props.userAddress,
-        props.role,
+        revokeRolePermissionConstants[props.role],
         props.communityId,
         ethereumService,
       );
