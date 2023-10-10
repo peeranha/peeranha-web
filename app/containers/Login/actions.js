@@ -13,10 +13,10 @@ import {
   START_VERIFYING,
   HIDE_SIGN_IN_MODAL,
 } from './constants';
-export function showLoginModal({ isNewPostCreationAfterLogin = false }) {
+export function showLoginModal(data) {
   return {
     type: SHOW_LOGIN_MODAL,
-    isNewPostCreationAfterLogin,
+    isNewPostCreationAfterLogin: data?.isNewPostCreationAfterLogin || false,
   };
 }
 
