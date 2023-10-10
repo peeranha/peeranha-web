@@ -76,9 +76,7 @@ export function* loginWithWalletWorker({ t }) {
     });
 
     if (isNewPostCreationAfterLogin) {
-      const ev = { currentTarget: { id: 1 } };
-
-      yield put(redirectToAskQuestionPage(ev));
+      yield call(createdHistory.push, routes.questionAsk());
     }
 
     yield put(loginWithWalletSuccess());
@@ -124,9 +122,7 @@ export function* verifyEmailWorker({ email, verificationCode, resolve, reject })
       yield put(verifyEmailSuccess());
     }
     if (isNewPostCreationAfterLogin) {
-      const ev = { currentTarget: { id: 1 } };
-
-      yield put(redirectToAskQuestionPage(ev));
+      yield call(createdHistory.push, routes.questionAsk());
     }
     yield put(getCurrentSuiAccount());
   } catch (err) {

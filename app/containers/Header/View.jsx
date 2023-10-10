@@ -208,11 +208,7 @@ const View = ({
                     <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
                   </Button>
 
-                  <NewPostButton
-                    onClickForModal={
-                      profileInfo ? askQuestionHandler : showLoginModalWithRedirectToAskQuestionPage
-                    }
-                  />
+                  <NewPostButton onClickForModal={askQuestionHandler} />
                 </>
               )}
 

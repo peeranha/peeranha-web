@@ -98,7 +98,7 @@ export class Header extends React.PureComponent {
         account={account}
         profileInfo={profileInfo}
         loginWithWalletDispatch={loginDispatch}
-        showLoginModalWithRedirectToAskQuestionPage={() => loginDispatch(true)}
+        showLoginModalWithRedirectToAskQuestionPage={loginDispatch}
         showMenu={showLeftMenuDispatch}
         redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         faqQuestions={faqQuestions}
