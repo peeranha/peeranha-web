@@ -36,6 +36,8 @@ const styles = {
 
   baseContainer: {
     marginBottom: '16px',
+    borderTopLeftRadius: '0',
+    borderTopRightRadius: '0',
   },
 };
 

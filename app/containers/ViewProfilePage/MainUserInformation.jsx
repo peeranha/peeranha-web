@@ -200,13 +200,10 @@ const MainUserInformation = ({
       });
     };
   const shortUserId = (id) => {
-    if (id.length > 40 && window.innerWidth > 576) {
-      return `${id.substring(0, 41)}...${id.substring(id.length - 5)}`;
-    }
-    if (id.length > 40 && window.innerWidth <= 576) {
+    if (window.innerWidth <= 576) {
       return `${id.substring(0, 25)}...${id.substring(id.length - 5)}`;
     }
-    return id;
+    return isSuiBlockchain ? `${id.substring(0, 41)}...${id.substring(id.length - 5)}` : id;
   };
 
   return (

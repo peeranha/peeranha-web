@@ -5,6 +5,8 @@
  */
 
 // Fields
+import { isSuiBlockchain } from 'utils/sui/sui';
+
 export const EMAIL_FIELD = 'email';
 export const PASSWORD_FIELD = 'password';
 export const REMEMBER_ME_FIELD = 'remember';
@@ -24,7 +26,7 @@ export const LOGIN_WITH_WALLET_ERROR = 'app/containers/Login/LOGIN_WITH_WALLET_E
 
 // Local storage
 export const AUTOLOGIN_DATA = 'peeranhaAutoLogin';
-export const PROFILE_INFO_LS = 'profileinfols';
+export const PROFILE_INFO_LS = isSuiBlockchain ? 'suiprofileinfols' : 'profileinfols';
 
-//SUI
+// SUI
 export const LOGIN_WITH_SUI = 'app/containers/Login/LOGIN_WITH_SUI';

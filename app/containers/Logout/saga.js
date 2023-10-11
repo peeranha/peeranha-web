@@ -30,9 +30,6 @@ export function* logoutWorker() {
       ethereumService.transactionList = [];
 
       yield call(ethereumService.resetWalletState);
-    } else {
-      const wallet = yield select(selectSuiWallet());
-      yield call(wallet.disconnect);
     }
 
     yield call(createdHistory.push, routes.feed());

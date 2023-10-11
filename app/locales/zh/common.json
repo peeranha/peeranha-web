@@ -507,7 +507,8 @@
     "votePost": "投票帖子",
     "voteReply": "投票回复",
     "grantRole": "给予许可",
-    "revokeRole": "撤销权限"
+    "revokeRole": "撤销权限",
+    "mintUserNFT": "索取 NFT"
   },
   "aboutPeeranha": "关于 Peeranha",
   "postsAnswersComments": "帖子、答案和评论",

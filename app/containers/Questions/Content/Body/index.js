@@ -45,14 +45,10 @@ const Body = ({
 }) => {
   const language = Object.keys(languagesEnum)[Number(postLanguage)];
 
-  const community = communities.find((communityObject) =>
-    isSuiBlockchain
-      ? communityObject.id === communityId || communityObject.suiId === communityId
-      : communityObject.id === communityId,
-  );
+  const community = communities.find((communityObject) => communityObject.id === communityId);
   const isAutotranslationEnable =
     locale === 'en' ||
-    community?.translations?.find((translation) => translation.language === locale)
+    community?.communitytranslation?.find((translation) => translation.language === locale)
       ?.enableAutotranslation;
 
   const translation = translations.find((t) => Number(t.language) === languagesEnum[locale]);

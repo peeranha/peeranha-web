@@ -68,7 +68,7 @@ export const Content: React.FC<ContentProps> = ({
   if (moderatorsLoading) return <Loader />;
 
   return (
-    <BaseRoundedNoPadding className="fdc mb16">
+    <BaseRoundedNoPadding css={styles.contentBlock}>
       {usersModeratorByRoles.map((moderator, index) => (
         <BaseSpecial
           last={usersModeratorByRoles.length - 1 === index}

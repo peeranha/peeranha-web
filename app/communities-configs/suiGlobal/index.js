@@ -199,6 +199,7 @@ export const SuiGlobalStyles = {
     textColorShadow: 'rgb(79,183,255)',
     commHeadElemColor: '#282828',
     darkBlue: '#1a1c20',
+    border: '#D0DAE6',
   },
   cookieConsentPopupStyles: {
     background:
