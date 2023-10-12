@@ -6,7 +6,7 @@ import { css } from '@emotion/react';
 
 import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR, TEXT_PRIMARY } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
-import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
+import { isSuiBlockchain, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import FaqIcon from 'icons/Faq';
@@ -31,7 +31,6 @@ import { getUserName } from 'utils/user';
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import { singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { SuiNS } from 'icons/index';
 
 const colors = singleCommunityColors();

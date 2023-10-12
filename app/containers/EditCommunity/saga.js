@@ -15,11 +15,12 @@ import {
   getAllCommunities,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/constants';
 import { uploadImg } from 'utils/profileManagement';
 import { getActualId } from 'utils/properties';
 import { delay } from 'utils/reduxUtils';
 import { getCommunityById } from 'utils/theGraph';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { updateSuiCommunity } from 'utils/sui/communityManagement';
 import { getFileUrl } from 'utils/ipfs';
 

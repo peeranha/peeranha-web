@@ -20,9 +20,8 @@ import useMediaQuery from 'hooks/useMediaQuery';
 
 import { Box } from './MainUserInformation';
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
+import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
 import { singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 const Blank = ({ profile, userId, account, redirectToEditProfilePage }) => {

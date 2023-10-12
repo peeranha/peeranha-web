@@ -25,6 +25,7 @@ import {
   USER_ACHIEVEMENTS_TABLE,
   PROJECT_ACHIEVEMENTS_TABLE,
   ALL_ACHIEVEMENTS_SCOPE,
+  isSuiBlockchain,
 } from 'utils/constants';
 
 import {
@@ -67,7 +68,7 @@ import {
 } from './selectors';
 import { getAllAchievements } from 'utils/theGraph';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { mintSuiAchievement } from 'utils/sui/achievementsManagement';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 

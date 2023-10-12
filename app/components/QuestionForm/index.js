@@ -11,6 +11,7 @@ import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
 
 import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { isSuiBlockchain } from 'utils/constants';
 import {
   getPermissions,
   hasGlobalModeratorRole,
@@ -37,7 +38,6 @@ import FormBox from 'components/Form';
 import TipsBaseSmallPadding from 'components/Base/TipsBaseSmallPadding';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import DescriptionList from 'components/DescriptionList';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import {
   FORM_TITLE,

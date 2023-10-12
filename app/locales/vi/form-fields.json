@@ -9,7 +9,7 @@
   "wrongLengthMin": "Giá trị phải có ít nhất {{min}} ký tự",
   "wrongLengthMax": "Giá trị không được dài hơn  {{max}} ký tự",
   "fileSize": "Tập tin quá lớn",
-  "wrongEmail": "Email sai",
+  "wrongEmail": "Xin vui lòng chọn địa chỉ email đúng.",
   "wrongURL": "Sử dụng định dạng URL hợp lệ http(s)://example.com",
   "wrongBase58Format": "Định dạng dữ liệu sai. Kiểm tra lại đầu vào của bạn.",
   "itemAlreadyExists": "Mục có tên đó đã tồn tại ",

@@ -1,5 +1,19 @@
 {
   "authUserHasMore": "An authorized user has more options",
+  "walletInOne": "Your blockchain wallet in one click.",
+  "emailForm": "Enter your email",
+  "getStarted": "Get started",
+  "connectWithWallet": "Connect with wallet",
+  "codeWasSent": "Verification code was sent to your email.",
+
+  "checkEmail": "Please check your email",
+  "weSent": "We’ve sent a code to",
+  "enterCode": "Enter verification code",
+  "didntGetACode": "Didn’t get a code? ",
+  "clickToResend": "Click to resend.",
+  "confirm": "Confirm",
+  "incorrectCode": "Incorrect code. Please, try again.",
+
   "staySignedIn": "Stay signed in",
   "userIsNotRegistered": "User is not registered",
   "userIsNotSelected": "User is not selected",

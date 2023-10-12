@@ -11,7 +11,6 @@ import { ADD_MODERATOR_BUTTON_BUTTON } from 'containers/Administration/constants
 
 import useTrigger from 'hooks/useTrigger';
 import { styles } from 'containers/Administration/Administration.styled';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -27,6 +26,7 @@ import injectReducer from 'utils/injectReducer';
 import reducer from 'containers/EditProfilePage/reducer';
 import saga from 'containers/EditProfilePage/saga';
 import { WalletContextState } from '@suiet/wallet-kit';
+import { isSuiBlockchain } from 'utils/constants';
 
 type NewUserRegistrationFormProps = {
   handleSubmit: (addRole: any) => FormEventHandler<HTMLFormElement> | undefined;
@@ -45,7 +45,7 @@ const NewUserRegistrationForm: React.FC<NewUserRegistrationFormProps> = ({
   saveProfileDispatch,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const [isOpen, open, close] = useTrigger(true);
+  const [isOpen, open, close] = useTrigger(false);
   const [isSuiUserExists, setIsSuiUserExists] = useState(false);
   const clearAndCloseForm = () => {
     dispatch(reset('newUserRegistrationForm'));
@@ -64,6 +64,9 @@ const NewUserRegistrationForm: React.FC<NewUserRegistrationFormProps> = ({
     const fetchSuiUser = async () => {
       const user = await getSuiUserObject(wallet?.address);
       setIsSuiUserExists(user);
+      if (wallet?.address && !user) {
+        open();
+      }
     };
 
     fetchSuiUser();

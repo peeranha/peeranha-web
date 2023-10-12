@@ -1,4 +1,4 @@
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 import { AaveStyles } from './communities-configs/aave';
 import { AnkrStyles } from './communities-configs/ankr';
 import { CyberconnectStyles } from './communities-configs/cyberconnect';

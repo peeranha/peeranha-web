@@ -1,5 +1,11 @@
 {
   "authUserHasMore": "Người dùng được ủy quyền có nhiều tùy chọn hơn",
+  "walletInOne": "Ví điện tử blockchain của bạn chỉ trong một cú nhấp chuột.",
+  "emailForm": "Nhập địa chỉ email của bạn",
+  "getStarted": "Bắt đầu",
+  "connectWithWallet": "Kết nối với ví điện tử",
+  "codeWasSent": "Mã xác minh đã được gửi đến email của bạn.",
+  "incorrectCode": "Mã không chính xác. Vui lòng thử lại.",
   "staySignedIn": "Vẫn đăng nhập",
   "userIsNotRegistered": "Người dùng chưa đăng ký",
   "userIsNotSelected": "Người dùng không được chọn",

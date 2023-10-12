@@ -1,6 +1,6 @@
 // Contracts
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { postMeshShallow } from './mesh';
+import { isSuiBlockchain } from 'utils/constants';
 export const CONTRACT_TOKEN = ['contractToken', 'edgewareContractToken'];
 export const CONTRACT_USER = ['contractUser', 'edgewareContractUser'];
 export const CONTRACT_CONTENT = ['contractContent', 'edgewareContractContent'];

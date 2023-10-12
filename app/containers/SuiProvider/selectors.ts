@@ -8,3 +8,6 @@ export const selectSuiWallet = () =>
 
 export const selectSuiTransactionList = () =>
   createSelector(selectSuiProviderDomain, (substate) => substate.transactionList);
+
+export const selectEmailLoginData = () =>
+  createSelector(selectSuiProviderDomain, (substate) => substate.emailLoginData);

@@ -6,7 +6,7 @@ import { getAllCommunities, getCommunityTags } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { getMD } from 'utils/mdManagement';
 import { getAchievements } from 'utils/achievementsManagement';
-import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
+import { isSuiBlockchain, USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
 
 import { selectCommunities, selectUsers } from 'containers/DataCacheProvider/selectors';
 
@@ -36,7 +36,6 @@ import {
 } from 'containers/DataCacheProvider/constants';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { getSuiUserById } from 'utils/sui/suiIndexer';
 import { getUserStats } from 'utils/theGraph';
 

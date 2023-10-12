@@ -22,7 +22,7 @@ import MobileAutorizationButtons from 'containers/LeftMenu/MobileAutorizationBut
 import Footer from 'containers/Footer';
 import { ViewStyled } from 'containers/LeftMenu/Styles';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 const single = isSingleCommunityWebsite();
 

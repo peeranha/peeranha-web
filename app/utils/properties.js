@@ -3,7 +3,6 @@ import { BigNumber } from 'ethers';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getCookie, deleteCookie, parsePermissionsCookie } from 'utils/cookie';
 import { NETWORK_ID } from 'utils/ethereum/ethereum';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -17,6 +16,7 @@ import {
   communityModeratorPermissions,
   PROTOCOL_ADMIN_ROLE,
   BOT_ADDRESS,
+  isSuiBlockchain,
 } from './constants';
 
 // todo change to "findRole"

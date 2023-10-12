@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
+import { isSuiBlockchain } from 'utils/constants';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,7 +21,6 @@ import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
 import Loader from 'components/LoadingIndicator/WidthCentered';
 import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import reducer from './reducer';
 import saga from './saga';

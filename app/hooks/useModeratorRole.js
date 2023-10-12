@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PROFILE_INFO_LS } from 'containers/Login/constants';
+import { isSuiBlockchain } from 'utils/constants';
 
 import { getCookie, parsePermissionsCookie } from 'utils/cookie';
 
@@ -10,7 +11,6 @@ import {
   hasProtocolAdminRole,
   isValidJsonFromCookie,
 } from 'utils/properties';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import history from '../createdHistory';
 

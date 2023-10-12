@@ -35,7 +35,8 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import EditDocumentation from 'components/Documentation';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
-import SuiConnectModals from 'components/SuiConnectModals';
+import ChangeLocale from 'containers/ChangeLocale';
+import { isSuiBlockchain } from 'utils/constants';
 
 import { Wrapper, MainSubHeader } from './Wrapper';
 import Section from './Section';
@@ -44,8 +45,7 @@ import LogoStyles from './Logo';
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
-import ChangeLocale from 'containers/ChangeLocale';
-import { isSuiBlockchain } from 'utils/sui/sui';
+
 import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION, IS_SUI_MAIN } from './constants';
 
 const single = isSingleCommunityWebsite();
@@ -144,7 +144,7 @@ const View = ({
     isMinusReputation && !isHasRole ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
   };
 
-  const newPostButton = (onClickForModal) => (
+  const NewPostButton = ({ onClickForModal }) => (
     <Button
       id="header-ask-question"
       onClick={profileInfo ? onClickForModal : showLoginModalWithRedirectToAskQuestionPage}
@@ -204,16 +204,8 @@ const View = ({
                   >
                     <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
                   </Button>
-                  {profileInfo ? (
-                    newPostButton(askQuestionHandler)
-                  ) : isSuiBlockchain ? (
-                    <SuiConnectModals
-                      loginWithWallet={showLoginModalWithRedirectToAskQuestionPage}
-                      actionButtonWithLogin={newPostButton}
-                    />
-                  ) : (
-                    showLoginModalWithRedirectToAskQuestionPage
-                  )}
+
+                  <NewPostButton onClickForModal={askQuestionHandler} />
                 </>
               )}
 

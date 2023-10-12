@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { BORDER_SECONDARY, BG_TRANSPARENT } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
 export const CELL = 24;

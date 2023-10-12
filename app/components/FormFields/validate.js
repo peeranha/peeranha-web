@@ -1,5 +1,6 @@
 import { isAddress } from 'ethers/lib/utils';
 import _get from 'lodash/get';
+import { isSuiBlockchain } from 'utils/constants';
 import { CURRENCIES } from 'wallet-config';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import {
