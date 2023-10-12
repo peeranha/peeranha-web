@@ -96,7 +96,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
         );
       } else {
         if (isSuiBlockchain) {
-          role = administratorRole ? 3 : 4;
+          role = administratorRole ? 0 : 1;
         }
         addRole(walletAddress, role, single, Boolean(isUserHasRole));
         clearAndCloseForm();

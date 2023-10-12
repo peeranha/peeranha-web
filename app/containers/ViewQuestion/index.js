@@ -109,8 +109,16 @@ export const ViewQuestion = ({
     if (questionData) {
       const route = getRoute(questionData.postType);
 
-      if (match.url !== routes[route](match.params.id, questionData.title)) {
-        history.push(routes[route](match.params.id, questionData.title));
+      if (
+        match.url !== routes[route](match.params.id, questionData.title) ||
+        match.params.id.split('-').length === 1
+      ) {
+        history.push(
+          routes[route](
+            match.params.id.split('-').length === 1 ? `1-${match.params.id}` : match.params.id,
+            questionData.title,
+          ),
+        );
       }
     }
   }, [history, match.params.id, match.url, questionData]);
@@ -123,7 +131,9 @@ export const ViewQuestion = ({
   }, []);
 
   useEffect(() => {
-    getQuestionDataDispatch(match.params.id);
+    getQuestionDataDispatch(
+      match.params.id.split('-').length === 1 ? `1-${match.params.id}` : match.params.id,
+    );
   }, [match.params.id, account]);
 
   useEffect(() => {

@@ -508,7 +508,8 @@
     "votePost": "投票帖子",
     "voteReply": "投票回复",
     "grantRole": "给予许可",
-    "revokeRole": "撤销权限"
+    "revokeRole": "撤销权限",
+    "mintUserNFT": "索取 NFT"
   },
   "aboutPeeranha": "关于 Peeranha",
   "postsAnswersComments": "帖子、答案和评论",
@@ -524,7 +525,7 @@
   "broadBase": "广泛的知识库",
   "connectAI": "连接到我们的先进人工智能搜索引擎，从各种信息源中精练而成。无论何时需要，都可以获取社区支持。",
   "continuousImprovement": "持续改进",
-  "experienceEnhancements": "通过我们的持续更新体验质量的不断提升。",
+  "experienceEnhancements": "发现答案，或轻松将您的问题升级到社区。",
   "noResultsFound": "未找到结果",
   "askingCommunity": "很抱歉，我们找不到任何匹配的结果。\n请尝试向我们的社区提问。",
   "sources": "来源"

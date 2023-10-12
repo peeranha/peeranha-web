@@ -82,7 +82,9 @@ export const A1 = A.extend`
   ${({ route, name }) =>
     route === name
       ? `
-          background-color: ${colors.userInformation || PRIMARY_SPECIAL};
+          background-color: ${
+            colors.navMenuBackgroundColor || colors.userInformation || PRIMARY_SPECIAL
+          };
           border-color: ${colors.linkColor || BORDER_PRIMARY_DARK};
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
@@ -167,9 +169,7 @@ const MainLinks = ({
   const singleCommId = isSingleCommunityWebsite();
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
-    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
-      hasCommunityModeratorRole(getPermissions(profile), singleCommId) ||
-      isProtocolAdmin
+    ? hasCommunityModeratorRole(getPermissions(profile), singleCommId) || isProtocolAdmin
     : false;
 
   const isAdministratorModeSingleCommunity = singleCommId
@@ -313,7 +313,6 @@ const MainLinks = ({
         )}
 
         {(hasGlobalModeratorRole() ||
-          hasProtocolAdminRole() ||
           isModeratorModeSingleCommunity ||
           (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>
@@ -336,7 +335,8 @@ const MainLinks = ({
       <div css={styles.dividerLinks} />
 
       {Boolean(singleCommId) &&
-        (documentationMenu.length > 0 || isModeratorModeSingleCommunity) && (
+        (documentationMenu.length > 0 || isModeratorModeSingleCommunity) &&
+        !isSuiBlockchain && (
           <Documentation
             documentationMenu={documentationMenu}
             isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}

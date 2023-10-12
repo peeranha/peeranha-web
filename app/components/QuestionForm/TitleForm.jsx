@@ -14,13 +14,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 
 import { FORM_TITLE } from './constants';
 
-const TitleForm = ({
-  questionLoading,
-  isDocumentation,
-  isHasRole,
-  isEditForm,
-  isPostAuthor,
-}) => {
+const TitleForm = ({ questionLoading, isDocumentation, isHasRole, isEditForm, isPostAuthor }) => {
   const { t } = useTranslation();
   const length = isDocumentation ? strLength5x100 : strLength15x100;
 

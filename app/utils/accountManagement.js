@@ -4,23 +4,7 @@ import { getUser } from 'utils/theGraph';
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from './constants';
 
 import { ApplicationError } from './errors';
-import {
-  CONTRACT_USER,
-  GIVE_COMMUNITY_ADMIN_PERMISSION,
-  GIVE_COMMUNITY_MODERATOR_PERMISSION,
-  REVOKE_COMMUNITY_ADMIN_PERMISSION,
-  REVOKE_COMMUNITY_MODERATOR_PERMISSION,
-} from './ethConstants';
-
-const addRolePermissionEthConstants = [
-  GIVE_COMMUNITY_ADMIN_PERMISSION,
-  GIVE_COMMUNITY_MODERATOR_PERMISSION,
-];
-
-const revokeRolePermissionEthConstants = [
-  REVOKE_COMMUNITY_ADMIN_PERMISSION,
-  REVOKE_COMMUNITY_MODERATOR_PERMISSION,
-];
+import { CONTRACT_USER } from './ethConstants';
 
 export const emptyProfile = (account) => ({
   achievements: [],
@@ -44,23 +28,29 @@ export const emptyProfile = (account) => ({
   user: account,
 });
 
-export async function giveRolePermission(user, userToGive, role, communityId, ethereumService) {
+export async function giveRolePermission(user, userToGive, action, communityId, ethereumService) {
   await ethereumService.sendTransaction(
     getNetwork(communityId),
     CONTRACT_USER[getNetwork(communityId)],
     user,
-    addRolePermissionEthConstants[role],
+    action,
     [user, userToGive, getActualId(communityId)],
     2,
   );
 }
 
-export async function revokeRolePermission(user, userToRevoke, role, communityId, ethereumService) {
+export async function revokeRolePermission(
+  user,
+  userToRevoke,
+  action,
+  communityId,
+  ethereumService,
+) {
   await ethereumService.sendTransaction(
     getNetwork(communityId),
     CONTRACT_USER[getNetwork(communityId)],
     user,
-    revokeRolePermissionEthConstants[role],
+    action,
     [user, userToRevoke, getActualId(communityId)],
     2,
   );

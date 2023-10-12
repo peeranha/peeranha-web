@@ -525,7 +525,8 @@
     "votePost": "Voute post",
     "voteReply": "Voute reply",
     "grantRole": "Give permission",
-    "revokeRole": "Revoke permission"
+    "revokeRole": "Revoke permission",
+    "mintUserNFT": "Claim NFT"
   },
   "aboutPeeranha": "About Peeranha",
   "postsAnswersComments": "Posts, Answers and Comments",
@@ -541,7 +542,7 @@
   "broadBase": "Broad knowledge base",
   "connectAI": "Connect to our advanced AI search engine, honed from a vast array of sources. Tap into community support whenever you need it.",
   "continuousImprovement": "Continuous improvement",
-  "experienceEnhancements": "Experience a stream of quality enhancements with our ongoing updates.",
+  "experienceEnhancements": "Discover the answer, or easily escalate your query to the community.",
   "noResultsFound": "No results found",
   "askingCommunity": "Unfortunately, we couldn't find any matching results. \nTry asking our community.",
   "sources": "Sources"

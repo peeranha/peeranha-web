@@ -48,6 +48,7 @@ import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
 import { QUESTION_FILTER } from './constants';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 
@@ -173,6 +174,10 @@ export const Questions = ({
     }
   };
 
+  const notHiddenCommunities = communities.filter(
+    (community) => !HIDDEN_COMMUNITIES_ID.includes(community.id),
+  );
+
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
     <div>
@@ -228,7 +233,7 @@ export const Questions = ({
       )}
       {isTopCommunitiesDisplay && (
         <TopCommunities
-          communities={communities}
+          communities={notHiddenCommunities}
           profile={profile}
           isTopCommunitiesOnly
           locale={locale}

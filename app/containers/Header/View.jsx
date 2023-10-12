@@ -21,7 +21,6 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
 } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/constants';
 import {
   getPermissions,
   hasCommunityModeratorRole,
@@ -36,6 +35,8 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import EditDocumentation from 'components/Documentation';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
+import ChangeLocale from 'containers/ChangeLocale';
+import { isSuiBlockchain } from 'utils/constants';
 
 import { Wrapper, MainSubHeader } from './Wrapper';
 import Section from './Section';
@@ -44,8 +45,8 @@ import LogoStyles from './Logo';
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
-import ChangeLocale from 'containers/ChangeLocale';
-import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION } from './constants';
+
+import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION, IS_SUI_MAIN } from './constants';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -114,11 +115,7 @@ const View = ({
     const logo = single ? peeranhaMetaLogo : peeranhaLogo;
     const src = () => {
       if (styles.withoutSubHeader) {
-        return isSuiBlockchain
-          ? single
-            ? communitiesConfig[single].src
-            : suiLogo
-          : communitiesConfig[single].src;
+        return IS_SUI_MAIN ? suiLogo : communitiesConfig[single].src;
       }
       return logo;
     };

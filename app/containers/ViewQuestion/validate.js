@@ -196,7 +196,7 @@ export const upVoteValidator = (profileInfo, questionData, postButtonId, answerI
     message = t('post.cannotCompleteBecauseBlocked');
   } else if (
     (questionData.author.user === profileInfo.user && answerId === '0') ||
-    (isOwnItem[0] && isOwnItem[0].author.user === profileInfo.user)
+    (isOwnItem[0] && isOwnItem[0].author.id === profileInfo.user)
   ) {
     message = t('post.noRootsToVote');
   } else if (

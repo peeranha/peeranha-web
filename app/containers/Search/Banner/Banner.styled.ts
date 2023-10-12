@@ -1,13 +1,15 @@
+import { isSuiBlockchain } from 'utils/constants';
 import {
   BG_LIGHT,
   BORDER_RADIUS_L,
   BUTTON_COLOR,
   SECONDARY_SPECIAL_2,
   TEXT_LIGHT,
-} from '../../../style-constants';
-import { singleCommunityColors } from '../../../utils/communityManagement';
-import { isSuiBlockchain } from 'utils/constants';
+  BORDER_RADIUS_M,
+} from 'style-constants';
+import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 
+const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
 
 export const styled = {
@@ -53,7 +55,7 @@ export const styled = {
   button: {
     background: BUTTON_COLOR,
     color: TEXT_LIGHT,
-
+    borderRadius: styles.buttonBorderRadius || BORDER_RADIUS_M,
     ':hover': {
       background: colors.btnHeaderHoverColor,
     },

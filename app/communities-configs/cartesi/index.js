@@ -181,7 +181,7 @@ export const CartesiStyles = {
     border: '#D0DAE6',
     linkColor: '#008DA5',
     linkCookieColor: '#008DA5',
-    linkColorTransparent: '#008DA5',
+    linkColorTransparent: 'rgba(0, 141, 165, 0.4)',
     headerPrimary: '#008DA5',
     commentOption: '#008DA5',
     contentHeader: '#008DA5',
@@ -194,7 +194,7 @@ export const CartesiStyles = {
     btnColor: '#008DA5',
     btnHoverColor: '#008DA5',
     btnHeaderColor: '#1B1A1E',
-    btnHeaderHoverColor: '#008DA5',
+    // btnHeaderHoverColor: '#008DA5',
     tagColor: '#008DA5',
     // localeArrowColor: '#95A3B0',
     textColor: '#008DA5',
@@ -209,6 +209,9 @@ export const CartesiStyles = {
     pinnedPostBackground: '#00F6FF',
     newPostButtonText: '#FFF',
     secondaryAdditional: '#008DA5',
+    newPostMediaBackgroundColor: 'rgba(0, 246, 255, 0.06)',
+    navMenuBackgroundColor: '#00F6FF',
+    navMenuTextColor: '#1B1A1E',
   },
   cookieConsentPopupStyles: {
     background: '#1B1A1E',
@@ -248,4 +251,23 @@ export const CartesiStyles = {
       background: #008da5 !important;
     }
   `,
+  documentationColors: {
+    headerBackground: '#008DA5',
+    headerText: '#F3F3F3',
+    buttonBackground: 'transparent',
+    buttonText: '#F3F3F3',
+    buttonBorder: '#F3F3F3',
+
+    publishBackground: '#F3F3F3',
+    publishText: '#008DA5',
+    publishBackgroundHover: 'rgba(243,243,243,0.7)',
+    publishTextHover: '#008DA5',
+
+    linkColor: '#008DA5',
+    iconsFillColor: '#008DA5',
+
+    saveDraftButtonBackground: '#008DA5',
+    saveDraftButtonText: '#008DA5',
+    saveDraftButtonHover: '#008DA5',
+  },
 };

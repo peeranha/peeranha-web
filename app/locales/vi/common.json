@@ -521,7 +521,8 @@
     "votePost": "Bài bình chọn",
     "voteReply": "Bình chọn trả lời",
     "grantRole": "Cho phép",
-    "revokeRole": "Thu hồi quyền"
+    "revokeRole": "Thu hồi quyền",
+    "mintUserNFT": "Yêu cầu NFT"
   },
   "aboutPeeranha": "Giới thiệu về Peeranha",
   "postsAnswersComments": "Bài viết, câu trả lời và bình luận",
@@ -537,7 +538,7 @@
   "broadBase": "Nền tảng kiến thức rộng lớn",
   "connectAI": "Kết nối với công cụ tìm kiếm Trí tuệ Nhân tạo tiên tiến của chúng tôi, được hoàn thiện từ nhiều nguồn tài liệu. Truy cập hỗ trợ từ cộng đồng bất cứ khi nào bạn cần.",
   "continuousImprovement": "Cải tiến liên tục",
-  "experienceEnhancements": "Trải nghiệm sự cải thiện chất lượng liên tục thông qua các cập nhật liên tục của chúng tôi.",
+  "experienceEnhancements": "Tìm hiểu câu trả lời hoặc tăng cường dễ dàng câu hỏi của bạn đến cộng đồng.",
   "noResultsFound": "Không tìm thấy kết quả nào",
   "askingCommunity": "Rất tiếc, chúng tôi không tìm thấy kết quả phù hợp nào. \nHãy thử hỏi cộng đồng của chúng tôi.",
   "sources": "Nguồn"

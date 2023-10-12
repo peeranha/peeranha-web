@@ -24,13 +24,10 @@ import { BORDER_PRIMARY } from 'style-constants';
 
 import { getUsersModeratorByRoles } from 'utils/accountManagement';
 import { singleCommunityColors } from 'utils/communityManagement';
-import { getActualId } from 'utils/properties';
-
-import { isSuiBlockchain } from 'utils/constants';
 
 enum Roles {
-  communityAdmin = isSuiBlockchain ? 3 : 0,
-  communityModerator = isSuiBlockchain ? 4 : 1,
+  communityAdmin = 0,
+  communityModerator = 1,
 }
 
 type ContentProps = {
@@ -71,7 +68,7 @@ export const Content: React.FC<ContentProps> = ({
   if (moderatorsLoading) return <Loader />;
 
   return (
-    <BaseRoundedNoPadding className="fdc mb16">
+    <BaseRoundedNoPadding css={styles.contentBlock}>
       {usersModeratorByRoles.map((moderator, index) => (
         <BaseSpecial
           last={usersModeratorByRoles.length - 1 === index}

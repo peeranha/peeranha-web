@@ -74,7 +74,8 @@ const P = styled.p`
 
 const Link = styled.a`
   line-height: 24px;
-  span {
+  color: ${colors.linkColor || LINK_COLOR};
+  :hover {
     color: ${colors.linkColor || LINK_COLOR};
   }
 `;
