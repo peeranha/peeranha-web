@@ -175,11 +175,17 @@ export const handleMoveCall = async (
   if (!process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT) {
     throw new ApplicationError('SUI_SPONSORED_TRANSACTIONS_ENDPOINT is not configured');
   }
+
+  const reCaptchaToken = await window.grecaptcha.execute(process.env.RECAPTCHA_SITE_KEY, {
+    action: 'homepage',
+  });
+
   const response = await fetch(process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      reCaptchaToken,
     },
     body: JSON.stringify({
       sender: wallet.address,
