@@ -11,8 +11,7 @@ import checkIcon from 'images/okayGreen.svg?inline';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';

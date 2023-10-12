@@ -1,8 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from 'components/common/Button';
-import SuiConnectModals from 'components/SuiConnectModals';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import noSearchResults from 'images/noSearchResults.png';
 import { styled } from './Banner.styled';
@@ -21,14 +19,8 @@ const ButtonWithLogin = ({ onClick }) => {
   );
 };
 
-const Banner: React.FC<BannerProps> = ({
-  profileInfo,
-  redirectToAskQuestionPage,
-  showLoginModalWithRedirectToAskQuestionPage,
-}): JSX.Element => {
+const Banner: React.FC<BannerProps> = ({ redirectToAskQuestionPage }): JSX.Element => {
   const { t } = useTranslation();
-
-  const actionButtonWithLogin = (onClick: any) => <ButtonWithLogin onClick={onClick} />;
 
   return (
     <div css={styled.banner}>
@@ -40,14 +32,7 @@ const Banner: React.FC<BannerProps> = ({
           <p className="fz16" css={styled.text}>
             {t('common.noSearchResults')}
           </p>
-          {!profileInfo && isSuiBlockchain ? (
-            <SuiConnectModals
-              loginWithWallet={showLoginModalWithRedirectToAskQuestionPage}
-              actionButtonWithLogin={actionButtonWithLogin}
-            />
-          ) : (
-            <ButtonWithLogin onClick={redirectToAskQuestionPage} />
-          )}
+          <ButtonWithLogin onClick={redirectToAskQuestionPage} />
         </div>
       </div>
     </div>

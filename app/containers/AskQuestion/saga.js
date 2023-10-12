@@ -2,10 +2,13 @@ import { languagesEnum } from 'app/i18n';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { showLoginModal } from 'containers/Login/actions';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { isSuiBlockchain } from 'utils/constants';
+import { ApplicationError } from 'utils/errors';
 import { getActualId, getNetwork } from 'utils/properties';
 
 import { postQuestion, getCreatedPostId, updateDocumentationTree } from 'utils/questionsManagement';
@@ -27,11 +30,7 @@ import {
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { postSuiQuestion } from 'utils/sui/questionsManagement';
-import {
-  CREATE_POST_EVENT_NAME,
-  isSuiBlockchain,
-  waitForTransactionConfirmation,
-} from 'utils/sui/sui';
+import { CREATE_POST_EVENT_NAME, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 import {
@@ -217,7 +216,15 @@ function* qetExistingQuestionsWorker({ query }) {
 }
 
 export function* checkReadinessWorker({ buttonId }) {
-  yield call(isAuthorized);
+  const profileInfo = yield select(makeSelectProfileInfo());
+  if (isSuiBlockchain) {
+    if (!profileInfo) {
+      yield put(showLoginModal());
+      throw new ApplicationError('Not authorized');
+    }
+  } else {
+    yield call(isAuthorized);
+  }
 
   yield call(isValid, {
     buttonId: buttonId || POST_QUESTION_BUTTON,

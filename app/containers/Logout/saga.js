@@ -1,16 +1,14 @@
 import { setTransactionList } from 'containers/EthereumProvider/actions';
-import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import { deleteCookie } from 'utils/cookie';
 
-import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
-import { WEB3_TOKEN, META_TRANSACTIONS_ALLOWED } from 'utils/constants';
+import { AUTOLOGIN_DATA, EMAIL_LOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
+import { WEB3_TOKEN, META_TRANSACTIONS_ALLOWED, isSuiBlockchain } from 'utils/constants';
 import { getCurrentAccountSuccess, addLoginData } from 'containers/AccountProvider/actions';
 import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { LOGOUT } from './constants';
 
@@ -30,6 +28,8 @@ export function* logoutWorker() {
       ethereumService.transactionList = [];
 
       yield call(ethereumService.resetWalletState);
+    } else {
+      deleteCookie(EMAIL_LOGIN_DATA);
     }
 
     yield call(createdHistory.push, routes.feed());

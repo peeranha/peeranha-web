@@ -3,10 +3,10 @@ import {
   COMMUNITY_ADMIN_ROLE,
   COMMUNITY_MODERATOR_ROLE,
   DEFAULT_ADMIN_ROLE,
+  isSuiBlockchain,
   PROTOCOL_ADMIN_ROLE,
 } from 'utils/constants';
 import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
-import { isSuiBlockchain } from './sui/sui';
 
 export const NEVER_EXPIRES = 'Tue, 19 Jan 2038 01:14:07 GMT';
 export const DEFAULT_PATH = '/';

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { LEFT_MENU_WIDTH } from 'containers/AppWrapper/constants';
 import { TITLE_FONT, LINK_COLOR } from 'style-constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 import { singleCommunityStyles } from 'utils/communityManagement';
 
 const styles = singleCommunityStyles();

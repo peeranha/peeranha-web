@@ -38,8 +38,8 @@ import {
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { CHANGED_POSTS_KEY, isSuiBlockchain, POST_TYPE } from 'utils/constants';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import {
   transactionCompleted,
   transactionFailed,

@@ -13,11 +13,11 @@ import {
 } from 'containers/Administration/constants';
 import { Moderator } from 'containers/Administration/types';
 
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { getCommunityRoles } from 'utils/properties';
 
 import useTrigger from 'hooks/useTrigger';
 import { styles } from './Administration.styled';
+import { isSuiBlockchain } from 'utils/constants';
 
 type AddRoleFunction = (
   userAddress: string,

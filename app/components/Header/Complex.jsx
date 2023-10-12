@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 import Base from 'components/Base';
 import { C3 } from './Simple';
 singleCommunityColors();

@@ -58,7 +58,7 @@ injectGlobal`
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 10100;
+    z-index: 900;
   }
 
   .container {

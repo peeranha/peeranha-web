@@ -1,8 +1,14 @@
 import { ConnectModal, useWallet } from '@suiet/wallet-kit';
 import '@suiet/wallet-kit/style.css';
+import notificationsReducer from 'components/Notifications/reducer';
+import reducer from 'containers/Login/reducer';
+import saga from 'containers/Login/saga';
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { DAEMON } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 
 const SuiConnectModals = ({ loginWithWallet, actionButtonWithLogin }) => {
   const wallet = useWallet();
@@ -35,9 +41,8 @@ const SuiConnectModals = ({ loginWithWallet, actionButtonWithLogin }) => {
   );
 };
 
-SuiConnectModals.propTypes = {
-  loginWithWallet: PropTypes.func,
-  actionButtonWithLogin: PropTypes.func,
-};
-
-export default SuiConnectModals;
+export default compose(
+  injectReducer({ key: 'login', reducer: notificationsReducer }),
+  injectReducer({ key: 'login', reducer }),
+  injectSaga({ key: 'login', saga, mode: DAEMON }),
+)(SuiConnectModals);

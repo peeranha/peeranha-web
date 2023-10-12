@@ -1,4 +1,4 @@
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 import {
   BG_LIGHT,
   BORDER_RADIUS_L,

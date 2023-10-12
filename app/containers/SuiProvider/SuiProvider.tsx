@@ -6,8 +6,16 @@ import { connect } from 'react-redux';
 import { setWallet, setTransactionList } from 'containers/SuiProvider/actions';
 import reducer from './reducer';
 import { initSetter } from 'utils/sui/sui';
+import { selectEmailLoginData } from 'containers/SuiProvider/selectors';
+import { createStructuredSelector } from 'reselect';
 
-const SuiProvider = ({ children, setWalletDispatch, wallet, setTransactionListDispatch }) => {
+const SuiProvider = ({
+  children,
+  setWalletDispatch,
+  wallet,
+  setTransactionListDispatch,
+  emailLoginData,
+}) => {
   useEffect(() => {
     const loadScriptByURL = (id, url, callback) => {
       const isScriptExist = document.getElementById(id);
@@ -36,16 +44,30 @@ const SuiProvider = ({ children, setWalletDispatch, wallet, setTransactionListDi
   }, []);
 
   useEffect(() => {
-    setWalletDispatch(wallet);
+    if (emailLoginData) {
+      setWalletDispatch(emailLoginData);
+    } else {
+      setWalletDispatch(wallet);
+    }
     initSetter(setTransactionListDispatch);
-  }, [setTransactionListDispatch, setWalletDispatch, wallet]);
+  }, [
+    setTransactionListDispatch,
+    setWalletDispatch,
+    JSON.stringify(wallet),
+    JSON.stringify(emailLoginData),
+  ]);
   return <WalletProvider>{children}</WalletProvider>;
 };
 
-const withConnect = connect(null, (dispatch) => ({
-  setWalletDispatch: bindActionCreators(setWallet, dispatch),
-  setTransactionListDispatch: bindActionCreators(setTransactionList, dispatch),
-}));
+const withConnect = connect(
+  createStructuredSelector({
+    emailLoginData: selectEmailLoginData(),
+  }),
+  (dispatch) => ({
+    setWalletDispatch: bindActionCreators(setWallet, dispatch),
+    setTransactionListDispatch: bindActionCreators(setTransactionList, dispatch),
+  }),
+);
 
 const withReducer = injectReducer({ key: 'suiProvider', reducer });
 

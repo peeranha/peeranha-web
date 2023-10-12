@@ -21,9 +21,9 @@ import H3 from 'components/H3';
 import FormBox from 'components/Form';
 
 import { imageValidation, required, strLength3x20 } from 'components/FormFields/validate';
+import { isSuiBlockchain } from 'utils/constants';
 import { getUserName } from 'utils/user';
 import { singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import AboutForm from './AboutForm';
 
