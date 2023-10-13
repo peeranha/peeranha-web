@@ -15,7 +15,7 @@ import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
 import { getNFTUrl } from '../../utils/ipfs';
 import NFTInformation from './NFTInformation';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 const ImageBlock = styled.div`
   margin-right: 15px;
