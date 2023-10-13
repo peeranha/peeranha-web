@@ -1,8 +1,7 @@
 import React from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
-import { APP_MAIN_NAME, TARGET_BLANK } from 'utils/constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { APP_MAIN_NAME, TARGET_BLANK, isSuiBlockchain } from 'utils/constants';
 import { styles } from './Footer.styled';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaLogoWhite from 'images/Logo.svg?inline';

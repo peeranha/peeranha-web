@@ -1,7 +1,7 @@
 import { CSSObject } from '@emotion/react';
 import { TEXT_SECONDARY } from 'style-constants';
 import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
 const isSingleCommunityMode = isSingleCommunityWebsite();
@@ -15,9 +15,12 @@ export const styles: Record<string, CSSObject> = {
 
   footerCommunityMode: {
     minHeight: '150px',
-    background: isSuiFooter
-      ? 'rgb(234, 247, 255)'
-      : colors.footerBackgroundColor || colors.mainBackground || 'rgb(234, 236, 244)',
+    background: isSuiFooter ? 'rgb(245,252,255)' : colors.mainBackground || 'rgb(234, 236, 244)',
+    '@media (min-width: 991px)': {
+      background: isSuiFooter
+        ? 'rgb(234, 247, 255)'
+        : colors.footerBackgroundColor || colors.mainBackground || 'rgb(234, 236, 244)',
+    },
   },
 
   logo: {
@@ -74,6 +77,7 @@ export const styles: Record<string, CSSObject> = {
     borderBottom: `1px solid ${colors.footerBorderColor || '#c2c6d8'}`,
     margin: isSuiFooter ? '0 0 32px' : '32px',
     '@media (max-width: 991px)': {
+      display: isSuiFooter ? 'none' : 'block',
       margin: '28px 16px',
     },
   },
