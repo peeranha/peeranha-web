@@ -322,7 +322,7 @@ const MainLinks = ({
         <div css={styles.dividerLinks} />
       </div>
 
-      <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner>
+      {/* <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner> */}
 
       <div css={styles.dividerLinks} />
 
