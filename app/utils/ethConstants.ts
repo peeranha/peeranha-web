@@ -274,14 +274,18 @@ const postMesh = `
     timeStamp
   }
   reply (
-    orderBy: { postTime: desc },
-    where: { isDeleted: "0" },
+    orderBy: POST_TIME_ASC,
+    condition: {
+        isDeleted: false
+    }
   ) {
     ${replyMesh}
   }
   comment (
-    orderBy: { postTime: asc },
-    where: { isDeleted: "0" },
+    orderBy: POST_TIME_ASC,
+    condition: {
+        isDeleted: false
+    }
   ) {
     ${commentMesh}
   }
@@ -329,16 +333,16 @@ const usersQuery = `
           replyCount
         }
       }`;
-
-const usersQueryMesh = (orderBy: string, orderDirection: string) =>
+// check UsersOrderBy
+const usersQueryMesh = (UsersOrderBy: string) =>
   `query(
     $first: Int,
     $skip: Int
   ) {
     user(
-      limit: $first,
+      first: $first,
       offset: $skip,
-      orderBy: { ${orderBy}: ${orderDirection} },
+      orderBy: ${UsersOrderBy},
     ) {
       ${userMesh}
       postCount
@@ -362,7 +366,13 @@ const moderationQuery = `
 
 const moderationQueryMesh = (roles: string) =>
   `query {
-    userpermission (where: { permission: "(${roles})" }) {
+    userpermission (
+      filter: {
+          permission: {
+              in: [${roles}]
+          }
+      }
+    ) {
       id
       user {
         ${userMesh}
@@ -398,9 +408,9 @@ const usersByCommunityQueryMesh = `
     $communityId: String,
   ) {
     usercommunityrating (
-      limit: $limit,
+      first: $limit,
       offset: $offset,
-      where: { communityId: $communityId }
+      condition: { communityId: $communityId }
     ) {
       user {
         ${userMesh}
@@ -425,7 +435,9 @@ const userQueryMesh = `
       query(
         $id: String
       ) {
-        user(where: { id: $id }) {
+        user(
+          condition: {id: $id}
+        ) {
           ${userMesh}
           postCount
           replyCount
@@ -448,7 +460,7 @@ const userPermissionsQueryMesh = `
     $id: String
   ) {
     userpermission(
-      where: { userId: $id }
+      condition: { userId: $id }
     ) {
       permission
     }
@@ -471,9 +483,23 @@ const userStatsQuery = `
         }
       }`;
 
-const userStatsQueryMesh = editUserQuery(
-  userStatsQuery.replace('ID!', 'String').replace('id: $id', 'where: { id: $id }'),
-);
+const userStatsQueryMesh = `
+  query (
+    $id: String
+  ) {
+    user(
+        condition: {id: $id}
+    ) {
+      postCount
+      replyCount
+      achievements { id }
+      ratings {
+        communityId
+        rating
+      }  
+    }
+  }
+`;
 
 const community = `
   id
@@ -512,8 +538,14 @@ const communitiesQuery = `
 
 const communitiesQueryMesh = `
       query {
-        community (where: {networkId: "(${getNetworkIds()})"}) {
-          ${community}
+        community (
+          filter: {
+              networkId: {
+                  in: [${getNetworkIds()}]
+              }
+          }
+        ) {
+            ${community}
         }
       }`;
 
@@ -541,12 +573,23 @@ const usersPostsQueryMesh = `
         $offset: Int,
       ) {
         post (
-          orderBy: { postTime: desc },
-          limit: $offset,
-          offset: $limit,
-          where: { isDeleted: "0", author: $id, postType: "<3", networkId: "(${getNetworkIds()})" },
+          orderBy: POST_TIME_DESC
+          first: $limit,
+          offset: $offset,
+          condition: {
+              isDeleted: false,
+              author: $id
+          },
+          filter: {
+              postType: {
+                  in: [1,2]
+              },
+              networkId: {
+                  in: [${getNetworkIds()}]
+              }
+          }
         ) {
-           ${postMeshShallow}
+            ${postMeshShallow}
         }
       }`;
 
@@ -574,12 +617,15 @@ const usersAnswersQueryMesh = `
         $offset: Int,
       ) {
         reply (
-             orderBy: { postTime: desc },
-             where: { isDeleted: "0", author: $id },
-             limit: $limit,
-             offset: $offset,
-           ) {
-          postId
+          orderBy: POST_TIME_DESC,
+          first: $limit,
+          offset: $offset,
+          condition: {
+              isDeleted: false, 
+              author: $id
+          }
+        ) {
+            postId
         }
       }`;
 
@@ -601,10 +647,15 @@ const answeredPostsQuery = `
 const answeredPostsQueryMesh = (ids: string) => `
       query {
         post (
-          orderBy: { postTime: desc },
-          where: { id: "(${ids})", isDeleted: "0" },
+          orderBy: POST_TIME_DESC,
+          condition: {isDeleted: false},
+          filter: {
+              id: {
+                  in: [${ids}]
+                }
+            }
         ) {
-           ${postMesh}
+            ${postMesh}
         }
       }`;
 
@@ -634,7 +685,16 @@ const communityQuery = `
         }
       }`;
 
-const communityQueryMesh = communityQuery;
+const communityQueryMesh = `
+  query (
+    $id: String
+  ) {
+    community(
+        condition: {id: $id}
+    ) {
+      ${community}
+    }
+  }`;
 
 const tagsQuery = `
       query(
@@ -650,7 +710,21 @@ const tagsQuery = `
         }
       }`;
 
-const tagsQueryMesh = tagsQuery.replace('ID!', 'String').replace('tags', 'tag');
+const tagsQueryMesh = `
+  query(
+    $communityId: String,
+  ) {
+    tag(
+      condition: {
+         communityId: $communityId 
+      }
+    ) {
+      name
+      description
+      id
+      postCount
+    }
+  }`;
 
 const tagsByIdsQuery = `
       query(
@@ -669,7 +743,11 @@ const tagsByIdsQuery = `
 const tagsByIdsQueryMesh = (ids: string) => `
   query {
     tag(
-      where: { id: "(${ids})" },
+      filter: {
+          id: {
+              in: [$${ids}]
+          }
+      }
     ) {
       id
       name
@@ -701,16 +779,38 @@ const postsQueryMesh = (postTypes: string) => `
     $offset: Int
   ) {
     post (
-      orderBy: { postTime: desc },
-      limit: $limit,
+      orderBy: POST_TIME_DESC,
+      first: $limit,
       offset: $offset,
-      where: {isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
+      condition: {
+          isDeleted: false
+      },
+      filter: {
+          postType: {
+              in: [${postTypes}]
+          },
+          networkId: {
+              in: [${getNetworkIds()}]
+          }
+      }
     ) {
       ${postMeshShallow}
     }
-    count_post (
-      where: {isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
-    )
+    postsConnection (
+      condition: {
+          isDeleted: false,
+      },
+      filter: {
+          postType: {
+              in: [${postTypes}]
+          },
+          networkId: {
+              in: [${getNetworkIds()}]
+          }
+      }
+    ) {
+      totalCount
+    }
   }`;
 
 const postsByCommQuery = `
@@ -732,21 +832,44 @@ const postsByCommQuery = `
       }`;
 
 const postsByCommQueryMesh = (postTypes: string, communityIds: string) => `
-  query (
-    $limit: Int,
-    $offset: Int
-  ) {
+  query {
     post (
-      orderBy: { postTime: desc },
-      limit: $limit,
-      offset: $offset,
-      where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
+      orderBy: POST_TIME_DESC,
+      condition: {
+          isDeleted: false
+      },
+      filter: {
+          communityId: {
+              in: [${communityIds}]
+          },
+          postType: {
+              in: [${postTypes}]
+          },
+          networkId: {
+              in: [${getNetworkIds()}]
+          }
+      }
     ) {
       ${postMeshShallow}
     }
-    count_post (
-      where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
-    )
+    postsConnection (
+      condition: {
+          isDeleted: false,
+      },
+      filter: {
+        communityId: {
+              in: [${communityIds}]
+          },
+          postType: {
+              in: [${postTypes}]
+          },
+          networkId: {
+              in: [${getNetworkIds()}]
+          }
+      }
+    ) {
+      totalCount
+    }
   }`;
 
 const postsByCommAndTagsQuery = `
@@ -774,9 +897,13 @@ export const postsIdsByTagsQueryMesh = (tags: string) => `
     $skip: Int,
   ) {
     posttag (
-      limit: $first,
+      first: $first,
       offset: $skip,
-      where: { tagId: "(${tags})" },
+      filter: {
+          tagId: {
+              in: [${tags}]
+          }
+      },
     ) {
       postId
     }
@@ -785,14 +912,39 @@ export const postsIdsByTagsQueryMesh = (tags: string) => `
 const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
   query {
     post (
-      where: { id: "(${ids})", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
-      orderBy: { postTime: desc }
+      orderBy: POST_TIME_DESC,
+      filter: {
+        id: {
+            in: [${ids}]
+        },
+        postType: {
+            in: [${postTypes}]
+        },
+        networkId: {
+            in: [${getNetworkIds()}]
+        }
+    }
     ) {
       ${postMeshShallow}
     }
-    count_post (
-      where: { communityId: "(${ids})", isDeleted: "0", postType: "(${postTypes})", networkId: "(${getNetworkIds()})" },
-    )
+    postsConnection (
+      condition: {
+          isDeleted: false,
+      },
+      filter: {
+        communityId: {
+              in: [${ids}]
+          },
+          postType: {
+              in: [${postTypes}]
+          },
+          networkId: {
+              in: [${getNetworkIds()}]
+          }
+      }
+    ) {
+      totalCount
+    }
   }`;
 
 const faqByCommQuery = `
@@ -813,10 +965,14 @@ const faqByCommQueryMesh = `
         $communityId: String,
       ) {
         post (
-          orderBy: { postTime: desc },
-          where: { communityId: $communityId, isDeleted: "0", postType: "3" },
+          orderBy: POST_TIME_DESC
+          condition: {
+              communityId: $communityId,
+              isDeleted: false,
+              postType: 3
+          }
         ) {
-           ${postMesh}
+            ${postMesh}
         }
       }`;
 
@@ -833,9 +989,11 @@ const communityDocumentationQueryMesh = `
       query (
         $id: ID!
       ) {
-         post (where: { id: $id }) {
-           ${postMesh}
-         }
+        post (
+            condition: {id: $id}
+        ) {
+            ${postMesh}
+        }
       }`;
 
 const documentationMenuQuery = `
@@ -852,10 +1010,12 @@ const documentationMenuQueryMesh = `
       query (
         $id: String
       ) {
-        communitydocumentation (where: { id: $id }) {
-          id
-          documentationJSON
-         }
+        communitydocumentation (
+          condition: {id: $id}
+        ) {
+            id
+            documentationJson
+        }
       }`;
 
 const postForSearch = `
@@ -902,7 +1062,14 @@ const postsForSearchQueryMesh = (text: string) => `
   ) {
     post (
       first: $first,
-      where: { postContent: "*${text}*", isDeleted: "0", networkId: "(${getNetworkIds()})"},
+      condition: {
+          isDeleted: false,
+      },
+      filter: {
+        postContent: {
+          includes: "${text}",
+        }
+      }
     ) {
         ${postForSearch}
         posttag {
@@ -935,7 +1102,7 @@ const postQueryMesh = `
     $postId: String,
   ) {
     post (
-      where: { id: $postId, isDeleted: "0" },
+      condition: {id: $postId, isDeleted: false}
     ) {
       ${postMesh}
     }
@@ -982,10 +1149,10 @@ const allAchievementsQueryMesh = `
   query (
     $userId: String
   ) {
-    achievement (orderBy: { id: asc }) {
+    achievement (orderBy: ID_ASC) {
       ${achievement}
     }
-    user (where: { id: $userId }) {
+    user (condition: {id: $userId}) {
       userachievement {
         achievementId
         isMinted
@@ -1025,10 +1192,12 @@ const rewardsQueryMesh = (periodsCount: number) =>
   `query (
     $userId: String
   ) {
-    user (where: {id: $userId}) {
+    users (condition: {id: $userId}) {
       ${userMesh}
     }
-    userreward (where: {userId: $userId, tokenToReward: ">0"}) {
+    userreward ( 
+        condition: {userId: $userId, tokenToReward: ">0"}
+    ) {
       id
       period {
         ${period}
@@ -1036,8 +1205,10 @@ const rewardsQueryMesh = (periodsCount: number) =>
       tokenToReward
       isPaid
     }
-    period (orderBy: { endPeriodTime: desc }, first: ${periodsCount}) {
-      ${period}
+    period (
+        orderBy: END_PERIOD_TIME_DESC, first: ${periodsCount}
+      ) {
+        ${period}
     }
   }
 `;
@@ -1052,7 +1223,10 @@ const currentPeriodQuery = `
 
 const currentPeriodQueryMesh = `
   query {
-    period (orderBy: { endPeriodTime: desc }, limit: 1) {
+    period (
+        orderBy: END_PERIOD_TIME_DESC, 
+        first: 1
+    ) {
       ${period}
     }
   }
@@ -1072,7 +1246,7 @@ const historiesQuery = `
   query (
    $postId: ID!,
  ) {
-    histories (
+    history (
       orderBy: timeStamp,
       where: {post: $postId}
     ) {
@@ -1089,17 +1263,17 @@ const historiesQuery = `
 
 const historiesQueryMesh = `
   query (
-   $postId: String,
- ) {
-    history (
-      orderBy: { timeStamp: asc },
-      where: { postId: $postId }
-    ) {
-      ${history}
-      replyId
-      commentId
-    }
-  }
+    $postId: String,
+  ) {
+     history (
+       orderBy: TIMESTAMP_ASC,
+       condition: {postId: $postId}
+     ) {
+        ${history}
+       replyId
+       commentId
+     }
+   }
 `;
 
 enum QueryName {
@@ -1252,9 +1426,7 @@ export const replyId2QueryMesh = `
   query (
     $replyId: String,
   ) {
-    reply (
-      where: { id: $replyId },
-    ) {
+    reply (condition: {id: $replyId}) {
       id2
     }
   }
@@ -1264,9 +1436,7 @@ export const commentId2QueryMesh = `
   query (
     $commentId: String,
   ) {
-    comment (
-      where: { id: $commentId }
-    ) {
+    comment (condition: {id: $commentId}) {
       id2
     }
   }

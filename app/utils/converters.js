@@ -61,3 +61,14 @@ export function hexToRgbaString(hex, alpha) {
   const color = hexToRgb(hex);
   return `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
 }
+
+export function arrayToString(data) {
+  if (Array.isArray(data)) {
+    let result = '';
+    data.forEach((value) => {
+      result += typeof value === 'string' ? `"${value}",` : `${value},`;
+    });
+    return result.slice(0, -1);
+  }
+  return typeof data === 'string' ? `${data}` : data;
+}

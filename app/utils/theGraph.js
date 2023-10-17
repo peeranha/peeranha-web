@@ -1,5 +1,5 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
-import { dataToString } from 'utils/converters';
+import { dataToString, arrayToString } from 'utils/converters';
 import { isUserExists } from './accountManagement';
 import {
   queries,
@@ -42,10 +42,12 @@ const executeQuery = async ({ query, variables }, enableCache = true) => {
 export const getUsers = async ({
   limit = 50,
   skip,
-  orderBy = 'creationTime',
+  orderBy = 'creationTime', // does this value change?
   sorting = 'desc',
 }) => {
-  const query = isMeshService ? queries.Users.Mesh(orderBy, sorting) : queries.Users.TheGraph;
+  const UsersOrderBy = sorting === 'desc' ? 'CREATION_TIME_DESC' : 'CREATION_TIME_ASC';
+
+  const query = isMeshService ? queries.Users.Mesh(UsersOrderBy) : queries.Users.TheGraph;
 
   const result = await executeQuery({
     query,
@@ -62,7 +64,7 @@ export const getUsers = async ({
 
 export const getModerators = async (roles) => {
   const query = isMeshService
-    ? queries.Moderation.Mesh(dataToString(roles))
+    ? queries.Moderation.Mesh(arrayToString(roles))
     : queries.Moderation.TheGraph;
 
   const result = await executeQuery(
@@ -168,7 +170,7 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
     ? postIds.reply.map((reply) => reply.postId)
     : postIds.replies.map((reply) => reply.postId);
   const query = isMeshService
-    ? queries.AnsweredPosts.Mesh(dataToString(ids))
+    ? queries.AnsweredPosts.Mesh(arrayToString(ids))
     : queries.AnsweredPosts.TheGraph;
 
   const answeredPosts = await executeQuery({
@@ -213,7 +215,7 @@ export const getTags = async (communityId) => {
 
 export const getTagsByIds = async (ids) => {
   const query = isMeshService
-    ? queries.TagsByIds.Mesh(dataToString(ids))
+    ? queries.TagsByIds.Mesh(arrayToString(ids))
     : queries.TagsByIds.TheGraph;
 
   const result = await executeQuery({
@@ -227,7 +229,7 @@ export const getTagsByIds = async (ids) => {
 
 export const getPosts = async (limit, offset, postTypes) => {
   const query = isMeshService
-    ? queries.Posts.Mesh(dataToString(postTypes))
+    ? queries.Posts.Mesh(arrayToString(postTypes))
     : queries.Posts.TheGraph;
 
   const result = await executeQuery(
@@ -251,13 +253,13 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
   if (tags?.length) {
     let postIds;
     if (isMeshService) {
-      const tagsQuery = postsIdsByTagsQueryMesh(dataToString(tags));
+      const tagsQuery = postsIdsByTagsQueryMesh(arrayToString(tags));
       const tagResponse = await executeMeshQuery({ query: tagsQuery, variables: { limit, skip } });
       postIds = tagResponse.data.posttag.map((tag) => tag.postId);
     }
 
     const query = isMeshService
-      ? queries.PostsByCommAndTags.Mesh(dataToString(postIds), dataToString(postTypes))
+      ? queries.PostsByCommAndTags.Mesh(arrayToString(postIds), arrayToString(postTypes))
       : queries.PostsByCommAndTags.TheGraph;
     const result = await executeQuery({
       query,
@@ -276,7 +278,7 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
   }
 
   const query = isMeshService
-    ? queries.PostsByCommunity.Mesh(dataToString(postTypes), communityIds)
+    ? queries.PostsByCommunity.Mesh(arrayToString(postTypes), arrayToString(communityIds))
     : queries.PostsByCommunity.TheGraph;
 
   const result = await executeQuery(
@@ -311,7 +313,6 @@ export const getDocumentationMenu = async (communityId) => {
 };
 
 export const getPost = async (postId) => {
-  console.log(postId);
   const result = await executeQuery(
     {
       query: queries.Post[graphService],
@@ -406,11 +407,11 @@ export const postsForSearch = async (text, single) => {
   const posts = isMeshService
     ? result?.post.map((item) => {
         const { user, posttag, ...post } = item;
-        const tags = posttag.map((postTag) => postTag.tag[0]);
+        const tags = posttag.map((postTag) => postTag.tag);
         return {
           ...post,
           tags,
-          author: getUserDataFromMesh(user[0]),
+          author: getUserDataFromMesh(user),
         };
       })
     : result?.postSearch;

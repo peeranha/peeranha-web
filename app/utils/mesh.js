@@ -53,7 +53,7 @@ export const postMeshShallow = `
       }
     }
     reply (
-      where: { isDeleted: "0" }
+      condition: {isDeleted: false}
     ) {
       id
     }
@@ -98,7 +98,7 @@ const getCommentDataFromMesh = (item) => {
   return {
     ...comment,
     translations: comment.commenttranslation,
-    author: getUserDataFromMesh(user[0]),
+    author: getUserDataFromMesh(user),
   };
 };
 
@@ -111,7 +111,7 @@ export const getReplyDataFromMesh = (item, postComments) => {
     : [];
   return {
     ...reply,
-    author: user ? getUserDataFromMesh(user[0]) : {},
+    author: user ? getUserDataFromMesh(user) : {},
     comments,
     translations: replytranslation,
   };
@@ -127,7 +127,7 @@ export const getPostDataFromMesh = (item) => {
     ...post
   } = item;
 
-  const tags = posttag.map((postTag) => postTag.tag[0]);
+  const tags = posttag.map((postTag) => postTag.tag);
   const replies = repliesMesh.map((reply) => getReplyDataFromMesh(reply, commentsMesh));
   const comments = commentsMesh
     ? commentsMesh
@@ -138,7 +138,7 @@ export const getPostDataFromMesh = (item) => {
   return {
     ...post,
     tags,
-    author: getUserDataFromMesh(user[0]),
+    author: getUserDataFromMesh(user),
     replies,
     comments,
     translations: posttranslation,
@@ -166,13 +166,13 @@ export const getHistoryDataFromMesh = (item) => {
   };
 };
 
-export const getPostsDataFromMesh = ({ count_post, post }) => {
+export const getPostsDataFromMesh = ({ post, postsConnection }) => {
   const updatedPosts = post.map((postItem) =>
     renameRepliesToAnswers(getPostDataFromMesh(postItem)),
   );
 
   return {
-    postCount: count_post,
+    postCount: postsConnection.totalCount,
     updatedPosts,
   };
 };
