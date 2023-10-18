@@ -337,8 +337,10 @@ const communitiesConfig = {
         },
       }
     : {
-        '1-1': {
-          origin: 'http://localhost:3000',
+        '2-1': {
+          origin: 'http://localhost:31000',
+          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
+          styles: EdgewareStyles,
         },
       },
 };

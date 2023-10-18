@@ -38,6 +38,7 @@ export async function callService(service, props, isGet = false, signal) {
       Accept: 'application/json',
       'Content-Type': isGet ? '' : 'application/json',
       ...auth,
+      reCaptchaToken: props.reCaptchaToken,
     },
     ...(!isGet ? { body: JSON.stringify(props) } : {}),
     signal,
