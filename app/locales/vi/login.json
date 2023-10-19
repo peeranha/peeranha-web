@@ -5,6 +5,14 @@
   "getStarted": "Bắt đầu",
   "connectWithWallet": "Kết nối với ví điện tử",
   "codeWasSent": "Mã xác minh đã được gửi đến email của bạn.",
+
+  "checkEmail": "Vui lòng kiểm tra email của bạn",
+  "weSent": "Chúng tôi đã gửi một mã tới",
+  "enterCode": "Nhập mã xác minh",
+  "didntGetACode": "Không nhận được mã? ",
+  "clickToResend": "Nhấn để gửi lại.",
+  "confirm": "Xác nhận",
+
   "incorrectCode": "Mã không chính xác. Vui lòng thử lại.",
   "staySignedIn": "Vẫn đăng nhập",
   "userIsNotRegistered": "Người dùng chưa đăng ký",

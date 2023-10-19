@@ -5,6 +5,14 @@
   "getStarted": "Comenzar",
   "connectWithWallet": "Conectar con billetera",
   "codeWasSent": "Se ha enviado el código de verificación a tu correo electrónico.",
+
+  "checkEmail": "Por favor, revise su correo electrónico",
+  "weSent": "Hemos enviado un código a",
+  "enterCode": "Ingrese el código de verificación",
+  "didntGetACode": "¿No recibió un código? ",
+  "clickToResend": "Haga clic para reenviar.",
+  "confirm": "Confirmar",
+
   "incorrectCode": "Código incorrecto. Por favor, inténtelo de nuevo.",
   "staySignedIn": "Permanecer conectado",
   "userIsNotRegistered": "El usuario no esta registrado",

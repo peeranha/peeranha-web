@@ -331,7 +331,7 @@ const communitiesConfig = {
           styles: SuiMainStyles,
         },
         '3-0x305c327da8558d51395b3381509b6a03c8f4ce691feb3fa1579826f6f0e12803': {
-          origin: `http://localhost:3000`,
+          origin: `http://localhost:31000`,
           src: 'https://images.peeranha.io/communities/mark3d/logo.svg',
           styles: Mark3dStyles,
         },
