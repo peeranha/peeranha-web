@@ -231,9 +231,14 @@ export const downVoteValidator = (profileInfo, questionData, postButtonId, answe
   const item =
     answerId === '0' ? questionData : questionData.answers.find((x) => x.id === answerId);
 
+  const isOwnItem = questionData.answers.filter((x) => x.id === answerId);
+
   if (item.votingStatus?.isVotedToDelete) {
     message = t('post.cannotCompleteBecauseBlocked');
-  } else if (item.author.user === profileInfo.user) {
+  } else if (
+    (questionData.author.user === profileInfo.user && answerId === '0') ||
+    (isOwnItem[0] && isOwnItem[0].author.id === profileInfo.user)
+  ) {
     message = t('post.noRootsToVote');
   } else if (
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE &&
