@@ -339,7 +339,9 @@ const MainLinks = ({
         !isSuiBlockchain && (
           <Documentation
             documentationMenu={documentationMenu}
-            isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
+            isModeratorModeSingleCommunity={
+              isModeratorModeSingleCommunity || isAdministratorModeSingleCommunity
+            }
             toggleEditDocumentation={toggleEditDocumentation}
             match={match}
             pinnedItemMenuId={pinnedItemMenu.id}
