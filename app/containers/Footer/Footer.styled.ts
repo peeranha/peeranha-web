@@ -1,7 +1,7 @@
 import { CSSObject } from '@emotion/react';
 import { TEXT_SECONDARY } from 'style-constants';
 import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
 const isSingleCommunityMode = isSingleCommunityWebsite();
