@@ -243,7 +243,7 @@ export const getOwnedObject = async (
     filter: {
       // example
       // 0x4e05c416411b99d4a4b12dcd0599811fed668010f994b4cd37683d886f45262f::userLib::User
-      StructType: `${process.env.SUI_PACKAGE_ID}::${libName}::${objectName}`,
+      StructType: `${process.env.SUI_PACKAGE_ID_ORIGINAL}::${libName}::${objectName}`,
     },
     options: {
       showType: true,

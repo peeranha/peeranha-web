@@ -337,8 +337,8 @@ const communitiesConfig = {
         },
       }
     : {
-        '1-1': {
-          origin: 'http://localhost:31000',
+        '1-2': {
+          origin: 'http://localhost:3000',
         },
       },
 };
