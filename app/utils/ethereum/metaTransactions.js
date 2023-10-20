@@ -21,6 +21,14 @@ import PeeranhaUser from '../../../../peeranha-subgraph/abis/PeeranhaUser.json';
 const CONTRACT_TO_ABI = {};
 const CONTRACT_TO_NAME = {};
 
+const StatusEnum = {
+  SENT_TO_SIGN: 'sentToSign',
+  SIGNED: 'signed',
+  NOT_SENT: 'notSent',
+};
+
+let previousTransactionStatus = StatusEnum.NOT_SENT;
+
 const processContracts = (aggregator, contractList, contractType) => {
   contractList.forEach((contractName) => {
     aggregator[contractName] = contractType;
@@ -63,7 +71,7 @@ export async function sendMetaTransactionMethod(
   const metaTxContract = this[`${contract}Reads`];
   let nonce = await metaTxContract.getNonce(actor);
   console.log(`Nonce from contract: ${nonce}`);
-  if (nonce.eq(this.previousNonce)) {
+  if (nonce.eq(this.previousNonce) && previousTransactionStatus !== StatusEnum.SENT_TO_SIGN) {
     nonce = this.previousNonce.add(1);
     this.previousNonce = nonce;
   } else {
@@ -106,8 +114,9 @@ export async function sendMetaTransactionMethod(
     primaryType: 'MetaTransaction',
     message,
   });
-
+  previousTransactionStatus = StatusEnum.SENT_TO_SIGN;
   const signature = await this.provider.send('eth_signTypedData_v4', [actor, dataToSign]);
+  previousTransactionStatus = StatusEnum.SIGNED;
 
   const { r, s, v } = getSignatureParameters(signature);
 
