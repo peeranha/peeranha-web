@@ -16,7 +16,7 @@ export const ENDPOINTS_LIST = 'best_nodes_list';
 // permissions
 export const MODERATOR_KEY = 48;
 export const DEFAULT_ADMIN_ROLE = 0x00;
-export const isSuiBlockchain = process.env.BLOCKCHAIN !== 'sui';
+export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const PROTOCOL_ADMIN_ROLE = isSuiBlockchain
   ? '02'
   : keccak256(toUtf8Bytes('PROTOCOL_ADMIN_ROLE'));
