@@ -6,24 +6,18 @@ const Wallet: React.FC<IconProps> = (props): JSX.Element => (
     {...props}
     id="wallet"
     fill="currentColor"
-    viewBox="0 0 14 16"
-    size={[14, 16]}
+    stroke="currentColor"
+    viewBox="0 0 23 22"
+    size={[23, 22]}
   >
-    <rect
-      stroke={props.stroke || '#282828'}
-      fill="none"
-      x="0.5"
-      y="4.5"
-      width="13"
-      height="10"
-      rx="2"
-    />
     <path
-      stroke={props.stroke || '#282828'}
-      fill="none"
-      d="M0.601910561,4.5 L10.5,4.5 L10.5,1.89348811 C10.5,1.67536925 10.4524307,1.45987446 10.3606081,1.26202494 C10.0118606,0.510581864 9.11997991,0.184132577 8.36853684,0.532880053 L1.2395388,3.84147406 C0.947416463,3.97704911 0.723452828,4.21444917 0.601910561,4.5 Z"
+      fill={props.fill || '#fff'}
+      d="M21.5 7.25V19.25M8.49105 4.98445L15.3924 1L17.6985 4.99445L8.49105 4.98445ZM1.5 6C1.5 5.4477 1.94771 5 2.5 5H20.5C21.0523 5 21.5 5.4477 21.5 6V20C21.5 20.5523 21.0523 21 20.5 21H2.5C1.94771 21 1.5 20.5523 1.5 20V6ZM17.125 15.5H21.5V10.5H17.125C15.6753 10.5 14.5 11.6193 14.5 13C14.5 14.3807 15.6753 15.5 17.125 15.5Z"
+      stroke={'#344054'}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
-    <rect fill={props.fill || '#282828'} x="10" y="8" width="1" height="2" />
   </IconComponent>
 );
 

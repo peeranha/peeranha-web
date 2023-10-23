@@ -2,9 +2,12 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DescriptionList from 'components/DescriptionList';
-import { BG_LIGHT, BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
+import { BG_LIGHT, BORDER_PRIMARY_LIGHT, TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
 import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Base = styled.div`
   position: absolute;
@@ -26,6 +29,7 @@ const Base = styled.div`
     display: inline-block;
     margin-bottom: 10px;
     font-weight: 900;
+    color: ${colors.commHeadElemColor || TEXT_PRIMARY};
   }
 
   > ul {

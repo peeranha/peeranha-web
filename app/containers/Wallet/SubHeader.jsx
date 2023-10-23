@@ -9,6 +9,7 @@ import currencyPeerImage from 'images/currencyPeer.svg?external';
 import lockBoostImage from 'images/lock.svg?external';
 import availableImage from 'images/available.svg?external';
 import walletCoinsImage from 'images/walletCoins.svg?inline';
+import { isSuiBlockchain } from 'utils/constants';
 
 import { getFormattedNum3 } from 'utils/numbers';
 
@@ -17,7 +18,6 @@ import Span from 'components/Span';
 import A from 'components/A';
 import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const AvailableBalance = styled.span`
   @media (max-width: 590px) {

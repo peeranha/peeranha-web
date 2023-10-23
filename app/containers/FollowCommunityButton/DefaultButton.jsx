@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import OutlinedButton from 'components/Button/Outlined/InfoMedium';
-import SuiConnectModals from 'components/SuiConnectModals';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import Button from './index';
 import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';
@@ -14,24 +12,13 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 
-const B = ({ isFollowed, onClick, id, disabled, profile, profileInfo, loginWithSuiDispatch }) => {
+const B = ({ isFollowed, onClick, id, disabled, profile }) => {
   const { t } = useTranslation();
-
-  const actionButtonWithLogin = (onClickForModal) => (
-    <OutlinedButton onClick={onClickForModal}>
-      {t('common.followCommunity.subscribe')}
-    </OutlinedButton>
-  );
 
   if (single && !profile) {
     return null;
   }
-  return !profileInfo && isSuiBlockchain ? (
-    <SuiConnectModals
-      loginWithWallet={loginWithSuiDispatch}
-      actionButtonWithLogin={actionButtonWithLogin}
-    />
-  ) : (
+  return (
     <OutlinedButton id={id} data-isfollowed={isFollowed} onClick={onClick} disabled={disabled}>
       {t(`common.followCommunity.${isFollowed ? UNFOLLOW_BUTTON : FOLLOW_BUTTON}`)}
     </OutlinedButton>

@@ -1,6 +1,6 @@
 // Contracts
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { postMeshShallow } from './mesh';
+import { isSuiBlockchain } from 'utils/constants';
 export const CONTRACT_TOKEN = ['contractToken', 'edgewareContractToken'];
 export const CONTRACT_USER = ['contractUser', 'edgewareContractUser'];
 export const CONTRACT_CONTENT = ['contractContent', 'edgewareContractContent'];
@@ -61,8 +61,8 @@ export const GET_STAKE = 'getStake';
 export const GET_USER_STAKE = 'getUserStake';
 export const GET_USER_RATING = 'getUserRating';
 
-export const UPVOTE_STATUS = 3;
-export const DOWNVOTE_STATUS = 1;
+export const UPVOTE_STATUS = 1;
+export const DOWNVOTE_STATUS = -1;
 
 const editUserQuery = (query: string) =>
   query
@@ -489,6 +489,7 @@ const community = `
   networkId
   followingUsers
   replyCount
+  communitySite
   communitytranslation {
     communityId
     name
@@ -546,7 +547,7 @@ const usersPostsQueryMesh = `
           offset: $limit,
           where: { isDeleted: "0", author: $id, postType: "<3", networkId: "(${getNetworkIds()})" },
         ) {
-           ${postMeshShallow}
+           ${postMesh}
         }
       }`;
 

@@ -17,14 +17,9 @@ export function* getQuestionsWorker({ userId }) {
     const limit = yield select(selectNumber());
     const offset = questionsFromStore?.length || 0;
 
-    const questions = yield call(
-      getQuestionsPostedByUser,
-      userId,
-      limit,
-      offset,
-    );
+    const questions = yield call(getQuestionsPostedByUser, userId, limit, offset);
 
-    const updateQuestions = questions.map(question => ({
+    const updateQuestions = questions.map((question) => ({
       ...question,
       elementType: POST_TYPE_QUESTION,
       myPostTime: question.postTime,

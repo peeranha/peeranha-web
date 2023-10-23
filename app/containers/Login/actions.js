@@ -1,34 +1,30 @@
-/*
- *
- * Login actions
- *
- */
-
 import {
   SHOW_LOGIN_MODAL,
-  HIDE_LOGIN_MODAL,
   LOGIN_WITH_WALLET,
   LOGIN_WITH_WALLET_SUCCESS,
   LOGIN_WITH_WALLET_ERROR,
   LOGIN_WITH_SUI,
+  SIGN_IN_WITH_EMAIL,
+  SIGN_IN_WITH_EMAIL_SUCCESS,
+  SIGN_IN_WITH_EMAIL_ERROR,
+  VERIFY_EMAIL,
+  VERIFY_EMAIL_SUCCESS,
+  VERIFY_EMAIL_ERROR,
+  START_VERIFYING,
+  HIDE_SIGN_IN_MODAL,
 } from './constants';
-
-// Show | Hide (modal)
-
-export function showLoginModal() {
+export function showLoginModal(data) {
   return {
     type: SHOW_LOGIN_MODAL,
+    isNewPostCreationAfterLogin: data?.isNewPostCreationAfterLogin || false,
   };
 }
 
-export function hideLoginModal() {
+export function hideSignInModal() {
   return {
-    type: HIDE_LOGIN_MODAL,
+    type: HIDE_SIGN_IN_MODAL,
   };
 }
-
-// Login with Wallet
-
 export function loginWithWallet({ t }, isNewPostCreationAfterLogin = false) {
   return {
     type: LOGIN_WITH_WALLET,
@@ -50,7 +46,55 @@ export function loginWithWalletErr(loginWithWalletError) {
   };
 }
 
-//SUI
+export function signInWithEmail(email) {
+  return {
+    type: SIGN_IN_WITH_EMAIL,
+    email,
+  };
+}
+
+export function signInWithEmailSuccess() {
+  return {
+    type: SIGN_IN_WITH_EMAIL_SUCCESS,
+  };
+}
+
+export function signInWithEmailErr(signInWithEmailError) {
+  return {
+    type: SIGN_IN_WITH_EMAIL_ERROR,
+    signInWithEmailError,
+  };
+}
+
+export function startVerifying() {
+  return {
+    type: START_VERIFYING,
+  };
+}
+
+export function verifyEmail(email, formValues, resolve, reject) {
+  return {
+    type: VERIFY_EMAIL,
+    email,
+    verificationCode: formValues.toJS().verificationCode,
+    resolve,
+    reject,
+  };
+}
+
+export function verifyEmailSuccess() {
+  return {
+    type: VERIFY_EMAIL_SUCCESS,
+  };
+}
+
+export function verifyEmailError(verificationError) {
+  return {
+    type: VERIFY_EMAIL_ERROR,
+    verificationError,
+  };
+}
+
 export function loginWithSui(address, isNewPostCreationAfterLogin = false) {
   return {
     type: LOGIN_WITH_SUI,

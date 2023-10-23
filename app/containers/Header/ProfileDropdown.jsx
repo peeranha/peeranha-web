@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
-import { NO_AVATAR } from 'utils/constants';
+import { isSuiBlockchain, NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
 import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
@@ -33,7 +33,6 @@ import ModerationIcon from 'icons/Moderation';
 import NFTIcon from 'icons/NFT';
 import PostIcon from 'icons/Post';
 import LogOutIcon from 'icons/LogOut';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 const styles = singleCommunityStyles();

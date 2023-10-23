@@ -28,6 +28,7 @@
   "logout": "Log out",
   "search": "Search",
   "login": "Log in",
+  "signIn": "Sign in",
   "signUp": "Sign up",
   "all": "All",
   "askQuestion": "New post",
@@ -524,9 +525,25 @@
     "votePost": "Voute post",
     "voteReply": "Voute reply",
     "grantRole": "Give permission",
-    "revokeRole": "Revoke permission"
+    "revokeRole": "Revoke permission",
+    "mintUserNFT": "Claim NFT"
   },
   "aboutPeeranha": "About Peeranha",
   "postsAnswersComments": "Posts, Answers and Comments",
-  "statusReputationPrivileges": "Status, Reputation and Privileges"
+  "statusReputationPrivileges": "Status, Reputation and Privileges",
+  "new": "New",
+  "aiPoweredSearch": "AI-Powered Search",
+  "aiPoweredSearchInputPlaceholder": "Let the magic begin, Ask a question",
+  "askAI": "Ask AI",
+  "askAIQuestion": "Ask a question",
+  "exploreAI": "Explore your advanced AI search engine",
+  "timeEfficiency": "Time-efficiency",
+  "unlockPotencial": "Unlock the potencial for swift data exploration and enjoy efficient results.",
+  "broadBase": "Broad knowledge base",
+  "connectAI": "Connect to our advanced AI search engine, honed from a vast array of sources. Tap into community support whenever you need it.",
+  "continuousImprovement": "Continuous improvement",
+  "experienceEnhancements": "Discover the answer, or easily escalate your query to the community.",
+  "noResultsFound": "No results found",
+  "askingCommunity": "Unfortunately, we couldn't find any matching results. \nTry asking our community.",
+  "sources": "Sources"
 }

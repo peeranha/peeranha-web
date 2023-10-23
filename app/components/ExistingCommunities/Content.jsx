@@ -8,6 +8,7 @@ import orderBy from 'lodash/orderBy';
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
+import { isSuiBlockchain } from 'utils/constants';
 
 import {
   getPermissions,
@@ -26,7 +27,6 @@ import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { hasCommunitySingleWebsite } from 'utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';

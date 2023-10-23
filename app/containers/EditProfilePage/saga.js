@@ -1,8 +1,10 @@
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { delay } from 'redux-saga';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { isSuiBlockchain } from 'utils/constants';
 
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 
@@ -21,7 +23,7 @@ import {
 } from 'containers/EthereumProvider/actions';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 
 import { saveProfileSuccess, saveProfileErr } from './actions';
 
@@ -41,6 +43,7 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
       const wallet = yield select(selectSuiWallet());
       const txResult = yield call(saveSuiProfile, wallet, profile);
       yield put(transactionInPending(txResult.digest));
+      yield call(delay, 2000);
       yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
 

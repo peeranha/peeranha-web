@@ -7,9 +7,10 @@ import { createTag } from 'utils/communityManagement';
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { isSuiBlockchain } from 'utils/constants';
 import { getSuiCommunityTags } from 'utils/sui/suiIndexer';
 import { getTagsSuccess } from 'containers/DataCacheProvider/actions';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { createSuiTag } from 'utils/sui/communityManagement';
 import {

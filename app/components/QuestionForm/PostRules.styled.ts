@@ -7,7 +7,7 @@ export const styles = {
   wrapper: {
     marginBottom: '32px',
     padding: '16px',
-    backgroundColor: `${RULES_BACKGROUND}`,
+    backgroundColor: colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
     width: '100%',
   },
   title: {

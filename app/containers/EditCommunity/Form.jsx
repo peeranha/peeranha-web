@@ -26,6 +26,7 @@ import TranslationsField from 'components/FormFields/TranslationsField';
 import ScrollContainer from 'components/common/ScrollContainer';
 
 import { scrollToErrorField } from 'utils/animation';
+import { isSuiBlockchain } from 'utils/constants';
 
 import {
   COMM_AUTOTRANSLATIONS_FIELD,
@@ -44,7 +45,6 @@ import {
 } from './constants';
 import { COMMUNITY_TYPE } from '../CreateCommunity/constants';
 import styles from './Form.styled';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 

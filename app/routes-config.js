@@ -8,7 +8,7 @@ const userRedirect = (where) => (id) => `/users/${id}${where}`;
 const singleCommId = isSingleCommunityWebsite();
 
 export const home = () => (singleCommId ? `/about` : `/`);
-
+export const defaultPath = `/`;
 export const notFound = (type) => `/404?${type}`;
 export const errorPage = () => `/error-occured`;
 

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TopCommunities from 'components/TopCommunities';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 import MainUserInformation from './MainUserInformation';
 import AdditionalUserInformation from './AdditionalUserInformation';
@@ -34,6 +35,10 @@ const ProfileViewForm = ({
     });
   };
 
+  const notHiddenCommunities = communities.filter(
+    (community) => !HIDDEN_COMMUNITIES_ID.includes(community.id),
+  );
+
   return (
     <div className={className}>
       <MainUserInformation
@@ -55,7 +60,7 @@ const ProfileViewForm = ({
 
       {(isProfilePage || profile.ratings?.length > 0) && (
         <TopCommunities
-          communities={communities}
+          communities={notHiddenCommunities}
           profile={profile}
           questions={questions}
           locale={locale}

@@ -3,6 +3,7 @@ import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { deleteQuestion } from 'containers/ViewQuestion/actions';
 import reducer from 'containers/ViewQuestion/reducer';
 import saga from 'containers/ViewQuestion/saga';
+import { isSuiBlockchain } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import React from 'react';
@@ -26,7 +27,7 @@ import {
 } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import { loginWithWallet } from 'containers/Login/actions';
+import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
 import { changeLocale as changeLocaleDispatch, showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
@@ -43,6 +44,7 @@ const LeftMenu = ({
   stakedInNextPeriod,
   boost,
   loginWithWalletDispatch,
+  showLoginModalDispatch,
   showLeftMenuDispatch,
   isGlobalAdmin,
   changeLocale,
@@ -55,36 +57,34 @@ const LeftMenu = ({
   toggleEditDocumentationDispatch,
   isEditDocumentation,
   pinnedItemMenu,
-}) => {
-  return (
-    <Aside isMenuVisible={isMenuVisible} className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}>
-      <View
-        isMenuVisible={isMenuVisible}
-        profile={profile}
-        balance={balance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
-        boost={boost}
-        showLoginModal={loginWithWalletDispatch}
-        isGlobalAdmin={isGlobalAdmin}
-        changeLocale={changeLocale}
-        locale={locale}
-        documentationMenu={documentationMenu}
-        redirectToEditQuestionPage={redirectToEditQuestionPageDispatch}
-        redirectToPostDocumentationPage={redirectToPostDocumentationPageDispatch}
-        deleteQuestion={deleteQuestionDispatch}
-        match={match}
-        toggleEditDocumentation={toggleEditDocumentationDispatch}
-        isEditDocumentation={isEditDocumentation}
-        pinnedItemMenu={pinnedItemMenu}
-      />
+}) => (
+  <Aside isMenuVisible={isMenuVisible} className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}>
+    <View
+      isMenuVisible={isMenuVisible}
+      profile={profile}
+      balance={balance}
+      stakedInCurrentPeriod={stakedInCurrentPeriod}
+      stakedInNextPeriod={stakedInNextPeriod}
+      boost={boost}
+      showLoginModal={isSuiBlockchain ? showLoginModalDispatch : loginWithWalletDispatch}
+      isGlobalAdmin={isGlobalAdmin}
+      changeLocale={changeLocale}
+      locale={locale}
+      documentationMenu={documentationMenu}
+      redirectToEditQuestionPage={redirectToEditQuestionPageDispatch}
+      redirectToPostDocumentationPage={redirectToPostDocumentationPageDispatch}
+      deleteQuestion={deleteQuestionDispatch}
+      match={match}
+      toggleEditDocumentation={toggleEditDocumentationDispatch}
+      isEditDocumentation={isEditDocumentation}
+      pinnedItemMenu={pinnedItemMenu}
+    />
 
-      <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
-        <Icon width="16" icon={closeIcon} color={TEXT_LIGHT} />
-      </After>
-    </Aside>
-  );
-};
+    <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
+      <Icon width="16" icon={closeIcon} color={TEXT_LIGHT} />
+    </After>
+  </Aside>
+);
 
 LeftMenu.propTypes = {
   profile: PropTypes.object,
@@ -122,6 +122,7 @@ const withSaga = injectSaga({
 export function mapDispatchToProps(dispatch) {
   return {
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     changeLocale: bindActionCreators(changeLocaleDispatch, dispatch),
     redirectToEditQuestionPageDispatch: bindActionCreators(redirectToEditQuestionPage, dispatch),

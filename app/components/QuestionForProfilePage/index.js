@@ -15,7 +15,7 @@ import {
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import okayIcon from 'images/okay.svg?inline';
@@ -24,7 +24,6 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import { POST_TYPE_ANSWER, POST_TYPE_QUESTION } from 'containers/Profile/constants';
 

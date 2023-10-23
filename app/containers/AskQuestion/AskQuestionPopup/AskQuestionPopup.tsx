@@ -6,7 +6,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import { FULL_RULES_LINK } from 'app/constants/rules';
-
+import { LINK_COLOR } from 'style-constants';
 import { styles } from './AskQuestionPopup.styled';
 
 const colors = singleCommunityColors();
@@ -76,7 +76,17 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                   </ol>
                   <Trans
                     i18nKey="common.contentPopupBlock_8"
-                    components={[<a href={FULL_RULES_LINK} key="0" target="_blank" />]}
+                    components={[
+                      <a
+                        href={FULL_RULES_LINK}
+                        key="0"
+                        target="_blank"
+                        css={{
+                          color: colors.linkColor || LINK_COLOR,
+                          ':hover': { color: colors.linkColor || LINK_COLOR },
+                        }}
+                      />,
+                    ]}
                   />
                   <div
                     css={css`

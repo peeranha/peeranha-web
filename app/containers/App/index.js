@@ -27,7 +27,13 @@ import { selectDocumentationMenu, selectPinnedItemMenu } from 'containers/AppWra
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
-import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED, POSITION_TOP } from 'utils/constants';
+import {
+  DAEMON,
+  POST_TYPE,
+  REWARD_CLAIMING_ENABLED,
+  POSITION_TOP,
+  isSuiBlockchain,
+} from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
@@ -41,7 +47,6 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import Wrapper from 'containers/AppWrapper';
 
 import saga from 'containers/App/saga';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import NewUserRegistrationForm from 'containers/SuiProvider/NewUserRegistrationForm';
 import {
   hasCommunityAdminRole,
@@ -50,6 +55,7 @@ import {
 } from 'utils/properties';
 import { getValueFromSearchString } from 'utils/url';
 import { getCookie, setCookie } from 'utils/cookie';
+import AISearch from 'containers/AISearch';
 import {
   EditCommunity,
   HomePage,
@@ -126,7 +132,7 @@ const App = ({
   }, []);
 
   useEffect(() => {
-    if (isSuiBlockchain && pathname === '/') {
+    if (isSuiBlockchain && !single && pathname === '/') {
       redirectToFeedDispatch();
     }
   }, []);
@@ -151,7 +157,7 @@ const App = ({
       if ((hasPinnedPost || isDocumentationPositionTop) && isDocumentationExist) {
         redirectToDocumentationDispatch();
       } else {
-        redirectToFeedDispatch();
+        single ? redirectToDocumentationDispatch() : redirectToFeedDispatch();
       }
     }
   }, [documentationMenu]);
@@ -189,13 +195,17 @@ const App = ({
 
           <Route exact path={routes.feed()} render={(props) => Wrapper(Feed, props)} />
 
-          {single && (hasPinnedPost || isDocumentationPositionTop) && (
-            <Route
-              exact
-              path={routes.documentationStartPage()}
-              render={(props) => Wrapper(Documentation, props)}
-            />
+          {single && (
+            <Route exact path={routes.defaultPath} render={(props) => Wrapper(AISearch, props)} />
           )}
+
+          {/* {single && (hasPinnedPost || isDocumentationPositionTop) && ( */}
+          {/*  <Route */}
+          {/*    exact */}
+          {/*    path={routes.documentationStartPage()} */}
+          {/*    render={(props) => Wrapper(Documentation, props)} */}
+          {/*  /> */}
+          {/* )} */}
 
           {!single && (
             <Route

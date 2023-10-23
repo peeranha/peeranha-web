@@ -1,5 +1,11 @@
 {
   "authUserHasMore": "Un usuario autorizado tiene más opciones.",
+  "walletInOne": "Tu billetera blockchain en un solo clic.",
+  "emailForm": "Ingresa tu correo electrónico",
+  "getStarted": "Comenzar",
+  "connectWithWallet": "Conectar con billetera",
+  "codeWasSent": "Se ha enviado el código de verificación a tu correo electrónico.",
+  "incorrectCode": "Código incorrecto. Por favor, inténtelo de nuevo.",
   "staySignedIn": "Permanecer conectado",
   "userIsNotRegistered": "El usuario no esta registrado",
   "userIsNotSelected": "El usuario no está seleccionado",

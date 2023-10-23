@@ -3,6 +3,7 @@ import { call, put, select, all, takeEvery, takeLatest } from 'redux-saga/effect
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
+import { isSuiBlockchain } from 'utils/constants';
 
 import { getQuestionById } from 'utils/questionsManagement';
 import { getCommunityById, isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -11,7 +12,6 @@ import { getQuestionBounty } from 'utils/walletManagement';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { getSuiPostsByCommunityId, getSuiPost } from 'utils/sui/suiIndexer';
 
 import {

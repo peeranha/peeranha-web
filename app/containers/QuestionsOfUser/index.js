@@ -17,11 +17,7 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import InfinityLoader from 'components/InfinityLoader';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
-import {
-  selectQuestions,
-  selectQuestionsLoading,
-  selectIsLastFetch,
-} from './selectors';
+import { selectQuestions, selectQuestionsLoading, selectIsLastFetch } from './selectors';
 
 import Header from './Header';
 import QuestionsList from './QuestionsList';
@@ -29,7 +25,7 @@ import { getQuestions } from './actions';
 import injectSaga from '../../utils/injectSaga';
 import { STATE_KEY } from './constants';
 import saga from '../QuestionsWithAnswersOfUser/saga';
-import { DAEMON } from '../../utils/constants';
+import { DAEMON } from 'utils/constants';
 
 export const QuestionsOfUser = ({
   isLastFetch,
@@ -43,30 +39,24 @@ export const QuestionsOfUser = ({
   account,
   displayName,
   getQuestionsDispatch,
-}) => {
-  return (
-    <InfinityLoader
-      loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
-      isLoading={questionsLoading}
-      isLastFetch={isLastFetch}
-      infinityOff={infinityOff}
-    >
-      <div className={className}>
-        <Header userId={userId} account={account} displayName={displayName} />
+}) => (
+  <InfinityLoader
+    loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
+    isLoading={questionsLoading}
+    isLastFetch={isLastFetch}
+    infinityOff={infinityOff}
+  >
+    <div className={className}>
+      <Header userId={userId} account={account} displayName={displayName} />
 
-        {questions.length > 0 && (
-          <QuestionsList
-            questions={questions}
-            locale={locale}
-            communities={communities}
-          />
-        )}
+      {questions.length > 0 && (
+        <QuestionsList questions={questions} locale={locale} communities={communities} />
+      )}
 
-        {questionsLoading && <LoadingIndicator />}
-      </div>
-    </InfinityLoader>
-  );
-};
+      {questionsLoading && <LoadingIndicator />}
+    </div>
+  </InfinityLoader>
+);
 
 QuestionsOfUser.propTypes = {
   isLastFetch: PropTypes.bool,
@@ -93,7 +83,7 @@ export default compose(
       isLastFetch: selectIsLastFetch(),
       communities: selectCommunities(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     }),
   ),

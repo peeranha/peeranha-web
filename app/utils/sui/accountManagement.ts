@@ -1,14 +1,7 @@
 import { ApplicationError } from 'utils/errors';
-import {
-  getOwnedObject,
-  userLib,
-  userObject,
-  handleMoveCall,
-  grantRole,
-  revokeRole,
-} from 'utils/sui/sui';
+import { getOwnedObject, userLib, userObject, handleMoveCall, communityLib } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
-import { getVector8FromRole } from 'utils/ipfs';
+import { getActualId } from 'utils/properties';
 
 export const isSuiUserExists = async (wallet: WalletContextState) => {
   if (!wallet.connected) throw new ApplicationError('No profile');
@@ -27,32 +20,28 @@ export const getSuiUserObject = async (address: string | undefined) => {
 
 export const giveSuiRolePermission = async (
   wallet: WalletContextState,
+  action: string,
   adminId: string,
   userId: string,
-  role: number,
   suiCommunityId: string,
-) => {
-  const roleTransactionData = getVector8FromRole(role, suiCommunityId);
-  return handleMoveCall(wallet, userLib, grantRole, [
+) =>
+  handleMoveCall(wallet, communityLib, action, [
     process.env.USER_ROLES_COLLECTION_ID,
     adminId,
     userId,
-    roleTransactionData,
+    getActualId(suiCommunityId),
   ]);
-};
 
 export const revokeSuiRolePermission = async (
   wallet: WalletContextState,
+  action: string,
   adminId: string,
   userId: string,
-  role: number,
   suiCommunityId: string,
-) => {
-  const roleTransactionData = getVector8FromRole(role, suiCommunityId);
-  return handleMoveCall(wallet, userLib, revokeRole, [
+) =>
+  handleMoveCall(wallet, communityLib, action, [
     process.env.USER_ROLES_COLLECTION_ID,
     adminId,
     userId,
-    roleTransactionData,
+    getActualId(suiCommunityId),
   ]);
-};

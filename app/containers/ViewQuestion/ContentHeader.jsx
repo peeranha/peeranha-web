@@ -10,6 +10,7 @@ import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
+import { isSuiBlockchain } from 'utils/constants';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
@@ -25,7 +26,6 @@ import { singleCommunityColors } from 'utils/communityManagement';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import SeeOriginal from 'containers/ViewQuestion/SeeOriginal';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { getUserName } from 'utils/user';
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
 import UserInfo from './UserInfo';

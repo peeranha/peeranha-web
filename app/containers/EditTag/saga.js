@@ -1,6 +1,7 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { isSuiBlockchain } from 'utils/constants';
 import { saveText } from 'utils/ipfs';
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
 import { selectExistingTags } from 'containers/Tags/selectors';
@@ -13,7 +14,7 @@ import { EDIT_TAG, GET_EDIT_TAG_FORM } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { GET_EXISTING_TAGS } from '../Tags/constants';
 import { getExistingTagsWorker } from '../Tags/saga';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { updateSuiTag } from 'utils/sui/communityManagement';
 import { getSuiCommunityTags } from 'utils/sui/suiIndexer';
