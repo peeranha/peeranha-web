@@ -45,6 +45,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suins/logo-2.svg',
           styles: SuiNSStyles,
         },
+        '3-0xf48acddb048a800da068e4def7efc29bd7b279d6a0d9746179e81e73a4c3f75b': {
+          origin: 'https://move.peeranha.io',
+          src: 'https://images.peeranha.io/communities/move/logo.svg',
+          styles: MoveStyles,
+        },
       }
     : {
         '1-1': {
@@ -139,11 +144,6 @@ const communitiesConfig = {
           origin: 'https://fractalvisions.peeranha.io',
           src: 'https://images.peeranha.io/communities/fractalVisions/logo.svg',
           styles: FractalVisionsStyles,
-        },
-        '1-21': {
-          origin: 'https://move.peeranha.io',
-          src: 'https://images.peeranha.io/communities/move/logo.svg',
-          styles: MoveStyles,
         },
         '1-22': {
           origin: 'https://developerdao.peeranha.io',
