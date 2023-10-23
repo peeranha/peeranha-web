@@ -200,6 +200,7 @@ export const CartesiStyles = {
     textColor: '#008DA5',
     textColorShadow: '#008DA5',
     commHeadElemColor: '#1B1A1E',
+    tooltipColor: '#1B1A1E',
     darkBlue: '#00F6FF',
     paginationButtonBackgroundColor: '#008DA5',
     footerBackgroundColor: '#1B1A1E',
