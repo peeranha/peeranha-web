@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import achievementNotReached from 'images/achievement_not_reached.svg?external';
+import { isSuiBlockchain } from 'utils/constants';
 
 import Icon from 'components/Icon';
 import Span from 'components/Span';
@@ -15,7 +16,6 @@ import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
 import { getNFTUrl } from '../../utils/ipfs';
 import NFTInformation from './NFTInformation';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const ImageBlock = styled.div`
   margin-right: 15px;

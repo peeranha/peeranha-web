@@ -29,7 +29,7 @@ const Base = styled.div`
     display: inline-block;
     margin-bottom: 10px;
     font-weight: 900;
-    color: ${colors.commHeadElemColor || TEXT_PRIMARY};
+    color: ${colors.tooltipColor || TEXT_PRIMARY};
   }
 
   > ul {
