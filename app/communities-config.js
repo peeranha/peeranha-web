@@ -227,7 +227,7 @@ const communitiesConfig = {
           styles: Mark3dStyles,
         },
         '3-0x02e943bd6dd5ca34a8fdeb4f595f6c20bf8b529bdf03e830b0713ddc1f74d95c': {
-          origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
+          origin: `https://suins${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/suins/logo-2.svg',
           styles: SuiNSStyles,
         },
