@@ -29,6 +29,7 @@ import { redirectToCreateTag } from 'containers/CreateTag/actions';
 import { getCommunityTags } from 'containers/DataCacheProvider/actions';
 import { selectTags } from 'containers/DataCacheProvider/selectors';
 import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
@@ -65,7 +66,6 @@ import PostRules from './PostRules';
 
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
