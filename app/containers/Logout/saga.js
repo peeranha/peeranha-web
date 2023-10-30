@@ -1,4 +1,5 @@
 import { setTransactionList } from 'containers/EthereumProvider/actions';
+import { setTransactionList as setSuiTransactionList } from 'containers/SuiProvider/actions';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -30,6 +31,7 @@ export function* logoutWorker() {
       yield call(ethereumService.resetWalletState);
     } else {
       deleteCookie(EMAIL_LOGIN_DATA);
+      yield put(setSuiTransactionList([]));
     }
 
     yield call(createdHistory.push, routes.feed());
