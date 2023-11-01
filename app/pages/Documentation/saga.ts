@@ -1,7 +1,7 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { getIpfsHashFromBytes32, getText } from 'utils/ipfs';
 import { updateDocumentationTree } from 'utils/questionsManagement';
-import { getPost } from 'utils/theGraph';
+import { getPost } from 'utils/queries/ethereumService';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';

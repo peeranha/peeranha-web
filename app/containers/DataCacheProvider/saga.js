@@ -37,7 +37,7 @@ import {
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { getSuiUserById } from 'utils/sui/suiIndexer';
-import { getUserStats } from 'utils/theGraph';
+import { getUserStats } from 'utils/queries/ethereumService';
 
 export function* getStatWorker() {
   try {

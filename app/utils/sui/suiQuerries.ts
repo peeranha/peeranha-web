@@ -1,4 +1,4 @@
-import { postMeshShallow } from 'utils/mesh';
+import { postMeshShallow } from 'utils/queries/QueriesMesh';
 
 const suiNetworkId = '3';
 

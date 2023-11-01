@@ -5,7 +5,7 @@ import {
   CONTRACT_TOKEN,
   CONTRACT_USER,
   ContractsMapping,
-} from 'utils/ethConstants';
+} from 'utils/queries/constants';
 
 import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 import {

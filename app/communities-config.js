@@ -27,6 +27,7 @@ import { SuiMainStyles } from './communities-configs/suiMain';
 import { CartesiStyles } from './communities-configs/cartesi';
 import { EdgewareStyles } from './communities-configs/edgeware';
 import { SuiNSStyles } from './communities-configs/suiNS';
+import { GraphStyles } from './communities-configs/graph';
 
 const communitiesConfig = {
   prod: isSuiBlockchain
@@ -318,6 +319,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/ankr/logo.svg',
           styles: AnkrStyles,
         },
+        '1-22': {
+          origin: `https://graph${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
+        },
         '2-1': {
           origin: `https://edgeware${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
@@ -337,10 +343,10 @@ const communitiesConfig = {
         },
       }
     : {
-        '2-1': {
+        '1-22': {
           origin: 'http://localhost:31000',
-          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
-          styles: EdgewareStyles,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
         },
       },
 };
@@ -401,6 +407,40 @@ const googleSiteVerificationsConfig = {
     },
     communities: {},
   },
+};
+
+const graphServiceConfig = {
+  prod: {
+    // '1-22': {
+    //   service: 'theGraph',
+    // },
+  },
+  staging: {
+    // '1-22': {
+    //   service: 'theGraph',
+    // },
+  },
+  test: {
+    '1-22': {
+      service: 'theGraph',
+    },
+  },
+  dev: {
+    '1-22': {
+      service: 'theGraph',
+    },
+  },
+};
+
+export const isMeshServiceConfig = () => {
+  const singleCommunityId = Object.keys(communitiesConfig[process.env.ENV]).find(
+    (id) => communitiesConfig[process.env.ENV]?.[id].origin === window.location.origin,
+  );
+
+  const graphService = graphServiceConfig[process.env.ENV]?.[singleCommunityId]?.service;
+  const meshService = !(singleCommunityId && graphService === 'theGraph');
+
+  return meshService;
 };
 
 export const googleVerificationConfig = googleSiteVerificationsConfig[process.env.ENV];

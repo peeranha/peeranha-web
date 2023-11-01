@@ -18,7 +18,7 @@ import { updateQuestionList } from 'containers/ViewQuestion/saga';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 import { editSuiQuestion, moderatorEditSuiQuestion } from 'utils/sui/questionsManagement';
 import { getSuiPost, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
-import { getPost } from 'utils/theGraph';
+import { getPost } from 'utils/queries/ethereumService';
 
 import {
   EDIT_QUESTION,

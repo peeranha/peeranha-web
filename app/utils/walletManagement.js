@@ -1,11 +1,12 @@
 /* eslint camelcase: 0 */
 import { MAX_STAKE_PREDICTION, MIN_STAKE_PREDICTION } from 'containers/Boost/constants';
+import { formatEther } from 'ethers/lib/utils';
 import { getFormattedNum3 } from './numbers';
 
 import { BOOST_MODIFIER_HIGH, BOOST_MODIFIER_LOW, BOOST_MULTIPLIER, WEI_IN_ETH } from './constants';
 
 import { ApplicationError } from './errors';
-import { getRewardStat } from './theGraph';
+import { getRewardStat } from './queries/ethereumService';
 import {
   CLAIM_REWARD,
   CONTRACT_TOKEN,
@@ -16,8 +17,7 @@ import {
   GET_USER_BALANCE,
   GET_USER_STAKE,
   SET_STAKE,
-} from './ethConstants';
-import { formatEther } from 'ethers/lib/utils';
+} from './queries/constants';
 
 export const getBalance = async (ethereumService, user) => {
   if (user) {

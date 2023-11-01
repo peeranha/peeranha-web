@@ -1,7 +1,7 @@
 import { CSSObject } from '@emotion/react';
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY, LINK_COLOR } from 'style-constants';
 import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
 const isSingleCommunityMode = isSingleCommunityWebsite();
@@ -67,6 +67,9 @@ export const styles: Record<string, CSSObject> = {
       ':last-child': {
         marginBottom: 0,
       },
+    },
+    ':hover': {
+      color: colors.footerTextHoverColor || LINK_COLOR,
     },
   },
 

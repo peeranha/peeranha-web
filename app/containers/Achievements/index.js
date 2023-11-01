@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { isSuiBlockchain } from 'utils/constants';
-import { getNetworkIds } from 'utils/ethConstants';
+import { getNetworkIds } from 'utils/queries/QueriesMesh';
 
 import { BORDER_SECONDARY } from 'style-constants';
 

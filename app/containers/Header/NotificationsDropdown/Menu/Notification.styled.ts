@@ -54,7 +54,7 @@ const styles = {
     color: '#282828',
   },
   timestamp: {
-    color: TEXT_SECONDARY,
+    color: colors.secondaryTextColor || TEXT_SECONDARY,
     whiteSpace: 'nowrap',
     fontSize: '14px',
     margin: '5px 0',
@@ -67,7 +67,7 @@ const styles = {
   footerContainer: {
     display: 'flex',
     width: '100%',
-    borderTop: `1px solid ${BORDER_SECONDARY_LIGHT}`,
+    borderTop: `1px solid ${colors.dividerColor || BORDER_SECONDARY_LIGHT}`,
     padding: '16px',
   },
   seeAll: {
@@ -81,7 +81,7 @@ const styles = {
     width: '100%',
     padding: '16px',
     justifyContent: 'space-between',
-    borderBottom: `1px solid ${BORDER_SECONDARY_LIGHT}`,
+    borderBottom: `1px solid ${colors.dividerColor || BORDER_SECONDARY_LIGHT}`,
   },
   headerTitle: {
     marginLeft: '10px',

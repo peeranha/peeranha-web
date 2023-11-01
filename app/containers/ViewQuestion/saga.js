@@ -45,7 +45,7 @@ import { getUniqQuestions } from 'containers/Questions/actions';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-import { getPost, getCommentId2, getVoteHistory } from 'utils/theGraph';
+import { getPost, getVoteHistory, getCommentId2 } from 'utils/queries/ethereumService';
 import {
   deleteSuiAnswer,
   deleteSuiComment,

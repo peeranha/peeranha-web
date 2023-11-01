@@ -2,7 +2,7 @@ import { createUser, handleMoveCall, updateUser, userLib, userObject } from 'uti
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getIpfsHashFromBytes32, getText, getVector8FromIpfsHash, saveText } from 'utils/ipfs';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
-import { getUserPermissions } from 'utils/theGraph';
+import { getUserPermissions } from 'utils/queries/ethereumService';
 import { getAllCommunities } from 'utils/communityManagement';
 
 export const getRatingByCommunity = (

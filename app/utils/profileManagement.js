@@ -8,8 +8,9 @@ import { getBytes32FromIpfsHash, getFileUrl, getText, saveFile, saveText } from 
 
 import { INIT_RATING, NO_AVATAR } from './constants';
 import { callService, NOTIFICATIONS_INFO_SERVICE } from './web_integration/src/util/aws-connector';
-import { CONTRACT_USER, GET_USER_RATING, UPDATE_ACC } from './ethConstants';
-import { getUser, getUserPermissions, getUserStats } from './theGraph';
+import { CONTRACT_USER, GET_USER_RATING, UPDATE_ACC } from './queries/constants';
+
+import { getUser, getUserPermissions, getUserStats } from './queries/ethereumService';
 import { isUserExists } from './accountManagement';
 
 export const getRatingByCommunity = (user, communityId) =>

@@ -1,4 +1,17 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+
+import { getAllAchievements } from 'utils/queries/ethereumService';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
+import { mintSuiAchievement } from 'utils/sui/achievementsManagement';
+import { getSuiUserObject } from 'utils/sui/accountManagement';
+import { getAchievements } from 'utils/achievementsManagement';
+import {
+  USER_ACHIEVEMENTS_TABLE,
+  PROJECT_ACHIEVEMENTS_TABLE,
+  ALL_ACHIEVEMENTS_SCOPE,
+  isSuiBlockchain,
+} from 'utils/constants';
+
 import {
   selectUsers,
   selectUserAchievementsDCP,
@@ -9,7 +22,6 @@ import {
   selectFirstAnswersValue,
   selectFirstIn15AnswersValue,
 } from 'containers/DataCacheProvider/selectors';
-
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import {
   transactionCompleted,
@@ -17,16 +29,7 @@ import {
   transactionInitialised,
   transactionInPending,
 } from 'containers/EthereumProvider/actions';
-
 import { updateCachedUserAchievements } from 'containers/DataCacheProvider/actions';
-
-import { getAchievements } from 'utils/achievementsManagement';
-import {
-  USER_ACHIEVEMENTS_TABLE,
-  PROJECT_ACHIEVEMENTS_TABLE,
-  ALL_ACHIEVEMENTS_SCOPE,
-  isSuiBlockchain,
-} from 'utils/constants';
 
 import {
   GET_USER_ACHIEVEMENTS,
@@ -66,11 +69,7 @@ import {
   selectMemorizedUserAchievements,
   selectMaxGroupsLowerValues,
 } from './selectors';
-import { getAllAchievements } from 'utils/theGraph';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { waitForTransactionConfirmation } from 'utils/sui/sui';
-import { mintSuiAchievement } from 'utils/sui/achievementsManagement';
-import { getSuiUserObject } from 'utils/sui/accountManagement';
 
 export function* getAchievementsWorker() {
   try {

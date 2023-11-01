@@ -7,7 +7,7 @@ import {
   getSuiUsersByCommunityId,
 } from 'utils/sui/suiIndexer';
 import { IS_INDEXER_ON } from 'utils/sui/sui';
-import { getUsers, getUsersByCommunity } from 'utils/theGraph';
+import { getUsers, getUsersByCommunity } from 'utils/queries/ethereumService';
 
 import { GET_USERS } from './constants';
 import { getUsersSuccess, getUsersErr } from './actions';

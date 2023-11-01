@@ -1,31 +1,34 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
+import { isMeshServiceConfig } from 'communities-config';
+
 import { dataToString } from 'utils/converters';
-import { isUserExists } from './accountManagement';
+import { isUserExists } from 'utils/accountManagement';
+
+import { queries } from './QueryService';
 import {
-  queries,
   postsIdsByTagsQueryMesh,
   replyId2QueryMesh,
   commentId2QueryMesh,
-  replyQuery,
-  voteHistory,
-} from './ethConstants';
+  replyQueryMesh,
+  voteHistoryMesh,
+} from './QueriesMesh';
 import {
   executeMeshQuery,
-  getPostDataFromMesh,
-  getPostsDataFromMesh,
   getUserDataFromMesh,
+  getReplyDataFromMesh,
+  getPostDataFromMesh,
   renameRepliesToAnswers,
   getHistoryDataFromMesh,
-  getReplyDataFromMesh,
-} from './mesh';
+  getPostsDataFromMesh,
+} from './meshModel';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
   cache: new InMemoryCache(),
 });
 
-const graphService = process.env.GRAPH_SERVICE;
-const isMeshService = graphService === 'Mesh';
+const isMeshService = isMeshServiceConfig();
+const modelService = isMeshService ? 'Mesh' : 'TheGraph';
 
 const executeQuery = async ({ query, variables }, enableCache = true) => {
   const result = isMeshService
@@ -85,7 +88,7 @@ export const getModerators = async (roles) => {
 
 export const getUsersByCommunity = async ({ limit = 50, skip: offset, communityId }) => {
   const result = await executeQuery({
-    query: queries.UsersByCommunity[graphService],
+    query: queries.UsersByCommunity[modelService],
     variables: {
       limit,
       offset,
@@ -99,7 +102,7 @@ export const getUsersByCommunity = async ({ limit = 50, skip: offset, communityI
 
 export const getUser = async (id) => {
   const result = await executeQuery({
-    query: queries.User[graphService],
+    query: queries.User[modelService],
     variables: {
       id: dataToString(id).toLowerCase(),
     },
@@ -111,7 +114,7 @@ export const getUser = async (id) => {
 
 export const getUserPermissions = async (id) => {
   const result = await executeQuery({
-    query: queries.UserPermissions[graphService],
+    query: queries.UserPermissions[modelService],
     variables: {
       id: dataToString(id).toLowerCase(),
     },
@@ -124,7 +127,7 @@ export const getUserPermissions = async (id) => {
 export const getUserStats = async (id) => {
   const result = await executeQuery(
     {
-      query: queries.UserStats[graphService],
+      query: queries.UserStats[modelService],
       variables: {
         id: dataToString(id).toLowerCase(),
       },
@@ -137,7 +140,7 @@ export const getUserStats = async (id) => {
 export const getUsersQuestions = async (id, limit, offset) => {
   const result = await executeQuery(
     {
-      query: queries.UserPosts[graphService],
+      query: queries.UserPosts[modelService],
       variables: {
         id,
         limit,
@@ -154,7 +157,7 @@ export const getUsersQuestions = async (id, limit, offset) => {
 export const getUsersAnsweredQuestions = async (id, limit, offset) => {
   const postIds = await executeQuery(
     {
-      query: queries.UserAnswers[graphService],
+      query: queries.UserAnswers[modelService],
       variables: {
         id,
         limit,
@@ -184,14 +187,14 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
 
 export const getCommunities = async () => {
   const communities = await executeQuery({
-    query: queries.Communities[graphService],
+    query: queries.Communities[modelService],
   });
   return isMeshService ? communities?.community : communities?.communities;
 };
 
 export const getCommunityById = async (id) => {
   const community = await executeQuery({
-    query: queries.Community[graphService],
+    query: queries.Community[modelService],
     variables: {
       id,
     },
@@ -203,7 +206,7 @@ export const getCommunityById = async (id) => {
 
 export const getTags = async (communityId) => {
   const result = await executeQuery({
-    query: queries.Tags[graphService],
+    query: queries.Tags[modelService],
     variables: {
       communityId,
     },
@@ -300,7 +303,7 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
 export const getDocumentationMenu = async (communityId) => {
   const result = await executeQuery(
     {
-      query: queries.DocumentationMenu[graphService],
+      query: queries.DocumentationMenu[modelService],
       variables: {
         id: communityId,
       },
@@ -313,7 +316,7 @@ export const getDocumentationMenu = async (communityId) => {
 export const getPost = async (postId) => {
   const result = await executeQuery(
     {
-      query: queries.Post[graphService],
+      query: queries.Post[modelService],
       variables: {
         postId,
       },
@@ -328,7 +331,7 @@ export const getPost = async (postId) => {
 export const getVoteHistory = async (postId, userId) => {
   const result = await executeQuery(
     {
-      query: voteHistory,
+      query: voteHistoryMesh,
       variables: {
         postId,
         userId,
@@ -342,7 +345,7 @@ export const getVoteHistory = async (postId, userId) => {
 export const getReply = async (replyId) => {
   const result = await executeQuery(
     {
-      query: replyQuery,
+      query: replyQueryMesh,
       variables: {
         replyId,
       },
@@ -418,7 +421,7 @@ export const postsForSearch = async (text, single) => {
 
 export const getAllAchievements = async (userId) => {
   const response = await executeQuery({
-    query: queries.AllAchievements[graphService],
+    query: queries.AllAchievements[modelService],
     variables: {
       userId: userId.toLowerCase(),
     },
@@ -469,14 +472,14 @@ export const getRewardStat = async (userId, ethereumService) => {
 
 export const getCurrentPeriod = async () => {
   const response = await executeQuery({
-    query: queries.CurrentPeriod[graphService],
+    query: queries.CurrentPeriod[modelService],
   });
   return isMeshService ? response?.period[0] : response?.periods[0];
 };
 
 export const historiesForPost = async (postId) => {
   const response = await executeQuery({
-    query: queries.Histories[graphService],
+    query: queries.Histories[modelService],
     variables: {
       postId,
     },

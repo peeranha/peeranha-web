@@ -1,5 +1,5 @@
 import { TEXT_DARK } from 'style-constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
@@ -101,7 +101,7 @@ export const styles = {
       height: '22px',
       top: 0,
       left: 0,
-      border: '1px solid #C2C6D8',
+      border: `1px solid #C2C6D8`,
       borderRadius: '3px',
       backgroundColor: 'rgb(255,255,255)',
     },

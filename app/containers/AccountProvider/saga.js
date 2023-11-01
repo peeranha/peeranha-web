@@ -44,7 +44,7 @@ import {
 import { formPermissionsCookie, getCookie, setCookie } from 'utils/cookie';
 import { hasGlobalModeratorRole } from 'utils/properties';
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
-import { getCurrentPeriod } from 'utils/theGraph';
+import { getCurrentPeriod } from 'utils/queries/ethereumService';
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
