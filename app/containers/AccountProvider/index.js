@@ -8,8 +8,7 @@ import { bindActionCreators, compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DAEMON } from 'utils/constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { DAEMON, isSuiBlockchain } from 'utils/constants';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -21,7 +20,7 @@ const SuiAccountProvider = ({ children, getCurrentSuiAccountDispatch, setWalletD
   useEffect(() => {
     setWalletDispatch(wallet);
     getCurrentSuiAccountDispatch(wallet);
-  }, [getCurrentSuiAccountDispatch, setWalletDispatch, wallet]);
+  }, [getCurrentSuiAccountDispatch, setWalletDispatch, JSON.stringify(wallet)]);
 
   return children;
 };

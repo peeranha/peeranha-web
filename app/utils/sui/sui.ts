@@ -5,6 +5,8 @@ import {
   TransactionBlock,
 } from '@mysten/sui.js';
 import { WalletContextState } from '@suiet/wallet-kit';
+import { EMAIL_LOGIN_DATA } from 'containers/Login/constants';
+import { getCookie } from 'utils/cookie';
 import { ApplicationError } from 'utils/errors';
 import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 
@@ -45,7 +47,6 @@ export const CHANGE_BEST_REPLY_ACTION_NAME = 'changeStatusBestReply';
 
 export const followCommunity = 'followCommunity';
 export const unfollowCommunity = 'unfollowCommunity';
-export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const IS_INDEXER_ON = true;
 
 export const CREATE_POST_EVENT_NAME = 'CreatePostEvent';
@@ -73,18 +74,59 @@ export function createSuiProvider() {
   return new JsonRpcProvider(connection);
 }
 
-export const waitForTransactionConfirmation = async (transactionDigest: string): Promise<any> => {
-  const provider = createSuiProvider();
-  return provider.getTransactionBlock({
-    digest: transactionDigest,
-    options: {
-      showInput: false,
-      showEffects: false,
-      showEvents: true,
-      showObjectChanges: false,
-      showBalanceChanges: false,
-    },
-  });
+const suiProvider = createSuiProvider();
+
+export const waitForTransactionConfirmation = async (
+  transactionDigest: string,
+  maxAttempts = 3,
+): Promise<any> => {
+  let attempts = 0;
+
+  const getTransactionBlock = async () => {
+    try {
+      return await suiProvider.getTransactionBlock({
+        digest: transactionDigest,
+        options: {
+          showInput: false,
+          showEffects: false,
+          showEvents: true,
+          showObjectChanges: false,
+          showBalanceChanges: false,
+        },
+      });
+    } catch (error) {
+      attempts += 1;
+
+      if (attempts < maxAttempts) {
+        return new Promise((resolve) => {
+          setTimeout(() => resolve(getTransactionBlock()), 2000);
+        });
+      }
+      throw error;
+    }
+  };
+
+  return getTransactionBlock();
+};
+
+const setTransactionResult = (digest: string, status: number) => {
+  transactionList.find(
+    (transactionFromList) => transactionFromList.transactionHash === digest,
+  ).result = { status };
+  if (setTransactionList) {
+    setTransactionList(transactionList);
+  }
+  setTimeout(() => {
+    const index = transactionList
+      .map((transactionFromList) => transactionFromList.transactionHash)
+      .indexOf(digest);
+    if (index !== -1) {
+      transactionList.splice(index, 1);
+      if (setTransactionList) {
+        setTransactionList(transactionList);
+      }
+    }
+  }, '30000');
 };
 
 export const handleMoveCall = async (
@@ -93,14 +135,57 @@ export const handleMoveCall = async (
   action: string,
   data: unknown[],
 ): Promise<string> => {
+  const emailCookieValue = getCookie(EMAIL_LOGIN_DATA);
+  const emailData = emailCookieValue ? JSON.parse(emailCookieValue) : null;
+  if (emailData) {
+    if (!process.env.SUI_GASLESS_TRANSACTIONS_ENDPOINT) {
+      throw new ApplicationError('SUI_GASLESS_TRANSACTIONS_ENDPOINT is not configured');
+    }
+    const hash = action + data.join('');
+    transactionList.push({
+      action,
+      transactionHash: hash,
+    });
+    if (setTransactionList) {
+      setTransactionList(transactionList);
+    }
+    const response = await fetch(process.env.SUI_GASLESS_TRANSACTIONS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: emailData.token,
+      },
+      body: JSON.stringify({
+        userId: emailData.email,
+        module: libName,
+        action,
+        arguments: data,
+      }),
+    });
+    const responseBody = await response.json();
+    setTransactionResult(hash, responseBody?.success ? 1 : 2);
+    await waitForTransactionConfirmation(responseBody.digest);
+
+    if (responseBody.success) {
+      return responseBody;
+    }
+    throw new Error('Transaction Failed');
+  }
   if (!process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT) {
     throw new ApplicationError('SUI_SPONSORED_TRANSACTIONS_ENDPOINT is not configured');
   }
+
+  const reCaptchaToken = await window.grecaptcha.execute(process.env.RECAPTCHA_SITE_KEY, {
+    action: 'homepage',
+  });
+
   const response = await fetch(process.env.SUI_SPONSORED_TRANSACTIONS_ENDPOINT, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      reCaptchaToken,
     },
     body: JSON.stringify({
       sender: wallet.address,
@@ -134,23 +219,10 @@ export const handleMoveCall = async (
 
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
   const result = await waitForTransactionConfirmation(executeResponse.digest);
-  transactionList.find(
-    (transactionFromList) => transactionFromList.transactionHash === executeResponse.digest,
-  ).result = { status: executeResponse?.effects.status.status === 'failure' ? 2 : 1 };
-  if (setTransactionList) {
-    setTransactionList(transactionList);
-  }
-  setTimeout(() => {
-    const index = transactionList
-      .map((transactionFromList) => transactionFromList.transactionHash)
-      .indexOf(executeResponse.digest);
-    if (index !== -1) {
-      transactionList.splice(index, 1);
-      if (setTransactionList) {
-        setTransactionList(transactionList);
-      }
-    }
-  }, '30000');
+  setTransactionResult(
+    executeResponse.digest,
+    executeResponse?.effects.status.status === 'failure' ? 2 : 1,
+  );
 
   if (executeResponse?.effects.status.status === 'failure') {
     throw new Error('Transaction Failed');
@@ -171,7 +243,7 @@ export const getOwnedObject = async (
     filter: {
       // example
       // 0x4e05c416411b99d4a4b12dcd0599811fed668010f994b4cd37683d886f45262f::userLib::User
-      StructType: `${process.env.SUI_PACKAGE_ID}::${libName}::${objectName}`,
+      StructType: `${process.env.SUI_PACKAGE_ID_ORIGINAL}::${libName}::${objectName}`,
     },
     options: {
       showType: true,

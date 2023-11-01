@@ -1,11 +1,22 @@
 import { TEXT_DARK } from 'style-constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const styles = {
   mainInfo: {
     justifyContent: 'space-after',
     marginRight: '15px',
     minWidth: '0',
+  },
+
+  contentBlock: {
+    flexDirection: 'column',
+    marginBottom: '16px',
+    'div:last-child': {
+      borderBottom: 'none',
+    },
   },
 
   contentGrid: {
@@ -95,8 +106,8 @@ export const styles = {
       backgroundColor: 'rgb(255,255,255)',
     },
     'input[type=checkbox]:checked:before': {
-      backgroundColor: 'rgba(87, 111, 237, 1)',
-      border: '1px solid rgba(87, 111, 237, 1)',
+      backgroundColor: colors.btnColor || 'rgba(87, 111, 237, 1)',
+      border: `1px solid ${colors.btnColor || 'rgba(87, 111, 237, 1)'}`,
     },
     'input[type=checkbox]:checked:after': {
       content: '""',

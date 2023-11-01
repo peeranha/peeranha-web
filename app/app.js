@@ -25,7 +25,7 @@ import AccountProvider from 'containers/AccountProvider';
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 import 'file-loader?name=[name].[ext]!./.htaccess';
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 /* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore from './configureStore';

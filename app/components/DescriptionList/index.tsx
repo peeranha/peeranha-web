@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { useTranslation } from 'react-i18next';
 
-import { BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
+import { BORDER_PRIMARY_LIGHT, TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
@@ -54,7 +54,7 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
 
   return (
     <Base>
-      {t(label)}
+      <p css={{ color: colors.tooltipColor || TEXT_PRIMARY }}>{t(label)}</p>
       {Boolean(items.length) && (
         <ul>
           {t(items, { returnObjects: true }).map((item) => (

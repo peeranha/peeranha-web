@@ -8,8 +8,6 @@ import loginImage from 'images/wantAnswer.svg?inline';
 import repliedImage from 'images/repliedAnswer.svg?inline';
 import reputationImage from 'images/reputationAnswer.svg?inline';
 import { BANNER_IMG, ILLUSTRATION_IMG } from './constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
-import SuiConnectModals from 'components/SuiConnectModals';
 import { singleCommunityStyles } from 'utils/communityManagement';
 
 const communityStyles = singleCommunityStyles();
@@ -96,15 +94,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
           <div css={viewStyles()}>
             <div>{viewTitle()}</div>
             <div>{viewText()}</div>
-            {!account &&
-              (isSuiBlockchain ? (
-                <SuiConnectModals
-                  loginWithWallet={showLoginModal}
-                  actionButtonWithLogin={buttonWithLogin}
-                />
-              ) : (
-                buttonWithLogin(showLoginModal)
-              ))}
+            {!account && buttonWithLogin(showLoginModal)}
           </div>
           <img css={viewImgStyles()} src={viewImage()} alt={ILLUSTRATION_IMG} />
         </div>

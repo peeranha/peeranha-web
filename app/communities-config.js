@@ -1,4 +1,4 @@
-import { isSuiBlockchain } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
 import { AaveStyles } from './communities-configs/aave';
 import { AnkrStyles } from './communities-configs/ankr';
 import { CyberconnectStyles } from './communities-configs/cyberconnect';
@@ -25,6 +25,8 @@ import { ValistStyles } from './communities-configs/valist';
 import { VyperStyles } from './communities-configs/vyper';
 import { SuiMainStyles } from './communities-configs/suiMain';
 import { CartesiStyles } from './communities-configs/cartesi';
+import { EdgewareStyles } from './communities-configs/edgeware';
+import { SuiNSStyles } from './communities-configs/suiNS';
 
 const communitiesConfig = {
   prod: isSuiBlockchain
@@ -32,6 +34,21 @@ const communitiesConfig = {
         1: {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
+        },
+        '3-0x8feda08f11b31cb96d8ca75b1b100dca575438b54158631c829b4a1772eceea0': {
+          origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
+          styles: CartesiStyles,
+        },
+        '3-0xb44dbb445e89a75120188af82d83abec2dfbce87d9825edb38e10e3c2ed5f42e': {
+          origin: `https://suins${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/suins/logo-2.svg',
+          styles: SuiNSStyles,
+        },
+        '3-0xf48acddb048a800da068e4def7efc29bd7b279d6a0d9746179e81e73a4c3f75b': {
+          origin: 'https://move.peeranha.io',
+          src: 'https://images.peeranha.io/communities/move/logo.svg',
+          styles: MoveStyles,
         },
       }
     : {
@@ -128,11 +145,6 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/fractalVisions/logo.svg',
           styles: FractalVisionsStyles,
         },
-        '1-21': {
-          origin: 'https://move.peeranha.io',
-          src: 'https://images.peeranha.io/communities/move/logo.svg',
-          styles: MoveStyles,
-        },
         '1-22': {
           origin: 'https://developerdao.peeranha.io',
           src: 'https://images.peeranha.io/communities/communityDAO/logo.svg',
@@ -143,12 +155,32 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
           styles: LaunchpadStyles,
         },
+        '2-1': {
+          origin: 'https://edgeware.peeranha.io',
+          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
+          styles: EdgewareStyles,
+        },
       },
   staging: isSuiBlockchain
     ? {
         1: {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
+        },
+        '3-0x305c327da8558d51395b3381509b6a03c8f4ce691feb3fa1579826f6f0e12803': {
+          origin: `https://scm-sui-staging${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/suins/logo-2.svg',
+          styles: SuiNSStyles,
+        },
+        // '3-0x176d1ff622ed604802c42ec15df79e67e1b97d9421f93ba1e77f19c569897b1d': {
+        //   origin: `https://second-sui-staging${process.env.COOKIE_DOMAIN}`,
+        //   src: 'https://images.peeranha.io/communities/move/logo.svg',
+        //   styles: MoveStyles,
+        // },
+        '3-0xf42cfbc0ed7ec07d652d04dc5c5a4c3f053fa0cb83dc0edc9f371dd9abaf972b': {
+          origin: `https://cartesi-sui-staging${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
+          styles: CartesiStyles,
         },
       }
     : {
@@ -161,11 +193,6 @@ const communitiesConfig = {
           origin: 'https://demo-msl.testpeeranha.io',
           src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
           styles: MintStateLabsStyles,
-        },
-        '1-3': {
-          origin: `https://demo-ankr.testpeeranha.io`,
-          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
-          styles: AnkrStyles,
         },
         '1-4': {
           origin: 'https://demo-fxland.testpeeranha.io',
@@ -182,6 +209,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/sui/logo.svg',
           styles: SuiStyles,
         },
+        '2-2': {
+          origin: `https://demo-ankr.testpeeranha.io`,
+          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
+          styles: AnkrStyles,
+        },
       },
   test: isSuiBlockchain
     ? {
@@ -196,8 +228,13 @@ const communitiesConfig = {
         },
         '3-0x02e943bd6dd5ca34a8fdeb4f595f6c20bf8b529bdf03e830b0713ddc1f74d95c': {
           origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/solidity/logo.svg',
-          styles: SolidityStyles,
+          src: 'https://images.peeranha.io/communities/suins/logo-2.svg',
+          styles: SuiNSStyles,
+        },
+        '3-0xf1ec216ce7573b9b7f625d1cb618374b94f241787919f35da28f93c416e55cc6': {
+          origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
+          styles: CartesiStyles,
         },
       }
     : {
@@ -277,9 +314,14 @@ const communitiesConfig = {
           styles: LaunchpadStyles,
         },
         '1-21': {
-          origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
-          styles: CartesiStyles,
+          origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
+          styles: AnkrStyles,
+        },
+        '2-1': {
+          origin: `https://edgeware${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
+          styles: EdgewareStyles,
         },
       },
   dev: isSuiBlockchain
@@ -288,17 +330,17 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
-        '3-0x6320fa169fcf93bd30666e5612e799599ac6021fa59e84dab1d48fa120f56c47': {
+        '3-0x305c327da8558d51395b3381509b6a03c8f4ce691feb3fa1579826f6f0e12803': {
           origin: `http://localhost:31000`,
-          src: 'https://images.peeranha.io/communities/mark3d/logo.svg',
-          styles: Mark3dStyles,
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiMainStyles,
         },
       }
     : {
-        '1-1': {
+        '2-1': {
           origin: 'http://localhost:31000',
-          src: 'https://images.peeranha.io/communities/harmony/logo.svg',
-          styles: HarmonyStyles,
+          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
+          styles: EdgewareStyles,
         },
       },
 };

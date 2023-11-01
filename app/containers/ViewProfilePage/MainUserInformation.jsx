@@ -6,7 +6,7 @@ import { css } from '@emotion/react';
 
 import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR, TEXT_PRIMARY } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
-import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
+import { isSuiBlockchain, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import FaqIcon from 'icons/Faq';
@@ -31,7 +31,6 @@ import { getUserName } from 'utils/user';
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import { singleCommunityColors } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import { SuiNS } from 'icons/index';
 
 const colors = singleCommunityColors();
@@ -200,13 +199,10 @@ const MainUserInformation = ({
       });
     };
   const shortUserId = (id) => {
-    if (id.length > 40 && window.innerWidth > 576) {
-      return `${id.substring(0, 41)}...${id.substring(id.length - 5)}`;
-    }
-    if (id.length > 40 && window.innerWidth <= 576) {
+    if (window.innerWidth <= 576) {
       return `${id.substring(0, 25)}...${id.substring(id.length - 5)}`;
     }
-    return id;
+    return isSuiBlockchain ? `${id.substring(0, 41)}...${id.substring(id.length - 5)}` : id;
   };
 
   return (
@@ -398,16 +394,7 @@ const MainUserInformation = ({
               >
                 <span>{t('profile.achievements')}</span>
 
-                {typeof (isSuiBlockchain ? profile.userachievement : profile.achievements) ===
-                'object' ? (
-                  <AchievementsStatus
-                    isProfilePage={true}
-                    count={userAchievementsLength}
-                    size="lg"
-                  />
-                ) : (
-                  <InlineLoader width={7} height={7} margin={3} />
-                )}
+                <AchievementsStatus isProfilePage={true} count={userAchievementsLength} size="lg" />
               </li>
               {!isTemporaryAccount && (
                 <li

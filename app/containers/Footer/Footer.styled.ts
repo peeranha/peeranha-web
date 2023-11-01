@@ -1,9 +1,13 @@
+import { CSSObject } from '@emotion/react';
 import { TEXT_SECONDARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
+const isSingleCommunityMode = isSingleCommunityWebsite();
+const isSuiFooter = isSuiBlockchain && !isSingleCommunityMode;
 
-export const styles = {
+export const styles: Record<string, CSSObject> = {
   footer: {
     minHeight: '220px',
     color: colors.footerText || TEXT_SECONDARY,
@@ -11,13 +15,15 @@ export const styles = {
 
   footerCommunityMode: {
     minHeight: '150px',
-    background: colors.footerBackgroundColor || 'rgb(234, 236, 244)',
+    background: isSuiFooter
+      ? 'rgb(234, 247, 255)'
+      : colors.footerBackgroundColor || colors.mainBackground || 'rgb(234, 236, 244)',
   },
 
   logo: {
     display: 'flex',
     justifyContent: 'center',
-    paddingTop: '32px',
+    paddingTop: isSuiFooter ? 0 : '32px',
     '@media (max-width: 991px)': {
       justifyContent: 'start',
       marginLeft: '16px',
@@ -33,7 +39,7 @@ export const styles = {
   },
 
   infoBlock: {
-    display: 'flex',
+    display: isSuiFooter ? 'none' : 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     whiteSpace: 'nowrap',
@@ -66,7 +72,7 @@ export const styles = {
 
   border: {
     borderBottom: `1px solid ${colors.footerBorderColor || '#c2c6d8'}`,
-    margin: '32px',
+    margin: isSuiFooter ? '0 0 32px' : '32px',
     '@media (max-width: 991px)': {
       margin: '28px 16px',
     },

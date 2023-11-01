@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
-import { APP_MAIN_NAME, TARGET_BLANK } from 'utils/constants';
+import { APP_MAIN_NAME, TARGET_BLANK, isSuiBlockchain } from 'utils/constants';
 import { styles } from './Footer.styled';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaLogoWhite from 'images/Logo.svg?inline';
@@ -21,11 +21,14 @@ const Footer: React.FC = (): JSX.Element => {
 
   return (
     <div
-      css={{ ...styles.footer, ...(Boolean(isSingleCommunityMode) && styles.footerCommunityMode) }}
+      css={{
+        ...styles.footer,
+        ...((Boolean(isSingleCommunityMode) || isSuiBlockchain) && styles.footerCommunityMode),
+      }}
     >
       <div>
         <div css={styles.logo}>
-          {!isSingleCommunityMode && (
+          {!isSingleCommunityMode && !isSuiBlockchain && (
             <img
               key={APP_MAIN_NAME}
               src={communityStyles.logoWhite ? peeranhaLogoWhite : peeranhaLogo}
@@ -60,8 +63,13 @@ const Footer: React.FC = (): JSX.Element => {
       <div css={styles.border} />
 
       <div css={styles.contacts}>
-        <div css={{ ...styles.info, ...(Boolean(isSingleCommunityMode) && styles.infoSingleComm) }}>
-          {Boolean(isSingleCommunityMode) ? (
+        <div
+          css={{
+            ...styles.info,
+            ...((Boolean(isSingleCommunityMode) || isSuiBlockchain) && styles.infoSingleComm),
+          }}
+        >
+          {isSingleCommunityMode || isSuiBlockchain ? (
             <a css={styles.infoPoweredBy} href={process.env.APP_LOCATION}>
               <Trans
                 i18nKey="common.poweredBy"
@@ -106,7 +114,7 @@ const Footer: React.FC = (): JSX.Element => {
             />
           </div>
         </div>
-        {!isSingleCommunityMode && (
+        {!isSingleCommunityMode && !isSuiBlockchain && (
           <div css={styles.contactsLogo}>
             {CONTACTS_LINKS.map((link) => (
               <a key={link.title} href={link.route} target={TARGET_BLANK}>

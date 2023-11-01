@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller';
 import List from 'react-virtualized/dist/commonjs/List';
 
-import { DAEMON } from 'utils/constants';
+import { DAEMON, isSuiBlockchain } from 'utils/constants';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -40,8 +40,6 @@ import styles from './Notifications.styled';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
 import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
-
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const Container = styled.div`
   ${Wrapper} {

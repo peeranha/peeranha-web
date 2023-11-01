@@ -1,7 +1,8 @@
 import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { isSuiBlockchain } from 'utils/constants';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 
 import { createCommunity } from 'utils/communityManagement';
 

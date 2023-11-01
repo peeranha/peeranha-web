@@ -12,6 +12,7 @@ import { TEXT_PRIMARY, DARK_SECONDARY } from 'style-constants';
 
 import Logout from 'containers/Logout';
 import PropTypes from 'prop-types';
+import { isSuiBlockchain } from 'utils/constants';
 
 import { getPermissions } from '../../utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
@@ -25,7 +26,6 @@ import ModerationIcon from 'icons/Moderation';
 import NFTIcon from 'icons/NFT';
 import PostIcon from 'icons/Post';
 import LogOutIcon from 'icons/LogOut';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
   const { t } = useTranslation();

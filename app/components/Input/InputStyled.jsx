@@ -64,7 +64,7 @@ export const Styles = css`
     border-color: ${(props) =>
       props.error
         ? `rgb(${BORDER_WARNING_LIGHT_RGB})`
-        : colors.linkColorTransparent || `rgb(${BORDER_PRIMARY_RGB})`};
+        : colors.linkColor || `rgb(${BORDER_PRIMARY_RGB})`};
   }
 
   :disabled {

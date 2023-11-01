@@ -1,10 +1,10 @@
 import { BORDER_RADIUS_L, BG_LIGHT, BORDER_SECONDARY } from 'style-constants';
-import { isSuiBlockchain } from 'utils/sui/sui';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
   singleCommunityStyles,
 } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
 const singleStyles = singleCommunityStyles();
@@ -42,13 +42,13 @@ export const styles = {
     lineHeight: '18px',
     background:
       isSingleCommunityWebsite() || isSuiBlockchain
-        ? `${colors.btnHeaderColor ?? colors.btnColor}`
+        ? `${colors.navMenuBackgroundColor || colors.btnHeaderColor || colors.btnColor}`
         : 'var(--color-button-secondary)',
     borderRadius: singleStyles?.projectBorderRadius ? singleStyles.projectBorderRadius : '2px',
     border: `${colors?.btnHeaderColor?.includes('FFF') ? 1 : 0}px solid ${
       colors.newPostButtonText ? colors.newPostButtonText : BG_LIGHT
     }`,
-    color: colors.newPostButtonText ? colors.newPostButtonText : BG_LIGHT,
+    color: colors.navMenuTextColor || colors.newPostButtonText || BG_LIGHT,
     transition: '0.4s',
     zIndex: 10,
 
@@ -57,7 +57,7 @@ export const styles = {
         isSingleCommunityWebsite() || isSuiBlockchain
           ? colors.btnHeaderHoverColor
           : 'var(--color-button-secondary)',
-      color: colors.newPostButtonText || BG_LIGHT,
+      color: colors.navMenuTextColor || colors.newPostButtonText || BG_LIGHT,
       opacity: colors.btnHeaderHoverOpacity || 0.8,
     },
   },

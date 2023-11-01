@@ -20,7 +20,8 @@ import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProv
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
-import { loginWithWallet, loginWithSui } from 'containers/Login/actions';
+import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { isSuiBlockchain, POST_TYPE } from 'utils/constants';
 
 import {
   saveComment,
@@ -45,8 +46,6 @@ import reducer from './reducer';
 import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
-import { POST_TYPE } from 'utils/constants';
-
 const getRoute = (postType) => {
   if (postType === POST_TYPE.generalPost) {
     return 'questionView';
@@ -103,13 +102,23 @@ export const ViewQuestion = ({
   loginWithWalletDispatch,
 }) => {
   const { t } = useTranslation();
-  const showLoginModal = () => loginWithWalletDispatch({ metaMask: true });
+  const showLoginModal = isSuiBlockchain
+    ? loginWithSuiDispatch
+    : () => loginWithWalletDispatch({ metaMask: true });
   useEffect(() => {
     if (questionData) {
       const route = getRoute(questionData.postType);
 
-      if (match.url !== routes[route](match.params.id, questionData.title)) {
-        history.push(routes[route](match.params.id, questionData.title));
+      if (
+        match.url !== routes[route](match.params.id, questionData.title) ||
+        match.params.id.split('-').length === 1
+      ) {
+        history.push(
+          routes[route](
+            match.params.id.split('-').length === 1 ? `1-${match.params.id}` : match.params.id,
+            questionData.title,
+          ),
+        );
       }
     }
   }, [history, match.params.id, match.url, questionData]);
@@ -122,7 +131,9 @@ export const ViewQuestion = ({
   }, []);
 
   useEffect(() => {
-    getQuestionDataDispatch(match.params.id);
+    getQuestionDataDispatch(
+      match.params.id.split('-').length === 1 ? `1-${match.params.id}` : match.params.id,
+    );
   }, [match.params.id, account]);
 
   useEffect(() => {
@@ -328,7 +339,7 @@ const withConnect = connect(
     redirectToEditAnswerPageDispatch: bindActionCreators(redirectToEditAnswerPage, dispatch),
     getHistoriesDispatch: bindActionCreators(getHistories, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
-    loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
+    loginWithSuiDispatch: bindActionCreators(showLoginModal, dispatch),
   }),
 );
 

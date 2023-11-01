@@ -185,8 +185,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           paddingLeft: 16 + 16 * level,
           ...(((match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
-            editArticle?.id === item.id ||
-            (route == '/' && startDocumentionPostLight)) && {
+            editArticle?.id === item.id) && {
             background: 'rgba(53, 74, 137, 0.11)',
             borderLeft: `3px solid ${colors.linkColor || '#5065A5'}`,
             paddingLeft: 12 + 16 * level,

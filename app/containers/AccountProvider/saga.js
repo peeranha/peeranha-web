@@ -1,11 +1,10 @@
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import { setEmailLoginData } from 'containers/SuiProvider/actions';
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
 import { isSuiUserExists } from 'utils/sui/accountManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
-import { getSuiUserById } from 'utils/sui/suiIndexer';
 import { getAvailableBalance, getBalance, getUserBoost } from 'utils/walletManagement';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
@@ -33,7 +32,7 @@ import {
   REDIRECT_TO_EDIT_QUESTION_PAGE,
 } from 'containers/EditQuestion/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
-import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA, EMAIL_LOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
 import {
   DELETE_ANSWER_SUCCESS,
@@ -201,16 +200,23 @@ export function* updateAccWorker({ ethereum }) {
 
 export const getCurrentSuiAccountWorker = function* ({ wallet }) {
   try {
+    let accountData = wallet;
+    const emailCookieValue = getCookie(EMAIL_LOGIN_DATA);
+    const parsedEmailData = emailCookieValue ? JSON.parse(emailCookieValue) : null;
     const previouslyConnectedWallet = getCookie('connectedWallet');
-    if (wallet.connected && previouslyConnectedWallet) {
-      const isUserRegistered = yield call(isSuiUserExists, wallet);
+    if (parsedEmailData) {
+      accountData = { ...parsedEmailData, connected: true };
+    }
+    if ((accountData.connected && previouslyConnectedWallet) || parsedEmailData) {
+      const isUserRegistered = yield call(isSuiUserExists, accountData);
       if (isUserRegistered === false) {
-        yield put(getUserProfileSuccess(emptyProfile(wallet.address)));
-        yield put(getCurrentAccountSuccess(wallet.address, 0));
+        yield put(getUserProfileSuccess(emptyProfile(accountData.address)));
+        yield put(setEmailLoginData(parsedEmailData));
+        yield put(getCurrentAccountSuccess(accountData.address, 0));
         return;
       }
 
-      const userFromContract = yield call(getSuiProfileInfo, wallet.address);
+      const userFromContract = yield call(getSuiProfileInfo, accountData.address);
       const profileInfo = yield call(getProfileInfo, userFromContract.id);
 
       if (profileInfo) {
@@ -227,7 +233,7 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
       });
       yield put(addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}));
       yield put(getUserProfileSuccess(profileInfo));
-
+      yield put(setEmailLoginData(parsedEmailData));
       yield put(getCurrentAccountSuccess(userFromContract.id, 0, 0, 0));
     } else {
       yield put(getCurrentAccountError());

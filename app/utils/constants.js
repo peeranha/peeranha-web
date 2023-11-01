@@ -1,5 +1,4 @@
 import { keccak256, toUtf8Bytes } from 'ethers/lib.esm/utils';
-import { isSuiBlockchain } from './sui/sui';
 
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
@@ -17,6 +16,7 @@ export const ENDPOINTS_LIST = 'best_nodes_list';
 // permissions
 export const MODERATOR_KEY = 48;
 export const DEFAULT_ADMIN_ROLE = 0x00;
+export const isSuiBlockchain = process.env.BLOCKCHAIN === 'sui';
 export const PROTOCOL_ADMIN_ROLE = isSuiBlockchain
   ? '02'
   : keccak256(toUtf8Bytes('PROTOCOL_ADMIN_ROLE'));
@@ -173,7 +173,9 @@ export const APP_MAIN_NAME = 'Peeranha';
 export const TEMPORARY_ACCOUNT_KEY = 15;
 
 // Messenger bot
-export const BOT_ADDRESS = '0x0000000000000000000000000000000000000001';
+export const BOT_ADDRESS = isSuiBlockchain
+  ? '0x0000000000000000000000000000000000000000000000000000000000000001'
+  : '0x0000000000000000000000000000000000000001';
 
 export const MessengerTypes = {
   Unknown: 0,

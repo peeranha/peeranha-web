@@ -40,13 +40,10 @@ const ProgressBar = ({
   const id = `progress_bar_${groupType}_${achievementId}`;
 
   const currentMessage =
-    pointsToNext === 1
-      ? `${pointsToNext} ${messageSingle}`
-      : `${pointsToNext} ${messageMultiple}`;
+    pointsToNext === 1 ? `${pointsToNext} ${messageSingle}` : `${pointsToNext} ${messageMultiple}`;
 
-  const showTooltip = () => {
-    if (currentMessage) showPopover(id, currentMessage);
-  };
+  const showTooltip = () =>
+    currentMessage && pointsToNext > 0 ? showPopover(id, currentMessage) : null;
 
   return (
     <Wrapper id={id} width={width} onMouseEnter={showTooltip}>

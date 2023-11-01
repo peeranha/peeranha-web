@@ -31,6 +31,7 @@ import {
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
+import aiIcon from 'images/aiIcon.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
@@ -47,6 +48,7 @@ import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 import { PINNED_TITLE_LENGTH } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
+import { isSuiBlockchain } from 'utils/constants';
 import {
   hasGlobalModeratorRole,
   hasCommunityAdminRole,
@@ -56,7 +58,6 @@ import {
 } from 'utils/properties';
 
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
@@ -81,7 +82,9 @@ export const A1 = A.extend`
   ${({ route, name }) =>
     route === name
       ? `
-          background-color: ${colors.userInformation || PRIMARY_SPECIAL};
+          background-color: ${
+            colors.navMenuBackgroundColor || colors.userInformation || PRIMARY_SPECIAL
+          };
           border-color: ${colors.linkColor || BORDER_PRIMARY_DARK};
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
@@ -144,7 +147,6 @@ const Box = styled.div`
   @media only screen and (max-width: 991px) {
     margin-top: 0;
   }
-  }
 `;
 
 const documentationPosition = singleCommunityDocumentationPosition();
@@ -167,9 +169,7 @@ const MainLinks = ({
   const singleCommId = isSingleCommunityWebsite();
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
-    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
-      hasCommunityModeratorRole(getPermissions(profile), singleCommId) ||
-      isProtocolAdmin
+    ? hasCommunityModeratorRole(getPermissions(profile), singleCommId) || isProtocolAdmin
     : false;
 
   const isAdministratorModeSingleCommunity = singleCommId
@@ -270,6 +270,14 @@ const MainLinks = ({
           </div>
         )}
 
+        {singleCommId && (
+          <A1 to={routes.defaultPath} name={routes.defaultPath} route={route}>
+            <IconLg className="mr-2" icon={aiIcon} />
+            {t('common.aiPoweredSearch')}
+            <span css={styles.searchLabel}>New</span>
+          </A1>
+        )}
+
         <A1 to={routes.feed()} name="feed" route={route}>
           <IconLg className="mr-2" icon={myFeedIcon} />
           {t(`common.${profile && !singleCommId ? 'myFeed' : 'feed'}`)}
@@ -305,7 +313,6 @@ const MainLinks = ({
         )}
 
         {(hasGlobalModeratorRole() ||
-          hasProtocolAdminRole() ||
           isModeratorModeSingleCommunity ||
           (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>
@@ -323,15 +330,18 @@ const MainLinks = ({
         <div css={styles.dividerLinks} />
       </div>
 
-      <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner>
+      {/* <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner> */}
 
       <div css={styles.dividerLinks} />
 
       {Boolean(singleCommId) &&
-        (documentationMenu.length > 0 || isModeratorModeSingleCommunity) && (
+        (documentationMenu.length > 0 || isModeratorModeSingleCommunity) &&
+        !isSuiBlockchain && (
           <Documentation
             documentationMenu={documentationMenu}
-            isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
+            isModeratorModeSingleCommunity={
+              isModeratorModeSingleCommunity || isAdministratorModeSingleCommunity
+            }
             toggleEditDocumentation={toggleEditDocumentation}
             match={match}
             pinnedItemMenuId={pinnedItemMenu.id}

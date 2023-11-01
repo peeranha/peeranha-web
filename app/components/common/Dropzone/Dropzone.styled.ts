@@ -1,6 +1,10 @@
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
+
 export const styles = {
   fileDropzone: {
-    background: 'rgb(250, 250, 250)',
+    background: colors.newPostMediaBackgroundColor || 'rgb(250, 250, 250)',
     border: '1px dashed rgb(220, 220, 220)',
     borderRadius: '5px',
   },
@@ -53,7 +57,7 @@ export const styles = {
   },
 
   attachWord: {
-    color: 'rgb(87, 111, 237)',
+    color: colors.linkColor || 'rgb(87, 111, 237)',
   },
 
   restrictionsText: {

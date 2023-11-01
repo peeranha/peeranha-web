@@ -13,6 +13,7 @@ import icoTag from 'images/icoTag.svg?inline';
 import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
+import { isSuiBlockchain } from 'utils/constants';
 import { showPopover } from 'utils/popover';
 
 import {
@@ -39,7 +40,6 @@ import { IconSm } from 'components/Icon/IconWithSizes';
 import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 import {
   FORM_NAME,

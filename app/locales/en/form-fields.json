@@ -9,7 +9,7 @@
   "wrongLengthMin": "Value must be at least {{min}} characters",
   "wrongLengthMax": "Value must be no longer than {{max}} characters",
   "fileSize": "The file is too large",
-  "wrongEmail": "Wrong email",
+  "wrongEmail": "Please, choose correct email.",
   "wrongURL": "Use valid URL format http(s)://example.com",
   "wrongBase58Format": "Wrong data format. Recheck your inputs.",
   "itemAlreadyExists": "Item with that name exists already ",

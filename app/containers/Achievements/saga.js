@@ -25,6 +25,7 @@ import {
   USER_ACHIEVEMENTS_TABLE,
   PROJECT_ACHIEVEMENTS_TABLE,
   ALL_ACHIEVEMENTS_SCOPE,
+  isSuiBlockchain,
 } from 'utils/constants';
 
 import {
@@ -67,17 +68,18 @@ import {
 } from './selectors';
 import { getAllAchievements } from 'utils/theGraph';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { mintSuiAchievement } from 'utils/sui/achievementsManagement';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
 
 export function* getAchievementsWorker() {
   try {
     const viewProfileAccount = yield select(selectViewProfileAccount());
-    let { allAchievements, userAchievements } = yield call(getAllAchievements, viewProfileAccount);
-    if (!isSuiBlockchain) {
-      userAchievements = userAchievements.map((achievement) => achievement.id);
-    }
+    const { allAchievements, userAchievements } = yield call(
+      getAllAchievements,
+      viewProfileAccount,
+    );
+
     yield put(getAllAchievementsSuccess(allAchievements, userAchievements));
   } catch (err) {
     yield put(getAllAchievementsError(err));
@@ -430,16 +432,22 @@ export function* updateUserAchievementsWorker(
   }
 }
 
-export function* mintSuiAchievementWorker(suiAchievementId) {
+export function* mintSuiAchievementWorker({ suiAchievementId }) {
   try {
     yield put(transactionInitialised());
     const wallet = yield select(selectSuiWallet());
     const suiUserObject = yield call(getSuiUserObject, wallet.address);
-    const txResult = yield call(mintSuiAchievement, wallet, suiUserObject, suiAchievementId);
+    const txResult = yield call(
+      mintSuiAchievement,
+      wallet,
+      suiUserObject?.id?.id,
+      suiAchievementId,
+    );
     yield put(transactionInPending(txResult.digest));
     yield call(waitForTransactionConfirmation, txResult.digest);
     yield put(transactionCompleted());
     yield put(mintAchievementSuccess());
+    yield call(getAchievementsWorker);
   } catch (err) {
     yield put(transactionFailed(err));
     yield put(mintAchievementError(err));

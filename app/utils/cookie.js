@@ -3,10 +3,10 @@ import {
   COMMUNITY_ADMIN_ROLE,
   COMMUNITY_MODERATOR_ROLE,
   DEFAULT_ADMIN_ROLE,
+  isSuiBlockchain,
   PROTOCOL_ADMIN_ROLE,
 } from 'utils/constants';
 import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
-import { isSuiBlockchain } from './sui/sui';
 
 export const NEVER_EXPIRES = 'Tue, 19 Jan 2038 01:14:07 GMT';
 export const DEFAULT_PATH = '/';
@@ -66,6 +66,9 @@ export const deleteCookie = (name) =>
   });
 
 export const formPermissionsCookie = (permissions) => {
+  if (!permissions) {
+    return {};
+  }
   const basePermissions = permissions.filter((permission) =>
     isSuiBlockchain
       ? permission.split('-')[1] === PROTOCOL_ADMIN_ROLE
@@ -98,8 +101,8 @@ export const formPermissionsCookie = (permissions) => {
     const actualPermission = permission.split('-')[1];
     if (isSuiBlockchain) {
       if (actualPermission.substring(0, 2) === COMMUNITY_MODERATOR_ROLE) {
-        const communityId = permission.substring(2);
-        return [...ids, `${chainId}-${communityId}`];
+        const communityId = actualPermission.substring(2);
+        return [...ids, `${chainId}-0x${communityId}`];
       }
     } else if (actualPermission.includes(COMMUNITY_MODERATOR_ROLE.slice(0, 63))) {
       const communityId = BigNumber.from(actualPermission)

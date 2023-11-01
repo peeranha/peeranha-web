@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import achievementNotReached from 'images/achievement_not_reached.svg?external';
+import { isSuiBlockchain } from 'utils/constants';
 
 import Icon from 'components/Icon';
 import Span from 'components/Span';
@@ -14,9 +15,7 @@ import ProgressBar from './ProgressBar';
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
 import { getNFTUrl } from '../../utils/ipfs';
-import { LIMITED_EDITION_NFT_TYPE } from '../../utils/constants';
 import NFTInformation from './NFTInformation';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const ImageBlock = styled.div`
   margin-right: 15px;
@@ -71,7 +70,6 @@ const UniqueAchievement = ({
   const { t } = useTranslation();
   const availiableCount = maxCount - factCount;
   const pointsToNext = lowerValue - (currentValue || 0);
-  const isAchievementVisible = isSuiBlockchain ? isMinted : reached;
   const getProgress = () => (currentValue / lowerValue) * 100;
 
   const [visible, changeVisibility] = useState(false);
@@ -81,10 +79,10 @@ const UniqueAchievement = ({
 
   return (
     <>
-      {reached && (
+      {(currentUser ? reached : isMinted) && (
         <Bage>
           <ImageBlock>
-            {isAchievementVisible ? (
+            {isMinted ? (
               <div
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
@@ -107,7 +105,7 @@ const UniqueAchievement = ({
             ) : (
               <Icon icon={achievementNotReached} width="160" height="148" />
             )}
-            {currentUser && !isAchievementVisible && (
+            {currentUser && !isMinted && !isSuiBlockchain && (
               <ProgressBar
                 achievementId={id}
                 width="60%"
@@ -125,13 +123,13 @@ const UniqueAchievement = ({
             </TitleBlock>
             <DescriptionBlock>
               {description}
-              {!isAchievementVisible && (
+              {!isMinted && !isSuiBlockchain && (
                 <LimitPhrase>
                   Available {availiableCount} out of {maxCount}
                 </LimitPhrase>
               )}
             </DescriptionBlock>
-            {isSuiBlockchain && !isMinted && (
+            {isSuiBlockchain && !isMinted && currentUser && (
               <button
                 css={{
                   width: '96px',
@@ -144,9 +142,9 @@ const UniqueAchievement = ({
                   marginTop: '16px',
                 }}
                 disabled={!canMintAchievement}
-                onClick={() => mintAchievement(id)}
+                onClick={() => mintAchievement(id.split('-')[1])}
               >
-                {t('achievements.receive')}
+                {t('achievements.claim')}
               </button>
             )}
           </div>

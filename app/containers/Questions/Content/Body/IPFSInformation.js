@@ -7,10 +7,9 @@ import { getIpfsHashFromBytes32 } from 'utils/ipfs.js';
 import ipfsLogo from 'images/ipfs-logo.svg?external';
 import { IconSm } from 'components/Icon/IconWithSizes';
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import A from 'components/A';
 import Span from 'components/Span';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 const Label = styled.div`
   position: absolute;

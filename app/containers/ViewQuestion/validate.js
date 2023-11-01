@@ -1,3 +1,4 @@
+import { isSuiBlockchain } from 'utils/constants';
 import { showPopover } from 'utils/popover';
 import { ApplicationError } from 'utils/errors';
 import { t } from 'i18next';
@@ -9,7 +10,6 @@ import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
-import { isSuiBlockchain } from 'utils/sui/sui';
 
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (profileInfo, questionData, postButtonId, item) => {
@@ -196,7 +196,7 @@ export const upVoteValidator = (profileInfo, questionData, postButtonId, answerI
     message = t('post.cannotCompleteBecauseBlocked');
   } else if (
     (questionData.author.user === profileInfo.user && answerId === '0') ||
-    (isOwnItem[0] && isOwnItem[0].author.user === profileInfo.user)
+    (isOwnItem[0] && isOwnItem[0].author.id === profileInfo.user)
   ) {
     message = t('post.noRootsToVote');
   } else if (
@@ -231,9 +231,14 @@ export const downVoteValidator = (profileInfo, questionData, postButtonId, answe
   const item =
     answerId === '0' ? questionData : questionData.answers.find((x) => x.id === answerId);
 
+  const isOwnItem = questionData.answers.filter((x) => x.id === answerId);
+
   if (item.votingStatus?.isVotedToDelete) {
     message = t('post.cannotCompleteBecauseBlocked');
-  } else if (item.author.user === profileInfo.user) {
+  } else if (
+    (questionData.author.user === profileInfo.user && answerId === '0') ||
+    (isOwnItem[0] && isOwnItem[0].author.id === profileInfo.user)
+  ) {
     message = t('post.noRootsToVote');
   } else if (
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE &&
