@@ -1,13 +1,9 @@
 import { PROFILE_INFO_LS } from 'containers/Login/constants';
 import { BigNumber } from 'ethers';
-import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getCookie, deleteCookie, parsePermissionsCookie } from 'utils/cookie';
 import { NETWORK_ID } from 'utils/ethereum/ethereum';
 import {
-  COMMUNITY_ADMIN_INFINITE_IMPACT,
-  COMMUNITY_ADMIN_OFFICIAL_ANSWER,
   COMMUNITY_ADMIN_TOP_QUESTIONS,
-  COMMUNITY_ADMIN_CREATE_TAG,
   communityAdminPermissions,
   COMMUNITY_ADMIN_ROLE,
   DEFAULT_ADMIN_ROLE,
@@ -20,7 +16,7 @@ import {
 } from './constants';
 
 // todo change to "findRole"
-const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
+const findAllPropertiesByKeys = () => [];
 
 export const getActualId = (idWithNetwork) => idWithNetwork.split('-')[1];
 export const getNetwork = (idWithNetwork) => idWithNetwork.split('-')[0] - 1;
@@ -196,7 +192,7 @@ export const getAllRoles = (userRoles = []) => {
         const id = userRole.split('-')[1].substring(2);
         communityId = `${userRole.split('-')[0]}-${id}`;
         role = communityRole;
-      } else if (userRole.includes(communityRole.substring(0, 16))) {
+      } else if (!isSuiBlockchain && userRole.includes(communityRole.substring(0, 16))) {
         const id = BigNumber.from(userRole.split('-')[1])
           .sub(BigNumber.from(communityRole))
           .toString();

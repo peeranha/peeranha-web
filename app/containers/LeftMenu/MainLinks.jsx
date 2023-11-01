@@ -330,7 +330,7 @@ const MainLinks = ({
         <div css={styles.dividerLinks} />
       </div>
 
-      <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner>
+      {/* <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner> */}
 
       <div css={styles.dividerLinks} />
 
@@ -339,7 +339,9 @@ const MainLinks = ({
         !isSuiBlockchain && (
           <Documentation
             documentationMenu={documentationMenu}
-            isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
+            isModeratorModeSingleCommunity={
+              isModeratorModeSingleCommunity || isAdministratorModeSingleCommunity
+            }
             toggleEditDocumentation={toggleEditDocumentation}
             match={match}
             pinnedItemMenuId={pinnedItemMenu.id}

@@ -100,7 +100,7 @@ export const getUsersModeratorByRoles = (usersModerator, communityId, moderators
   });
 
 export const emailSignIn = async (email) =>
-  fetch(new URL('https://dev1-api.testpeeranha.io/account/get-verification-code'), {
+  fetch(new URL(`${process.env.WALLET_API_ENDPOINT}account/get-verification-code`), {
     method: 'POST',
     body: JSON.stringify({
       email,
@@ -111,7 +111,7 @@ export const emailSignIn = async (email) =>
   });
 
 export const verifyEmail = async (email, code) => {
-  const response = await fetch(new URL('https://dev1-api.testpeeranha.io/account/login'), {
+  const response = await fetch(new URL(`${process.env.WALLET_API_ENDPOINT}account/login`), {
     method: 'POST',
     body: JSON.stringify({
       email,
