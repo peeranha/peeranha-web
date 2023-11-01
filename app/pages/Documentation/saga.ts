@@ -1,11 +1,27 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
+
 import { getIpfsHashFromBytes32, getText } from 'utils/ipfs';
 import { updateDocumentationTree } from 'utils/questionsManagement';
 import { updateSuiDocumentationTree } from 'utils/sui/communityManagement';
 import { getPost } from 'utils/theGraph';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { getNetwork, getActualId } from 'utils/properties';
+import { isSuiBlockchain } from 'utils/constants';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
+
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getDocumentationMenu } from 'containers/AppWrapper/actions';
+import { Post } from 'containers/Search/SearchContent';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
+import { clearSavedDrafts } from 'components/Documentation/helpers';
+
 import { selectPinnedArticleDraft, selectDocumentation, selectDraftsIds } from './selectors';
 import {
   getArticleDocumentationError,
@@ -14,20 +30,8 @@ import {
   updateDocumentationMenuFailed,
   toggleEditDocumentation,
 } from './actions';
-import { getDocumentationMenu } from 'containers/AppWrapper/actions';
 import { GET_ARTICLE, UPDATE_DOCUMENTATION_MENU } from './constants';
-import { clearSavedDrafts } from 'components/Documentation/helpers';
 import { DocumentationArticle, DocumentationItemMenuType } from './types';
-import { Post } from 'containers/Search/SearchContent';
-import { getNetwork, getActualId } from 'utils/properties';
-import { isSuiBlockchain, waitForTransactionConfirmation } from 'utils/sui/sui';
-import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-import {
-  transactionCompleted,
-  transactionFailed,
-  transactionInitialised,
-  transactionInPending,
-} from 'containers/EthereumProvider/actions';
 
 const single = isSingleCommunityWebsite();
 
