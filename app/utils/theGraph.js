@@ -106,9 +106,7 @@ export const getUser = async (id) => {
       id: dataToString(id).toLowerCase(),
     },
   });
-  return isMeshService && result.user.length
-    ? getUserDataFromMesh(result.user[0])
-    : { ...result.user };
+  return isMeshService ? getUserDataFromMesh(result.userById) : { ...result.user };
 };
 
 export const getUserPermissions = async (id) => {
@@ -133,7 +131,7 @@ export const getUserStats = async (id) => {
     },
     false,
   );
-  return isMeshService ? getUserDataFromMesh(result.user[0]) : result.user;
+  return isMeshService ? getUserDataFromMesh(result.userById) : result.user;
 };
 
 export const getUsersQuestions = async (id, limit, offset) => {
@@ -199,7 +197,7 @@ export const getCommunityById = async (id) => {
     },
   });
   return isMeshService
-    ? { ...community?.community[0], translations: community?.community[0].communitytranslation }
+    ? { ...community?.communityById, translations: community?.communityById.communitytranslation }
     : community?.community;
 };
 
@@ -309,7 +307,7 @@ export const getDocumentationMenu = async (communityId) => {
     },
     false,
   );
-  return isMeshService ? result?.communitydocumentation[0] : result?.communityDocumentation;
+  return isMeshService ? result?.communitydocumentationById : result?.communityDocumentation;
 };
 
 export const getPost = async (postId) => {

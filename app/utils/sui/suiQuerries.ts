@@ -115,7 +115,7 @@ const post = `
     messengerType
     language
     comment (
-      where: { isDeleted: "0" }
+      condition: { isDeleted: false }
     ){
       ${comment}
     }
@@ -159,7 +159,7 @@ const post = `
       }
     }
     reply (
-      where: { isDeleted: "0" }
+      condition: { isDeleted: false }
     ) {
       ${reply}
     }
@@ -276,8 +276,8 @@ export const postsQuery = (postTypes: string) => `
   ) {
     post (
       orderBy: POST_TIME_DESC
-      first: $offset,
-      offset: $limit,
+      first: $first,
+      offset: $skip,
       condition: {
           isDeleted: false
       },
@@ -321,10 +321,18 @@ export const postsByCommunityIdQuery = (postTypes: string, communityIds: string)
     $skip: Int
   ) {
     post (
-      orderBy: { postTime: desc },
-      limit: $first,
+      condition: { isDeleted: false },
+      filter: {
+        postType: {
+            in: [${postTypes}]
+        },
+        communityId: {
+            in: [${communityIds}]
+        }
+      },
+      first: $first,
       offset: $skip,
-      where: {isDeleted: "0", postType: "(${postTypes})", communityId: "(${communityIds})" },
+      orderBy: POST_TIME_DESC
     ) {
       ${postMeshShallow}
     }

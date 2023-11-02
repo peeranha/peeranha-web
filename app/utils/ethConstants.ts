@@ -1,6 +1,6 @@
 // Contracts
-import { postMeshShallow } from './mesh';
 import { isSuiBlockchain } from 'utils/constants';
+import { postMeshShallow } from './mesh';
 export const CONTRACT_TOKEN = ['contractToken', 'edgewareContractToken'];
 export const CONTRACT_USER = ['contractUser', 'edgewareContractUser'];
 export const CONTRACT_CONTENT = ['contractContent', 'edgewareContractContent'];
@@ -276,7 +276,7 @@ const postMesh = `
   reply (
     orderBy: POST_TIME_ASC,
     condition: {
-        isDeleted: false
+      isDeleted: false
     }
   ) {
     ${replyMesh}
@@ -284,7 +284,7 @@ const postMesh = `
   comment (
     orderBy: POST_TIME_ASC,
     condition: {
-        isDeleted: false
+      isDeleted: false
     }
   ) {
     ${commentMesh}
@@ -306,7 +306,7 @@ export const voteHistory = `
         $userId: String,
       ) {
         postvotehistory(
-          where: {
+          condition: {
             postId: $postId,
             userId: $userId,
           }
@@ -432,17 +432,13 @@ const userQuery = `
       }`;
 
 const userQueryMesh = `
-      query(
-        $id: String
-      ) {
-        user(
-          condition: {id: $id}
-        ) {
-          ${userMesh}
-          postCount
-          replyCount
-        }
-      }`;
+  query ($id: String!) {
+    userById(id: $id) {
+      ${userMesh}
+      postCount
+      replyCount
+    }
+  }`;
 
 const userPermissionsQuery = `
       query(
@@ -485,15 +481,13 @@ const userStatsQuery = `
 
 const userStatsQueryMesh = `
   query (
-    $id: String
+    $id: String!
   ) {
-    user(
-        condition: {id: $id}
-    ) {
+    userById(id: $id) {
       postCount
       replyCount
-      achievements { id }
-      ratings {
+      userachievement { achievementId }
+      usercommunityrating {
         communityId
         rating
       }  
@@ -653,7 +647,7 @@ const answeredPostsQueryMesh = (ids: string) => `
           filter: {
               id: {
                   in: [${ids}]
-                }
+              }
             }
         ) {
             ${postMesh}
@@ -675,7 +669,20 @@ const allTagsQuery = `
         }
       }`;
 
-const allTagsQueryMesh = allTagsQuery.replace('tags', 'tag');
+const allTagsQueryMesh = `
+  query (
+    $skip: Int,
+  ) {
+    tag (
+      offset: $skip,
+    ) {
+      id
+      communityId
+      name
+      description
+      postCount
+    }
+  }`;
 
 const communityQuery = `
       query(
@@ -688,12 +695,10 @@ const communityQuery = `
 
 const communityQueryMesh = `
   query (
-    $id: String
+    $id: String!
   ) {
-    community(
-        condition: {id: $id}
-    ) {
-      ${community}
+      communityById(id: $id) {
+        ${community}
     }
   }`;
 
@@ -987,15 +992,11 @@ const communityDocumentationQuery = `
       }`;
 
 const communityDocumentationQueryMesh = `
-      query (
-        $id: ID!
-      ) {
-        post (
-            condition: {id: $id}
-        ) {
-            ${postMesh}
-        }
-      }`;
+  query ($id: String!) {
+    postById(id: $id) {
+      ${postMesh}
+    }
+  }`;
 
 const documentationMenuQuery = `
       query (
@@ -1008,16 +1009,12 @@ const documentationMenuQuery = `
       }`;
 
 const documentationMenuQueryMesh = `
-      query (
-        $id: String
-      ) {
-        communitydocumentation (
-          condition: {id: $id}
-        ) {
-            id
-            documentationJson
-        }
-      }`;
+  query ($id: String!) {
+    communitydocumentationById(id: $id) {
+      id
+      documentationJson
+    }
+  }`;
 
 const postForSearch = `
   id
@@ -1115,7 +1112,7 @@ export const replyQuery = `
     $replyId: String,
   ) {
     reply (
-      where: { id: $replyId, isDeleted: "0" },
+      condition: { id: $replyId, isDeleted: false },
     ) {
       ${replyMesh}
     }
@@ -1193,11 +1190,12 @@ const rewardsQueryMesh = (periodsCount: number) =>
   `query (
     $userId: String
   ) {
-    users (condition: {id: $userId}) {
+    user (condition: {id: $userId}) {
       ${userMesh}
     }
     userreward ( 
-        condition: {userId: $userId, tokenToReward: ">0"}
+        condition: { userId: $userId }
+        filter: { rating: { greaterThan: 0 } }
     ) {
       id
       period {
