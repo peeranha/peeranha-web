@@ -166,8 +166,7 @@ export const customSubHeaderConfig = {
 };
 
 export const SuiNSStyles = {
-  name: 'SuiNS',
-  favicon: 'https://images.peeranha.io/communities/suins/suins-favicon.svg',
+  name: 'suins',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,

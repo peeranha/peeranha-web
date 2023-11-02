@@ -4,7 +4,7 @@ import { css } from 'styled-components';
 const domainName = 'https://www.edgeware.io/';
 
 export const customSubHeaderConfig = {
-  design: 'suiGlobal_style',
+  design: 'edgeware_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -166,8 +166,7 @@ export const customSubHeaderConfig = {
 };
 
 export const EdgewareStyles = {
-  name: 'Edgeware',
-  favicon: 'https://images.peeranha.io/communities/edgeware/favicon.svg',
+  name: 'edgeware',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
