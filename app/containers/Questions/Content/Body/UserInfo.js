@@ -56,7 +56,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
               />
             )}
             {isBotAddress(author)
-              ? t('post.botCreate', { bot: messengerData[author.messengerType].name })
+              ? t('post.botCreate', { bot: messengerData[author.messengerType]?.name })
               : getUserName(author.customName || author.displayName, author.id)}
           </AuthorName>
           {!isBotAddress(author) && (
