@@ -184,19 +184,24 @@ class EthereumService {
       network = getCookie(NETWORK_ID);
     }
     const chainId = this.CHAIN_IDS[Number(network) || 0];
-    if (this.connectedChain.id !== `0x${Number(chainId).toString(16)}`) {
-      await this.setChain({
+
+    const chainIdHex = `0x${Number(chainId).toString(16)}`;
+    if (this.connectedChain.id !== chainIdHex) {
+      const chainChanged = await this.setChain({
         chainId: `0x${Number(chainId).toString(16)}`,
       });
-
-      setCookie({
-        name: NETWORK_ID,
-        value: JSON.stringify(network),
-        options: {
-          defaultPath: true,
-          allowSubdomains: true,
-        },
-      });
+      if (chainChanged) {
+        setCookie({
+          name: NETWORK_ID,
+          value: JSON.stringify(network),
+          options: {
+            defaultPath: true,
+            allowSubdomains: true,
+          },
+        });
+      } else {
+        throw new Error('Set chain rejected');
+      }
     }
   };
 

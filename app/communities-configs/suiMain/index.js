@@ -200,6 +200,7 @@ export const SuiMainStyles = {
     textColor: '#4BA3FF',
     textColorShadow: '#4BA3FF',
     commHeadElemColor: '#282828',
+    tooltipColor: '#282828',
     darkBlue: '#4BA3FF',
     paginationButtonBackgroundColor: '#EAF7FF',
     footerText: '#282828',

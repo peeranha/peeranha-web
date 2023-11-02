@@ -394,16 +394,7 @@ const MainUserInformation = ({
               >
                 <span>{t('profile.achievements')}</span>
 
-                {typeof (isSuiBlockchain ? profile.userachievement : profile.achievements) ===
-                'object' ? (
-                  <AchievementsStatus
-                    isProfilePage={true}
-                    count={userAchievementsLength}
-                    size="lg"
-                  />
-                ) : (
-                  <InlineLoader width={7} height={7} margin={3} />
-                )}
+                <AchievementsStatus isProfilePage={true} count={userAchievementsLength} size="lg" />
               </li>
               {!isTemporaryAccount && (
                 <li
