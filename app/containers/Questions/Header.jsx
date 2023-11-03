@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_PRIMARY } from 'style-constants';
 import TagFilter from 'components/TagFilter';
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -41,7 +42,6 @@ import { getSearchParams } from 'utils/url';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();

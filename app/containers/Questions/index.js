@@ -31,6 +31,7 @@ import {
 
 import { showLoginModal, loginWithSui } from 'containers/Login/actions';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import ScrollToTop from 'components/ScrollToTop/index';
@@ -48,7 +49,6 @@ import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
 import { QUESTION_FILTER } from './constants';
-import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 const single = isSingleCommunityWebsite();
 
