@@ -9,6 +9,7 @@ import {
   followCommunityLib,
   followCommunity,
   unfollowCommunity,
+  updateDocumentationTree,
 } from 'utils/sui/sui';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { getSuiUserObject } from 'utils/sui/accountManagement';
@@ -44,6 +45,23 @@ export const updateSuiCommunity = async (wallet: WalletContextState, communityId
     [process.env.USER_ROLES_COLLECTION_ID, userObj.id.id, communityId, communityTransactionData],
     false,
   );
+};
+
+export const updateSuiDocumentationTree = async (
+  wallet: WalletContextState,
+  communityId,
+  documentaion,
+) => {
+  const suiDocumentationIpfsHash = await saveText(JSON.stringify(documentaion));
+  const suiDocumentationTransactionData = getVector8FromIpfsHash(suiDocumentationIpfsHash);
+  const userObj = await getSuiUserObject(wallet.address);
+
+  return handleMoveCall(wallet, communityLib, updateDocumentationTree, [
+    process.env.USER_ROLES_COLLECTION_ID,
+    userObj.id.id,
+    communityId,
+    suiDocumentationTransactionData,
+  ]);
 };
 
 export const createSuiTag = async (wallet: WalletContextState, communityId, tag) => {

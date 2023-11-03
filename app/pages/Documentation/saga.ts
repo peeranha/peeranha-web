@@ -1,10 +1,27 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
+
 import { getIpfsHashFromBytes32, getText } from 'utils/ipfs';
 import { updateDocumentationTree } from 'utils/questionsManagement';
+import { updateSuiDocumentationTree } from 'utils/sui/communityManagement';
 import { getPost } from 'utils/theGraph';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { getNetwork, getActualId } from 'utils/properties';
+import { isSuiBlockchain } from 'utils/constants';
+import { waitForTransactionConfirmation } from 'utils/sui/sui';
+
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getDocumentationMenu } from 'containers/AppWrapper/actions';
+import { Post } from 'containers/Search/SearchContent';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
+import { clearSavedDrafts } from 'components/Documentation/helpers';
+
 import { selectPinnedArticleDraft, selectDocumentation, selectDraftsIds } from './selectors';
 import {
   getArticleDocumentationError,
@@ -13,12 +30,8 @@ import {
   updateDocumentationMenuFailed,
   toggleEditDocumentation,
 } from './actions';
-import { getDocumentationMenu } from 'containers/AppWrapper/actions';
 import { GET_ARTICLE, UPDATE_DOCUMENTATION_MENU } from './constants';
-import { clearSavedDrafts } from 'components/Documentation/helpers';
 import { DocumentationArticle, DocumentationItemMenuType } from './types';
-import { Post } from 'containers/Search/SearchContent';
-import { getNetwork } from 'utils/properties';
 
 const single = isSingleCommunityWebsite();
 
@@ -75,8 +88,6 @@ export function* updateDocumentationWorker({
 }): Generator<any> {
   try {
     const pinnedArticle = yield select(selectPinnedArticleDraft());
-    const ethereumService = yield select(selectEthereum);
-    const selectedAccount = yield select(makeSelectAccount());
     const communityId = isSingleCommunityWebsite();
 
     const documentationJSON = {
@@ -84,20 +95,39 @@ export function* updateDocumentationWorker({
       documentations: menu,
     };
 
-    yield call(
-      updateDocumentationTree,
-      selectedAccount,
-      communityId,
-      documentationJSON,
-      ethereumService,
-    );
+    if (isSuiBlockchain) {
+      yield put(transactionInitialised());
+      const wallet = yield select(selectSuiWallet());
+      // @ts-ignore
+      const txResult = yield call(
+        updateSuiDocumentationTree,
+        wallet,
+        getActualId(communityId),
+        documentationJSON,
+      );
 
+      yield put(transactionInPending(txResult.digest));
+      yield call(waitForTransactionConfirmation, txResult.digest);
+      yield put(transactionCompleted());
+    } else {
+      const ethereumService = yield select(selectEthereum);
+      const selectedAccount = yield select(makeSelectAccount());
+      yield call(
+        updateDocumentationTree,
+        selectedAccount,
+        communityId,
+        documentationJSON,
+        ethereumService,
+      );
+    }
     yield put(updateDocumentationMenuSuccess());
     clearSavedDrafts();
     yield put(getDocumentationMenu(communityId));
   } catch (err) {
     console.warn('updateDocumentationWorker', err);
-
+    if (isSuiBlockchain) {
+      yield put(transactionFailed(err));
+    }
     yield put(updateDocumentationMenuFailed());
     yield put(toggleEditDocumentation());
   }

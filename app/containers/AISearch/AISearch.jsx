@@ -231,7 +231,7 @@ const AISearch = ({
                 <Time stroke={customColor} />
               </MediumIconStyled>
               <h4 css={styles.additionalInfoItemTitle}>{t('common.timeEfficiency')}</h4>
-              <p css={styles.additionalInfoItemContent}>{t('common.unlockPotencial')}</p>
+              <p css={styles.additionalInfoItemContent}>{t('common.unlockPotential')}</p>
             </div>
             <div css={styles.additionalInfoItem}>
               <MediumIconStyled>
