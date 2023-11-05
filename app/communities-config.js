@@ -210,6 +210,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/sui/logo.svg',
           styles: SuiStyles,
         },
+        '1-14': {
+          origin: 'https://thegraph.testpeeranha.io',
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
+        },
         '2-2': {
           origin: `https://demo-ankr.testpeeranha.io`,
           src: 'https://images.peeranha.io/communities/ankr/logo.svg',
