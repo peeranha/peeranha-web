@@ -115,7 +115,7 @@ const post = `
     messengerType
     language
     comment (
-      where: { isDeleted: "0" }
+      condition: { isDeleted: false }
     ){
       ${comment}
     }
@@ -159,7 +159,7 @@ const post = `
       }
     }
     reply (
-      where: { isDeleted: "0" }
+      condition: { isDeleted: false }
     ) {
       ${reply}
     }
@@ -212,14 +212,20 @@ const usercommunity = `
     }
 `;
 
-export const userQuery = `query($id: String) {
-    user(where: { id: $id }) {
+export const userQuery = `
+  query($id: String) {
+    user(
+      condition: {id: $id}
+    ) {
       ${user}
     }
   }`;
 
-export const usersQuery = `query {
-    user (where: {networkId: "${suiNetworkId}"}) {
+export const usersQuery = `
+  query {
+    user(
+      condition: {networkId: ${suiNetworkId}}
+    ) {
       ${user}
     }
   }`;
@@ -229,7 +235,7 @@ export const usersByCommunityQuery = `
         $communityId: String,
       ) {
         usercommunityrating(
-          where: { communityId: $communityId }
+          condition: {communityId: $communityId}
         ) {
           user {
             ${user}
@@ -246,7 +252,7 @@ export const communitiesQuery = `query {
   }`;
 
 export const communityQuery = `query($id: String) {
-    community(where: { id: $id }) {
+    community(condition: {id: $id}) {
       ${community}
     }
   }`;
@@ -258,21 +264,28 @@ export const tagsQuery = `query {
 }`;
 
 export const communityTagsQuery = `query($communityId: String) {
-    tag(where: { communityId: $communityId }) {
+    tag(condition: {communityId: $communityId}) {
       ${tag}
     }
   }`;
-
+//
 export const postsQuery = (postTypes: string) => `
   query (
     $first: Int,
     $skip: Int
   ) {
     post (
-      orderBy: { postTime: desc },
-      limit: $first,
+      orderBy: POST_TIME_DESC
+      first: $first,
       offset: $skip,
-      where: {isDeleted: "0", postType: "(${postTypes})" },
+      condition: {
+          isDeleted: false
+      },
+      filter: {
+          postType: {
+              in: [${postTypes}]
+          }
+      }
     ) {
       ${postMeshShallow}
     }
@@ -282,7 +295,7 @@ export const postQuery = `
   query (
     $id: String,
   ) {
-    post(where: { id: $id }) {
+    post(condition: {id: $id}) {
       ${post}
     }
 }`;
@@ -291,34 +304,42 @@ export const historyIdQuery = `
   query (
     $id: String,
   ) {
-    history(where: { id: $id }) {
+    history(condition: {id: $id}) {
       id
     }
 }`;
 
 export const postByIdQuery = `query($id: String) {
-  post(where: { id: $id }) {
+  post(condition: { id: $id }) {
     ${post}
   }
 }`;
-
+// todo
 export const postsByCommunityIdQuery = (postTypes: string, communityIds: string) => `
   query (
     $first: Int,
     $skip: Int
   ) {
     post (
-      orderBy: { postTime: desc },
-      limit: $first,
+      condition: { isDeleted: false },
+      filter: {
+        postType: {
+            in: [${postTypes}]
+        },
+        communityId: {
+            in: [${communityIds}]
+        }
+      },
+      first: $first,
       offset: $skip,
-      where: {isDeleted: "0", postType: "(${postTypes})", communityId: "(${communityIds})" },
+      orderBy: POST_TIME_DESC
     ) {
       ${postMeshShallow}
     }
 }`;
 
 export const followCommunityQuery = `query($userId: String) {
-  usercommunity(where: { userId: $userId }) {
+  usercommunity(condition: { userId: $userId }) {
     ${usercommunity}
   }
 }`;
