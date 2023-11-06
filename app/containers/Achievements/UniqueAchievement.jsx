@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
+import { isMeshServiceConfig } from 'communities-config';
 
 import achievementNotReached from 'images/achievement_not_reached.svg?external';
 import { isSuiBlockchain } from 'utils/constants';
@@ -16,6 +17,8 @@ import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
 import { getNFTUrl } from '../../utils/ipfs';
 import NFTInformation from './NFTInformation';
+
+const isMeshService = isMeshServiceConfig();
 
 const ImageBlock = styled.div`
   margin-right: 15px;
@@ -74,15 +77,16 @@ const UniqueAchievement = ({
 
   const [visible, changeVisibility] = useState(false);
   const contractAddress = process.env.PEERANHA_NFT;
+  const isAchievementVisible = isMeshService ? isMinted : reached;
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
   return (
     <>
-      {(currentUser ? reached : isMinted) && (
+      {reached && (
         <Bage>
           <ImageBlock>
-            {isMinted ? (
+            {isAchievementVisible ? (
               <div
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
@@ -105,7 +109,7 @@ const UniqueAchievement = ({
             ) : (
               <Icon icon={achievementNotReached} width="160" height="148" />
             )}
-            {currentUser && !isMinted && !isSuiBlockchain && (
+            {currentUser && !isAchievementVisible && !isSuiBlockchain && (
               <ProgressBar
                 achievementId={id}
                 width="60%"
@@ -123,7 +127,7 @@ const UniqueAchievement = ({
             </TitleBlock>
             <DescriptionBlock>
               {description}
-              {!isMinted && !isSuiBlockchain && (
+              {!isAchievementVisible && !isSuiBlockchain && (
                 <LimitPhrase>
                   Available {availiableCount} out of {maxCount}
                 </LimitPhrase>

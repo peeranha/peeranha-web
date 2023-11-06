@@ -51,7 +51,7 @@ const Body = ({
     community?.communitytranslation?.find((translation) => translation.language === locale)
       ?.enableAutotranslation;
 
-  const translation = translations.find((t) => Number(t.language) === languagesEnum[locale]);
+  const translation = translations?.find((t) => Number(t.language) === languagesEnum[locale]);
   const isTranslated =
     translation && isAutotranslationEnable && Number(postLanguage) !== languagesEnum[locale];
 

@@ -8,18 +8,10 @@ const userGraph = `
   company
   position
   location
-  customName
-  walletAddress
   about
   avatar
   creationTime
   achievements { id }
-  usercommunity {
-    communityId
-  }
-  userpermission {
-    permission
-  }
 `;
 
 const historyGraph = `
@@ -61,11 +53,10 @@ const communityGraph = `
   creationTime
   postCount
   tagsCount
-  networkId
   followingUsers
   replyCount
   communitySite
-  communitytranslation {
+  translations {
     communityId
     name
     description
@@ -77,7 +68,6 @@ const communityGraph = `
 
 const commentGraph = `
   id
-  id2
   ipfsHash
   author {
     ${userGraph}
@@ -89,11 +79,14 @@ const commentGraph = `
   content
   isDeleted
   properties
+  translations {
+    language
+    content
+  }
 `;
 
 const replyGraph = `
   id
-  id2
   ipfsHash
   author {
     ${userGraph}
@@ -118,6 +111,10 @@ const replyGraph = `
     where: { isDeleted: false },
   ) {
     ${commentGraph}
+  }
+  translations {
+    language
+    content
   }
 `;
 
@@ -159,6 +156,11 @@ const postGraph = `
     where: { isDeleted: false },
   ) {
     ${commentGraph}
+  }
+  translations {
+    language
+    title
+    content
   }
 `;
 
@@ -283,7 +285,7 @@ export const usersAnswersQueryGraph = `
 
 export const answeredPostsQueryGraph = `
       query (
-        $ids: [Int],
+        $ids: [String],
       ) {
         posts (
           orderBy: postTime,
@@ -458,7 +460,7 @@ export const postsForSearchQueryGraph = `
 
 export const postQueryGraph = `
   query (
-    $postId: Int,
+    $postId: String,
   ) {
     post (
       id: $postId,
@@ -488,7 +490,9 @@ export const allAchievementsQueryGraph = `
       ${achievementGraph}
     }
     user (id: $userId) {
-      achievements { id }
+      achievements { 
+        id
+       }
     }
   }`;
 

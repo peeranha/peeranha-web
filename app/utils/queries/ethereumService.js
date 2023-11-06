@@ -440,9 +440,9 @@ export const getAllAchievements = async (userId) => {
         allAchievements: response?.achievements
           .map((achievement) => ({
             ...achievement,
-            id: Number(achievement.id),
+            id: achievement.id,
           }))
-          .sort((x, y) => x.id - y.id),
+          .sort((x, y) => Number(x.id.split('-')[1]) - Number(y.id.split('-')[1])),
         userAchievements: response?.user?.achievements || [],
       };
 };

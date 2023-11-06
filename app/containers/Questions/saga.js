@@ -3,6 +3,7 @@ import { take, takeLatest, call, put, select } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
+import { isMeshServiceConfig } from 'communities-config';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getPosts, getPostsByCommunityId } from 'utils/queries/ethereumService';
@@ -19,6 +20,7 @@ import { HIDDEN_COMMUNITIES_ID } from '../Communities/constants';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
+const isMeshService = isMeshServiceConfig();
 
 export function* getQuestionsWorker({
   limit,
@@ -86,11 +88,15 @@ export function* getQuestionsWorker({
     // questionsList.forEach((question) => {
     //   question.isGeneral = isGeneralQuestion(question);
     // });
+    if (isMeshService) {
+      const { postCount, updatedPosts } = questionsList;
+      const clearQuestionsList = updatedPosts.filter((item) => item.title);
 
-    const { postCount, updatedPosts } = questionsList;
-    const clearQuestionsList = updatedPosts.filter((item) => item.title);
-
-    yield put(getQuestionsSuccess(clearQuestionsList, undefined, postCount));
+      yield put(getQuestionsSuccess(clearQuestionsList, undefined, postCount));
+    } else {
+      const clearQuestionsList = questionsList.filter((item) => item.title);
+      yield put(getQuestionsSuccess(clearQuestionsList, undefined, clearQuestionsList.length));
+    }
   } catch (err) {
     yield put(getQuestionsError(err));
   }
