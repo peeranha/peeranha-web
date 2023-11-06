@@ -592,3 +592,14 @@ export const moderationQueryGraph = `
     }
   }
 `;
+
+export const historyIdQueryGraph = `
+  query (
+    $id: String,
+  ) {
+    history (
+      id: $id
+    ) {
+      id
+    }
+}`;
