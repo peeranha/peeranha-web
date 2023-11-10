@@ -57,6 +57,7 @@ export const updateSuiDocumentationTree = async (
   const userObj = await getSuiUserObject(wallet.address);
 
   return handleMoveCall(wallet, communityLib, updateDocumentationTree, [
+    process.env.USER_RATING_COLLECTION_ID,
     process.env.USER_ROLES_COLLECTION_ID,
     userObj.id.id,
     communityId,
