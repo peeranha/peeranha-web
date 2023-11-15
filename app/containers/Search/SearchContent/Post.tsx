@@ -10,7 +10,7 @@ import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
 import { getPostRoute } from 'routes-config';
 import { styles } from './Post.styled';
 import QuestionType from '../../Questions/Content/Body/QuestionType';
-import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
 import { Community, Tag, Author, Translation } from './index';
 import { getFormattedDate } from 'utils/datetime';
 import { getFollowedCommunities, isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -52,9 +52,7 @@ const Post: React.FC<PostProps> = ({
   replyCount,
 }): JSX.Element => {
   const { t } = useTranslation();
-  const community = isSuiBlockchain
-    ? communities.find((community) => community.id === communityId)
-    : getFollowedCommunities(communities, [communityId])[0] || {};
+  const community = getFollowedCommunities(communities, [communityId])[0] || {};
 
   const postLink = getPostRoute({ postType, id, title });
   const communityLink = () => {
@@ -70,7 +68,7 @@ const Post: React.FC<PostProps> = ({
     return routes.questions(communityId);
   };
 
-  const communityTranslationTitle = community.translations?.find(
+  const communityTranslationTitle = community?.translations?.find(
     (translation: Translation) => translation.language === locale,
   )?.name;
 

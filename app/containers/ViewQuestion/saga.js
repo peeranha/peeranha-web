@@ -170,7 +170,7 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   }));
 
   question.isGeneral = isGeneralQuestion(question);
-
+  console.log(question);
   return question;
 }
 

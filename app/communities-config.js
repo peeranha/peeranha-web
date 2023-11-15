@@ -337,10 +337,10 @@ const communitiesConfig = {
         },
       }
     : {
-        '2-1': {
+        '1-1': {
           origin: 'http://localhost:31000',
-          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
-          styles: EdgewareStyles,
+          src: 'https://images.peeranha.io/communities/functionland/logo.svg',
+          styles: FunctionlandStyles,
         },
       },
 };

@@ -490,7 +490,7 @@ const userStatsQueryMesh = `
       usercommunityrating {
         communityId
         rating
-      }  
+      }
     }
   }
 `;
@@ -577,7 +577,7 @@ const usersPostsQueryMesh = `
           },
           filter: {
               postType: {
-                  in: [1,2]
+                  in: [0,1,2]
               },
               networkId: {
                   in: [${getNetworkIds()}]
@@ -616,7 +616,7 @@ const usersAnswersQueryMesh = `
           first: $limit,
           offset: $offset,
           condition: {
-              isDeleted: false, 
+              isDeleted: false,
               author: $id
           }
         ) {
@@ -722,7 +722,7 @@ const tagsQueryMesh = `
   ) {
     tag(
       condition: {
-         communityId: $communityId 
+         communityId: $communityId
       }
     ) {
       name
@@ -751,7 +751,7 @@ const tagsByIdsQueryMesh = (ids: string) => `
     tag(
       filter: {
           id: {
-              in: [$${ids}]
+              in: [${ids}]
           }
       }
     ) {
@@ -838,9 +838,14 @@ const postsByCommQuery = `
       }`;
 
 const postsByCommQueryMesh = (postTypes: string, communityIds: string) => `
-  query {
+  query (
+    $limit: Int,
+    $offset: Int
+  ) {
     post (
       orderBy: POST_TIME_DESC,
+      first: $limit,
+      offset: $offset,
       condition: {
           isDeleted: false
       },
@@ -1067,6 +1072,9 @@ const postsForSearchQueryMesh = (text: string) => `
         postContent: {
           includes: "${text}",
         }
+        networkId: {
+            in: [${getNetworkIds()}]
+        }
       }
     ) {
         ${postForSearch}
@@ -1186,6 +1194,8 @@ const rewardsQuery = `
   }
 `;
 
+// //
+
 const rewardsQueryMesh = (periodsCount: number) =>
   `query (
     $userId: String
@@ -1193,7 +1203,7 @@ const rewardsQueryMesh = (periodsCount: number) =>
     user (condition: {id: $userId}) {
       ${userMesh}
     }
-    userreward ( 
+    userreward (
         condition: { userId: $userId }
         filter: { rating: { greaterThan: 0 } }
     ) {
@@ -1223,7 +1233,7 @@ const currentPeriodQuery = `
 const currentPeriodQueryMesh = `
   query {
     period (
-        orderBy: END_PERIOD_TIME_DESC, 
+        orderBy: END_PERIOD_TIME_DESC,
         first: 1
     ) {
       ${period}
