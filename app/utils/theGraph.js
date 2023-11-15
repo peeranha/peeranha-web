@@ -80,7 +80,7 @@ export const getModerators = async (roles) => {
   return isMeshService
     ? result.userpermission.map(({ user, ...item }) => ({
         ...item,
-        user: getUserDataFromMesh(user[0]),
+        user: getUserDataFromMesh(user),
       }))
     : [...result.userPermissions];
 };
@@ -95,7 +95,7 @@ export const getUsersByCommunity = async ({ limit = 50, skip: offset, communityI
     },
   });
   return isMeshService
-    ? result.usercommunityrating.map((item) => getUserDataFromMesh(item.user[0]))
+    ? result.usercommunityrating.map((item) => getUserDataFromMesh(item.user))
     : result.userCommunityRatings.map((item) => item.user);
 };
 
@@ -106,6 +106,9 @@ export const getUser = async (id) => {
       id: dataToString(id).toLowerCase(),
     },
   });
+  if (!result.userById) {
+    return false;
+  }
   return isMeshService ? getUserDataFromMesh(result.userById) : { ...result.user };
 };
 

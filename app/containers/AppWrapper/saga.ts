@@ -10,7 +10,7 @@ import { GET_DOCUMENTATION_MENU } from 'containers/AppWrapper/constants';
 import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
 
 type CommunityDocumentationMenu = {
-  documentationJSON: string;
+  documentationJson: string;
 };
 
 export function* getDocumentationMenuWorker(props: { communityId: number }): Generator<any> {
@@ -25,7 +25,7 @@ export function* getDocumentationMenuWorker(props: { communityId: number }): Gen
     }
 
     const documentationMenu = JSON.parse(
-      (documentation as CommunityDocumentationMenu).documentationJSON,
+      (documentation as CommunityDocumentationMenu).documentationJson,
     );
 
     const clearDocumentationMenu = documentationMenu.documentations.filter(

@@ -50,7 +50,6 @@ export const ContentBody = ({
   if (typeof answerId === 'string') {
     actualAnswerId = answerId?.split('-')?.[2] || answerId;
   }
-  const isOfficial = questionData.officialReply === Number(actualAnswerId) || isOfficialReply;
   return (
     <Base position="bottom" paddingTop="10">
       <BestAnswerMarker
@@ -67,7 +66,7 @@ export const ContentBody = ({
         isItWrittenByMe={isItWrittenByMe}
         communityId={questionData.communityId}
         questionId={questionData.id}
-        isOfficial={isOfficial}
+        isOfficial={isOfficialReply}
         author={author}
         profile={profile}
       />
