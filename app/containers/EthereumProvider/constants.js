@@ -21,3 +21,10 @@ export const EDG = 'EDG';
 export const POSITION_BOTTOM_RIGHT = 'bottom-right';
 export const PROD_ENV = 'prod';
 export const CHANGE_PROVIDER = 'app/EthereumProvider/CHANGE_PROVIDER';
+
+export const envType = {
+  dev: 'development',
+  test: 'testing',
+  staging: 'staging',
+  prod: 'production',
+};
