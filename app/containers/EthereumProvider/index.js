@@ -3,22 +3,21 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
+import { init, useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
+import injectedModule from '@web3-onboard/injected-wallets';
 
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
-import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
+import logo from 'images/LogoBlackOnboard.svg?inline';
 
+import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-import { init, useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
-import injectedModule from '@web3-onboard/injected-wallets';
-import coinbaseModule from '@web3-onboard/coinbase';
-import walletConnectModule from '@web3-onboard/walletconnect';
+
 import torusModule from './torusModule';
-import logo from 'images/LogoBlackOnboard.svg?inline';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import { addToast } from '../Toast/actions';
 import {
@@ -30,12 +29,14 @@ import {
   transactionInitialised,
   setTransactionList,
 } from './actions';
-import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
+import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV, envType } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
+const buildEnvType = envType[process.env.ENV];
 const injected = injectedModule();
 
 const torus = torusModule({
+  buildEnv: buildEnvType,
   showTorusButton: false,
   network: {
     host: process.env.ETHEREUM_NETWORK,
