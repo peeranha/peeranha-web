@@ -20,7 +20,7 @@ export const styles = {
   activeStyles: {
     backgroundColor: colors.paginationButtonBackgroundColor || '#F76F60',
     borderRadius: '5px',
-    color: colors.footerText || '#FFF',
+    color: colors.paginationButtonTextColor || colors.footerText || '#FFF',
   },
 
   span: {

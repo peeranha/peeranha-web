@@ -15,10 +15,10 @@ export const styles: Record<string, CSSObject> = {
 
   footerCommunityMode: {
     minHeight: '150px',
-    background: isSuiFooter ? 'rgb(245,252,255)' : colors.mainBackground || 'rgb(234, 236, 244)',
+    background: colors.mainBackground || isSuiFooter ? 'rgb(245,252,255)' : 'rgb(234, 236, 244)',
     '@media (min-width: 991px)': {
       background: isSuiFooter
-        ? 'rgb(234, 247, 255)'
+        ? colors.footerBackgroundColor || 'rgb(234, 247, 255)'
         : colors.footerBackgroundColor || colors.mainBackground || 'rgb(234, 236, 244)',
     },
   },
