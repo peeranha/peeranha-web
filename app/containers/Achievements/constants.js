@@ -265,7 +265,7 @@ const MINT_SUI_ACHIEVEMENT_SUCCESS = 'containers/Achievements/MINT_SUI_ACHIEVEME
 const MINT_SUI_ACHIEVEMENT_ERROR = 'containers/Achievements/MINT_SUI_ACHIEVEMENT_ERROR';
 
 export const IS_MINTED_ACHIEVEMENT = true;
-export const CAN_MINT_ACHIEVEMENT = 0;
+export const CAN_MINT_ACHIEVEMENT = false;
 
 export {
   GET_ALL_ACHIEVEMENTS,
