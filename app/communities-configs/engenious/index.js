@@ -204,7 +204,7 @@ export const EngeniousStyles = {
     paginationButtonTextColor: 'rgba(255, 255, 255, 1)',
     footerText: 'rgba(20, 20, 22, 1)',
     footerBackgroundColor: 'rgba(238, 240, 246, 1)',
-    userInformation: 'rgba(255, 255, 255, 1)',
+    userInformation: 'rgba(61, 64, 213, 0.05)',
     pinnedPostBackground: 'rgba(61, 64, 213, 1)',
     secondaryAdditional: 'rgba(61, 64, 213, 1)',
   },
