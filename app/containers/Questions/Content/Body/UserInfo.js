@@ -31,7 +31,7 @@ export const AuthorName = Span.extend`
   display: flex;
   align-content: center;
 `;
-const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
+const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, achievementsCount }) => (
   <p className="mb-3">
     <A to={routes.profileView(author.id)} className="d-inline-flex align-items-center">
       {!isSearchPage && (
@@ -67,7 +67,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
                 isRankOff
                 customRatingIconColors={customRatingIconColors}
               />
-              <AchievementsStatus count={author.achievements?.length} />
+              <AchievementsStatus count={achievementsCount} />
             </>
           )}
         </>

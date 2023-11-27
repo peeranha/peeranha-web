@@ -330,10 +330,10 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
-        '3-0x305c327da8558d51395b3381509b6a03c8f4ce691feb3fa1579826f6f0e12803': {
-          origin: `http://localhost:31000`,
-          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
-          styles: SuiMainStyles,
+        '3-0x6320fa169fcf93bd30666e5612e799599ac6021fa59e84dab1d48fa120f56c47': {
+          origin: `http://localhost:3000`,
+          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
+          styles: AnkrStyles,
         },
       }
     : {

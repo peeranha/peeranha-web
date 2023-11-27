@@ -1,4 +1,5 @@
 import { languagesEnum } from 'app/i18n';
+import { IS_MINTED_ACHIEVEMENT } from 'containers/Achievements/constants';
 import LanguageLabel from 'containers/Questions/Content/Body/LanguageLabel';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -53,6 +54,13 @@ const Body = ({
 
   const translation = translations.find((t) => Number(t.language) === languagesEnum[locale]);
 
+  const achievementsCount = () => {
+    const mintedUserAchievements = author.achievements?.filter(
+      (achievement) => achievement.isMinted === IS_MINTED_ACHIEVEMENT,
+    );
+    return mintedUserAchievements?.length;
+  };
+
   return (
     <Base className={displayTopQuestionMove ? 'pl-0' : ''} position="right" paddingTopMedia={20}>
       <QuestionLabels>
@@ -91,6 +99,7 @@ const Body = ({
         isSearchPage={isSearchPage}
         communityId={communityId}
         communities={communities}
+        achievementsCount={achievementsCount()}
       />
 
       <div className="df jcsb aic">

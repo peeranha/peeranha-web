@@ -3,6 +3,7 @@ import {
   BG_LIGHT,
   BORDER_PRIMARY_RGB,
   BORDER_RADIUS_L,
+  BORDER_RADIUS_M,
   SECONDARY_SPECIAL_2,
   TEXT_PRIMARY,
 } from 'style-constants';
@@ -105,7 +106,7 @@ export const styles = {
     width: '100%',
     height: '56px',
     border: `1px solid #C2C6D8`,
-    borderRadius: '3px',
+    borderRadius: `${BORDER_RADIUS_M}`,
     padding: '0 10px 0 60px',
     outline: 'none',
     opacity: 1,

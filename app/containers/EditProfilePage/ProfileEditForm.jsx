@@ -20,7 +20,12 @@ import Box from 'components/Base/AvatarBase';
 import H3 from 'components/H3';
 import FormBox from 'components/Form';
 
-import { imageValidation, required, strLength3x20 } from 'components/FormFields/validate';
+import {
+  imageValidation,
+  required,
+  strLength3x20,
+  withoutDoubleSpace,
+} from 'components/FormFields/validate';
 import { isSuiBlockchain } from 'utils/constants';
 import { getUserName } from 'utils/user';
 import { singleCommunityColors } from 'utils/communityManagement';
@@ -56,7 +61,7 @@ export const ProfileEditForm = ({ formValues, handleSubmit, saveProfile, isProfi
           label={t('profile.displayNameLabel')}
           tip={t('profile.displayNameTip')}
           disabled={isProfileSaving}
-          validate={[required, strLength3x20]}
+          validate={[withoutDoubleSpace, required, strLength3x20]}
           warn={[required, strLength3x20]}
           splitInHalf
         />
@@ -67,7 +72,7 @@ export const ProfileEditForm = ({ formValues, handleSubmit, saveProfile, isProfi
           label={t('profile.companyLabel')}
           tip={t('profile.companyTip')}
           disabled={isProfileSaving}
-          validate={strLength3x20}
+          validate={[withoutDoubleSpace, strLength3x20]}
           warn={strLength3x20}
           splitInHalf
         />
@@ -78,7 +83,7 @@ export const ProfileEditForm = ({ formValues, handleSubmit, saveProfile, isProfi
           label={t('profile.positionLabel')}
           tip={t('profile.positionTip')}
           disabled={isProfileSaving}
-          validate={strLength3x20}
+          validate={[withoutDoubleSpace, strLength3x20]}
           warn={strLength3x20}
           splitInHalf
         />
@@ -89,7 +94,7 @@ export const ProfileEditForm = ({ formValues, handleSubmit, saveProfile, isProfi
           tip={t('profile.locationTip')}
           disabled={isProfileSaving}
           component={TextInputField}
-          validate={strLength3x20}
+          validate={[withoutDoubleSpace, strLength3x20]}
           warn={strLength3x20}
           splitInHalf
         />

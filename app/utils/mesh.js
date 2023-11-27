@@ -6,6 +6,7 @@ const userMeshShallow = `
   walletAddress
   userachievement {
     id
+    isMinted
   }
   usercommunityrating {
     communityId
@@ -78,13 +79,10 @@ export async function executeMeshQuery(props) {
 
 export const getUserDataFromMesh = (item) => {
   const { userachievement, usercommunityrating, usercommunity, userpermission, ...user } = item;
-  const achievements = userachievement?.map(({ achievementId }) => ({
-    id: achievementId,
-  }));
   return {
     ...user,
     id: user.id.toLowerCase(),
-    achievements,
+    achievements: userachievement,
     ratings: usercommunityrating,
     followedCommunities: usercommunity
       ? usercommunity.map((community) => community.communityId)
