@@ -14,6 +14,7 @@ import {
   strLength15x250,
   strLength100Max,
   validateURL,
+  withoutDoubleSpace,
 } from 'components/FormFields/validate';
 
 import FormBox from 'components/Form';
@@ -134,7 +135,7 @@ const EditCommunityForm = ({
               <Field
                 name={COMM_NAME_FIELD}
                 component={TextInputField}
-                validate={[strLength3x20, required]}
+                validate={[withoutDoubleSpace, strLength3x20, required]}
                 warn={[strLength3x20, required]}
                 disabled={communityLoading}
                 label={t('createCommunity.communityTitle')}
@@ -145,7 +146,7 @@ const EditCommunityForm = ({
               <Field
                 name={COMM_SHORT_DESCRIPTION_FIELD}
                 component={TextareaField}
-                validate={[strLength15x250, required]}
+                validate={[withoutDoubleSpace, strLength15x250, required]}
                 warn={[strLength15x250, required]}
                 disabled={communityLoading}
                 label={t('createCommunity.shortDescription')}
@@ -156,7 +157,7 @@ const EditCommunityForm = ({
               <Field
                 name={COMM_OFFICIAL_SITE_FIELD}
                 component={TextInputField}
-                validate={[validateURL, strLength100Max]}
+                validate={[withoutDoubleSpace, validateURL, strLength100Max]}
                 warn={[validateURL]}
                 disabled={communityLoading}
                 label={t('createCommunity.website')}
@@ -170,7 +171,7 @@ const EditCommunityForm = ({
                 name={COMM_PEERANHA_SITE_FIELD}
                 component={TextInputField}
                 label={t('createCommunity.communityWebsite')}
-                validate={[strLength100Max]}
+                validate={[withoutDoubleSpace, strLength100Max]}
                 warn={[strLength100Max]}
                 placeholder="subdomain.peeranha.io"
                 tip={t('createCommunity.communityWebsiteTip')}

@@ -1,10 +1,10 @@
 import { languagesEnum } from 'app/i18n';
+import { IS_MINTED_ACHIEVEMENT } from 'containers/Achievements/constants';
 import LanguageLabel from 'containers/Questions/Content/Body/LanguageLabel';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Base from 'components/Base';
-import { isSuiBlockchain } from 'utils/constants';
 import QuestionType from './QuestionType';
 import Title from './Title';
 import UserInfo from './UserInfo';
@@ -55,6 +55,13 @@ const Body = ({
   const isTranslated =
     translation && isAutotranslationEnable && Number(postLanguage) !== languagesEnum[locale];
 
+  const achievementsCount = () => {
+    const mintedUserAchievements = author.achievements?.filter(
+      (achievement) => achievement.isMinted === IS_MINTED_ACHIEVEMENT,
+    );
+    return mintedUserAchievements?.length;
+  };
+
   return (
     <Base className={displayTopQuestionMove ? 'pl-0' : ''} position="right" paddingTopMedia={20}>
       <QuestionLabels>
@@ -94,6 +101,7 @@ const Body = ({
         isSearchPage={isSearchPage}
         communityId={communityId}
         communities={communities}
+        achievementsCount={achievementsCount()}
       />
 
       <div className="df jcsb aic">
