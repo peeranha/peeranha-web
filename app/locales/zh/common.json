@@ -29,7 +29,7 @@
   "search": "搜索",
   "login": "登录",
   "signUp": "注册",
-  "signIn": "Sign in",
+  "signIn": "登录",
   "all": "全部",
   "askQuestion": "最新帖子",
   "wrongChainId": "错误的链 ID",
@@ -528,5 +528,6 @@
   "experienceEnhancements": "发现答案，或轻松将您的问题升级到社区。",
   "noResultsFound": "未找到结果",
   "askingCommunity": "很抱歉，我们找不到任何匹配的结果。\n请尝试向我们的社区提问。",
-  "sources": "来源"
+  "sources": "来源",
+  "orDivider": "要么"
 }

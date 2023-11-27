@@ -545,5 +545,6 @@
   "experienceEnhancements": "Discover the answer, or easily escalate your query to the community.",
   "noResultsFound": "No results found",
   "askingCommunity": "Unfortunately, we couldn't find any matching results. \nTry asking our community.",
-  "sources": "Sources"
+  "sources": "Sources",
+  "orDivider": "OR"
 }

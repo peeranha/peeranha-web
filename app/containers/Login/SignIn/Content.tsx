@@ -59,7 +59,7 @@ const Content = ({
 
       <div css={styles.divider}>
         <hr css={styles.dividerLine} />
-        <span css={styles.dividerText}>OR</span>
+        <span css={styles.dividerText}>{t('common.orDivider')}</span>
         <hr css={styles.dividerLine} />
       </div>
 
