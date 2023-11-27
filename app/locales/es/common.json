@@ -29,7 +29,7 @@
   "search": "Búsqueda",
   "login": "Iniciar sesión",
   "signUp": "Inscribirse",
-  "signIn": "Sign in",
+  "signIn": "Iniciar sesión",
   "all": "Todos",
   "askQuestion": "Nueva publicación",
   "wrongChainId": "Identificación de cadena incorrecta",
@@ -541,5 +541,6 @@
   "experienceEnhancements": "Descubre la respuesta, o eleva fácilmente tu consulta a la comunidad.",
   "noResultsFound": "No se encontraron resultados",
   "askingCommunity": "Lamentablemente, no pudimos encontrar resultados coincidentes. \nIntente preguntar a nuestra comunidad.",
-  "sources": "Fuentes"
+  "sources": "Fuentes",
+  "orDivider": "O"
 }

@@ -29,7 +29,7 @@
   "search": "Tìm kiếm",
   "login": "Đăng nhập",
   "signUp": "Đăng ký",
-  "signIn": "Sign in",
+  "signIn": "Đăng nhập",
   "all": "Tất cả",
   "askQuestion": "Bài đăng mới",
   "wrongChainId": "Id chuỗi sai",
@@ -541,5 +541,6 @@
   "experienceEnhancements": "Tìm hiểu câu trả lời hoặc tăng cường dễ dàng câu hỏi của bạn đến cộng đồng.",
   "noResultsFound": "Không tìm thấy kết quả nào",
   "askingCommunity": "Rất tiếc, chúng tôi không tìm thấy kết quả phù hợp nào. \nHãy thử hỏi cộng đồng của chúng tôi.",
-  "sources": "Nguồn"
+  "sources": "Nguồn",
+  "orDivider": "HOẶC"
 }
