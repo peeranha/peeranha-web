@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import createdHistory from 'createdHistory';
+import { Link } from 'react-router-dom';
 
 import * as routes from 'routes-config';
 
@@ -29,6 +30,7 @@ import Grid from 'components/Grid';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 
 const colors = singleCommunityColors();
+const single = isSingleCommunityWebsite();
 
 const Tag = styled.li`
   height: ${({ editTagModerator }) => (editTagModerator ? '180px' : '140px')};
@@ -119,6 +121,24 @@ const Content = ({
 
   const existingTags = Array.isArray(tags) ? tags : tags[communityId];
 
+  const redirectToFilterByTag = (id) => {
+    const searchParams = new URLSearchParams(history?.location?.search);
+    const searchParamsTags = searchParams.get('tags');
+    const newSearchParamsTags = (tagsParams, tagId) => {
+      const allTags = tagsParams?.split(',');
+      if (!tagsParams) {
+        return tagId;
+      }
+      if (!allTags?.includes(tagId)) {
+        return `${tagsParams},${tagId}`;
+      }
+
+      return tagsParams;
+    };
+    searchParams.set('tags', newSearchParamsTags(searchParamsTags, id));
+    return `feed?${searchParams}`;
+  };
+
   return (
     <InfinityLoader
       loadNextPaginatedData={loadMoreTags}
@@ -146,14 +166,23 @@ const Content = ({
                   e.currentTarget.scrollTop = 0;
                 }}
               >
-                <p>
-                  <TagName>{x.name}</TagName>
-                  <Span fontSize="14" color={TEXT_SECONDARY}>
-                    <span>x </span>
-                    <span>{`${x.postCount}`}</span>
-                  </Span>
-                </p>
-
+                {single ? (
+                  <Link to={redirectToFilterByTag(x.id)}>
+                    <TagName>{x.name}</TagName>
+                    <Span fontSize="14" color={TEXT_SECONDARY}>
+                      <span>x </span>
+                      <span>{`${x.postCount}`}</span>
+                    </Span>
+                  </Link>
+                ) : (
+                  <p>
+                    <TagName>{x.name}</TagName>
+                    <Span fontSize="14" color={TEXT_SECONDARY}>
+                      <span>x </span>
+                      <span>{`${x.postCount}`}</span>
+                    </Span>
+                  </p>
+                )}
                 <P fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
                   {x.description}
                 </P>
