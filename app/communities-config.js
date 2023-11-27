@@ -27,6 +27,8 @@ import { SuiMainStyles } from './communities-configs/suiMain';
 import { CartesiStyles } from './communities-configs/cartesi';
 import { EdgewareStyles } from './communities-configs/edgeware';
 import { SuiNSStyles } from './communities-configs/suiNS';
+import { IPFSStyles } from './communities-configs/IPFS';
+import { EngeniousStyles } from './communities-configs/engenious';
 
 const communitiesConfig = {
   prod: isSuiBlockchain
@@ -235,6 +237,16 @@ const communitiesConfig = {
           origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
           styles: CartesiStyles,
+        },
+        '3-0xdf71421e1693893fc5a71c1daf097a68468226e67f1f670d686f3eb1ffb9c8e9': {
+          origin: `https://ipfs${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/ipfs/ipfs-logo.svg',
+          styles: IPFSStyles,
+        },
+        '3-0x880fbd8d0915d567349291d801c38f3e4d06ea5cb1e4ed897ee0649d6c94a944': {
+          origin: `https://engenious${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/engenious/engenious-logo.svg',
+          styles: EngeniousStyles,
         },
       }
     : {

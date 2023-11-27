@@ -60,7 +60,7 @@ const Seo = ({
       <link
         rel="shortcut icon"
         type="image/x-icon"
-        href={`https://images.peeranha.io/communities/${domainName}/favicon.ico`}
+        href={styles.favicon || `https://images.peeranha.io/communities/${domainName}/favicon.ico`}
       />
     </Helmet>
   );
