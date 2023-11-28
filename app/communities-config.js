@@ -240,7 +240,7 @@ const communitiesConfig = {
         },
         '3-0xdf71421e1693893fc5a71c1daf097a68468226e67f1f670d686f3eb1ffb9c8e9': {
           origin: `https://ipfs${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/ipfs/ipfs-logo.svg',
+          src: 'https://images.peeranha.io/communities/ipfs/ipfs-logo-2.svg',
           styles: IPFSStyles,
         },
         '3-0x880fbd8d0915d567349291d801c38f3e4d06ea5cb1e4ed897ee0649d6c94a944': {

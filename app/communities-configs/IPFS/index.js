@@ -206,6 +206,7 @@ export const IPFSStyles = {
     footerBackgroundColor: 'rgba(241, 243, 242, 1)',
     userInformation: 'rgba(87, 185, 188, 0.1)',
     pinnedPostBackground: 'rgba(56, 119, 121, 1)',
+    pinnedPostHoverText: 'rgba(255, 255, 255, 0.8)',
     secondaryAdditional: 'rgba(56, 119, 121, 1)',
   },
   cookieConsentPopupStyles: {

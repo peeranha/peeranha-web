@@ -206,6 +206,7 @@ export const EngeniousStyles = {
     footerBackgroundColor: 'rgba(238, 240, 246, 1)',
     userInformation: 'rgba(61, 64, 213, 0.05)',
     pinnedPostBackground: 'rgba(61, 64, 213, 1)',
+    pinnedPostHoverText: 'rgba(255, 255, 255, 0.8)',
     secondaryAdditional: 'rgba(61, 64, 213, 1)',
   },
   cookieConsentPopupStyles: {
