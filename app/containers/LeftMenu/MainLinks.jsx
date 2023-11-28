@@ -213,7 +213,7 @@ const MainLinks = ({
                   lineHeight: '20px',
                   color: 'var(--color-white)',
                   ':hover': {
-                    color: `${colors.pinnedPostHoverText}`,
+                    color: `${colors.pinnedPostHoverText} !important`,
                   },
                 }}
               >
@@ -222,7 +222,7 @@ const MainLinks = ({
                     borderRight: isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                     paddingRight: '10px',
                     ':hover': {
-                      color: `${colors.pinnedPostHoverText}`,
+                      color: `${colors.pinnedPostHoverText} !important`,
                     },
                   }}
                 >
