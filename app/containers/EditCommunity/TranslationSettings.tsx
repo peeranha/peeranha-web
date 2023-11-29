@@ -12,6 +12,7 @@ import {
   strLength250Max,
   strLength3x20,
   strLength20Max,
+  withoutDoubleSpace,
 } from 'components/FormFields/validate';
 import TextareaField from 'components/FormFields/TextareaField';
 import ToggleSwitchField from 'components/FormFields/ToggleSwitchField';
@@ -107,7 +108,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
         <Field
           name={`${COMM_TRANSLATIONS_TITLE_FIELD}-${id}`}
           component={TextInputField}
-          validate={[isChineseLang ? strLength20Max : strLength3x20, required]}
+          validate={[withoutDoubleSpace, isChineseLang ? strLength20Max : strLength3x20, required]}
           warn={[isChineseLang ? strLength20Max : strLength3x20, required]}
           label={t('createCommunity.communityTitle')}
           splitInHalf
@@ -117,7 +118,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
         <Field
           name={`${COMM_TRANSLATIONS_DESCRIPTION_FIELD}-${id}`}
           component={TextareaField}
-          validate={[strLength250Max]}
+          validate={[withoutDoubleSpace, strLength250Max]}
           warn={[strLength250Max]}
           label={t('common.description')}
           splitInHalf
