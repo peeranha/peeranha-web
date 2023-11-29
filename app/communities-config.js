@@ -188,7 +188,7 @@ const communitiesConfig = {
     : {
         '1-1': {
           origin: 'https://demo-harmony.testpeeranha.io',
-          src: 'https://images.peeranha.io/communities/harmony/logo.svg',
+          src: 'https://images.peeranha.i/home/yuriy/Forte/peeranha-dev/peeranha-web-ssro/communities/harmony/logo.svg',
           styles: HarmonyStyles,
         },
         '1-2': {

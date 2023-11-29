@@ -5,7 +5,15 @@
   "getStarted": "开始",
   "connectWithWallet": "连接钱包",
   "codeWasSent": "验证码已发送到您的电子邮件。",
-  "incorrectCode": "验证码不正确。请再试一次。",
+
+  "checkEmail": "请检查您的电子邮件",
+  "weSent": "我们已向您发送了一个代码",
+  "enterCode": "输入验证码",
+  "didntGetACode": "没有收到验证码？",
+  "clickToResend": "点击重新发送。",
+  "confirm": "确认",
+  "incorrectCode": "验证码不正确。请重试。",
+
   "staySignedIn": "保持登录",
   "userIsNotRegistered": "用户未注册",
   "userIsNotSelected": "未选择用户",

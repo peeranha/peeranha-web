@@ -6,7 +6,6 @@ import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
-import { isSuiBlockchain } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 
 import injectSaga from 'utils/injectSaga';
