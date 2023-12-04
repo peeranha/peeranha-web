@@ -254,9 +254,11 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
   if (tags?.length) {
     let postIds;
     if (isMeshService) {
-      const tagsQuery = postsIdsByTagsQueryMesh(arrayToString(tags));
-      const tagResponse = await executeMeshQuery({ query: tagsQuery, variables: { limit, skip } });
-      postIds = tagResponse.data.posttag.map((tag) => tag.postId);
+      const tagResponse = await executeMeshQuery({
+        query: postsIdsByTagsQueryMesh,
+        variables: { tagIds: tags },
+      });
+      postIds = tagResponse.data.filterposttagbytagids.strings;
     }
 
     const query = isMeshService

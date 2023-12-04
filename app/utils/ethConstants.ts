@@ -902,23 +902,13 @@ const postsByCommAndTagsQuery = `
     }
   }`;
 
-export const postsIdsByTagsQueryMesh = (tags: string) => `
-  query (
-    $first: Int,
-    $skip: Int,
-  ) {
-    posttag (
-      first: $first,
-      offset: $skip,
-      filter: {
-          tagId: {
-              in: [${tags}]
-          }
-      },
-    ) {
-      postId
+export const postsIdsByTagsQueryMesh = /* GraphQL */ `
+  mutation ($tagIds: [String!]) {
+    filterposttagbytagids(input: { tagids: $tagIds }) {
+      strings
     }
-  }`;
+  }
+`;
 
 const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
   query {
