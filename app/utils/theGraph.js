@@ -254,15 +254,13 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
   if (tags?.length) {
     let postIds;
     if (isMeshService) {
-      const tagResponse = await executeMeshQuery({
-        query: postsIdsByTagsQueryMesh,
-        variables: { tagIds: tags, first: limit, offset: skip },
-      });
-      postIds = tagResponse.data.filterposttagbytagids;
+      const tagsQuery = postsIdsByTagsQueryMesh(arrayToString(tags));
+      const tagResponse = await executeMeshQuery({ query: tagsQuery, variables: { limit, skip } });
+      postIds = tagResponse.data.posttag.map((tag) => tag.postId);
     }
 
     const query = isMeshService
-      ? queries.PostsByCommAndTags.Mesh
+      ? queries.PostsByCommAndTags.Mesh(arrayToString(postIds), arrayToString(postTypes))
       : queries.PostsByCommAndTags.TheGraph;
     const result = await executeQuery({
       query,
@@ -272,7 +270,6 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
         skip,
         postTypes,
         tags,
-        ids: postIds,
       },
     });
 
