@@ -5,6 +5,7 @@ import { sendDispatcherTransactionMethod } from 'utils/ethereum/dispatcher';
 import { sendMetaTransactionMethod } from 'utils/ethereum/metaTransactions';
 import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 import { sendTransactionMethod } from 'utils/ethereum/transactions';
+import { CONNECTED_WALLET } from 'utils/constants';
 
 import PeeranhaCommunity from '../../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
 import PeeranhaContent from '../../../../peeranha-subgraph/abis/PeeranhaContent.json';
@@ -218,7 +219,7 @@ class EthereumService {
 
     if (!this.connectedWallets?.length) {
       document.getElementsByTagName('body')[0].style.position = 'relative';
-      deleteCookie('connectedWallet');
+      deleteCookie(CONNECTED_WALLET);
       return;
     }
 
@@ -236,7 +237,7 @@ class EthereumService {
 
   resetWalletState = async () => {
     await this.disconnect(this.wallet);
-    deleteCookie('connectedWallet');
+    deleteCookie(CONNECTED_WALLET);
     this.selectedAccount = null;
   };
 

@@ -16,7 +16,7 @@ import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
 import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 
-import { MODERATOR_KEY } from 'utils/constants';
+import { MODERATOR_KEY, CONNECTED_WALLET, CONNECTED_SUI_WALLET } from 'utils/constants';
 import {
   ASK_QUESTION_SUCCESS,
   REDIRECT_TO_ASK_QUESTION_PAGE,
@@ -75,7 +75,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
       ? initAccount
       : call(ethereumService.getSelectedAccount);
 
-    const previouslyConnectedWallet = getCookie('connectedWallet');
+    const previouslyConnectedWallet = getCookie(CONNECTED_WALLET);
 
     if (!window.localStorage.getItem('onboard.js:agreement')) {
       window.localStorage.setItem('onboard.js:agreement', getCookie('agreement'));
@@ -203,7 +203,7 @@ export const getCurrentSuiAccountWorker = function* ({ wallet }) {
     let accountData = wallet;
     const emailCookieValue = getCookie(EMAIL_LOGIN_DATA);
     const parsedEmailData = emailCookieValue ? JSON.parse(emailCookieValue) : null;
-    const previouslyConnectedWallet = getCookie('connectedWallet');
+    const previouslyConnectedWallet = getCookie(CONNECTED_SUI_WALLET);
     if (parsedEmailData) {
       accountData = { ...parsedEmailData, connected: true };
     }

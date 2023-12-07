@@ -5,7 +5,7 @@ import reducer from 'containers/Login/reducer';
 import saga from 'containers/Login/saga';
 import React, { useEffect, useState } from 'react';
 import { compose } from 'redux';
-import { DAEMON } from 'utils/constants';
+import { DAEMON, CONNECTED_SUI_WALLET } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -15,7 +15,7 @@ const SuiConnectModals = ({ loginWithWallet, actionButtonWithLogin }) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const previouslyConnectedWallet = getCookie('connectedWallet');
+    const previouslyConnectedWallet = getCookie(CONNECTED_SUI_WALLET);
     if (wallet.connected && previouslyConnectedWallet) {
       setShowModal(false);
       loginWithWallet(wallet.address);
@@ -27,7 +27,7 @@ const SuiConnectModals = ({ loginWithWallet, actionButtonWithLogin }) => {
       open={showModal}
       onOpenChange={(open) => {
         setCookie({
-          name: 'connectedWallet',
+          name: CONNECTED_SUI_WALLET,
           value: wallet.name,
         });
         if (wallet.connected) {
