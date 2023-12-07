@@ -903,21 +903,18 @@ const postsByCommAndTagsQuery = `
   }`;
 
 export const postsIdsByTagsQueryMesh = /* GraphQL */ `
-  query ($tagIds: [String!], $first: Int, $offset: Int) {
-    filterposttagbytagids(tagids: $tagIds, first: $first, offset: $offset)
+  query ($tagIds: [String!], $postTypes: [Int!], $first: Int, $offset: Int) {
+    filterposttagbytagids(tagids: $tagIds, posttypes: $postTypes, first: $first, offset: $offset)
   }
 `;
 
 const postsByCommAndTagsQueryMesh = `
-  query ($ids: [String!], $postTypes: [Int!]) {
+  query ($ids: [String!]) {
     post (
       orderBy: POST_TIME_DESC,
       filter: {
         id: {
             in: $ids
-        },
-        postType: {
-            in: $postTypes
         }
     }
     ) {
@@ -927,9 +924,6 @@ const postsByCommAndTagsQueryMesh = `
       filter: {
           id: {
               in: $ids
-          },
-          postType: {
-              in: $postTypes
           }
       }
     ) {
