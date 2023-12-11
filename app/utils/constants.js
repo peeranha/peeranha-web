@@ -199,6 +199,7 @@ export const TRANSACTIONS_ALLOWED = 'tr_allowed';
 export const DISPATCHER_TRANSACTIONS_ALLOWED = 'dispatcher_tr_allowed';
 export const CURRENCY = 'MATIC';
 export const CONNECTED_WALLET = 'connectedWallet';
+export const CONNECTED_SUI_WALLET = 'connectedSuiWallet';
 export const TORUS_WALLET = 'Torus';
 export const WEB3_TOKEN = 'web3Token';
 export const WEB3_TOKEN_USER_ADDRESS = 'web3Token_userAddress';
