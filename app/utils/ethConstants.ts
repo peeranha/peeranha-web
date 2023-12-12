@@ -902,55 +902,28 @@ const postsByCommAndTagsQuery = `
     }
   }`;
 
-export const postsIdsByTagsQueryMesh = (tags: string) => `
-  query (
-    $first: Int,
-    $skip: Int,
-  ) {
-    posttag (
-      first: $first,
-      offset: $skip,
-      filter: {
-          tagId: {
-              in: [${tags}]
-          }
-      },
-    ) {
-      postId
-    }
-  }`;
+export const postsIdsByTagsQueryMesh = /* GraphQL */ `
+  query ($tagIds: [String!], $postTypes: [Int!], $first: Int, $offset: Int) {
+    filterposttagbytagids(tagids: $tagIds, posttypes: $postTypes, first: $first, offset: $offset)
+  }
+`;
 
-const postsByCommAndTagsQueryMesh = (ids: string, postTypes: string) => `
-  query {
+const postsByCommAndTagsQueryMesh = `
+  query ($ids: [String!]) {
     post (
       orderBy: POST_TIME_DESC,
       filter: {
         id: {
-            in: [${ids}]
-        },
-        postType: {
-            in: [${postTypes}]
-        },
-        networkId: {
-            in: [${getNetworkIds()}]
+            in: $ids
         }
     }
     ) {
       ${postMeshShallow}
     }
     postsConnection (
-      condition: {
-          isDeleted: false,
-      },
       filter: {
-        communityId: {
-              in: [${ids}]
-          },
-          postType: {
-              in: [${postTypes}]
-          },
-          networkId: {
-              in: [${getNetworkIds()}]
+          id: {
+              in: $ids
           }
       }
     ) {
