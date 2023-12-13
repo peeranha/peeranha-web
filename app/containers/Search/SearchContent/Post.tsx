@@ -2,19 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
+import * as routes from 'routes-config';
+import communitiesConfig from 'communities-config';
+
 import DisLikeIcon from 'icons/DisLike';
 import LikeIcon from 'icons/Like';
 import BestAnswerIcon from 'icons/BestAnswer';
 import AnswerIcon from 'icons/Answer';
 import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
-import { getPostRoute } from 'routes-config';
-import { styles } from './Post.styled';
-import QuestionType from '../../Questions/Content/Body/QuestionType';
 import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
-import { Community, Tag, Author, Translation } from './index';
 import { getFormattedDate } from 'utils/datetime';
 import { getFollowedCommunities, isSingleCommunityWebsite } from 'utils/communityManagement';
-import * as routes from '../../../routes-config';
+
+import QuestionType from 'containers/Questions/Content/Body/QuestionType';
+
+import { styles } from './Post.styled';
+import { Community, Tag, Author, Translation } from './index';
 
 const single = isSingleCommunityWebsite();
 
@@ -54,7 +57,7 @@ const Post: React.FC<PostProps> = ({
   const { t } = useTranslation();
   const community = getFollowedCommunities(communities, [communityId])[0] || {};
 
-  const postLink = getPostRoute({ postType, id, title });
+  const postLink = routes.getPostRoute({ postType, id, title });
   const communityLink = () => {
     if (postType === POST_TYPE.tutorial) {
       return routes.tutorials(communityId);
@@ -68,6 +71,8 @@ const Post: React.FC<PostProps> = ({
     return routes.questions(communityId);
   };
 
+  const communityDocumentationURL = communitiesConfig[communityId]?.origin + postLink;
+
   const communityTranslationTitle = community?.translations?.find(
     (translation: Translation) => translation.language === locale,
   )?.name;
@@ -77,10 +82,15 @@ const Post: React.FC<PostProps> = ({
       <div className="m16 full-width" css={styles.container}>
         <div className="df aic">
           <QuestionType postType={postType} isSearch={true} className="mr4" />
-
-          <Link to={postLink} className="fz18 semi-bold " css={styles.title}>
-            {title}
-          </Link>
+          {!single && postType === POST_TYPE.documentation ? (
+            <a href={communityDocumentationURL} css={styles.title}>
+              {title}
+            </a>
+          ) : (
+            <Link to={postLink} css={styles.title}>
+              {title}
+            </Link>
+          )}
         </div>
 
         <div css={css(styles.mainInfo)}>
