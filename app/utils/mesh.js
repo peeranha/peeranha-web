@@ -65,7 +65,7 @@ export const postMeshShallow = `
 `;
 
 export async function executeMeshQuery(props) {
-  const response = await fetch(process.env.QUERY_INDEX_URL, {
+  const response = await fetch('https://staging-api.testpeeranha.io/graphql', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
