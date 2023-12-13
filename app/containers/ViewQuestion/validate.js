@@ -118,8 +118,7 @@ export const postCommentValidator = (profileInfo, questionData, postButtonId, an
   const communityId = questionData.communityId;
 
   let item = questionData;
-
-  if (answerId > 0) {
+  if (answerId) {
     item = questionData.answers.find((x) => x.id === answerId);
   }
 
@@ -131,12 +130,12 @@ export const postCommentValidator = (profileInfo, questionData, postButtonId, an
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
     !hasProtocolAdminRole(profileInfo.permissions) &&
-    (item.author.user === profileInfo.user || questionData.author.user === profileInfo.user) &&
+    (item.author.id === profileInfo.user || questionData.author.user === profileInfo.user) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
   ) {
     message = `${t('post.notEnoughRating')} ${MIN_RATING_FOR_MY_ITEM} ${t('post.inThisCommunity')}`;
   } else if (
-    item.author.user !== profileInfo.user &&
+    item.author.id !== profileInfo.user &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
     !hasProtocolAdminRole(profileInfo.permissions) &&
