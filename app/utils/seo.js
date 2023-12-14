@@ -7,7 +7,7 @@ const updateSeoUrl = (title) =>
       .toLowerCase(),
   )
     .replace(/^-+|-+$/g, '')
-    .replace(/--/g, '-');
+    .replace(/--+/g, '-');
 
 export const updateTitle = (title) => {
   if (title === ':title') {

@@ -29,7 +29,8 @@ export const styles = {
   title: {
     color: TEXT_DARK,
     lineHeight: '23px',
-
+    fontSize: '12px',
+    fontWeight: 600,
     ':hover': {
       color: TEXT_DARK,
     },

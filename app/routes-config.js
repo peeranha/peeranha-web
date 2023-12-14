@@ -82,7 +82,7 @@ export const getPostRoute = ({ postType, id, answerId = null, title }) => {
     return expertPostView(id, title, answerId);
   }
   if (postType === POST_TYPE.documentation) {
-    return documentation(getIpfsHashFromBytes32(id), title);
+    return documentation(getIpfsHashFromBytes32(id.split('-')[1]), title);
   }
   return tutorialView(id, title);
 };
