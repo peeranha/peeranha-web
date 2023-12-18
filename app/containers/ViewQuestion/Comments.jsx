@@ -41,6 +41,8 @@ import UserInfo from './UserInfo';
 import CommentOptions from './CommentOptions';
 import CommentForm from './CommentForm';
 import AreYouSure from './AreYouSure';
+import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
+import { selectCommentIdsInTransaction, selectIds } from 'containers/ViewQuestion/selectors';
 
 const CommentManage = styled.div`
   display: flex;
@@ -110,7 +112,17 @@ const CommentsStyled = styled.ul`
   }
 `;
 
-const CommentEdit = ({ answerId, id, content, saveCommentLoading, saveComment, toggleView }) => {
+const CommentEdit = ({
+  answerId,
+  id,
+  content,
+  saveCommentLoading,
+  saveComment,
+  toggleView,
+  transactionInPending,
+  commentIds,
+  commentIdsInTransaction,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -125,6 +137,9 @@ const CommentEdit = ({ answerId, id, content, saveCommentLoading, saveComment, t
         answerId={answerId}
         commentId={id}
         toggleView={toggleView}
+        transactionInPending={transactionInPending}
+        commentIds={commentIds}
+        commentIdsInTransaction={commentIdsInTransaction}
       />
     </CommentEditStyled>
   );
@@ -312,6 +327,9 @@ const Comments = (props) => {
         commentsNumber={props?.comments.length - DEFAULT_COMMENTS_NUMBER}
         profileInfo={props?.profileInfo}
         loginWithSuiDispatch={props?.loginWithSuiDispatch}
+        transactionInPending={props?.transactionInPending}
+        commentIds={props?.commentIds}
+        commentIdsInTransaction={props?.commentIdsInTransaction}
       />
     </div>
   );
@@ -344,6 +362,9 @@ export default React.memo(
   connect(
     (state) => ({
       profileInfo: makeSelectProfileInfo()(state),
+      transactionInPending: selectTransactionInPending()(state),
+      commentIds: selectIds()(state),
+      commentIdsInTransaction: selectCommentIdsInTransaction()(state),
     }),
     null,
   )(Comments),

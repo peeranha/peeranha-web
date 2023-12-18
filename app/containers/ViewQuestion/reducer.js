@@ -81,6 +81,7 @@ export const initialState = fromJS({
   histories: null,
   getHistoriesError: null,
   historiesLoading: false,
+  commentIdsInTransaction: [],
 });
 
 function viewQuestionReducer(state = initialState, action) {
@@ -103,6 +104,7 @@ function viewQuestionReducer(state = initialState, action) {
     buttonId,
     histories,
     getHistoriesError,
+    commentId,
   } = action;
 
   switch (type) {
@@ -260,7 +262,10 @@ function viewQuestionReducer(state = initialState, action) {
         );
 
     case SAVE_COMMENT:
-      return state.set('saveCommentLoading', true).set('ids', [...state.toJS().ids, buttonId]);
+      return state
+        .set('saveCommentLoading', true)
+        .set('ids', [...state.toJS().ids, buttonId])
+        .set('commentIdsInTransaction', [...state.toJS().commentIdsInTransaction, commentId]);
     case SAVE_COMMENT_SUCCESS:
       return state
         .set('questionData', questionData)
@@ -268,6 +273,10 @@ function viewQuestionReducer(state = initialState, action) {
         .set(
           'ids',
           state.toJS().ids.filter((x) => x !== buttonId),
+        )
+        .set(
+          'commentIdsInTransaction',
+          state.toJS().commentIdsInTransaction.filter((x) => x !== commentId),
         );
     case SAVE_COMMENT_ERROR:
       return state
@@ -276,8 +285,11 @@ function viewQuestionReducer(state = initialState, action) {
         .set(
           'ids',
           state.toJS().ids.filter((x) => x !== buttonId),
+        )
+        .set(
+          'commentIdsInTransaction',
+          state.toJS().commentIdsInTransaction.filter((x) => x !== commentId),
         );
-
     case PAY_BOUNTY:
       return state.set('giveBountyLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case PAY_BOUNTY_SUCCESS:

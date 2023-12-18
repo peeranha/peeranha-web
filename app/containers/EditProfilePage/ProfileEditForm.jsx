@@ -33,10 +33,18 @@ import { singleCommunityColors } from 'utils/communityManagement';
 import AboutForm from './AboutForm';
 
 import { EDIT_PROFILE_BUTTON_ID, PROFILE_EDIT_FORM } from './constants';
+import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
+import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
 
 const colors = singleCommunityColors();
 
-export const ProfileEditForm = ({ formValues, handleSubmit, saveProfile, isProfileSaving }) => {
+export const ProfileEditForm = ({
+  formValues,
+  handleSubmit,
+  saveProfile,
+  isProfileSaving,
+  transactionInPending,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -100,10 +108,13 @@ export const ProfileEditForm = ({ formValues, handleSubmit, saveProfile, isProfi
         />
 
         <AboutForm formValues={formValues} isProfileSaving={isProfileSaving} />
-
-        <Button id={EDIT_PROFILE_BUTTON_ID} disabled={isProfileSaving} type="submit">
-          {t('profile.saveButton')}
-        </Button>
+        {transactionInPending && isProfileSaving ? (
+          <TransactionBanner />
+        ) : (
+          <Button id={EDIT_PROFILE_BUTTON_ID} disabled={isProfileSaving} type="submit">
+            {t('profile.saveButton')}
+          </Button>
+        )}
       </FormBox>
     </Box>
   );
@@ -125,6 +136,7 @@ let FormClone = reduxForm({
 })(ProfileEditForm);
 
 FormClone = connect((state, props) => ({
+  transactionInPending: selectTransactionInPending()(state),
   enableReinitialize: true,
   formValues: state.toJS().form[PROFILE_EDIT_FORM]?.values ?? {},
   initialValues: {

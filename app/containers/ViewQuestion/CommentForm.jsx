@@ -8,6 +8,7 @@ import InfoButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/TransparentLarge';
 import TextareaField from 'components/FormFields/TextareaField';
 import { strLength1x1000, required } from 'components/FormFields/validate';
+import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
 
 import { TEXTAREA_COMMENT_FORM } from './constants';
 
@@ -20,8 +21,18 @@ const CommentForm = ({
   toggleView,
   submitButtonName,
   className,
+  transactionInPending,
+  commentIds,
+  commentId,
+  commentIdsInTransaction,
 }) => {
   const { t } = useTranslation();
+
+  const commentInTransaction = commentId
+    ? !!commentIdsInTransaction.find(
+        (commentIdInTransaction) => commentIdInTransaction === commentId,
+      )
+    : !!commentIds.find((commentId) => commentId === `${submitButtonId}${answerId}`);
 
   return (
     <form className={className} onSubmit={handleSubmit(sendComment)}>
@@ -34,23 +45,23 @@ const CommentForm = ({
           warn={[strLength1x1000, required]}
         />
       </div>
-      <div>
-        <InfoButton
-          id={`${submitButtonId}${answerId}`}
-          disabled={sendCommentLoading}
-          typeAttr="submit"
-        >
-          {submitButtonName}
-        </InfoButton>
+      {transactionInPending && sendCommentLoading && commentInTransaction ? (
+        <TransactionBanner />
+      ) : (
+        <div>
+          <InfoButton
+            id={`${submitButtonId}${answerId}`}
+            disabled={sendCommentLoading}
+            typeAttr="submit"
+          >
+            {submitButtonName}
+          </InfoButton>
 
-        <TransparentButton
-          disabled={sendCommentLoading}
-          onClick={toggleView}
-          typeAttr="button"
-        >
-          {t('common.cancel')}
-        </TransparentButton>
-      </div>
+          <TransparentButton disabled={sendCommentLoading} onClick={toggleView} typeAttr="button">
+            {t('common.cancel')}
+          </TransparentButton>
+        </div>
+      )}
     </form>
   );
 };

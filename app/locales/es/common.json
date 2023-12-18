@@ -542,5 +542,7 @@
   "noResultsFound": "No se encontraron resultados",
   "askingCommunity": "Lamentablemente, no pudimos encontrar resultados coincidentes. \nIntente preguntar a nuestra comunidad.",
   "sources": "Fuentes",
-  "orDivider": "O"
+  "orDivider": "O",
+  "transactionInProgress": "La transacción está en progreso",
+  "canWork": "Puedes seguir trabajando en el sitio mientras la transacción está en progreso."
 }

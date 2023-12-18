@@ -546,5 +546,7 @@
   "noResultsFound": "No results found",
   "askingCommunity": "Unfortunately, we couldn't find any matching results. \nTry asking our community.",
   "sources": "Sources",
-  "orDivider": "OR"
+  "orDivider": "OR",
+  "transactionInProgress": "Transaction is in progress",
+  "canWork": "You can continue working on the site while transaction is in progress."
 }
