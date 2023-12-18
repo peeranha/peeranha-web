@@ -66,6 +66,8 @@ import PostRules from './PostRules';
 
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
+import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
+import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -135,6 +137,7 @@ export const QuestionForm = ({
   getCommunityTagsDispatch,
   cachedTags,
   tagsLoading,
+  transactionInPending,
 }) => {
   const { t } = useTranslation();
   const [isSelectedType, setIsSelectedType] = useState(false);
@@ -341,14 +344,18 @@ export const QuestionForm = ({
                 />
               )}
 
-              <Button
-                disabled={questionLoading}
-                id={submitButtonId}
-                type="submit"
-                onClick={handleButtonClick}
-              >
-                {submitButtonName}
-              </Button>
+              {transactionInPending && questionLoading ? (
+                <TransactionBanner />
+              ) : (
+                <Button
+                  disabled={questionLoading}
+                  id={submitButtonId}
+                  type="submit"
+                  onClick={handleButtonClick}
+                >
+                  {submitButtonName}
+                </Button>
+              )}
             </FormBox>
           </BaseSpecialOne>
           <div>
@@ -408,6 +415,7 @@ export default memo(
 
       return {
         profile: makeSelectProfileInfo()(state),
+        transactionInPending: selectTransactionInPending()(state),
         formValues: state.toJS().form[formName]?.values ?? {},
         communityQuestionsType: questionsType ?? ANY_TYPE,
         cachedTags,

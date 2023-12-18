@@ -286,12 +286,12 @@ export function* saveCommentWorker({
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
-    yield put(saveCommentSuccess({ ...questionData }, buttonId));
+    yield put(saveCommentSuccess({ ...questionData }, buttonId, commentId));
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
     }
-    yield put(saveCommentErr(err, buttonId));
+    yield put(saveCommentErr(err, buttonId, commentId));
   }
 }
 
