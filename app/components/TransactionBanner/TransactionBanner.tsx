@@ -14,7 +14,6 @@ export const TransactionBanner = ({}: Props) => {
   const { t } = useTranslation();
   return (
     <div css={styles.container}>
-      <SendTokens stroke={colors.linkColor || '#A5BCFF'} />
       <div css={styles.mainBlock}>
         <div css={styles.mainBlockTitleWrapper}>
           <span css={styles.mainBlockTitle}>{t('common.transactionInProgress')}</span>
