@@ -6,6 +6,8 @@ const colors = singleCommunityColors();
 export const styles: Record<string, CSSObject> = {
   container: {
     display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: '16px',
     border: colors.linkColor ? `1px solid ${colors.linkColor}` : '1px solid #A5BCFF',
     borderRadius: '5px',
@@ -13,7 +15,9 @@ export const styles: Record<string, CSSObject> = {
   },
 
   mainBlock: {
-    marginLeft: '12px',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
 
   mainBlockTitleWrapper: {
