@@ -31,6 +31,7 @@ export const SingleTransaction: React.FC<TransactionProps> = ({
     : transaction?.network === 0
     ? process.env.POLYGON_TRANSACTION_INFO_URL
     : process.env.EDGEWARE_EXPLORERE_URL;
+
   return (
     <div css={styles.container}>
       <StatusIcon />

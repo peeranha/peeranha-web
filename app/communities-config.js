@@ -52,6 +52,16 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/move/logo.svg',
           styles: MoveStyles,
         },
+        '3-0x050e1a5ffb4390917d025390f6838bbaac6c52d8aadbc3cff95b78722e4a859e': {
+          origin: 'https://ipfs.peeranha.io',
+          src: 'https://images.peeranha.io/communities/ipfs/ipfs-logo.svg',
+          styles: IPFSStyles,
+        },
+        '3-0x947cc5fd538c091ea25dd46528e7299aa34091be0c1a6079e0341745d00dc1c9': {
+          origin: 'https://university-engenious.peeranha.io',
+          src: 'https://images.peeranha.io/communities/engenious/engenious-logo.svg',
+          styles: EngeniousStyles,
+        },
       }
     : {
         '1-1': {
