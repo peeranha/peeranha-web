@@ -111,7 +111,12 @@ export const ProfileEditForm = ({
         {transactionInPending && isProfileSaving ? (
           <TransactionBanner />
         ) : (
-          <Button id={EDIT_PROFILE_BUTTON_ID} disabled={isProfileSaving} type="submit">
+          <Button
+            id={EDIT_PROFILE_BUTTON_ID}
+            disabled={isProfileSaving}
+            type="submit"
+            className={isProfileSaving && 'op80'}
+          >
             {t('profile.saveButton')}
           </Button>
         )}

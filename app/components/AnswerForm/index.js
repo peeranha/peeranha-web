@@ -88,6 +88,7 @@ export const AnswerForm = ({
           id={sendButtonId}
           disabled={sendAnswerLoading || isAnswered || !account}
           type="submit"
+          className={(sendAnswerLoading || isAnswered || !account) && 'op80'}
         >
           {submitButtonName}
         </Button>
