@@ -165,7 +165,12 @@ export const handleMoveCall = async (
       }),
     });
     const responseBody = await response.json();
-    setTransactionResult(hash, responseBody?.success ? 1 : 2);
+
+    transactionList.find(
+      (transactionFromList) => transactionFromList.transactionHash === hash,
+    ).transactionHash = responseBody?.digest;
+
+    setTransactionResult(responseBody?.digest, responseBody?.success ? 1 : 2);
     await waitForTransactionConfirmation(responseBody.digest);
 
     if (responseBody.success) {

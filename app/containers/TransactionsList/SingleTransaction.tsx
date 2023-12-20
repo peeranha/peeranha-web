@@ -26,10 +26,11 @@ export const SingleTransaction: React.FC<TransactionProps> = ({
   StatusIcon,
 }): JSX.Element => {
   const { t } = useTranslation();
-
   const explorerUrl = isSuiBlockchain
     ? process.env.SUI_TRANSACTION_INFO_URL
-    : process.env.POLYGON_TRANSACTION_INFO_URL;
+    : transaction?.network === 0
+    ? process.env.POLYGON_TRANSACTION_INFO_URL
+    : process.env.EDGEWARE_EXPLORERE_URL;
   return (
     <div css={styles.container}>
       <StatusIcon />
