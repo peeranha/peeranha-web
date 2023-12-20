@@ -217,6 +217,9 @@ export default css`
   .op0 {
     opacity: 0;
   }
+  .op80 {
+    opacity: 0.8;
+  }
   .no-wrap {
     white-space: nowrap;
   }

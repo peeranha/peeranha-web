@@ -52,6 +52,7 @@ const CommentForm = ({
           <InfoButton
             id={`${submitButtonId}${answerId}`}
             disabled={sendCommentLoading}
+            className={sendCommentLoading && 'op80'}
             typeAttr="submit"
           >
             {submitButtonName}

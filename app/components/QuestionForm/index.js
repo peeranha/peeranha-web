@@ -352,6 +352,7 @@ export const QuestionForm = ({
                   id={submitButtonId}
                   type="submit"
                   onClick={handleButtonClick}
+                  className={questionLoading && 'op80'}
                 >
                   {submitButtonName}
                 </Button>
