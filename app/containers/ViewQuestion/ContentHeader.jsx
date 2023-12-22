@@ -311,6 +311,7 @@ const ContentHeader = (props) => {
                   locale={locale}
                   ipfsHash={ipfsHashValue}
                   histories={formattedHistories}
+                  networkId={props.questionData.networkId}
                 />
               </div>
             )}

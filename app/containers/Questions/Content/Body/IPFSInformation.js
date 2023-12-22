@@ -32,7 +32,7 @@ const Label = styled.div`
   }
 `;
 
-const IPFSInformation = ({ locale, ipfsHash, histories }) => {
+const IPFSInformation = ({ locale, ipfsHash, histories, networkId }) => {
   const { t } = useTranslation();
   const columns = {
     transactionHash: t('post.transactionHash'),
@@ -43,7 +43,9 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
   const hashString = getIpfsHashFromBytes32(ipfsHash);
   const explorerUrl = isSuiBlockchain
     ? process.env.SUI_TRANSACTION_INFO_URL
-    : process.env.POLYGON_TRANSACTION_INFO_URL;
+    : networkId === 1
+    ? process.env.POLYGON_TRANSACTION_INFO_URL
+    : process.env.EDGEWARE_TRANSACTION_INFO_URL;
   const ipfsURL = process.env.IPFS_CDN_URL;
 
   const formattedData = histories?.map(
