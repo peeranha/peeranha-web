@@ -40,7 +40,7 @@ const TagFilter: React.FC<{
           {tags.map((tag) => (
             <Tag
               key={tag}
-              css={css(styles.TagFilter)}
+              css={css(styles.tagFilter)}
               style={{
                 ['--text-light' as any]: TEXT_LIGHT,
                 ['--color-borderColor' as any]: colors?.linkColor || PEER_PRIMARY_COLOR,

@@ -28,7 +28,8 @@ export const styles = {
       paddingTop: '10px',
     },
   },
-  TagFilter: {
+  tagFilter: {
+    overflow: 'visible !important',
     color: 'var(--text-light)',
     border: 'var(--color-borderColor)',
     borderRadius: 'var(--border-radius)',
