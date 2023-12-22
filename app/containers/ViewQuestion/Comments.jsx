@@ -245,6 +245,7 @@ const CommentView = (item) => {
                   locale={item.locale}
                   ipfsHash={item.ipfsHash}
                   histories={formattedHistories}
+                  networkId={item.questionData.networkId}
                 />
               </div>
             )}
