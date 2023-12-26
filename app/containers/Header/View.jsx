@@ -12,8 +12,8 @@ import communitiesConfig from 'communities-config';
 import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
-import peeranhaLogo from 'images/LogoBlack.svg?inline';
-import peeranhaMetaLogo from 'images/PeeranhaMeta.svg?inline';
+import peeranhaLogo from 'images/PeeranhaNY.svg?inline';
+import peeranhaMetaLogo from 'images/PeeranhaNY.svg?inline';
 import suiLogo from 'images/SuiLogo.svg?inline';
 
 import {
