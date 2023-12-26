@@ -396,9 +396,7 @@ export const postsForSearch = async (text, single) => {
         return `${textChar} & ${word}:*`;
       }, '');
 
-  const gqlQuery = isMeshService
-    ? queries.PostsForSearch.Mesh(query)
-    : queries.PostsForSearch.TheGraph;
+  const gqlQuery = isMeshService ? queries.PostsForSearch.Mesh : queries.PostsForSearch.TheGraph;
 
   const result = await executeQuery({
     query: gqlQuery,
