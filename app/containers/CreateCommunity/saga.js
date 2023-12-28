@@ -52,7 +52,9 @@ export function* createCommunityWorker({ community, reset }) {
     yield put(createCommunitySuccess());
     yield call(reset);
 
-    yield call(createdHistory.push, routes.communitiesCreatedBanner());
+    if (window.location.pathname === '/communities/create') {
+      yield call(createdHistory.push, routes.communitiesCreatedBanner());
+    }
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));

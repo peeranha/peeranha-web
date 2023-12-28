@@ -29,7 +29,7 @@ import {
 import { getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { CHANGED_POSTS_KEY, isSuiBlockchain } from 'utils/constants';
+import { CHANGED_POSTS_KEY, isSuiBlockchain, POST_TYPE } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
 import { getUserProfileSuccess, removeUserProfile } from 'containers/DataCacheProvider/actions';
@@ -495,8 +495,14 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
     }
 
     yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
-
-    yield call(createdHistory.push, getPostsRoute(questionData.postType));
+    if (
+      window.location.pathname === `/discussions/${questionId}/${questionData.title}` ||
+      window.location.pathname === `/tutorials/${questionId}/${questionData.title}` ||
+      window.location.pathname === `/experts/${questionId}/${questionData.title}` ||
+      Number(questionData.postType) === Number(POST_TYPE.documentation)
+    ) {
+      yield call(createdHistory.push, getPostsRoute(questionData.postType));
+    }
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
