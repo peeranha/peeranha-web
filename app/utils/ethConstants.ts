@@ -1032,9 +1032,10 @@ const postsForSearchQuery = `
     }
   }`;
 
-const postsForSearchQueryMesh = (text: string) => `
+const postsForSearchQueryMesh = /* GraphQL */ `
   query (
     $first: Int,
+    $text: String
   ) {
     post (
       first: $first,
@@ -1043,7 +1044,7 @@ const postsForSearchQueryMesh = (text: string) => `
       },
       filter: {
         postContent: {
-          includes: "${text}",
+          includesInsensitive: $text,
         }
         networkId: {
             in: [${getNetworkIds()}]
