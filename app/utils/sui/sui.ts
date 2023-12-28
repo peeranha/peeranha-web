@@ -170,6 +170,10 @@ export const handleMoveCall = async (
       (transactionFromList) => transactionFromList.transactionHash === hash,
     ).transactionHash = responseBody?.digest;
 
+    console.log('Transaction hash: ', responseBody?.digest);
+    const timestamp = Date.now();
+    console.log('Timestamp:', timestamp);
+
     setTransactionResult(responseBody?.digest, responseBody?.success ? 1 : 2);
     await waitForTransactionConfirmation(responseBody.digest);
 
