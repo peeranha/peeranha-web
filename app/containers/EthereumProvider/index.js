@@ -39,8 +39,7 @@ const torus = torusModule({
   buildEnv: buildEnvType,
   showTorusButton: false,
   network: {
-    host: process.env.ETHEREUM_NETWORK,
-    chainId: `${Number(process.env.CHAIN_ID).toString(16)}`,
+    chainId: process.env.CHAIN_ID,
     networkName: networkLabel,
   },
 });

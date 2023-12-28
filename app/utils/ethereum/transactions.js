@@ -12,7 +12,7 @@ import {
 } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
-import { setTransactionResult, TRANSACTION_LIST } from 'utils/transactionsListManagement';
+import { setTransactionResult, writeTransactionList } from 'utils/transactionsListManagement';
 
 export async function sendTransactionMethod(
   network,
@@ -85,7 +85,7 @@ export async function sendTransactionMethod(
       network,
     });
     this.setTransactionList(this.transactionList);
-    localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+    writeTransactionList(this.transactionList, 10);
     this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);
     setTransactionResult(transaction.hash, result, this.transactionList, this.setTransactionList);

@@ -17,7 +17,6 @@ import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import { WHAT_IS_ENERGY, HOW_TO_CHARGE, VALUE_OF_ACTIONS } from 'containers/Faq/constants';
-import { isSuiBlockchain } from 'utils/constants';
 
 import View from './View';
 import { HEADER_ID } from './constants';
@@ -77,7 +76,6 @@ export class Header extends React.PureComponent {
       redirectToAskQuestionPageDispatch,
       faqQuestions,
       isMenuVisible,
-      loginWithWalletDispatch,
       isTransactionInPending,
       transactionHash,
       transactionInitialised,
@@ -89,16 +87,14 @@ export class Header extends React.PureComponent {
       showLoginModalDispatch,
     } = this.props;
 
-    const loginDispatch = isSuiBlockchain ? showLoginModalDispatch : loginWithWalletDispatch;
-
     if (isMenuVisible) return null;
 
     return (
       <View
         account={account}
         profileInfo={profileInfo}
-        loginWithWalletDispatch={loginDispatch}
-        showLoginModalWithRedirectToAskQuestionPage={loginDispatch}
+        loginWithWalletDispatch={showLoginModalDispatch}
+        showLoginModalWithRedirectToAskQuestionPage={showLoginModalDispatch}
         showMenu={showLeftMenuDispatch}
         redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         faqQuestions={faqQuestions}
@@ -142,7 +138,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
-    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
+
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
     toggleEditDocumentationDispatch: bindActionCreators(toggleEditDocumentation, dispatch),

@@ -25,10 +25,11 @@ export function hideSignInModal() {
     type: HIDE_SIGN_IN_MODAL,
   };
 }
-export function loginWithWallet({ t }, isNewPostCreationAfterLogin = false) {
+export function loginWithWallet({ t, isTorus = false }, isNewPostCreationAfterLogin = false) {
   return {
     type: LOGIN_WITH_WALLET,
     t,
+    isTorus,
     isNewPostCreationAfterLogin,
   };
 }

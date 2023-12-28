@@ -46,6 +46,7 @@ export { default as SendTokens } from './SendTokens';
 export { default as Upload } from './Upload';
 export { default as StrangerBig } from './StrangerBig';
 export { default as ArrowRight } from './ArrowRight';
+export { default as MetaMaskLogo } from './MetaMaskLogo';
 export { default as ArrowLeftThin } from './ArrowLeftThin';
 export { default as Choise } from './Choise';
 export { default as Newbie } from './Newbie';

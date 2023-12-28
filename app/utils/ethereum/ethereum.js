@@ -1,17 +1,28 @@
-import { BigNumber, Contract, ethers } from 'ethers';
+import Torus from '@toruslabs/torus-embed';
 import { deleteCookie, getCookie, setCookie } from 'app/utils/cookie';
+import {
+  envType,
+  MATIC,
+  POLYGON,
+  POLYGON_TESTNET,
+  PROD_ENV,
+} from 'containers/EthereumProvider/constants';
+import { BigNumber, Contract, ethers } from 'ethers';
+import { CONNECTED_WALLET } from 'utils/constants';
 
 import { sendDispatcherTransactionMethod } from 'utils/ethereum/dispatcher';
 import { sendMetaTransactionMethod } from 'utils/ethereum/metaTransactions';
-import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 import { sendTransactionMethod } from 'utils/ethereum/transactions';
-import { CONNECTED_WALLET } from 'utils/constants';
+import { TRANSACTION_LIST, writeTransactionList } from 'utils/transactionsListManagement';
 
 import PeeranhaCommunity from '../../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
 import PeeranhaContent from '../../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaToken from '../../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaUser from '../../../../peeranha-subgraph/abis/PeeranhaUser.json';
+
 export const NETWORK_ID = 'networkid';
+const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
+const buildEnvType = envType[process.env.ENV];
 
 class EthereumService {
   constructor(data) {
@@ -62,6 +73,20 @@ class EthereumService {
     this.sendTransaction = sendTransactionMethod;
     this.sendMetaTransaction = sendMetaTransactionMethod;
     this.sendDispatcherTransaction = sendDispatcherTransactionMethod;
+    this.chains = [
+      {
+        id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
+        token: MATIC,
+        label: networkLabel,
+        // rpcUrl: process.env.ETHEREUM_NETWORK,
+      },
+      {
+        id: `0x${Number(process.env.EDGEWARE_CHAIN_ID).toString(16)}`,
+        token: 'EDG',
+        label: 'Edgeware',
+        rpcUrl: process.env.EDGEWARE_NETWORK,
+      },
+    ];
   }
 
   setData = (data) => {
@@ -155,13 +180,12 @@ class EthereumService {
     );
     if (transactionList && transactionList.length) {
       transactionList.map(async (transaction) => {
-        this.transactionList.push(transaction);
-        this.transactionList.find(
-          (transactionFromList) =>
-            transactionFromList.transactionHash === transaction.transactionHash,
-        ).result = await this[
-          this.providerForWaiting[Number(transaction.network)]
-        ].waitForTransaction(transaction.transactionHash);
+        this.transactionList.push({
+          ...transaction,
+          result: await this[
+            this.providerForWaiting[Number(transaction.network)]
+          ].waitForTransaction(transaction.transactionHash),
+        });
 
         setTimeout(() => {
           const index = this.transactionList
@@ -174,57 +198,94 @@ class EthereumService {
         }, '30000');
 
         this.setTransactionList(this.transactionList);
-        localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+        writeTransactionList(this.transactionList, 5);
       });
     }
     this.setTransactionList(this.transactionList);
-    localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+    writeTransactionList(this.transactionList, 6);
   };
   chainCheck = async (network) => {
-    if (network === undefined) {
-      network = getCookie(NETWORK_ID);
-    }
-    const chainId = this.CHAIN_IDS[Number(network) || 0];
-
-    const chainIdHex = `0x${Number(chainId).toString(16)}`;
-    if (this.connectedChain.id !== chainIdHex) {
-      const chainChanged = await this.setChain({
-        chainId: `0x${Number(chainId).toString(16)}`,
-      });
-      if (chainChanged) {
-        setCookie({
-          name: NETWORK_ID,
-          value: JSON.stringify(network),
-          options: {
-            defaultPath: true,
-            allowSubdomains: true,
-          },
-        });
-      } else {
-        throw new Error('Set chain rejected');
+    try {
+      if (network === undefined) {
+        network = getCookie(NETWORK_ID);
       }
+      const chainId = this.CHAIN_IDS[Number(network) || 0];
+      const chainIdHex = `0x${Number(chainId).toString(16)}`;
+      if (
+        this.torus
+          ? Number(this.provider.network.chainId) !== Number(chainId)
+          : this.connectedChain.id !== chainIdHex
+      ) {
+        let chainChanged;
+        if (this.torus) {
+          const chain = this.chains.find(({ id }) => id === chainIdHex);
+          await this.torus.setProvider({
+            host: chain.rpcUrl,
+            chainId: parseInt(chain.id, 10),
+            networkName: chain.label,
+          });
+          chainChanged = true;
+        } else {
+          chainChanged = await this.setChain({
+            chainId: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
+          });
+        }
+
+        if (chainChanged) {
+          setCookie({
+            name: NETWORK_ID,
+            value: Number(network),
+            options: {
+              defaultPath: true,
+              allowSubdomains: true,
+            },
+          });
+        } else {
+          throw new Error('Set chain rejected');
+        }
+      }
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
-  walletLogIn = async (previouslyConnectedWallet) => {
+  walletLogIn = async (previouslyConnectedWallet, isTorus) => {
     try {
       document.getElementsByTagName('body')[0].style.position = 'fixed';
     } catch (err) {}
+    let signer;
 
-    if (previouslyConnectedWallet) {
-      await this.connect({ autoSelect: previouslyConnectedWallet });
+    if (isTorus) {
+      this.torus = new Torus();
+      await this.torus.init({
+        buildEnv: buildEnvType,
+        showTorusButton: false,
+        network: {
+          chainId: 80001,
+          networkName: networkLabel,
+        },
+      });
+      await this.torus.login();
+      this.provider = new ethers.providers.Web3Provider(this.torus.provider, 'any');
+      signer = await this.provider.getSigner();
+      this.selectedAccount = (await signer.getAddress()).toLowerCase();
     } else {
-      await this.connect();
+      if (previouslyConnectedWallet) {
+        await this.connect({ autoSelect: previouslyConnectedWallet });
+      } else {
+        await this.connect();
+      }
+
+      if (!this.connectedWallets?.length) {
+        document.getElementsByTagName('body')[0].style.position = 'relative';
+        deleteCookie(CONNECTED_WALLET);
+        return;
+      }
+
+      this.provider = new ethers.providers.Web3Provider(this.wallet.provider, 'any');
+      signer = await this.provider.getSigner();
     }
 
-    if (!this.connectedWallets?.length) {
-      document.getElementsByTagName('body')[0].style.position = 'relative';
-      deleteCookie(CONNECTED_WALLET);
-      return;
-    }
-
-    this.provider = new ethers.providers.Web3Provider(this.wallet.provider, 'any');
-    const signer = await this.provider.getSigner();
     this.contractUser = new Contract(process.env.USER_ADDRESS, PeeranhaUser, signer);
     this.contractCommunity = new Contract(process.env.COMMUNITY_ADDRESS, PeeranhaCommunity, signer);
     this.contractContent = new Contract(process.env.CONTENT_ADDRESS, PeeranhaContent, signer);
@@ -236,7 +297,13 @@ class EthereumService {
   };
 
   resetWalletState = async () => {
-    await this.disconnect(this.wallet);
+    if (this.torus) {
+      await this.torus.logout();
+      await this.torus.cleanUp();
+    } else {
+      await this.disconnect(this.wallet);
+    }
+
     deleteCookie(CONNECTED_WALLET);
     this.selectedAccount = null;
   };

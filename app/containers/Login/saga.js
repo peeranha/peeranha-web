@@ -26,6 +26,7 @@ import {
   signInWithEmailSuccess,
   verifyEmailSuccess,
   verifyEmailError,
+  hideSignInModal,
 } from './actions';
 
 import {
@@ -38,15 +39,16 @@ import {
 
 import { selectEthereum } from '../EthereumProvider/selectors';
 
-export function* loginWithWalletWorker({ t }) {
+export function* loginWithWalletWorker({ t, isTorus }) {
   try {
+    yield put(hideSignInModal());
     const ethereumService = yield select(selectEthereum);
     const isNewPostCreationAfterLogin = yield select(selectIsNewPostCreationAfterLogin());
 
     let currentAccount;
     let metaMaskUserAddress = null;
 
-    metaMaskUserAddress = yield call(ethereumService.walletLogIn);
+    metaMaskUserAddress = yield call(ethereumService.walletLogIn, null, isTorus);
 
     if (!metaMaskUserAddress) {
       throw new WebIntegrationError(t('login.userIsNotSelected'));
@@ -61,7 +63,7 @@ export function* loginWithWalletWorker({ t }) {
       profileInfo = emptyProfile(currentAccount);
     }
 
-    const connectedWalletLabel = ethereumService.connectedWallets[0].label;
+    const connectedWalletLabel = isTorus ? 'TorusRaw' : ethereumService.connectedWallets[0].label;
 
     setCookie({
       name: CONNECTED_WALLET,
