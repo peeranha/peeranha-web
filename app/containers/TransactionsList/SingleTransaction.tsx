@@ -38,7 +38,7 @@ export const SingleTransaction: React.FC<TransactionProps> = ({
       <div css={styles.singleTransactionBlock}>
         {(
           isSuiBlockchain
-            ? transaction.transactionHash.length === 44
+            ? transaction?.transactionHash?.length === 44
             : ethers.utils.isHexString(transaction.transactionHash, 32)
         ) ? (
           <A
