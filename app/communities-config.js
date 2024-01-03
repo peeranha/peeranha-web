@@ -62,6 +62,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/engenious/engenious-logo.svg',
           styles: EngeniousStyles,
         },
+        '3-0xef2e1fe9b0499e032bfe696cb19a464067da7f27b85256a9deedf57e7f992a09': {
+          origin: `https://sui-test${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiMainStyles,
+        },
       }
     : {
         '1-1': {
@@ -167,8 +172,18 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/launchpad/logo.svg',
           styles: LaunchpadStyles,
         },
+        '1-24': {
+          origin: 'https://polygon-test.peeranha.io',
+          src: 'https://images.peeranha.io/communities/polygon/logo.svg',
+          styles: PolygonStyles,
+        },
         '2-1': {
           origin: 'https://edgeware.peeranha.io',
+          src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
+          styles: EdgewareStyles,
+        },
+        '2-2': {
+          origin: 'https://edgeware-test.peeranha.io',
           src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
           styles: EdgewareStyles,
         },
