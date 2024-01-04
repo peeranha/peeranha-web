@@ -54,7 +54,12 @@ export function* suggestTagWorker({ communityId, tag, reset }) {
     }
     yield put(suggestTagSuccess());
     yield call(reset);
-    yield call(createdHistory.push, routes.communityTags(communityId));
+    if (
+      window.location.pathname === `/tags/community/${communityId}/create` ||
+      window.location.pathname === `/tags/create`
+    ) {
+      yield call(createdHistory.push, routes.communityTags(communityId));
+    }
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
