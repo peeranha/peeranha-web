@@ -530,7 +530,7 @@ export const historiesQueryGraph = `
   query (
    $postId: ID!,
  ) {
-    histories (
+    history (
       orderBy: timeStamp,
       where: {post: $postId}
     ) {
