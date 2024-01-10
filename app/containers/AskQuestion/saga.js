@@ -28,7 +28,7 @@ import {
 } from 'components/QuestionForm/constants';
 
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
-import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
+import { isValid } from 'containers/EthereumProvider/saga';
 import { postSuiQuestion } from 'utils/sui/questionsManagement';
 import { CREATE_POST_EVENT_NAME, waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectEthereum } from '../EthereumProvider/selectors';
@@ -217,13 +217,9 @@ function* qetExistingQuestionsWorker({ query }) {
 
 export function* checkReadinessWorker({ buttonId }) {
   const profileInfo = yield select(makeSelectProfileInfo());
-  if (isSuiBlockchain) {
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new ApplicationError('Not authorized');
-    }
-  } else {
-    yield call(isAuthorized);
+  if (!profileInfo) {
+    yield put(showLoginModal());
+    throw new ApplicationError('Not authorized');
   }
 
   yield call(isValid, {

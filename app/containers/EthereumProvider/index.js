@@ -16,8 +16,6 @@ import logo from 'images/LogoBlackOnboard.svg?inline';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-
-import torusModule from './torusModule';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import { addToast } from '../Toast/actions';
 import {
@@ -32,23 +30,14 @@ import {
 import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV, envType } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
-const buildEnvType = envType[process.env.ENV];
 const injected = injectedModule();
 
-const torus = torusModule({
-  buildEnv: buildEnvType,
-  showTorusButton: false,
-  network: {
-    chainId: process.env.CHAIN_ID,
-    networkName: networkLabel,
-  },
-});
 const styles = singleCommunityStyles();
 
 const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
 
 const initWeb3Onboard = init({
-  wallets: [torus, injected],
+  wallets: [injected],
   chains: [
     {
       id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,

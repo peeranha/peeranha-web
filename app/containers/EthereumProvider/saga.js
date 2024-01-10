@@ -9,7 +9,7 @@ import {
   selectPermissions,
 } from 'containers/AccountProvider/selectors';
 
-import { loginWithWallet } from 'containers/Login/actions';
+import { showLoginModal } from 'containers/Login/actions';
 
 import { updateAccWorker, isAvailableAction } from 'containers/AccountProvider/saga';
 
@@ -42,7 +42,7 @@ export function* isAuthorized() {
   const profileInfo = yield select(makeSelectProfileInfo());
 
   if (!profileInfo) {
-    yield put(loginWithWallet({ metaMask: true }));
+    yield put(showLoginModal());
     throw new ApplicationError('Not authorized');
   }
 }

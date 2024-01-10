@@ -1,12 +1,6 @@
 import Torus from '@toruslabs/torus-embed';
 import { deleteCookie, getCookie, setCookie } from 'app/utils/cookie';
-import {
-  envType,
-  MATIC,
-  POLYGON,
-  POLYGON_TESTNET,
-  PROD_ENV,
-} from 'containers/EthereumProvider/constants';
+import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from 'containers/EthereumProvider/constants';
 import { BigNumber, Contract, ethers } from 'ethers';
 import { CONNECTED_WALLET } from 'utils/constants';
 
@@ -22,7 +16,6 @@ import PeeranhaUser from '../../../../peeranha-subgraph/abis/PeeranhaUser.json';
 
 export const NETWORK_ID = 'networkid';
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
-const buildEnvType = envType[process.env.ENV];
 
 class EthereumService {
   constructor(data) {
@@ -254,14 +247,14 @@ class EthereumService {
       document.getElementsByTagName('body')[0].style.position = 'fixed';
     } catch (err) {}
     let signer;
-
     if (isTorus) {
       this.torus = new Torus();
       await this.torus.init({
-        buildEnv: buildEnvType,
-        showTorusButton: false,
+        buildEnv: 'production',
+        showTorusButton: true,
         network: {
-          chainId: 80001,
+          buildEnv: 'production',
+          chainId: Number(process.env.CHAIN_ID),
           networkName: networkLabel,
         },
       });
