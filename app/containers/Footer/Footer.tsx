@@ -70,7 +70,7 @@ const Footer: React.FC = (): JSX.Element => {
           }}
         >
           {isSingleCommunityMode || isSuiBlockchain ? (
-            <a css={styles.infoPoweredBy} href={process.env.APP_LOCATION}>
+            <a css={styles.infoPoweredBy} href={`${process.env.APP_LOCATION}/feed`}>
               <Trans
                 i18nKey="common.poweredBy"
                 values={{ year: new Date().getFullYear() }}

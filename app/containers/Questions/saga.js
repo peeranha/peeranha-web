@@ -13,10 +13,10 @@ import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 import { GET_QUESTIONS } from './constants';
 import { getQuestionsSuccess, getQuestionsError } from './actions';
-import { HIDDEN_COMMUNITIES_ID } from '../Communities/constants';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();

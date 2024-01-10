@@ -82,7 +82,7 @@ export const getSuiUserById = async (id: string, communities: any) => {
 export const getSuiUsersByCommunityId = async (communityId: string, communities: any) => {
   const data = await getDataFromIndexer(usersByCommunityQuery, { communityId });
   return data.usercommunityrating.map((users: UsersByCommunityId) =>
-    userFromIndexerResponse(users.user[0], communities),
+    userFromIndexerResponse(users.user, communities),
   );
 };
 

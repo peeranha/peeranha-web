@@ -76,6 +76,9 @@ export async function sendDispatcherTransactionMethod(
     if (response?.body?.transactionHash) {
       pendingTransaction.transactionHash = response.body.transactionHash;
       localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+      console.log('Transaction hash: ', response.body.transactionHash);
+      const timestamp = Date.now();
+      console.log('Timestamp:', timestamp);
     } else {
       pendingTransaction.result = { status: 2 };
     }

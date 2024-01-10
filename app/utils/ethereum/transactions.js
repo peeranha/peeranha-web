@@ -75,6 +75,10 @@ export async function sendTransactionMethod(
       .connect(this.provider.getSigner(actor))
       [action](...data);
 
+    console.log('Transaction hash: ', transaction.hash);
+    const timestamp = Date.now();
+    console.log('Timestamp:', timestamp);
+
     this.transactionList.push({
       action,
       transactionHash: transaction.hash,

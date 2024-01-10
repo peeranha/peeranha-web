@@ -39,7 +39,6 @@ import usersIcon from 'images/users.svg?external';
 import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
-import FreeTrialBanner from 'components/FreeTrialBanner';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import { svgDraw } from 'components/Icon/IconStyled';
 
@@ -160,7 +159,6 @@ const MainLinks = ({
   pinnedItemMenu,
   changeLocale,
   locale,
-  isMenuVisible,
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
@@ -168,9 +166,9 @@ const MainLinks = ({
 
   const singleCommId = isSingleCommunityWebsite();
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
-  const isModeratorModeSingleCommunity = singleCommId
-    ? hasCommunityModeratorRole(getPermissions(profile), singleCommId) || isProtocolAdmin
-    : false;
+  const isModeratorMode =
+    isProtocolAdmin ||
+    (singleCommId ? hasCommunityModeratorRole(getPermissions(profile), singleCommId) : false);
 
   const isAdministratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) || isProtocolAdmin
@@ -312,9 +310,7 @@ const MainLinks = ({
           </A1>
         )}
 
-        {(hasGlobalModeratorRole() ||
-          isModeratorModeSingleCommunity ||
-          (isSuiBlockchain && isProtocolAdmin)) && (
+        {(hasGlobalModeratorRole() || isModeratorMode || (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
             {t(`common.users`)}
@@ -335,13 +331,10 @@ const MainLinks = ({
       <div css={styles.dividerLinks} />
 
       {Boolean(singleCommId) &&
-        (documentationMenu.length > 0 || isModeratorModeSingleCommunity) &&
-        !isSuiBlockchain && (
+        (documentationMenu.length > 0 || isModeratorMode || isAdministratorModeSingleCommunity) && (
           <Documentation
             documentationMenu={documentationMenu}
-            isModeratorModeSingleCommunity={
-              isModeratorModeSingleCommunity || isAdministratorModeSingleCommunity
-            }
+            isModeratorModeSingleCommunity={isModeratorMode || isAdministratorModeSingleCommunity}
             toggleEditDocumentation={toggleEditDocumentation}
             match={match}
             pinnedItemMenuId={pinnedItemMenu.id}

@@ -55,14 +55,6 @@ const Header: React.FC = (): JSX.Element => {
             >
               {t('homePage.service')}
             </span>
-            <a
-              className="df jcc aic fz14"
-              href="https://docs.google.com/forms/d/1CUJdcntRUtavuURb0fcvjakfhVDYl6Q5nSjESth_Evo/edit"
-              target="_blank"
-              css={styles.linkButton}
-            >
-              {t('homePage.signUp')}
-            </a>
             <button
               className="df jcc aic fz14"
               css={styles.button}

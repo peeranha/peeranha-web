@@ -15,9 +15,12 @@ export const styles: Record<string, CSSObject> = {
 
   footerCommunityMode: {
     minHeight: '150px',
-    background: isSuiFooter
-      ? 'rgb(234, 247, 255)'
-      : colors.footerBackgroundColor || colors.mainBackground || 'rgb(234, 236, 244)',
+    background: colors.mainBackground || isSuiFooter ? 'rgb(245,252,255)' : 'rgb(234, 236, 244)',
+    '@media (min-width: 991px)': {
+      background: isSuiFooter
+        ? colors.footerBackgroundColor || 'rgb(234, 247, 255)'
+        : colors.footerBackgroundColor || colors.mainBackground || 'rgb(234, 236, 244)',
+    },
   },
 
   logo: {
@@ -77,6 +80,7 @@ export const styles: Record<string, CSSObject> = {
     borderBottom: `1px solid ${colors.footerBorderColor || '#c2c6d8'}`,
     margin: isSuiFooter ? '0 0 32px' : '32px',
     '@media (max-width: 991px)': {
+      display: isSuiFooter ? 'none' : 'block',
       margin: '28px 16px',
     },
   },

@@ -9,6 +9,7 @@ import { updateAcc, emptyProfile, emailSignIn, verifyEmail } from 'utils/account
 import { WebIntegrationError } from 'utils/errors';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { setCookie } from 'utils/cookie';
+import { CONNECTED_WALLET } from 'utils/constants';
 
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
@@ -63,7 +64,7 @@ export function* loginWithWalletWorker({ t }) {
     const connectedWalletLabel = ethereumService.connectedWallets[0].label;
 
     setCookie({
-      name: 'connectedWallet',
+      name: CONNECTED_WALLET,
       value: connectedWalletLabel,
     });
     setCookie({

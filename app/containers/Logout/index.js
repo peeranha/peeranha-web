@@ -15,7 +15,7 @@ import { deleteCookie } from 'utils/cookie';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DAEMON, isSuiBlockchain } from 'utils/constants';
+import { DAEMON, isSuiBlockchain, CONNECTED_SUI_WALLET } from 'utils/constants';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -31,7 +31,7 @@ export const Logout = /* istanbul ignore next */ ({ logoutDispatch, children, wa
       wallet.select(wallet.name).then(() =>
         wallet.disconnect().then(() => {
           logoutDispatch();
-          deleteCookie('connectedWallet');
+          deleteCookie(CONNECTED_SUI_WALLET);
         }),
       );
     }

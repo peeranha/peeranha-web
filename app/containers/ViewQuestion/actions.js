@@ -160,19 +160,21 @@ export function saveComment(questionId, ...args) {
   };
 }
 
-export function saveCommentSuccess(questionData, buttonId) {
+export function saveCommentSuccess(questionData, buttonId, commentId) {
   return {
     type: SAVE_COMMENT_SUCCESS,
     questionData,
     buttonId,
+    commentId,
   };
 }
 
-export function saveCommentErr(saveCommentError, buttonId) {
+export function saveCommentErr(saveCommentError, buttonId, commentId) {
   return {
     type: SAVE_COMMENT_ERROR,
     saveCommentError,
     buttonId,
+    commentId,
   };
 }
 

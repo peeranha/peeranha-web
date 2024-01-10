@@ -26,7 +26,7 @@ import injectReducer from 'utils/injectReducer';
 import reducer from 'containers/EditProfilePage/reducer';
 import saga from 'containers/EditProfilePage/saga';
 import { WalletContextState } from '@suiet/wallet-kit';
-import { isSuiBlockchain } from 'utils/constants';
+import { isSuiBlockchain, CONNECTED_SUI_WALLET } from 'utils/constants';
 
 type NewUserRegistrationFormProps = {
   handleSubmit: (addRole: any) => FormEventHandler<HTMLFormElement> | undefined;
@@ -55,7 +55,7 @@ const NewUserRegistrationForm: React.FC<NewUserRegistrationFormProps> = ({
   const suiLogout = () => {
     wallet.disconnect().then(() => {
       logoutDispatch();
-      deleteCookie('connectedWallet');
+      deleteCookie(CONNECTED_SUI_WALLET);
       dispatch(reset('newUserRegistrationForm'));
     });
   };

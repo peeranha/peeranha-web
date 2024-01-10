@@ -5,7 +5,7 @@ export const styles = {
     padding: '20px 0px',
     maxWidth: '70%',
     '@media only screen and (max-width: 1280px)': {
-      maxWidth: '50%',
+      maxWidth: '60%',
     },
     '@media only screen and (max-width: 768px)': {
       paddingBottom: '10px',
@@ -28,7 +28,8 @@ export const styles = {
       paddingTop: '10px',
     },
   },
-  TagFilter: {
+  tagFilter: {
+    overflow: 'visible !important',
     color: 'var(--text-light)',
     border: 'var(--color-borderColor)',
     borderRadius: 'var(--border-radius)',

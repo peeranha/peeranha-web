@@ -471,6 +471,7 @@ MainUserInformation.propTypes = {
   account: PropTypes.string,
   locale: PropTypes.string,
   redirectToEditProfilePage: PropTypes.func,
+  userAchievementsLength: PropTypes.number,
 };
 
 export default React.memo(MainUserInformation);

@@ -149,6 +149,9 @@ const selectChangeQuestionTypeError = () =>
 const selectIds = () =>
   createSelector(selectViewQuestionDomain, (substate) => [...substate.toJS().ids]);
 
+const selectCommentIdsInTransaction = () =>
+  createSelector(selectViewQuestionDomain, (substate) => substate.get('commentIdsInTransaction'));
+
 const selectHistories = () =>
   createSelector(selectViewQuestionDomain, (substate) => substate.get('histories'));
 
@@ -192,4 +195,5 @@ export {
   selectHistories,
   selectHistoriesError,
   selectHistoriesLoading,
+  selectCommentIdsInTransaction,
 };

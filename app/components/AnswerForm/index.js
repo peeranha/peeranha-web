@@ -22,6 +22,8 @@ import FormBox from 'components/Form';
 import BlockedInfoArea from 'components/BlockedInfoArea';
 
 import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
+import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
+import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
 
 export const PreviewWrapper = styled.div`
   background: linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
@@ -48,6 +50,7 @@ export const AnswerForm = ({
   account,
   isMinusReputation,
   isHasRole,
+  transactionInPending,
 }) => {
   const { t } = useTranslation();
 
@@ -78,13 +81,18 @@ export const AnswerForm = ({
         />
       )}
 
-      <Button
-        id={sendButtonId}
-        disabled={sendAnswerLoading || isAnswered || !account}
-        type="submit"
-      >
-        {submitButtonName}
-      </Button>
+      {sendAnswerLoading && transactionInPending ? (
+        <TransactionBanner />
+      ) : (
+        <Button
+          id={sendButtonId}
+          disabled={sendAnswerLoading || isAnswered || !account}
+          type="submit"
+          className={(sendAnswerLoading || isAnswered || !account) && 'op80'}
+        >
+          {submitButtonName}
+        </Button>
+      )}
     </FormBox>
   );
 };
@@ -122,6 +130,7 @@ export default React.memo(
     const account = makeSelectAccount()(state);
 
     return {
+      transactionInPending: selectTransactionInPending()(state),
       account,
       enableReinitialize: true,
       isOfficialRepresentative,

@@ -12,7 +12,7 @@ import {
 } from './actions';
 
 type CommunityDocumentationMenu = {
-  documentationJSON: string;
+  documentationJson: string;
 };
 
 export function* getDocumentationMenuWorker(props: { communityId: number }): Generator<any> {
@@ -27,7 +27,7 @@ export function* getDocumentationMenuWorker(props: { communityId: number }): Gen
     }
 
     const documentationMenu = JSON.parse(
-      (documentation as CommunityDocumentationMenu).documentationJSON,
+      (documentation as CommunityDocumentationMenu).documentationJson,
     );
 
     const clearDocumentationMenu = documentationMenu.documentations.filter(

@@ -15,19 +15,11 @@ import { getPostRoute } from 'routes-config';
 
 const fonts = singleCommunityFonts();
 
-const Title = ({
-  locale,
-  title,
-  id,
-  questionBounty,
-  postType,
-  translation,
-  isAutotranslationEnable,
-}) => {
+const Title = ({ locale, title, id, questionBounty, postType, translation }) => {
   const { t } = useTranslation();
   const link = getPostRoute({ postType, id, title });
   let translatedTitle = title;
-  if (isAutotranslationEnable && translation) {
+  if (translation) {
     translatedTitle = translation.title;
   }
 

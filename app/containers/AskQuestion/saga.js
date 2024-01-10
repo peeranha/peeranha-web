@@ -109,12 +109,14 @@ export function* postQuestionWorker({ val }) {
       yield put(transactionCompleted());
       yield put(askQuestionSuccess(id));
 
-      yield call(
-        createdHistory.push,
-        postType === POST_TYPE.documentation
-          ? routes.documentation(id, questionData.title)
-          : routes.questionView(id, questionData.title, false),
-      );
+      if (window.location.pathname === '/ask' || postType === POST_TYPE.documentation) {
+        yield call(
+          createdHistory.push,
+          postType === POST_TYPE.documentation
+            ? routes.documentation(id, questionData.title)
+            : routes.questionView(id, questionData.title, false),
+        );
+      }
     } else {
       const ethereumService = yield select(selectEthereum);
       const selectedAccount = yield select(makeSelectAccount());
@@ -190,13 +192,14 @@ export function* postQuestionWorker({ val }) {
       }
       yield call(waitForPostTransactionToIndex, transaction.transactionHash);
       yield put(askQuestionSuccess(id));
-
-      yield call(
-        createdHistory.push,
-        postType === POST_TYPE.documentation
-          ? routes.documentation(id, questionData.title)
-          : routes.questionView(id, questionData.title, false),
-      );
+      if (window.location.pathname === '/ask' || postType === POST_TYPE.documentation) {
+        yield call(
+          createdHistory.push,
+          postType === POST_TYPE.documentation
+            ? routes.documentation(id, questionData.title)
+            : routes.questionView(id, questionData.title, false),
+        );
+      }
     }
   } catch (err) {
     if (isSuiBlockchain) {

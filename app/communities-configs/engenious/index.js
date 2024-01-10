@@ -1,10 +1,10 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-const domainName = 'https://suins.io/';
+const domainName = 'https://peeranha.io/';
 
 export const customSubHeaderConfig = {
-  design: 'suiNS_style',
+  design: 'Engenious_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -165,80 +165,85 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const SuiNSStyles = {
-  name: 'suins',
+export const EngeniousStyles = {
+  name: 'engenious',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/suins/suins.svg',
-
+  signUpPageLogo: 'https://images.peeranha.io/communities/engenious/engenious-logo.svg',
+  favicon: 'https://images.peeranha.io/communities/engenious/engenious-favicon.svg',
   colors: {
-    appWindowsColor: '#2b5797',
-    appSafarieColor: '#5bbad5',
-    mainSubHeaderBgColor: 'rgb(255,255,255)',
-
-    mainBackground: 'rgba(232, 231, 236, 1)',
-
-    linkColor: 'rgba(55, 101, 227, 1)',
-    linkColorTransparent: 'rgba(55, 101, 227, 1)',
-    headerPrimary: 'rgba(55, 101, 227, 1)',
-    commentOption: 'rgba(55, 101, 227, 1)',
-    contentHeader: 'rgba(55, 101, 227, 1)',
+    mainSubHeaderBgColor: 'rgba(255, 255, 255, 1)',
+    mainBackground: 'rgba(238, 240, 246, 1)',
+    linkColor: 'rgba(61, 64, 213, 1)',
+    linkCookieColor: 'rgba(61, 64, 213, 1)',
+    linkColorTransparent: 'rgba(61, 64, 213, 1)',
+    headerPrimary: 'rgba(61, 64, 213, 1)',
+    commentOption: 'rgba(61, 64, 213, 1)',
+    contentHeader: 'rgba(61, 64, 213, 1)',
+    blockedInfoArea: 'rgba(61, 64, 213, 1)',
     transparentIconColor: '#FFFF',
-    loaderColor: 'rgba(55, 101, 227, 1)',
-    votingIconColor: 'rgba(55, 101, 227, 1)',
-    linkColorSecondary: 'rgba(55, 101, 227, 1)',
-    walletButton: 'rgba(55, 101, 227, 1)',
-    btnColor: 'rgba(55, 101, 227, 1)',
-    btnHoverColor: 'rgba(55, 101, 227, 1)',
-    btnHeaderColor: 'rgba(55, 101, 227, 1)',
-    btnHeaderHoverColor: 'rgba(55, 101, 227, 1)',
-    tagColor: 'rgba(55, 101, 227, 1)',
-    localeArrowColor: '#F3F3F3',
-    linkCookieColor: 'rgba(85, 180, 208, 1)',
-    textColor: 'rgba(55, 101, 227, 1)',
-    textColorShadow: 'rgba(55, 101, 227, 1)',
-    paginationButtonBackgroundColor: 'rgba(179, 174, 207, 1)',
-    commHeadElemColor: '#282828',
-    darkBlue: '#1a1c20',
+    loaderColor: 'rgba(61, 64, 213, 1)',
+    votingIconColor: 'rgba(61, 64, 213, 1)',
+    linkColorSecondary: 'rgba(61, 64, 213, 1)',
+    walletButton: 'rgba(61, 64, 213, 1)',
+    btnColor: 'rgba(61, 64, 213, 1)',
+    btnHoverColor: 'rgba(61, 64, 213, 1)',
+    btnHeaderColor: 'rgba(61, 64, 213, 1)',
+    btnHeaderHoverColor: 'rgba(61, 64, 213, 1)',
+    tagColor: 'rgba(61, 64, 213, 1)',
+    localeArrowColor: 'rgba(61, 64, 213, 1)',
+    textColor: 'rgba(61, 64, 213, 1)',
+    textColorShadow: 'rgba(61, 64, 213, 1)',
+    commHeadElemColor: 'rgba(20, 20, 22, 1)',
+    commLangColor: 'rgba(61, 64, 213, 1)',
+    tooltipColor: 'rgba(20, 20, 22, 1)',
+    darkBlue: 'rgba(61, 64, 213, 1)',
+    paginationButtonBackgroundColor: 'rgba(61, 64, 213, 1)',
+    paginationButtonTextColor: 'rgba(255, 255, 255, 1)',
+    footerText: 'rgba(20, 20, 22, 1)',
+    footerBackgroundColor: 'rgba(238, 240, 246, 1)',
+    userInformation: 'rgba(61, 64, 213, 0.05)',
+    pinnedPostBackground: 'rgba(61, 64, 213, 1)',
+    secondaryAdditional: 'rgba(61, 64, 213, 1)',
   },
   cookieConsentPopupStyles: {
-    background: 'rgba(33, 29, 52, 1)',
+    background: 'rgba(20, 20, 22, 1)',
     color: 'rgba(255, 255, 255, 1)',
 
     button: {
-      color: 'rgb(255,255,255)',
-      borderColor: 'rgba(55, 101, 227, 1)',
-
-      background: 'rgba(55, 101, 227, 1)',
+      color: 'rgba(255, 255, 255, 1)',
+      borderColor: 'rgba(61, 64, 213, 1)',
+      background: 'rgba(61, 64, 213, 1)',
       ':hover': {
-        background: 'rgba(55, 101, 227, 0.8)',
-        color: 'rgb(255,255,255)',
+        color: 'rgba(255,255,255, 1)',
+        borderColor: 'rgba(61, 64, 213, 1)',
+        background: 'rgba(61, 64, 213, 1)',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '3px',
+  // projectBorderRadius: '20px',
   domainName,
-  communityBorderStyle: '1px solid rgba(55, 101, 227, 1)',
+  communityBorderStyle: '2px solid rgba(61, 64, 213, 1)',
   dropDownIconStyles: css`
     path {
-      stroke: rgba(55, 101, 227, 1) !important;
-      stroke-width: 1px;
+      stroke: rgba(61, 64, 213, 1) !important;
+      stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: rgba(55, 101, 227, 1);
-      stroke-width: 1px;
+      stroke: rgba(61, 64, 213, 1);
+      stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 1px solid rgba(55, 101, 227, 1);
-    color: rgba(55, 101, 227, 1);
+    border: 2px solid rgba(61, 64, 213, 1);
+    color: rgba(61, 64, 213, 1);
     :hover {
-      background: rgba(55, 101, 227, 1) !important;
+      background: rgba(61, 64, 213, 1) !important;
     }
   `,
 };

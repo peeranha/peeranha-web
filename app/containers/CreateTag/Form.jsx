@@ -20,6 +20,7 @@ import {
   strLength20x1000,
   requiredForObjectField,
   valueHasNotBeInList,
+  withoutDoubleSpace,
 } from 'components/FormFields/validate';
 
 import { NAME_FIELD, DESCRIPTION_FIELD, FORM_COMMUNITY, FORM_NAME } from './constants';
@@ -54,7 +55,7 @@ export const Form = ({
         component={TextInputField}
         label={t('tags.name')}
         tip={t('tags.nameTip')}
-        validate={[strLength2x25, required, valueHasNotBeInList]}
+        validate={[withoutDoubleSpace, strLength2x25, required, valueHasNotBeInList]}
         warn={[strLength2x25, required, valueHasNotBeInList]}
         splitInHalf
       />
@@ -65,7 +66,7 @@ export const Form = ({
         component={TextareaField}
         label={t('tags.descriptionField')}
         tip={t('tags.descriptionFieldTip')}
-        validate={[strLength20x1000, required]}
+        validate={[withoutDoubleSpace, strLength20x1000, required]}
         warn={[strLength20x1000, required]}
         splitInHalf
       />

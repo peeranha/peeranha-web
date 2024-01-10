@@ -81,6 +81,7 @@ export const initialState = fromJS({
   histories: null,
   getHistoriesError: null,
   historiesLoading: false,
+  commentIdsInTransaction: [],
 });
 
 function viewQuestionReducer(state = initialState, action) {
@@ -103,6 +104,7 @@ function viewQuestionReducer(state = initialState, action) {
     buttonId,
     histories,
     getHistoriesError,
+    commentId,
   } = action;
 
   switch (type) {
@@ -151,13 +153,18 @@ function viewQuestionReducer(state = initialState, action) {
     case UP_VOTE:
       return state.set('upVoteLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case UP_VOTE_SUCCESS:
-      return state
-        .set('upVoteLoading', false)
-        .set('questionData', questionData)
-        .set(
-          'ids',
-          state.toJS().ids.filter((x) => x !== buttonId),
-        );
+      return state.questionData.id === questionData.id
+        ? state
+            .set('upVoteLoading', false)
+            .set('questionData', questionData)
+            .set(
+              'ids',
+              state.toJS().ids.filter((x) => x !== buttonId),
+            )
+        : state.set('upVoteLoading', false).set(
+            'ids',
+            state.toJS().ids.filter((x) => x !== buttonId),
+          );
     case UP_VOTE_ERROR:
       return state
         .set('upVoteLoading', false)
@@ -170,13 +177,18 @@ function viewQuestionReducer(state = initialState, action) {
     case DOWN_VOTE:
       return state.set('downVoteLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DOWN_VOTE_SUCCESS:
-      return state
-        .set('downVoteLoading', false)
-        .set('questionData', questionData)
-        .set(
-          'ids',
-          state.toJS().ids.filter((x) => x !== buttonId),
-        );
+      return state.questionData.id === questionData.id
+        ? state
+            .set('downVoteLoading', false)
+            .set('questionData', questionData)
+            .set(
+              'ids',
+              state.toJS().ids.filter((x) => x !== buttonId),
+            )
+        : state.set('downVoteLoading', false).set(
+            'ids',
+            state.toJS().ids.filter((x) => x !== buttonId),
+          );
     case DOWN_VOTE_ERROR:
       return state
         .set('downVoteLoading', false)
@@ -189,13 +201,18 @@ function viewQuestionReducer(state = initialState, action) {
     case MARK_AS_ACCEPTED:
       return state.set('markAsAcceptedLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case MARK_AS_ACCEPTED_SUCCESS:
-      return state
-        .set('markAsAcceptedLoading', false)
-        .set('questionData', questionData)
-        .set(
-          'ids',
-          state.toJS().ids.filter((x) => x !== buttonId),
-        );
+      return state.questionData.id === questionData.id
+        ? state
+            .set('markAsAcceptedLoading', false)
+            .set('questionData', questionData)
+            .set(
+              'ids',
+              state.toJS().ids.filter((x) => x !== buttonId),
+            )
+        : state.set('markAsAcceptedLoading', false).set(
+            'ids',
+            state.toJS().ids.filter((x) => x !== buttonId),
+          );
     case MARK_AS_ACCEPTED_ERROR:
       return state
         .set('markAsAcceptedLoading', false)
@@ -224,13 +241,19 @@ function viewQuestionReducer(state = initialState, action) {
     case DELETE_ANSWER:
       return state.set('deleteAnswerLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DELETE_ANSWER_SUCCESS:
-      return state
-        .set('questionData', questionData)
-        .set('deleteAnswerLoading', false)
-        .set(
-          'ids',
-          state.toJS().ids.filter((x) => x !== buttonId),
-        );
+      return state.questionData.id === questionData.id
+        ? state
+            .set('questionData', questionData)
+            .set('deleteAnswerLoading', false)
+            .set(
+              'ids',
+              state.toJS().ids.filter((x) => x !== buttonId),
+            )
+        : state.set('deleteAnswerLoading', false).set(
+            'ids',
+            state.toJS().ids.filter((x) => x !== buttonId),
+          );
+
     case DELETE_ANSWER_ERROR:
       return state
         .set('deleteAnswerError', deleteAnswerError)
@@ -243,13 +266,18 @@ function viewQuestionReducer(state = initialState, action) {
     case DELETE_COMMENT:
       return state.set('deleteCommentLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DELETE_COMMENT_SUCCESS:
-      return state
-        .set('questionData', questionData)
-        .set('deleteCommentLoading', false)
-        .set(
-          'ids',
-          state.toJS().ids.filter((x) => x !== buttonId),
-        );
+      return state.questionData.id === questionData.id
+        ? state
+            .set('questionData', questionData)
+            .set('deleteCommentLoading', false)
+            .set(
+              'ids',
+              state.toJS().ids.filter((x) => x !== buttonId),
+            )
+        : state.set('deleteCommentLoading', false).set(
+            'ids',
+            state.toJS().ids.filter((x) => x !== buttonId),
+          );
     case DELETE_COMMENT_ERROR:
       return state
         .set('deleteCommentError', deleteCommentError)
@@ -260,15 +288,33 @@ function viewQuestionReducer(state = initialState, action) {
         );
 
     case SAVE_COMMENT:
-      return state.set('saveCommentLoading', true).set('ids', [...state.toJS().ids, buttonId]);
-    case SAVE_COMMENT_SUCCESS:
       return state
-        .set('questionData', questionData)
-        .set('saveCommentLoading', false)
-        .set(
-          'ids',
-          state.toJS().ids.filter((x) => x !== buttonId),
-        );
+        .set('saveCommentLoading', true)
+        .set('ids', [...state.toJS().ids, buttonId])
+        .set('commentIdsInTransaction', [...state.toJS().commentIdsInTransaction, commentId]);
+    case SAVE_COMMENT_SUCCESS:
+      return state.questionData.id === questionData.id
+        ? state
+            .set('questionData', questionData)
+            .set('saveCommentLoading', false)
+            .set(
+              'ids',
+              state.toJS().ids.filter((x) => x !== buttonId),
+            )
+            .set(
+              'commentIdsInTransaction',
+              state.toJS().commentIdsInTransaction.filter((x) => x !== commentId),
+            )
+        : state
+            .set('saveCommentLoading', false)
+            .set(
+              'ids',
+              state.toJS().ids.filter((x) => x !== buttonId),
+            )
+            .set(
+              'commentIdsInTransaction',
+              state.toJS().commentIdsInTransaction.filter((x) => x !== commentId),
+            );
     case SAVE_COMMENT_ERROR:
       return state
         .set('saveCommentError', saveCommentError)
@@ -276,8 +322,11 @@ function viewQuestionReducer(state = initialState, action) {
         .set(
           'ids',
           state.toJS().ids.filter((x) => x !== buttonId),
+        )
+        .set(
+          'commentIdsInTransaction',
+          state.toJS().commentIdsInTransaction.filter((x) => x !== commentId),
         );
-
     case PAY_BOUNTY:
       return state.set('giveBountyLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case PAY_BOUNTY_SUCCESS:

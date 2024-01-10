@@ -123,7 +123,13 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editAnswerSuccess({ ...cachedQuestion }));
-    yield call(createdHistory.push, routes.questionView(questionId, title, answerId));
+    if (
+      window.location.pathname === `/discussions/${questionId}/answers/${answerId}/edit` ||
+      window.location.pathname === `/experts/${questionId}/answers/${answerId}/edit` ||
+      window.location.pathname === `/tutorials/${questionId}/answers/${answerId}/edit`
+    ) {
+      yield call(createdHistory.push, routes.questionView(questionId, title, answerId));
+    }
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));

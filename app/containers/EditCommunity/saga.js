@@ -99,8 +99,9 @@ export function* editCommunityWorker({ communityId, communityData }) {
     }
 
     yield put(editCommunitySuccess());
-
-    yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
+    if (window.location.pathname === `/communities/${communityId}/edit`) {
+      yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
+    }
   } catch (error) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(error));

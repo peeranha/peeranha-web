@@ -60,6 +60,9 @@ export const CommentOptions = ({
   changeCommentsView,
   isAllCommentsView,
   commentsNumber,
+  transactionInPending,
+  commentIds,
+  commentIdsInTransaction,
 }) => {
   const { t } = useTranslation();
   const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
@@ -100,6 +103,9 @@ export const CommentOptions = ({
             sendCommentLoading={sendCommentLoading}
             sendComment={sendComment}
             answerId={answerId}
+            transactionInPending={transactionInPending}
+            commentIds={commentIds}
+            commentIdsInTransaction={commentIdsInTransaction}
             toggleView={() => hideAddCommentForm(toggleFormButtonId)}
           />
         </CommentEditStyled>

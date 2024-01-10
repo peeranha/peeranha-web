@@ -3,7 +3,7 @@ import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
 import { css } from '@emotion/react';
 import H3 from 'components/H3';
-import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_LIGHT } from 'style-constants';
+import { BORDER_PRIMARY, BORDER_RADIUS_M, ICON_TRASPARENT_BLUE, TEXT_LIGHT } from 'style-constants';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import { bindActionCreators, compose } from 'redux';
@@ -135,6 +135,7 @@ const AISearch = ({
               position: absolute;
               top: 10px;
               right: 15px;
+              border-radius: ${BORDER_RADIUS_M};
 
               .fill {
                 fill: ${TEXT_LIGHT};
@@ -231,7 +232,7 @@ const AISearch = ({
                 <Time stroke={customColor} />
               </MediumIconStyled>
               <h4 css={styles.additionalInfoItemTitle}>{t('common.timeEfficiency')}</h4>
-              <p css={styles.additionalInfoItemContent}>{t('common.unlockPotencial')}</p>
+              <p css={styles.additionalInfoItemContent}>{t('common.unlockPotential')}</p>
             </div>
             <div css={styles.additionalInfoItem}>
               <MediumIconStyled>

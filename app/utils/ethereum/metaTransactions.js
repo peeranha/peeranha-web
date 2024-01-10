@@ -133,6 +133,10 @@ export async function sendMetaTransactionMethod(
     network: Number(network) + 1,
   });
 
+  console.log('Transaction hash: ', response.body.transactionHash);
+  const timestamp = Date.now();
+  console.log('Timestamp:', timestamp);
+
   this.transactionList.push({
     action,
     transactionHash: response.body.transactionHash,
