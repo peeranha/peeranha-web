@@ -46,6 +46,7 @@ import {
   transactionInitialised,
   transactionInPending,
 } from 'containers/EthereumProvider/actions';
+import { updateTitle } from 'utils/seo';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -139,10 +140,12 @@ export function* editQuestionWorker({ question, questionId, id2, author }) {
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editQuestionSuccess(question));
+
+    const title = updateTitle(question.title);
     if (
-      window.location.pathname === `/discussions/${questionId}/${question.title}/edit` ||
-      window.location.pathname === `/tutorials/${questionId}/${question.title}/edit` ||
-      window.location.pathname === `/experts/${questionId}/${question.title}/edit` ||
+      window.location.pathname === `/discussions/${questionId}/${title}/edit` ||
+      window.location.pathname === `/tutorials/${questionId}/${title}/edit` ||
+      window.location.pathname === `/experts/${questionId}/${title}/edit` ||
       Number(question.postType) === Number(POST_TYPE.documentation)
     ) {
       yield call(
