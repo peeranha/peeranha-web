@@ -63,7 +63,7 @@ export function* getQuestionsWorker({
     }
 
     if (!communityIdFilter && parentPage !== feed) {
-      questionsList = notHiddenCommunities
+      questionsList = !notHiddenCommunities
         ? yield call(getPosts, limit, skip, postTypes)
         : yield call(getPostsByCommunityId, limit, skip, postTypes, notHiddenCommunities, tags);
     }
