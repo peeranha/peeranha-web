@@ -251,7 +251,7 @@ class EthereumService {
       this.torus = new Torus();
       await this.torus.init({
         buildEnv: 'production',
-        showTorusButton: true,
+        showTorusButton: false,
         network: {
           buildEnv: 'production',
           chainId: Number(process.env.CHAIN_ID),
@@ -293,6 +293,7 @@ class EthereumService {
     if (this.torus) {
       await this.torus.logout();
       await this.torus.cleanUp();
+      this.torus = null;
     } else {
       await this.disconnect(this.wallet);
     }
