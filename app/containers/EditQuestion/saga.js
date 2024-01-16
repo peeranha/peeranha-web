@@ -77,7 +77,7 @@ export function* getAskedQuestionWorker({ questionId }) {
   }
 }
 
-export function* editQuestionWorker({ question, questionId, id2, author }) {
+export function* editQuestionWorker({ question, questionId, id2, author, oldTitle }) {
   try {
     const locale = yield select(makeSelectLocale());
 
@@ -141,7 +141,7 @@ export function* editQuestionWorker({ question, questionId, id2, author }) {
 
     yield put(editQuestionSuccess(question));
 
-    const title = updateTitle(question.title);
+    const title = updateTitle(oldTitle);
     if (
       window.location.pathname === `/discussions/${questionId}/${title}/edit` ||
       window.location.pathname === `/tutorials/${questionId}/${title}/edit` ||
