@@ -43,6 +43,17 @@ export async function sendTransactionMethod(
 
   const metaTransactionsAllowed = dataFromCookies === META_TRANSACTIONS_ALLOWED;
   const dispatcherTransactionsAllowed = dataFromCookies === DISPATCHER_TRANSACTIONS_ALLOWED;
+  const pendingTransactionAmount =
+    this.transactionList?.filter((transaction) => !transaction.result).length || 0;
+  if (pendingTransactionAmount) {
+    this.currentTransactionAmount += 1;
+    await new Promise((resolve) =>
+      setTimeout(resolve, this.currentTransactionAmount * 2000 + 2000),
+    );
+  } else {
+    this.currentTransactionAmount = 0;
+  }
+
   try {
     if (metaTransactionsAllowed) {
       const token = await this.getRecaptchaToken();

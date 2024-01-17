@@ -20,7 +20,7 @@ export async function sendDispatcherTransactionMethod(
   const userAddress = data.shift();
   this.transactionList.push({
     action,
-    transactionHash: JSON.stringify(data),
+    transactionHash: JSON.stringify([data, action]),
     network,
   });
   this.setTransactionList(this.transactionList);
@@ -69,7 +69,7 @@ export async function sendDispatcherTransactionMethod(
   });
 
   const pendingTransaction = this.transactionList.find(
-    (transactionFromList) => transactionFromList.transactionHash === JSON.stringify(data),
+    (transactionFromList) => transactionFromList.transactionHash === JSON.stringify([data, action]),
   );
   if (pendingTransaction) {
     if (response?.body?.transactionHash) {

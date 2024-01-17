@@ -59,6 +59,7 @@ class EthereumService {
     this.transactionInPending = data.transactionInPendingDispatch;
     this.transactionCompleted = data.transactionCompletedDispatch;
     this.providerForWaiting = ['providerReads', 'edgewareProviderReads'];
+    this.currentTransactionAmount = 0;
 
     this.previousNonce = BigNumber.from(-1);
     this.transactionList = [];
@@ -197,6 +198,7 @@ class EthereumService {
     this.setTransactionList(this.transactionList);
     writeTransactionList(this.transactionList, 6);
   };
+
   chainCheck = async (network) => {
     try {
       if (network === undefined) {
@@ -220,7 +222,7 @@ class EthereumService {
           chainChanged = true;
         } else {
           chainChanged = await this.setChain({
-            chainId: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
+            chainId: `0x${Number(chainId).toString(16)}`,
           });
         }
 
