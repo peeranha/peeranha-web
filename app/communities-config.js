@@ -29,6 +29,7 @@ import { EdgewareStyles } from './communities-configs/edgeware';
 import { SuiNSStyles } from './communities-configs/suiNS';
 import { IPFSStyles } from './communities-configs/IPFS';
 import { EngeniousStyles } from './communities-configs/engenious';
+import { CyfrinStyles } from './communities-configs/cyfrin';
 
 const communitiesConfig = {
   prod: isSuiBlockchain
@@ -258,6 +259,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/engenious/engenious-logo.svg',
           styles: EngeniousStyles,
         },
+        '3-0x06dd3239c44ec4596fcd01bedaf462bdfa7ddb30a7a8256f34b973eec3681fac': {
+          origin: `https://cyfrin${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cyfrin/logo.svg',
+          styles: CyfrinStyles,
+        },
       }
     : {
         '1-1': {
@@ -352,10 +358,10 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
-        '3-0x6320fa169fcf93bd30666e5612e799599ac6021fa59e84dab1d48fa120f56c47': {
+        '3-0x06dd3239c44ec4596fcd01bedaf462bdfa7ddb30a7a8256f34b973eec3681fac': {
           origin: `http://localhost:3000`,
-          src: 'https://images.peeranha.io/communities/ankr/logo.svg',
-          styles: AnkrStyles,
+          src: 'https://images.peeranha.io/communities/cyfrin/logo.svg',
+          styles: CyfrinStyles,
         },
       }
     : {
