@@ -549,6 +549,31 @@ export const postsByCommQueryMesh = (postTypes: string, communityIds: string) =>
   }
 }`;
 
+export const postsCountByCommQueryMesh = (postTypes: string, communityIds: string) => `
+  query (
+  $limit: Int,
+  $offset: Int
+) {
+  postsConnection (
+    condition: {
+        isDeleted: false,
+    },
+    filter: {
+      communityId: {
+            in: [${communityIds}]
+        },
+        postType: {
+            in: [${postTypes}]
+        },
+        networkId: {
+            in: [${getNetworkIds()}]
+        }
+    }
+  ) {
+    totalCount
+  }
+}`;
+
 export const postsIdsByTagsQueryMesh = /* GraphQL */ `
   query ($tagIds: [String!], $postTypes: [Int!], $first: Int, $offset: Int) {
     filterposttagbytagids(tagids: $tagIds, posttypes: $postTypes, first: $first, offset: $offset)

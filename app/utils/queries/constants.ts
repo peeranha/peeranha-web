@@ -62,3 +62,7 @@ export const GET_USER_RATING = 'getUserRating';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
+
+// Model services
+export const MESH_MODEL = 'Mesh';
+export const GRAPH_MODEL = 'TheGraph';

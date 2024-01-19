@@ -133,7 +133,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     }
 
     // get userProfile and put to STORE
-    const updatedUserInfo = yield call(getProfileInfo, user);
+    const updatedUserInfo = yield call(getProfileInfo, user, true);
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||

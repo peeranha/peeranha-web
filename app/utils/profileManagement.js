@@ -44,9 +44,9 @@ export async function uploadImg(img) {
 }
 
 /* eslint camelcase: 0 */
-export async function getProfileInfo(user) {
+export async function getProfileInfo(user, isProfilePage = false) {
   if (!user) return null;
-  const profileInfo = await getUser(user);
+  const profileInfo = await getUser(user, isProfilePage);
   let userStats;
 
   profileInfo.highestRating = profileInfo.ratings?.length

@@ -460,12 +460,13 @@ const graphServiceConfig = {
 };
 
 export const isMeshServiceConfig = () => {
+  const polygonNetworkId = 1;
+
   const singleCommunityId = Object.keys(communitiesConfig[process.env.ENV]).find(
     (id) => communitiesConfig[process.env.ENV]?.[id].origin === window.location.origin,
   );
 
-  const graphService = graphServiceConfig[process.env.ENV]?.[singleCommunityId]?.service;
-  const meshService = !(singleCommunityId && graphService === 'theGraph');
+  const meshService = !(Number(singleCommunityId?.split('-')[0]) === polygonNetworkId);
 
   return meshService;
 };

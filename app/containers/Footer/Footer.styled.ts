@@ -15,7 +15,7 @@ export const styles: Record<string, CSSObject> = {
 
   footerCommunityMode: {
     minHeight: '150px',
-    background: colors.mainBackground || isSuiFooter ? 'rgb(245,252,255)' : 'rgb(234, 236, 244)',
+    background: colors.mainBackground || (isSuiFooter ? 'rgb(245,252,255)' : 'rgb(234, 236, 244)'),
     '@media (min-width: 991px)': {
       background: isSuiFooter
         ? colors.footerBackgroundColor || 'rgb(234, 247, 255)'
@@ -67,6 +67,7 @@ export const styles: Record<string, CSSObject> = {
     '@media (max-width: 991px)': {
       margin: '0 32px 12px 16px',
       fontWeight: 400,
+      color: '#667085',
       ':last-child': {
         marginBottom: 0,
       },
@@ -86,8 +87,10 @@ export const styles: Record<string, CSSObject> = {
   },
 
   infoRules: {
+    color: colors.footerText || '#667085',
     '@media (max-width: 991px)': {
       marginBottom: '25px',
+      color: '#667085',
     },
     '> span': {
       whiteSpace: 'normal',
@@ -161,9 +164,12 @@ export const styles: Record<string, CSSObject> = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: colors.footerText || TEXT_SECONDARY,
+    color: TEXT_SECONDARY,
     fontSize: '16px',
     marginBottom: '8px',
+    '@media (min-width: 991px)': {
+      color: colors.footerText || TEXT_SECONDARY,
+    },
     ':hover': {
       color: TEXT_SECONDARY,
     },

@@ -53,6 +53,7 @@ const communityGraph = `
   creationTime
   postCount
   tagsCount
+  networkId
   followingUsers
   replyCount
   communitySite
@@ -143,6 +144,7 @@ const postGraph = `
   handle
   messengerType
   language
+  networkId
   replies (
     orderBy: postTime,
     orderDirection: desc,
@@ -317,7 +319,7 @@ export const communityQueryGraph = `
       query(
         $id: String,
       ) {
-        community(where: { id: $id }) {
+        community(id: $id ) {
           ${communityGraph}
         }
       }`;
@@ -432,7 +434,7 @@ export const documentationMenuQueryGraph = `
       ) {
         communityDocumentation (id: $id) {
             id
-            documentationJSON
+            documentationJson
          }
       }`;
 
@@ -475,11 +477,10 @@ export const replyQueryGraph = `
   query (
     $replyId: String,
   ) {
-    reply (
-      where: { id: $replyId, isDeleted: "0" },
-    ) {
+    reply (id: $replyId) {
       ${replyGraph}
   }
+}
 `;
 
 export const allAchievementsQueryGraph = `
@@ -528,9 +529,9 @@ export const currentPeriodQueryGraph = `
 
 export const historiesQueryGraph = `
   query (
-   $postId: ID!,
+   $postId: String,
  ) {
-    history (
+  histories (
       orderBy: timeStamp,
       where: {post: $postId}
     ) {

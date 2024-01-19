@@ -181,7 +181,7 @@ export const GraphStyles = {
     border: '#D0DAE6',
     linkColor: '#483AAA',
     linkCookieColor: '#483AAA',
-    linkColorTransparent: '#252535',
+    linkColorTransparent: '#483AAA',
     headerPrimary: '#483AAA',
     commentOption: '#483AAA',
     contentHeader: '#483AAA',

@@ -3,7 +3,6 @@ import { take, takeLatest, call, put, select } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
-import { isMeshServiceConfig } from 'communities-config';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getPosts, getPostsByCommunityId } from 'utils/queries/ethereumService';
@@ -12,7 +11,6 @@ import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constan
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 import { GET_QUESTIONS } from './constants';
@@ -20,7 +18,6 @@ import { getQuestionsSuccess, getQuestionsError } from './actions';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
-const isMeshService = isMeshServiceConfig();
 
 export function* getQuestionsWorker({
   limit,
@@ -85,18 +82,10 @@ export function* getQuestionsWorker({
         tags,
       );
     }
-    // questionsList.forEach((question) => {
-    //   question.isGeneral = isGeneralQuestion(question);
-    // });
-    if (isMeshService) {
-      const { postCount, updatedPosts } = questionsList;
-      const clearQuestionsList = updatedPosts.filter((item) => item.title);
+    const { postCount, updatedPosts } = questionsList;
+    const clearQuestionsList = updatedPosts.filter((item) => item.title);
 
-      yield put(getQuestionsSuccess(clearQuestionsList, undefined, postCount));
-    } else {
-      const clearQuestionsList = questionsList.filter((item) => item.title);
-      yield put(getQuestionsSuccess(clearQuestionsList, undefined, clearQuestionsList.length));
-    }
+    yield put(getQuestionsSuccess(clearQuestionsList, undefined, postCount));
   } catch (err) {
     yield put(getQuestionsError(err));
   }

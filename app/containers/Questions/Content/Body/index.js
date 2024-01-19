@@ -1,4 +1,5 @@
 import { languagesEnum } from 'app/i18n';
+import { isSuiBlockchain } from 'utils/constants';
 import { IS_MINTED_ACHIEVEMENT } from 'containers/Achievements/constants';
 import LanguageLabel from 'containers/Questions/Content/Body/LanguageLabel';
 import React from 'react';
@@ -55,9 +56,9 @@ const Body = ({
   const translation = translations?.find((t) => Number(t.language) === languagesEnum[locale]);
 
   const achievementsCount = () => {
-    const mintedUserAchievements = author.achievements?.filter(
-      (achievement) => achievement.isMinted === IS_MINTED_ACHIEVEMENT,
-    );
+    const mintedUserAchievements = isSuiBlockchain
+      ? author.achievements?.filter((achievement) => achievement.isMinted === IS_MINTED_ACHIEVEMENT)
+      : author.achievements;
     return mintedUserAchievements?.length;
   };
 

@@ -25,6 +25,7 @@ import {
   usersAnswersQueryGraph,
   postsByCommAndTagsQueryGraph,
   tagsByIdsQueryGraph,
+  replyQueryGraph,
 } from './QueriesGraph';
 import {
   usersQueryMesh,
@@ -53,6 +54,7 @@ import {
   usersAnswersQueryMesh,
   postsByCommAndTagsQueryMesh,
   tagsByIdsQueryMesh,
+  replyQueryMesh,
 } from './QueriesMesh';
 
 enum QueryName {
@@ -82,6 +84,7 @@ enum QueryName {
   UserAnswers,
   PostsByCommAndTags,
   TagsByIds,
+  Reply,
 }
 
 enum GraphService {
@@ -199,5 +202,9 @@ export const queries: {
   TagsByIds: {
     TheGraph: tagsByIdsQueryGraph,
     Mesh: tagsByIdsQueryMesh,
+  },
+  Reply: {
+    TheGraph: replyQueryGraph,
+    Mesh: replyQueryMesh,
   },
 };
