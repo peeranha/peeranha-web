@@ -101,7 +101,7 @@ export const styles = {
       height: '22px',
       top: 0,
       left: 0,
-      border: '1px solid #C2C6D8',
+      border: `1px solid #C2C6D8`,
       borderRadius: '3px',
       backgroundColor: 'rgb(255,255,255)',
     },

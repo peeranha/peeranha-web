@@ -13,17 +13,11 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { getQuestions as getQuestionsWithAnsw } from 'containers/QuestionsWithAnswersOfUser/actions';
 import { getQuestions } from 'containers/QuestionsOfUser/actions';
 
-import {
-  makeSelectAccount,
-  makeSelectAccountLoading,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectAccountLoading } from 'containers/AccountProvider/selectors';
 
 import { getUserProfile } from 'containers/DataCacheProvider/actions';
 
-import {
-  selectUsers,
-  selectUsersLoading,
-} from 'containers/DataCacheProvider/selectors';
+import { selectUsers, selectUsersLoading } from 'containers/DataCacheProvider/selectors';
 
 import injectReducer from '../../utils/injectReducer';
 import { STATE_KEY } from '../QuestionsOfUser/constants';
@@ -53,10 +47,7 @@ export const Profile = ({
   }, []);
 
   const HelmetTitle = useMemo(
-    () =>
-      `${profile?.displayName ?? t('profile.wrongUser')} | ${t(
-        'profile.profile',
-      )}`,
+    () => `${profile?.displayName ?? t('profile.wrongUser')} | ${t('profile.profile')}`,
     [profile],
   );
 
@@ -116,10 +107,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     getUserProfileDispatch: bindActionCreators(getUserProfile, dispatch),
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
-    getQuestionsWithAnswersDispatch: bindActionCreators(
-      getQuestionsWithAnsw,
-      dispatch,
-    ),
+    getQuestionsWithAnswersDispatch: bindActionCreators(getQuestionsWithAnsw, dispatch),
   };
 }
 

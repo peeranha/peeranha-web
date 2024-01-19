@@ -27,6 +27,7 @@ import { SuiMainStyles } from './communities-configs/suiMain';
 import { CartesiStyles } from './communities-configs/cartesi';
 import { EdgewareStyles } from './communities-configs/edgeware';
 import { SuiNSStyles } from './communities-configs/suiNS';
+import { GraphStyles } from './communities-configs/graph';
 import { IPFSStyles } from './communities-configs/IPFS';
 import { EngeniousStyles } from './communities-configs/engenious';
 import { CyfrinStyles } from './communities-configs/cyfrin';
@@ -222,6 +223,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/sui/logo.svg',
           styles: SuiStyles,
         },
+        '1-14': {
+          origin: 'https://thegraph.testpeeranha.io',
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
+        },
         '2-2': {
           origin: `https://demo-ankr.testpeeranha.io`,
           src: 'https://images.peeranha.io/communities/ankr/logo.svg',
@@ -346,6 +352,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/ankr/logo.svg',
           styles: AnkrStyles,
         },
+        '1-22': {
+          origin: `https://graph${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
+        },
         '2-1': {
           origin: `https://edgeware${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
@@ -365,10 +376,10 @@ const communitiesConfig = {
         },
       }
     : {
-        '1-1': {
+        '1-22': {
           origin: 'http://localhost:31000',
-          src: 'https://images.peeranha.io/communities/functionland/logo.svg',
-          styles: FunctionlandStyles,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
         },
       },
 };
@@ -429,6 +440,41 @@ const googleSiteVerificationsConfig = {
     },
     communities: {},
   },
+};
+
+const graphServiceConfig = {
+  prod: {
+    // '1-22': {
+    //   service: 'theGraph',
+    // },
+  },
+  staging: {
+    '1-14': {
+      service: 'theGraph',
+    },
+  },
+  test: {
+    '1-22': {
+      service: 'theGraph',
+    },
+  },
+  dev: {
+    '1-22': {
+      service: 'theGraph',
+    },
+  },
+};
+
+export const isMeshServiceConfig = () => {
+  const polygonNetworkId = 1;
+
+  const singleCommunityId = Object.keys(communitiesConfig[process.env.ENV]).find(
+    (id) => communitiesConfig[process.env.ENV]?.[id].origin === window.location.origin,
+  );
+
+  const meshService = !(Number(singleCommunityId?.split('-')[0]) === polygonNetworkId);
+
+  return meshService;
 };
 
 export const googleVerificationConfig = googleSiteVerificationsConfig[process.env.ENV];

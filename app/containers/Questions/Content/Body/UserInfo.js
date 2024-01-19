@@ -16,10 +16,13 @@ import { getRatingByCommunity } from 'utils/profileManagement';
 import { customRatingIconColors } from 'constants/customRating';
 import { getUserName } from 'utils/user';
 import { isBotAddress } from 'utils/properties';
+import { singleCommunityColors } from 'utils/communityManagement';
 import { t } from 'i18next';
 import { messengerData } from 'containers/ViewQuestion/BotInfo';
 import { css } from '@emotion/react';
 import { SuiNS } from 'icons/index';
+
+const colors = singleCommunityColors();
 
 export const AuthorName = Span.extend`
   width: max-content;
@@ -73,7 +76,11 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, achieve
         </>
       )}
 
-      <Span className="text-capitalize mr-3" fontSize="14" color={TEXT_SECONDARY}>
+      <Span
+        className="text-capitalize mr-3"
+        fontSize="14"
+        color={colors.secondaryTextColor || TEXT_SECONDARY}
+      >
         {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
     </A>

@@ -17,8 +17,8 @@ import {
   EDIT_TAG,
   CONTRACT_COMMUNITY,
   CONTRACT_USER,
-} from './ethConstants';
-import { getCommunities, getCommunityById, getTags, getTagsByIds } from './theGraph';
+} from './queries/constants';
+import { getCommunities, getCommunityById, getTags, getTagsByIds } from './queries/ethereumService';
 
 export const isSingleCommunityWebsite = () =>
   Object.keys(communitiesConfig).find(

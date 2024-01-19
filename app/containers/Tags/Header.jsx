@@ -173,7 +173,7 @@ export const Header = ({
           {!!tagsNumber && (
             <Span
               className="d-none d-sm-inline text-lowercase ml-3"
-              color={TEXT_SECONDARY}
+              color={colors.secondaryTextColor || TEXT_SECONDARY}
               fontSize="30"
               bold
             >

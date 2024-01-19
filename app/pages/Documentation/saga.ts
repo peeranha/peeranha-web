@@ -2,8 +2,8 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { getIpfsHashFromBytes32, getText } from 'utils/ipfs';
 import { updateDocumentationTree } from 'utils/questionsManagement';
+import { getPost } from 'utils/queries/ethereumService';
 import { updateSuiDocumentationTree } from 'utils/sui/communityManagement';
-import { getPost } from 'utils/theGraph';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getNetwork, getActualId } from 'utils/properties';
 import { isSuiBlockchain } from 'utils/constants';
