@@ -370,7 +370,7 @@ const communitiesConfig = {
           styles: SuiMainStyles,
         },
         '3-0x06dd3239c44ec4596fcd01bedaf462bdfa7ddb30a7a8256f34b973eec3681fac': {
-          origin: `http://localhost:3000`,
+          origin: `http://localhost:31000`,
           src: 'https://images.peeranha.io/communities/cyfrin/logo.svg',
           styles: CyfrinStyles,
         },

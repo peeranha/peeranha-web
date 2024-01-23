@@ -204,16 +204,23 @@ export const handleMoveCall = async (
   const sponsorSignedTransaction = await response.json();
 
   const transactionBlock = TransactionBlock.from(sponsorSignedTransaction?.transactionBlockBytes);
+  const transactionDigest = await transactionBlock.getDigest();
   transactionList.push({
     action,
-    transactionHash: await transactionBlock.getDigest(),
+    transactionHash: transactionDigest,
   });
   if (setTransactionList) {
     setTransactionList(transactionList);
   }
-  const senderSignedTransaction = await wallet.signTransactionBlock({
-    transactionBlock,
-  });
+
+  let senderSignedTransaction;
+  try {
+    senderSignedTransaction = await wallet.signTransactionBlock({
+      transactionBlock,
+    });
+  } catch (err) {
+    setTransactionResult(transactionDigest, 2);
+  }
   const provider = createSuiProvider();
 
   const executeResponse = await provider.executeTransactionBlock({
@@ -222,18 +229,15 @@ export const handleMoveCall = async (
     options: { showEffects: true },
     requestType: 'WaitForLocalExecution',
   });
-
   localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
   const result = await waitForTransactionConfirmation(executeResponse.digest);
   setTransactionResult(
     executeResponse.digest,
     executeResponse?.effects.status.status === 'failure' ? 2 : 1,
   );
-
   if (executeResponse?.effects.status.status === 'failure') {
     throw new Error('Transaction Failed');
   }
-
   return result;
 };
 
