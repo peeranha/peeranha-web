@@ -12,7 +12,7 @@ import {
 } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
-import { setTransactionResult, TRANSACTION_LIST } from 'utils/transactionsListManagement';
+import { setTransactionResult, writeTransactionList } from 'utils/transactionsListManagement';
 
 export async function sendTransactionMethod(
   network,
@@ -43,6 +43,17 @@ export async function sendTransactionMethod(
 
   const metaTransactionsAllowed = dataFromCookies === META_TRANSACTIONS_ALLOWED;
   const dispatcherTransactionsAllowed = dataFromCookies === DISPATCHER_TRANSACTIONS_ALLOWED;
+  const pendingTransactionAmount =
+    this.transactionList?.filter((transaction) => !transaction.result).length || 0;
+  if (pendingTransactionAmount) {
+    this.currentTransactionAmount += 1;
+    await new Promise((resolve) =>
+      setTimeout(resolve, this.currentTransactionAmount * 2000 + 2000),
+    );
+  } else {
+    this.currentTransactionAmount = 0;
+  }
+
   try {
     if (metaTransactionsAllowed) {
       const token = await this.getRecaptchaToken();
@@ -85,7 +96,7 @@ export async function sendTransactionMethod(
       network,
     });
     this.setTransactionList(this.transactionList);
-    localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+    writeTransactionList(this.transactionList, 10);
     this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);
     setTransactionResult(transaction.hash, result, this.transactionList, this.setTransactionList);

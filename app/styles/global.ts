@@ -34,6 +34,7 @@ export default css`
       ${key}: ${(colors as any)[key]};
     `,
     )};
+    --onboard-modal-z-index: 901;
   }
 
   body,

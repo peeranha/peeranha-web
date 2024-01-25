@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form/immutable';
 import { Map } from 'immutable';
 
 import { scrollToErrorField } from 'utils/animation';
-import Content from 'containers/Login/SignIn/Content';
+import Content from 'containers/Login/SuiSignIn/Content';
 
 import Header from './Header';
 

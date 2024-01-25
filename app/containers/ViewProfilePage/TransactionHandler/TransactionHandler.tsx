@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { css } from '@emotion/react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Span from 'components/Span';
 
@@ -28,8 +27,8 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
   const isTransactionsAllowed = getCookie(TYPE_OF_TRANSACTIONS);
-
-  const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
+  const connectedWallet = getCookie(CONNECTED_WALLET);
+  const isTorusWallet = connectedWallet === TORUS_WALLET;
 
   useEffect(() => {
     if (!isTransactionsAllowed && isTorusWallet) {
@@ -95,12 +94,14 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
       transactionTitle: t('common.transactionsText_2'),
       transactionSubtitle: t('common.transactionsChange_2'),
     },
-    defaultTransaction: {
-      transactionOption: TRANSACTIONS_ALLOWED,
-      transactionHandler: handleMetaTransactionsDisallowed,
-      transactionTitle: t('common.transactionsText_3'),
-      transactionSubtitle: t('common.transactionsChange_3'),
-    },
+    ...(connectedWallet !== 'TorusRaw' && {
+      defaultTransaction: {
+        transactionOption: TRANSACTIONS_ALLOWED,
+        transactionHandler: handleMetaTransactionsDisallowed,
+        transactionTitle: t('common.transactionsText_3'),
+        transactionSubtitle: t('common.transactionsChange_3'),
+      },
+    }),
   };
 
   return (

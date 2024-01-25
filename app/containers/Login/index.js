@@ -7,12 +7,13 @@ import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DAEMON } from 'utils/constants';
+import { DAEMON, isSuiBlockchain } from 'utils/constants';
 
 import ModalDialog from 'components/ModalDialog';
 
 import notificationsReducer from 'components/Notifications/reducer';
-import EmailForm from 'containers/Login/SignIn/EmailForm';
+import EmailForm from 'containers/Login/SuiSignIn/EmailForm';
+import EthereumLogin from 'containers/Login/EthereumSignIn/EthereumLogin';
 
 import * as selectors from './selectors';
 
@@ -42,6 +43,7 @@ export const Login = ({
   hideSignInModalDispatch,
   verifyEmailProcessing,
   signInWithEmailProcessing,
+  loginWithEthereumDispatch,
 }) => {
   const [email, setEmail] = useState('');
   const [isWalletLogin, setIsWalletLogin] = useState(false);
@@ -55,30 +57,47 @@ export const Login = ({
 
   return (
     <>
-      <ModalDialog show={showSignInModal} closeModal={hideSignInModalDispatch}>
-        {!showSentCodeModal && !showVerificationModal && (
-          <EmailForm
-            showEmailPasswordForm={showEmailPasswordFormDispatch}
-            loginWithWallet={loginWithSuiDispatch}
-            setIsWalletLogin={setIsWalletLogin}
-            signInWithEmailDispatch={signInWithEmailDispatch}
-            setEmail={setEmail}
-            signInWithEmailProcessing={signInWithEmailProcessing}
-          />
-        )}
+      {isSuiBlockchain ? (
+        <ModalDialog show={showSignInModal} closeModal={hideSignInModalDispatch}>
+          {!showSentCodeModal && !showVerificationModal && (
+            <EmailForm
+              showEmailPasswordForm={showEmailPasswordFormDispatch}
+              loginWithWallet={loginWithSuiDispatch}
+              setIsWalletLogin={setIsWalletLogin}
+              signInWithEmailDispatch={signInWithEmailDispatch}
+              setEmail={setEmail}
+              signInWithEmailProcessing={signInWithEmailProcessing}
+            />
+          )}
 
-        {showSentCodeModal && <CodeWasSent startVerifying={startVerifyingDispatch} />}
+          {showSentCodeModal && <CodeWasSent startVerifying={startVerifyingDispatch} />}
 
-        {showVerificationModal && (
-          <VerificationForm
-            email={email}
-            verifyEmail={verifyEmailDispatch}
-            signInWithEmail={signInWithEmailDispatch}
-            hideModal={hideSignInModalDispatch}
-            verifyEmailProcessing={verifyEmailProcessing}
-          />
-        )}
-      </ModalDialog>
+          {showVerificationModal && (
+            <VerificationForm
+              email={email}
+              verifyEmail={verifyEmailDispatch}
+              signInWithEmail={signInWithEmailDispatch}
+              hideModal={hideSignInModalDispatch}
+              verifyEmailProcessing={verifyEmailProcessing}
+            />
+          )}
+        </ModalDialog>
+      ) : (
+        <ModalDialog show={showSignInModal} closeModal={hideSignInModalDispatch}>
+          {showSignInModal && (
+            <EthereumLogin
+              showEmailPasswordForm={showEmailPasswordFormDispatch}
+              loginWithWallet={loginWithSuiDispatch}
+              setIsWalletLogin={setIsWalletLogin}
+              signInWithEmailDispatch={signInWithEmailDispatch}
+              setEmail={setEmail}
+              signInWithEmailProcessing={signInWithEmailProcessing}
+              loginWithEthereumDispatch={loginWithEthereumDispatch}
+              hideSignInModalDispatch={hideSignInModalDispatch}
+            />
+          )}
+        </ModalDialog>
+      )}
     </>
   );
 };

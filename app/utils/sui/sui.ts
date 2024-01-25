@@ -8,7 +8,7 @@ import { WalletContextState } from '@suiet/wallet-kit';
 import { EMAIL_LOGIN_DATA } from 'containers/Login/constants';
 import { getCookie } from 'utils/cookie';
 import { ApplicationError } from 'utils/errors';
-import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
+import { writeTransactionList } from 'utils/transactionsListManagement';
 
 // TODO: name these constants properly
 export const userLib = 'userLib';
@@ -233,7 +233,8 @@ export const handleMoveCall = async (
     options: { showEffects: true },
     requestType: 'WaitForLocalExecution',
   });
-  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
+
+  writeTransactionList(transactionList, 3);
   const result = await waitForTransactionConfirmation(executeResponse.digest);
   setTransactionResult(
     executeResponse.digest,

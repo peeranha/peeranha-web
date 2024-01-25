@@ -12,7 +12,7 @@ export const setTransactionResult = (
     pendingTransaction.result = result;
   }
   setTransactionList(transactionList);
-  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
+  writeTransactionList(transactionList, 1);
   setTimeout(() => {
     const index = transactionList
       .map((transactionFromList) => transactionFromList.transactionHash)
@@ -20,7 +20,11 @@ export const setTransactionResult = (
     if (index !== -1) {
       transactionList.splice(index, 1);
       setTransactionList(transactionList);
-      localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
+      writeTransactionList(transactionList, 2);
     }
   }, 30000);
+};
+
+export const writeTransactionList = (transactionList, number) => {
+  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(transactionList));
 };

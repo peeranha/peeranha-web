@@ -5,9 +5,9 @@ import {
   CONTRACT_TOKEN,
   CONTRACT_USER,
   ContractsMapping,
-} from 'utils/queries/constants';
+} from 'utils/ethConstants';
+import { writeTransactionList } from 'utils/transactionsListManagement';
 
-import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
 import {
   BLOCKCHAIN_SEND_META_TRANSACTION,
   callService,
@@ -67,7 +67,6 @@ export async function sendMetaTransactionMethod(
   confirmations = 1,
   token,
 ) {
-  await this.chainCheck(network);
   const metaTxContract = this[`${contract}Reads`];
   let nonce = await metaTxContract.getNonce(actor);
   console.log(`Nonce from contract: ${nonce}`);
@@ -143,7 +142,7 @@ export async function sendMetaTransactionMethod(
     network,
   });
   this.setTransactionList(this.transactionList);
-  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+  writeTransactionList(this.transactionList, 7);
 
   if (response.errorCode) {
     throw response;
@@ -161,7 +160,7 @@ export async function sendMetaTransactionMethod(
     pendingTransaction.result = result;
   }
   this.setTransactionList(this.transactionList);
-  localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+  writeTransactionList(this.transactionList, 8);
   setTimeout(() => {
     const index = this.transactionList
       .map((transactionFromList) => transactionFromList.transactionHash)
@@ -169,7 +168,7 @@ export async function sendMetaTransactionMethod(
     if (index !== -1) {
       this.transactionList.splice(index, 1);
       this.setTransactionList(this.transactionList);
-      localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+      writeTransactionList(this.transactionList, 9);
     }
   }, 30000);
 

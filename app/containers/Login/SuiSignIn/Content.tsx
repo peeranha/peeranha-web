@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { styles } from 'containers/Login/Login.styled';
 import { Wallet } from 'icons/index';
 import SuiConnectModals from 'components/SuiConnectModals';
-import { EmailFormProps } from 'containers/Login/SignIn/EmailForm';
+import { EmailFormProps } from 'containers/Login/SuiSignIn/EmailForm';
 
 const Content = ({
   loginWithWallet,

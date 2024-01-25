@@ -1,7 +1,7 @@
 import { ONE_MONTH, WEB3_TOKEN, WEB3_TOKEN_USER_ADDRESS } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
-import { ContractsMapping } from 'utils/queries/constants';
-import { setTransactionResult, TRANSACTION_LIST } from 'utils/transactionsListManagement';
+import { ContractsMapping } from 'utils/ethConstants';
+import { setTransactionResult, writeTransactionList } from 'utils/transactionsListManagement';
 import Web3Token from 'web3-token';
 import {
   BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
@@ -17,11 +17,10 @@ export async function sendDispatcherTransactionMethod(
   confirmations = 1,
   token,
 ) {
-  await this.chainCheck(network);
   const userAddress = data.shift();
   this.transactionList.push({
     action,
-    transactionHash: JSON.stringify(data),
+    transactionHash: JSON.stringify([data, action]),
     network,
   });
   this.setTransactionList(this.transactionList);
@@ -70,12 +69,12 @@ export async function sendDispatcherTransactionMethod(
   });
 
   const pendingTransaction = this.transactionList.find(
-    (transactionFromList) => transactionFromList.transactionHash === JSON.stringify(data),
+    (transactionFromList) => transactionFromList.transactionHash === JSON.stringify([data, action]),
   );
   if (pendingTransaction) {
     if (response?.body?.transactionHash) {
       pendingTransaction.transactionHash = response.body.transactionHash;
-      localStorage.setItem(TRANSACTION_LIST, JSON.stringify(this.transactionList));
+      writeTransactionList(this.transactionList, 4);
       console.log('Transaction hash: ', response.body.transactionHash);
       const timestamp = Date.now();
       console.log('Timestamp:', timestamp);

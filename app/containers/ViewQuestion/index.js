@@ -21,7 +21,7 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
 import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
-import { isSuiBlockchain, POST_TYPE } from 'utils/constants';
+import { POST_TYPE } from 'utils/constants';
 
 import {
   saveComment,
@@ -99,12 +99,9 @@ export const ViewQuestion = ({
   profile,
   loginWithSuiDispatch,
   history,
-  loginWithWalletDispatch,
 }) => {
   const { t } = useTranslation();
-  const showLoginModal = isSuiBlockchain
-    ? loginWithSuiDispatch
-    : () => loginWithWalletDispatch({ metaMask: true });
+  const showLoginModal = loginWithSuiDispatch;
   useEffect(() => {
     if (questionData) {
       const route = getRoute(questionData.postType);
