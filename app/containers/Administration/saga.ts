@@ -16,7 +16,7 @@ import {
   revokeRoleSuccess,
 } from 'containers/Administration/actions';
 
-import { getModerators } from 'utils/theGraph';
+import { getModerators } from 'utils/queries/ethereumService';
 import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE, isSuiBlockchain } from 'utils/constants';
 import { giveRolePermission, revokeRolePermission } from 'utils/accountManagement';
@@ -40,7 +40,7 @@ import {
   GIVE_COMMUNITY_MODERATOR_PERMISSION,
   REVOKE_COMMUNITY_ADMIN_PERMISSION,
   REVOKE_COMMUNITY_MODERATOR_PERMISSION,
-} from 'utils/ethConstants';
+} from 'utils/queries/constants';
 
 const addRolePermissionConstants = [
   GIVE_COMMUNITY_ADMIN_PERMISSION,

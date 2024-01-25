@@ -54,7 +54,7 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
 
   return (
     <Base>
-      <p css={{ color: colors.tooltipColor || TEXT_PRIMARY }}>{t(label)}</p>
+      <p css={{ color: colors.textColor || TEXT_PRIMARY }}>{t(label)}</p>
       {Boolean(items.length) && (
         <ul>
           {t(items, { returnObjects: true }).map((item) => (

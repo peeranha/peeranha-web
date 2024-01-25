@@ -1,13 +1,15 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+
+import { pinnedArticleMenuDraft } from 'pages/Documentation/actions';
+import { getDocumentationMenu } from 'utils/queries/ethereumService';
+import { GET_DOCUMENTATION_MENU } from 'containers/AppWrapper/constants';
+import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
+
 import {
   getDocumentationMenuSuccess,
   getDocumentationMenuError,
   setPinnedItemMenu,
 } from './actions';
-import { pinnedArticleMenuDraft } from 'pages/Documentation/actions';
-import { getDocumentationMenu } from 'utils/theGraph';
-import { GET_DOCUMENTATION_MENU } from 'containers/AppWrapper/constants';
-import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
 
 type CommunityDocumentationMenu = {
   documentationJson: string;

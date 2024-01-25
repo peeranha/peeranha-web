@@ -5,17 +5,15 @@ import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { getPosts, getPostsByCommunityId } from 'utils/theGraph';
+import { getPosts, getPostsByCommunityId } from 'utils/queries/ethereumService';
 
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 
 import { GET_QUESTIONS } from './constants';
-
 import { getQuestionsSuccess, getQuestionsError } from './actions';
 
 const feed = routes.feed();
@@ -63,7 +61,7 @@ export function* getQuestionsWorker({
     }
 
     if (!communityIdFilter && parentPage !== feed) {
-      questionsList = notHiddenCommunities
+      questionsList = !notHiddenCommunities
         ? yield call(getPosts, limit, skip, postTypes)
         : yield call(getPostsByCommunityId, limit, skip, postTypes, notHiddenCommunities, tags);
     }
@@ -84,10 +82,6 @@ export function* getQuestionsWorker({
         tags,
       );
     }
-    // questionsList.forEach((question) => {
-    //   question.isGeneral = isGeneralQuestion(question);
-    // });
-
     const { postCount, updatedPosts } = questionsList;
     const clearQuestionsList = updatedPosts.filter((item) => item.title);
 

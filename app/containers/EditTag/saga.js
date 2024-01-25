@@ -78,8 +78,12 @@ export function* editTagWorker({ tag, reset }) {
     yield put(editTagSuccess());
 
     yield call(reset);
-
-    yield call(createdHistory.push, routes.communityTags(tag.communityId));
+    if (
+      window.location.pathname === `/communities/${communityId}/tags/${tag.tagId}/edit` ||
+      window.location.pathname === `/tags/${tag.tagId}/edit`
+    ) {
+      yield call(createdHistory.push, routes.communityTags(tag.communityId));
+    }
     yield put(editTagErr());
   } catch (err) {
     if (isSuiBlockchain) {

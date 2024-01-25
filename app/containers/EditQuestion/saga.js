@@ -18,7 +18,7 @@ import { updateQuestionList } from 'containers/ViewQuestion/saga';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 import { editSuiQuestion, moderatorEditSuiQuestion } from 'utils/sui/questionsManagement';
 import { getSuiPost, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
-import { getPost } from 'utils/theGraph';
+import { getPost } from 'utils/queries/ethereumService';
 
 import {
   EDIT_QUESTION,
@@ -46,6 +46,7 @@ import {
   transactionInitialised,
   transactionInPending,
 } from 'containers/EthereumProvider/actions';
+import { updateTitle } from 'utils/seo';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -76,7 +77,7 @@ export function* getAskedQuestionWorker({ questionId }) {
   }
 }
 
-export function* editQuestionWorker({ question, questionId, id2, author }) {
+export function* editQuestionWorker({ question, questionId, id2, author, oldTitle }) {
   try {
     const locale = yield select(makeSelectLocale());
 
@@ -139,12 +140,21 @@ export function* editQuestionWorker({ question, questionId, id2, author }) {
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editQuestionSuccess(question));
-    yield call(
-      createdHistory.push,
+
+    const title = updateTitle(oldTitle);
+    if (
+      window.location.pathname === `/discussions/${questionId}/${title}/edit` ||
+      window.location.pathname === `/tutorials/${questionId}/${title}/edit` ||
+      window.location.pathname === `/experts/${questionId}/${title}/edit` ||
       Number(question.postType) === Number(POST_TYPE.documentation)
-        ? routes.documentation(questionId, question.title)
-        : routes.questionView(questionId, question.title),
-    );
+    ) {
+      yield call(
+        createdHistory.push,
+        Number(question.postType) === Number(POST_TYPE.documentation)
+          ? routes.documentation(questionId, question.title)
+          : routes.questionView(questionId, question.title),
+      );
+    }
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));

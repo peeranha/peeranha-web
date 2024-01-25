@@ -12,7 +12,7 @@ const communityStyles = singleCommunityStyles();
 
 const styles = {
   tabsBlock: {
-    borderBottom: '1px solid rgba(216, 216, 216, 1)',
+    borderBottom: `1px solid ${communityColors.dividerColor || 'rgba(216, 216, 216, 1)'}`,
     paddingBottom: '11px',
     whiteSpace: 'nowrap',
   },
@@ -22,7 +22,7 @@ const styles = {
     padding: '0 0 18px 0',
 
     '@media (min-width: 577px)': {
-      borderBottom: '1px solid rgba(216, 216, 216, 1)',
+      borderBottom: `1px solid ${communityColors.dividerColor || 'rgba(216, 216, 216, 1)'}`,
     },
   },
 
@@ -32,7 +32,7 @@ const styles = {
   },
 
   translationsText: {
-    color: 'rgba(123, 123, 123, 1)',
+    color: communityColors.secondaryTextColor || 'rgba(123, 123, 123, 1)',
     lineHeight: '20px',
   },
 

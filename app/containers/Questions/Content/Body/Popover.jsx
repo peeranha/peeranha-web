@@ -11,7 +11,7 @@ const colors = singleCommunityColors();
 
 const Base = styled.div`
   position: absolute;
-  background-color: ${BG_LIGHT};
+  background-color: ${colors.tooltipBackgroundColor || BG_LIGHT};
   z-index: 100;
   right: 0;
   top: 25px;
@@ -22,7 +22,7 @@ const Base = styled.div`
 
   white-space: nowrap;
   span {
-    color: ${TEXT_DARK};
+    color: ${colors.tooltipSecondaryColor || TEXT_DARK};
   }
 
   strong {

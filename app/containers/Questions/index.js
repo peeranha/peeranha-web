@@ -108,7 +108,7 @@ export const Questions = ({
     if (!questionFilter) {
       getPosts();
     }
-  }, [page, params.communityid, parentPage, skip, postsTypes]);
+  }, [page, params.communityid, parentPage, skip, postsTypes, communities.length]);
 
   useEffect(() => {
     if (page !== 1) {

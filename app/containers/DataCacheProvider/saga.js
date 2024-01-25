@@ -37,7 +37,7 @@ import {
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
 import { getSuiUserById } from 'utils/sui/suiIndexer';
-import { getUserStats } from 'utils/theGraph';
+import { getUserStats } from 'utils/queries/ethereumService';
 
 export function* getStatWorker() {
   try {
@@ -133,7 +133,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     }
 
     // get userProfile and put to STORE
-    const updatedUserInfo = yield call(getProfileInfo, user);
+    const updatedUserInfo = yield call(getProfileInfo, user, true);
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||

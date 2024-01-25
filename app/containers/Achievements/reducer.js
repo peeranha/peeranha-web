@@ -21,7 +21,6 @@ import {
   MINT_SUI_ACHIEVEMENT_SUCCESS,
   MINT_SUI_ACHIEVEMENT_ERROR,
 } from './constants';
-import { allAchievementsQuery } from '../../utils/ethConstants';
 
 export const initialState = fromJS({
   viewProfileAccount: null,

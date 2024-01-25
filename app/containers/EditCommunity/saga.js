@@ -19,7 +19,7 @@ import { isSuiBlockchain } from 'utils/constants';
 import { uploadImg } from 'utils/profileManagement';
 import { getActualId } from 'utils/properties';
 import { delay } from 'utils/reduxUtils';
-import { getCommunityById } from 'utils/theGraph';
+import { getCommunityById } from 'utils/queries/ethereumService';
 import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { updateSuiCommunity } from 'utils/sui/communityManagement';
 import { getFileUrl } from 'utils/ipfs';
@@ -99,8 +99,9 @@ export function* editCommunityWorker({ communityId, communityData }) {
     }
 
     yield put(editCommunitySuccess());
-
-    yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
+    if (window.location.pathname === `/communities/${communityId}/edit`) {
+      yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
+    }
   } catch (error) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(error));

@@ -26,8 +26,12 @@ import {
   UPDATE_DOCUMENTATION_TREE,
   UPVOTE_STATUS,
   VOTE_ITEM,
-} from './ethConstants';
-import { getUsersAnsweredQuestions, getUsersQuestions, historiesForPost } from './theGraph';
+} from './queries/constants';
+import {
+  getUsersQuestions,
+  getUsersAnsweredQuestions,
+  historiesForPost,
+} from './queries/ethereumService';
 
 export async function getQuestionsPostedByUser(id, limit, offset) {
   return getUsersQuestions(id, limit, offset);

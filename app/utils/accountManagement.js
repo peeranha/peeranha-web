@@ -1,10 +1,10 @@
 import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
-import { getUser } from 'utils/theGraph';
+import { getUser } from 'utils/queries/ethereumService';
 
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from './constants';
 
 import { ApplicationError } from './errors';
-import { CONTRACT_USER } from './ethConstants';
+import { CONTRACT_USER } from './queries/constants';
 
 export const emptyProfile = (account) => ({
   achievements: [],

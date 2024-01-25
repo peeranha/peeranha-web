@@ -12,7 +12,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { redirectToEditProfilePage } from 'containers/EditProfilePage/actions';
 
-import { DAEMON } from 'utils/constants';
+import { DAEMON, isSuiBlockchain } from 'utils/constants';
 
 import Profile from 'containers/Profile';
 import Achievements from 'containers/Achievements';
@@ -82,9 +82,9 @@ const ViewProfilePage = ({
   }, [userId]);
 
   const achievementsCount = () => {
-    const mintedUserAchievements = userAchievements?.filter(
-      (achievement) => achievement.isMinted === IS_MINTED_ACHIEVEMENT,
-    );
+    const mintedUserAchievements = isSuiBlockchain
+      ? userAchievements?.filter((achievement) => achievement.isMinted === IS_MINTED_ACHIEVEMENT)
+      : userAchievements;
     return account === profile?.user ? userAchievements?.length : mintedUserAchievements?.length;
   };
 
