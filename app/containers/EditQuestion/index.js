@@ -85,7 +85,7 @@ const EditQuestion = ({
         questionTitle,
       );
     },
-    [questionid, question],
+    [questionid, question, questionTitle],
   );
 
   const maxPromotingHours = useMemo(() => Math.floor(balance / PROMOTE_HOUR_COST), [balance]);
