@@ -454,7 +454,7 @@ export const postMeshShallow = `
       }
     }
     reply (
-      where: { isDeleted: "0" }
+      condition: { isDeleted: false }
     ) {
       id
     }
