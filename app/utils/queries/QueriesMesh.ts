@@ -219,6 +219,7 @@ const userMeshShallow = `
   walletAddress
   userachievement {
     id
+    isMinted
   }
   usercommunityrating {
     communityId
