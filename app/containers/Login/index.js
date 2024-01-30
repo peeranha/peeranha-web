@@ -55,7 +55,6 @@ export const Login = ({
     }
   }, [hideSignInModalDispatch, isWalletLogin]);
   const closeModal = () => {
-    console.log('AAAAAAAAAAAAAAas');
     window.location = process.env.SSR_APP_LOCATION;
     hideSignInModalDispatch();
   };
