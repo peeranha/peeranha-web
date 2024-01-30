@@ -54,6 +54,11 @@ export const Login = ({
       setIsWalletLogin(false);
     }
   }, [hideSignInModalDispatch, isWalletLogin]);
+  const closeModal = () => {
+    console.log('AAAAAAAAAAAAAAas');
+    window.location = process.env.SSR_APP_LOCATION;
+    hideSignInModalDispatch();
+  };
 
   return (
     <>
@@ -83,7 +88,7 @@ export const Login = ({
           )}
         </ModalDialog>
       ) : (
-        <ModalDialog show={showSignInModal} closeModal={hideSignInModalDispatch}>
+        <ModalDialog show={showSignInModal} closeModal={closeModal}>
           {showSignInModal && (
             <EthereumLogin
               showEmailPasswordForm={showEmailPasswordFormDispatch}

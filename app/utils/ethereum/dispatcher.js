@@ -1,6 +1,6 @@
 import { ONE_MONTH, WEB3_TOKEN, WEB3_TOKEN_USER_ADDRESS } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
-import { ContractsMapping } from 'utils/ethConstants';
+import { ContractsMapping } from 'utils/queries/constants';
 import { setTransactionResult, writeTransactionList } from 'utils/transactionsListManagement';
 import Web3Token from 'web3-token';
 import {

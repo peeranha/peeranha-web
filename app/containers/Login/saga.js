@@ -88,6 +88,8 @@ export function* loginWithWalletWorker({ t, isTorus }) {
     document.getElementsByTagName('body')[0].style.position = 'relative';
 
     yield put(loginWithWalletErr(err));
+    console.log('AAAAAAAAAAAA');
+    window.location = process.env.SSR_APP_LOCATION;
   }
 }
 
