@@ -1,4 +1,3 @@
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
   CURRENCY,
   DISPATCHER_TRANSACTIONS_ALLOWED,
@@ -23,10 +22,6 @@ export async function sendTransactionMethod(
   data,
   confirmations = 1,
 ) {
-  const singleCommId = isSingleCommunityWebsite();
-  if (singleCommId) {
-    network = singleCommId?.split('-')[0] - 1;
-  }
   let dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
   const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
   const transactionsAllowed = dataFromCookies === TRANSACTIONS_ALLOWED;
