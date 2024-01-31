@@ -135,7 +135,7 @@ export const getUser = async (id, isProfilePage) => {
   }
 
   if (isMeshService || isProfilePage ? !data.userById : !data.user) {
-    return false;
+    return {};
   }
   let userPermissions = [];
   if (!isMeshService || !isProfilePage) {
