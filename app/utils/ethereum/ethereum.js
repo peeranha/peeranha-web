@@ -191,19 +191,18 @@ class EthereumService {
       const chainChanged = await this.setChain({
         chainId: `0x${Number(chainId).toString(16)}`,
       });
-      if (chainChanged) {
-        setCookie({
-          name: NETWORK_ID,
-          value: JSON.stringify(network),
-          options: {
-            defaultPath: true,
-            allowSubdomains: true,
-          },
-        });
-      } else {
+      if (!chainChanged) {
         throw new Error('Set chain rejected');
       }
     }
+    setCookie({
+      name: NETWORK_ID,
+      value: JSON.stringify(Number(network)),
+      options: {
+        defaultPath: true,
+        allowSubdomains: true,
+      },
+    });
   };
 
   walletLogIn = async (previouslyConnectedWallet) => {
