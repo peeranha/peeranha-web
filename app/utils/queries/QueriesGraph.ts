@@ -147,7 +147,7 @@ const postGraph = `
   networkId
   replies (
     orderBy: postTime,
-    orderDirection: desc,
+    orderDirection: asc,
     where: { isDeleted: false },
   ) {
     ${replyGraph}
