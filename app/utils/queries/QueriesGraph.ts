@@ -104,6 +104,7 @@ const replyGraph = `
   isFirstReply
   isQuickReply
   properties
+  language
   handle
   messengerType
   comments (
