@@ -25,11 +25,6 @@ const getRouteByPostType = ({ postType, isFeed, communityId = 0 }) => {
   return routes.questions(communityId);
 };
 
-const defaultEdgewareCommunityAvatar =
-  'https://ipfs-cdn.testpeeranha.io/QmdMBnNoViXXw9bJAkWmcfduLej52Bf6GQnjCjkaCGoHo2';
-
-const defaultEdgewareCommunityName = 'Edgeware';
-
 const QuestionCommunity = ({
   communities,
   communityId,
@@ -65,14 +60,8 @@ const QuestionCommunity = ({
 
   return (
     <Link to={route} href={route} className={`d-flex align-items-center ${className}`}>
-      <Img
-        className="mr-1"
-        src={community?.avatar || defaultEdgewareCommunityAvatar}
-        alt="comm_avatar"
-      />
-      <Span font-size="14">
-        {communityTranslationTitle || community?.name || defaultEdgewareCommunityName}
-      </Span>
+      <Img className="mr-1" src={community?.avatar} alt="comm_avatar" />
+      <Span font-size="14">{communityTranslationTitle || community?.name}</Span>
     </Link>
   );
 };

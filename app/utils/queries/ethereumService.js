@@ -259,11 +259,17 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
   return answeredPosts?.post.map((post) => getPostDataFromMesh(post));
 };
 
+// Default request
+// export const getCommunities = async () => {
+//   const communities = await executeQuery({
+//     query: queries.Communities[modelService],
+//   });
+//   return isMeshService ? communities?.community : communities?.communities;
+// };
+
 export const getCommunities = async () => {
-  const communities = await executeQuery({
-    query: queries.Communities[modelService],
-  });
-  return isMeshService ? communities?.community : communities?.communities;
+  const communities = await executeMeshQuery({ query: queries.Communities.Mesh });
+  return communities?.data?.community;
 };
 
 export const getCommunityById = async (id) => {
