@@ -69,6 +69,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
+        '3-0x6839d389e4c3aba5bf5e25172c8a6f02d49f6ee891e3bd7f0b15586b7b889bd8': {
+          origin: `https://cyfrin${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cyfrin/logo.svg',
+          styles: CyfrinStyles,
+        },
       }
     : {
         '1-1': {
