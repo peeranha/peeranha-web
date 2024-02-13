@@ -200,7 +200,6 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   }));
 
   question.isGeneral = isGeneralQuestion(question);
-  console.log(question);
   return question;
 }
 
@@ -525,14 +524,7 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
     }
 
     yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
-    if (
-      window.location.pathname === `/discussions/${questionId}/${questionData.title}` ||
-      window.location.pathname === `/tutorials/${questionId}/${questionData.title}` ||
-      window.location.pathname === `/experts/${questionId}/${questionData.title}` ||
-      Number(questionData.postType) === Number(POST_TYPE.documentation)
-    ) {
-      yield call(createdHistory.push, getPostsRoute(questionData.postType));
-    }
+    yield call(createdHistory.push, getPostsRoute(questionData.postType));
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));

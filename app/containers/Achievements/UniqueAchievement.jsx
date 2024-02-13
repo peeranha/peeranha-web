@@ -83,7 +83,7 @@ const UniqueAchievement = ({
 
   return (
     <>
-      {reached && (
+      {reached && (currentUser ? true : isMinted) && (
         <Bage>
           <ImageBlock>
             {isAchievementVisible ? (

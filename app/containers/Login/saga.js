@@ -63,7 +63,7 @@ export function* loginWithWalletWorker({ t, isTorus }) {
       profileInfo = emptyProfile(currentAccount);
     }
 
-    const connectedWalletLabel = isTorus ? 'TorusRaw' : ethereumService.connectedWallets[0].label;
+    const connectedWalletLabel = isTorus ? 'Torus' : ethereumService.connectedWallets[0].label;
 
     setCookie({
       name: CONNECTED_WALLET,

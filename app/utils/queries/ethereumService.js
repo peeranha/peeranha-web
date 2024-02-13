@@ -135,7 +135,7 @@ export const getUser = async (id, isProfilePage) => {
   }
 
   if (isMeshService || isProfilePage ? !data.userById : !data.user) {
-    return false;
+    return {};
   }
   let userPermissions = [];
   if (!isMeshService || !isProfilePage) {
@@ -259,11 +259,17 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
   return answeredPosts?.post.map((post) => getPostDataFromMesh(post));
 };
 
+// Default request
+// export const getCommunities = async () => {
+//   const communities = await executeQuery({
+//     query: queries.Communities[modelService],
+//   });
+//   return isMeshService ? communities?.community : communities?.communities;
+// };
+
 export const getCommunities = async () => {
-  const communities = await executeQuery({
-    query: queries.Communities[modelService],
-  });
-  return isMeshService ? communities?.community : communities?.communities;
+  const communities = await executeMeshQuery({ query: queries.Communities.Mesh });
+  return communities?.data?.community;
 };
 
 export const getCommunityById = async (id) => {
@@ -352,7 +358,10 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
 
     return isMeshService
       ? getPostsDataFromMesh(result)
-      : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
+      : {
+          postCount: 20,
+          updatedPosts: result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost)),
+        };
   }
 
   const query = isMeshService

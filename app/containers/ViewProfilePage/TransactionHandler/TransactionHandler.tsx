@@ -94,7 +94,7 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
       transactionTitle: t('common.transactionsText_2'),
       transactionSubtitle: t('common.transactionsChange_2'),
     },
-    ...(connectedWallet !== 'TorusRaw' && {
+    ...(connectedWallet !== 'Torus' && {
       defaultTransaction: {
         transactionOption: TRANSACTIONS_ALLOWED,
         transactionHandler: handleMetaTransactionsDisallowed,

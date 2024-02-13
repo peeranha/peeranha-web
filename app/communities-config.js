@@ -69,6 +69,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
+        '3-0x6839d389e4c3aba5bf5e25172c8a6f02d49f6ee891e3bd7f0b15586b7b889bd8': {
+          origin: `https://cyfrin${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cyfrin/logo.svg',
+          styles: CyfrinStyles,
+        },
       }
     : {
         '1-1': {
@@ -210,6 +215,11 @@ const communitiesConfig = {
           origin: `https://cartesi-sui-staging${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
           styles: CartesiStyles,
+        },
+        '3-0x45370791376075ddc9446384d980ce40b33992b651fc5eb9d3f98f7a4184549c': {
+          origin: `https://cyfrin-sui-staging${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/cyfrin/logo.svg',
+          styles: CyfrinStyles,
         },
       }
     : {
@@ -454,29 +464,6 @@ const googleSiteVerificationsConfig = {
       engineKey: '002220552224929577704:ip529aw0r_k',
     },
     communities: {},
-  },
-};
-
-const graphServiceConfig = {
-  prod: {
-    // '1-22': {
-    //   service: 'theGraph',
-    // },
-  },
-  staging: {
-    '1-14': {
-      service: 'theGraph',
-    },
-  },
-  test: {
-    '1-22': {
-      service: 'theGraph',
-    },
-  },
-  dev: {
-    '1-22': {
-      service: 'theGraph',
-    },
   },
 };
 
