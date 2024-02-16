@@ -1,13 +1,16 @@
 import { BG_PRIMARY, RULES_BACKGROUND, TEXT_SECONDARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   wrapper: {
     marginBottom: '32px',
     padding: '16px',
-    backgroundColor: colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
+    backgroundColor: graphCommunity
+      ? '#161425'
+      : colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
     width: '100%',
   },
   title: {

@@ -7,14 +7,17 @@ import searchIcon from 'images/search.svg?external';
 import refreshIcon from 'images/reload.svg?external';
 import eyeOpenedIcon from 'images/eyeOpened.svg?external';
 import eyeClosedIcon from 'images/eyeСlosed.svg?external';
+import { graphCommunityColors } from 'utils/communityManagement';
+import { MagnifyingGlassGraph } from 'icons/index';
 
 import { IconMd } from 'components/Icon/IconWithSizes';
 import InputStyled from './InputStyled';
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
+const graphCommunity = graphCommunityColors();
 
-const Handler = ({ isRefreshable, isSearchable, isPassword, onClick, value }) => {
+const Handler = ({ isRefreshable, isSearchable, isPassword, onClick }) => {
   const src = useMemo(() => {
     if (isSearchable) {
       return searchIcon;
@@ -30,7 +33,11 @@ const Handler = ({ isRefreshable, isSearchable, isPassword, onClick, value }) =>
 
   return src ? (
     <button onMouseDown={onClick || null} type="button" tabIndex="-1">
-      <IconMd icon={src} color={TEXT_SECONDARY_LIGHT} />
+      {graphCommunity ? (
+        <MagnifyingGlassGraph size={[20, 20]} />
+      ) : (
+        <IconMd icon={src} color={TEXT_SECONDARY_LIGHT} />
+      )}
     </button>
   ) : null;
 };

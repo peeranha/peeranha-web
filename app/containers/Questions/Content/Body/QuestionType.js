@@ -1,4 +1,5 @@
-import React, { memo, useCallback, useState } from 'react';
+/* eslint-disable no-nested-ternary */
+import React, { memo, useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -10,19 +11,27 @@ import {
   TEXT_PRIMARY,
   TUTORIAL_ICON_COLOR,
 } from 'style-constants';
-
-import Container from 'components/Labels/QuestionType';
-
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 import documentationIcon from 'images/documentation-icon.svg?external';
 
-import Popover from './Popover';
-import { POST_TYPE } from '../../../../utils/constants';
+import { POST_TYPE } from 'utils/constants';
+import { graphCommunityColors } from 'utils/communityManagement';
 
-import { IconLabel } from '../../../../components/Icon/IconWithSizes';
-import { svgDraw } from '../../../../components/Icon/IconStyled';
+import Container from 'components/Labels/QuestionType';
+import { IconLabel } from 'components/Icon/IconWithSizes';
+import { svgDraw } from 'components/Icon/IconStyled';
+import {
+  PlayCircleGraph,
+  ChatsCircleGraph,
+  GraduationCapGraph,
+  DocumentationGraph,
+} from 'components/icons';
+
+import Popover from './Popover';
+
+const graphCommunity = graphCommunityColors();
 
 const LabelItem = styled.span`
   > div {
@@ -39,6 +48,30 @@ const PromotedLabel = styled.span`
   display: inline-flex;
   align-items: center;
   border-radius: ${BORDER_RADIUS_M};
+`;
+
+const GraphLabel = styled.span`
+  background-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+    isExpert
+      ? 'rgba(255, 174, 188, 0.2)'
+      : isTutorial
+      ? 'rgba(150, 228, 169, 0.2)'
+      : isDocumentation
+      ? 'rgba(255, 228, 90, 0.2)'
+      : 'rgba(173, 186, 255, 0.2)'};
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+    isExpert
+      ? 'rgba(237, 74, 109, 0.2)'
+      : isTutorial
+      ? 'rgba(75, 202, 129, 0.2)'
+      : isDocumentation
+      ? 'rgba(245, 190, 140, 0.2)'
+      : 'rgba(76, 105, 255, 0.2)'};
+  padding: 1px 7px 1px 7px;
+  gap: 10px;
+  border-radius: 20px;
 `;
 
 const Icon = styled(IconLabel)`
@@ -118,6 +151,19 @@ const QuestionType = ({ postType, className, isPromoted = false, isSearch = fals
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
+  const graphIcon = useMemo(() => {
+    if (postType === 0) {
+      return <ChatsCircleGraph size={[24, 24]} fill="#ED4A6D" />;
+    }
+    if (postType === 1) {
+      return <GraduationCapGraph size={[24, 24]} fill="#4C69FF" />;
+    }
+    if (postType === 2) {
+      return <PlayCircleGraph size={[24, 24]} fill="#4BCA81" />;
+    }
+    return <DocumentationGraph size={[24, 24]} fill="#FFA801" />;
+  }, [postType]);
+
   const type = types[postType];
 
   return (
@@ -134,13 +180,24 @@ const QuestionType = ({ postType, className, isPromoted = false, isSearch = fals
                 width={290}
               />
             )}
-            <Icon
-              isExpert={type.isExpert}
-              isTutorial={type.isTutorial}
-              isDocumentation={type.isDocumentation}
-              className={`mr-2 ${!isSearch && 'ml4'}`}
-              icon={type.icon}
-            />
+            {graphCommunity ? (
+              <GraphLabel
+                isExpert={type.isExpert}
+                isTutorial={type.isTutorial}
+                isDocumentation={type.isDocumentation}
+                className={`mr-2 ${!isSearch && 'ml4'}`}
+              >
+                {graphIcon}
+              </GraphLabel>
+            ) : (
+              <Icon
+                isExpert={type.isExpert}
+                isTutorial={type.isTutorial}
+                isDocumentation={type.isDocumentation}
+                className={`mr-2 ${!isSearch && 'ml4'}`}
+                icon={type.icon}
+              />
+            )}
           </Container>
         </LabelItem>
       )}

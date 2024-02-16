@@ -1,10 +1,11 @@
 import { singleCommunityDocumentation } from 'utils/communityManagement';
+import { APP_FONT } from 'style-constants';
 
 const documentationColors = singleCommunityDocumentation();
 
 export const styles = {
   draftItem: {
-    fontFamily: 'Source Sans Pro, serif',
+    fontFamily: APP_FONT || 'Source Sans Pro, serif',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '14px',

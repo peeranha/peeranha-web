@@ -1,6 +1,7 @@
-import { singleCommunityDocumentation } from 'utils/communityManagement';
+import { singleCommunityDocumentation, graphCommunityColors } from 'utils/communityManagement';
 
 const documentationColors = singleCommunityDocumentation();
+const graphCommunity = graphCommunityColors();
 
 export const styled = {
   background: {
@@ -15,23 +16,23 @@ export const styled = {
   },
 
   container: {
-    color: '#282828',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
     position: 'fixed',
     top: 0,
     height: '100vh',
     zIndex: 101,
-    background: 'var(--color-white)',
-    boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
+    background: graphCommunity ? '#161425' : 'var(--color-white)',
+    boxShadow: `0px 2px 2px ${graphCommunity ? '#3D3D54' : 'rgba(0, 0, 0, 0.1)'}`,
   },
 
   main: {
     height: '100%',
     gridTemplateColumns: '262px 1fr 262px',
-    boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
+    boxShadow: `0px 2px 2px ${graphCommunity ? '#3D3D54' : 'rgba(0, 0, 0, 0.1)'}`,
   },
 
   leftSection: {
-    background: '#FAFAFA',
+    background: graphCommunity ? '#161425' : '#FAFAFA',
     height: 'calc(100% - 72px)',
     overflow: 'auto',
   },
@@ -39,7 +40,7 @@ export const styled = {
   centerSection: { overflow: 'auto', height: 'calc(100% - 72px)' },
 
   rightSection: {
-    background: '#FAFAFA',
+    background: graphCommunity ? '#161425' : '#FAFAFA',
     height: 'calc(100% - 72px)',
     overflow: 'auto',
   },
@@ -68,7 +69,7 @@ export const styled = {
   },
 
   cancelButton: {
-    background: documentationColors.publishBackground || 'white',
+    background: graphCommunity ? 'none' : documentationColors.publishBackground || 'white',
     color: documentationColors.publishText || 'var(--color-button-secondary)',
     borderColor: documentationColors.publishText || 'var(--color-button-secondary)',
     '&:hover': {

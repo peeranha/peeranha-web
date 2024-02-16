@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -5,21 +6,22 @@ import styled from 'styled-components';
 import Icon from 'components/Icon';
 import achievementsIcon from 'images/achievement_inline.svg?external';
 
-import { PEER_PRIMARY_COLOR, TEXT_PRIMARY } from 'style-constants';
+import { PEER_PRIMARY_COLOR, TEXT_PRIMARY, APP_FONT } from 'style-constants';
 import { customRatingIconColors } from 'constants/customRating';
 
 import AchivementsIcon from 'icons/Achivements';
-
-import { singleCommunityColors } from 'utils/communityManagement';
+import { AwardGraph } from 'components/icons';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const StatusSpan = styled.span`
   position: relative;
   display: flex;
   font-size: ${(props) => (props.size === 'lg' ? '16px' : '14px')};
   align-items: baseline;
-  margin-right: 0.5rem;
-  padding-left: ${(props) => (props.size === 'lg' ? '' : '12px')};
+  margin-right: ${graphCommunity ? '0' : '0.5rem'};
+  padding-left: ${(props) => (props.size === 'lg' || graphCommunity ? '' : '12px')};
 
   @media (max-width: 350px) {
     flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
@@ -29,11 +31,13 @@ const StatusSpan = styled.span`
 `;
 
 const Count = styled.span`
-  font-family: 'Source Sans Pro', sans-serif;
-  margin-left: ${(props) => (props.size === 'lg' ? '' : '0.25rem')};
+  font-family: ${APP_FONT || 'Source Sans Pro, sans - serif'};
+  margin-left: ${(props) => (props.size === 'lg' || graphCommunity ? '' : '0.25rem')};
   color: ${(props) =>
     props.size === 'lg'
       ? 'inherit'
+      : graphCommunity
+      ? '#6F4CFF'
       : props.isSingleNumColor || PEER_PRIMARY_COLOR};
 
   @media (max-width: 350px) {
@@ -61,20 +65,14 @@ const IconAbsolute = styled(Icon)`
   }
 `;
 
-const AchievementsStatus = ({
-  isProfilePage,
-  count,
-  size,
-  achievIconStyles,
-}) => {
+const AchievementsStatus = ({ isProfilePage, count, size, achievIconStyles }) => {
   if (typeof count === 'number')
     return (
       <StatusSpan size={size} isProfilePage={isProfilePage}>
-        {isProfilePage ? (
-          <AchivementsIcon
-            size={[18, 18]}
-            stroke={colors.linkColor || TEXT_PRIMARY}
-          />
+        {graphCommunity ? (
+          <AwardGraph size={[12, 12]} className="mr-1" stroke="#6F4CFF" fill="none" />
+        ) : isProfilePage ? (
+          <AchivementsIcon size={[18, 18]} stroke={colors.linkColor || TEXT_PRIMARY} />
         ) : (
           <IconAbsolute
             icon={achievementsIcon}
@@ -87,6 +85,7 @@ const AchievementsStatus = ({
         <Count
           size={size}
           isSingleNumColor={customRatingIconColors.strokeColor}
+          isProfilePage={isProfilePage}
         >
           {count}
         </Count>

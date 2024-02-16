@@ -1,6 +1,8 @@
-import { singleCommunityDocumentation } from 'utils/communityManagement';
+import { singleCommunityDocumentation, graphCommunityColors } from 'utils/communityManagement';
 import { TEXT_SECONDARY, TEXT_LIGHT } from 'style-constants';
 import { Position } from 'components/common/Popover/Popover.stories';
+
+const graphCommunity = graphCommunityColors();
 const documentationColors = singleCommunityDocumentation();
 
 export const styled = {
@@ -19,7 +21,7 @@ export const styled = {
     width: '350px',
     height: '65px',
     margin: '0 12px 12px 12px',
-    border: '1px solid rgba(53, 74, 137, 0.15);',
+    border: `1px solid ${graphCommunity ? '#E1E1E4' : 'rgba(53, 74, 137, 0.15)'}`,
     ':hover': {
       background: 'rgba(53, 74, 137, 0.05)',
     },
@@ -46,6 +48,7 @@ export const styled = {
       fontSize: '14px',
     },
     'div:nth-child(2)': {
+      color: documentationColors ? '#E1E1E4' : 'inherit',
       fontSize: '18px',
       fontWeight: 600,
       overflow: 'hidden',
@@ -62,8 +65,8 @@ export const styled = {
     left: 0,
     bottom: 0,
     height: '60px',
-    border: '1px solid rgba(53, 74, 137, 0.15)',
-    backgroundColor: TEXT_LIGHT,
+    border: `1px solid ${graphCommunity ? '#3D3D54' : 'rgba(53, 74, 137, 0.15)'}`,
+    backgroundColor: graphCommunity ? '#6F4CFF' : TEXT_LIGHT,
     '>div': {
       display: 'flex',
       alignItems: 'center',
@@ -77,7 +80,7 @@ export const styled = {
   paginationButtonTextMobile: {
     marginLeft: '8px',
     'div:first-child': {
-      color: TEXT_SECONDARY,
+      color: graphCommunity ? '#E1E1E4' : TEXT_SECONDARY,
     },
     'div:nth-child(2)': {
       fontSize: '16px',

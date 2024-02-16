@@ -6,12 +6,11 @@ import { useTranslation } from 'react-i18next';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { isSuiBlockchain } from 'utils/constants';
-import { getNetworkIds } from 'utils/queries/QueriesMesh';
-
 import { BORDER_SECONDARY } from 'style-constants';
 
+import { getNetworkIds } from 'utils/queries/QueriesMesh';
+import { graphCommunityColors } from 'utils/communityManagement';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import BaseRounded from 'components/Base/BaseRounded';
 import H3 from 'components/H3';
 import H4 from 'components/H4';
@@ -29,7 +28,6 @@ import {
   selectAchievementsLoading,
   selectAllAchievements,
 } from './selectors';
-
 import {
   getUserAchievements,
   setViewProfileAccount,
@@ -37,11 +35,11 @@ import {
   getAllAchievements,
   mintAchievement,
 } from './actions';
-
 import { IS_MINTED_ACHIEVEMENT, CAN_MINT_ACHIEVEMENT } from './constants';
-
 import UniqueAchievement from './UniqueAchievement';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+
+const graphCommunity = graphCommunityColors();
 
 const BaseRoundedStyled = styled(BaseRounded)`
   border-top-left-radius: 0 !important;
@@ -75,7 +73,7 @@ const UniqueAchievementsWrapper = styled(BaseRounded)`
 
 const UniqueAchievementsTitle = styled(H4)`
   padding-bottom: 20px;
-  border-bottom: 1px solid ${BORDER_SECONDARY};
+  border-bottom: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
 `;
 
 const H3Styled = styled(H3)`

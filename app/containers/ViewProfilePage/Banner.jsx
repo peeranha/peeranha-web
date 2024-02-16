@@ -1,6 +1,6 @@
-import { css } from '@emotion/react';
-import { singleCommunityColors } from 'utils/communityManagement';
 import React from 'react';
+import { css } from '@emotion/react';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import { useTranslation } from 'react-i18next';
 
 import Wrapper from 'components/Banner';
@@ -9,6 +9,7 @@ import H4 from 'components/H4';
 import noActivityImg from 'images/userHasntActivity.png';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const Banner = () => {
   const { t } = useTranslation();
@@ -25,7 +26,7 @@ const Banner = () => {
       </H4>
       <Wrapper>
         <img src={noActivityImg} alt="view-profile" />
-        <div>
+        <div css={graphCommunity && { color: '#E1E1E2' }}>
           <p>{t('profile.userHasntActivityYet')}</p>
 
           <p>{t('profile.heHasNoAnswersAndPosts')}</p>

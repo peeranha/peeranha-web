@@ -52,5 +52,9 @@
   "suggestCommunityBlock_3": "and start your community on Peeranha. ",
   "suggestCommunityBlock_4": "To get your community up and running, please reach out to us: ",
   "communityWebsite": "Community site",
-  "communityWebsiteTip": "The name of your community site"
+  "communityWebsiteTip": "The name of your community site",
+  "returnToTheGraph": "Return to thegraph.com",
+  "forum": "Forum",
+  "docs": "Docs",
+  "discord": "Discord"
 }

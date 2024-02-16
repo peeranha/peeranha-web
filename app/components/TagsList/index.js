@@ -5,22 +5,28 @@ import history from 'createdHistory';
 
 import { TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
 
-import Span from 'components/Span';
+import {
+  singleCommunityFonts,
+  isSingleCommunityWebsite,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 
-import { singleCommunityFonts, isSingleCommunityWebsite } from 'utils/communityManagement';
+import Span from 'components/Span';
 import Button from 'components/Button';
 
 const fonts = singleCommunityFonts();
 const single = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 const Tag = Span.extend`
   max-width: 100%;
+  background: ${graphCommunity ? 'rgba(111, 76, 255, 0.16)' : 'none'};
   overflow: hidden;
-  border: 1px solid ${TAG_COLOR};
-  color: ${TAG_COLOR};
+  border: 1px solid ${graphCommunity ? 'rgba(111, 76, 255, 0.16)' : TAG_COLOR};
+  color: ${graphCommunity ? '#E1E1E4' : TAG_COLOR};
   font-size: 14px;
   height: 24px;
-  border-radius: ${BORDER_RADIUS_S};
+  border-radius: ${graphCommunity ? '10px' : BORDER_RADIUS_S};
   margin-bottom: 2px;
   margin-right: 8px;
   padding-left: 10px;

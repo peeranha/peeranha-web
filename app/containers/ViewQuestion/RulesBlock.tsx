@@ -2,9 +2,10 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
 import { RULES_BACKGROUND } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const RulesBlock: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -13,9 +14,12 @@ const RulesBlock: React.FC = (): JSX.Element => {
     <div
       className="full-width full-height p20 df"
       css={{
-        backgroundColor: colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
+        backgroundColor: graphCommunity
+          ? '#6F4CFF'
+          : colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
         borderRadius: '10px',
         marginBottom: '16px',
+        color: graphCommunity ? '#E1E1E4' : 'inherit',
       }}
     >
       <div

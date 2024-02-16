@@ -5,8 +5,11 @@ import { TEXT_PRIMARY, TEXT_SUCCESS } from 'style-constants';
 import Span from 'components/Span';
 
 import _get from 'lodash/get';
-import { getFormattedDate } from '../../utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY, MONTH_3LETTERS__DAY_YYYY_TIME } from '../../utils/constants';
+import { getFormattedDate } from 'utils/datetime';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 const Item = ({ title, id, content, postTime, locale }) => {
   const link = `${process.env.APP_LOCATION}/discussions/${id}`;
@@ -23,7 +26,7 @@ const Item = ({ title, id, content, postTime, locale }) => {
       </div>
 
       <div>
-        <Span fontSize="13" color={TEXT_SUCCESS}>
+        <Span fontSize="13" color={TEXT_SUCCESS} css={graphCommunity && { color: '#4BCA81' }}>
           {link}
         </Span>
       </div>

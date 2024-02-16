@@ -1,14 +1,11 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-
 import { css } from '@emotion/react';
-
-import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from 'style-constants';
-
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
 
+import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from 'style-constants';
 import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
@@ -20,6 +17,7 @@ import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
   singleCommunityColors,
+  graphCommunityColors,
 } from 'utils/communityManagement';
 import {
   getPermissions,
@@ -29,27 +27,28 @@ import {
 } from 'utils/properties';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { showPopover } from 'utils/popover';
+import { isSuiBlockchain } from 'utils/constants';
 import useMediaQuery from 'hooks/useMediaQuery';
 
+import { MagnifyingGlassGraph, PlusGraph } from 'components/icons';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import EditDocumentation from 'components/Documentation';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
 import ChangeLocale from 'containers/ChangeLocale';
-import { isSuiBlockchain } from 'utils/constants';
 
 import { Wrapper, MainSubHeader } from './Wrapper';
 import Section from './Section';
 import LogoStyles from './Logo';
-
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
-
 import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION, IS_SUI_MAIN } from './constants';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
+const colors = singleCommunityColors();
 
 export const LoginProfile = ({
   profileInfo,
@@ -66,8 +65,6 @@ export const LoginProfile = ({
   ) : (
     <ButtonGroupForNotAuthorizedUser loginWithWallet={loginWithWalletDispatch} />
   );
-
-const colors = singleCommunityColors();
 
 const Button = LargeButton.extend`
   background-color: ${(x) => x.bg};
@@ -160,7 +157,11 @@ const View = ({
         }
       `}
     >
-      <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
+      {graphCommunity ? (
+        <PlusGraph size={[20, 20]} />
+      ) : (
+        <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
+      )}
       <span
         className="d-none d-lg-inline ml-2"
         css={css`
@@ -198,11 +199,15 @@ const View = ({
               {!isSearchFormVisible && (
                 <>
                   <Button
-                    bg={BG_LIGHT}
+                    bg={graphCommunity ? '#6F4CFF' : BG_LIGHT}
                     className="d-flex d-lg-none"
                     onClick={() => setSearchFormVisibility(!isSearchFormVisible)}
                   >
-                    <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
+                    {graphCommunity ? (
+                      <MagnifyingGlassGraph size={[18, 18]} />
+                    ) : (
+                      <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
+                    )}
                   </Button>
 
                   <NewPostButton onClickForModal={askQuestionHandler} />

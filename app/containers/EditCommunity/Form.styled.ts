@@ -5,10 +5,15 @@ import {
   TEXT_LIGHT,
   TEXT_PRIMARY,
 } from 'style-constants';
-import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityStyles,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 
 const communityColors = singleCommunityColors();
 const communityStyles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
 
 const styles = {
   tabsBlock: {
@@ -28,11 +33,13 @@ const styles = {
 
   translationsTitle: {
     lineHeight: '23px',
-    color: 'rgba(40, 40, 40, 1)',
+    color: graphCommunity ? '#E1E1E4' : 'rgba(40, 40, 40, 1)',
   },
 
   translationsText: {
-    color: communityColors.secondaryTextColor || 'rgba(123, 123, 123, 1)',
+    color: graphCommunity
+      ? '#E1E1E4'
+      : communityColors.secondaryTextColor || 'rgba(123, 123, 123, 1)',
     lineHeight: '20px',
   },
 
@@ -47,7 +54,7 @@ const styles = {
   activeTab: {
     color: 'rgb(255,255,255)',
     borderRadius: `${communityStyles.buttonBorderRadius || BORDER_RADIUS_M}`,
-    background: `${communityColors.linkColor || BG_PRIMARY}`,
+    background: `${graphCommunity ? '#6F4CFF' : communityColors.linkColor || BG_PRIMARY}`,
   },
 
   saveButton: {

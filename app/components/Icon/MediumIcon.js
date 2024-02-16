@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 import { BG_PRIMARY_SPECIAL_2, BORDER_SECONDARY, BORDER_PRIMARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const MediumIcon = styled.span`
   .stroke {
@@ -24,7 +25,7 @@ const MediumIconStyled = MediumIcon.extend`
 
   border: 1px solid ${colors.secondaryAdditional || BORDER_SECONDARY};
 
-  background: ${colors.userInformation || BG_PRIMARY_SPECIAL_2};
+  background: ${graphCommunity ? '#161425' : colors.userInformation || BG_PRIMARY_SPECIAL_2};
   margin-right: 18px;
   border-radius: 50%;
   padding: 1px;

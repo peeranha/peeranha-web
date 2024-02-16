@@ -1,10 +1,11 @@
 import { BORDER_PRIMARY, BORDER_TRANSPARENT } from 'style-constants';
 import checked from 'images/okayBlueIcon.svg?inline';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import checkedBlack from 'images/okayBlackIcon.svg?inline';
 import Li from './index';
-import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const CheckedItem = Li.extend`
   font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
@@ -13,7 +14,7 @@ const CheckedItem = Li.extend`
   :before {
     content: '';
     background-image: url(${({ isActive }) =>
-      isActive ? (colors ? checkedBlack : checked) : ''});
+      isActive ? (colors && !graphCommunity ? checkedBlack : checked) : ''});
     display: inline-block;
     width: 20px;
     height: 10px;

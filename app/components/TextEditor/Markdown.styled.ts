@@ -1,6 +1,7 @@
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   markdownPreview: {
@@ -20,6 +21,7 @@ export const styles = {
     iframe: {
       maxWidth: '100%',
     },
-    background: colors.backgroundSpecial || '',
+    background: graphCommunity ? 'none' : colors.backgroundSpecial || '',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
   },
 };

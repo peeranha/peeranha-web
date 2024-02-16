@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { BG_LIGHT } from '../../style-constants';
+import { BG_LIGHT } from 'style-constants';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 const BackSide = styled.div`
   position: absolute;
@@ -7,7 +10,7 @@ const BackSide = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: ${BG_LIGHT};
+  background: ${graphCommunity ? '#161425' : BG_LIGHT};
   display: none;
   border-radius: 5px;
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import styled from 'styled-components';
 
 import {
@@ -11,6 +12,9 @@ import {
   BORDER_RADIUS_L,
   BORDER_TUTORIAL,
 } from 'style-constants';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 const borderTopLeftRadius = ({ bordered, topRightRadius, withoutBR }) =>
   (bordered || topRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none';
@@ -18,10 +22,11 @@ const borderTopLeftRadius = ({ bordered, topRightRadius, withoutBR }) =>
 const borderTopRightRadius = ({ bordered, bottomRightRadius, withoutBR }) =>
   (bordered || bottomRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none';
 
-const borderForTutorial = (isTutorial) => (isTutorial ? BORDER_TUTORIAL : BORDER_PRIMARY);
+const borderForTutorial = (isTutorial) =>
+  isTutorial ? (graphCommunity ? '#4BCA81' : BORDER_TUTORIAL) : BORDER_PRIMARY;
 
 const Base = styled.div`
-  background: ${BG_LIGHT};
+  background: ${graphCommunity ? '#161425' : BG_LIGHT};
   padding: 20px 30px;
   flex-grow: 1;
   padding-top: ${({ paddingTop }) => paddingTop || 20}px;

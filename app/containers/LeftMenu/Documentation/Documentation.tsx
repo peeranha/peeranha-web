@@ -4,21 +4,26 @@ import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import ItemMenu from './ItemMenu';
 
-import Dropdown from 'components/Dropdown';
-import AddCommentIcon from 'icons/AddComment';
-import EditIcon from 'icons/Edit';
-import PlusIcon from 'icons/Plus';
 import {
   singleCommunityDocumentationPosition,
   singleCommunityColors,
   singleCommunityDocumentation,
+  graphCommunityColors,
 } from 'utils/communityManagement';
 import { DocumentationSection, PinnedArticleType } from 'pages/Documentation/types';
+
 import { EditArticleType } from 'components/Documentation/types';
+import { DotsThreeOutlineGraph } from 'components/icons';
+import Dropdown from 'components/Dropdown';
+import AddCommentIcon from 'icons/AddComment';
+import EditIcon from 'icons/Edit';
+import PlusIcon from 'icons/Plus';
+
+import ItemMenu from './ItemMenu';
 
 const documentationColors = singleCommunityDocumentation();
+const graphCommunity = graphCommunityColors();
 
 type DocumentationMenuSectionProps = {
   documentationMenu: Array<DocumentationSection>;
@@ -131,7 +136,13 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           <div className="dropdown-documentation db mr4">
             <Dropdown
               id="documentation_dropdown_id"
-              button={<AddCommentIcon css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }} />}
+              button={
+                graphCommunity ? (
+                  <DotsThreeOutlineGraph size={[24, 24]} />
+                ) : (
+                  <AddCommentIcon css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }} />
+                )
+              }
               menu={options.map(
                 (item, index) =>
                   (isEditDocumentation ? index !== 0 : index == 0) && (

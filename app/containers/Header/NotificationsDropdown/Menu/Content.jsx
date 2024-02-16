@@ -3,23 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
-
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
 import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
+import bellIcon from 'images/Notifications_Disabled.svg?external';
 
 import _isEqual from 'lodash/isEqual';
 import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
-
-import bellIcon from 'images/Notifications_Disabled.svg?external';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-
 import { IconXl } from 'components/Icon/IconWithSizes';
 import saga from 'components/Notifications/saga';
 import reducer from 'components/Notifications/reducer';
@@ -31,6 +29,8 @@ import {
   loadMoreUnreadNotifications,
   markAsReadNotificationsUnread,
 } from 'components/Notifications/actions';
+import { NOTIFICATIONS_TYPES } from 'components/Notifications/constants';
+import { BellGraph } from 'components/icons';
 
 import Notification from './Notification';
 
@@ -40,7 +40,8 @@ import {
   THRESHOLD,
   ROW_HEIGHT_DROPDOWN_SMALL,
 } from '../constants';
-import { NOTIFICATIONS_TYPES } from 'components/Notifications/constants';
+
+const graphCommunity = graphCommunityColors();
 
 const Container = styled.div`
   width: 100%;
@@ -154,8 +155,12 @@ const Content = ({
     <Container empty={!notifications.length}>
       {!notifications.length ? (
         <>
-          <IconXl icon={bellIcon} color={TEXT_SECONDARY} />
-          {t('notifications.youHaveNoNewNotifications')}
+          {graphCommunity ? (
+            <BellGraph size={[128, 128]} />
+          ) : (
+            <IconXl icon={bellIcon} color={TEXT_SECONDARY} />
+          )}
+          <span>{t('notifications.youHaveNoNewNotifications')}</span>
         </>
       ) : (
         <AutoSizer onResize={onResize}>

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import styled, { css } from 'styled-components';
 
 import {
@@ -12,13 +13,20 @@ import {
   BORDER_WARNING_LIGHT_RGB,
   BORDER_RADIUS_M,
 } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
-
+const graphCommunity = graphCommunityColors();
+// Graph Input !!!
 /* eslint indent: 0 */
 const ErrorHandling = (error) => `
-  border: 1px solid ${error ? `rgb(${BORDER_WARNING_LIGHT_RGB})` : BORDER_SECONDARY};
+  border: 1px solid ${
+    error
+      ? `rgb(${BORDER_WARNING_LIGHT_RGB})`
+      : graphCommunity
+      ? '#3D3D54'
+      : colors.formColor || BORDER_SECONDARY
+  };
   box-shadow: 0 0 0 3px ${error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT};
 
   border-radius: ${BORDER_RADIUS_M};
@@ -36,7 +44,7 @@ const Input = ({ error, disabled }) =>
     ${ErrorHandling(error)}
     ${DisableHandling(disabled)}
     padding: 5px 14px;
-    color: ${TEXT_DARK};
+    color: ${colors.formText || TEXT_DARK};
     font-family: ${APP_FONT};
     font-size: 16px;
     line-height: 20px;

@@ -9,17 +9,23 @@ import { createStructuredSelector } from 'reselect';
 import { Translation } from 'react-i18next';
 import { t } from 'i18next';
 
-import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
+import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
+import {
+  singleCommunityColors,
+  singleCommunityStyles,
+  graphCommunityColors,
+} from 'utils/communityManagement';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
+import Wrapper from 'components/FormFields/Wrapper';
+import Span from 'components/Span';
 
 import { PreviewWrapper } from '../AnswerForm';
 import MarkdownPreviewBlock from './MarkdownPreview';
-import Wrapper from 'components/FormFields/Wrapper';
-import Span from 'components/Span';
-import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
-import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 /* eslint no-return-assign: "error" */
 class TextEditor extends React.PureComponent {
@@ -38,7 +44,7 @@ class TextEditor extends React.PureComponent {
           css={css`
             margin-bottom: 20px;
             border-bottom: 2px solid ${TEXT_DARK};
-            background: ${colors.backgroundSpecial || ''};
+            background: ${graphCommunity ? '#161425' : colors.backgroundSpecial || ''};
             ol li {
               list-style-type: decimal;
             }
@@ -47,12 +53,16 @@ class TextEditor extends React.PureComponent {
             }
             textarea {
               ::selection {
-                -webkit-text-fill-color: ${TEXT_DARK};
+                -webkit-text-fill-color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
               }
+              -webkit-text-fill-color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
             }
             .w-md-editor-toolbar {
               border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
-              background: ${colors.backgroundSpecial || ''};
+              background: ${graphCommunity ? '#161425' : colors.backgroundSpecial || ''};
+              button {
+                color: ${graphCommunity ? '#E1E1E4' : '#24292f'};
+              }
             }
           `}
           disabled={this.props.disabled}

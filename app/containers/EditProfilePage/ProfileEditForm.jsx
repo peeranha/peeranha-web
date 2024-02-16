@@ -19,7 +19,8 @@ import Button from 'components/Button/Contained/InfoLarge';
 import Box from 'components/Base/AvatarBase';
 import H3 from 'components/H3';
 import FormBox from 'components/Form';
-
+import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
+import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
 import {
   imageValidation,
   required,
@@ -28,15 +29,14 @@ import {
 } from 'components/FormFields/validate';
 import { isSuiBlockchain } from 'utils/constants';
 import { getUserName } from 'utils/user';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 import AboutForm from './AboutForm';
 
 import { EDIT_PROFILE_BUTTON_ID, PROFILE_EDIT_FORM } from './constants';
-import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
-import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const ProfileEditForm = ({
   formValues,
@@ -50,7 +50,12 @@ export const ProfileEditForm = ({
   return (
     <Box
       position="bottom"
-      css={isSuiBlockchain && { border: `1px solid ${colors.border}`, borderTop: 'none' }}
+      css={
+        (isSuiBlockchain || graphCommunity) && {
+          border: `1px solid ${colors.border}`,
+          borderTop: 'none',
+        }
+      }
     >
       <Field
         name={AVATAR_FIELD}

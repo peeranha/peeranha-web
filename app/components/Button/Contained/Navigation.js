@@ -1,16 +1,13 @@
 import { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import {
-  BG_TRANSPARENT,
-  TEXT_LIGHT,
-  BG_PRIMARY,
-  TEXT_PRIMARY,
-} from 'style-constants';
+import { BG_TRANSPARENT, TEXT_LIGHT, BG_PRIMARY, TEXT_PRIMARY } from 'style-constants';
 
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import Primary from './Primary';
 import Medium from '../Medium';
+
+const graphCommunity = graphCommunityColors();
 
 const colors = singleCommunityColors();
 const linkColor = colors.linkColor || TEXT_PRIMARY;
@@ -22,13 +19,13 @@ const ButtonCss = css`
   line-height: 20px;
 
   :hover {
-    color: ${TEXT_LIGHT};
+    color: ${graphCommunity ? '#E1E1E4' : TEXT_LIGHT};
   }
 
   ${({ islink }) =>
     islink
       ? css`
-          color: ${linkColor};
+          color: ${graphCommunity ? '#6F4CFF' : linkColor};
           background: ${BG_TRANSPARENT};
           border-radius: 0;
 
@@ -37,7 +34,7 @@ const ButtonCss = css`
           }
         `
       : css`
-          background: ${colors.linkColor || BG_PRIMARY};
+          background: ${graphCommunity ? '#6F4CFF' : colors.linkColor || BG_PRIMARY};
         `};
 `;
 

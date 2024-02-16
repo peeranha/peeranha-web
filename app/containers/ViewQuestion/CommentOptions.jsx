@@ -7,17 +7,19 @@ import { TEXT_SECONDARY, TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 import dotsIcon from 'images/dots.svg?external';
 import arrowDownOutlined from 'images/arrowDown.svg?external';
 
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+
 import Span from 'components/Span';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { TextareaStyled } from 'components/Textarea';
+import { DotsThreeOutlineGraph } from 'components/icons';
 
-import { singleCommunityColors } from 'utils/communityManagement';
 import CommentForm from './CommentForm';
-
 import { TOGGLE_ADD_COMMENT_FORM_BUTTON } from './constants';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const ButtonStyled = styled.button`
   display: flex;
@@ -39,7 +41,11 @@ const ActionButtonWithLogin = ({ onClick, buttonId }) => {
   const { t } = useTranslation();
   return (
     <ButtonStyled id={buttonId} onClick={onClick}>
-      <IconMd icon={dotsIcon} fill={colors.commentOption || BORDER_PRIMARY} />
+      {graphCommunity ? (
+        <DotsThreeOutlineGraph className="mr-1" size={[24, 24]} />
+      ) : (
+        <IconMd icon={dotsIcon} fill={colors.commentOption || BORDER_PRIMARY} />
+      )}
       <Span className="ml-11" color={colors.commentOption || TEXT_PRIMARY}>
         {t('post.addComment')}
       </Span>

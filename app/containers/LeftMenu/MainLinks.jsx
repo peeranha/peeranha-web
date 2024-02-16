@@ -1,12 +1,10 @@
-import Documentation from 'containers/LeftMenu/Documentation/Documentation';
-import { Administration } from 'icons/index';
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import ChangeLocale from 'containers/ChangeLocale';
 import cn from 'classnames';
+import * as routes from 'routes-config';
 
 import {
   BORDER_PRIMARY_DARK,
@@ -20,33 +18,16 @@ import {
   BORDER_DARK,
   ICON_TRASPARENT_BLUE,
 } from 'style-constants';
-import { styles } from 'containers/LeftMenu/MainLinks.styled';
-
-import * as routes from 'routes-config';
-
-import {
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-  singleCommunityFonts,
-  singleCommunityDocumentationPosition,
-} from 'utils/communityManagement';
-
 import aiIcon from 'images/aiIcon.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
-import PinIcon from 'icons/Pin';
-
-import A from 'components/A';
-import { IconLg } from 'components/Icon/IconWithSizes';
-import { svgDraw } from 'components/Icon/IconStyled';
-
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
-import { PINNED_TITLE_LENGTH } from 'containers/LeftMenu/constants';
-import { BasicLink } from 'containers/LeftMenu/Styles';
+import PinIcon from 'icons/Pin';
+
 import { isSuiBlockchain } from 'utils/constants';
 import {
   hasGlobalModeratorRole,
@@ -55,16 +36,45 @@ import {
   getPermissions,
   hasProtocolAdminRole,
 } from 'utils/properties';
-
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+  singleCommunityFonts,
+  singleCommunityDocumentationPosition,
+  graphCommunityColors,
+} from 'utils/communityManagement';
+
+import { styles } from 'containers/LeftMenu/MainLinks.styled';
+import Documentation from 'containers/LeftMenu/Documentation/Documentation';
+import { PINNED_TITLE_LENGTH } from 'containers/LeftMenu/constants';
+import { BasicLink } from 'containers/LeftMenu/Styles';
+import {
+  Administration,
+  SparkleGraph,
+  FileGraph,
+  ChatsCircleGraph,
+  GraduationCapGraph,
+  PlayCircleGraph,
+  TagGraph,
+  UsersGraph,
+  PencilSimpleGraph,
+  PushPinGraph,
+} from 'icons/index';
+import A from 'components/A';
+import { IconLg } from 'components/Icon/IconWithSizes';
+import { svgDraw } from 'components/Icon/IconStyled';
 
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
+const graphCommunity = graphCommunityColors();
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
 export const A1 = A.extend`
-  ${svgDraw({ color: colors.mainLinksColor || TEXT_DARK })}; !important;
+  ${svgDraw({
+    color: graphCommunity ? '#A7A7AD' : colors.mainLinksColor || TEXT_DARK,
+  })}; !important;
   ${BasicLink};
   color: ${colors.white || ''}; !important;
 
@@ -82,13 +92,15 @@ export const A1 = A.extend`
     route === name
       ? `
           background-color: ${
-            colors.navMenuBackgroundColor || colors.userInformation || PRIMARY_SPECIAL
+            graphCommunity
+              ? 'rgba(111, 76, 255, 0.2)'
+              : colors.navMenuBackgroundColor || colors.userInformation || PRIMARY_SPECIAL
           };
           border-color: ${colors.linkColor || BORDER_PRIMARY_DARK};
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
           font-weight: bold;
-          color: ${colors.mainLinksColor || TEXT_DARK} !important;
+          color: ${graphCommunity ? '#E1E1E4' : colors.mainLinksColor || TEXT_DARK} !important;
           .fill {
             fill: ${customColor};
           }
@@ -225,13 +237,22 @@ const MainLinks = ({
                     borderLeft: !isShortPinnedTitle ? '1px solid rgba(255, 255, 255, 0.3)' : '',
                   }}
                 >
-                  <PinIcon
-                    stroke="#FFF"
-                    css={{
-                      fill: colors.pinnedPostBackground || '#A5BCFF',
-                      marginLeft: '10px',
-                    }}
-                  />
+                  {graphCommunity ? (
+                    <PushPinGraph
+                      size={[20, 20]}
+                      css={{
+                        marginLeft: '10px',
+                      }}
+                    />
+                  ) : (
+                    <PinIcon
+                      stroke="#FFF"
+                      css={{
+                        fill: colors.pinnedPostBackground || '#A5BCFF',
+                        marginLeft: '10px',
+                      }}
+                    />
+                  )}
                 </span>
               </A1>
             );
@@ -270,29 +291,49 @@ const MainLinks = ({
 
         {singleCommId && (
           <A1 to={routes.defaultPath} name={routes.defaultPath} route={route}>
-            <IconLg className="mr-2" icon={aiIcon} />
+            {graphCommunity ? (
+              <SparkleGraph size={[24, 24]} className="mr-2" />
+            ) : (
+              <IconLg className="mr-2" icon={aiIcon} />
+            )}
             {t('common.aiPoweredSearch')}
             <span css={styles.searchLabel}>New</span>
           </A1>
         )}
 
         <A1 to={routes.feed()} name="feed" route={route}>
-          <IconLg className="mr-2" icon={myFeedIcon} />
+          {graphCommunity ? (
+            <FileGraph size={[24, 24]} className="mr-2" />
+          ) : (
+            <IconLg className="mr-2" icon={myFeedIcon} />
+          )}
           {t(`common.${profile && !singleCommId ? 'myFeed' : 'feed'}`)}
         </A1>
 
         <A1 to={routes.questions()} name="discussions" route={route}>
-          <IconLg className="mr-2" icon={generalIcon} />
+          {graphCommunity ? (
+            <ChatsCircleGraph size={[24, 24]} className="mr-2" />
+          ) : (
+            <IconLg className="mr-2" icon={generalIcon} />
+          )}
           {t('common.discussions')}
         </A1>
 
         <A1 to={routes.expertPosts()} name="experts" route={route}>
-          <IconLg className="mr-2" icon={expertIcon} />
+          {graphCommunity ? (
+            <GraduationCapGraph size={[24, 24]} className="mr-2" />
+          ) : (
+            <IconLg className="mr-2" icon={expertIcon} />
+          )}
           {t('common.expertPosts')}
         </A1>
 
         <A1 to={routes.tutorials()} name="tutorials" route={route}>
-          <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
+          {graphCommunity ? (
+            <PlayCircleGraph size={[24, 24]} className="mr-2" />
+          ) : (
+            <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
+          )}
           {t('common.tutorials')}
         </A1>
 
@@ -305,21 +346,33 @@ const MainLinks = ({
 
         {Boolean(singleCommId) && (
           <A1 to={routes.communityTags(singleCommId)} name="tags" route={route}>
-            <IconLg className="mr-2" icon={tagsIcon} />
+            {graphCommunity ? (
+              <TagGraph size={[24, 24]} className="mr-2" />
+            ) : (
+              <IconLg className="mr-2" icon={tagsIcon} />
+            )}
             {t('common.tags')}
           </A1>
         )}
 
         {(hasGlobalModeratorRole() || isModeratorMode || (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>
-            <IconLg className="mr-2" icon={usersIcon} />
+            {graphCommunity ? (
+              <UsersGraph size={[24, 24]} className="mr-2" />
+            ) : (
+              <IconLg className="mr-2" icon={usersIcon} />
+            )}
             {t(`common.users`)}
           </A1>
         )}
 
         {Boolean(singleCommId && isAdministratorModeSingleCommunity) && (
           <A1 to={routes.administration()} name="administration" route={route}>
-            <Administration className={'mr-2'} />
+            {graphCommunity ? (
+              <PencilSimpleGraph size={[24, 24]} className="mr-2" />
+            ) : (
+              <Administration className="mr-2" />
+            )}
             {t('common.administration')}
           </A1>
         )}

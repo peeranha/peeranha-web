@@ -16,7 +16,7 @@ import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 import { getFormattedDate } from 'utils/datetime';
 import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, graphCommunityColors } from 'utils/communityManagement';
 
 import okayIcon from 'images/okay.svg?inline';
 import crownIcon from 'images/crownIcon.svg?inline';
@@ -30,6 +30,7 @@ import { POST_TYPE_ANSWER, POST_TYPE_QUESTION } from 'containers/Profile/constan
 import QuestionCommunity from './QuestionCommunity';
 
 const single = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 const BaseStyled = Base.extend`
   position: relative;
@@ -63,7 +64,7 @@ const Badge = Span.extend`
 `;
 
 const AcceptedQuestionBadgeStyled = Badge.extend`
-  background: ${BG_SUCCESS};
+  background: ${graphCommunity ? '#4BCA81' : BG_SUCCESS};
   margin-right: 20px;
   border: none;
 

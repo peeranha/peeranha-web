@@ -3,38 +3,27 @@ import styled from 'styled-components';
 import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import {
-  RedditShareButton,
-  TelegramShareButton,
-  TwitterShareButton,
-} from 'react-share';
+import { RedditShareButton, TelegramShareButton, TwitterShareButton } from 'react-share';
 import * as clipboard from 'clipboard-polyfill';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import {
-  SECONDARY_SPECIAL,
-  BG_BLACK,
-  BG_LIGHT,
-  TEXT_PRIMARY,
-} from 'style-constants';
+import { SECONDARY_SPECIAL, BG_BLACK, BG_LIGHT, TEXT_PRIMARY } from 'style-constants';
 import { APP_TWITTER_NICKNAME } from 'utils/constants';
-
 import { showPopover } from 'utils/popover';
-
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 import twitter from 'images/social-media-logos/logo-twitter-glyph-24.svg?external';
 import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?external';
 import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?external';
 
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Input from 'components/Input';
 import { IconLg } from 'components/Icon/IconWithSizes';
 
-import { singleCommunityColors } from 'utils/communityManagement';
-
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const DropdownModal = styled.div`
   position: absolute;
@@ -45,15 +34,14 @@ const DropdownModal = styled.div`
   padding: 15px;
   padding-bottom: 10px;
   width: 300px;
-
-  background-color: ${BG_LIGHT};
+  background-color: ${graphCommunity ? '#161425' : BG_LIGHT};
   border-radius: 3px;
   box-shadow: 0 2px 4px 0 ${SECONDARY_SPECIAL};
 
   p {
     margin-bottom: 10px;
 
-    color: ${BG_BLACK};
+    color: ${graphCommunity ? '#E1E1E4' : BG_BLACK};
   }
 
   input {
@@ -110,25 +98,15 @@ const SharingModal = ({ questionData }) => {
               isColorImportant={true}
             />
           </TwitterShareButton>
-          <TelegramShareButton
-            url={window.location.href}
-            title={questionData.content.title}
-          >
+          <TelegramShareButton url={window.location.href} title={questionData.content.title}>
             <IconLg
               fill={colors.linkColor || TEXT_PRIMARY}
               icon={telegram}
               isColorImportant={true}
             />
           </TelegramShareButton>
-          <RedditShareButton
-            url={window.location.href}
-            title={questionData.content.title}
-          >
-            <IconLg
-              fill={colors.linkColor || TEXT_PRIMARY}
-              icon={reddit}
-              isColorImportant={true}
-            />
+          <RedditShareButton url={window.location.href} title={questionData.content.title}>
+            <IconLg fill={colors.linkColor || TEXT_PRIMARY} icon={reddit} isColorImportant={true} />
           </RedditShareButton>
         </div>
         <button

@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import { isSuiBlockchain } from 'utils/constants';
 import Base from 'components/Base';
 import { C3 } from './Simple';
 singleCommunityColors();
+const graphCommunity = graphCommunityColors();
+
 export const SubHeaderWrapperRightPanel = styled.div`
   align-self: center;
   width: auto !important;
@@ -20,5 +22,5 @@ export const SubHeaderWrapperRightPanel = styled.div`
 
 export default Base.extend`
   ${({ isColumnForSM }) => C3(isColumnForSM)};
-  border: 1px solid ${isSuiBlockchain ? '#D0DAE6' : '#fff'};
+  border: 1px solid ${isSuiBlockchain ? '#D0DAE6' : graphCommunity ? '#3D3D54' : '#fff'};
 `;

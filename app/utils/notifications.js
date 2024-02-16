@@ -10,9 +10,18 @@ import {
   QuestionCircle,
   UpVote,
 } from 'icons/index';
-import { singleCommunityColors } from 'utils/communityManagement';
-
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import {
+  ThumbsUpGraph,
+  ThumbsDownGraph,
+  TheBestGraph,
+  PostTypeChangedGraph,
+  PostAnsweredGraph,
+  AnswerCommentedGraph,
+  PostMovedGraph,
+} from 'components/icons';
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const renderNotificationIcon = (type, isCommunityMode, communityStyles) => {
   const coinStyles = isCommunityMode
@@ -21,30 +30,58 @@ export const renderNotificationIcon = (type, isCommunityMode, communityStyles) =
   switch (type) {
     case NOTIFICATIONS_TYPES.questionUpVoted:
     case NOTIFICATIONS_TYPES.answerUpVoted:
-      return <UpVote />;
+      return graphCommunity ? <ThumbsUpGraph size={[24, 24]} /> : <UpVote />;
     case NOTIFICATIONS_TYPES.questionDownVoted:
     case NOTIFICATIONS_TYPES.answerDownVoted:
-      return <DownVote />;
+      return graphCommunity ? <ThumbsDownGraph size={[24, 24]} /> : <DownVote />;
     case NOTIFICATIONS_TYPES.questionUpVoteCanceled:
     case NOTIFICATIONS_TYPES.answerUpVoteCanceled:
-      return <UpVote fill="#5F5F5F" stroke="#5F5F5F" />;
+      return graphCommunity ? (
+        <ThumbsUpGraph size={[24, 24]} fill="#5F5F5F" />
+      ) : (
+        <UpVote fill="#5F5F5F" stroke="#5F5F5F" />
+      );
     case NOTIFICATIONS_TYPES.questionDownVoteCanceled:
     case NOTIFICATIONS_TYPES.answerDownVoteCanceled:
-      return <DownVote fill="#5F5F5F" stroke="#5F5F5F" />;
+      return graphCommunity ? (
+        <ThumbsDownGraph size={[24, 24]} fill="#5F5F5F" />
+      ) : (
+        <DownVote fill="#5F5F5F" stroke="#5F5F5F" />
+      );
     case NOTIFICATIONS_TYPES.answerMarkedTheBest:
-      return <BestAnswer stroke="#28A745" />;
+      return graphCommunity ? (
+        <TheBestGraph size={[24, 24]} fill="#4BCA81" />
+      ) : (
+        <BestAnswer stroke="#28A745" />
+      );
     case NOTIFICATIONS_TYPES.questionAnswered:
     case NOTIFICATIONS_TYPES.questionCommented:
-      return <QuestionCircle />;
+      return graphCommunity ? (
+        <PostAnsweredGraph size={[24, 24]} stroke="#4BCA81" />
+      ) : (
+        <QuestionCircle />
+      );
     case NOTIFICATIONS_TYPES.answerCommented:
-      return <AnswerWithA stroke="#354A89" />;
+      return graphCommunity ? (
+        <AnswerCommentedGraph size={[24, 24]} fill="#576FED" />
+      ) : (
+        <AnswerWithA stroke="#354A89" />
+      );
     case NOTIFICATIONS_TYPES.questionTipped:
     case NOTIFICATIONS_TYPES.answerTipped:
       return <Coins style={coinStyles} />;
     case NOTIFICATIONS_TYPES.postTypeChanged:
-      return <ChangeType stroke={colors.btnColor || BORDER_PRIMARY} />;
+      return graphCommunity ? (
+        <PostTypeChangedGraph size={[24, 24]} fill="#576FED" />
+      ) : (
+        <ChangeType stroke={colors.btnColor || BORDER_PRIMARY} />
+      );
     case NOTIFICATIONS_TYPES.communityChanged:
-      return <Communities stroke={colors.btnColor || BORDER_PRIMARY} />;
+      return graphCommunity ? (
+        <PostMovedGraph size={[24, 24]} fill="#576FED" stroke="#576FED" />
+      ) : (
+        <Communities stroke={colors.btnColor || BORDER_PRIMARY} />
+      );
     default:
       return null;
   }

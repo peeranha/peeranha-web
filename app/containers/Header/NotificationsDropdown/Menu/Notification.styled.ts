@@ -5,9 +5,10 @@ import {
   TEXT_PRIMARY,
   TEXT_SECONDARY,
 } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const styles = {
   // Notification styles
@@ -17,7 +18,7 @@ const styles = {
     width: '100%',
     padding: '10px 16px',
     margin: '0 auto',
-    borderBottom: '1px solid rgba(53, 74, 137, 0.15)',
+    borderBottom: `1px solid ${graphCommunity ? '#3D3D54' : 'rgba(53, 74, 137, 0.15)'}`,
     alignItems: 'start',
     justifyContent: 'start',
     svg: {
@@ -51,10 +52,10 @@ const styles = {
   title: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: '#282828',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
   },
   timestamp: {
-    color: colors.secondaryTextColor || TEXT_SECONDARY,
+    color: graphCommunity ? '#A7A7AD' : colors.secondaryTextColor || TEXT_SECONDARY,
     whiteSpace: 'nowrap',
     fontSize: '14px',
     margin: '5px 0',
@@ -71,7 +72,7 @@ const styles = {
     padding: '16px',
   },
   seeAll: {
-    color: colors.btnColor || TEXT_PRIMARY,
+    color: graphCommunity ? '#E1E1E4' : colors.btnColor || TEXT_PRIMARY,
     marginLeft: '2px',
     marginRight: '25px',
   },
@@ -81,7 +82,9 @@ const styles = {
     width: '100%',
     padding: '16px',
     justifyContent: 'space-between',
-    borderBottom: `1px solid ${colors.dividerColor || BORDER_SECONDARY_LIGHT}`,
+    borderBottom: `1px solid ${
+      graphCommunity ? '#3D3D54' : colors.dividerColor || BORDER_SECONDARY_LIGHT
+    }`,
   },
   headerTitle: {
     marginLeft: '10px',

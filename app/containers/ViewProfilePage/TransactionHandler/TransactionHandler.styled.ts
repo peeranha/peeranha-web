@@ -1,6 +1,7 @@
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styled = {
   inputRadio: {
@@ -9,7 +10,7 @@ export const styled = {
       display: 'inline-block',
       minWidth: '22px',
       height: '22px',
-      border: '1px solid var(--color-gray-dark)',
+      border: `1px solid ${graphCommunity ? '#E1E1E4' : 'var(--color-gray-dark)'}`,
       borderRadius: '50%',
       marginRight: '18px',
       backgroundRepeat: 'no-repeat',
@@ -40,6 +41,12 @@ export const styled = {
   },
 
   secondaryColor: {
-    color: 'var(--color-gray-dark)',
+    color: graphCommunity ? '#E1E1E4' : 'var(--color-gray-dark)',
+  },
+
+  textBlock: {
+    'div:first-child': {
+      color: graphCommunity ? '#E1E1E4' : 'inherit',
+    },
   },
 };

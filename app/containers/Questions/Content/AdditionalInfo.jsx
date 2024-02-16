@@ -1,9 +1,7 @@
+/* eslint-disable no-nested-ternary */
 import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-import Span from 'components/Span';
-import Base from 'components/Base';
 
 import {
   BG_SUCCESS_LIGHT,
@@ -13,17 +11,26 @@ import {
   TEXT_SUCCESS,
   BORDER_RADIUS_L,
 } from 'style-constants';
-
-import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
-
 import officialIcon from 'images/official.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
 import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?inline';
-import { singleCommunityColors } from 'utils/communityManagement';
+
+import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import {
+  ChatTextGraph,
+  CertificateGraph,
+  TheBestGraph,
+  ThumbsUpGraph,
+  ThumbsDownGraph,
+} from 'components/icons';
+import Span from 'components/Span';
+import Base from 'components/Base';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const Container = styled.div`
   background: ${colors.additionalInfoBackground || ''};
@@ -49,7 +56,7 @@ const Div = Base.extend`
   padding: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border-right: 1px solid ${BORDER_SECONDARY};
+  border-right: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
 
   > span {
     display: flex;
@@ -68,21 +75,26 @@ const Div = Base.extend`
 
   &:not(:last-child) {
     border-top-left-radius: ${BORDER_RADIUS_L};
-    border-bottom: 1px solid ${BORDER_SECONDARY};
+    border-bottom: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
   }
 
   @media only screen and (max-width: 576px) {
     width: auto;
 
-    border-bottom: 1px solid ${BORDER_SECONDARY};
-    border-right: 1px solid ${BORDER_SECONDARY};
+    border-bottom: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
+    border-right: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
 
     :last-child {
       border-right: none;
     }
   }
 
-  background: ${(x) => (x.isAccepted ? BG_SUCCESS_LIGHT : BG_TRANSPARENT)};
+  background: ${(x) =>
+    x.isAccepted
+      ? graphCommunity
+        ? 'rgba(75, 202, 129, 0.2)'
+        : BG_SUCCESS_LIGHT
+      : BG_TRANSPARENT};
 `;
 
 const AdditionalInfo = ({
@@ -100,7 +112,19 @@ const AdditionalInfo = ({
     }
 
     return correctAnswerId ? bestAnswerIcon : answerIconEmptyInside;
-  }, [correctAnswerId]);
+  }, [correctAnswerId, officialAnswersCount]);
+
+  const graphIcon = useMemo(() => {
+    if (officialAnswersCount) {
+      return <CertificateGraph size={[24, 24]} className="mr-1" />;
+    }
+
+    return correctAnswerId ? (
+      <TheBestGraph size={[24, 24]} className="mr-1" fill="#4BCA81" />
+    ) : (
+      <ChatTextGraph size={[24, 24]} className="mr-1" />
+    );
+  }, [correctAnswerId, officialAnswersCount]);
 
   const color = useMemo(
     () =>
@@ -118,6 +142,16 @@ const AdditionalInfo = ({
     [rating],
   );
 
+  const graphVote = useMemo(
+    () =>
+      rating >= 0 ? (
+        <ThumbsUpGraph size={[24, 24]} className="mr-1" />
+      ) : (
+        <ThumbsDownGraph size={[24, 24]} className="mr-1" />
+      ),
+    [rating],
+  );
+
   const formattedAnswerCount = useMemo(
     () => (isSearchPage ? getFormattedNum(answersCount) : getFormattedNum(answers.length)),
     [answersCount],
@@ -128,7 +162,7 @@ const AdditionalInfo = ({
       {!isTutorial && (
         <Div isAccepted={correctAnswerId}>
           <span>
-            <img src={icon} alt="icon" />
+            {graphCommunity ? graphIcon : <img src={icon} alt="icon" />}
             <Span color={color}>{formattedAnswerCount}</Span>
           </span>
         </Div>
@@ -136,7 +170,8 @@ const AdditionalInfo = ({
 
       <Div>
         <span>
-          <img src={src} alt="icon" />
+          {graphCommunity ? graphVote : <img src={src} alt="icon" />}
+
           <Span color={colors.linkColor || TEXT_PRIMARY_DARK}>{formattedRating}</Span>
         </span>
       </Div>

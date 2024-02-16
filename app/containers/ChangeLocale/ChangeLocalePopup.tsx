@@ -2,13 +2,17 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { languages } from 'app/i18n';
 import Popup from 'common-components/Popup';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import ArrowDownIcon from 'icons/ArrowDown';
+import { CaretRightGraph } from 'components/icons';
+
 import { Flag } from './Styled';
 import { styled } from './ChangeLocale.styled';
-import { singleCommunityColors } from 'utils/communityManagement';
+
 import ChangeLocaleButton from './ChangeLocaleButton';
-import ArrowDownIcon from 'icons/ArrowDown';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 type ChangeLocalePopupProps = {
   setLocale: () => void;
@@ -27,14 +31,23 @@ const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
   return (
     <>
       <ChangeLocaleButton withTitle locale={locale} />
-      <ArrowDownIcon
-        className="transform270"
-        css={{ color: colors.localeArrowColor || `var(--color-blue)`, marginRight: '13px' }}
-      />
+      {graphCommunity ? (
+        <CaretRightGraph className="mr-4" size={[24, 24]} />
+      ) : (
+        <ArrowDownIcon
+          className="transform270"
+          css={{ color: colors.localeArrowColor || `var(--color-blue)`, marginRight: '13px' }}
+        />
+      )}
       {open && (
         <Popup onClose={() => setOpen(false)}>
           <div className="mb-3 df fdc">
-            <div className="df aic jcc semi-bold fz24 mb-4">{t(`common.selectLanguage`)}</div>
+            <div
+              className="df aic jcc semi-bold fz24 mb-4"
+              css={graphCommunity && { color: '#E1E1E4' }}
+            >
+              {t(`common.selectLanguage`)}
+            </div>
             {Object.keys(languages).map((item) => (
               <label>
                 <input
@@ -50,7 +63,7 @@ const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
                       src={`https://images.peeranha.io/languages/${item}_lang.svg`}
                       alt="language"
                     />
-                    {t(`common.${item}`)}
+                    <span css={graphCommunity && { color: '#E1E1E4' }}>{t(`common.${item}`)}</span>
                   </div>
                 </div>
               </label>

@@ -1,5 +1,5 @@
 import { singleCommunityColors } from 'utils/communityManagement';
-import { BORDER_RADIUS_L } from 'style-constants';
+import { BORDER_RADIUS_L, APP_FONT } from 'style-constants';
 
 const communityColors = singleCommunityColors();
 
@@ -23,7 +23,7 @@ export const styles = {
   },
 
   navbarItem: {
-    fontFamily: 'Source Sans Pro, serif',
+    fontFamily: APP_FONT || 'Source Sans Pro, serif',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '14px',

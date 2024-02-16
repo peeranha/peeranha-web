@@ -1,8 +1,10 @@
 import { BORDER_SECONDARY } from 'style-constants';
+import { graphCommunityColors } from 'utils/communityManagement';
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   rulesConsent: {
-    background: 'var(--color-white)',
+    background: graphCommunity ? '#161425' : 'var(--color-white)',
     zIndex: 10,
     lineHeight: '20px',
     width: '100%',

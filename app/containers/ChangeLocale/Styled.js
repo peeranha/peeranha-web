@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { LANDING_FONT, BG_SECONDARY_LIGHT } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const Flag = styled.img`
   margin-right: 8px;
@@ -19,7 +20,12 @@ const Li = styled.li`
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: ${(x) => (x.isBold ? colors.linkColor || 'var(--color-blue)' : 'var(--color-black)')};
+  color: ${(x) =>
+    x.isBold
+      ? colors.linkColor || 'var(--color-blue)'
+      : graphCommunity
+      ? '#E1E1E4'
+      : 'var(--color-black)'};
   :hover {
     background: ${BG_SECONDARY_LIGHT};
   }

@@ -29,11 +29,13 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import { customRatingIconColors } from 'constants/customRating';
 import { getUserName } from 'utils/user';
 import useMediaQuery from 'hooks/useMediaQuery';
-
-import { singleCommunityColors } from 'utils/communityManagement';
+import { NoteGraph, ChatCenteredTextGraph, CopyFillGraph } from 'components/icons';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import { SuiNS } from 'icons/index';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
+
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
   margin-top: 5px;
@@ -76,7 +78,7 @@ export const UlStyled = Ul.extend`
       font-size: 14px;
       line-height: 25px;
       padding-bottom: 25px;
-      color: ${TEXT_SECONDARY};
+      color: ${graphCommunity ? '#A7A7AD' : TEXT_SECONDARY};
     }
 
     > *:nth-child(2) {
@@ -84,7 +86,7 @@ export const UlStyled = Ul.extend`
       align-items: center;
       font-size: 18px;
       font-weight: 600;
-      color: ${TEXT_DARK};
+      color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
 
       img {
         margin-right: 5px;
@@ -211,7 +213,7 @@ const MainUserInformation = ({
       className="pb-0"
       isLogin={userId !== account}
       css={
-        isSuiBlockchain && {
+        (isSuiBlockchain || graphCommunity) && {
           borderLeft: `1px solid ${colors.border}`,
           borderRight: `1px solid ${colors.border}`,
         }
@@ -222,7 +224,9 @@ const MainUserInformation = ({
           flex-direction: column;
           @media (min-width: 768px) {
             flex-direction: row;
-            background: ${colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
+            background: ${graphCommunity
+              ? 'none'
+              : colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
             border-radius: 170px;
           }
         `}
@@ -349,12 +353,16 @@ const MainUserInformation = ({
               >
                 <span>{t('common.posts')}</span>
                 <span>
-                  <FaqIcon
-                    className="mr-2"
-                    size={[18, 18]}
-                    stroke={colors.linkColor || TEXT_PRIMARY}
-                    fill={colors.linkColor || TEXT_PRIMARY}
-                  />
+                  {graphCommunity ? (
+                    <NoteGraph className="mr-2" size={[20, 20]} fill="#6F4CFF" />
+                  ) : (
+                    <FaqIcon
+                      className="mr-2"
+                      size={[18, 18]}
+                      stroke={colors.linkColor || TEXT_PRIMARY}
+                      fill={colors.linkColor || TEXT_PRIMARY}
+                    />
+                  )}
                   {profile.postCount}
                 </span>
               </li>
@@ -369,11 +377,15 @@ const MainUserInformation = ({
               >
                 <span>{t('common.answers')}</span>
                 <span>
-                  <AnswerWithAIcon
-                    className="mr-2"
-                    size={[18, 18]}
-                    stroke={colors.linkColor || TEXT_PRIMARY}
-                  />
+                  {graphCommunity ? (
+                    <ChatCenteredTextGraph className="mr-2" size={[20, 20]} fill="#6F4CFF" />
+                  ) : (
+                    <AnswerWithAIcon
+                      className="mr-2"
+                      size={[18, 18]}
+                      stroke={colors.linkColor || TEXT_PRIMARY}
+                    />
+                  )}
                   {profile.answersGiven}
                 </span>
               </li>
@@ -432,7 +444,7 @@ const MainUserInformation = ({
                         id="copytext1"
                         css={css`
                           border-bottom: 1px solid;
-                          color: ${LINK_COLOR};
+                          color: ${graphCommunity ? '#6F4CFF' : LINK_COLOR};
                           font-weight: 400;
                           font-size: 16px;
                           line-height: 23px;
@@ -448,11 +460,15 @@ const MainUserInformation = ({
                       id="share-link-copy"
                       onClick={writeToBuffer}
                     >
-                      <CopyTextIcon
-                        className={colors.btnColor || LINK_COLOR}
-                        fill={copied}
-                        stroke={colors.btnColor || LINK_COLOR}
-                      />
+                      {graphCommunity ? (
+                        <CopyFillGraph fill={copied} size={[24, 24]} />
+                      ) : (
+                        <CopyTextIcon
+                          className={colors.btnColor || LINK_COLOR}
+                          fill={copied}
+                          stroke={colors.btnColor || LINK_COLOR}
+                        />
+                      )}
                     </button>
                   </div>
                 </li>

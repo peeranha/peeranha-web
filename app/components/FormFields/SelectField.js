@@ -22,10 +22,11 @@ import {
 import arrowDown from 'images/arrowDownNotFilled.svg?external';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import Wrapper from './Wrapper';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const Box = styled.div`
   padding: 0 25px;
@@ -124,10 +125,10 @@ export const Select2 = ({
             BORDER_TRANSPARENT
           }`,
           borderRadius: '3px',
-          color: TEXT_DARK,
+          color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
           fontFamily: APP_FONT,
           fontSize: '16px',
-          background: `${BG_LIGHT} !important`,
+          background: `${graphCommunity ? '#161425' : BG_LIGHT} !important`,
           minWidth: 270,
           minHeight: 40,
           margin: `${menuIsOpen ? '10px' : '0'}`,
@@ -135,7 +136,8 @@ export const Select2 = ({
         }),
         menu: (base) => ({
           ...base,
-          color: TEXT_DARK,
+          background: `${graphCommunity ? '#161425' : BG_LIGHT} !important`,
+          color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
           fontFamily: APP_FONT,
           fontSize: '16px',
           position: isWrapped ? 'relative' : 'absolute',

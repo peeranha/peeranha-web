@@ -5,13 +5,14 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { BORDER_PRIMARY_LIGHT, TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const Base = styled.div`
   span {
-    color: ${TEXT_DARK};
+    color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
   }
 
   > ul {

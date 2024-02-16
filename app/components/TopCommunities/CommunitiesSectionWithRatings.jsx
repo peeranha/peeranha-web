@@ -8,16 +8,20 @@ import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
 
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+
 import allCommunitiesIcon from 'images/createCommunity.svg?external';
 import Icon from 'components/Icon';
 import A, { ADefault } from 'components/A';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import Grid from 'components/Grid';
+import { CirclesThreeGraph } from 'components/icons';
+
 import CommunityItemWithRating from './CommunityItemWithRating';
-import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, locale }) => {
   const { t } = useTranslation();
@@ -58,19 +62,23 @@ const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, loca
             to={allCommunitiesRoute}
             href={allCommunitiesRoute}
           >
-            <Icon
-              className="mr-2"
-              icon={allCommunitiesIcon}
-              width="18"
-              css={css`
-                circle {
-                  stroke: ${colors.btnColor || TEXT_PRIMARY};
-                }
-                path {
-                  fill: ${colors.btnColor || TEXT_PRIMARY};
-                }
-              `}
-            />
+            {graphCommunity ? (
+              <CirclesThreeGraph className="mr-2" fill="#6F4CFF" size={[24, 24]} />
+            ) : (
+              <Icon
+                className="mr-2"
+                icon={allCommunitiesIcon}
+                width="18"
+                css={css`
+                  circle {
+                    stroke: ${colors.btnColor || TEXT_PRIMARY};
+                  }
+                  path {
+                    fill: ${colors.btnColor || TEXT_PRIMARY};
+                  }
+                `}
+              />
+            )}
             <Span color={colors.btnColor || TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
           </AllCommunitiesLink>
         </div>

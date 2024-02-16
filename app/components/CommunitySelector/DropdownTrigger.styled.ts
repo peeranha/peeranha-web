@@ -1,14 +1,15 @@
 import { BORDER_PRIMARY, BORDER_RADIUS_S, TEXT_PRIMARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   container: {
     cursor: 'pointer',
     width: '100%',
     height: 'auto !important',
-    background: 'linear-gradient(0deg, #FFFFFF, #FFFFFF), #D8D8D8',
+    background: graphCommunity ? '#161425' : 'linear-gradient(0deg, #FFFFFF, #FFFFFF), #D8D8D8',
     border: '1px solid #C2C6D8',
     borderRadius: '3px',
     padding: '0 16px',
@@ -16,7 +17,7 @@ export const styles = {
   },
 
   placeholder: {
-    color: 'rgb(123,123,123)',
+    color: graphCommunity ? '#E1E1E4' : 'rgb(123,123,123)',
   },
 
   arrow: {

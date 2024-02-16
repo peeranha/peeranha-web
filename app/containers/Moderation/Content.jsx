@@ -5,21 +5,25 @@ import { Trans } from 'react-i18next';
 
 import { BORDER_SECONDARY, BG_TRANSPARENT, BORDER_TRANSPARENT, TEXT_DARK } from 'style-constants';
 
+import { graphCommunityColors } from 'utils/communityManagement';
+
 import H4 from 'components/H4';
 import Span from 'components/Span';
-
 import BaseTransparent from 'components/Base/BaseTransparent';
 import BaseRounded from 'components/Base/BaseRounded';
 import Button from 'components/Button/Outlined/PrimaryLarge';
+
 import { permissions } from './messages';
 import styles from './Moderation.styled';
+
+const graphCommunity = graphCommunityColors();
 
 const SectionStyled = BaseRounded.extend`
   margin-bottom: 15px;
   padding: 0 0 32px;
 
   > :not(:last-child) {
-    border-bottom: 1px solid ${BORDER_SECONDARY};
+    border-bottom: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
   }
 
   ${Button} {
@@ -37,7 +41,7 @@ const PermissionBox = BaseTransparent.extend`
   margin-bottom: 12px;
 
   h5 span {
-    color: ${TEXT_DARK};
+    color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
     margin-bottom: 5px;
     line-height: 24px;
     & strong {
@@ -92,12 +96,12 @@ const Section = ({
     <SectionStyled id={sectionId}>
       <BaseTransparent css={styles.sectionHeader}>
         <H4 mobileFS="24">
-          <span>{sectionPermissions[0]?.h2}</span>
+          <span css={graphCommunity && { color: '#E1E1E4' }}>{sectionPermissions[0]?.h2}</span>
         </H4>
       </BaseTransparent>
 
       {sectionPermissions.map(({ h3, blocks }) => (
-        <div className="d-block" key={h3}>
+        <div className="d-block" css={graphCommunity && { color: '#E1E1E4' }} key={h3}>
           <div css={styles.roleTitle}>{h3}</div>
           <ul>
             {blocks.map((x) => (

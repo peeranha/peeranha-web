@@ -1,31 +1,32 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { getPostRoute } from 'routes-config';
+import communitiesConfig from 'communities-config';
+import styled from 'styled-components';
 
 import { TEXT_SECONDARY, BORDER_SUCCESS, TEXT_SUCCESS, BORDER_SECONDARY } from 'style-constants';
+import questionRoundedIcon from 'images/question2.svg?inline';
+import answerIcon from 'images/answer.svg?inline';
+import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import { getTimeFromDateToNow } from 'utils/datetime';
+import { isSingleCommunityWebsite, graphCommunityColors } from 'utils/communityManagement';
 
-import communitiesConfig from 'communities-config';
 import { POST_TYPE_ANSWER, POST_TYPE_QUESTION } from 'containers/Profile/constants';
+import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Span from 'components/Span';
 import Img from 'components/Img/SmallImage';
 import A, { ADefault } from 'components/A';
-import styled from 'styled-components';
+import { QuestionGraph, TheBestGraph, ChatTextGraph } from 'components/icons';
 
-import questionRoundedIcon from 'images/question2.svg?inline';
-import answerIcon from 'images/answer.svg?inline';
-import bestAnswerIcon from 'images/bestAnswer.svg?inline';
-
-import QuestionType from 'containers/Questions/Content/Body/QuestionType';
-import { getPostRoute } from 'routes-config';
 import Banner from './Banner';
 
 const single = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 const Rating = Span.extend`
   min-width: 40px;
@@ -33,10 +34,18 @@ const Rating = Span.extend`
   font-size: 14px;
   border: 1px solid
     ${({ acceptedAnswer, isMyPost, isMyAnswerAccepted }) =>
-      (acceptedAnswer && isMyPost) || isMyAnswerAccepted ? BORDER_SUCCESS : BORDER_SECONDARY};
+      (acceptedAnswer && isMyPost) || isMyAnswerAccepted
+        ? graphCommunity
+          ? '#4BCA81'
+          : BORDER_SUCCESS
+        : BORDER_SECONDARY};
 
   color: ${({ acceptedAnswer, isMyPost, isMyAnswerAccepted }) =>
-    (acceptedAnswer && isMyPost) || isMyAnswerAccepted ? TEXT_SUCCESS : TEXT_SECONDARY};
+    (acceptedAnswer && isMyPost) || isMyAnswerAccepted
+      ? graphCommunity
+        ? '#4BCA81'
+        : TEXT_SUCCESS
+      : TEXT_SECONDARY};
   display: inline-block;
   text-align: center;
   border-radius: 3px;
@@ -70,11 +79,17 @@ const PostDate = Span.extend`
 
 const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
   let icon = answerIcon;
+  let graphIcon = <ChatTextGraph size={[28, 28]} fill="#6F4CFF" />;
+  if (elementType === POST_TYPE_QUESTION) {
+    icon = questionRoundedIcon;
+    graphIcon = <QuestionGraph size={[28, 28]} fill="#6F4CFF" />;
+  }
+  if (isMyAnswerAccepted) {
+    icon = bestAnswerIcon;
+    graphIcon = <TheBestGraph size={[28, 28]} fill="#4BCA81" />;
+  }
 
-  if (elementType === POST_TYPE_QUESTION) icon = questionRoundedIcon;
-  if (isMyAnswerAccepted) icon = bestAnswerIcon;
-
-  return <Img src={icon} notRounded alt="icon" />;
+  return graphCommunity ? graphIcon : <Img src={icon} notRounded alt="icon" />;
 };
 
 const TitleHolder = Span.extend`
@@ -135,7 +150,13 @@ const Note = ({
           <QuestionType locale={locale} postType={postType} />
         </div>
 
-        <PostDate className="d-inline-block" color={TEXT_SECONDARY} fontSize="14" mobileFS="12">
+        <PostDate
+          className="d-inline-block"
+          color={TEXT_SECONDARY}
+          fontSize="14"
+          mobileFS="12"
+          css={graphCommunity && { color: '#A7A7AD' }}
+        >
           {getTimeFromDateToNow(myPostTime, locale)} {t('common.ago')}
         </PostDate>
       </Block>

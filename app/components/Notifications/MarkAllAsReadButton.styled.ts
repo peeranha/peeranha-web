@@ -1,13 +1,14 @@
 import { TEXT_PRIMARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   markAllButton: {
     display: 'flex',
     alignItems: 'center',
-    color: colors.btnColor || TEXT_PRIMARY,
+    color: graphCommunity ? '#E1E1E4' : colors.btnColor || TEXT_PRIMARY,
   },
 
   markAllIcon: {

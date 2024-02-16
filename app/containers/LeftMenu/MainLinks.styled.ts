@@ -1,11 +1,17 @@
 import { BORDER_SECONDARY, TEXT_LIGHT } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityFonts,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const { main } = singleCommunityFonts();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   menuItem: {
-    fontFamily: 'Source Sans Pro, serif',
+    fontFamily: main || 'Source Sans Pro, serif',
     fontStyle: 'normal',
     fontWeight: 400,
   },
@@ -59,7 +65,7 @@ export const styles = {
   },
 
   dropdownMenuItem: {
-    color: 'black',
+    color: graphCommunity ? '#E1E1E4' : 'black',
     fontSize: '14px',
     padding: '16px',
     textDecoration: 'none',
@@ -72,7 +78,9 @@ export const styles = {
 
     ':hover': {
       boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
-      background: colors.navMenuBackgroundColor || 'rgba(123, 123, 123, 0.1)',
+      background: graphCommunity
+        ? 'none'
+        : colors.navMenuBackgroundColor || 'rgba(123, 123, 123, 0.1)',
       borderRadius: '5px',
     },
     svg: {
