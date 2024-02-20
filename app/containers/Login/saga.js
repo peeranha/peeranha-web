@@ -64,10 +64,17 @@ export function* loginWithWalletWorker({ t, isTorus }) {
     }
 
     const connectedWalletLabel = isTorus ? 'Torus' : ethereumService.connectedWallets[0].label;
+    const expirationDate = new Date();
 
+    expirationDate.setTime(expirationDate.getTime() + 12 * 60 * 60 * 1000);
     setCookie({
       name: CONNECTED_WALLET,
       value: connectedWalletLabel,
+      options: {
+        defaultPath: true,
+        allowSubdomains: true,
+        expires: expirationDate,
+      },
     });
     setCookie({
       name: 'agreement',

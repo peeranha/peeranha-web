@@ -1,15 +1,22 @@
-import { isSuiBlockchain } from 'utils/constants';
+import { ACTION_FULFILLED, isSuiBlockchain } from 'utils/constants';
+import { getCookie } from 'utils/cookie';
 import { AaveStyles } from './communities-configs/aave';
 import { AnkrStyles } from './communities-configs/ankr';
+import { CartesiStyles } from './communities-configs/cartesi';
 import { CyberconnectStyles } from './communities-configs/cyberconnect';
+import { CyfrinStyles } from './communities-configs/cyfrin';
 import { DeveloperDAOStyles } from './communities-configs/developerDAO';
+import { EdgewareStyles } from './communities-configs/edgeware';
+import { EngeniousStyles } from './communities-configs/engenious';
 import { FilebaseStyles } from './communities-configs/filebase';
 import { FilecoinStyles } from './communities-configs/filecoin';
 import { ForceStyles } from './communities-configs/force';
 import { FractalVisionsStyles } from './communities-configs/fractalVisions';
 import { FunctionlandStyles } from './communities-configs/functionland';
+import { GraphStyles } from './communities-configs/graph';
 import { HarmonyStyles } from './communities-configs/harmony';
 import { IndexerDAOStyles } from './communities-configs/indexerDAO';
+import { IPFSStyles } from './communities-configs/IPFS';
 import { KoiiStyles } from './communities-configs/koii';
 import { LaunchpadStyles } from './communities-configs/launchpad';
 import { Mark3dStyles } from './communities-configs/mark3d';
@@ -21,16 +28,10 @@ import { PolywrapStyles } from './communities-configs/polywrap';
 import { SolidityStyles } from './communities-configs/solidity';
 import { SuiStyles } from './communities-configs/sui';
 import { SuiGlobalStyles } from './communities-configs/suiGlobal';
+import { SuiMainStyles } from './communities-configs/suiMain';
+import { SuiNSStyles } from './communities-configs/suiNS';
 import { ValistStyles } from './communities-configs/valist';
 import { VyperStyles } from './communities-configs/vyper';
-import { SuiMainStyles } from './communities-configs/suiMain';
-import { CartesiStyles } from './communities-configs/cartesi';
-import { EdgewareStyles } from './communities-configs/edgeware';
-import { SuiNSStyles } from './communities-configs/suiNS';
-import { GraphStyles } from './communities-configs/graph';
-import { IPFSStyles } from './communities-configs/IPFS';
-import { EngeniousStyles } from './communities-configs/engenious';
-import { CyfrinStyles } from './communities-configs/cyfrin';
 
 const communitiesConfig = {
   prod: isSuiBlockchain
@@ -468,15 +469,17 @@ const googleSiteVerificationsConfig = {
 };
 
 export const isMeshServiceConfig = () => {
+  const isActionFulfilled = getCookie(ACTION_FULFILLED);
+  if (isActionFulfilled) {
+    return true;
+  }
   const polygonNetworkId = 1;
 
   const singleCommunityId = Object.keys(communitiesConfig[process.env.ENV]).find(
     (id) => communitiesConfig[process.env.ENV]?.[id].origin === window.location.origin,
   );
 
-  const meshService = !(Number(singleCommunityId?.split('-')[0]) === polygonNetworkId);
-
-  return meshService;
+  return !(Number(singleCommunityId?.split('-')[0]) === polygonNetworkId);
 };
 
 export const googleVerificationConfig = googleSiteVerificationsConfig[process.env.ENV];

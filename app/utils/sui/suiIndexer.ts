@@ -6,16 +6,14 @@ import {
   postsByCommunityIdQuery,
   postsQuery,
   userQuery,
-  usersQuery,
   usersByCommunityQuery,
+  usersQuery,
 } from 'utils/sui/suiQuerries';
 import { delay } from 'utils/reduxUtils';
 import { historyIdQueryGraph } from 'utils/queries/QueriesGraph';
 
-const isMeshService = isMeshServiceConfig();
-
 const getDataFromIndexer = async (query: string, variables: object = {}) => {
-  const url = isMeshService ? process.env.QUERY_INDEX_URL : process.env.THE_GRAPH_QUERY_URL;
+  const url = isMeshServiceConfig() ? process.env.QUERY_INDEX_URL : process.env.THE_GRAPH_QUERY_URL;
   const response = await fetch(new URL(url), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -169,12 +167,12 @@ export const getSuiCommunityTags = async (communityId: string) => {
 };
 
 export const isPostTransactionIndexed = async (id) => {
+  const isMeshService = isMeshServiceConfig();
   const historyQuery = isMeshService ? historyIdQuery : historyIdQueryGraph;
   const data = await getDataFromIndexer(historyQuery, { id });
-  const waitingData = isMeshService
+  return isMeshService
     ? data.history && data.history.length > 0
     : data.history?.id && data.history?.id.length > 0;
-  return waitingData;
 };
 
 export const waitForPostTransactionToIndex = async (transaction) => {
