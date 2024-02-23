@@ -11,6 +11,8 @@
  * the linting exception.
  */
 
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { showLoginModal } from 'containers/Login/actions';
 import Documentation from 'pages/Documentation';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -33,6 +35,7 @@ import {
   REWARD_CLAIMING_ENABLED,
   POSITION_TOP,
   isSuiBlockchain,
+  CONNECTED_WALLET,
 } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
@@ -102,7 +105,14 @@ const App = ({
   history,
   documentationMenu,
   pinnedItemMenu,
+  profileInfo,
+  showLoginModalDispatch,
 }) => {
+  const previouslyConnectedWallet = getCookie(CONNECTED_WALLET);
+  if (!profileInfo && !previouslyConnectedWallet) {
+    showLoginModalDispatch();
+  }
+
   const hasPinnedPost = pinnedItemMenu.id !== '';
 
   if (process.env.NODE_ENV === 'production') {
@@ -434,6 +444,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  profileInfo: makeSelectProfileInfo(),
   documentationMenu: selectDocumentationMenu(),
   pinnedItemMenu: selectPinnedItemMenu(),
 });
@@ -445,5 +456,6 @@ export default compose(
     redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
     redirectToDocumentationDispatch: bindActionCreators(redirectToDocumentation, dispatch),
     redirectToPreloadDispatch: bindActionCreators(redirectToPreload, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   })),
 )(App);
