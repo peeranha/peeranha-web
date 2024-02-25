@@ -8,7 +8,7 @@ import * as routes from 'routes-config';
 import { updateAcc, emptyProfile, emailSignIn, verifyEmail } from 'utils/accountManagement';
 import { WebIntegrationError } from 'utils/errors';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { setCookie } from 'utils/cookie';
+import { deleteCookie, setCookie } from 'utils/cookie';
 import { CONNECTED_WALLET } from 'utils/constants';
 
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
@@ -67,6 +67,7 @@ export function* loginWithWalletWorker({ t, isTorus }) {
     const expirationDate = new Date();
 
     expirationDate.setTime(expirationDate.getTime() + 12 * 60 * 60 * 1000);
+    deleteCookie(CONNECTED_WALLET);
     setCookie({
       name: CONNECTED_WALLET,
       value: connectedWalletLabel,

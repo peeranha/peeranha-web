@@ -1,7 +1,7 @@
 import { isMeshServiceConfig } from 'communities-config';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
-import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { showLoginModal } from 'containers/Login/actions';
 import { ApplicationError } from 'utils/errors';
 import { getProfileInfo } from 'utils/profileManagement';
 import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects';
@@ -31,7 +31,7 @@ import {
 import { getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { CHANGED_POSTS_KEY, isSuiBlockchain, POST_TYPE } from 'utils/constants';
+import { CHANGED_POSTS_KEY, isSuiBlockchain } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
 import { getUserProfileSuccess, removeUserProfile } from 'containers/DataCacheProvider/actions';
@@ -146,7 +146,6 @@ const getPostsRoute = (postType) => {
       return routes.questions();
   }
 };
-const isMeshService = isMeshServiceConfig();
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
@@ -155,6 +154,7 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
 export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
   const ethereumService = yield select(selectEthereum);
   const question = yield call(getPost, questionId);
+  const isMeshService = isMeshServiceConfig();
 
   question.author = { ...question.author, user: question.author.id };
 
