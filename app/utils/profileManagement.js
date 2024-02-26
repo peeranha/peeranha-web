@@ -73,7 +73,7 @@ export async function saveProfile(ethereumService, user, profile) {
   const network = singleCommId?.split('-')[0] - 1 || getCookie(NETWORK_ID) || 0;
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
-  await ethereumService.sendTransaction(network, CONTRACT_USER[network], user, UPDATE_ACC, [
+  return ethereumService.sendTransaction(network, CONTRACT_USER[network], user, UPDATE_ACC, [
     user,
     transactionData,
   ]);

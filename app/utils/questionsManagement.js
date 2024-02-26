@@ -228,7 +228,7 @@ export async function upVote(user, questionId, answerId, ethereumService) {
   if (answerId) {
     actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
   }
-  await ethereumService.sendTransaction(
+  return ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
@@ -242,7 +242,7 @@ export async function downVote(user, questionId, answerId, ethereumService) {
   if (answerId) {
     actualAnswerId = answerId === '0' ? 0 : answerId.split('-')[2];
   }
-  await ethereumService.sendTransaction(
+  return ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
@@ -267,7 +267,7 @@ export const getStatusHistory = async (
   ]);
 
 export async function markAsAccepted(user, questionId, correctAnswerId, ethereumService) {
-  await ethereumService.sendTransaction(
+  return ethereumService.sendTransaction(
     getNetwork(questionId),
     CONTRACT_CONTENT[getNetwork(questionId)],
     user,
