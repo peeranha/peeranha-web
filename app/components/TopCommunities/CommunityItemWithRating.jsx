@@ -48,7 +48,7 @@ const CommunityItemWithRating = ({ communities, single, communityId, rating, loc
           {community && (
             <div>
               <MediumImage src={community.avatar} alt="comm_img" />
-              <P fontSize="16" bold>
+              <P fontSize="16" css={{ color: '#E1E1E4' }}>
                 {communityTranslation?.name || community.name}
               </P>
             </div>
@@ -81,7 +81,7 @@ const CommunityItemWithRating = ({ communities, single, communityId, rating, loc
           <div className="d-flex flex-column justify-content-between">
             {community && (
               <div>
-                <P fontSize="16" bold>
+                <P fontSize="16" bold css={{ color: '#E1E1E4' }}>
                   {communityTranslation?.name || community.name}
                 </P>
                 <P>{communityTranslation?.description || community.description}</P>

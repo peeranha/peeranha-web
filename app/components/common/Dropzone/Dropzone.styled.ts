@@ -6,9 +6,9 @@ const graphCommunity = graphCommunityColors();
 export const styles = {
   fileDropzone: {
     background: graphCommunity
-      ? '#161425'
+      ? '#6F4CFF0F'
       : colors.newPostMediaBackgroundColor || 'rgb(250, 250, 250)',
-    border: '1px dashed rgb(220, 220, 220)',
+    border: '1px dashed #3D3D54',
     borderRadius: '5px',
   },
 
@@ -16,22 +16,22 @@ export const styles = {
     width: '34px',
     height: '34px',
     borderRadius: '50%',
-    background: graphCommunity ? '#6F4CFF' : 'rgba(118, 153, 255, 0.2)',
-    border: `1px solid ${graphCommunity ? '#E1E1E4' : 'rgb(165, 188, 255)'}`,
+    background: graphCommunity ? '#6F4CFF33' : 'rgba(118, 153, 255, 0.2)',
+    border: `1px solid ${graphCommunity ? '#6F4CFF' : 'rgb(165, 188, 255)'}`,
     margin: '18px 13px',
   },
 
   dragText: {
     '@media (min-width: 1024px)': {
       display: 'inline',
-      color: graphCommunity ? '#E1E1E4' : 'rgba(0, 0, 0, 0.87)',
+      color: graphCommunity ? '#FFFFFF' : 'rgba(0, 0, 0, 0.87)',
       lineHeight: '18px',
     },
   },
 
   attachOr: {
     lineHeight: '14px',
-    color: graphCommunity ? '#E1E1E4' : 'rgba(0, 0, 0, 0.54)',
+    color: graphCommunity ? '#FFFFFF' : 'rgba(0, 0, 0, 0.54)',
 
     '@media (min-width: 1024px)': {
       display: 'inline',
@@ -64,7 +64,7 @@ export const styles = {
   },
 
   restrictionsText: {
-    color: 'rgb(123, 123, 123)',
+    color: '#A7A7AD',
     lineHeight: '18px',
   },
 };

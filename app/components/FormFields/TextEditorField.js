@@ -23,7 +23,7 @@ const Div = styled.div`
 
   .CodeMirror {
     border: none;
-    border-top: 1px solid ${BORDER_SECONDARY};
+    border-top: 1px solid #3d3d54;
     border-bottom-right-radius: ${BORDER_RADIUS_M};
     border-bottom-left-radius: ${BORDER_RADIUS_M};
   }

@@ -30,9 +30,9 @@ const Container = styled.div`
   height: 47px;
   min-width: 47px;
   min-height: 47px;
-  background: ${graphCommunity ? '#161425' : styles.fullyTransparent || BG_LIGHT};
+  background: ${graphCommunity ? '#161426' : styles.fullyTransparent || BG_LIGHT};
   border: ${graphCommunity
-    ? '1px solid #E1E1E4'
+    ? '1px solid #161426'
     : styles.communityBorderStyle || `1px solid ${BORDER_PRIMARY}`};
   display: flex;
   align-items: center;

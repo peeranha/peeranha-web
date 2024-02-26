@@ -9,7 +9,7 @@ export const styles = {
     marginBottom: '32px',
     padding: '16px',
     backgroundColor: graphCommunity
-      ? '#161425'
+      ? '#6F4CFF33'
       : colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
     width: '100%',
   },
@@ -32,27 +32,22 @@ export const styles = {
     display: 'flex',
     alignItems: 'start',
     marginBottom: '12px',
-    fontSize: '16px',
+    fontSize: '14px',
     lineHeight: '20px',
     ':before': {
-      content: '""',
-      flexBasis: '5px',
-      height: '5px',
-      borderRadius: '50%',
-      background: `${colors.textColor || BG_PRIMARY}`,
+      content: "'\\25E6'",
       marginRight: '10px',
       display: 'inline-flex',
       position: 'relative',
-      top: '8px',
     },
     span: {
       flex: 1,
     },
   },
   secondaryText: {
-    color: `${TEXT_SECONDARY}`,
-    fontSize: '16px',
-    lineHeight: '24px',
+    color: `#A7A7AD`,
+    fontSize: '14px',
+    lineHeight: '20px',
   },
   fullRules: {
     fontStyle: 'italic',

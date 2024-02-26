@@ -73,13 +73,14 @@ const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, loca
                   circle {
                     stroke: ${colors.btnColor || TEXT_PRIMARY};
                   }
+
                   path {
                     fill: ${colors.btnColor || TEXT_PRIMARY};
                   }
                 `}
               />
             )}
-            <Span color={colors.btnColor || TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
+            <Span css={{ color: '#6F4CFF' }}>{t('common.allCommunities')}</Span>
           </AllCommunitiesLink>
         </div>
       </Grid>

@@ -174,7 +174,7 @@ const MainUserInformation = ({
   const userAddress = isSuiBlockchain
     ? process.env.SUI_EXPLORERE_URL.replace('{0}', userId)
     : process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
-  const [copied, setCopied] = useState('');
+  const [copied, setCopied] = useState(colors.btnColor);
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const writeToBuffer = (event) => {

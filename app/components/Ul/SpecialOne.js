@@ -5,8 +5,17 @@ import { singleCommunityColors } from 'utils/communityManagement';
 const colors = singleCommunityColors();
 
 const S = css`
-  padding: 12px 20px;
-  min-width: 125px;
+  min-width: 220px;
+  padding: 0 !important;
+
+  > a {
+    padding: 5px 16px;
+    font-size: 14px;
+
+    :hover {
+      background-color: rgba(35, 32, 55, 1);
+    }
+  }
 
   > * {
     font-size: 16px;

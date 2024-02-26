@@ -54,7 +54,7 @@ const PermissionBox = BaseTransparent.extend`
     height: 5px;
     margin-top: 11px;
     border-radius: 50%;
-    background-color: #576fed;
+    border: 1px solid #e1e1e4;
     margin-right: 10px;
   }
 `.withComponent('li');

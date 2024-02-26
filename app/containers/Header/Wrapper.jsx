@@ -74,9 +74,9 @@ export const SingleModeSubHeader = styled.div`
 export const MainSubHeader = styled.div`
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 4px 0 ${colors.headerShadow || BORDER_SECONDARY};
   flex: 2;
   background: ${(props) => (props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : '')};
+  border-bottom: 1px solid #3d3d54;
 
   form {
     flex: 1;

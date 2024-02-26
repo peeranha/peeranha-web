@@ -15,7 +15,7 @@ const RulesBlock: React.FC = (): JSX.Element => {
       className="full-width full-height p20 df"
       css={{
         backgroundColor: graphCommunity
-          ? '#6F4CFF'
+          ? '#6F4CFF33'
           : colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
         borderRadius: '10px',
         marginBottom: '16px',
@@ -30,7 +30,7 @@ const RulesBlock: React.FC = (): JSX.Element => {
         <div
           css={css`
             margin-bottom: 5px;
-            font-weight: bold;
+            font-weight: 700;
           `}
         >
           {t('post.RulesBlock_1')}

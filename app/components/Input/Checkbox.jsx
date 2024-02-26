@@ -4,12 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { formatStringToHtmlId } from 'utils/animation';
 
-import {
-  BG_LIGHT,
-  BG_PRIMARY_DARK,
-  BORDER_PRIMARY_DARK,
-  BORDER_SECONDARY,
-} from 'style-constants';
+import { BG_LIGHT, BG_PRIMARY_DARK, BORDER_PRIMARY_DARK, BORDER_SECONDARY } from 'style-constants';
 
 import checkedIcon from 'images/okay.svg?inline';
 
@@ -84,10 +79,7 @@ const Checkbox = ({ input, label, disabled, meta, width }) => (
         disabled={disabled}
         checked={input.value}
       />
-      <Icon
-        disabled={disabled}
-        error={meta.touched && (meta.error || meta.warning)}
-      />
+      <Icon disabled={disabled} error={meta.touched && (meta.error || meta.warning)} />
     </div>
 
     <Label htmlFor={formatStringToHtmlId(input.name)} disabled={disabled}>

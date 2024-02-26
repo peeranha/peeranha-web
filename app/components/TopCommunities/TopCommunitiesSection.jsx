@@ -67,7 +67,7 @@ const TopCommunitiesSection = ({ ref, single, communities, locale }) => {
               href={allCommunitiesRoute}
             >
               <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
-              <Span color={TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
+              <Span css={{ color: '#6F4CFF' }}>{t('common.allCommunities')}</Span>
             </AllCommunitiesLink>
           </div>
         )}

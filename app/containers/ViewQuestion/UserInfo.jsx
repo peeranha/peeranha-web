@@ -110,7 +110,7 @@ export const UserInfo = ({
         <AchievementsStatus count={achievementsCount} />
       </span>
 
-      <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
+      <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18" css={{ color: '#A7A7AD' }}>
         {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
     </Block>

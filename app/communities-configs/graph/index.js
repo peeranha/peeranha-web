@@ -207,6 +207,7 @@ export const GraphStyles = {
     btnColor: '#6F4CFF',
     btnHoverColor: '#6F4CFF',
     btnHeaderColor: '#6F4CFF',
+    btnHeaderHoverColor: 'rgba(111,76,255,0.8)',
     tagColor: '#6F4CFF',
     localeArrowColor: '#A7A7AD',
     mobileLocaleTextColor: '#6F4CFF',
@@ -249,9 +250,9 @@ export const GraphStyles = {
       borderColor: '#6F4CFF',
       background: '#6F4CFF',
       ':hover': {
-        background: '#E1E1E4',
-        color: '#6F4CFF',
-        borderColor: '#6F4CFF',
+        background: 'rgba(111, 76, 255, 0.8)',
+        color: 'rgba(255, 255, 255, 1)',
+        borderColor: 'rgba(111, 76, 255, 0.8)',
       },
     },
   },
@@ -273,10 +274,13 @@ export const GraphStyles = {
     }
   `,
   headerLoginButtonStyles: css`
-    border: 1px solid #6f4cff;
-    color: #6f4cff;
+    background: rgba(30, 28, 46, 1);
+    border: 1px solid rgba(30, 28, 46, 1);
+    color: rgba(225, 225, 228, 1);
     :hover {
-      background: #6f4cff !important;
+      background: rgba(32, 31, 48, 1) !important;
+      border: 1px solid rgba(32, 31, 48, 1) !important;
+      color: rgba(255, 255, 255, 1) !important;
     }
   `,
   documentationColors: {

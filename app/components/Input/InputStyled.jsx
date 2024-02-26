@@ -27,7 +27,6 @@ const ErrorHandling = (error) => `
       ? '#3D3D54'
       : colors.formColor || BORDER_SECONDARY
   };
-  box-shadow: 0 0 0 3px ${error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT};
 
   border-radius: ${BORDER_RADIUS_M};
 `;
@@ -64,11 +63,6 @@ export const Styles = css`
   ${(props) => Input(props)};
 
   &:focus {
-    box-shadow: 0 0 0 3px
-      ${(props) =>
-        props.error
-          ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)`
-          : colors.linkColorTransparent || `rgba(${BORDER_PRIMARY_RGB}, 0.40)`};
     border-color: ${(props) =>
       props.error
         ? `rgb(${BORDER_WARNING_LIGHT_RGB})`

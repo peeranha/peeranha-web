@@ -12,13 +12,13 @@ export const styles = {
       backgroundColor: '#FFF',
     },
     'input[type="checkbox"]:checked + span': {
-      backgroundColor: '#576FED',
+      backgroundColor: 'rgba(111, 76, 255, 1)',
     },
   },
   switch: {
     position: 'absolute',
     cursor: 'pointer',
-    backgroundColor: 'rgba(53, 74, 137, 0.15)',
+    backgroundColor: 'rgba(255, 255, 255, 0.04)',
     borderRadius: '25px',
     top: 0,
     right: 0,

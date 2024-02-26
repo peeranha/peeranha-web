@@ -21,7 +21,7 @@ const CheckedItem = Li.extend`
   }
 
   :hover {
-    border: 1px solid ${colors.textColor || BORDER_PRIMARY};
+    background-color: rgba(35, 32, 55, 1);
   }
 `;
 

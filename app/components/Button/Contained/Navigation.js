@@ -30,7 +30,7 @@ const ButtonCss = css`
           border-radius: 0;
 
           :hover {
-            color: ${linkColor};
+            color: ${graphCommunity ? 'rgba(111, 76, 255, 0.8)' : linkColor};
           }
         `
       : css`

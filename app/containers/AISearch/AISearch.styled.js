@@ -56,15 +56,10 @@ export const styles = {
     flex: '1 1 0px',
     background: graphCommunity ? '#161425' : BG_LIGHT,
     borderRadius: BORDER_RADIUS_L,
-    boxShadow: `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
     border: `1px solid ${colors.border || '#fff'}`,
     transition: '0.5s',
     marginBottom: '14px',
     padding: '16px',
-
-    ':hover': {
-      boxShadow: `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
   },
 
   aiPoweredSearchText: {
@@ -119,13 +114,9 @@ export const styles = {
     },
     ':focus': {
       borderColor: graphCommunity
-        ? '#3D3D54'
+        ? '#6F4CFF'
         : colors.linkColorTransparent || `rgb(${BORDER_PRIMARY_RGB})`,
-      boxShadow: `0 0 0 3px ${
-        graphCommunity
-          ? '#3D3D54'
-          : colors.linkColorTransparent || `rgba(${BORDER_PRIMARY_RGB}, 0.40)`
-      }`,
+      backgroundColor: '#6F4CFF0F',
     },
   },
 
@@ -160,15 +151,10 @@ export const styles = {
   searchResult: {
     background: graphCommunity ? '#161425' : BG_LIGHT,
     borderRadius: BORDER_RADIUS_L,
-    boxShadow: `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
     border: `1px solid ${colors.border || '#fff'}`,
     transition: '0.5s',
     padding: '16px',
     marginBottom: '15px',
-
-    ':hover': {
-      boxShadow: `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
 
     '@media (min-width: 768px)': {
       padding: '20px 30px',
@@ -177,10 +163,6 @@ export const styles = {
     '@media (min-width: 1366px)': {
       borderBottomRightRadius: 0,
       borderTopRightRadius: 0,
-
-      ':hover': {
-        boxShadow: `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-      },
     },
   },
 
@@ -202,17 +184,12 @@ export const styles = {
   },
 
   sources: {
-    background: graphCommunity ? '#161425' : '#FAFAFA',
+    background: graphCommunity ? '#FFFFFF05' : '#FAFAFA',
     borderRadius: BORDER_RADIUS_L,
-    boxShadow: `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
     border: `1px solid ${graphCommunity ? '#3D3D54' : '#FAFAFA'}`,
     transition: '0.5s',
     padding: '16px',
     marginBottom: '15px',
-
-    ':hover': {
-      boxShadow: `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
 
     '@media (min-width: 768px)': {
       padding: '20px 30px',
@@ -224,9 +201,6 @@ export const styles = {
       boxSizing: 'border-box',
       borderBottomLeftRadius: 0,
       borderTopLeftRadius: 0,
-      ':hover': {
-        boxShadow: `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-      },
     },
   },
 
@@ -234,7 +208,7 @@ export const styles = {
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '26px',
-    color: 'rgba(40, 40, 40, 1)',
+    color: graphCommunity ? '#E1E1E4' : 'rgba(40, 40, 40, 1)',
     margin: '0 0 12px 12px',
   },
 
@@ -247,12 +221,16 @@ export const styles = {
     padding: '12px',
 
     ':hover': {
-      background: 'rgba(173, 186, 255, 0.2)',
+      background: '#6F4CFF33',
+
+      'p, span': {
+        color: '#E1E1E4',
+      },
     },
   },
 
   sourcesListItemTitle: {
-    color: `${colors.linkColor || TEXT_PRIMARY}`,
+    color: graphCommunity ? '#6F4CFF' : `${colors.linkColor || TEXT_PRIMARY}`,
     fontSize: '16px',
     lineHeight: '22px',
     fontWeight: 400,
@@ -268,7 +246,7 @@ export const styles = {
   sourcesListItemText: {
     fontSize: '14px',
     lineHeight: '18px',
-    color: '#344054',
+    color: graphCommunity ? '#A7A7AD' : '#344054',
     marginBottom: '8px',
     fontWeight: 400,
     overflow: 'hidden',
@@ -282,7 +260,7 @@ export const styles = {
   sourcesListItemLink: {
     fontSize: '14px',
     lineHeight: '18px',
-    color: '#667085',
+    color: graphCommunity ? '#A7A7AD' : '#667085',
     fontWeight: 400,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

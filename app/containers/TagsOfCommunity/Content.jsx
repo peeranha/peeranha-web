@@ -53,9 +53,12 @@ const Item = styled.div`
 
   input {
     background: none;
-    color: ${colors.white || ''}; !important;
+    color: ${colors.white || ''};
+  !important;
+
     ::placeholder {
-      color: ${colors.white || ''}; !important;
+      color: ${colors.white || ''};
+    !important;
     }
   }
 
@@ -93,8 +96,8 @@ const Base = BaseRounded.extend`
 
 const EditTagBtnContainer = styled.div`
   display: flex;
-  justify-content: space-around;
   margin-top: 10px;
+  margin-left: 15px;
 `;
 
 const Content = ({
@@ -169,7 +172,7 @@ const Content = ({
                 {single ? (
                   <Link to={redirectToFilterByTag(x.id)}>
                     <TagName>{x.name}</TagName>
-                    <Span fontSize="14" color={TEXT_SECONDARY}>
+                    <Span fontSize="14" color={'rgba(225, 225, 228, 1)'}>
                       <span>x </span>
                       <span>{`${x.postCount}`}</span>
                     </Span>
@@ -189,7 +192,23 @@ const Content = ({
               </Item>
               {tagEditingAllowed && (
                 <EditTagBtnContainer>
-                  <InfoButton className="ml-15" onClick={() => showEditTagForm(x.id)}>
+                  <InfoButton
+                    className="ml-15"
+                    onClick={() => showEditTagForm(x.id)}
+                    css={{
+                      backgroundColor: 'rgba(30, 28, 46, 1)',
+                      border: '1px solid rgba(30, 28, 46, 1)',
+                      color: 'rgba(225, 225, 228, 1)',
+                      fontWeight: 600,
+                      fontSize: '14px',
+
+                      ':hover': {
+                        backgroundColor: 'rgba(32, 31, 48, 1)',
+                        border: '1px solid rgba(32, 31, 48, 1)',
+                        color: 'rgba(255, 255, 255, 1)',
+                      },
+                    }}
+                  >
                     {t('common.edit')}
                   </InfoButton>
                 </EditTagBtnContainer>

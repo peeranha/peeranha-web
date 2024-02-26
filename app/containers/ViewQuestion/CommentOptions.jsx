@@ -42,11 +42,15 @@ const ActionButtonWithLogin = ({ onClick, buttonId }) => {
   return (
     <ButtonStyled id={buttonId} onClick={onClick}>
       {graphCommunity ? (
-        <DotsThreeOutlineGraph className="mr-1" size={[24, 24]} />
+        <DotsThreeOutlineGraph className="mr-1" size={[24, 24]} fill="#6F4CFF" />
       ) : (
         <IconMd icon={dotsIcon} fill={colors.commentOption || BORDER_PRIMARY} />
       )}
-      <Span className="ml-11" color={colors.commentOption || TEXT_PRIMARY}>
+      <Span
+        className="ml-11"
+        color={colors.commentOption || TEXT_PRIMARY}
+        css={{ color: '#6F4CFF' }}
+      >
         {t('post.addComment')}
       </Span>
     </ButtonStyled>

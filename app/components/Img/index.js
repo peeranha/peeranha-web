@@ -12,7 +12,7 @@ const Img = styled.img`
   border: ${({ customBorderStyle, isBordered }) =>
     customBorderStyle ||
     `${isBordered ? 1 : 0}px solid ${
-      (isSuiBlockchain ? colors.linkColor : colors.userInformation) || BORDER_SECONDARY
+      (isSuiBlockchain ? colors.linkColor : '#3D3D54') || BORDER_SECONDARY
     }`};
 
   padding: ${(x) => (x.isBordered ? '1' : '0')}px;

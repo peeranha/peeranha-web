@@ -5,6 +5,9 @@ import createdHistory from 'createdHistory';
 
 import * as routes from 'routes-config';
 import Input from 'components/Input';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const [text, changeText] = useState('');
@@ -48,7 +51,28 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
         placeholder={placeholder}
         isSearchable
         onClick={onSubmit}
-        css={{ input: { paddingRight: '35px' } }}
+        css={{
+          input: {
+            paddingRight: '35px',
+            border: '1px solid #161426',
+            borderRadius: '4px',
+
+            '&:focus': {
+              border: '1px solid rgba(111, 76, 255, 1)',
+              background: 'rgba(111, 76, 255, 0.06) !important',
+
+              '&:hover': {
+                border: '1px solid rgba(111, 76, 255, 1)',
+                background: 'rgba(111, 76, 255, 0.06) !important',
+              },
+            },
+
+            '&:hover': {
+              border: '1px solid #3D3D54',
+              background: 'rgba(255, 255, 255, 0.06)',
+            },
+          },
+        }}
       />
     </form>
   );

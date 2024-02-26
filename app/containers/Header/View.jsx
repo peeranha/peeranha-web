@@ -82,6 +82,11 @@ const Button = LargeButton.extend`
     width: 36px !important;
     height: 36px !important;
   }
+
+  :hover {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(111, 76, 255, 0.8);
+  }
 `;
 
 const View = ({
@@ -166,6 +171,8 @@ const View = ({
         className="d-none d-lg-inline ml-2"
         css={css`
           color: ${colors.newPostButtonText};
+          font-size: 14px;
+          font-weight: 600;
         `}
       >
         {t('common.askQuestion')}

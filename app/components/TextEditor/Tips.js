@@ -43,40 +43,37 @@ const Ul = styled.ul`
     display: flex;
     align-items: start;
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
 
     :before {
-      content: '';
-      flex-basis: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: ${colors.textColor || BG_PRIMARY};
+      content: '\\25E6';
       margin-right: 10px;
-      display: inline-flex;
-      position: relative;
-      top: 8px;
     }
 
     span {
       flex: 1;
+      color: #ffffff;
     }
   }
 `;
 
 const Title = Label.extend`
   font-size: 18px;
+  color: #e1e1e4;
 `;
 
 const P = styled.p`
   margin-bottom: 10px;
+  color: #ffffff;
 `;
 
 const Link = styled.a`
+  font-size: 14px;
   line-height: 24px;
-  color: ${colors.linkColor || LINK_COLOR};
+  color: #6f4cff;
   :hover {
-    color: ${colors.linkColor || LINK_COLOR};
+    color: #6f4cff;
   }
 `;
 
@@ -99,7 +96,6 @@ const Tips = ({ faqQuestions }) => {
       `}
     >
       <Title className="mb-3">{t('common.tips')}:</Title>
-      <P>{t('common.markdownIsSupported')}</P>
 
       <Ul>
         {messagesArray.map((item, index) => (
@@ -110,7 +106,9 @@ const Tips = ({ faqQuestions }) => {
       </Ul>
       <span
         css={css`
+          font-size: 14px;
           line-height: 20px;
+          color: #fff;
         `}
       >
         {t('common.forMoreSyntax')}

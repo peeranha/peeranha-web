@@ -45,8 +45,8 @@ const BaseStyled = Base.extend`
 `;
 
 const Badge = Span.extend`
-  color: ${TEXT_PRIMARY_DARK};
-  border: 1px solid ${BORDER_PRIMARY_DARK};
+  color: #a7a7ad;
+  border: 1px solid #3d3d54;
   border-radius: ${BORDER_RADIUS_M};
   padding: 4px 10px;
   text-align: center;
@@ -186,7 +186,12 @@ export const QuestionForProfilePage = ({
           </Link>
 
           <p className="d-flex-column d-sm-flex align-items-center my-1">
-            <Span className="text-capitalize mr-3" fontSize="14" color={TEXT_SECONDARY}>
+            <Span
+              className="text-capitalize mr-3"
+              fontSize="14"
+              color={TEXT_SECONDARY}
+              css={{ color: '#A7A7AD' }}
+            >
               {isAnswer
                 ? t('common.answeredWhen', {
                     when: getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME),

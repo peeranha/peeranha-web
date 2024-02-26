@@ -10,19 +10,22 @@ import {
 } from 'style-constants';
 import { useTranslation } from 'react-i18next';
 import { POST_TYPE } from '../../utils/constants';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 const types = {
   [POST_TYPE.generalPost]: {
     title: 'common.general',
-    color: TEXT_PRIMARY_DARK,
+    color: graphCommunity ? 'rgba(237, 74, 109, 1)' : TEXT_PRIMARY_DARK,
   },
   [POST_TYPE.expertPost]: {
     title: 'common.expert',
-    color: TEXT_PRIMARY,
+    color: graphCommunity ? 'rgba(76, 105, 255, 1)' : TEXT_PRIMARY,
   },
   [POST_TYPE.tutorial]: {
     title: 'common.tutorial',
-    color: TUTORIAL_ICON_COLOR,
+    color: graphCommunity ? 'rgba(75, 202, 129, 1)' : TUTORIAL_ICON_COLOR,
   },
 };
 
@@ -52,7 +55,7 @@ export const TypeContainer = styled.div`
     content: '';
     position: absolute;
     background: ${({ color }) => color};
-    opacity: 0.15;
+    opacity: 0.2;
     border-radius: ${BORDER_RADIUS_M};
     height: 100%;
     width: 100%;
@@ -66,11 +69,7 @@ export const TypeContainer = styled.div`
 const QuestionType = ({ postType }) => {
   const { t } = useTranslation();
 
-  return (
-    <TypeContainer color={types[postType].color}>
-      {t(types[postType].title)}
-    </TypeContainer>
-  );
+  return <TypeContainer color={types[postType].color}>{t(types[postType].title)}</TypeContainer>;
 };
 
 QuestionType.propTypes = {

@@ -20,12 +20,12 @@ export const styles = {
     background: colors.btnColor || 'rgba(87, 111, 237, 1)',
     color: TEXT_LIGHT,
     minWidth: '39px',
-    height: '20px',
-    borderRadius: '3px',
+    height: graphCommunity ? '24px' : '20px',
+    borderRadius: graphCommunity ? '20px' : '3px',
     fontWeight: 600,
-    fontSize: '14px',
-    lineHeight: '16px',
-    padding: '1.5px 6px 2.5px 6px',
+    fontSize: graphCommunity ? '12px' : '14px',
+    lineHeight: graphCommunity ? '20px' : '16px',
+    padding: graphCommunity ? '2px 12px 0 12px' : '1.5px 6px 2.5px 6px',
     gap: '10px',
     marginLeft: '8px',
   },
@@ -38,7 +38,7 @@ export const styles = {
     span: {
       'text-transform': 'uppercase',
     },
-    color: colors.sectionHeader || 'rgba(123, 123, 123, 1)',
+    color: graphCommunity ? '#807F89' : colors.sectionHeader || 'rgba(123, 123, 123, 1)',
 
     '&:hover .dropdown-documentation': {
       display: 'block',

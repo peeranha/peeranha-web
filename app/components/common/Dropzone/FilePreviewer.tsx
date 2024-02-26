@@ -90,22 +90,16 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
         {isUploading && uploadProgress !== '99' && (
           <CloseRoundedIcon
             size={[15, 15]}
-            fill="rgb(87, 111, 237)"
+            fill="#6F4CFF"
             circleFill="rgba(118, 153, 255, 0.2)"
             fillOpacity="1"
-            stroke="rgb(87, 111, 237)"
+            stroke="#6F4CFF"
             onClick={cancelFileUpload}
           />
         )}
-        {isUploaded && (
-          <VoteIcon fillOpacity="1" stroke="rgb(87, 111, 237)" fill="rgb(87, 111, 237)" />
-        )}
+        {isUploaded && <VoteIcon fillOpacity="1" stroke="rgb(87, 111, 237)" fill="#6F4CFF" />}
         {isFailedUpload && (
-          <ReloadRoundedIcon
-            fill="rgb(87, 111, 237)"
-            stroke="rgb(87, 111, 237)"
-            onClick={uploadFileAgain}
-          />
+          <ReloadRoundedIcon fill="#6F4CFF" stroke="#6F4CFF" onClick={uploadFileAgain} />
         )}
       </div>
       <div
@@ -124,7 +118,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
         )}
         {isFailedUpload && (
           <span className="df aic jcc" css={css(styles.failedUploadIcon)}>
-            <CloseIcon fill="rgb(247, 111, 96)" />
+            <CloseIcon fill="#6F4CFF" />
           </span>
         )}
         {!isUploading && !isFailedUpload && (
@@ -141,7 +135,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
                     ...(isShown && styles.showOnHover),
                   })}
                 >
-                  <DeleteIcon stroke="rgb(87, 111, 237)" />
+                  <DeleteIcon stroke="#6F4CFF" fill="#6F4CFF" />
                 </span>
               )}
             />
@@ -155,7 +149,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
                     ...(isShown && styles.showOnHover),
                   })}
                 >
-                  <CopyLinkIcon stroke="rgb(87, 111, 237)" />
+                  <CopyLinkIcon stroke="#6F4CFF" />
                 </span>
               </Popover.Trigger>
               <Popover.Content>

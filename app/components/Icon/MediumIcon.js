@@ -23,9 +23,12 @@ const MediumIconStyled = MediumIcon.extend`
   width: 42px;
   height: 42px;
 
-  border: 1px solid ${colors.secondaryAdditional || BORDER_SECONDARY};
+  border: 1px solid
+    ${graphCommunity ? 'rgba(61, 61, 84, 1)' : colors.secondaryAdditional || BORDER_SECONDARY};
 
-  background: ${graphCommunity ? '#161425' : colors.userInformation || BG_PRIMARY_SPECIAL_2};
+  background: ${graphCommunity
+    ? 'rgba(255, 255, 255, 0.06)'
+    : colors.userInformation || BG_PRIMARY_SPECIAL_2};
   margin-right: 18px;
   border-radius: 50%;
   padding: 1px;

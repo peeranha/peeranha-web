@@ -41,8 +41,7 @@ const PostRules = () => {
                 key="0"
                 target="_blank"
                 css={{
-                  color: colors.linkColor || LINK_COLOR,
-                  ':hover': { color: colors.linkColor || LINK_COLOR },
+                  color: '#6F4CFF',
                 }}
               />,
             ]}

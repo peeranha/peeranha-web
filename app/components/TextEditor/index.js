@@ -43,8 +43,8 @@ class TextEditor extends React.PureComponent {
         <MDEditor
           css={css`
             margin-bottom: 20px;
-            border-bottom: 2px solid ${TEXT_DARK};
-            background: ${graphCommunity ? '#161425' : colors.backgroundSpecial || ''};
+            border-bottom: 2px solid #3d3d54;
+            background: ${graphCommunity ? '#FFFFFF0A' : colors.backgroundSpecial || ''};
             ol li {
               list-style-type: decimal;
             }
@@ -59,7 +59,8 @@ class TextEditor extends React.PureComponent {
             }
             .w-md-editor-toolbar {
               border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
-              background: ${graphCommunity ? '#161425' : colors.backgroundSpecial || ''};
+              background: ${graphCommunity ? '#FFFFFF0F' : colors.backgroundSpecial || ''};
+              border-color: #3d3d54 !important;
               button {
                 color: ${graphCommunity ? '#E1E1E4' : '#24292f'};
               }
@@ -75,7 +76,7 @@ class TextEditor extends React.PureComponent {
             placeholder: t('common.enterText'),
           }}
           preview={'edit'}
-          data-color-mode={'light'}
+          data-color-mode={'dark'}
           previewOptions={{
             rehypeRewrite: (node) => {
               if (node.tagName === 'input') {
@@ -103,7 +104,7 @@ class TextEditor extends React.PureComponent {
             {this.props.value ? (
               <MarkdownPreviewBlock content={this.props.value} />
             ) : (
-              <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+              <Span color={TEXT_SECONDARY} fontSize="14" isItalic css={{ color: '#A7A7AD' }}>
                 <Translation>
                   {(translate) => <>{translate('common.nothingToSeeYet')}</>}
                 </Translation>

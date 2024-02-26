@@ -15,10 +15,15 @@ import Dropdown from 'components/Dropdown';
 import { Flag, Li } from './Styled';
 import SelectedArrow from 'icons/SelectedArrow';
 import useMediaQuery from 'hooks/useMediaQuery';
-import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import {
+  graphCommunityColors,
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 const singleCommunityId = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) => {
   const [open, setOpen] = useState(false);
@@ -78,9 +83,17 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) =
                   onClick={() => setLocale(item)}
                   isBold={item === locale}
                   css={{
+                    fontFamily: `${
+                      graphCommunity
+                        ? 'Euclid Circular A, sans-serif'
+                        : 'Source Sans Pro, sans-serif'
+                    }`,
+                    fontWeight: 'normal',
+                    color: item === locale ? 'rgba(255, 255, 255, 1)' : 'rgba(225, 225, 228, 1)',
+
                     ':hover': {
-                      color: `${colors.btnColor || 'var(--color-blue)'}`,
-                      backgroundColor: 'unset',
+                      backgroundColor: 'rgba(35, 32, 55, 1)',
+                      color: 'rgba(255, 255, 255, 1)',
                     },
                   }}
                 >
@@ -97,7 +110,11 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) =
                     <SelectedArrow
                       className="ml-3"
                       css={{ path: { fill: 'none' } }}
-                      stroke={colors.linkColor || 'var(--color-blue)'}
+                      stroke={
+                        graphCommunity
+                          ? 'rgba(111, 76, 255, 1)'
+                          : colors.linkColor || 'var(--color-blue)'
+                      }
                     />
                   )}
                 </Li>

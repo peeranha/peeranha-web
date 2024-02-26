@@ -35,6 +35,7 @@ const TitleBlock = styled(Span)`
 
 const DescriptionBlock = styled(TitleBlock)`
   margin-top: 15px;
+  color: #a7a7ad;
 `;
 
 const Bage = styled.div`

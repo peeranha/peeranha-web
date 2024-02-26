@@ -20,13 +20,13 @@ const graphCommunity = graphCommunityColors();
 
 const Tag = Span.extend`
   max-width: 100%;
-  background: ${graphCommunity ? 'rgba(111, 76, 255, 0.16)' : 'none'};
+  background: ${graphCommunity ? 'rgba(111, 76, 255, 0.16) !important' : 'none'};
   overflow: hidden;
-  border: 1px solid ${graphCommunity ? 'rgba(111, 76, 255, 0.16)' : TAG_COLOR};
-  color: ${graphCommunity ? '#E1E1E4' : TAG_COLOR};
+  border: none;
+  color: ${graphCommunity ? 'rgba(225, 225, 228, 1) !important' : TAG_COLOR};
   font-size: 14px;
   height: 24px;
-  border-radius: ${graphCommunity ? '10px' : BORDER_RADIUS_S};
+  border-radius: ${graphCommunity ? '10px !important' : BORDER_RADIUS_S};
   margin-bottom: 2px;
   margin-right: 8px;
   padding-left: 10px;

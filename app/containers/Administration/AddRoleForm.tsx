@@ -110,7 +110,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
 
       {isOpen && (
         <Popup size="tiny" onClose={clearAndCloseForm}>
-          <h5 className="tc fz24 semi-bold mb24" css={styles.popupTitle}>
+          <h5 className="fz24 semi-bold mb24" css={styles.popupTitle}>
             {t('administration.addRole')}
           </h5>
           <span className="dib fz16 semi-bold mb16" css={styles.popupSpan}>

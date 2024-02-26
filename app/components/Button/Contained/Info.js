@@ -5,7 +5,4 @@ import Button from '../index';
 export default Button.extend`
   background: ${BUTTON_COLOR};
   color: ${TEXT_LIGHT};
-  :hover {
-    opacity: 0.8;
-  }
 `;

@@ -279,7 +279,7 @@ const ContentHeader = (props) => {
                     disabled={ids.includes(`${type}_delete_${answerId}`)}
                   >
                     {graphCommunity ? (
-                      <TrashGraph size={[20, 20]} />
+                      <TrashGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
                     ) : (
                       <IconMd icon={deleteIcon} fill={colors.contentHeader || BORDER_PRIMARY} />
                     )}
@@ -295,7 +295,7 @@ const ContentHeader = (props) => {
             <DropdownBox>
               <Button show disabled={isModalOpen} onClick={() => setModalOpen(true)}>
                 {graphCommunity ? (
-                  <ShareNetworkGraph size={[20, 20]} />
+                  <ShareNetworkGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
                 ) : (
                   <IconSm icon={shareIcon} />
                 )}
@@ -313,7 +313,7 @@ const ContentHeader = (props) => {
           <DropdownBox>
             <Button show disabled={isPopoverOpen} onClick={() => setPopoverOpen(true)}>
               {graphCommunity ? (
-                <FileArrowUpGraph size={[20, 20]} />
+                <FileArrowUpGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
               ) : (
                 <IconMd icon={blockchainLogo} />
               )}

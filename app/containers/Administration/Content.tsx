@@ -86,7 +86,7 @@ export const Content: React.FC<ContentProps> = ({
             />
 
             <A className="ovh" to={routes.profileView(moderator.user.id)} key={moderator.user.id}>
-              <P className="text-ellipsis fz14">
+              <P className="text-ellipsis fz14" css={{ color: '#E1E1E4' }}>
                 {getUserName(moderator.user.displayName, moderator.user.id)}
               </P>
             </A>

@@ -101,6 +101,11 @@ const EditCommunityButton = styled.div`
     padding: 0;
     text-align: left;
   }
+
+  :hover {
+    opacity: 0.8;
+    transition: 0.5s;
+  }
 `;
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
@@ -272,7 +277,11 @@ export const Header = ({
               ) : (
                 <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
               )}
-              <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+              <Span
+                className="ml-1"
+                color={colors.btnColor || TEXT_PRIMARY}
+                css={{ color: 'rgba(111, 76, 255, 1)' }}
+              >
                 {t('common.editCommunity')}
               </Span>
             </button>

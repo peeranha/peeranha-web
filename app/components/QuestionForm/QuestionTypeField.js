@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import { singleCommunityStyles, singleCommunityColors } from 'utils/communityManagement';
+import {
+  singleCommunityStyles,
+  singleCommunityColors,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 import isEmpty from 'lodash/isEmpty';
 import { POST_TYPE } from './constants';
 import { showPopover } from 'utils/popover';
@@ -16,6 +20,7 @@ import B from 'components/Button';
 
 const colors = singleCommunityColors();
 const styles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
 const customShadow = `rgba(${BORDER_PRIMARY_RGB}, 0.4)`;
 export const QUESTION_TYPES = {
   GENERAL: {
@@ -55,7 +60,6 @@ const ButtonGroup = styled.div`
   ${Styles};
   padding: 0;
   display: flex;
-  padding: 0;
   border: ${({ error }) => !error && 'none'};
 
   @media (max-width: 576px) {
@@ -66,34 +70,31 @@ const ButtonGroup = styled.div`
 
 const Button = B.extend`
   &:first-child {
-    border-top-left-radius: ${BORDER_RADIUS_M};
-    border-bottom-left-radius: ${BORDER_RADIUS_M};
-    border-radius: ${styles.buttonBorderRadius};
+    margin-right: 6px;
   }
 
   &:last-child {
-    border-left: ${({ type, value }) => Number(type) !== value && 'none'};
-    border-top-right-radius: ${BORDER_RADIUS_M};
-    border-bottom-right-radius: ${BORDER_RADIUS_M};
-    border-radius: ${styles.buttonBorderRadius};
+    margin-left: 6px;
   }
 
   flex: 1;
-  border: 1px solid ${BORDER_SECONDARY};
-  border-color: ${({ type, value }) =>
-    Number(type) === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
-  box-shadow: ${({ type, value }) =>
-    Number(type) === value ? `0 0 0 3px ${colors.textColorShadow || customShadow}` : 'none'};
+  border: ${({ type, value }) =>
+    `1px solid ${Number(type) === value ? 'rgba(44, 31, 101, 1)' : 'rgba(40, 38, 55, 1)'}`};
+  background: ${({ type, value }) => (Number(type) === value ? 'rgba(44, 31, 101, 1)' : '')};
+  border-radius: 20px;
   z-index: ${({ type, value }) => (Number(type) === value ? 1 : 0)};
-  &:hover {
-    box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
-    z-index: 1;
-  }
+  padding: 0 12px;
+  font-size: 16px;
+  line-height: 22px;
+  width: 33%;
+  color: ${({ type, value }) =>
+    Number(type) === value ? 'rgba(255, 255, 255, 1)' : 'rgba(225, 225, 228, 1)'};
 
-  @media only screen and (max-width: 576px) {
-    height: 36px;
-    margin-top: -10px;
-    padding: 0 5px;
+  &:hover {
+    z-index: 1;
+    background: ${({ type, value }) =>
+      Number(type) === value ? 'rgba(44, 31, 101, 1)' : 'rgba(31, 30, 47, 1)'};
+    color: rgba(255, 255, 255, 1);
   }
 `;
 

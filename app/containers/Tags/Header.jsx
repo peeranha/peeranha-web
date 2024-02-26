@@ -50,7 +50,11 @@ const Button = ({ sorting }) => {
   const { t } = useTranslation();
 
   return (
-    <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
+    <Span
+      className="d-inline-flex align-items-center mr-2 text-capitalize"
+      bold
+      css={{ ':hover': { color: 'rgba(255, 255, 255, 1)' } }}
+    >
       <MediumIcon>
         {graphCommunity ? (
           <SlidersGraph className="mr-2" fill="#6F4CFF" size={[20, 20]} />

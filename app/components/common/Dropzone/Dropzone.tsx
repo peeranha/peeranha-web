@@ -178,7 +178,7 @@ const Dropzone: React.FC<DropzoneProps> = ({ config, showToast }): JSX.Element =
       <div className="pr df aic jcc mb12" css={css(styles.fileDropzone)}>
         <span className="df aic jcc" css={css(styles.plusIcon)}>
           {graphCommunity ? (
-            <PlusGraph size={[20, 20]} />
+            <PlusGraph size={[20, 20]} fill="#6F4CFF" />
           ) : (
             <PlusWithoutCircleIcon fill="rgb(165, 188, 255)" size={[20, 20]} />
           )}

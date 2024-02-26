@@ -82,7 +82,7 @@ const styles: Record<string, CSSObject> = {
     display: 'flex',
     alignItems: 'center',
     '> span': {
-      color: graphCommunity ? '#E1E1E4' : communityColors.btnColor || BORDER_PRIMARY,
+      color: graphCommunity ? '#FFFFFF' : communityColors.btnColor || BORDER_PRIMARY,
     },
   },
 

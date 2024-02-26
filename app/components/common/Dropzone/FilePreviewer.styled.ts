@@ -48,7 +48,7 @@ export const styles = {
 
   uploadProgress: {
     fontWeight: 600,
-    color: 'rgb(247 111 96)',
+    color: '#6F4CFF',
   },
 
   leftCenterIcon: {

@@ -12,14 +12,14 @@ const graphCommunity = graphCommunityColors();
 
 const Base = styled.div`
   span {
-    color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
+    color: ${graphCommunity ? 'rgba(167, 167, 173, 1)' : TEXT_DARK};
   }
 
   > ul {
     margin-top: 15px;
 
     li {
-      color: ${TEXT_DARK};
+      color: ${graphCommunity ? 'rgba(167, 167, 173, 1)' : TEXT_DARK};
       margin-left: 25px;
 
       :not(:last-child) {
@@ -28,8 +28,10 @@ const Base = styled.div`
     }
 
     li::before {
-      content: '\\2022';
-      color: ${colors.textColor || BORDER_PRIMARY_LIGHT};
+      content: '\\25E6';
+      color: ${graphCommunity
+        ? 'rgba(167, 167, 173, 1)'
+        : colors.textColor || BORDER_PRIMARY_LIGHT};
       font-weight: bold;
       display: inline-block;
       width: 1em;
@@ -55,7 +57,13 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
 
   return (
     <Base>
-      <p css={{ color: colors.textColor || TEXT_PRIMARY }}>{t(label)}</p>
+      <p
+        css={{
+          color: graphCommunity ? 'rgba(225, 225, 228, 1)' : colors.textColor || TEXT_PRIMARY,
+        }}
+      >
+        {t(label)}
+      </p>
       {Boolean(items.length) && (
         <ul>
           {t(items, { returnObjects: true }).map((item) => (

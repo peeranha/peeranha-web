@@ -69,10 +69,6 @@ export const Li = BaseRoundedNoPadding.extend`
       border-top: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
     }
   }
-
-  :hover {
-    box-shadow: 5px 5px 5px ${graphCommunity ? '#3D3D54' : 'rgba(40, 40, 40, 0.1)'};
-  }
 `;
 
 const LastAnswer = ({ lastAnswer, locale }) => {
@@ -94,7 +90,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
             className="mr-2"
             fontSize="14"
             lineHeight="18"
-            css={graphCommunity && { color: '#A7A7AD' }}
+            css={graphCommunity && { color: '#E1E1E4' }}
           >
             {getUserName(lastAnswer.author?.displayName, lastAnswer.author.id)}
           </Span>

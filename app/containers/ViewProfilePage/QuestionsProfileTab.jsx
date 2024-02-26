@@ -38,7 +38,7 @@ const Rating = Span.extend`
         ? graphCommunity
           ? '#4BCA81'
           : BORDER_SUCCESS
-        : BORDER_SECONDARY};
+        : '#3D3D54'};
 
   color: ${({ acceptedAnswer, isMyPost, isMyAnswerAccepted }) =>
     (acceptedAnswer && isMyPost) || isMyAnswerAccepted

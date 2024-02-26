@@ -7,10 +7,7 @@ type SpinnerProps = {
   size?: number;
 };
 
-const Spinner: React.FC<SpinnerProps> = ({
-  color = 'rgb(247, 111, 96)',
-  size = 36,
-}): JSX.Element => (
+const Spinner: React.FC<SpinnerProps> = ({ color = '#6F4CFF', size = 36 }): JSX.Element => (
   <>
     <div
       css={css({

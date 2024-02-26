@@ -76,7 +76,7 @@ export const A1 = A.extend`
     color: graphCommunity ? '#A7A7AD' : colors.mainLinksColor || TEXT_DARK,
   })}; !important;
   ${BasicLink};
-  color: ${colors.white || ''}; !important;
+  color: ${graphCommunity ? '#A7A7AD' : colors.white || ''}; !important;
 
   letter-spacing: 0 !important;
 
@@ -96,33 +96,33 @@ export const A1 = A.extend`
               ? 'rgba(111, 76, 255, 0.2)'
               : colors.navMenuBackgroundColor || colors.userInformation || PRIMARY_SPECIAL
           };
-          border-color: ${colors.linkColor || BORDER_PRIMARY_DARK};
+          border-color: ${graphCommunity ? '#6F4CFF' : colors.linkColor || BORDER_PRIMARY_DARK};
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
-          font-weight: bold;
-          color: ${graphCommunity ? '#E1E1E4' : colors.mainLinksColor || TEXT_DARK} !important;
+          font-weight: ${graphCommunity ? 'normal' : 'bold'};
+          color: ${graphCommunity ? '#fff' : colors.mainLinksColor || TEXT_DARK} !important;
           .fill {
-            fill: ${customColor};
+            fill: ${graphCommunity ? '#fff' : customColor};
           }
           .stroke {
-            stroke: ${customColor};
+            stroke: ${graphCommunity ? '#fff' : customColor};
           }
           .semitransparent {
-            fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+            fill: ${graphCommunity ? '#fff' : colors.transparentIconColor || ICON_TRASPARENT_BLUE};
           }
           :hover {
-            color: ${colors.linkColor || colors.mainLinks};
+            color: ${graphCommunity ? '#fff' : colors.linkColor || colors.mainLinks};
             .fill {
-              fill: ${customColor};
+              fill: ${graphCommunity ? '#fff' : customColor};
             }
             .stroke {
-              stroke: ${customColor};
+              stroke: ${graphCommunity ? '#fff' : customColor};
             }
             circle {
-              color: ${customColor};
+              color: ${graphCommunity ? '#fff' : customColor};
             }
           }
-          ${svgDraw({ color: colors.linkColor || TEXT_PRIMARY })};
+          ${svgDraw({ color: graphCommunity ? '#fff' : colors.linkColor || TEXT_PRIMARY })};
         `
       : `
           background-color: ${BG_TRANSPARENT};
@@ -133,22 +133,22 @@ export const A1 = A.extend`
             fill: none !important;
           }
           .fill {
-            fill: ${BORDER_DARK};
+            fill: ${graphCommunity ? '#A7A7AD' : BORDER_DARK};
           }
           .semitransparent {
             fill: none;
           }
           :hover {
             .fill {
-              fill: ${customColor};
+              fill: ${graphCommunity ? '#fff' : customColor};
             }
             .stroke {
-              stroke: ${customColor};
+              stroke: ${graphCommunity ? '#fff' : customColor};
             }
             circle {
-              color: ${customColor};
+              color: ${graphCommunity ? '#fff' : customColor};
             }
-            color: ${colors.linkColor || colors.mainLinks};
+            color: ${graphCommunity ? '#fff' : colors.linkColor || colors.mainLinks};
           }
         `};
 `;
