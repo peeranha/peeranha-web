@@ -297,6 +297,7 @@ export function* saveCommentWorker({
         eventName: 'Edit',
         timeStamp: String(dateNowInSeconds()),
       };
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
       histories.push(newHistory);
     }
 
@@ -369,7 +370,7 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
         eventName: 'Delete',
         timeStamp: String(dateNowInSeconds()),
       };
-
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
       histories.push(newHistory);
     }
     if (answerId === 0 || answerId === '0') {
@@ -626,6 +627,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         languagesEnum[locale],
         ethereumService,
       );
+      yield call(waitForPostTransactionToIndex, txHash);
       txHash = transaction.transactionHash;
     }
 
