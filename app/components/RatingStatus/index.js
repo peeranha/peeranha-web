@@ -101,7 +101,7 @@ const IconWithStatus = ({
   return (
     <RaitingInfo isProfilePage={isProfilePage} className={`${className}`}>
       {graphCommunity ? (
-        <CircleGraph size={[12, 12]} className="mr-1" fill="#6F4CFF" />
+        <CircleGraph size={[18, 18]} className="mr-1" fill="#6F4CFF" />
       ) : isProfilePage ? (
         <StrangerBigIcon
           className="mr-2"

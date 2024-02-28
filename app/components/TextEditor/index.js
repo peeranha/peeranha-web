@@ -45,24 +45,34 @@ class TextEditor extends React.PureComponent {
             margin-bottom: 20px;
             border-bottom: 2px solid #3d3d54;
             background: ${graphCommunity ? '#FFFFFF0A' : colors.backgroundSpecial || ''};
+
             ol li {
               list-style-type: decimal;
             }
+
             ul li {
               list-style-type: disc;
             }
+
             textarea {
               ::selection {
                 -webkit-text-fill-color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
               }
+
               -webkit-text-fill-color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
             }
+
             .w-md-editor-toolbar {
               border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
               background: ${graphCommunity ? '#FFFFFF0F' : colors.backgroundSpecial || ''};
               border-color: #3d3d54 !important;
+
               button {
                 color: ${graphCommunity ? '#E1E1E4' : '#24292f'};
+              }
+
+              li.active button {
+                color: #6f4cff;
               }
             }
           `}

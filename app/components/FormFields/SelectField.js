@@ -37,11 +37,11 @@ export const Box = styled.div`
   box-sizing: border-box;
   border: 1px solid ${BORDER_TRANSPARENT};
 
-  background: ${(x) => (x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
+  background: ${(x) => (x.isActive ? BG_TRANSPARENT : BG_TRANSPARENT)};
 
   :hover {
     border: 1px solid ${colors.textColor || BORDER_PRIMARY};
-    background: none;
+    background: #232037;
   }
 `;
 
@@ -116,14 +116,17 @@ export const Select2 = ({
           ...base,
           border: `1px solid ${
             (error && BORDER_WARNING_LIGHT) ||
-            (state.isFocused && (colors.textColor || BORDER_PRIMARY)) ||
+            (state.isFocused && ('#6F4CFF' || BORDER_PRIMARY)) ||
             BORDER_SECONDARY
           }`,
-          boxShadow: `0 0 0 3px ${
-            (error && `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
-            (state.isFocused && (colors.textColorShadow || `rgba(${BORDER_PRIMARY_RGB}, 0.4)`)) ||
-            BORDER_TRANSPARENT
-          }`,
+          boxShadow: graphCommunity
+            ? 'none'
+            : `0 0 0 3px ${
+                (error && `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
+                (state.isFocused &&
+                  (colors.textColorShadow || `rgba(${BORDER_PRIMARY_RGB}, 0.4)`)) ||
+                BORDER_TRANSPARENT
+              }`,
           borderRadius: '3px',
           color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
           fontFamily: APP_FONT,
@@ -133,6 +136,10 @@ export const Select2 = ({
           minHeight: 40,
           margin: `${menuIsOpen ? '10px' : '0'}`,
           padding: '0 5px',
+
+          ':hover': {
+            border: '1px solid #6F4CFF',
+          },
         }),
         menu: (base) => ({
           ...base,

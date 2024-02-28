@@ -137,30 +137,83 @@ export const Header = ({
 
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
-      <Wrapper position="top">
-        <div>
-          {!single && (
-            <A to={communitiesRoute}>
-              <NavigationButton className="pl-0" islink>
-                <img src={arrowLeft} alt="x" />
-                <span className="d-none d-sm-inline ml-2">{t('tags.backToList')}</span>
-              </NavigationButton>
-            </A>
-          )}
-        </div>
+      {/*<Wrapper position="top" css={{ border: 'none', background: 'none' }}>*/}
+      {/*  <div>*/}
+      {/*    {!single && (*/}
+      {/*      <A to={communitiesRoute}>*/}
+      {/*        <NavigationButton className="pl-0" islink>*/}
+      {/*          <img src={arrowLeft} alt="x" />*/}
+      {/*          <span className="d-none d-sm-inline ml-2">{t('tags.backToList')}</span>*/}
+      {/*        </NavigationButton>*/}
+      {/*      </A>*/}
+      {/*    )}*/}
+      {/*  </div>*/}
 
-        {tagCreatingAllowed && (
-          <WrapperRightPanel className="right-panel">
+      {/*  {tagCreatingAllowed && (*/}
+      {/*    <WrapperRightPanel className="right-panel">*/}
+      {/*      <NavigationButton*/}
+      {/*        data-communityid={currentCommunity.id}*/}
+      {/*        onClick={onClickNavigationButton}*/}
+      {/*        id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}*/}
+      {/*        className="d-inline-flex align-items-center px-0 py-1"*/}
+      {/*        islink*/}
+      {/*      >*/}
+      {/*        <MediumIcon>*/}
+      {/*          {graphCommunity ? (*/}
+      {/*            <TagGraph fill="#6F4CFF" size={[20, 20]} />*/}
+      {/*          ) : (*/}
+      {/*            <IconMd*/}
+      {/*              className="d-none d-sm-inline-block"*/}
+      {/*              icon={icoTagIcon}*/}
+      {/*              css={css`*/}
+      {/*                path {*/}
+      {/*                  fill: ${colors.btnColor || TEXT_PRIMARY};*/}
+      {/*                }*/}
+      {/*              `}*/}
+      {/*            />*/}
+      {/*          )}*/}
+      {/*        </MediumIcon>*/}
+
+      {/*        <IconSm className="d-inline-flex d-sm-none" fill={BORDER_PRIMARY} icon={addIcon} />*/}
+
+      {/*        <span className="ml-1 button-label">{t('common.createTag')}</span>*/}
+      {/*      </NavigationButton>*/}
+      {/*    </WrapperRightPanel>*/}
+      {/*  )}*/}
+      {/*</Wrapper>*/}
+
+      <Wrapper position="bottom" css={{ border: 'none', background: 'none' }}>
+        <H3>
+          <MediumImageStyled className="bg-transparent" src={currentCommunity.avatar} alt="tags" />
+
+          {`${communityTranslationTitle || currentCommunity.name || ''} `}
+
+          {!!tagsNumber && (
+            <Span
+              className="d-none d-sm-inline text-lowercase ml-3"
+              color={colors.secondaryTextColor || TEXT_SECONDARY}
+              fontSize="30"
+              bold
+              css={{ color: '#A7A7AD' }}
+            >
+              <span>{`${tagsNumber} `}</span>
+              {t('common.tags')}
+            </Span>
+          )}
+        </H3>
+
+        {displaySortTagDropdown && (
+          <WrapperRightPanel className="right-panel df fdc jcc" css={{ alignItems: 'flex-end' }}>
             <NavigationButton
               data-communityid={currentCommunity.id}
               onClick={onClickNavigationButton}
               id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}
-              className="d-inline-flex align-items-center px-0 py-1"
+              className="d-inline-flex align-items-center px-0 py-1 mb4"
               islink
             >
               <MediumIcon>
                 {graphCommunity ? (
-                  <TagGraph fill="#6F4CFF" size={[20, 20]} />
+                  <TagGraph fill="#6F4CFF" size={[20, 20]} css={{ fill: '#6F4CFF' }} />
                 ) : (
                   <IconMd
                     className="d-none d-sm-inline-block"
@@ -178,31 +231,6 @@ export const Header = ({
 
               <span className="ml-1 button-label">{t('common.createTag')}</span>
             </NavigationButton>
-          </WrapperRightPanel>
-        )}
-      </Wrapper>
-
-      <Wrapper position="bottom">
-        <H3>
-          <MediumImageStyled className="bg-transparent" src={currentCommunity.avatar} alt="tags" />
-
-          {`${communityTranslationTitle || currentCommunity.name || ''} `}
-
-          {!!tagsNumber && (
-            <Span
-              className="d-none d-sm-inline text-lowercase ml-3"
-              color={colors.secondaryTextColor || TEXT_SECONDARY}
-              fontSize="30"
-              bold
-            >
-              <span>{`${tagsNumber} `}</span>
-              {t('common.tags')}
-            </Span>
-          )}
-        </H3>
-
-        {displaySortTagDropdown && (
-          <WrapperRightPanel className="right-panel">
             <Dropdown
               button={<Button sorting={sorting} />}
               menu={<Menu sortTags={sortTags} sorting={sorting} />}

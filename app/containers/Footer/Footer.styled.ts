@@ -230,6 +230,10 @@ export const styles: Record<string, CSSObject> = {
     color: 'rgba(255, 255, 255, 0.48)',
     fontWeight: 500,
     marginLeft: '8px',
+
+    ':hover': {
+      color: '#6F4CFF',
+    },
   },
 
   graphFooterContacts: {

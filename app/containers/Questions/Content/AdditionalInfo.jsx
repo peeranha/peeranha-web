@@ -163,7 +163,9 @@ const AdditionalInfo = ({
         <Div isAccepted={correctAnswerId}>
           <span>
             {graphCommunity ? graphIcon : <img src={icon} alt="icon" />}
-            <Span color={color}>{formattedAnswerCount}</Span>
+            <Span color={color} css={{ color: `${color}` }}>
+              {formattedAnswerCount}
+            </Span>
           </span>
         </Div>
       )}

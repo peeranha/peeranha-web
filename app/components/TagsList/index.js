@@ -24,7 +24,7 @@ const Tag = Span.extend`
   overflow: hidden;
   border: none;
   color: ${graphCommunity ? 'rgba(225, 225, 228, 1) !important' : TAG_COLOR};
-  font-size: 14px;
+  font-size: ${graphCommunity ? '10px' : '14px'};
   height: 24px;
   border-radius: ${graphCommunity ? '10px !important' : BORDER_RADIUS_S};
   margin-bottom: 2px;
@@ -34,6 +34,9 @@ const Tag = Span.extend`
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 500;
 `;
 const Box = styled.ul`
   display: flex;
@@ -74,6 +77,11 @@ const TagsList = ({ tags, communities, communityId, children, className }) => {
           <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
             {single ? (
               <Button
+                css={{
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.5px',
+                  fontWeight: 500,
+                }}
                 onClick={() => {
                   redirectToFilterByTag(tag.id);
                 }}

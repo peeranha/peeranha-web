@@ -5,12 +5,14 @@ import { styles } from './BlockedInfoArea.styled';
 import bannerImage from 'images/answerBlockBG.svg?inline';
 import bannerImageRed from 'images/answerBG.svg?inline';
 import loginImage from 'images/wantAnswer.svg?inline';
+import loginGraphImage from 'images/login-graph-banner.svg?inline';
 import repliedImage from 'images/repliedAnswer.svg?inline';
 import reputationImage from 'images/reputationAnswer.svg?inline';
 import { BANNER_IMG, ILLUSTRATION_IMG } from './constants';
-import { singleCommunityStyles } from 'utils/communityManagement';
+import { graphCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 
 const communityStyles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
 
 type BlockedInfoAreaProps = {
   account: string;
@@ -28,7 +30,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
   const { t } = useTranslation();
   const viewImage = () => {
     if (!account) {
-      return loginImage;
+      return graphCommunity ? loginGraphImage : loginImage;
     }
     if (isAnswered) {
       return repliedImage;

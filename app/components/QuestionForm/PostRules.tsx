@@ -42,6 +42,9 @@ const PostRules = () => {
                 target="_blank"
                 css={{
                   color: '#6F4CFF',
+                  ':hover': {
+                    color: 'rgba(111,76,255,0.8)',
+                  },
                 }}
               />,
             ]}

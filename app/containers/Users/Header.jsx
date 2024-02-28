@@ -71,7 +71,7 @@ export const Header = ({ sorting, dropdownFilter }) => {
   const usersCondition = isSingleCommunityMode ? 'activeUsers' : 'users';
 
   return (
-    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+    <Wrapper className="mb-to-sm-0 mb-from-sm-3" css={{ background: 'none', border: 'none' }}>
       <H3>
         <MediumIconStyled>
           {graphCommunity ? (

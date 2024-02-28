@@ -98,7 +98,12 @@ const UserNavigation = ({
       ref={ref}
       css={
         !isSuiBlockchain && {
+          border: 'none',
           borderBottom: `1px solid ${graphCommunity ? '#3D3D54' : 'rgb(194, 198, 216)'}`,
+          background:
+            path !== routes.profileView(userId) && path !== routes.profileEdit(userId)
+              ? 'none'
+              : '#161425',
         }
       }
     >

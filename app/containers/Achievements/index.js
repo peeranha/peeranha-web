@@ -105,7 +105,12 @@ const Achievements = ({
 
   return (
     <div>
-      <BaseRoundedStyled>
+      <BaseRoundedStyled
+        css={{
+          border: 'none',
+          background: 'none',
+        }}
+      >
         <H3Styled>{t('common.NFTs')}</H3Styled>
       </BaseRoundedStyled>
 

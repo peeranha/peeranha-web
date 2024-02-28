@@ -105,6 +105,8 @@ const AISearch = ({
           @media only screen and (max-width: 576px) {
             border: none;
           }
+          border: none;
+          background: none;
         `}
       >
         <H3>
@@ -162,7 +164,6 @@ const AISearch = ({
             onClick={getSearchResultHandler}
             disabled={searchResultLoading}
             css={css`
-              opacity: ${searchResultLoading ? '0.8' : '1'};
               position: absolute;
               top: 10px;
               right: 15px;
@@ -177,13 +178,23 @@ const AISearch = ({
               }
 
               span {
+                font-size: 14px;
+                font-weight: 600;
                 display: flex;
                 align-items: center;
+                color: ${TEXT_LIGHT};
               }
 
-              background: ${colors.btnColor};
+              background: ${searchResultLoading
+                ? 'rgba(111, 76, 255, 0.8)'
+                : 'rgba(111, 76, 255, 1)'};
+
               :hover {
-                opacity: 0.8;
+                background: rgba(111, 76, 255, 0.8);
+
+                span {
+                  color: #ffffff !important;
+                }
               }
             `}
           >
@@ -192,14 +203,7 @@ const AISearch = ({
             ) : (
               <IconLg fill={TEXT_LIGHT} icon={AIIcon} />
             )}
-            <span
-              className="ml-2"
-              css={css`
-                color: ${TEXT_LIGHT};
-              `}
-            >
-              {t('common.askAI')}
-            </span>
+            <span className="ml-2">{t('common.askAI')}</span>
           </Button>
         </div>
       </Header>

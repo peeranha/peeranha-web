@@ -24,7 +24,7 @@ export const styles = {
       display: 'block',
       width: '100%',
       height: '1px',
-      backgroundColor: '#fff',
+      backgroundColor: '#6F4CFF',
       margin: '20px auto 12px',
     },
   },

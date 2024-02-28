@@ -105,10 +105,10 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                       height: 30px;
                       background: ${colors.btnHeaderColor};
                       color: ${colors.newPostButtonText};
-                      border: 1px solid ${colors.newPostButtonText};
+                      border: 1px solid ${colors.btnHeaderColor};
                       :hover {
                         background: ${colors.btnHeaderHoverColor};
-                        border: ${colors.btnHeaderHoverBorder};
+                        border: 1px solid ${colors.btnHeaderColor};
                         opacity: ${colors.btnHeaderHoverOpacity};
                       }
                     `}

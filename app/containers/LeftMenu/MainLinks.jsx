@@ -99,7 +99,7 @@ export const A1 = A.extend`
           border-color: ${graphCommunity ? '#6F4CFF' : colors.linkColor || BORDER_PRIMARY_DARK};
           font-family: ${fonts.mainLinksSelected || APP_FONT};
           letter-spacing: 0.5px;
-          font-weight: ${graphCommunity ? 'normal' : 'bold'};
+          font-weight: 600;
           color: ${graphCommunity ? '#fff' : colors.mainLinksColor || TEXT_DARK} !important;
           .fill {
             fill: ${graphCommunity ? '#fff' : customColor};
@@ -221,7 +221,7 @@ const MainLinks = ({
                   fontWeight: 600,
                   fontSize: 16,
                   lineHeight: '20px',
-                  color: 'var(--color-white)',
+                  color: '#E1E1E4',
                 }}
               >
                 <span

@@ -12,14 +12,11 @@ export const styles: Record<string, CSSObject> = {
     marginTop: '16px',
     overflow: 'hidden',
     borderRadius: '5px',
-    boxShadow: `0 2px 2px 0 ${graphCommunity ? '#3D3D54' : 'rgba(40,40,40,0.1)'}`,
     borderTopLeftRadius: BORDER_RADIUS_L,
     borderBottomLeftRadius: BORDER_RADIUS_L,
+    border: '1px solid #3D3D54',
     transition: '0.5s',
     position: 'relative',
-    ':hover': {
-      boxShadow: `5px 5px 5px  ${graphCommunity ? '#3D3D54' : 'rgba(40, 40, 40, 0.1)'}`,
-    },
     '@media (max-width: 991px)': {
       height: '150px',
     },
@@ -166,6 +163,8 @@ export const styles: Record<string, CSSObject> = {
     border: `1px solid ${colors.btnColor || '#F76F60'}`,
     color: `${graphCommunity ? '#E1E1E4' : colors.btnColor || '#F76F60'}`,
     borderRadius: '3px',
+    fontSize: '14px',
+    fontWeight: 600,
     transition: '0.5s',
     '@media (max-width: 576px)': {
       position: 'absolute',
@@ -174,8 +173,10 @@ export const styles: Record<string, CSSObject> = {
       marginTop: '21px',
     },
     ':hover': {
-      background: `${colors.btnHoverColor || '#F76F60'}`,
-      border: `1px solid ${colors.btnHoverColor || '#FFF'}`,
+      background: graphCommunity ? 'rgba(111,76,255,0.8)' : `${colors.btnHoverColor || '#F76F60'}`,
+      border: `1px solid ${
+        graphCommunity ? 'rgba(111,76,255,0.8)' : colors.btnHoverColor || '#FFF'
+      }`,
       color: '#FFF',
     },
   },

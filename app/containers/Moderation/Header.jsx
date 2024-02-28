@@ -7,7 +7,15 @@ import styles from './Moderation.styled';
 const Header = () => {
   const { t } = useTranslation();
   return (
-    <BaseRounded css={styles.baseContainer}>
+    <BaseRounded
+      css={{
+        ...styles.baseContainer,
+        ...{
+          border: 'none',
+          background: 'none',
+        },
+      }}
+    >
       <h3 css={styles.headerTitle}>{t('common.moderationHeader')}</h3>
     </BaseRounded>
   );

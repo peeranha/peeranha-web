@@ -194,7 +194,13 @@ const Notifications: React.FC<NotificationsProps> = ({
 
   return isAvailable ? (
     <Container className={`${className} overflow-hidden`}>
-      <Wrapper position="bottom">
+      <Wrapper
+        position="bottom"
+        css={{
+          border: 'none',
+          background: 'none',
+        }}
+      >
         <Header notificationsNumber={allCount} />
       </Wrapper>
 

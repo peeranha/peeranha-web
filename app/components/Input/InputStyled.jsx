@@ -64,9 +64,8 @@ export const Styles = css`
 
   &:focus {
     border-color: ${(props) =>
-      props.error
-        ? `rgb(${BORDER_WARNING_LIGHT_RGB})`
-        : colors.linkColor || `rgb(${BORDER_PRIMARY_RGB})`};
+      props.error ? `rgb(${BORDER_WARNING_LIGHT_RGB})` : '#6F4CFF' || `rgb(${BORDER_PRIMARY_RGB})`};
+    background-color: #6f4cff0f;
   }
 
   :disabled {

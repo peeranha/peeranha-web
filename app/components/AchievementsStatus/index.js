@@ -70,7 +70,7 @@ const AchievementsStatus = ({ isProfilePage, count, size, achievIconStyles }) =>
     return (
       <StatusSpan size={size} isProfilePage={isProfilePage}>
         {graphCommunity ? (
-          <AwardGraph size={[12, 12]} className="mr-1" stroke="#6F4CFF" fill="none" />
+          <AwardGraph size={[18, 18]} className="mr-1" stroke="#6F4CFF" fill="none" />
         ) : isProfilePage ? (
           <AchivementsIcon size={[18, 18]} stroke={colors.linkColor || TEXT_PRIMARY} />
         ) : (

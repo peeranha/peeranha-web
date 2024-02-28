@@ -44,6 +44,11 @@ export const NavigationLinkDefault = Primary.extend`
 
 export const NavigationLink = Primary.extend`
   ${ButtonCss};
+  font-weight: 400;
+
+  span {
+    font-weight: 400;
+  }
 `.withComponent(Link);
 
 const NavigationButton = Primary.extend`

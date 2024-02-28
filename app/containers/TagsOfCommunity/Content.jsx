@@ -52,7 +52,8 @@ const Item = styled.div`
   padding: ${(x) => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};
 
   input {
-    background: none;
+    background: #FFFFFF0F;
+    border: 1px solid #161426;
     color: ${colors.white || ''};
   !important;
 

@@ -72,8 +72,9 @@ const Link = styled.a`
   font-size: 14px;
   line-height: 24px;
   color: #6f4cff;
+
   :hover {
-    color: #6f4cff;
+    color: rgba(111, 76, 255, 0.8);
   }
 `;
 

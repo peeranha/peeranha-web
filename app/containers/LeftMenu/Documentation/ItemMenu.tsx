@@ -186,18 +186,20 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           ...(((match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
             editArticle?.id === item.id) && {
-            background: 'rgba(53, 74, 137, 0.11)',
-            borderLeft: `3px solid ${colors.linkColor || '#5065A5'}`,
+            background: 'rgba(111,76,255,0.2)',
+            borderLeft: `3px solid ${'#6F4CFF' || '#5065A5'}`,
             paddingLeft: 12 + 16 * level,
+
+            a: {
+              color: '#FFF',
+              fontWeight: 600,
+            },
           }),
           '&:hover .dropdown-documentation': {
             visibility: 'visible',
           },
-          '&:hover': {
-            background: 'rgba(53, 74, 137, 0.05)',
-          },
           '&:hover a': {
-            color: '#576FED',
+            color: '#FFF',
           },
         }}
       >

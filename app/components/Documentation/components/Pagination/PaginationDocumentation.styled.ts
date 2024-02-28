@@ -21,7 +21,7 @@ export const styled = {
     width: '350px',
     height: '65px',
     margin: '0 12px 12px 12px',
-    border: `1px solid ${graphCommunity ? '#E1E1E4' : 'rgba(53, 74, 137, 0.15)'}`,
+    border: `1px solid ${graphCommunity ? '#3D3D54' : 'rgba(53, 74, 137, 0.15)'}`,
     ':hover': {
       background: 'rgba(53, 74, 137, 0.05)',
     },

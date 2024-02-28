@@ -114,6 +114,7 @@ const StyledCustomIconButtonContainer = styled.div`
   .fill {
     fill: ${customColor};
   }
+
   .stroke {
     stroke: ${customColor};
   }
@@ -154,6 +155,7 @@ export const Header = ({
         setTagsNames(await getTagsNameByIds(searchParamsTags));
       }
     }
+
     window.scrollTo(0, 0);
     getTagsName();
   }, [createdHistory.location.search]);
@@ -243,6 +245,7 @@ export const Header = ({
       isQuestionsPage={true}
       className="mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
+      css={{ background: 'none', border: 'none' }}
     >
       <PageContentHeaderContainer>
         <PageContentHeader className="d-flex align-items-center">
@@ -271,16 +274,16 @@ export const Header = ({
         </PageContentHeader>
         {communityEditingAllowed && isFeed && (
           <EditCommunityButton>
-            <button onClick={routeToEditCommunity} className="aic">
+            <button onClick={routeToEditCommunity} className="df aic">
               {graphCommunity ? (
                 <PencilSimpleLineGraph fill="#6F4CFF" size={[24, 24]} />
               ) : (
                 <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
               )}
               <Span
-                className="ml-1"
+                className="ml-1 fz16"
                 color={colors.btnColor || TEXT_PRIMARY}
-                css={{ color: 'rgba(111, 76, 255, 1)' }}
+                css={{ color: 'rgba(111, 76, 255, 1)', fontWeight: 400 }}
               >
                 {t('common.editCommunity')}
               </Span>

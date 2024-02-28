@@ -19,9 +19,13 @@ const AuthorizationData = ({ className }) => {
         className={className}
         position="bottom"
         css={css`
-      border-top-left-radius: 0; !important;
-      border-top-right-radius: 0; !important;
-    `}
+          border-top-left-radius: 0;
+        !important;
+          border-top-right-radius: 0;
+        !important;
+          border: none;
+          background: none;
+        `}
       >
         <H3>{t('common.settings')}</H3>
       </BaseStyled>
