@@ -627,8 +627,8 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         languagesEnum[locale],
         ethereumService,
       );
-      yield call(waitForPostTransactionToIndex, txHash);
       txHash = transaction.transactionHash;
+      yield call(waitForPostTransactionToIndex, txHash);
     }
 
     const newComment = {
