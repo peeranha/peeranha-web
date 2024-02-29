@@ -9,9 +9,9 @@ export const styles: Record<string, CSSObject> = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '16px',
-    border: colors.linkColor ? `1px solid ${colors.linkColor}` : '1px solid #A5BCFF',
+    border: colors.linkColor ? `1px solid #3D3D54` : '1px solid #A5BCFF',
     borderRadius: '5px',
-    background: '#F6F8FF',
+    background: '#161425',
   },
 
   mainBlock: {
@@ -30,14 +30,14 @@ export const styles: Record<string, CSSObject> = {
     fontWeight: 600,
     fontSize: '14px',
     lineHeight: '20px',
-    color: colors.linkColor || '#576FED',
+    color: '#E1E1E4' || '#576FED',
     marginRight: '8px',
   },
 
   mainBlockText: {
     fontSize: '14px',
     lineHeight: '20px',
-    color: '#282828',
+    color: '#A7A7AD',
     marginBottom: '8px',
   },
 
@@ -54,7 +54,7 @@ export const styles: Record<string, CSSObject> = {
       content: '""',
       width: '20%',
       height: '8px',
-      background: colors.loaderColor || '#7699FF',
+      background: '#6f4cff' || '#7699FF',
       position: 'absolute',
       top: 0,
       left: 0,

@@ -8,6 +8,8 @@ import loginImage from 'images/wantAnswer.svg?inline';
 import loginGraphImage from 'images/login-graph-banner.svg?inline';
 import repliedImage from 'images/repliedAnswer.svg?inline';
 import reputationImage from 'images/reputationAnswer.svg?inline';
+import graphRepliedImage from 'images/graphRepliedImage.svg?inline';
+import graphBadReputation from 'images/graphBadReputation.svg?inline';
 import { BANNER_IMG, ILLUSTRATION_IMG } from './constants';
 import { graphCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 
@@ -33,9 +35,9 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
       return graphCommunity ? loginGraphImage : loginImage;
     }
     if (isAnswered) {
-      return repliedImage;
+      return graphCommunity ? graphRepliedImage : repliedImage;
     }
-    return reputationImage;
+    return graphCommunity ? graphBadReputation : reputationImage;
   };
 
   const viewTitle = () => {

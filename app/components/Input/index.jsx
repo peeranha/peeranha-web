@@ -69,7 +69,7 @@ const Input = ({
         type={isText ? 'text' : type}
         placeholder={placeholder}
         disabled={disabled}
-        autoComplete={autoComplete}
+        autoComplete={'off'}
       />
 
       <Handler

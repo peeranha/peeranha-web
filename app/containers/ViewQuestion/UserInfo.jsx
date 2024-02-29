@@ -74,7 +74,7 @@ export const UserInfo = ({
     )}
 
     <Block type={type}>
-      <span className={`d-flex align-items-center ${isComment ? '' : 'mr-2'}`}>
+      <span className={`d-flex align-items-center ${isComment ? '' : 'mr-2'} mr8`}>
         <Span
           className="mr-2"
           fontSize="14"

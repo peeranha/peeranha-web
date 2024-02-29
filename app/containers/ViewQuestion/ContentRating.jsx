@@ -129,7 +129,7 @@ function UpvoteIcon({ account, author, votingStatus }) {
     graphIcon = <ThumbsUpGraph fill="rgba(75, 202, 129, 1)" size={[24, 24]} />;
   } else if (votingStatus?.isDownVoted) {
     src = emptyFingerUp;
-    graphIcon = <ThumbsUpGraph size={[24, 24]} fill="rgba(237, 74, 109, 1)" />;
+    graphIcon = <ThumbsUpGraph size={[24, 24]} fill="rgba(111, 76, 255, 1)" />;
   } else {
     src = fingerUpSingleQuestionPage;
     graphIcon = <ThumbsUpGraph size={[24, 24]} fill="rgba(111, 76, 255, 1)" />;
@@ -159,7 +159,7 @@ function DownvoteIcon({ account, author, votingStatus }) {
     graphIcon = <ThumbsDownGraph size={[24, 24]} fill="rgba(237, 74, 109, 1)" />;
   } else if (votingStatus?.isUpVoted) {
     src = emptyFingerDown;
-    graphIcon = <ThumbsDownGraph size={[24, 24]} fill="rgba(75, 202, 129, 1)" />;
+    graphIcon = <ThumbsDownGraph size={[24, 24]} fill="rgba(111, 76, 255, 1)" />;
   } else {
     src = fingerDownSingleQuestionPage;
     graphIcon = <ThumbsDownGraph size={[24, 24]} fill="rgba(111, 76, 255, 1)" />;

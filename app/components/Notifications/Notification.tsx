@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
 import { trimRightZeros } from 'utils/numbers';
-import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+import {
+  graphCommunityColors,
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 import { renderNotificationIcon } from 'utils/notifications';
 
 import {
@@ -18,6 +22,7 @@ import { NotificationLinkProps, NotificationProps, NotificationTimeProps } from 
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 const communityStyles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
 
 const Time: React.FC<NotificationTimeProps> = ({
   time: { rightNow, minutes, hours, yesterday, fullDate },
@@ -130,7 +135,7 @@ const Notification: React.FC<NotificationProps> = ({
     <div
       css={{
         ...styles.container,
-        ...(!read && styles.unread),
+        ...(!graphCommunity && !read && styles.unread),
         ...(isLast && styles.lastNotification),
         height: `${height}px`,
         top: `${top}px`,

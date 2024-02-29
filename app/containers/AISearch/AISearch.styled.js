@@ -161,6 +161,7 @@ export const styles = {
     },
 
     '@media (min-width: 1366px)': {
+      width: 'calc(100% - 300px)',
       borderBottomRightRadius: 0,
       borderTopRightRadius: 0,
     },

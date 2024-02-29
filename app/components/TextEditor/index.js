@@ -56,7 +56,7 @@ class TextEditor extends React.PureComponent {
 
             textarea {
               ::selection {
-                -webkit-text-fill-color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
+                -webkit-text-fill-color: ${graphCommunity ? '#282828' : TEXT_DARK};
               }
 
               -webkit-text-fill-color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};

@@ -5,8 +5,10 @@ const communityColors = singleCommunityColors();
 
 export const styles = {
   wrapper: {
-    background: communityColors.backgroundSpecial || 'rgb(250,250,250,1)',
+    background: '#161425' || 'rgb(250,250,250,1)',
     minWidth: '208px',
+    border: '1px solid #3D3D54',
+    borderLeft: 'none',
     borderTopRightRadius: BORDER_RADIUS_L,
     borderBottomRightRadius: BORDER_RADIUS_L,
 
@@ -28,7 +30,7 @@ export const styles = {
     fontWeight: 400,
     fontSize: '14px',
     lineHeight: '18px',
-    color: '#576FED',
+    color: '#6f4cff',
   },
 
   navbarItemHover: {

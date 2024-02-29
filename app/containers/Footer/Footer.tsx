@@ -150,12 +150,12 @@ const Footer: React.FC = (): JSX.Element => {
         <div>
           <div css={styles.infoBlock}>
             <div css={styles.content}>
-              {GRAPH_INFO_LINKS.map((link) => (
+              {GRAPH_INFO_LINKS.map((link, index) => (
                 <>
                   <a href={link.route} target={TARGET_BLANK} css={styles.graphInfoLinks}>
                     {t(`${link.title}`)}
                   </a>
-                  <ArrowUpRightGraph size={[18, 18]} />
+                  {index !== GRAPH_INFO_LINKS.length - 1 && <ArrowUpRightGraph size={[18, 18]} />}
                 </>
               ))}
             </div>

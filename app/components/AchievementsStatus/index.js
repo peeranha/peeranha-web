@@ -12,6 +12,7 @@ import { customRatingIconColors } from 'constants/customRating';
 import AchivementsIcon from 'icons/Achivements';
 import { AwardGraph } from 'components/icons';
 import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+
 const colors = singleCommunityColors();
 const graphCommunity = graphCommunityColors();
 
@@ -68,7 +69,11 @@ const IconAbsolute = styled(Icon)`
 const AchievementsStatus = ({ isProfilePage, count, size, achievIconStyles }) => {
   if (typeof count === 'number')
     return (
-      <StatusSpan size={size} isProfilePage={isProfilePage}>
+      <StatusSpan
+        size={size}
+        isProfilePage={isProfilePage}
+        css={{ display: 'flex', alignItems: 'center' }}
+      >
         {graphCommunity ? (
           <AwardGraph size={[18, 18]} className="mr-1" stroke="#6F4CFF" fill="none" />
         ) : isProfilePage ? (

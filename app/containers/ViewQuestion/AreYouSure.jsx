@@ -53,7 +53,7 @@ const AreYouSure = ({ Button, submitAction, isGlobalAdmin, isMarkedTheBest }) =>
         <ModalDialog closeModal={closeModal} show={isOpened}>
           <H4 className="text-center pb-3">{t('common.delete')}</H4>
 
-          <div className="pb-4 text-center">
+          <div className="pb-4 text-center" css={{ color: '#E1E1E4' }}>
             {isMarkedTheBest && !isGlobalAdmin ? <TheBestModalText /> : t('post.areYouSure')}
           </div>
 
