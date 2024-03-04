@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
 import { init, useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
-import injectedModule from '@web3-onboard/injected-wallets';
+import metamaskSDK from '@web3-onboard/metamask';
 
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
@@ -30,14 +30,22 @@ import {
 import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV, envType } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
-const injected = injectedModule();
 
 const styles = singleCommunityStyles();
 
 const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
 
+const metamaskSDKWallet = metamaskSDK({
+  options: {
+    extensionOnly: false,
+    dappMetadata: {
+      name: 'Peeranha',
+    },
+  },
+});
+
 const initWeb3Onboard = init({
-  wallets: [injected],
+  wallets: [metamaskSDKWallet],
   chains: [
     {
       id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
