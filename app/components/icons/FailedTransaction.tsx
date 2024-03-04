@@ -13,7 +13,7 @@ const FailedTransaction: React.FC<IconProps> = (props): JSX.Element => (
       cx="18"
       cy="18"
       r="17"
-      stroke={props.stroke || '#7699FF'}
+      stroke={props.stroke || 'rgb(111, 76, 255)'}
       strokeOpacity={props.strokeOpacity || 0.2}
       strokeWidth="2"
       fill={props.fill || 'none'}
@@ -21,7 +21,7 @@ const FailedTransaction: React.FC<IconProps> = (props): JSX.Element => (
     />
     <path
       d="M10 10L26 26M26 10L10 26"
-      stroke={props.stroke || '#F76F60'}
+      stroke={props.stroke || 'rgba(237, 74, 109, 1)'}
       strokeLinecap="round"
       strokeWidth="2"
       fill={props.fill || 'none'}

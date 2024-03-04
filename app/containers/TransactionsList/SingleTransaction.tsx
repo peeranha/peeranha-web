@@ -49,9 +49,13 @@ export const SingleTransaction: React.FC<TransactionProps> = ({
                 : explorerUrl + transaction.transactionHash,
             }}
           >
-            <p className="df aic" css={{ color: '#212529' }}>
+            <p className="df aic" css={{ color: 'rgba(225, 225, 228, 1)' }}>
               {t(`common.transactionsList.${transaction.action}`)}
-              <SingleCommunity stroke={'#576FED'} size={[14, 14]} className={'cup ml4'} />
+              <SingleCommunity
+                stroke={'rgba(111, 76, 255, 1)'}
+                size={[14, 14]}
+                className={'cup ml4'}
+              />
             </p>
           </A>
         ) : (

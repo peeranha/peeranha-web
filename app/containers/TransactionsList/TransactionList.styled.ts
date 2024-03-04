@@ -22,7 +22,7 @@ export const styles = {
     position: 'absolute',
     width: '289px',
     height: '70px',
-    background: '#A5BCFF',
+    background: 'rgba(111, 76, 255, 1)',
     'box-shadow': '0 10px 20px rgba(24, 39, 79, 0.1)',
     'border-radius': '24px 0 0 24px',
     right: '0px',
@@ -41,9 +41,11 @@ export const styles = {
     flexDirection: 'column',
     position: 'absolute',
     padding: '24px 16px',
+    color: 'rgba(225, 225, 228, 1)',
     width: '245px',
     'z-index': 100,
-    background: 'linear-gradient(0deg, #FFFFFF, #FFFFFF), #DFE1E9',
+    background: 'rgba(26, 23, 47, 1)',
+    border: '1px solid #3D3D54',
 
     'box-shadow': '0 10px 20px rgba(24, 39, 79, 0.1)',
 
@@ -97,6 +99,7 @@ export const styles = {
     display: 'flex',
     alignItems: 'flex-start',
     flexDirection: 'column',
+    color: 'rgba(225, 225, 228, 1)',
     marginLeft: '12px',
     '>p': {
       fontSize: '12px',
@@ -111,6 +114,7 @@ export const styles = {
     display: 'flex',
     flexDirection: 'column',
     marginLeft: '12px',
+    color: 'rgba(225, 225, 228, 1)',
     'div:first-child': {
       fontSize: '14px',
       fontWeight: 400,
@@ -127,6 +131,7 @@ export const styles = {
     height: '1px',
     background: 'rgba(53, 74, 137, 0.15)',
     alignSelf: 'stretch',
+    color: 'rgba(225, 225, 228, 1)',
     flexGrow: 0,
   },
 };

@@ -36,7 +36,8 @@ const DropdownModal = styled.div`
   width: 300px;
   background-color: ${graphCommunity ? '#161425' : BG_LIGHT};
   border-radius: 3px;
-  box-shadow: 0 2px 4px 0 ${SECONDARY_SPECIAL};
+  box-shadow: ${graphCommunity ? 'none' : `0 2px 4px 0 ${SECONDARY_SPECIAL}`};
+  border: ${graphCommunity ? '1px solid #3D3D54' : 'none'};
 
   p {
     margin-bottom: 10px;

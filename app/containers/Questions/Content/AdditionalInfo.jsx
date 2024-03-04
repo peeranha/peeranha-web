@@ -116,7 +116,9 @@ const AdditionalInfo = ({
 
   const graphIcon = useMemo(() => {
     if (officialAnswersCount) {
-      return <CertificateGraph size={[24, 24]} className="mr-1" />;
+      return (
+        <CertificateGraph size={[24, 24]} className="mr-1" fill={correctAnswerId && '#4BCA81'} />
+      );
     }
 
     return correctAnswerId ? (
@@ -128,7 +130,7 @@ const AdditionalInfo = ({
 
   const color = useMemo(
     () =>
-      !correctAnswerId || officialAnswersCount
+      !correctAnswerId || (officialAnswersCount && !correctAnswerId)
         ? colors.linkColor || TEXT_PRIMARY_DARK
         : TEXT_SUCCESS,
     [officialAnswersCount, correctAnswerId],

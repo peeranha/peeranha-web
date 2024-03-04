@@ -21,6 +21,7 @@ injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i');
   @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+  @import url('https://fonts.cdnfonts.com/css/euclid-circular-a');
   ${_get(styles, 'fontFace', '')}
   html,
   body {
@@ -126,7 +127,7 @@ injectGlobal`
   }
 
   .wmde-markdown pre {
-    background-color: rgb(119, 119, 119) !important;
+    background-color: rgba(255, 255, 255, 0.45) !important;
   }
 
   .popover-body {
