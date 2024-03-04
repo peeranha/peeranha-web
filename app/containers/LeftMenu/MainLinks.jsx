@@ -290,7 +290,12 @@ const MainLinks = ({
         )}
 
         {singleCommId && (
-          <A1 to={routes.defaultPath} name={routes.defaultPath} route={route}>
+          <A1
+            to={routes.defaultPath}
+            name={routes.defaultPath}
+            route={route}
+            css={{ whiteSpace: 'nowrap' }}
+          >
             {graphCommunity ? (
               <SparkleGraph size={[24, 24]} className="mr-2" />
             ) : (

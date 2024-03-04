@@ -28,6 +28,7 @@ export const styles = {
     padding: graphCommunity ? '2px 12px 0 12px' : '1.5px 6px 2.5px 6px',
     gap: '10px',
     marginLeft: '8px',
+    whiteSpace: 'nowrap',
   },
 
   menuSectionTitle: {
