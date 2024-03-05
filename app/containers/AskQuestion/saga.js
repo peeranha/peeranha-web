@@ -132,8 +132,9 @@ export function* postQuestionWorker({ val }) {
         ethereumService,
       );
 
+      const logsArray = transaction.logs.filter((log) => log.data === '0x');
       const idFromTransaction = parseInt(
-        transaction.logs.find((log) => log.data === '0x').topics[3].substring(2),
+        logsArray[logsArray.length - 1].topics[3].substring(2),
         16,
       );
       const network = getNetwork(communityId);

@@ -4,7 +4,6 @@ import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
 import { init, useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
-import metamaskSDK from '@web3-onboard/metamask';
 
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
@@ -16,6 +15,7 @@ import logo from 'images/LogoBlackOnboard.svg?inline';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
+import injectedModule from '@web3-onboard/injected-wallets';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import { addToast } from '../Toast/actions';
 import {
@@ -27,25 +27,17 @@ import {
   transactionInitialised,
   setTransactionList,
 } from './actions';
-import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV, envType } from './constants';
+import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
+const injected = injectedModule();
 
 const styles = singleCommunityStyles();
 
 const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
 
-const metamaskSDKWallet = metamaskSDK({
-  options: {
-    extensionOnly: false,
-    dappMetadata: {
-      name: 'Peeranha',
-    },
-  },
-});
-
 const initWeb3Onboard = init({
-  wallets: [metamaskSDKWallet],
+  wallets: [injected],
   chains: [
     {
       id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
