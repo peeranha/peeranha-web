@@ -6,7 +6,7 @@ import $ from 'jquery';
 // Needed for redux-saga es6 generator support
 import '@babel/polyfill';
 import TagManager from 'react-gtm-module';
-
+import ReactGA from 'react-ga4';
 // Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -21,7 +21,8 @@ import App from 'containers/App';
 // Import Providers
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
-
+import communitiesConfig from 'communities-config';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 import 'file-loader?name=[name].[ext]!./.htaccess';
@@ -31,14 +32,14 @@ import { isSuiBlockchain } from 'utils/constants';
 import configureStore from './configureStore';
 import createdHistory from './createdHistory';
 
-// Import Analytics
-import './analytics';
-
 import i18n from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
 import EthereumProvider from './containers/EthereumProvider';
+
+const single = isSingleCommunityWebsite();
+
 window.$ = $;
 if (process.env.GTM_ID) {
   const tagManagerArgs = {
@@ -46,6 +47,11 @@ if (process.env.GTM_ID) {
   };
 
   TagManager.initialize(tagManagerArgs);
+}
+
+const reactGaId = communitiesConfig[single]?.googleAnalyticsId || process.env.GA4_ID;
+if (reactGaId) {
+  ReactGA.initialize(reactGaId);
 }
 
 const NetworkProvider = isSuiBlockchain ? SuiProvider : EthereumProvider;

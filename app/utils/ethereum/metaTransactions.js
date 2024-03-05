@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import ReactGA from 'react-ga4';
 import {
   CONTRACT_COMMUNITY,
   CONTRACT_CONTENT,
@@ -173,5 +174,9 @@ export async function sendMetaTransactionMethod(
   }, 30000);
 
   this.transactionCompleted(this.transactionList);
+  ReactGA.event({
+    category: 'Users',
+    action: 'meta_transaction_completed',
+  });
   return result;
 }
