@@ -67,7 +67,10 @@ import PostRules from './PostRules';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
-import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
+import {
+  selectTransactionInPending,
+  selectTransactionStarted,
+} from 'containers/EthereumProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -138,7 +141,9 @@ export const QuestionForm = ({
   cachedTags,
   tagsLoading,
   transactionInPending,
+  transactionStarted,
 }) => {
+  console.log(transactionStarted, 'transactionStarted');
   const { t } = useTranslation();
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -220,6 +225,8 @@ export const QuestionForm = ({
   const notHiddenCommunities = communities.filter(
     (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
   );
+
+  const transactionInProgress = transactionInPending || questionLoading;
   return (
     <Router history={history}>
       <Prompt
@@ -344,7 +351,7 @@ export const QuestionForm = ({
                 />
               )}
 
-              {transactionInPending && questionLoading ? (
+              {transactionInPending || questionLoading ? (
                 <TransactionBanner />
               ) : (
                 <Button
@@ -416,6 +423,7 @@ export default memo(
 
       return {
         profile: makeSelectProfileInfo()(state),
+        transactionStarted: selectTransactionStarted()(state),
         transactionInPending: selectTransactionInPending()(state),
         formValues: state.toJS().form[formName]?.values ?? {},
         communityQuestionsType: questionsType ?? ANY_TYPE,
