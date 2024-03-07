@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import { getCurrentSuiAccount } from 'containers/AccountProvider/actions';
 import { setEmailLoginData } from 'containers/SuiProvider/actions';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
@@ -83,6 +84,10 @@ export function* loginWithWalletWorker({ t, isTorus }) {
     }
 
     yield put(loginWithWalletSuccess());
+    ReactGA.event({
+      category: 'Users',
+      action: `${connectedWalletLabel}_wallet_login_connected`,
+    });
     yield call(updateAcc, profileInfo, ethereumService);
   } catch (err) {
     document.getElementsByTagName('body')[0].style.position = 'relative';
@@ -123,6 +128,10 @@ export function* verifyEmailWorker({ email, verificationCode, resolve, reject })
       resolve();
       yield put(setEmailLoginData({ address: response.address, token: response.token, email }));
       yield put(verifyEmailSuccess());
+      ReactGA.event({
+        category: 'Users',
+        action: 'email_login_connected',
+      });
     }
     if (isNewPostCreationAfterLogin) {
       yield call(createdHistory.push, routes.questionAsk());

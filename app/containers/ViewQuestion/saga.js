@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import { isMeshServiceConfig } from 'communities-config';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
@@ -244,6 +245,10 @@ export function* saveCommentWorker({
   buttonId,
 }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_comment_started',
+    });
     const { questionData, ethereumService, profileInfo, locale, histories } = yield call(getParams);
     yield call(isAvailableAction, () => editCommentValidator(profileInfo, buttonId));
     const commentData = {
@@ -316,6 +321,10 @@ export function* saveCommentWorker({
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(saveCommentSuccess({ ...questionData }, buttonId, commentId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_comment_copmleted',
+    });
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
@@ -326,6 +335,10 @@ export function* saveCommentWorker({
 
 export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'delete_comment_started',
+    });
     const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
     yield call(
@@ -382,6 +395,10 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(deleteCommentSuccess({ ...questionData }, buttonId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'delete_comment_completed',
+    });
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
@@ -392,6 +409,10 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
 
 export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'delete_answer_started',
+    });
     const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
 
     if (isSuiBlockchain) {
@@ -447,6 +468,10 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'delete_answer_completed',
+    });
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
@@ -457,6 +482,10 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
 export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'delete_post_started',
+    });
     let { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     if (!questionData) {
@@ -524,6 +553,10 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
     }
 
     yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'delete_post_completed',
+    });
     yield call(createdHistory.push, getPostsRoute(questionData.postType));
   } catch (err) {
     if (isSuiBlockchain) {
@@ -589,6 +622,10 @@ export function* showAddCommentFormWorker({ toggleFormButtonId, answerId }) {
 
 export function* postCommentWorker({ answerId, questionId, comment, reset, toggleView, buttonId }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_comment_started',
+    });
     const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
     yield call(checkPostCommentAvailableWorker, buttonId, answerId);
@@ -679,6 +716,10 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(postCommentSuccess({ ...questionData }, buttonId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_comment_completed',
+    });
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
@@ -689,6 +730,10 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_answer_started',
+    });
     const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
 
     if (isSuiBlockchain) {
@@ -808,6 +853,10 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     });
     yield put(getQuestionDataSuccess(updatedQuestionData));
     yield put(postAnswerSuccess(questionData));
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_answer_completed',
+    });
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
@@ -818,6 +867,10 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
 export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionId }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_downvote_started',
+    });
     const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasDownvoted];
@@ -889,6 +942,10 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(downVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_downvote_completed',
+    });
   } catch (err) {
     yield put(downVoteErr(err, buttonId));
   }
@@ -896,6 +953,10 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
 
 export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_upvote_started',
+    });
     const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasUpvoted];
@@ -966,6 +1027,10 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(upVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_upvote_completed',
+    });
   } catch (err) {
     yield put(upVoteErr(err, buttonId));
   }
@@ -973,6 +1038,10 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
 
 export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, whoWasAccepted }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'markAsAccepted_started',
+    });
     const { questionData, ethereumService, profileInfo } = yield call(getParams);
 
     const usersForUpdate = [whoWasAccepted];
@@ -1018,6 +1087,10 @@ export function* markAsAcceptedWorker({ buttonId, questionId, correctAnswerId, w
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'markAsAccepted_completed',
+    });
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
