@@ -358,9 +358,11 @@ export const QuestionForm = ({
                   type="submit"
                   onClick={handleButtonClick}
                   className={questionLoading && 'op80'}
-                  css={{
-                    ':hover': { background: 'rgba(111,76,255,0.8) !important', color: '#ffffff' },
-                  }}
+                  css={
+                    graphCommunity && {
+                      ':hover': { background: 'rgba(111,76,255,0.8) !important', color: '#ffffff' },
+                    }
+                  }
                 >
                   {submitButtonName}
                 </Button>

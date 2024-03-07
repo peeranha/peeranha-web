@@ -105,8 +105,8 @@ const AISearch = ({
           @media only screen and (max-width: 576px) {
             border: none;
           }
-          border: none;
-          background: none;
+          border: ${graphCommunity ? 'none' : ''};
+          background: ${graphCommunity ? 'none' : ''};
         `}
       >
         <H3>
@@ -164,6 +164,7 @@ const AISearch = ({
             onClick={getSearchResultHandler}
             disabled={searchResultLoading}
             css={css`
+              opacity: ${searchResultLoading && !graphCommunity ? '0.8' : '1'};
               position: absolute;
               top: 10px;
               right: 15px;
@@ -178,22 +179,25 @@ const AISearch = ({
               }
 
               span {
-                font-size: 14px;
-                font-weight: 600;
+                font-size: ${graphCommunity ? '14px' : ''};
+                font-weight: ${graphCommunity ? 600 : ''};
                 display: flex;
                 align-items: center;
-                color: ${TEXT_LIGHT};
+                color: ${graphCommunity ? TEXT_LIGHT : ''};
               }
 
-              background: ${searchResultLoading
-                ? 'rgba(111, 76, 255, 0.8)'
-                : 'rgba(111, 76, 255, 1)'};
+              background: ${graphCommunity
+                ? searchResultLoading
+                  ? 'rgba(111, 76, 255, 0.8)'
+                  : 'rgba(111, 76, 255, 1)'
+                : colors.btnColor};
 
               :hover {
-                background: rgba(111, 76, 255, 0.8);
+                opacity: ${graphCommunity ? 1 : 0.8};
+                background: ${graphCommunity ? 'rgba(111, 76, 255, 0.8)' : ''};
 
                 span {
-                  color: #ffffff !important;
+                  color: ${graphCommunity ? '#ffffff !important' : ''};
                 }
               }
             `}
@@ -218,7 +222,11 @@ const AISearch = ({
             onKeyDown={onKeyDownHandler}
           />
           {searchText ? (
-            <Close fill={'#A7A7AE'} css={styles.closeInputIcon} onClick={clearInputHandler} />
+            <Close
+              fill={graphCommunity ? '#A7A7AE' : '#BDBDBD'}
+              css={styles.closeInputIcon}
+              onClick={clearInputHandler}
+            />
           ) : (
             <SearchAI size={[30, 30]} stroke={'#BDBDBD'} css={styles.searchInputIcon} />
           )}

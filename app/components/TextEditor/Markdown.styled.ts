@@ -5,10 +5,10 @@ const graphCommunity = graphCommunityColors();
 
 export const styles = {
   markdownPreview: {
-    fontFamily: 'Euclid Circular A',
-    fontWeight: 400,
-    fontSize: '16px',
-    lineHeight: '24px',
+    fontFamily: graphCommunity ? 'Euclid Circular A' : 'Source Sans Pro',
+    fontWeight: graphCommunity ? 400 : '',
+    fontSize: graphCommunity ? '16px' : '',
+    lineHeight: graphCommunity ? '24px' : '',
 
     'ol li': {
       listStyleType: 'decimal',

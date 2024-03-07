@@ -1,5 +1,9 @@
 import { css } from '@emotion/react';
-import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -31,6 +35,7 @@ import InfoButton from 'components/Button/Outlined/InfoMedium';
 
 const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 const Tag = styled.li`
   height: ${({ editTagModerator }) => (editTagModerator ? '180px' : '140px')};
@@ -52,8 +57,8 @@ const Item = styled.div`
   padding: ${(x) => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};
 
   input {
-    background: #FFFFFF0F;
-    border: 1px solid #161426;
+    background: ${graphCommunity ? '#FFFFFF0F' : 'none'};
+    border: ${graphCommunity ? '1px solid #161426' : ''};
     color: ${colors.white || ''};
   !important;
 
@@ -97,8 +102,9 @@ const Base = BaseRounded.extend`
 
 const EditTagBtnContainer = styled.div`
   display: flex;
+  justify-content: ${graphCommunity ? '' : 'space-around'};
   margin-top: 10px;
-  margin-left: 15px;
+  margin-left: ${graphCommunity ? '15px' : ''};
 `;
 
 const Content = ({
@@ -173,7 +179,10 @@ const Content = ({
                 {single ? (
                   <Link to={redirectToFilterByTag(x.id)}>
                     <TagName>{x.name}</TagName>
-                    <Span fontSize="14" color={'rgba(225, 225, 228, 1)'}>
+                    <Span
+                      fontSize="14"
+                      color={graphCommunity ? 'rgba(225, 225, 228, 1)' : TEXT_SECONDARY}
+                    >
                       <span>x </span>
                       <span>{`${x.postCount}`}</span>
                     </Span>
@@ -196,19 +205,21 @@ const Content = ({
                   <InfoButton
                     className="ml-15"
                     onClick={() => showEditTagForm(x.id)}
-                    css={{
-                      backgroundColor: 'rgba(30, 28, 46, 1)',
-                      border: '1px solid rgba(30, 28, 46, 1)',
-                      color: 'rgba(225, 225, 228, 1)',
-                      fontWeight: 600,
-                      fontSize: '14px',
+                    css={
+                      graphCommunity && {
+                        backgroundColor: 'rgba(30, 28, 46, 1)',
+                        border: '1px solid rgba(30, 28, 46, 1)',
+                        color: 'rgba(225, 225, 228, 1)',
+                        fontWeight: 600,
+                        fontSize: '14px',
 
-                      ':hover': {
-                        backgroundColor: 'rgba(32, 31, 48, 1)',
-                        border: '1px solid rgba(32, 31, 48, 1)',
-                        color: 'rgba(255, 255, 255, 1)',
-                      },
-                    }}
+                        ':hover': {
+                          backgroundColor: 'rgba(32, 31, 48, 1)',
+                          border: '1px solid rgba(32, 31, 48, 1)',
+                          color: 'rgba(255, 255, 255, 1)',
+                        },
+                      }
+                    }
                   >
                     {t('common.edit')}
                   </InfoButton>

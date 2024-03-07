@@ -46,12 +46,6 @@ export const TextInputField = ({
       autoComplete={autoComplete}
       error={(meta.touched || (meta.error && meta.error.visited)) && (meta.error || meta.warning)}
       type={type}
-      css={{
-        input: {
-          background: 'rgba(255, 255, 255, 0.06)',
-          border: '1px solid #161426',
-        },
-      }}
     />
   </Wrapper>
 );

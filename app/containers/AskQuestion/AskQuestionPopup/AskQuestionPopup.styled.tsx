@@ -1,11 +1,12 @@
 import { BORDER_SECONDARY } from 'style-constants';
 import { graphCommunityColors } from 'utils/communityManagement';
+
 const graphCommunity = graphCommunityColors();
 
 export const styles = {
   rulesConsent: {
     background: graphCommunity ? '#161425' : 'var(--color-white)',
-    border: '1px solid #3D3D54',
+    border: graphCommunity ? '1px solid #3D3D54' : '',
     zIndex: 10,
     lineHeight: '20px',
     width: '100%',
@@ -14,6 +15,7 @@ export const styles = {
     top: '60px',
     boxShadow: '0px 10px 20px rgba(24, 39, 79, 0.1)',
     overflowY: 'auto',
+    borderTop: graphCommunity ? '' : `1px solid ${BORDER_SECONDARY}`,
     paddingBottom: '50px',
     '@media only screen and (min-width: 576px)': {
       width: '328px',
@@ -21,6 +23,7 @@ export const styles = {
       top: 'calc(50% - 582px/2 + 0.5px)',
       left: 'calc(50% - 328px/2)',
       borderRadius: '5px',
+      borderTop: graphCommunity ? '' : `none`,
       paddingBottom: 0,
     },
     '@media (min-width: 992px)': {

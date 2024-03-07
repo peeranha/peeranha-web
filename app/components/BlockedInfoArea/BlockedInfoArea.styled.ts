@@ -12,11 +12,15 @@ export const styles: Record<string, CSSObject> = {
     marginTop: '16px',
     overflow: 'hidden',
     borderRadius: '5px',
+    boxShadow: graphCommunity ? 'none' : '0 2px 2px 0 rgba(40,40,40,0.1)',
     borderTopLeftRadius: BORDER_RADIUS_L,
     borderBottomLeftRadius: BORDER_RADIUS_L,
-    border: '1px solid #3D3D54',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
     transition: '0.5s',
     position: 'relative',
+    ':hover': {
+      boxShadow: graphCommunity ? 'none' : '5px 5px 5px rgba(40, 40, 40, 0.1)',
+    },
     '@media (max-width: 991px)': {
       height: '150px',
     },

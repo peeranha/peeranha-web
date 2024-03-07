@@ -8,6 +8,7 @@ import { isMeshServiceConfig } from 'communities-config';
 
 import achievementNotReached from 'images/achievement_not_reached.svg?external';
 import { isSuiBlockchain } from 'utils/constants';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import Icon from 'components/Icon';
 import Span from 'components/Span';
@@ -19,6 +20,7 @@ import { getNFTUrl } from '../../utils/ipfs';
 import NFTInformation from './NFTInformation';
 
 const isMeshService = isMeshServiceConfig();
+const graphCommunity = graphCommunityColors();
 
 const ImageBlock = styled.div`
   margin-right: 15px;
@@ -35,7 +37,7 @@ const TitleBlock = styled(Span)`
 
 const DescriptionBlock = styled(TitleBlock)`
   margin-top: 15px;
-  color: #a7a7ad;
+  color: ${graphCommunity ? '#a7a7ad' : ''};
 `;
 
 const Bage = styled.div`

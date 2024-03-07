@@ -37,11 +37,11 @@ export const Box = styled.div`
   box-sizing: border-box;
   border: 1px solid ${BORDER_TRANSPARENT};
 
-  background: ${(x) => (x.isActive ? BG_TRANSPARENT : BG_TRANSPARENT)};
+  background: ${(x) => (x.isActive && !graphCommunity ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
 
   :hover {
     border: 1px solid ${colors.textColor || BORDER_PRIMARY};
-    background: #232037;
+    background: ${graphCommunity ? '#232037' : 'none'};
   }
 `;
 
@@ -116,7 +116,8 @@ export const Select2 = ({
           ...base,
           border: `1px solid ${
             (error && BORDER_WARNING_LIGHT) ||
-            (state.isFocused && ('#6F4CFF' || BORDER_PRIMARY)) ||
+            (state.isFocused &&
+              (graphCommunity ? '#6F4CFF' : colors.textColor || BORDER_PRIMARY)) ||
             BORDER_SECONDARY
           }`,
           boxShadow: graphCommunity
@@ -138,7 +139,7 @@ export const Select2 = ({
           padding: '0 5px',
 
           ':hover': {
-            border: '1px solid #6F4CFF',
+            border: graphCommunity ? '1px solid #6F4CFF' : 'none',
           },
         }),
         menu: (base) => ({

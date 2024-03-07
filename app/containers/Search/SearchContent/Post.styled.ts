@@ -33,7 +33,7 @@ export const styles = {
     fontSize: '12px',
     fontWeight: 600,
     ':hover': {
-      color: TEXT_DARK,
+      color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
     },
 
     '@media only screen and (min-width: 1024px)': {
@@ -114,7 +114,7 @@ export const styles = {
   },
 
   bestReply: {
-    background: graphCommunity ? '#4BCA81' : BG_SUCCESS_LIGHT,
+    background: graphCommunity ? 'none' : BG_SUCCESS_LIGHT,
   },
 
   noBestReply: { background: BG_TRANSPARENT },

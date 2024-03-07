@@ -8,7 +8,7 @@ export const styles = {
     background: graphCommunity
       ? '#6F4CFF0F'
       : colors.newPostMediaBackgroundColor || 'rgb(250, 250, 250)',
-    border: '1px dashed #3D3D54',
+    border: `1px dashed ${graphCommunity ? '#3D3D54' : 'rgb(220, 220, 220)'}`,
     borderRadius: '5px',
   },
 
@@ -64,7 +64,7 @@ export const styles = {
   },
 
   restrictionsText: {
-    color: '#A7A7AD',
+    color: graphCommunity ? '#A7A7AD' : 'rgb(123, 123, 123)',
     lineHeight: '18px',
   },
 };

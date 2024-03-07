@@ -233,7 +233,9 @@ const MainUserInformation = ({
       >
         <div
           css={css`
-            background: ${colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
+            background: ${graphCommunity
+              ? 'none'
+              : colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
             border-radius: 170px;
             min-width: calc(100% - 5px);
             @media (min-width: 768px) {

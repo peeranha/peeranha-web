@@ -43,7 +43,7 @@ export const TypeContainer = styled.div`
   align-items: center;
   word-break: initial;
   white-space: nowrap;
-  font-weight: 500;
+  font-weight: ${graphCommunity ? 500 : ''};
 
   color: ${({ color }) => color};
 
@@ -56,7 +56,7 @@ export const TypeContainer = styled.div`
     content: '';
     position: absolute;
     background: ${({ color }) => color};
-    opacity: 0.2;
+    opacity: ${graphCommunity ? 0.2 : 0.15};
     border-radius: ${BORDER_RADIUS_M};
     height: 100%;
     width: 100%;

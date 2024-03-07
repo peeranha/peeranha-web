@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import styled from 'styled-components';
 import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import { isSuiBlockchain } from 'utils/constants';

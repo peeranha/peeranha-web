@@ -54,7 +54,8 @@ const PermissionBox = BaseTransparent.extend`
     height: 5px;
     margin-top: 11px;
     border-radius: 50%;
-    border: 1px solid #e1e1e4;
+    background-color: ${graphCommunity ? '' : '#576fed'};
+    border: ${graphCommunity ? '1px solid #e1e1e4' : ''};
     margin-right: 10px;
   }
 `.withComponent('li');

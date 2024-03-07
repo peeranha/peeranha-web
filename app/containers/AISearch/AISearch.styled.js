@@ -56,10 +56,17 @@ export const styles = {
     flex: '1 1 0px',
     background: graphCommunity ? '#161425' : BG_LIGHT,
     borderRadius: BORDER_RADIUS_L,
+    boxShadow: graphCommunity ? 'none' : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
     border: `1px solid ${colors.border || '#fff'}`,
     transition: '0.5s',
     marginBottom: '14px',
     padding: '16px',
+
+    ':hover': {
+      boxShadow: graphCommunity
+        ? 'none'
+        : `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
+    },
   },
 
   aiPoweredSearchText: {
@@ -116,7 +123,10 @@ export const styles = {
       borderColor: graphCommunity
         ? '#6F4CFF'
         : colors.linkColorTransparent || `rgb(${BORDER_PRIMARY_RGB})`,
-      backgroundColor: '#6F4CFF0F',
+      boxShadow: graphCommunity
+        ? 'none'
+        : `0 0 0 3px ${colors.linkColorTransparent || `rgba(${BORDER_PRIMARY_RGB}, 0.40)`}`,
+      backgroundColor: graphCommunity ? '#6F4CFF0F' : '',
     },
   },
 
@@ -151,19 +161,31 @@ export const styles = {
   searchResult: {
     background: graphCommunity ? '#161425' : BG_LIGHT,
     borderRadius: BORDER_RADIUS_L,
+    boxShadow: graphCommunity ? 'none' : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
     border: `1px solid ${colors.border || '#fff'}`,
     transition: '0.5s',
     padding: '16px',
     marginBottom: '15px',
+
+    ':hover': {
+      boxShadow: graphCommunity
+        ? 'none'
+        : `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
+    },
 
     '@media (min-width: 768px)': {
       padding: '20px 30px',
     },
 
     '@media (min-width: 1366px)': {
-      width: 'calc(100% - 300px)',
+      width: graphCommunity ? 'calc(100% - 300px)' : '',
       borderBottomRightRadius: 0,
       borderTopRightRadius: 0,
+      ':hover': {
+        boxShadow: graphCommunity
+          ? 'none'
+          : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
+      },
     },
   },
 
@@ -187,10 +209,17 @@ export const styles = {
   sources: {
     background: graphCommunity ? '#FFFFFF05' : '#FAFAFA',
     borderRadius: BORDER_RADIUS_L,
+    boxShadow: graphCommunity ? 'none' : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
     border: `1px solid ${graphCommunity ? '#3D3D54' : '#FAFAFA'}`,
     transition: '0.5s',
     padding: '16px',
     marginBottom: '15px',
+
+    ':hover': {
+      boxShadow: graphCommunity
+        ? 'none'
+        : `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
+    },
 
     '@media (min-width: 768px)': {
       padding: '20px 30px',
@@ -222,10 +251,10 @@ export const styles = {
     padding: '12px',
 
     ':hover': {
-      background: '#6F4CFF33',
+      background: graphCommunity ? '#6F4CFF33' : 'rgba(173, 186, 255, 0.2)',
 
       'p, span': {
-        color: '#E1E1E4',
+        color: graphCommunity ? '#E1E1E4' : '',
       },
     },
   },

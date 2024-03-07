@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/react';
-
 import { useTranslation } from 'react-i18next';
+
+import { TYPE_OF_TRANSACTIONS } from 'utils/constants';
+import { graphCommunityColors } from 'utils/communityManagement';
 import { getCookie } from 'utils/cookie';
+
 import H3 from 'components/H3';
+
 import TransactionHandler from './TransactionHandler';
 import { BaseStyled } from './SettingsOfUser';
-import { TYPE_OF_TRANSACTIONS } from 'utils/constants';
+
+const graphCommunity = graphCommunityColors();
 
 const AuthorizationData = ({ className }) => {
   const dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
@@ -23,8 +28,8 @@ const AuthorizationData = ({ className }) => {
         !important;
           border-top-right-radius: 0;
         !important;
-          border: none;
-          background: none;
+          border: ${graphCommunity ? 'none' : ''};
+          background: ${graphCommunity ? 'none' : ''};
         `}
       >
         <H3>{t('common.settings')}</H3>

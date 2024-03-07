@@ -44,6 +44,7 @@ export const styles = {
   popupTitle: {
     color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
     lineHeight: '28px',
+    textAlign: graphCommunity ? '' : 'center',
   },
 
   popupSpan: {
@@ -79,7 +80,7 @@ export const styles = {
   },
 
   popupCheckboxLabel: {
-    fontSize: '14px',
+    fontSize: graphCommunity ? '14px' : '16px',
     lineHeight: '14px',
     color: graphCommunity ? '#E1E1E4' : '#282828',
   },
@@ -141,6 +142,7 @@ export const styles = {
       border: '1px solid rgba(247, 111, 96, 1)',
       borderRadius: '3px',
       backgroundColor: graphCommunity ? '#161425' : 'rgb(255,255,255)',
+      boxShadow: graphCommunity ? 'none' : '0 0 0 3px rgb(252 102 85 / 40%)',
     },
   },
 };

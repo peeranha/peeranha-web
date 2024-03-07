@@ -3,23 +3,22 @@ import { useTranslation } from 'react-i18next';
 
 import { languages } from 'app/i18n';
 
-import { setCookie, getCookie } from 'utils/cookie';
-
-import { APP_LOCALE } from 'containers/LanguageProvider/constants';
-
-import ChangeLocalePopup from './ChangeLocalePopup';
-import ChangeLocaleButton from './ChangeLocaleButton';
-
-import Dropdown from 'components/Dropdown';
-
-import { Flag, Li } from './Styled';
 import SelectedArrow from 'icons/SelectedArrow';
 import useMediaQuery from 'hooks/useMediaQuery';
+import { setCookie, getCookie } from 'utils/cookie';
 import {
   graphCommunityColors,
   isSingleCommunityWebsite,
   singleCommunityColors,
 } from 'utils/communityManagement';
+
+import { APP_LOCALE } from 'containers/LanguageProvider/constants';
+import Dropdown from 'components/Dropdown';
+
+import ChangeLocalePopup from './ChangeLocalePopup';
+import ChangeLocaleButton from './ChangeLocaleButton';
+
+import { Flag, Li } from './Styled';
 
 const colors = singleCommunityColors();
 const singleCommunityId = isSingleCommunityWebsite();
@@ -92,8 +91,10 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) =
                     color: item === locale ? 'rgba(255, 255, 255, 1)' : 'rgba(225, 225, 228, 1)',
 
                     ':hover': {
-                      backgroundColor: 'rgba(35, 32, 55, 1)',
-                      color: 'rgba(255, 255, 255, 1)',
+                      backgroundColor: graphCommunity ? 'rgba(35, 32, 55, 1)' : 'unset',
+                      color: graphCommunity
+                        ? 'rgba(255, 255, 255, 1)'
+                        : colors.btnColor || 'var(--color-blue)',
                     },
                   }}
                 >

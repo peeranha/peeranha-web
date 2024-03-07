@@ -10,9 +10,13 @@ import CloseIcon from 'icons/Close';
 import ReloadRoundedIcon from 'icons/ReloadRounded';
 import Popover from 'components/common/Popover';
 import { useTranslation } from 'react-i18next';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import AreYouSure from '../../../containers/ViewQuestion/AreYouSure';
 
 import { styles } from './FilePreviewer.styled';
+
+const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 type FilePreviewerProps = {
   file: File;
@@ -90,16 +94,26 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
         {isUploading && uploadProgress !== '99' && (
           <CloseRoundedIcon
             size={[15, 15]}
-            fill="#6F4CFF"
+            fill={graphCommunity ? '#6F4CFF' : 'rgb(87, 111, 237)'}
             circleFill="rgba(118, 153, 255, 0.2)"
             fillOpacity="1"
-            stroke="#6F4CFF"
+            stroke={graphCommunity ? '#6F4CFF' : 'rgb(87, 111, 237)'}
             onClick={cancelFileUpload}
           />
         )}
-        {isUploaded && <VoteIcon fillOpacity="1" stroke="rgb(87, 111, 237)" fill="#6F4CFF" />}
+        {isUploaded && (
+          <VoteIcon
+            fillOpacity="1"
+            stroke="rgb(87, 111, 237)"
+            fill={graphCommunity ? '#6F4CFF' : 'rgb(87, 111, 237)'}
+          />
+        )}
         {isFailedUpload && (
-          <ReloadRoundedIcon fill="#6F4CFF" stroke="#6F4CFF" onClick={uploadFileAgain} />
+          <ReloadRoundedIcon
+            fill={graphCommunity ? '#6F4CFF' : 'rgb(87, 111, 237)'}
+            stroke={graphCommunity ? '#6F4CFF' : 'rgb(87, 111, 237)'}
+            onClick={uploadFileAgain}
+          />
         )}
       </div>
       <div
@@ -118,7 +132,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
         )}
         {isFailedUpload && (
           <span className="df aic jcc" css={css(styles.failedUploadIcon)}>
-            <CloseIcon fill="#6F4CFF" />
+            <CloseIcon fill={graphCommunity ? '#6F4CFF' : 'rgb(247, 111, 96)'} />
           </span>
         )}
         {!isUploading && !isFailedUpload && (
@@ -135,7 +149,10 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
                     ...(isShown && styles.showOnHover),
                   })}
                 >
-                  <DeleteIcon stroke="#6F4CFF" fill="#6F4CFF" />
+                  <DeleteIcon
+                    stroke={graphCommunity ? '#6F4CFF' : 'rgb(87, 111, 237)'}
+                    fill={graphCommunity ? '#6F4CFF' : 'rgb(87, 111, 237)'}
+                  />
                 </span>
               )}
             />
@@ -149,7 +166,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
                     ...(isShown && styles.showOnHover),
                   })}
                 >
-                  <CopyLinkIcon stroke="#6F4CFF" />
+                  <CopyLinkIcon stroke={graphCommunity ? '#6F4CFF' : 'rgb(87, 111, 237)'} />
                 </span>
               </Popover.Trigger>
               <Popover.Content>

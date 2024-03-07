@@ -54,23 +54,23 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
         css={{
           input: {
             paddingRight: '35px',
-            border: '1px solid #161426',
-            borderRadius: '4px',
-
-            '&:focus': {
-              border: '1px solid rgba(111, 76, 255, 1)',
-              background: 'rgba(111, 76, 255, 0.06) !important',
-
-              '&:hover': {
+            ...(graphCommunity && {
+              border: '1px solid #161426',
+              borderRadius: '4px',
+              '&:focus': {
                 border: '1px solid rgba(111, 76, 255, 1)',
                 background: 'rgba(111, 76, 255, 0.06) !important',
-              },
-            },
 
-            '&:hover': {
-              border: '1px solid #3D3D54',
-              background: 'rgba(255, 255, 255, 0.06)',
-            },
+                '&:hover': {
+                  border: '1px solid rgba(111, 76, 255, 1)',
+                  background: 'rgba(111, 76, 255, 0.06) !important',
+                },
+              },
+              '&:hover': {
+                border: '1px solid #3D3D54',
+                background: 'rgba(255, 255, 255, 0.06)',
+              },
+            }),
           },
         }}
       />

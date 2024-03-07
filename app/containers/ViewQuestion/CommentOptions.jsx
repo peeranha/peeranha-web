@@ -49,7 +49,7 @@ const ActionButtonWithLogin = ({ onClick, buttonId }) => {
       <Span
         className="ml-11"
         color={colors.commentOption || TEXT_PRIMARY}
-        css={{ color: '#6F4CFF' }}
+        css={graphCommunity && { color: '#6F4CFF' }}
       >
         {t('post.addComment')}
       </Span>

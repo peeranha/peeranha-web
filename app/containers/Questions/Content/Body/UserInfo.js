@@ -80,7 +80,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, achieve
         className={`text-capitalize mr-3 ${graphCommunity ? 'ml-2' : ''}`}
         fontSize="14"
         color={graphCommunity ? '#A7A7AD' : colors.secondaryTextColor || TEXT_SECONDARY}
-        css={{ color: '#A7A7AD' }}
+        css={graphCommunity && { color: '#A7A7AD' }}
       >
         {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>

@@ -245,7 +245,7 @@ export const Header = ({
       isQuestionsPage={true}
       className="mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
-      css={{ background: 'none', border: 'none' }}
+      css={graphCommunity && { background: 'none', border: 'none' }}
     >
       <PageContentHeaderContainer>
         <PageContentHeader className="d-flex align-items-center">
@@ -283,7 +283,7 @@ export const Header = ({
               <Span
                 className="ml-1 fz16"
                 color={colors.btnColor || TEXT_PRIMARY}
-                css={{ color: 'rgba(111, 76, 255, 1)', fontWeight: 400 }}
+                css={graphCommunity && { color: 'rgba(111, 76, 255, 1)', fontWeight: 400 }}
               >
                 {t('common.editCommunity')}
               </Span>

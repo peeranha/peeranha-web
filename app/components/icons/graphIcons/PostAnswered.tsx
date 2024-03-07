@@ -2,7 +2,12 @@ import React from 'react';
 import IconComponent, { IconProps } from '../IconComponent';
 
 const PostAnsweredGraph: React.FC<IconProps> = (props): JSX.Element => (
-  <IconComponent {...props} fill="none" viewBox="0 0 32 32" size={props.size || [32, 32]}>
+  <IconComponent
+    {...props}
+    fill="none !important"
+    viewBox="0 0 32 32"
+    size={props.size || [32, 32]}
+  >
     <path
       d="M14.0039 14.8282H21.1979"
       stroke={props.stroke || '#E1E1E4'}

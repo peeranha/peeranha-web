@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { isSuiBlockchain } from 'utils/constants';
 import {
   BG_LIGHT,

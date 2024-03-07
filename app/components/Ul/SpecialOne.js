@@ -1,19 +1,21 @@
 import { css } from 'styled-components';
 import { TEXT_PRIMARY } from 'style-constants';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import Ul from './index';
-import { singleCommunityColors } from 'utils/communityManagement';
+
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const S = css`
-  min-width: 220px;
-  padding: 0 !important;
+  min-width: ${graphCommunity ? '220px' : '125px'};
+  padding: ${graphCommunity ? '0 !important' : '12px 20px'};
 
   > a {
-    padding: 5px 16px;
-    font-size: 14px;
+    padding: ${graphCommunity ? '5px 16px' : ''};
+    font-size: ${graphCommunity ? '14px' : ''};
 
     :hover {
-      background-color: rgba(35, 32, 55, 1);
+      background-color: ${graphCommunity ? 'rgba(35, 32, 55, 1)' : ''};
     }
   }
 

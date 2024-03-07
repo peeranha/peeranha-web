@@ -1,13 +1,16 @@
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import { BORDER_RADIUS_L, APP_FONT } from 'style-constants';
 
 const communityColors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   wrapper: {
-    background: '#161425' || 'rgb(250,250,250,1)',
+    background: graphCommunity
+      ? '#161425'
+      : communityColors.backgroundSpecial || 'rgb(250,250,250,1)',
     minWidth: '208px',
-    border: '1px solid #3D3D54',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
     borderLeft: 'none',
     borderTopRightRadius: BORDER_RADIUS_L,
     borderBottomRightRadius: BORDER_RADIUS_L,
@@ -30,7 +33,7 @@ export const styles = {
     fontWeight: 400,
     fontSize: '14px',
     lineHeight: '18px',
-    color: '#6f4cff',
+    color: graphCommunity ? '#6f4cff' : '#576FED',
   },
 
   navbarItemHover: {

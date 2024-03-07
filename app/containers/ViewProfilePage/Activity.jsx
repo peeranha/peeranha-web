@@ -68,7 +68,7 @@ const Activity = ({
                 fontSize="14"
                 color={tab !== 'posts' ? TEXT_SECONDARY : 'inherit'}
                 key="0"
-                css={{ color: tab !== 'posts' ? '#A7A7AD' : 'inherit' }}
+                css={graphCommunity && { color: tab !== 'posts' ? '#A7A7AD' : 'inherit' }}
               />,
             ]}
           />
@@ -91,7 +91,7 @@ const Activity = ({
                 fontSize="14"
                 color={tab !== 'quest' ? TEXT_SECONDARY : 'inherit'}
                 key="0"
-                css={{ color: tab !== 'quest' ? '#A7A7AD' : 'inherit' }}
+                css={graphCommunity && { color: tab !== 'quest' ? '#A7A7AD' : 'inherit' }}
               />,
             ]}
           />
@@ -114,7 +114,7 @@ const Activity = ({
                 fontSize="14"
                 color={tab !== 'answ' ? TEXT_SECONDARY : 'inherit'}
                 key="0"
-                css={{ color: tab !== 'answ' ? '#A7A7AD' : 'inherit' }}
+                css={graphCommunity && { color: tab !== 'answ' ? '#A7A7AD' : 'inherit' }}
               />,
             ]}
           />

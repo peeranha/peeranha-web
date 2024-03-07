@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { TEXT_SECONDARY } from 'style-constants';
-
+import { css } from '@emotion/react';
 import * as routes from 'routes-config';
 
 import { customRatingIconColors } from 'constants/customRating';
 
 import noAvatar from 'images/ico-user-no-photo.png';
+import { SuiNS } from 'icons/index';
 
 import { getFormattedDate } from 'utils/datetime';
+import { graphCommunityColors } from 'utils/communityManagement';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus';
@@ -19,8 +21,8 @@ import Span from 'components/Span';
 import A from 'components/A';
 
 import { COMMENT_TYPE } from './constants';
-import { SuiNS } from 'icons/index';
-import { css } from '@emotion/react';
+
+const graphCommunity = graphCommunityColors();
 
 const Block = styled.div`
   display: flex;
@@ -74,7 +76,11 @@ export const UserInfo = ({
     )}
 
     <Block type={type}>
-      <span className={`d-flex align-items-center ${isComment ? '' : 'mr-2'} mr8`}>
+      <span
+        className={`d-flex align-items-center ${isComment ? '' : 'mr-2'} ${
+          graphCommunity ? 'mr8' : ''
+        }`}
+      >
         <Span
           className="mr-2"
           fontSize="14"
@@ -110,7 +116,12 @@ export const UserInfo = ({
         <AchievementsStatus count={achievementsCount} />
       </span>
 
-      <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18" css={{ color: '#A7A7AD' }}>
+      <Span
+        color={TEXT_SECONDARY}
+        fontSize="14"
+        lineHeight="18"
+        css={graphCommunity && { color: '#A7A7AD' }}
+      >
         {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
     </Block>

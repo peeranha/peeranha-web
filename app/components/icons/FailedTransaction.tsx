@@ -1,5 +1,8 @@
 import React from 'react';
+import { graphCommunityColors } from 'utils/communityManagement';
 import IconComponent, { IconProps } from './IconComponent';
+
+const graphCommunity = graphCommunityColors();
 
 const FailedTransaction: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
@@ -13,7 +16,7 @@ const FailedTransaction: React.FC<IconProps> = (props): JSX.Element => (
       cx="18"
       cy="18"
       r="17"
-      stroke={props.stroke || 'rgb(111, 76, 255)'}
+      stroke={props.stroke || graphCommunity ? 'rgb(111, 76, 255)' : '#7699FF'}
       strokeOpacity={props.strokeOpacity || 0.2}
       strokeWidth="2"
       fill={props.fill || 'none'}
@@ -21,7 +24,7 @@ const FailedTransaction: React.FC<IconProps> = (props): JSX.Element => (
     />
     <path
       d="M10 10L26 26M26 10L10 26"
-      stroke={props.stroke || 'rgba(237, 74, 109, 1)'}
+      stroke={props.stroke || graphCommunity ? 'rgba(237, 74, 109, 1)' : '#F76F60'}
       strokeLinecap="round"
       strokeWidth="2"
       fill={props.fill || 'none'}

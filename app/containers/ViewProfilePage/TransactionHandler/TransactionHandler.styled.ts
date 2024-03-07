@@ -11,7 +11,7 @@ export const styled = {
       minWidth: '22px',
       height: '22px',
       border: `1px solid ${graphCommunity ? 'rgba(61, 61, 84, 1)' : 'var(--color-gray-dark)'}`,
-      background: 'rgba(255, 255, 255, 0.06)',
+      background: graphCommunity ? 'rgba(255, 255, 255, 0.06)' : '',
       borderRadius: '50%',
       marginRight: '18px',
       backgroundRepeat: 'no-repeat',
@@ -37,7 +37,7 @@ export const styled = {
 
   input: {
     ':checked+div::before': {
-      background: 'rgba(255, 255, 255, 1)',
+      background: graphCommunity ? 'rgba(255, 255, 255, 1)' : '',
       border: `6px solid ${
         graphCommunity ? 'rgba(111, 76, 255, 1)' : colors.btnColor || 'var(--color-blue)'
       }`,
@@ -45,7 +45,7 @@ export const styled = {
   },
 
   secondaryColor: {
-    fontSize: '14px',
+    fontSize: graphCommunity ? '14px' : '',
     color: graphCommunity ? '#A7A7AD' : 'var(--color-gray-dark)',
   },
 

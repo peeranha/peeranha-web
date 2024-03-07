@@ -67,10 +67,10 @@ const styles = {
   },
 
   popupMenu: {
-    background: '#FFFFFF',
+    background: graphCommunity ? '#161425' : '#FFFFFF',
     boxShadow: '0px -2px 4px rgba(7, 16, 64, 0.1)',
     zIndex: 10,
-
+    borderTop: graphCommunity ? '1px solid #3D3D54' : 'none',
     '@media (min-width: 577px)': {
       display: 'none',
     },

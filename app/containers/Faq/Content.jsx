@@ -21,6 +21,7 @@ import plusIcon from 'images/Plus.svg?inline';
 import minusIcon from 'images/Minus.svg?inline';
 import arrowIconFilled from 'images/arrowDown.svg?external';
 import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import H4 from 'components/H4';
 import Span from 'components/Span';
@@ -30,8 +31,10 @@ import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 
+const graphCommunity = graphCommunityColors();
+
 export const TextBlock = styled.div`
-  color: #e1e1e4;
+  color: ${graphCommunity ? '#e1e1e4' : ''};
   display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
   margin-top: ${({ isOpened }) => (isOpened ? '15px' : '0px')};
   ${textBlockStyles};

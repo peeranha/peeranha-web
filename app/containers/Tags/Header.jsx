@@ -53,7 +53,7 @@ const Button = ({ sorting }) => {
     <Span
       className="d-inline-flex align-items-center mr-2 text-capitalize"
       bold
-      css={{ ':hover': { color: 'rgba(255, 255, 255, 1)' } }}
+      css={graphCommunity && { ':hover': { color: 'rgba(255, 255, 255, 1)' } }}
     >
       <MediumIcon>
         {graphCommunity ? (
@@ -137,7 +137,7 @@ export const Header = ({
 
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
-      <Wrapper position="bottom" css={{ border: 'none', background: 'none' }}>
+      <Wrapper position="bottom" css={graphCommunity && { border: 'none', background: 'none' }}>
         <H3>
           <MediumImageStyled className="bg-transparent" src={currentCommunity.avatar} alt="tags" />
 
@@ -146,10 +146,11 @@ export const Header = ({
           {!!tagsNumber && (
             <Span
               className="d-none d-sm-inline text-lowercase ml-3"
-              color={colors.secondaryTextColor || TEXT_SECONDARY}
               fontSize="30"
               bold
-              css={{ color: '#A7A7AD' }}
+              css={{
+                color: graphCommunity ? '#A7A7AD' : colors.secondaryTextColor || TEXT_SECONDARY,
+              }}
             >
               <span>{`${tagsNumber} `}</span>
               {t('common.tags')}
@@ -158,7 +159,10 @@ export const Header = ({
         </H3>
 
         {displaySortTagDropdown && (
-          <WrapperRightPanel className="right-panel df fdc jcc" css={{ alignItems: 'flex-end' }}>
+          <WrapperRightPanel
+            className="right-panel df fdc jcc"
+            css={graphCommunity && { alignItems: 'flex-end' }}
+          >
             {tagCreatingAllowed && (
               <NavigationButton
                 data-communityid={currentCommunity.id}

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -22,6 +23,7 @@ const colors = singleCommunityColors();
 const styles = singleCommunityStyles();
 const graphCommunity = graphCommunityColors();
 const customShadow = `rgba(${BORDER_PRIMARY_RGB}, 0.4)`;
+
 export const QUESTION_TYPES = {
   GENERAL: {
     value: POST_TYPE.generalPost,
@@ -70,31 +72,70 @@ const ButtonGroup = styled.div`
 
 const Button = B.extend`
   &:first-child {
-    margin-right: 6px;
+    border-top-left-radius: ${graphCommunity ? 'unset' : BORDER_RADIUS_M};
+    border-bottom-left-radius: ${graphCommunity ? 'unset' : BORDER_RADIUS_M};
+    border-radius: ${graphCommunity ? 'unset' : styles.buttonBorderRadius};
+    margin-right: ${graphCommunity ? '6px' : 0};
   }
 
   &:last-child {
-    margin-left: 6px;
+    border-left: ${({ type, value }) =>
+      graphCommunity ? 'unset' : Number(type) !== value && 'none'};
+    border-top-right-radius: ${graphCommunity ? 'unset' : BORDER_RADIUS_M};
+    border-bottom-right-radius: ${graphCommunity ? 'unset' : BORDER_RADIUS_M};
+    border-radius: ${graphCommunity ? 'unset' : styles.buttonBorderRadius};
+    margin-left: ${graphCommunity ? '6px' : 0};
   }
 
   flex: 1;
   border: ${({ type, value }) =>
-    `1px solid ${Number(type) === value ? 'rgba(44, 31, 101, 1)' : 'rgba(40, 38, 55, 1)'}`};
-  background: ${({ type, value }) => (Number(type) === value ? 'rgba(44, 31, 101, 1)' : '')};
-  border-radius: 20px;
+    `1px solid ${
+      graphCommunity
+        ? Number(type) === value
+          ? 'rgba(44, 31, 101, 1)'
+          : 'rgba(40, 38, 55, 1)'
+        : BORDER_SECONDARY
+    }`};
+  border-color: ${({ type, value }) =>
+    graphCommunity
+      ? 'none'
+      : Number(type) === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
+  box-shadow: ${({ type, value }) =>
+    graphCommunity
+      ? 'none'
+      : Number(type) === value
+      ? `0 0 0 3px ${colors.textColorShadow || customShadow}`
+      : 'none'};
+  background: ${({ type, value }) =>
+    graphCommunity ? (Number(type) === value ? 'rgba(44, 31, 101, 1)' : '') : 'none'};
+  border-radius: ${graphCommunity ? '20px' : 'unset'};
   z-index: ${({ type, value }) => (Number(type) === value ? 1 : 0)};
-  padding: 0 12px;
-  font-size: 16px;
-  line-height: 22px;
-  width: 33%;
+  padding: ${graphCommunity ? '0 12px' : ''};
+  font-size: ${graphCommunity ? '16px' : 'inherit'};
+  line-height: ${graphCommunity ? '22px' : 'inherit'};
+  width: ${graphCommunity ? '33%' : ''};
   color: ${({ type, value }) =>
-    Number(type) === value ? 'rgba(255, 255, 255, 1)' : 'rgba(225, 225, 228, 1)'};
+    graphCommunity
+      ? Number(type) === value
+        ? 'rgba(255, 255, 255, 1)'
+        : 'rgba(225, 225, 228, 1)'
+      : ''};
 
   &:hover {
+    box-shadow: ${graphCommunity ? 'none' : `0 0 0 3px ${colors.textColorShadow || customShadow}`};
     z-index: 1;
     background: ${({ type, value }) =>
-      Number(type) === value ? 'rgba(44, 31, 101, 1)' : 'rgba(31, 30, 47, 1)'};
-    color: rgba(255, 255, 255, 1);
+      graphCommunity
+        ? Number(type) === value
+          ? 'rgba(44, 31, 101, 1)'
+          : 'rgba(31, 30, 47, 1)'
+        : ''};
+    color: ${graphCommunity ? 'rgba(255, 255, 255, 1)' : ''};
+  }
+  @media only screen and (max-width: 576px) {
+    height: ${graphCommunity ? '' : '36px'};
+    margin-top: ${graphCommunity ? '' : '-10px'};
+    padding: ${graphCommunity ? '' : '0 5px'};
   }
 `;
 

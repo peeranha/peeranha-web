@@ -84,8 +84,8 @@ const Button = LargeButton.extend`
   }
 
   :hover {
-    color: rgba(255, 255, 255, 1);
-    background-color: rgba(111, 76, 255, 0.8);
+    color: ${graphCommunity ? 'rgba(255, 255, 255, 1)' : ''};
+    background-color: ${graphCommunity ? 'rgba(111, 76, 255, 0.8)' : ''};
   }
 `;
 
@@ -163,7 +163,7 @@ const View = ({
       `}
     >
       {graphCommunity ? (
-        <PlusGraph size={[20, 20]} />
+        <PlusGraph size={[24, 24]} />
       ) : (
         <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
       )}
@@ -171,8 +171,8 @@ const View = ({
         className="d-none d-lg-inline ml-2"
         css={css`
           color: ${colors.newPostButtonText};
-          font-size: 14px;
-          font-weight: 600;
+          font-size: ${graphCommunity ? '14px' : ''};
+          font-weight: ${graphCommunity ? 600 : ''};
         `}
       >
         {t('common.askQuestion')}

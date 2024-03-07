@@ -4,8 +4,9 @@ import { BG_PRIMARY_LIGHT, BG_LIGHT, APP_FONT } from 'style-constants';
 
 import _get from 'lodash/get';
 
-import { singleCommunityStyles } from './utils/communityManagement';
+import { singleCommunityStyles, graphCommunityColors } from './utils/communityManagement';
 
+const graphCommunity = graphCommunityColors();
 const styles = singleCommunityStyles();
 
 const getItalicFont = () => (/iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'normal' : 'italic');
@@ -131,12 +132,12 @@ injectGlobal`
   }
 
   .popover-body {
-    background-color: #6f4cff !important;
-    border-radius: 3px;
-    color: #ffffff;
+    background-color: ${graphCommunity ? '#6f4cff !important' : ''};
+    border-radius: ${graphCommunity ? '3px' : ''};
+    color: ${graphCommunity ? '#ffffff' : ''};
   }
 
   .arrow::after {
-    border-top-color: #6f4cff !important;
+    border-top-color: ${graphCommunity ? '#6f4cff !important' : ''};
   }
 `;

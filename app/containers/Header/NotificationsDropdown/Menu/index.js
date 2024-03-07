@@ -27,8 +27,9 @@ const MenuContainer = styled.div`
   flex-direction: column;
   top: 62px;
   left: -290px;
-  border: 1px solid #3d3d54;
+  border: ${graphCommunity ? '1px solid #3d3d54' : ''};
   border-radius: ${BORDER_RADIUS_L};
+  box-shadow: ${graphCommunity ? 'none' : '0 0 4px 0 rgba(0, 0, 0, 0.3)'};
   white-space: nowrap;
   cursor: default;
 

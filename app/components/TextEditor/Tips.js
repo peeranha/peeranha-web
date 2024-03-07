@@ -20,10 +20,11 @@ import {
 import A from 'components/A';
 import Label from 'components/FormFields/Label';
 
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import { getLinks } from 'media-links';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const Li = styled.li`
   ${A} {
@@ -43,38 +44,45 @@ const Ul = styled.ul`
     display: flex;
     align-items: start;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: ${graphCommunity ? '14px' : '16px'};
     line-height: 20px;
 
     :before {
-      content: '\\25E6';
+      content: ${graphCommunity ? '\\25E6' : ''};
+      flex-basis: ${graphCommunity ? '' : '5px'};
+      height: ${graphCommunity ? '' : '5px'};
+      border-radius: ${graphCommunity ? '' : '50%'};
+      background: ${graphCommunity ? '' : colors.textColor || BG_PRIMARY};
       margin-right: 10px;
+      display: ${graphCommunity ? '' : 'inline-flex'};
+      position: ${graphCommunity ? '' : 'relative'};
+      top: ${graphCommunity ? '' : '8px'};
     }
 
     span {
       flex: 1;
-      color: #ffffff;
+      color: ${graphCommunity ? '#ffffff' : ''};
     }
   }
 `;
 
 const Title = Label.extend`
   font-size: 18px;
-  color: #e1e1e4;
+  color: ${graphCommunity ? '#e1e1e4' : ''};
 `;
 
 const P = styled.p`
   margin-bottom: 10px;
-  color: #ffffff;
+  color: ${graphCommunity ? '#ffffff' : ''};
 `;
 
 const Link = styled.a`
-  font-size: 14px;
+  font-size: ${graphCommunity ? '14px' : ''};
   line-height: 24px;
-  color: #6f4cff;
+  color: ${graphCommunity ? '#6f4cff' : colors.linkColor || LINK_COLOR};
 
   :hover {
-    color: rgba(111, 76, 255, 0.8);
+    color: ${graphCommunity ? 'rgba(111, 76, 255, 0.8)' : colors.linkColor || LINK_COLOR};
   }
 `;
 
@@ -97,7 +105,7 @@ const Tips = ({ faqQuestions }) => {
       `}
     >
       <Title className="mb-3">{t('common.tips')}:</Title>
-
+      {!graphCommunity && <P>{t('common.markdownIsSupported')}</P>}
       <Ul>
         {messagesArray.map((item, index) => (
           <li key={item}>
@@ -107,9 +115,9 @@ const Tips = ({ faqQuestions }) => {
       </Ul>
       <span
         css={css`
-          font-size: 14px;
+          font-size: ${graphCommunity ? '14px' : ''};
           line-height: 20px;
-          color: #fff;
+          color: ${graphCommunity ? '#fff' : ''};
         `}
       >
         {t('common.forMoreSyntax')}

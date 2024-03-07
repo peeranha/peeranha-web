@@ -91,7 +91,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
       <div css={styles.container}>
         <img
           css={styles.img}
-          src={isMinusReputation ? (graphCommunity ? bannerImage : bannerImageRed) : bannerImage}
+          src={isMinusReputation && !graphCommunity ? bannerImageRed : bannerImage}
           alt={BANNER_IMG}
         />
         <div css={styles.block}>

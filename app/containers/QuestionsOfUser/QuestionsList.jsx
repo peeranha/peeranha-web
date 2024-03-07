@@ -69,6 +69,10 @@ export const Li = BaseRoundedNoPadding.extend`
       border-top: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
     }
   }
+
+  :hover {
+    box-shadow: ${graphCommunity ? 'none' : '5px 5px 5px rgba(40, 40, 40, 0.1)'};
+  }
 `;
 
 const LastAnswer = ({ lastAnswer, locale }) => {

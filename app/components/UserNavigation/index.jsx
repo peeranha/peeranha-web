@@ -139,7 +139,11 @@ const UserNavigation = ({
                       fontSize="14"
                       color={path !== routes.userQuestions(userId) ? TEXT_SECONDARY : 'inherit'}
                       key="0"
-                      css={{ color: path !== routes.userQuestions(userId) ? '#A7A7AD' : '' }}
+                      css={
+                        graphCommunity && {
+                          color: path !== routes.userQuestions(userId) ? '#A7A7AD' : '',
+                        }
+                      }
                     />,
                   ]}
                 />
@@ -162,7 +166,11 @@ const UserNavigation = ({
                       fontSize="14"
                       color={path !== routes.userAnswers(userId) ? TEXT_SECONDARY : 'inherit'}
                       key="0"
-                      css={{ color: path !== routes.userAnswers(userId) ? '#A7A7AD' : '' }}
+                      css={
+                        graphCommunity && {
+                          color: path !== routes.userAnswers(userId) ? '#A7A7AD' : '',
+                        }
+                      }
                     />,
                   ]}
                 />
@@ -191,7 +199,11 @@ const UserNavigation = ({
                       fontSize="14"
                       color={path !== routes.userNFTs(userId) ? TEXT_SECONDARY : 'inherit'}
                       key="0"
-                      css={{ color: path !== routes.userNFTs(userId) ? '#A7A7AD' : '' }}
+                      css={
+                        graphCommunity && {
+                          color: path !== routes.userNFTs(userId) ? '#A7A7AD' : '',
+                        }
+                      }
                     />,
                   ]}
                 />

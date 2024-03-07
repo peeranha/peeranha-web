@@ -4,7 +4,7 @@ const graphCommunity = graphCommunityColors();
 
 const styles = {
   popup: {
-    backgroundColor: '#0C0A1DCC',
+    backgroundColor: graphCommunity ? '#0C0A1DCC' : 'rgba(16, 34, 87, 0.65)',
     position: 'fixed',
   },
   header: {
@@ -27,7 +27,8 @@ const styles = {
     backgroundColor: graphCommunity ? '#0C0A1D' : 'var(--color-white)',
     height: '100vh',
     overflow: 'hidden auto',
-    border: '1px solid #3D3D54',
+    boxShadow: graphCommunity ? 'none' : '0px 20px 20px rgba(24, 39, 79, 0.1)',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
 
     '@media (min-width: 768px)': {
       height: 'auto',

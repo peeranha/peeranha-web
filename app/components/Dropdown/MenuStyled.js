@@ -12,11 +12,11 @@ const MenuStyled = styled.div`
   min-width: max-content;
   overflow: hidden;
   background-color: ${graphCommunity ? '#1A172F' : BG_LIGHT};
-  box-shadow: 0 0 4px 0 ${graphCommunity ? '' : 'rgba(0, 0, 0, 0.3)'};
+  box-shadow: ${graphCommunity ? 'none' : '0 0 4px 0 rgba(0, 0, 0, 0.3)'};
   white-space: nowrap;
   z-index: 3;
   visibility: visible;
-  border: 1px solid #3d3d54;
+  border: ${graphCommunity ? '1px solid #3d3d54' : 'none'};
 `;
 
 export default MenuStyled;

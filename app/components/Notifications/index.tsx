@@ -196,10 +196,12 @@ const Notifications: React.FC<NotificationsProps> = ({
     <Container className={`${className} overflow-hidden`}>
       <Wrapper
         position="bottom"
-        css={{
-          border: 'none',
-          background: 'none',
-        }}
+        css={
+          graphCommunity && {
+            border: 'none',
+            background: 'none',
+          }
+        }
       >
         <Header notificationsNumber={allCount} />
       </Wrapper>

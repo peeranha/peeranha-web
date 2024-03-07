@@ -4,11 +4,12 @@ import { css } from '@emotion/react';
 
 import Label from 'components/FormFields/Label';
 import { FULL_RULES_LINK } from 'app/constants/rules';
-import { styles } from './PostRules.styled';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import { LINK_COLOR } from 'style-constants';
+import { styles } from './PostRules.styled';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const messagesArray = [
   'common.contentPopupBlock_3',
@@ -41,9 +42,9 @@ const PostRules = () => {
                 key="0"
                 target="_blank"
                 css={{
-                  color: '#6F4CFF',
+                  color: graphCommunity ? '#6F4CFF' : colors.linkColor || LINK_COLOR,
                   ':hover': {
-                    color: 'rgba(111,76,255,0.8)',
+                    color: graphCommunity ? 'rgba(111,76,255,0.8)' : colors.linkColor || LINK_COLOR,
                   },
                 }}
               />,

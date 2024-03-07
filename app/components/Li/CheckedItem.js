@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { BORDER_PRIMARY, BORDER_TRANSPARENT } from 'style-constants';
 import checked from 'images/okayBlueIcon.svg?inline';
 import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
@@ -21,7 +22,8 @@ const CheckedItem = Li.extend`
   }
 
   :hover {
-    background-color: rgba(35, 32, 55, 1);
+    border: ${graphCommunity ? 'none' : `1px solid ${colors.textColor || BORDER_PRIMARY}`};
+    background-color: ${graphCommunity ? 'rgba(35, 32, 55, 1)' : 'none'};
   }
 `;
 

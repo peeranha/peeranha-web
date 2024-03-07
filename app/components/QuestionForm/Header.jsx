@@ -21,11 +21,15 @@ import H3 from '../H3';
 
 const colors = singleCommunityColors();
 const graphCommunity = graphCommunityColors();
+
 const Header = ({ formTitle, postTitle, questionId, postType }) => {
   const { t } = useTranslation();
 
   return (
-    <Wrapper className="mb-to-sm-0 mb-from-sm-3" css={{ background: 'none', border: 'none' }}>
+    <Wrapper
+      className="mb-to-sm-0 mb-from-sm-3"
+      css={graphCommunity && { background: 'none', border: 'none' }}
+    >
       <H3>
         <MediumIconStyled>
           {graphCommunity ? (
@@ -66,7 +70,7 @@ const Header = ({ formTitle, postTitle, questionId, postType }) => {
               <Span
                 color={colors.btnColor || TEXT_PRIMARY}
                 className="button-label"
-                CSS={graphCommunity && { color: '#6F4CFF' }}
+                css={graphCommunity && { color: '#6F4CFF' }}
               >
                 {t('common.close')}
               </Span>

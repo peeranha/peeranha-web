@@ -45,8 +45,8 @@ const BaseStyled = Base.extend`
 `;
 
 const Badge = Span.extend`
-  color: #a7a7ad;
-  border: 1px solid #3d3d54;
+  color: ${graphCommunity ? '#a7a7ad' : TEXT_PRIMARY_DARK};
+  border: 1px solid ${graphCommunity ? '#3d3d54' : BORDER_PRIMARY_DARK};
   border-radius: ${BORDER_RADIUS_M};
   padding: 4px 10px;
   text-align: center;
@@ -189,8 +189,7 @@ export const QuestionForProfilePage = ({
             <Span
               className="text-capitalize mr-3"
               fontSize="14"
-              color={TEXT_SECONDARY}
-              css={{ color: '#A7A7AD' }}
+              css={{ color: graphCommunity ? '#A7A7AD' : TEXT_SECONDARY }}
             >
               {isAnswer
                 ? t('common.answeredWhen', {
