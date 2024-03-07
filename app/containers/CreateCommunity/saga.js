@@ -1,9 +1,10 @@
 import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import ReactGA from 'react-ga4';
+
 import { isSuiBlockchain } from 'utils/constants';
 import { waitForTransactionConfirmation } from 'utils/sui/sui';
-
 import { createCommunity } from 'utils/communityManagement';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
@@ -33,6 +34,10 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* createCommunityWorker({ community, reset }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_community_started',
+    });
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const { imgHash } = yield call(uploadImg, community.avatar);
@@ -50,6 +55,10 @@ export function* createCommunityWorker({ community, reset }) {
       yield call(createCommunity, network, ethereumService, selectedAccount, community);
     }
     yield put(createCommunitySuccess());
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_community_completed',
+    });
     yield call(reset);
 
     if (window.location.pathname === '/communities/create') {
