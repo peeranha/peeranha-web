@@ -1,6 +1,7 @@
 import { languagesEnum } from 'app/i18n';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import ReactGA from 'react-ga4';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -57,6 +58,10 @@ export function* getAnswerWorker({ questionId, answerId }) {
 
 export function* editAnswerWorker({ answer, questionId, answerId, official, title }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_answer_started',
+    });
     const locale = yield select(makeSelectLocale());
     const cachedQuestion = yield select(selectQuestionData());
     const answerContent = {
@@ -123,6 +128,10 @@ export function* editAnswerWorker({ answer, questionId, answerId, official, titl
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editAnswerSuccess({ ...cachedQuestion }));
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_answer_completed',
+    });
     if (
       window.location.pathname === `/discussions/${questionId}/answers/${answerId}/edit` ||
       window.location.pathname === `/experts/${questionId}/answers/${answerId}/edit` ||

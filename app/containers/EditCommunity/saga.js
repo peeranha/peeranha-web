@@ -1,5 +1,5 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-
+import ReactGA from 'react-ga4';
 import { communities as communitiesRoute, feed } from 'routes-config';
 import createdHistory from 'createdHistory';
 
@@ -53,6 +53,10 @@ export function* getCommunityWorker({ communityId }) {
 
 export function* editCommunityWorker({ communityId, communityData }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_community_started',
+    });
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
       communityData.avatar = isSuiBlockchain ? getFileUrl(imgHash) : imgHash;
@@ -99,6 +103,10 @@ export function* editCommunityWorker({ communityId, communityData }) {
     }
 
     yield put(editCommunitySuccess());
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_community_completed',
+    });
     if (window.location.pathname === `/communities/${communityId}/edit`) {
       yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
     }

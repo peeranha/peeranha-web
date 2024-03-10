@@ -1,4 +1,5 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
+import ReactGA from 'react-ga4';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import { isSuiBlockchain } from 'utils/constants';
@@ -35,6 +36,10 @@ export function* getEditTagFormWorker() {
 
 export function* editTagWorker({ tag, reset }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_tag_started',
+    });
     const { communityId } = yield select(selectEditTagData());
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
@@ -76,7 +81,10 @@ export function* editTagWorker({ tag, reset }) {
     }
 
     yield put(editTagSuccess());
-
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_tag_complited',
+    });
     yield call(reset);
     if (
       window.location.pathname === `/communities/${communityId}/tags/${tag.tagId}/edit` ||

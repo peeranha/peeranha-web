@@ -1,6 +1,7 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import ReactGA from 'react-ga4';
 
 import { createTag } from 'utils/communityManagement';
 
@@ -34,6 +35,10 @@ import { getActualId, getPermissions } from 'utils/properties';
 
 export function* suggestTagWorker({ communityId, tag, reset }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_tag_started',
+    });
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
@@ -53,6 +58,10 @@ export function* suggestTagWorker({ communityId, tag, reset }) {
       yield call(createTag, ethereumService, selectedAccount, communityId, tag);
     }
     yield put(suggestTagSuccess());
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_tag_completed',
+    });
     yield call(reset);
     if (
       window.location.pathname === `/tags/community/${communityId}/create` ||

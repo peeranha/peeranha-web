@@ -6,7 +6,7 @@ import $ from 'jquery';
 // Needed for redux-saga es6 generator support
 import '@babel/polyfill';
 import TagManager from 'react-gtm-module';
-
+import ReactGA from 'react-ga4';
 // Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -31,14 +31,12 @@ import { isSuiBlockchain } from 'utils/constants';
 import configureStore from './configureStore';
 import createdHistory from './createdHistory';
 
-// Import Analytics
-import './analytics';
-
 import i18n from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
 import EthereumProvider from './containers/EthereumProvider';
+
 window.$ = $;
 if (process.env.GTM_ID) {
   const tagManagerArgs = {
@@ -46,6 +44,11 @@ if (process.env.GTM_ID) {
   };
 
   TagManager.initialize(tagManagerArgs);
+}
+
+const reactGA4Id = process.env.GA4_ID;
+if (reactGA4Id) {
+  ReactGA.initialize(reactGA4Id);
 }
 
 const NetworkProvider = isSuiBlockchain ? SuiProvider : EthereumProvider;

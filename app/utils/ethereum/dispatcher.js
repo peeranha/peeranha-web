@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import { ONE_MONTH, WEB3_TOKEN, WEB3_TOKEN_USER_ADDRESS } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
 import { ContractsMapping } from 'utils/queries/constants';
@@ -104,5 +105,9 @@ export async function sendDispatcherTransactionMethod(
   );
 
   this.transactionCompleted(this.transactionList);
+  ReactGA.event({
+    category: 'Users',
+    action: 'dispatcher_transaction_completed',
+  });
   return result;
 }
