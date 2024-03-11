@@ -113,7 +113,7 @@ export const ProfileEditForm = ({
         />
 
         <AboutForm formValues={formValues} isProfileSaving={isProfileSaving} />
-        {transactionInPending && isProfileSaving ? (
+        {transactionInPending || isProfileSaving ? (
           <TransactionBanner />
         ) : (
           <Button

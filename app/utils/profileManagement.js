@@ -1,6 +1,7 @@
 import userBodyAvatar from 'images/user2.svg?inline';
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getCookie } from 'utils/cookie';
 import { NETWORK_ID } from 'utils/ethereum/ethereum';
 
@@ -68,10 +69,11 @@ export async function getProfileInfo(user, isProfilePage = false) {
 }
 
 export async function saveProfile(ethereumService, user, profile) {
-  const network = getCookie(NETWORK_ID) || 0;
+  const singleCommId = isSingleCommunityWebsite();
+  const network = singleCommId?.split('-')[0] - 1 || getCookie(NETWORK_ID) || 0;
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
-  await ethereumService.sendTransaction(network, CONTRACT_USER[network], user, UPDATE_ACC, [
+  return ethereumService.sendTransaction(network, CONTRACT_USER[network], user, UPDATE_ACC, [
     user,
     transactionData,
   ]);

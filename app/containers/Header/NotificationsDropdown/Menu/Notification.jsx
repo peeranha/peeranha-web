@@ -97,7 +97,15 @@ const Notification = ({
   }, [data.quantity, isTippedType]);
 
   const isCommunityMode = Boolean(single) && Object.keys(communityStyles).length > 0;
-  const isAnotherCommItem = Boolean(single) && data.community_id !== single;
+  let isAnotherCommItem = true;
+
+  if (single) {
+    const currentNetwork = single?.split('-')[0];
+    const currentCommunityId = single?.split('-')[1];
+    if (String(data.network) === currentNetwork && data.community_id === currentCommunityId) {
+      isAnotherCommItem = false;
+    }
+  }
   const isLast = index === notificationsNumber - 1;
 
   const previousPostType = data.old_post_type;

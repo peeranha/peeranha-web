@@ -225,6 +225,7 @@ export const QuestionForm = ({
   const notHiddenCommunities = communities.filter(
     (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
   );
+
   return (
     <Router history={history}>
       <Prompt
@@ -349,7 +350,7 @@ export const QuestionForm = ({
                 />
               )}
 
-              {transactionInPending && questionLoading ? (
+              {transactionInPending || questionLoading ? (
                 <TransactionBanner />
               ) : (
                 <Button

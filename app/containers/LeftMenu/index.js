@@ -43,7 +43,6 @@ const LeftMenu = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
-  loginWithWalletDispatch,
   showLoginModalDispatch,
   showLeftMenuDispatch,
   isGlobalAdmin,
@@ -66,7 +65,7 @@ const LeftMenu = ({
       stakedInCurrentPeriod={stakedInCurrentPeriod}
       stakedInNextPeriod={stakedInNextPeriod}
       boost={boost}
-      showLoginModal={isSuiBlockchain ? showLoginModalDispatch : loginWithWalletDispatch}
+      showLoginModal={showLoginModalDispatch}
       isGlobalAdmin={isGlobalAdmin}
       changeLocale={changeLocale}
       locale={locale}
@@ -121,7 +120,6 @@ const withSaga = injectSaga({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     changeLocale: bindActionCreators(changeLocaleDispatch, dispatch),

@@ -11,7 +11,7 @@ import { isSuiBlockchain } from 'utils/constants';
 import { ApplicationError } from 'utils/errors';
 import { getActualId, getNetwork } from 'utils/properties';
 
-import { postQuestion, getCreatedPostId, updateDocumentationTree } from 'utils/questionsManagement';
+import { postQuestion, updateDocumentationTree } from 'utils/questionsManagement';
 
 import { getResults } from 'utils/custom-search';
 
@@ -131,13 +131,14 @@ export function* postQuestionWorker({ val }) {
         languagesEnum[locale],
         ethereumService,
       );
-      const id = yield call(
-        getCreatedPostId,
-        ethereumService,
-        transaction.blockNumber,
-        selectedAccount,
-        communityId,
+
+      const logsArray = transaction.logs.filter((log) => log.data === '0x');
+      const idFromTransaction = parseInt(
+        logsArray[logsArray.length - 1].topics[3].substring(2),
+        16,
       );
+      const network = getNetwork(communityId);
+      const id = `${Number(network) + 1}-${idFromTransaction}`;
 
       if (postType === POST_TYPE.documentation) {
         const documentationTraversal = (documentationArray) =>

@@ -104,6 +104,7 @@ const replyGraph = `
   isFirstReply
   isQuickReply
   properties
+  language
   handle
   messengerType
   comments (
@@ -147,7 +148,7 @@ const postGraph = `
   networkId
   replies (
     orderBy: postTime,
-    orderDirection: desc,
+    orderDirection: asc,
     where: { isDeleted: false },
   ) {
     ${replyGraph}

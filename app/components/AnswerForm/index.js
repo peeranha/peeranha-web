@@ -86,7 +86,7 @@ export const AnswerForm = ({
         />
       )}
 
-      {sendAnswerLoading && transactionInPending ? (
+      {sendAnswerLoading || transactionInPending ? (
         <TransactionBanner />
       ) : (
         <Button

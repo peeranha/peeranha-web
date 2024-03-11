@@ -80,13 +80,13 @@ const UniqueAchievement = ({
 
   const [visible, changeVisibility] = useState(false);
   const contractAddress = process.env.PEERANHA_NFT;
-  const isAchievementVisible = isMeshService ? isMinted : reached;
+  const isAchievementVisible = isMeshServiceConfig() ? isMinted : reached;
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
   return (
     <>
-      {reached && (
+      {reached && (currentUser ? true : isMinted) && (
         <Bage>
           <ImageBlock>
             {isAchievementVisible ? (

@@ -225,17 +225,7 @@ class EthereumService {
             chainId: `0x${Number(chainId).toString(16)}`,
           });
         }
-
-        if (chainChanged) {
-          setCookie({
-            name: NETWORK_ID,
-            value: Number(network),
-            options: {
-              defaultPath: true,
-              allowSubdomains: true,
-            },
-          });
-        } else {
+        if (!chainChanged) {
           throw new Error('Set chain rejected');
         }
       }

@@ -1,7 +1,7 @@
 import { isMeshServiceConfig } from 'communities-config';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
-import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { showLoginModal } from 'containers/Login/actions';
 import { ApplicationError } from 'utils/errors';
 import { getProfileInfo } from 'utils/profileManagement';
 import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects';
@@ -31,7 +31,7 @@ import {
 import { getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { CHANGED_POSTS_KEY, isSuiBlockchain, POST_TYPE } from 'utils/constants';
+import { CHANGED_POSTS_KEY, isSuiBlockchain } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
 import { getUserProfileSuccess, removeUserProfile } from 'containers/DataCacheProvider/actions';
@@ -146,7 +146,6 @@ const getPostsRoute = (postType) => {
       return routes.questions();
   }
 };
-const isMeshService = isMeshServiceConfig();
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
@@ -155,6 +154,7 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
 export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
   const ethereumService = yield select(selectEthereum);
   const question = yield call(getPost, questionId);
+  const isMeshService = isMeshServiceConfig();
 
   question.author = { ...question.author, user: question.author.id };
 
@@ -200,7 +200,6 @@ export function* getQuestionData({ questionId, user }) /* istanbul ignore next *
   }));
 
   question.isGeneral = isGeneralQuestion(question);
-  console.log(question);
   return question;
 }
 
@@ -298,6 +297,7 @@ export function* saveCommentWorker({
         eventName: 'Edit',
         timeStamp: String(dateNowInSeconds()),
       };
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
       histories.push(newHistory);
     }
 
@@ -370,7 +370,7 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
         eventName: 'Delete',
         timeStamp: String(dateNowInSeconds()),
       };
-
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
       histories.push(newHistory);
     }
     if (answerId === 0 || answerId === '0') {
@@ -525,14 +525,7 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
     }
 
     yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId));
-    if (
-      window.location.pathname === `/discussions/${questionId}/${questionData.title}` ||
-      window.location.pathname === `/tutorials/${questionId}/${questionData.title}` ||
-      window.location.pathname === `/experts/${questionId}/${questionData.title}` ||
-      Number(questionData.postType) === Number(POST_TYPE.documentation)
-    ) {
-      yield call(createdHistory.push, getPostsRoute(questionData.postType));
-    }
+    yield call(createdHistory.push, getPostsRoute(questionData.postType));
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
@@ -635,6 +628,7 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         ethereumService,
       );
       txHash = transaction.transactionHash;
+      yield call(waitForPostTransactionToIndex, txHash);
     }
 
     const newComment = {
