@@ -81,22 +81,6 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) =
                   role="presentation"
                   onClick={() => setLocale(item)}
                   isBold={item === locale}
-                  css={{
-                    fontFamily: `${
-                      graphCommunity
-                        ? 'Euclid Circular A, sans-serif'
-                        : 'Source Sans Pro, sans-serif'
-                    }`,
-                    fontWeight: 'normal',
-                    color: item === locale ? 'rgba(255, 255, 255, 1)' : 'rgba(225, 225, 228, 1)',
-
-                    ':hover': {
-                      backgroundColor: graphCommunity ? 'rgba(35, 32, 55, 1)' : 'unset',
-                      color: graphCommunity
-                        ? 'rgba(255, 255, 255, 1)'
-                        : colors.btnColor || 'var(--color-blue)',
-                    },
-                  }}
                 >
                   <Flag
                     src={`https://images.peeranha.io/languages/${item}_lang.svg`}

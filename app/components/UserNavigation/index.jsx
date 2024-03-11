@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -98,12 +99,17 @@ const UserNavigation = ({
       ref={ref}
       css={
         !isSuiBlockchain && {
-          border: 'none',
+          border: !graphCommunity
+            ? ''
+            : path === routes.profileView(userId) || path === routes.profileEdit(userId)
+            ? '1px solid #3D3D54'
+            : 'none',
           borderBottom: `1px solid ${graphCommunity ? '#3D3D54' : 'rgb(194, 198, 216)'}`,
-          background:
-            path !== routes.profileView(userId) && path !== routes.profileEdit(userId)
-              ? 'none'
-              : '#161425',
+          background: !graphCommunity
+            ? ''
+            : path === routes.profileView(userId) || path === routes.profileEdit(userId)
+            ? '#161425'
+            : 'none',
         }
       }
     >

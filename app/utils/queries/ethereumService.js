@@ -352,7 +352,10 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
 
     return isMeshService
       ? getPostsDataFromMesh(result)
-      : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
+      : {
+          postCount: result?.posts.length,
+          updatedPosts: result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost)),
+        };
   }
 
   const query = isMeshService
