@@ -165,10 +165,10 @@ export const styles: Record<string, CSSObject> = {
     height: '40px',
     background: graphCommunity ? '#6F4CFF' : '#FFF',
     border: `1px solid ${colors.btnColor || '#F76F60'}`,
-    color: `${graphCommunity ? '#E1E1E4' : colors.btnColor || '#F76F60'}`,
+    color: graphCommunity ? '#E1E1E4' : colors.btnColor || '#F76F60',
     borderRadius: '3px',
-    fontSize: '14px',
-    fontWeight: 600,
+    fontSize: graphCommunity ? '14px' : '16px',
+    fontWeight: graphCommunity ? 600 : '',
     transition: '0.5s',
     '@media (max-width: 576px)': {
       position: 'absolute',

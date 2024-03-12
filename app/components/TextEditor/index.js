@@ -45,7 +45,7 @@ class TextEditor extends React.PureComponent {
             margin-bottom: 20px;
             border-bottom: 2px solid ${graphCommunity ? '#3d3d54' : TEXT_DARK};
             background: ${graphCommunity ? '#FFFFFF0A' : colors.backgroundSpecial || ''};
-
+            box-shadow: ${graphCommunity ? 'none' : ''};
             ol li {
               list-style-type: decimal;
             }

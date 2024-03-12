@@ -1,11 +1,14 @@
 import styled from 'styled-components';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 const DropdownStyled = styled.div`
   display: flex;
   align-items: center;
 
   span {
-    font-weight: 400;
+    font-weight: ${graphCommunity ? 400 : ''};
   }
 
   &.dropdown .dropdown-arrow {

@@ -28,7 +28,7 @@ const Base = styled.div`
     }
 
     li::before {
-      content: ${graphCommunity ? '\\25E6' : '\\2022'};
+      content: '\\25E6';
       color: ${graphCommunity
         ? 'rgba(167, 167, 173, 1)'
         : colors.textColor || BORDER_PRIMARY_LIGHT};

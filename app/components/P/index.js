@@ -6,5 +6,5 @@ const graphCommunity = graphCommunityColors();
 
 export default Span.extend`
   display: block;
-  color: ${graphCommunity ? 'rgba(167, 167, 173, 1)' : '#7b7b7b'};
+  color: ${graphCommunity ? 'rgba(167, 167, 173, 1)' : ''};
 `.withComponent('p');

@@ -48,7 +48,7 @@ const Ul = styled.ul`
     line-height: 20px;
 
     :before {
-      content: ${graphCommunity ? '\\25E6' : ''};
+      content: ${graphCommunity ? '\\25E6' : '""'};
       flex-basis: ${graphCommunity ? '' : '5px'};
       height: ${graphCommunity ? '' : '5px'};
       border-radius: ${graphCommunity ? '' : '50%'};
@@ -87,7 +87,7 @@ const Link = styled.a`
 `;
 
 const messagesArray = [
-  'common.putReturnsBetweenParagraphs',
+  // 'common.putReturnsBetweenParagraphs',
   'common.addForLineBreaks',
   'common.italicAndBold',
   'common.indentCode',
@@ -105,7 +105,7 @@ const Tips = ({ faqQuestions }) => {
       `}
     >
       <Title className="mb-3">{t('common.tips')}:</Title>
-      {!graphCommunity && <P>{t('common.markdownIsSupported')}</P>}
+      <P>{t('common.markdownIsSupported')}</P>
       <Ul>
         {messagesArray.map((item, index) => (
           <li key={item}>

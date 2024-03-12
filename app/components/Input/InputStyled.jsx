@@ -67,13 +67,12 @@ export const Styles = css`
   ${(props) => Input(props)};
 
   &:focus {
-    box-shadow: ${graphCommunity
-      ? 'none'
-      : `0 0 0 3px
+    box-shadow: 0 0 0 3px
       ${(props) =>
         props.error
           ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)`
-          : colors.linkColorTransparent || `rgba(${BORDER_PRIMARY_RGB}, 0.40)`}`};
+          : colors.linkColorTransparent || `rgba(${BORDER_PRIMARY_RGB}, 0.40)`};
+    box-shadow: ${graphCommunity ? 'none' : ''};
     border-color: ${(props) =>
       props.error
         ? `rgb(${BORDER_WARNING_LIGHT_RGB})`

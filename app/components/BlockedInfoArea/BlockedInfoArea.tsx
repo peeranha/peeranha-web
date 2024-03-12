@@ -1,8 +1,10 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { styles } from './BlockedInfoArea.styled';
 
 import bannerImage from 'images/answerBlockBG.svg?inline';
+import bannerImageGraph from 'images/answerBlockBGGraph.svg?inline';
 import bannerImageRed from 'images/answerBG.svg?inline';
 import loginImage from 'images/wantAnswer.svg?inline';
 import loginGraphImage from 'images/login-graph-banner.svg?inline';
@@ -91,7 +93,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
       <div css={styles.container}>
         <img
           css={styles.img}
-          src={isMinusReputation && !graphCommunity ? bannerImageRed : bannerImage}
+          src={isMinusReputation ? bannerImageRed : graphCommunity ? bannerImageGraph : bannerImage}
           alt={BANNER_IMG}
         />
         <div css={styles.block}>
