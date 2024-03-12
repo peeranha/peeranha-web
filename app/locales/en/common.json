@@ -547,6 +547,6 @@
   "askingCommunity": "Unfortunately, we couldn't find any matching results. \nTry asking our community.",
   "sources": "Sources",
   "orDivider": "OR",
-  "transactionInProgress": "Transaction is in progress",
-  "canWork": "You can continue working on the site while transaction is in progress."
+  "transactionInProgress": "The operation is being processed",
+  "canWork": "Meanwhile, feel free to continue working on the site."
 }
