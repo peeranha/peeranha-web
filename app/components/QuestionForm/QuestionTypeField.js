@@ -89,13 +89,9 @@ const Button = B.extend`
 
   flex: 1;
   border: ${({ type, value }) =>
-    `1px solid ${
-      graphCommunity
-        ? Number(type) === value
-          ? 'rgba(44, 31, 101, 1)'
-          : 'rgba(40, 38, 55, 1)'
-        : BORDER_SECONDARY
-    }`};
+    graphCommunity
+      ? `1px solid ${Number(type) === value ? 'rgba(44, 31, 101, 1)' : 'rgba(40, 38, 55, 1)'}`
+      : `1px solid ${BORDER_SECONDARY}`};
   border-color: ${({ type, value }) =>
     graphCommunity
       ? 'none'
@@ -108,7 +104,7 @@ const Button = B.extend`
       : 'none'};
   background: ${({ type, value }) =>
     graphCommunity ? (Number(type) === value ? 'rgba(44, 31, 101, 1)' : '') : 'none'};
-  border-radius: ${graphCommunity ? '20px' : 'unset'};
+  border-radius: ${graphCommunity ? '20px' : ''};
   z-index: ${({ type, value }) => (Number(type) === value ? 1 : 0)};
   padding: ${graphCommunity ? '0 12px' : ''};
   font-size: ${graphCommunity ? '16px' : 'inherit'};

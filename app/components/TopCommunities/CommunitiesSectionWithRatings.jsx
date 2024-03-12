@@ -80,7 +80,12 @@ const CommunitiesSectionWithRatings = ({ profile, ref, single, communities, loca
                 `}
               />
             )}
-            <Span css={{ color: '#6F4CFF' }}>{t('common.allCommunities')}</Span>
+            <Span
+              color={colors.btnColor || TEXT_PRIMARY}
+              css={graphCommunity && { color: '#6F4CFF' }}
+            >
+              {t('common.allCommunities')}
+            </Span>
           </AllCommunitiesLink>
         </div>
       </Grid>

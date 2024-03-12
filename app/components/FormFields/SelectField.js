@@ -139,7 +139,7 @@ export const Select2 = ({
           padding: '0 5px',
 
           ':hover': {
-            border: graphCommunity ? '1px solid #6F4CFF' : 'none',
+            border: graphCommunity ? '1px solid #6F4CFF' : '',
           },
         }),
         menu: (base) => ({

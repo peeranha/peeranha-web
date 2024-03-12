@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -21,7 +22,7 @@ const Label = styled.div`
   position: absolute;
   background-color: ${graphCommunity ? '#161425' : BG_LIGHT};
   border-radius: ${BORDER_RADIUS_L};
-  width: 450px;
+  width: 455px;
   left: 50%;
   top: calc(100% + 10px);
   transform: translateX(-95%);
