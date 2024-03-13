@@ -457,6 +457,7 @@ export const postMeshShallow = `
       condition: { isDeleted: false }
     ) {
       id
+      isOfficialReply
     }
     posttranslation {
       language
