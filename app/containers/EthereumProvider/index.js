@@ -15,7 +15,7 @@ import logo from 'images/OnboardLogo.svg?inline';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-import injectedModule from '@web3-onboard/injected-wallets';
+import injectedModule, { ProviderLabel } from '@web3-onboard/injected-wallets';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import { addToast } from '../Toast/actions';
 import {
@@ -30,7 +30,7 @@ import {
 import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
-const injected = injectedModule();
+const injected = injectedModule({ displayUnavailable: [ProviderLabel.MetaMask] });
 
 const styles = singleCommunityStyles();
 
