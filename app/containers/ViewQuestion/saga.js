@@ -323,7 +323,7 @@ export function* saveCommentWorker({
     yield put(saveCommentSuccess({ ...questionData }, buttonId, commentId));
     ReactGA.event({
       category: 'Users',
-      action: 'create_comment_copmleted',
+      action: 'create_comment_completed',
     });
   } catch (err) {
     if (isSuiBlockchain) {
