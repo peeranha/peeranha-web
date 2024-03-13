@@ -49,8 +49,7 @@ const NotFound = ({ locale }) => {
     };
   }, []);
 
-  const isUrlGetParameter =
-    new URLSearchParams(history.location.search).get('type') === 'deleted';
+  const isUrlGetParameter = new URLSearchParams(history.location.search).get('type') === 'deleted';
 
   return (
     <React.Fragment>
@@ -64,19 +63,12 @@ const NotFound = ({ locale }) => {
       <Box>
         <div>
           <Span fontSize="24" bold>
-            {t(
-              `notFound.${
-                isUrlGetParameter ? 'weAreSorryIsDeleted' : 'weAreSorry'
-              }`,
-            )}
+            {t(`notFound.${isUrlGetParameter ? 'weAreSorryIsDeleted' : 'weAreSorry'}`)}
           </Span>
         </div>
 
         <div>
-          <img
-            src={isUrlGetParameter ? errorImage : notFoundImage}
-            alt="404 page"
-          />
+          <img src={isUrlGetParameter ? errorImage : notFoundImage} alt="404 page" />
         </div>
 
         <div>
@@ -89,9 +81,7 @@ const NotFound = ({ locale }) => {
           <P className="text-center mb-1">
             {t('notFound.browseOurPopular')}
             <ADefault
-              href={`${
-                single ? process.env.APP_LOCATION : ''
-              }${routes.communities()}`}
+              href={`${single ? process.env.APP_LOCATION : ''}${routes.communities()}`}
               className="text-lowercase"
             >
               <Span color={LINK_COLOR}>{t('common.communities')}</Span>

@@ -672,7 +672,7 @@ query (
   $postId: String,
 ) {
   post (
-    condition: {id: $postId, isDeleted: false}
+    condition: {id: $postId }
   ) {
     ${postMesh}
   }
