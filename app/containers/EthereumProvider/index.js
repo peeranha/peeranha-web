@@ -10,7 +10,7 @@ import { redirectRoutesForSCM } from 'routes-config';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
-import logo from 'images/LogoBlackOnboard.svg?inline';
+import logo from 'images/OnboardLogo.svg?inline';
 
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 import reducer from 'containers/EthereumProvider/reducer';
@@ -58,6 +58,12 @@ const initWeb3Onboard = init({
     },
   },
   appMetadata: {
+    recommendedInjectedWallets: [
+      {
+        name: 'MetaMask',
+        url: 'https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      },
+    ],
     name: 'Peeranha',
     icon: src,
     description: 'Knowledge sharing protocol for Web3',
