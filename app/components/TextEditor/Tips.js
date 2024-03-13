@@ -61,7 +61,7 @@ const Ul = styled.ul`
 
     span {
       flex: 1;
-      color: ${graphCommunity ? '#ffffff' : ''};
+      color: ${graphCommunity ? '#e1e1e4' : ''};
     }
   }
 `;
@@ -73,7 +73,7 @@ const Title = Label.extend`
 
 const P = styled.p`
   margin-bottom: 10px;
-  color: ${graphCommunity ? '#ffffff' : ''};
+  color: ${graphCommunity ? '#e1e1e4' : ''};
 `;
 
 const Link = styled.a`
@@ -117,7 +117,7 @@ const Tips = ({ faqQuestions }) => {
         css={css`
           font-size: ${graphCommunity ? '14px' : ''};
           line-height: 20px;
-          color: ${graphCommunity ? '#fff' : ''};
+          color: ${graphCommunity ? '#e1e1e4' : ''};
         `}
       >
         {t('common.forMoreSyntax')}

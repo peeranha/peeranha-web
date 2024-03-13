@@ -24,14 +24,14 @@ export const styles = {
   dragText: {
     '@media (min-width: 1024px)': {
       display: 'inline',
-      color: graphCommunity ? '#FFFFFF' : 'rgba(0, 0, 0, 0.87)',
+      color: graphCommunity ? '#E1E1E4' : 'rgba(0, 0, 0, 0.87)',
       lineHeight: '18px',
     },
   },
 
   attachOr: {
     lineHeight: '14px',
-    color: graphCommunity ? '#FFFFFF' : 'rgba(0, 0, 0, 0.54)',
+    color: graphCommunity ? '#E1E1E4' : 'rgba(0, 0, 0, 0.54)',
 
     '@media (min-width: 1024px)': {
       display: 'inline',

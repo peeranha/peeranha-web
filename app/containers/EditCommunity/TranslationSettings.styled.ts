@@ -12,7 +12,7 @@ export const styles = {
     borderRadius: '5px',
     color: `${colors.linkColor || TEXT_PRIMARY}`,
     lineHeight: '23px',
-    border: graphCommunity ? '1px solid #E1E1E4' : 'none',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
   },
 
   containerWithContent: {
@@ -21,7 +21,7 @@ export const styles = {
   },
 
   collapsible: {
-    borderBottom: `1px solid ${graphCommunity ? '#E1E1E4' : 'rgba(194, 198, 216, 1)'}`,
+    borderBottom: graphCommunity ? 'none' : '1px solid rgba(194, 198, 216, 1)',
 
     '@media only screen and (min-width: 768px)': {
       fontSize: '20px',
@@ -33,7 +33,7 @@ export const styles = {
     background: graphCommunity
       ? '#161425'
       : 'linear-gradient(0deg, rgba(165, 188, 255, 0.1), rgba(165, 188, 255, 0.1)), #FFFFFF',
-    border: graphCommunity ? '1px solid #E1E1E4' : 'none',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
     borderBottomLeftRadius: '5px',
     borderBottomRightRadius: '5px',
   },
@@ -67,7 +67,7 @@ export const styles = {
     width: '264px',
     filter: 'drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.25))',
     color: graphCommunity ? '#E1E1E4' : 'inherit',
-    border: graphCommunity ? '1px solid #E1E1E4' : 'none',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
     ':after': {
       content: '""',
       position: 'absolute',
