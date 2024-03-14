@@ -1,6 +1,7 @@
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
 import { delay } from 'redux-saga';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
+import ReactGA from 'react-ga4';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -34,6 +35,10 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 /* eslint no-param-reassign: 0 */
 export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = true) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_profile_started',
+    });
     if (profile[AVATAR_FIELD] && profile[AVATAR_FIELD].length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, profile[AVATAR_FIELD]);
       profile[AVATAR_FIELD] = imgHash;
@@ -73,6 +78,10 @@ export function* saveProfileWorker({ profile, userKey }, isNavigateToProfile = t
 
     yield put(saveProfileSuccess());
 
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_profile_completed',
+    });
     if (isSuiBlockchain && window.location.pathname.slice(0, 12) === `/users/edit/`) {
       yield call(createdHistory.push, routes.profileView(userKey));
     }

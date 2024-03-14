@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import {
   CURRENCY,
   DISPATCHER_TRANSACTIONS_ALLOWED,
@@ -102,7 +103,10 @@ export async function sendTransactionMethod(
     setTransactionResult(transaction.hash, result, this.transactionList, this.setTransactionList);
 
     this.transactionCompleted(this.transactionList);
-
+    ReactGA.event({
+      category: 'Users',
+      action: 'fullControl_transaction_completed',
+    });
     return result;
   } catch (err) {
     switch (err.code) {

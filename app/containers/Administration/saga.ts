@@ -1,5 +1,5 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-
+import ReactGA from 'react-ga4';
 import {
   ADD_ROLE,
   ADD_ROLE_SUCCESS,
@@ -83,6 +83,10 @@ export function* addRoleWorker(props: {
   isUserHasRole?: boolean;
 }): Generator<any> {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'add_role_started',
+    });
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
@@ -113,6 +117,10 @@ export function* addRoleWorker(props: {
       );
     }
     yield put(addRoleSuccess(props.communityId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'add_role_completed',
+    });
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));
@@ -127,6 +135,10 @@ export function* revokeRoleWorker(props: {
   communityId: number;
 }): Generator<any> {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'revoke_role_started',
+    });
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
@@ -157,6 +169,10 @@ export function* revokeRoleWorker(props: {
       );
     }
     yield put(revokeRoleSuccess(props.communityId));
+    ReactGA.event({
+      category: 'Users',
+      action: 'revoke_role_completed',
+    });
   } catch (err) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(err));

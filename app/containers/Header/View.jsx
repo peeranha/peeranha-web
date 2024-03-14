@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-
+import ReactGA from 'react-ga4';
 import { css } from '@emotion/react';
 
 import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from 'style-constants';
@@ -121,7 +121,15 @@ const View = ({
     };
 
     return (
-      <LogoStyles to={single || isSuiBlockchain ? routes.feed() : routes.home()}>
+      <LogoStyles
+        to={single || isSuiBlockchain ? routes.feed() : routes.home()}
+        onClick={() =>
+          ReactGA.event({
+            category: 'Users',
+            action: 'logo_icon_pushed',
+          })
+        }
+      >
         <img src={src()} alt="logo" />
         {styles.logoText}
       </LogoStyles>
@@ -144,33 +152,42 @@ const View = ({
     isMinusReputation && !isHasRole ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
   };
 
-  const NewPostButton = ({ onClickForModal }) => (
-    <Button
-      id="header-ask-question"
-      onClick={profileInfo ? onClickForModal : showLoginModalWithRedirectToAskQuestionPage}
-      css={css`
-        background: ${colors.btnHeaderColor};
-        :hover {
-          background: ${colors.btnHeaderHoverColor};
-          border: ${colors.btnHeaderHoverBorder};
-          opacity: ${colors.btnHeaderHoverOpacity};
-        }
-        @media only screen and (min-width: 992px) {
-          min-width: 130px;
-        }
-      `}
-    >
-      <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
-      <span
-        className="d-none d-lg-inline ml-2"
+  const NewPostButton = ({ onClickForModal }) => {
+    const clickHandler = () => {
+      ReactGA.event({
+        category: 'Users',
+        action: 'newPost_button_pushed',
+      });
+      return profileInfo ? onClickForModal : showLoginModalWithRedirectToAskQuestionPage;
+    };
+    return (
+      <Button
+        id="header-ask-question"
+        onClick={clickHandler()}
         css={css`
-          color: ${colors.newPostButtonText};
+          background: ${colors.btnHeaderColor};
+          :hover {
+            background: ${colors.btnHeaderHoverColor};
+            border: ${colors.btnHeaderHoverBorder};
+            opacity: ${colors.btnHeaderHoverOpacity};
+          }
+          @media only screen and (min-width: 992px) {
+            min-width: 130px;
+          }
         `}
       >
-        {t('common.askQuestion')}
-      </span>
-    </Button>
-  );
+        <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
+        <span
+          className="d-none d-lg-inline ml-2"
+          css={css`
+            color: ${colors.newPostButtonText};
+          `}
+        >
+          {t('common.askQuestion')}
+        </span>
+      </Button>
+    );
+  };
 
   return (
     <Wrapper id={HEADER_ID}>
