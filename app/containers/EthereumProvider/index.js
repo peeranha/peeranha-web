@@ -10,7 +10,7 @@ import { redirectRoutesForSCM } from 'routes-config';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
-import logo from 'images/OnboardLogo.svg?inline';
+import logo from 'images/PeeranhaLogoOnboard.svg?inline';
 
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 import reducer from 'containers/EthereumProvider/reducer';
@@ -34,7 +34,7 @@ const injected = injectedModule({ displayUnavailable: [ProviderLabel.MetaMask] }
 
 const styles = singleCommunityStyles();
 
-const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
+const src = logo;
 
 const initWeb3Onboard = init({
   wallets: [injected],
