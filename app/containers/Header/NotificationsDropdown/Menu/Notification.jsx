@@ -6,7 +6,11 @@ import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
 
 import { trimRightZeros } from 'utils/numbers';
-import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 import { renderNotificationIcon } from 'utils/notifications';
 
 import {
@@ -22,6 +26,7 @@ import styles from './Notification.styled';
 
 const single = isSingleCommunityWebsite();
 const communityStyles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
 
 const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => {
   const { t } = useTranslation();
@@ -140,7 +145,7 @@ const Notification = ({
       {renderNotificationIcon(type, isCommunityMode, communityStyles)}
       <div css={styles.textBlock}>
         <div css={styles.titleWrapper}>
-          <span>
+          <span css={graphCommunity && { color: '#E1E1E4' }}>
             {isChangedType
               ? notificationTitle.concat(' ', t(additionalTitle, notificationTextProps))
               : notificationTitle}

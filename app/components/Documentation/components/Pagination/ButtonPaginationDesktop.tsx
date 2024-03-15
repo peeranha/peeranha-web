@@ -3,8 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import ArrowDownIcon from 'icons/ArrowDown';
 import { ButtonPaginationProps } from 'components/Documentation/types';
+import { CaretDownGraph } from 'components/icons';
+import { graphCommunityColors } from 'utils/communityManagement';
 import { NEXT_TYPE_BUTTON, PREV_TYPE_BUTTON } from './constants';
 import { styled } from './PaginationDocumentation.styled';
+
+const graphCommunity = graphCommunityColors();
 
 const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
   typeButton,
@@ -21,7 +25,14 @@ const ButtonPaginationDesktop: React.FC<ButtonPaginationProps> = ({
           flexDirection: isNextButton ? 'row-reverse' : 'row',
         }}
       >
-        <ArrowDownIcon css={{ transform: isNextButton ? 'rotate(270deg)' : 'rotate(90deg)' }} />
+        {graphCommunity ? (
+          <CaretDownGraph
+            size={[24, 24]}
+            css={{ transform: isNextButton ? 'rotate(270deg)' : 'rotate(90deg)' }}
+          />
+        ) : (
+          <ArrowDownIcon css={{ transform: isNextButton ? 'rotate(270deg)' : 'rotate(90deg)' }} />
+        )}
         <div
           css={{
             ...styled.paginationButtonText,

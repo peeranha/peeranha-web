@@ -6,12 +6,12 @@ import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
 import { Router, Prompt } from 'react-router';
+import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
 
 import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
+import icoTag from 'images/icoTag.svg?external';
 
-import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { isSuiBlockchain } from 'utils/constants';
 import {
   getPermissions,
   hasGlobalModeratorRole,
@@ -19,18 +19,23 @@ import {
   hasCommunityModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
-
-import icoTag from 'images/icoTag.svg?external';
-
-import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
+import { isSuiBlockchain } from 'utils/constants';
 
+import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
 import { getCommunityTags } from 'containers/DataCacheProvider/actions';
 import { selectTags } from 'containers/DataCacheProvider/selectors';
 import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
-
+import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
+import { TagGraph } from 'components/icons';
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
@@ -39,6 +44,7 @@ import FormBox from 'components/Form';
 import TipsBaseSmallPadding from 'components/Base/TipsBaseSmallPadding';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import DescriptionList from 'components/DescriptionList';
+import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
 
 import {
   FORM_TITLE,
@@ -53,7 +59,6 @@ import {
   POST_TYPE,
   FORM_SUB_ARTICLE,
 } from './constants';
-
 import Header from './Header';
 import CommunityForm from './CommunityForm';
 import SubArticleForm from './SubArticleForm';
@@ -64,13 +69,9 @@ import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
 import PostRules from './PostRules';
 
-import createdHistory from '../../createdHistory';
-import * as routes from '../../routes-config';
-import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
-import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
-
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 const history = createdHistory;
 
 const SuggestTag = ({ redirectToCreateTagDispatch, formValues }) => {
@@ -93,15 +94,19 @@ const SuggestTag = ({ redirectToCreateTagDispatch, formValues }) => {
         type="button"
         color={LINK_COLOR_SECONDARY}
       >
-        <IconMd
-          className="mr-2"
-          icon={icoTag}
-          css={css`
-            path {
-              fill: ${colors.btnColor || BORDER_PRIMARY};
-            }
-          `}
-        />
+        {graphCommunity ? (
+          <TagGraph className="mr-2" fill="#6F4CFF" size={[24, 24]} />
+        ) : (
+          <IconMd
+            className="mr-2"
+            icon={icoTag}
+            css={css`
+              path {
+                fill: ${colors.btnColor || BORDER_PRIMARY};
+              }
+            `}
+          />
+        )}
         {t('common.createTag')}
       </TransparentButton>
     </div>
@@ -354,6 +359,11 @@ export const QuestionForm = ({
                   type="submit"
                   onClick={handleButtonClick}
                   className={questionLoading && 'op80'}
+                  css={
+                    graphCommunity && {
+                      ':hover': { background: 'rgba(111,76,255,0.8) !important', color: '#ffffff' },
+                    }
+                  }
                 >
                   {submitButtonName}
                 </Button>

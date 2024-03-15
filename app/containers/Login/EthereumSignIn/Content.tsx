@@ -1,8 +1,14 @@
 import React from 'react';
-import Button from 'components/Button/Contained/InfoLarge';
 import { useTranslation } from 'react-i18next';
+import { css } from '@emotion/react';
+
 import { styles } from 'containers/Login/Login.styled';
+import Button from 'components/Button/Contained/InfoLarge';
+
 import { Wallet } from 'icons/index';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 export interface EthereumLoginProps {
   signInWithEmailProcessing: boolean;
@@ -41,7 +47,9 @@ const Content = ({
 
       <div css={styles.divider}>
         <hr css={styles.dividerLine} />
-        <span css={styles.dividerText}>{t('common.orDivider')}</span>
+        <span css={{ ...styles.dividerText, ...(graphCommunity && { color: '#E1E1E4' }) }}>
+          {t('common.orDivider')}
+        </span>
         <hr css={styles.dividerLine} />
       </div>
 

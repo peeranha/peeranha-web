@@ -1,6 +1,7 @@
 import { APP_FONT, TEXT_DARK } from 'style-constants';
-import { singleCommunityFonts } from 'utils/communityManagement';
+import { singleCommunityFonts, graphCommunityColors } from 'utils/communityManagement';
 const fonts = singleCommunityFonts();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   container: {
@@ -23,7 +24,7 @@ export const styles = {
   },
 
   notificationsTitle: {
-    color: TEXT_DARK,
+    color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
     fontWeight: 600,
     fontSize: '38px',
     lineHeight: '48px',
@@ -39,7 +40,7 @@ export const styles = {
     fontWeight: 600,
     fontSize: '38px',
     lineHeight: '48px',
-    color: '#7B7B7B',
+    color: graphCommunity ? '#A7A7AD' : '#7B7B7B',
     whiteSpace: 'nowrap',
 
     '@media only screen and (max-width: 576px)': {

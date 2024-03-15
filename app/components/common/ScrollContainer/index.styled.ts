@@ -1,9 +1,12 @@
+import { graphCommunityColors } from 'utils/communityManagement';
+const graphCommunity = graphCommunityColors();
+
 export const styles = {
   root: {
     overflow: 'hidden',
   },
   container: {
-    scrollbarWidth: 'none',
+    scrollbarWidth: graphCommunity ? 'auto' : 'none',
     overflow: 'auto',
     height: '100%',
 
@@ -13,7 +16,7 @@ export const styles = {
     },
 
     '::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(53, 74, 137, 0.25)',
+      backgroundColor: graphCommunity ? '#6F4CFF' : 'rgba(53, 74, 137, 0.25)',
       borderRadius: '4px',
     },
   },

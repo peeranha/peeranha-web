@@ -4,11 +4,14 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import { BORDER_SECONDARY } from 'style-constants';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import Label from 'components/FormFields/Label';
 import Li from 'components/Li';
 
 import { questionView } from '../../routes-config';
+
+const graphCommunity = graphCommunityColors();
 
 const Container = styled.div`
   margin-bottom: 15px;
@@ -26,11 +29,11 @@ const Button = styled.p`
   padding: 6px 16px;
 `;
 const List = styled.ul`
-  border: 1px solid ${BORDER_SECONDARY};
+  border: 1px solid ${graphCommunity ? '#3d3d54' : BORDER_SECONDARY};
   border-radius: 3px;
 `;
 const ListItem = styled(Li)`
-  border-bottom: 1px solid ${BORDER_SECONDARY};
+  border-bottom: 1px solid ${graphCommunity ? '#3d3d54' : BORDER_SECONDARY};
   cursor: default;
   padding: 6px 16px;
 
@@ -47,9 +50,7 @@ const getQuestionTitleWithoutCommunity = (str, communities) => {
     ? str.substring(
         0,
         str.length -
-          (titleWords[titleWords.length - 1].length +
-            titleWords[titleWords.length - 2].length +
-            2),
+          (titleWords[titleWords.length - 1].length + titleWords[titleWords.length - 2].length + 2),
       )
     : str;
 };
@@ -63,12 +64,18 @@ const ExistingQuestions = ({ questions, skip, show, communities }) => {
     <Container>
       <Label>
         {t('common.existingQuestionsLabel')}{' '}
-        <Span onClick={skip}>{t('common.skip')}</Span>
+        <Span onClick={skip} css={graphCommunity && { color: '#6F4CFF' }}>
+          {t('common.skip')}
+        </Span>
       </Label>
       <List>
         {findQuestions.map((q) => (
           <ListItem key={questionView(q.id, q.title)}>
-            <a href={questionView(q.id, q.title)} target={'_blank'}>
+            <a
+              href={questionView(q.id, q.title)}
+              target={'_blank'}
+              css={graphCommunity && { color: '#6F4CFF' }}
+            >
               {getQuestionTitleWithoutCommunity(q.title, commNames)}
             </a>
           </ListItem>

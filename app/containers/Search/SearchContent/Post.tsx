@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -12,14 +13,19 @@ import AnswerIcon from 'icons/Answer';
 import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
 import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
 import { getFormattedDate } from 'utils/datetime';
-import { getFollowedCommunities, isSingleCommunityWebsite } from 'utils/communityManagement';
-
+import {
+  getFollowedCommunities,
+  isSingleCommunityWebsite,
+  graphCommunityColors,
+} from 'utils/communityManagement';
+import { TheBestGraph, ChatTextGraph, ThumbsUpGraph, ThumbsDownGraph } from 'components/icons';
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 import { styles } from './Post.styled';
 import { Community, Tag, Author, Translation } from './index';
 
 const single = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 type PostProps = {
   id: string;
@@ -137,7 +143,13 @@ const Post: React.FC<PostProps> = ({
                 <div css={styles[bestReply ? 'bestReply' : 'noBestReply']} className="mr24">
                   <span className="df aic">
                     {bestReply ? (
-                      <BestAnswerIcon stroke="rgb(40, 167, 69)" className="mr8" />
+                      graphCommunity ? (
+                        <TheBestGraph className="mr-2" size={[24, 24]} fill="#4BCA81" />
+                      ) : (
+                        <BestAnswerIcon stroke="rgb(40, 167, 69)" className="mr8" />
+                      )
+                    ) : graphCommunity ? (
+                      <ChatTextGraph className="mr-2" size={[24, 24]} fill="#6F4CFF" />
                     ) : (
                       <AnswerIcon stroke="rgb(53, 74, 137)" className="mr8" />
                     )}
@@ -150,7 +162,13 @@ const Post: React.FC<PostProps> = ({
               <div>
                 <span className="df aic">
                   {rating >= 0 ? (
-                    <LikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                    graphCommunity ? (
+                      <ThumbsUpGraph className="mr-2" size={[24, 24]} fill="#6F4CFF" />
+                    ) : (
+                      <LikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                    )
+                  ) : graphCommunity ? (
+                    <ThumbsDownGraph className="mr-2" size={[24, 24]} fill="#6F4CFF" />
                   ) : (
                     <DisLikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
                   )}

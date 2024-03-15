@@ -1,28 +1,28 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-
 import * as routes from 'routes-config';
+import { t } from 'i18next';
+import { css } from '@emotion/react';
 
+import { TEXT_SECONDARY } from 'style-constants';
+import { SuiNS } from 'icons/index';
+
+import { getRatingByCommunity } from 'utils/profileManagement';
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { getUserName } from 'utils/user';
+import { isBotAddress } from 'utils/properties';
+import { graphCommunityColors, singleCommunityColors } from 'utils/communityManagement';
 
+import { messengerData } from 'containers/ViewQuestion/BotInfo';
 import A from 'components/A';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus';
-
-import { TEXT_SECONDARY } from 'style-constants';
-import { getRatingByCommunity } from 'utils/profileManagement';
 import { customRatingIconColors } from 'constants/customRating';
-import { getUserName } from 'utils/user';
-import { isBotAddress } from 'utils/properties';
-import { singleCommunityColors } from 'utils/communityManagement';
-import { t } from 'i18next';
-import { messengerData } from 'containers/ViewQuestion/BotInfo';
-import { css } from '@emotion/react';
-import { SuiNS } from 'icons/index';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const AuthorName = Span.extend`
   width: max-content;
@@ -77,9 +77,10 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, achieve
       )}
 
       <Span
-        className="text-capitalize mr-3"
+        className={`text-capitalize mr-3 ${graphCommunity ? 'ml-2' : ''}`}
         fontSize="14"
-        color={colors.secondaryTextColor || TEXT_SECONDARY}
+        color={graphCommunity ? '#A7A7AD' : colors.secondaryTextColor || TEXT_SECONDARY}
+        css={graphCommunity && { color: '#A7A7AD' }}
       >
         {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>

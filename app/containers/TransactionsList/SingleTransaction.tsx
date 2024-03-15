@@ -1,10 +1,16 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
+import { ethers } from 'ethers';
 import { useTranslation } from 'react-i18next';
-import { styles } from './TransactionList.styled';
+
 import { isSuiBlockchain } from 'utils/constants';
+import { graphCommunityColors } from 'utils/communityManagement';
 import A from 'components/A';
 import { SingleCommunity } from 'icons/index';
-import { ethers } from 'ethers';
+
+import { styles } from './TransactionList.styled';
+
+const graphCommunity = graphCommunityColors();
 
 export type Transaction = {
   transactionHash: string;
@@ -12,6 +18,7 @@ export type Transaction = {
   result: {
     status: number;
   };
+  network: number;
 };
 
 type TransactionProps = {
@@ -49,9 +56,13 @@ export const SingleTransaction: React.FC<TransactionProps> = ({
                 : explorerUrl + transaction.transactionHash,
             }}
           >
-            <p className="df aic">
+            <p className="df aic" css={graphCommunity && { color: 'rgba(225, 225, 228, 1)' }}>
               {t(`common.transactionsList.${transaction.action}`)}
-              <SingleCommunity stroke={'#576FED'} size={[14, 14]} className={'cup ml4'} />
+              <SingleCommunity
+                stroke={graphCommunity ? 'rgba(111, 76, 255, 1)' : '#576FED'}
+                size={[14, 14]}
+                className={'cup ml4'}
+              />
             </p>
           </A>
         ) : (

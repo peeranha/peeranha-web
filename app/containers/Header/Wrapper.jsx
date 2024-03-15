@@ -1,10 +1,11 @@
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import styled from 'styled-components';
 import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
 
 import { HEADER_HEIGHT, LOADER_HEIGHT, MOBILE_HEADER_HEIGHT } from './constants';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const Wrapper = styled.header`
   position: fixed;
@@ -74,9 +75,10 @@ export const SingleModeSubHeader = styled.div`
 export const MainSubHeader = styled.div`
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 4px 0 ${colors.headerShadow || BORDER_SECONDARY};
+  box-shadow: ${graphCommunity ? 'none' : `0 2px 4px 0 ${colors.headerShadow || BORDER_SECONDARY}`};
   flex: 2;
   background: ${(props) => (props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : '')};
+  border-bottom: ${graphCommunity ? '1px solid #3d3d54' : ''};
 
   form {
     flex: 1;

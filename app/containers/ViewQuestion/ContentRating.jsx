@@ -14,15 +14,22 @@ import emptyFingerDown from 'images/emptyFingerDown.svg?external';
 
 import { BORDER_SUCCESS, BORDER_ATTENTION_LIGHT, BORDER_PRIMARY_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 import Span from 'components/Span';
 import Button from 'components/Button/Contained/Transparent';
 import { IconLg } from 'components/Icon/IconWithSizes';
+import {
+  UpvoteCanceledGraph,
+  DownvoteCanceledGraph,
+  ThumbsUpGraph,
+  ThumbsDownGraph,
+} from 'components/icons';
 
-import { singleCommunityColors } from 'utils/communityManagement';
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const ImgBox = styled.div`
   position: relative;
@@ -75,6 +82,7 @@ const ContentRating = ({
       id={`${UP_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasupvoted={author.user}
+      css={graphCommunity && { color: 'unset' }}
     >
       <UpvoteIcon account={account} author={author} votingStatus={votingStatus} />
     </Button>
@@ -90,6 +98,7 @@ const ContentRating = ({
       id={`${DOWN_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasdownvoted={author.user}
+      css={graphCommunity && { color: 'unset' }}
     >
       <DownvoteIcon account={account} author={author} votingStatus={votingStatus} />
     </Button>
@@ -111,19 +120,24 @@ ContentRating.propTypes = {
 
 function UpvoteIcon({ account, author, votingStatus }) {
   let src = null;
+  let graphIcon;
   if (account === author.user) {
     src = disabledFingerUp;
+    graphIcon = <UpvoteCanceledGraph size={[24, 24]} stroke="rgba(128, 127, 137, 1)" />;
   } else if (votingStatus?.isUpVoted) {
     src = greenFingerUpSingleQuestion;
+    graphIcon = <ThumbsUpGraph fill="rgba(75, 202, 129, 1)" size={[24, 24]} />;
   } else if (votingStatus?.isDownVoted) {
     src = emptyFingerUp;
+    graphIcon = <ThumbsUpGraph size={[24, 24]} fill="rgba(111, 76, 255, 1)" />;
   } else {
     src = fingerUpSingleQuestionPage;
+    graphIcon = <ThumbsUpGraph size={[24, 24]} fill="rgba(111, 76, 255, 1)" />;
   }
 
   return (
     <ImgBox src={src}>
-      <IconLg icon={src} fill={BORDER_PRIMARY_LIGHT} />
+      {graphCommunity ? graphIcon : <IconLg icon={src} fill={BORDER_PRIMARY_LIGHT} />}
     </ImgBox>
   );
 }
@@ -136,20 +150,24 @@ UpvoteIcon.propTypes = {
 
 function DownvoteIcon({ account, author, votingStatus }) {
   let src = null;
-
+  let graphIcon;
   if (account === author.user) {
     src = disabledFingerDown;
+    graphIcon = <DownvoteCanceledGraph size={[24, 24]} stroke="rgba(128, 127, 137, 1)" />;
   } else if (votingStatus?.isDownVoted) {
     src = redFingerDownSingleQuestion;
+    graphIcon = <ThumbsDownGraph size={[24, 24]} fill="rgba(237, 74, 109, 1)" />;
   } else if (votingStatus?.isUpVoted) {
     src = emptyFingerDown;
+    graphIcon = <ThumbsDownGraph size={[24, 24]} fill="rgba(111, 76, 255, 1)" />;
   } else {
     src = fingerDownSingleQuestionPage;
+    graphIcon = <ThumbsDownGraph size={[24, 24]} fill="rgba(111, 76, 255, 1)" />;
   }
 
   return (
     <ImgBox src={src}>
-      <IconLg icon={src} fill={BORDER_PRIMARY_LIGHT} />
+      {graphCommunity ? graphIcon : <IconLg icon={src} fill={BORDER_PRIMARY_LIGHT} />}
     </ImgBox>
   );
 }

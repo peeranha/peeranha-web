@@ -1,11 +1,17 @@
 import { BORDER_SECONDARY, TEXT_LIGHT } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityFonts,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const { main } = singleCommunityFonts();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   menuItem: {
-    fontFamily: 'Source Sans Pro, serif',
+    fontFamily: main || 'Source Sans Pro, serif',
     fontStyle: 'normal',
     fontWeight: 400,
   },
@@ -14,14 +20,15 @@ export const styles = {
     background: colors.btnColor || 'rgba(87, 111, 237, 1)',
     color: TEXT_LIGHT,
     minWidth: '39px',
-    height: '20px',
-    borderRadius: '3px',
+    height: graphCommunity ? '24px' : '20px',
+    borderRadius: graphCommunity ? '20px' : '3px',
     fontWeight: 600,
-    fontSize: '14px',
-    lineHeight: '16px',
-    padding: '1.5px 6px 2.5px 6px',
+    fontSize: graphCommunity ? '12px' : '14px',
+    lineHeight: graphCommunity ? '20px' : '16px',
+    padding: graphCommunity ? '2px 12px 0 12px' : '1.5px 6px 2.5px 6px',
     gap: '10px',
     marginLeft: '8px',
+    whiteSpace: graphCommunity ? 'nowrap' : '',
   },
 
   menuSectionTitle: {
@@ -32,7 +39,7 @@ export const styles = {
     span: {
       'text-transform': 'uppercase',
     },
-    color: colors.sectionHeader || 'rgba(123, 123, 123, 1)',
+    color: graphCommunity ? '#807F89' : colors.sectionHeader || 'rgba(123, 123, 123, 1)',
 
     '&:hover .dropdown-documentation': {
       display: 'block',
@@ -59,7 +66,7 @@ export const styles = {
   },
 
   dropdownMenuItem: {
-    color: 'black',
+    color: graphCommunity ? '#E1E1E4' : 'black',
     fontSize: '14px',
     padding: '16px',
     textDecoration: 'none',
@@ -72,7 +79,9 @@ export const styles = {
 
     ':hover': {
       boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
-      background: colors.navMenuBackgroundColor || 'rgba(123, 123, 123, 0.1)',
+      background: graphCommunity
+        ? 'none'
+        : colors.navMenuBackgroundColor || 'rgba(123, 123, 123, 0.1)',
       borderRadius: '5px',
     },
     svg: {

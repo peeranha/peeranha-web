@@ -1,7 +1,8 @@
 import { CSSObject } from '@emotion/react';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles: Record<string, CSSObject> = {
   container: {
@@ -9,9 +10,9 @@ export const styles: Record<string, CSSObject> = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '16px',
-    border: colors.linkColor ? `1px solid ${colors.linkColor}` : '1px solid #A5BCFF',
+    border: `1px solid ${graphCommunity ? '#3D3D54' : colors.linkColor || '#A5BCFF'}`,
     borderRadius: '5px',
-    background: '#F6F8FF',
+    background: graphCommunity ? '#161425' : '#F6F8FF',
   },
 
   mainBlock: {
@@ -30,14 +31,14 @@ export const styles: Record<string, CSSObject> = {
     fontWeight: 600,
     fontSize: '14px',
     lineHeight: '20px',
-    color: colors.linkColor || '#576FED',
+    color: graphCommunity ? '#E1E1E4' : colors.linkColor || '#576FED',
     marginRight: '8px',
   },
 
   mainBlockText: {
     fontSize: '14px',
     lineHeight: '20px',
-    color: '#282828',
+    color: graphCommunity ? '#A7A7AD' : '#282828',
     marginBottom: '8px',
   },
 
@@ -54,7 +55,7 @@ export const styles: Record<string, CSSObject> = {
       content: '""',
       width: '20%',
       height: '8px',
-      background: colors.loaderColor || '#7699FF',
+      background: graphCommunity ? '#6f4cff' : colors.loaderColor || '#7699FF',
       position: 'absolute',
       top: 0,
       left: 0,

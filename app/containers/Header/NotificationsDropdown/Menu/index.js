@@ -4,6 +4,11 @@ import styled from 'styled-components';
 
 import { BORDER_RADIUS_L } from 'style-constants';
 
+import { graphCommunityColors } from 'utils/communityManagement';
+
+import Header from './Header';
+import Content from './Content';
+import Footer from './Footer';
 import {
   HEADER_AND_FOOTER_HEIGHT,
   MENU_HEIGHT,
@@ -11,21 +16,20 @@ import {
   ROW_HEIGHT_DROPDOWN_LARGE,
 } from '../constants';
 
-import Header from './Header';
-import Content from './Content';
-import Footer from './Footer';
+const graphCommunity = graphCommunityColors();
 
 const MenuContainer = styled.div`
   width: ${MENU_WIDTH}px;
   height: ${MENU_HEIGHT}px;
-  background: var(--color-white);
+  background: ${graphCommunity ? '#161425' : 'var(--color-white)'};
   display: flex;
   position: absolute;
   flex-direction: column;
   top: 62px;
   left: -290px;
+  border: ${graphCommunity ? '1px solid #3d3d54' : ''};
   border-radius: ${BORDER_RADIUS_L};
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: ${graphCommunity ? 'none' : '0 0 4px 0 rgba(0, 0, 0, 0.3)'};
   white-space: nowrap;
   cursor: default;
 

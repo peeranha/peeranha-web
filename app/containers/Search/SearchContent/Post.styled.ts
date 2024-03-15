@@ -5,14 +5,15 @@ import {
   TEXT_SECONDARY,
   BORDER_PRIMARY,
 } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   post: {
-    background: 'rgb(255,255,255)',
-    boxShadow: '0px 2px 4px rgba(7, 16, 64, 0.1)',
+    background: graphCommunity ? '#161425' : 'rgb(255,255,255)',
+    boxShadow: `0px 2px 4px ${graphCommunity ? '#3D3D54' : 'rgba(7, 16, 64, 0.1)'}`,
     borderRadius: '5px',
     border: colors.border ? `1px solid ${colors.border}` : 'none',
     ':hover': {
@@ -27,12 +28,12 @@ export const styles = {
   },
 
   title: {
-    color: TEXT_DARK,
+    color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
     lineHeight: '23px',
     fontSize: '12px',
     fontWeight: 600,
     ':hover': {
-      color: TEXT_DARK,
+      color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
     },
 
     '@media only screen and (min-width: 1024px)': {
@@ -50,7 +51,7 @@ export const styles = {
 
   creationTime: {
     lineHeight: '15px',
-    color: TEXT_SECONDARY,
+    color: graphCommunity ? '#A7A7AD' : TEXT_SECONDARY,
 
     '@media only screen and (min-width: 768px)': {
       fontSize: '14px',
@@ -59,7 +60,7 @@ export const styles = {
   },
 
   content: {
-    color: TEXT_SECONDARY,
+    color: graphCommunity ? '#A7A7AD' : TEXT_SECONDARY,
     lineHeight: '21px',
     textOverflow: 'ellipsis',
     display: '-webkit-box !important',
@@ -97,12 +98,12 @@ export const styles = {
   },
 
   tag: {
-    color: BORDER_PRIMARY,
+    background: graphCommunity ? 'rgba(111, 76, 255, 0.16)' : 'none',
+    color: graphCommunity ? '#E1E1E4' : BORDER_PRIMARY,
     lineHeight: '18px',
-    border: `1px solid ${BORDER_PRIMARY}`,
-    borderRadius: '2px',
+    border: `1px solid ${graphCommunity ? 'rgba(111,76,255,0.16)' : BORDER_PRIMARY}`,
+    borderRadius: graphCommunity ? '10px' : '2px',
     padding: '3px 9px',
-
     '@media only screen and (min-width: 768px)': {
       marginBottom: '0',
     },
@@ -113,7 +114,7 @@ export const styles = {
   },
 
   bestReply: {
-    background: BG_SUCCESS_LIGHT,
+    background: graphCommunity ? 'none' : BG_SUCCESS_LIGHT,
   },
 
   noBestReply: { background: BG_TRANSPARENT },

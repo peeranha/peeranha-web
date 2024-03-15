@@ -5,6 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 import { LINK_COLOR, TEXT_SECONDARY, BORDER_SECONDARY } from 'style-constants';
 
+import { getFormattedDate } from 'utils/datetime';
+import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+
 import Span from 'components/Span';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
@@ -19,11 +23,10 @@ import {
 import useMediaQuery from 'hooks/useMediaQuery';
 
 import { Box } from './MainUserInformation';
-import { getFormattedDate } from 'utils/datetime';
-import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
-import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
+
 const Blank = ({ profile, userId, account, redirectToEditProfilePage }) => {
   const { t } = useTranslation();
 
@@ -69,6 +72,7 @@ const Row = ({ nameField, value, asHtml }) => {
         lineHeight="20"
         mobileLH="20"
         mobileFS="14"
+        css={graphCommunity && { color: '#A7A7AD' }}
       >
         {t(`profile.${nameField}`)}
       </Span>
@@ -107,10 +111,10 @@ const AdditionalUserInformation = ({
       position="bottom"
       css={css`
         div:first-child {
-          border-top: 1px solid ${BORDER_SECONDARY};
+          border-top: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
           padding: 20px 0 8px 0;
         }
-        border: ${isSuiBlockchain ? `1px solid ${colors.border}` : 'none'};
+        border: ${isSuiBlockchain || graphCommunity ? `1px solid ${colors.border}` : 'none'};
         border-top: none;
       `}
     >

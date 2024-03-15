@@ -2,7 +2,7 @@ import { PEER_PRIMARY_COLOR, BORDER_RADIUS_L, TEXT_LIGHT } from 'style-constants
 import { Tag } from 'components/TagsList';
 import ScrollContainer from 'components/ScrollContainer';
 
-import { singleCommunityColors } from 'utils/communityManagement';
+import { graphCommunityColors, singleCommunityColors } from 'utils/communityManagement';
 import { getSearchParams } from 'utils/url';
 
 import FailedTransactionIcon from 'icons/FailedTransaction';
@@ -13,6 +13,7 @@ import { css } from '@emotion/react';
 import { styles } from './index.styled';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const TagFilter: React.FC<{
   tags: string[];
@@ -55,11 +56,11 @@ const TagFilter: React.FC<{
                 onClick={() => removeTagFilter(tag)}
               >
                 <FailedTransactionIcon
-                  stroke={TEXT_LIGHT}
+                  stroke={graphCommunity ? 'rgba(111, 76, 255, 1)' : TEXT_LIGHT}
                   size={[16, 16]}
                   strokeOpacity={1}
                   fillOpacity={0.2}
-                  fill={TEXT_LIGHT}
+                  fill={graphCommunity ? 'rgba(111, 76, 255, 1)' : TEXT_LIGHT}
                 ></FailedTransactionIcon>
               </button>
             </Tag>

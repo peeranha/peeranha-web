@@ -1,9 +1,9 @@
 import { TEXT_DARK } from 'style-constants';
 import { isSuiBlockchain } from 'utils/constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
-
+const graphCommunity = graphCommunityColors();
 export const styles = {
   mainInfo: {
     justifyContent: 'space-after',
@@ -42,13 +42,14 @@ export const styles = {
   },
 
   popupTitle: {
-    color: TEXT_DARK,
+    color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
     lineHeight: '28px',
+    textAlign: graphCommunity ? '' : 'center',
   },
 
   popupSpan: {
     lineHeight: '14px',
-    color: '#282828',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
   },
 
   validationError: {
@@ -79,9 +80,9 @@ export const styles = {
   },
 
   popupCheckboxLabel: {
-    fontSize: '16px',
+    fontSize: graphCommunity ? '14px' : '16px',
     lineHeight: '14px',
-    color: '#282828',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
   },
 
   popupCheckbox: {
@@ -101,9 +102,9 @@ export const styles = {
       height: '22px',
       top: 0,
       left: 0,
-      border: `1px solid #C2C6D8`,
+      border: `1px solid ${graphCommunity ? '#3D3D54' : '#C2C6D8'}`,
       borderRadius: '3px',
-      backgroundColor: 'rgb(255,255,255)',
+      backgroundColor: graphCommunity ? '#161425' : 'rgb(255,255,255)',
     },
     'input[type=checkbox]:checked:before': {
       backgroundColor: colors.btnColor || 'rgba(87, 111, 237, 1)',
@@ -140,8 +141,8 @@ export const styles = {
       left: 0,
       border: '1px solid rgba(247, 111, 96, 1)',
       borderRadius: '3px',
-      backgroundColor: 'rgb(255,255,255)',
-      boxShadow: '0 0 0 3px rgb(252 102 85 / 40%)',
+      backgroundColor: graphCommunity ? '#161425' : 'rgb(255,255,255)',
+      boxShadow: graphCommunity ? 'none' : '0 0 0 3px rgb(252 102 85 / 40%)',
     },
   },
 };

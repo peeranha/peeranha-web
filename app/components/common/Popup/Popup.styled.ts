@@ -1,6 +1,10 @@
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
+
 const styles = {
   popup: {
-    backgroundColor: 'rgba(16, 34, 87, 0.65)',
+    backgroundColor: graphCommunity ? '#0C0A1DCC' : 'rgba(16, 34, 87, 0.65)',
     position: 'fixed',
   },
   header: {
@@ -20,10 +24,11 @@ const styles = {
   content: {
     maxHeight: '100%',
     borderRadius: '5px',
-    backgroundColor: 'var(--color-white)',
+    backgroundColor: graphCommunity ? '#0C0A1D' : 'var(--color-white)',
     height: '100vh',
     overflow: 'hidden auto',
-    boxShadow: '0px 20px 20px rgba(24, 39, 79, 0.1)',
+    boxShadow: graphCommunity ? 'none' : '0px 20px 20px rgba(24, 39, 79, 0.1)',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
 
     '@media (min-width: 768px)': {
       height: 'auto',

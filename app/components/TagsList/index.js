@@ -5,22 +5,28 @@ import history from 'createdHistory';
 
 import { TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
 
-import Span from 'components/Span';
+import {
+  singleCommunityFonts,
+  isSingleCommunityWebsite,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 
-import { singleCommunityFonts, isSingleCommunityWebsite } from 'utils/communityManagement';
+import Span from 'components/Span';
 import Button from 'components/Button';
 
 const fonts = singleCommunityFonts();
 const single = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 const Tag = Span.extend`
   max-width: 100%;
+  background: ${graphCommunity ? 'rgba(111, 76, 255, 0.16) !important' : 'none'};
   overflow: hidden;
-  border: 1px solid ${TAG_COLOR};
-  color: ${TAG_COLOR};
-  font-size: 14px;
+  border: ${graphCommunity ? 'none' : `1px solid ${TAG_COLOR}`};
+  color: ${graphCommunity ? 'rgba(225, 225, 228, 1) !important' : TAG_COLOR};
+  font-size: ${graphCommunity ? '10px' : '14px'};
   height: 24px;
-  border-radius: ${BORDER_RADIUS_S};
+  border-radius: ${graphCommunity ? '10px !important' : BORDER_RADIUS_S};
   margin-bottom: 2px;
   margin-right: 8px;
   padding-left: 10px;
@@ -28,6 +34,9 @@ const Tag = Span.extend`
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
+  text-transform: ${graphCommunity ? 'uppercase' : ''};
+  letter-spacing: ${graphCommunity ? '1.5px' : ''};
+  font-weight: ${graphCommunity ? 500 : ''};
 `;
 const Box = styled.ul`
   display: flex;
@@ -68,6 +77,13 @@ const TagsList = ({ tags, communities, communityId, children, className }) => {
           <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
             {single ? (
               <Button
+                css={
+                  graphCommunity && {
+                    textTransform: 'uppercase',
+                    letterSpacing: '1.5px',
+                    fontWeight: 500,
+                  }
+                }
                 onClick={() => {
                   redirectToFilterByTag(tag.id);
                 }}

@@ -1,9 +1,11 @@
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import { SECONDARY_SPECIAL_3, BORDER_RADIUS_L } from 'style-constants';
 
 import BaseRoundedNoPadding from './BaseRoundedNoPadding';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
+
 export default BaseRoundedNoPadding.extend`
   display: flex;
 
@@ -22,11 +24,12 @@ export default BaseRoundedNoPadding.extend`
       flex: 0 0 295px;
       max-width: 295px;
       padding: 47px 31px;
-      background: ${SECONDARY_SPECIAL_3};
+      background: ${graphCommunity ? '#161425' : SECONDARY_SPECIAL_3};
       border-top-right-radius: ${BORDER_RADIUS_L};
       border-bottom-right-radius: ${BORDER_RADIUS_L};
       background: ${colors.backgroundSpecial || ''};
-      color: ${colors.black || ''};
+      color: ${graphCommunity ? '#E1E1E4' : colors.black || ''};
+      border-left: ${graphCommunity ? '1px solid #3D3D54' : 'none'};
     }
 
     > *:only-child {

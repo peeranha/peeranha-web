@@ -33,6 +33,11 @@ import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
+import { graphCommunityColors } from 'utils/communityManagement';
+import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
+import { selectCommentIdsInTransaction, selectIds } from 'containers/ViewQuestion/selectors';
+import { TrashGraph, FileArrowUpGraph, PencilSimpleLineGraph } from 'components/icons';
+
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { COMMENT_TYPE, SAVE_COMMENT_BUTTON, SAVE_COMMENT_FORM } from './constants';
 
@@ -41,8 +46,8 @@ import UserInfo from './UserInfo';
 import CommentOptions from './CommentOptions';
 import CommentForm from './CommentForm';
 import AreYouSure from './AreYouSure';
-import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
-import { selectCommentIdsInTransaction, selectIds } from 'containers/ViewQuestion/selectors';
+
+const graphCommunity = graphCommunityColors();
 
 const CommentManage = styled.div`
   display: flex;
@@ -79,7 +84,7 @@ const CommentsStyled = styled.ul`
   }
 
   li {
-    border: 1px solid ${BORDER_SECONDARY};
+    border: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
     padding: 9px 28px 9px 38px;
 
     :first-child {
@@ -226,7 +231,11 @@ const CommentView = (item) => {
                   onClick={onClick}
                   disabled={item.ids.includes(`delete-comment-${item.answerId}${item.id}`)}
                 >
-                  <Icon icon={deleteIcon} width="18" fill={BORDER_PRIMARY} />
+                  {graphCommunity ? (
+                    <TrashGraph size={[18, 18]} />
+                  ) : (
+                    <Icon icon={deleteIcon} width="18" fill={BORDER_PRIMARY} />
+                  )}
                   <span>{t('post.deleteButton')}</span>
                 </Button>
               )}
@@ -235,7 +244,11 @@ const CommentView = (item) => {
 
           <div className="position-relative">
             <Button show disabled={isPopoverOpen} onClick={() => setPopoverOpen(true)}>
-              <IconMd icon={blockchainLogo} />
+              {graphCommunity ? (
+                <FileArrowUpGraph size={[18, 18]} />
+              ) : (
+                <IconMd icon={blockchainLogo} />
+              )}
               <span>{t('common.source')}</span>
             </Button>
 
@@ -259,7 +272,11 @@ const CommentView = (item) => {
             }}
             onClick={() => item.toggleView(!item.isView)}
           >
-            <Icon icon={editIcon} width="18" fill={BORDER_PRIMARY} />
+            {graphCommunity ? (
+              <PencilSimpleLineGraph size={[18, 18]} />
+            ) : (
+              <Icon icon={editIcon} width="18" fill={BORDER_PRIMARY} />
+            )}
             <span>{t('post.editButton')}</span>
           </Button>
         </CommentManage>

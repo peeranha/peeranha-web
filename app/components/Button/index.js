@@ -17,6 +17,7 @@ const Button = styled.button`
 
   position: relative;
   opacity: ${(item) => (item.block ? '0.5' : '1')};
+  font-weight: 500;
 `;
 
 export default Button;

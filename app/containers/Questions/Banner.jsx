@@ -7,12 +7,16 @@ import FeedBanner from 'components/Feed/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
 
 import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?inline';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
+
 export const AllQuestionsBanner = ({ redirectToAskQuestionPage }) => {
   const { t } = useTranslation();
   return (
     <Wrapper>
       <img src={noQuestionsAllQuestionsPage} alt="posts-banner" />
-      <div>
+      <div css={graphCommunity && { color: '#E1E1E4' }}>
         <p>{t('common.noPostsYet')}</p>
 
         <p>{t('common.thisIsNewCommunity')}</p>

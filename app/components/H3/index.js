@@ -1,11 +1,12 @@
 import { APP_FONT, TEXT_DARK } from 'style-constants';
-import { singleCommunityFonts } from 'utils/communityManagement';
+import { singleCommunityFonts, graphCommunityColors } from 'utils/communityManagement';
 import Text from '../Span';
 
 const fonts = singleCommunityFonts();
+const graphCommunity = graphCommunityColors();
 
 const H3 = Text.extend`
-  color: ${TEXT_DARK};
+  color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
   font-weight: 600;
   font-size: 38px;
   line-height: 48px;

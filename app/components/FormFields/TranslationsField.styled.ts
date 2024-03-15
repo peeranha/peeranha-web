@@ -1,7 +1,8 @@
 import { TEXT_PRIMARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   container: {
@@ -55,7 +56,7 @@ export const styles = {
 
   option: {
     padding: '12px 24px',
-    color: '#282828',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
 
     ':hover': {
       color: `${colors.linkColor || TEXT_PRIMARY}`,

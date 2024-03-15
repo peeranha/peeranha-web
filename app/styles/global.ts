@@ -1,7 +1,10 @@
 import { css } from '@emotion/react';
 import emotionReset from 'emotion-reset';
+import { graphCommunityColors } from 'utils/communityManagement';
 import breakpoints from './breakpoints';
 import colors from './colors';
+
+const graphCommunity = graphCommunityColors();
 
 const spacing = (): string => {
   const result: string[] = [];
@@ -39,7 +42,9 @@ export default css`
 
   body,
   button {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: ${graphCommunity
+      ? 'Euclid Circular A, sans-serif'
+      : 'Source Sans Pro, sans-serif'};
     font-style: normal;
     font-weight: 400;
   }

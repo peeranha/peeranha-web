@@ -1,31 +1,38 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 import PropTypes from 'prop-types';
-import { getIpfsHashFromBytes32 } from 'utils/ipfs.js';
+
+import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 import ipfsLogo from 'images/ipfs-logo.svg?external';
-import { IconSm } from 'components/Icon/IconWithSizes';
+
+import { getIpfsHashFromBytes32 } from 'utils/ipfs.js';
 import { getFormattedDate } from 'utils/datetime';
 import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+import { IconSm } from 'components/Icon/IconWithSizes';
 import A from 'components/A';
 import Span from 'components/Span';
 
+const graphCommunity = graphCommunityColors();
+
 const Label = styled.div`
   position: absolute;
-  background-color: ${BG_LIGHT};
+  background-color: ${graphCommunity ? '#161425' : BG_LIGHT};
   border-radius: ${BORDER_RADIUS_L};
-  width: 450px;
+  width: 455px;
   left: 50%;
   top: calc(100% + 10px);
   transform: translateX(-95%);
   z-index: 8;
   max-height: 350px;
   overflow: auto;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 4px 0 ${graphCommunity ? '#3D3D54' : 'rgba(0, 0, 0, 0.3)'};
   text-align: left;
   padding: 15px;
-
+  border: ${graphCommunity ? '1px solid #3D3D54' : 'none'};
   @media only screen and (max-width: 600px) {
     transform: translateX(-98%);
     width: 88vw;
@@ -84,7 +91,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories, networkId }) => {
       </Span>
 
       {formattedData?.length > 0 && (
-        <table className="table mt-2 mb-0">
+        <table className="table mt-2 mb-0" css={graphCommunity && { color: '#E1E1E4' }}>
           <thead>
             <tr>
               {Object.values(columns).map((column, index) => (

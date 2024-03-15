@@ -1,6 +1,11 @@
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
+
 export const styles = {
   popupOverlap: {
     zIndex: 999,
+    borderTop: graphCommunity ? '1px solid #3D3D54' : 'none',
   },
 
   cookieConsent: {

@@ -1,6 +1,7 @@
 import React from 'react';
-import { styled } from './TransactionHandler.styled';
 import { useTranslation } from 'react-i18next';
+
+import { styled } from './TransactionHandler.styled';
 
 type TransactionOptionProps = {
   transaction: string;
@@ -31,7 +32,7 @@ const TransactionOption: React.FC<TransactionOptionProps> = ({
           css={styled.input}
         />
         <div className="df aic" css={styled.inputRadio}>
-          <div>
+          <div css={styled.textBlock}>
             <div
               className="mb-1 bold pr"
               css={

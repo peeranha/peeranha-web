@@ -1,10 +1,15 @@
 import { CSSObject } from '@emotion/react';
 import { TEXT_SECONDARY, LINK_COLOR } from 'style-constants';
-import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
 const isSingleCommunityMode = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 const isSuiFooter = isSuiBlockchain && !isSingleCommunityMode;
 
 export const styles: Record<string, CSSObject> = {
@@ -55,7 +60,7 @@ export const styles: Record<string, CSSObject> = {
     display: 'flex',
     fontSize: '16px',
     '@media (max-width: 991px)': {
-      flexDirection: 'column',
+      flexDirection: graphCommunity ? 'row' : 'column',
     },
   },
 
@@ -87,10 +92,10 @@ export const styles: Record<string, CSSObject> = {
   },
 
   infoRules: {
-    color: colors.footerText || '#667085',
+    color: graphCommunity ? 'rgba(255, 255, 255, 0.48)' : colors.footerText || '#667085',
     '@media (max-width: 991px)': {
       marginBottom: '25px',
-      color: '#667085',
+      color: graphCommunity ? 'rgba(255, 255, 255, 0.48)' : '#667085',
     },
     '> span': {
       whiteSpace: 'normal',
@@ -164,11 +169,11 @@ export const styles: Record<string, CSSObject> = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: TEXT_SECONDARY,
+    color: graphCommunity ? 'rgba(255, 255, 255, 0.64)' : TEXT_SECONDARY,
     fontSize: '16px',
     marginBottom: '8px',
     '@media (min-width: 991px)': {
-      color: colors.footerText || TEXT_SECONDARY,
+      color: graphCommunity ? 'rgba(255, 255, 255, 0.64)' : colors.footerText || TEXT_SECONDARY,
     },
     ':hover': {
       color: TEXT_SECONDARY,
@@ -192,5 +197,76 @@ export const styles: Record<string, CSSObject> = {
     paddingBottom: '30px',
     margin: 0,
     border: 'none',
+  },
+
+  // Graph footer
+
+  graphFooter: {
+    minHeight: '220px',
+    background: colors.footerBackgroundColor,
+    color: colors.footerText || TEXT_SECONDARY,
+  },
+
+  graphFooterBlock: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    '@media (min-width: 991px)': {
+      paddingTop: '50px',
+    },
+    '>img:first-child': {
+      paddingBottom: '15px',
+    },
+  },
+
+  graphFooterReturn: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: '20px',
+  },
+
+  graphFooterReturnLink: {
+    color: 'rgba(255, 255, 255, 0.48)',
+    fontWeight: 500,
+    marginLeft: '8px',
+
+    ':hover': {
+      color: '#6F4CFF',
+    },
+  },
+
+  graphFooterContacts: {
+    width: '90%',
+    borderBottom: `1px solid ${colors.footerBorderColor || '#c2c6d8'}`,
+    margin: '32px',
+    '@media (max-width: 991px)': {
+      display: 'block',
+      margin: '28px 16px',
+    },
+  },
+
+  graphInfoLinks: {
+    width: '100%',
+    margin: '0 8px 0 32px',
+    color: colors.footerText || '#667085',
+    fontWeight: 600,
+    '@media (max-width: 991px)': {
+      margin: '0 32px 12px 16px',
+      fontWeight: 400,
+      color: '#667085',
+      ':last-child': {
+        marginBottom: 0,
+      },
+    },
+    ':hover': {
+      color: colors.footerTextHoverColor || LINK_COLOR,
+    },
+  },
+
+  graphInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 };

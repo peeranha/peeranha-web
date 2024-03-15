@@ -12,9 +12,11 @@ import Dropdown from 'components/Dropdown/AllowedClickInside';
 import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
 import { IconMd } from 'components/Icon/IconWithSizes';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import { XCircleGraph } from 'components/icons';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const TagsContainer = styled.ul`
   ${(props) => Input(props)};
@@ -107,11 +109,15 @@ export const TagSelector = ({
                 <Tag key={valueLabel}>
                   <span>{valueLabel}</span>
                   <RemoveTagIcon type="button" onClick={(e) => onClick(e, id)}>
-                    <IconMd
-                      icon={closeIcon}
-                      fill={colors.tagColor || BORDER_PRIMARY}
-                      color={colors.tagColor || BORDER_PRIMARY}
-                    />
+                    {graphCommunity ? (
+                      <XCircleGraph size={[18, 18]} fill="#6F4CFF" />
+                    ) : (
+                      <IconMd
+                        icon={closeIcon}
+                        fill={colors.tagColor || BORDER_PRIMARY}
+                        color={colors.tagColor || BORDER_PRIMARY}
+                      />
+                    )}
                   </RemoveTagIcon>
                 </Tag>
               ))}

@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
 import { css } from '@emotion/react';
-
-import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from 'style-constants';
-
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
 
+import { BG_LIGHT, BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from 'style-constants';
 import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
@@ -20,6 +18,7 @@ import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
   singleCommunityColors,
+  graphCommunityColors,
 } from 'utils/communityManagement';
 import {
   getPermissions,
@@ -29,27 +28,28 @@ import {
 } from 'utils/properties';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { showPopover } from 'utils/popover';
+import { isSuiBlockchain } from 'utils/constants';
 import useMediaQuery from 'hooks/useMediaQuery';
 
+import { MagnifyingGlassGraph, PlusGraph } from 'components/icons';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import EditDocumentation from 'components/Documentation';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
 import ChangeLocale from 'containers/ChangeLocale';
-import { isSuiBlockchain } from 'utils/constants';
 
 import { Wrapper, MainSubHeader } from './Wrapper';
 import Section from './Section';
 import LogoStyles from './Logo';
-
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
-
 import { HEADER_ID, SEARCH_FORM_ID, MIN_REPUTATION, IS_SUI_MAIN } from './constants';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
+const colors = singleCommunityColors();
 
 export const LoginProfile = ({
   profileInfo,
@@ -67,8 +67,6 @@ export const LoginProfile = ({
     <ButtonGroupForNotAuthorizedUser loginWithWallet={loginWithWalletDispatch} />
   );
 
-const colors = singleCommunityColors();
-
 const Button = LargeButton.extend`
   background-color: ${(x) => x.bg};
   border: ${(x) => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
@@ -84,6 +82,11 @@ const Button = LargeButton.extend`
   @media only screen and (max-width: 576px) {
     width: 36px !important;
     height: 36px !important;
+  }
+
+  :hover {
+    color: ${graphCommunity ? 'rgba(255, 255, 255, 1)' : ''};
+    background-color: ${graphCommunity ? 'rgba(111, 76, 255, 0.8)' : ''};
   }
 `;
 
@@ -153,17 +156,17 @@ const View = ({
   };
 
   const NewPostButton = ({ onClickForModal }) => {
-    const clickHandler = () => {
+    const clickHandler = (e) => {
       ReactGA.event({
         category: 'Users',
         action: 'newPost_button_pushed',
       });
-      return profileInfo ? onClickForModal : showLoginModalWithRedirectToAskQuestionPage;
+      return profileInfo ? onClickForModal(e) : showLoginModalWithRedirectToAskQuestionPage();
     };
     return (
       <Button
         id="header-ask-question"
-        onClick={clickHandler()}
+        onClick={clickHandler}
         css={css`
           background: ${colors.btnHeaderColor};
           :hover {
@@ -176,11 +179,17 @@ const View = ({
           }
         `}
       >
-        <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
+        {graphCommunity ? (
+          <PlusGraph size={[24, 24]} />
+        ) : (
+          <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
+        )}
         <span
           className="d-none d-lg-inline ml-2"
           css={css`
             color: ${colors.newPostButtonText};
+            font-size: ${graphCommunity ? '14px' : ''};
+            font-weight: ${graphCommunity ? 600 : ''};
           `}
         >
           {t('common.askQuestion')}
@@ -215,11 +224,15 @@ const View = ({
               {!isSearchFormVisible && (
                 <>
                   <Button
-                    bg={BG_LIGHT}
+                    bg={graphCommunity ? '#6F4CFF' : BG_LIGHT}
                     className="d-flex d-lg-none"
                     onClick={() => setSearchFormVisibility(!isSearchFormVisible)}
                   >
-                    <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
+                    {graphCommunity ? (
+                      <MagnifyingGlassGraph size={[18, 18]} />
+                    ) : (
+                      <Icon icon={searchIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
+                    )}
                   </Button>
 
                   <NewPostButton onClickForModal={askQuestionHandler} />

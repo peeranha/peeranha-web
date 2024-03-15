@@ -1,3 +1,8 @@
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
+
 export const styles = {
   filePreviewContainer: {
     width: '108px',
@@ -48,7 +53,7 @@ export const styles = {
 
   uploadProgress: {
     fontWeight: 600,
-    color: 'rgb(247 111 96)',
+    color: graphCommunity ? '#6F4CFF' : 'rgb(247 111 96)',
   },
 
   leftCenterIcon: {

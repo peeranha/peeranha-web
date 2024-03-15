@@ -1,19 +1,14 @@
 import styled, { css } from 'styled-components';
 
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
-import {
-  BG_LIGHT,
-  BORDER_SECONDARY,
-  BORDER_TRANSPARENT,
-  BG_PRIMARY_DARK_RGB,
-} from 'style-constants';
+import { BG_LIGHT, BORDER_TRANSPARENT, BG_PRIMARY_DARK_RGB } from 'style-constants';
 
 import { LEFT_MENU_WIDTH } from 'containers/AppWrapper/constants';
-
 import { HEADER_HEIGHT, MOBILE_HEADER_HEIGHT } from 'containers/Header/constants';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const BasicLink = css`
   display: flex;
@@ -58,7 +53,7 @@ export const ViewStyled = styled.nav`
   > div {
     &.lightbg {
       padding: 8px 0 8px 12px;
-      background: ${BG_LIGHT};
+      background: ${graphCommunity ? '#0C0A1D' : BG_LIGHT};
       margin-bottom: 0;
 
       &.use-default-links {
