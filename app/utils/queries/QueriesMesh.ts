@@ -457,6 +457,7 @@ export const postMeshShallow = `
       condition: { isDeleted: false }
     ) {
       id
+      isOfficialReply
     }
     posttranslation {
       language
@@ -672,7 +673,7 @@ query (
   $postId: String,
 ) {
   post (
-    condition: {id: $postId, isDeleted: false}
+    condition: {id: $postId }
   ) {
     ${postMesh}
   }

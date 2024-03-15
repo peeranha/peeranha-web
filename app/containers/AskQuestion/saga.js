@@ -1,4 +1,5 @@
 import { languagesEnum } from 'app/i18n';
+import ReactGA from 'react-ga4';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -60,6 +61,10 @@ import {
 
 export function* postQuestionWorker({ val }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_post_started',
+    });
     const locale = yield select(makeSelectLocale());
     const postType = val[FORM_TYPE];
     const tags =
@@ -193,6 +198,10 @@ export function* postQuestionWorker({ val }) {
       }
       yield call(waitForPostTransactionToIndex, transaction.transactionHash);
       yield put(askQuestionSuccess(id));
+      ReactGA.event({
+        category: 'Users',
+        action: 'create_post_completed',
+      });
       if (window.location.pathname === '/ask' || postType === POST_TYPE.documentation) {
         yield call(
           createdHistory.push,

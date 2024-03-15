@@ -1,6 +1,7 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga4';
 import { css } from '@emotion/react';
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
@@ -123,7 +124,15 @@ const View = ({
     };
 
     return (
-      <LogoStyles to={single || isSuiBlockchain ? routes.feed() : routes.home()}>
+      <LogoStyles
+        to={single || isSuiBlockchain ? routes.feed() : routes.home()}
+        onClick={() =>
+          ReactGA.event({
+            category: 'Users',
+            action: 'logo_icon_pushed',
+          })
+        }
+      >
         <img src={src()} alt="logo" />
         {styles.logoText}
       </LogoStyles>
@@ -146,39 +155,48 @@ const View = ({
     isMinusReputation && !isHasRole ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
   };
 
-  const NewPostButton = ({ onClickForModal }) => (
-    <Button
-      id="header-ask-question"
-      onClick={profileInfo ? onClickForModal : showLoginModalWithRedirectToAskQuestionPage}
-      css={css`
-        background: ${colors.btnHeaderColor};
-        :hover {
-          background: ${colors.btnHeaderHoverColor};
-          border: ${colors.btnHeaderHoverBorder};
-          opacity: ${colors.btnHeaderHoverOpacity};
-        }
-        @media only screen and (min-width: 992px) {
-          min-width: 130px;
-        }
-      `}
-    >
-      {graphCommunity ? (
-        <PlusGraph size={[24, 24]} />
-      ) : (
-        <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
-      )}
-      <span
-        className="d-none d-lg-inline ml-2"
+  const NewPostButton = ({ onClickForModal }) => {
+    const clickHandler = (e) => {
+      ReactGA.event({
+        category: 'Users',
+        action: 'newPost_button_pushed',
+      });
+      return profileInfo ? onClickForModal(e) : showLoginModalWithRedirectToAskQuestionPage();
+    };
+    return (
+      <Button
+        id="header-ask-question"
+        onClick={clickHandler}
         css={css`
-          color: ${colors.newPostButtonText};
-          font-size: ${graphCommunity ? '14px' : ''};
-          font-weight: ${graphCommunity ? 600 : ''};
+          background: ${colors.btnHeaderColor};
+          :hover {
+            background: ${colors.btnHeaderHoverColor};
+            border: ${colors.btnHeaderHoverBorder};
+            opacity: ${colors.btnHeaderHoverOpacity};
+          }
+          @media only screen and (min-width: 992px) {
+            min-width: 130px;
+          }
         `}
       >
-        {t('common.askQuestion')}
-      </span>
-    </Button>
-  );
+        {graphCommunity ? (
+          <PlusGraph size={[24, 24]} />
+        ) : (
+          <IconSm fill={colors.newPostButtonText || BG_LIGHT} icon={addIcon} />
+        )}
+        <span
+          className="d-none d-lg-inline ml-2"
+          css={css`
+            color: ${colors.newPostButtonText};
+            font-size: ${graphCommunity ? '14px' : ''};
+            font-weight: ${graphCommunity ? 600 : ''};
+          `}
+        >
+          {t('common.askQuestion')}
+        </span>
+      </Button>
+    );
+  };
 
   return (
     <Wrapper id={HEADER_ID}>

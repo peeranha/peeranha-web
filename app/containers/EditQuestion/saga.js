@@ -1,5 +1,6 @@
 /* eslint camelcase: 0 */
 import { languagesEnum } from 'app/i18n';
+import ReactGA from 'react-ga4';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
@@ -79,6 +80,10 @@ export function* getAskedQuestionWorker({ questionId }) {
 
 export function* editQuestionWorker({ question, questionId, id2, author, oldTitle }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_post_started',
+    });
     const locale = yield select(makeSelectLocale());
 
     const questionData = {
@@ -141,6 +146,10 @@ export function* editQuestionWorker({ question, questionId, id2, author, oldTitl
 
     yield put(editQuestionSuccess(question));
 
+    ReactGA.event({
+      category: 'Users',
+      action: 'update_post_completed',
+    });
     const title = updateTitle(oldTitle);
     if (
       window.location.pathname === `/discussions/${questionId}/${title}/edit` ||

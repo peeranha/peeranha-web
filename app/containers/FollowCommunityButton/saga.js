@@ -2,6 +2,7 @@
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { showLoginModal } from 'containers/Login/actions';
 import { takeEvery, call, put, select } from 'redux-saga/effects';
+import ReactGA from 'react-ga4';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 import { isSuiBlockchain } from 'utils/constants';
@@ -30,6 +31,10 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'follow_community_started',
+    });
     if (isSuiBlockchain) {
       const profile = yield select(makeSelectProfileInfo());
       if (!profile) {
@@ -86,6 +91,10 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed, buttonId }
     };
     yield put(getUserProfileSuccess(updatedProfileInfo));
     yield put(followHandlerSuccess({ communityIdFilter, isFollowed, buttonId }));
+    ReactGA.event({
+      category: 'Users',
+      action: 'follow_community_completed',
+    });
   } catch (err) {
     yield put(followHandlerErr(err, buttonId));
   }

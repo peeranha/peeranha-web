@@ -10,12 +10,12 @@ import { redirectRoutesForSCM } from 'routes-config';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
-import logo from 'images/LogoBlackOnboard.svg?inline';
+import logo from 'images/PeeranhaLogoOnboard.svg?inline';
 
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-import injectedModule from '@web3-onboard/injected-wallets';
+import injectedModule, { ProviderLabel } from '@web3-onboard/injected-wallets';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import { addToast } from '../Toast/actions';
 import {
@@ -30,11 +30,11 @@ import {
 import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
-const injected = injectedModule();
+const injected = injectedModule({ displayUnavailable: [ProviderLabel.MetaMask] });
 
 const styles = singleCommunityStyles();
 
-const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
+const src = logo;
 
 const initWeb3Onboard = init({
   wallets: [injected],
@@ -58,6 +58,12 @@ const initWeb3Onboard = init({
     },
   },
   appMetadata: {
+    recommendedInjectedWallets: [
+      {
+        name: 'MetaMask',
+        url: 'https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      },
+    ],
     name: 'Peeranha',
     icon: src,
     description: 'Knowledge sharing protocol for Web3',

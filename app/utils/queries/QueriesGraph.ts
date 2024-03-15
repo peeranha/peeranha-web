@@ -492,7 +492,7 @@ export const allAchievementsQueryGraph = `
       ${achievementGraph}
     }
     user (id: $userId) {
-      achievements { 
+      achievements {
         id
        }
     }

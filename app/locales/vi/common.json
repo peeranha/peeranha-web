@@ -543,6 +543,6 @@
   "askingCommunity": "Rất tiếc, chúng tôi không tìm thấy kết quả phù hợp nào. \nHãy thử hỏi cộng đồng của chúng tôi.",
   "sources": "Nguồn",
   "orDivider": "HOẶC",
-  "transactionInProgress": "Giao dịch đang được thực hiện",
-  "canWork": "Bạn có thể tiếp tục làm việc trên trang web trong khi giao dịch đang được thực hiện."
+  "transactionInProgress": "Hoạt động đang được xử lý",
+  "canWork": "Trong khi đó, bạn có thể tiếp tục làm việc trên trang web."
 }

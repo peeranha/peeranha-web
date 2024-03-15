@@ -530,6 +530,6 @@
   "askingCommunity": "很抱歉，我们找不到任何匹配的结果。\n请尝试向我们的社区提问。",
   "sources": "来源",
   "orDivider": "要么",
-  "transactionInProgress": "交易进行中",
-  "canWork": "在交易进行中，您可以继续在网站上工作"
+  "transactionInProgress": "操作正在处理中",
+  "canWork": "与此同时，可以继续在网站上工作。"
 }

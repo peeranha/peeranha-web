@@ -1,4 +1,5 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import ReactGA from 'react-ga4';
 
 import { getAllAchievements } from 'utils/queries/ethereumService';
 import { waitForTransactionConfirmation } from 'utils/sui/sui';
@@ -433,6 +434,10 @@ export function* updateUserAchievementsWorker(
 
 export function* mintSuiAchievementWorker({ suiAchievementId }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'mint_achievement_started',
+    });
     yield put(transactionInitialised());
     const wallet = yield select(selectSuiWallet());
     const suiUserObject = yield call(getSuiUserObject, wallet.address);
@@ -446,6 +451,10 @@ export function* mintSuiAchievementWorker({ suiAchievementId }) {
     yield call(waitForTransactionConfirmation, txResult.digest);
     yield put(transactionCompleted());
     yield put(mintAchievementSuccess());
+    ReactGA.event({
+      category: 'Users',
+      action: 'mint_achievement_completed',
+    });
     yield call(getAchievementsWorker);
   } catch (err) {
     yield put(transactionFailed(err));

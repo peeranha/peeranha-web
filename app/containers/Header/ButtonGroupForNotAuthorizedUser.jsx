@@ -2,6 +2,7 @@ import '@suiet/wallet-kit/style.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga4';
 
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 
@@ -15,7 +16,13 @@ const ButtonGroupForNotAuthorizedUser = ({ loginWithWallet }) => {
   const buttonWithLogin = (clickHandler) => (
     <LargeOutlinedButton
       className="d-none d-sm-flex"
-      onClick={clickHandler}
+      onClick={() => {
+        ReactGA.event({
+          category: 'Users',
+          action: 'login_button_pushed',
+        });
+        clickHandler();
+      }}
       customStyles={styles.headerLoginButtonStyles}
     >
       {t('common.login')}
