@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { hasCommunitySingleWebsite } from 'utils/communityManagement';
-import * as routes from '../../routes-config';
+import * as routes from 'routes-config';
+
+import { TEXT_SECONDARY } from 'style-constants';
+import { hasCommunitySingleWebsite, graphCommunityColors } from 'utils/communityManagement';
+
+import { customRatingIconColors } from 'constants/customRating';
+
 import BaseRoundedNoPadding from '../Base/BaseRoundedNoPadding';
 import MediumImage from '../Img/MediumImage';
 import P from '../P';
 import Span from '../Span';
-import { TEXT_SECONDARY } from '../../style-constants';
+
 import RatingStatus from '../RatingStatus';
 import AStyled from './AStyled';
 import ADefaultStyled from './ADefaultStyled';
 import FrontSide from './FrontSide';
 import BackSide from './BackSide';
-import { customRatingIconColors } from 'constants/customRating';
+
+const graphCommunity = graphCommunityColors();
 
 const CommunityItemWithRating = ({ communities, single, communityId, rating, locale }) => {
   const { t } = useTranslation();
@@ -42,7 +48,7 @@ const CommunityItemWithRating = ({ communities, single, communityId, rating, loc
           {community && (
             <div>
               <MediumImage src={community.avatar} alt="comm_img" />
-              <P fontSize="16" bold>
+              <P fontSize="16" css={graphCommunity && { color: '#E1E1E4' }}>
                 {communityTranslation?.name || community.name}
               </P>
             </div>
@@ -51,7 +57,12 @@ const CommunityItemWithRating = ({ communities, single, communityId, rating, loc
           <div>
             <div>
               <div>
-                <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
+                <Span
+                  className="mt-1"
+                  fontSize="14"
+                  color={TEXT_SECONDARY}
+                  css={graphCommunity && { color: '#A7A7AD' }}
+                >
                   {t('common.reputationStatus')}
                 </Span>
               </div>
@@ -70,7 +81,7 @@ const CommunityItemWithRating = ({ communities, single, communityId, rating, loc
           <div className="d-flex flex-column justify-content-between">
             {community && (
               <div>
-                <P fontSize="16" bold>
+                <P fontSize="16" bold css={graphCommunity && { color: '#E1E1E4' }}>
                   {communityTranslation?.name || community.name}
                 </P>
                 <P>{communityTranslation?.description || community.description}</P>

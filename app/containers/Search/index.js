@@ -1,42 +1,47 @@
-import { singleCommunityColors } from 'utils/communityManagement';
-import { IconLg } from 'components/Icon/IconWithSizes';
-import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { isSuiBlockchain } from 'utils/constants';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import { css } from '@emotion/react';
+
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
 import searchIcon from 'images/searchIcon.svg?external';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import {
+  singleCommunityColors,
+  singleCommunityFonts,
+  graphCommunityColors,
+} from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/constants';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { IconLg } from 'components/Icon/IconWithSizes';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
 import Loader from 'components/LoadingIndicator/WidthCentered';
-import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
+import { MagnifyingGlassGraph } from 'components/icons';
 
 import reducer from './reducer';
 import saga from './saga';
-
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
-
 import Banner from './Banner/Banner';
-import { selectCommunities } from '../DataCacheProvider/selectors';
-
 import SearchContent from './SearchContent';
+import { selectCommunities } from '../DataCacheProvider/selectors';
 import { redirectToAskQuestionPage } from '../AskQuestion/actions';
 import { loginWithWallet, loginWithSui } from '../Login/actions';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const colors = singleCommunityColors();
+const { main } = singleCommunityFonts();
+const graphCommunity = graphCommunityColors();
+
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const Search = ({
@@ -91,7 +96,11 @@ const Search = ({
             `}
           >
             <MediumIconStyled>
-              <IconLg icon={searchIcon} width={38} fill={BORDER_PRIMARY} />
+              {graphCommunity ? (
+                <MagnifyingGlassGraph size={[24, 24]} />
+              ) : (
+                <IconLg icon={searchIcon} width={38} fill={BORDER_PRIMARY} />
+              )}
             </MediumIconStyled>
           </div>
           {t('common.search')}
@@ -101,8 +110,8 @@ const Search = ({
             <span
               className="semi-bold fz16"
               css={css`
-                color: ${TEXT_DARK};
-                font-family: 'Source Sans Pro', sans-serif;
+                color: ${graphCommunity ? '#A7A7AD' : TEXT_DARK};
+                font-family: ${main || 'Source Sans Pro, sans-serif'};
               `}
             >
               {t('common.results')}
@@ -110,7 +119,7 @@ const Search = ({
             <span
               className="fz16 ml8"
               css={css`
-                color: ${TEXT_SECONDARY};
+                color: ${graphCommunity ? '#A7A7AD' : TEXT_SECONDARY};
               `}
             >
               {items.length}

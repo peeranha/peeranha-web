@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
-
 import suggestTagIcon from 'images/tagsHeaderIcon.svg?external';
 import closeIcon from 'images/closeCircle.svg?external';
+
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 import A from 'components/A';
 import H3 from 'components/H3';
@@ -14,11 +15,11 @@ import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
-
-import { singleCommunityColors } from 'utils/communityManagement';
+import { TagGraph, XCircleGraph } from 'components/icons';
 
 const colors = singleCommunityColors();
 
+const graphCommunity = graphCommunityColors();
 export const Header = ({ title, closeRedirectPage, closeButtonAction = null }) => {
   const { t } = useTranslation();
 
@@ -26,12 +27,16 @@ export const Header = ({ title, closeRedirectPage, closeButtonAction = null }) =
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumIconStyled>
-          <Icon
-            icon={suggestTagIcon}
-            width="43"
-            fill={colors.btnColor || BORDER_PRIMARY}
-            isColorImportant
-          />
+          {graphCommunity ? (
+            <TagGraph size={[24, 24]} />
+          ) : (
+            <Icon
+              icon={suggestTagIcon}
+              width="43"
+              fill={colors.btnColor || BORDER_PRIMARY}
+              isColorImportant
+            />
+          )}
         </MediumIconStyled>
         {title || t('tags.newTag')}
       </H3>
@@ -39,12 +44,16 @@ export const Header = ({ title, closeRedirectPage, closeButtonAction = null }) =
       <WrapperRightPanel className="right-panel">
         <A to={closeRedirectPage} onClick={closeButtonAction}>
           <button>
-            <IconMd
-              className="mr-1"
-              icon={closeIcon}
-              fill={colors.btnColor || BORDER_PRIMARY}
-              isColorImportant
-            />
+            {graphCommunity ? (
+              <XCircleGraph className="mr-1" size={[24, 24]} />
+            ) : (
+              <IconMd
+                className="mr-1"
+                icon={closeIcon}
+                fill={colors.btnColor || BORDER_PRIMARY}
+                isColorImportant
+              />
+            )}
             <Span color={colors.btnColor || TEXT_PRIMARY} className="button-label">
               {t('common.close')}
             </Span>

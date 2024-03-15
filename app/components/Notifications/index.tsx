@@ -8,11 +8,10 @@ import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/Windo
 import List from 'react-virtualized/dist/commonjs/List';
 
 import { DAEMON, isSuiBlockchain } from 'utils/constants';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import { BG_LIGHT, BORDER_SECONDARY_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 
@@ -41,6 +40,8 @@ import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
 import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
 
+const graphCommunity = graphCommunityColors();
+
 const Container = styled.div`
   ${Wrapper} {
     margin-bottom: 15px;
@@ -54,12 +55,13 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  background: ${BG_LIGHT};
+  background: ${graphCommunity ? '#161425' : BG_LIGHT};
   position: relative;
   display: flex;
   flex-direction: column;
   border-radius: ${BORDER_RADIUS_L};
   width: 100%;
+  border: ${graphCommunity ? '1px solid #3D3D54' : 'none'};
 `;
 
 const SubHeader = styled.div`
@@ -67,7 +69,7 @@ const SubHeader = styled.div`
   display: flex;
   width: 100%;
   padding: 0 10px;
-  border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT};
+  border-bottom: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY_LIGHT};
 `;
 
 const SubHeaderSeparator = styled.hr`
@@ -192,7 +194,15 @@ const Notifications: React.FC<NotificationsProps> = ({
 
   return isAvailable ? (
     <Container className={`${className} overflow-hidden`}>
-      <Wrapper position="bottom">
+      <Wrapper
+        position="bottom"
+        css={
+          graphCommunity && {
+            border: 'none',
+            background: 'none',
+          }
+        }
+      >
         <Header notificationsNumber={allCount} />
       </Wrapper>
 

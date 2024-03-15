@@ -6,6 +6,9 @@ import Button from 'components/Button/Contained/InfoLarge';
 import A from 'components/A';
 
 import noQuestionsFeedPage from 'images/noQuestionsFeedPage.svg?inline';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 export const Banner = () => {
   const { t } = useTranslation();
@@ -13,7 +16,7 @@ export const Banner = () => {
   return (
     <Wrapper>
       <img src={noQuestionsFeedPage} alt="feed-banner" />
-      <div>
+      <div css={graphCommunity && { color: '#E1E1E4' }}>
         <p>{t('common.youDontHaveFeedToRead')}</p>
 
         <p>{t('common.subscribeToCommToKeep')}</p>

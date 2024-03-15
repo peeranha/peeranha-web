@@ -16,7 +16,7 @@ import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 import { getFormattedDate } from 'utils/datetime';
 import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, graphCommunityColors } from 'utils/communityManagement';
 
 import okayIcon from 'images/okay.svg?inline';
 import crownIcon from 'images/crownIcon.svg?inline';
@@ -30,6 +30,7 @@ import { POST_TYPE_ANSWER, POST_TYPE_QUESTION } from 'containers/Profile/constan
 import QuestionCommunity from './QuestionCommunity';
 
 const single = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 const BaseStyled = Base.extend`
   position: relative;
@@ -44,8 +45,8 @@ const BaseStyled = Base.extend`
 `;
 
 const Badge = Span.extend`
-  color: ${TEXT_PRIMARY_DARK};
-  border: 1px solid ${BORDER_PRIMARY_DARK};
+  color: ${graphCommunity ? '#a7a7ad' : TEXT_PRIMARY_DARK};
+  border: 1px solid ${graphCommunity ? '#3d3d54' : BORDER_PRIMARY_DARK};
   border-radius: ${BORDER_RADIUS_M};
   padding: 4px 10px;
   text-align: center;
@@ -63,7 +64,7 @@ const Badge = Span.extend`
 `;
 
 const AcceptedQuestionBadgeStyled = Badge.extend`
-  background: ${BG_SUCCESS};
+  background: ${graphCommunity ? '#4BCA81' : BG_SUCCESS};
   margin-right: 20px;
   border: none;
 
@@ -185,7 +186,11 @@ export const QuestionForProfilePage = ({
           </Link>
 
           <p className="d-flex-column d-sm-flex align-items-center my-1">
-            <Span className="text-capitalize mr-3" fontSize="14" color={TEXT_SECONDARY}>
+            <Span
+              className="text-capitalize mr-3"
+              fontSize="14"
+              css={{ color: graphCommunity ? '#A7A7AD' : TEXT_SECONDARY }}
+            >
               {isAnswer
                 ? t('common.answeredWhen', {
                     when: getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME),

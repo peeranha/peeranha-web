@@ -4,19 +4,21 @@ import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import cn from 'classnames';
 import useEventListener from 'hooks/useEventListener';
-import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
 import {
   singleCommunityStyles,
   singleCommunityColors,
-} from '../../utils/communityManagement';
+  graphCommunityColors,
+} from 'utils/communityManagement';
 import { TEXT_PRIMARY } from 'style-constants';
+import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
 
 import { styles } from './CookieConsentPopup.styled';
 
-const cookie = require('../../images/cookie.svg?inline');
-
 const stylesCommunity = singleCommunityStyles();
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
+
+const cookie = require(`images/${graphCommunity ? 'cookieGraph' : 'cookie'}.svg?inline`);
 
 const CookieConsentPopup: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -44,16 +46,12 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
           className={cn('pf b0 full-width')}
           css={css({
             ...styles.popupOverlap,
-            ...(stylesCommunity.cookieConsentPopupStyles ||
-              styles.cookieConsent),
+            ...(stylesCommunity.cookieConsentPopupStyles || styles.cookieConsent),
             ...(enableAnimation && styles.cookieConsentAnimation),
           })}
         >
           <div className={cn('container')}>
-            <div
-              className={cn('df aic jcsb pt24 pb24')}
-              css={css(styles.inner)}
-            >
+            <div className={cn('df aic jcsb pt24 pb24')} css={css(styles.inner)}>
               <div className={cn('df aic')}>
                 <img
                   src={cookie}

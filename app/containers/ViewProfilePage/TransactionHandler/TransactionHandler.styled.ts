@@ -1,6 +1,7 @@
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styled = {
   inputRadio: {
@@ -9,7 +10,8 @@ export const styled = {
       display: 'inline-block',
       minWidth: '22px',
       height: '22px',
-      border: '1px solid var(--color-gray-dark)',
+      border: `1px solid ${graphCommunity ? 'rgba(61, 61, 84, 1)' : 'var(--color-gray-dark)'}`,
+      background: graphCommunity ? 'rgba(255, 255, 255, 0.06)' : '',
       borderRadius: '50%',
       marginRight: '18px',
       backgroundRepeat: 'no-repeat',
@@ -35,11 +37,21 @@ export const styled = {
 
   input: {
     ':checked+div::before': {
-      border: `6px solid ${colors.btnColor || 'var(--color-blue)'}`,
+      background: graphCommunity ? 'rgba(255, 255, 255, 1)' : '',
+      border: `6px solid ${
+        graphCommunity ? 'rgba(111, 76, 255, 1)' : colors.btnColor || 'var(--color-blue)'
+      }`,
     },
   },
 
   secondaryColor: {
-    color: 'var(--color-gray-dark)',
+    fontSize: graphCommunity ? '14px' : '',
+    color: graphCommunity ? '#A7A7AD' : 'var(--color-gray-dark)',
+  },
+
+  textBlock: {
+    'div:first-child': {
+      color: graphCommunity ? '#E1E1E4' : 'inherit',
+    },
   },
 };

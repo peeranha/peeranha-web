@@ -1,12 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { css } from '@emotion/react';
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
+import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 import createCommunityHeader from 'images/communitiesHeader.svg?external';
 import closeIcon from 'images/closeCircle.svg?external';
+
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 
 import A from 'components/A';
 import H3 from 'components/H3';
@@ -15,9 +20,10 @@ import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import Icon from 'components/Icon';
-import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import { CirclesThreeGraph, XCircleGraph } from 'components/icons';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const Header = ({ headerDescriptor }) => {
   const { t } = useTranslation();
@@ -28,18 +34,22 @@ export const Header = ({ headerDescriptor }) => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumIconStyled>
-          <Icon
-            icon={createCommunityHeader}
-            width="43"
-            css={css`
-              circle {
-                stroke: ${colors.btnColor || BORDER_PRIMARY};
-              }
-              path {
-                fill: ${colors.btnColor || BORDER_PRIMARY};
-              }
-            `}
-          />
+          {graphCommunity ? (
+            <CirclesThreeGraph />
+          ) : (
+            <Icon
+              icon={createCommunityHeader}
+              width="43"
+              css={css`
+                circle {
+                  stroke: ${colors.btnColor || BORDER_PRIMARY};
+                }
+                path {
+                  fill: ${colors.btnColor || BORDER_PRIMARY};
+                }
+              `}
+            />
+          )}
         </MediumIconStyled>
         {t(headerDescriptor || 'createCommunity.newCommunity')}
       </H3>
@@ -56,13 +66,17 @@ export const Header = ({ headerDescriptor }) => {
       >
         <A to={nextRoute()}>
           <button>
-            <IconMd
-              className="mr-1"
-              icon={closeIcon}
-              fill={colors.btnColor || BORDER_PRIMARY}
-              color={colors.btnColor || BORDER_PRIMARY}
-              isColorImportant={true}
-            />
+            {graphCommunity ? (
+              <XCircleGraph className="mr-1" fill="#6F4CFF" size={[24, 24]} />
+            ) : (
+              <IconMd
+                className="mr-1"
+                icon={closeIcon}
+                fill={colors.btnColor || BORDER_PRIMARY}
+                color={colors.btnColor || BORDER_PRIMARY}
+                isColorImportant={true}
+              />
+            )}
             <Span color={colors.btnColor || TEXT_PRIMARY} className="button-label">
               {t('common.close')}
             </Span>

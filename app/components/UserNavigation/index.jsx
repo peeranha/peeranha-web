@@ -1,27 +1,30 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation, Trans } from 'react-i18next';
-
+import { css } from '@emotion/react';
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 
+import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 import pencilIcon from 'images/pencil.svg?external';
 import closeIcon from 'images/closeCircle.svg?external';
+
+import { isSuiBlockchain } from 'utils/constants';
+import { getPermissions } from 'utils/properties';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 import NavigationButton, { NavigationLink } from 'components/Button/Contained/Navigation';
 import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
-import { isSuiBlockchain } from 'utils/constants';
-import { getPermissions } from 'utils/properties';
-import { singleCommunityColors } from 'utils/communityManagement';
-import useMediaQuery from 'hooks/useMediaQuery';
-import { css } from '@emotion/react';
 import ScrollContainer from 'components/common/ScrollContainer';
+import { PencilSimpleLineGraph, XCircleGraph } from 'components/icons';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const Ul = styled.ul`
   display: flex;
@@ -59,7 +62,6 @@ const UserNavigation = ({
   userId,
   account,
   profile,
-  loginData,
   questionsLength,
   questionsWithUserAnswersLength,
   userAchievementsLength,
@@ -95,7 +97,21 @@ const UserNavigation = ({
     <Wrapper
       position="top"
       ref={ref}
-      css={!isSuiBlockchain && { borderBottom: '1px solid rgb(194, 198, 216)' }}
+      css={
+        !isSuiBlockchain && {
+          border: !graphCommunity
+            ? ''
+            : path === routes.profileView(userId) || path === routes.profileEdit(userId)
+            ? '1px solid #3D3D54'
+            : 'none',
+          borderBottom: `1px solid ${graphCommunity ? '#3D3D54' : 'rgb(194, 198, 216)'}`,
+          background: !graphCommunity
+            ? ''
+            : path === routes.profileView(userId) || path === routes.profileEdit(userId)
+            ? '#161425'
+            : 'none',
+        }
+      }
     >
       <Ul>
         <Div className="d-flex align-items-center" isProfilePage={isProfilePage}>
@@ -129,6 +145,11 @@ const UserNavigation = ({
                       fontSize="14"
                       color={path !== routes.userQuestions(userId) ? TEXT_SECONDARY : 'inherit'}
                       key="0"
+                      css={
+                        graphCommunity && {
+                          color: path !== routes.userQuestions(userId) ? '#A7A7AD' : '',
+                        }
+                      }
                     />,
                   ]}
                 />
@@ -151,6 +172,11 @@ const UserNavigation = ({
                       fontSize="14"
                       color={path !== routes.userAnswers(userId) ? TEXT_SECONDARY : 'inherit'}
                       key="0"
+                      css={
+                        graphCommunity && {
+                          color: path !== routes.userAnswers(userId) ? '#A7A7AD' : '',
+                        }
+                      }
                     />,
                   ]}
                 />
@@ -179,6 +205,11 @@ const UserNavigation = ({
                       fontSize="14"
                       color={path !== routes.userNFTs(userId) ? TEXT_SECONDARY : 'inherit'}
                       key="0"
+                      css={
+                        graphCommunity && {
+                          color: path !== routes.userNFTs(userId) ? '#A7A7AD' : '',
+                        }
+                      }
                     />,
                   ]}
                 />
@@ -254,8 +285,16 @@ const UserNavigation = ({
             `}
             id={`redireact-to-edit-${userId}-user-page-2`}
           >
-            <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
-            <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+            {graphCommunity ? (
+              <PencilSimpleLineGraph size={[20, 20]} fill="#6F4CFF" />
+            ) : (
+              <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
+            )}
+            <Span
+              className="ml-1"
+              color={colors.btnColor || TEXT_PRIMARY}
+              css={graphCommunity && { color: '#6F4CFF' }}
+            >
               {t('common.edit')}
             </Span>
           </button>
@@ -268,13 +307,21 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <IconMd
-              icon={closeIcon}
+            {graphCommunity ? (
+              <XCircleGraph size={[20, 20]} fill="#6F4CFF" />
+            ) : (
+              <IconMd
+                icon={closeIcon}
+                color={colors.btnColor || TEXT_PRIMARY}
+                fill={colors.btnColor || BORDER_PRIMARY}
+                isColorImportant
+              />
+            )}
+            <Span
+              className="ml-1"
               color={colors.btnColor || TEXT_PRIMARY}
-              fill={colors.btnColor || BORDER_PRIMARY}
-              isColorImportant
-            />
-            <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+              css={graphCommunity && { color: '#6F4CFF' }}
+            >
               {t('common.close')}
             </Span>
           </A>

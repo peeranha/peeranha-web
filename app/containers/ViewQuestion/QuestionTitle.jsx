@@ -9,24 +9,25 @@ import { BG_SUCCESS, TEXT_PREMIUM } from 'style-constants';
 
 import checkIcon from 'images/okayGreen.svg?inline';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, graphCommunityColors } from 'utils/communityManagement';
 import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
-import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
 import TagList from 'components/TagsList';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import Button from 'components/Button/Outlined/InfoMedium';
+
+import { CheckGraph } from 'components/icons';
+
 import { Bounty } from './Bounty';
-
+import QuestionLabel from './QuestionLabel';
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
-
 import { BOUNTY_PAID_CLASSNAME } from './constants';
-
 import { makeSelectAccount, makeSelectProfileInfo } from '../AccountProvider/selectors';
 
-import QuestionLabel from './QuestionLabel';
+const graphCommunity = graphCommunityColors();
 
 export const B = Button.extend`
   align-items: center;
@@ -48,7 +49,7 @@ const Div = styled.div`
 `;
 const TitleContainer = styled.div`
   .${BOUNTY_PAID_CLASSNAME} {
-    background-color: ${BG_SUCCESS};
+    background-color: ${graphCommunity ? '#4BCA81' : BG_SUCCESS};
   }
 `;
 
@@ -107,7 +108,11 @@ export const QuestionTitle = ({
         {!correctAnswerId && isItWrittenByMe && answers.length ? (
           <>
             <MarkAnswerNotification className="d-inline-flex">
-              <img className="mr-2" src={checkIcon} alt="icon" />
+              {graphCommunity ? (
+                <CheckGraph className="mr-2" fill="#6F4CFF" size={[20, 20]} />
+              ) : (
+                <img className="mr-2" src={checkIcon} alt="icon" />
+              )}
               {t(
                 `post.${
                   isGeneral ? 'markGeneralQuestionAndGetEarn' : 'markExpertQuestionAndGetEarn'

@@ -4,15 +4,20 @@ import { TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
 
 import { svgDraw } from 'components/Icon/IconStyled';
 import TransparentButton from 'components/Button/Contained/Transparent';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { graphCommunityColors, singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 /* eslint no-nested-ternary: 0, indent: 0 */
 export const SpanStyled = TransparentButton.extend`
   ${(x) =>
     svgDraw({
-      color: x.isVotedToDelete ? TEXT_WARNING : colors.linkColor || TEXT_PRIMARY,
+      color: x.isVotedToDelete
+        ? TEXT_WARNING
+        : graphCommunity
+        ? 'rgba(111, 76, 255, 1)'
+        : colors.linkColor || TEXT_PRIMARY,
     })};
 
   display: inline-flex;
@@ -27,6 +32,10 @@ export const SpanStyled = TransparentButton.extend`
     > *:last-child {
       display: none;
     }
+  }
+
+  :hover {
+    opacity: 0.8;
   }
 `;
 

@@ -6,9 +6,10 @@ import { TEXT_SECONDARY } from 'style-constants';
 
 import H4 from 'components/H4';
 import Span from 'components/Span';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { graphCommunityColors, singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const AnswersTitle = ({ answersNum }) => {
   const { t } = useTranslation();
@@ -27,7 +28,7 @@ export const AnswersTitle = ({ answersNum }) => {
         fontSize="30"
         bold
         css={css`
-          color: ${colors.white || ''};
+          color: ${graphCommunity ? '#A7A7AD' : colors.white || ''};
         `}
       >
         {answersNum}

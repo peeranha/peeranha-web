@@ -1,38 +1,59 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
-import Seo from 'components/Seo';
-import Header from 'components/Header/Simple';
-import { css } from '@emotion/react';
-import H3 from 'components/H3';
-import { BORDER_PRIMARY, BORDER_RADIUS_M, ICON_TRASPARENT_BLUE, TEXT_LIGHT } from 'style-constants';
-import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import { IconLg } from 'components/Icon/IconWithSizes';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { useTranslation } from 'react-i18next';
+
+import { BORDER_PRIMARY, BORDER_RADIUS_M, ICON_TRASPARENT_BLUE, TEXT_LIGHT } from 'style-constants';
+import AIIcon from 'images/aiIcon.svg?external';
+
 import injectReducer from 'utils/injectReducer';
 import { DAEMON, isSuiBlockchain } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
-import AIIcon from 'images/aiIcon.svg?external';
-import { useTranslation } from 'react-i18next';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+  graphCommunityColors,
+} from 'utils/communityManagement';
+
+import { loginWithSui, loginWithWallet } from 'containers/Login/actions';
+import { selectSearchResult, selectSearchResultLoading } from 'containers/AISearch/selectors';
 import Banner from 'containers/AISearch/Banner/Banner';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
+import Seo from 'components/Seo';
+import Header from 'components/Header/Simple';
+import { css } from '@emotion/react';
+import H3 from 'components/H3';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
+import { IconLg } from 'components/Icon/IconWithSizes';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
-import { selectSearchResult, selectSearchResultLoading } from 'containers/AISearch/selectors';
-import { TrendingUp, Time, OutlinedBurger, SearchAI, Close } from 'components/icons';
+import {
+  TrendingUp,
+  Time,
+  OutlinedBurger,
+  SearchAI,
+  Close,
+  TimerGraph,
+  DatabaseGraph,
+  TrendUpGraph,
+  SparkleGraph,
+  XGraph,
+  MagnifyingGlassGraph,
+} from 'components/icons';
 import Button from 'components/common/Button';
 
 import { getSearchResult } from './actions';
 import { styles } from './AISearch.styled';
 import reducer from './reducer';
 import saga from './saga';
-import { loginWithSui, loginWithWallet } from 'containers/Login/actions';
 
 const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const AISearch = ({
@@ -84,6 +105,8 @@ const AISearch = ({
           @media only screen and (max-width: 576px) {
             border: none;
           }
+          border: ${graphCommunity ? 'none' : ''};
+          background: ${graphCommunity ? 'none' : ''};
         `}
       >
         <H3>
@@ -107,7 +130,11 @@ const AISearch = ({
             `}
           >
             <MediumIconStyled>
-              <IconLg icon={AIIcon} width={32} fill={BORDER_PRIMARY} />
+              {graphCommunity ? (
+                <SparkleGraph size={[28, 28]} />
+              ) : (
+                <IconLg icon={AIIcon} width={32} fill={BORDER_PRIMARY} />
+              )}
             </MediumIconStyled>
           </div>
           <span css={styles.aiPoweredSearchText}>{t('common.aiPoweredSearch')}</span>
@@ -122,7 +149,13 @@ const AISearch = ({
             onKeyDown={onKeyDownHandler}
           />
           {searchText ? (
-            <Close fill={'#BDBDBD'} onClick={clearInputHandler} css={styles.closeInputIcon} />
+            graphCommunity ? (
+              <XGraph size={[24, 24]} onClick={clearInputHandler} css={styles.closeInputIcon} />
+            ) : (
+              <Close fill={'#BDBDBD'} onClick={clearInputHandler} css={styles.closeInputIcon} />
+            )
+          ) : graphCommunity ? (
+            <MagnifyingGlassGraph size={[24, 24]} css={styles.searchInputIcon} />
           ) : (
             <SearchAI size={[30, 30]} stroke={'#BDBDBD'} css={styles.searchInputIcon} />
           )}
@@ -131,7 +164,7 @@ const AISearch = ({
             onClick={getSearchResultHandler}
             disabled={searchResultLoading}
             css={css`
-              opacity: ${searchResultLoading ? '0.8' : '1'};
+              opacity: ${searchResultLoading && !graphCommunity ? '0.8' : '1'};
               position: absolute;
               top: 10px;
               right: 15px;
@@ -146,25 +179,35 @@ const AISearch = ({
               }
 
               span {
+                font-size: ${graphCommunity ? '14px' : ''};
+                font-weight: ${graphCommunity ? 600 : ''};
                 display: flex;
                 align-items: center;
+                color: ${graphCommunity ? TEXT_LIGHT : ''};
               }
 
-              background: ${colors.btnColor};
+              background: ${graphCommunity
+                ? searchResultLoading
+                  ? 'rgba(111, 76, 255, 0.8)'
+                  : 'rgba(111, 76, 255, 1)'
+                : colors.btnColor};
+
               :hover {
-                opacity: 0.8;
+                opacity: ${graphCommunity ? 1 : 0.8};
+                background: ${graphCommunity ? 'rgba(111, 76, 255, 0.8)' : ''};
+
+                span {
+                  color: ${graphCommunity ? '#ffffff !important' : ''};
+                }
               }
             `}
           >
-            <IconLg fill={TEXT_LIGHT} icon={AIIcon} />
-            <span
-              className="ml-2"
-              css={css`
-                color: ${TEXT_LIGHT};
-              `}
-            >
-              {t('common.askAI')}
-            </span>
+            {graphCommunity ? (
+              <SparkleGraph size={[24, 24]} />
+            ) : (
+              <IconLg fill={TEXT_LIGHT} icon={AIIcon} />
+            )}
+            <span className="ml-2">{t('common.askAI')}</span>
           </Button>
         </div>
       </Header>
@@ -179,7 +222,11 @@ const AISearch = ({
             onKeyDown={onKeyDownHandler}
           />
           {searchText ? (
-            <Close fill={'#BDBDBD'} css={styles.closeInputIcon} onClick={clearInputHandler} />
+            <Close
+              fill={graphCommunity ? '#A7A7AE' : '#BDBDBD'}
+              css={styles.closeInputIcon}
+              onClick={clearInputHandler}
+            />
           ) : (
             <SearchAI size={[30, 30]} stroke={'#BDBDBD'} css={styles.searchInputIcon} />
           )}
@@ -229,21 +276,29 @@ const AISearch = ({
           <div css={styles.additionalInfo}>
             <div css={styles.additionalInfoItem}>
               <MediumIconStyled>
-                <Time stroke={customColor} />
+                {graphCommunity ? <TimerGraph size={[24, 24]} /> : <Time stroke={customColor} />}
               </MediumIconStyled>
               <h4 css={styles.additionalInfoItemTitle}>{t('common.timeEfficiency')}</h4>
               <p css={styles.additionalInfoItemContent}>{t('common.unlockPotential')}</p>
             </div>
             <div css={styles.additionalInfoItem}>
               <MediumIconStyled>
-                <OutlinedBurger stroke={customColor} />
+                {graphCommunity ? (
+                  <DatabaseGraph size={[24, 24]} />
+                ) : (
+                  <OutlinedBurger stroke={customColor} />
+                )}
               </MediumIconStyled>
               <h4 css={styles.additionalInfoItemTitle}>{t('common.broadBase')}</h4>
               <p css={styles.additionalInfoItemContent}>{t('common.connectAI')}</p>
             </div>
             <div css={styles.additionalInfoItem}>
               <MediumIconStyled>
-                <TrendingUp stroke={customColor} />
+                {graphCommunity ? (
+                  <TrendUpGraph size={[24, 24]} />
+                ) : (
+                  <TrendingUp stroke={customColor} />
+                )}
               </MediumIconStyled>
               <h4 css={styles.additionalInfoItemTitle}>{t('common.continuousImprovement')}</h4>
               <p css={styles.additionalInfoItemContent}>{t('common.experienceEnhancements')}</p>

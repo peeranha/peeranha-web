@@ -38,6 +38,12 @@ export const singleCommunityColors = () => _get(singleCommunityStyles(), 'colors
 
 export const singleCommunityFonts = () => _get(singleCommunityStyles(), 'fonts', {});
 
+export const graphCommunityColors = () => {
+  const GRAPH_COMMUNITY_NAME = 'graph';
+  const { name } = singleCommunityStyles();
+  return name === GRAPH_COMMUNITY_NAME;
+};
+
 export const singleCommunityDocumentation = () =>
   _get(singleCommunityStyles(), 'documentationColors', {});
 

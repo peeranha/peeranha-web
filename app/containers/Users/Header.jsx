@@ -2,17 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
-
-import { getFormattedNum2 } from 'utils/numbers';
-import {
-  getSingleCommunityDetails,
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-} from 'utils/communityManagement';
-
+import { BORDER_PRIMARY } from 'style-constants';
 import usersHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
 import usersHeader from 'images/usersHeader.svg?external';
+
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
@@ -23,11 +21,13 @@ import MediumIcon, { MediumIconStyled } from 'components/Icon/MediumIcon';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
+import { UsersThreeGraph } from 'components/icons';
 
 import options from './options';
 
 const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 const Button = ({ sorting }) => {
   const { t } = useTranslation();
@@ -65,21 +65,28 @@ const Menu = ({ sort, sorting }) => {
   );
 };
 
-export const Header = ({ sorting, dropdownFilter, userCount }) => {
+export const Header = ({ sorting, dropdownFilter }) => {
   const { t } = useTranslation();
   const isSingleCommunityMode = Boolean(isSingleCommunityWebsite()) || false;
   const usersCondition = isSingleCommunityMode ? 'activeUsers' : 'users';
 
   return (
-    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+    <Wrapper
+      className="mb-to-sm-0 mb-from-sm-3"
+      css={graphCommunity && { background: 'none', border: 'none' }}
+    >
       <H3>
         <MediumIconStyled>
-          <Icon
-            icon={usersHeader}
-            width="38"
-            color={colors.headerPrimary || BORDER_PRIMARY}
-            isColorImportant={true}
-          />
+          {graphCommunity ? (
+            <UsersThreeGraph size={[24, 24]} />
+          ) : (
+            <Icon
+              icon={usersHeader}
+              width="38"
+              color={colors.headerPrimary || BORDER_PRIMARY}
+              isColorImportant={true}
+            />
+          )}
         </MediumIconStyled>
 
         <span>{t(`common.${usersCondition}`)}</span>

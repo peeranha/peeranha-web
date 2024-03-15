@@ -1,23 +1,25 @@
 import { CSSObject } from '@emotion/react';
-import { BORDER_RADIUS_L } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { BORDER_RADIUS_L, APP_FONT } from 'style-constants';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles: Record<string, CSSObject> = {
   container: {
-    background: '#fff',
+    background: graphCommunity ? '#161425' : '#fff',
     height: '180px',
     marginTop: '16px',
     overflow: 'hidden',
     borderRadius: '5px',
-    boxShadow: '0 2px 2px 0 rgba(40,40,40,0.1)',
+    boxShadow: graphCommunity ? 'none' : '0 2px 2px 0 rgba(40,40,40,0.1)',
     borderTopLeftRadius: BORDER_RADIUS_L,
     borderBottomLeftRadius: BORDER_RADIUS_L,
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
     transition: '0.5s',
     position: 'relative',
     ':hover': {
-      boxShadow: '5px 5px 5px rgba(40, 40, 40, 0.1)',
+      boxShadow: graphCommunity ? 'none' : '5px 5px 5px rgba(40, 40, 40, 0.1)',
     },
     '@media (max-width: 991px)': {
       height: '150px',
@@ -31,13 +33,13 @@ export const styles: Record<string, CSSObject> = {
     },
   },
   h3: {
-    fontFamily: 'Source Sans Pro',
+    fontFamily: APP_FONT || 'Source Sans Pro',
     maxWidth: '500px',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '20px',
-    color: '#282828',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
     padding: '28px 0 6px 0',
     textAlign: 'center',
     marginBottom: '28px',
@@ -64,13 +66,13 @@ export const styles: Record<string, CSSObject> = {
     },
   },
   h3Replied: {
-    fontFamily: 'Source Sans Pro',
+    fontFamily: APP_FONT || 'Source Sans Pro',
     maxWidth: '500px',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '20px',
-    color: '#282828',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
     padding: '50px 0 6px 0',
     textAlign: 'center',
     marginBottom: '28px',
@@ -106,13 +108,13 @@ export const styles: Record<string, CSSObject> = {
     },
   },
   h3Reputation: {
-    fontFamily: 'Source Sans Pro',
+    fontFamily: APP_FONT || 'Source Sans Pro',
     maxWidth: '510px',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '20px',
-    color: '#282828',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
     padding: '50px 0 6px 0',
     textAlign: 'start',
     marginBottom: '28px',
@@ -161,10 +163,12 @@ export const styles: Record<string, CSSObject> = {
     marginTop: '28px',
     width: '92px',
     height: '40px',
-    background: '#FFF',
+    background: graphCommunity ? '#6F4CFF' : '#FFF',
     border: `1px solid ${colors.btnColor || '#F76F60'}`,
-    color: `${colors.btnColor || '#F76F60'}`,
+    color: graphCommunity ? '#E1E1E4' : colors.btnColor || '#F76F60',
     borderRadius: '3px',
+    fontSize: graphCommunity ? '14px' : '16px',
+    fontWeight: graphCommunity ? 600 : '',
     transition: '0.5s',
     '@media (max-width: 576px)': {
       position: 'absolute',
@@ -173,8 +177,10 @@ export const styles: Record<string, CSSObject> = {
       marginTop: '21px',
     },
     ':hover': {
-      background: `${colors.btnHoverColor || '#F76F60'}`,
-      border: `1px solid ${colors.btnHoverColor || '#FFF'}`,
+      background: graphCommunity ? 'rgba(111,76,255,0.8)' : `${colors.btnHoverColor || '#F76F60'}`,
+      border: `1px solid ${
+        graphCommunity ? 'rgba(111,76,255,0.8)' : colors.btnHoverColor || '#FFF'
+      }`,
       color: '#FFF',
     },
   },

@@ -1,13 +1,16 @@
 import { BG_PRIMARY, RULES_BACKGROUND, TEXT_SECONDARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   wrapper: {
     marginBottom: '32px',
     padding: '16px',
-    backgroundColor: colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
+    backgroundColor: graphCommunity
+      ? '#6F4CFF33'
+      : colors.newPostMediaBackgroundColor || RULES_BACKGROUND,
     width: '100%',
   },
   title: {
@@ -21,7 +24,7 @@ export const styles = {
       display: 'block',
       width: '100%',
       height: '1px',
-      backgroundColor: '#fff',
+      backgroundColor: graphCommunity ? '#6F4CFF' : '#fff',
       margin: '20px auto 12px',
     },
   },
@@ -29,27 +32,27 @@ export const styles = {
     display: 'flex',
     alignItems: 'start',
     marginBottom: '12px',
-    fontSize: '16px',
+    fontSize: graphCommunity ? '14px' : '16px',
     lineHeight: '20px',
     ':before': {
-      content: '""',
-      flexBasis: '5px',
-      height: '5px',
-      borderRadius: '50%',
-      background: `${colors.textColor || BG_PRIMARY}`,
+      content: graphCommunity ? "'\\25E6'" : '""',
+      flexBasis: graphCommunity ? '' : '5px',
+      height: graphCommunity ? '' : '5px',
+      borderRadius: graphCommunity ? '' : '50%',
+      background: graphCommunity ? 'none' : `${colors.textColor || BG_PRIMARY}`,
       marginRight: '10px',
       display: 'inline-flex',
       position: 'relative',
-      top: '8px',
+      top: graphCommunity ? '' : '8px',
     },
     span: {
       flex: 1,
     },
   },
   secondaryText: {
-    color: `${TEXT_SECONDARY}`,
-    fontSize: '16px',
-    lineHeight: '24px',
+    color: graphCommunity ? '#A7A7AD' : TEXT_SECONDARY,
+    fontSize: graphCommunity ? '14px' : '16px',
+    lineHeight: graphCommunity ? '20px' : '24px',
   },
   fullRules: {
     fontStyle: 'italic',

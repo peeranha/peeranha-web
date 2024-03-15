@@ -3,22 +3,26 @@ import { useTranslation } from 'react-i18next';
 
 import { languages } from 'app/i18n';
 
+import SelectedArrow from 'icons/SelectedArrow';
+import useMediaQuery from 'hooks/useMediaQuery';
 import { setCookie, getCookie } from 'utils/cookie';
+import {
+  graphCommunityColors,
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 import { APP_LOCALE } from 'containers/LanguageProvider/constants';
+import Dropdown from 'components/Dropdown';
 
 import ChangeLocalePopup from './ChangeLocalePopup';
 import ChangeLocaleButton from './ChangeLocaleButton';
 
-import Dropdown from 'components/Dropdown';
-
 import { Flag, Li } from './Styled';
-import SelectedArrow from 'icons/SelectedArrow';
-import useMediaQuery from 'hooks/useMediaQuery';
-import { isSingleCommunityWebsite, singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 const singleCommunityId = isSingleCommunityWebsite();
+const graphCommunity = graphCommunityColors();
 
 export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) => {
   const [open, setOpen] = useState(false);
@@ -77,12 +81,6 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) =
                   role="presentation"
                   onClick={() => setLocale(item)}
                   isBold={item === locale}
-                  css={{
-                    ':hover': {
-                      color: `${colors.btnColor || 'var(--color-blue)'}`,
-                      backgroundColor: 'unset',
-                    },
-                  }}
                 >
                   <Flag
                     src={`https://images.peeranha.io/languages/${item}_lang.svg`}
@@ -97,7 +95,11 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) =
                     <SelectedArrow
                       className="ml-3"
                       css={{ path: { fill: 'none' } }}
-                      stroke={colors.linkColor || 'var(--color-blue)'}
+                      stroke={
+                        graphCommunity
+                          ? 'rgba(111, 76, 255, 1)'
+                          : colors.linkColor || 'var(--color-blue)'
+                      }
                     />
                   )}
                 </Li>

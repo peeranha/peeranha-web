@@ -1,7 +1,8 @@
-import { singleCommunityFonts } from 'utils/communityManagement';
+import { singleCommunityFonts, graphCommunityColors } from 'utils/communityManagement';
 import { APP_FONT, TEXT_DARK } from 'style-constants';
 
 const fonts = singleCommunityFonts();
+const graphCommunity = graphCommunityColors();
 
 const styles = {
   sectionHeader: {
@@ -20,7 +21,7 @@ const styles = {
   },
 
   headerTitle: {
-    color: TEXT_DARK,
+    color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
     fontWeight: 600,
     fontSize: '38px',
     lineHeight: '48px',

@@ -1,6 +1,18 @@
 import { useTranslation } from 'react-i18next';
 import React from 'react';
+import * as routes from 'routes-config';
 
+import { BORDER_PRIMARY } from 'style-constants';
+import closeIcon from 'images/closeCircle.svg?external';
+
+import { getUserAvatar } from 'utils/profileManagement';
+import { getUserName } from 'utils/user';
+import { getUsersModeratorByRoles } from 'utils/accountManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+
+import { styles } from 'containers/Administration/Administration.styled';
+import AreYouSure from 'containers/Administration/AreYouSure';
+import { User, Moderator } from 'containers/Administration/types';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import MediumImage from 'components/Img/MediumImage';
@@ -9,21 +21,9 @@ import A from 'components/A';
 import { Tag } from 'components/TagsList';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import Loader from 'components/LoadingIndicator/WidthCentered';
+import { XCircleGraph } from 'components/icons';
 
-import { styles } from 'containers/Administration/Administration.styled';
-import AreYouSure from 'containers/Administration/AreYouSure';
-import { User, Moderator } from 'containers/Administration/types';
-
-import { getUserAvatar } from 'utils/profileManagement';
-import { getUserName } from 'utils/user';
-
-import * as routes from 'routes-config';
-
-import closeIcon from 'images/closeCircle.svg?external';
-import { BORDER_PRIMARY } from 'style-constants';
-
-import { getUsersModeratorByRoles } from 'utils/accountManagement';
-import { singleCommunityColors } from 'utils/communityManagement';
+const graphCommunity = graphCommunityColors();
 
 enum Roles {
   communityAdmin = 0,
@@ -86,13 +86,15 @@ export const Content: React.FC<ContentProps> = ({
             />
 
             <A className="ovh" to={routes.profileView(moderator.user.id)} key={moderator.user.id}>
-              <P className="text-ellipsis fz14">
+              <P className="text-ellipsis fz14" css={graphCommunity && { color: '#E1E1E4' }}>
                 {getUserName(moderator.user.displayName, moderator.user.id)}
               </P>
             </A>
           </div>
 
-          <div className="mr16 tc text-ellipsis fz14">{moderator.user.id}</div>
+          <div css={graphCommunity && { color: '#E1E1E4' }} className="mr16 tc text-ellipsis fz14">
+            {moderator.user.id}
+          </div>
 
           <div className="mr16 tc text-ellipsis fz14">
             {moderator.userRoles.map((role) => {
@@ -121,11 +123,15 @@ export const Content: React.FC<ContentProps> = ({
                           type="button"
                           onClick={onClick}
                         >
-                          <IconMd
-                            icon={closeIcon}
-                            fill={communityColors.tagColor || BORDER_PRIMARY}
-                            color={communityColors.tagColor || BORDER_PRIMARY}
-                          />
+                          {graphCommunity ? (
+                            <XCircleGraph fill="#6F4CFF" size={[20, 20]} />
+                          ) : (
+                            <IconMd
+                              icon={closeIcon}
+                              fill={communityColors.tagColor || BORDER_PRIMARY}
+                              color={communityColors.tagColor || BORDER_PRIMARY}
+                            />
+                          )}
                         </button>
                       )}
                       roleName={roleName}

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -17,18 +18,23 @@ import {
 } from 'style-constants';
 
 import { getFormattedNum } from 'utils/numbers';
-import { singleCommunityStyles, singleCommunityColors } from 'utils/communityManagement';
+import {
+  singleCommunityStyles,
+  singleCommunityColors,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 
 import Span from 'components/Span';
 
 import Icon from 'components/Icon';
+import StrangerBigIcon from 'icons/StrangerBig';
+import { CircleGraph } from 'components/icons';
 
 import options from './options';
 
-import StrangerBigIcon from 'icons/StrangerBig';
-
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const RatingStatusStyled = styled.span`
   display: flex;
@@ -94,7 +100,9 @@ const IconWithStatus = ({
 
   return (
     <RaitingInfo isProfilePage={isProfilePage} className={`${className}`}>
-      {isProfilePage ? (
+      {graphCommunity ? (
+        <CircleGraph size={[18, 18]} className="mr-1" fill="#6F4CFF" />
+      ) : isProfilePage ? (
         <StrangerBigIcon
           className="mr-2"
           size={[18, 18]}
@@ -118,6 +126,7 @@ const IconWithStatus = ({
         lineHeight={size === 'lg' ? 18 : 14}
         bold={size === 'lg'}
         color={size === 'lg' ? colors.btnColor || '#007bff' : color}
+        css={graphCommunity && { color: '#6F4CFF' }}
       >
         {getFormattedNum(rating)}
       </Span>

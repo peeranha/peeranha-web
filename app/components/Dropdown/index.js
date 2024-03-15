@@ -3,15 +3,20 @@ import PropTypes from 'prop-types';
 import { DARK_SECONDARY } from 'style-constants';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
-import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityStyles,
+  graphCommunityColors,
+} from 'utils/communityManagement';
 import arrowDownIcon from 'images/arrowDown.svg?external';
-
+import { CaretDownGraph } from 'icons/index';
 import Icon from 'components/Icon/index';
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const ArrowDown = styled(Icon)`
   path {
@@ -48,15 +53,18 @@ export const Dropdown = ({
     >
       {button}
 
-      {isArrowed && (
-        <ArrowDown
-          icon={arrowDownIcon}
-          width="10"
-          alt="data-icon"
-          className="dropdown-arrow"
-          fill={colors.localeArrowColor || DARK_SECONDARY}
-        />
-      )}
+      {isArrowed &&
+        (graphCommunity ? (
+          <CaretDownGraph size={[18, 18]} />
+        ) : (
+          <ArrowDown
+            icon={arrowDownIcon}
+            width="10"
+            alt="data-icon"
+            className="dropdown-arrow"
+            fill={colors.localeArrowColor || DARK_SECONDARY}
+          />
+        ))}
     </button>
 
     <MenuStyled className="dropdown-menu" data-dropdown={dataAttribute} ariaLabelledby={id}>

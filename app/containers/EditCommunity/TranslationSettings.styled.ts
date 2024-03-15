@@ -1,15 +1,18 @@
 import { TEXT_PRIMARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   collapsibleContainer: {
-    background:
-      'linear-gradient(0deg, rgba(165, 188, 255, 0.1), rgba(165, 188, 255, 0.1)), #FFFFFF',
+    background: graphCommunity
+      ? '#161425'
+      : 'linear-gradient(0deg, rgba(165, 188, 255, 0.1), rgba(165, 188, 255, 0.1)), #FFFFFF',
     borderRadius: '5px',
     color: `${colors.linkColor || TEXT_PRIMARY}`,
     lineHeight: '23px',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
   },
 
   containerWithContent: {
@@ -18,7 +21,7 @@ export const styles = {
   },
 
   collapsible: {
-    borderBottom: '1px solid rgba(194, 198, 216, 1)',
+    borderBottom: graphCommunity ? 'none' : '1px solid rgba(194, 198, 216, 1)',
 
     '@media only screen and (min-width: 768px)': {
       fontSize: '20px',
@@ -27,8 +30,10 @@ export const styles = {
   },
 
   content: {
-    background:
-      'linear-gradient(0deg, rgba(165, 188, 255, 0.1), rgba(165, 188, 255, 0.1)), #FFFFFF',
+    background: graphCommunity
+      ? '#161425'
+      : 'linear-gradient(0deg, rgba(165, 188, 255, 0.1), rgba(165, 188, 255, 0.1)), #FFFFFF',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
     borderBottomLeftRadius: '5px',
     borderBottomRightRadius: '5px',
   },
@@ -47,7 +52,7 @@ export const styles = {
 
   toggleText: {
     lineHeight: '20px',
-    color: 'rgba(40, 40, 40, 1)',
+    color: graphCommunity ? '#E1E1E4' : 'rgba(40, 40, 40, 1)',
 
     '@media only screen and (min-width: 371px)': {
       fontSize: '16px',
@@ -55,13 +60,14 @@ export const styles = {
   },
 
   tooltip: {
-    background: 'rgb(255,255,255)',
+    background: graphCommunity ? '#161425' : 'rgb(255,255,255)',
     fontSize: '12px',
     lineHeight: '16px',
     letterSpacing: '0.3px',
     width: '264px',
     filter: 'drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.25))',
-
+    color: graphCommunity ? '#E1E1E4' : 'inherit',
+    border: graphCommunity ? '1px solid #3D3D54' : 'none',
     ':after': {
       content: '""',
       position: 'absolute',

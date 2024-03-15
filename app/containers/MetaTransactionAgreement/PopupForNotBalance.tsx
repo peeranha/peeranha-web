@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { graphCommunityColors } from 'utils/communityManagement';
+
 import TransactionHandler from 'containers/ViewProfilePage/TransactionHandler';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import Popup from 'common-components/Popup';
+
+const graphCommunity = graphCommunityColors();
 
 type PopupForNotBalanceProps = {
   hideModal: () => void;
@@ -19,7 +23,7 @@ const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
   setTransaction,
   writeTransactionCookie,
 }): JSX.Element => {
-  const [show, setShow] = useState<Boolean>(true);
+  const [show, setShow] = useState<boolean>(true);
   const { t } = useTranslation();
   return (
     <>
@@ -52,8 +56,13 @@ const PopupForNotBalance: React.FC<PopupForNotBalanceProps> = ({
         >
           <TransactionHandler transaction={transaction} setTransaction={setTransaction} />
           <div css={{ marginTop: '30px' }}>
-            <span>{t('common.transactionsText_4')}</span>
-            <span className="bold">{t('common.settings')}</span>.
+            <span css={graphCommunity && { color: '#E1E1E4' }}>
+              {t('common.transactionsText_4')}
+            </span>
+            <span css={graphCommunity && { color: '#E1E1E4' }} className="bold">
+              {t('common.settings')}
+            </span>
+            .
           </div>
           <div className="df aic jcfe mt-4" css={{ button: { maxWidth: '150px' } }}>
             <OutlinedButton className="mr-3" onClick={hideModal}>

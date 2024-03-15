@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
+import { graphCommunityColors } from 'utils/communityManagement';
+
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import ModalDialog, { el, modalRoot } from 'components/ModalDialog';
 import H4 from 'components/H4';
+
+const graphCommunity = graphCommunityColors();
 
 const TheBestModalText = () => {
   const { t } = useTranslation();
@@ -53,7 +57,7 @@ const AreYouSure = ({ Button, submitAction, isGlobalAdmin, isMarkedTheBest }) =>
         <ModalDialog closeModal={closeModal} show={isOpened}>
           <H4 className="text-center pb-3">{t('common.delete')}</H4>
 
-          <div className="pb-4 text-center">
+          <div className="pb-4 text-center" css={graphCommunity && { color: '#E1E1E4' }}>
             {isMarkedTheBest && !isGlobalAdmin ? <TheBestModalText /> : t('post.areYouSure')}
           </div>
 

@@ -1,3 +1,7 @@
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
+
 export const styles = {
   toggleSwitch: {
     position: 'relative',
@@ -12,13 +16,13 @@ export const styles = {
       backgroundColor: '#FFF',
     },
     'input[type="checkbox"]:checked + span': {
-      backgroundColor: '#576FED',
+      backgroundColor: graphCommunity ? 'rgba(111, 76, 255, 1)' : '#576FED',
     },
   },
   switch: {
     position: 'absolute',
     cursor: 'pointer',
-    backgroundColor: 'rgba(53, 74, 137, 0.15)',
+    backgroundColor: graphCommunity ? 'rgba(255, 255, 255, 0.04)' : 'rgba(53, 74, 137, 0.15)',
     borderRadius: '25px',
     top: 0,
     right: 0,

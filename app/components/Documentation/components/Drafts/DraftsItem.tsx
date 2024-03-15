@@ -1,9 +1,10 @@
 import React from 'react';
 import { DocumentationSection } from 'app/pages/Documentation/types';
-import { styles } from './Drafts.styled';
 import EditIcon from 'icons/Edit';
 import { EditArticleType } from 'components/Documentation/types';
-import { singleCommunityDocumentation } from 'utils/communityManagement';
+import { singleCommunityDocumentation, graphCommunityColors } from 'utils/communityManagement';
+import { PencilSimpleLineGraph } from 'components/icons';
+import { styles } from './Drafts.styled';
 
 type DraftsItemProps = {
   item: DocumentationSection;
@@ -14,6 +15,7 @@ type DraftsItemProps = {
   draftsIds: Array<{ draftId: string; lastmod: string }>;
 };
 
+const graphCommunity = graphCommunityColors();
 const documentationColors = singleCommunityDocumentation();
 
 const DraftsItem: React.FC<DraftsItemProps> = ({
@@ -50,11 +52,15 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
           <div className="ovh mr12" css={styles.draftItemTitle} title={item.title}>
             {item.title}
           </div>
-          <EditIcon
-            onClick={editDraft}
-            stroke={documentationColors.linkColor}
-            fill={documentationColors.iconsFillColor}
-          />
+          {graphCommunity ? (
+            <PencilSimpleLineGraph onClick={editDraft} size={[20, 20]} />
+          ) : (
+            <EditIcon
+              onClick={editDraft}
+              stroke={documentationColors.linkColor}
+              fill={documentationColors.iconsFillColor}
+            />
+          )}
         </div>
       )}
 

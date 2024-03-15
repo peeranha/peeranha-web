@@ -1,6 +1,7 @@
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styled = {
   inputRadio: {
@@ -28,6 +29,6 @@ export const styled = {
   },
 
   secondaryColor: {
-    color: 'var(--color-gray-dark)',
+    color: graphCommunity ? '#A7A7AD' : 'var(--color-gray-dark)',
   },
 };

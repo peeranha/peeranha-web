@@ -14,10 +14,10 @@ import {
 import { Moderator } from 'containers/Administration/types';
 
 import { getCommunityRoles } from 'utils/properties';
+import { isSuiBlockchain } from 'utils/constants';
 
 import useTrigger from 'hooks/useTrigger';
 import { styles } from './Administration.styled';
-import { isSuiBlockchain } from 'utils/constants';
 
 type AddRoleFunction = (
   userAddress: string,
@@ -110,7 +110,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
 
       {isOpen && (
         <Popup size="tiny" onClose={clearAndCloseForm}>
-          <h5 className="tc fz24 semi-bold mb24" css={styles.popupTitle}>
+          <h5 className="fz24 semi-bold mb24" css={styles.popupTitle}>
             {t('administration.addRole')}
           </h5>
           <span className="dib fz16 semi-bold mb16" css={styles.popupSpan}>

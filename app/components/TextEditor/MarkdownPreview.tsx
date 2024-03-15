@@ -13,7 +13,7 @@ const MarkdownPreviewBlock: React.FC<MarkdownPreviewProps> = ({ content }): JSX.
     linkTarget="_blank"
     source={content}
     warpperElement={{ 'data-color-mode': 'light' }}
-    css={styles.markdownPreview}
+    style={styles.markdownPreview}
     rehypeRewrite={(node, index, parent) => {
       if (node.tagName === 'input') {
         node.properties.disabled = false;

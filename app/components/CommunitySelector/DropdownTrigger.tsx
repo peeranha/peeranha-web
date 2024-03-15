@@ -1,13 +1,14 @@
-import { ArrowDown } from 'components/icons';
+import { ArrowDown, XCircleGraph, CaretDownGraph } from 'components/icons';
 import useTrigger from 'hooks/useTrigger';
 import React, { useEffect } from 'react';
 import { BORDER_PRIMARY } from 'style-constants';
 
-import { singleCommunityColors } from 'utils/communityManagement';
-import { styles } from './DropdownTrigger.styled';
 import CloseRoundedIcon from 'icons/CloseRounded';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import { styles } from './DropdownTrigger.styled';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 type DropdownTriggerProps = {
   selectedLanguages: string[];
@@ -81,21 +82,33 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
                 css={styles.closeIcon}
                 onClick={removeLanguage(language)}
               >
-                <CloseRoundedIcon
-                  fill={colors.tagColor || BORDER_PRIMARY}
-                  stroke={colors.tagColor || BORDER_PRIMARY}
-                />
+                {graphCommunity ? (
+                  <XCircleGraph size={[18, 18]} fill="#6F4CFF" />
+                ) : (
+                  <CloseRoundedIcon
+                    fill={colors.tagColor || BORDER_PRIMARY}
+                    stroke={colors.tagColor || BORDER_PRIMARY}
+                  />
+                )}
               </button>
             </div>
           );
         })}
       </div>
-      <ArrowDown
-        css={{
-          ...styles.arrow,
-          ...(isOpen && { transform: 'rotate(180deg)' }),
-        }}
-      />
+      {graphCommunity ? (
+        <CaretDownGraph
+          size={[24, 24]}
+          fill="#6F4CFF"
+          css={isOpen && { transform: 'rotate(180deg)' }}
+        />
+      ) : (
+        <ArrowDown
+          css={{
+            ...styles.arrow,
+            ...(isOpen && { transform: 'rotate(180deg)' }),
+          }}
+        />
+      )}
     </div>
   );
 };

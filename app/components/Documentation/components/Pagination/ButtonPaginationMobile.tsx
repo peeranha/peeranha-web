@@ -1,9 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ArrowDownIcon from 'icons/ArrowDown';
+import { graphCommunityColors } from 'utils/communityManagement';
+import { CaretDownGraph } from 'components/icons';
 import { ButtonPaginationProps } from 'components/Documentation/types';
 import { NEXT_TYPE_BUTTON, PREV_TYPE_BUTTON } from './constants';
 import { styled } from './PaginationDocumentation.styled';
+
+const graphCommunity = graphCommunityColors();
 
 const ButtonPaginationMobile: React.FC<ButtonPaginationProps> = ({
   isStartArticle,
@@ -23,10 +27,24 @@ const ButtonPaginationMobile: React.FC<ButtonPaginationProps> = ({
           </div>
         </div>
         <div css={styled.arrowMobile}>
-          {!isLastArticle && <ArrowDownIcon onClick={onClickPaginationArticle(NEXT_TYPE_BUTTON)} />}
-          {!isStartArticle && (
-            <ArrowDownIcon onClick={onClickPaginationArticle(PREV_TYPE_BUTTON)} />
-          )}
+          {!isLastArticle &&
+            (graphCommunity ? (
+              <CaretDownGraph
+                size={[24, 24]}
+                onClick={onClickPaginationArticle(NEXT_TYPE_BUTTON)}
+              />
+            ) : (
+              <ArrowDownIcon onClick={onClickPaginationArticle(NEXT_TYPE_BUTTON)} />
+            ))}
+          {!isStartArticle &&
+            (graphCommunity ? (
+              <CaretDownGraph
+                size={[24, 24]}
+                onClick={onClickPaginationArticle(PREV_TYPE_BUTTON)}
+              />
+            ) : (
+              <ArrowDownIcon onClick={onClickPaginationArticle(PREV_TYPE_BUTTON)} />
+            ))}
         </div>
       </div>
     </div>

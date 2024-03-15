@@ -6,9 +6,13 @@ import PropTypes from 'prop-types';
 import { TEXT_SECONDARY_LIGHT } from 'style-constants';
 import closeIcon from 'images/close.svg?external';
 import Icon from 'components/Icon';
+import { graphCommunityColors } from 'utils/communityManagement';
+import { XGraph } from 'components/icons';
 
 import ModalStyled from './ModalStyled';
 import Blanket from './Blanket';
+
+const graphCommunity = graphCommunityColors();
 
 export const modalRoot = document.getElementById('modal');
 export const el = document.createElement('div');
@@ -32,7 +36,11 @@ export const ModalDialog = ({ children, show, closeModal }) => {
     <React.Fragment>
       <ModalStyled>
         <div className="d-flex justify-content-end">
-          <Icon onClick={closeModal} icon={closeIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
+          {graphCommunity ? (
+            <XGraph size={[24, 24]} onClick={closeModal} />
+          ) : (
+            <Icon onClick={closeModal} icon={closeIcon} width="16" color={TEXT_SECONDARY_LIGHT} />
+          )}
         </div>
         <div className="modal-children">{children}</div>
       </ModalStyled>

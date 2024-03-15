@@ -4,8 +4,9 @@ import { BG_PRIMARY_LIGHT, BG_LIGHT, APP_FONT } from 'style-constants';
 
 import _get from 'lodash/get';
 
-import { singleCommunityStyles } from './utils/communityManagement';
+import { singleCommunityStyles, graphCommunityColors } from './utils/communityManagement';
 
+const graphCommunity = graphCommunityColors();
 const styles = singleCommunityStyles();
 
 const getItalicFont = () => (/iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'normal' : 'italic');
@@ -13,14 +14,16 @@ export const italicFont = getItalicFont();
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
-  ${reset};
+  ${reset}
+
+  ;
 
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800');
   @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i');
   @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+  @import url('https://fonts.cdnfonts.com/css/euclid-circular-a');
   ${_get(styles, 'fontFace', '')}
-
   html,
   body {
     width: 100%;
@@ -74,6 +77,7 @@ injectGlobal`
 
   #landing-id {
     background: ${BG_LIGHT};
+
     .container {
       max-width: 1140px;
     }
@@ -119,5 +123,21 @@ injectGlobal`
     }
   }
 
-  .grecaptcha-badge {display: none;}
+  .grecaptcha-badge {
+    display: none;
+  }
+
+  .wmde-markdown pre {
+    background-color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  .popover-body {
+    background-color: ${graphCommunity ? '#6f4cff !important' : ''};
+    border-radius: ${graphCommunity ? '3px' : ''};
+    color: ${graphCommunity ? '#ffffff' : ''};
+  }
+
+  .arrow::after {
+    border-top-color: ${graphCommunity ? '#6f4cff !important' : ''};
+  }
 `;

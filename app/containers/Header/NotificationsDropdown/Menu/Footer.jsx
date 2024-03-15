@@ -6,30 +6,35 @@ import { useTranslation } from 'react-i18next';
 import { userNotifications } from 'routes-config';
 
 import { BORDER_PRIMARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
-
-import MarkAllAsReadButton from 'components/Notifications/MarkAllAsReadButton';
-import { IconXm } from 'components/Icon/IconWithSizes';
-
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-
 import clockIcon from 'images/clockIcon.svg?external';
 import notificationsIcon from 'images/notificationsBlue.svg?external';
 
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import MarkAllAsReadButton from 'components/Notifications/MarkAllAsReadButton';
+import { IconXm } from 'components/Icon/IconWithSizes';
+import { BellGraph, XGraph } from 'components/icons';
+
 import styles from './Notification.styled';
 
+const graphCommunity = graphCommunityColors();
 const colors = singleCommunityColors();
 
 const SeeAllButton = () => {
   const { t } = useTranslation();
   return (
     <div css={styles.seeAll}>
-      <IconXm
-        className="mr-2"
-        icon={notificationsIcon}
-        color={colors.btnColor || BORDER_PRIMARY}
-        fill={colors.btnColor || BORDER_PRIMARY}
-      />
+      {graphCommunity ? (
+        <BellGraph className="mr-1" size={[24, 24]} />
+      ) : (
+        <IconXm
+          className="mr-2"
+          icon={notificationsIcon}
+          color={colors.btnColor || BORDER_PRIMARY}
+          fill={colors.btnColor || BORDER_PRIMARY}
+        />
+      )}
       {t('common.seeAll')}
     </div>
   );
@@ -42,12 +47,16 @@ const Footer = ({ onClose, profile, empty }) => {
       <Link onClick={onClose} to={userNotifications(profile)}>
         {empty ? (
           <>
-            <IconXm
-              className="mr-2"
-              icon={clockIcon}
-              color={colors.contentHeader || BORDER_PRIMARY}
-              fill={colors.contentHeader || BORDER_PRIMARY}
-            />
+            {graphCommunity ? (
+              <XGraph size={[24, 24]} />
+            ) : (
+              <IconXm
+                className="mr-2"
+                icon={clockIcon}
+                color={colors.contentHeader || BORDER_PRIMARY}
+                fill={colors.contentHeader || BORDER_PRIMARY}
+              />
+            )}
             <span css={{ marginRight: '25px' }}>{t('common.archive')}</span>
           </>
         ) : (
