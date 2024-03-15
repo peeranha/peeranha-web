@@ -153,17 +153,17 @@ const View = ({
   };
 
   const NewPostButton = ({ onClickForModal }) => {
-    const clickHandler = () => {
+    const clickHandler = (e) => {
       ReactGA.event({
         category: 'Users',
         action: 'newPost_button_pushed',
       });
-      return profileInfo ? onClickForModal : showLoginModalWithRedirectToAskQuestionPage;
+      return profileInfo ? onClickForModal(e) : showLoginModalWithRedirectToAskQuestionPage();
     };
     return (
       <Button
         id="header-ask-question"
-        onClick={clickHandler()}
+        onClick={clickHandler}
         css={css`
           background: ${colors.btnHeaderColor};
           :hover {
