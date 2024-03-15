@@ -146,6 +146,11 @@ export function* loginWithSuiWorker() {
   try {
     const isNewPostCreationAfterLogin = yield select(selectIsNewPostCreationAfterLogin());
     yield put(loginWithWalletSuccess());
+    ReactGA.event({
+      category: 'Users',
+      action: 'sui_wallet_login_connected',
+    });
+
     if (isNewPostCreationAfterLogin) {
       const ev = { currentTarget: { id: 1 } };
 

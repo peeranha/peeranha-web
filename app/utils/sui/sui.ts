@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import {
   Connection,
   JsonRpcProvider,
@@ -243,6 +244,10 @@ export const handleMoveCall = async (
   if (executeResponse?.effects.status.status === 'failure') {
     throw new Error('Transaction Failed');
   }
+  ReactGA.event({
+    category: 'Users',
+    action: 'sui_sponsor_transaction_completed',
+  });
   return result;
 };
 
