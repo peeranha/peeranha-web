@@ -29,7 +29,7 @@ const graphCommunity = graphCommunityColors();
 export const MarkAnswerNotification = styled.div`
   display: inline-flex;
   border-radius: 3px;
-  background-color: ${graphCommunityColors ? '#4BCA81' : BG_SUCCESS_LIGHT};
+  background-color: ${graphCommunity ? '#4BCA81' : BG_SUCCESS_LIGHT};
   padding: 5px 15px 5px 10px;
   font-size: 16px;
   line-height: 20px;
