@@ -177,7 +177,10 @@ export const handleMoveCall = async (
 
     setTransactionResult(responseBody?.digest, responseBody?.success ? 1 : 2);
     await waitForTransactionConfirmation(responseBody.digest);
-
+    ReactGA.event({
+      category: 'Users',
+      action: 'sui_email_gasless_transaction_completed',
+    });
     if (responseBody.success) {
       return responseBody;
     }
