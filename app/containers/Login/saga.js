@@ -101,7 +101,7 @@ export function* loginWithWalletWorker({ t, isTorus }) {
     document.getElementsByTagName('body')[0].style.position = 'relative';
 
     yield put(loginWithWalletErr(err));
-    window.location = process.env.SSR_APP_LOCATION;
+    window.location = `${process.env.SSR_APP_LOCATION}/${window.location.pathname}`;
   }
 }
 

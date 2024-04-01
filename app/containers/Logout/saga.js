@@ -42,7 +42,7 @@ export function* logoutWorker() {
     yield put(setTransactionList([]));
 
     yield put(logoutSuccess());
-    window.location = process.env.SSR_APP_LOCATION;
+    window.location = `${process.env.SSR_APP_LOCATION}/${window.location.pathname}`;
   } catch (err) {
     yield put(logoutErr(err));
   }
