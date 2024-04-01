@@ -171,7 +171,7 @@ export const EdgewareStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/edgeware/login-logo.svg',
 
   colors: {
     appWindowsColor: '#2b5797',

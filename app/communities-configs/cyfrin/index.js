@@ -171,7 +171,7 @@ export const CyfrinStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/cyfrin/logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/cyfrin/login-logo.svg',
   favicon: 'https://images.peeranha.io/communities/cyfrin/favicon.ico',
   colors: {
     mainSubHeaderBgColor: 'rgba(255, 255, 255, 1)',

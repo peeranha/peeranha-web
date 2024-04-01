@@ -183,7 +183,7 @@ export const KoiiStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/koii/logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/koii/login-logo.svg',
   colors: {
     appWindowsColor: '#ffc40d',
     appSafarieColor: '#000767',
