@@ -1,8 +1,15 @@
 import styled from 'styled-components';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 const DropdownStyled = styled.div`
   display: flex;
   align-items: center;
+
+  span {
+    font-weight: ${graphCommunity ? 400 : ''};
+  }
 
   &.dropdown .dropdown-arrow {
     transition: 0.5s;
@@ -25,12 +32,10 @@ const DropdownStyled = styled.div`
 
   @media only screen and (max-width: 576px) {
     span {
-      ${({ isArrowMarginMobile }) =>
-        !isArrowMarginMobile && 'margin-right: 0px !important;'};
+      ${({ isArrowMarginMobile }) => !isArrowMarginMobile && 'margin-right: 0px !important;'};
 
       :nth-child(2) {
-        display: ${({ isMenuLabelMobile }) =>
-          !isMenuLabelMobile ? 'none' : 'flex'};
+        display: ${({ isMenuLabelMobile }) => (!isMenuLabelMobile ? 'none' : 'flex')};
       }
     }
 

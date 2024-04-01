@@ -22,10 +22,11 @@ import {
 import arrowDown from 'images/arrowDownNotFilled.svg?external';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import Wrapper from './Wrapper';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const Box = styled.div`
   padding: 0 25px;
@@ -36,11 +37,11 @@ export const Box = styled.div`
   box-sizing: border-box;
   border: 1px solid ${BORDER_TRANSPARENT};
 
-  background: ${(x) => (x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
+  background: ${(x) => (x.isActive && !graphCommunity ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
 
   :hover {
     border: 1px solid ${colors.textColor || BORDER_PRIMARY};
-    background: none;
+    background: ${graphCommunity ? '#232037' : 'none'};
   }
 `;
 
@@ -115,27 +116,36 @@ export const Select2 = ({
           ...base,
           border: `1px solid ${
             (error && BORDER_WARNING_LIGHT) ||
-            (state.isFocused && (colors.textColor || BORDER_PRIMARY)) ||
+            (state.isFocused &&
+              (graphCommunity ? '#6F4CFF' : colors.textColor || BORDER_PRIMARY)) ||
             BORDER_SECONDARY
           }`,
-          boxShadow: `0 0 0 3px ${
-            (error && `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
-            (state.isFocused && (colors.textColorShadow || `rgba(${BORDER_PRIMARY_RGB}, 0.4)`)) ||
-            BORDER_TRANSPARENT
-          }`,
+          boxShadow: graphCommunity
+            ? 'none'
+            : `0 0 0 3px ${
+                (error && `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
+                (state.isFocused &&
+                  (colors.textColorShadow || `rgba(${BORDER_PRIMARY_RGB}, 0.4)`)) ||
+                BORDER_TRANSPARENT
+              }`,
           borderRadius: '3px',
-          color: TEXT_DARK,
+          color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
           fontFamily: APP_FONT,
           fontSize: '16px',
-          background: `${BG_LIGHT} !important`,
+          background: `${graphCommunity ? '#161425' : BG_LIGHT} !important`,
           minWidth: 270,
           minHeight: 40,
           margin: `${menuIsOpen ? '10px' : '0'}`,
           padding: '0 5px',
+
+          ':hover': {
+            border: graphCommunity ? '1px solid #6F4CFF' : '',
+          },
         }),
         menu: (base) => ({
           ...base,
-          color: TEXT_DARK,
+          background: `${graphCommunity ? '#161425' : BG_LIGHT} !important`,
+          color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
           fontFamily: APP_FONT,
           fontSize: '16px',
           position: isWrapped ? 'relative' : 'absolute',

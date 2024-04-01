@@ -1,5 +1,8 @@
 import { css } from '@emotion/react';
 import React from 'react';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 type IconComponentProps = {
   id?: string;
@@ -23,7 +26,7 @@ const IconComponent: React.FC<IconComponentProps> = ({
   onClick,
   style,
   size = [18, 18],
-  fill = 'currentColor',
+  fill = graphCommunity ? 'none' : 'currentColor',
   viewBox = '0 0 18 18',
 }): JSX.Element => (
   <svg

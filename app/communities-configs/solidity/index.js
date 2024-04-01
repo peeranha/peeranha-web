@@ -171,7 +171,7 @@ export const SolidityStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/solidity/logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/solidity/login-logo.svg',
 
   colors: {
     appWindowsColor: '#ffc40d',

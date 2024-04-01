@@ -3,12 +3,33 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
-
 import { useTranslation } from 'react-i18next';
+import createdHistory from 'createdHistory';
+
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_PRIMARY } from 'style-constants';
+import expertIcon from 'images/hat-3-outline-24.svg?external';
+import generalIcon from 'images/comments-outline-24.svg?external';
+import pencilIcon from 'images/pencil.svg?external';
+import myFeedIcon from 'images/myFeedHeader.svg?external';
+import tutorialIcon from 'images/tutorial.svg?external';
+
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+  getTagsNameByIds,
+  graphCommunityColors,
+} from 'utils/communityManagement';
+import {
+  getPermissions,
+  hasGlobalModeratorRole,
+  hasCommunityAdminRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+import { POST_TYPE } from 'utils/constants';
+import { getSearchParams } from 'utils/url';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
-import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE, TEXT_PRIMARY } from 'style-constants';
 import TagFilter from 'components/TagFilter';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
@@ -17,34 +38,20 @@ import { IconLg, IconMd } from 'components/Icon/IconWithSizes';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 import Span from 'components/Span/index';
-
-import expertIcon from 'images/hat-3-outline-24.svg?external';
-import generalIcon from 'images/comments-outline-24.svg?external';
-import pencilIcon from 'images/pencil.svg?external';
-
-import myFeedIcon from 'images/myFeedHeader.svg?external';
-import tutorialIcon from 'images/tutorial.svg?external';
-import createdHistory from 'createdHistory';
 import {
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-  getTagsNameByIds,
-} from 'utils/communityManagement';
-import {
-  getPermissions,
-  hasGlobalModeratorRole,
-  hasCommunityAdminRole,
-  hasProtocolAdminRole,
-} from 'utils/properties';
-
-import { POST_TYPE } from 'utils/constants';
-import { getSearchParams } from 'utils/url';
+  FileGraph,
+  ChatsCircleGraph,
+  GraduationCapGraph,
+  PlayCircleGraph,
+  PencilSimpleLineGraph,
+} from 'components/icons';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const PageContentHeaderContainer = styled.div`
   display: flex;
@@ -94,6 +101,11 @@ const EditCommunityButton = styled.div`
     padding: 0;
     text-align: left;
   }
+
+  :hover {
+    opacity: 0.8;
+    transition: 0.5s;
+  }
 `;
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
@@ -102,6 +114,7 @@ const StyledCustomIconButtonContainer = styled.div`
   .fill {
     fill: ${customColor};
   }
+
   .stroke {
     stroke: ${customColor};
   }
@@ -142,6 +155,7 @@ export const Header = ({
         setTagsNames(await getTagsNameByIds(searchParamsTags));
       }
     }
+
     window.scrollTo(0, 0);
     getTagsName();
   }, [createdHistory.location.search]);
@@ -176,6 +190,25 @@ export const Header = ({
     defaultLabel = t(`common.${profile && !single ? 'myFeed' : 'feed'}`);
     defaultAvatarWidth = '38';
   }
+
+  const graphHeaderIcon = () => {
+    if (postsTypes.length === 1) {
+      switch (postsTypes[0]) {
+        case POST_TYPE.generalPost:
+          return <ChatsCircleGraph size={[28, 28]} />;
+          break;
+        case POST_TYPE.expertPost:
+          return <GraduationCapGraph size={[28, 28]} />;
+          break;
+        case POST_TYPE.tutorial:
+          return <PlayCircleGraph size={[28, 28]} />;
+          break;
+      }
+    } else {
+      return <FileGraph size={[28, 28]} />;
+    }
+  };
+
   useMemo(() => !!single && !!topQuestions.length, [topQuestions.length]);
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => (
@@ -185,11 +218,15 @@ export const Header = ({
       ) : (
         <StyledCustomIconButtonContainer>
           <MediumIconStyled>
-            <IconLg
-              icon={communityAvatar || defaultAvatar}
-              width={defaultAvatarWidth}
-              fill={BORDER_PRIMARY}
-            />
+            {graphCommunity ? (
+              graphHeaderIcon()
+            ) : (
+              <IconLg
+                icon={communityAvatar || defaultAvatar}
+                width={defaultAvatarWidth}
+                fill={BORDER_PRIMARY}
+              />
+            )}
           </MediumIconStyled>
         </StyledCustomIconButtonContainer>
       )}
@@ -208,6 +245,7 @@ export const Header = ({
       isQuestionsPage={true}
       className="mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
+      css={graphCommunity && { background: 'none', border: 'none' }}
     >
       <PageContentHeaderContainer>
         <PageContentHeader className="d-flex align-items-center">
@@ -236,9 +274,17 @@ export const Header = ({
         </PageContentHeader>
         {communityEditingAllowed && isFeed && (
           <EditCommunityButton>
-            <button onClick={routeToEditCommunity} className="aic">
-              <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
-              <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+            <button onClick={routeToEditCommunity} className="df aic">
+              {graphCommunity ? (
+                <PencilSimpleLineGraph fill="#6F4CFF" size={[24, 24]} />
+              ) : (
+                <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
+              )}
+              <Span
+                className="ml-1 fz16"
+                color={colors.btnColor || TEXT_PRIMARY}
+                css={graphCommunity && { color: 'rgba(111, 76, 255, 1)', fontWeight: 400 }}
+              >
                 {t('common.editCommunity')}
               </Span>
             </button>

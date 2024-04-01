@@ -1,22 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import * as routes from 'routes-config';
-
-import arrowDownIcon from 'images/arrowDown.svg?external';
-
-import A from 'components/A';
-import Icon from 'components/Icon';
-import { Button as ProfileButton } from 'containers/Header/ProfileDropdown';
-import { TEXT_PRIMARY, DARK_SECONDARY } from 'style-constants';
-
-import Logout from 'containers/Logout';
 import PropTypes from 'prop-types';
-import { isSuiBlockchain } from 'utils/constants';
 
-import { getPermissions } from '../../utils/properties';
-import { singleCommunityColors } from 'utils/communityManagement';
-
+import { TEXT_PRIMARY, DARK_SECONDARY } from 'style-constants';
+import arrowDownIcon from 'images/arrowDown.svg?external';
 import AnswerWithAIcon from 'icons/AnswerWithA';
 import ProfileIcon from 'icons/Profile';
 import CommunitiesIcon from 'icons/Communities';
@@ -26,6 +14,28 @@ import ModerationIcon from 'icons/Moderation';
 import NFTIcon from 'icons/NFT';
 import PostIcon from 'icons/Post';
 import LogOutIcon from 'icons/LogOut';
+
+import { isSuiBlockchain } from 'utils/constants';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import { getPermissions } from 'utils/properties';
+
+import Logout from 'containers/Logout';
+import { Button as ProfileButton } from 'containers/Header/ProfileDropdown';
+import A from 'components/A';
+import Icon from 'components/Icon';
+import {
+  UserGraph,
+  UsersThreeGraph,
+  NoteGraph,
+  ChatCenteredTextGraph,
+  BellGraph,
+  AwardGraph,
+  PencilSimpleLineGraph,
+  GearGraph,
+  SignOutGraph,
+} from 'components/icons';
+
+const graphCommunity = graphCommunityColors();
 
 const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
   const { t } = useTranslation();
@@ -60,81 +70,121 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
       {visibleProfileLinks && (
         <div className="pb-2">
           <A to={routes.profileView(profile.user)}>
-            <ProfileIcon
-              className="mr-2"
-              size={[24, 24]}
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
+            {graphCommunity ? (
+              <UserGraph className="mr-2" size={[24, 24]} />
+            ) : (
+              <ProfileIcon
+                className="mr-2"
+                size={[24, 24]}
+                stroke={colors.linkColor || TEXT_PRIMARY}
+              />
+            )}
             {t('common.profile')}
           </A>
 
           <A to={routes.userCommunities(profile.user)}>
-            <CommunitiesIcon
-              className="mr-2"
-              size={[24, 24]}
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
+            {graphCommunity ? (
+              <UsersThreeGraph className="mr-2" size={[24, 24]} />
+            ) : (
+              <CommunitiesIcon
+                className="mr-2"
+                size={[24, 24]}
+                stroke={colors.linkColor || TEXT_PRIMARY}
+              />
+            )}
             {t('common.myCommunities')}
           </A>
 
           <A disabled={profile.postCount === 0} to={routes.userQuestions(profile.user)}>
-            <PostIcon className="mr-2" size={[24, 24]} stroke={colors.linkColor || TEXT_PRIMARY} />
+            {graphCommunity ? (
+              <NoteGraph className="mr-2" size={[24, 24]} />
+            ) : (
+              <PostIcon
+                className="mr-2"
+                size={[24, 24]}
+                stroke={colors.linkColor || TEXT_PRIMARY}
+              />
+            )}
             {t('common.posts')}
           </A>
 
           <A to={routes.userAnswers(profile.user)} disabled={profile.answersGiven === 0}>
-            <AnswerWithAIcon
-              className="mr-2"
-              size={[24, 24]}
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />{' '}
+            {graphCommunity ? (
+              <ChatCenteredTextGraph className="mr-2" size={[24, 24]} />
+            ) : (
+              <AnswerWithAIcon
+                className="mr-2"
+                size={[24, 24]}
+                stroke={colors.linkColor || TEXT_PRIMARY}
+              />
+            )}{' '}
             {t('common.answers')}
           </A>
 
           <A to={routes.userNotifications(profile.user)}>
-            <NotificationsIcon
-              className="mr-2"
-              size={[24, 24]}
-              stroke={colors.linkColor || TEXT_PRIMARY}
-              fill={colors.linkColor || TEXT_PRIMARY}
-            />
+            {graphCommunity ? (
+              <BellGraph className="mr-2" size={[24, 24]} />
+            ) : (
+              <NotificationsIcon
+                className="mr-2"
+                size={[24, 24]}
+                stroke={colors.linkColor || TEXT_PRIMARY}
+                fill={colors.linkColor || TEXT_PRIMARY}
+              />
+            )}
             {t('common.notifications')}
           </A>
 
           <A to={routes.userNFTs(profile.user)}>
-            <NFTIcon className="mr-2" size={[24, 24]} stroke={colors.linkColor || TEXT_PRIMARY} />
+            {graphCommunity ? (
+              <AwardGraph className="mr-2" size={[24, 24]} />
+            ) : (
+              <NFTIcon className="mr-2" size={[24, 24]} stroke={colors.linkColor || TEXT_PRIMARY} />
+            )}
             {t('common.NFTs')}
           </A>
 
           {!isSuiBlockchain && (
             <A to={routes.userSettings(profile.user)}>
-              <SettingsIcon
-                className="mr-2"
-                size={[24, 24]}
-                stroke={colors.linkColor || TEXT_PRIMARY}
-              />
+              {graphCommunity ? (
+                <GearGraph className="mr-2" size={[24, 24]} />
+              ) : (
+                <SettingsIcon
+                  className="mr-2"
+                  size={[24, 24]}
+                  stroke={colors.linkColor || TEXT_PRIMARY}
+                />
+              )}
               {t('common.settings')}
             </A>
           )}
 
           {isModerator && (
             <A to={routes.userModeration(profile.user)}>
-              <ModerationIcon
-                size={[24, 24]}
-                className="mr-2"
-                stroke={colors.linkColor || TEXT_PRIMARY}
-                fill={colors.linkColor || TEXT_PRIMARY}
-              />
+              {graphCommunity ? (
+                <PencilSimpleLineGraph className="mr-2" size={[24, 24]} />
+              ) : (
+                <ModerationIcon
+                  size={[24, 24]}
+                  className="mr-2"
+                  stroke={colors.linkColor || TEXT_PRIMARY}
+                  fill={colors.linkColor || TEXT_PRIMARY}
+                />
+              )}
               {t('common.moderation')}
             </A>
           )}
 
           <Logout>
-            <LogOutIcon
-              className="mr-2"
-              size={[24, 24]}
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
+            {graphCommunity ? (
+              <SignOutGraph className="mr-2" size={[24, 24]} />
+            ) : (
+              <LogOutIcon
+                className="mr-2"
+                size={[24, 24]}
+                stroke={colors.linkColor || TEXT_PRIMARY}
+              />
+            )}
             {t('common.logout')}
           </Logout>
         </div>

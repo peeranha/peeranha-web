@@ -21,6 +21,7 @@ import plusIcon from 'images/Plus.svg?inline';
 import minusIcon from 'images/Minus.svg?inline';
 import arrowIconFilled from 'images/arrowDown.svg?external';
 import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import H4 from 'components/H4';
 import Span from 'components/Span';
@@ -30,7 +31,10 @@ import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 
+const graphCommunity = graphCommunityColors();
+
 export const TextBlock = styled.div`
+  color: ${graphCommunity ? '#e1e1e4' : ''};
   display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
   margin-top: ${({ isOpened }) => (isOpened ? '15px' : '0px')};
   ${textBlockStyles};
@@ -79,8 +83,7 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   }
 
   > :not(:last-child) {
-    border-bottom: ${({ isOpened }) => (isOpened ? '1' : '0')}px solid
-      ${BORDER_SECONDARY};
+    border-bottom: ${({ isOpened }) => (isOpened ? '1' : '0')}px solid ${BORDER_SECONDARY};
   }
 
   ${Button} {
@@ -110,10 +113,8 @@ const QuestionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
   padding: 10px 30px;
-  background: ${({ isOpened }) =>
-    isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT};
-  border: 1px solid
-    ${({ isOpened }) => (isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
+  background: ${({ isOpened }) => (isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT)};
+  border: 1px solid ${({ isOpened }) => (isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
   h5 span {
     color: ${({ isOpened }) => (isOpened ? TEXT_PRIMARY : TEXT_DARK)};
   }
@@ -205,19 +206,12 @@ const Section = ({
   //   handler: () => sectionRef.current.className = "d-block",
   // });
 
-  window.addEventListener(
-    'hashchange',
-    () => (sectionRef.current.className = 'd-block'),
-  );
+  window.addEventListener('hashchange', () => (sectionRef.current.className = 'd-block'));
 
   return (
     <SectionStyled isOpened={isOpened} id={sectionId}>
       <BaseTransparent>
-        <H4
-          className="d-flex align-items-center"
-          onClick={collapseSection}
-          mobileFS="24"
-        >
+        <H4 className="d-flex align-items-center" onClick={collapseSection} mobileFS="24">
           <ImgWrapper>
             <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
           </ImgWrapper>
@@ -263,13 +257,7 @@ const Section = ({
   );
 };
 
-const Content = ({
-  content,
-  route,
-  getSectionCode,
-  getQuestionCode,
-  collapsedMenu = true,
-}) => (
+const Content = ({ content, route, getSectionCode, getQuestionCode, collapsedMenu = true }) => (
   <div className="mb-3 text-block">
     {content.blocks.map((block) => (
       <Section

@@ -219,6 +219,7 @@ const userMeshShallow = `
   walletAddress
   userachievement {
     id
+    isMinted
   }
   usercommunityrating {
     communityId
@@ -453,9 +454,10 @@ export const postMeshShallow = `
       }
     }
     reply (
-      where: { isDeleted: "0" }
+      condition: { isDeleted: false }
     ) {
       id
+      isOfficialReply
     }
     posttranslation {
       language
@@ -671,7 +673,7 @@ query (
   $postId: String,
 ) {
   post (
-    condition: {id: $postId, isDeleted: false}
+    condition: {id: $postId }
   ) {
     ${postMesh}
   }

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { isSuiBlockchain } from 'utils/constants';
 import {
   BG_LIGHT,
@@ -6,17 +7,18 @@ import {
   SECONDARY_SPECIAL_2,
   TEXT_LIGHT,
 } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 export const styled = {
   banner: {
-    background: BG_LIGHT,
+    background: graphCommunity ? 'rgb(22,20,37)' : BG_LIGHT,
     borderRadius: BORDER_RADIUS_L,
-    boxShadow: `0 2px 2px 0 ${SECONDARY_SPECIAL_2}`,
-    border: `1px solid ${isSuiBlockchain ? '#D0DAE6' : '#fff'}`,
-    color: 'rgba(40, 40, 40, 1)',
+    boxShadow: `0 2px 2px 0 ${graphCommunity ? '#3D3D54' : SECONDARY_SPECIAL_2}`,
+    border: `1px solid ${isSuiBlockchain ? '#D0DAE6' : graphCommunity ? '#3D3D54' : '#fff'}`,
+    color: graphCommunity ? '#E1E1E4' : 'rgba(40, 40, 40, 1)',
   },
 
   container: {

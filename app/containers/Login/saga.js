@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import { getCurrentSuiAccount } from 'containers/AccountProvider/actions';
 import { setEmailLoginData } from 'containers/SuiProvider/actions';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
@@ -8,7 +9,7 @@ import * as routes from 'routes-config';
 import { updateAcc, emptyProfile, emailSignIn, verifyEmail } from 'utils/accountManagement';
 import { WebIntegrationError } from 'utils/errors';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { setCookie } from 'utils/cookie';
+import { deleteCookie, setCookie } from 'utils/cookie';
 import { CONNECTED_WALLET } from 'utils/constants';
 
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
@@ -63,11 +64,19 @@ export function* loginWithWalletWorker({ t, isTorus }) {
       profileInfo = emptyProfile(currentAccount);
     }
 
-    const connectedWalletLabel = isTorus ? 'TorusRaw' : ethereumService.connectedWallets[0].label;
+    const connectedWalletLabel = isTorus ? 'Torus' : ethereumService.connectedWallets[0].label;
+    const expirationDate = new Date();
 
+    expirationDate.setTime(expirationDate.getTime() + 12 * 60 * 60 * 1000);
+    deleteCookie(CONNECTED_WALLET);
     setCookie({
       name: CONNECTED_WALLET,
       value: connectedWalletLabel,
+      options: {
+        defaultPath: true,
+        allowSubdomains: true,
+        expires: expirationDate,
+      },
     });
     setCookie({
       name: 'agreement',
@@ -83,6 +92,10 @@ export function* loginWithWalletWorker({ t, isTorus }) {
     }
 
     yield put(loginWithWalletSuccess());
+    ReactGA.event({
+      category: 'Users',
+      action: `${connectedWalletLabel}_wallet_login_connected`,
+    });
     yield call(updateAcc, profileInfo, ethereumService);
   } catch (err) {
     document.getElementsByTagName('body')[0].style.position = 'relative';
@@ -124,6 +137,10 @@ export function* verifyEmailWorker({ email, verificationCode, resolve, reject })
       resolve();
       yield put(setEmailLoginData({ address: response.address, token: response.token, email }));
       yield put(verifyEmailSuccess());
+      ReactGA.event({
+        category: 'Users',
+        action: 'email_login_connected',
+      });
     }
     if (isNewPostCreationAfterLogin) {
       yield call(createdHistory.push, routes.questionAsk());
@@ -138,6 +155,11 @@ export function* loginWithSuiWorker() {
   try {
     const isNewPostCreationAfterLogin = yield select(selectIsNewPostCreationAfterLogin());
     yield put(loginWithWalletSuccess());
+    ReactGA.event({
+      category: 'Users',
+      action: 'sui_wallet_login_connected',
+    });
+
     if (isNewPostCreationAfterLogin) {
       const ev = { currentTarget: { id: 1 } };
 

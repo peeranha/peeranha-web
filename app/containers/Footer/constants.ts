@@ -24,6 +24,15 @@ export const INFO_LINKS = [
     title: `common.${isSingleCommunityMode ? 'peerDocumentation' : 'documentation'}`,
   },
 ];
+
+export const GRAPH_INFO_LINKS = [
+  {
+    route: 'https://forum.thegraph.com/',
+    title: 'createCommunity.forum',
+  },
+  { route: 'https://thegraph.com/docs/', title: 'createCommunity.docs' },
+  { route: 'https://discord.com/invite/graphprotocol', title: 'createCommunity.discord' },
+];
 export const CONTACTS_LINKS = [
   { icon: ContactTwitter, route: 'https://twitter.com/peeranhaio' },
   { icon: ContactGithub, route: 'https://github.com/peeranha' },
@@ -39,3 +48,7 @@ export const LINK_PRIVACY_POLICY = 'https://policies.google.com/privacy';
 export const LINK_TERMS_OF_SERVICE = 'https://policies.google.com/terms';
 
 export const FOOTER_LINK_COLOR = '#667085';
+
+export const GRAPH_HOME_URL = 'https://thegraph.com/';
+export const GRAPH_LOGO_ALT = 'theGraph logo';
+export const GRAPH_LOGO_URL = 'https://images.peeranha.io/communities/graph/logo.svg';

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
+import { getPostRoute } from 'routes-config';
 
 import {
   BORDER_PRIMARY,
@@ -10,24 +11,24 @@ import {
   TEXT_PRIMARY_DARK,
   TEXT_SECONDARY,
 } from 'style-constants';
+import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 
 import { getFormattedDate } from 'utils/datetime';
 import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
-import { getPostRoute } from 'routes-config';
-import { singleCommunityColors } from 'utils/communityManagement';
-
-import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import { getUserName } from 'utils/user';
 
 import Base from 'components/Base';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import Span from 'components/Span';
 import A from 'components/A';
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
+import { ChatTextGraph } from 'components/icons';
 
-import { getUserName } from 'utils/user';
 import { POST_TYPE_ANSWER } from '../Profile/constants';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const RightBlock = Base.extend`
   display: flex;
@@ -46,7 +47,7 @@ const RightBlock = Base.extend`
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
   border: ${(x) =>
-    x.bordered || isSuiBlockchain
+    x.bordered || isSuiBlockchain || graphCommunity
       ? `1px solid ${colors.border || BORDER_PRIMARY} !important`
       : 'none'};
 
@@ -57,7 +58,7 @@ export const Li = BaseRoundedNoPadding.extend`
   > div:nth-child(2) {
     border-top-right-radius: ${BORDER_RADIUS_L} !important;
     border-bottom-right-radius: ${BORDER_RADIUS_L} !important;
-    border-left: 1px solid ${BORDER_SECONDARY};
+    border-left: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
   }
 
   @media only screen and (max-width: 768px) {
@@ -65,12 +66,12 @@ export const Li = BaseRoundedNoPadding.extend`
 
     > div:nth-child(2) {
       border-left: none;
-      border-top: 1px solid ${BORDER_SECONDARY};
+      border-top: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
     }
   }
 
   :hover {
-    box-shadow: 5px 5px 5px rgba(40, 40, 40, 0.1);
+    box-shadow: ${graphCommunity ? 'none' : '5px 5px 5px rgba(40, 40, 40, 0.1)'};
   }
 `;
 
@@ -79,7 +80,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
 
   if (!lastAnswer) {
     return (
-      <Span fontSize="14" color={TEXT_SECONDARY}>
+      <Span fontSize="14" color={TEXT_SECONDARY} css={graphCommunity && { color: '#A7A7AD' }}>
         {t('profile.noAnswersYet')}
       </Span>
     );
@@ -89,13 +90,23 @@ const LastAnswer = ({ lastAnswer, locale }) => {
     <span className="d-flex flex-column">
       {lastAnswer.author && (
         <A to={routes.profileView(lastAnswer.author.id)} className="d-flex align-items-center">
-          <Span className="mr-2" fontSize="14" lineHeight="18">
+          <Span
+            className="mr-2"
+            fontSize="14"
+            lineHeight="18"
+            css={graphCommunity && { color: '#E1E1E4' }}
+          >
             {getUserName(lastAnswer.author?.displayName, lastAnswer.author.id)}
           </Span>
         </A>
       )}
 
-      <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
+      <Span
+        fontSize="14"
+        lineHeight="18"
+        color={TEXT_SECONDARY}
+        css={graphCommunity && { color: '#A7A7AD' }}
+      >
         {t('profile.lastAnswer')}{' '}
         {getFormattedDate(lastAnswer?.postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
@@ -142,7 +153,11 @@ const Question = ({
       />
       <RightBlock>
         <span className="d-flex align-items-center mb-2">
-          <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
+          {graphCommunity ? (
+            <ChatTextGraph className="mr-2" size={[24, 24]} />
+          ) : (
+            <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
+          )}
           <Span color={TEXT_PRIMARY_DARK} bold>
             {replies.length}
           </Span>

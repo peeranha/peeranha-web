@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 import { APP_FONT, TEXT_DARK } from 'style-constants';
+import { graphCommunityColors } from 'utils/communityManagement';
 import { italicFont } from '../../global-styles';
+
+const graphCommunity = graphCommunityColors();
 
 /* eslint indent: 0 */
 const Span = styled.span`
-  color: ${({ color }) => color || TEXT_DARK};
+  color: ${({ color }) => (graphCommunity ? '#E1E1E4' : color || TEXT_DARK)};
   opacity: ${({ opacity }) => +opacity || 1};
   font-weight: ${({ bold }) => (bold ? '600' : 'normal')};
   font-size: ${({ fontSize }) => fontSize || '16'}px;
   line-height: ${({ fontSize, lineHeight }) =>
-    fontSize && !lineHeight
-      ? +fontSize + 2
-      : lineHeight || +fontSize + 2 || 16}px;
+    fontSize && !lineHeight ? +fontSize + 2 : lineHeight || +fontSize + 2 || 16}px;
 
   font-style: ${({ isItalic }) => (isItalic ? italicFont : 'normal')};
   font-family: ${({ fontFamily }) => fontFamily || APP_FONT};

@@ -2,7 +2,7 @@ import React, { useRef, useState, RefObject } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import useEventListener from 'hooks/useEventListener';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import { FULL_RULES_LINK } from 'app/constants/rules';
@@ -10,6 +10,7 @@ import { LINK_COLOR } from 'style-constants';
 import { styles } from './AskQuestionPopup.styled';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const AskQuestionPopup: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -46,7 +47,7 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
               <div className="df fdc jcsb pt24 pb24 lh1-5">
                 <div
                   css={css`
-                    color: #282828;
+                    color: ${graphCommunity ? '#E1E1E4' : '#282828'};
                     margin-bottom: 24px;
                   `}
                 >
@@ -56,7 +57,7 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                 </div>
                 <div
                   css={css`
-                    color: #7b7b7b;
+                    color: ${graphCommunity ? '#E1E1E4' : '#7b7b7b'};
                     margin-bottom: 24px;
                   `}
                 >
@@ -104,10 +105,10 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                       height: 30px;
                       background: ${colors.btnHeaderColor};
                       color: ${colors.newPostButtonText};
-                      border: 1px solid ${colors.newPostButtonText};
+                      border: 1px solid ${colors.btnHeaderColor};
                       :hover {
                         background: ${colors.btnHeaderHoverColor};
-                        border: ${colors.btnHeaderHoverBorder};
+                        border: 1px solid ${colors.btnHeaderColor};
                         opacity: ${colors.btnHeaderHoverOpacity};
                       }
                     `}

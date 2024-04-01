@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga4';
 import Span from 'components/Span';
 
 import {
@@ -48,6 +49,10 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
         },
       });
     }
+    ReactGA.event({
+      category: 'Users',
+      action: 'dispatcher_transaction_selected',
+    });
     setTransaction(DISPATCHER_TRANSACTIONS_ALLOWED);
   };
 
@@ -63,6 +68,10 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
         },
       });
     }
+    ReactGA.event({
+      category: 'Users',
+      action: 'meta_transaction_selected',
+    });
     setTransaction(META_TRANSACTIONS_ALLOWED);
   };
 
@@ -78,6 +87,10 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
         },
       });
     }
+    ReactGA.event({
+      category: 'Users',
+      action: 'fullControl_transaction_selected',
+    });
     setTransaction(TRANSACTIONS_ALLOWED);
   };
 
@@ -94,7 +107,7 @@ const TransactionHandler: React.FC<TransactionHandlerProps> = ({
       transactionTitle: t('common.transactionsText_2'),
       transactionSubtitle: t('common.transactionsChange_2'),
     },
-    ...(connectedWallet !== 'TorusRaw' && {
+    ...(connectedWallet !== 'Torus' && {
       defaultTransaction: {
         transactionOption: TRANSACTIONS_ALLOWED,
         transactionHandler: handleMetaTransactionsDisallowed,

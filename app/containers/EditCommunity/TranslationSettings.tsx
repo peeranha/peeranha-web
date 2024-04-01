@@ -1,6 +1,14 @@
 import React from 'react';
-import { styles } from 'containers/EditCommunity/TranslationSettings.styled';
 import { Field } from 'redux-form/immutable';
+import { useTranslation } from 'react-i18next';
+
+import { BORDER_PRIMARY } from 'style-constants';
+
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import useTrigger from 'hooks/useTrigger';
+
+import { styles } from 'containers/EditCommunity/TranslationSettings.styled';
+
 import {
   COMM_AUTOTRANSLATIONS_FIELD,
   COMM_TRANSLATIONS_DESCRIPTION_FIELD,
@@ -16,17 +24,16 @@ import {
 } from 'components/FormFields/validate';
 import TextareaField from 'components/FormFields/TextareaField';
 import ToggleSwitchField from 'components/FormFields/ToggleSwitchField';
+import Popover from 'components/common/Popover';
+import { InfoGraph, CaretDownGraph, TrashGraph } from 'components/icons';
 import InformationIcon from 'icons/Information';
 import DeleteIcon from 'icons/Delete';
-import { useTranslation } from 'react-i18next';
 import { ArrowDown } from 'icons/index';
-import { BORDER_PRIMARY } from 'style-constants';
-import { singleCommunityColors } from 'utils/communityManagement';
-import Popover from 'components/common/Popover';
-import useTrigger from 'hooks/useTrigger';
+
 import { CHINESE_LANG } from './constants';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 type TranslationSettingsProps = {
   label: string;
@@ -64,12 +71,20 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
           css={{ ...(isOpen && styles.collapsible) }}
         >
           <span>{label}</span>
-          <ArrowDown
-            css={{
-              ...styles.arrow,
-              ...(isOpen && { transform: 'rotate(180deg)' }),
-            }}
-          />
+          {graphCommunity ? (
+            <CaretDownGraph
+              css={isOpen && { transform: 'rotate(180deg)' }}
+              fill="#6F4CFF"
+              size={[24, 24]}
+            />
+          ) : (
+            <ArrowDown
+              css={{
+                ...styles.arrow,
+                ...(isOpen && { transform: 'rotate(180deg)' }),
+              }}
+            />
+          )}
         </div>
       </button>
       <div
@@ -86,11 +101,15 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
             </p>
             <Popover event="hover" placement="top">
               <Popover.Trigger>
-                <InformationIcon
-                  className="ml8"
-                  stroke={colors.tagColor || BORDER_PRIMARY}
-                  fill={colors.tagColor || BORDER_PRIMARY}
-                />
+                {graphCommunity ? (
+                  <InfoGraph className="ml8" fill="#6F4CFF" size={[24, 24]} />
+                ) : (
+                  <InformationIcon
+                    className="ml8"
+                    stroke={colors.tagColor || BORDER_PRIMARY}
+                    fill={colors.tagColor || BORDER_PRIMARY}
+                  />
+                )}
               </Popover.Trigger>
               <Popover.Content>
                 <div className="p16" css={styles.tooltip}>
@@ -125,10 +144,14 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({
           tip={t('createCommunity.shortDescriptionTip')}
         />
         <button onClick={removeLanguage} type="button" className="df aic">
-          <DeleteIcon
-            stroke={colors.tagColor || BORDER_PRIMARY}
-            fill={colors.tagColor || BORDER_PRIMARY}
-          />
+          {graphCommunity ? (
+            <TrashGraph fill="#6F4CFF" size={[24, 24]} />
+          ) : (
+            <DeleteIcon
+              stroke={colors.tagColor || BORDER_PRIMARY}
+              fill={colors.tagColor || BORDER_PRIMARY}
+            />
+          )}
           <span className="ml8 fz16 light" css={styles.deleteButton}>
             {t('common.editCommunityDesc.deleteLanguage')}
           </span>

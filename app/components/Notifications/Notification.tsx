@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
 import { trimRightZeros } from 'utils/numbers';
-import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+import {
+  graphCommunityColors,
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 import { renderNotificationIcon } from 'utils/notifications';
 
 import {
@@ -18,6 +22,7 @@ import { NotificationLinkProps, NotificationProps, NotificationTimeProps } from 
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 const communityStyles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
 
 const Time: React.FC<NotificationTimeProps> = ({
   time: { rightNow, minutes, hours, yesterday, fullDate },
@@ -99,8 +104,16 @@ const Notification: React.FC<NotificationProps> = ({
   }, [data.quantity, isTippedType]);
 
   const isCommunityMode = Boolean(isSingleCommunityMode) && Object.keys(communityStyles).length > 0;
-  const isAnotherCommItem =
-    Boolean(isSingleCommunityMode) && data.community_id !== isSingleCommunityMode;
+  let isAnotherCommItem = true;
+
+  if (isSingleCommunityMode) {
+    const currentNetwork = isSingleCommunityMode?.split('-')[0];
+    const currentCommunityId = isSingleCommunityMode?.split('-')[1];
+    if (String(data.network) === currentNetwork && data.community_id === currentCommunityId) {
+      isAnotherCommItem = false;
+    }
+  }
+
   const isLast = index === notificationsNumber - 1;
 
   const previousPostType = data.old_post_type;
@@ -130,7 +143,7 @@ const Notification: React.FC<NotificationProps> = ({
     <div
       css={{
         ...styles.container,
-        ...(!read && styles.unread),
+        ...(!graphCommunity && !read && styles.unread),
         ...(isLast && styles.lastNotification),
         height: `${height}px`,
         top: `${top}px`,

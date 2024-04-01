@@ -4,11 +4,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { BORDER_SECONDARY, BORDER_RADIUS_M } from 'style-constants';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import { DisableHandling, ErrorHandling } from 'components/Input/InputStyled';
-import TextEditor, { TEXT_EDITOR_CLASSNAME } from 'components/TextEditor';
+import TextEditor from 'components/TextEditor';
 
 import Wrapper from './Wrapper';
+
+const graphCommunity = graphCommunityColors();
 
 const Div = styled.div`
   ${({ error }) => ErrorHandling(error)};
@@ -17,13 +20,9 @@ const Div = styled.div`
   font-size: 16px;
   line-height: 18px;
 
-  .${TEXT_EDITOR_CLASSNAME} > div {
-    border: none;
-  }
-
   .CodeMirror {
     border: none;
-    border-top: 1px solid ${BORDER_SECONDARY};
+    border-top: 1px solid ${graphCommunity ? '#3d3d54' : BORDER_SECONDARY};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
     border-bottom-left-radius: ${BORDER_RADIUS_M};
   }

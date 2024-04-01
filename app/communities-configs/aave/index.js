@@ -171,7 +171,7 @@ export const AaveStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/aave/logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/aave/login-logo.svg',
 
   colors: {
     appWindowsColor: '#2b5797',

@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import React, { useEffect, useState } from 'react';
 import orderBy from 'lodash/orderBy';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ import A, { ADefault } from '../A';
 import * as routes from '../../routes-config';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const TopCommunitiesSection = ({ ref, single, communities, locale }) => {
   const { t } = useTranslation();
@@ -67,7 +68,9 @@ const TopCommunitiesSection = ({ ref, single, communities, locale }) => {
               href={allCommunitiesRoute}
             >
               <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
-              <Span color={TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
+              <Span css={{ color: graphCommunity ? '#6F4CFF' : TEXT_PRIMARY }}>
+                {t('common.allCommunities')}
+              </Span>
             </AllCommunitiesLink>
           </div>
         )}

@@ -24,10 +24,8 @@ import {
 import { client } from './graphModel';
 import { MESH_MODEL, GRAPH_MODEL } from './constants';
 
-const isMeshService = isMeshServiceConfig();
-const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
-
 const executeQuery = async ({ query, variables }, enableCache = true) => {
+  const isMeshService = isMeshServiceConfig();
   const result = isMeshService
     ? await executeMeshQuery({ query, variables })
     : await client.query({
@@ -45,6 +43,7 @@ export const getUsers = async ({
   orderBy = 'creationTime', // does this value change?
   sorting = 'desc',
 }) => {
+  const isMeshService = isMeshServiceConfig();
   const UsersOrderBy = sorting === 'desc' ? 'CREATION_TIME_DESC' : 'CREATION_TIME_ASC';
 
   const query = isMeshService ? queries.Users.Mesh(UsersOrderBy) : queries.Users.TheGraph;
@@ -63,6 +62,7 @@ export const getUsers = async ({
 };
 
 export const getModerators = async (roles) => {
+  const isMeshService = isMeshServiceConfig();
   const query = isMeshService
     ? queries.Moderation.Mesh(arrayToString(roles))
     : queries.Moderation.TheGraph;
@@ -86,6 +86,8 @@ export const getModerators = async (roles) => {
 };
 
 export const getUsersByCommunity = async ({ limit = 50, skip: offset, communityId }) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
   const result = await executeQuery({
     query: queries.UsersByCommunity[modelService],
     variables: {
@@ -114,6 +116,9 @@ export const getUsersByCommunity = async ({ limit = 50, skip: offset, communityI
 // };
 
 export const getUser = async (id, isProfilePage) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   let data;
   if (isMeshService || isProfilePage) {
     const result = await executeMeshQuery({
@@ -135,7 +140,7 @@ export const getUser = async (id, isProfilePage) => {
   }
 
   if (isMeshService || isProfilePage ? !data.userById : !data.user) {
-    return false;
+    return {};
   }
   let userPermissions = [];
   if (!isMeshService || !isProfilePage) {
@@ -155,6 +160,9 @@ export const getUser = async (id, isProfilePage) => {
 };
 
 export const getUserPermissions = async (id) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   const result = await executeQuery({
     query: queries.UserPermissions[modelService],
     variables: {
@@ -167,6 +175,9 @@ export const getUserPermissions = async (id) => {
 };
 
 export const getUserStats = async (id) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   const result = await executeQuery(
     {
       query: queries.UserStats[modelService],
@@ -259,14 +270,23 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
   return answeredPosts?.post.map((post) => getPostDataFromMesh(post));
 };
 
+// Default request
+// export const getCommunities = async () => {
+//   const communities = await executeQuery({
+//     query: queries.Communities[modelService],
+//   });
+//   return isMeshService ? communities?.community : communities?.communities;
+// };
+
 export const getCommunities = async () => {
-  const communities = await executeQuery({
-    query: queries.Communities[modelService],
-  });
-  return isMeshService ? communities?.community : communities?.communities;
+  const communities = await executeMeshQuery({ query: queries.Communities.Mesh });
+  return communities?.data?.community;
 };
 
 export const getCommunityById = async (id) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   const community = await executeQuery({
     query: queries.Community[modelService],
     variables: {
@@ -279,6 +299,9 @@ export const getCommunityById = async (id) => {
 };
 
 export const getTags = async (communityId) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   const result = await executeQuery({
     query: queries.Tags[modelService],
     variables: {
@@ -289,6 +312,8 @@ export const getTags = async (communityId) => {
 };
 
 export const getTagsByIds = async (ids) => {
+  const isMeshService = isMeshServiceConfig();
+
   const query = isMeshService
     ? queries.TagsByIds.Mesh(arrayToString(ids))
     : queries.TagsByIds.TheGraph;
@@ -303,6 +328,8 @@ export const getTagsByIds = async (ids) => {
 };
 
 export const getPosts = async (limit, offset, postTypes) => {
+  const isMeshService = isMeshServiceConfig();
+
   const query = isMeshService
     ? queries.Posts.Mesh(arrayToString(postTypes))
     : queries.Posts.TheGraph;
@@ -325,6 +352,8 @@ export const getPosts = async (limit, offset, postTypes) => {
 };
 
 export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds, tags) => {
+  const isMeshService = isMeshServiceConfig();
+
   if (tags?.length) {
     let postIds;
     if (isMeshService) {
@@ -352,7 +381,10 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
 
     return isMeshService
       ? getPostsDataFromMesh(result)
-      : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
+      : {
+          postCount: result?.posts.length,
+          updatedPosts: result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost)),
+        };
   }
 
   const query = isMeshService
@@ -393,6 +425,9 @@ export const getPostsByCommunityId = async (limit, skip, postTypes, communityIds
 };
 
 export const getDocumentationMenu = async (communityId) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   const result = await executeQuery(
     {
       query: queries.DocumentationMenu[modelService],
@@ -406,6 +441,9 @@ export const getDocumentationMenu = async (communityId) => {
 };
 
 export const getPost = async (postId) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   const result = await executeQuery(
     {
       query: queries.Post[modelService],
@@ -435,6 +473,9 @@ export const getVoteHistory = async (postId, userId) => {
 };
 
 export const getReply = async (replyId) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   const result = await executeQuery({
     query: queries.Reply[modelService],
     variables: {
@@ -472,6 +513,8 @@ export const getCommentId2 = async (commentId) => {
 };
 
 export const postsForSearch = async (text, single) => {
+  const isMeshService = isMeshServiceConfig();
+
   const cleanedText = text.replace(/\s+/g, ' ').trim();
   const query = isMeshService
     ? cleanedText
@@ -554,6 +597,8 @@ export const getAllAchievements = async (userId) => {
 };
 
 export const getRewardStat = async (userId, ethereumService) => {
+  const isMeshService = isMeshServiceConfig();
+
   const isOldUser = await isUserExists(userId, ethereumService);
   const periodsCount = isOldUser ? 2 : 1;
 
@@ -577,6 +622,9 @@ export const getRewardStat = async (userId, ethereumService) => {
 };
 
 export const getCurrentPeriod = async () => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   const response = await executeQuery({
     query: queries.CurrentPeriod[modelService],
   });
@@ -584,6 +632,9 @@ export const getCurrentPeriod = async () => {
 };
 
 export const historiesForPost = async (postId) => {
+  const isMeshService = isMeshServiceConfig();
+  const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
+
   const response = await executeQuery({
     query: queries.Histories[modelService],
     variables: {

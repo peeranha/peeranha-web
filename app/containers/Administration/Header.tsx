@@ -1,22 +1,21 @@
 import { useTranslation } from 'react-i18next';
 import React from 'react';
+import { css } from '@emotion/react';
 
-import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import Wrapper from 'components/Header/Simple';
-import Icon from 'components/Icon';
-import H3 from 'components/H3';
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
+import { Administration, UserGraph } from 'icons/index';
+
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 import AddRoleForm from 'containers/Administration/AddRoleForm';
 import { Moderator } from 'containers/Administration/types';
-
 import AddModeratorButton from 'containers/Administration/AddModeratorButton';
-
-import { singleCommunityColors } from 'utils/communityManagement';
-import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
-import { Administration } from 'icons/index';
-import { css } from '@emotion/react';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
+import Wrapper from 'components/Header/Simple';
+import H3 from 'components/H3';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
@@ -38,7 +37,10 @@ export const Header: React.FC<HeaderProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+    <Wrapper
+      className="mb-to-sm-0 mb-from-sm-3"
+      css={graphCommunity && { background: 'none', border: 'none' }}
+    >
       <H3>
         <div
           css={css`
@@ -55,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
           `}
         >
           <MediumIconStyled>
-            <Administration />
+            {graphCommunity ? <UserGraph size={[24, 24]} /> : <Administration />}
           </MediumIconStyled>
         </div>
         {t('common.administration')}

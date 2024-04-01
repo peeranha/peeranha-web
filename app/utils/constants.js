@@ -225,3 +225,4 @@ export const LIMITED_EDITION_NFT_TYPE = 0;
 // Attributes
 
 export const TARGET_BLANK = '_blank';
+export const ACTION_FULFILLED = 'actionFulfilled';

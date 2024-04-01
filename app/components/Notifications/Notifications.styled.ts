@@ -1,5 +1,5 @@
 import { CSSObject } from '@emotion/react';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import {
   BG_SECONDARY_SPECIAL_4,
   BORDER_PRIMARY,
@@ -9,6 +9,7 @@ import {
 } from 'style-constants';
 
 const communityColors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const styles: Record<string, CSSObject> = {
   container: {
@@ -18,7 +19,7 @@ const styles: Record<string, CSSObject> = {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    borderBottom: `1px solid ${BORDER_SECONDARY_LIGHT}`,
+    borderBottom: `1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY_LIGHT}`,
     alignItems: 'start',
     justifyContent: 'center',
 
@@ -32,7 +33,7 @@ const styles: Record<string, CSSObject> = {
   },
 
   containerBorders: {
-    border: `1px solid ${communityColors.border}`,
+    border: `1px solid ${graphCommunity ? '#3D3D54' : communityColors.border}`,
     borderRadius: '5px',
   },
 
@@ -54,7 +55,7 @@ const styles: Record<string, CSSObject> = {
       },
   },
   notificationTypeTitle: {
-    color: 'rgb(40,40,40)',
+    color: graphCommunity ? '#E1E1E4' : 'rgb(40,40,40)',
     lineHeight: '20px',
     marginLeft: '10px',
   },
@@ -69,11 +70,11 @@ const styles: Record<string, CSSObject> = {
       },
   },
   unread: {
-    borderLeft: `3px solid ${BORDER_PRIMARY_LIGHT}`,
+    borderLeft: `3px solid ${graphCommunity ? '#3D3D54' : BORDER_PRIMARY_LIGHT}`,
     background: BG_SECONDARY_SPECIAL_4,
   },
   time: {
-    color: TEXT_SECONDARY,
+    color: graphCommunity ? '#A7A7AD' : TEXT_SECONDARY,
     textAlign: 'right',
     whiteSpace: 'nowrap',
   },
@@ -81,7 +82,7 @@ const styles: Record<string, CSSObject> = {
     display: 'flex',
     alignItems: 'center',
     '> span': {
-      color: communityColors.btnColor || BORDER_PRIMARY,
+      color: graphCommunity ? '#FFFFFF' : communityColors.btnColor || BORDER_PRIMARY,
     },
   },
 
@@ -90,7 +91,7 @@ const styles: Record<string, CSSObject> = {
   notificationTitle: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: '#576FED',
+    color: graphCommunity ? '#E1E1E4' : '#576FED',
     marginBottom: '8px',
     '@media only screen and (min-width: 819px) and (max-width: 993px), only screen and (min-width: 1095px)':
       {
@@ -99,11 +100,11 @@ const styles: Record<string, CSSObject> = {
   },
 
   fullDate: {
-    color: 'rgb(40, 40, 40)',
+    color: graphCommunity ? '#A7A7AD' : 'rgb(40, 40, 40)',
   },
 
   lastDatePart: {
-    color: 'rgb(123,123,123)',
+    color: graphCommunity ? '#A7A7AD' : 'rgb(123,123,123)',
   },
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from 'styled-components';
 
 const domainName = 'https://thegraph.com/';
+const fonts = 'Euclid Circular A, sans-serif;';
 
 export const customSubHeaderConfig = {
   design: 'graph_style',
@@ -15,6 +16,9 @@ export const customSubHeaderConfig = {
     },
     header: {
       background: '#FFFFFF',
+    },
+    font: {
+      body: `${fonts}`,
     },
     subHeader: css`
       border-bottom: 1px solid #cecece;
@@ -172,67 +176,83 @@ export const GraphStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   logoWhite: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/graph/logo-signUp.svg',
+  fonts: {
+    h3LetterSpacing: '0.5px',
+    tagsLetterSpacing: '0.5px',
+    questionTitleLetterSpacing: '0.5px',
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+  },
+  signUpPageLogo: 'https://images.peeranha.io/communities/graph/login-logo.svg',
   colors: {
-    appWindowsColor: '#483AAA',
-    appSafarieColor: '#483AAA',
-    mainSubHeaderBgColor: '#0D0A1D',
-    mainBackground: '#E0DFE5',
-    border: '#D0DAE6',
-    linkColor: '#483AAA',
-    linkCookieColor: '#483AAA',
-    linkColorTransparent: '#483AAA',
-    headerPrimary: '#483AAA',
-    commentOption: '#483AAA',
-    contentHeader: '#483AAA',
-    transparentIconColor: '#FFF',
-    loaderColor: '#483AAA',
-    votingIconColor: '#483AAA',
-    linkColorSecondary: '#483AAA',
-    walletButton: '#483AAA',
-    btnColor: '#483AAA',
-    btnHoverColor: '#483AAA',
-    btnHeaderColor: '#483AAA',
-    tagColor: '#483AAA',
+    appWindowsColor: '#6F4CFF',
+    appSafarieColor: '#6F4CFF',
+    mainSubHeaderBgColor: '#0C0A1D',
+    mainBackground: '#0C0A1D',
+    border: '#3D3D54',
+    baseShadow: '#3D3D54',
+    linkColor: '#E1E1E4',
+    linkCookieColor: '#6F4CFF',
+    linkColorTransparent: '#6F4CFF',
+    headerPrimary: '#6F4CFF',
+    commentOption: '#6F4CFF',
+    contentHeader: '#6F4CFF',
+    transparentIconColor: '#E1E1E4',
+    loaderColor: '#6F4CFF',
+    votingIconColor: '#6F4CFF',
+    linkColorSecondary: '#6F4CFF',
+    walletButton: '#6F4CFF',
+    btnColor: '#6F4CFF',
+    btnHoverColor: '#6F4CFF',
+    btnHeaderColor: '#6F4CFF',
+    btnHeaderHoverColor: 'rgba(111,76,255,0.8)',
+    tagColor: '#6F4CFF',
     localeArrowColor: '#A7A7AD',
-    mobileLocaleTextColor: '#483AAA',
-    textColor: '#483AAA',
+    mobileLocaleTextColor: '#6F4CFF',
+    textColor: '#6F4CFF',
     secondaryTextColor: '#515860',
-    textColorShadow: '#483AAA',
-    commHeadElemColor: '#FFF',
-    darkBlue: '#483AAA',
-    paginationButtonBackgroundColor: '#483AAA',
-    footerBackgroundColor: '#0D0A1D',
-    footerText: '#FFF',
-    footerTextHoverColor: '#483AAA',
+    textColorShadow: '#6F4CFF',
+    commHeadElemColor: '#E1E1E4',
+    darkBlue: '#6F4CFF',
+    paginationButtonBackgroundColor: '#6F4CFF',
+    footerBackgroundColor: '#0C0A1D',
+    footerText: '#E1E1E4',
+    footerTextHoverColor: '#6F4CFF',
     footerBorderColor: '#3D3D54',
     userInformation: '#f4f3fa',
-    pinnedPostBackground: '#483AAA',
-    newPostButtonText: '#FFF',
-    secondaryAdditional: '#C1C1D7',
+    pinnedPostBackground: '#6F4CFF',
+    newPostButtonText: '#E1E1E4',
+    secondaryAdditional: '#3D3D54',
     newPostMediaBackgroundColor: '#f4f3fa',
     navMenuBackgroundColor: '#c1bed8',
-    tooltipColor: '#FFF',
+    tooltipColor: '#E1E1E4',
     tooltipSecondaryColor: '#A7A7AD',
-    tooltipBackgroundColor: '#221F36',
+    tooltipBackgroundColor: '#0C0A1D',
     administrationPopupBackgroundColor: '#221f35',
-    administrationPopupTextColor: '#FFF',
+    administrationPopupTextColor: '#E1E1E4',
     administrationPopupCheckboxColor: '#2f2c41',
     administrationPopupCheckboxBorderColor: '#3D3D54',
-    dividerColor: '#C1C1D7',
+    dividerColor: '#3D3D54',
+    formColor: '#161426',
+    formText: '#E1E1E4',
+    headerShadow: '#3D3D54',
+    sectionHeader: '#E1E1E4',
+    white: '#E1E1E4',
   },
   cookieConsentPopupStyles: {
-    background: '#221F36',
-    color: '#FFF',
+    background: '#0C0A1D',
+    color: '#E1E1E4',
 
     button: {
-      color: '#FFF',
-      borderColor: '#483AAA',
-      background: '#483AAA',
+      color: '#E1E1E4',
+      borderColor: '#6F4CFF',
+      background: '#6F4CFF',
       ':hover': {
-        background: '#FFF',
-        color: '#483AAA',
-        borderColor: '#483AAA',
+        background: 'rgba(111, 76, 255, 0.8)',
+        color: 'rgba(255, 255, 255, 1)',
+        borderColor: 'rgba(111, 76, 255, 0.8)',
       },
     },
   },
@@ -243,40 +263,43 @@ export const GraphStyles = {
   communityBorderStyle: '2px solid #3D3D54',
   dropDownIconStyles: css`
     path {
-      stroke: #fff !important;
+      stroke: #e1e1e4 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #fff;
+      stroke: #e1e1e4;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 1px solid #483aaa;
-    color: #483aaa;
+    background: rgba(30, 28, 46, 1);
+    border: 1px solid rgba(30, 28, 46, 1);
+    color: rgba(225, 225, 228, 1);
     :hover {
-      background: #483aaa !important;
+      background: rgba(32, 31, 48, 1) !important;
+      border: 1px solid rgba(32, 31, 48, 1) !important;
+      color: rgba(255, 255, 255, 1) !important;
     }
   `,
   documentationColors: {
-    headerBackground: '#483AAA',
-    headerText: '#F3F3F3',
+    headerBackground: '#6F4CFF',
+    headerText: '#E1E1E4',
     buttonBackground: 'transparent',
-    buttonText: '#F3F3F3',
-    buttonBorder: '#F3F3F3',
+    buttonText: '#E1E1E4',
+    buttonBorder: '#E1E1E4',
 
-    publishBackground: '#F3F3F3',
-    publishText: '#483AAA',
-    publishBackgroundHover: 'rgba(243,243,243,0.7)',
-    publishTextHover: '#483AAA',
+    publishBackground: '#E1E1E4',
+    publishText: '#6F4CFF',
+    publishBackgroundHover: 'rgba(225, 225, 228, 0.7)',
+    publishTextHover: '#6F4CFF',
 
-    linkColor: '#483AAA',
-    iconsFillColor: '#483AAA',
+    linkColor: '#6F4CFF',
+    iconsFillColor: '#6F4CFF',
 
-    saveDraftButtonBackground: '#483AAA',
-    saveDraftButtonText: '#483AAA',
-    saveDraftButtonHover: '#483AAA',
+    saveDraftButtonBackground: '#6F4CFF',
+    saveDraftButtonText: '#6F4CFF',
+    saveDraftButtonHover: '#6F4CFF',
   },
 };

@@ -1,6 +1,10 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import { styles } from './Spinner.styled';
+
+const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 type SpinnerProps = {
   color?: string;
@@ -15,7 +19,7 @@ const Spinner: React.FC<SpinnerProps> = ({
     <div
       css={css({
         ...styles.loadingSpinner,
-        borderTopColor: color,
+        borderTopColor: graphCommunity ? '#6F4CFF' : color,
         width: `${size}px`,
         height: `${size}px`,
       })}

@@ -3,11 +3,13 @@ import {
   isSingleCommunityWebsite,
   singleCommunityColors,
   singleCommunityStyles,
+  graphCommunityColors,
 } from 'utils/communityManagement';
 import { isSuiBlockchain } from 'utils/constants';
 
 const colors = singleCommunityColors();
 const singleStyles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
 
 export const styles = {
   container: {
@@ -18,7 +20,7 @@ export const styles = {
     overflow: 'hidden',
     borderRadius: BORDER_RADIUS_L,
     textAlign: 'center',
-    border: isSuiBlockchain ? `1px solid ${colors.border}` : 'none',
+    border: isSuiBlockchain || graphCommunity ? `1px solid ${colors.border}` : 'none',
   },
   visibleMenu: {
     margin: '0px 0px 0px 16px',
@@ -41,7 +43,7 @@ export const styles = {
     fontWeight: 400,
     lineHeight: '18px',
     background:
-      isSingleCommunityWebsite() || isSuiBlockchain
+      isSingleCommunityWebsite() || isSuiBlockchain || graphCommunity
         ? `${colors.navMenuBackgroundColor || colors.btnHeaderColor || colors.btnColor}`
         : 'var(--color-button-secondary)',
     borderRadius: singleStyles?.projectBorderRadius ? singleStyles.projectBorderRadius : '2px',

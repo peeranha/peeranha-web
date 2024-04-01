@@ -45,7 +45,7 @@ const CommentForm = ({
           warn={[strLength1x1000, required]}
         />
       </div>
-      {transactionInPending && sendCommentLoading && commentInTransaction ? (
+      {(transactionInPending || sendCommentLoading) && commentInTransaction ? (
         <TransactionBanner />
       ) : (
         <div>

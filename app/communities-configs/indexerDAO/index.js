@@ -171,7 +171,7 @@ export const IndexerDAOStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/indexerDAO/logo-signUp.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/communityDAO/login-logo.svg',
 
   colors: {
     appWindowsColor: '#ffffff',

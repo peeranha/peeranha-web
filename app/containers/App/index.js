@@ -16,7 +16,6 @@ import { showLoginModal } from 'containers/Login/actions';
 import Documentation from 'pages/Documentation';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ReactGA from 'react-ga';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
@@ -114,10 +113,6 @@ const App = ({
   }
 
   const hasPinnedPost = pinnedItemMenu.id !== '';
-
-  if (process.env.NODE_ENV === 'production') {
-    ReactGA.pageview(window.location.pathname);
-  }
 
   useEffect(() => {
     if (!getCookie(REFERRAL_CODE_URI)) {

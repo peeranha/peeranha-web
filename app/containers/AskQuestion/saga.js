@@ -1,4 +1,5 @@
 import { languagesEnum } from 'app/i18n';
+import ReactGA from 'react-ga4';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -11,7 +12,7 @@ import { isSuiBlockchain } from 'utils/constants';
 import { ApplicationError } from 'utils/errors';
 import { getActualId, getNetwork } from 'utils/properties';
 
-import { postQuestion, getCreatedPostId, updateDocumentationTree } from 'utils/questionsManagement';
+import { postQuestion, updateDocumentationTree } from 'utils/questionsManagement';
 
 import { getResults } from 'utils/custom-search';
 
@@ -60,6 +61,10 @@ import {
 
 export function* postQuestionWorker({ val }) {
   try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'create_post_started',
+    });
     const locale = yield select(makeSelectLocale());
     const postType = val[FORM_TYPE];
     const tags =
@@ -131,13 +136,14 @@ export function* postQuestionWorker({ val }) {
         languagesEnum[locale],
         ethereumService,
       );
-      const id = yield call(
-        getCreatedPostId,
-        ethereumService,
-        transaction.blockNumber,
-        selectedAccount,
-        communityId,
+
+      const logsArray = transaction.logs.filter((log) => log.data === '0x');
+      const idFromTransaction = parseInt(
+        logsArray[logsArray.length - 1].topics[3].substring(2),
+        16,
       );
+      const network = getNetwork(communityId);
+      const id = `${Number(network) + 1}-${idFromTransaction}`;
 
       if (postType === POST_TYPE.documentation) {
         const documentationTraversal = (documentationArray) =>
@@ -192,6 +198,10 @@ export function* postQuestionWorker({ val }) {
       }
       yield call(waitForPostTransactionToIndex, transaction.transactionHash);
       yield put(askQuestionSuccess(id));
+      ReactGA.event({
+        category: 'Users',
+        action: 'create_post_completed',
+      });
       if (window.location.pathname === '/ask' || postType === POST_TYPE.documentation) {
         yield call(
           createdHistory.push,

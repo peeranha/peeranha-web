@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation, Trans } from 'react-i18next';
@@ -20,6 +20,7 @@ import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const DEFAULT_NUMBER = 10;
 
@@ -53,7 +54,10 @@ const Activity = ({
         {t('profile.activity')}
       </H4>
 
-      <Base position="top" css={isSuiBlockchain && { border: `1px solid ${colors.border}` }}>
+      <Base
+        position="top"
+        css={(isSuiBlockchain || graphCommunity) && { border: `1px solid ${colors.border}` }}
+      >
         <Button disabled={!myPosts.length} islink={tab !== 'posts'} onClick={() => setTab('posts')}>
           <Trans
             i18nKey="common.allActivitiesNumber"
@@ -64,6 +68,7 @@ const Activity = ({
                 fontSize="14"
                 color={tab !== 'posts' ? TEXT_SECONDARY : 'inherit'}
                 key="0"
+                css={graphCommunity && { color: tab !== 'posts' ? '#A7A7AD' : 'inherit' }}
               />,
             ]}
           />
@@ -86,6 +91,7 @@ const Activity = ({
                 fontSize="14"
                 color={tab !== 'quest' ? TEXT_SECONDARY : 'inherit'}
                 key="0"
+                css={graphCommunity && { color: tab !== 'quest' ? '#A7A7AD' : 'inherit' }}
               />,
             ]}
           />
@@ -108,13 +114,17 @@ const Activity = ({
                 fontSize="14"
                 color={tab !== 'answ' ? TEXT_SECONDARY : 'inherit'}
                 key="0"
+                css={graphCommunity && { color: tab !== 'answ' ? '#A7A7AD' : 'inherit' }}
               />,
             ]}
           />
         </Button>
       </Base>
 
-      <Base position="bottom" css={isSuiBlockchain && { border: `1px solid ${colors.border}` }}>
+      <Base
+        position="bottom"
+        css={(isSuiBlockchain || graphCommunity) && { border: `1px solid ${colors.border}` }}
+      >
         <QuestionsProfileTab
           locale={locale}
           className={tab === 'posts' ? '' : 'd-none'}
@@ -140,7 +150,7 @@ const Activity = ({
         />
 
         {!questionsWithAnswersLoading && !questionsLoading && myPosts.length === DEFAULT_NUMBER && (
-          <div className="mt-3">
+          <div className="mt-3" css={graphCommunity && { color: '#A7A7AD' }}>
             <Trans
               i18nKey="profile.seeMore"
               values={{

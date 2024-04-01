@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
@@ -16,18 +17,19 @@ import {
 import okayIconWhite from 'images/okay.svg?inline';
 import okayIconGreen from 'images/okayGreen.svg?inline';
 
+import { singleCommunityStyles, graphCommunityColors } from 'utils/communityManagement';
+import { isSuiBlockchain } from 'utils/constants';
+
 import { Icon } from 'components/Input/Checkbox';
 import AcceptAnswerView from 'components/Button/Contained/SuccessMedium';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
-import { isSuiBlockchain } from 'utils/constants';
-
 const styles = singleCommunityStyles();
+const graphCommunity = graphCommunityColors();
 
 export const MarkAnswerNotification = styled.div`
   display: inline-flex;
   border-radius: 3px;
-  background-color: ${BG_SUCCESS_LIGHT};
+  background-color: ${graphCommunityColors ? '#4BCA81' : BG_SUCCESS_LIGHT};
   padding: 5px 15px 5px 10px;
   font-size: 16px;
   line-height: 20px;
@@ -45,9 +47,9 @@ export const LabelStyles = css`
 const Label = AcceptAnswerView.extend`
   ${LabelStyles};
   pointer-events: ${(x) => (x.inactive ? 'none' : 'auto')};
-  background: ${(x) => (!x.value ? BG_TRANSPARENT : BG_SUCCESS)};
-  border: ${(x) => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
-  color: ${(x) => (!x.value ? TEXT_DARK : TEXT_LIGHT)};
+  background: ${(x) => (!x.value ? BG_TRANSPARENT : graphCommunity ? '#4BCA81' : BG_SUCCESS)};
+  border: ${(x) => (!x.value ? '1' : '0')}px solid ${graphCommunity ? '#4BCA81' : BORDER_SUCCESS};
+  color: ${(x) => (!x.value ? (graphCommunity ? '#E1E1E4' : TEXT_DARK) : TEXT_LIGHT)};
   padding: ${(x) => (!x.value ? '0 10px 0 5px' : '0px 10px')};
   overflow: hidden;
   height: 1%;
@@ -56,9 +58,9 @@ const Label = AcceptAnswerView.extend`
   width: max-content;
 
   ${Icon} {
-    background-color: ${BG_LIGHT};
+    background-color: ${graphCommunity ? '#161425' : BG_LIGHT};
     background-image: url(${(x) => (x.value ? okayIconGreen : '')});
-    border: ${(x) => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
+    border: ${(x) => (!x.value ? '1' : '0')}px solid ${graphCommunity ? '#4BCA81' : BORDER_SUCCESS};
     box-shadow: none;
 
     border-radius: ${styles.buttonBorderRadius};

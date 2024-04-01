@@ -9,17 +9,23 @@ import { createStructuredSelector } from 'reselect';
 import { Translation } from 'react-i18next';
 import { t } from 'i18next';
 
-import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
+import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
+import {
+  singleCommunityColors,
+  singleCommunityStyles,
+  graphCommunityColors,
+} from 'utils/communityManagement';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
+import Wrapper from 'components/FormFields/Wrapper';
+import Span from 'components/Span';
 
 import { PreviewWrapper } from '../AnswerForm';
 import MarkdownPreviewBlock from './MarkdownPreview';
-import Wrapper from 'components/FormFields/Wrapper';
-import Span from 'components/Span';
-import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
-import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 /* eslint no-return-assign: "error" */
 class TextEditor extends React.PureComponent {
@@ -37,22 +43,37 @@ class TextEditor extends React.PureComponent {
         <MDEditor
           css={css`
             margin-bottom: 20px;
-            border-bottom: 2px solid ${TEXT_DARK};
-            background: ${colors.backgroundSpecial || ''};
+            border-bottom: 2px solid ${graphCommunity ? '#3d3d54' : TEXT_DARK};
+            background: ${graphCommunity ? '#FFFFFF0A' : colors.backgroundSpecial || ''};
+            box-shadow: ${graphCommunity ? 'none' : ''};
             ol li {
               list-style-type: decimal;
             }
+
             ul li {
               list-style-type: disc;
             }
+
             textarea {
               ::selection {
-                -webkit-text-fill-color: ${TEXT_DARK};
+                -webkit-text-fill-color: ${graphCommunity ? '#282828' : TEXT_DARK};
               }
+
+              -webkit-text-fill-color: ${graphCommunity ? '#E1E1E4' : TEXT_DARK};
             }
+
             .w-md-editor-toolbar {
               border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
-              background: ${colors.backgroundSpecial || ''};
+              background: ${graphCommunity ? '#FFFFFF0F' : colors.backgroundSpecial || ''};
+              border-color: ${graphCommunity ? '#3d3d54 !important' : ''};
+
+              button {
+                color: ${graphCommunity ? '#E1E1E4' : '#24292f'};
+              }
+
+              li.active button {
+                color: ${graphCommunity ? '#6f4cff' : ''};
+              }
             }
           `}
           disabled={this.props.disabled}
@@ -65,7 +86,7 @@ class TextEditor extends React.PureComponent {
             placeholder: t('common.enterText'),
           }}
           preview={'edit'}
-          data-color-mode={'light'}
+          data-color-mode={graphCommunity ? 'dark' : 'light'}
           previewOptions={{
             rehypeRewrite: (node) => {
               if (node.tagName === 'input') {
@@ -93,7 +114,11 @@ class TextEditor extends React.PureComponent {
             {this.props.value ? (
               <MarkdownPreviewBlock content={this.props.value} />
             ) : (
-              <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+              <Span
+                fontSize="14"
+                isItalic
+                css={{ color: graphCommunity ? '#A7A7AD' : TEXT_SECONDARY }}
+              >
                 <Translation>
                   {(translate) => <>{translate('common.nothingToSeeYet')}</>}
                 </Translation>

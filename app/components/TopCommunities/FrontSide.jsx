@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { BORDER_SECONDARY } from '../../style-constants';
+import { BORDER_SECONDARY } from 'style-constants';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 const FrontSide = styled.div`
   > div:first-child {
@@ -18,7 +21,7 @@ const FrontSide = styled.div`
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid ${BORDER_SECONDARY};
+      border-bottom: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
     }
   }
 `;

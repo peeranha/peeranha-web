@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { useTranslation } from 'react-i18next';
 
 import { scrollToErrorField } from 'utils/animation';
 import {
@@ -10,26 +11,30 @@ import {
   hasCommunityModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
-import { strLength15x30000, required } from 'components/FormFields/validate';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { useTranslation } from 'react-i18next';
+import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
 
 import Checkbox from 'components/Input/Checkbox';
 import TextEditorField from 'components/FormFields/TextEditorField';
 import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
 import BlockedInfoArea from 'components/BlockedInfoArea';
+import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
+import { strLength15x30000, required } from 'components/FormFields/validate';
 
 import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
-import { selectTransactionInPending } from 'containers/EthereumProvider/selectors';
-import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
+
+const graphCommunity = graphCommunityColors();
 
 export const PreviewWrapper = styled.div`
-  background: linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
+  background: ${graphCommunity
+    ? 'none'
+    : `linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
     linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 0%),
     linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
-    linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 0%);
+    linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 0%)`};
   background-position: top, right, bottom, left;
   background-repeat: repeat-x, repeat-y;
   background-size: 8px 1px, 1px 8px;
@@ -81,7 +86,7 @@ export const AnswerForm = ({
         />
       )}
 
-      {sendAnswerLoading && transactionInPending ? (
+      {sendAnswerLoading || transactionInPending ? (
         <TransactionBanner />
       ) : (
         <Button

@@ -4,20 +4,27 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
+
 import { DocumentationSection, DocumentationItemMenuType } from 'pages/Documentation/types';
 import ArrowDownIcon from 'icons/ArrowDown';
-import Dropdown from 'components/Dropdown';
 import AddSubArticleIcon from 'icons/AddSubArticle';
 import EditIcon from 'icons/Edit';
 import DeleteIcon from 'icons/Delete';
 import PinIcon from 'icons/Pin';
 import AddCommentIcon from 'icons/AddComment';
+import { getBytes32FromIpfsHash } from 'utils/ipfs';
+import {
+  singleCommunityColors,
+  singleCommunityDocumentation,
+  graphCommunityColors,
+} from 'utils/communityManagement';
+
+import { styles } from 'containers/LeftMenu/MainLinks.styled';
+import Dropdown from 'components/Dropdown';
+import { isEditableChildItem } from 'components/Documentation/helpers';
+
 import Link from './Link';
 import Item from './Item';
-import { getBytes32FromIpfsHash } from 'utils/ipfs';
-import { singleCommunityColors, singleCommunityDocumentation } from 'utils/communityManagement';
-import { isEditableChildItem } from 'components/Documentation/helpers';
-import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
 type DocumentationMenuProps = {
   item: DocumentationSection;
@@ -41,6 +48,7 @@ type DocumentationMenuProps = {
 
 const colors = singleCommunityColors();
 const documentationColors = singleCommunityDocumentation();
+const graphCommunity = graphCommunityColors();
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
   item,
@@ -186,18 +194,23 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           ...(((match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
             editArticle?.id === item.id) && {
-            background: 'rgba(53, 74, 137, 0.11)',
-            borderLeft: `3px solid ${colors.linkColor || '#5065A5'}`,
+            background: graphCommunity ? 'rgba(111,76,255,0.2)' : 'rgba(53, 74, 137, 0.11)',
+            borderLeft: `3px solid ${graphCommunity ? '#6F4CFF' : colors.linkColor || '#5065A5'}`,
             paddingLeft: 12 + 16 * level,
+
+            a: {
+              color: graphCommunity ? '#FFF' : '',
+              fontWeight: graphCommunity ? 600 : '',
+            },
           }),
           '&:hover .dropdown-documentation': {
             visibility: 'visible',
           },
           '&:hover': {
-            background: 'rgba(53, 74, 137, 0.05)',
+            background: graphCommunity ? '' : 'rgba(53, 74, 137, 0.05)',
           },
           '&:hover a': {
-            color: '#576FED',
+            color: graphCommunity ? '#FFF' : '#576FED',
           },
         }}
       >

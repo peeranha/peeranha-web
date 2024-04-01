@@ -4,24 +4,23 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
-
 import { BG_LIGHT, BG_WARNING_LIGHT, BORDER_PRIMARY } from 'style-constants';
+import notificationsActiveIcon from 'images/Notifications_Gray.svg?external';
+import notificationsDisabledIcon from 'images/Notifications_Disabled.svg?external';
+
+import { singleCommunityStyles, graphCommunityColors } from 'utils/communityManagement';
 
 import Span from 'components/Span';
 import { IconEm } from 'components/Icon/IconWithSizes';
-import { NOTIFICATIONS_DATA } from 'components/Notifications/constants';
-
-import notificationsActiveIcon from 'images/Notifications_Gray.svg?external';
-import notificationsDisabledIcon from 'images/Notifications_Disabled.svg?external';
-import Menu from './Menu';
-
 import {
   selectUnreadNotifications,
   unreadNotificationsCount,
-} from '../../../components/Notifications/selectors';
-import { filterReadTimestamps } from '../../../components/Notifications/actions';
+} from 'components/Notifications/selectors';
+import { filterReadTimestamps } from 'components/Notifications/actions';
 
+import Menu from './Menu';
+
+const graphCommunity = graphCommunityColors();
 const styles = singleCommunityStyles();
 
 const Container = styled.div`
@@ -31,8 +30,10 @@ const Container = styled.div`
   height: 47px;
   min-width: 47px;
   min-height: 47px;
-  background: ${styles.fullyTransparent || BG_LIGHT};
-  border: ${styles.communityBorderStyle || `1px solid ${BORDER_PRIMARY}`};
+  background: ${graphCommunity ? '#161426' : styles.fullyTransparent || BG_LIGHT};
+  border: ${graphCommunity
+    ? '1px solid #161426'
+    : styles.communityBorderStyle || `1px solid ${BORDER_PRIMARY}`};
   display: flex;
   align-items: center;
   justify-content: center;

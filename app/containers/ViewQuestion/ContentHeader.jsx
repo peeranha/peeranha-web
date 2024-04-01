@@ -10,8 +10,9 @@ import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
-import { isSuiBlockchain } from 'utils/constants';
+import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 
+import { isSuiBlockchain } from 'utils/constants';
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
 import {
@@ -21,27 +22,28 @@ import {
   hasProtocolAdminRole,
   isBotAddress,
 } from 'utils/properties';
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import { getUserName } from 'utils/user';
 
-import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import SeeOriginal from 'containers/ViewQuestion/SeeOriginal';
-import { getUserName } from 'utils/user';
+import { ShareNetworkGraph, FileArrowUpGraph, TrashGraph } from 'components/icons';
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
+
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button from './Button';
 import AreYouSure from './AreYouSure';
 import SharingModal from './SharingModal';
-
-import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { QUESTION_TYPE } from './constants';
 import BotInfo from './BotInfo';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
 
 const RatingBox = styled.div`
-  border-right: 1px solid ${BORDER_SECONDARY};
+  border-right: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
   flex-basis: 193px;
   padding: 0 28px;
   display: flex;
@@ -50,7 +52,7 @@ const RatingBox = styled.div`
 
   @media only screen and (max-width: 680px) {
     border-right: none;
-    border-bottom: 1px solid ${BORDER_SECONDARY};
+    border-bottom: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
   }
 
   @media only screen and (max-width: 680px) {
@@ -100,7 +102,7 @@ const ButtonContainer = styled.div`
 const Box = styled.div`
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid ${BORDER_SECONDARY};
+  border-bottom: 1px solid ${graphCommunity ? '#3D3D54' : BORDER_SECONDARY};
   height: 77px;
 
   @media only screen and (max-width: 1250px) {
@@ -276,7 +278,12 @@ const ContentHeader = (props) => {
                     onClick={onClick}
                     disabled={ids.includes(`${type}_delete_${answerId}`)}
                   >
-                    <IconMd icon={deleteIcon} fill={colors.contentHeader || BORDER_PRIMARY} />
+                    {graphCommunity ? (
+                      <TrashGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
+                    ) : (
+                      <IconMd icon={deleteIcon} fill={colors.contentHeader || BORDER_PRIMARY} />
+                    )}
+
                     <span>{t('post.deleteButton')}</span>
                   </Button>
                 )}
@@ -287,7 +294,11 @@ const ContentHeader = (props) => {
           {type === QUESTION_TYPE && (
             <DropdownBox>
               <Button show disabled={isModalOpen} onClick={() => setModalOpen(true)}>
-                <IconSm icon={shareIcon} />
+                {graphCommunity ? (
+                  <ShareNetworkGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
+                ) : (
+                  <IconSm icon={shareIcon} />
+                )}
                 <span>{t('post.shareButton')}</span>
               </Button>
 
@@ -301,7 +312,11 @@ const ContentHeader = (props) => {
 
           <DropdownBox>
             <Button show disabled={isPopoverOpen} onClick={() => setPopoverOpen(true)}>
-              <IconMd icon={blockchainLogo} />
+              {graphCommunity ? (
+                <FileArrowUpGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
+              ) : (
+                <IconMd icon={blockchainLogo} />
+              )}
               <span>{t('common.source')}</span>
             </Button>
 

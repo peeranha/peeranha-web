@@ -83,7 +83,7 @@ export function* getQuestionsWorker({
       );
     }
     const { postCount, updatedPosts } = questionsList;
-    const clearQuestionsList = updatedPosts.filter((item) => item.title);
+    const clearQuestionsList = updatedPosts?.filter((item) => item.title);
 
     yield put(getQuestionsSuccess(clearQuestionsList, undefined, postCount));
   } catch (err) {

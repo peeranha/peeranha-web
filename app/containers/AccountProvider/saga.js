@@ -85,7 +85,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
       yield call(
         ethereumService.walletLogIn,
         previouslyConnectedWallet,
-        previouslyConnectedWallet === 'TorusRaw',
+        previouslyConnectedWallet === 'Torus',
       );
       account = ethereumService.getSelectedAccount();
     } else if (account?.email) {

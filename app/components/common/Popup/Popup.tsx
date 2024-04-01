@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
-import Portal from '../Portal';
+
+import { XGraph } from 'components/icons';
+import { graphCommunityColors } from 'utils/communityManagement';
 import CloseIcon from 'icons/Close';
+
+import Portal from '../Portal';
 import classes from './Popup.styled';
 import { PopupProps } from './types';
+
+const graphCommunity = graphCommunityColors();
 
 const Popup: React.FC<PopupProps> = ({
   size = 'full',
@@ -54,7 +60,11 @@ const Popup: React.FC<PopupProps> = ({
             <div css={classes.header}>
               {title && <h1 className="line-clamp-1 tc">{title}</h1>}
               <div className={cn('pa cup df aic jcc')} css={classes.close}>
-                <CloseIcon onClick={onClose} size={[16, 16]} />
+                {graphCommunity ? (
+                  <XGraph onClick={onClose} size={[20, 20]} />
+                ) : (
+                  <CloseIcon onClick={onClose} size={[16, 16]} />
+                )}
               </div>
             </div>
           )}

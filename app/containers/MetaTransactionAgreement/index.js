@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -19,24 +18,23 @@ import {
   TYPE_OF_TRANSACTIONS,
 } from 'utils/constants';
 import { setCookie, getCookie } from 'utils/cookie';
-
-import PopupForNotBalance from './PopupForNotBalance';
-import PopupForTorusWallet from './PopupForTorusWallet';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import TransactionHandler from 'containers/ViewProfilePage/TransactionHandler';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
-
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-
 import { hideModal } from 'containers/EthereumProvider/actions';
-
-import { makeSelectEthereum, makeSelectShowModal } from '../EthereumProvider/selectors';
 import Popup from 'common-components/Popup';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 
+import PopupForNotBalance from './PopupForNotBalance';
+import PopupForTorusWallet from './PopupForTorusWallet';
+import { makeSelectEthereum, makeSelectShowModal } from '../EthereumProvider/selectors';
+
+const graphCommunity = graphCommunityColors();
 /* eslint-disable react/prefer-stateless-function */
 export const MetaTransactionAgreement = ({ showModal, hideModalDispatch, ethereum, account }) => {
   const dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
@@ -109,8 +107,13 @@ export const MetaTransactionAgreement = ({ showModal, hideModalDispatch, ethereu
             >
               <TransactionHandler transaction={transaction} setTransaction={setTransaction} />
               <div css={{ marginTop: '30px' }}>
-                <span>{t('common.transactionsText_4')}</span>
-                <span className="bold">{t('common.settings')}</span>.
+                <span css={graphCommunity && { color: '#E1E1E4' }}>
+                  {t('common.transactionsText_4')}
+                </span>
+                <span css={graphCommunity && { color: '#E1E1E4' }} className="bold">
+                  {t('common.settings')}
+                </span>
+                .
               </div>
               <div className="df aic jcfe mt-4" css={{ button: { maxWidth: '150px' } }}>
                 <OutlinedButton className="mr-3" onClick={hideModal}>

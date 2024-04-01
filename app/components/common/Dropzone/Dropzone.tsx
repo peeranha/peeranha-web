@@ -4,8 +4,12 @@ import { Upload } from 'tus-js-client';
 import { useTranslation } from 'react-i18next';
 
 import PlusWithoutCircleIcon from 'icons/PlusWithoutCircle';
+import { PlusGraph } from 'components/icons';
+import { graphCommunityColors } from 'utils/communityManagement';
 import { styles } from './Dropzone.styled';
 import FilesPreviewer from './FilesPreviewer';
+
+const graphCommunity = graphCommunityColors();
 
 type DropzoneProps = {
   config: Array<{
@@ -173,7 +177,11 @@ const Dropzone: React.FC<DropzoneProps> = ({ config, showToast }): JSX.Element =
     <div>
       <div className="pr df aic jcc mb12" css={css(styles.fileDropzone)}>
         <span className="df aic jcc" css={css(styles.plusIcon)}>
-          <PlusWithoutCircleIcon fill="rgb(165, 188, 255)" size={[20, 20]} />
+          {graphCommunity ? (
+            <PlusGraph size={[20, 20]} fill="#6F4CFF" />
+          ) : (
+            <PlusWithoutCircleIcon fill="rgb(165, 188, 255)" size={[20, 20]} />
+          )}
         </span>
         <div className="df jcc fdc">
           <span className="fz14 mb4 dn" css={css(styles.dragText)}>

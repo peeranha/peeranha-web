@@ -4,18 +4,18 @@ import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
 import { init, useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
-import injectedModule from '@web3-onboard/injected-wallets';
 
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
-import logo from 'images/LogoBlackOnboard.svg?inline';
+import logo from 'app/images/peeranhaLogoOnboard.svg?inline';
 
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
+import injectedModule, { ProviderLabel } from '@web3-onboard/injected-wallets';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import { addToast } from '../Toast/actions';
 import {
@@ -27,10 +27,10 @@ import {
   transactionInitialised,
   setTransactionList,
 } from './actions';
-import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV, envType } from './constants';
+import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
-const injected = injectedModule();
+const injected = injectedModule({ displayUnavailable: [ProviderLabel.MetaMask] });
 
 const styles = singleCommunityStyles();
 
@@ -58,6 +58,12 @@ const initWeb3Onboard = init({
     },
   },
   appMetadata: {
+    recommendedInjectedWallets: [
+      {
+        name: 'MetaMask',
+        url: 'https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+      },
+    ],
     name: 'Peeranha',
     icon: src,
     description: 'Knowledge sharing protocol for Web3',
