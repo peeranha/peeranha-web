@@ -1,11 +1,14 @@
 import { css } from '@emotion/react';
 import breakpoints from 'styles/breakpoints';
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
 
 export const base = css`
   line-height: 20px;
   transition: all 0.3s ease 0s;
   borderradius: 2px;
-
+  height: ${graphCommunity ? '48px' : ''};
   &:disabled {
     pointer-events: none;
     opacity: 0.5;

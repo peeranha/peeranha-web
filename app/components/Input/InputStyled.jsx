@@ -42,8 +42,8 @@ const DisableHandling = (disabled) => `
 const Input = ({ error, disabled }) =>
   `
     flex: 1;
-    height: 40px;
-    min-height: 40px;
+    height: ${graphCommunity ? '48px' : '40px'};
+    min-height: ${graphCommunity ? '48px' : '40px'};
     ${ErrorHandling(error)}
     ${DisableHandling(disabled)}
     padding: 5px 14px;

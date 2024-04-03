@@ -8,6 +8,6 @@ export default css`
   font-size: ${graphCommunity ? '14px' : '16px'};
   line-height: 18px;
   min-width: 92px;
-  height: 40px;
+  height: ${graphCommunity ? '48px' : '40px'};
   font-weight: ${graphCommunity ? 600 : ''};
 `;

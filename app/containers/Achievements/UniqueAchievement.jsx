@@ -140,7 +140,7 @@ const UniqueAchievement = ({
               <button
                 css={{
                   width: '96px',
-                  height: '40px',
+                  height: graphCommunity ? '48px' : '40px',
                   backgroundColor: canMintAchievement ? '#4BA3FF' : '#FFF',
                   color: canMintAchievement ? '#fff' : '#95A3B0',
                   border: `1px solid ${canMintAchievement ? '#4BA3FF' : '#95A3B0'}`,
