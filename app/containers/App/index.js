@@ -11,8 +11,6 @@
  * the linting exception.
  */
 
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
 import Documentation from 'pages/Documentation';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -23,33 +21,13 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import global from 'styles/global';
 import { theme } from 'themes/default';
-import { selectDocumentationMenu, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
-
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
-import {
-  DAEMON,
-  POST_TYPE,
-  REWARD_CLAIMING_ENABLED,
-  POSITION_TOP,
-  isSuiBlockchain,
-  CONNECTED_WALLET,
-} from 'utils/constants';
+import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED, isSuiBlockchain } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
-import {
-  isSingleCommunityWebsite,
-  singleCommunityDocumentationPosition,
-} from 'utils/communityManagement';
-
-import Loader from 'components/LoadingIndicator/HeightWidthCentered';
-import ErrorBoundary from 'components/ErrorBoundary';
-
-import Wrapper from 'containers/AppWrapper';
-
-import saga from 'containers/App/saga';
-import NewUserRegistrationForm from 'containers/SuiProvider/NewUserRegistrationForm';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
@@ -57,7 +35,15 @@ import {
 } from 'utils/properties';
 import { getValueFromSearchString } from 'utils/url';
 import { getCookie, setCookie } from 'utils/cookie';
+
+import Wrapper from 'containers/AppWrapper';
+import saga from 'containers/App/saga';
+import NewUserRegistrationForm from 'containers/SuiProvider/NewUserRegistrationForm';
 import AISearch from 'containers/AISearch';
+
+import Loader from 'components/LoadingIndicator/HeightWidthCentered';
+import ErrorBoundary from 'components/ErrorBoundary';
+
 import {
   EditCommunity,
   HomePage,
@@ -92,28 +78,12 @@ import {
 } from './imports';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
-import { redirectToFeed, redirectToDocumentation, redirectToPreload } from './actions';
+import { redirectToFeed } from './actions';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
-const isDocumentationPositionTop = singleCommunityDocumentationPosition() === POSITION_TOP;
-const App = ({
-  location: { pathname, search },
-  redirectToFeedDispatch,
-  redirectToDocumentationDispatch,
-  history,
-  documentationMenu,
-  pinnedItemMenu,
-  profileInfo,
-  showLoginModalDispatch,
-}) => {
-  const previouslyConnectedWallet = getCookie(CONNECTED_WALLET);
-  if (!profileInfo && !previouslyConnectedWallet) {
-    showLoginModalDispatch();
-  }
 
-  const hasPinnedPost = pinnedItemMenu.id !== '';
-
+const App = ({ location: { pathname, search }, redirectToFeedDispatch, history }) => {
   useEffect(() => {
     if (!getCookie(REFERRAL_CODE_URI)) {
       const value = getValueFromSearchString(search, REFERRAL_CODE_URI);
@@ -152,20 +122,6 @@ const App = ({
       redirectToFeedDispatch();
     }
   }, []);
-
-  const isDocumentationExist = Array.isArray(documentationMenu)
-    ? documentationMenu.length
-    : Object.keys(documentationMenu).length;
-
-  useEffect(() => {
-    if (single && (pathname === '/' || pathname === '/feed') && !search) {
-      if ((hasPinnedPost || isDocumentationPositionTop) && isDocumentationExist) {
-        redirectToDocumentationDispatch();
-      } else {
-        single ? redirectToDocumentationDispatch() : redirectToFeedDispatch();
-      }
-    }
-  }, [documentationMenu]);
 
   const hasCommunityOrProtocolAdminRole =
     single &&
@@ -438,19 +394,12 @@ App.propTypes = {
   redirectToFeedDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  profileInfo: makeSelectProfileInfo(),
-  documentationMenu: selectDocumentationMenu(),
-  pinnedItemMenu: selectPinnedItemMenu(),
-});
+const mapStateToProps = createStructuredSelector({});
 
 export default compose(
   withRouter,
   injectSaga({ key: 'app', saga, mode: DAEMON }),
   connect(mapStateToProps, (dispatch) => ({
     redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
-    redirectToDocumentationDispatch: bindActionCreators(redirectToDocumentation, dispatch),
-    redirectToPreloadDispatch: bindActionCreators(redirectToPreload, dispatch),
-    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   })),
 )(App);

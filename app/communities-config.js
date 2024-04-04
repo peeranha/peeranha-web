@@ -403,7 +403,7 @@ const communitiesConfig = {
       }
     : {
         '1-22': {
-          origin: 'http://localhost:3000',
+          origin: 'http://localhost:31000',
           src: 'https://images.peeranha.io/communities/aave/logo.svg',
           styles: AaveStyles,
         },
