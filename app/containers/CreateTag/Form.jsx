@@ -91,11 +91,11 @@ let FormClone = reduxForm({
 
 FormClone = connect((state, { communities, communityId, isEditTagForm, editTagData }) => {
   const existingTags = selectExistingTags()(state);
-  const communityTags = Array.isArray(existingTags) ? existingTags : existingTags[communityId];
+  const tags = Array.isArray(existingTags) ? existingTags : existingTags[communityId];
   // map state to props for editTag form
   if (isEditTagForm) {
     const { communityId, tagId } = editTagData;
-
+    const communityTags = Array.isArray(existingTags) ? existingTags : existingTags[communityId];
     const selectedTag = communityTags.find((tag) => tag.id === tagId);
     const selectedCommunity = communities.find((comm) => comm.id === communityId);
 
@@ -115,7 +115,7 @@ FormClone = connect((state, { communities, communityId, isEditTagForm, editTagDa
 
   // map state to props for createTag form
   return {
-    valueHasNotBeInListValidate: communityTags
+    valueHasNotBeInListValidate: tags
       .map((tag) => tag.name?.toLowerCase())
       .concat([].map((tag) => tag.name?.toLowerCase())),
     initialValues: {
