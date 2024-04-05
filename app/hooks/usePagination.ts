@@ -24,7 +24,7 @@ const usePagination = ({ contentPerPage, count }: PaginationPropsType): Paginati
   useEffect(() => {
     const currentPage = Number(createdHistory.location.search.slice(6));
     setPage(currentPage > 1 ? currentPage : 1);
-  }, [createdHistory.location.pathname]);
+  }, [createdHistory.location]);
 
   const pageCount = Math.ceil(count / contentPerPage);
 
@@ -37,7 +37,7 @@ const usePagination = ({ contentPerPage, count }: PaginationPropsType): Paginati
   const limit = AMOUNT_POSTS_PAGINATION;
 
   const changePage = (direction: boolean) => {
-    setPage((state) => {
+    setPage((state: number) => {
       if (direction && state !== pageCount) {
         return state + 1;
       } else if (!direction && state !== 1) {
