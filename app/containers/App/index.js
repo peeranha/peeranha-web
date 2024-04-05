@@ -23,8 +23,17 @@ import global from 'styles/global';
 import { theme } from 'themes/default';
 import * as routes from 'routes-config';
 
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { showLoginModal } from 'containers/Login/actions';
+
 import injectSaga from 'utils/injectSaga';
-import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED, isSuiBlockchain } from 'utils/constants';
+import {
+  DAEMON,
+  POST_TYPE,
+  REWARD_CLAIMING_ENABLED,
+  isSuiBlockchain,
+  CONNECTED_WALLET,
+} from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -83,7 +92,17 @@ import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
 
-const App = ({ location: { pathname, search }, redirectToFeedDispatch, history }) => {
+const App = ({
+  location: { pathname, search },
+  redirectToFeedDispatch,
+  history,
+  profileInfo,
+  showLoginModalDispatch,
+}) => {
+  const previouslyConnectedWallet = getCookie(CONNECTED_WALLET);
+  if (!profileInfo && !previouslyConnectedWallet) {
+    showLoginModalDispatch();
+  }
   useEffect(() => {
     if (!getCookie(REFERRAL_CODE_URI)) {
       const value = getValueFromSearchString(search, REFERRAL_CODE_URI);
@@ -394,12 +413,13 @@ App.propTypes = {
   redirectToFeedDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({ profileInfo: makeSelectProfileInfo() });
 
 export default compose(
   withRouter,
   injectSaga({ key: 'app', saga, mode: DAEMON }),
   connect(mapStateToProps, (dispatch) => ({
     redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   })),
 )(App);
