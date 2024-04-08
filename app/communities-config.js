@@ -185,6 +185,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/cyfrin/logo.svg',
           styles: CyfrinStyles,
         },
+        '1-26': {
+          origin: `https://thegraph${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
+        },
         '2-1': {
           origin: 'https://edgeware.peeranha.io',
           src: 'https://images.peeranha.io/communities/edgeware/edgeware-logo.svg',
