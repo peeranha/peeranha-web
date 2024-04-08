@@ -4,11 +4,7 @@
  *
  */
 
-import {
-  GET_EXISTING_TAGS,
-  GET_EXISTING_TAGS_SUCCESS,
-  GET_EXISTING_TAGS_ERROR,
-} from './constants';
+import { GET_EXISTING_TAGS, GET_EXISTING_TAGS_SUCCESS, GET_EXISTING_TAGS_ERROR } from './constants';
 
 export function getExistingTags({ communityId, loadMore, sorting, text }) {
   return {
@@ -20,11 +16,12 @@ export function getExistingTags({ communityId, loadMore, sorting, text }) {
   };
 }
 
-export function getExistingTagsSuccess(existingTags, loadMore) {
+export function getExistingTagsSuccess(existingTags, loadMore, communityId) {
   return {
     type: GET_EXISTING_TAGS_SUCCESS,
     existingTags,
     loadMore,
+    communityId,
   };
 }
 

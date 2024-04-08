@@ -1,3 +1,7 @@
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
+
 export const styles = {
   container: {
     background: 'rgba(250, 250, 250, 1)',
@@ -65,7 +69,7 @@ export const styles = {
   },
 
   input: {
-    height: '40px',
+    height: graphCommunity ? '48px' : '40px',
     background: 'linear-gradient(0deg, #FFFFFF, #FFFFFF), #D8D8D8',
     border: '1px solid #C2C6D8',
     borderRadius: '3px',
@@ -78,7 +82,7 @@ export const styles = {
   },
 
   button: {
-    height: '40px',
+    height: graphCommunity ? '48px' : '40px',
     background: 'rgba(247,111,96,1)',
     borderRadius: '5px',
     lineHeight: '23px',

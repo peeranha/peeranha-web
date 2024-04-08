@@ -101,54 +101,71 @@ export const styles = {
     width: '100%',
 
     '@media (min-width: 577px)': {
-      display: 'block',
+      display: graphCommunity ? 'flex' : 'block',
     },
   },
 
   searchInput: {
     width: '100%',
-    height: '56px',
-    border: `1px solid ${graphCommunity ? '#3D3D54' : '#C2C6D8'}`,
+    height: graphCommunity ? '48px' : '56px',
+    border: `1px solid ${graphCommunity ? '#FFFFFF0F' : '#C2C6D8'}`,
+    backgroundColor: graphCommunity ? '#FFFFFF0F' : '',
     borderRadius: `${BORDER_RADIUS_M}`,
-    padding: '0 10px 0 60px',
+    padding: graphCommunity ? '0 10px' : '0 10px 0 60px',
     outline: 'none',
     opacity: 1,
     boxSizing: 'border-box',
     color: graphCommunity ? '#E1E1E4' : 'inherit',
     '@media (min-width: 577px)': {
-      height: '64px',
-      padding: '0 135px 0 60px',
+      height: graphCommunity ? '48px' : '64px',
+      padding: graphCommunity ? '0 135px 0 16px' : '0 135px 0 60px',
     },
-    ':focus': {
+    '&:focus': {
       borderColor: graphCommunity
         ? '#6F4CFF'
         : colors.linkColorTransparent || `rgb(${BORDER_PRIMARY_RGB})`,
       boxShadow: graphCommunity
         ? 'none'
         : `0 0 0 3px ${colors.linkColorTransparent || `rgba(${BORDER_PRIMARY_RGB}, 0.40)`}`,
-      backgroundColor: graphCommunity ? '#6F4CFF0F' : '',
+      backgroundColor: graphCommunity ? 'rgba(111, 76, 255, 0.06)' : '',
+
+      '&:hover': {
+        border: graphCommunity ? '1px solid rgba(111, 76, 255, 1)' : '',
+        background: graphCommunity ? 'rgba(111, 76, 255, 0.06) !important' : '',
+      },
+    },
+    '&:hover': {
+      borderColor: graphCommunity ? '#3D3D54' : '',
+      background: graphCommunity ? 'rgba(255, 255, 255, 0.06)' : '',
+    },
+    '::placeholder': {
+      color: graphCommunity ? '#E1E1E4' : '',
+      opacity: graphCommunity ? 1 : '',
     },
   },
 
   searchInputIcon: {
     position: 'absolute',
-    top: '13px',
-    left: '20px',
-
+    top: graphCommunity ? '16px' : '13px',
+    left: graphCommunity ? '' : '20px',
+    right: graphCommunity ? '10px' : '',
     '@media (min-width: 577px)': {
-      top: graphCommunity ? '20px' : '17px',
+      top: graphCommunity ? '15px' : '17px',
+      left: graphCommunity ? '' : '19px',
+      right: graphCommunity ? '135px' : '',
     },
   },
 
   closeInputIcon: {
     cursor: 'pointer',
     position: 'absolute',
-    top: '20px',
-    left: '26px',
-
+    top: graphCommunity ? '16px' : '20px',
+    left: graphCommunity ? '' : '26px',
+    right: graphCommunity ? '10px' : '',
     '@media (min-width: 577px)': {
-      top: graphCommunity ? '19px' : '17px',
-      left: '26px',
+      top: graphCommunity ? '15px' : '23px',
+      left: graphCommunity ? '' : '26px',
+      right: graphCommunity ? '135px' : '',
     },
   },
 
