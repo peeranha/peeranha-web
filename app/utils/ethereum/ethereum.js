@@ -311,6 +311,8 @@ class EthereumService {
     this.edgewareContractContentReads[action](...args);
 
   getTokenDataWithArgs = async (action, args) => this.contractTokenReads[action](...args);
+
+  getBlock = async () => this.providerReads.getBlockNumber();
 }
 
 export default EthereumService;
