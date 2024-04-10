@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { css } from '@emotion/react';
 import { TEXT_SECONDARY } from 'style-constants';
@@ -51,16 +52,29 @@ type BotBlockProps = {
   locale: string;
   messenger: Messenger;
   isPost?: boolean;
+  isSocialType: boolean;
+  socialServer: string;
 };
 
-const BotBlock: React.FC<BotBlockProps> = ({ postTime, locale, messenger, isPost }) => {
+const BotBlock: React.FC<BotBlockProps> = ({
+  postTime,
+  locale,
+  messenger,
+  isPost,
+  isSocialType,
+  socialServer,
+}) => {
   const { t } = useTranslation();
 
   return (
     <div css={blockCss}>
       <span className={`d-flex align-items-center mr-2`}>
         <Span className="mr-2" fontSize="14" lineHeight="18" textOverflow="ellipsis">
-          {t(isPost ? 'post.botCreate' : 'post.botAnswer', { bot: messenger.name })}
+          {isSocialType
+            ? socialServer
+            : t(isPost ? 'post.botCreate' : 'post.botAnswer', {
+                bot: messenger.name,
+              })}
         </Span>
       </span>
 

@@ -5,13 +5,11 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import {
-  makeSelectAccount,
-  makeSelectAccountLoading,
-} from 'containers/AccountProvider/selectors';
+import { POST_TYPE } from 'utils/constants';
+
+import { makeSelectAccount, makeSelectAccountLoading } from 'containers/AccountProvider/selectors';
 
 import WidthCentered from '../LoadingIndicator/WidthCentered';
-import { POST_TYPE } from 'utils/constants';
 
 const Feed = ({ match, account, loading }) => {
   if (loading) {
@@ -26,6 +24,7 @@ const Feed = ({ match, account, loading }) => {
           POST_TYPE.generalPost,
           POST_TYPE.expertPost,
           POST_TYPE.tutorial,
+          POST_TYPE.autoscraped,
         ]}
       />
     );
@@ -38,6 +37,7 @@ const Feed = ({ match, account, loading }) => {
         POST_TYPE.generalPost,
         POST_TYPE.expertPost,
         POST_TYPE.tutorial,
+        POST_TYPE.autoscraped,
       ]}
     />
   );

@@ -47,6 +47,7 @@ export const POST_TYPE = {
   expertPost: 0,
   generalPost: 1,
   tutorial: 2,
+  autoscraped: 3,
   documentation: 1000,
 };
 

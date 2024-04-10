@@ -60,6 +60,9 @@ import {
   UsersGraph,
   PencilSimpleGraph,
   PushPinGraph,
+  DiscordLogo,
+  // SlackLogo,
+  // TelegramLogo,
 } from 'icons/index';
 import A from 'components/A';
 import { IconLg } from 'components/Icon/IconWithSizes';
@@ -274,27 +277,23 @@ const MainLinks = ({
           <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
         </div>
 
-        <div css={styles.dividerLinks} />
-        {Boolean(singleCommId) && (
-          <div
-            className={cn('df jcsb pl15', {
-              mt28: pinnedItemMenu.id !== '' || documentationPosition === 'top',
-            })}
-            css={{
-              ...styles.menuSectionTitle,
-              ...styles.menuItem,
-            }}
-          >
-            {t('common.communityLabel')}
-          </div>
-        )}
+        <div
+          css={{
+            ...styles.dividerLinks,
+            ...(documentationPosition === 'top' && { display: 'block' }),
+          }}
+        />
 
         {singleCommId && (
           <A1
             to={routes.defaultPath}
             name={routes.defaultPath}
             route={route}
-            css={{ whiteSpace: 'nowrap' }}
+            css={{
+              '@media only screen and (min-width: 991px)': {
+                marginTop: pinnedItemMenu.id === '' ? 0 : '28px',
+              },
+            }}
           >
             {graphCommunity ? (
               <SparkleGraph size={[24, 24]} className="mr-2" />
@@ -314,6 +313,29 @@ const MainLinks = ({
           )}
           {t(`common.${profile && !singleCommId ? 'myFeed' : 'feed'}`)}
         </A1>
+
+        {Boolean(singleCommId) && (
+          <div
+            className={cn('df jcsb pl15', {
+              mt28: pinnedItemMenu.id !== '' || documentationPosition === 'top',
+            })}
+            css={{
+              ...styles.menuSectionTitle,
+              ...styles.menuItem,
+            }}
+          >
+            {t('common.communityLabel')}
+          </div>
+        )}
+
+        {/* <A1 to={routes.feed()} name="feed" route={route}>
+          {graphCommunity ? (
+            <FileGraph size={[24, 24]} className="mr-2" />
+          ) : (
+            <IconLg className="mr-2" icon={myFeedIcon} />
+          )}
+          {t(`common.${profile && !singleCommId ? 'myFeed' : 'feed'}`)}
+        </A1> */}
 
         <A1 to={routes.questions()} name="discussions" route={route}>
           {graphCommunity ? (
@@ -383,6 +405,56 @@ const MainLinks = ({
         )}
         <div css={styles.dividerLinks} />
       </div>
+
+      {Boolean(singleCommId) && (
+        <div
+          className="df jcsb pl15"
+          css={{
+            ...styles.menuSectionTitle,
+            ...styles.menuItem,
+          }}
+        >
+          {t('common.channelsLabel')}
+        </div>
+      )}
+
+      {Boolean(singleCommId) && (
+        <A1
+          to={routes.discordPosts()}
+          name="discord"
+          route={route}
+          css={{ ':hover': { path: { stroke: customColor } } }}
+        >
+          <DiscordLogo className="mr-2" css={{ fill: 'none' }} />
+
+          {t('createCommunity.discord')}
+        </A1>
+      )}
+
+      {/* To do: telegram and slack
+      {Boolean(singleCommId) && (
+        <A1
+          to={routes.telegramPosts()}
+          name="telegram"
+          route={route}
+          css={{ ':hover': { path: { stroke: customColor } } }}
+        >
+          <TelegramLogo className="mr-2" css={{ fill: 'none' }} />
+          {t('createCommunity.telegram')}
+        </A1>
+      )}
+
+      {Boolean(singleCommId) && (
+        <A1
+          to={routes.slackPosts()}
+          name="slack"
+          route={route}
+          css={{ ':hover': { path: { stroke: customColor } } }}
+        >
+          <SlackLogo className="mr-2" css={{ fill: 'none' }} />
+          {t('createCommunity.slack')}
+        </A1>
+      )} */}
 
       {/* <FreeTrialBanner isMenuVisible={isMenuVisible}></FreeTrialBanner> */}
 

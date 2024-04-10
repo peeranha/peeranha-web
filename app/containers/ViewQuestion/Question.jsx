@@ -8,9 +8,7 @@ import { QUESTION_TYPE, POST_TYPES } from './constants';
 export const Question = (props) => {
   const { postType, id } = props.questionData;
 
-  const type = useMemo(() => {
-    return POST_TYPES[postType];
-  }, [postType]);
+  const type = useMemo(() => POST_TYPES[postType], [postType]);
 
   return (
     <Content

@@ -122,6 +122,9 @@ export { default as Coins } from './Coins';
 export { default as Administration } from './Administration';
 export { default as Heart } from './Heart';
 export { default as SuiNS } from './suiNS';
+export { default as DiscordLogo } from './DiscordLogo';
+export { default as SlackLogo } from './SlackLogo';
+export { default as TelegramLogo } from './TelegramLogo';
 
 // Graph icons
 export { default as ArrowUpRightGraph } from './graphIcons/ArrowUpRight';
@@ -190,3 +193,4 @@ export { default as PostDownvotedGraph } from './graphIcons/PostDownvoted';
 export { default as PostUpvotedGraph } from './graphIcons/PostUpvoted';
 export { default as PostMovedGraph } from './graphIcons/PostMoved';
 export { default as DocumentationGraph } from './graphIcons/Documentation';
+export { default as SocialLogoGraph } from './graphIcons/SocialLogo';

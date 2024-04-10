@@ -186,6 +186,30 @@
   ],
   "documentationPopoverTitle": "Tài liệu",
   "documentationPopoverLabel": "Bài báo tài liệu được xuất bản bởi quan chức cộng đồng. Nó chứa thông tin và hướng dẫn quan trọng cho cả khía cạnh kỹ thuật và phi kỹ thuật của cộng đồng.",
+  "discordPopoverTitle": "Discord Q&A",
+  "discordPopoverLabel": "Chủ đề được lấy từ kênh Cộng đồng và có thể là một trong những chủ đề sau:",
+  "discordPopoverList": [
+    "Trao đổi ý kiến chủ quan;",
+    "Động não;",
+    "Phản hồi hoặc yêu cầu xem xét;",
+    "Câu trả lời được biết đến rộng rãi."
+  ],
+  "telegramPopoverTitle": "Telegram Q&A",
+  "telegramPopoverLabel": "Chủ đề được lấy từ kênh Cộng đồng và có thể là một trong những chủ đề sau:",
+  "telegramPopoverList": [
+    "Trao đổi ý kiến chủ quan;",
+    "Động não;",
+    "Phản hồi hoặc yêu cầu xem xét;",
+    "Câu trả lời được biết đến rộng rãi."
+  ],
+  "slackPopoverTitle": "Slack Q&A",
+  "slackPopoverLabel": "Chủ đề được lấy từ kênh Cộng đồng và có thể là một trong những chủ đề sau:",
+  "slackPopoverList": [
+    "Trao đổi ý kiến chủ quan;",
+    "Động não;",
+    "Phản hồi hoặc yêu cầu xem xét;",
+    "Câu trả lời được biết đến rộng rãi."
+  ],
   "rightNow": "Ngay bây giờ",
   "minutesAgo": "{{minutes}} vài phút trước",
   "hoursAgo": "{{hours}} giờ trước",
@@ -248,6 +272,7 @@
   "clickTo": "bấm vào để",
   "attach": "gắn",
   "communityLabel": "Cộng đồng",
+  "channelsLabel": "Kênh truyền hình",
   "tagsLabel": "Thẻ",
   "blockchainLabel": "Blockchain",
   "invalidFileFormat": "Định dạng tập tin không hợp lệ. Các định dạng được phép: jpeg, jpg, png, gif, mp4.",

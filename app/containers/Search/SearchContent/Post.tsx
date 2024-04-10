@@ -74,6 +74,10 @@ const Post: React.FC<PostProps> = ({
     if (postType === POST_TYPE.documentation) {
       return routes.feed(communityId);
     }
+    if (postType === POST_TYPE.autoscraped) {
+      return routes.discordPosts();
+    }
+    // To do: telegam and slack
     return routes.questions(communityId);
   };
 

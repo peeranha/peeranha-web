@@ -2,16 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import AnswerForm from 'components/AnswerForm';
-import Base from 'components/Base/BaseRounded';
-import BlockedInfoArea from 'components/BlockedInfoArea';
-
-import Question from './Question';
-import Answers from './Answers';
-import RulesBlock from './RulesBlock';
-
-import { ADD_ANSWER_FORM, POST_ANSWER_BUTTON } from './constants';
-import { POST_TYPE } from '../../utils/constants';
+import { POST_TYPE } from 'utils/constants';
 import { getRatingByCommunity } from 'utils/profileManagement';
 
 import {
@@ -21,11 +12,22 @@ import {
   hasProtocolAdminRole,
 } from 'utils/properties';
 
+import AnswerForm from 'components/AnswerForm';
+import Base from 'components/Base/BaseRounded';
+import BlockedInfoArea from 'components/BlockedInfoArea';
+
+import Question from './Question';
+import Answers from './Answers';
+import RulesBlock from './RulesBlock';
+
+import { ADD_ANSWER_FORM, POST_ANSWER_BUTTON } from './constants';
+
 export const ViewQuestionContainer = (props) => {
   const { t } = useTranslation();
 
-  const { isAnswered, account, showLoginModal } = props;
-  const isTutorial = props.questionData.postType === POST_TYPE.tutorial;
+  const { isAnswered, account, showLoginModal, questionData } = props;
+  const isTutorial = questionData.postType === POST_TYPE.tutorial;
+  const isSocialType = questionData.postType === POST_TYPE.autoscraped;
   const isMinusReputation = getRatingByCommunity(props.profile, props.commId) < 0;
 
   const isHasRole =
@@ -39,7 +41,7 @@ export const ViewQuestionContainer = (props) => {
     <article>
       <Question {...props} />
 
-      {!isTutorial && (
+      {!isTutorial && !isSocialType && (
         <>
           <Answers {...props} />
           {!isViewForm ? (
@@ -47,7 +49,7 @@ export const ViewQuestionContainer = (props) => {
               <RulesBlock />
               <AnswerForm
                 answer=""
-                communityId={props.questionData.communityId}
+                communityId={questionData.communityId}
                 form={ADD_ANSWER_FORM}
                 formHeader={t('post.yourAnswer')}
                 sendButtonId={POST_ANSWER_BUTTON}
@@ -70,6 +72,7 @@ export const ViewQuestionContainer = (props) => {
           )}
         </>
       )}
+      {isSocialType && <Answers {...props} />}
     </article>
   );
 };

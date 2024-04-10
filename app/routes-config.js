@@ -44,6 +44,12 @@ export const tutorials = (communityId, paginationPage = 1) => {
   return `/tutorials${communityRoute}${paginationRoute}`;
 };
 
+export const discordPosts = () => '/discord';
+
+// To do: telegram and slack
+// export const telegramPosts = () => '/telegram';
+// export const slackPosts = () => '/slack';
+
 export const questionView = (id, title, answerId, isOldURL) => {
   const updatedTitle = updateTitle(title);
 
@@ -74,6 +80,32 @@ export const tutorialView = (id, title, answerId) => {
     : `/tutorials/${id}/${updatedTitle}`;
 };
 
+export const discordPostView = (id, title, answerId) => {
+  const updatedTitle = updateTitle(title);
+
+  return answerId
+    ? `/discord/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`
+    : `/discord/${id}/${updatedTitle}`;
+};
+
+// To do: telegram and slack
+
+// export const telegramPostView = (id, title, answerId) => {
+//   const updatedTitle = updateTitle(title);
+
+//   return answerId
+//     ? `/telegram/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`
+//     : `/telegram/${id}/${updatedTitle}`;
+// };
+
+// export const slackPostView = (id, title, answerId) => {
+//   const updatedTitle = updateTitle(title);
+
+//   return answerId
+//     ? `/slack/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`
+//     : `/slack/${id}/${updatedTitle}`;
+// };
+
 export const getPostRoute = ({ postType, id, answerId = null, title }) => {
   if (postType === POST_TYPE.generalPost) {
     return questionView(id, title, answerId);
@@ -84,6 +116,16 @@ export const getPostRoute = ({ postType, id, answerId = null, title }) => {
   if (postType === POST_TYPE.documentation) {
     return documentation(getIpfsHashFromBytes32(id.split('-')[1]), title);
   }
+  if (postType === POST_TYPE.autoscraped) {
+    return discordPostView(id, title, answerId);
+  }
+  // To do: telegram and slack
+  // if (postType === POST_TYPE.telegram) {
+  //   return telegramPostView(id, title, answerId);
+  // }
+  // if (postType === POST_TYPE.slack) {
+  //   return slackPostView(id, title, answerId);
+  // }
   return tutorialView(id, title);
 };
 

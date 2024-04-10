@@ -34,7 +34,15 @@ export const AuthorName = Span.extend`
   display: flex;
   align-content: center;
 `;
-const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, achievementsCount }) => (
+const UserInfo = ({
+  author,
+  postTime,
+  locale,
+  isSearchPage,
+  communityId,
+  achievementsCount,
+  isSocialType,
+}) => (
   <p className="mb-3">
     <A to={routes.profileView(author.id)} className="d-inline-flex align-items-center">
       {!isSearchPage && (
@@ -62,7 +70,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, achieve
               ? t('post.botCreate', { bot: messengerData[author.messengerType]?.name })
               : getUserName(author.customName || author.displayName, author.id)}
           </AuthorName>
-          {!isBotAddress(author) && (
+          {(!isBotAddress(author) || !isSocialType) && (
             <>
               <RatingStatus
                 rating={getRatingByCommunity(author, communityId)}
@@ -92,6 +100,7 @@ UserInfo.propTypes = {
   author: PropTypes.object,
   postTime: PropTypes.string,
   locale: PropTypes.string,
+  isSocialType: PropTypes.bool,
 };
 
 export default memo(UserInfo);

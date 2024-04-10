@@ -39,6 +39,9 @@
   "instagram": "Instagram",
   "youtube": "YouTube",
   "vk": "VK",
+  "discord": "Discord",
+  "telegram": "Telegram",
+  "slack": "Slack",
   "mainColor": "主色",
   "highlightColor": "高亮颜色",
   "communityType": "社区类型",
@@ -55,6 +58,5 @@
   "communityWebsiteTip": "您的社区站点的名称",
   "returnToTheGraph": "返回 thegraph.com",
   "forum": "论坛",
-  "docs": "文档",
-  "discord": "不和谐"
+  "docs": "文档"
 }

@@ -193,6 +193,16 @@ const postMesh = `
     userId
     direction
   }
+  message {
+    nodeId
+    id
+    messengerType
+    teamId
+    channelId
+    messageId
+    userId
+    messageLink
+}
   `;
 
 const postForSearchMesh = `

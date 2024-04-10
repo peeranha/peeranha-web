@@ -71,5 +71,8 @@
   "answer_replied": "你已经回复了这个帖子。",
   "answer_repliedText": "如果需要添加更多信息，您可以编辑您的回复。",
   "answer_reputation": "不幸的是，你在这个社区的声誉是负面的。",
-  "answer_reputationText": "您无权发表任何回复。"
+  "answer_reputationText": "您无权发表任何回复。",
+  "server": "服务器",
+  "channel": "渠道",
+  "message": "信息"
 }

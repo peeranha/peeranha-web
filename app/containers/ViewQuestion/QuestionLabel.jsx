@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 import {
   TEXT_PRIMARY,
@@ -8,8 +9,8 @@ import {
   TEXT_PRIMARY_DARK,
   TUTORIAL_ICON_COLOR,
 } from 'style-constants';
-import { useTranslation } from 'react-i18next';
-import { POST_TYPE } from '../../utils/constants';
+
+import { POST_TYPE } from 'utils/constants';
 import { graphCommunityColors } from 'utils/communityManagement';
 
 const graphCommunity = graphCommunityColors();
@@ -27,6 +28,19 @@ const types = {
     title: 'common.tutorial',
     color: graphCommunity ? 'rgba(75, 202, 129, 1)' : TUTORIAL_ICON_COLOR,
   },
+  [POST_TYPE.autoscraped]: {
+    title: 'createCommunity.discord',
+    color: graphCommunity ? 'rgba(75, 202, 129, 1)' : 'rgba(88, 101, 242, 1)',
+  },
+  // To do: telegram and slack
+  // [POST_TYPE.autoscraped]: {
+  //   title: 'createCommunity.telegram',
+  //   color: graphCommunity ? 'rgba(75, 202, 129, 1)' : 'rgba(88, 101, 242, 1)',
+  // },
+  // [POST_TYPE.autoscraped]: {
+  //   title: 'createCommunity.slack',
+  //   color: graphCommunity ? 'rgba(75, 202, 129, 1)' : 'rgba(88, 101, 242, 1)',
+  // },
 };
 
 export const TypeContainer = styled.div`

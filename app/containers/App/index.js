@@ -181,19 +181,15 @@ const App = ({
               <HomePage />
             </React.Suspense>
           </Route>
-
           <Route
             exact
             path={routes.preloaderPage()}
             render={(props) => Wrapper(FullWidthPreloader, props)}
           />
-
           <Route exact path={routes.feed()} render={(props) => Wrapper(Feed, props)} />
-
           {single && (
             <Route exact path={routes.defaultPath} render={(props) => Wrapper(AISearch, props)} />
           )}
-
           {/* {single && (hasPinnedPost || isDocumentationPositionTop) && ( */}
           {/*  <Route */}
           {/*    exact */}
@@ -201,25 +197,21 @@ const App = ({
           {/*    render={(props) => Wrapper(Documentation, props)} */}
           {/*  /> */}
           {/* )} */}
-
           {!single && (
             <Route
               path={routes.feed(':communityid', ':paginationpage')}
               render={(props) => Wrapper(Feed, props)}
             />
           )}
-
           <Route
             exact
             path={routes.profileView(':id')}
             render={(props) => Wrapper(ViewProfilePage, props)}
           />
-
           <Route
             path={routes.profileEdit(':id')}
             render={(props) => Wrapper(EditProfilePage, props)}
           />
-
           {!single && (
             <Route
               exact
@@ -227,51 +219,40 @@ const App = ({
               render={(props) => Wrapper(Communities, props)}
             />
           )}
-
           {!single && (
             <Route
               path={routes.communitiesCreate()}
               render={(props) => Wrapper(CreateCommunity, props)}
             />
           )}
-
           <Route
             path={routes.communitiesEdit(':communityId')}
             render={(props) => Wrapper(EditCommunity, props)}
           />
-
           <Route
             exact
             path={routes.communityTags(':communityid')}
             render={(props) => Wrapper(TagsOfCommunity, props)}
           />
-
           <Route
             path={routes.tagsCreate(':communityid')}
             render={(props) => Wrapper(CreateTag, props)}
           />
-
           <Route
             path={routes.editTag(':communityId', ':tagid')}
             render={(props) => Wrapper(EditTag, props)}
           />
-
           <Route
             exact
             path={routes.termsAndConditions()}
             render={(props) => Wrapper(TermsOfService, props)}
           />
-
           <Route path={routes.userWallet(':id')} render={(props) => Wrapper(Wallet, props)} />
-
           {REWARD_CLAIMING_ENABLED && (
             <Route path={routes.userBoost(':id')} render={(props) => Wrapper(Boost, props)} />
           )}
-
           <Route path={routes.support()} render={(props) => Wrapper(Support, props)} />
-
           <Route path={routes.privacyPolicy()} render={(props) => Wrapper(PrivacyPolicy, props)} />
-
           <Route
             exact
             path={routes.questions()}
@@ -282,7 +263,6 @@ const App = ({
               })
             }
           />
-
           <Route
             exact
             path={routes.expertPosts()}
@@ -293,7 +273,6 @@ const App = ({
               })
             }
           />
-
           <Route
             path={routes.questions(':communityid', ':paginationpage')}
             render={(props) =>
@@ -303,7 +282,6 @@ const App = ({
               })
             }
           />
-
           <Route
             path={routes.expertPosts(':communityid', ':paginationpage')}
             render={(props) =>
@@ -313,81 +291,105 @@ const App = ({
               })
             }
           />
-
           <Route
             exact
             path={routes.tutorials()}
             render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
           />
-
           <Route
             path={routes.tutorials(':communityid', ':paginationpage')}
             render={(props) => Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })}
           />
+          <Route
+            exact
+            path={routes.discordPosts()}
+            render={(props) =>
+              Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.autoscraped] })
+            }
+          />
+          {/* To do: telegram and slack
+          <Route
+            exact
+            path={routes.telegramPosts()}
+            render={(props) =>
+              Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.autoscraped] })
+            }
+          />
+          <Route
+            exact
+            path={routes.slackPosts()}
+            render={(props) =>
+              Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.autoscraped] })
+            }
+          /> */}
 
           <Route path={routes.questionAsk()} render={(props) => Wrapper(AskQuestion, props)} />
-
           <Route
             path={routes.documentationCreate(':parentId')}
             render={(props) => Wrapper(AskQuestion, props)}
           />
-
           <Route
             path={routes.documentationCreate()}
             render={(props) => Wrapper(AskQuestion, props)}
           />
-
           <Route
             exact
             path={routes.questionView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
-
           <Route
             exact
             path={routes.questionView(':id', ':title', false, true)}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
-
           <Route exact path={'/questions/:id'} render={(props) => Wrapper(ViewQuestion, props)} />
-
           <Route exact path={'/discussions/:id'} render={(props) => Wrapper(ViewQuestion, props)} />
-
           <Route
             exact
             path={routes.expertPostView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
-
           <Route exact path={'/experts/:id'} render={(props) => Wrapper(ViewQuestion, props)} />
-
           <Route
             exact
             path={routes.tutorialView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
+          <Route
+            exact
+            path={routes.discordPostView(':id', ':title')}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          {/* <Route
+            exact
+            path={routes.telegramPostView(':id', ':title')}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={routes.slackPostView(':id', ':title')}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          /> */}
           <Route exact path={'/tutorials/:id'} render={(props) => Wrapper(ViewQuestion, props)} />
 
           <Route
             path={routes.questionEdit(':postType', ':questionid', ':title')}
             render={(props) => Wrapper(EditQuestion, props)}
           />
-
           <Route
             path={routes.documentation(':sectionId', ':title')}
             render={(props) => Wrapper(Documentation, props)}
           />
-
           <Route
             path={routes.answerEdit(':postType', ':questionid', ':answerid')}
             render={(props) => Wrapper(EditAnswer, props)}
           />
-
           {(hasGlobalModeratorRole() || hasProtocolAdminRole() || single) && (
             <Route exact path={routes.users()} render={(props) => Wrapper(Users, props)} />
           )}
-
           {single && hasCommunityOrProtocolAdminRole && (
             <Route
               exact
@@ -395,7 +397,6 @@ const App = ({
               render={(props) => Wrapper(Administration, props)}
             />
           )}
-
           {single && hasCommunityOrProtocolAdminRole && (
             <Route
               exact
@@ -403,15 +404,10 @@ const App = ({
               render={(props) => Wrapper(Administration, props)}
             />
           )}
-
           <Route path={routes.noAccess()} render={(props) => Wrapper(NoAccess, props)} />
-
           <Route exact path={routes.search()} render={(props) => Wrapper(Search, props)} />
-
           <Route path={routes.search(':q')} render={(props) => Wrapper(Search, props)} />
-
           <Route path={routes.errorPage()} render={(props) => Wrapper(ErrorPage, props)} />
-
           <Route render={(props) => Wrapper(NotFoundPage, props)} />
         </Switch>
         <div id="portal-root">

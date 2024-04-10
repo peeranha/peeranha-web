@@ -1,5 +1,5 @@
 import { languagesEnum } from 'app/i18n';
-import { isSuiBlockchain } from 'utils/constants';
+import { isSuiBlockchain, POST_TYPE } from 'utils/constants';
 import { IS_MINTED_ACHIEVEMENT } from 'containers/Achievements/constants';
 import LanguageLabel from 'containers/Questions/Content/Body/LanguageLabel';
 import React from 'react';
@@ -54,6 +54,7 @@ const Body = ({
   );
 
   const translation = translations?.find((t) => Number(t.language) === languagesEnum[locale]);
+  const isSocialType = postType === POST_TYPE.autoscraped;
 
   const achievementsCount = () => {
     const mintedUserAchievements = isSuiBlockchain
@@ -101,6 +102,7 @@ const Body = ({
         communityId={communityId}
         communities={communities}
         achievementsCount={achievementsCount()}
+        isSocialType={isSocialType}
       />
 
       <div className="df jcsb aic">

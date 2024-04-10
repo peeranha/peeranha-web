@@ -185,6 +185,30 @@
   ],
   "documentationPopoverTitle": "Documentation",
   "documentationPopoverLabel": "Documentation article published by community officials. It contains important information and guidelines for both technical and non-technical aspects of the community.",
+  "discordPopoverTitle": "Discord Q&A",
+  "discordPopoverLabel": "A topic that was taken from the Community channel and can be one of the following:",
+  "discordPopoverList": [
+    "Subjective opinion exchange;",
+    "Brainstorming;",
+    "Feedback or review request;",
+    "Answer is widely known."
+  ],
+  "telegramPopoverTitle": "Telegram Q&A",
+  "telegramPopoverLabel": "A topic that was taken from the Community channel and can be one of the following:",
+  "telegramPopoverList": [
+    "Subjective opinion exchange;",
+    "Brainstorming;",
+    "Feedback or review request;",
+    "Answer is widely known."
+  ],
+  "slackPopoverTitle": "Slack Q&A",
+  "slackPopoverLabel": "A topic that was taken from the Community channel and can be one of the following:",
+  "slackPopoverList": [
+    "Subjective opinion exchange;",
+    "Brainstorming;",
+    "Feedback or review request;",
+    "Answer is widely known."
+  ],
   "rightNow": "Right now",
   "minutesAgo": "{{minutes}} minutes ago",
   "hoursAgo": "{{hours}} hours ago",
@@ -247,6 +271,7 @@
   "clickTo": "click to",
   "attach": "attach",
   "communityLabel": "Community",
+  "channelsLabel": "Channels",
   "tagsLabel": "Tags",
   "blockchainLabel": "Blockchain",
   "invalidFileFormat": "Invalid file format. Allowed formats: jpeg, jpg, png, gif, mp4.",

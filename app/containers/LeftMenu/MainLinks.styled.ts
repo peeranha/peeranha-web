@@ -16,6 +16,12 @@ export const styles = {
     fontWeight: 400,
   },
 
+  searchLink: {
+    '@media only screen and (min-width: 991px)': {
+      marginTop: '28px',
+    },
+  },
+
   searchLabel: {
     background: colors.btnColor || 'rgba(87, 111, 237, 1)',
     color: TEXT_LIGHT,

@@ -39,6 +39,9 @@
   "instagram": "Instagram",
   "youtube": "YouTube",
   "vk": "VK",
+  "discord": "Discord",
+  "telegram": "Telegram",
+  "slack": "Slack",
   "mainColor": "Màu chính",
   "highlightColor": "Màu sắc nổi bật",
   "communityType": "Loại cộng đồng",
@@ -54,7 +57,5 @@
   "communityWebsite": "Trang web cộng đồng",
   "communityWebsiteTip": "Tên trang web cộng đồng của bạn",
   "returnToTheGraph": "Quay lại thegraph.com",
-  "forum": "Diễn đàn",
-  "docs": "Tài liệu",
-  "discord": "Bất hòa"
+  "forum": "Diễn đàn"
 }

@@ -186,6 +186,30 @@
   ],
   "documentationPopoverTitle": "Documentación",
   "documentationPopoverLabel": "Artículo de documentación publicado por funcionarios de la comunidad. Contiene información importante y pautas para los aspectos técnicos y no técnicos de la comunidad.",
+  "discordPopoverTitle": "Discord Q&A",
+  "discordPopoverLabel": "Un tema que fue tomado del canal de la Comunidad y puede ser uno de los siguientes:",
+  "discordPopoverList": [
+    "Intercambio de opiniones subjetivas;",
+    "Lluvia de ideas;",
+    "Solicitud de opinión o revisión;",
+    "La respuesta es muy conocida."
+  ],
+  "telegramPopoverTitle": "Telegram Q&A",
+  "telegramPopoverLabel": "Un tema que fue tomado del canal de la Comunidad y puede ser uno de los siguientes:",
+  "telegramPopoverList": [
+    "Intercambio de opiniones subjetivas;",
+    "Lluvia de ideas;",
+    "Solicitud de opinión o revisión;",
+    "La respuesta es muy conocida."
+  ],
+  "slackPopoverTitle": "Slack Q&A",
+  "slackPopoverLabel": "Un tema que fue tomado del canal de la Comunidad y puede ser uno de los siguientes:",
+  "slackPopoverList": [
+    "Intercambio de opiniones subjetivas;",
+    "Lluvia de ideas;",
+    "Solicitud de opinión o revisión;",
+    "La respuesta es muy conocida."
+  ],
   "rightNow": "Ahora mismo",
   "minutesAgo": "{{minutes}} hace minutos",
   "hoursAgo": "{{hours}} hace horas",
@@ -248,6 +272,7 @@
   "clickTo": "haga clic para",
   "attach": "adjuntar",
   "communityLabel": "Comunidad",
+  "channelsLabel": "Canales",
   "tagsLabel": "Etiquetas",
   "blockchainLabel": "Blockchain",
   "invalidFileFormat": "Formato de archivo inválido. Formatos permitidos: jpeg, jpg, png, gif, mp4.",
