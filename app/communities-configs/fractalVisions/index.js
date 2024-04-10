@@ -171,7 +171,7 @@ export const FractalVisionsStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/fractalVisions/logo.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/fractalVisions/login-logo.svg',
 
   colors: {
     appWindowsColor: '#6D00B3',

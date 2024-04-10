@@ -10,6 +10,7 @@ import {
   isSingleCommunityWebsite,
   graphCommunityColors,
 } from 'utils/communityManagement';
+import { URL_SEARCH_PAGINATION_PAGE } from 'utils/constants';
 
 import Span from 'components/Span';
 import Button from 'components/Button';
@@ -53,7 +54,11 @@ const TagsList = ({ tags, communities, communityId, children, className }) => {
   if (!community || !tags?.length) return null;
 
   const redirectToFilterByTag = (id) => {
-    const searchParams = new URLSearchParams(history.location.search);
+    const tagsURLparams =
+      history.location.search.slice(1, 5) !== URL_SEARCH_PAGINATION_PAGE
+        ? history.location.search
+        : '';
+    const searchParams = new URLSearchParams(tagsURLparams);
     const searchParamsTags = searchParams.get('tags');
     const newSearchParamsTags = (tagsParams, tagId) => {
       const allTags = tagsParams?.split(',');

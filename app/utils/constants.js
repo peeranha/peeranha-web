@@ -217,6 +217,7 @@ export const CHANGED_POSTS_KEY = 'changed-posts';
 
 // amount of posts pagination
 export const AMOUNT_POSTS_PAGINATION = 20;
+export const URL_SEARCH_PAGINATION_PAGE = 'page';
 
 // position documentation
 export const POSITION_TOP = 'top';

@@ -48,7 +48,12 @@ import { getUniqQuestions } from 'containers/Questions/actions';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-import { getPost, getVoteHistory, getCommentId2 } from 'utils/queries/ethereumService';
+import {
+  getPost,
+  getVoteHistory,
+  getCommentId2,
+  queryOnlyFromIndexer,
+} from 'utils/queries/ethereumService';
 import {
   deleteSuiAnswer,
   deleteSuiComment,
@@ -154,14 +159,16 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
 
 export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
   const ethereumService = yield select(selectEthereum);
-  const question = yield call(getPost, questionId);
-  const isMeshService = isMeshServiceConfig();
+  const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+  const isMeshService = indexerOnly ? true : isMeshServiceConfig();
+
+  const question = yield call(getPost, questionId, indexerOnly);
 
   question.author = { ...question.author, user: question.author.id };
 
   if (user) {
     if (isMeshService) {
-      const statusHistory = yield call(getVoteHistory, questionId, user);
+      const statusHistory = yield call(getVoteHistory, questionId, user, indexerOnly);
       question.votingStatus = votingStatus(Number(statusHistory));
       question.answers.map((reply) => {
         const replyStatusHistory = reply.replyvotehistory.find(
@@ -324,7 +331,7 @@ export function* saveCommentWorker({
     yield put(saveCommentSuccess({ ...questionData }, buttonId, commentId));
     ReactGA.event({
       category: 'Users',
-      action: 'create_comment_copmleted',
+      action: 'create_comment_completed',
     });
   } catch (err) {
     if (isSuiBlockchain) {

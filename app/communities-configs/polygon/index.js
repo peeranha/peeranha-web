@@ -228,7 +228,7 @@ export const PolygonStyles = {
   poweredByPeeranha: true,
   logoWhite: true,
   withoutAdditionalLinks: true,
-  signUpPageLogo: 'https://images.peeranha.io/communities/polygon/logo-signUp.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/polygon/login-logo.svg',
   favicon,
   mobileSubHeader: (
     <CustomMobileSubHeader

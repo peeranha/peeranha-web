@@ -185,7 +185,7 @@ export const GraphStyles = {
     questionItemTitle: `${fonts}`,
     questionTitleFont: `${fonts}`,
   },
-  signUpPageLogo: 'https://images.peeranha.io/communities/graph/logo-signUp.svg',
+  signUpPageLogo: 'https://images.peeranha.io/communities/graph/login-logo.svg',
   colors: {
     appWindowsColor: '#6F4CFF',
     appSafarieColor: '#6F4CFF',
