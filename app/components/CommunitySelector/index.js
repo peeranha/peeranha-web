@@ -40,6 +40,7 @@ const CommunitySelector = ({
   disabled,
   toggle,
   locale,
+  socialServerLink,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -147,6 +148,7 @@ const CommunitySelector = ({
         <Button
           communityAvatar={selectedValue?.avatar}
           communityLabel={communityTranslation?.name || selectedValue?.name}
+          socialServerLink={socialServerLink}
         />
       }
     >
@@ -186,6 +188,7 @@ CommunitySelector.propTypes = {
   communities: PropTypes.array,
   followedCommunities: PropTypes.array,
   selectedCommunityId: PropTypes.number,
+  socialServerLink: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -105,7 +105,7 @@ const AdditionalInfo = ({
   officialAnswersCount,
   isSearchPage,
   isTutorial,
-  isSocialType,
+  isSocialPostType,
 }) => {
   const icon = useMemo(() => {
     if (officialAnswersCount) {
@@ -173,7 +173,7 @@ const AdditionalInfo = ({
         </Div>
       )}
 
-      {!isSocialType && (
+      {!isSocialPostType && (
         <Div>
           <span>
             {graphCommunity ? graphVote : <img src={src} alt="icon" />}
@@ -193,7 +193,7 @@ AdditionalInfo.propTypes = {
   officialAnswersCount: PropTypes.number,
   isSearchPage: PropTypes.bool,
   isTutorial: PropTypes.bool,
-  isSocialType: PropTypes.bool,
+  isSocialPostType: PropTypes.bool,
 };
 
 export default memo(AdditionalInfo);

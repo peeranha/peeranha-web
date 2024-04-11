@@ -158,11 +158,12 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.answers.find((x) => x.id === answerId)?.user === profileInfo.user;
 
 export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
+  const isSocialPostType = questionId.split('-').length === 3;
   const ethereumService = yield select(selectEthereum);
   const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
-  const isMeshService = indexerOnly ? true : isMeshServiceConfig();
+  const isMeshService = indexerOnly || isSocialPostType ? true : isMeshServiceConfig();
 
-  const question = yield call(getPost, questionId, indexerOnly);
+  const question = yield call(getPost, questionId, indexerOnly || isSocialPostType);
 
   question.author = { ...question.author, user: question.author.id };
 

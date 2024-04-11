@@ -423,9 +423,13 @@ const MainLinks = ({
           to={routes.discordPosts()}
           name="discord"
           route={route}
-          css={{ ':hover': { path: { stroke: customColor } } }}
+          css={{ ':hover': { path: { stroke: graphCommunity ? '#fff' : customColor } } }}
         >
-          <DiscordLogo className="mr-2" css={{ fill: 'none' }} />
+          <DiscordLogo
+            className="mr-2"
+            css={{ fill: 'none' }}
+            stroke={graphCommunity ? '#E1E1E4' : ''}
+          />
 
           {t('createCommunity.discord')}
         </A1>

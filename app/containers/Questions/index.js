@@ -205,6 +205,7 @@ export const Questions = ({
         isExpert={isExpert}
         postsTypes={postsTypes}
         locale={locale}
+        socialServerLink={questionsList[0]?.message?.messageLink.split('/').splice(0, 5).join('/')}
       />
       {displayBanner && (
         <Banner

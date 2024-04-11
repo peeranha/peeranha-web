@@ -197,7 +197,7 @@ const ContentHeader = (props) => {
     [answerId, bestReplyId],
   );
 
-  const isSocialType = useMemo(
+  const isSocialPostType = useMemo(
     () => questionData.postType === POST_TYPE.autoscraped,
     [questionData.postType],
   );
@@ -214,20 +214,20 @@ const ContentHeader = (props) => {
 
   return (
     <Box>
-      {!isSocialType && (
+      {!isSocialPostType && (
         <RatingBox>
           <ContentRating {...props} />
         </RatingBox>
       )}
 
       <ItemInfo>
-        {isBot || isSocialType ? (
+        {isBot || isSocialPostType ? (
           <BotInfo
             postTime={postTime}
             locale={locale}
             messengerType={author.messengerType || questionData.messengerType}
             isPost={isPostContent}
-            isSocialType={isSocialType}
+            isSocialPostType={isSocialPostType}
             socialServer={author.displayName}
           />
         ) : (
@@ -337,7 +337,7 @@ const ContentHeader = (props) => {
                   histories={formattedHistories}
                   networkId={questionData.networkId}
                   messenger={questionData.message}
-                  isSocialType={isSocialType}
+                  isSocialPostType={isSocialPostType}
                 />
               </div>
             )}

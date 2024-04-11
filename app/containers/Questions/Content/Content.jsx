@@ -156,7 +156,7 @@ const QI = ({
           officialAnswersCount={offAnswersCount}
           isSearchPage={isSearchPage}
           isTutorial={postType === POST_TYPE.tutorial}
-          isSocialType={postType === POST_TYPE.autoscraped}
+          isSocialPostType={postType === POST_TYPE.autoscraped}
         />
       )}
       <Div>

@@ -27,7 +27,7 @@ export const ViewQuestionContainer = (props) => {
 
   const { isAnswered, account, showLoginModal, questionData } = props;
   const isTutorial = questionData.postType === POST_TYPE.tutorial;
-  const isSocialType = questionData.postType === POST_TYPE.autoscraped;
+  const isSocialPostType = questionData.postType === POST_TYPE.autoscraped;
   const isMinusReputation = getRatingByCommunity(props.profile, props.commId) < 0;
 
   const isHasRole =
@@ -41,7 +41,7 @@ export const ViewQuestionContainer = (props) => {
     <article>
       <Question {...props} />
 
-      {!isTutorial && !isSocialType && (
+      {!isTutorial && !isSocialPostType && (
         <>
           <Answers {...props} />
           {!isViewForm ? (
@@ -72,7 +72,7 @@ export const ViewQuestionContainer = (props) => {
           )}
         </>
       )}
-      {isSocialType && <Answers {...props} />}
+      {isSocialPostType && <Answers {...props} />}
     </article>
   );
 };

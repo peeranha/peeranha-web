@@ -82,7 +82,7 @@ export const CommentOptions = ({
   const showCommentForm =
     addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) || false;
 
-  const isSocialType = postType === POST_TYPE.autoscraped;
+  const isSocialPostType = postType === POST_TYPE.autoscraped;
   return (
     <div className="my-3">
       <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
@@ -101,7 +101,7 @@ export const CommentOptions = ({
           </ButtonStyled>
         )}
 
-        {!isSocialType && (
+        {!isSocialPostType && (
           <ActionButtonWithLogin
             onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
             buttonId={toggleFormButtonId}

@@ -23,6 +23,7 @@ import { getQuestionsSuccess, getQuestionsError } from './actions';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
+const SOCIAL_POST_TYPE_ID = 3;
 
 export function* getQuestionsWorker({
   limit,
@@ -33,6 +34,7 @@ export function* getQuestionsWorker({
   parentPage,
 }) {
   try {
+    const isSocialPostType = postTypes.includes(SOCIAL_POST_TYPE_ID);
     const ethereumService = yield select(selectEthereum);
     const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
     let followedCommunities = yield select(makeSelectFollowedCommunities());
@@ -64,7 +66,7 @@ export function* getQuestionsWorker({
         postTypes,
         [communityIdFilter],
         tags,
-        indexerOnly,
+        indexerOnly || isSocialPostType,
       );
     }
 

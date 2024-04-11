@@ -41,7 +41,7 @@ const UserInfo = ({
   isSearchPage,
   communityId,
   achievementsCount,
-  isSocialType,
+  isSocialPostType,
 }) => (
   <p className="mb-3">
     <A to={routes.profileView(author.id)} className="d-inline-flex align-items-center">
@@ -70,7 +70,7 @@ const UserInfo = ({
               ? t('post.botCreate', { bot: messengerData[author.messengerType]?.name })
               : getUserName(author.customName || author.displayName, author.id)}
           </AuthorName>
-          {(!isBotAddress(author) || !isSocialType) && (
+          {(!isBotAddress(author) || !isSocialPostType) && (
             <>
               <RatingStatus
                 rating={getRatingByCommunity(author, communityId)}
@@ -100,7 +100,7 @@ UserInfo.propTypes = {
   author: PropTypes.object,
   postTime: PropTypes.string,
   locale: PropTypes.string,
-  isSocialType: PropTypes.bool,
+  isSocialPostType: PropTypes.bool,
 };
 
 export default memo(UserInfo);

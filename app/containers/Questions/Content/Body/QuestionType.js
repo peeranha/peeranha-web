@@ -160,7 +160,7 @@ const types = {
     icon: documentationIcon,
     isDocumentation: true,
   },
-  [POST_TYPE.discord]: {
+  [POST_TYPE.autoscraped]: {
     title: 'common.discordPopoverTitle',
     label: 'common.discordPopoverLabel',
     items: 'common.discordPopoverList',

@@ -52,7 +52,7 @@ type BotBlockProps = {
   locale: string;
   messenger: Messenger;
   isPost?: boolean;
-  isSocialType: boolean;
+  isSocialPostType: boolean;
   socialServer: string;
 };
 
@@ -61,7 +61,7 @@ const BotBlock: React.FC<BotBlockProps> = ({
   locale,
   messenger,
   isPost,
-  isSocialType,
+  isSocialPostType,
   socialServer,
 }) => {
   const { t } = useTranslation();
@@ -70,7 +70,7 @@ const BotBlock: React.FC<BotBlockProps> = ({
     <div css={blockCss}>
       <span className={`d-flex align-items-center mr-2`}>
         <Span className="mr-2" fontSize="14" lineHeight="18" textOverflow="ellipsis">
-          {isSocialType
+          {isSocialPostType
             ? socialServer
             : t(isPost ? 'post.botCreate' : 'post.botAnswer', {
                 bot: messenger.name,

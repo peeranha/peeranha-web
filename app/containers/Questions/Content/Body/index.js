@@ -54,7 +54,7 @@ const Body = ({
   );
 
   const translation = translations?.find((t) => Number(t.language) === languagesEnum[locale]);
-  const isSocialType = postType === POST_TYPE.autoscraped;
+  const isSocialPostType = postType === POST_TYPE.autoscraped;
 
   const achievementsCount = () => {
     const mintedUserAchievements = isSuiBlockchain
@@ -75,7 +75,7 @@ const Body = ({
           />
         )}
 
-        {(isFeed || isSearchPage) && (
+        {(isFeed || isSearchPage || isSocialPostType) && (
           <QuestionType
             locale={locale}
             postType={postType}
@@ -102,7 +102,7 @@ const Body = ({
         communityId={communityId}
         communities={communities}
         achievementsCount={achievementsCount()}
-        isSocialType={isSocialType}
+        isSocialPostType={isSocialPostType}
       />
 
       <div className="df jcsb aic">

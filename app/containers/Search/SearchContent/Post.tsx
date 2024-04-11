@@ -87,6 +87,8 @@ const Post: React.FC<PostProps> = ({
     (translation: Translation) => translation.language === locale,
   )?.name;
 
+  const isSocialPostType = postType === POST_TYPE.autoscraped;
+
   return (
     <div className="df mb8 border-box" css={styles.post}>
       <div className="m16 full-width" css={styles.container}>
@@ -163,24 +165,26 @@ const Post: React.FC<PostProps> = ({
                   </span>
                 </div>
               )}
-              <div>
-                <span className="df aic">
-                  {rating >= 0 ? (
-                    graphCommunity ? (
-                      <ThumbsUpGraph className="mr-2" size={[24, 24]} fill="#6F4CFF" />
+              {!isSocialPostType && (
+                <div>
+                  <span className="df aic">
+                    {rating >= 0 ? (
+                      graphCommunity ? (
+                        <ThumbsUpGraph className="mr-2" size={[24, 24]} fill="#6F4CFF" />
+                      ) : (
+                        <LikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                      )
+                    ) : graphCommunity ? (
+                      <ThumbsDownGraph className="mr-2" size={[24, 24]} fill="#6F4CFF" />
                     ) : (
-                      <LikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
-                    )
-                  ) : graphCommunity ? (
-                    <ThumbsDownGraph className="mr-2" size={[24, 24]} fill="#6F4CFF" />
-                  ) : (
-                    <DisLikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
-                  )}
-                  <span css={styles.count} className="fz16 light">
-                    {getFormattedNum2(rating)}
+                      <DisLikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                    )}
+                    <span css={styles.count} className="fz16 light">
+                      {getFormattedNum2(rating)}
+                    </span>
                   </span>
-                </span>
-              </div>
+                </div>
+              )}
             </div>
           )}
         </div>

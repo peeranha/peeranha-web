@@ -156,7 +156,7 @@ const CommentView = (item) => {
     ? item.author?.id?.toLowerCase() === item.profileInfo.user.toLowerCase()
     : false;
 
-  const isSocialType = item.questionData.postType === POST_TYPE.autoscraped;
+  const isSocialPostType = item.questionData.postType === POST_TYPE.autoscraped;
   const translation = item.translations?.find(
     ({ language }) => +language === LANGUAGES_MAP[item.locale],
   );
@@ -260,7 +260,7 @@ const CommentView = (item) => {
                   ipfsHash={item.ipfsHash}
                   histories={formattedHistories}
                   networkId={item.questionData.networkId}
-                  isSocialType={isSocialType}
+                  isSocialPostType={isSocialPostType}
                 />
               </div>
             )}

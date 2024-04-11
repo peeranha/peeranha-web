@@ -31,7 +31,7 @@ type BotInfoProps = {
   locale: string;
   messengerType: number;
   isPost?: boolean;
-  isSocialType: boolean;
+  isSocialPostType: boolean;
   socialServer: string;
 };
 
@@ -40,7 +40,7 @@ const BotInfo: React.FC<BotInfoProps> = ({
   locale,
   messengerType,
   isPost,
-  isSocialType,
+  isSocialPostType,
   socialServer,
 }) => {
   const messenger = messengerData[messengerType] ?? messengerData[MessengerTypes.Unknown];
@@ -58,7 +58,7 @@ const BotInfo: React.FC<BotInfoProps> = ({
         locale={locale}
         messenger={messenger}
         isPost={isPost}
-        isSocialType={isSocialType}
+        isSocialPostType={isSocialPostType}
         socialServer={socialServer}
       />
     </div>

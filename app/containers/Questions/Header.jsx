@@ -135,6 +135,7 @@ export const Header = ({
   topQuestions,
   postsTypes,
   profile,
+  socialServerLink,
 }) => {
   const { t } = useTranslation();
   const [tags, setTags] = useState([]);
@@ -232,7 +233,7 @@ export const Header = ({
 
   useMemo(() => !!single && !!topQuestions.length, [topQuestions.length]);
   /* eslint react/prop-types: 0 */
-  const Button = ({ communityAvatar, communityLabel }) => (
+  const Button = ({ communityAvatar, communityLabel, socialServerLink }) => (
     <H3>
       {communityAvatar ? (
         <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
@@ -251,8 +252,17 @@ export const Header = ({
           </MediumIconStyled>
         </StyledCustomIconButtonContainer>
       )}
-
-      <span>{communityLabel || defaultLabel}</span>
+      {location.pathname === '/discord' ? (
+        <a
+          href={socialServerLink}
+          target="_blank"
+          css={{ color: customColor, ':hover': { textDecoration: 'underline !important' } }}
+        >
+          {defaultLabel}
+        </a>
+      ) : (
+        <span>{communityLabel || defaultLabel}</span>
+      )}
     </H3>
   );
 
@@ -280,6 +290,7 @@ export const Header = ({
             showOnlyFollowed={isFeed}
             selectedCommunityId={communityIdFilter}
             communities={notHiddenCommunities}
+            socialServerLink={socialServerLink}
           />
           {/* PEER-451: Hide Subscribe button from single community mode
           {!!displaySubscribeButton && (
@@ -328,6 +339,7 @@ Header.propTypes = {
   topQuestionsInfoLoaded: PropTypes.bool,
   topQuestions: PropTypes.array,
   profile: PropTypes.object,
+  socialServerLink: PropTypes.string,
 };
 
 export default React.memo(

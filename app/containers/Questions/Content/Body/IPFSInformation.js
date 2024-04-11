@@ -24,7 +24,7 @@ const Label = styled.div`
   position: absolute;
   background-color: ${graphCommunity ? '#161425' : BG_LIGHT};
   border-radius: ${BORDER_RADIUS_L};
-  width: ${({ isSocialType }) => (isSocialType ? 'max-content' : '455px')};
+  width: ${({ isSocialPostType }) => (isSocialPostType ? 'max-content' : '455px')};
   left: 50%;
   top: calc(100% + 10px);
   transform: translateX(-95%);
@@ -41,7 +41,14 @@ const Label = styled.div`
   }
 `;
 
-const IPFSInformation = ({ locale, ipfsHash, histories, networkId, isSocialType, messenger }) => {
+const IPFSInformation = ({
+  locale,
+  ipfsHash,
+  histories,
+  networkId,
+  isSocialPostType,
+  messenger,
+}) => {
   const { t } = useTranslation();
   const columns = {
     transactionHash: t('post.transactionHash'),
@@ -83,8 +90,8 @@ const IPFSInformation = ({ locale, ipfsHash, histories, networkId, isSocialType,
 
   const { messengerType, messageLink } = messenger;
   return (
-    <Label isSocialType={isSocialType}>
-      {isSocialType ? (
+    <Label isSocialPostType={isSocialPostType}>
+      {isSocialPostType ? (
         <div className="df fdc">
           <Span fontSize="16" lineHeight="24">
             {t('post.server')}
@@ -166,7 +173,7 @@ IPFSInformation.propTypes = {
   ipfsHash: PropTypes.string,
   histories: PropTypes.array,
   networkId: PropTypes.string,
-  isSocialType: PropTypes.bool,
+  isSocialPostType: PropTypes.bool,
   messenger: PropTypes.object,
 };
 
