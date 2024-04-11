@@ -309,7 +309,8 @@ export function* saveCommentWorker({
         eventName: 'Edit',
         timeStamp: String(dateNowInSeconds()),
       };
-      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
+      const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash, indexerOnly);
       histories.push(newHistory);
     }
 
@@ -390,7 +391,8 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
         eventName: 'Delete',
         timeStamp: String(dateNowInSeconds()),
       };
-      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
+      const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash, indexerOnly);
       histories.push(newHistory);
     }
     if (answerId === 0 || answerId === '0') {
@@ -672,7 +674,8 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         ethereumService,
       );
       txHash = transaction.transactionHash;
-      yield call(waitForPostTransactionToIndex, txHash);
+      const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+      yield call(waitForPostTransactionToIndex, txHash, indexerOnly);
     }
 
     const newComment = {
@@ -816,7 +819,8 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       updatedProfileInfo = yield call(getProfileInfo, profileInfo.user);
 
       txHash = transaction.transactionHash;
-      yield call(waitForPostTransactionToIndex, txHash);
+      const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+      yield call(waitForPostTransactionToIndex, txHash, indexerOnly);
     }
 
     questionData.replyCount += 1;
