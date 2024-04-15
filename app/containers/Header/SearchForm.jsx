@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import createdHistory from 'createdHistory';
@@ -6,12 +6,14 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import Input from 'components/Input';
 import { graphCommunityColors } from 'utils/communityManagement';
+import useKeyDown from 'hooks/useKeyDown';
 
 const graphCommunity = graphCommunityColors();
 
 const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const [text, changeText] = useState('');
   const [lastPathName, changeLastPathName] = useState('');
+  const inputElement = useRef(null);
 
   const onSubmit = useCallback(
     (e) => {
@@ -29,9 +31,14 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
       value: text,
       onChange: (e) => changeText(e.target.value),
       onBlur,
+      ref: inputElement,
     }),
     [text, searchFormId, onBlur],
   );
+
+  useKeyDown(() => {
+    inputElement.current.focus();
+  }, [75]);
 
   if (
     !createdHistory.location.pathname.includes(routes.search()) &&
