@@ -14,6 +14,8 @@ import ModalDialog from 'components/ModalDialog';
 import notificationsReducer from 'components/Notifications/reducer';
 import EmailForm from 'containers/Login/SuiSignIn/EmailForm';
 import EthereumLogin from 'containers/Login/EthereumSignIn/EthereumLogin';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { redirectToSSR } from 'utils/url';
 
 import * as selectors from './selectors';
 
@@ -55,7 +57,7 @@ export const Login = ({
     }
   }, [hideSignInModalDispatch, isWalletLogin]);
   const closeModal = () => {
-    window.location = `${process.env.SSR_APP_LOCATION}/${window.location.pathname}`;
+    redirectToSSR(isSingleCommunityWebsite());
     hideSignInModalDispatch();
   };
 

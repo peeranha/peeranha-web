@@ -10,11 +10,13 @@ import { AUTOLOGIN_DATA, EMAIL_LOGIN_DATA, PROFILE_INFO_LS } from 'containers/Lo
 import { WEB3_TOKEN, META_TRANSACTIONS_ALLOWED, isSuiBlockchain } from 'utils/constants';
 import { getCurrentAccountSuccess, addLoginData } from 'containers/AccountProvider/actions';
 import { TRANSACTION_LIST } from 'utils/transactionsListManagement';
+import { clearNotificationsData } from 'components/Notifications/actions';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { redirectToSSR } from 'utils/url';
 
 import { LOGOUT } from './constants';
 
 import { logoutSuccess, logoutErr } from './actions';
-import { clearNotificationsData } from 'components/Notifications/actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* logoutWorker() {
@@ -42,7 +44,7 @@ export function* logoutWorker() {
     yield put(setTransactionList([]));
 
     yield put(logoutSuccess());
-    window.location = `${process.env.SSR_APP_LOCATION}/${window.location.pathname}`;
+    redirectToSSR(isSingleCommunityWebsite());
   } catch (err) {
     yield put(logoutErr(err));
   }
