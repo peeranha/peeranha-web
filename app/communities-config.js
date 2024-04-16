@@ -469,10 +469,6 @@ const googleSiteVerificationsConfig = {
 };
 
 export const isMeshServiceConfig = () => {
-  const isActionFulfilled = getCookie(ACTION_FULFILLED);
-  if (isActionFulfilled) {
-    return true;
-  }
   const polygonNetworkId = 1;
 
   const singleCommunityId = Object.keys(communitiesConfig[process.env.ENV]).find(

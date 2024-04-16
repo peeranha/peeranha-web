@@ -12,8 +12,13 @@ import {
 import { delay } from 'utils/reduxUtils';
 import { historyIdQueryGraph } from 'utils/queries/QueriesGraph';
 
-const getDataFromIndexer = async (query: string, variables: object = {}) => {
-  const url = isMeshServiceConfig() ? process.env.QUERY_INDEX_URL : process.env.THE_GRAPH_QUERY_URL;
+const getDataFromIndexer = async (
+  query: string,
+  variables: object = {},
+  isMeshService: boolean | undefined,
+) => {
+  const isMesh = isMeshService ? true : isMeshServiceConfig();
+  const url = isMesh ? process.env.QUERY_INDEX_URL : process.env.THE_GRAPH_QUERY_URL;
   const response = await fetch(new URL(url), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -166,21 +171,24 @@ export const getSuiCommunityTags = async (communityId: string) => {
   return data.tag;
 };
 
-export const isPostTransactionIndexed = async (id) => {
-  const isMeshService = isMeshServiceConfig();
+export const isPostTransactionIndexed = async (id: any, indexerOnly: boolean | undefined) => {
+  const isMeshService = indexerOnly ? true : isMeshServiceConfig();
   const historyQuery = isMeshService ? historyIdQuery : historyIdQueryGraph;
-  const data = await getDataFromIndexer(historyQuery, { id });
+  const data = await getDataFromIndexer(historyQuery, { id }, isMeshService);
   return isMeshService
     ? data.history && data.history.length > 0
     : data.history?.id && data.history?.id.length > 0;
 };
 
-export const waitForPostTransactionToIndex = async (transaction) => {
+export const waitForPostTransactionToIndex = async (
+  transaction: any,
+  indexerOnly: boolean | undefined,
+) => {
   let indexed = false;
   /* eslint-disable no-await-in-loop */
   do {
     await delay(500);
-    indexed = await isPostTransactionIndexed(transaction);
+    indexed = await isPostTransactionIndexed(transaction, indexerOnly);
   } while (!indexed);
   /* eslint-enable no-await-in-loop */
 };

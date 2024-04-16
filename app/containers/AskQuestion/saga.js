@@ -11,6 +11,7 @@ import * as routes from 'routes-config';
 import { isSuiBlockchain } from 'utils/constants';
 import { ApplicationError } from 'utils/errors';
 import { getActualId, getNetwork } from 'utils/properties';
+import { queryOnlyFromIndexer } from 'utils/queries/ethereumService';
 
 import { postQuestion, updateDocumentationTree } from 'utils/questionsManagement';
 
@@ -196,7 +197,8 @@ export function* postQuestionWorker({ val }) {
           ethereumService,
         );
       }
-      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
+      const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash, indexerOnly);
       yield put(askQuestionSuccess(id));
       ReactGA.event({
         category: 'Users',
