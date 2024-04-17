@@ -22,6 +22,10 @@ const getRouteByPostType = ({ postType, isFeed, communityId = 0 }) => {
   if (postType === POST_TYPE.expertPost) {
     return routes.expertPosts(communityId);
   }
+  if (postType === POST_TYPE.autoscraped) {
+    return routes.discordPosts();
+  }
+  // To do: telegram and slack
   return routes.questions(communityId);
 };
 

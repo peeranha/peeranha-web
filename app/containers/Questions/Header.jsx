@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import React, { useMemo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -12,6 +13,7 @@ import generalIcon from 'images/comments-outline-24.svg?external';
 import pencilIcon from 'images/pencil.svg?external';
 import myFeedIcon from 'images/myFeedHeader.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
+import socialIcon from 'images/socialLogo.svg?external';
 
 import {
   isSingleCommunityWebsite,
@@ -44,6 +46,7 @@ import {
   GraduationCapGraph,
   PlayCircleGraph,
   PencilSimpleLineGraph,
+  SocialLogoGraph,
 } from 'components/icons';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
@@ -132,6 +135,7 @@ export const Header = ({
   topQuestions,
   postsTypes,
   profile,
+  socialServerLink,
 }) => {
   const { t } = useTranslation();
   const [tags, setTags] = useState([]);
@@ -184,6 +188,25 @@ export const Header = ({
         defaultAvatarWidth = '28';
         route = 'tutorials';
         break;
+      case POST_TYPE.autoscraped:
+        defaultAvatar = socialIcon;
+        defaultLabel = t('createCommunity.discord');
+        defaultAvatarWidth = '28';
+        route = 'discordPosts';
+        break;
+      //   To do: telegram and slack
+      // case POST_TYPE.autoscraped:
+      //   defaultAvatar = socialIcon;
+      //   defaultLabel = t('createCommunity.telegram');
+      //   defaultAvatarWidth = '28';
+      //   route = 'telegramPosts';
+      //   break;
+      // case POST_TYPE.autoscraped:
+      //   defaultAvatar = socialIcon;
+      //   defaultLabel = t('createCommunity.slack');
+      //   defaultAvatarWidth = '28';
+      //   route = 'slackPosts';
+      //   break;
     }
   } else {
     defaultAvatar = myFeedIcon;
@@ -196,13 +219,12 @@ export const Header = ({
       switch (postsTypes[0]) {
         case POST_TYPE.generalPost:
           return <ChatsCircleGraph size={[28, 28]} />;
-          break;
         case POST_TYPE.expertPost:
           return <GraduationCapGraph size={[28, 28]} />;
-          break;
         case POST_TYPE.tutorial:
           return <PlayCircleGraph size={[28, 28]} />;
-          break;
+        case POST_TYPE.autoscraped:
+          return <SocialLogoGraph />;
       }
     } else {
       return <FileGraph size={[28, 28]} />;
@@ -211,7 +233,7 @@ export const Header = ({
 
   useMemo(() => !!single && !!topQuestions.length, [topQuestions.length]);
   /* eslint react/prop-types: 0 */
-  const Button = ({ communityAvatar, communityLabel }) => (
+  const Button = ({ communityAvatar, communityLabel, socialServerLink }) => (
     <H3>
       {communityAvatar ? (
         <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
@@ -230,8 +252,17 @@ export const Header = ({
           </MediumIconStyled>
         </StyledCustomIconButtonContainer>
       )}
-
-      <span>{communityLabel || defaultLabel}</span>
+      {location.pathname === '/discord' ? (
+        <a
+          href={socialServerLink}
+          target="_blank"
+          css={{ color: customColor, ':hover': { textDecoration: 'underline !important' } }}
+        >
+          {defaultLabel}
+        </a>
+      ) : (
+        <span>{communityLabel || defaultLabel}</span>
+      )}
     </H3>
   );
 
@@ -259,6 +290,7 @@ export const Header = ({
             showOnlyFollowed={isFeed}
             selectedCommunityId={communityIdFilter}
             communities={notHiddenCommunities}
+            socialServerLink={socialServerLink}
           />
           {/* PEER-451: Hide Subscribe button from single community mode
           {!!displaySubscribeButton && (
@@ -307,6 +339,7 @@ Header.propTypes = {
   topQuestionsInfoLoaded: PropTypes.bool,
   topQuestions: PropTypes.array,
   profile: PropTypes.object,
+  socialServerLink: PropTypes.string,
 };
 
 export default React.memo(

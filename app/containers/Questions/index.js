@@ -166,6 +166,13 @@ export const Questions = ({
           return 'common.expertPosts';
         case POST_TYPE.tutorial:
           return 'common.tutorials';
+        case POST_TYPE.autoscraped:
+          return 'createCommunity.discord';
+        //   To do: telegram and slack
+        // case POST_TYPE.autoscraped:
+        //   return 'createCommunity.telegram';
+        // case POST_TYPE.autoscraped:
+        //   return 'createCommunity.slack';
         default:
           return 'post.questions.title';
       }
@@ -198,6 +205,7 @@ export const Questions = ({
         isExpert={isExpert}
         postsTypes={postsTypes}
         locale={locale}
+        socialServerLink={questionsList[0]?.message?.messageLink.split('/').splice(0, 5).join('/')}
       />
       {displayBanner && (
         <Banner

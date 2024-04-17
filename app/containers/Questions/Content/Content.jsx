@@ -7,6 +7,12 @@ import styled from 'styled-components';
 import BaseNoPadding from 'components/Base/BaseRoundedNoPadding';
 
 import { officialAnswersCount } from 'utils/properties';
+import { POST_TYPE } from 'utils/constants';
+
+import AdditionalInfo from './AdditionalInfo';
+import MoveSection from './MoveSection';
+import Body from './Body';
+import Pagination from './Pagination';
 
 import { downQuestion, moveQuestion, upQuestion } from '../actions';
 import {
@@ -15,12 +21,6 @@ import {
   selectTopQuestionActionProcessing,
   selectTopQuestions,
 } from '../selectors';
-import AdditionalInfo from './AdditionalInfo';
-import MoveSection from './MoveSection';
-import Body from './Body';
-import Pagination from './Pagination';
-
-import { POST_TYPE } from 'utils/constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
@@ -156,6 +156,7 @@ const QI = ({
           officialAnswersCount={offAnswersCount}
           isSearchPage={isSearchPage}
           isTutorial={postType === POST_TYPE.tutorial}
+          isSocialPostType={postType === POST_TYPE.autoscraped}
         />
       )}
       <Div>

@@ -556,8 +556,8 @@ export const getCommentId2 = async (commentId) => {
 };
 
 export const postsForSearch = async (text, single) => {
-  const isMeshService = isMeshServiceConfig();
-
+  const SOCIAL_POST_TYPE_ID = 3;
+  const isMeshService = isMeshServiceConfig() || single;
   const cleanedText = text.replace(/\s+/g, ' ').trim();
   const query = isMeshService
     ? cleanedText
@@ -579,15 +579,17 @@ export const postsForSearch = async (text, single) => {
   });
 
   const posts = isMeshService
-    ? result?.post.map((item) => {
-        const { user, posttag, ...post } = item;
-        const tags = posttag.map((postTag) => postTag.tag);
-        return {
-          ...post,
-          tags,
-          author: getUserDataFromMesh(user),
-        };
-      })
+    ? result?.post
+        .filter((post) => (single ? true : post.postType !== SOCIAL_POST_TYPE_ID))
+        .map((item) => {
+          const { user, posttag, ...post } = item;
+          const tags = posttag.map((postTag) => postTag.tag);
+          return {
+            ...post,
+            tags,
+            author: getUserDataFromMesh(user),
+          };
+        })
     : result?.postSearch;
   return posts.filter((post) => !post.isDeleted && (single ? post.communityId === single : true));
 };

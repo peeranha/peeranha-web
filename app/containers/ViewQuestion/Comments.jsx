@@ -26,7 +26,7 @@ import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import SeeOriginal from 'containers/ViewQuestion/SeeOriginal';
 import { getUserName } from 'utils/user';
-import { LANGUAGES_MAP } from 'utils/constants';
+import { LANGUAGES_MAP, POST_TYPE } from 'utils/constants';
 import {
   getPermissions,
   hasCommunityModeratorRole,
@@ -156,6 +156,7 @@ const CommentView = (item) => {
     ? item.author?.id?.toLowerCase() === item.profileInfo.user.toLowerCase()
     : false;
 
+  const isSocialPostType = item.questionData.postType === POST_TYPE.autoscraped;
   const translation = item.translations?.find(
     ({ language }) => +language === LANGUAGES_MAP[item.locale],
   );
@@ -259,6 +260,7 @@ const CommentView = (item) => {
                   ipfsHash={item.ipfsHash}
                   histories={formattedHistories}
                   networkId={item.questionData.networkId}
+                  isSocialPostType={isSocialPostType}
                 />
               </div>
             )}
@@ -348,6 +350,7 @@ const Comments = (props) => {
         transactionInPending={props?.transactionInPending}
         commentIds={props?.commentIds}
         commentIdsInTransaction={props?.commentIdsInTransaction}
+        postType={props?.questionData.postType}
       />
     </div>
   );

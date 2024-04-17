@@ -105,6 +105,7 @@ const AdditionalInfo = ({
   officialAnswersCount,
   isSearchPage,
   isTutorial,
+  isSocialPostType,
 }) => {
   const icon = useMemo(() => {
     if (officialAnswersCount) {
@@ -172,13 +173,15 @@ const AdditionalInfo = ({
         </Div>
       )}
 
-      <Div>
-        <span>
-          {graphCommunity ? graphVote : <img src={src} alt="icon" />}
+      {!isSocialPostType && (
+        <Div>
+          <span>
+            {graphCommunity ? graphVote : <img src={src} alt="icon" />}
 
-          <Span color={colors.linkColor || TEXT_PRIMARY_DARK}>{formattedRating}</Span>
-        </span>
-      </Div>
+            <Span color={colors.linkColor || TEXT_PRIMARY_DARK}>{formattedRating}</Span>
+          </span>
+        </Div>
+      )}
     </Container>
   );
 };
@@ -188,6 +191,9 @@ AdditionalInfo.propTypes = {
   rating: PropTypes.number,
   correctAnswerId: PropTypes.number,
   officialAnswersCount: PropTypes.number,
+  isSearchPage: PropTypes.bool,
+  isTutorial: PropTypes.bool,
+  isSocialPostType: PropTypes.bool,
 };
 
 export default memo(AdditionalInfo);

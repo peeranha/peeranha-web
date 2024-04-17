@@ -111,10 +111,18 @@ export const POST_TYPE_TO_LABEL: { [index: number]: string } = {
   0: 'common.expert',
   1: 'common.general',
   2: 'common.tutorial',
+  3: 'createCommunity.discord',
+  // To do: telegram and slack
+  // 4: 'createCommunity.telegram',
+  // 5: 'createCommunity.slack',
 };
 
 export const ROUTES_BY_TYPE = {
   [POST_TYPE.expertPost]: routes.expertPostView,
   [POST_TYPE.generalPost]: routes.questionView,
   [POST_TYPE.tutorial]: routes.tutorialView,
+  [POST_TYPE.discord]: routes.discordPostView,
+  // To do: telegram and slack
+  // [POST_TYPE.telegram]: routes.telegramPostView,
+  // [POST_TYPE.slack]: routes.slackPostView,
 };

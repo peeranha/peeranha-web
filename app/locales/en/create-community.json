@@ -39,6 +39,9 @@
   "instagram": "Instagram",
   "youtube": "YouTube",
   "vk": "VK",
+  "discord": "Discord",
+  "telegram": "Telegram",
+  "slack": "Slack",
   "mainColor": "Main color",
   "highlightColor": "Highlight color",
   "communityType": "Community Type",
@@ -55,6 +58,5 @@
   "communityWebsiteTip": "The name of your community site",
   "returnToTheGraph": "Return to thegraph.com",
   "forum": "Forum",
-  "docs": "Docs",
-  "discord": "Discord"
+  "docs": "Docs"
 }

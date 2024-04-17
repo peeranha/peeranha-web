@@ -193,6 +193,16 @@ const postMesh = `
     userId
     direction
   }
+  message {
+    nodeId
+    id
+    messengerType
+    teamId
+    channelId
+    messageId
+    userId
+    messageLink
+}
   `;
 
 const postForSearchMesh = `
@@ -463,6 +473,16 @@ export const postMeshShallow = `
       language
       title
     }
+    message {
+      nodeId
+      id
+      messengerType
+      teamId
+      channelId
+      messageId
+      userId
+      messageLink
+  }
 `;
 
 export const postsQueryMesh = (postTypes: string) => `

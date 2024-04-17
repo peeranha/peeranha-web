@@ -55,6 +55,18 @@ const getRoute = (postType) => {
     return 'expertPostView';
   }
 
+  if (postType === POST_TYPE.autoscraped) {
+    return 'discordPostView';
+  }
+  // To do: telegram and slack
+  // if (postType === POST_TYPE.telegram) {
+  //   return 'telegramPostView';
+  // }
+
+  // if (postType === POST_TYPE.slack) {
+  //   return 'slackPostView';
+  // }
+
   return 'tutorialView';
 };
 

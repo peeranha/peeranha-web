@@ -10,19 +10,21 @@ import ipfsLogo from 'images/ipfs-logo.svg?external';
 import { getIpfsHashFromBytes32 } from 'utils/ipfs.js';
 import { getFormattedDate } from 'utils/datetime';
 import { isSuiBlockchain, MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
-import { graphCommunityColors } from 'utils/communityManagement';
+import { graphCommunityColors, singleCommunityColors } from 'utils/communityManagement';
 
+import { messengerData } from 'containers/ViewQuestion/BotInfo';
 import { IconSm } from 'components/Icon/IconWithSizes';
 import A from 'components/A';
 import Span from 'components/Span';
 
+const colors = singleCommunityColors();
 const graphCommunity = graphCommunityColors();
 
 const Label = styled.div`
   position: absolute;
   background-color: ${graphCommunity ? '#161425' : BG_LIGHT};
   border-radius: ${BORDER_RADIUS_L};
-  width: 455px;
+  width: ${({ isSocialPostType }) => (isSocialPostType ? 'max-content' : '455px')};
   left: 50%;
   top: calc(100% + 10px);
   transform: translateX(-95%);
@@ -39,7 +41,14 @@ const Label = styled.div`
   }
 `;
 
-const IPFSInformation = ({ locale, ipfsHash, histories, networkId }) => {
+const IPFSInformation = ({
+  locale,
+  ipfsHash,
+  histories,
+  networkId,
+  isSocialPostType,
+  messenger,
+}) => {
   const { t } = useTranslation();
   const columns = {
     transactionHash: t('post.transactionHash'),
@@ -79,37 +88,81 @@ const IPFSInformation = ({ locale, ipfsHash, histories, networkId }) => {
     }),
   );
 
+  const { messengerType, messageLink } = messenger;
   return (
-    <Label>
-      <IconSm icon={ipfsLogo} className="mr-1" />
-      <Span fontSize="14">
-        {t('common.ipfsHashValue')}
-        {': '}
-        <A target="_blank" to={{ pathname: ipfsURL + hashString }} href={ipfsURL + hashString}>
-          {hashString}
-        </A>
-      </Span>
+    <Label isSocialPostType={isSocialPostType}>
+      {isSocialPostType ? (
+        <div className="df fdc">
+          <Span fontSize="16" lineHeight="24">
+            {t('post.server')}
+            {': '}
+            <A
+              target="_blank"
+              to={{ pathname: messageLink.split('/').splice(0, 5).join('/') }}
+              href={ipfsURL + hashString}
+              css={{ color: colors.linkColor || 'rgba(87, 111, 237, 1)' }}
+            >
+              {messengerData[messengerType].name}
+            </A>
+          </Span>
+          <Span fontSize="16" lineHeight="24">
+            {t('post.channel')}
+            {': '}
+            <A
+              target="_blank"
+              to={{ pathname: messageLink.split('/').splice(0, 6).join('/') }}
+              href={ipfsURL + hashString}
+              css={{ color: colors.linkColor || 'rgba(87, 111, 237, 1)' }}
+            >
+              {messageLink.split('/').splice(0, 6).join('/')}
+            </A>
+          </Span>
+          <Span fontSize="16" lineHeight="24">
+            {t('post.message')}
+            {': '}
+            <A
+              target="_blank"
+              to={{ pathname: messageLink }}
+              href={ipfsURL + hashString}
+              css={{ color: colors.linkColor || 'rgba(87, 111, 237, 1)' }}
+            >
+              {messageLink}
+            </A>
+          </Span>
+        </div>
+      ) : (
+        <>
+          <IconSm icon={ipfsLogo} className="mr-1" />
+          <Span fontSize="14">
+            {t('common.ipfsHashValue')}
+            {': '}
+            <A target="_blank" to={{ pathname: ipfsURL + hashString }} href={ipfsURL + hashString}>
+              {hashString}
+            </A>
+          </Span>
 
-      {formattedData?.length > 0 && (
-        <table className="table mt-2 mb-0" css={graphCommunity && { color: '#E1E1E4' }}>
-          <thead>
-            <tr>
-              {Object.values(columns).map((column, index) => (
-                <th key={`${column}${index}`}>{column}</th>
-              ))}
-            </tr>
-          </thead>
+          {formattedData?.length > 0 && (
+            <table className="table mt-2 mb-0" css={graphCommunity && { color: '#E1E1E4' }}>
+              <thead>
+                <tr>
+                  {Object.values(columns).map((column, index) => (
+                    <th key={`${column}${index}`}>{column}</th>
+                  ))}
+                </tr>
+              </thead>
 
-          <tbody>
-            {formattedData.map((item) => (
-              <tr key={item.transactionHash.props.children}>
-                {Object.keys(columns).map((column, index) => (
-                  <td key={`${column}${index}`}>{item[column]}</td>
+              <tbody>
+                {formattedData.map((item) => (
+                  <tr key={item.transactionHash.props.children}>
+                    {Object.keys(columns).map((column, index) => (
+                      <td key={`${column}${index}`}>{item[column]}</td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+          )}
+        </>
       )}
     </Label>
   );
@@ -119,6 +172,9 @@ IPFSInformation.propTypes = {
   locale: PropTypes.string,
   ipfsHash: PropTypes.string,
   histories: PropTypes.array,
+  networkId: PropTypes.string,
+  isSocialPostType: PropTypes.bool,
+  messenger: PropTypes.object,
 };
 
 export default IPFSInformation;

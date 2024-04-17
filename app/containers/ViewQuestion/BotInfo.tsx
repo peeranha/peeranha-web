@@ -31,9 +31,18 @@ type BotInfoProps = {
   locale: string;
   messengerType: number;
   isPost?: boolean;
+  isSocialPostType: boolean;
+  socialServer: string;
 };
 
-const BotInfo: React.FC<BotInfoProps> = ({ postTime, locale, messengerType, isPost }) => {
+const BotInfo: React.FC<BotInfoProps> = ({
+  postTime,
+  locale,
+  messengerType,
+  isPost,
+  isSocialPostType,
+  socialServer,
+}) => {
   const messenger = messengerData[messengerType] ?? messengerData[MessengerTypes.Unknown];
 
   return (
@@ -44,7 +53,14 @@ const BotInfo: React.FC<BotInfoProps> = ({ postTime, locale, messengerType, isPo
           <img css={styles.messengerImage} src={messenger.icon} alt="messenger image" />
         )}
       </div>
-      <BotBlock postTime={postTime} locale={locale} messenger={messenger} isPost={isPost} />
+      <BotBlock
+        postTime={postTime}
+        locale={locale}
+        messenger={messenger}
+        isPost={isPost}
+        isSocialPostType={isSocialPostType}
+        socialServer={socialServer}
+      />
     </div>
   );
 };

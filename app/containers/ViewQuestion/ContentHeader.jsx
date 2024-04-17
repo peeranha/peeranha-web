@@ -12,7 +12,7 @@ import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 
-import { isSuiBlockchain } from 'utils/constants';
+import { isSuiBlockchain, POST_TYPE } from 'utils/constants';
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
 import {
@@ -197,6 +197,11 @@ const ContentHeader = (props) => {
     [answerId, bestReplyId],
   );
 
+  const isSocialPostType = useMemo(
+    () => questionData.postType === POST_TYPE.autoscraped,
+    [questionData.postType],
+  );
+
   let deleteAction;
   if (isItWrittenByMe) {
     deleteAction = deleteItem;
@@ -209,17 +214,21 @@ const ContentHeader = (props) => {
 
   return (
     <Box>
-      <RatingBox>
-        <ContentRating {...props} />
-      </RatingBox>
+      {!isSocialPostType && (
+        <RatingBox>
+          <ContentRating {...props} />
+        </RatingBox>
+      )}
 
       <ItemInfo>
-        {isBot ? (
+        {isBot || isSocialPostType ? (
           <BotInfo
             postTime={postTime}
             locale={locale}
-            messengerType={author.messengerType}
+            messengerType={author.messengerType || questionData.messengerType}
             isPost={isPostContent}
+            isSocialPostType={isSocialPostType}
+            socialServer={author.displayName}
           />
         ) : (
           <UserInfo
@@ -326,7 +335,9 @@ const ContentHeader = (props) => {
                   locale={locale}
                   ipfsHash={ipfsHashValue}
                   histories={formattedHistories}
-                  networkId={props.questionData.networkId}
+                  networkId={questionData.networkId}
+                  messenger={questionData.message}
+                  isSocialPostType={isSocialPostType}
                 />
               </div>
             )}

@@ -10,11 +10,15 @@ import {
   BG_PREMIUM_LIGHT,
   TEXT_PRIMARY,
   TUTORIAL_ICON_COLOR,
+  BORDER_DARK,
 } from 'style-constants';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 import documentationIcon from 'images/documentation-icon.svg?external';
+import discordIcon from 'images/discordLogo.svg?external';
+// import telegramIcon from 'images/telegramLogo.svg?external';
+// import slackIcon from 'images/slackLogo.svg?external';
 
 import { POST_TYPE } from 'utils/constants';
 import { graphCommunityColors } from 'utils/communityManagement';
@@ -27,6 +31,9 @@ import {
   ChatsCircleGraph,
   GraduationCapGraph,
   DocumentationGraph,
+  DiscordLogo,
+  // TelegramLogo,
+  // SlackLogo,
 } from 'components/icons';
 
 import Popover from './Popover';
@@ -51,23 +58,27 @@ const PromotedLabel = styled.span`
 `;
 
 const GraphLabel = styled.span`
-  background-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+  background-color: ${({ isTutorial, isExpert, isDocumentation, isDiscord }) =>
     isExpert
       ? 'rgba(255, 174, 188, 0.2)'
       : isTutorial
       ? 'rgba(150, 228, 169, 0.2)'
       : isDocumentation
       ? 'rgba(255, 228, 90, 0.2)'
+      : isDiscord
+      ? 'rgba(88, 101, 242, 0.15)'
       : 'rgba(173, 186, 255, 0.2)'};
   border-width: 1px;
   border-style: solid;
-  border-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+  border-color: ${({ isTutorial, isExpert, isDocumentation, isDiscord }) =>
     isExpert
       ? 'rgba(237, 74, 109, 0.2)'
       : isTutorial
       ? 'rgba(75, 202, 129, 0.2)'
       : isDocumentation
       ? 'rgba(245, 190, 140, 0.2)'
+      : isDiscord
+      ? 'rgba(88, 101, 242, 0.15)'
       : 'rgba(76, 105, 255, 0.2)'};
   padding: 1px 7px 1px 7px;
   gap: 10px;
@@ -83,31 +94,38 @@ const Icon = styled(IconLabel)`
   justify-content: center;
   align-items: center;
   padding: 0 7px;
-  background-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+  background-color: ${({ isTutorial, isExpert, isDocumentation, isDiscord }) =>
     isExpert
       ? 'rgba(173, 186, 255, 0.2)'
       : isTutorial
       ? 'rgba(150, 228, 169, 0.2)'
       : isDocumentation
       ? 'rgba(255, 228, 90, 0.2)'
+      : isDiscord
+      ? 'rgba(88, 101, 242, 0.15)'
       : 'rgba(255, 174, 188, 0.2)'};
   border-radius: 20px;
   border-width: 1px;
   border-style: solid;
-  border-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+  border-color: ${({ isTutorial, isExpert, isDocumentation, isDiscord }) =>
     isExpert
       ? 'rgba(151, 167, 245, 0.2)'
       : isTutorial
       ? 'rgba(135, 210, 151, 0.2)'
       : isDocumentation
       ? 'rgba(245, 190, 140, 0.2)'
+      : isDiscord
+      ? 'rgba(88, 101, 242, 0.15)'
       : 'rgba(242, 163, 159, 0.2)'};
   font-weight: normal;
   .opacity {
     fill: none !important;
   }
   .fill {
-    fill: ${({ isTutorial }) => (isTutorial ? TUTORIAL_ICON_COLOR : 'BORDER_DARK')};
+    fill: ${({ isTutorial }) => (isTutorial ? TUTORIAL_ICON_COLOR : BORDER_DARK)};
+  }
+  svg {
+    fill: none !important;
   }
   .semitransparent {
     fill: none;
@@ -142,6 +160,28 @@ const types = {
     icon: documentationIcon,
     isDocumentation: true,
   },
+  [POST_TYPE.autoscraped]: {
+    title: 'common.discordPopoverTitle',
+    label: 'common.discordPopoverLabel',
+    items: 'common.discordPopoverList',
+    icon: discordIcon,
+    isDiscord: true,
+  },
+  // To do: telegram and slack
+  // [POST_TYPE.telegram]: {
+  //   title: 'common.telegramPopoverTitle',
+  //   label: 'common.telegramPopoverLabel',
+  //   items: 'common.telegramPopoverList',
+  //   icon: documentationIcon,
+  //   isTelegram: true,
+  // },
+  // [POST_TYPE.slack]: {
+  //   title: 'common.slackPopoverTitle',
+  //   label: 'common.slackPopoverLabel',
+  //   items: 'common.slackPopoverList',
+  //   icon: documentationIcon,
+  //   isSlack: true,
+  // },
 };
 
 const QuestionType = ({ postType, className, isPromoted = false, isSearch = false }) => {
@@ -161,6 +201,20 @@ const QuestionType = ({ postType, className, isPromoted = false, isSearch = fals
     if (postType === 2) {
       return <PlayCircleGraph size={[24, 24]} fill="#4BCA81" />;
     }
+    if (postType === 3) {
+      return (
+        <DiscordLogo size={[24, 24]} stroke="rgba(88, 101, 242, 0.8)" css={{ fill: 'none' }} />
+      );
+    }
+    // To do: telegram and slack
+    // if (postType === 4) {
+    //   return (
+    //     <TelegramLogo size={[24, 24]} stroke="rgba(88, 101, 242, 0.8)" css={{ fill: 'none' }} />
+    //   );
+    // }
+    // if (postType === 5) {
+    //   return <SlackLogo size={[24, 24]} stroke="rgba(88, 101, 242, 0.8)" css={{ fill: 'none' }} />;
+    // }
     return <DocumentationGraph size={[24, 24]} fill="#FFA801" />;
   }, [postType]);
 
@@ -185,6 +239,9 @@ const QuestionType = ({ postType, className, isPromoted = false, isSearch = fals
                 isExpert={type.isExpert}
                 isTutorial={type.isTutorial}
                 isDocumentation={type.isDocumentation}
+                isDiscord={type.isDiscord}
+                // isTelegram={type.isTelegram}
+                // isSlack={type.isSlack}
                 className={`mr-2 ${!isSearch && 'ml4'}`}
               >
                 {graphIcon}
@@ -194,6 +251,9 @@ const QuestionType = ({ postType, className, isPromoted = false, isSearch = fals
                 isExpert={type.isExpert}
                 isTutorial={type.isTutorial}
                 isDocumentation={type.isDocumentation}
+                isDiscord={type.isDiscord}
+                // isTelegram={type.isTelegram}
+                // isSlack={type.isSlack}
                 className={`mr-2 ${!isSearch && 'ml4'}`}
                 icon={type.icon}
               />

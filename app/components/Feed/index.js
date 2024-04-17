@@ -5,13 +5,16 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import {
-  makeSelectAccount,
-  makeSelectAccountLoading,
-} from 'containers/AccountProvider/selectors';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { POST_TYPE } from 'utils/constants';
+
+import { makeSelectAccount, makeSelectAccountLoading } from 'containers/AccountProvider/selectors';
 
 import WidthCentered from '../LoadingIndicator/WidthCentered';
-import { POST_TYPE } from 'utils/constants';
+
+const single = isSingleCommunityWebsite();
+const defaultPostTypeArray = [POST_TYPE.generalPost, POST_TYPE.expertPost, POST_TYPE.tutorial];
+const singleModePostTypeArray = [...defaultPostTypeArray, POST_TYPE.autoscraped];
 
 const Feed = ({ match, account, loading }) => {
   if (loading) {
@@ -22,11 +25,7 @@ const Feed = ({ match, account, loading }) => {
       <Questions
         parentPage={routes.feed()}
         match={match}
-        postsTypes={[
-          POST_TYPE.generalPost,
-          POST_TYPE.expertPost,
-          POST_TYPE.tutorial,
-        ]}
+        postsTypes={single ? singleModePostTypeArray : defaultPostTypeArray}
       />
     );
   }
@@ -34,11 +33,7 @@ const Feed = ({ match, account, loading }) => {
     <Questions
       parentPage={routes.home()}
       match={match}
-      postsTypes={[
-        POST_TYPE.generalPost,
-        POST_TYPE.expertPost,
-        POST_TYPE.tutorial,
-      ]}
+      postsTypes={single ? singleModePostTypeArray : defaultPostTypeArray}
     />
   );
 };

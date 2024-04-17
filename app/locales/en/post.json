@@ -79,5 +79,8 @@
   "answer_replied": "You have already replied to this post.",
   "answer_repliedText": "You can edit your reply if need to add more information.",
   "answer_reputation": "Unfortunately, your reputation it this community is negative.",
-  "answer_reputationText": "You are not allowed to post any replies."
+  "answer_reputationText": "You are not allowed to post any replies.",
+  "server": "Server",
+  "channel": "Channel",
+  "message": "Message"
 }

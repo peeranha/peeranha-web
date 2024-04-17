@@ -8,6 +8,7 @@ import dotsIcon from 'images/dots.svg?external';
 import arrowDownOutlined from 'images/arrowDown.svg?external';
 
 import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import { POST_TYPE } from 'utils/constants';
 
 import Span from 'components/Span';
 import Icon from 'components/Icon';
@@ -73,12 +74,15 @@ export const CommentOptions = ({
   transactionInPending,
   commentIds,
   commentIdsInTransaction,
+  postType,
 }) => {
   const { t } = useTranslation();
   const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
 
   const showCommentForm =
     addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) || false;
+
+  const isSocialPostType = postType === POST_TYPE.autoscraped;
   return (
     <div className="my-3">
       <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
@@ -97,10 +101,12 @@ export const CommentOptions = ({
           </ButtonStyled>
         )}
 
-        <ActionButtonWithLogin
-          onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
-          buttonId={toggleFormButtonId}
-        />
+        {!isSocialPostType && (
+          <ActionButtonWithLogin
+            onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
+            buttonId={toggleFormButtonId}
+          />
+        )}
       </div>
 
       {showCommentForm && (
@@ -139,6 +145,7 @@ CommentOptions.propTypes = {
   commentsNumber: PropTypes.number,
   profileInfo: PropTypes.object,
   loginWithSuiDispatch: PropTypes.func,
+  postType: PropTypes.number,
 };
 
 export default React.memo(CommentOptions);
