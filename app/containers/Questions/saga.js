@@ -1,11 +1,16 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { take, takeLatest, call, put, select } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { getPosts, getPostsByCommunityId } from 'utils/queries/ethereumService';
+import {
+  getPosts,
+  getPostsByCommunityId,
+  queryOnlyFromIndexer,
+} from 'utils/queries/ethereumService';
 
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
@@ -28,6 +33,8 @@ export function* getQuestionsWorker({
   parentPage,
 }) {
   try {
+    const ethereumService = yield select(selectEthereum);
+    const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
     let followedCommunities = yield select(makeSelectFollowedCommunities());
 
     const communities = yield select(selectCommunities());
@@ -57,13 +64,22 @@ export function* getQuestionsWorker({
         postTypes,
         [communityIdFilter],
         tags,
+        indexerOnly,
       );
     }
 
     if (!communityIdFilter && parentPage !== feed) {
       questionsList = !notHiddenCommunities
-        ? yield call(getPosts, limit, skip, postTypes)
-        : yield call(getPostsByCommunityId, limit, skip, postTypes, notHiddenCommunities, tags);
+        ? yield call(getPosts, limit, skip, postTypes, indexerOnly)
+        : yield call(
+            getPostsByCommunityId,
+            limit,
+            skip,
+            postTypes,
+            notHiddenCommunities,
+            tags,
+            indexerOnly,
+          );
     }
 
     // Load questions for communities where I am
@@ -80,6 +96,7 @@ export function* getQuestionsWorker({
         postTypes,
         followedCommunities,
         tags,
+        indexerOnly,
       );
     }
     const { postCount, updatedPosts } = questionsList;

@@ -119,6 +119,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
 
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
+    clearSavedDrafts();
     setEditArticleDispatch({
       id: '',
       parentId: '',
@@ -263,7 +264,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     setSaveToDraft={setSaveToDraft}
                   />
                 )}
-                {Boolean(viewArticleId) && !Boolean(isDraft) && !editArticle.isEditArticle && (
+                {Boolean(viewArticleId) && !isDraft && !editArticle.isEditArticle && (
                   <Pagination
                     documentationMenu={documentationMenu}
                     id={viewArticleId}

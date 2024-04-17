@@ -30,6 +30,7 @@ import { getRatingByCommunity } from 'utils/profileManagement';
 import { showPopover } from 'utils/popover';
 import { isSuiBlockchain } from 'utils/constants';
 import useMediaQuery from 'hooks/useMediaQuery';
+import useKeyDown from 'hooks/useKeyDown';
 
 import { MagnifyingGlassGraph, PlusGraph } from 'components/icons';
 import LargeButton from 'components/Button/Contained/InfoLarge';
@@ -111,6 +112,13 @@ const View = ({
       document.getElementById(SEARCH_FORM_ID).focus();
     }
   }, [isSearchFormVisible]);
+
+  useKeyDown(() => {
+    if (!isDesktop) {
+      setSearchFormVisibility(true);
+      document.getElementById(SEARCH_FORM_ID).focus();
+    }
+  }, [75]);
 
   const Logo = useCallback(() => {
     if (isSearchFormVisible) return null;

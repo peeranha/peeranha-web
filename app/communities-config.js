@@ -404,8 +404,8 @@ const communitiesConfig = {
     : {
         '1-22': {
           origin: 'http://localhost:3000',
-          src: 'https://images.peeranha.io/communities/aave/logo.svg',
-          styles: AaveStyles,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
         },
       },
 };
@@ -469,10 +469,6 @@ const googleSiteVerificationsConfig = {
 };
 
 export const isMeshServiceConfig = () => {
-  const isActionFulfilled = getCookie(ACTION_FULFILLED);
-  if (isActionFulfilled) {
-    return true;
-  }
   const polygonNetworkId = 1;
 
   const singleCommunityId = Object.keys(communitiesConfig[process.env.ENV]).find(

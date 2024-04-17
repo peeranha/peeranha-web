@@ -48,7 +48,12 @@ import { getUniqQuestions } from 'containers/Questions/actions';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
 import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-import { getPost, getVoteHistory, getCommentId2 } from 'utils/queries/ethereumService';
+import {
+  getPost,
+  getVoteHistory,
+  getCommentId2,
+  queryOnlyFromIndexer,
+} from 'utils/queries/ethereumService';
 import {
   deleteSuiAnswer,
   deleteSuiComment,
@@ -154,14 +159,16 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
 
 export function* getQuestionData({ questionId, user }) /* istanbul ignore next */ {
   const ethereumService = yield select(selectEthereum);
-  const question = yield call(getPost, questionId);
-  const isMeshService = isMeshServiceConfig();
+  const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+  const isMeshService = indexerOnly ? true : isMeshServiceConfig();
+
+  const question = yield call(getPost, questionId, indexerOnly);
 
   question.author = { ...question.author, user: question.author.id };
 
   if (user) {
     if (isMeshService) {
-      const statusHistory = yield call(getVoteHistory, questionId, user);
+      const statusHistory = yield call(getVoteHistory, questionId, user, indexerOnly);
       question.votingStatus = votingStatus(Number(statusHistory));
       question.answers.map((reply) => {
         const replyStatusHistory = reply.replyvotehistory.find(
@@ -302,7 +309,8 @@ export function* saveCommentWorker({
         eventName: 'Edit',
         timeStamp: String(dateNowInSeconds()),
       };
-      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
+      const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash, indexerOnly);
       histories.push(newHistory);
     }
 
@@ -383,7 +391,8 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
         eventName: 'Delete',
         timeStamp: String(dateNowInSeconds()),
       };
-      yield call(waitForPostTransactionToIndex, transaction.transactionHash);
+      const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+      yield call(waitForPostTransactionToIndex, transaction.transactionHash, indexerOnly);
       histories.push(newHistory);
     }
     if (answerId === 0 || answerId === '0') {
@@ -665,7 +674,8 @@ export function* postCommentWorker({ answerId, questionId, comment, reset, toggl
         ethereumService,
       );
       txHash = transaction.transactionHash;
-      yield call(waitForPostTransactionToIndex, txHash);
+      const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+      yield call(waitForPostTransactionToIndex, txHash, indexerOnly);
     }
 
     const newComment = {
@@ -809,7 +819,8 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       updatedProfileInfo = yield call(getProfileInfo, profileInfo.user);
 
       txHash = transaction.transactionHash;
-      yield call(waitForPostTransactionToIndex, txHash);
+      const indexerOnly = yield call(queryOnlyFromIndexer, ethereumService);
+      yield call(waitForPostTransactionToIndex, txHash, indexerOnly);
     }
 
     questionData.replyCount += 1;

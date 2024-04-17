@@ -605,3 +605,12 @@ export const historyIdQueryGraph = `
       id
     }
 }`;
+
+export const metaQueryGraph = `
+  query {
+  _meta {
+    block {
+      number
+    }
+  }
+}`;

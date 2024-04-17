@@ -153,7 +153,7 @@ function viewQuestionReducer(state = initialState, action) {
     case UP_VOTE:
       return state.set('upVoteLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case UP_VOTE_SUCCESS:
-      return state.questionData.id === questionData.id
+      return state.toJS().questionData.id === questionData.id
         ? state
             .set('upVoteLoading', false)
             .set('questionData', questionData)
@@ -177,7 +177,7 @@ function viewQuestionReducer(state = initialState, action) {
     case DOWN_VOTE:
       return state.set('downVoteLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DOWN_VOTE_SUCCESS:
-      return state.questionData.id === questionData.id
+      return state.toJS().questionData.id === questionData.id
         ? state
             .set('downVoteLoading', false)
             .set('questionData', questionData)
@@ -201,7 +201,7 @@ function viewQuestionReducer(state = initialState, action) {
     case MARK_AS_ACCEPTED:
       return state.set('markAsAcceptedLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case MARK_AS_ACCEPTED_SUCCESS:
-      return state.questionData.id === questionData.id
+      return state.toJS().questionData.id === questionData.id
         ? state
             .set('markAsAcceptedLoading', false)
             .set('questionData', questionData)
@@ -241,7 +241,7 @@ function viewQuestionReducer(state = initialState, action) {
     case DELETE_ANSWER:
       return state.set('deleteAnswerLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DELETE_ANSWER_SUCCESS:
-      return state.questionData.id === questionData.id
+      return state.toJS().questionData.id === questionData.id
         ? state
             .set('questionData', questionData)
             .set('deleteAnswerLoading', false)
@@ -266,7 +266,7 @@ function viewQuestionReducer(state = initialState, action) {
     case DELETE_COMMENT:
       return state.set('deleteCommentLoading', true).set('ids', [...state.toJS().ids, buttonId]);
     case DELETE_COMMENT_SUCCESS:
-      return state.questionData.id === questionData.id
+      return state.toJS().questionData.id === questionData.id
         ? state
             .set('questionData', questionData)
             .set('deleteCommentLoading', false)
@@ -293,7 +293,7 @@ function viewQuestionReducer(state = initialState, action) {
         .set('ids', [...state.toJS().ids, buttonId])
         .set('commentIdsInTransaction', [...state.toJS().commentIdsInTransaction, commentId]);
     case SAVE_COMMENT_SUCCESS:
-      return state.questionData.id === questionData.id
+      return state.toJS().questionData.id === questionData.id
         ? state
             .set('questionData', questionData)
             .set('saveCommentLoading', false)
