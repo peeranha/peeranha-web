@@ -83,7 +83,7 @@ export const getCurrentAccountWorker = function* (initAccount) {
       window.localStorage.setItem('onboard.js:agreement', getCookie('agreement'));
     }
 
-    if (!account) {
+    if (!account && previouslyConnectedWallet) {
       yield call(
         ethereumService.walletLogIn,
         previouslyConnectedWallet,
@@ -134,7 +134,6 @@ export const getCurrentAccountWorker = function* (initAccount) {
     yield put(getCurrentAccountSuccess(account, balance, availableBalance, userCurrentBoost));
   } catch (err) {
     yield put(getCurrentAccountError(err));
-    redirectToSSR(isSingleCommunityWebsite());
   }
 };
 
