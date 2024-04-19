@@ -15,7 +15,8 @@ export const initialState = fromJS({
 });
 
 function tagsReducer(state = initialState, action) {
-  const { type, sorting, loadMore, existingTags, getExistingTagsError, text, tags } = action;
+  const { type, sorting, loadMore, existingTags, getExistingTagsError, text, tags, communityId } =
+    action;
 
   switch (type) {
     case GET_EXISTING_TAGS:
@@ -33,7 +34,7 @@ function tagsReducer(state = initialState, action) {
         .set('isLastFetchForExistingTags', existingTags.length < initialState.get('limit'))
         .set(
           'existingTags',
-          loadMore ? state.toJS().existingTags.concat(existingTags) : existingTags,
+          loadMore ? state.toJS().existingTags[communityId].concat(existingTags) : existingTags,
         );
     case GET_EXISTING_TAGS_ERROR:
       return state

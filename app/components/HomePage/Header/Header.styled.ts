@@ -1,3 +1,7 @@
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
+
 export const styles = {
   headerSection: {
     position: 'fixed',
@@ -54,7 +58,7 @@ export const styles = {
 
   button: {
     width: '93px',
-    height: '28px',
+    height: graphCommunity ? '48px' : '28px',
     color: 'rgb(247, 111, 96)',
     border: '1px solid rgb(247, 111, 96)',
     borderRadius: '2px',

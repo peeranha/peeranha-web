@@ -61,7 +61,7 @@ const TagFilter: React.FC<{
                   strokeOpacity={1}
                   fillOpacity={0.2}
                   fill={graphCommunity ? 'rgba(111, 76, 255, 1)' : TEXT_LIGHT}
-                ></FailedTransactionIcon>
+                />
               </button>
             </Tag>
           ))}

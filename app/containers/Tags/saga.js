@@ -28,7 +28,7 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
       sliceStart + limit,
     );
 
-    yield put(getExistingTagsSuccess(existingTags, loadMore));
+    yield put(getExistingTagsSuccess(existingTags, loadMore, communityId));
   } catch (err) {
     yield put(getExistingTagsErr(err.message));
   }

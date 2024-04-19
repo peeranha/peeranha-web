@@ -102,6 +102,7 @@ const AISearch = ({
         css={css`
           align-items: baseline;
           padding-top: 30px;
+          padding: ${graphCommunity ? '20px 0' : ''};
           @media only screen and (max-width: 576px) {
             border: none;
           }
@@ -150,12 +151,12 @@ const AISearch = ({
           />
           {searchText ? (
             graphCommunity ? (
-              <XGraph size={[24, 24]} onClick={clearInputHandler} css={styles.closeInputIcon} />
+              <XGraph size={[20, 20]} onClick={clearInputHandler} css={styles.closeInputIcon} />
             ) : (
               <Close fill={'#BDBDBD'} onClick={clearInputHandler} css={styles.closeInputIcon} />
             )
           ) : graphCommunity ? (
-            <MagnifyingGlassGraph size={[24, 24]} css={styles.searchInputIcon} />
+            <MagnifyingGlassGraph size={[20, 20]} css={styles.searchInputIcon} />
           ) : (
             <SearchAI size={[30, 30]} stroke={'#BDBDBD'} css={styles.searchInputIcon} />
           )}
@@ -165,11 +166,11 @@ const AISearch = ({
             disabled={searchResultLoading}
             css={css`
               opacity: ${searchResultLoading && !graphCommunity ? '0.8' : '1'};
-              position: absolute;
-              top: 10px;
-              right: 15px;
+              position: ${graphCommunity ? '' : 'absolute'};
+              top: ${graphCommunity ? '' : '10px'};
+              right: ${graphCommunity ? '' : '15px'};
               border-radius: ${BORDER_RADIUS_M};
-
+              margin-left: ${graphCommunity ? '12px' : ''};
               .fill {
                 fill: ${TEXT_LIGHT};
               }
@@ -184,6 +185,7 @@ const AISearch = ({
                 display: flex;
                 align-items: center;
                 color: ${graphCommunity ? TEXT_LIGHT : ''};
+                width: ${graphCommunity ? 'max-content' : ''};
               }
 
               background: ${graphCommunity
@@ -222,11 +224,13 @@ const AISearch = ({
             onKeyDown={onKeyDownHandler}
           />
           {searchText ? (
-            <Close
-              fill={graphCommunity ? '#A7A7AE' : '#BDBDBD'}
-              css={styles.closeInputIcon}
-              onClick={clearInputHandler}
-            />
+            graphCommunity ? (
+              <XGraph size={[20, 20]} onClick={clearInputHandler} css={styles.closeInputIcon} />
+            ) : (
+              <Close fill={'#BDBDBD'} onClick={clearInputHandler} css={styles.closeInputIcon} />
+            )
+          ) : graphCommunity ? (
+            <MagnifyingGlassGraph size={[20, 20]} css={styles.searchInputIcon} />
           ) : (
             <SearchAI size={[30, 30]} stroke={'#BDBDBD'} css={styles.searchInputIcon} />
           )}

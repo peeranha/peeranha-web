@@ -78,7 +78,7 @@ const styles = {
 
   popupMenuCloseButton: {
     width: '43vw',
-    height: '40px',
+    height: graphCommunity ? '48px' : '40px',
     border: `1px solid ${communityColors.btnHeaderColor || BUTTON_COLOR}`,
     borderRadius: BORDER_RADIUS_M,
     fontSize: '16px',
@@ -96,7 +96,7 @@ const styles = {
 
   popupMenuSaveButton: {
     width: '43vw',
-    height: '40px',
+    height: graphCommunity ? '48px' : '40px',
     transition: '0.2s',
     background: communityColors.btnHeaderColor || BUTTON_COLOR,
     color: communityColors.newPostButtonText || TEXT_LIGHT,
