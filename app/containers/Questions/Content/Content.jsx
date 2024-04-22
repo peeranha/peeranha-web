@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-
+import { getPostRoute } from 'routes-config';
 import BaseNoPadding from 'components/Base/BaseRoundedNoPadding';
-
+import createdHistory from 'createdHistory';
 import { officialAnswersCount } from 'utils/properties';
 
 import { downQuestion, moveQuestion, upQuestion } from '../actions';
@@ -30,7 +30,7 @@ const Box = BaseNoPadding.extend`
   flex-direction: row;
   position: relative;
   transition: none;
-
+  cursor: pointer;
   @media only screen and (max-width: 576px) {
     flex-direction: column;
   }
@@ -86,7 +86,7 @@ const QI = ({
   messengerType,
 }) => {
   const ref = useRef(null);
-
+  const link = getPostRoute({ postType, id, title });
   const isExpert = postType === POST_TYPE.expertPost;
 
   const displayTopQuestionMove = useMemo(
@@ -146,6 +146,7 @@ const QI = ({
       onDragStart={!isHomePage ? onDragStart : undefined}
       isPromoted={isPromoted}
       isExpert={isExpert}
+      onClick={() => createdHistory.push(link)}
     >
       {postType !== POST_TYPE.documentation && (
         <AdditionalInfo
