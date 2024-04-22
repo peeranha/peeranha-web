@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-
+import { getPostRoute } from 'routes-config';
 import BaseNoPadding from 'components/Base/BaseRoundedNoPadding';
+import createdHistory from 'createdHistory';
 
 import { officialAnswersCount } from 'utils/properties';
+import { graphCommunityColors } from 'utils/communityManagement';
+import { POST_TYPE } from 'utils/constants';
 
 import { downQuestion, moveQuestion, upQuestion } from '../actions';
 import {
@@ -20,8 +23,9 @@ import MoveSection from './MoveSection';
 import Body from './Body';
 import Pagination from './Pagination';
 
-import { POST_TYPE } from 'utils/constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
+
+const graphCommunity = graphCommunityColors();
 
 const Box = BaseNoPadding.extend`
   display: flex;
@@ -30,7 +34,7 @@ const Box = BaseNoPadding.extend`
   flex-direction: row;
   position: relative;
   transition: none;
-
+  cursor: pointer;
   @media only screen and (max-width: 576px) {
     flex-direction: column;
   }
@@ -86,7 +90,7 @@ const QI = ({
   messengerType,
 }) => {
   const ref = useRef(null);
-
+  const link = getPostRoute({ postType, id, title });
   const isExpert = postType === POST_TYPE.expertPost;
 
   const displayTopQuestionMove = useMemo(
@@ -146,6 +150,15 @@ const QI = ({
       onDragStart={!isHomePage ? onDragStart : undefined}
       isPromoted={isPromoted}
       isExpert={isExpert}
+      onClick={() => createdHistory.push(link)}
+      css={
+        graphCommunity && {
+          ':hover': {
+            backgroundColor: 'rgb(36, 34, 50)',
+            div: { backgroundColor: 'rgb(36, 34, 50)' },
+          },
+        }
+      }
     >
       {postType !== POST_TYPE.documentation && (
         <AdditionalInfo

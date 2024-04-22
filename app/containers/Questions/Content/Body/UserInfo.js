@@ -36,7 +36,11 @@ export const AuthorName = Span.extend`
 `;
 const UserInfo = ({ author, postTime, locale, isSearchPage, communityId, achievementsCount }) => (
   <p className="mb-3">
-    <A to={routes.profileView(author.id)} className="d-inline-flex align-items-center">
+    <A
+      to={routes.profileView(author.id)}
+      className="d-inline-flex align-items-center"
+      onClick={(event) => event.stopPropagation()}
+    >
       {!isSearchPage && (
         <>
           <AuthorName

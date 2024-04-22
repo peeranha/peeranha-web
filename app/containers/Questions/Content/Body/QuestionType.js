@@ -167,7 +167,11 @@ const QuestionType = ({ postType, className, isPromoted = false, isSearch = fals
   const type = types[postType];
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      onClick={(event) => event.stopPropagation()}
+      css={{ cursor: 'default' }}
+    >
       {type && (
         <LabelItem>
           <Container onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} size="sm">

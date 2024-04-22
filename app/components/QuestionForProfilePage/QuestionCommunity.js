@@ -59,7 +59,12 @@ const QuestionCommunity = ({
   }
 
   return (
-    <Link to={route} href={route} className={`d-flex align-items-center ${className}`}>
+    <Link
+      to={route}
+      href={route}
+      className={`d-flex align-items-center ${className}`}
+      onClick={(event) => event.stopPropagation()}
+    >
       <Img className="mr-1" src={community?.avatar} alt="comm_avatar" />
       <Span font-size="14">{communityTranslationTitle || community?.name}</Span>
     </Link>
