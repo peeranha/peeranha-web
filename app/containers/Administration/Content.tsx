@@ -32,11 +32,11 @@ enum Roles {
 
 type ContentProps = {
   locale: string;
-  single: number;
+  single?: string;
   profileInfo: User;
   moderators: Array<Moderator>;
   revokeRole: (userAddress: string, roles: Roles, communityId: number) => void;
-  communityId: number;
+  communityId?: string;
   moderatorsLoading: boolean;
   revokeRoleLoading: boolean;
 };

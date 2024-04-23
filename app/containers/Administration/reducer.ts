@@ -10,6 +10,8 @@ import {
   REVOKE_ROLE,
   REVOKE_ROLE_ERROR,
   REVOKE_ROLE_SUCCESS,
+  OPEN_EMPTY_USER_WARNING,
+  CLOSE_EMPTY_USER_WARNING,
 } from './constants';
 
 export const initialState = fromJS({
@@ -20,6 +22,7 @@ export const initialState = fromJS({
   revokeAdminLoading: false,
   moderatorsList: [],
   moderatorsError: '',
+  emptyUserWarning: false,
 });
 
 function moderationReducer(
@@ -53,6 +56,10 @@ function moderationReducer(
       return state.set('revokeRoleLoading', false);
     case REVOKE_ROLE_ERROR:
       return state.set('revokeRoleLoading', false).set('moderatorsError', moderatorsError);
+    case OPEN_EMPTY_USER_WARNING:
+      return state.set('emptyUserWarning', true);
+    case CLOSE_EMPTY_USER_WARNING:
+      return state.set('emptyUserWarning', false);
     default:
       return state;
   }

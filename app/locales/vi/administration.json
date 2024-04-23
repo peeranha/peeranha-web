@@ -4,12 +4,13 @@
   "addModerator": "Thêm người điều hành",
   "addRole": "Thêm vai trò mới",
   "chooseRole": "Chọn vai trò",
-  "EmptyRole": "Xin vui lòng, chọn một vai trò",
+  "emptyRole": "Xin vui lòng, chọn một vai trò",
   "alreadyHasModeratorRole": "Vai trò người điều hành đã được chỉ định cho địa chỉ ví này",
   "alreadyHasAdministratorRole": "Vai trò quản trị viên đã được chỉ định cho địa chỉ ví này",
   "alreadyHasRole": "Người dùng đã có vai trò này",
   "confirm": "Xác nhận",
   "cancel": "Hủy bỏ",
   "wantToRevoke": "Bạn có chắc chắn muốn hủy bỏ vai trò {{role}} của người dùng không?",
-  "revoke": "thu hồi"
+  "revoke": "thu hồi",
+  "errorMessageEmptyUser": "Địa chỉ ví được cung cấp hiện không hoạt động. Người dùng phải thực hiện một giao dịch, chẳng hạn như cập nhật hồ sơ của họ hoặc đăng nội dung để kích hoạt nó."
 }

@@ -3,12 +3,13 @@
   "communityAdministrator": "Community Administrator",
   "addRole": "Add new role",
   "chooseRole": "Choose a role",
-  "EmptyRole": "Please, choose a role",
+  "emptyRole": "Please, choose a role",
   "alreadyHasModeratorRole": "Moderator role is already assigned to this wallet address",
   "alreadyHasAdministratorRole": "Administrator role is already assigned to this wallet address",
   "alreadyHasRole": "The User already has this role",
   "confirm": "Confirm",
   "cancel": "Cancel",
   "wantToRevoke": "Are you sure you want to revoke the user from being a {{role}}?",
-  "revoke": "Revoke"
+  "revoke": "Revoke",
+  "errorMessageEmptyUser": "The provided wallet address is inactive at the moment. The user must carry out a transaction, such as updating their profile or posting content, to activate it."
 }

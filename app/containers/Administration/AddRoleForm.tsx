@@ -70,12 +70,12 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   };
 
   const isEmptyRoleHandler = () => {
-    if (!administratorRole && !moderatorRole) setRoleValidation(t('administration.EmptyRole'));
+    if (!administratorRole && !moderatorRole) setRoleValidation(t('administration.emptyRole'));
   };
 
   const addRoleMethod = (values: any) => {
     if (!administratorRole && !moderatorRole) {
-      setRoleValidation(t('administration.EmptyRole'));
+      setRoleValidation(t('administration.emptyRole'));
     } else {
       let role = administratorRole ? 0 : 1;
       const walletAddress = values.get(WALLET_ADDRESS_FIELD);
@@ -123,7 +123,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
                 <div
                   css={{
                     ...styles.popupCheckbox,
-                    ...(roleValidation === t('administration.EmptyRole') && styles.checkboxError),
+                    ...(roleValidation === t('administration.emptyRole') && styles.checkboxError),
                   }}
                 >
                   <input
@@ -140,7 +140,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
                 <div
                   css={{
                     ...styles.popupCheckbox,
-                    ...(roleValidation === t('administration.EmptyRole') && styles.checkboxError),
+                    ...(roleValidation === t('administration.emptyRole') && styles.checkboxError),
                   }}
                 >
                   <input

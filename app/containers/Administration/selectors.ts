@@ -19,10 +19,14 @@ const selectAddRoleLoading = createSelector(selectModerationDomain, (substate) =
 const selectRevokeRoleLoading = createSelector(selectModerationDomain, (substate) =>
   substate.get('revokeRoleLoading'),
 );
+const selectEmptyUserWarning = createSelector(selectModerationDomain, (substate) =>
+  substate.get('emptyUserWarning'),
+);
 
 export {
   selectModeratorsLoading,
   selectModeratorsList,
   selectAddRoleLoading,
   selectRevokeRoleLoading,
+  selectEmptyUserWarning,
 };
