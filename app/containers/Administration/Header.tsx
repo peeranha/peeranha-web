@@ -8,6 +8,7 @@ import { Administration, UserGraph } from 'icons/index';
 import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 import AddRoleForm from 'containers/Administration/AddRoleForm';
+import AddRoleWarning from 'containers/Administration/AddRoleWarning';
 import { Moderator } from 'containers/Administration/types';
 import AddModeratorButton from 'containers/Administration/AddModeratorButton';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
@@ -21,10 +22,12 @@ const customColor = colors.linkColor || BORDER_PRIMARY;
 
 type HeaderProps = {
   locale: string;
-  single?: number;
+  single?: string;
   moderators: Array<Moderator>;
   addRole: (userAddress: string, role: number, communityId: number) => void;
   addRoleLoading: boolean;
+  isEmptyUser: boolean;
+  closeEmptyUserWarning: () => void;
 };
 
 export const Header: React.FC<HeaderProps> = ({
@@ -33,6 +36,8 @@ export const Header: React.FC<HeaderProps> = ({
   moderators,
   addRole,
   addRoleLoading,
+  isEmptyUser,
+  closeEmptyUserWarning,
 }): JSX.Element => {
   const { t } = useTranslation();
 
@@ -70,6 +75,7 @@ export const Header: React.FC<HeaderProps> = ({
         Button={AddModeratorButton}
         addRoleLoading={addRoleLoading}
       />
+      <AddRoleWarning isEmptyUser={isEmptyUser} closeEmptyUserWarning={closeEmptyUserWarning} />
     </Wrapper>
   );
 };

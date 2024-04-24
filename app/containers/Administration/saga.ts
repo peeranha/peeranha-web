@@ -14,12 +14,13 @@ import {
   getModeratorsSuccess,
   revokeRoleError,
   revokeRoleSuccess,
+  openEmptyUserWarning,
 } from 'containers/Administration/actions';
 
 import { getModerators } from 'utils/queries/ethereumService';
 import { getActualId, getCommunityRole, getNetwork } from 'utils/properties';
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE, isSuiBlockchain } from 'utils/constants';
-import { giveRolePermission, revokeRolePermission } from 'utils/accountManagement';
+import { giveRolePermission, revokeRolePermission, isUserExists } from 'utils/accountManagement';
 import { makeSelectAccount, makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { waitForTransactionConfirmation } from 'utils/sui/sui';
@@ -88,10 +89,14 @@ export function* addRoleWorker(props: {
       action: 'add_role_started',
     });
     if (isSuiBlockchain) {
+      const suiUserObject = yield call(getSuiUserObject, props.userAddress);
+      if (!suiUserObject) {
+        yield put(openEmptyUserWarning());
+        return;
+      }
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
-      const suiUserObject = yield call(getSuiUserObject, props.userAddress);
       // @ts-ignore
       const txResult = yield call(
         giveSuiRolePermission,
@@ -105,6 +110,12 @@ export function* addRoleWorker(props: {
       yield call(waitForTransactionConfirmation, txResult.digest);
       yield put(transactionCompleted());
     } else {
+      const isUserRegistered = yield call(isUserExists, props.userAddress);
+      if (!isUserRegistered) {
+        yield put(openEmptyUserWarning());
+        return;
+      }
+
       const ethereumService = yield select(selectEthereum);
       const account = yield select(makeSelectAccount());
       yield call(
