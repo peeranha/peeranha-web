@@ -305,13 +305,13 @@ const communitiesConfig = {
     : {
         '1-1': {
           origin: `https://mintstatelabs${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/functionland/logo.svg',
-          styles: FunctionlandStyles,
+          src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
+          styles: MintStateLabsStyles,
         },
         '1-2': {
-          origin: `https://suiglobal${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
-          styles: SuiGlobalStyles,
+          origin: `https://graph${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
         },
         '1-3': {
           origin: `https://indexerdao${process.env.COOKIE_DOMAIN}`,
@@ -407,8 +407,8 @@ const communitiesConfig = {
         },
       }
     : {
-        '1-22': {
-          origin: 'http://localhost:3000',
+        '1-2': {
+          origin: 'http://localhost:31000',
           src: 'https://images.peeranha.io/communities/graph/logo.svg',
           styles: GraphStyles,
         },
