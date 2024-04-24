@@ -4,6 +4,10 @@ import rightBottomCoin from 'images/right-bottom-coin.svg?inline';
 import leftBottomCoin from 'images/left-bottom-coin.svg?inline';
 import topCoin from 'images/top-coin.svg?inline';
 
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
+
 export const styles = {
   backgroundImage: {
     backgroundImage: `url(${bg})`,
@@ -291,7 +295,7 @@ export const styles = {
 
   button: {
     width: '190px',
-    height: '40px',
+    height: graphCommunity ? '48px' : '40px',
     background: 'rgb(247, 111, 96)',
     border: '2px solid rgb(255, 255, 255)',
     borderRadius: '5px',

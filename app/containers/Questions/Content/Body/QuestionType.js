@@ -53,22 +53,22 @@ const PromotedLabel = styled.span`
 const GraphLabel = styled.span`
   background-color: ${({ isTutorial, isExpert, isDocumentation }) =>
     isExpert
-      ? 'rgba(255, 174, 188, 0.2)'
+      ? 'rgba(173, 186, 255, 0.2)'
       : isTutorial
       ? 'rgba(150, 228, 169, 0.2)'
       : isDocumentation
       ? 'rgba(255, 228, 90, 0.2)'
-      : 'rgba(173, 186, 255, 0.2)'};
+      : 'rgba(255, 174, 188, 0.2)'};
   border-width: 1px;
   border-style: solid;
   border-color: ${({ isTutorial, isExpert, isDocumentation }) =>
     isExpert
-      ? 'rgba(237, 74, 109, 0.2)'
+      ? 'rgba(76, 105, 255, 0.2)'
       : isTutorial
       ? 'rgba(75, 202, 129, 0.2)'
       : isDocumentation
       ? 'rgba(245, 190, 140, 0.2)'
-      : 'rgba(76, 105, 255, 0.2)'};
+      : 'rgba(237, 74, 109, 0.2)'};
   padding: 1px 7px 1px 7px;
   gap: 10px;
   border-radius: 20px;
@@ -153,10 +153,10 @@ const QuestionType = ({ postType, className, isPromoted = false, isSearch = fals
 
   const graphIcon = useMemo(() => {
     if (postType === 0) {
-      return <ChatsCircleGraph size={[24, 24]} fill="#ED4A6D" />;
+      return <GraduationCapGraph size={[24, 24]} fill="#4C69FF" />;
     }
     if (postType === 1) {
-      return <GraduationCapGraph size={[24, 24]} fill="#4C69FF" />;
+      return <ChatsCircleGraph size={[24, 24]} fill="#ED4A6D" />;
     }
     if (postType === 2) {
       return <PlayCircleGraph size={[24, 24]} fill="#4BCA81" />;
@@ -167,7 +167,11 @@ const QuestionType = ({ postType, className, isPromoted = false, isSearch = fals
   const type = types[postType];
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      onClick={(event) => event.stopPropagation()}
+      css={{ cursor: 'default' }}
+    >
       {type && (
         <LabelItem>
           <Container onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} size="sm">

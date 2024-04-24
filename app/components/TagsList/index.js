@@ -89,7 +89,8 @@ const TagsList = ({ tags, communities, communityId, children, className }) => {
                     fontWeight: 500,
                   }
                 }
-                onClick={() => {
+                onClick={(event) => {
+                  event.stopPropagation();
                   redirectToFilterByTag(tag.id);
                 }}
               >

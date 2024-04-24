@@ -4,12 +4,13 @@
   "communityAdministrator": "Administrador de la comunidad",
   "addRole": "Agregar un nuevo rol",
   "chooseRole": "Elija el rol",
-  "EmptyRole": "Por favor, elige un rol",
+  "emptyRole": "Por favor, elige un rol",
   "alreadyHasModeratorRole": "El rol de moderador ya está asignado a esta dirección de billetera",
   "alreadyHasAdministratorRole": "El rol de administrador ya está asignado a esta dirección de billetera",
   "alreadyHasRole": "El usuario ya tiene este rol",
   "confirm": "Confirmar",
   "cancel": "Cancelar",
   "wantToRevoke": "¿Estás seguro de que quieres revocar al usuario de ser un {{role}}?",
-  "revoke": "Revocar"
+  "revoke": "Revocar",
+  "errorMessageEmptyUser": "La dirección de billetera proporcionada está inactiva en este momento. El usuario debe realizar una transacción, como actualizar su perfil o publicar contenido, para activarlo."
 }

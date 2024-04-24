@@ -162,7 +162,7 @@ export const styles: Record<string, CSSObject> = {
   button: {
     marginTop: '28px',
     width: '92px',
-    height: '40px',
+    height: graphCommunity ? '48px' : '40px',
     background: graphCommunity ? '#6F4CFF' : '#FFF',
     border: `1px solid ${colors.btnColor || '#F76F60'}`,
     color: graphCommunity ? '#E1E1E4' : colors.btnColor || '#F76F60',

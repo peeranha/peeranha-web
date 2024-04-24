@@ -92,7 +92,7 @@ const Div = Base.extend`
   background: ${(x) =>
     x.isAccepted
       ? graphCommunity
-        ? 'rgba(75, 202, 129, 0.2)'
+        ? 'rgba(75, 202, 129, 0.2) !important'
         : BG_SUCCESS_LIGHT
       : BG_TRANSPARENT};
 `;

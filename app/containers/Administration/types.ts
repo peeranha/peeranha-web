@@ -5,6 +5,7 @@ export type OutputSelector = {
   moderatorsLoading: boolean;
   addRoleLoading: boolean;
   revokeRoleLoading: boolean;
+  isEmptyUser: boolean;
 };
 
 export type User = {

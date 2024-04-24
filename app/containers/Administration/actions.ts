@@ -8,6 +8,8 @@ import {
   REVOKE_ROLE,
   REVOKE_ROLE_ERROR,
   REVOKE_ROLE_SUCCESS,
+  OPEN_EMPTY_USER_WARNING,
+  CLOSE_EMPTY_USER_WARNING,
 } from 'containers/Administration/constants';
 import { Moderator } from 'containers/Administration/types';
 
@@ -81,5 +83,17 @@ export function revokeRoleError(moderatorsError: Error) {
   return {
     type: REVOKE_ROLE_ERROR,
     moderatorsError,
+  };
+}
+
+export function openEmptyUserWarning() {
+  return {
+    type: OPEN_EMPTY_USER_WARNING,
+  };
+}
+
+export function closeEmptyUserWarning() {
+  return {
+    type: CLOSE_EMPTY_USER_WARNING,
   };
 }

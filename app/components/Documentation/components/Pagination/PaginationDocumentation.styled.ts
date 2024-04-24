@@ -48,7 +48,7 @@ export const styled = {
       fontSize: '14px',
     },
     'div:nth-child(2)': {
-      color: documentationColors ? '#E1E1E4' : 'inherit',
+      color: graphCommunity ? '#E1E1E4' : '',
       fontSize: '18px',
       fontWeight: 600,
       overflow: 'hidden',

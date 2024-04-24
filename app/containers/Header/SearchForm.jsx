@@ -77,6 +77,10 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
                 border: '1px solid #3D3D54',
                 background: 'rgba(255, 255, 255, 0.06)',
               },
+              '::placeholder': {
+                color: '#E1E1E4',
+                opacity: 1,
+              },
             }),
           },
         }}

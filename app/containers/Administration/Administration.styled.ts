@@ -47,6 +47,14 @@ export const styles = {
     textAlign: graphCommunity ? '' : 'center',
   },
 
+  popupWarningTitle: {
+    color: graphCommunity ? '#E1E1E4' : TEXT_DARK,
+    lineHeight: '28px',
+    textAlign: graphCommunity ? '' : 'center',
+    fontWeight: 600,
+    fontSize: '24px',
+  },
+
   popupSpan: {
     lineHeight: '14px',
     color: graphCommunity ? '#E1E1E4' : '#282828',

@@ -2,6 +2,10 @@ import manInstruments from 'images/top-man-instruments.svg?inline';
 import manBackground from 'images/top-man-background.svg?inline';
 import man from 'images/top-man.svg?inline';
 
+import { graphCommunityColors } from 'utils/communityManagement';
+
+const graphCommunity = graphCommunityColors();
+
 export const styles = {
   background: {
     transformOrigin: 'center',
@@ -204,7 +208,7 @@ export const styles = {
 
   button: {
     width: '190px',
-    height: '40px',
+    height: graphCommunity ? '48px' : '40px',
     background: 'rgba(247, 111, 96, 1)',
     borderRadius: '5px',
     lineHeight: '25px',

@@ -35,7 +35,7 @@ const Title = ({ locale, title, id, questionBounty, postType, translation }) => 
         amount={questionBounty?.amount}
         locale={locale}
       />
-      <A to={link}>
+      <A to={link} onClick={(event) => event.stopPropagation()}>
         <Span
           fontSize="24"
           lineHeight="31"
