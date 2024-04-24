@@ -100,7 +100,9 @@ const IPFSInformation = ({
               target="_blank"
               to={{ pathname: messageLink.split('/').splice(0, 5).join('/') }}
               href={ipfsURL + hashString}
-              css={{ color: colors.linkColor || 'rgba(87, 111, 237, 1)' }}
+              css={{
+                color: graphCommunity ? '#6F4CFF' : colors.linkColor || 'rgba(87, 111, 237, 1)',
+              }}
             >
               {messengerData[messengerType].name}
             </A>
@@ -112,7 +114,9 @@ const IPFSInformation = ({
               target="_blank"
               to={{ pathname: messageLink.split('/').splice(0, 6).join('/') }}
               href={ipfsURL + hashString}
-              css={{ color: colors.linkColor || 'rgba(87, 111, 237, 1)' }}
+              css={{
+                color: graphCommunity ? '#6F4CFF' : colors.linkColor || 'rgba(87, 111, 237, 1)',
+              }}
             >
               {messageLink.split('/').splice(0, 6).join('/')}
             </A>
@@ -124,7 +128,9 @@ const IPFSInformation = ({
               target="_blank"
               to={{ pathname: messageLink }}
               href={ipfsURL + hashString}
-              css={{ color: colors.linkColor || 'rgba(87, 111, 237, 1)' }}
+              css={{
+                color: graphCommunity ? '#6F4CFF' : colors.linkColor || 'rgba(87, 111, 237, 1)',
+              }}
             >
               {messageLink}
             </A>

@@ -256,7 +256,13 @@ export const Header = ({
         <a
           href={socialServerLink}
           target="_blank"
-          css={{ color: customColor, ':hover': { textDecoration: 'underline !important' } }}
+          css={{
+            color: graphCommunity ? customColor : BORDER_PRIMARY,
+            ':hover': {
+              color: graphCommunity ? customColor : BORDER_PRIMARY,
+              textDecoration: 'underline !important',
+            },
+          }}
         >
           {defaultLabel}
         </a>

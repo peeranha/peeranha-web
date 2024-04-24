@@ -273,7 +273,7 @@ const ContentHeader = (props) => {
             </Button>
           ) : null}
 
-          {!shouldShowDeleteBtn && (
+          {!shouldShowDeleteBtn && !isSocialPostType && (
             <div id={`${type}_delete_${answerId}`}>
               <AreYouSure
                 submitAction={deleteAction}

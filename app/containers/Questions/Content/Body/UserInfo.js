@@ -70,7 +70,7 @@ const UserInfo = ({
               ? t('post.botCreate', { bot: messengerData[author.messengerType]?.name })
               : getUserName(author.customName || author.displayName, author.id)}
           </AuthorName>
-          {(!isBotAddress(author) || !isSocialPostType) && (
+          {!isBotAddress(author) && !isSocialPostType && (
             <>
               <RatingStatus
                 rating={getRatingByCommunity(author, communityId)}
