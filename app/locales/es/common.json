@@ -544,5 +544,7 @@
   "sources": "Fuentes",
   "orDivider": "O",
   "transactionInProgress": "La operación está siendo procesada",
-  "canWork": "Mientras tanto, siéntase libre de continuar trabajando en el sitio."
+  "canWork": "Mientras tanto, siéntase libre de continuar trabajando en el sitio.",
+  "banUser": "Prohibir usuario",
+  "areYouSure": "¿Estás seguro/a de que quieres prohibir al usuario?"
 }

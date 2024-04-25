@@ -1,20 +1,26 @@
 /* eslint no-param-reassign: 0, array-callback-return: 0 */
+
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import maxBy from 'lodash/maxBy';
+import { banUser } from 'utils/accountManagement';
 
 import { getAnsweredUsersPosts } from 'utils/questionsManagement';
 
 import { GET_QUESTIONS } from 'containers/QuestionsOfUser/constants';
-import { getQuestionsSuccess, getQuestionsErr } from './actions';
+import { REDIRECT_TO_FEED } from 'containers/App/constants';
+import { redirectToFeedWorker } from 'containers/App/saga';
+import { getQuestionsSuccess, getQuestionsErr, banUserSuccess } from './actions';
 
 import { selectQuestionsWithUserAnswers, selectNumber } from './selectors';
-import { GET_QUESTIONS as GET_ANSWERED_QUESTIONS } from './constants';
+import { BAN_USER, GET_QUESTIONS as GET_ANSWERED_QUESTIONS } from './constants';
 import { getQuestionsWorker } from '../QuestionsOfUser/saga';
 import { POST_TYPE_ANSWER } from '../Profile/constants';
 import { isGeneralQuestion } from '../ViewQuestion/saga';
 import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from '../Questions/constants';
-import { REDIRECT_TO_FEED } from 'containers/App/constants';
-import { redirectToFeedWorker } from 'containers/App/saga';
 
 export function* getQuestionsWithAnswersWorker({ userId }) {
   try {
@@ -52,8 +58,20 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
   }
 }
 
+export function* banUserWorker({ buttonId, user, communityId }) {
+  try {
+    const ethereumService = yield select(selectEthereum);
+
+    const account = yield select(makeSelectAccount());
+    yield call(banUser, account, user, communityId, ethereumService);
+
+    yield put(banUserSuccess);
+  } catch (err) {}
+}
+
 export default function* () {
   yield takeLatest(GET_ANSWERED_QUESTIONS, getQuestionsWithAnswersWorker);
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(REDIRECT_TO_FEED, redirectToFeedWorker);
+  yield takeLatest(BAN_USER, banUserWorker);
 }

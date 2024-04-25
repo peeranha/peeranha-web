@@ -544,5 +544,7 @@
   "sources": "Nguồn",
   "orDivider": "HOẶC",
   "transactionInProgress": "Hoạt động đang được xử lý",
-  "canWork": "Trong khi đó, bạn có thể tiếp tục làm việc trên trang web."
+  "canWork": "Trong khi đó, bạn có thể tiếp tục làm việc trên trang web.",
+  "banUser": "Cấm người dùng",
+  "areYouSure": "Bạn chắc chắn muốn cấm người dùng?"
 }

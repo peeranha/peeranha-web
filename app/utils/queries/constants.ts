@@ -45,6 +45,7 @@ export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
 export const GIVE_COMMUNITY_MODERATOR_PERMISSION = 'giveCommunityModeratorPermission';
 export const REVOKE_COMMUNITY_ADMIN_PERMISSION = 'revokeCommunityAdminPermission';
 export const REVOKE_COMMUNITY_MODERATOR_PERMISSION = 'revokeCommunityModeratorPermission';
+export const BAN_COMMUNITY_USER = 'banCommunityUser';
 
 // Query names
 export const GET_POST = 'getPost';
