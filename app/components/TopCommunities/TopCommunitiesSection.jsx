@@ -1,9 +1,10 @@
 import { css } from '@emotion/react';
 import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import orderBy from 'lodash/orderBy';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
 import H4 from '../H4';
 import Grid from '../Grid';
 import CommunityItem from './CommunityItem';
@@ -20,6 +21,11 @@ const TopCommunitiesSection = ({ ref, single, communities, locale }) => {
   const { t } = useTranslation();
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() => routes.communities());
   const AllCommunitiesLink = single ? ADefault : A;
+
+  const notHiddenCommunities = useMemo(
+    () => communities.filter((community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id)),
+    [communities],
+  );
 
   useEffect(() => {
     if (single) {
@@ -39,7 +45,7 @@ const TopCommunitiesSection = ({ ref, single, communities, locale }) => {
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {orderBy(communities, 'postCount', 'desc')
+        {orderBy(notHiddenCommunities, 'postCount', 'desc')
           .slice(0, 9)
           .map((community) => {
             const communityTranslation = community.translations?.find(
@@ -60,7 +66,7 @@ const TopCommunitiesSection = ({ ref, single, communities, locale }) => {
             );
           })}
 
-        {communities?.length > 9 && (
+        {notHiddenCommunities?.length > 9 && (
           <div className="d-flex align-items-center justify-content-center">
             <AllCommunitiesLink
               className="d-flex align-items-center"
