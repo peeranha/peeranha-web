@@ -82,5 +82,5 @@
   "answer_reputationText": "You are not allowed to post any replies.",
   "server": "Server",
   "channel": "Channel",
-  "message": "Message"
+  "linkToMessage": "Link to message"
 }

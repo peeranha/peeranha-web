@@ -74,5 +74,5 @@
   "answer_reputationText": "No se le permite publicar ninguna respuesta.",
   "server": "Servidor",
   "channel": "Canal",
-  "message": "Mensaje"
+  "linkToMessage": "Enlace al mensaje"
 }

@@ -108,7 +108,16 @@ export const Questions = ({
     if (!questionFilter) {
       getPosts();
     }
-  }, [page, params.communityid, parentPage, skip, postsTypes, communities.length]);
+  }, [
+    page,
+    params.communityid,
+    parentPage,
+    skip,
+    postsTypes,
+    communities.length,
+    questionFilter,
+    getPosts,
+  ]);
 
   useEffect(() => {
     if (page !== 1) {

@@ -39,6 +39,7 @@ import {
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 import {
   isSingleCommunityWebsite,
+  singleCommunityStyles,
   singleCommunityColors,
   singleCommunityFonts,
   singleCommunityDocumentationPosition,
@@ -68,6 +69,7 @@ import A from 'components/A';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import { svgDraw } from 'components/Icon/IconStyled';
 
+const singleModeStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
 const graphCommunity = graphCommunityColors();
@@ -328,15 +330,6 @@ const MainLinks = ({
           </div>
         )}
 
-        {/* <A1 to={routes.feed()} name="feed" route={route}>
-          {graphCommunity ? (
-            <FileGraph size={[24, 24]} className="mr-2" />
-          ) : (
-            <IconLg className="mr-2" icon={myFeedIcon} />
-          )}
-          {t(`common.${profile && !singleCommId ? 'myFeed' : 'feed'}`)}
-        </A1> */}
-
         <A1 to={routes.questions()} name="discussions" route={route}>
           {graphCommunity ? (
             <ChatsCircleGraph size={[24, 24]} className="mr-2" />
@@ -406,7 +399,7 @@ const MainLinks = ({
         <div css={styles.dividerLinks} />
       </div>
 
-      {Boolean(singleCommId) && (
+      {Boolean(singleCommId) && singleModeStyles?.displaySocialPost && (
         <div
           className="df jcsb pl15"
           css={{
@@ -418,7 +411,7 @@ const MainLinks = ({
         </div>
       )}
 
-      {Boolean(singleCommId) && (
+      {Boolean(singleCommId) && singleModeStyles?.displaySocialPost && (
         <A1
           to={routes.discordPosts()}
           name="discord"

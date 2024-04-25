@@ -342,16 +342,17 @@ const ContentHeader = (props) => {
               </div>
             )}
           </DropdownBox>
-
-          <Button
-            show={(!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)}
-            onClick={editItem[0]}
-            params={{ ...buttonParams, link: editItem[1] }}
-            id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
-          >
-            <IconMd icon={pencilIcon} />
-            <span>{t('post.editButton')}</span>
-          </Button>
+          {!isSocialPostType && (
+            <Button
+              show={(!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)}
+              onClick={editItem[0]}
+              params={{ ...buttonParams, link: editItem[1] }}
+              id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
+            >
+              <IconMd icon={pencilIcon} />
+              <span>{t('post.editButton')}</span>
+            </Button>
+          )}
         </ButtonContainer>
       </ItemInfo>
     </Box>

@@ -44,7 +44,11 @@ export const tutorials = (communityId, paginationPage = 1) => {
   return `/tutorials${communityRoute}${paginationRoute}`;
 };
 
-export const discordPosts = () => '/discord';
+export const discordPosts = (communityId, paginationPage = 1) => {
+  const paginationRoute = paginationPage > 1 ? `?page=${paginationPage}` : '';
+  const communityRoute = communityId ? `/community/${communityId}` : '';
+  return `/discord${communityRoute}${paginationRoute}`;
+};
 
 // To do: telegram and slack
 // export const telegramPosts = () => '/telegram';

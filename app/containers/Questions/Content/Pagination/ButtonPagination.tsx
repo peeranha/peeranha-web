@@ -1,14 +1,15 @@
 import React from 'react';
-import { styles } from './Pagination.styled';
-
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
+
 import {
   POST_TYPE_DISCUSSIONS,
   POST_TYPE_EXPERTS,
   POST_TYPE_TUTORIALS,
+  POST_TYPE_DISCORD,
   STEP_NEXT,
 } from './constants';
+import { styles } from './Pagination.styled';
 
 type ButtonPaginationProps = {
   page: number;
@@ -38,6 +39,10 @@ const routeHandler = (element: number, direction: boolean) => {
   if (route === POST_TYPE_TUTORIALS) {
     return createdHistory.push(routes.tutorials(communityId, step));
   }
+  if (route === POST_TYPE_DISCORD) {
+    return createdHistory.push(routes.discordPosts(communityId, step));
+  }
+  // to do: telegram and slack
   return createdHistory.push(routes.feed(feedCommunityId, step));
 };
 

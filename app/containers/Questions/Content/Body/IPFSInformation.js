@@ -88,51 +88,20 @@ const IPFSInformation = ({
     }),
   );
 
-  const { messengerType, messageLink } = messenger;
   return (
     <Label isSocialPostType={isSocialPostType}>
       {isSocialPostType ? (
         <div className="df fdc">
           <Span fontSize="16" lineHeight="24">
-            {t('post.server')}
-            {': '}
             <A
               target="_blank"
-              to={{ pathname: messageLink.split('/').splice(0, 5).join('/') }}
+              to={{ pathname: messenger?.messageLink }}
               href={ipfsURL + hashString}
               css={{
                 color: graphCommunity ? '#6F4CFF' : colors.linkColor || 'rgba(87, 111, 237, 1)',
               }}
             >
-              {messengerData[messengerType].name}
-            </A>
-          </Span>
-          <Span fontSize="16" lineHeight="24">
-            {t('post.channel')}
-            {': '}
-            <A
-              target="_blank"
-              to={{ pathname: messageLink.split('/').splice(0, 6).join('/') }}
-              href={ipfsURL + hashString}
-              css={{
-                color: graphCommunity ? '#6F4CFF' : colors.linkColor || 'rgba(87, 111, 237, 1)',
-              }}
-            >
-              {messageLink.split('/').splice(0, 6).join('/')}
-            </A>
-          </Span>
-          <Span fontSize="16" lineHeight="24">
-            {t('post.message')}
-            {': '}
-            <A
-              target="_blank"
-              to={{ pathname: messageLink }}
-              href={ipfsURL + hashString}
-              css={{
-                color: graphCommunity ? '#6F4CFF' : colors.linkColor || 'rgba(87, 111, 237, 1)',
-              }}
-            >
-              {messageLink}
+              {t('post.linkToMessage')}
             </A>
           </Span>
         </div>
