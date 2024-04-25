@@ -222,8 +222,9 @@ export const QuestionForm = ({
     title: 'Documentation',
   };
 
-  const notHiddenCommunities = communities.filter(
-    (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
+  const notHiddenCommunities = useMemo(
+    () => communities.filter((community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id)),
+    [communities],
   );
 
   return (

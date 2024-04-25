@@ -22,9 +22,11 @@ const TopCommunitiesSection = ({ ref, single, communities, locale }) => {
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() => routes.communities());
   const AllCommunitiesLink = single ? ADefault : A;
 
-  const notHiddenCommunities = communities.filter(
-    (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
+  const notHiddenCommunities = useMemo(
+    () => communities.filter((community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id)),
+    [communities],
   );
+
   useEffect(() => {
     if (single) {
       setAllCommunitiesRoute(`${process.env.APP_LOCATION}/communities`);

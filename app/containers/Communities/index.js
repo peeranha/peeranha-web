@@ -42,8 +42,9 @@ export const Communities = ({
     () => [communitiesLoading && route === routes.communities()],
     [communitiesLoading, route],
   );
-  const notHiddenCommunities = communities.filter(
-    (community) => !HIDDEN_COMMUNITIES_ID.includes(community.id),
+  const notHiddenCommunities = useMemo(
+    () => communities.filter((community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id)),
+    [communities],
   );
 
   return (
