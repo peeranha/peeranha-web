@@ -245,9 +245,7 @@ class EthereumService {
         buildEnv: 'production',
         showTorusButton: false,
         network: {
-          buildEnv: 'production',
-          chainId: Number(process.env.CHAIN_ID),
-          networkName: networkLabel,
+          host: 'sepolia',
         },
       });
       await this.torus.login();

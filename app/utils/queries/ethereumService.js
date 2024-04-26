@@ -40,7 +40,7 @@ export const queryOnlyFromIndexer = async (ethereumService) => {
     const blockFromGraph = result._meta.block.number;
     const delay = blockFromEthereum - blockFromGraph;
     console.log('Lag of', delay, 'blocks');
-    if (delay > 1) {
+    if (delay > 3) {
       return true;
     }
     return false;

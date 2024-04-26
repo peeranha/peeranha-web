@@ -143,8 +143,9 @@ export const Header = ({
       hasCommunityAdminRole(getPermissions(profile), single)
     : false;
 
-  const notHiddenCommunities = communities.filter(
-    (community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id),
+  const notHiddenCommunities = useMemo(
+    () => communities.filter((community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id)),
+    [communities],
   );
 
   useEffect(() => {
