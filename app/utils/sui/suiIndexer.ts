@@ -11,6 +11,7 @@ import {
 } from 'utils/sui/suiQuerries';
 import { delay } from 'utils/reduxUtils';
 import { historyIdQueryGraph } from 'utils/queries/QueriesGraph';
+import { queryOnlyFromIndexer } from 'utils/queries/ethereumService';
 
 const getDataFromIndexer = async (
   query: string,
@@ -180,14 +181,12 @@ export const isPostTransactionIndexed = async (id: any, indexerOnly: boolean | u
     : data.history?.id && data.history?.id.length > 0;
 };
 
-export const waitForPostTransactionToIndex = async (
-  transaction: any,
-  indexerOnly: boolean | undefined,
-) => {
+export const waitForPostTransactionToIndex = async (transaction: any, ethereumService: any) => {
   let indexed = false;
   /* eslint-disable no-await-in-loop */
   do {
     await delay(500);
+    const indexerOnly = ethereumService ? await queryOnlyFromIndexer(ethereumService) : false;
     indexed = await isPostTransactionIndexed(transaction, indexerOnly);
   } while (!indexed);
   /* eslint-enable no-await-in-loop */
