@@ -30,12 +30,14 @@ import {
   selectEditOrder,
   selectDraftsIds,
 } from 'pages/Documentation/selectors';
+import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
+import { DocumentationItemMenuType } from 'app/pages/Documentation/types';
+import _ from 'lodash';
 import { selectDocumentationMenu, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Header from './components/Header';
 import Pagination from './components/Pagination';
 
-import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
 import DraftsMenu from './components/Drafts/Drafts';
 import DocumentationForm from './components/DocumentationForm';
 import ViewContent from './components/ViewContent';
@@ -48,11 +50,10 @@ import {
   animationDocumentation,
   clearSavedDrafts,
   getSavedDraftsIds,
+  TEMP_SAVED_CONTENT,
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
-import { DocumentationItemMenuType } from '../../pages/Documentation/types';
-import _ from 'lodash';
 
 const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
@@ -119,7 +120,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
 
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
-    clearSavedDrafts();
+    localStorage.removeItem(TEMP_SAVED_CONTENT);
     setEditArticleDispatch({
       id: '',
       parentId: '',
