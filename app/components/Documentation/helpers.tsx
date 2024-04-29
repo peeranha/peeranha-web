@@ -3,7 +3,7 @@ import { DocumentationItemMenuType, DocumentationSection } from 'pages/Documenta
 
 import { map, getFlatDataFromTree } from 'react-sortable-tree';
 
-const TEMP_SAVED_CONTENT = 'tempSavedContent';
+export const TEMP_SAVED_CONTENT = 'tempSavedContent';
 const DRAFTS_IDS = 'draftsIds';
 
 export const updateMenu = (
@@ -174,15 +174,13 @@ export const isEditableChildItem = (item: DocumentationSection, editedItemId?: s
   return false;
 };
 
-export const getDataFromTree = (documentationMenu: Array<DocumentationItemMenuType>) => {
-  return getFlatDataFromTree({
+export const getDataFromTree = (documentationMenu: Array<DocumentationItemMenuType>) =>
+  getFlatDataFromTree({
     treeData: documentationMenu?.map((node) => ({ ...node })),
     getKey: (node) => node.id,
     getNodeKey: ({ treeIndex }) => treeIndex,
     ignoreCollapsed: false,
   });
-};
 
-export const getcurrentArrayIndex = (treeArray: Array<DocumentationItemMenuType>, id: number) => {
-  return treeArray.find((item) => item?.node.id === id)?.treeIndex;
-};
+export const getcurrentArrayIndex = (treeArray: Array<DocumentationItemMenuType>, id: number) =>
+  treeArray.find((item) => item?.node.id === id)?.treeIndex;
