@@ -36,6 +36,9 @@ export const queryOnlyFromIndexer = async (ethereumService) => {
       },
       false,
     );
+    if (!result || !result._meta) {
+      return true;
+    }
     const blockFromEthereum = await ethereumService.getBlock();
     const blockFromGraph = result._meta.block.number;
     const delay = blockFromEthereum - blockFromGraph;
