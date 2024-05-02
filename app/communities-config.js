@@ -230,9 +230,9 @@ const communitiesConfig = {
       }
     : {
         '1-1': {
-          origin: 'https://demo-harmony.testpeeranha.io',
-          src: 'https://images.peeranha.i/home/yuriy/Forte/peeranha-dev/peeranha-web-ssro/communities/harmony/logo.svg',
-          styles: HarmonyStyles,
+          origin: 'https://demo-fxland.testpeeranha.io',
+          src: 'https://images.peeranha.io/communities/functionland/logo.svg',
+          styles: FunctionlandStyles,
         },
         '1-2': {
           origin: 'https://demo-msl.testpeeranha.io',
