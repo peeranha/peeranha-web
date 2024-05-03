@@ -20,6 +20,7 @@ import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
+import { redirectToSSR } from 'utils/url';
 import {
   loginWithWalletSuccess,
   loginWithWalletErr,
@@ -101,6 +102,7 @@ export function* loginWithWalletWorker({ t, isTorus }) {
     document.getElementsByTagName('body')[0].style.position = 'relative';
 
     yield put(loginWithWalletErr(err));
+    redirectToSSR(isSingleCommunityWebsite());
   }
 }
 

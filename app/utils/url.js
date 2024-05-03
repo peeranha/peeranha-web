@@ -1,3 +1,5 @@
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
 const parseSearchString = (str) =>
   str
     .replace(/\?/gim, '')
@@ -22,4 +24,18 @@ export const getSearchParams = (search) => {
   const searchParamsTags = searchParams.get('tags');
   const allTags = searchParamsTags ? searchParamsTags?.split(',') : [];
   return allTags;
+};
+
+export const redirectToSSR = (isSingleCommunity) => {
+  if (isSingleCommunity) {
+    const parts = window.location.host.split('.');
+    if (parts.length < 3 || parts[1] !== 'dev1') {
+      window.location = `${process.env.SSR_APP_LOCATION}/${window.location.pathname}`;
+    }
+
+    parts.splice(1, 1);
+    window.location = `https://${parts.join('.')}/${window.location.pathname}`;
+  } else {
+    window.location = `${process.env.SSR_APP_LOCATION}/${window.location.pathname}`;
+  }
 };

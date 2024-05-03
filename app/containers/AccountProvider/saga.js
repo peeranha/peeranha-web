@@ -1,10 +1,12 @@
 import { setEmailLoginData } from 'containers/SuiProvider/actions';
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
 import { isSuiUserExists } from 'utils/sui/accountManagement';
 import { getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { redirectToSSR } from 'utils/url';
 import { getAvailableBalance, getBalance, getUserBoost } from 'utils/walletManagement';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
