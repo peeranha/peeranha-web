@@ -236,8 +236,8 @@ const communitiesConfig = {
         },
         '1-2': {
           origin: 'https://demo-msl.testpeeranha.io',
-          src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
-          styles: MintStateLabsStyles,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
         },
         '1-4': {
           origin: 'https://demo-fxland.testpeeranha.io',

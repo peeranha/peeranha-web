@@ -89,14 +89,10 @@ export function* addRoleWorker(props: {
       action: 'add_role_started',
     });
     if (isSuiBlockchain) {
-      const suiUserObject = yield call(getSuiUserObject, props.userAddress);
-      if (!suiUserObject) {
-        yield put(openEmptyUserWarning());
-        return;
-      }
       yield put(transactionInitialised());
       const wallet = yield select(selectSuiWallet());
       const profile = yield select(makeSelectProfileInfo());
+      const suiUserObject = yield call(getSuiUserObject, props.userAddress);
       // @ts-ignore
       const txResult = yield call(
         giveSuiRolePermission,
