@@ -522,7 +522,8 @@
     "voteReply": "Votar respuesta",
     "grantRole": "Dar permiso",
     "revokeRole": "Revocar permiso",
-    "mintUserNFT": "Reclamar NFT"
+    "mintUserNFT": "Reclamar NFT",
+    "banCommunityUser": "Prohibir usuario en la comunidad"
   },
   "aboutPeeranha": "Sobre Peeranha",
   "postsAnswersComments": "Publicaciones, respuestas y comentarios",

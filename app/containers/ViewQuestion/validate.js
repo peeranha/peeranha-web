@@ -76,7 +76,9 @@ export const postAnswerValidator = (profileInfo, questionData, postButtonId) => 
 
   let message;
   const communityRating = getRatingByCommunity(profileInfo, communityId);
-  if (questionData.answers.length === maxAnswersNumber) {
+  if (profileInfo.communityBans.includes(questionData.communityId)) {
+    message = `${t('formFields.banned')}`;
+  } else if (questionData.answers.length === maxAnswersNumber) {
     message = t('post.itemsMax');
   } else if (isAnswered) {
     message = t('post.alreadyAnswered');
@@ -124,7 +126,9 @@ export const postCommentValidator = (profileInfo, questionData, postButtonId, an
 
   let message;
 
-  if (item.comments.length === maxCommentsNumber) {
+  if (profileInfo.communityBans.includes(questionData.communityId)) {
+    message = `${t('formFields.banned')}`;
+  } else if (item.comments.length === maxCommentsNumber) {
     message = t('post.itemsMax');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
@@ -161,7 +165,9 @@ export const markAsAcceptedValidator = (profileInfo, questionData, postButtonId)
   const communityId = questionData.communityId;
   let message;
   const user = isSuiBlockchain ? profileInfo.id : profileInfo.user;
-  if (user.toLowerCase() !== questionData.author.user.toLowerCase()) {
+  if (profileInfo.communityBans.includes(questionData.communityId)) {
+    message = `${t('formFields.banned')}`;
+  } else if (user.toLowerCase() !== questionData.author.user.toLowerCase()) {
     message = t('post.noRootsToVote');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
@@ -188,7 +194,9 @@ export const upVoteValidator = (profileInfo, questionData, postButtonId, answerI
 
   let message;
 
-  if (
+  if (profileInfo.communityBans.includes(questionData.communityId)) {
+    message = `${t('formFields.banned')}`;
+  } else if (
     (answerId === '0' && questionData.votingStatus?.isVotedToDelete) ||
     (isOwnItem[0] && isOwnItem[0].votingStatus?.isVotedToDelete)
   ) {
@@ -232,7 +240,9 @@ export const downVoteValidator = (profileInfo, questionData, postButtonId, answe
 
   const isOwnItem = questionData.answers.filter((x) => x.id === answerId);
 
-  if (item.votingStatus?.isVotedToDelete) {
+  if (profileInfo.communityBans.includes(questionData.communityId)) {
+    message = `${t('formFields.banned')}`;
+  } else if (item.votingStatus?.isVotedToDelete) {
     message = t('post.cannotCompleteBecauseBlocked');
   } else if (
     (questionData.author.user === profileInfo.user && answerId === '0') ||
@@ -265,8 +275,9 @@ export const deleteQuestionValidator = (postButtonId, profileInfo, questionData)
   const MIN_ENERGY = 2;
 
   let message;
-
-  if (questionData.votingStatus?.isUpVoted) {
+  if (profileInfo.communityBans.includes(questionData.communityId)) {
+    message = `${t('formFields.banned')}`;
+  } else if (questionData.votingStatus?.isUpVoted) {
     message = t('post.cannotCompleteBecauseVoted');
   } else if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
@@ -294,7 +305,9 @@ export const deleteAnswerValidator = (
   let message;
   const itemData = questionData.answers.filter((x) => x.id === answerid)[0];
 
-  if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
+  if (profileInfo.communityBans.includes(questionData.communityId)) {
+    message = `${t('formFields.banned')}`;
+  } else if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = t('post.cannotCompleteBecauseVoted');
   } else if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
@@ -312,7 +325,9 @@ export const deleteCommentValidator = (profileInfo, postButtonId, commentId, que
   let message;
   const itemData = questionData.comments.filter((x) => x.id === commentId)[0];
 
-  if (itemData?.votingStatus?.isUpVoted) {
+  if (profileInfo.communityBans.includes(questionData.communityId)) {
+    message = `${t('formFields.banned')}`;
+  } else if (itemData?.votingStatus?.isUpVoted) {
     message = t('post.cannotCompleteBecauseVoted');
   } else if (!isSuiBlockchain && profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');

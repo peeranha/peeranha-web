@@ -526,7 +526,8 @@
     "voteReply": "Vote reply",
     "grantRole": "Give permission",
     "revokeRole": "Revoke permission",
-    "mintUserNFT": "Claim NFT"
+    "mintUserNFT": "Claim NFT",
+    "banCommunityUser": "Ban user in community"
   },
   "aboutPeeranha": "About Peeranha",
   "postsAnswersComments": "Posts, Answers and Comments",

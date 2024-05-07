@@ -148,6 +148,7 @@ export const getUser = async (id, isProfilePage) => {
   const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
 
   let data;
+  let communityBans;
   if (isMeshService || isProfilePage) {
     const result = await executeMeshQuery({
       query: queries.User.Mesh,
@@ -155,7 +156,19 @@ export const getUser = async (id, isProfilePage) => {
         id: dataToString(id).toLowerCase(),
       },
     });
-    data = result?.data;
+    const banResult = await executeMeshQuery({
+      query: queries.UserCommunityBan.Mesh,
+      variables: {
+        id: dataToString(id).toLowerCase(),
+      },
+    });
+
+    communityBans = banResult.data?.usercommunitybans?.map(
+      (communityBan) => communityBan.communityId,
+    );
+    data = {
+      ...result?.data,
+    };
   } else {
     const result = await client.query({
       query: gql(queries.User.TheGraph),
@@ -183,7 +196,7 @@ export const getUser = async (id, isProfilePage) => {
     );
   }
   return isMeshService || isProfilePage
-    ? getUserDataFromMesh(data.userById)
+    ? getUserDataFromMesh({ ...data.userById, communityBans })
     : { ...data.user, permissions: userPermissions };
 };
 

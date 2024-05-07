@@ -55,10 +55,12 @@ import {
   postsByCommAndTagsQueryMesh,
   tagsByIdsQueryMesh,
   replyQueryMesh,
+  userCommunityBanQueryMesh,
 } from './QueriesMesh';
 
 enum QueryName {
   User,
+  UserCommunityBan,
   Users,
   Moderation,
   UsersByCommunity,
@@ -106,6 +108,10 @@ export const queries: {
   User: {
     TheGraph: userQueryGraph,
     Mesh: userQueryMesh,
+  },
+  UserCommunityBan: {
+    TheGraph: userCommunityBanQueryMesh,
+    Mesh: userCommunityBanQueryMesh,
   },
   Histories: {
     TheGraph: historiesQueryGraph,

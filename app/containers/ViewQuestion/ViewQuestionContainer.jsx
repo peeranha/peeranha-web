@@ -5,13 +5,7 @@ import { useTranslation } from 'react-i18next';
 import AnswerForm from 'components/AnswerForm';
 import Base from 'components/Base/BaseRounded';
 import BlockedInfoArea from 'components/BlockedInfoArea';
-
-import Question from './Question';
-import Answers from './Answers';
-import RulesBlock from './RulesBlock';
-
-import { ADD_ANSWER_FORM, POST_ANSWER_BUTTON } from './constants';
-import { POST_TYPE } from '../../utils/constants';
+import { POST_TYPE } from 'utils/constants';
 import { getRatingByCommunity } from 'utils/profileManagement';
 
 import {
@@ -20,6 +14,12 @@ import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
+
+import Question from './Question';
+import Answers from './Answers';
+import RulesBlock from './RulesBlock';
+
+import { ADD_ANSWER_FORM, POST_ANSWER_BUTTON } from './constants';
 
 export const ViewQuestionContainer = (props) => {
   const { t } = useTranslation();
@@ -33,7 +33,9 @@ export const ViewQuestionContainer = (props) => {
     hasProtocolAdminRole(getPermissions(props.profile)) ||
     hasCommunityModeratorRole(getPermissions(props.profile), props.commId);
 
-  const isViewForm = !account || isAnswered || (!isHasRole && isMinusReputation);
+  const isBanned = props.profile?.communityBans?.includes(props.commId);
+
+  const isViewForm = !account || isBanned || isAnswered || (!isHasRole && isMinusReputation);
 
   return (
     <article>
@@ -66,6 +68,7 @@ export const ViewQuestionContainer = (props) => {
               isAnswered={isAnswered}
               isMinusReputation={isMinusReputation}
               showLoginModal={showLoginModal}
+              isBanned={isBanned}
             />
           )}
         </>

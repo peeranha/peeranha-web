@@ -218,6 +218,11 @@ const MainUserInformation = ({
     hasProtocolAdminRole() ||
     hasCommunityAdminRole(null, singleCommunity);
 
+  const isBanned = singleCommunity ? profile?.communityBans?.includes(singleCommunity) : false;
+
+  console.log(isAdmin);
+  console.log(hasProtocolAdminRole());
+
   const permissions = getPermissions(profile);
   const isUserAdmin =
     hasGlobalModeratorRole(permissions) ||
@@ -372,7 +377,7 @@ const MainUserInformation = ({
                     css={desktopButtonStyles}
                     onClick={onClick}
                     id={`ban-user-desktop-${userId}`}
-                    disabled={isUserAdmin}
+                    disabled={isUserAdmin || isBanned}
                   >
                     {t('common.banUser')}
                   </InfoButton>
@@ -542,7 +547,7 @@ const MainUserInformation = ({
                           css={mobileButtonStyles}
                           onClick={onClick}
                           id={`ban-user-mobile-${userId}`}
-                          disabled={isUserAdmin}
+                          disabled={isUserAdmin || isBanned}
                         >
                           {t('common.banUser')}
                         </InfoButton>

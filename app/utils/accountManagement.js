@@ -62,7 +62,7 @@ export const banUser = async (user, userToBan, communityId, ethereumService) => 
     CONTRACT_USER[getNetwork(communityId)],
     user,
     BAN_COMMUNITY_USER,
-    [user, userToBan, getActualId(communityId)],
+    [user, userToBan, Number(getActualId(communityId))],
   );
 };
 

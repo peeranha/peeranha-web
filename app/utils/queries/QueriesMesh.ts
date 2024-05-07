@@ -24,6 +24,7 @@ const userMesh = `
   userpermission {
     permission
   }
+  isGlobalBan
 `;
 
 const historyMesh = `
@@ -284,11 +285,25 @@ export const usersByCommunityQueryMesh = `
 
 export const userQueryMesh = `
   query ($id: String!) {
-  userById(id: $id) {
-    ${userMesh}
-    postCount
-    replyCount
-  }
+    userById(id: $id) {
+      ${userMesh}
+      postCount
+      replyCount
+      usercommunityban {
+        id
+      }
+    }
+}`;
+
+export const userCommunityBanQueryMesh = `
+  query (
+    $id: String
+  ) {
+    usercommunitybans (
+      condition: { userAddress: $id }
+    ) {
+      communityId
+    }
 }`;
 
 export const userPermissionsQueryMesh = `

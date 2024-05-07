@@ -474,6 +474,7 @@ const googleSiteVerificationsConfig = {
 };
 
 export const isMeshServiceConfig = () => {
+  return true;
   const polygonNetworkId = 1;
 
   const singleCommunityId = Object.keys(communitiesConfig[process.env.ENV]).find(
