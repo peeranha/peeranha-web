@@ -52,3 +52,5 @@ export const FOOTER_LINK_COLOR = '#667085';
 export const GRAPH_HOME_URL = 'https://thegraph.com/';
 export const GRAPH_LOGO_ALT = 'theGraph logo';
 export const GRAPH_LOGO_URL = 'https://images.peeranha.io/communities/graph/logo.svg';
+export const GRAPH_PRIVACY_POLICY_URL = 'https://thegraph.com/privacy/';
+export const GRAPH_TERMS_OF_SERVICE_URL = 'https://thegraph.com/terms-of-service/';
