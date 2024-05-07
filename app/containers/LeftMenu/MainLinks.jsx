@@ -222,6 +222,7 @@ const MainLinks = ({
                   fontSize: 16,
                   lineHeight: '20px',
                   color: graphCommunity ? '#E1E1E4' : 'var(--color-white)',
+                  ':hover': { color: `${colors.pinnedPostTextHover || 'inherit'} !important` },
                 }}
               >
                 <span
