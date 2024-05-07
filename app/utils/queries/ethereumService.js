@@ -26,8 +26,6 @@ import { client } from './graphModel';
 import { MESH_MODEL, GRAPH_MODEL } from './constants';
 
 export const queryOnlyFromIndexer = async (ethereumService) => {
-  console.log('DELETE');
-  return true;
   const isMeshService = isMeshServiceConfig();
 
   if (!isMeshService) {

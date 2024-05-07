@@ -220,9 +220,6 @@ const MainUserInformation = ({
 
   const isBanned = singleCommunity ? profile?.communityBans?.includes(singleCommunity) : false;
 
-  console.log(isAdmin);
-  console.log(hasProtocolAdminRole());
-
   const permissions = getPermissions(profile);
   const isUserAdmin =
     hasGlobalModeratorRole(permissions) ||
