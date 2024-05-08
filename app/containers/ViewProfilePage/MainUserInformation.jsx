@@ -30,6 +30,7 @@ import { customRatingIconColors } from 'constants/customRating';
 import {
   getPermissions,
   hasCommunityAdminRole,
+  hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
@@ -216,7 +217,8 @@ const MainUserInformation = ({
   const isAdmin =
     hasGlobalModeratorRole() ||
     hasProtocolAdminRole() ||
-    hasCommunityAdminRole(null, singleCommunity);
+    hasCommunityAdminRole(null, singleCommunity) ||
+    hasCommunityModeratorRole(null, singleCommunity);
 
   const isBanned = singleCommunity ? profile?.communityBans?.includes(singleCommunity) : false;
 
@@ -224,7 +226,8 @@ const MainUserInformation = ({
   const isUserAdmin =
     hasGlobalModeratorRole(permissions) ||
     hasProtocolAdminRole(permissions) ||
-    hasCommunityAdminRole(permissions, singleCommunity);
+    hasCommunityAdminRole(permissions, singleCommunity) ||
+    hasCommunityModeratorRole(permissions, singleCommunity);
 
   const writeToBuffer = (event) => {
     navigator.clipboard.writeText(profile?.customName || userId);
@@ -376,7 +379,7 @@ const MainUserInformation = ({
                     id={`ban-user-desktop-${userId}`}
                     disabled={isUserAdmin || isBanned}
                   >
-                    {t('common.banUser')}
+                    {isBanned ? t('common.bannedUser') : t('common.banUser')}
                   </InfoButton>
                 )}
               />
@@ -546,7 +549,7 @@ const MainUserInformation = ({
                           id={`ban-user-mobile-${userId}`}
                           disabled={isUserAdmin || isBanned}
                         >
-                          {t('common.banUser')}
+                          {isBanned ? t('common.bannedUser') : t('common.banUser')}
                         </InfoButton>
                       )}
                     />

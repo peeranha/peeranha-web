@@ -547,5 +547,6 @@
   "transactionInProgress": "Hoạt động đang được xử lý",
   "canWork": "Trong khi đó, bạn có thể tiếp tục làm việc trên trang web.",
   "banUser": "Cấm người dùng",
+  "bannedUser": "Người dùng bị cấm",
   "areYouSure": "Bạn chắc chắn muốn cấm người dùng?"
 }

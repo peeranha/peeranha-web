@@ -534,5 +534,6 @@
   "transactionInProgress": "操作正在处理中",
   "canWork": "与此同时，可以继续在网站上工作。",
   "banUser": "禁止用户",
+  "bannedUser": "被禁止的用户",
   "areYouSure": "你确定要封禁该用户吗？"
 }

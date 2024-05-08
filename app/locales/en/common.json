@@ -551,5 +551,6 @@
   "transactionInProgress": "The operation is being processed",
   "canWork": "Meanwhile, feel free to continue working on the site.",
   "banUser": "Ban user",
+  "bannedUser": "Banned user",
   "areYouSure": "Are you sure you want to ban the user?"
 }

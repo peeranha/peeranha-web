@@ -547,5 +547,6 @@
   "transactionInProgress": "La operación está siendo procesada",
   "canWork": "Mientras tanto, siéntase libre de continuar trabajando en el sitio.",
   "banUser": "Prohibir usuario",
+  "bannedUser": "Usuario prohibido",
   "areYouSure": "¿Estás seguro/a de que quieres prohibir al usuario?"
 }
