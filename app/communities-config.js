@@ -227,6 +227,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/cyfrin/logo.svg',
           styles: CyfrinStyles,
         },
+        '3-0xaa7d3d2432c9091bde02f898fba1a33dd15863f45bd42ee157c6c7dca1c9e166': {
+          origin: `https://sui-demo${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiMainStyles,
+        },
       }
     : {
         '1-1': {
