@@ -299,8 +299,8 @@ export const userCommunityBanQueryMesh = `
   query (
     $id: String
   ) {
-    usercommunitybans (
-      condition: { userAddress: $id }
+    usercommunityban (
+      condition: { userId: $id }
     ) {
       communityId
     }

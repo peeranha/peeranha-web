@@ -161,7 +161,7 @@ export const getUser = async (id, isProfilePage) => {
       },
     });
 
-    communityBans = banResult.data?.usercommunitybans?.map(
+    communityBans = banResult.data?.usercommunityban?.map(
       (communityBan) => communityBan.communityId,
     );
     data = {
