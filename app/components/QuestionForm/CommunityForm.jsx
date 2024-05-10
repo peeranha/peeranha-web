@@ -40,8 +40,8 @@ const CommunityForm = ({
       label={t('common.communityLabel')}
       tip={t('common.communityTip')}
       options={communities}
-      validate={[requiredForObjectField, requiredMinReputation, requiredNotBanned]}
-      warn={[requiredForObjectField, requiredMinReputation, requiredNotBanned]}
+      validate={[requiredForObjectField, requiredNotBanned, requiredMinReputation]}
+      warn={[requiredForObjectField, requiredNotBanned, requiredMinReputation]}
       splitInHalf
       communityId={communityId}
       isHasRoleGlobal={isHasRoleGlobal}

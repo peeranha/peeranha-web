@@ -113,6 +113,8 @@ const View = ({
     }
   }, [isSearchFormVisible]);
 
+  const isBanned = single ? profileInfo?.communityBans?.includes(single) : false;
+
   useKeyDown(() => {
     if (!isDesktop) {
       setSearchFormVisibility(true);
@@ -156,7 +158,10 @@ const View = ({
 
   const showPopoverMinRating = (e) => {
     e.preventDefault();
-    showPopover(e.currentTarget.id, t('post.reputationBelowZero'));
+    showPopover(
+      e.currentTarget.id,
+      isBanned ? t('formFields.banned') : t('post.reputationBelowZero'),
+    );
   };
 
   const askQuestionHandler = (e) => {
