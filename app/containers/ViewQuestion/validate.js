@@ -76,7 +76,7 @@ export const postAnswerValidator = (profileInfo, questionData, postButtonId) => 
 
   let message;
   const communityRating = getRatingByCommunity(profileInfo, communityId);
-  if (profileInfo.communityBans.includes(questionData.communityId)) {
+  if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (questionData.answers.length === maxAnswersNumber) {
     message = t('post.itemsMax');
@@ -126,7 +126,7 @@ export const postCommentValidator = (profileInfo, questionData, postButtonId, an
 
   let message;
 
-  if (profileInfo.communityBans.includes(questionData.communityId)) {
+  if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (item.comments.length === maxCommentsNumber) {
     message = t('post.itemsMax');
@@ -165,7 +165,7 @@ export const markAsAcceptedValidator = (profileInfo, questionData, postButtonId)
   const communityId = questionData.communityId;
   let message;
   const user = isSuiBlockchain ? profileInfo.id : profileInfo.user;
-  if (profileInfo.communityBans.includes(questionData.communityId)) {
+  if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (user.toLowerCase() !== questionData.author.user.toLowerCase()) {
     message = t('post.noRootsToVote');
@@ -194,7 +194,7 @@ export const upVoteValidator = (profileInfo, questionData, postButtonId, answerI
 
   let message;
 
-  if (profileInfo.communityBans.includes(questionData.communityId)) {
+  if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (
     (answerId === '0' && questionData.votingStatus?.isVotedToDelete) ||
@@ -240,7 +240,7 @@ export const downVoteValidator = (profileInfo, questionData, postButtonId, answe
 
   const isOwnItem = questionData.answers.filter((x) => x.id === answerId);
 
-  if (profileInfo.communityBans.includes(questionData.communityId)) {
+  if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (item.votingStatus?.isVotedToDelete) {
     message = t('post.cannotCompleteBecauseBlocked');
@@ -275,7 +275,7 @@ export const deleteQuestionValidator = (postButtonId, profileInfo, questionData)
   const MIN_ENERGY = 2;
 
   let message;
-  if (profileInfo.communityBans.includes(questionData.communityId)) {
+  if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (questionData.votingStatus?.isUpVoted) {
     message = t('post.cannotCompleteBecauseVoted');
@@ -305,7 +305,7 @@ export const deleteAnswerValidator = (
   let message;
   const itemData = questionData.answers.filter((x) => x.id === answerid)[0];
 
-  if (profileInfo.communityBans.includes(questionData.communityId)) {
+  if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = t('post.cannotCompleteBecauseVoted');
@@ -325,7 +325,7 @@ export const deleteCommentValidator = (profileInfo, postButtonId, commentId, que
   let message;
   const itemData = questionData.comments.filter((x) => x.id === commentId)[0];
 
-  if (profileInfo.communityBans.includes(questionData.communityId)) {
+  if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (itemData?.votingStatus?.isUpVoted) {
     message = t('post.cannotCompleteBecauseVoted');

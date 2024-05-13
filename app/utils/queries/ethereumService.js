@@ -175,6 +175,19 @@ export const getUser = async (id, isProfilePage) => {
       },
       fetchPolicy: undefined,
     });
+
+    const banResult = await client.query({
+      query: gql(queries.UserCommunityBan.TheGraph),
+      variables: {
+        id: dataToString(id).toLowerCase(),
+      },
+      fetchPolicy: undefined,
+    });
+
+    communityBans = banResult.data?.userCommunityBans?.map(
+      (communityBan) => communityBan.communityId,
+    );
+
     data = result?.data;
   }
 
@@ -195,7 +208,20 @@ export const getUser = async (id, isProfilePage) => {
   }
   return isMeshService || isProfilePage
     ? getUserDataFromMesh({ ...data.userById, communityBans })
-    : { ...data.user, permissions: userPermissions };
+    : {
+        ...data.user,
+        permissions: userPermissions,
+        communityBans,
+        ratings: data.user.ratings.map((communityRating) => {
+          if (communityBans?.includes(communityRating.communityId)) {
+            return {
+              communityId: communityRating.communityId,
+              rating: -10,
+            };
+          }
+          return communityRating;
+        }),
+      };
 };
 
 export const getUserPermissions = async (id) => {

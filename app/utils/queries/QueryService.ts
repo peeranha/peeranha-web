@@ -26,6 +26,7 @@ import {
   postsByCommAndTagsQueryGraph,
   tagsByIdsQueryGraph,
   replyQueryGraph,
+  userCommunityBanQueryGraph,
 } from './QueriesGraph';
 import {
   usersQueryMesh,
@@ -110,7 +111,7 @@ export const queries: {
     Mesh: userQueryMesh,
   },
   UserCommunityBan: {
-    TheGraph: userCommunityBanQueryMesh,
+    TheGraph: userCommunityBanQueryGraph,
     Mesh: userCommunityBanQueryMesh,
   },
   Histories: {
