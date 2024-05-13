@@ -79,6 +79,7 @@ const CreateTag = ({
         {
           name: values[NAME_FIELD],
           description: values[DESCRIPTION_FIELD],
+          communityId: values[FORM_COMMUNITY].id,
         },
         args[2].reset,
       );

@@ -229,7 +229,7 @@ const communitiesConfig = {
           styles: CyfrinStyles,
         },
         '3-0xaa7d3d2432c9091bde02f898fba1a33dd15863f45bd42ee157c6c7dca1c9e166': {
-          origin: `https://sui-sui-staging${process.env.COOKIE_DOMAIN}`,
+          origin: `https://sui-demo${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/suiCommunity/logo.svg',
           styles: SuiCommunityStyles,
         },
@@ -242,8 +242,8 @@ const communitiesConfig = {
         },
         '1-2': {
           origin: 'https://demo-msl.testpeeranha.io',
-          src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
-          styles: MintStateLabsStyles,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
         },
         '1-4': {
           origin: 'https://demo-fxland.testpeeranha.io',

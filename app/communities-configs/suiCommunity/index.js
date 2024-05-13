@@ -186,6 +186,7 @@ export const SuiCommunityStyles = {
   //   questionTitleFont: `${fonts}`,
   // },
   signUpPageLogo: 'https://images.peeranha.io/communities/suiCommunity/logo.svg',
+  favicon: 'https://images.peeranha.io/communities/suiCommunity/favicon_Sui_2-1.ico',
   colors: {
     mainSubHeaderBgColor: 'rgba(255, 255, 255, 1)',
     mainBackground: 'rgba(249, 252, 254, 1)',
