@@ -605,7 +605,10 @@ export const postsByCommAndTagsQueryMesh = `
       id: {
           in: $ids
       }
-  }
+    }
+    condition: {
+       isDeleted: false,
+    }
   ) {
     ${postMeshShallow}
   }
