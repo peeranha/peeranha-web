@@ -523,7 +523,8 @@
     "grantRole": "Dar permiso",
     "revokeRole": "Revocar permiso",
     "mintUserNFT": "Reclamar NFT",
-    "banCommunityUser": "Prohibir usuario en la comunidad"
+    "banCommunityUser": "Prohibir usuario en la comunidad",
+    "unBanCommunityUser": "Desbloquear usuario en la comunidad"
   },
   "aboutPeeranha": "Sobre Peeranha",
   "postsAnswersComments": "Publicaciones, respuestas y comentarios",
@@ -548,5 +549,7 @@
   "canWork": "Mientras tanto, siéntase libre de continuar trabajando en el sitio.",
   "banUser": "Prohibir usuario",
   "bannedUser": "Usuario prohibido",
-  "areYouSure": "¿Estás seguro/a de que quieres prohibir al usuario?"
+  "unbanUser": "Desbloquear usuario",
+  "areYouSure": "¿Estás seguro de que quieres bloquear al usuario?",
+  "areYouSureToUnban": "¿Estás seguro de que quieres desbloquear al usuario?"
 }

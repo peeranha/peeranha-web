@@ -1,4 +1,4 @@
-import { banUser } from 'containers/QuestionsWithAnswersOfUser/actions';
+import { banUser, unbanUser } from 'containers/QuestionsWithAnswersOfUser/actions';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -69,6 +69,7 @@ const ViewProfilePage = ({
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
   banUserDispatch,
+  unbanUserDispatch,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -181,6 +182,7 @@ const ViewProfilePage = ({
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
         userAchievementsLength={achievementsCount()}
         banUser={banUserDispatch}
+        unbanUser={unbanUserDispatch}
       />
     </Profile>
   );
@@ -225,6 +227,7 @@ const withConnect = connect(
     setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
     resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
     banUserDispatch: bindActionCreators(banUser, dispatch),
+    unbanUserDispatch: bindActionCreators(unbanUser, dispatch),
   }),
 );
 

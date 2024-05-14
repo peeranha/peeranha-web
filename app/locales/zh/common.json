@@ -510,7 +510,8 @@
     "grantRole": "给予许可",
     "revokeRole": "撤销权限",
     "mintUserNFT": "索取 NFT",
-    "banCommunityUser": "禁止社区中的用户"
+    "banCommunityUser": "禁止社区中的用户",
+    "unBanCommunityUser": "解除社区用户的禁令"
   },
   "aboutPeeranha": "关于 Peeranha",
   "postsAnswersComments": "帖子、答案和评论",
@@ -535,5 +536,7 @@
   "canWork": "与此同时，可以继续在网站上工作。",
   "banUser": "禁止用户",
   "bannedUser": "被禁止的用户",
-  "areYouSure": "你确定要封禁该用户吗？"
+  "unbanUser": "解禁用户",
+  "areYouSure": "你确定要禁止该用户吗？",
+  "areYouSureToUnban": "你确定要解禁该用户吗？"
 }

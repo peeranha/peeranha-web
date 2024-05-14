@@ -5,6 +5,9 @@ import {
   BAN_USER,
   BAN_USER_SUCCESS,
   BAN_USER_ERROR,
+  UNBAN_USER,
+  UNBAN_USER_SUCCESS,
+  UNBAN_USER_ERROR,
 } from './constants';
 
 export function getQuestions(userId, init) {
@@ -30,6 +33,7 @@ export function getQuestionsErr(getQuestionsError) {
 }
 
 export function banUser({ buttonId, user, communityId }) {
+  console.log('rfref');
   return {
     type: BAN_USER,
     buttonId,
@@ -48,5 +52,27 @@ export function banUserError(banUserError) {
   return {
     type: BAN_USER_ERROR,
     banUserError,
+  };
+}
+
+export function unbanUser({ buttonId, user, communityId }) {
+  return {
+    type: UNBAN_USER,
+    buttonId,
+    user,
+    communityId,
+  };
+}
+
+export function unbanUserSuccess() {
+  return {
+    type: UNBAN_USER_SUCCESS,
+  };
+}
+
+export function unbanUserError(unbanUserError) {
+  return {
+    type: UNBAN_USER_ERROR,
+    unbanUserError,
   };
 }

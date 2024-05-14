@@ -23,6 +23,7 @@ const ProfileViewForm = ({
   redirectToEditProfilePage,
   userAchievementsLength,
   banUser,
+  unbanUser,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const isProfilePage =
@@ -46,6 +47,14 @@ const ProfileViewForm = ({
     });
   };
 
+  const onClickUnbanUser = ({ currentTarget: { id } }) => {
+    unbanUser({
+      buttonId: id,
+      user: userId,
+      communityId: singleCommunity,
+    });
+  };
+
   return (
     <div className={className}>
       <MainUserInformation
@@ -56,6 +65,7 @@ const ProfileViewForm = ({
         redirectToEditProfilePage={redirectToEditProfilePage}
         userAchievementsLength={userAchievementsLength}
         banUser={onClickBanUser}
+        unbanUser={onClickUnbanUser}
       />
 
       <AdditionalUserInformation
