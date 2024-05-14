@@ -33,7 +33,6 @@ export function getQuestionsErr(getQuestionsError) {
 }
 
 export function banUser({ buttonId, user, communityId }) {
-  console.log('rfref');
   return {
     type: BAN_USER,
     buttonId,
