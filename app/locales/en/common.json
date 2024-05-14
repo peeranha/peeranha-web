@@ -526,7 +526,8 @@
     "voteReply": "Vote reply",
     "grantRole": "Give permission",
     "revokeRole": "Revoke permission",
-    "mintUserNFT": "Claim NFT"
+    "mintUserNFT": "Claim NFT",
+    "banCommunityUser": "Ban user in community"
   },
   "aboutPeeranha": "About Peeranha",
   "postsAnswersComments": "Posts, Answers and Comments",
@@ -548,5 +549,8 @@
   "sources": "Sources",
   "orDivider": "OR",
   "transactionInProgress": "The operation is being processed",
-  "canWork": "Meanwhile, feel free to continue working on the site."
+  "canWork": "Meanwhile, feel free to continue working on the site.",
+  "banUser": "Ban user",
+  "bannedUser": "Banned user",
+  "areYouSure": "Are you sure you want to ban the user?"
 }

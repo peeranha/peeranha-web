@@ -25,5 +25,6 @@
   "hasToBeMoreThanPrev": "Bạn không thể đặt giá trị thấp hơn",
   "valueIsNotPositiveInteger": "Giá trị không phải là số nguyên dương",
   "requiredMinReputation": "Danh tiếng của bạn trong cộng đồng này là tiêu cực, bạn không được phép tạo bài đăng mới.",
-  "wrongAddressFormat": "Địa chỉ ví không hợp lệ"
+  "wrongAddressFormat": "Địa chỉ ví không hợp lệ",
+  "banned": "Rất tiếc, hoạt động của bạn trong cộng đồng này đã bị hạn chế bởi người điều hành."
 }

@@ -208,6 +208,7 @@ export const getAllRoles = (userRoles = []) => {
 };
 
 export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
+  if (!communityId) return false;
   let permissions = permissionsFromState;
 
   if (!permissions) {
@@ -226,18 +227,27 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
   ).length;
 };
 
-export const hasCommunityModeratorRole = (permissions = [], communityId) =>
-  communityId
-    ? !!permissions.filter(
-        (permission) =>
-          permission ===
-            getCommunityRole(
-              COMMUNITY_MODERATOR_ROLE,
-              getActualId(communityId),
-              getNetwork(communityId),
-            ) && getNetwork(permission) === getNetwork(communityId),
-      ).length
-    : false;
+export const hasCommunityModeratorRole = (permissionsFromState = [], communityId) => {
+  if (!communityId) return false;
+
+  let permissions = permissionsFromState;
+
+  if (!permissions) {
+    permissions = parsePermissionsCookie(
+      JSON.parse(
+        isValidJsonFromCookie(getCookie(PROFILE_INFO_LS), PROFILE_INFO_LS)
+          ? getCookie(PROFILE_INFO_LS)
+          : '""',
+      ) || [],
+    );
+  }
+
+  return !!permissions.filter(
+    (permission) =>
+      permission ===
+      getCommunityRole(COMMUNITY_MODERATOR_ROLE, getActualId(communityId), getNetwork(communityId)),
+  ).length;
+};
 
 export const hasProtocolAdminRole = (permissionsFromState) => {
   let permissions = permissionsFromState;

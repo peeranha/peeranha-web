@@ -522,7 +522,8 @@
     "voteReply": "Bình chọn trả lời",
     "grantRole": "Cho phép",
     "revokeRole": "Thu hồi quyền",
-    "mintUserNFT": "Yêu cầu NFT"
+    "mintUserNFT": "Yêu cầu NFT",
+    "banCommunityUser": "Cấm người dùng trong cộng đồng"
   },
   "aboutPeeranha": "Giới thiệu về Peeranha",
   "postsAnswersComments": "Bài viết, câu trả lời và bình luận",
@@ -544,5 +545,8 @@
   "sources": "Nguồn",
   "orDivider": "HOẶC",
   "transactionInProgress": "Hoạt động đang được xử lý",
-  "canWork": "Trong khi đó, bạn có thể tiếp tục làm việc trên trang web."
+  "canWork": "Trong khi đó, bạn có thể tiếp tục làm việc trên trang web.",
+  "banUser": "Cấm người dùng",
+  "bannedUser": "Người dùng bị cấm",
+  "areYouSure": "Bạn chắc chắn muốn cấm người dùng?"
 }

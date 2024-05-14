@@ -1,11 +1,6 @@
 import { css } from 'styled-components';
 
-import {
-  BG_TRANSPARENT,
-  BORDER_TRANSPARENT,
-  TEXT_LIGHT,
-  BUTTON_COLOR,
-} from 'style-constants';
+import { BG_TRANSPARENT, BORDER_TRANSPARENT, TEXT_LIGHT, BUTTON_COLOR } from 'style-constants';
 
 import Button from '../index';
 
@@ -22,7 +17,8 @@ const OutlinedButton = Button.extend`
   border: 1px solid ${BUTTON_COLOR};
   color: ${BUTTON_COLOR};
 
-  ${props => props.customStyles};
+  ${(props) => props.customStyles};
+  ${(props) => (props.disabled ? `opacity: 0.6` : ``)};
 
   :hover {
     color: ${TEXT_LIGHT};

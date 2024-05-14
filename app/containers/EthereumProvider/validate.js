@@ -10,10 +10,14 @@ export default ({
   minRating,
   isGlobalAdmin,
   isCommunityAdmin,
+  communityBans,
+  communityId,
 }) => {
   let message;
 
-  if (actor && actor === creator) {
+  if (communityBans?.includes(communityId)) {
+    message = `${t('formFields.banned')}`;
+  } else if (actor && actor === creator) {
     message = t('post.creatorCannot');
   } else if (rating < minRating && !isGlobalAdmin && !isCommunityAdmin) {
     message = `${t('post.notEnoughRating')} ${minRating}`;

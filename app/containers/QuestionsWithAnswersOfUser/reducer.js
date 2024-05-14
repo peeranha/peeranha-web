@@ -10,6 +10,9 @@ import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
+  BAN_USER,
+  BAN_USER_SUCCESS,
+  BAN_USER_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -18,10 +21,12 @@ export const initialState = fromJS({
   questionsLoading: false,
   getQuestionsError: null,
   isLastFetch: false,
+  banIsInProcess: false,
+  banUserError: null,
 });
 
 function questionsWithAnswersOfUserReducer(state = initialState, action) {
-  const { type, getQuestionsError, questionsWithUserAnswers, init } = action;
+  const { type, getQuestionsError, questionsWithUserAnswers, init, banUserError } = action;
 
   switch (type) {
     case GET_QUESTIONS:
@@ -38,18 +43,18 @@ function questionsWithAnswersOfUserReducer(state = initialState, action) {
         .set('questionsLoading', false)
         .set(
           'questionsWithUserAnswers',
-          state
-            .get('questionsWithUserAnswers')
-            .concat(questionsWithUserAnswers),
+          state.get('questionsWithUserAnswers').concat(questionsWithUserAnswers),
         )
-        .set(
-          'isLastFetch',
-          questionsWithUserAnswers.length < initialState.get('number'),
-        );
+        .set('isLastFetch', questionsWithUserAnswers.length < initialState.get('number'));
     case GET_QUESTIONS_ERROR:
-      return state
-        .set('questionsLoading', false)
-        .set('getQuestionsError', getQuestionsError);
+      return state.set('questionsLoading', false).set('getQuestionsError', getQuestionsError);
+
+    case BAN_USER:
+      return state.set('banIsInProcess', true);
+    case BAN_USER_SUCCESS:
+      return state.set('banIsInProcess', false);
+    case BAN_USER_ERROR:
+      return state.set('banUserError', banUserError).set('banIsInProcess', false);
 
     default:
       return state;

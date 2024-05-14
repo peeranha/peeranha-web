@@ -146,6 +146,7 @@ export const getUser = async (id, isProfilePage) => {
   const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
 
   let data;
+  let communityBans;
   if (isMeshService || isProfilePage) {
     const result = await executeMeshQuery({
       query: queries.User.Mesh,
@@ -153,7 +154,19 @@ export const getUser = async (id, isProfilePage) => {
         id: dataToString(id).toLowerCase(),
       },
     });
-    data = result?.data;
+    const banResult = await executeMeshQuery({
+      query: queries.UserCommunityBan.Mesh,
+      variables: {
+        id: dataToString(id).toLowerCase(),
+      },
+    });
+
+    communityBans = banResult.data?.usercommunityban?.map(
+      (communityBan) => communityBan.communityId,
+    );
+    data = {
+      ...result?.data,
+    };
   } else {
     const result = await client.query({
       query: gql(queries.User.TheGraph),
@@ -162,6 +175,19 @@ export const getUser = async (id, isProfilePage) => {
       },
       fetchPolicy: undefined,
     });
+
+    const banResult = await client.query({
+      query: gql(queries.UserCommunityBan.TheGraph),
+      variables: {
+        id: dataToString(id).toLowerCase(),
+      },
+      fetchPolicy: undefined,
+    });
+
+    communityBans = banResult.data?.userCommunityBans?.map(
+      (communityBan) => communityBan.communityId,
+    );
+
     data = result?.data;
   }
 
@@ -181,8 +207,21 @@ export const getUser = async (id, isProfilePage) => {
     );
   }
   return isMeshService || isProfilePage
-    ? getUserDataFromMesh(data.userById)
-    : { ...data.user, permissions: userPermissions };
+    ? getUserDataFromMesh({ ...data.userById, communityBans })
+    : {
+        ...data.user,
+        permissions: userPermissions,
+        communityBans,
+        ratings: data.user.ratings.map((communityRating) => {
+          if (communityBans?.includes(communityRating.communityId)) {
+            return {
+              communityId: communityRating.communityId,
+              rating: -10,
+            };
+          }
+          return communityRating;
+        }),
+      };
 };
 
 export const getUserPermissions = async (id) => {

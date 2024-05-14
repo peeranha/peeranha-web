@@ -1,5 +1,5 @@
 import Torus from '@toruslabs/torus-embed';
-import { deleteCookie, getCookie, setCookie } from 'app/utils/cookie';
+import { deleteCookie, getCookie } from 'app/utils/cookie';
 import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from 'containers/EthereumProvider/constants';
 import { BigNumber, Contract, ethers } from 'ethers';
 import { CONNECTED_WALLET } from 'utils/constants';

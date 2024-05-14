@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { styles } from './BlockedInfoArea.styled';
 
 import bannerImage from 'images/answerBlockBG.svg?inline';
 import bannerImageGraph from 'images/answerBlockBGGraph.svg?inline';
@@ -12,9 +11,11 @@ import repliedImage from 'images/repliedAnswer.svg?inline';
 import reputationImage from 'images/reputationAnswer.svg?inline';
 import graphRepliedImage from 'images/graphRepliedImage.svg?inline';
 import graphBadReputation from 'images/graphBadReputation.svg?inline';
-import { BANNER_IMG, ILLUSTRATION_IMG } from './constants';
+
 import { graphCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 
+import { BANNER_IMG, ILLUSTRATION_IMG } from './constants';
+import { styles } from './BlockedInfoArea.styled';
 const communityStyles = singleCommunityStyles();
 const graphCommunity = graphCommunityColors();
 
@@ -23,6 +24,7 @@ type BlockedInfoAreaProps = {
   isAnswered: boolean;
   isMinusReputation: boolean;
   showLoginModal: () => void;
+  isBanned: boolean;
 };
 
 const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
@@ -30,6 +32,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
   isAnswered,
   isMinusReputation,
   showLoginModal,
+  isBanned,
 }): JSX.Element => {
   const { t } = useTranslation();
   const viewImage = () => {
@@ -48,6 +51,9 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
     }
     if (isAnswered) {
       return t('post.answer_replied');
+    }
+    if (isBanned) {
+      return t('formFields.banned');
     }
     return t('post.answer_reputation');
   };
@@ -79,7 +85,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
     if (isAnswered) {
       return styles.imgReplied;
     }
-    return styles.imgReputation;
+    return styles.imgReplied;
   };
 
   const buttonWithLogin = (clickHandler: () => void) => (
@@ -93,7 +99,13 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
       <div css={styles.container}>
         <img
           css={styles.img}
-          src={isMinusReputation ? bannerImageRed : graphCommunity ? bannerImageGraph : bannerImage}
+          src={
+            isMinusReputation || isBanned
+              ? bannerImageRed
+              : graphCommunity
+              ? bannerImageGraph
+              : bannerImage
+          }
           alt={BANNER_IMG}
         />
         <div css={styles.block}>

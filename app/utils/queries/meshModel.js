@@ -12,16 +12,33 @@ export async function executeMeshQuery(props) {
 }
 
 export const getUserDataFromMesh = (item) => {
-  const { userachievement, usercommunityrating, usercommunity, userpermission, ...user } = item;
+  const {
+    userachievement,
+    usercommunityrating,
+    usercommunity,
+    userpermission,
+    communityBans,
+    ...user
+  } = item;
+
   return {
     ...user,
     id: user.id.toLowerCase(),
     achievements: userachievement,
-    ratings: usercommunityrating,
+    ratings: usercommunityrating.map((communityRating) => {
+      if (communityBans?.includes(communityRating.communityId)) {
+        return {
+          communityId: communityRating.communityId,
+          rating: -10,
+        };
+      }
+      return communityRating;
+    }),
     followedCommunities: usercommunity
       ? usercommunity.map((community) => community.communityId)
       : [],
     permissions: userpermission ? userpermission.map((permission) => permission.permission) : [],
+    communityBans,
   };
 };
 

@@ -213,6 +213,15 @@ export const userQueryGraph = `
         }
       }`;
 
+export const userCommunityBanQueryGraph = `
+  query (
+    $id: ID!
+  ) {
+   userCommunityBans(where: {user: $id}) {
+    communityId
+  }
+}`;
+
 export const userPermissionsQueryGraph = `
       query(
         $id: ID!,

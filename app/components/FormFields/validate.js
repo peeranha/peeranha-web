@@ -133,6 +133,14 @@ const requiredMinReputation = (...args) => {
   return isMinusReputation && !hasRole ? 'formFields.requiredMinReputation' : undefined;
 };
 
+const requiredNotBanned = (...args) => {
+  const { id } = args[0];
+  const { profile } = args[2];
+  const initialId = args[2]?.question?.communityId;
+
+  return profile?.communityBans?.includes(id || initialId) ? 'formFields.banned' : undefined;
+};
+
 const valueHasNotBeInList = (...args) => {
   const value = args[0];
   const list = args[2].valueHasNotBeInListValidate;
@@ -265,4 +273,5 @@ export {
   valueHasToBePositiveInteger,
   valueHasToBeLessThanMaxPromotingHours,
   stringHasToBeEthereumAddress,
+  requiredNotBanned,
 };

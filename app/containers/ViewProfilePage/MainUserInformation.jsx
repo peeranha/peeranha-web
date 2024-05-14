@@ -1,3 +1,4 @@
+import AreYouSure from 'containers/ViewProfilePage/AreYouSure';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -24,22 +25,28 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import { closePopover, showPopover } from 'utils/popover';
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
-import LoadingIndicator from 'components/LoadingIndicator';
 
 import { customRatingIconColors } from 'constants/customRating';
+import {
+  getPermissions,
+  hasCommunityAdminRole,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
 import { getUserName } from 'utils/user';
 import useMediaQuery from 'hooks/useMediaQuery';
 import { NoteGraph, ChatCenteredTextGraph, CopyFillGraph } from 'components/icons';
-import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  graphCommunityColors,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 import { SuiNS } from 'icons/index';
+import InfoButton from 'components/Button/Outlined/InfoMedium';
 
 const colors = singleCommunityColors();
 const graphCommunity = graphCommunityColors();
-
-const InlineLoader = styled(LoadingIndicator)`
-  margin: auto;
-  margin-top: 5px;
-`;
 
 export const UlStyled = Ul.extend`
   display: flex;
@@ -149,6 +156,34 @@ export const Box = Base.extend`
   }
 `;
 
+const isGraphCommunity = graphCommunityColors();
+const desktopButtonStyles = isGraphCommunity
+  ? css`
+      background: #1e1c2e;
+      border: none;
+      color: #e1e1e4;
+    `
+  : css``;
+
+const mobileButtonStyles = isGraphCommunity
+  ? css`
+      background: #1e1c2e;
+      border: none;
+      color: #e1e1e4;
+      @media (max-width: 768px) {
+        display: flex;
+        width: 100%;
+      }
+      display: none;
+    `
+  : css`
+      @media (max-width: 768px) {
+        display: flex;
+        width: 100%;
+      }
+      display: none;
+    `;
+
 const LargeImageButton = styled.button`
   position: relative;
   img {
@@ -166,6 +201,7 @@ const MainUserInformation = ({
   locale,
   redirectToEditProfilePage,
   userAchievementsLength,
+  banUser,
 }) => {
   const { t } = useTranslation();
   const isTemporaryAccount = !!profile?.integer_properties?.find(
@@ -176,6 +212,22 @@ const MainUserInformation = ({
     : process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
   const [copied, setCopied] = useState(colors.btnColor);
   const isDesktop = useMediaQuery('(min-width: 768px)');
+  const singleCommunity = isSingleCommunityWebsite();
+
+  const isAdmin =
+    hasGlobalModeratorRole() ||
+    hasProtocolAdminRole() ||
+    hasCommunityAdminRole(null, singleCommunity) ||
+    hasCommunityModeratorRole(null, singleCommunity);
+
+  const isBanned = singleCommunity ? profile?.communityBans?.includes(singleCommunity) : false;
+
+  const permissions = getPermissions(profile);
+  const isUserAdmin =
+    hasGlobalModeratorRole(permissions) ||
+    hasProtocolAdminRole(permissions) ||
+    hasCommunityAdminRole(permissions, singleCommunity) ||
+    hasCommunityModeratorRole(permissions, singleCommunity);
 
   const writeToBuffer = (event) => {
     navigator.clipboard.writeText(profile?.customName || userId);
@@ -224,19 +276,11 @@ const MainUserInformation = ({
           flex-direction: column;
           @media (min-width: 768px) {
             flex-direction: row;
-            background: ${graphCommunity
-              ? 'none'
-              : colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
-            border-radius: 170px;
           }
         `}
       >
         <div
           css={css`
-            background: ${graphCommunity
-              ? 'none'
-              : colors.userInformation || 'rgba(165, 188, 255, 0.1)'};
-            border-radius: 170px;
             min-width: calc(100% - 5px);
             @media (min-width: 768px) {
               background: none;
@@ -304,7 +348,13 @@ const MainUserInformation = ({
         </div>
 
         <div>
-          <div className={isDesktop ? 'd-flex align-items-center' : 'd-none'}>
+          <div
+            css={css`
+              display: ${isDesktop ? 'flex' : 'none'};
+              align-items: center;
+              justify-content: space-between;
+            `}
+          >
             <Span
               fontSize="38"
               lineHeight="47"
@@ -319,6 +369,21 @@ const MainUserInformation = ({
             >
               {getUserName(profile?.displayName, userId)}
             </Span>
+            {Boolean(singleCommunity && isAdmin) && (
+              <AreYouSure
+                submitAction={banUser}
+                Button={({ onClick }) => (
+                  <InfoButton
+                    css={desktopButtonStyles}
+                    onClick={onClick}
+                    id={`ban-user-desktop-${userId}`}
+                    disabled={isUserAdmin || isBanned}
+                  >
+                    {isBanned ? t('common.bannedUser') : t('common.banUser')}
+                  </InfoButton>
+                )}
+              />
+            )}
           </div>
           <div className="d-flex align-items-center">
             <UlStyled>
@@ -473,6 +538,22 @@ const MainUserInformation = ({
                       )}
                     </button>
                   </div>
+
+                  {Boolean(singleCommunity && isAdmin) && (
+                    <AreYouSure
+                      submitAction={banUser}
+                      Button={({ onClick }) => (
+                        <InfoButton
+                          css={mobileButtonStyles}
+                          onClick={onClick}
+                          id={`ban-user-mobile-${userId}`}
+                          disabled={isUserAdmin || isBanned}
+                        >
+                          {isBanned ? t('common.bannedUser') : t('common.banUser')}
+                        </InfoButton>
+                      )}
+                    />
+                  )}
                 </li>
               )}
             </UlStyled>

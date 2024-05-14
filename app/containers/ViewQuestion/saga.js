@@ -505,8 +505,7 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
 
     yield call(
       isAvailableAction,
-      () =>
-        deleteQuestionValidator(buttonId, questionData.answers.length, profileInfo, questionData),
+      () => deleteQuestionValidator(buttonId, profileInfo, questionData),
       {
         communityID: questionData.communityId,
       },

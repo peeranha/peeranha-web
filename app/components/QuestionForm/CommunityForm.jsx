@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
   requiredForObjectField,
   requiredMinReputation,
+  requiredNotBanned,
 } from 'components/FormFields/validate';
 import CommunityField from 'components/FormFields/CommunityField';
 
@@ -39,8 +40,8 @@ const CommunityForm = ({
       label={t('common.communityLabel')}
       tip={t('common.communityTip')}
       options={communities}
-      validate={[requiredForObjectField, requiredMinReputation]}
-      warn={[requiredForObjectField, requiredMinReputation]}
+      validate={[requiredForObjectField, requiredNotBanned, requiredMinReputation]}
+      warn={[requiredForObjectField, requiredNotBanned, requiredMinReputation]}
       splitInHalf
       communityId={communityId}
       isHasRoleGlobal={isHasRoleGlobal}

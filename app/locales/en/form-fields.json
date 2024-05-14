@@ -25,5 +25,6 @@
   "hasToBeMoreThanPrev": "You cannot set lower value",
   "valueIsNotPositiveInteger": "Value is not a positive integer",
   "requiredMinReputation": "Your reputation in this community is negative, you are not allowed to create a new post.",
-  "wrongAddressFormat": "Invalid wallet address"
+  "wrongAddressFormat": "Invalid wallet address",
+  "banned": "Unfortunately, your activity in this community has been limited by moderators."
 }

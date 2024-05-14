@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TopCommunities from 'components/TopCommunities';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import MainUserInformation from './MainUserInformation';
 import AdditionalUserInformation from './AdditionalUserInformation';
@@ -21,6 +22,7 @@ const ProfileViewForm = ({
   className,
   redirectToEditProfilePage,
   userAchievementsLength,
+  banUser,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const isProfilePage =
@@ -34,6 +36,16 @@ const ProfileViewForm = ({
     });
   };
 
+  const singleCommunity = isSingleCommunityWebsite();
+
+  const onClickBanUser = ({ currentTarget: { id } }) => {
+    banUser({
+      buttonId: id,
+      user: userId,
+      communityId: singleCommunity,
+    });
+  };
+
   return (
     <div className={className}>
       <MainUserInformation
@@ -43,6 +55,7 @@ const ProfileViewForm = ({
         locale={locale}
         redirectToEditProfilePage={redirectToEditProfilePage}
         userAchievementsLength={userAchievementsLength}
+        banUser={onClickBanUser}
       />
 
       <AdditionalUserInformation

@@ -66,6 +66,8 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
         creator,
         buttonId,
         minRating,
+        communityBans: profileInfo.communityBans,
+        communityId: single,
       }),
     {
       communityID: communityId,

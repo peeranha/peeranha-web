@@ -1,3 +1,4 @@
+import { banUser } from 'containers/QuestionsWithAnswersOfUser/actions';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -21,9 +22,6 @@ import Notifications from 'components/Notifications';
 import UserNavigation from 'components/UserNavigation';
 import QuestionsOfUser from 'containers/QuestionsOfUser';
 import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
-import ProfileViewForm from './ProfileViewForm';
-import SettingsOfUser from './SettingsOfUser';
-
 import { makeSelectAccount, makeSelectLoginData } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities, selectStat, selectUsers } from 'containers/DataCacheProvider/selectors';
@@ -33,6 +31,8 @@ import {
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
 import { getUserName } from 'utils/user';
+import ProfileViewForm from './ProfileViewForm';
+import SettingsOfUser from './SettingsOfUser';
 
 import saga from '../QuestionsWithAnswersOfUser/saga';
 
@@ -68,6 +68,7 @@ const ViewProfilePage = ({
   getAllAchievementsDispatch,
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
+  banUserDispatch,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -179,6 +180,7 @@ const ViewProfilePage = ({
         locale={locale}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
         userAchievementsLength={achievementsCount()}
+        banUser={banUserDispatch}
       />
     </Profile>
   );
@@ -222,6 +224,7 @@ const withConnect = connect(
     getUserAchievementsDispatch: bindActionCreators(getUserAchievements, dispatch),
     setViewProfileAccountDispatch: bindActionCreators(setViewProfileAccount, dispatch),
     resetViewProfileAccountDispatch: bindActionCreators(resetViewProfileAccount, dispatch),
+    banUserDispatch: bindActionCreators(banUser, dispatch),
   }),
 );
 
