@@ -26,6 +26,7 @@ import { OrbisStyles } from './communities-configs/orbis';
 import { PolygonStyles } from './communities-configs/polygon';
 import { PolywrapStyles } from './communities-configs/polywrap';
 import { SolidityStyles } from './communities-configs/solidity';
+import { SuiCommunityStyles } from './communities-configs/suiCommunity';
 import { SuiStyles } from './communities-configs/sui';
 import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { SuiMainStyles } from './communities-configs/suiMain';
@@ -229,8 +230,8 @@ const communitiesConfig = {
         },
         '3-0xaa7d3d2432c9091bde02f898fba1a33dd15863f45bd42ee157c6c7dca1c9e166': {
           origin: `https://sui-demo${process.env.COOKIE_DOMAIN}`,
-          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
-          styles: SuiMainStyles,
+          src: 'https://images.peeranha.io/communities/suiCommunity/logo.svg',
+          styles: SuiCommunityStyles,
         },
       }
     : {
