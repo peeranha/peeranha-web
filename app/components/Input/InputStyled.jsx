@@ -21,11 +21,7 @@ const graphCommunity = graphCommunityColors();
 /* eslint indent: 0 */
 const ErrorHandling = (error) => `
   border: 1px solid ${
-    error
-      ? `rgb(${BORDER_WARNING_LIGHT_RGB})`
-      : graphCommunity
-      ? '#3D3D54'
-      : colors.formColor || BORDER_SECONDARY
+    error ? `rgb(${BORDER_WARNING_LIGHT_RGB})` : graphCommunity ? '#3D3D54' : BORDER_SECONDARY
   };
   box-shadow: ${
     graphCommunity

@@ -21,6 +21,8 @@ import {
   GRAPH_LOGO_ALT,
   GRAPH_HOME_URL,
   GRAPH_LOGO_URL,
+  GRAPH_PRIVACY_POLICY_URL,
+  GRAPH_TERMS_OF_SERVICE_URL,
 } from './constants';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
@@ -182,6 +184,12 @@ const Footer: React.FC = (): JSX.Element => {
                     />,
                   ]}
                 />
+              </a>
+              <a css={styles.graphRules} href={GRAPH_TERMS_OF_SERVICE_URL} target={TARGET_BLANK}>
+                {t('common.termsOfService')}
+              </a>
+              <a css={styles.graphRules} href={GRAPH_PRIVACY_POLICY_URL} target={TARGET_BLANK}>
+                {t('common.privacyPolicy')}
               </a>
             </div>
 
