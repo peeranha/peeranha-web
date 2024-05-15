@@ -127,9 +127,6 @@ injectGlobal`
     display: none;
   }
 
-  .wmde-markdown pre {
-    background-color: rgba(255, 255, 255, 0.45) !important;
-  }
 
   .popover-body {
     background-color: ${graphCommunity ? '#6f4cff !important' : ''};

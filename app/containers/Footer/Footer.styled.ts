@@ -181,6 +181,7 @@ export const styles: Record<string, CSSObject> = {
     img: {
       width: '90px',
       height: '20px',
+      marginTop: graphCommunity ? '5px' : '',
       marginLeft: '5px',
       filter: 'grayscale(0)',
       ':hover': {
@@ -266,7 +267,23 @@ export const styles: Record<string, CSSObject> = {
 
   graphInfo: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'start',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    '@media (min-width: 991px)': {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  },
+
+  graphRules: {
+    color: 'rgba(255, 255, 255, 0.64) !important',
+    margin: '0 0 8px 0',
+    '@media (min-width: 991px)': {
+      margin: '0 0 8px 12px',
+    },
+    ':hover': {
+      color: `${TEXT_SECONDARY} !important`,
+    },
   },
 };
