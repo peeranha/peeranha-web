@@ -369,7 +369,7 @@ const MainUserInformation = ({
             >
               {getUserName(profile?.displayName, userId)}
             </Span>
-            {Boolean(singleCommunity && isAdmin) && (
+            {Boolean(singleCommunity && isAdmin && !isSuiBlockchain) && (
               <AreYouSure
                 submitAction={banUser}
                 Button={({ onClick }) => (
@@ -539,7 +539,7 @@ const MainUserInformation = ({
                     </button>
                   </div>
 
-                  {Boolean(singleCommunity && isAdmin) && (
+                  {Boolean(singleCommunity && isAdmin && !isSuiBlockchain) && (
                     <AreYouSure
                       submitAction={banUser}
                       Button={({ onClick }) => (
