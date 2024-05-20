@@ -1,8 +1,8 @@
 import TransactionsList from 'containers/TransactionsList';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
-
+import { isSingleCommunityWebsite, hasFrozenComunity } from 'utils/communityManagement';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -34,8 +34,10 @@ const Box = ({
   transactionInitialised,
   getDocumentationMenuDispatch,
   documentationMenu,
+  communities,
 }) => {
   const single = isSingleCommunityWebsite();
+  const isHasFrozenSingleComunity = hasFrozenComunity(communities, single);
   useEffect(() => {
     if (isMenuVisible) {
       hideLeftMenuDispatch();
@@ -50,7 +52,7 @@ const Box = ({
       <Header />
       <TransactionsList />
 
-      <Main isMenuVisible={isMenuVisible} transactionInitialised={transactionInitialised}>
+      <Main isMenuVisible={isMenuVisible} frozenSingleCommunity={isHasFrozenSingleComunity}>
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
           <div className="d-flex">
             <LeftMenu {...props} documentationMenu={documentationMenu} />
@@ -85,6 +87,7 @@ Box.propTypes = {
   showLeftMenuDispatch: PropTypes.func,
   hideLeftMenuDispatch: PropTypes.func,
   getDocumentationMenuDispatch: PropTypes.func,
+  communities: PropTypes.array,
 };
 
 const WrapperConnection = compose(
@@ -96,6 +99,7 @@ const WrapperConnection = compose(
       location: makeSelectLocation(),
       transactionInitialised: selectTransactionInitialised(),
       documentationMenu: selectDocumentationMenu(),
+      communities: selectCommunities(),
     }),
     (dispatch) => ({
       showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),

@@ -10,7 +10,8 @@ const graphCommunity = graphCommunityColors();
 export const Wrapper = styled.header`
   position: fixed;
   width: 100%;
-  height: ${(x) => (x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px;
+  height: ${(props) =>
+    props.frozenSingleCommunity ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT}px;
   background: ${BG_LIGHT};
   z-index: 10;
   transform: translate(0px, 0px);
@@ -21,18 +22,18 @@ export const Wrapper = styled.header`
   &.sticky {
     transform: translate(
       0px,
-      -${(x) => (x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px
+      -${(props) => (props.frozenSingleCommunity ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px
     );
   }
 
   @media only screen and (max-width: 991px) {
-    height: ${(x) =>
-      x.transactionInitialised ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT : MOBILE_HEADER_HEIGHT}px;
+    height: ${(props) =>
+      props.frozenSingleCommunity ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT : MOBILE_HEADER_HEIGHT}px;
 
     &.sticky {
       transform: translate(
         0px,
-        -${(x) => (x.isTransactionInPending ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT : MOBILE_HEADER_HEIGHT)}px
+        -${(props) => (props.isTransactionInPending ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT : MOBILE_HEADER_HEIGHT)}px
       );
     }
   }
@@ -82,5 +83,25 @@ export const MainSubHeader = styled.div`
 
   form {
     flex: 1;
+  }
+`;
+
+export const WarningFrozenSingleCommunity = styled.div`
+  background: ${graphCommunity ? 'rgba(237, 74, 109, 1)' : 'rgba(252, 102, 85, 1)'};
+  color: rgba(255, 255, 255, 1);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  animation: animation 0.5s forwards;
+  @keyframes animation {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
   }
 `;

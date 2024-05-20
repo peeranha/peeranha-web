@@ -13,12 +13,13 @@ import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import peeranhaMetaLogo from 'images/PeeranhaMeta.svg?inline';
 import suiLogo from 'images/SuiLogo.svg?inline';
-
+import InformationIcon from 'icons/Information';
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
   singleCommunityColors,
   graphCommunityColors,
+  hasFrozenComunity,
 } from 'utils/communityManagement';
 import {
   getPermissions,
@@ -32,14 +33,14 @@ import { isSuiBlockchain } from 'utils/constants';
 import useMediaQuery from 'hooks/useMediaQuery';
 import useKeyDown from 'hooks/useKeyDown';
 
-import { MagnifyingGlassGraph, PlusGraph } from 'components/icons';
+import { MagnifyingGlassGraph, PlusGraph, InfoGraph } from 'components/icons';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import EditDocumentation from 'components/Documentation';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
 import ChangeLocale from 'containers/ChangeLocale';
 
-import { Wrapper, MainSubHeader } from './Wrapper';
+import { Wrapper, MainSubHeader, WarningFrozenSingleCommunity } from './Wrapper';
 import Section from './Section';
 import LogoStyles from './Logo';
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
@@ -107,6 +108,8 @@ const View = ({
   const { t } = useTranslation();
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 992px)');
+  const isFrozenSingleCommunity = hasFrozenComunity(communities, single);
+
   useEffect(() => {
     if (isSearchFormVisible && !single) {
       document.getElementById(SEARCH_FORM_ID).focus();
@@ -212,7 +215,21 @@ const View = ({
   };
 
   return (
-    <Wrapper id={HEADER_ID}>
+    <Wrapper id={HEADER_ID} frozenSingleCommunity={isFrozenSingleCommunity}>
+      {isFrozenSingleCommunity && (
+        <WarningFrozenSingleCommunity>
+          {graphCommunity ? (
+            <InfoGraph className="mr8" fill="rgba(255, 255, 255, 1)" size={[20, 20]} />
+          ) : (
+            <InformationIcon
+              className="mr8"
+              stroke="rgba(255, 255, 255, 1)"
+              fill="rgba(255, 255, 255, 1)"
+            />
+          )}
+          <span>{t('createCommunity.frozenCommunity')}</span>
+        </WarningFrozenSingleCommunity>
+      )}
       <MainSubHeader mainSubHeaderBgColor={colors.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">

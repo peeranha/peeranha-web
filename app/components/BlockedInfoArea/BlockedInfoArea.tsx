@@ -25,6 +25,7 @@ type BlockedInfoAreaProps = {
   isMinusReputation: boolean;
   showLoginModal: () => void;
   isBanned: boolean;
+  isFrozenCommunity: boolean;
 };
 
 const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
@@ -33,6 +34,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
   isMinusReputation,
   showLoginModal,
   isBanned,
+  isFrozenCommunity,
 }): JSX.Element => {
   const { t } = useTranslation();
   const viewImage = () => {
@@ -55,6 +57,9 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
     if (isBanned) {
       return t('formFields.banned');
     }
+    if (isFrozenCommunity) {
+      return t('formFields.frozen');
+    }
     return t('post.answer_reputation');
   };
 
@@ -64,6 +69,9 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
     }
     if (isAnswered) {
       return t('post.answer_repliedText');
+    }
+    if (isFrozenCommunity) {
+      return '';
     }
     return t('post.answer_reputationText');
   };
@@ -100,7 +108,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
         <img
           css={styles.img}
           src={
-            isMinusReputation || isBanned
+            isMinusReputation || isBanned || isFrozenCommunity
               ? bannerImageRed
               : graphCommunity
               ? bannerImageGraph

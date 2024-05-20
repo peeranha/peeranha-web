@@ -9,7 +9,10 @@ import {
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
+  hasRoleInFrozenCommunity,
 } from 'utils/properties';
+
+import { hasFrozenComunity } from 'utils/communityManagement';
 
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (profileInfo, questionData, postButtonId, item) => {
@@ -65,18 +68,22 @@ export const voteToDeleteValidator = (profileInfo, questionData, postButtonId, i
   }
 };
 
-export const postAnswerValidator = (profileInfo, questionData, postButtonId) => {
+export const postAnswerValidator = (profileInfo, questionData, postButtonId, communities) => {
   const maxAnswersNumber = 200;
 
   const MIN_RATING_FOR_MY_QUESTION = 0;
   const MIN_RATING_FOR_OTHER_QUESTIONS = 0;
   const communityId = questionData.communityId;
-
+  const isHasRoleInFrozenCommunity = hasRoleInFrozenCommunity(profileInfo, communityId);
+  const isHasFrozenComunity = hasFrozenComunity(communities, communityId);
   const isAnswered = !!questionData.answers.filter((x) => x.user === profileInfo.user).length;
+  const communityRating = getRatingByCommunity(profileInfo, communityId);
 
   let message;
-  const communityRating = getRatingByCommunity(profileInfo, communityId);
-  if (profileInfo.communityBans?.includes(questionData.communityId)) {
+
+  if (!isHasRoleInFrozenCommunity && isHasFrozenComunity) {
+    message = t('formFields.frozen');
+  } else if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (questionData.answers.length === maxAnswersNumber) {
     message = t('post.itemsMax');
@@ -111,13 +118,21 @@ export const postAnswerValidator = (profileInfo, questionData, postButtonId) => 
 };
 
 // TODO: retest
-export const postCommentValidator = (profileInfo, questionData, postButtonId, answerId) => {
+export const postCommentValidator = (
+  profileInfo,
+  questionData,
+  postButtonId,
+  answerId,
+  communities,
+) => {
   const maxCommentsNumber = 200;
 
   const MIN_RATING_FOR_MY_ITEM = 0;
   const MIN_RATING_FOR_OTHER_ITEMS = 35;
   const MIN_ENERGY = 4;
   const communityId = questionData.communityId;
+  const isHasRoleInFrozenCommunity = hasRoleInFrozenCommunity(profileInfo, communityId);
+  const isHasFrozenComunity = hasFrozenComunity(communities, communityId);
 
   let item = questionData;
   if (answerId) {
@@ -126,7 +141,9 @@ export const postCommentValidator = (profileInfo, questionData, postButtonId, an
 
   let message;
 
-  if (profileInfo.communityBans?.includes(questionData.communityId)) {
+  if (!isHasRoleInFrozenCommunity && isHasFrozenComunity) {
+    message = t('formFields.frozen');
+  } else if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (item.comments.length === maxCommentsNumber) {
     message = t('post.itemsMax');
@@ -185,16 +202,19 @@ export const markAsAcceptedValidator = (profileInfo, questionData, postButtonId)
   }
 };
 
-export const upVoteValidator = (profileInfo, questionData, postButtonId, answerId) => {
+export const upVoteValidator = (profileInfo, questionData, postButtonId, answerId, communities) => {
   const MIN_RATING_TO_UPVOTE = 35;
   const MIN_ENERGY = 1;
   const communityId = questionData.communityId;
-
+  const isHasRoleInFrozenCommunity = hasRoleInFrozenCommunity(profileInfo, communityId);
+  const isHasFrozenComunity = hasFrozenComunity(communities, communityId);
   const isOwnItem = questionData.answers.filter((x) => x.id === answerId);
 
   let message;
 
-  if (profileInfo.communityBans?.includes(questionData.communityId)) {
+  if (!isHasRoleInFrozenCommunity && isHasFrozenComunity) {
+    message = t('formFields.frozen');
+  } else if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (
     (answerId === '0' && questionData.votingStatus?.isVotedToDelete) ||
@@ -223,13 +243,20 @@ export const upVoteValidator = (profileInfo, questionData, postButtonId, answerI
   }
 };
 
-export const downVoteValidator = (profileInfo, questionData, postButtonId, answerId) => {
+export const downVoteValidator = (
+  profileInfo,
+  questionData,
+  postButtonId,
+  answerId,
+  communities,
+) => {
   const MIN_RATING_TO_DOWNVOTE = 100;
   const MIN_ENERGY_TO_DOWNVOTE_QUESTION = 5;
   const MIN_ENERGY_TO_DOWNVOTE_ANSWER = 3;
   const MIN_ENERGY_TO_CHANGE_DECISION = 1;
   const communityId = questionData.communityId;
-
+  const isHasRoleInFrozenCommunity = hasRoleInFrozenCommunity(profileInfo, communityId);
+  const isHasFrozenComunity = hasFrozenComunity(communities, communityId);
   const minEnergy =
     answerId === '0' ? MIN_ENERGY_TO_DOWNVOTE_QUESTION : MIN_ENERGY_TO_DOWNVOTE_ANSWER;
 
@@ -239,8 +266,9 @@ export const downVoteValidator = (profileInfo, questionData, postButtonId, answe
     answerId === '0' ? questionData : questionData.answers.find((x) => x.id === answerId);
 
   const isOwnItem = questionData.answers.filter((x) => x.id === answerId);
-
-  if (profileInfo.communityBans?.includes(questionData.communityId)) {
+  if (!isHasRoleInFrozenCommunity && isHasFrozenComunity) {
+    message = t('formFields.frozen');
+  } else if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (item.votingStatus?.isVotedToDelete) {
     message = t('post.cannotCompleteBecauseBlocked');
@@ -271,11 +299,16 @@ export const downVoteValidator = (profileInfo, questionData, postButtonId, answe
   }
 };
 
-export const deleteQuestionValidator = (postButtonId, profileInfo, questionData) => {
+export const deleteQuestionValidator = (postButtonId, profileInfo, questionData, communities) => {
   const MIN_ENERGY = 2;
-
+  const communityId = questionData.communityId;
+  const isHasRoleInFrozenCommunity = hasRoleInFrozenCommunity(profileInfo, communityId);
+  const isHasFrozenComunity = hasFrozenComunity(communities, communityId);
   let message;
-  if (profileInfo.communityBans?.includes(questionData.communityId)) {
+
+  if (!isHasRoleInFrozenCommunity && isHasFrozenComunity) {
+    message = t('formFields.frozen');
+  } else if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (questionData.votingStatus?.isUpVoted) {
     message = t('post.cannotCompleteBecauseVoted');
@@ -295,8 +328,12 @@ export const deleteAnswerValidator = (
   correctAnswerId,
   profileInfo,
   questionData,
+  communities,
 ) => {
   const MIN_ENERGY = 2;
+  const communityId = questionData.communityId;
+  const isHasRoleInFrozenCommunity = hasRoleInFrozenCommunity(profileInfo, communityId);
+  const isHasFrozenComunity = hasFrozenComunity(communities, communityId);
 
   const isGlobalAdmin =
     hasGlobalModeratorRole(getPermissions(profileInfo)) ||
@@ -305,7 +342,9 @@ export const deleteAnswerValidator = (
   let message;
   const itemData = questionData.answers.filter((x) => x.id === answerid)[0];
 
-  if (profileInfo.communityBans?.includes(questionData.communityId)) {
+  if (!isHasRoleInFrozenCommunity && isHasFrozenComunity) {
+    message = t('formFields.frozen');
+  } else if (profileInfo.communityBans?.includes(questionData.communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = t('post.cannotCompleteBecauseVoted');
@@ -319,13 +358,24 @@ export const deleteAnswerValidator = (
   }
 };
 
-export const deleteCommentValidator = (profileInfo, postButtonId, commentId, questionData) => {
+export const deleteCommentValidator = (
+  profileInfo,
+  postButtonId,
+  commentId,
+  questionData,
+  communities,
+) => {
   const MIN_ENERGY = 1;
+  const communityId = questionData.communityId;
+  const isHasRoleInFrozenCommunity = hasRoleInFrozenCommunity(profileInfo, communityId);
+  const isHasFrozenComunity = hasFrozenComunity(communities, communityId);
 
   let message;
   const itemData = questionData.comments.filter((x) => x.id === commentId)[0];
 
-  if (profileInfo.communityBans?.includes(questionData.communityId)) {
+  if (!isHasRoleInFrozenCommunity && isHasFrozenComunity) {
+    message = t('formFields.frozen');
+  } else if (profileInfo.communityBans?.includes(communityId)) {
     message = `${t('formFields.banned')}`;
   } else if (itemData?.votingStatus?.isUpVoted) {
     message = t('post.cannotCompleteBecauseVoted');

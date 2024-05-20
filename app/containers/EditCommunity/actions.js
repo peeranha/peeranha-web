@@ -11,6 +11,9 @@ import {
   GET_COMMUNITY,
   GET_COMMUNITY_ERROR,
   GET_COMMUNITY_SUCCESS,
+  FREEZE_COMMUNITY,
+  FREEZE_COMMUNITY_ERROR,
+  FREEZE_COMMUNITY_SUCCESS,
 } from './constants';
 
 export function editCommunity(communityId, communityData) {
@@ -51,6 +54,27 @@ export function getCommunitySuccess(community) {
 export function getCommunityError(error) {
   return {
     type: GET_COMMUNITY_ERROR,
+    error,
+  };
+}
+
+export function freezeCommunity(isFrozen, communityId) {
+  return {
+    type: FREEZE_COMMUNITY,
+    isFrozen,
+    communityId,
+  };
+}
+
+export function freezeCommunitySuccess() {
+  return {
+    type: FREEZE_COMMUNITY_SUCCESS,
+  };
+}
+
+export function freezeCommunityError(error) {
+  return {
+    type: FREEZE_COMMUNITY_ERROR,
     error,
   };
 }

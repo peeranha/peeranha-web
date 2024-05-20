@@ -9,6 +9,7 @@ import {
   requiredForObjectField,
   requiredMinReputation,
   requiredNotBanned,
+  requiredNotFrozen,
 } from 'components/FormFields/validate';
 import CommunityField from 'components/FormFields/CommunityField';
 
@@ -40,8 +41,13 @@ const CommunityForm = ({
       label={t('common.communityLabel')}
       tip={t('common.communityTip')}
       options={communities}
-      validate={[requiredForObjectField, requiredNotBanned, requiredMinReputation]}
-      warn={[requiredForObjectField, requiredNotBanned, requiredMinReputation]}
+      validate={[
+        requiredForObjectField,
+        requiredNotBanned,
+        requiredNotFrozen,
+        requiredMinReputation,
+      ]}
+      warn={[requiredForObjectField, requiredNotBanned, requiredNotFrozen, requiredMinReputation]}
       splitInHalf
       communityId={communityId}
       isHasRoleGlobal={isHasRoleGlobal}
@@ -57,6 +63,11 @@ CommunityForm.propTypes = {
   questionLoading: PropTypes.bool,
   disableCommForm: PropTypes.bool,
   communities: PropTypes.array,
+  communityId: PropTypes.string,
+  isHasRoleGlobal: PropTypes.bool,
+  isCommunityModerator: PropTypes.bool,
+  isEditForm: PropTypes.bool,
+  isPostAuthor: PropTypes.bool,
 };
 
 export default memo(CommunityForm);

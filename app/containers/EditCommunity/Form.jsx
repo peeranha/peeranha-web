@@ -29,6 +29,7 @@ import ScrollContainer from 'components/common/ScrollContainer';
 import { scrollToErrorField } from 'utils/animation';
 import { isSuiBlockchain } from 'utils/constants';
 
+import WarningFreezeCommunityModal from './WarningFreezeCommunityModal';
 import {
   COMM_AUTOTRANSLATIONS_FIELD,
   COMM_AVATAR_FIELD,
@@ -40,9 +41,11 @@ import {
   COMM_TRANSLATIONS_FIELD,
   COMM_TRANSLATIONS_TITLE_FIELD,
   EDIT_COMMUNITY_BUTTON,
+  FREEZE_COMMUNITY_BUTTON,
   EDIT_COMMUNITY_FORM,
   GENERAL_TAB,
   TRANSLATIONS_TAB,
+  ADVANCED_TAB,
 } from './constants';
 import { COMMUNITY_TYPE } from '../CreateCommunity/constants';
 import styles from './Form.styled';
@@ -54,6 +57,8 @@ const EditCommunityForm = ({
   communityId,
   communityLoading,
   editCommunityDispatch,
+  freezeCommunityLoading,
+  freezeCommunityDispatch,
   handleSubmit,
   tab,
   setTab,
@@ -94,10 +99,23 @@ const EditCommunityForm = ({
     event.preventDefault();
     setTab(TRANSLATIONS_TAB);
   };
+  const setAdvancedTab = (event) => {
+    event.preventDefault();
+    setTab(ADVANCED_TAB);
+  };
 
   return (
     <FormBox onSubmit={handleSubmit(editCommunity)}>
-      <ExtendedBase css={styles.mainBlock}>
+      <ExtendedBase
+        css={{
+          ...styles.mainBlock,
+          ...(tab === ADVANCED_TAB && {
+            '@media (min-width: 577px)': {
+              borderBottom: 'none',
+            },
+          }),
+        }}
+      >
         <Field
           name={COMM_AVATAR_FIELD}
           component={AvatarField}
@@ -126,6 +144,15 @@ const EditCommunityForm = ({
                   onClick={setTranslationsTab}
                 >
                   {t('common.editCommunityDesc.translations')}
+                </button>
+                <button
+                  css={{
+                    ...styles.button,
+                    ...(tab === ADVANCED_TAB && styles.activeTab),
+                  }}
+                  onClick={setAdvancedTab}
+                >
+                  {t('common.editCommunityDesc.advanced')}
                 </button>
               </div>
             </ScrollContainer>
@@ -196,18 +223,50 @@ const EditCommunityForm = ({
                 setSelectedLanguages={setSelectedLanguages}
               />
             </div>
+            <div className={isSuiBlockchain || tab !== ADVANCED_TAB ? 'dn' : ''}>
+              <span className="fz16 semi-bold pb8" css={styles.translationsTitle}>
+                {t('common.editCommunityDesc.emergencyFreeze')}
+              </span>
+              <WarningFreezeCommunityModal
+                isFrozen={community?.isFrozen}
+                submitAction={() => freezeCommunityDispatch(community?.isFrozen, communityId)}
+                Button={({ onClick }) => (
+                  <LargeButton
+                    id={FREEZE_COMMUNITY_BUTTON}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onClick();
+                    }}
+                    disabled={freezeCommunityLoading}
+                    block={freezeCommunityLoading}
+                    css={styles.freezeButton}
+                  >
+                    {t(
+                      `common.editCommunityDesc.${
+                        community?.isFrozen ? 'unfreezeCommunity' : 'freezeCommunity'
+                      }`,
+                    )}
+                  </LargeButton>
+                )}
+              />
+            </div>
           </div>
         </div>
       </ExtendedBase>
-      <LargeButton
-        id={EDIT_COMMUNITY_BUTTON}
-        type="submit"
-        disabled={communityLoading}
-        css={styles.saveButton}
+      {tab !== ADVANCED_TAB && (
+        <LargeButton
+          id={EDIT_COMMUNITY_BUTTON}
+          type="submit"
+          disabled={communityLoading}
+          css={styles.saveButton}
+        >
+          {t('common.editCommunityDesc.editCommunity')}
+        </LargeButton>
+      )}
+      <div
+        className={`${tab === ADVANCED_TAB ? 'dn' : 'pf b0 l0 full-width'}`}
+        css={styles.popupMenu}
       >
-        {t('common.editCommunityDesc.editCommunity')}
-      </LargeButton>
-      <div className="pf b0 l0 full-width" css={styles.popupMenu}>
         <div className="df jcsb pr16 pl16 pt8 pb8">
           <Link to={nextRoute()}>
             <button css={styles.popupMenuCloseButton}>{t('common.close')}</button>
@@ -225,6 +284,8 @@ EditCommunityForm.propTypes = {
   communityId: PropTypes.number.isRequired,
   communityLoading: PropTypes.bool.isRequired,
   editCommunityDispatch: PropTypes.func.isRequired,
+  freezeCommunityLoading: PropTypes.bool.isRequired,
+  freezeCommunityDispatch: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
 

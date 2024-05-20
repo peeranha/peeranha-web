@@ -2,18 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import AnswerForm from 'components/AnswerForm';
-import Base from 'components/Base/BaseRounded';
-import BlockedInfoArea from 'components/BlockedInfoArea';
 import { POST_TYPE } from 'utils/constants';
 import { getRatingByCommunity } from 'utils/profileManagement';
-
+import { hasFrozenComunity } from 'utils/communityManagement';
 import {
   getPermissions,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
+  hasCommunityAdminRole,
 } from 'utils/properties';
+
+import AnswerForm from 'components/AnswerForm';
+import Base from 'components/Base/BaseRounded';
+import BlockedInfoArea from 'components/BlockedInfoArea';
 
 import Question from './Question';
 import Answers from './Answers';
@@ -24,7 +26,7 @@ import { ADD_ANSWER_FORM, POST_ANSWER_BUTTON } from './constants';
 export const ViewQuestionContainer = (props) => {
   const { t } = useTranslation();
 
-  const { isAnswered, account, showLoginModal } = props;
+  const { isAnswered, account, showLoginModal, communities, commId } = props;
   const isTutorial = props.questionData.postType === POST_TYPE.tutorial;
   const isMinusReputation = getRatingByCommunity(props.profile, props.commId) < 0;
 
@@ -33,9 +35,17 @@ export const ViewQuestionContainer = (props) => {
     hasProtocolAdminRole(getPermissions(props.profile)) ||
     hasCommunityModeratorRole(getPermissions(props.profile), props.commId);
 
-  const isBanned = props.profile?.communityBans?.includes(props.commId);
+  const isCommunityAdminRole = hasCommunityAdminRole(getPermissions(props.profile), props.commId);
 
-  const isViewForm = !account || isBanned || isAnswered || (!isHasRole && isMinusReputation);
+  const isBanned = props.profile?.communityBans?.includes(props.commId);
+  const isFrozenCommunity = hasFrozenComunity(communities, commId);
+
+  const isViewForm =
+    !account ||
+    isBanned ||
+    isAnswered ||
+    (!isHasRole && isMinusReputation) ||
+    (!(isHasRole || isCommunityAdminRole) && isFrozenCommunity);
 
   return (
     <article>
@@ -69,6 +79,7 @@ export const ViewQuestionContainer = (props) => {
               isMinusReputation={isMinusReputation}
               showLoginModal={showLoginModal}
               isBanned={isBanned}
+              isFrozenCommunity={isFrozenCommunity}
             />
           )}
         </>

@@ -402,12 +402,16 @@
     "pageTitle": "社区 | 设置",
     "general": "一般的",
     "translations": "翻译",
+    "advanced": "先进的",
     "interfaceLanguages": "社区界面语言",
     "interfaceTranslation": "社区站点将提供以下语言的界面翻译。",
     "selectLanguages": "选择语言",
     "enableAutotranslations": "启用自动翻译",
     "translationsTooltip": "社区中发布的帖子、答案和评论将自动翻译成所选语言。 该内容也将被该语言的搜索引擎编入索引，使读者更容易找到。",
-    "deleteLanguage": "删除语言"
+    "deleteLanguage": "删除语言",
+    "emergencyFreeze": "紧急冻结",
+    "freezeCommunity": "冻结社区",
+    "unfreezeCommunity": "解冻社区"
   },
   "editQuestion": {
     "description": "编辑问题描述",
@@ -475,6 +479,8 @@
     "updateUser": "更新用户资料",
     "createCommunity": "创建社区",
     "updateCommunity": "更新社区",
+    "freezeCommunity": "冻结社区",
+    "unfreezeCommunity": "解冻社区",
     "unfollowCommunity": "取消关注社区",
     "createTag": "创建标签",
     "updateTag": "更新标签",

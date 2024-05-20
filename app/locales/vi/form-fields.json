@@ -26,5 +26,6 @@
   "valueIsNotPositiveInteger": "Giá trị không phải là số nguyên dương",
   "requiredMinReputation": "Danh tiếng của bạn trong cộng đồng này là tiêu cực, bạn không được phép tạo bài đăng mới.",
   "wrongAddressFormat": "Địa chỉ ví không hợp lệ",
-  "banned": "Rất tiếc, hoạt động của bạn trong cộng đồng này đã bị hạn chế bởi người điều hành."
+  "banned": "Rất tiếc, hoạt động của bạn trong cộng đồng này đã bị hạn chế bởi người điều hành.",
+  "frozen": "Trong cộng đồng này, hoạt động hiện tại hạn chế chỉ đến các hành động được thực hiện bởi các quản trị viên và quản lý viên. Vui lòng thử lại sau."
 }

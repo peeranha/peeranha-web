@@ -348,10 +348,11 @@ export function* deleteCommentWorker({ questionId, answerId, commentId, buttonId
       action: 'delete_comment_started',
     });
     const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
+    const communities = yield select(selectCommunities());
 
     yield call(
       isAvailableAction,
-      () => deleteCommentValidator(profileInfo, buttonId, commentId, questionData),
+      () => deleteCommentValidator(profileInfo, buttonId, commentId, questionData, communities),
       {
         communityID: questionData.communityId,
       },
@@ -422,6 +423,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       action: 'delete_answer_started',
     });
     const { questionData, ethereumService, profileInfo, histories } = yield call(getParams);
+    const communities = yield select(selectCommunities());
 
     if (isSuiBlockchain) {
       yield put(transactionInitialised());
@@ -447,6 +449,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
             questionData.bestReply,
             profileInfo,
             questionData,
+            communities,
           ),
         {
           communityID: questionData.communityId,
@@ -495,17 +498,17 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
       action: 'delete_post_started',
     });
     let { questionData, ethereumService, profileInfo } = yield call(getParams);
-
+    const communities = yield select(selectCommunities());
     if (!questionData) {
       if (isSuiBlockchain) {
         console.log('WARN: questionData is empty. Unable to delete');
       }
       questionData = yield call(getQuestionById, ethereumService, questionId, profileInfo.user);
     }
-
+    console.log(questionData, 'questionData<---');
     yield call(
       isAvailableAction,
-      () => deleteQuestionValidator(buttonId, profileInfo, questionData),
+      () => deleteQuestionValidator(buttonId, profileInfo, questionData, communities),
       {
         communityID: questionData.communityId,
       },
@@ -600,6 +603,7 @@ export function* getQuestionDataWorker({ questionId }) {
 
 export function* checkPostCommentAvailableWorker(buttonId, answerId) {
   const { questionData, profileInfo } = yield call(getParams);
+  const communities = yield select(selectCommunities());
   if (isSuiBlockchain) {
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -611,7 +615,7 @@ export function* checkPostCommentAvailableWorker(buttonId, answerId) {
 
   yield call(
     isAvailableAction,
-    () => postCommentValidator(profileInfo, questionData, buttonId, answerId),
+    () => postCommentValidator(profileInfo, questionData, buttonId, answerId, communities),
     {
       communityID: questionData.communityId,
     },
@@ -743,6 +747,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       action: 'create_answer_started',
     });
     const { questionData, ethereumService, locale, profileInfo, histories } = yield call(getParams);
+    const communities = yield select(selectCommunities());
 
     if (isSuiBlockchain) {
       if (!profileInfo) {
@@ -755,7 +760,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     yield call(
       isAvailableAction,
-      () => postAnswerValidator(profileInfo, questionData, POST_ANSWER_BUTTON),
+      () => postAnswerValidator(profileInfo, questionData, POST_ANSWER_BUTTON, communities),
       {
         communityID: questionData.communityId,
       },
@@ -881,6 +886,7 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
       action: 'create_downvote_started',
     });
     const { questionData, ethereumService, profileInfo } = yield call(getParams);
+    const communities = yield select(selectCommunities());
 
     const usersForUpdate = [whoWasDownvoted];
 
@@ -895,7 +901,7 @@ export function* downVoteWorker({ whoWasDownvoted, buttonId, answerId, questionI
 
     yield call(
       isAvailableAction,
-      () => downVoteValidator(profileInfo, questionData, buttonId, answerId),
+      () => downVoteValidator(profileInfo, questionData, buttonId, answerId, communities),
       {
         communityID: questionData.communityId,
         skipPermissions: isOwnItem(questionData, profileInfo, answerId),
@@ -967,6 +973,7 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
       action: 'create_upvote_started',
     });
     const { questionData, ethereumService, profileInfo } = yield call(getParams);
+    const communities = yield select(selectCommunities());
 
     const usersForUpdate = [whoWasUpvoted];
 
@@ -981,7 +988,7 @@ export function* upVoteWorker({ buttonId, answerId, questionId, whoWasUpvoted })
 
     yield call(
       isAvailableAction,
-      () => upVoteValidator(profileInfo, questionData, buttonId, answerId),
+      () => upVoteValidator(profileInfo, questionData, buttonId, answerId, communities),
       {
         communityID: questionData.communityId,
         skipPermissions: isOwnItem(questionData, profileInfo, answerId),

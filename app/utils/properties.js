@@ -283,3 +283,10 @@ export const getCommunityRoles = (communityId) => {
   );
   return [adminRole, moderatorRole];
 };
+
+export const hasRoleInFrozenCommunity = (profileInfo, communityId) =>
+  hasGlobalModeratorRole(getPermissions(profileInfo)) ||
+  hasProtocolAdminRole(getPermissions(profileInfo)) ||
+  (communityId &&
+    (hasCommunityModeratorRole(getPermissions(profileInfo), communityId) ||
+      hasCommunityAdminRole(getPermissions(profileInfo), communityId)));
