@@ -118,7 +118,7 @@ export const Select2 = ({
             (error && BORDER_WARNING_LIGHT) ||
             (state.isFocused &&
               (graphCommunity ? '#6F4CFF' : colors.textColor || BORDER_PRIMARY)) ||
-            BORDER_SECONDARY
+            (graphCommunity ? '#3D3D54' : BORDER_SECONDARY)
           }`,
           boxShadow: graphCommunity
             ? 'none'
@@ -140,6 +140,9 @@ export const Select2 = ({
 
           ':hover': {
             border: graphCommunity ? '1px solid #6F4CFF' : '',
+          },
+          'div > div': {
+            color: graphCommunity ? '#E1E1E4 !important' : '',
           },
         }),
         menu: (base) => ({
