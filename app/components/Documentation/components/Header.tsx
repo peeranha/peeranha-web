@@ -1,12 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from 'components/common/Button';
+
+import useTrigger from 'hooks/useTrigger';
+import { singleCommunityDocumentation, graphCommunityColors } from 'utils/communityManagement';
+
 import SaveIcon from 'icons/Save';
 import CloseRoundedIcon from 'icons/CloseRounded';
-import Popup from 'common-components/Popup';
-import useTrigger from 'hooks/useTrigger';
-import { singleCommunityDocumentation } from 'utils/communityManagement';
 
+import Popup from 'common-components/Popup';
+import Button from 'components/common/Button';
+
+const graphCommunity = graphCommunityColors();
 const documentationColors = singleCommunityDocumentation();
 
 const Header: React.FC<any> = ({
@@ -105,11 +109,17 @@ const Header: React.FC<any> = ({
         </Button>
       </div>
       {isOpen && (
-        <Popup size="atom" onClose={close} title={t('common.discardDrafts')}>
+        <Popup
+          size="atom"
+          onClose={close}
+          title={t('common.discardDrafts')}
+          css={graphCommunity && { color: '#E1E1E4' }}
+        >
           <p
             className="tc"
             css={{
-              lineHeight: '20px',
+              ...{ lineHeight: '20px' },
+              ...(graphCommunity && { color: '#E1E1E4' }),
             }}
           >
             {t('common.discardDraftsText')}
@@ -117,13 +127,27 @@ const Header: React.FC<any> = ({
           <div className="df jcc mt16">
             <Button
               variant="secondary"
-              css={{ width: 'calc(50% - 8px) !important' }}
+              css={{
+                ...{ width: 'calc(50% - 8px) !important' },
+                ...(graphCommunity && {
+                  background: 'rgba(0,0,0,0)',
+                  color: '#6F4CFF',
+                  borderColor: '#6F4CFF',
+                  ':hover': {
+                    background: '#6F4CFF',
+                    color: '#E1E1E4',
+                  },
+                }),
+              }}
               onClick={close}
             >
               {t('common.no')}
             </Button>
             <Button
-              css={{ marginLeft: 16, width: 'calc(50% - 8px) !important' }}
+              css={{
+                ...{ marginLeft: 16, width: 'calc(50% - 8px) !important' },
+                ...(graphCommunity && { background: '#6F4CFF', color: '#E1E1E4' }),
+              }}
               onClick={discardDraftsHandler}
             >
               {t('common.yes')}

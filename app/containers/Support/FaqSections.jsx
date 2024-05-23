@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import { TEXT_PRIMARY } from 'style-constants';
 
+import { graphCommunityColors } from 'utils/communityManagement';
+
 import A from 'components/A';
 import {
   DOCUMENTATION_ABOUT_LINK,
@@ -12,6 +14,8 @@ import {
   DOCUMENTATION_POSTS_ANSWERS_COMMENTS_LINK,
   DOCUMENTATION_REPUTATION_PRIVILEGES_LINK,
 } from 'app/constants/documentation';
+
+const graphCommunity = graphCommunityColors();
 
 const Base = styled.div`
   h6 {
@@ -48,11 +52,15 @@ const FaqSections = ({ faq }) => {
 
   return (
     <Base>
-      <h6>{t('common.documentation')}</h6>
+      <h6 css={graphCommunity && { color: '#E1E1E4' }}>{t('common.documentation')}</h6>
       <ul>
         {links.map((x) => (
           <li key={t(x.text)}>
-            <a href={x.link} target="_blank">
+            <a
+              href={x.link}
+              target="_blank"
+              css={graphCommunity && { color: '#E1E1E4', ':hover': { color: '#6F4CFF' } }}
+            >
               {t(x.text)}
             </a>
           </li>
