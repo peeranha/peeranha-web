@@ -14,11 +14,11 @@ const graphCommunity = graphCommunityColors();
 const WarningFreezeCommunityModal = ({ isFrozen, Button, submitAction }) => {
   const { t } = useTranslation();
 
-  const [isOpened, open] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
 
   const openModal = () => {
     document.body.style.top = `-${window.scrollY}px`;
-    open(true);
+    setIsOpened(true);
   };
 
   const closeModal = () => {
@@ -33,11 +33,11 @@ const WarningFreezeCommunityModal = ({ isFrozen, Button, submitAction }) => {
       behavior: 'instant',
     });
 
-    open(false);
+    setIsOpened(false);
   };
 
   return (
-    <React.Fragment>
+    <>
       <Button onClick={openModal} />
 
       {isOpened && (
@@ -70,7 +70,7 @@ const WarningFreezeCommunityModal = ({ isFrozen, Button, submitAction }) => {
           </div>
         </ModalDialog>
       )}
-    </React.Fragment>
+    </>
   );
 };
 

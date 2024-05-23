@@ -37,6 +37,17 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
   isFrozenCommunity,
 }): JSX.Element => {
   const { t } = useTranslation();
+
+  const viewBackgroundImage = () => {
+    if (!account) {
+      return graphCommunity ? bannerImageGraph : bannerImage;
+    }
+    if (isMinusReputation || isBanned || isFrozenCommunity) {
+      return bannerImageRed;
+    }
+    return graphCommunity ? bannerImageGraph : bannerImage;
+  };
+
   const viewImage = () => {
     if (!account) {
       return graphCommunity ? loginGraphImage : loginImage;
@@ -83,6 +94,9 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
     if (isAnswered) {
       return styles.h3Replied;
     }
+    if (isFrozenCommunity) {
+      return styles.h3Frozen;
+    }
     return styles.h3Reputation;
   };
 
@@ -92,6 +106,9 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
     }
     if (isAnswered) {
       return styles.imgReplied;
+    }
+    if (isFrozenCommunity) {
+      return styles.imgFrozen;
     }
     return styles.imgReplied;
   };
@@ -105,17 +122,7 @@ const BlockedInfoArea: React.FC<BlockedInfoAreaProps> = ({
   return (
     <>
       <div css={styles.container}>
-        <img
-          css={styles.img}
-          src={
-            isMinusReputation || isBanned || isFrozenCommunity
-              ? bannerImageRed
-              : graphCommunity
-              ? bannerImageGraph
-              : bannerImage
-          }
-          alt={BANNER_IMG}
-        />
+        <img css={styles.img} src={viewBackgroundImage()} alt={BANNER_IMG} />
         <div css={styles.block}>
           <div css={viewStyles()}>
             <div>{viewTitle()}</div>

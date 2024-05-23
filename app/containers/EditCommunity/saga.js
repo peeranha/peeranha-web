@@ -114,9 +114,6 @@ export function* editCommunityWorker({ communityId, communityData }) {
       yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
     }
   } catch (error) {
-    if (isSuiBlockchain) {
-      yield put(transactionFailed(error));
-    }
     yield put(editCommunityError(error));
   }
 }

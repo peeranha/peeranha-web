@@ -505,7 +505,7 @@ export function* deleteQuestionWorker({ questionId, isDocumentation, buttonId })
       }
       questionData = yield call(getQuestionById, ethereumService, questionId, profileInfo.user);
     }
-    console.log(questionData, 'questionData<---');
+
     yield call(
       isAvailableAction,
       () => deleteQuestionValidator(buttonId, profileInfo, questionData, communities),

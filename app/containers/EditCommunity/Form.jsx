@@ -91,17 +91,9 @@ const EditCommunityForm = ({
     [commId, editCommunityDispatch, selectedLanguages],
   );
 
-  const setGeneralTab = (event) => {
+  const setCurrentTab = (event, tabName) => {
     event.preventDefault();
-    setTab(GENERAL_TAB);
-  };
-  const setTranslationsTab = (event) => {
-    event.preventDefault();
-    setTab(TRANSLATIONS_TAB);
-  };
-  const setAdvancedTab = (event) => {
-    event.preventDefault();
-    setTab(ADVANCED_TAB);
+    setTab(tabName);
   };
 
   return (
@@ -132,7 +124,7 @@ const EditCommunityForm = ({
                     ...styles.button,
                     ...(tab === GENERAL_TAB && styles.activeTab),
                   }}
-                  onClick={setGeneralTab}
+                  onClick={(event) => setCurrentTab(event, GENERAL_TAB)}
                 >
                   {t('common.editCommunityDesc.general')}
                 </button>
@@ -141,7 +133,7 @@ const EditCommunityForm = ({
                     ...styles.button,
                     ...(tab === TRANSLATIONS_TAB && styles.activeTab),
                   }}
-                  onClick={setTranslationsTab}
+                  onClick={(event) => setCurrentTab(event, TRANSLATIONS_TAB)}
                 >
                   {t('common.editCommunityDesc.translations')}
                 </button>
@@ -150,7 +142,7 @@ const EditCommunityForm = ({
                     ...styles.button,
                     ...(tab === ADVANCED_TAB && styles.activeTab),
                   }}
-                  onClick={setAdvancedTab}
+                  onClick={(event) => setCurrentTab(event, ADVANCED_TAB)}
                 >
                   {t('common.editCommunityDesc.advanced')}
                 </button>

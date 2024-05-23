@@ -26,6 +26,7 @@ import {
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
+  hasCommunityAdminRole,
 } from 'utils/properties';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { showPopover } from 'utils/popover';
@@ -157,27 +158,41 @@ const View = ({
     (Boolean(single) && hasCommunityModeratorRole(getPermissions(profileInfo), single)) ||
     hasProtocolAdminRole(getPermissions(profileInfo));
 
+  const isHasCommunityAdminRole =
+    Boolean(single) && hasCommunityAdminRole(getPermissions(profileInfo), single);
+
   const isMinusReputation = getRatingByCommunity(profileInfo, single) < MIN_REPUTATION;
 
-  const showPopoverMinRating = (e) => {
-    e.preventDefault();
+  const showPopoverMinRating = (event) => {
+    event.preventDefault();
     showPopover(
-      e.currentTarget.id,
+      event.currentTarget.id,
       isBanned ? t('formFields.banned') : t('post.reputationBelowZero'),
     );
   };
 
-  const askQuestionHandler = (e) => {
-    isMinusReputation && !isHasRole ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
+  const showPopoverFrozenCommunity = (event) => {
+    event.preventDefault();
+    showPopover(event.currentTarget.id, t('formFields.frozen'));
+  };
+
+  const askQuestionHandler = (event) => {
+    if (isMinusReputation && !isHasRole) {
+      return showPopoverMinRating(event);
+    }
+    if (isFrozenSingleCommunity && !(isHasRole || isHasCommunityAdminRole)) {
+      return showPopoverFrozenCommunity(event);
+    }
+    return redirectToAskQuestionPage(event);
   };
 
   const NewPostButton = ({ onClickForModal }) => {
-    const clickHandler = (e) => {
+    const clickHandler = (event) => {
       ReactGA.event({
         category: 'Users',
         action: 'newPost_button_pushed',
       });
-      return profileInfo ? onClickForModal(e) : showLoginModalWithRedirectToAskQuestionPage();
+      return profileInfo ? onClickForModal(event) : showLoginModalWithRedirectToAskQuestionPage();
     };
     return (
       <Button
