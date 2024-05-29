@@ -353,12 +353,16 @@ export const getCommunityById = async (id) => {
   const isMeshService = isMeshServiceConfig();
   const modelService = isMeshService ? MESH_MODEL : GRAPH_MODEL;
 
-  const community = await executeQuery(isMeshService, {
-    query: queries.Community[modelService],
-    variables: {
-      id,
+  const community = await executeQuery(
+    isMeshService,
+    {
+      query: queries.Community[modelService],
+      variables: {
+        id,
+      },
     },
-  });
+    false,
+  );
   return isMeshService
     ? { ...community?.communityById, translations: community?.communityById.communitytranslation }
     : community?.community;

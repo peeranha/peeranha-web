@@ -159,8 +159,50 @@ export const styles: Record<string, CSSObject> = {
       marginLeft: '30px',
     },
   },
+
+  h3Frozen: {
+    fontFamily: APP_FONT || 'Source Sans Pro',
+    maxWidth: '100%',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '20px',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
+    padding: '50px 0 6px 0',
+    textAlign: 'start',
+    marginBottom: '28px',
+    marginLeft: '230px',
+    'div:first-child': {
+      fontWeight: 600,
+      fontSize: '24px',
+      lineHeight: '30px',
+      marginBottom: '6px',
+      width: '100%',
+      '@media (max-width: 768px)': {
+        fontSize: '18px',
+        lineHeight: '23px',
+      },
+    },
+    '@media (max-width: 1200px)': {
+      marginLeft: '165px',
+    },
+    '@media (max-width: 991px)': {
+      padding: '29px 0 6px 0',
+    },
+    '@media (max-width: 768px)': {
+      marginLeft: '125px',
+    },
+    '@media (max-width: 576px)': {
+      fontSize: '16px',
+      maxWidth: '100%',
+      padding: '16px 0 6px 0',
+      lineHeight: '18px',
+      marginLeft: '30px',
+      marginRight: '70px',
+    },
+  },
   button: {
-    marginTop: '28px',
+    marginTop: '10px',
     width: '92px',
     height: graphCommunity ? '48px' : '40px',
     background: graphCommunity ? '#6F4CFF' : '#FFF',
@@ -174,7 +216,7 @@ export const styles: Record<string, CSSObject> = {
       position: 'absolute',
     },
     '@media (max-width: 991px)': {
-      marginTop: '21px',
+      marginTop: '4px',
     },
     ':hover': {
       background: graphCommunity ? 'rgba(111,76,255,0.8)' : `${colors.btnHoverColor || '#F76F60'}`,
@@ -271,6 +313,35 @@ export const styles: Record<string, CSSObject> = {
       height: '65px',
       top: '73px',
       left: '230px',
+    },
+  },
+
+  imgFrozen: {
+    position: 'absolute',
+    top: '30px',
+    left: '60px',
+    transform: 'scale(1, 1)',
+    '@media (max-width: 1200px)': {
+      height: '125px',
+      top: '45px',
+      left: '25px',
+    },
+    '@media (max-width: 991px)': {
+      height: '80px',
+      top: '63px',
+      left: '55px',
+    },
+    '@media (max-width: 768px)': {
+      height: '80px',
+      top: '65px',
+      left: '30px',
+    },
+    '@media (max-width: 576px)': {
+      height: '68px',
+      top: '73px',
+      left: 'unset',
+      right: '20px',
+      transform: 'scale(-1, 1)',
     },
   },
 };

@@ -26,5 +26,6 @@
   "valueIsNotPositiveInteger": "El valor no es un entero positivo",
   "requiredMinReputation": "Tu reputación en esta comunidad es negativa, no puedes crear una nueva publicación.",
   "wrongAddressFormat": "Dirección de billetera no válida",
-  "banned": "Los moderadores han limitado tu actividad en esta comunidad."
+  "banned": "Los moderadores han limitado tu actividad en esta comunidad.",
+  "frozen": "La actividad en esta comunidad actualmente se limita a las acciones de administradores y moderadores. Por favor, inténtalo más tarde."
 }

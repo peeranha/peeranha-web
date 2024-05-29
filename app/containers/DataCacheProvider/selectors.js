@@ -20,37 +20,21 @@ const selectDataCacheProviderDomain = (state) =>
   state.get('dataCacheProvider', initialState).toJS();
 
 const selectCommunities = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.communities,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.communities);
 
 const selectCommunitiesLoading = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.communitiesLoading,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.communitiesLoading);
 
 const selectGetCommunitiesError = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.getCommunitiesError,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.getCommunitiesError);
 
-const selectTags = () =>
-  createSelector(selectDataCacheProviderDomain, (substate) => substate.tags);
+const selectTags = () => createSelector(selectDataCacheProviderDomain, (substate) => substate.tags);
 
 const selectTagsLoading = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.tagsLoading,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.tagsLoading);
 
 const selectGetTagsError = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.getTagsError,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.getTagsError);
 
 const selectUsers = (address) =>
   createSelector(selectDataCacheProviderDomain, (substate) =>
@@ -58,34 +42,20 @@ const selectUsers = (address) =>
   );
 
 const selectUsersLoading = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.usersLoading,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.usersLoading);
 
 const selectGetUserProfileError = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.getUserProfileError,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.getUserProfileError);
 
-const selectStat = () =>
-  createSelector(selectDataCacheProviderDomain, (substate) => substate.stat);
+const selectStat = () => createSelector(selectDataCacheProviderDomain, (substate) => substate.stat);
 
 const selectStatLoading = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.statLoading,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.statLoading);
 
 const selectStatError = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.getStatError,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.getStatError);
 
-const selectFaq = () =>
-  createSelector(selectDataCacheProviderDomain, (substate) => substate.faq);
+const selectFaq = () => createSelector(selectDataCacheProviderDomain, (substate) => substate.faq);
 
 /**
  *
@@ -114,12 +84,7 @@ const selectFaqQuestions = (questionsIndexes) =>
                 {section.blocks[questionIndex].h3}
               </a>
             ) : (
-              <A
-                key={x}
-                to={routes.faq(
-                  getQuestionCode(SECTION_ID, sectionIndex, questionIndex),
-                )}
-              >
+              <A key={x} to={routes.faq(getQuestionCode(SECTION_ID, sectionIndex, questionIndex))}>
                 {section.blocks[questionIndex].h3}
               </A>
             );
@@ -132,52 +97,28 @@ const selectFaqQuestions = (questionsIndexes) =>
   });
 
 const selectGetFaqError = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.getFaqError,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.getFaqError);
 
 const selectGetDocumentationLoading = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.getDocumentationLoading,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.getDocumentationLoading);
 
 const selectTutorial = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.tutorial,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.tutorial);
 
 const selectGetTutorialError = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.getTutorialError,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.getTutorialError);
 
 const selectGetTutorialLoading = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate.getTutorialLoading,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.getTutorialLoading);
 
 const selectUserRatingDCP = (user) =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate?.users[user].rating,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate?.users[user].rating);
 
 const selectQuestionsAskedValue = (user) =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate?.users[user].postCount,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate?.users[user].postCount);
 
 const selectAnswersGivenValue = (user) =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    (substate) => substate?.users[user].answersGiven,
-  );
+  createSelector(selectDataCacheProviderDomain, (substate) => substate?.users[user].answersGiven);
 
 const selectBestAnswersValue = (user) =>
   createSelector(

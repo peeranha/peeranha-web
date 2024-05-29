@@ -11,21 +11,25 @@ const colors = singleCommunityColors();
 const Main = styled.div`
   background: ${colors.mainBackground || 'rgb(234, 236, 244)'};
   min-height: 100vh;
-  padding-top: ${(x) => {
-    if (x.isMenuVisible) {
+  padding-top: ${(props) => {
+    if (props.isMenuVisible) {
       return 0;
     }
-
+    if (props.frozenSingleCommunity) {
+      return HEADER_HEIGHT + LOADER_HEIGHT;
+    }
     return HEADER_HEIGHT;
   }}px;
-  padding-bottom: ${(x) => (!x.isMenuVisible ? 25 : 0)}px;
+  padding-bottom: ${(props) => (!props.isMenuVisible ? 25 : 0)}px;
 
   @media only screen and (max-width: 991px) {
-    padding-top: ${(x) => {
-      if (x.isMenuVisible) {
+    padding-top: ${(props) => {
+      if (props.isMenuVisible) {
         return 0;
       }
-
+      if (props.frozenSingleCommunity) {
+        return MOBILE_HEADER_HEIGHT + LOADER_HEIGHT;
+      }
       return MOBILE_HEADER_HEIGHT;
     }}px;
     padding-bottom: 15px;
