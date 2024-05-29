@@ -11,17 +11,20 @@ const getRecaptchaToken = () =>
 
 export function* getSearchResultWorker({ query, communityId }) {
   try {
-    ReactGA.event({
-      category: 'Users',
-      action: 'ai_search_started',
-    });
-    const token = yield call(getRecaptchaToken);
-    const searchResult = yield call(getSearchResult, query, token, communityId);
-    yield put(getSearchResultSuccess({ ...searchResult, question: query }));
-    ReactGA.event({
-      category: 'Users',
-      action: 'ai_search_completed',
-    });
+    const response = yield call(
+      fetch,
+      'https://orpbzrwr25kteba3dsftyghdom0nykmi.lambda-url.us-east-2.on.aws/',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          query,
+          communityId: '3-0xdf71421e1693893fc5a71c1daf097a68468226e67f1f670d686f3eb1ffb9c8e9',
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
   } catch (e) {
     yield put(getSearchResultError(e));
   }
