@@ -1,3 +1,19 @@
+const getFilterTabByAnswersQueryGraph = (filterTabByAnswersId: number) => {
+  if (filterTabByAnswersId === 1) {
+    return 'replyCount: 0,';
+  }
+  if (filterTabByAnswersId === 2) {
+    return 'replyCount_gte: 1,';
+  }
+  if (filterTabByAnswersId === 3) {
+    return 'bestReply_gte: 1,';
+  }
+  if (filterTabByAnswersId === 4) {
+    return 'officialReply_gte: 1,';
+  }
+  return '';
+};
+
 const userGraph = `
   id
   ratings {
@@ -362,7 +378,7 @@ export const tagsByIdsQueryGraph = `
         }
       }`;
 
-export const postsQueryGraph = `
+export const postsQueryGraph = (filterTabByAnswersId: number) => `
       query (
         $first: Int,
         $skip: Int,
@@ -373,13 +389,15 @@ export const postsQueryGraph = `
           orderDirection: desc,
           first: $first,
           skip: $skip,
-          where: {isDeleted: false, postType_in: $postTypes, title_not: ""},
+          where: {isDeleted: false, postType_in: $postTypes, title_not: "", ${getFilterTabByAnswersQueryGraph(
+            filterTabByAnswersId,
+          )}},
         ) {
            ${postGraph}
         }
       }`;
 
-export const postsByCommQueryGraph = `
+export const postsByCommQueryGraph = (filterTabByAnswersId: number) => `
       query (
         $limit: Int,
         $offset: Int,
@@ -391,30 +409,34 @@ export const postsByCommQueryGraph = `
           orderDirection: desc,
           first: $limit,
           skip: $offset,
-          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: ""},
+          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: "", ${getFilterTabByAnswersQueryGraph(
+            filterTabByAnswersId,
+          )}},
         ) {
            ${postGraph}
         }
       }`;
 
-export const postsByCommAndTagsQueryGraph = `
-      query (
-        $first: Int,
-        $skip: Int,
-        $communityIds: [String],
-        $postTypes: [Int],
-        $tags: [String],
-      ) {
-        posts (
-          orderBy: postTime,
-          orderDirection: desc,
-          first: $first,
-          skip: $skip,
-          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: "", tags_contains: $tags},
-        ) {
-           ${postGraph}
-        }
-      }`;
+export const postsByCommAndTagsQueryGraph = (filterTabByAnswersId: number) => `
+  query (
+    $first: Int,
+    $skip: Int,
+    $communityIds: [String],
+    $postTypes: [Int],
+    $tags: [String],
+  ) {
+    posts (
+      orderBy: postTime,
+      orderDirection: desc,
+      first: $first,
+      skip: $skip,
+      where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: "", tags_contains: $tags, ${getFilterTabByAnswersQueryGraph(
+        filterTabByAnswersId,
+      )}},
+    ) {
+       ${postGraph}
+    }
+  }`;
 
 export const faqByCommQueryGraph = `
       query (

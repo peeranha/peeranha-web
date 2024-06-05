@@ -71,5 +71,10 @@
   "answer_replied": "Bạn đã trả lời bài đăng này.",
   "answer_repliedText": "Bạn có thể chỉnh sửa câu trả lời của mình nếu cần thêm thông tin.",
   "answer_reputation": "Thật không may, danh tiếng của bạn trong cộng đồng này là tiêu cực.",
-  "answer_reputationText": "Bạn không được phép đăng bất kỳ câu trả lời nào."
+  "answer_reputationText": "Bạn không được phép đăng bất kỳ câu trả lời nào.",
+  "all": "Tất cả",
+  "unanswered": "Chưa được trả lời",
+  "answered": "Đã trả lời",
+  "withBestAnswer": "Với câu trả lời hay nhất",
+  "withOfficialAnswer": "Có câu trả lời chính thức"
 }
