@@ -76,7 +76,7 @@ export const SubHeader = ({ filterTabByAnswers, setFilterTabByAnswers }) => {
                 marginRight: 0,
               },
             }}
-            onClick={setActiveFilterTabByAnswers(type)}
+            onClick={() => setActiveFilterTabByAnswers(type)}
           >
             {t(`post.${type.name}`)}
           </button>
