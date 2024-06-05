@@ -230,7 +230,7 @@ export const Questions = ({
         postsTypes={postsTypes}
         locale={locale}
       />
-      {!isTutorialPage && (
+      {!(isTutorialPage || isTopCommunitiesDisplay) && (
         <SubHeader
           filterTabByAnswers={filterTabByAnswers}
           setFilterTabByAnswers={setFilterTabByAnswers}
