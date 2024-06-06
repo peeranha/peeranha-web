@@ -40,6 +40,7 @@ const View = ({
   toggleEditDocumentation,
   isEditDocumentation,
   pinnedItemMenu,
+  startOverDispatch,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -122,6 +123,7 @@ const View = ({
         changeLocale={changeLocale}
         isMenuVisible={isMenuVisible}
         locale={locale}
+        startOverDispatch={startOverDispatch}
       />
       <div css={styles.footer}>
         <Footer />

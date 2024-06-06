@@ -47,6 +47,8 @@ const Box = ({
     getDocumentationMenuDispatch(single);
   }, [single]);
 
+  const isUiAssistant = single && location.pathname === '/';
+
   return (
     <>
       <Header />
@@ -67,7 +69,7 @@ const Box = ({
       </Main>
       <div
         css={{
-          display: 'block',
+          display: isUiAssistant ? 'none' : 'block',
           '@media (max-width: 991px)': {
             display: 'none',
           },

@@ -522,9 +522,8 @@
   "postsAnswersComments": "帖子、答案和评论",
   "statusReputationPrivileges": "地位、声誉和特权",
   "new": "新的",
-  "aiPoweredSearch": "人工智能驱动搜索",
+  "aiPoweredSearch": "人工智能助手",
   "aiPoweredSearchInputPlaceholder": "让魔法开始，提问一个问题",
-  "askAI": "问AI",
   "askAIQuestion": "提出一个问题",
   "exploreAI": "探索您的先进人工智能搜索引擎",
   "timeEfficiency": "时间效率",
@@ -541,5 +540,14 @@
   "canWork": "与此同时，可以继续在网站上工作。",
   "banUser": "禁止用户",
   "bannedUser": "被禁止的用户",
-  "areYouSure": "你确定要封禁该用户吗？"
+  "areYouSure": "你确定要禁止该用户吗？",
+  "stopGenerating": "停止生成",
+  "startOver": "重新开始",
+  "generatedByAI": "此回答由AI生成，可能不完全准确。",
+  "askAI": "询问在{{community}}知识库中训练的AI",
+  "askInCommunity": "在社区中提问",
+  "accessAI": "访问配备{{community}}资源的AI",
+  "utilizeAI": "利用AI从{{community}}资源中获取的能力",
+  "whatIs": "什么是{{community}}？",
+  "howToStart": "如何开始使用{{community}}？"
 }

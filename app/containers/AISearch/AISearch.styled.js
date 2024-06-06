@@ -1,124 +1,62 @@
-import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import {
-  BG_LIGHT,
-  BORDER_PRIMARY_RGB,
-  BORDER_RADIUS_L,
-  BORDER_RADIUS_M,
-  SECONDARY_SPECIAL_2,
-  TEXT_PRIMARY,
-} from 'style-constants';
+  singleCommunityColors,
+  graphCommunityColors,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
+import { BORDER_PRIMARY_RGB, BORDER_RADIUS_M } from 'style-constants';
 
 const colors = singleCommunityColors();
 const graphCommunity = graphCommunityColors();
+const communityStyles = singleCommunityStyles();
 
 export const styles = {
-  searchBlock: {
-    background: graphCommunity ? '#161425' : BG_LIGHT,
-    borderRadius: BORDER_RADIUS_L,
-    boxShadow: `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-    border: `1px solid ${colors.border || '#fff'}`,
-    transition: '0.5s',
-    padding: '16px',
-
-    ':hover': {
-      boxShadow: `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
-
-    '@media (min-width: 577px)': {
-      display: 'none',
-    },
+  headerSearchField: {
+    display: 'block',
+    position: 'relative',
+    width: '100%',
   },
 
-  subTitle: {
-    fontWeight: 600,
-    fontSize: '22px',
-    lineHeight: '28px',
-    margin: '40px 0 23px',
-    color: colors.sectionHeader || 'rgba(40, 40, 40, 1)',
-
-    '@media (min-width: 768px)': {
-      fontSize: '30px',
-      lineHeight: '38px',
-    },
-  },
-
-  additionalInfo: {
+  textField: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
-
-    '@media (min-width: 768px)': {
-      flexDirection: 'row',
-      gap: '14px',
-    },
+    marginBottom: '25px',
+    padding: '30px 30px 0 30px',
+    flex: 1,
+    overflow: 'hidden',
   },
 
-  additionalInfoItem: {
-    flex: '1 1 0px',
-    background: graphCommunity ? '#161425' : BG_LIGHT,
-    borderRadius: BORDER_RADIUS_L,
-    boxShadow: graphCommunity ? 'none' : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-    border: `1px solid ${colors.border || '#fff'}`,
-    transition: '0.5s',
-    marginBottom: '14px',
-    padding: '16px',
-
-    ':hover': {
-      boxShadow: graphCommunity
-        ? 'none'
-        : `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
+  communicationField: {
+    boxSizing: 'border-box',
+    flexGrow: 0,
+    padding: '20px',
+    height: '127px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
 
-  aiPoweredSearchText: {
-    '@media (max-width: 576px)': {
-      color: colors.sectionHeader || 'rgba(40, 40, 40, 1)',
-    },
-  },
-
-  additionalInfoItemTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '26px',
-    margin: '16px 0 8px',
-    color: graphCommunity ? '#E1E1E4' : 'rgba(40, 40, 40, 1)',
-  },
-
-  additionalInfoItemContent: {
-    fontSize: '16px',
-    lineHeight: '24px',
-    color: graphCommunity ? '#A7A7AD' : 'rgba(40, 40, 40, 1)',
-  },
-
-  searchField: {
-    position: 'relative',
-    width: '100%',
-  },
-
-  headerSearchField: {
-    marginTop: '25px',
-    display: 'none',
-    position: 'relative',
-    width: '100%',
-
-    '@media (min-width: 577px)': {
-      display: graphCommunity ? 'flex' : 'block',
-    },
+  aiTip: {
+    fontWeight: 400,
+    fontSize: '12px',
+    lineHeight: '18px',
+    color: '#8B8B8B',
   },
 
   searchInput: {
     width: '100%',
-    height: graphCommunity ? '48px' : '56px',
+    height: '60px',
     border: `1px solid ${graphCommunity ? '#FFFFFF0F' : '#C2C6D8'}`,
     backgroundColor: graphCommunity ? '#FFFFFF0F' : '',
     borderRadius: `${BORDER_RADIUS_M}`,
-    padding: graphCommunity ? '0 10px' : '0 10px 0 60px',
+    padding: '0 10px',
     outline: 'none',
     opacity: 1,
     boxSizing: 'border-box',
     color: graphCommunity ? '#E1E1E4' : 'inherit',
     '@media (min-width: 577px)': {
       height: graphCommunity ? '48px' : '64px',
-      padding: graphCommunity ? '0 135px 0 16px' : '0 135px 0 60px',
+      padding: '0 135px 0 16px',
     },
     '&:focus': {
       borderColor: graphCommunity
@@ -145,175 +83,124 @@ export const styles = {
   },
 
   searchInputIcon: {
-    position: 'absolute',
-    top: graphCommunity ? '16px' : '13px',
-    left: graphCommunity ? '' : '20px',
-    right: graphCommunity ? '10px' : '',
-    '@media (min-width: 577px)': {
-      top: graphCommunity ? '15px' : '17px',
-      left: graphCommunity ? '' : '19px',
-      right: graphCommunity ? '135px' : '',
-    },
-  },
-
-  closeInputIcon: {
     cursor: 'pointer',
-    position: 'absolute',
-    top: graphCommunity ? '16px' : '20px',
-    left: graphCommunity ? '' : '26px',
-    right: graphCommunity ? '10px' : '',
-    '@media (min-width: 577px)': {
-      top: graphCommunity ? '15px' : '23px',
-      left: graphCommunity ? '' : '26px',
-      right: graphCommunity ? '135px' : '',
-    },
-  },
-
-  searchMainBlock: {
-    '@media (min-width: 1366px)': {
-      display: 'flex',
-    },
-  },
-
-  searchResult: {
-    background: graphCommunity ? '#161425' : BG_LIGHT,
-    borderRadius: BORDER_RADIUS_L,
-    boxShadow: graphCommunity ? 'none' : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-    border: `1px solid ${colors.border || '#fff'}`,
-    transition: '0.5s',
-    padding: '16px',
-    marginBottom: '15px',
-
-    ':hover': {
-      boxShadow: graphCommunity
-        ? 'none'
-        : `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
-
-    '@media (min-width: 768px)': {
-      padding: '20px 30px',
-    },
-
-    '@media (min-width: 1366px)': {
-      width: graphCommunity ? 'calc(100% - 300px)' : '',
-      borderBottomRightRadius: 0,
-      borderTopRightRadius: 0,
-      ':hover': {
-        boxShadow: graphCommunity
-          ? 'none'
-          : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-      },
-    },
-  },
-
-  searchResultTitle: {
-    fontWeight: 600,
-    fontSize: '20px',
-    lineHeight: '26px',
-    marginBottom: '16px',
-    color: `${colors.linkColor || TEXT_PRIMARY}`,
-
-    '@media (min-width: 768px)': {
-      fontSize: '24px',
-      lineHeight: '26px',
-    },
-
-    '@media (min-width: 1366px)': {
-      marginBottom: '25px',
-    },
-  },
-
-  sources: {
-    background: graphCommunity ? '#FFFFFF05' : '#FAFAFA',
-    borderRadius: BORDER_RADIUS_L,
-    boxShadow: graphCommunity ? 'none' : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-    border: `1px solid ${graphCommunity ? '#3D3D54' : '#FAFAFA'}`,
-    transition: '0.5s',
-    padding: '16px',
-    marginBottom: '15px',
-
-    ':hover': {
-      boxShadow: graphCommunity
-        ? 'none'
-        : `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
-
-    '@media (min-width: 768px)': {
-      padding: '20px 30px',
-    },
-
-    '@media (min-width: 1366px)': {
-      padding: '20px 16px',
-      flex: '0 0 300px',
-      boxSizing: 'border-box',
-      borderBottomLeftRadius: 0,
-      borderTopLeftRadius: 0,
-    },
-  },
-
-  sourcesTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '26px',
-    color: graphCommunity ? '#E1E1E4' : 'rgba(40, 40, 40, 1)',
-    margin: '0 0 12px 12px',
-  },
-
-  sourcesList: {
-    listStyleType: 'none',
-  },
-
-  sourcesListItem: {
     borderRadius: '3px',
-    padding: '12px',
+    fill: 'red',
+    position: 'absolute',
 
+    top: '14px',
+    right: '13px',
+    '&:hover': {
+      background: '#FC6655',
+    },
+  },
+
+  sampleQuestionButton: {
+    border: '1px solid #C2C6D8',
+    borderRadius: '3px',
+    padding: '10px 15px',
+    margin: '0 5px',
+    '&:hover': {
+      color: '#576FED',
+      boxShadow: '0 1px 1px rgba(40, 40, 40, 0.1)',
+    },
+  },
+
+  chatFragmentContainer: {
+    display: 'flex',
+    paddingBottom: '30px',
+    'user-select': 'text',
+  },
+
+  chatInfo: {
+    display: 'flex',
+    flex: 1,
+    'flex-direction': 'column',
+    'user-select': 'text',
+  },
+
+  username: {
+    fontWeight: '600',
+    fontSize: '18px',
+    paddingBottom: '12px',
+  },
+
+  text: {
+    fontSize: '16px',
+    'user-select': 'text',
+  },
+
+  iconContainer: {
+    paddingRight: '12px',
+  },
+
+  buttonChatContainer: {
+    display: 'flex',
+    'flex-direction': 'column',
+    marginLeft: '54px',
+    gap: '16px',
+  },
+
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    'flex-wrap': 'wrap',
+    gap: '3px',
+  },
+
+  button: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    fontSize: '16px',
+    padding: '5px 10px',
+    marginRight: '10px',
+    border: `1px solid rgba(198, 202, 218, 1)`,
+    borderRadius: '3px',
+    color: 'rgba(102, 112, 133, 1)',
     ':hover': {
-      background: graphCommunity ? '#6F4CFF33' : 'rgba(173, 186, 255, 0.2)',
+      backgroundColor: 'rgba(173, 186, 255, 0.2)',
+      color: 'rgba(87, 111, 237, 1)',
+      border: '1px solid transparent',
+    },
+  },
 
-      'p, span': {
-        color: graphCommunity ? '#E1E1E4' : '',
+  tagIndex: {
+    textSize: '14px',
+    width: '18px',
+    height: '18px',
+    'text-align': 'center',
+    color: 'rgba(87, 111, 237, 1)',
+    marginRight: '8px',
+    border: `1px solid rgba(87, 111, 237, 1)`,
+    borderRadius: '3px',
+  },
+
+  loader: {
+    width: '18px',
+    marginRight: '8px',
+    animation: 'rotation 2s infinite linear',
+    '@keyframes rotation': {
+      '0%': {
+        transform: 'rotate(0deg)',
+      },
+      '100%': {
+        transform: 'rotate(360deg)',
       },
     },
   },
 
-  sourcesListItemTitle: {
-    color: graphCommunity ? '#6F4CFF' : `${colors.linkColor || TEXT_PRIMARY}`,
-    fontSize: '16px',
-    lineHeight: '22px',
-    fontWeight: 400,
-    marginBottom: '8px',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    display: '-webkit-box !important',
-    '-webkit-line-clamp': '2',
-    '-webkit-box-orient': 'vertical',
-    whiteSpace: 'normal',
+  additionalButton: {
+    ...communityStyles.headerLoginButtonStyles,
   },
 
-  sourcesListItemText: {
-    fontSize: '14px',
-    lineHeight: '18px',
-    color: graphCommunity ? '#A7A7AD' : '#344054',
-    marginBottom: '8px',
-    fontWeight: 400,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box !important',
-    '-webkit-line-clamp': '3',
-    '-webkit-box-orient': 'vertical',
-    whiteSpace: 'normal',
-  },
-
-  sourcesListItemLink: {
-    fontSize: '14px',
-    lineHeight: '18px',
-    color: graphCommunity ? '#A7A7AD' : '#667085',
-    fontWeight: 400,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box !important',
-    '-webkit-line-clamp': '1',
-    '-webkit-box-orient': 'vertical',
-    whiteSpace: 'normal',
+  startOver: {
+    display: 'none',
+    '@media (min-width: 577px)': {
+      display: 'block',
+      position: 'absolute',
+      top: '50px',
+      left: '-300px',
+    },
   },
 };

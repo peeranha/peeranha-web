@@ -1,9 +1,10 @@
+import { startOver } from 'containers/AISearch/actions';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { deleteQuestion } from 'containers/ViewQuestion/actions';
 import reducer from 'containers/ViewQuestion/reducer';
+import aiSearchReducer from 'containers/AISearch/reducer';
 import saga from 'containers/ViewQuestion/saga';
-import { isSuiBlockchain } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import React from 'react';
@@ -27,7 +28,7 @@ import {
 } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { showLoginModal } from 'containers/Login/actions';
 import { changeLocale as changeLocaleDispatch, showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
@@ -56,6 +57,7 @@ const LeftMenu = ({
   toggleEditDocumentationDispatch,
   isEditDocumentation,
   pinnedItemMenu,
+  startOverDispatch,
 }) => (
   <Aside isMenuVisible={isMenuVisible} className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}>
     <View
@@ -77,6 +79,7 @@ const LeftMenu = ({
       toggleEditDocumentation={toggleEditDocumentationDispatch}
       isEditDocumentation={isEditDocumentation}
       pinnedItemMenu={pinnedItemMenu}
+      startOverDispatch={startOverDispatch}
     />
 
     <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -130,6 +133,7 @@ export function mapDispatchToProps(dispatch) {
     ),
     deleteQuestionDispatch: bindActionCreators(deleteQuestion, dispatch),
     toggleEditDocumentationDispatch: bindActionCreators(toggleEditDocumentation, dispatch),
+    startOverDispatch: bindActionCreators(startOver, dispatch),
   };
 }
 

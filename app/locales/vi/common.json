@@ -535,9 +535,8 @@
   "postsAnswersComments": "Bài viết, câu trả lời và bình luận",
   "statusReputationPrivileges": "Địa vị, danh tiếng và đặc quyền",
   "new": "Mới",
-  "aiPoweredSearch": "Tìm kiếm được động bằng Trí tuệ Nhân tạo",
+  "aiPoweredSearch": "Trợ lý AI",
   "aiPoweredSearchInputPlaceholder": "Hãy để phép màu bắt đầu, Hỏi một câu hỏi",
-  "askAI": "Hỏi Trí tuệ Nhân tạo",
   "askAIQuestion": "Hỏi một câu hỏi",
   "exploreAI": "Khám phá công cụ tìm kiếm Trí tuệ Nhân tạo tiên tiến của bạn",
   "timeEfficiency": "Hiệu suất thời gian",
@@ -554,5 +553,14 @@
   "canWork": "Trong khi đó, bạn có thể tiếp tục làm việc trên trang web.",
   "banUser": "Cấm người dùng",
   "bannedUser": "Người dùng bị cấm",
-  "areYouSure": "Bạn chắc chắn muốn cấm người dùng?"
+  "areYouSure": "Bạn có chắc chắn muốn cấm người dùng không?",
+  "stopGenerating": "Dừng tạo",
+  "startOver": "Bắt đầu lại",
+  "askInCommunity": "Hỏi trong cộng đồng",
+  "generatedByAI": "Phản hồi này được tạo bởi AI và có thể không hoàn toàn chính xác.",
+  "askAI": "Hỏi AI được đào tạo trên nền tảng kiến thức của {{community}}",
+  "accessAI": "Truy cập AI được trang bị tài nguyên của {{community}}",
+  "utilizeAI": "Sử dụng kỹ năng của AI từ tài nguyên của {{community}}",
+  "whatIs": "Cái gì là {{community}}?",
+  "howToStart": "Làm thế nào để bắt đầu với {{community}}?"
 }

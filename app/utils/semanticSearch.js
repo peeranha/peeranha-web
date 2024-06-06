@@ -1,5 +1,5 @@
-const executeQuery = async ({ query, reCaptchaToken, communityId }) => {
-  const res = await fetch(process.env.SEMANTIC_SEARCH_URL, {
+const executeQuery = async ({ query, communityId }) =>
+  fetch('https://orpbzrwr25kteba3dsftyghdom0nykmi.lambda-url.us-east-2.on.aws/', {
     method: 'POST',
     body: JSON.stringify({
       query,
@@ -7,16 +7,13 @@ const executeQuery = async ({ query, reCaptchaToken, communityId }) => {
     }),
     headers: {
       'Content-Type': 'application/json',
-      reCaptchaToken,
     },
   });
 
-  return res.json();
-};
-
-export const getSearchResult = async (query, reCaptchaToken, communityId) =>
-  await executeQuery({
+export const getSearchResult = async (query, communityId) => {
+  const response = await executeQuery({
     query,
-    reCaptchaToken,
     communityId,
   });
+  return response.body.getReader();
+};

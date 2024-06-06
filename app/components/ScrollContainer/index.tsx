@@ -7,7 +7,8 @@ const ScrollContainer: React.FC<{
   children: any;
   className?: string;
   classNameChild?: string;
-}> = ({ children, className, classNameChild }) => {
+  preventDefault?: boolean;
+}> = ({ children, className, classNameChild, preventDefault = true }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -33,14 +34,18 @@ const ScrollContainer: React.FC<{
         isMouseDown = true;
         scrollLeft = element.scrollLeft;
         x = e.clientX;
-        e.preventDefault();
+        if (preventDefault) {
+          e.preventDefault();
+        }
       };
 
       const handleClick = (e): void => {
         if (isMoving) {
           isMoving = false;
           e.stopPropagation();
-          e.preventDefault();
+          if (preventDefault) {
+            e.preventDefault();
+          }
         }
       };
 
