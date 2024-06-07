@@ -15,10 +15,11 @@ export const initialState = fromJS({
   searchResultLoading: false,
   searchResultError: '',
   generationStopped: false,
+  threadId: null,
 });
 
 function aiSearchReducer(state = initialState, action: any) {
-  const { type, error, answers, query, writeLast } = action;
+  const { type, error, answers, query, writeLast, threadId } = action;
 
   switch (type) {
     case GET_SEARCH_RESULT:
@@ -33,11 +34,11 @@ function aiSearchReducer(state = initialState, action: any) {
     case GET_CHUNK_SUCCESS:
       return state.get('generationStopped') && !writeLast
         ? state
-        : state.set('answers', [...answers]);
+        : state.set('answers', [...answers]).set('threadId', threadId);
     case STOP_GENERATION:
       return state.set('generationStopped', true);
     case START_OVER:
-      return initialState.set('generationStopped', true);
+      return initialState.set('generationStopped', true).set('threadId', '');
     case GET_SEARCH_RESULT_ERROR:
       return state.set('searchResultLoading', false).set('searchResultError', error);
     default:

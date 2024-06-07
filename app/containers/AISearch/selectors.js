@@ -21,5 +21,8 @@ export const selectChatStarted = () =>
 export const selectGenerationStopped = () =>
   createSelector(aiSearchDomain, (substate) => substate.get('generationStopped'));
 
+export const selectThreadId = () =>
+  createSelector(aiSearchDomain, (substate) => substate.get('threadId'));
+
 export const selectSearchResultLoading = () =>
   createSelector(aiSearchDomain, (substate) => substate.get('searchResultLoading'));

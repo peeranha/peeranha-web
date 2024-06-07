@@ -5,7 +5,7 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { HEADER_HEIGHT, MOBILE_HEADER_HEIGHT } from 'containers/Header/constants';
 import useMediaQuery from 'hooks/useMediaQuery';
 import ButtonLoader from 'icons/ButtonLoader';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -52,6 +52,13 @@ const AISearch = ({
   stopGenerationDispatch,
 }) => {
   const { t } = useTranslation();
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!searchResultLoading && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [searchResultLoading]);
   const communityName =
     communities.find((community) => community.id === single)?.name || 'Peeranha';
 
@@ -153,6 +160,7 @@ const AISearch = ({
                 onChange={onChangeInputHandler}
                 onKeyDown={onKeyDownHandler}
                 maxLength={999}
+                ref={inputRef}
               />
               <div style={{ textAlign: 'center', marginTop: '4px' }}>
                 <span css={styles.aiTip}>{t('common.generatedByAI')}</span>

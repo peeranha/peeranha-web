@@ -1,4 +1,8 @@
-import { selectAnswers, selectGenerationStopped } from 'containers/AISearch/selectors';
+import {
+  selectAnswers,
+  selectGenerationStopped,
+  selectThreadId,
+} from 'containers/AISearch/selectors';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { GET_SEARCH_RESULT } from 'containers/AISearch/constants';
 import {
@@ -11,7 +15,8 @@ import { getSearchResult } from 'utils/semanticSearch';
 export function* getSearchResultWorker({ query, communityId }) {
   try {
     const answers = yield select(selectAnswers());
-    const reader = yield call(getSearchResult, query, communityId);
+    const threadId = yield select(selectThreadId());
+    const reader = yield call(getSearchResult, query, communityId, threadId);
     const decoder = new TextDecoder('utf-8');
     answers.push({});
     let index = 0;
@@ -35,7 +40,7 @@ export function* getSearchResultWorker({ query, communityId }) {
       const result = JSON.parse(jsonObjects);
       answers[answers.length - 1].answer = result[result.length - 1].answer;
       answers[answers.length - 1].resources = result[result.length - 1].resources;
-      yield put(getChunkSuccess(answers));
+      yield put(getChunkSuccess(answers, false, result[result.length - 1].threadId));
     }
     yield put(getSearchResultSuccess());
   } catch (e) {
