@@ -15,8 +15,17 @@ import CopyTextIcon from 'icons/CopyText';
 import OutlinedButton from 'components/Button/Outlined/InfoMedium';
 import { showPopover } from 'utils/popover';
 import useMediaQuery from 'hooks/useMediaQuery';
+import { css } from '@emotion/react';
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
+import { graphCommunityColors, singleCommunityColors } from 'utils/communityManagement';
+import { SparkleGraph } from 'icons/index';
 
 import { styles } from '../AISearch.styled';
+
+const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
+
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 type Props = {
   index: number;
@@ -62,7 +71,27 @@ const ChatFragment: React.FC<Props> = ({
           <div css={styles.chatFragmentContainer}>
             <div css={styles.iconContainer}>
               <MediumIconStyled style={{ margin: 0, background: 'none' }}>
-                <Icon width="32" icon={AIIcon} />
+                {graphCommunity ? (
+                  <SparkleGraph size={[32, 32]} />
+                ) : (
+                  <Icon
+                    width="32"
+                    icon={AIIcon}
+                    css={css`
+                      .fill {
+                        fill: ${graphCommunity ? '#fff' : customColor};
+                      }
+                      .stroke {
+                        stroke: ${graphCommunity ? '#fff' : customColor};
+                      }
+                      .semitransparent {
+                        fill: ${graphCommunity
+                          ? '#fff'
+                          : colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+                      }
+                    `}
+                  />
+                )}
               </MediumIconStyled>
             </div>
             <div css={styles.chatInfo}>
@@ -81,7 +110,9 @@ const ChatFragment: React.FC<Props> = ({
                     <a
                       href={resource.url}
                       target="_blank"
-                      style={{ color: 'rgba(102, 112, 133, 1)' }}
+                      style={{
+                        color: graphCommunity ? 'rgba(225,225,228,0.6)' : 'rgba(102, 112, 133, 1)',
+                      }}
                     >
                       {resource.title.length > 20
                         ? `${resource.title.slice(0, 20)}...`
@@ -103,9 +134,9 @@ const ChatFragment: React.FC<Props> = ({
                   id={`${index}-copy-to-buffer`}
                 >
                   <CopyTextIcon
-                    stroke="rgba(87, 111, 237, 1)"
-                    fill="rgba(173, 186, 255, 0.2)"
-                    className="rgba(87, 111, 237, 1)"
+                    stroke={graphCommunity ? '#fff' : customColor}
+                    // fill={graphCommunity ? '#fff' : customColor}
+                    className={graphCommunity ? '#fff' : customColor}
                   />
                 </div>
 

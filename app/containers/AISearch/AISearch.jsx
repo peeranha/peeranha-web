@@ -2,7 +2,8 @@ import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 import ChatSection from 'containers/AISearch/Components/ChatSection';
 import MainSection from 'containers/AISearch/Components/MainSection';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import { HEADER_HEIGHT } from 'containers/Header/constants';
+import { HEADER_HEIGHT, MOBILE_HEADER_HEIGHT } from 'containers/Header/constants';
+import useMediaQuery from 'hooks/useMediaQuery';
 import ButtonLoader from 'icons/ButtonLoader';
 import React, { useState } from 'react';
 import { bindActionCreators, compose } from 'redux';
@@ -92,7 +93,7 @@ const AISearch = ({
       setSearchText('');
     }
   };
-
+  const isDesktop = useMediaQuery('(min-width: 991px)');
   return (
     <>
       <Seo
@@ -103,7 +104,9 @@ const AISearch = ({
       />
       <div
         css={css`
-          height: calc(100vh - ${HEADER_HEIGHT}px - 35px);
+          height: ${isDesktop
+            ? `calc(100vh - ${HEADER_HEIGHT}px - 35px)`
+            : `calc(100vh - ${MOBILE_HEADER_HEIGHT}px - 35px)`};
           display: flex;
           flex-direction: column;
         `}
@@ -149,6 +152,7 @@ const AISearch = ({
                 value={searchText}
                 onChange={onChangeInputHandler}
                 onKeyDown={onKeyDownHandler}
+                maxLength={999}
               />
               <div style={{ textAlign: 'center', marginTop: '4px' }}>
                 <span css={styles.aiTip}>{t('common.generatedByAI')}</span>

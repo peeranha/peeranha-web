@@ -1,11 +1,4 @@
 import { css } from '@emotion/react';
-import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
-import Item from 'containers/LeftMenu/Documentation/Item';
-import ItemMenu from 'containers/LeftMenu/Documentation/ItemMenu';
-import Link from 'containers/LeftMenu/Documentation/Link';
-import useTrigger from 'hooks/useTrigger';
-import AddCommentIcon from 'icons/AddComment';
-import ArrowDownIcon from 'icons/ArrowDown';
 import ButtonPlus from 'icons/ButtonPlus';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -26,10 +19,7 @@ import {
   BORDER_PRIMARY,
   BORDER_DARK,
   ICON_TRASPARENT_BLUE,
-  PEER_PRIMARY_COLOR,
   BUTTON_COLOR,
-  TEXT_LIGHT,
-  BORDER_RADIUS_M,
 } from 'style-constants';
 import aiIcon from 'images/aiIcon.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
@@ -56,7 +46,6 @@ import {
   singleCommunityFonts,
   singleCommunityDocumentationPosition,
   graphCommunityColors,
-  singleCommunityStyles,
 } from 'utils/communityManagement';
 
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
@@ -78,7 +67,6 @@ import {
 import A from 'components/A';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import { svgDraw } from 'components/Icon/IconStyled';
-const communityStyles = singleCommunityStyles();
 
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
@@ -187,6 +175,7 @@ const MainLinks = ({
   changeLocale,
   locale,
   startOverDispatch,
+  chatStarted,
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
@@ -322,8 +311,8 @@ const MainLinks = ({
               {t('common.aiPoweredSearch')}
               <span css={styles.searchLabel}>New</span>
             </A1>
-            {route === routes.defaultPath && (
-              <div
+            {route === routes.defaultPath && chatStarted && (
+              <A
                 css={css`
                   display: flex;
                   align-items: center;
@@ -335,11 +324,15 @@ const MainLinks = ({
                     opacity: ${graphCommunity ? 1 : 0.8};
                   }
                 `}
-                onClick={startOverDispatch}
+                to={routes.defaultPath}
+                onClick={() => {
+                  startOverDispatch();
+                  // window.location.pathname = '/';
+                }}
               >
                 <ButtonPlus size={[14, 14]} style={{ marginRight: '8px' }} />
                 {t('common.startOver')}
-              </div>
+              </A>
             )}
           </>
         )}

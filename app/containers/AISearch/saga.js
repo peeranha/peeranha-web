@@ -29,6 +29,7 @@ export function* getSearchResultWorker({ query, communityId }) {
     }
     yield put(getSearchResultSuccess());
   } catch (e) {
+    console.log('Stream ERROR ', e);
     yield put(getSearchResultError(e));
   }
 }

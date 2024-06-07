@@ -12,9 +12,8 @@ import {
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { LEFT_MENU_ID, NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY } from 'containers/LeftMenu/constants';
+import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 
-import MobileLinksInWallet from 'containers/LeftMenu/MobileLinksInWallet';
 import MainLinks from 'containers/LeftMenu/MainLinks';
 import MobileLinksInProfile from 'containers/LeftMenu/MobileLinksInProfile';
 import MobileAdditionalLinks from 'containers/LeftMenu/MobileAdditionalLinks';
@@ -41,6 +40,7 @@ const View = ({
   isEditDocumentation,
   pinnedItemMenu,
   startOverDispatch,
+  chatStarted,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -124,6 +124,7 @@ const View = ({
         isMenuVisible={isMenuVisible}
         locale={locale}
         startOverDispatch={startOverDispatch}
+        chatStarted={chatStarted}
       />
       <div css={styles.footer}>
         <Footer />

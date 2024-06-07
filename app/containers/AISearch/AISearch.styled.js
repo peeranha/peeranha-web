@@ -3,13 +3,44 @@ import {
   graphCommunityColors,
   singleCommunityStyles,
 } from 'utils/communityManagement';
-import { BORDER_PRIMARY_RGB, BORDER_RADIUS_M } from 'style-constants';
+import { BORDER_PRIMARY, BORDER_PRIMARY_RGB, BORDER_RADIUS_M, BUTTON_COLOR } from 'style-constants';
+
+const communityStyles = singleCommunityStyles();
 
 const colors = singleCommunityColors();
 const graphCommunity = graphCommunityColors();
-const communityStyles = singleCommunityStyles();
+
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 export const styles = {
+  mainSection: {
+    display: 'flex',
+    'flex-direction': 'column',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  maiHeader: {
+    fontWeight: 600,
+    fontSize: '38px',
+    marginBottom: '30px',
+    marginTop: '12px',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
+  },
+
+  mainTextContainer: {
+    display: 'flex',
+    'flex-direction': 'column',
+    alignItems: 'flex-start',
+  },
+
+  mainTextElement: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
+  },
+
   headerSearchField: {
     display: 'block',
     position: 'relative',
@@ -55,7 +86,7 @@ export const styles = {
     boxSizing: 'border-box',
     color: graphCommunity ? '#E1E1E4' : 'inherit',
     '@media (min-width: 577px)': {
-      height: graphCommunity ? '48px' : '64px',
+      height: '64px',
       padding: '0 135px 0 16px',
     },
     '&:focus': {
@@ -91,7 +122,7 @@ export const styles = {
     top: '14px',
     right: '13px',
     '&:hover': {
-      background: '#FC6655',
+      background: BUTTON_COLOR,
     },
   },
 
@@ -100,8 +131,10 @@ export const styles = {
     borderRadius: '3px',
     padding: '10px 15px',
     margin: '0 5px',
+    cursor: 'pointer',
+    color: graphCommunity ? 'rgba(225,225,228,0.55)' : '#282828',
     '&:hover': {
-      color: '#576FED',
+      color: colors.linkColor || '#576FED',
       boxShadow: '0 1px 1px rgba(40, 40, 40, 0.1)',
     },
   },
@@ -123,11 +156,16 @@ export const styles = {
     fontWeight: '600',
     fontSize: '18px',
     paddingBottom: '12px',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
   },
 
   text: {
     fontSize: '16px',
     'user-select': 'text',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
+    a: {
+      color: graphCommunity ? 'rgba(111,76,255,0.8)' : colors.linkColor || '#576FED',
+    },
   },
 
   iconContainer: {
@@ -155,11 +193,11 @@ export const styles = {
     fontSize: '16px',
     padding: '5px 10px',
     marginRight: '10px',
-    border: `1px solid rgba(198, 202, 218, 1)`,
+    border: `1px solid ${graphCommunity ? 'rgba(255,255,255,0.47)' : customColor}`,
     borderRadius: '3px',
     color: 'rgba(102, 112, 133, 1)',
     ':hover': {
-      backgroundColor: 'rgba(173, 186, 255, 0.2)',
+      backgroundColor: graphCommunity ? 'rgba(255,255,255,0.06)' : 'rgba(53, 74, 137, 0.11)',
       color: 'rgba(87, 111, 237, 1)',
       border: '1px solid transparent',
     },
@@ -170,9 +208,9 @@ export const styles = {
     width: '18px',
     height: '18px',
     'text-align': 'center',
-    color: 'rgba(87, 111, 237, 1)',
+    color: graphCommunity ? 'rgba(255,255,255,0.47)' : customColor,
     marginRight: '8px',
-    border: `1px solid rgba(87, 111, 237, 1)`,
+    border: `1px solid ${graphCommunity ? 'rgba(255,255,255,0.47)' : customColor}`,
     borderRadius: '3px',
   },
 

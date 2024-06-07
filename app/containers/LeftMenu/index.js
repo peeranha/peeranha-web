@@ -1,4 +1,5 @@
 import { startOver } from 'containers/AISearch/actions';
+import { selectChatStarted } from 'containers/AISearch/selectors';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { deleteQuestion } from 'containers/ViewQuestion/actions';
@@ -58,6 +59,7 @@ const LeftMenu = ({
   isEditDocumentation,
   pinnedItemMenu,
   startOverDispatch,
+  chatStarted,
 }) => (
   <Aside isMenuVisible={isMenuVisible} className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}>
     <View
@@ -80,6 +82,7 @@ const LeftMenu = ({
       isEditDocumentation={isEditDocumentation}
       pinnedItemMenu={pinnedItemMenu}
       startOverDispatch={startOverDispatch}
+      chatStarted={chatStarted}
     />
 
     <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -112,6 +115,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   isEditDocumentation: selectIsEditDocumentation(),
   pinnedItemMenu: selectPinnedItemMenu(),
+  chatStarted: selectChatStarted(),
 });
 
 const withReducer = injectReducer({ key: 'viewQuestion', reducer });

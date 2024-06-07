@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { IconLm } from 'components/Icon/IconWithSizes';
-import { BORDER_WARNING_LIGHT } from 'style-constants';
+import { BORDER_PRIMARY, BORDER_WARNING_LIGHT, ICON_TRASPARENT_BLUE } from 'style-constants';
 import { styles } from 'containers/AISearch/AISearch.styled';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -12,6 +12,14 @@ import AIIcon from 'images/aiIcon.svg?external';
 import CheckedIcon from 'images/checkedIcon.svg?external';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import Icon from 'components/Icon';
+import { css } from '@emotion/react';
+import { graphCommunityColors, singleCommunityColors } from 'utils/communityManagement';
+import { SparkleGraph } from 'icons/index';
+
+const colors = singleCommunityColors();
+const graphCommunity = graphCommunityColors();
+
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 type Props = {
   sampleQuestions: string[];
@@ -28,39 +36,65 @@ const MainSection: React.FC<Props> = ({
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <div css={styles.mainSection}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <MediumIconStyled style={{ margin: 0 }}>
-            <Icon width="32" icon={AIIcon} />
+            {graphCommunity ? (
+              <SparkleGraph size={[32, 32]} />
+            ) : (
+              <Icon
+                width="32"
+                icon={AIIcon}
+                css={css`
+                  .fill {
+                    fill: ${graphCommunity ? '#fff' : customColor};
+                  }
+                  .stroke {
+                    stroke: ${graphCommunity ? '#fff' : customColor};
+                  }
+                  .semitransparent {
+                    fill: ${graphCommunity
+                      ? '#fff'
+                      : colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+                  }
+                `}
+              />
+            )}
           </MediumIconStyled>
         </div>
-        <h3 style={{ fontWeight: 600, fontSize: '38px', marginBottom: '30px' }}>
-          {t('common.aiPoweredSearch')}
-        </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+        <h3 css={styles.maiHeader}>{t('common.aiPoweredSearch')}</h3>
+        <div css={styles.mainTextContainer}>
+          <div css={styles.mainTextElement}>
             <div style={{ marginRight: '8px' }}>
-              <IconLm icon={CheckedIcon} fill={BORDER_WARNING_LIGHT} />
+              <IconLm
+                icon={CheckedIcon}
+                fill={BORDER_WARNING_LIGHT}
+                css={css`
+                  .stroke {
+                    stroke: ${graphCommunity ? '#fff' : customColor};
+                  }
+                `}
+              />
             </div>
-            <span>
+            <span style={{ color: graphCommunity ? '#E1E1E4' : '#282828' }}>
               {t('common.askAI', {
                 community: communityName,
               })}
             </span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+          <div css={styles.mainTextElement}>
             <div style={{ marginRight: '8px' }}>
-              <IconLm icon={CheckedIcon} fill={BORDER_WARNING_LIGHT} />
+              <IconLm
+                icon={CheckedIcon}
+                fill={BORDER_WARNING_LIGHT}
+                css={css`
+                  .stroke {
+                    stroke: ${graphCommunity ? '#fff' : customColor};
+                  }
+                `}
+              />
             </div>
-            <span>
+            <span style={{ color: graphCommunity ? '#E1E1E4' : '#282828' }}>
               {t('common.accessAI', {
                 community: communityName,
               })}
@@ -68,9 +102,17 @@ const MainSection: React.FC<Props> = ({
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ marginRight: '8px' }}>
-              <IconLm icon={CheckedIcon} fill={BORDER_WARNING_LIGHT} />
+              <IconLm
+                icon={CheckedIcon}
+                fill={BORDER_WARNING_LIGHT}
+                css={css`
+                  .stroke {
+                    stroke: ${graphCommunity ? '#fff' : customColor};
+                  }
+                `}
+              />
             </div>
-            <span>
+            <span style={{ color: graphCommunity ? '#E1E1E4' : '#282828' }}>
               {t('common.utilizeAI', {
                 community: communityName,
               })}
