@@ -549,5 +549,6 @@
   "accessAI": "访问配备{{community}}资源的AI",
   "utilizeAI": "利用AI从{{community}}资源中获取的能力",
   "whatIs": "什么是{{community}}？",
-  "howToStart": "如何开始使用{{community}}？"
+  "howToStart": "如何开始使用{{community}}？",
+  "generationStopped": "生成已停止..."
 }

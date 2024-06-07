@@ -14,11 +14,21 @@ export function* getSearchResultWorker({ query, communityId }) {
     const reader = yield call(getSearchResult, query, communityId);
     const decoder = new TextDecoder('utf-8');
     answers.push({});
+    let index = 0;
     while (true) {
+      index += 1;
       const generationStopped = yield select(selectGenerationStopped());
       const { done, value } = yield call([reader, reader.read]);
 
-      if (done || generationStopped) break;
+      if (done) break;
+      if (generationStopped) {
+        if (index === 1) {
+          answers[answers.length - 1].answer = 'Generation stopped...';
+          answers[answers.length - 1].resources = [];
+        }
+        yield put(getChunkSuccess(answers, true));
+        break;
+      }
 
       const chunkData = decoder.decode(value, { stream: true });
       const jsonObjects = `[${chunkData.replace(/}{/g, '}, {')}]`;

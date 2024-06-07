@@ -562,5 +562,6 @@
   "accessAI": "Acceder a la IA equipada con los recursos de {{community}}",
   "utilizeAI": "Utilizar la competencia de la IA a partir de los recursos de {{community}}",
   "whatIs": "¿Qué es {{community}}?",
-  "howToStart": "¿Cómo empezar con {{community}}?"
+  "howToStart": "¿Cómo empezar con {{community}}?",
+  "generationStopped": "Generación detenida..."
 }

@@ -21,10 +21,11 @@ export function getSearchResultSuccess() {
   };
 }
 
-export function getChunkSuccess(answers) {
+export function getChunkSuccess(answers, writeLast) {
   return {
     type: GET_CHUNK_SUCCESS,
     answers,
+    writeLast,
   };
 }
 

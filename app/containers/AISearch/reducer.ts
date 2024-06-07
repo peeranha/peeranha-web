@@ -18,7 +18,7 @@ export const initialState = fromJS({
 });
 
 function aiSearchReducer(state = initialState, action: any) {
-  const { type, error, answers, query } = action;
+  const { type, error, answers, query, writeLast } = action;
 
   switch (type) {
     case GET_SEARCH_RESULT:
@@ -31,7 +31,9 @@ function aiSearchReducer(state = initialState, action: any) {
     case GET_SEARCH_RESULT_SUCCESS:
       return state.set('searchResultLoading', false);
     case GET_CHUNK_SUCCESS:
-      return state.get('generationStopped') ? state : state.set('answers', [...answers]);
+      return state.get('generationStopped') && !writeLast
+        ? state
+        : state.set('answers', [...answers]);
     case STOP_GENERATION:
       return state.set('generationStopped', true);
     case START_OVER:

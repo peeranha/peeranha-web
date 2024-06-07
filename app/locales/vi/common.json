@@ -562,5 +562,6 @@
   "accessAI": "Truy cập AI được trang bị tài nguyên của {{community}}",
   "utilizeAI": "Sử dụng kỹ năng của AI từ tài nguyên của {{community}}",
   "whatIs": "Cái gì là {{community}}?",
-  "howToStart": "Làm thế nào để bắt đầu với {{community}}?"
+  "howToStart": "Làm thế nào để bắt đầu với {{community}}?",
+  "generationStopped": "Đã dừng tạo..."
 }

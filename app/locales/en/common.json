@@ -566,5 +566,6 @@
   "accessAI": "Access AI equipped with {{community}} resources",
   "utilizeAI": "Utilize AI's proficiency from {{community}} resources",
   "whatIs": "What is {{community}}?",
-  "howToStart": "How to start with {{community}}?"
+  "howToStart": "How to start with {{community}}?",
+  "generationStopped": "Generation stopped..."
 }
