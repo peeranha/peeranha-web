@@ -188,6 +188,11 @@ export const Questions = ({
     [profile],
   );
 
+  const isEmptyCommnity = useMemo(
+    () => communities.find((community) => community.id === single)?.postCount === 0,
+    [communities],
+  );
+
   const getTabTitle = () => {
     if (postsTypes.length === 1) {
       switch (postsTypes[0]) {
@@ -230,7 +235,7 @@ export const Questions = ({
         postsTypes={postsTypes}
         locale={locale}
       />
-      {!(isTutorialPage || isTopCommunitiesDisplay) && (
+      {!(isTutorialPage || isTopCommunitiesDisplay || isEmptyCommnity) && (
         <SubHeader
           filterTabByAnswers={filterTabByAnswers}
           setFilterTabByAnswers={setFilterTabByAnswers}
