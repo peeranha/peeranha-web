@@ -1,15 +1,15 @@
 const getFilterTabByAnswersQueryGraph = (filterTabByAnswersId: number) => {
   if (filterTabByAnswersId === 1) {
-    return 'replyCount: 0,';
+    return 'replyCount: 0';
   }
   if (filterTabByAnswersId === 2) {
-    return 'replyCount_gte: 1,';
+    return 'replyCount_gte: 1';
   }
   if (filterTabByAnswersId === 3) {
-    return 'bestReply_gte: 1,';
+    return 'bestReply_gte: 1';
   }
   if (filterTabByAnswersId === 4) {
-    return 'officialReply_gte: 1,';
+    return 'officialReply_gte: 1';
   }
   return '';
 };

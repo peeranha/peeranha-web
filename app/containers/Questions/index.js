@@ -139,14 +139,6 @@ export const Questions = ({
     }
   }, [JSON.stringify(postsTypes)]);
 
-  // useEffect(() => {
-  //   console.log(filterTabByAnswers, 'filterTabByAnswers<---');
-  //   console.log(page, 'page<---');
-  //   if (page !== 1) {
-  //     setPage(1);
-  //   }
-  // }, [filterTabByAnswers?.id]);
-
   useEffect(() => {
     setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
   }, [params.communityid, setTypeFilterDispatch]);

@@ -8,6 +8,7 @@ import { BG_TRANSPARENT, BG_PRIMARY } from 'style-constants';
 import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 
 import { ANSWERS_TYPES } from './constants';
+import { PAGINATION_SEARCH_ROUTE } from './Content/Pagination/constants';
 
 const colors = singleCommunityColors();
 const graphCommunity = graphCommunityColors();
@@ -19,7 +20,7 @@ export const SubHeader = ({ filterTabByAnswers, setFilterTabByAnswers }) => {
 
   const setActiveFilterTabByAnswers = (type) => {
     setFilterTabByAnswers(type);
-    if (window.location.search.slice(0, 6) === '?page=') {
+    if (window.location.search.slice(0, 6) === PAGINATION_SEARCH_ROUTE) {
       createdHistory.push(location.pathname);
     }
   };
