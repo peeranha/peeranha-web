@@ -31,6 +31,7 @@ export function* getQuestionsWorker({
   tags,
   communityIdFilter,
   parentPage,
+  filterTabByAnswersId,
 }) {
   try {
     const ethereumService = yield select(selectEthereum);
@@ -64,13 +65,14 @@ export function* getQuestionsWorker({
         postTypes,
         [communityIdFilter],
         tags,
+        filterTabByAnswersId,
         indexerOnly,
       );
     }
 
     if (!communityIdFilter && parentPage !== feed) {
       questionsList = !notHiddenCommunities
-        ? yield call(getPosts, limit, skip, postTypes, indexerOnly)
+        ? yield call(getPosts, limit, skip, postTypes, filterTabByAnswersId, indexerOnly)
         : yield call(
             getPostsByCommunityId,
             limit,
@@ -78,6 +80,7 @@ export function* getQuestionsWorker({
             postTypes,
             notHiddenCommunities,
             tags,
+            filterTabByAnswersId,
             indexerOnly,
           );
     }
@@ -96,6 +99,7 @@ export function* getQuestionsWorker({
         postTypes,
         followedCommunities,
         tags,
+        filterTabByAnswersId,
         indexerOnly,
       );
     }

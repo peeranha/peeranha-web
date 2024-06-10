@@ -41,3 +41,11 @@ export const MOVE_QUESTION_ERROR = 'app/Questions/MOVE_QUESTION_ERROR';
 export const TOP_QUESTIONS_LOAD_NUMBER = 7;
 
 export const START_DYNAMIC_PAGINATION = 4;
+
+export const ANSWERS_TYPES = [
+  { id: 0, name: 'all' },
+  { id: 1, name: 'unanswered' },
+  { id: 2, name: 'answered' },
+  { id: 3, name: 'withBestAnswer' },
+  { id: 4, name: 'withOfficialAnswer' },
+];
