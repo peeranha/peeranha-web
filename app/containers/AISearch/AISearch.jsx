@@ -52,7 +52,6 @@ const AISearch = ({
   chatStarted,
   stopGenerationDispatch,
 }) => {
-  searchResultLoading = true;
   const { t } = useTranslation();
   const inputRef = useRef(null);
 
