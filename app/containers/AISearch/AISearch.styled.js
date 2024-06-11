@@ -160,6 +160,7 @@ export const styles = {
   },
 
   text: {
+    lineHeight: '24px !important',
     fontSize: '16px',
     'user-select': 'text',
     color: graphCommunity ? '#E1E1E4' : '#282828',

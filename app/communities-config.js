@@ -415,8 +415,8 @@ const communitiesConfig = {
     : {
         '1-2': {
           origin: 'http://localhost:3000',
-          src: 'https://images.peeranha.io/communities/mintStateLabs/logo.svg',
-          styles: MintStateLabsStyles,
+          src: 'https://images.peeranha.io/communities/graph/logo.svg',
+          styles: GraphStyles,
         },
       },
 };
