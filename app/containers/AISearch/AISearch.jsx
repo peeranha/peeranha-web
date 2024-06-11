@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useTranslation } from 'react-i18next';
 import Base from 'components/Base';
+import { BG_LIGHT } from 'style-constants';
 
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
@@ -51,6 +52,7 @@ const AISearch = ({
   chatStarted,
   stopGenerationDispatch,
 }) => {
+  searchResultLoading = true;
   const { t } = useTranslation();
   const inputRef = useRef(null);
 
@@ -137,7 +139,7 @@ const AISearch = ({
         </Base>
         {searchResultLoading ? (
           <div css={styles.communicationField}>
-            <LargeOutlinedButton onClick={stopGenerationDispatch} css={styles.additionalButton}>
+            <LargeOutlinedButton onClick={stopGenerationDispatch}>
               <ButtonLoader width="16" css={styles.loader} />
               {t('common.stopGenerating')}
             </LargeOutlinedButton>

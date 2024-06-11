@@ -13,6 +13,7 @@ import {
 import { getSearchResult } from 'utils/semanticSearch';
 
 export function* getSearchResultWorker({ query, communityId }) {
+  let response = null;
   try {
     const answers = yield select(selectAnswers());
     const threadId = yield select(selectThreadId());
@@ -36,6 +37,7 @@ export function* getSearchResultWorker({ query, communityId }) {
       }
 
       const chunkData = decoder.decode(value, { stream: true });
+      response = chunkData;
       const jsonObjects = `[${chunkData.replace(/}{/g, '}, {')}]`;
       const result = JSON.parse(jsonObjects);
       answers[answers.length - 1].answer = result[result.length - 1].answer;
@@ -44,7 +46,7 @@ export function* getSearchResultWorker({ query, communityId }) {
     }
     yield put(getSearchResultSuccess());
   } catch (e) {
-    console.log('Stream ERROR ', e);
+    console.log('Stream ERROR ', response, ' error text: ', e);
     yield put(getSearchResultError(e));
   }
 }
