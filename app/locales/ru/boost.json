@@ -1,0 +1,19 @@
+{
+  "title": "Увеличение",
+  "description": "Увеличение | Описание",
+  "currentPeriod": "Текущий период",
+  "nextPeriod": "Следующий период",
+  "maximumStake": "Средняя ставка",
+  "users": "Пользователи",
+  "yourStake": "Ваша ставка",
+  "yourBoost": "Ваше увеличение",
+  "yourPredictedBoost": "Ваше прогнозируемое увеличение",
+  "formTitle": "Ставка на следующий период",
+  "formSubmit": "Сохранить",
+  "formCancel": "Отмена",
+  "formBoostPrediction": "Прогноз увеличения",
+  "formCurrentStake": "Ваша ставка",
+  "formTakeAStake": "Взять ставку",
+  "formUnstakeTokens": "Снять ставку",
+  "notTokensToStake": "У вас нет токенов для ставки"
+}

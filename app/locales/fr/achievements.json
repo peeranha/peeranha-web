@@ -1,0 +1,163 @@
+{
+  "questionAsked": {
+    "bronze": {
+      "title": "Bronze - L'apprenant",
+      "description": "Poser 10 questions"
+    },
+    "silver": {
+      "title": "Argent - Approfondissement",
+      "description": "Poser 50 questions"
+    },
+    "gold": {
+      "title": "Or - Je veux tout savoir !",
+      "description": "Poser 100 questions"
+    }
+  },
+  "answerGiven": {
+    "bronze": {
+      "title": "Bronze - Expert",
+      "description": "Répondre à 20 questions"
+    },
+    "silver": {
+      "title": "Argent - Maître",
+      "description": "Répondre à 100 questions"
+    },
+    "gold": {
+      "title": "Or - Guru",
+      "description": "Répondre à 200 questions"
+    }
+  },
+  "bestAnswer": {
+    "bronze": {
+      "title": "Bronze - Un véritable professionnel",
+      "description": "Recevoir 5 marques comme \"La meilleure réponse\""
+    },
+    "silver": {
+      "title": "Silver - Érudit",
+      "description": "Recevoir 25 marques comme \"La meilleure réponse\""
+    },
+    "gold": {
+      "title": "Gold - Intelligence Artificielle",
+      "description": "Recevoir 50 marques comme \"La meilleure réponse\""
+    }
+  },
+  "firstIn15": {
+    "bronze": {
+      "title": "Bronze - Le plus rapide de l'Ouest",
+      "description": "Poster des réponses pour 5 questions différentes en 15 minutes après que les questions ont été posées"
+    },
+    "silver": {
+      "title": "Silver - À fond la caisse",
+      "description": "Poster des réponses pour 10 questions différentes en 15 minutes après que les questions ont été posées"
+    },
+    "gold": {
+      "title": "Gold - Éclair",
+      "description": "Poster des réponses pour 10 questions différentes en 15 minutes après que les questions ont été posées"
+    }
+  },
+  "firstAnswer": {
+    "bronze": {
+      "title": "Bronze - Aide rapide",
+      "description": "Soyez le premier à publier une réponse pour 10 questions différentes"
+    },
+    "silver": {
+      "title": "Argent - J'étais là le premier !",
+      "description": "Soyez le premier à publier une réponse pour 25 questions différentes"
+    },
+    "gold": {
+      "title": "Or - Champion incontesté",
+      "description": "Soyez le premier à publier une réponse pour 50 questions différentes"
+    }
+  },
+  "welcomeStranger": {
+    "title": "Bienvenue, Étranger",
+    "description": "Inscrivez-vous avec succès sur Peeranha"
+  },
+  "newbie": {
+    "title": "Le début d'un grand voyage",
+    "description": "Atteignez le statut de \"Newbie\""
+  },
+  "junior": {
+    "title": "Ne m'appelle pas Junior !",
+    "description": "Atteignez le statut de \"Junior\""
+  },
+  "resident": {
+    "title": "Peeranha est ma maison",
+    "description": "Atteindre le statut \"Résident\""
+  },
+  "senior": {
+    "title": "Je peux tout vous apprendre",
+    "description": "Atteindre le statut \"Senior\""
+  },
+  "hero": {
+    "title": "Ce site a besoin d'un héros",
+    "description": "Atteindre le statut \"Héros\""
+  },
+  "superhero": {
+    "title": "Une légende vivante",
+    "description": "Atteindre le statut \"Superhéros\""
+  },
+  "foundingMember": {
+    "title": "Membre fondateur",
+    "description": "Faire partie des 10 000 premiers utilisateurs à s'inscrire avec succès sur Peeranha"
+  },
+  "activist": {
+    "title": "Activiste",
+    "description": "Faire partie des 700 premiers utilisateurs à atteindre le statut \"Nouveau\""
+  },
+  "researcher": {
+    "title": "Chercheur",
+    "description": "Faire partie des 500 premiers utilisateurs à atteindre le statut \"Junior\""
+  },
+  "honorableResident": {
+    "title": "Résident honorable",
+    "description": "Faire partie des 300 premiers utilisateurs à atteindre le statut \"Résident\""
+  },
+  "theWisest": {
+    "title": "Le plus sage",
+    "description": "Faire partie des 150 premiers utilisateurs à atteindre le statut \"Senior\""
+  },
+  "modernHero": {
+    "title": "Héros moderne",
+    "description": "Faire partie des 50 premiers utilisateurs à atteindre le statut \"Héros\""
+  },
+  "kingOfTheHill": {
+    "title": "Roi de la colline",
+    "description": "Faire partie des 10 premiers utilisateurs à atteindre le statut \"Superhéros\""
+  },
+  "progressBarPopover": {
+    "ratingRelated": {
+      "single": "point de réputation restant pour débloquer cette réussite",
+      "multiple": "points de réputation restants pour débloquer cette réussite"
+    },
+    "questionAskedRelated": {
+      "single": "question restante pour débloquer cette réussite",
+      "multiple": "questions restantes pour débloquer cette réussite"
+    },
+    "answerGivenRelated": {
+      "single": "réponse restante pour débloquer cette réussite",
+      "multiple": "réponses restantes pour débloquer cette réussite"
+    },
+    "bestAnswerRelated": {
+      "single": "meilleure réponse restante pour débloquer cette réussite",
+      "multiple": "meilleures réponses restantes pour débloquer cette réussite"
+    },
+    "firstAnswerIn15Related": {
+      "single": "réponse en 15 minutes restante pour débloquer cette réussite",
+      "multiple": "réponses en 15 minutes restantes pour débloquer cette réussite"
+    },
+    "firstAnswerRelated": {
+      "single": "première réponse restante pour débloquer cette réussite",
+      "multiple": "premières réponses restantes pour débloquer cette réussite"
+    }
+  },
+  "separators": {
+    "ratingRelated": "Réputation",
+    "questionAskedRelated": "Questions",
+    "answerGivenRelated": "Réponses",
+    "bestAnswerRelated": "Meilleures réponses",
+    "firstAnswerIn15Related": "Réponses en 15 minutes",
+    "firstAnswerRelated": "Premières réponses"
+  },
+  "claim": "Réclamer"
+}

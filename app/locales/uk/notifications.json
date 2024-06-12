@@ -1,0 +1,21 @@
+{
+  "youHaveNoNewNotifications": "У вас немає нових повідомлень.",
+  "yourQuestionWasUpVoted": "Ваш пост був позитивно оцінений.",
+  "yourQuestionWasDownVoted": "Ваш пост був негативно оцінений.",
+  "yourQuestionUpVoteWasCanceled": "Скасовано вашу позитивну оцінку поста.",
+  "yourQuestionDownVoteWasCanceled": "Скасовано вашу негативну оцінку поста.",
+  "yourAnswerWasUpVoted": "Ваша відповідь була позитивно оцінена.",
+  "yourAnswerWasDownVoted": "Ваша відповідь була негативно оцінена.",
+  "yourAnswerUpVoteWasCanceled": "Скасовано вашу позитивну оцінку відповіді.",
+  "yourAnswerDownVoteWasCanceled": "Скасовано вашу негативну оцінку відповіді.",
+  "yourAnswerWasMarkedAsTheBest": "Вашу відповідь відзначено як кращу",
+  "somebodyAnsweredYourQuestion": "На ваш пост була дана відповідь",
+  "somebodyLeftACommentToYourQuestion": "Ваш пост отримав коментар",
+  "somebodyLeftACommentToYourAnswer": "Ваша відповідь отримала коментар",
+  "yourQuestionWasTipped": "На ваш пост надійшло {{quantity}}",
+  "yourAnswerWasTipped": "На вашу відповідь надійшло {{quantity}}",
+  "yourPostTypeWasChanged": "Тип вашого поста змінено",
+  "communityWasChanged": "Ваш пост було переміщено",
+  "communityChangedFromTo": "зі спільноти {{previousCommunity}} до спільноти {{currentCommunity}}",
+  "postTypeChangedFromTo": "з {{previousPostType}} на {{postType}}"
+}

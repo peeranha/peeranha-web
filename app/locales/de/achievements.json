@@ -1,0 +1,163 @@
+{
+  "questionAsked": {
+    "bronze": {
+      "title": "Bronze - Der Lernende",
+      "description": "Stelle 10 Fragen"
+    },
+    "silver": {
+      "title": "Silber - Tiefer graben",
+      "description": "Stelle 50 Fragen"
+    },
+    "gold": {
+      "title": "Gold - Ich will alles wissen!",
+      "description": "Stelle 100 Fragen"
+    }
+  },
+  "answerGiven": {
+    "bronze": {
+      "title": "Bronze - Experte",
+      "description": "Beantworte 20 Fragen"
+    },
+    "silver": {
+      "title": "Silber - Meister",
+      "description": "Beantworte 100 Fragen"
+    },
+    "gold": {
+      "title": "Gold - Guru",
+      "description": "Beantworte 200 Fragen"
+    }
+  },
+  "bestAnswer": {
+    "bronze": {
+      "title": "Bronze - Ein wahrer Profi",
+      "description": "Erhalte 5 Bewertungen als \"Die beste Antwort\""
+    },
+    "silver": {
+      "title": "Silber - Belesen",
+      "description": "Erhalte 25 Bewertungen als \"Die beste Antwort\""
+    },
+    "gold": {
+      "title": "Gold - Künstliche Intelligenz",
+      "description": "Erhalte 50 Bewertungen als \"Die beste Antwort\""
+    }
+  },
+  "firstIn15": {
+    "bronze": {
+      "title": "Bronze - Schnellste Hand im Westen",
+      "description": "Poste Antworten für 5 verschiedene Fragen innerhalb von 15 Minuten nachdem die Fragen gestellt wurden"
+    },
+    "silver": {
+      "title": "Silber - Vollgas",
+      "description": "Poste Antworten für 10 verschiedene Fragen innerhalb von 15 Minuten nachdem die Fragen gestellt wurden"
+    },
+    "gold": {
+      "title": "Gold - Schnelle Hilfe",
+      "description": "Sei der Erste, der für 10 verschiedene Fragen eine Antwort postet"
+    }
+  },
+  "firstAnswer": {
+    "bronze": {
+      "title": "Bronze - Schnelle Hilfe",
+      "description": "Sei der Erste, der für 10 verschiedene Fragen eine Antwort postet"
+    },
+    "silver": {
+      "title": "Silber - Ich war zuerst hier!",
+      "description": "Sei der Erste, der für 25 verschiedene Fragen eine Antwort postet"
+    },
+    "gold": {
+      "title": "Gold - Unumstrittener Champion",
+      "description": "Sei der Erste, der für 50 verschiedene Fragen eine Antwort postet"
+    }
+  },
+  "welcomeStranger": {
+    "title": "Willkommen, Fremder",
+    "description": "Erfolgreich bei Peeranha registrieren"
+  },
+  "newbie": {
+    "title": "Der Beginn einer großartigen Reise",
+    "description": "Erreiche den Status \"Newbie\""
+  },
+  "junior": {
+    "title": "Nenn' mich nicht Junior!",
+    "description": "Erreiche den Status \"Junior\""
+  },
+  "resident": {
+    "title": "Peeranha ist mein Zuhause",
+    "description": "Erreiche den Status \"Resident\""
+  },
+  "senior": {
+    "title": "Ich kann dir alles beibringen",
+    "description": "Erreiche den Status \"Senior\""
+  },
+  "hero": {
+    "title": "Diese Website braucht einen Helden",
+    "description": "Erreiche den Status \"Hero\""
+  },
+  "superhero": {
+    "title": "Eine lebende Legende",
+    "description": "Erreiche den Status \"Superheld\""
+  },
+  "foundingMember": {
+    "title": "Gründungsmitglied",
+    "description": "Sei einer der ersten 10.000 Benutzer, die sich erfolgreich auf Peeranha registrieren"
+  },
+  "activist": {
+    "title": "Aktivist",
+    "description": "Sei einer der ersten 700 Benutzer, die den Status \"Newbie\" erreichen"
+  },
+  "researcher": {
+    "title": "Forscher",
+    "description": "Sei einer der ersten 500 Benutzer, die den Status \"Junior\" erreichen"
+  },
+  "honorableResident": {
+    "title": "Ehrenhafter Bewohner",
+    "description": "Sei einer der ersten 300 Benutzer, die den Status \"Resident\" erreichen"
+  },
+  "theWisest": {
+    "title": "Der Weiseste",
+    "description": "Sei einer der ersten 150 Benutzer, die den Status \"Senior\" erreichen"
+  },
+  "modernHero": {
+    "title": "Moderner Held",
+    "description": "Sei einer der ersten 50 Benutzer, die den Status \"Hero\" erreichen"
+  },
+  "kingOfTheHill": {
+    "title": "König des Hügels",
+    "description": "Sei einer der ersten 10 Benutzer, die den Status \"Superheld\" erreichen"
+  },
+  "progressBarPopover": {
+    "ratingRelated": {
+      "single": "Bewertungspunkt bleibt, um diese Errungenschaft zu entsperren",
+      "multiple": "Rufpunkte bleiben, um diese Errungenschaft zu entsperren"
+    },
+    "questionAskedRelated": {
+      "single": "Frage bleibt, um diese Errungenschaft zu entsperren",
+      "multiple": "Fragen bleiben, um diese Errungenschaft zu entsperren"
+    },
+    "answerGivenRelated": {
+      "single": "Antwort bleibt, um diese Errungenschaft zu entsperren",
+      "multiple": "Antworten bleiben, um diese Errungenschaft zu entsperren"
+    },
+    "bestAnswerRelated": {
+      "single": "beste Antwort bleibt, um diese Errungenschaft zu entsperren",
+      "multiple": "beste Antworten bleiben, um diese Errungenschaft zu entsperren"
+    },
+    "firstAnswerIn15Related": {
+      "single": "Antwort in 15 Minuten bleibt, um diese Errungenschaft zu entsperren",
+      "multiple": "Antworten in 15 Minuten bleiben, um diese Errungenschaft zu entsperren"
+    },
+    "firstAnswerRelated": {
+      "single": "erste Antwort bleibt, um diese Errungenschaft zu entsperren",
+      "multiple": "erste Antworten bleiben, um diese Errungenschaft zu entsperren"
+    }
+  },
+  "separators": {
+    "ratingRelated": "Bewertungen",
+    "questionAskedRelated": "Fragen",
+    "answerGivenRelated": "Antworten",
+    "bestAnswerRelated": "Die besten Antworten",
+    "firstAnswerIn15Related": "Antworten in 15 Minuten",
+    "firstAnswerRelated": "Erste Antworten"
+  },
+  "claim": "Anspruch"
+}
