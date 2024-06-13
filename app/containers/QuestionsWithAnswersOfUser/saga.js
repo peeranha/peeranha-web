@@ -1,8 +1,10 @@
 /* eslint no-param-reassign: 0, array-callback-return: 0 */
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { selectUsers } from 'containers/Users/selectors';
 
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import maxBy from 'lodash/maxBy';
@@ -64,6 +66,17 @@ export function* banUserWorker({ user, communityId }) {
 
     const account = yield select(makeSelectAccount());
     yield call(banUser, account, user, communityId, ethereumService);
+
+    const fullProfileInfo = yield select(selectUsers(user));
+
+    const updatedProfileInfo = {
+      ...fullProfileInfo,
+      communityBans: fullProfileInfo.communityBans
+        ? [...fullProfileInfo.communityBans, communityId]
+        : [communityId],
+    };
+
+    yield put(getUserProfileSuccess(updatedProfileInfo));
 
     yield put(banUserSuccess);
   } catch (err) {}
