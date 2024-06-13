@@ -202,6 +202,7 @@ const MainUserInformation = ({
   redirectToEditProfilePage,
   userAchievementsLength,
   banUser,
+  unbanUser,
 }) => {
   const { t } = useTranslation();
   const isTemporaryAccount = !!profile?.integer_properties?.find(
@@ -371,15 +372,16 @@ const MainUserInformation = ({
             </Span>
             {Boolean(singleCommunity && isAdmin && !isSuiBlockchain) && (
               <AreYouSure
-                submitAction={banUser}
+                submitAction={isBanned ? unbanUser : banUser}
+                isBanned={isBanned}
                 Button={({ onClick }) => (
                   <InfoButton
                     css={desktopButtonStyles}
                     onClick={onClick}
                     id={`ban-user-desktop-${userId}`}
-                    disabled={isUserAdmin || isBanned}
+                    disabled={isUserAdmin}
                   >
-                    {isBanned ? t('common.bannedUser') : t('common.banUser')}
+                    {isBanned ? t('common.unbanUser') : t('common.banUser')}
                   </InfoButton>
                 )}
               />
@@ -541,15 +543,16 @@ const MainUserInformation = ({
 
                   {Boolean(singleCommunity && isAdmin && !isSuiBlockchain) && (
                     <AreYouSure
-                      submitAction={banUser}
+                      submitAction={isBanned ? unbanUser : banUser}
+                      isBanned={isBanned}
                       Button={({ onClick }) => (
                         <InfoButton
                           css={mobileButtonStyles}
                           onClick={onClick}
                           id={`ban-user-mobile-${userId}`}
-                          disabled={isUserAdmin || isBanned}
+                          disabled={isUserAdmin}
                         >
-                          {isBanned ? t('common.bannedUser') : t('common.banUser')}
+                          {isBanned ? t('common.unbanUser') : t('common.banUser')}
                         </InfoButton>
                       )}
                     />

@@ -533,7 +533,8 @@
     "grantRole": "Give permission",
     "revokeRole": "Revoke permission",
     "mintUserNFT": "Claim NFT",
-    "banCommunityUser": "Ban user in community"
+    "banCommunityUser": "Ban user in community",
+    "unBanCommunityUser": "Unban user in community"
   },
   "aboutPeeranha": "About Peeranha",
   "postsAnswersComments": "Posts, Answers and Comments",
@@ -558,5 +559,7 @@
   "canWork": "Meanwhile, feel free to continue working on the site.",
   "banUser": "Ban user",
   "bannedUser": "Banned user",
-  "areYouSure": "Are you sure you want to ban the user?"
+  "unbanUser": "Unban user",
+  "areYouSure": "Are you sure you want to ban the user?",
+  "areYouSureToUnban": "Are you sure you want to unban the user?"
 }
