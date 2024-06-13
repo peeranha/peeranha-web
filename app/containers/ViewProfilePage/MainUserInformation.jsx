@@ -370,7 +370,7 @@ const MainUserInformation = ({
             >
               {getUserName(profile?.displayName, userId)}
             </Span>
-            {Boolean(singleCommunity && isAdmin && !isSuiBlockchain) && (
+            {Boolean(singleCommunity && isAdmin && !isUserAdmin && !isSuiBlockchain) && (
               <AreYouSure
                 submitAction={isBanned ? unbanUser : banUser}
                 isBanned={isBanned}
@@ -541,7 +541,7 @@ const MainUserInformation = ({
                     </button>
                   </div>
 
-                  {Boolean(singleCommunity && isAdmin && !isSuiBlockchain) && (
+                  {Boolean(singleCommunity && isAdmin && !isUserAdmin && !isSuiBlockchain) && (
                     <AreYouSure
                       submitAction={isBanned ? unbanUser : banUser}
                       isBanned={isBanned}
