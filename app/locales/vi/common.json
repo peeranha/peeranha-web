@@ -415,12 +415,16 @@
     "pageTitle": "Cộng đồng | Cài đặt",
     "general": "Tổng quan",
     "translations": "bản dịch",
+    "advanced": "Trình độ cao",
     "interfaceLanguages": "Ngôn ngữ giao diện cộng đồng",
     "interfaceTranslation": "Trang web cộng đồng sẽ cung cấp bản dịch giao diện sang các ngôn ngữ sau.",
     "selectLanguages": "Chọn ngôn ngữ",
     "enableAutotranslations": "Bật dịch tự động",
     "translationsTooltip": "Bài đăng, câu trả lời và nhận xét được đăng trong cộng đồng sẽ được dịch tự động sang ngôn ngữ đã chọn. Nội dung này cũng sẽ được lập chỉ mục bởi các công cụ tìm kiếm bằng ngôn ngữ đó, giúp người đọc dễ dàng tìm thấy hơn.",
-    "deleteLanguage": "Xóa ngôn ngữ"
+    "deleteLanguage": "Xóa ngôn ngữ",
+    "emergencyFreeze": "Đóng băng khẩn cấp",
+    "freezeCommunity": "Đóng băng cộng đồng",
+    "unfreezeCommunity": "Giải phóng cộng đồng"
   },
   "editQuestion": {
     "description": "Chỉnh sửa mô tả câu hỏi",
@@ -488,6 +492,8 @@
     "updateUser": "Cập nhật hồ sơ người dùng",
     "createCommunity": "Tạo cộng đồng",
     "updateCommunity": "Cập nhật cộng đồng",
+    "freezeCommunity": "Đóng băng cộng đồng",
+    "unfreezeCommunity": "Giải phóng cộng đồng",
     "unfollowCommunity": "Bỏ theo dõi cộng đồng",
     "createTag": "Tạo thẻ",
     "updateTag": "Cập nhật thẻ",

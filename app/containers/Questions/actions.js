@@ -23,7 +23,15 @@ import {
   MOVE_QUESTION_ERROR,
 } from './constants';
 
-export function getQuestions(limit, skip, postTypes, tags, communityIdFilter, parentPage) {
+export function getQuestions(
+  limit,
+  skip,
+  postTypes,
+  tags,
+  communityIdFilter,
+  parentPage,
+  filterTabByAnswersId,
+) {
   return {
     type: GET_QUESTIONS,
     limit,
@@ -32,6 +40,7 @@ export function getQuestions(limit, skip, postTypes, tags, communityIdFilter, pa
     tags,
     communityIdFilter,
     parentPage,
+    filterTabByAnswersId,
   };
 }
 

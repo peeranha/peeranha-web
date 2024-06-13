@@ -30,20 +30,23 @@ import { useModeratorRole } from 'hooks/useModeratorRole';
 
 import Form from './Form';
 
-import { editCommunity, getCommunity } from './actions';
+import { editCommunity, freezeCommunity, getCommunity } from './actions';
 import {
   selectCommunity,
   selectEditCommunityLoading,
+  selectFreezeCommunityLoading,
   selectGetCommunityLoading,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { GENERAL_TAB } from './constants';
+import { GENERAL_TAB, TRANSLATIONS_TAB } from './constants';
 
 const EditCommunity = ({
   community,
   editCommunityDispatch,
   editCommunityLoading,
+  freezeCommunityDispatch,
+  freezeCommunityLoading,
   faqQuestions,
   getCommunityDispatch,
   locale,
@@ -72,8 +75,18 @@ const EditCommunity = ({
       isModerator: hasGlobalModeratorRole(getPermissions(profileInfo)),
       tab,
       setTab,
+      freezeCommunityDispatch,
+      freezeCommunityLoading,
     }),
-    [community, communityId, editCommunityDispatch, editCommunityLoading, tab],
+    [
+      community,
+      communityId,
+      editCommunityDispatch,
+      editCommunityLoading,
+      tab,
+      freezeCommunityDispatch,
+      freezeCommunityLoading,
+    ],
   );
   return (
     <div>
@@ -91,7 +104,7 @@ const EditCommunity = ({
 
         {!communityLoading && <Form {...formData} />}
 
-        {tab === GENERAL_TAB && <Tips faqQuestions={faqQuestions} />}
+        {tab !== TRANSLATIONS_TAB && <Tips faqQuestions={faqQuestions} tab={tab} />}
       </TipsBase>
     </div>
   );
@@ -100,6 +113,8 @@ const EditCommunity = ({
 EditCommunity.propTypes = {
   editCommunityDispatch: PropTypes.func.isRequired,
   editCommunityLoading: PropTypes.bool.isRequired,
+  freezeCommunityDispatch: PropTypes.func.isRequired,
+  freezeCommunityLoading: PropTypes.bool.isRequired,
   getCommunityDispatch: PropTypes.func.isRequired,
   getCommunityLoading: PropTypes.bool.isRequired,
   locale: PropTypes.string.isRequired,
@@ -113,6 +128,7 @@ const withConnect = connect(
   createStructuredSelector({
     community: selectCommunity(),
     editCommunityLoading: selectEditCommunityLoading(),
+    freezeCommunityLoading: selectFreezeCommunityLoading(),
     faqQuestions: selectFaqQuestions([WHAT_IS_COMMUNITY_QUESTION, WHO_MANAGES_COMMUNITY_QUESTION]),
     getCommunityLoading: selectGetCommunityLoading(),
     locale: makeSelectLocale(),
@@ -120,6 +136,7 @@ const withConnect = connect(
   }),
   (dispatch) => ({
     editCommunityDispatch: bindActionCreators(editCommunity, dispatch),
+    freezeCommunityDispatch: bindActionCreators(freezeCommunity, dispatch),
     getCommunityDispatch: bindActionCreators(getCommunity, dispatch),
   }),
 );

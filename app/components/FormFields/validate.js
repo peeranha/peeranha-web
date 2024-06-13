@@ -1,6 +1,5 @@
 import { isAddress } from 'ethers/lib/utils';
 import _get from 'lodash/get';
-import { isSuiBlockchain } from 'utils/constants';
 import { CURRENCIES } from 'wallet-config';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import {
@@ -8,6 +7,7 @@ import {
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
+  hasRoleInFrozenCommunity,
 } from 'utils/properties';
 
 // TODO: test
@@ -139,6 +139,15 @@ const requiredNotBanned = (...args) => {
   const initialId = args[2]?.question?.communityId;
 
   return profile?.communityBans?.includes(id || initialId) ? 'formFields.banned' : undefined;
+};
+
+const requiredNotFrozen = (...args) => {
+  const { id, isFrozen } = args[0];
+  const { profile } = args[2];
+
+  const isHasRoleInFrozenCommunity = hasRoleInFrozenCommunity(profile, id);
+
+  return isFrozen && !isHasRoleInFrozenCommunity ? 'formFields.frozen' : undefined;
 };
 
 const valueHasNotBeInList = (...args) => {
@@ -274,4 +283,5 @@ export {
   valueHasToBeLessThanMaxPromotingHours,
   stringHasToBeEthereumAddress,
   requiredNotBanned,
+  requiredNotFrozen,
 };

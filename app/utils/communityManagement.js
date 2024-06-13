@@ -14,6 +14,8 @@ import {
   FOLLOW_COMMUNITY,
   UNFOLLOW_COMMUNITY,
   EDIT_COMMUNITY,
+  FREEZE_COMMUNITY,
+  UNFREEZE_COMMUNITY,
   EDIT_TAG,
   CONTRACT_COMMUNITY,
   CONTRACT_USER,
@@ -64,6 +66,14 @@ export function getUnfollowedCommunities(allcommunities, followedcommunities) {
   return allcommunities.filter((x) => !followedcommunities.includes(x.id));
 }
 
+export function hasFrozenComunity(allcommunities, communityId) {
+  if (!communityId) return false;
+  const isFrozenCommunity = Boolean(
+    allcommunities.filter((community) => community.id === communityId && community.isFrozen).length,
+  );
+  return isFrozenCommunity;
+}
+
 export const editCommunity = async (
   ethereumService,
   selectedAccount,
@@ -83,6 +93,28 @@ export const editCommunity = async (
     user,
     EDIT_COMMUNITY,
     [user, getActualId(communityId), ipfsHash],
+    3,
+  );
+};
+
+export const freezeCommunity = async (ethereumService, account, communityId) => {
+  await ethereumService.sendTransaction(
+    getNetwork(communityId),
+    CONTRACT_COMMUNITY[getNetwork(communityId)],
+    account,
+    FREEZE_COMMUNITY,
+    [account, getActualId(communityId)],
+    3,
+  );
+};
+
+export const unfreezeCommunity = async (ethereumService, account, communityId) => {
+  await ethereumService.sendTransaction(
+    getNetwork(communityId),
+    CONTRACT_COMMUNITY[getNetwork(communityId)],
+    account,
+    UNFREEZE_COMMUNITY,
+    [account, getActualId(communityId)],
     3,
   );
 };

@@ -412,12 +412,16 @@
     "pageTitle": "Community | Settings",
     "general": "General",
     "translations": "Translations",
+    "advanced": "Advanced",
     "interfaceLanguages": "Community interface languages",
     "interfaceTranslation": "The community site will offer interface translation into the following languages.",
     "selectLanguages": "Select languages",
     "enableAutotranslations": "Enable autotranslations",
     "translationsTooltip": "Post, answers, and comments posted in the community will be automatically translated to the selected language. This content will also be indexed by search engines in that language, making it easier for readers to find.",
-    "deleteLanguage": "Delete language"
+    "deleteLanguage": "Delete language",
+    "emergencyFreeze": "Emergency Freeze",
+    "freezeCommunity": "Freeze community",
+    "unfreezeCommunity": "Unfreeze community"
   },
   "editQuestion": {
     "description": "Edit Post Description",
@@ -491,6 +495,8 @@
     "updateUser": "Update user profile",
     "createCommunity": "Create community",
     "updateCommunity": "Update community",
+    "freezeCommunity": "Freeze community",
+    "unfreezeCommunity": "Unfreeze community",
     "unfollowCommunity": "Unfollow community",
     "createTag": "Create tag",
     "updateTag": "Update tag",

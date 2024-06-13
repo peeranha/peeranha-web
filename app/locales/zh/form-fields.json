@@ -26,5 +26,6 @@
   "valueIsNotPositiveInteger": "值不是正整数",
   "requiredMinReputation": "你在这个社区的声誉是负面的，你不能创建新帖子。",
   "wrongAddressFormat": "值不是以太坊地址",
-  "banned": "很不幸，您在这个社区中的活动受到了版主的限制。"
+  "banned": "很不幸，您在这个社区中的活动受到了版主的限制。",
+  "frozen": "该社区的活动目前仅限于管理员和版主执行的操作。请稍后再试。"
 }

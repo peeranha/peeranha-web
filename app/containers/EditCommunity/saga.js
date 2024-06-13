@@ -3,15 +3,10 @@ import ReactGA from 'react-ga4';
 import { communities as communitiesRoute, feed } from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
-import { selectSuiWallet } from 'containers/SuiProvider/selectors';
-
-import { getCommunitiesSuccess } from 'containers/DataCacheProvider/actions';
-
-import { selectStat } from 'containers/DataCacheProvider/selectors';
-
 import {
   editCommunity,
+  freezeCommunity,
+  unfreezeCommunity,
   getAllCommunities,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
@@ -24,23 +19,31 @@ import { waitForTransactionConfirmation } from 'utils/sui/sui';
 import { updateSuiCommunity } from 'utils/sui/communityManagement';
 import { getFileUrl } from 'utils/ipfs';
 
-import {
-  editCommunityError,
-  editCommunitySuccess,
-  getCommunityError,
-  getCommunitySuccess,
-} from './actions';
-
-import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
-
-import { selectCommunity } from './selectors';
-import { selectEthereum } from '../EthereumProvider/selectors';
+import { selectSuiWallet } from 'containers/SuiProvider/selectors';
+import { getCommunitiesSuccess } from 'containers/DataCacheProvider/actions';
+import { selectStat } from 'containers/DataCacheProvider/selectors';
 import {
   transactionCompleted,
   transactionFailed,
   transactionInitialised,
   transactionInPending,
 } from 'containers/EthereumProvider/actions';
+
+import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
+
+import {
+  editCommunityError,
+  editCommunitySuccess,
+  getCommunityError,
+  getCommunitySuccess,
+  freezeCommunityError,
+  freezeCommunitySuccess,
+} from './actions';
+
+import { EDIT_COMMUNITY, GET_COMMUNITY, FREEZE_COMMUNITY } from './constants';
+
+import { selectCommunity } from './selectors';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* getCommunityWorker({ communityId }) {
   try {
@@ -111,14 +114,50 @@ export function* editCommunityWorker({ communityId, communityData }) {
       yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
     }
   } catch (error) {
+    yield put(editCommunityError(error));
+  }
+}
+
+export function* freezeCommunityWorker({ isFrozen, communityId }) {
+  try {
+    ReactGA.event({
+      category: 'Users',
+      action: 'freeze_community_started',
+    });
+
+    const isSingleCommunityMode = !!isSingleCommunityWebsite();
+    const ethereumService = yield select(selectEthereum);
+    const account = yield call(ethereumService.getSelectedAccount);
+
+    yield call(
+      isFrozen ? unfreezeCommunity : freezeCommunity,
+      ethereumService,
+      account,
+      communityId,
+    );
+    const stat = yield select(selectStat());
+    const communities = yield call(getAllCommunities, ethereumService, stat.communitiesCount);
+
+    yield put(getCommunitiesSuccess(communities));
+
+    yield put(freezeCommunitySuccess());
+    ReactGA.event({
+      category: 'Users',
+      action: 'freeze_community_completed',
+    });
+    if (window.location.pathname === `/communities/${communityId}/edit`) {
+      yield call(createdHistory.push, `${isSingleCommunityMode ? feed() : communitiesRoute()}`);
+    }
+  } catch (error) {
     if (isSuiBlockchain) {
       yield put(transactionFailed(error));
     }
-    yield put(editCommunityError(error));
+    yield put(freezeCommunityError(error));
   }
 }
 
 export default function* defaultSaga() {
   yield takeLatest(GET_COMMUNITY, getCommunityWorker);
   yield takeLatest(EDIT_COMMUNITY, editCommunityWorker);
+  yield takeLatest(FREEZE_COMMUNITY, freezeCommunityWorker);
 }

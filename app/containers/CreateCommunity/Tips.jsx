@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+
+import { GENERAL_TAB } from 'containers/EditCommunity/constants';
 
 import Label from 'components/FormFields/Label';
 import { Ul } from 'components/TextEditor/Tips';
 
-export const Tips = ({ faqQuestions }) => {
+export const Tips = ({ faqQuestions, tab }) => {
   const { t } = useTranslation();
+  const isGeneralTab = useMemo(() => tab === GENERAL_TAB, [tab]);
 
   return (
     <div>
@@ -14,16 +17,36 @@ export const Tips = ({ faqQuestions }) => {
 
       <Ul>
         <li>
-          <span>{t('createCommunity.imageWillBeTheFace')}</span>
+          <span>
+            {t(
+              `createCommunity.${
+                isGeneralTab ? 'imageWillBeTheFace' : 'emergencyFreezeImmediately'
+              }`,
+            )}
+          </span>
         </li>
         <li>
-          <span>{t('createCommunity.specifyMemorableTitle')}</span>
+          <span>
+            {t(
+              `createCommunity.${
+                isGeneralTab ? 'specifyMemorableTitle' : 'onlyAdministratorsModerators'
+              }`,
+            )}
+          </span>
         </li>
         <li>
-          <span>{t('createCommunity.communityDescriptionShouldBe')}</span>
+          <span>
+            {t(
+              `createCommunity.${
+                isGeneralTab ? 'communityDescriptionShouldBe' : 'allPostsReplies'
+              }`,
+            )}
+          </span>
         </li>
         <li>
-          <span>{t('createCommunity.writeWhyDoWeeNeed')}</span>
+          <span>
+            {t(`createCommunity.${isGeneralTab ? 'writeWhyDoWeeNeed' : 'anEmergencyFreeze'}`)}
+          </span>
         </li>
       </Ul>
     </div>
@@ -32,6 +55,7 @@ export const Tips = ({ faqQuestions }) => {
 
 Tips.propTypes = {
   faqQuestions: PropTypes.array,
+  tab: PropTypes.string,
 };
 
 export default React.memo(Tips);

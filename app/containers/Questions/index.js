@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
 import history from 'createdHistory';
 import * as routes from 'routes-config';
+
 import usePagination from 'hooks/usePagination';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -17,38 +18,35 @@ import { getCookie } from 'utils/cookie';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
 import {
   makeSelectAccount,
   makeSelectFollowedCommunities,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
-
 import {
   selectCommunities,
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
-
 import { showLoginModal, loginWithSui } from 'containers/Login/actions';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { HIDDEN_COMMUNITIES_ID } from 'containers/Communities/constants';
+import AnswerFilterBanner from 'containers/Search/Banner/Banner';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import ScrollToTop from 'components/ScrollToTop/index';
 import TopCommunities from 'components/TopCommunities';
 import Seo from 'components/Seo';
 
+import { ANSWERS_TYPES, QUESTION_FILTER } from './constants';
 import { getQuestions, setCreatedFilter, setTypeFilter } from './actions';
-
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
 import Content from './Content/Content';
 import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
-import { QUESTION_FILTER } from './constants';
+import SubHeader from './SubHeader';
 
 const single = isSingleCommunityWebsite();
 
@@ -75,6 +73,7 @@ export const Questions = ({
   questionsCount,
 }) => {
   const { t } = useTranslation();
+  const [filterTabByAnswers, setFilterTabByAnswers] = useState(ANSWERS_TYPES[0]);
   const { nextPage, prevPage, page, setPage, totalPages, limit, skip } = usePagination({
     contentPerPage: AMOUNT_POSTS_PAGINATION,
     count: questionsCount,
@@ -83,6 +82,8 @@ export const Questions = ({
   const isFeed = window.location.pathname === routes.feed(params.communityid);
   const isNotFollowedCommunities = isEmpty(followedCommunities) || followedCommunities[0] === 0;
   const isExpert = path === routes.expertPosts() || path === routes.expertPosts(':communityid');
+  const isTutorialPage = path === routes.tutorials();
+
   const isTopCommunitiesDisplay =
     isFeed &&
     !single &&
@@ -96,23 +97,45 @@ export const Questions = ({
       getQuestionsDispatch(
         limit,
         skip,
-        postsTypes,
+        isFeed && filterTabByAnswers?.id === ANSWERS_TYPES[1].id
+          ? [...postsTypes].slice(0, -1)
+          : postsTypes,
         searchParamsTags,
         params.communityid || 0,
         parentPage,
+        filterTabByAnswers?.id,
       );
     }
-  }, [params.communityid, history.location.search, parentPage, questionFilter, postsTypes, skip]);
+  }, [
+    params.communityid,
+    history.location.search,
+    parentPage,
+    questionFilter,
+    postsTypes,
+    skip,
+    filterTabByAnswers,
+  ]);
 
   useEffect(() => {
     if (!questionFilter) {
       getPosts();
     }
-  }, [page, params.communityid, parentPage, skip, postsTypes, communities.length]);
+  }, [
+    page,
+    params.communityid,
+    parentPage,
+    skip,
+    postsTypes,
+    communities.length,
+    filterTabByAnswers,
+  ]);
 
   useEffect(() => {
     if (page !== 1) {
       setPage(1);
+    }
+    if (filterTabByAnswers?.id !== ANSWERS_TYPES[0].id) {
+      setFilterTabByAnswers(ANSWERS_TYPES[0]);
     }
   }, [JSON.stringify(postsTypes)]);
 
@@ -157,6 +180,11 @@ export const Questions = ({
     [profile],
   );
 
+  const isEmptyCommnity = useMemo(
+    () => communities.find((community) => community.id === single)?.postCount === 0,
+    [communities],
+  );
+
   const getTabTitle = () => {
     if (postsTypes.length === 1) {
       switch (postsTypes[0]) {
@@ -199,17 +227,26 @@ export const Questions = ({
         postsTypes={postsTypes}
         locale={locale}
       />
-      {displayBanner && (
-        <Banner
-          isFeed={isFeed}
-          followedCommunities={followedCommunities}
-          redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-          isEmpty={questionsList.length === 0}
-          isSingleCommunityMode={single}
-          profileInfo={profile}
-          loginWithSuiDispatch={loginWithSuiDispatch}
+      {!(isTutorialPage || isTopCommunitiesDisplay || isEmptyCommnity) && (
+        <SubHeader
+          filterTabByAnswers={filterTabByAnswers}
+          setFilterTabByAnswers={setFilterTabByAnswers}
         />
       )}
+      {displayBanner &&
+        (filterTabByAnswers?.id ? (
+          <AnswerFilterBanner redirectToAskQuestionPage={redirectToAskQuestionPageDispatch} />
+        ) : (
+          <Banner
+            isFeed={isFeed}
+            followedCommunities={followedCommunities}
+            redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+            isEmpty={questionsList.length === 0}
+            isSingleCommunityMode={single}
+            profileInfo={profile}
+            loginWithSuiDispatch={loginWithSuiDispatch}
+          />
+        ))}
       {displayLoader ? (
         <LoadingIndicator />
       ) : (

@@ -26,6 +26,10 @@ export const styles = {
     iframe: {
       maxWidth: '100%',
     },
+    pre: {
+      position: 'relative',
+      backgroundColor: graphCommunity ? 'rgba(255, 255, 255, 0.45) !important' : '',
+    },
     background: graphCommunity ? 'none' : colors.backgroundSpecial || '',
     color: graphCommunity ? '#E1E1E4' : '#282828',
   },

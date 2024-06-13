@@ -66,6 +66,11 @@ const styles = {
     },
   },
 
+  freezeButton: {
+    display: 'block',
+    margin: '12px 0',
+  },
+
   popupMenu: {
     background: graphCommunity ? '#161425' : '#FFFFFF',
     boxShadow: '0px -2px 4px rgba(7, 16, 64, 0.1)',

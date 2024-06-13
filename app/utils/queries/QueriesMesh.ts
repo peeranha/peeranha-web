@@ -2,6 +2,22 @@ import { isSuiBlockchain } from 'utils/constants';
 
 export const getNetworkIds = (): string => (isSuiBlockchain ? '3' : '1, 2');
 
+const getFilterTabByAnswersQuery = (filterTabByAnswersId: number) => {
+  if (filterTabByAnswersId === 1) {
+    return 'replyCount: { lessThanOrEqualTo: 0 },';
+  }
+  if (filterTabByAnswersId === 2) {
+    return 'replyCount: { greaterThan: 0 },';
+  }
+  if (filterTabByAnswersId === 3) {
+    return 'bestReply: { greaterThan: 0 },';
+  }
+  if (filterTabByAnswersId === 4) {
+    return 'officialReply: { greaterThan: 0 },';
+  }
+  return '';
+};
+
 const userMesh = `
   id
   usercommunityrating {
@@ -480,7 +496,7 @@ export const postMeshShallow = `
     }
 `;
 
-export const postsQueryMesh = (postTypes: string) => `
+export const postsQueryMesh = (postTypes: string, filterTabByAnswersId: number) => `
   query (
   $limit: Int,
   $offset: Int
@@ -498,7 +514,8 @@ export const postsQueryMesh = (postTypes: string) => `
         },
         networkId: {
             in: [${getNetworkIds()}]
-        }
+        },
+        ${getFilterTabByAnswersQuery(filterTabByAnswersId)}
     }
   ) {
     ${postMeshShallow}
@@ -513,14 +530,19 @@ export const postsQueryMesh = (postTypes: string) => `
         },
         networkId: {
             in: [${getNetworkIds()}]
-        }
+        },
+        ${getFilterTabByAnswersQuery(filterTabByAnswersId)}
     }
   ) {
     totalCount
   }
 }`;
 
-export const postsByCommQueryMesh = (postTypes: string, communityIds: string) => `
+export const postsByCommQueryMesh = (
+  postTypes: string,
+  communityIds: string,
+  filterTabByAnswersId: number,
+) => `
   query (
   $limit: Int,
   $offset: Int
@@ -541,7 +563,8 @@ export const postsByCommQueryMesh = (postTypes: string, communityIds: string) =>
         },
         networkId: {
             in: [${getNetworkIds()}]
-        }
+        },
+        ${getFilterTabByAnswersQuery(filterTabByAnswersId)}
     }
   ) {
     ${postMeshShallow}
@@ -559,14 +582,19 @@ export const postsByCommQueryMesh = (postTypes: string, communityIds: string) =>
         },
         networkId: {
             in: [${getNetworkIds()}]
-        }
+        },
+        ${getFilterTabByAnswersQuery(filterTabByAnswersId)}
     }
   ) {
     totalCount
   }
 }`;
 
-export const postsCountByCommQueryMesh = (postTypes: string, communityIds: string) => `
+export const postsCountByCommQueryMesh = (
+  postTypes: string,
+  communityIds: string,
+  filterTabByAnswersId: number,
+) => `
   query (
   $limit: Int,
   $offset: Int
@@ -584,7 +612,8 @@ export const postsCountByCommQueryMesh = (postTypes: string, communityIds: strin
         },
         networkId: {
             in: [${getNetworkIds()}]
-        }
+        },
+        ${getFilterTabByAnswersQuery(filterTabByAnswersId)}
     }
   ) {
     totalCount
@@ -597,14 +626,15 @@ export const postsIdsByTagsQueryMesh = /* GraphQL */ `
   }
 `;
 
-export const postsByCommAndTagsQueryMesh = `
+export const postsByCommAndTagsQueryMesh = (filterTabByAnswersId: number) => `
   query ($ids: [String!]) {
   post (
     orderBy: POST_TIME_DESC,
     filter: {
       id: {
           in: $ids
-      }
+      },
+      ${getFilterTabByAnswersQuery(filterTabByAnswersId)}
     }
     condition: {
        isDeleted: false,
@@ -616,7 +646,8 @@ export const postsByCommAndTagsQueryMesh = `
     filter: {
         id: {
             in: $ids
-        }
+        },
+        ${getFilterTabByAnswersQuery(filterTabByAnswersId)}
     }
   ) {
     totalCount

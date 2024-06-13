@@ -2,8 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
 
+import { graphCommunityColors } from 'utils/communityManagement';
+
 import A from 'components/A';
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
+
+const graphCommunity = graphCommunityColors();
 
 type PopupForTorusWallet = {
   agreeWithDispatcherTransactions: () => void;
@@ -17,7 +21,13 @@ const PopupForTorusWallet: React.FC<PopupForTorusWallet> = ({
   const { t } = useTranslation();
   return (
     <>
-      <div className="tc pb-3" css={{ lineHeight: '18px' }}>
+      <div
+        className="tc pb-3"
+        css={{
+          ...{ lineHeight: '18px' },
+          ...(graphCommunity && { color: '#E1E1E4' }),
+        }}
+      >
         {t('common.metaTransaction.agreeWithMetaTransactionsText')}
       </div>
       <div className="df aic jcc">

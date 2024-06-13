@@ -1,10 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BORDER_SECONDARY } from 'style-constants';
+import { graphCommunityColors } from 'utils/communityManagement';
 
 import letterSmile from 'images/letter-smile.svg?inline';
 
 import Banner from 'components/Banner/Transparent';
+
+const graphCommunity = graphCommunityColors();
 
 const BannerStyled = Banner.extend`
   padding-top: 20px;
@@ -30,7 +33,7 @@ const BannerComponent = () => {
   return (
     <BannerStyled>
       <img src={letterSmile} alt="leave-message" />
-      <div>
+      <div css={graphCommunity && { color: '#E1E1E4' }}>
         <p>{t('common.supportDesc.feelFreeToAsk')}</p>
         <p>{t('common.supportDesc.alsoWeHighly')}</p>
       </div>

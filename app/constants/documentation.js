@@ -1,5 +1,5 @@
 export const DOCUMENTATION_ABOUT_LINK =
-  'https://meta.peeranha.io/documentation/QmVR8MrDrNeokBKQ18r8Hjmvtjt31qj1NwDmdJnT3dKXkQ/about-peeranha';
+  'https://meta.peeranha.io/documentation/QmdN8DQpTBa7sihq3ytXBZ2Z9yw1gK68dd7jm4u9KpjRT5/about-peeranha';
 export const DOCUMENTATION_COMMUNITY_LINK =
   'https://meta.peeranha.io/documentation/QmVBx4cCBpeBmW1W5zr4kntFPbGBKLpHgvTsWdMzuKmpiU/community';
 export const DOCUMENTATION_POSTS_ANSWERS_COMMENTS_LINK =
