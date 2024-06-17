@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { languages } from 'app/i18n';
@@ -24,28 +24,27 @@ const colors = singleCommunityColors();
 const singleCommunityId = isSingleCommunityWebsite();
 const graphCommunity = graphCommunityColors();
 
-export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) => {
+export const ChangeLocale = ({ changeLocale, locale, communities }) => {
   const [open, setOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const isDesktop = useMediaQuery('(min-width: 992px)');
 
-  const getAvailableLanguages = () => {
+  const getAvailableLanguages = useMemo(() => {
     const communityTranslations = communities?.find(
       (community) => community.id === singleCommunityId,
-    )?.translations;
+    )?.communitytranslation;
 
-    if (singleCommunityId) {
-      return communityTranslations?.length
-        ? {
-            en: 'en',
-            ...communityTranslations
-              .map((translation) => translation.language)
-              .reduce((acc, value) => ({ ...acc, [value]: value }), {}),
-          }
-        : languages;
+    if (singleCommunityId && communityTranslations?.length) {
+      const singleCommunityLanguages = {
+        en: 'en',
+        ...communityTranslations
+          .map((translation) => translation.language)
+          .reduce((acc, value) => ({ ...acc, [value]: value }), {}),
+      };
+      return Object.keys(singleCommunityLanguages);
     }
-    return languages;
-  };
+    return Object.keys(languages);
+  }, [communities]);
 
   useEffect(() => {
     const lang = getCookie(APP_LOCALE);
@@ -75,23 +74,23 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) =
           button={<ChangeLocaleButton locale={locale} />}
           menu={
             <ul>
-              {Object.keys(getAvailableLanguages()).map((item) => (
+              {getAvailableLanguages.map((language) => (
                 <Li
-                  key={item}
+                  key={language}
                   role="presentation"
-                  onClick={() => setLocale(item)}
-                  isBold={item === locale}
+                  onClick={() => setLocale(language)}
+                  isBold={language === locale}
                 >
                   <Flag
-                    src={`https://images.peeranha.io/languages/${item}_lang.svg`}
+                    src={`https://images.peeranha.io/languages/${language}_lang.svg`}
                     alt="language"
                     css={{
                       width: '18px',
                       height: '18px',
                     }}
                   />
-                  {t(`common.${item}`)}
-                  {item === locale && (
+                  {t(`common.${language}`)}
+                  {language === locale && (
                     <SelectedArrow
                       className="ml-3"
                       css={{ path: { fill: 'none' } }}
@@ -113,7 +112,13 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale, communities }) =
         />
       ) : (
         <div className="full-width df aic jcsb cup" onClick={() => setOpen(true)}>
-          <ChangeLocalePopup setLocale={setLocale} locale={locale} open={open} setOpen={setOpen} />
+          <ChangeLocalePopup
+            setLocale={setLocale}
+            locale={locale}
+            open={open}
+            setOpen={setOpen}
+            getAvailableLanguages={getAvailableLanguages}
+          />
         </div>
       )}
     </>

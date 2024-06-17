@@ -40,6 +40,7 @@ const View = ({
   toggleEditDocumentation,
   isEditDocumentation,
   pinnedItemMenu,
+  communities,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -122,6 +123,7 @@ const View = ({
         changeLocale={changeLocale}
         isMenuVisible={isMenuVisible}
         locale={locale}
+        communities={communities}
       />
       <div css={styles.footer}>
         <Footer />
@@ -140,6 +142,7 @@ View.propTypes = {
   showLoginModal: PropTypes.func,
   changeLocale: PropTypes.func,
   locale: PropTypes.string,
+  communities: PropTypes.object,
 };
 
 export default View;
