@@ -1,124 +1,93 @@
-import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import {
-  BG_LIGHT,
-  BORDER_PRIMARY_RGB,
-  BORDER_RADIUS_L,
-  BORDER_RADIUS_M,
-  SECONDARY_SPECIAL_2,
-  TEXT_PRIMARY,
-} from 'style-constants';
+  singleCommunityColors,
+  graphCommunityColors,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
+import { BORDER_PRIMARY, BORDER_PRIMARY_RGB, BORDER_RADIUS_M, BUTTON_COLOR } from 'style-constants';
+
+const communityStyles = singleCommunityStyles();
 
 const colors = singleCommunityColors();
 const graphCommunity = graphCommunityColors();
 
+const customColor = colors.linkColor || BORDER_PRIMARY;
+
 export const styles = {
-  searchBlock: {
-    background: graphCommunity ? '#161425' : BG_LIGHT,
-    borderRadius: BORDER_RADIUS_L,
-    boxShadow: `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-    border: `1px solid ${colors.border || '#fff'}`,
-    transition: '0.5s',
-    padding: '16px',
-
-    ':hover': {
-      boxShadow: `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
-
-    '@media (min-width: 577px)': {
-      display: 'none',
-    },
-  },
-
-  subTitle: {
-    fontWeight: 600,
-    fontSize: '22px',
-    lineHeight: '28px',
-    margin: '40px 0 23px',
-    color: colors.sectionHeader || 'rgba(40, 40, 40, 1)',
-
-    '@media (min-width: 768px)': {
-      fontSize: '30px',
-      lineHeight: '38px',
-    },
-  },
-
-  additionalInfo: {
+  mainSection: {
     display: 'flex',
-    flexDirection: 'column',
-
-    '@media (min-width: 768px)': {
-      flexDirection: 'row',
-      gap: '14px',
-    },
+    'flex-direction': 'column',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
-  additionalInfoItem: {
-    flex: '1 1 0px',
-    background: graphCommunity ? '#161425' : BG_LIGHT,
-    borderRadius: BORDER_RADIUS_L,
-    boxShadow: graphCommunity ? 'none' : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-    border: `1px solid ${colors.border || '#fff'}`,
-    transition: '0.5s',
-    marginBottom: '14px',
-    padding: '16px',
-
-    ':hover': {
-      boxShadow: graphCommunity
-        ? 'none'
-        : `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
-  },
-
-  aiPoweredSearchText: {
-    '@media (max-width: 576px)': {
-      color: colors.sectionHeader || 'rgba(40, 40, 40, 1)',
-    },
-  },
-
-  additionalInfoItemTitle: {
+  maiHeader: {
     fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '26px',
-    margin: '16px 0 8px',
-    color: graphCommunity ? '#E1E1E4' : 'rgba(40, 40, 40, 1)',
+    fontSize: '38px',
+    marginBottom: '30px',
+    marginTop: '12px',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
   },
 
-  additionalInfoItemContent: {
-    fontSize: '16px',
-    lineHeight: '24px',
-    color: graphCommunity ? '#A7A7AD' : 'rgba(40, 40, 40, 1)',
+  mainTextContainer: {
+    display: 'flex',
+    'flex-direction': 'column',
+    alignItems: 'flex-start',
   },
 
-  searchField: {
-    position: 'relative',
-    width: '100%',
+  mainTextElement: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
   },
 
   headerSearchField: {
-    marginTop: '25px',
-    display: 'none',
+    display: 'block',
     position: 'relative',
     width: '100%',
+  },
 
-    '@media (min-width: 577px)': {
-      display: graphCommunity ? 'flex' : 'block',
-    },
+  textField: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: '25px',
+    padding: '30px 30px 0 30px',
+    flex: 1,
+    overflow: 'hidden',
+  },
+
+  communicationField: {
+    boxSizing: 'border-box',
+    flexGrow: 0,
+    padding: '20px',
+    height: '127px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+
+  aiTip: {
+    fontWeight: 400,
+    fontSize: '12px',
+    lineHeight: '18px',
+    color: '#8B8B8B',
   },
 
   searchInput: {
     width: '100%',
-    height: graphCommunity ? '48px' : '56px',
+    height: '60px',
     border: `1px solid ${graphCommunity ? '#FFFFFF0F' : '#C2C6D8'}`,
     backgroundColor: graphCommunity ? '#FFFFFF0F' : '',
     borderRadius: `${BORDER_RADIUS_M}`,
-    padding: graphCommunity ? '0 10px' : '0 10px 0 60px',
+    padding: '0 10px',
     outline: 'none',
     opacity: 1,
     boxSizing: 'border-box',
     color: graphCommunity ? '#E1E1E4' : 'inherit',
     '@media (min-width: 577px)': {
-      height: graphCommunity ? '48px' : '64px',
-      padding: graphCommunity ? '0 135px 0 16px' : '0 135px 0 60px',
+      height: '64px',
+      padding: '0 135px 0 16px',
     },
     '&:focus': {
       borderColor: graphCommunity
@@ -145,175 +114,132 @@ export const styles = {
   },
 
   searchInputIcon: {
-    position: 'absolute',
-    top: graphCommunity ? '16px' : '13px',
-    left: graphCommunity ? '' : '20px',
-    right: graphCommunity ? '10px' : '',
-    '@media (min-width: 577px)': {
-      top: graphCommunity ? '15px' : '17px',
-      left: graphCommunity ? '' : '19px',
-      right: graphCommunity ? '135px' : '',
-    },
-  },
-
-  closeInputIcon: {
     cursor: 'pointer',
-    position: 'absolute',
-    top: graphCommunity ? '16px' : '20px',
-    left: graphCommunity ? '' : '26px',
-    right: graphCommunity ? '10px' : '',
-    '@media (min-width: 577px)': {
-      top: graphCommunity ? '15px' : '23px',
-      left: graphCommunity ? '' : '26px',
-      right: graphCommunity ? '135px' : '',
-    },
-  },
-
-  searchMainBlock: {
-    '@media (min-width: 1366px)': {
-      display: 'flex',
-    },
-  },
-
-  searchResult: {
-    background: graphCommunity ? '#161425' : BG_LIGHT,
-    borderRadius: BORDER_RADIUS_L,
-    boxShadow: graphCommunity ? 'none' : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-    border: `1px solid ${colors.border || '#fff'}`,
-    transition: '0.5s',
-    padding: '16px',
-    marginBottom: '15px',
-
-    ':hover': {
-      boxShadow: graphCommunity
-        ? 'none'
-        : `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
-
-    '@media (min-width: 768px)': {
-      padding: '20px 30px',
-    },
-
-    '@media (min-width: 1366px)': {
-      width: graphCommunity ? 'calc(100% - 300px)' : '',
-      borderBottomRightRadius: 0,
-      borderTopRightRadius: 0,
-      ':hover': {
-        boxShadow: graphCommunity
-          ? 'none'
-          : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-      },
-    },
-  },
-
-  searchResultTitle: {
-    fontWeight: 600,
-    fontSize: '20px',
-    lineHeight: '26px',
-    marginBottom: '16px',
-    color: `${colors.linkColor || TEXT_PRIMARY}`,
-
-    '@media (min-width: 768px)': {
-      fontSize: '24px',
-      lineHeight: '26px',
-    },
-
-    '@media (min-width: 1366px)': {
-      marginBottom: '25px',
-    },
-  },
-
-  sources: {
-    background: graphCommunity ? '#FFFFFF05' : '#FAFAFA',
-    borderRadius: BORDER_RADIUS_L,
-    boxShadow: graphCommunity ? 'none' : `0 2px 2px 0 ${colors.baseShadow || SECONDARY_SPECIAL_2}`,
-    border: `1px solid ${graphCommunity ? '#3D3D54' : '#FAFAFA'}`,
-    transition: '0.5s',
-    padding: '16px',
-    marginBottom: '15px',
-
-    ':hover': {
-      boxShadow: graphCommunity
-        ? 'none'
-        : `5px 5px 5px ${colors.baseShadow || 'rgba(40, 40, 40, 0.1)'}`,
-    },
-
-    '@media (min-width: 768px)': {
-      padding: '20px 30px',
-    },
-
-    '@media (min-width: 1366px)': {
-      padding: '20px 16px',
-      flex: '0 0 300px',
-      boxSizing: 'border-box',
-      borderBottomLeftRadius: 0,
-      borderTopLeftRadius: 0,
-    },
-  },
-
-  sourcesTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '26px',
-    color: graphCommunity ? '#E1E1E4' : 'rgba(40, 40, 40, 1)',
-    margin: '0 0 12px 12px',
-  },
-
-  sourcesList: {
-    listStyleType: 'none',
-  },
-
-  sourcesListItem: {
     borderRadius: '3px',
-    padding: '12px',
+    fill: 'red',
+    position: 'absolute',
 
+    top: '14px',
+    right: '13px',
+    '&:hover': {
+      background: BUTTON_COLOR,
+    },
+  },
+
+  sampleQuestionButton: {
+    border: '1px solid #C2C6D8',
+    borderRadius: '3px',
+    padding: '10px 15px',
+    margin: '0 5px',
+    cursor: 'pointer',
+    color: graphCommunity ? 'rgba(225,225,228,0.55)' : '#282828',
+    '&:hover': {
+      color: colors.linkColor || '#576FED',
+      boxShadow: '0 1px 1px rgba(40, 40, 40, 0.1)',
+    },
+  },
+
+  chatFragmentContainer: {
+    display: 'flex',
+    paddingBottom: '30px',
+    'user-select': 'text',
+  },
+
+  chatInfo: {
+    display: 'flex',
+    flex: 1,
+    'flex-direction': 'column',
+    'user-select': 'text',
+  },
+
+  username: {
+    fontWeight: '600',
+    fontSize: '18px',
+    paddingBottom: '12px',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
+  },
+
+  text: {
+    lineHeight: '24px !important',
+    fontSize: '16px',
+    'user-select': 'text',
+    color: graphCommunity ? '#E1E1E4' : '#282828',
+    a: {
+      color: graphCommunity ? 'rgba(111,76,255,0.8)' : colors.linkColor || '#576FED',
+    },
+  },
+
+  iconContainer: {
+    paddingRight: '12px',
+  },
+
+  buttonChatContainer: {
+    display: 'flex',
+    'flex-direction': 'column',
+    marginLeft: '54px',
+    gap: '16px',
+  },
+
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    'flex-wrap': 'wrap',
+    gap: '3px',
+  },
+
+  button: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    fontSize: '16px',
+    padding: '5px 10px',
+    marginRight: '10px',
+    border: `1px solid ${graphCommunity ? 'rgba(255,255,255,0.47)' : customColor}`,
+    borderRadius: '3px',
+    color: 'rgba(102, 112, 133, 1)',
     ':hover': {
-      background: graphCommunity ? '#6F4CFF33' : 'rgba(173, 186, 255, 0.2)',
+      backgroundColor: graphCommunity ? 'rgba(255,255,255,0.06)' : 'rgba(53, 74, 137, 0.11)',
+      color: 'rgba(87, 111, 237, 1)',
+      border: '1px solid transparent',
+    },
+  },
 
-      'p, span': {
-        color: graphCommunity ? '#E1E1E4' : '',
+  tagIndex: {
+    textSize: '14px',
+    width: '18px',
+    height: '18px',
+    'text-align': 'center',
+    color: graphCommunity ? 'rgba(255,255,255,0.47)' : customColor,
+    marginRight: '8px',
+    border: `1px solid ${graphCommunity ? 'rgba(255,255,255,0.47)' : customColor}`,
+    borderRadius: '3px',
+  },
+
+  loader: {
+    width: '18px',
+    marginRight: '8px',
+    animation: 'rotation 2s infinite linear',
+    '@keyframes rotation': {
+      '0%': {
+        transform: 'rotate(0deg)',
+      },
+      '100%': {
+        transform: 'rotate(360deg)',
       },
     },
   },
 
-  sourcesListItemTitle: {
-    color: graphCommunity ? '#6F4CFF' : `${colors.linkColor || TEXT_PRIMARY}`,
-    fontSize: '16px',
-    lineHeight: '22px',
-    fontWeight: 400,
-    marginBottom: '8px',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    display: '-webkit-box !important',
-    '-webkit-line-clamp': '2',
-    '-webkit-box-orient': 'vertical',
-    whiteSpace: 'normal',
+  additionalButton: {
+    ...communityStyles.headerLoginButtonStyles,
   },
 
-  sourcesListItemText: {
-    fontSize: '14px',
-    lineHeight: '18px',
-    color: graphCommunity ? '#A7A7AD' : '#344054',
-    marginBottom: '8px',
-    fontWeight: 400,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box !important',
-    '-webkit-line-clamp': '3',
-    '-webkit-box-orient': 'vertical',
-    whiteSpace: 'normal',
-  },
-
-  sourcesListItemLink: {
-    fontSize: '14px',
-    lineHeight: '18px',
-    color: graphCommunity ? '#A7A7AD' : '#667085',
-    fontWeight: 400,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box !important',
-    '-webkit-line-clamp': '1',
-    '-webkit-box-orient': 'vertical',
-    whiteSpace: 'normal',
+  startOver: {
+    display: 'none',
+    '@media (min-width: 577px)': {
+      display: 'block',
+      position: 'absolute',
+      top: '50px',
+      left: '-300px',
+    },
   },
 };
