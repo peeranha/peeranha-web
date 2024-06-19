@@ -7,7 +7,7 @@ const executeQuery = async ({ query, communityId, threadId }) => {
   if (threadId) {
     requestBody.threadId = threadId;
   }
-  return fetch('https://orpbzrwr25kteba3dsftyghdom0nykmi.lambda-url.us-east-2.on.aws/', {
+  return fetch(process.env.SEMANTIC_SEARCH_URL, {
     method: 'POST',
     body: JSON.stringify(requestBody),
     headers: {
