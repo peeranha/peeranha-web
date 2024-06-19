@@ -397,12 +397,12 @@ export const getTagsByIds = async (ids) => {
   return isMeshService ? result?.tag : result?.tags;
 };
 
-export const getPosts = async (limit, offset, postTypes, indexerOnly) => {
+export const getPosts = async (limit, offset, postTypes, filterTabByAnswersId, indexerOnly) => {
   const isMeshService = indexerOnly ? true : isMeshServiceConfig();
 
   const query = isMeshService
-    ? queries.Posts.Mesh(arrayToString(postTypes))
-    : queries.Posts.TheGraph;
+    ? queries.Posts.Mesh(arrayToString(postTypes), filterTabByAnswersId)
+    : queries.Posts.TheGraph(filterTabByAnswersId);
 
   const result = await executeQuery(
     isMeshService,
@@ -428,6 +428,7 @@ export const getPostsByCommunityId = async (
   postTypes,
   communityIds,
   tags,
+  filterTabByAnswersId,
   indexerOnly,
 ) => {
   const isMeshService = indexerOnly ? true : isMeshServiceConfig();
@@ -442,8 +443,8 @@ export const getPostsByCommunityId = async (
     }
 
     const query = isMeshService
-      ? queries.PostsByCommAndTags.Mesh
-      : queries.PostsByCommAndTags.TheGraph;
+      ? queries.PostsByCommAndTags.Mesh(filterTabByAnswersId)
+      : queries.PostsByCommAndTags.TheGraph(filterTabByAnswersId);
     const result = await executeQuery(isMeshService, {
       query,
       variables: {
@@ -465,8 +466,12 @@ export const getPostsByCommunityId = async (
   }
 
   const query = isMeshService
-    ? queries.PostsByCommunity.Mesh(arrayToString(postTypes), arrayToString(communityIds))
-    : queries.PostsByCommunity.TheGraph;
+    ? queries.PostsByCommunity.Mesh(
+        arrayToString(postTypes),
+        arrayToString(communityIds),
+        filterTabByAnswersId,
+      )
+    : queries.PostsByCommunity.TheGraph(filterTabByAnswersId);
 
   const result = await executeQuery(
     isMeshService,
@@ -485,7 +490,11 @@ export const getPostsByCommunityId = async (
   let posts = [];
   if (!isMeshService) {
     const postCountResult = await executeMeshQuery({
-      query: postsCountByCommQueryMesh(arrayToString(postTypes), arrayToString(communityIds)),
+      query: postsCountByCommQueryMesh(
+        arrayToString(postTypes),
+        arrayToString(communityIds),
+        filterTabByAnswersId,
+      ),
       variables: {
         communityIds,
         postTypes,

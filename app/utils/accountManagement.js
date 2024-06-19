@@ -4,7 +4,7 @@ import { getUser } from 'utils/queries/ethereumService';
 import { COMMUNITY_ADMIN_ROLE, COMMUNITY_MODERATOR_ROLE } from './constants';
 
 import { ApplicationError } from './errors';
-import { BAN_COMMUNITY_USER, CONTRACT_USER } from './queries/constants';
+import { BAN_COMMUNITY_USER, CONTRACT_USER, UNBAN_COMMUNITY_USER } from './queries/constants';
 
 export const emptyProfile = (account) => ({
   achievements: [],
@@ -62,6 +62,16 @@ export const banUser = async (user, userToBan, communityId, ethereumService) => 
     CONTRACT_USER[getNetwork(communityId)],
     user,
     BAN_COMMUNITY_USER,
+    [user, userToBan, Number(getActualId(communityId))],
+  );
+};
+
+export const unbanUser = async (user, userToBan, communityId, ethereumService) => {
+  await ethereumService.sendTransaction(
+    getNetwork(communityId),
+    CONTRACT_USER[getNetwork(communityId)],
+    user,
+    UNBAN_COMMUNITY_USER,
     [user, userToBan, Number(getActualId(communityId))],
   );
 };

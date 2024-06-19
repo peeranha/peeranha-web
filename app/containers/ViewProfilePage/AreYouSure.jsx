@@ -11,7 +11,7 @@ import H4 from 'components/H4';
 
 const graphCommunity = graphCommunityColors();
 
-const AreYouSure = ({ Button, submitAction }) => {
+const AreYouSure = ({ isBanned, Button, submitAction }) => {
   const { t } = useTranslation();
   const [currentTarget, changeEventData] = useState(null);
   const [isOpened, open] = useState(false);
@@ -46,7 +46,7 @@ const AreYouSure = ({ Button, submitAction }) => {
           <H4 className="text-center pb-3">{t('common.banUser')}</H4>
 
           <div className="pb-4 text-center" css={graphCommunity && { color: '#E1E1E4' }}>
-            {t('common.areYouSure')}
+            {isBanned ? t('common.areYouSureToUnban') : t('common.areYouSure')}
           </div>
 
           <div className="d-flex align-items-center pb-3">

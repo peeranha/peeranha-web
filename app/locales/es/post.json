@@ -71,5 +71,10 @@
   "answer_replied": "Inicie sesión y compártalo.",
   "answer_repliedText": "Puede editar su respuesta si necesita agregar más información.",
   "answer_reputation": "Desafortunadamente, su reputación en esta comunidad es negativa.",
-  "answer_reputationText": "No se le permite publicar ninguna respuesta."
+  "answer_reputationText": "No se le permite publicar ninguna respuesta.",
+  "all": "Todo",
+  "unanswered": "Sin respuesta",
+  "answered": "Contestada",
+  "withBestAnswer": "Con la mejor respuesta",
+  "withOfficialAnswer": "Con respuesta oficial"
 }
