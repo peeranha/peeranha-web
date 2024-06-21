@@ -138,6 +138,7 @@ const EditCommunityForm = ({
                   {t('common.editCommunityDesc.translations')}
                 </button>
                 <button
+                  className={isSuiBlockchain ? 'dn' : ''}
                   css={{
                     ...styles.button,
                     ...(tab === ADVANCED_TAB && styles.activeTab),
