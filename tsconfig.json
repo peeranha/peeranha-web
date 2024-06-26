@@ -18,6 +18,7 @@
     "jsxImportSource": "@emotion/react",
     "paths": {
       "components/*": ["app/components/*"],
+      "images/*": ["app/images/*"],
       "containers/*": ["app/containers/*"],
       "common-components/*": ["app/components/common*"],
       "styles/*": ["app/styles/*"],

@@ -1,22 +1,26 @@
-const executeQuery = async ({ query, reCaptchaToken, communityId }) => {
-  const res = await fetch(process.env.SEMANTIC_SEARCH_URL, {
+const executeQuery = async ({ query, communityId, threadId }) => {
+  const requestBody = {
+    query,
+    communityId,
+  };
+
+  if (threadId) {
+    requestBody.threadId = threadId;
+  }
+  return fetch(process.env.SEMANTIC_SEARCH_URL, {
     method: 'POST',
-    body: JSON.stringify({
-      query,
-      communityId,
-    }),
+    body: JSON.stringify(requestBody),
     headers: {
       'Content-Type': 'application/json',
-      reCaptchaToken,
     },
   });
-
-  return res.json();
 };
 
-export const getSearchResult = async (query, reCaptchaToken, communityId) =>
-  await executeQuery({
+export const getSearchResult = async (query, communityId, threadId) => {
+  const response = await executeQuery({
     query,
-    reCaptchaToken,
     communityId,
+    threadId,
   });
+  return response.body.getReader();
+};
