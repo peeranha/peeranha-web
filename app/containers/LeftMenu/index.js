@@ -9,6 +9,9 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import closeIcon from 'images/close.svg?external';
 
+import aiSearchReducer from 'containers/AISearch/reducer';
+import { startOver } from 'containers/AISearch/actions';
+import { selectChatStarted } from 'containers/AISearch/selectors';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { deleteQuestion } from 'containers/ViewQuestion/actions';
@@ -56,6 +59,8 @@ const LeftMenu = ({
   isEditDocumentation,
   pinnedItemMenu,
   communities,
+  startOverDispatch,
+  chatStarted,
 }) => (
   <Aside isMenuVisible={isMenuVisible} className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}>
     <View
@@ -78,6 +83,8 @@ const LeftMenu = ({
       isEditDocumentation={isEditDocumentation}
       pinnedItemMenu={pinnedItemMenu}
       communities={communities}
+      startOverDispatch={startOverDispatch}
+      chatStarted={chatStarted}
     />
 
     <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -112,6 +119,7 @@ const mapStateToProps = createStructuredSelector({
   isEditDocumentation: selectIsEditDocumentation(),
   pinnedItemMenu: selectPinnedItemMenu(),
   communities: selectCommunities(),
+  chatStarted: selectChatStarted(),
 });
 
 const withReducer = injectReducer({ key: 'viewQuestion', reducer });
@@ -133,6 +141,7 @@ export function mapDispatchToProps(dispatch) {
     ),
     deleteQuestionDispatch: bindActionCreators(deleteQuestion, dispatch),
     toggleEditDocumentationDispatch: bindActionCreators(toggleEditDocumentation, dispatch),
+    startOverDispatch: bindActionCreators(startOver, dispatch),
   };
 }
 

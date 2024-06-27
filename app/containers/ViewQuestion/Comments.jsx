@@ -199,7 +199,7 @@ const CommentView = (item) => {
           avatar={getUserAvatar(item.author.avatar)}
           name={getUserName(item.author?.displayName, item.author?.id)}
           rating={getRatingByCommunity(item.author, item.communityId)}
-          account={item.author.user}
+          account={item.author.id}
           achievementsCount={item.author.achievements?.length}
           postTime={+item.postTime}
           locale={item.locale}

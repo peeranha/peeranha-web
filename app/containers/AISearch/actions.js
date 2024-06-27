@@ -1,4 +1,11 @@
-import { GET_SEARCH_RESULT, GET_SEARCH_RESULT_ERROR, GET_SEARCH_RESULT_SUCCESS } from './constants';
+import {
+  GET_CHUNK_SUCCESS,
+  GET_SEARCH_RESULT,
+  GET_SEARCH_RESULT_ERROR,
+  GET_SEARCH_RESULT_SUCCESS,
+  START_OVER,
+  STOP_GENERATION,
+} from './constants';
 
 export function getSearchResult(query, communityId) {
   return {
@@ -8,10 +15,30 @@ export function getSearchResult(query, communityId) {
   };
 }
 
-export function getSearchResultSuccess(searchResult) {
+export function getSearchResultSuccess() {
   return {
     type: GET_SEARCH_RESULT_SUCCESS,
-    searchResult,
+  };
+}
+
+export function getChunkSuccess(answers, writeLast, threadId) {
+  return {
+    type: GET_CHUNK_SUCCESS,
+    answers,
+    writeLast,
+    threadId,
+  };
+}
+
+export function stopGeneration() {
+  return {
+    type: STOP_GENERATION,
+  };
+}
+
+export function startOver() {
+  return {
+    type: START_OVER,
   };
 }
 
