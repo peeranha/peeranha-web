@@ -391,7 +391,10 @@ const MainLinks = ({
           </A1>
         )}
 
-        {(hasGlobalModeratorRole() || isModeratorMode || (isSuiBlockchain && isProtocolAdmin)) && (
+        {(hasGlobalModeratorRole() ||
+          isModeratorMode ||
+          isAdministratorModeSingleCommunity ||
+          (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>
             {graphCommunity ? (
               <UsersGraph size={[24, 24]} className="mr-2" />
