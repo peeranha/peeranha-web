@@ -34,12 +34,12 @@ export const ChangeLocale = ({ changeLocale, locale, communities }) => {
       (community) => community.id === singleCommunityId,
     )?.communitytranslation;
 
-    if (singleCommunityId && communityTranslations?.length) {
+    if (singleCommunityId) {
       const singleCommunityLanguages = {
         en: 'en',
         ...communityTranslations
-          .map((translation) => translation.language)
-          .reduce((acc, value) => ({ ...acc, [value]: value }), {}),
+          ?.map((translation) => translation.language)
+          ?.reduce((acc, value) => ({ ...acc, [value]: value }), {}),
       };
       return Object.keys(singleCommunityLanguages);
     }
