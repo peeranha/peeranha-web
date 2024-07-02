@@ -413,7 +413,7 @@ const communitiesConfig = {
         },
       }
     : {
-        '1-1': {
+        '1-2': {
           origin: 'http://localhost:3000',
           src: 'https://images.peeranha.io/communities/graph/logo.svg',
           styles: GraphStyles,

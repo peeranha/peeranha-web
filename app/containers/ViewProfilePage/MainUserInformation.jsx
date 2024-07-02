@@ -202,6 +202,7 @@ const MainUserInformation = ({
   redirectToEditProfilePage,
   userAchievementsLength,
   banUser,
+  unbanUser,
 }) => {
   const { t } = useTranslation();
   const isTemporaryAccount = !!profile?.integer_properties?.find(
@@ -369,17 +370,18 @@ const MainUserInformation = ({
             >
               {getUserName(profile?.displayName, userId)}
             </Span>
-            {Boolean(singleCommunity && isAdmin && !isSuiBlockchain) && (
+            {Boolean(singleCommunity && isAdmin && !isUserAdmin && !isSuiBlockchain) && (
               <AreYouSure
-                submitAction={banUser}
+                submitAction={isBanned ? unbanUser : banUser}
+                isBanned={isBanned}
                 Button={({ onClick }) => (
                   <InfoButton
                     css={desktopButtonStyles}
                     onClick={onClick}
                     id={`ban-user-desktop-${userId}`}
-                    disabled={isUserAdmin || isBanned}
+                    disabled={isUserAdmin}
                   >
-                    {isBanned ? t('common.bannedUser') : t('common.banUser')}
+                    {isBanned ? t('common.unbanUser') : t('common.banUser')}
                   </InfoButton>
                 )}
               />
@@ -539,17 +541,18 @@ const MainUserInformation = ({
                     </button>
                   </div>
 
-                  {Boolean(singleCommunity && isAdmin && !isSuiBlockchain) && (
+                  {Boolean(singleCommunity && isAdmin && !isUserAdmin && !isSuiBlockchain) && (
                     <AreYouSure
-                      submitAction={banUser}
+                      submitAction={isBanned ? unbanUser : banUser}
+                      isBanned={isBanned}
                       Button={({ onClick }) => (
                         <InfoButton
                           css={mobileButtonStyles}
                           onClick={onClick}
                           id={`ban-user-mobile-${userId}`}
-                          disabled={isUserAdmin || isBanned}
+                          disabled={isUserAdmin}
                         >
-                          {isBanned ? t('common.bannedUser') : t('common.banUser')}
+                          {isBanned ? t('common.unbanUser') : t('common.banUser')}
                         </InfoButton>
                       )}
                     />

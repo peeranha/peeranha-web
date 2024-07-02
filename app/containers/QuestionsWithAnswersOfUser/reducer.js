@@ -13,6 +13,9 @@ import {
   BAN_USER,
   BAN_USER_SUCCESS,
   BAN_USER_ERROR,
+  UNBAN_USER,
+  UNBAN_USER_SUCCESS,
+  UNBAN_USER_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -22,11 +25,14 @@ export const initialState = fromJS({
   getQuestionsError: null,
   isLastFetch: false,
   banIsInProcess: false,
+  unbanIsInProcess: false,
   banUserError: null,
+  unbanUserError: null,
 });
 
 function questionsWithAnswersOfUserReducer(state = initialState, action) {
-  const { type, getQuestionsError, questionsWithUserAnswers, init, banUserError } = action;
+  const { type, getQuestionsError, questionsWithUserAnswers, init, banUserError, unbanUserError } =
+    action;
 
   switch (type) {
     case GET_QUESTIONS:
@@ -55,6 +61,13 @@ function questionsWithAnswersOfUserReducer(state = initialState, action) {
       return state.set('banIsInProcess', false);
     case BAN_USER_ERROR:
       return state.set('banUserError', banUserError).set('banIsInProcess', false);
+
+    case UNBAN_USER:
+      return state.set('unbanIsInProcess', true);
+    case UNBAN_USER_SUCCESS:
+      return state.set('unbanIsInProcess', false);
+    case UNBAN_USER_ERROR:
+      return state.set('unbanUserError', unbanUserError).set('unbanIsInProcess', false);
 
     default:
       return state;

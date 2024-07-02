@@ -537,15 +537,15 @@
     "grantRole": "Dar permiso",
     "revokeRole": "Revocar permiso",
     "mintUserNFT": "Reclamar NFT",
-    "banCommunityUser": "Prohibir usuario en la comunidad"
+    "banCommunityUser": "Prohibir usuario en la comunidad",
+    "unBanCommunityUser": "Desbloquear usuario en la comunidad"
   },
   "aboutPeeranha": "Sobre Peeranha",
   "postsAnswersComments": "Publicaciones, respuestas y comentarios",
   "statusReputationPrivileges": "Estatus, Reputación y Privilegios",
   "new": "Nuevo",
-  "aiPoweredSearch": "Búsqueda impulsada por IA",
+  "aiPoweredSearch": "Asistente de IA",
   "aiPoweredSearchInputPlaceholder": "Deja que comience la magia, haz una pregunta",
-  "askAI": "Preguntar a la IA",
   "askAIQuestion": "Hacer una pregunta",
   "exploreAI": "Explora tu motor de búsqueda avanzado de IA",
   "timeEfficiency": "Eficiencia en el tiempo",
@@ -562,5 +562,17 @@
   "canWork": "Mientras tanto, siéntase libre de continuar trabajando en el sitio.",
   "banUser": "Prohibir usuario",
   "bannedUser": "Usuario prohibido",
-  "areYouSure": "¿Estás seguro/a de que quieres prohibir al usuario?"
+  "unbanUser": "Desbloquear usuario",
+  "areYouSure": "¿Estás seguro de que quieres prohibir al usuario?",
+  "areYouSureToUnban": "¿Estás seguro de que quieres desbloquear al usuario?",
+  "stopGenerating": "Dejar de generar",
+  "startOver": "Empezar de nuevo",
+  "askInCommunity": "Preguntar en la comunidad",
+  "generatedByAI": "Esta respuesta es generada por IA y puede no ser completamente precisa.",
+  "askAI": "Preguntar a la IA entrenada en el conjunto de conocimientos de {{community}}",
+  "accessAI": "Acceder a la IA equipada con los recursos de {{community}}",
+  "utilizeAI": "Utilizar la competencia de la IA a partir de los recursos de {{community}}",
+  "whatIs": "¿Qué es {{community}}?",
+  "howToStart": "¿Cómo empezar con {{community}}?",
+  "generationStopped": "Generación detenida..."
 }

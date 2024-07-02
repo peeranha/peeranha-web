@@ -2,23 +2,23 @@
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
-import { selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import maxBy from 'lodash/maxBy';
-import { banUser } from 'utils/accountManagement';
+import { banUser, unbanUser } from 'utils/accountManagement';
 
 import { getAnsweredUsersPosts } from 'utils/questionsManagement';
 
 import { GET_QUESTIONS } from 'containers/QuestionsOfUser/constants';
 import { REDIRECT_TO_FEED } from 'containers/App/constants';
 import { redirectToFeedWorker } from 'containers/App/saga';
-import { getQuestionsSuccess, getQuestionsErr, banUserSuccess } from './actions';
+import { getQuestionsSuccess, getQuestionsErr, banUserSuccess, unbanUserSuccess } from './actions';
 
 import { selectQuestionsWithUserAnswers, selectNumber } from './selectors';
-import { BAN_USER, GET_QUESTIONS as GET_ANSWERED_QUESTIONS } from './constants';
+import { BAN_USER, GET_QUESTIONS as GET_ANSWERED_QUESTIONS, UNBAN_USER } from './constants';
 import { getQuestionsWorker } from '../QuestionsOfUser/saga';
 import { POST_TYPE_ANSWER } from '../Profile/constants';
 import { isGeneralQuestion } from '../ViewQuestion/saga';
@@ -60,7 +60,7 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
   }
 }
 
-export function* banUserWorker({ buttonId, user, communityId }) {
+export function* banUserWorker({ user, communityId }) {
   try {
     const ethereumService = yield select(selectEthereum);
 
@@ -82,9 +82,32 @@ export function* banUserWorker({ buttonId, user, communityId }) {
   } catch (err) {}
 }
 
+export function* unbanUserWorker({ user, communityId }) {
+  try {
+    const ethereumService = yield select(selectEthereum);
+
+    const account = yield select(makeSelectAccount());
+    yield call(unbanUser, account, user, communityId, ethereumService);
+
+    const fullProfileInfo = yield select(selectUsers(user));
+
+    const updatedProfileInfo = {
+      ...fullProfileInfo,
+      communityBans: fullProfileInfo.communityBans
+        ? fullProfileInfo.communityBans.filter((communityBanId) => communityBanId !== communityId)
+        : [communityId],
+    };
+
+    yield put(getUserProfileSuccess(updatedProfileInfo));
+
+    yield put(unbanUserSuccess);
+  } catch (err) {}
+}
+
 export default function* () {
   yield takeLatest(GET_ANSWERED_QUESTIONS, getQuestionsWithAnswersWorker);
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(REDIRECT_TO_FEED, redirectToFeedWorker);
   yield takeLatest(BAN_USER, banUserWorker);
+  yield takeLatest(UNBAN_USER, unbanUserWorker);
 }

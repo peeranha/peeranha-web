@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import ButtonPlus from 'icons/ButtonPlus';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +19,7 @@ import {
   BORDER_PRIMARY,
   BORDER_DARK,
   ICON_TRASPARENT_BLUE,
+  BUTTON_COLOR,
 } from 'style-constants';
 import aiIcon from 'images/aiIcon.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
@@ -171,6 +174,9 @@ const MainLinks = ({
   pinnedItemMenu,
   changeLocale,
   locale,
+  communities,
+  startOverDispatch,
+  chatStarted,
 }) => {
   const { t } = useTranslation();
   const { pathname } = window.location;
@@ -272,7 +278,7 @@ const MainLinks = ({
         {!profile && !singleCommId && <div css={styles.dividerLinks} />}
 
         <div css={styles.changeLocale}>
-          <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
+          <ChangeLocale changeLocale={changeLocale} locale={locale} communities={communities} />
         </div>
 
         <div css={styles.dividerLinks} />
@@ -291,20 +297,45 @@ const MainLinks = ({
         )}
 
         {singleCommId && (
-          <A1
-            to={routes.defaultPath}
-            name={routes.defaultPath}
-            route={route}
-            css={{ whiteSpace: 'nowrap' }}
-          >
-            {graphCommunity ? (
-              <SparkleGraph size={[24, 24]} className="mr-2" />
-            ) : (
-              <IconLg className="mr-2" icon={aiIcon} />
+          <>
+            <A1
+              to={routes.defaultPath}
+              name={routes.defaultPath}
+              route={route}
+              css={{ whiteSpace: 'nowrap' }}
+            >
+              {graphCommunity ? (
+                <SparkleGraph size={[24, 24]} className="mr-2" />
+              ) : (
+                <IconLg className="mr-2" icon={aiIcon} />
+              )}
+              {t('common.aiPoweredSearch')}
+              <span css={styles.searchLabel}>New</span>
+            </A1>
+            {route === routes.defaultPath && chatStarted && (
+              <A
+                css={css`
+                  display: flex;
+                  align-items: center;
+                  padding: 10px 0 10px 48px;
+                  border-left: 3px solid ${BORDER_TRANSPARENT};
+                  cursor: pointer;
+                  color: ${BUTTON_COLOR};
+                  :hover {
+                    opacity: ${graphCommunity ? 1 : 0.8};
+                  }
+                `}
+                to={routes.defaultPath}
+                onClick={() => {
+                  startOverDispatch();
+                  // window.location.pathname = '/';
+                }}
+              >
+                <ButtonPlus size={[14, 14]} style={{ marginRight: '8px' }} />
+                {t('common.startOver')}
+              </A>
             )}
-            {t('common.aiPoweredSearch')}
-            <span css={styles.searchLabel}>New</span>
-          </A1>
+          </>
         )}
 
         <A1 to={routes.feed()} name="feed" route={route}>
@@ -361,7 +392,10 @@ const MainLinks = ({
           </A1>
         )}
 
-        {(hasGlobalModeratorRole() || isModeratorMode || (isSuiBlockchain && isProtocolAdmin)) && (
+        {(hasGlobalModeratorRole() ||
+          isModeratorMode ||
+          isAdministratorModeSingleCommunity ||
+          (isSuiBlockchain && isProtocolAdmin)) && (
           <A1 to={routes.users()} name="users" route={route}>
             {graphCommunity ? (
               <UsersGraph size={[24, 24]} className="mr-2" />
@@ -406,6 +440,7 @@ const MainLinks = ({
 MainLinks.propTypes = {
   profile: PropTypes.object,
   currClientHeight: PropTypes.number,
+  communities: PropTypes.object,
 };
 
 export default MainLinks;

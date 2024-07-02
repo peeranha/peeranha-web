@@ -1,93 +1,107 @@
-/* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
+import ChatSection from 'containers/AISearch/Components/ChatSection';
+import MainSection from 'containers/AISearch/Components/MainSection';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import { HEADER_HEIGHT, MOBILE_HEADER_HEIGHT } from 'containers/Header/constants';
+import useMediaQuery from 'hooks/useMediaQuery';
+import ButtonLoader from 'icons/ButtonLoader';
+import React, { useEffect, useRef, useState } from 'react';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useTranslation } from 'react-i18next';
-
-import { BORDER_PRIMARY, BORDER_RADIUS_M, ICON_TRASPARENT_BLUE, TEXT_LIGHT } from 'style-constants';
-import AIIcon from 'images/aiIcon.svg?external';
+import Base from 'components/Base';
+import { BG_LIGHT } from 'style-constants';
 
 import injectReducer from 'utils/injectReducer';
-import { DAEMON, isSuiBlockchain } from 'utils/constants';
+import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
-import {
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-  graphCommunityColors,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite, graphCommunityColors } from 'utils/communityManagement';
 
 import { loginWithSui, loginWithWallet } from 'containers/Login/actions';
-import { selectSearchResult, selectSearchResultLoading } from 'containers/AISearch/selectors';
-import Banner from 'containers/AISearch/Banner/Banner';
+import {
+  selectAnswers,
+  selectChatStarted,
+  selectQuestions,
+  selectSearchResultLoading,
+} from 'containers/AISearch/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Seo from 'components/Seo';
-import Header from 'components/Header/Simple';
 import { css } from '@emotion/react';
-import H3 from 'components/H3';
-import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import { IconLg } from 'components/Icon/IconWithSizes';
-import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
-import {
-  TrendingUp,
-  Time,
-  OutlinedBurger,
-  SearchAI,
-  Close,
-  TimerGraph,
-  DatabaseGraph,
-  TrendUpGraph,
-  SparkleGraph,
-  XGraph,
-  MagnifyingGlassGraph,
-} from 'components/icons';
-import Button from 'components/common/Button';
 
-import { getSearchResult } from './actions';
+import { SearchAI } from 'components/icons';
+
+import { getSearchResult, stopGeneration } from './actions';
 import { styles } from './AISearch.styled';
 import reducer from './reducer';
 import saga from './saga';
 
-const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
 const graphCommunity = graphCommunityColors();
-const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const AISearch = ({
   locale,
   getSearchResultDispatch,
-  profileInfo,
   redirectToAskQuestionPageDispatch,
-  loginWithWalletDispatch,
-  loginWithSuiDispatch,
   searchResultLoading,
-  searchResult,
+  questions,
+  answers,
+  communities,
+  chatStarted,
+  stopGenerationDispatch,
 }) => {
   const { t } = useTranslation();
-  const loginDispatch = isSuiBlockchain ? loginWithSuiDispatch : loginWithWalletDispatch;
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!searchResultLoading && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [searchResultLoading]);
+  const communityName =
+    communities.find((community) => community.id === single)?.name || 'Peeranha';
+
+  const sampleQuestions = [
+    t('common.whatIs', {
+      community: communityName,
+    }),
+    t('common.howToStart', {
+      community: communityName,
+    }),
+  ];
   const [searchText, setSearchText] = useState('');
+
   const onChangeInputHandler = (e) => {
     if (searchText.length < 1000) {
       setSearchText(e.currentTarget.value);
     }
   };
+
+  const onSampleQuestionClickHandler = (query) => {
+    getSearchResultDispatch(query, single);
+    setSearchText('');
+  };
+
+  const onAskInCommunityHandler = (event) => {
+    redirectToAskQuestionPageDispatch(event);
+  };
+
   const onKeyDownHandler = (e) => {
     if (e.key === 'Enter' && searchText.length > 0 && searchText.length < 1000) {
       getSearchResultDispatch(searchText, single);
-    }
-  };
-  const clearInputHandler = () => {
-    setSearchText('');
-  };
-  const getSearchResultHandler = () => {
-    if (searchText.length > 0 && searchText.length < 1000) {
-      getSearchResultDispatch(searchText, single);
+      setSearchText('');
     }
   };
 
+  const getSearchResultHandler = () => {
+    if (searchText.length > 0 && searchText.length < 1000) {
+      getSearchResultDispatch(searchText, single);
+      setSearchText('');
+    }
+  };
+  const isDesktop = useMediaQuery('(min-width: 991px)');
   return (
     <>
       <Seo
@@ -96,254 +110,69 @@ const AISearch = ({
         language={locale}
         index={false}
       />
-
-      <Header
-        className="mb-to-sm-0 mb-from-sm-3 df fdc"
+      <div
         css={css`
-          align-items: baseline;
-          padding-top: 30px;
-          padding: ${graphCommunity ? '20px 0' : ''};
-          @media only screen and (max-width: 576px) {
-            border: none;
-          }
-          border: ${graphCommunity ? 'none' : ''};
-          background: ${graphCommunity ? 'none' : ''};
+          height: ${isDesktop
+            ? `calc(100vh - ${HEADER_HEIGHT}px - 35px)`
+            : `calc(100vh - ${MOBILE_HEADER_HEIGHT}px - 35px)`};
+          display: flex;
+          flex-direction: column;
         `}
       >
-        <H3>
-          <div
-            css={css`
-              .fill {
-                fill: ${customColor};
-              }
-
-              .white {
-                fill: #fff !important;
-              }
-
-              .stroke {
-                stroke: ${customColor};
-              }
-
-              .semitransparent {
-                fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
-              }
-            `}
-          >
-            <MediumIconStyled>
-              {graphCommunity ? (
-                <SparkleGraph size={[28, 28]} />
-              ) : (
-                <IconLg icon={AIIcon} width={32} fill={BORDER_PRIMARY} />
-              )}
-            </MediumIconStyled>
+        <Base css={styles.textField}>
+          {chatStarted ? (
+            <ChatSection
+              questions={questions}
+              answers={answers}
+              answerFinished={!searchResultLoading}
+              onAskInCommunityHandler={onAskInCommunityHandler}
+            />
+          ) : (
+            <MainSection
+              graphCommunity={graphCommunity}
+              sampleQuestions={sampleQuestions}
+              onSampleQuestionClickHandler={onSampleQuestionClickHandler}
+              communityName={communityName}
+            />
+          )}
+        </Base>
+        {searchResultLoading ? (
+          <div css={styles.communicationField}>
+            <LargeOutlinedButton onClick={stopGenerationDispatch}>
+              <ButtonLoader width="16" css={styles.loader} />
+              {t('common.stopGenerating')}
+            </LargeOutlinedButton>
           </div>
-          <span css={styles.aiPoweredSearchText}>{t('common.aiPoweredSearch')}</span>
-        </H3>
-        <div css={styles.headerSearchField}>
-          <input
-            type="text"
-            css={styles.searchInput}
-            placeholder={t('common.aiPoweredSearchInputPlaceholder')}
-            value={searchText}
-            onChange={onChangeInputHandler}
-            onKeyDown={onKeyDownHandler}
-          />
-          {searchText ? (
-            graphCommunity ? (
-              <XGraph size={[20, 20]} onClick={clearInputHandler} css={styles.closeInputIcon} />
-            ) : (
-              <Close fill={'#BDBDBD'} onClick={clearInputHandler} css={styles.closeInputIcon} />
-            )
-          ) : graphCommunity ? (
-            <MagnifyingGlassGraph size={[20, 20]} css={styles.searchInputIcon} />
-          ) : (
-            <SearchAI size={[30, 30]} stroke={'#BDBDBD'} css={styles.searchInputIcon} />
-          )}
-          <Button
-            id="header-ask-question"
-            onClick={getSearchResultHandler}
-            disabled={searchResultLoading}
+        ) : (
+          <Base
             css={css`
-              opacity: ${searchResultLoading && !graphCommunity ? '0.8' : '1'};
-              position: ${graphCommunity ? '' : 'absolute'};
-              top: ${graphCommunity ? '' : '10px'};
-              right: ${graphCommunity ? '' : '15px'};
-              border-radius: ${BORDER_RADIUS_M};
-              margin-left: ${graphCommunity ? '12px' : ''};
-              .fill {
-                fill: ${TEXT_LIGHT};
-              }
-
-              .stroke {
-                stroke: ${TEXT_LIGHT};
-              }
-
-              span {
-                font-size: ${graphCommunity ? '14px' : ''};
-                font-weight: ${graphCommunity ? 600 : ''};
-                display: flex;
-                align-items: center;
-                color: ${graphCommunity ? TEXT_LIGHT : ''};
-                width: ${graphCommunity ? 'max-content' : ''};
-              }
-
-              background: ${graphCommunity
-                ? searchResultLoading
-                  ? 'rgba(111, 76, 255, 0.8)'
-                  : 'rgba(111, 76, 255, 1)'
-                : colors.btnColor};
-
-              :hover {
-                opacity: ${graphCommunity ? 1 : 0.8};
-                background: ${graphCommunity ? 'rgba(111, 76, 255, 0.8)' : ''};
-
-                span {
-                  color: ${graphCommunity ? '#ffffff !important' : ''};
-                }
-              }
+              box-sizing: border-box;
+              flex-grow: 0;
+              padding: 20px;
+              position: relative;
             `}
           >
-            {graphCommunity ? (
-              <SparkleGraph size={[24, 24]} />
-            ) : (
-              <IconLg fill={TEXT_LIGHT} icon={AIIcon} />
-            )}
-            <span className="ml-2">{t('common.askAI')}</span>
-          </Button>
-        </div>
-      </Header>
-      <div css={styles.searchBlock}>
-        <div css={styles.searchField}>
-          <input
-            type="text"
-            css={styles.searchInput}
-            placeholder={t('common.askAIQuestion')}
-            value={searchText}
-            onChange={onChangeInputHandler}
-            onKeyDown={onKeyDownHandler}
-          />
-          {searchText ? (
-            graphCommunity ? (
-              <XGraph size={[20, 20]} onClick={clearInputHandler} css={styles.closeInputIcon} />
-            ) : (
-              <Close fill={'#BDBDBD'} onClick={clearInputHandler} css={styles.closeInputIcon} />
-            )
-          ) : graphCommunity ? (
-            <MagnifyingGlassGraph size={[20, 20]} css={styles.searchInputIcon} />
-          ) : (
-            <SearchAI size={[30, 30]} stroke={'#BDBDBD'} css={styles.searchInputIcon} />
-          )}
-        </div>
-        <Button
-          id="header-ask-question"
-          onClick={getSearchResultHandler}
-          disabled={searchResultLoading}
-          css={css`
-            opacity: ${searchResultLoading ? '0.8' : '1'};
-            margin-top: 15px;
-
-            .fill {
-              fill: ${TEXT_LIGHT};
-            }
-
-            .stroke {
-              stroke: ${TEXT_LIGHT};
-            }
-
-            span {
-              display: flex;
-              align-items: center;
-            }
-
-            background: ${colors.btnColor};
-
-            :hover {
-              opacity: 0.8;
-            }
-          `}
-        >
-          <IconLg fill={TEXT_LIGHT} icon={AIIcon} />
-          <span
-            className="ml-2"
-            css={css`
-              color: ${TEXT_LIGHT};
-            `}
-          >
-            {t('common.askAI')}
-          </span>
-        </Button>
+            <div css={styles.headerSearchField}>
+              <input
+                type="text"
+                css={styles.searchInput}
+                placeholder={t('common.aiPoweredSearchInputPlaceholder')}
+                value={searchText}
+                onChange={onChangeInputHandler}
+                onKeyDown={onKeyDownHandler}
+                maxLength={999}
+                ref={inputRef}
+              />
+              <div style={{ textAlign: 'center', marginTop: '4px' }}>
+                <span css={styles.aiTip}>{t('common.generatedByAI')}</span>
+              </div>
+              <div css={styles.searchInputIcon}>
+                <SearchAI onClick={getSearchResultHandler} size={[36, 36]} />
+              </div>
+            </div>
+          </Base>
+        )}
       </div>
-      {!searchResultLoading && !searchResult.hasOwnProperty('found') && (
-        <>
-          <h3 css={styles.subTitle}>{t('common.exploreAI')}</h3>
-          <div css={styles.additionalInfo}>
-            <div css={styles.additionalInfoItem}>
-              <MediumIconStyled>
-                {graphCommunity ? <TimerGraph size={[24, 24]} /> : <Time stroke={customColor} />}
-              </MediumIconStyled>
-              <h4 css={styles.additionalInfoItemTitle}>{t('common.timeEfficiency')}</h4>
-              <p css={styles.additionalInfoItemContent}>{t('common.unlockPotential')}</p>
-            </div>
-            <div css={styles.additionalInfoItem}>
-              <MediumIconStyled>
-                {graphCommunity ? (
-                  <DatabaseGraph size={[24, 24]} />
-                ) : (
-                  <OutlinedBurger stroke={customColor} />
-                )}
-              </MediumIconStyled>
-              <h4 css={styles.additionalInfoItemTitle}>{t('common.broadBase')}</h4>
-              <p css={styles.additionalInfoItemContent}>{t('common.connectAI')}</p>
-            </div>
-            <div css={styles.additionalInfoItem}>
-              <MediumIconStyled>
-                {graphCommunity ? (
-                  <TrendUpGraph size={[24, 24]} />
-                ) : (
-                  <TrendingUp stroke={customColor} />
-                )}
-              </MediumIconStyled>
-              <h4 css={styles.additionalInfoItemTitle}>{t('common.continuousImprovement')}</h4>
-              <p css={styles.additionalInfoItemContent}>{t('common.experienceEnhancements')}</p>
-            </div>
-          </div>
-        </>
-      )}
-      {!searchResultLoading && searchResult.found === true && (
-        <>
-          <h3 css={styles.subTitle}>{t('common.results')}</h3>
-          <div css={styles.searchMainBlock}>
-            <div css={styles.searchResult}>
-              <h2 css={styles.searchResultTitle}>{searchResult.question}</h2>
-              <MarkdownPreviewBlock content={searchResult.answer} />
-            </div>
-            <div css={styles.sources}>
-              <h3 css={styles.sourcesTitle}>{t('common.sources')}</h3>
-              <ul css={styles.sourcesList}>
-                {searchResult.resources.map((resource) => (
-                  <li css={styles.sourcesListItem} key={resource.url}>
-                    <a href={resource.url} target="_blank">
-                      <h4 css={styles.sourcesListItemTitle}>{resource.title}</h4>
-                      <p css={styles.sourcesListItemText}>{resource.content}</p>
-                      <span css={styles.sourcesListItemLink}>{resource.url}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </>
-      )}
-      {!searchResultLoading && searchResult.found === false && (
-        <Banner
-          profileInfo={profileInfo}
-          redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-          showLoginModalWithRedirectToAskQuestionPage={() => loginDispatch(true)}
-        />
-      )}
-
-      {searchResultLoading && <LoadingIndicator />}
     </>
   );
 };
@@ -356,13 +185,17 @@ export default compose(
       locale: makeSelectLocale(),
       profileInfo: makeSelectProfileInfo(),
       searchResultLoading: selectSearchResultLoading(),
-      searchResult: selectSearchResult(),
+      questions: selectQuestions(),
+      answers: selectAnswers(),
+      communities: selectCommunities(),
+      chatStarted: selectChatStarted(),
     }),
     (dispatch) => ({
       getSearchResultDispatch: bindActionCreators(getSearchResult, dispatch),
       redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
       loginWithSuiDispatch: bindActionCreators(loginWithSui, dispatch),
       loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
+      stopGenerationDispatch: bindActionCreators(stopGeneration, dispatch),
     }),
   ),
 )(AISearch);

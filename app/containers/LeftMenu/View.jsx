@@ -12,9 +12,8 @@ import {
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { LEFT_MENU_ID, NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY } from 'containers/LeftMenu/constants';
+import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 
-import MobileLinksInWallet from 'containers/LeftMenu/MobileLinksInWallet';
 import MainLinks from 'containers/LeftMenu/MainLinks';
 import MobileLinksInProfile from 'containers/LeftMenu/MobileLinksInProfile';
 import MobileAdditionalLinks from 'containers/LeftMenu/MobileAdditionalLinks';
@@ -40,6 +39,9 @@ const View = ({
   toggleEditDocumentation,
   isEditDocumentation,
   pinnedItemMenu,
+  communities,
+  startOverDispatch,
+  chatStarted,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -122,6 +124,9 @@ const View = ({
         changeLocale={changeLocale}
         isMenuVisible={isMenuVisible}
         locale={locale}
+        communities={communities}
+        startOverDispatch={startOverDispatch}
+        chatStarted={chatStarted}
       />
       <div css={styles.footer}>
         <Footer />
@@ -140,6 +145,7 @@ View.propTypes = {
   showLoginModal: PropTypes.func,
   changeLocale: PropTypes.func,
   locale: PropTypes.string,
+  communities: PropTypes.object,
 };
 
 export default View;

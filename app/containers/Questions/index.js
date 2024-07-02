@@ -78,9 +78,19 @@ export const Questions = ({
     contentPerPage: AMOUNT_POSTS_PAGINATION,
     count: questionsCount,
   });
+  const notHiddenCommunities = useMemo(
+    () => communities.filter((community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id)),
+    [communities],
+  );
+  const notHiddenFollowCommunities = useMemo(
+    () =>
+      followedCommunities?.filter((communityId) => !HIDDEN_COMMUNITIES_ID?.includes(communityId)),
+    [followedCommunities],
+  );
 
   const isFeed = window.location.pathname === routes.feed(params.communityid);
-  const isNotFollowedCommunities = isEmpty(followedCommunities) || followedCommunities[0] === 0;
+  const isNotFollowedCommunities =
+    isEmpty(notHiddenFollowCommunities) || followedCommunities[0] === 0;
   const isExpert = path === routes.expertPosts() || path === routes.expertPosts(':communityid');
   const isTutorialPage = path === routes.tutorials();
 
@@ -202,10 +212,6 @@ export const Questions = ({
     }
   };
 
-  const notHiddenCommunities = useMemo(
-    () => communities.filter((community) => !HIDDEN_COMMUNITIES_ID?.includes(community.id)),
-    [communities],
-  );
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
     <div>
@@ -239,7 +245,7 @@ export const Questions = ({
         ) : (
           <Banner
             isFeed={isFeed}
-            followedCommunities={followedCommunities}
+            followedCommunities={notHiddenFollowCommunities}
             redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
             isEmpty={questionsList.length === 0}
             isSingleCommunityMode={single}
