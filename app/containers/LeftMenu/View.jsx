@@ -39,6 +39,7 @@ const View = ({
   toggleEditDocumentation,
   isEditDocumentation,
   pinnedItemMenu,
+  communities,
   startOverDispatch,
   chatStarted,
 }) => {
@@ -123,6 +124,7 @@ const View = ({
         changeLocale={changeLocale}
         isMenuVisible={isMenuVisible}
         locale={locale}
+        communities={communities}
         startOverDispatch={startOverDispatch}
         chatStarted={chatStarted}
       />
@@ -143,6 +145,7 @@ View.propTypes = {
   showLoginModal: PropTypes.func,
   changeLocale: PropTypes.func,
   locale: PropTypes.string,
+  communities: PropTypes.object,
 };
 
 export default View;

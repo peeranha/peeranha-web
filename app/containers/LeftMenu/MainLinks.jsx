@@ -174,6 +174,7 @@ const MainLinks = ({
   pinnedItemMenu,
   changeLocale,
   locale,
+  communities,
   startOverDispatch,
   chatStarted,
 }) => {
@@ -277,7 +278,7 @@ const MainLinks = ({
         {!profile && !singleCommId && <div css={styles.dividerLinks} />}
 
         <div css={styles.changeLocale}>
-          <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
+          <ChangeLocale changeLocale={changeLocale} locale={locale} communities={communities} />
         </div>
 
         <div css={styles.dividerLinks} />
@@ -439,6 +440,7 @@ const MainLinks = ({
 MainLinks.propTypes = {
   profile: PropTypes.object,
   currClientHeight: PropTypes.number,
+  communities: PropTypes.object,
 };
 
 export default MainLinks;

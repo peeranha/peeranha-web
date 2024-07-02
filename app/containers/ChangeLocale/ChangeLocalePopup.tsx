@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { languages } from 'app/i18n';
-import Popup from 'common-components/Popup';
+
 import { singleCommunityColors, graphCommunityColors } from 'utils/communityManagement';
 import ArrowDownIcon from 'icons/ArrowDown';
+
 import { CaretRightGraph } from 'components/icons';
+import Popup from 'common-components/Popup';
 
 import { Flag } from './Styled';
 import { styled } from './ChangeLocale.styled';
-
 import ChangeLocaleButton from './ChangeLocaleButton';
 
 const colors = singleCommunityColors();
 const graphCommunity = graphCommunityColors();
 
 type ChangeLocalePopupProps = {
-  setLocale: () => void;
+  setLocale: (language: string) => void;
   locale: string;
   open: boolean;
   setOpen: (argument: boolean) => void;
+  getAvailableLanguages: string[];
 };
 
 const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
@@ -26,6 +27,7 @@ const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
   locale,
   open,
   setOpen,
+  getAvailableLanguages,
 }): JSX.Element => {
   const { t } = useTranslation();
   return (
@@ -48,22 +50,24 @@ const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
             >
               {t(`common.selectLanguage`)}
             </div>
-            {Object.keys(languages).map((item) => (
-              <label>
+            {getAvailableLanguages.map((language) => (
+              <label key={language}>
                 <input
                   className="dn"
                   type="radio"
-                  checked={locale === item}
-                  onChange={() => setLocale(item)}
+                  checked={locale === language}
+                  onChange={() => setLocale(language)}
                   css={styled.input}
                 />
                 <div className="df aic jcsb" css={styled.inputRadio}>
                   <div className="mb-3 df aic ml-3 text-center">
                     <Flag
-                      src={`https://images.peeranha.io/languages/${item}_lang.svg`}
+                      src={`https://images.peeranha.io/languages/${language}_lang.svg`}
                       alt="language"
                     />
-                    <span css={graphCommunity && { color: '#E1E1E4' }}>{t(`common.${item}`)}</span>
+                    <span css={graphCommunity && { color: '#E1E1E4' }}>
+                      {t(`common.${language}`)}
+                    </span>
                   </div>
                 </div>
               </label>
@@ -74,4 +78,4 @@ const ChangeLocalePopup: React.FC<ChangeLocalePopupProps> = ({
     </>
   );
 };
-export default ChangeLocalePopup;
+export default memo(ChangeLocalePopup);

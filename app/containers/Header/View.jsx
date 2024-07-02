@@ -294,7 +294,6 @@ const View = ({
               ) : null}
               {isDesktop && (
                 <ChangeLocale
-                  withTitle
                   changeLocale={changeLocale}
                   locale={locale}
                   communities={communities}

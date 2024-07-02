@@ -1,13 +1,3 @@
-import { startOver } from 'containers/AISearch/actions';
-import { selectChatStarted } from 'containers/AISearch/selectors';
-import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
-import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
-import { deleteQuestion } from 'containers/ViewQuestion/actions';
-import reducer from 'containers/ViewQuestion/reducer';
-import aiSearchReducer from 'containers/AISearch/reducer';
-import saga from 'containers/ViewQuestion/saga';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,10 +5,19 @@ import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
 import { TEXT_LIGHT } from 'style-constants';
-
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 import closeIcon from 'images/close.svg?external';
-import Icon from 'components/Icon';
 
+import aiSearchReducer from 'containers/AISearch/reducer';
+import { startOver } from 'containers/AISearch/actions';
+import { selectChatStarted } from 'containers/AISearch/selectors';
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
+import { deleteQuestion } from 'containers/ViewQuestion/actions';
+import reducer from 'containers/ViewQuestion/reducer';
+import saga from 'containers/ViewQuestion/saga';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import {
   makeSelectProfileInfo,
   makeSelectBalance,
@@ -28,12 +27,13 @@ import {
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
 import { showLoginModal } from 'containers/Login/actions';
 import { changeLocale as changeLocaleDispatch, showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible, selectPinnedItemMenu } from 'containers/AppWrapper/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
+
+import Icon from 'components/Icon';
 
 import View from './View';
 import { Aside, After } from './Styles';
@@ -58,6 +58,7 @@ const LeftMenu = ({
   toggleEditDocumentationDispatch,
   isEditDocumentation,
   pinnedItemMenu,
+  communities,
   startOverDispatch,
   chatStarted,
 }) => (
@@ -81,6 +82,7 @@ const LeftMenu = ({
       toggleEditDocumentation={toggleEditDocumentationDispatch}
       isEditDocumentation={isEditDocumentation}
       pinnedItemMenu={pinnedItemMenu}
+      communities={communities}
       startOverDispatch={startOverDispatch}
       chatStarted={chatStarted}
     />
@@ -102,6 +104,7 @@ LeftMenu.propTypes = {
   isMenuVisible: PropTypes.bool,
   changeLocale: PropTypes.func,
   locale: PropTypes.string,
+  communities: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -115,6 +118,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   isEditDocumentation: selectIsEditDocumentation(),
   pinnedItemMenu: selectPinnedItemMenu(),
+  communities: selectCommunities(),
   chatStarted: selectChatStarted(),
 });
 
