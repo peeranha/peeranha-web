@@ -1,0 +1,19 @@
+{
+  "title": "Підвищення",
+  "description": "Підвищення | Опис",
+  "currentPeriod": "Поточний період",
+  "nextPeriod": "Наступний період",
+  "maximumStake": "Середня ставка",
+  "users": "Користувачі",
+  "yourStake": "Ваша ставка",
+  "yourBoost": "Ваше підвищення",
+  "yourPredictedBoost": "Ваше прогнозоване підвищення",
+  "formTitle": "Ставка на наступний період",
+  "formSubmit": "Зберегти",
+  "formCancel": "Скасувати",
+  "formBoostPrediction": "Прогноз підвищення",
+  "formCurrentStake": "Ваша ставка",
+  "formTakeAStake": "Взяти ставку",
+  "formUnstakeTokens": "Вилучити токени",
+  "notTokensToStake": "У вас немає токенів для ставки"
+}

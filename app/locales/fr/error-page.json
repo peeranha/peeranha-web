@@ -1,0 +1,10 @@
+{
+  "title": "Une erreur est survenue...",
+  "description": "Une erreur est survenue... Description",
+  "weAreSorry": "Nous sommes désolés, une erreur inattendue s'est produite.",
+  "accountDoesNotExist": "Le compte n'existe pas.",
+  "cannotTransferToSelf": "Impossible de transférer vers votre propre compte.",
+  "weUpdatedTheApplication": "Nous avons mis à jour l'application. ",
+  "clearYourBrowser": "Veuillez vider le cache de votre navigateur pour le redémarrer. ",
+  "holdDown": "Maintenez la touche <0>{{ctrl}}</0> enfoncée, puis appuyez sur la touche <1>{{f5}}</1>. "
+}

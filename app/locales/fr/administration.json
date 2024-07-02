@@ -1,0 +1,15 @@
+{
+  "communityModerator": "Modérateur de la communauté",
+  "communityAdministrator": "Administrateur de la communauté",
+  "addRole": "Ajouter un nouveau rôle",
+  "chooseRole": "Choisir un rôle",
+  "emptyRole": "Veuillez choisir un rôle",
+  "alreadyHasModeratorRole": "Le rôle de modérateur est déjà assigné à cette adresse de portefeuille",
+  "alreadyHasAdministratorRole": "Le rôle d'administrateur est déjà assigné à cette adresse de portefeuille",
+  "alreadyHasRole": "L'utilisateur a déjà ce rôle",
+  "confirm": "Confirmer",
+  "cancel": "Annuler",
+  "wantToRevoke": "Êtes-vous sûr de vouloir révoquer l'utilisateur du rôle de {{role}}?",
+  "revoke": "Révoquer",
+  "errorMessageEmptyUser": "L'adresse du portefeuille fournie est inactive pour le moment. L'utilisateur doit effectuer une transaction, comme la mise à jour de son profil ou la publication de contenu, pour l'activer."
+}

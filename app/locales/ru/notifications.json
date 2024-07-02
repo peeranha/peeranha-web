@@ -1,0 +1,21 @@
+{
+  "youHaveNoNewNotifications": "У вас нет новых уведомлений.",
+  "yourQuestionWasUpVoted": "Вашему посту был поставлен лайк",
+  "yourQuestionWasDownVoted": "Вашему посту был поставлен дизлайк",
+  "yourQuestionUpVoteWasCanceled": "Голос за ваш пост был отменен",
+  "yourQuestionDownVoteWasCanceled": "Голос против вашего поста был отменен",
+  "yourAnswerWasUpVoted": "Вашему ответу был поставлен лайк",
+  "yourAnswerWasDownVoted": "Вашему ответу был поставлен дизлайк",
+  "yourAnswerUpVoteWasCanceled": "Голос за ваш ответ был отменен",
+  "yourAnswerDownVoteWasCanceled": "Голос против вашего ответа был отменен",
+  "yourAnswerWasMarkedAsTheBest": "Ваш ответ был отмечен как лучший",
+  "somebodyAnsweredYourQuestion": "На ваш вопрос ответили",
+  "somebodyLeftACommentToYourQuestion": "К вашему вопросу оставили комментарий",
+  "somebodyLeftACommentToYourAnswer": "К вашему ответу оставили комментарий",
+  "yourQuestionWasTipped": "Ваш пост получил {{quantity}} чаевых",
+  "yourAnswerWasTipped": "Ваш ответ получил {{quantity}} чаевых",
+  "yourPostTypeWasChanged": "Тип вашего поста был изменен",
+  "communityWasChanged": "Ваш пост был перемещен",
+  "communityChangedFromTo": "из {{previousCommunity}} в {{currentCommunity}} сообщество",
+  "postTypeChangedFromTo": "из {{previousPostType}} в {{postType}}"
+}

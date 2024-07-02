@@ -1,0 +1,21 @@
+{
+  "youHaveNoNewNotifications": "Sie haben keine neuen Benachrichtigungen.",
+  "yourQuestionWasUpVoted": "Ihr Beitrag wurde positiv bewertet.",
+  "yourQuestionWasDownVoted": "Ihr Beitrag wurde negativ bewertet.",
+  "yourQuestionUpVoteWasCanceled": "Die positive Bewertung Ihres Beitrags wurde zurückgenommen.",
+  "yourQuestionDownVoteWasCanceled": "Die negative Bewertung Ihres Beitrags wurde zurückgenommen.",
+  "yourAnswerWasUpVoted": "Ihre Antwort wurde positiv bewertet.",
+  "yourAnswerWasDownVoted": "Ihre Antwort wurde negativ bewertet.",
+  "yourAnswerUpVoteWasCanceled": "Die positive Bewertung Ihrer Antwort wurde zurückgenommen.",
+  "yourAnswerDownVoteWasCanceled": "Die negative Bewertung Ihrer Antwort wurde zurückgenommen.",
+  "yourAnswerWasMarkedAsTheBest": "Ihre Antwort wurde als die beste markiert.",
+  "somebodyAnsweredYourQuestion": "Jemand hat Ihre Frage beantwortet.",
+  "somebodyLeftACommentToYourQuestion": "Jemand hat einen Kommentar zu Ihrer Frage hinterlassen.",
+  "somebodyLeftACommentToYourAnswer": "Jemand hat einen Kommentar zu Ihrer Antwort hinterlassen.",
+  "yourQuestionWasTipped": "Ihr Beitrag wurde mit {{quantity}} Trinkgeld belohnt.",
+  "yourAnswerWasTipped": "Ihre Antwort wurde mit {{quantity}} Trinkgeld belohnt.",
+  "yourPostTypeWasChanged": "Der Beitragstyp Ihres Beitrags wurde geändert.",
+  "communityWasChanged": "Ihr Beitrag wurde in eine andere community verschoben.",
+  "communityChangedFromTo": "Von der {{previousCommunity}}-community zur {{currentCommunity}}-community geändert.",
+  "postTypeChangedFromTo": "Von {{previousPostType}} zu {{postType}} geändert."
+}

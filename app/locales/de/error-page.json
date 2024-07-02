@@ -1,0 +1,10 @@
+{
+  "title": "Ein Fehler ist aufgetreten...",
+  "description": "Ein Fehler ist aufgetreten... Beschreibung",
+  "weAreSorry": "Es tut uns leid, es ist ein unerwarteter Fehler aufgetreten.",
+  "accountDoesNotExist": "Das Konto existiert nicht",
+  "cannotTransferToSelf": "Sie können nicht an sich selbst übertragen",
+  "weUpdatedTheApplication": "Wir haben die Anwendung aktualisiert. ",
+  "clearYourBrowser": "Löschen Sie den Browser-Cache, um die Anwendung neu zu starten. ",
+  "holdDown": "Halten Sie <0>{{ctrl}}</0> gedrückt und drücken Sie <1>{{f5}}</1>."
+}

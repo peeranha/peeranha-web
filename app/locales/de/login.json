@@ -1,0 +1,31 @@
+{
+  "authUserHasMore": "Ein angemeldeter Benutzer hat weitere Optionen",
+  "walletInOne": "Ihre Blockchain-Brieftasche in einem Klick.",
+  "emailForm": "Geben Sie Ihre E-Mail-Adresse ein",
+  "getStarted": "Loslegen",
+  "connectWithWallet": "Mit Brieftasche verbinden",
+  "codeWasSent": "Verifizierungscode wurde an Ihre E-Mail gesendet.",
+
+  "checkEmail": "Bitte überprüfen Sie Ihre E-Mails",
+  "weSent": "Wir haben einen Code gesendet an",
+  "enterCode": "Geben Sie den Verifizierungscode ein",
+  "didntGetACode": "Keinen Code erhalten?",
+  "clickToResend": "Klicken Sie hier, um ihn erneut zu senden.",
+  "confirm": "Bestätigen",
+  "incorrectCode": "Falscher Code. Bitte versuchen Sie es erneut.",
+
+  "staySignedIn": "Angemeldet bleiben",
+  "userIsNotRegistered": "Benutzer ist nicht registriert",
+  "userIsNotSelected": "Benutzer wurde nicht ausgewählt",
+  "fbAutologinError": "Automatische Anmeldung mit Facebook-Konto fehlgeschlagen",
+  "fbLoginError": "Anmeldung mit Facebook-Konto fehlgeschlagen",
+  "weAreHappyYouAreHere": "Wir freuen uns, dass Sie hier sind",
+  "yourUsernameIsHow": "Der Benutzername ist der Name, unter dem Sie auf Peeranha bekannt sein werden.",
+  "referralMessage": "Dies ist der Code, den Ihnen Ihr Freund gegeben hat.",
+  "optionalReferralCode": "(optional)",
+  "accountNotCreatedName": "Konto wurde noch nicht erstellt",
+  "inviterIsNotRegisterYet": "Der Einladende ist noch nicht registriert",
+  "create": "Erstellen",
+  "createName": "Bitte erstellen Sie Ihren Anzeigenamen",
+  "enterName": "Anzeigenamen eingeben"
+}

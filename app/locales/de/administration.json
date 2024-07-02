@@ -1,0 +1,15 @@
+{
+  "communityModerator": "Gemeinschaftsmoderator",
+  "communityAdministrator": "Gemeinschaftsadministrator",
+  "addRole": "Rolle hinzufügen",
+  "chooseRole": "Rolle auswählen",
+  "emptyRole": "Bitte wählen Sie eine Rolle aus",
+  "alreadyHasModeratorRole": "Dieser Wallet-Adresse wurde bereits die Rolle des Moderators zugewiesen",
+  "alreadyHasAdministratorRole": "Dieser Wallet-Adresse wurde bereits die Rolle des Administrators zugewiesen",
+  "alreadyHasRole": "Dieser Benutzer hat bereits diese Rolle",
+  "confirm": "Bestätigen",
+  "cancel": "Abbrechen",
+  "wantToRevoke": "Möchten Sie dem Benutzer wirklich die Rolle {{role}} entziehen?",
+  "revoke": "Entziehen",
+  "errorMessageEmptyUser": "Die angegebene Wallet-Adresse ist derzeit inaktiv. Um sie zu aktivieren, muss der Benutzer eine Transaktion durchführen, z. B. sein Profil aktualisieren oder Inhalte veröffentlichen."
+}
