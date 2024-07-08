@@ -3,13 +3,13 @@ import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './locales/en';
-import de from './locales/de';
+import zh from './locales/zh';
 import es from './locales/es';
-import fr from './locales/fr';
+import vi from './locales/vi';
 import ru from './locales/ru';
 import uk from './locales/uk';
-import vi from './locales/vi';
-import zh from './locales/zh';
+import fr from './locales/fr';
+import de from './locales/de';
 
 export const languages = {
   en: 'en',
@@ -24,37 +24,47 @@ export const languages = {
 
 export const languagesWithDescriptions = [
   { language: 'en', description: 'english' },
-  { language: 'de', description: 'german' },
+  { language: 'zh', description: 'chinese' },
   { language: 'es', description: 'spanish' },
-  { language: 'fr', description: 'french' },
+  { language: 'vi', description: 'vietnamese' },
   { language: 'ru', description: 'russian' },
   { language: 'uk', description: 'ukrainian' },
-  { language: 'vi', description: 'vietnamese' },
-  { language: 'zh', description: 'chinese' },
+  { language: 'fr', description: 'french' },
+  { language: 'de', description: 'german' },
 ];
-export const languagesEnum = { en: 0, de: 1, es: 2, fr: 3, ru: 4, uk: 5, vi: 6, zh: 7 };
+
+export const languagesEnum = {
+  en: 0,
+  zh: 1,
+  es: 2,
+  vi: 3,
+  ru: 4,
+  uk: 5,
+  fr: 6,
+  de: 7,
+};
 
 export const localeRFC5646 = {
   en: 'en-US',
-  de: 'de-DE',
+  zh: 'zh-Hans-CN',
   es: 'es-ES',
-  fr: 'fr-FR',
+  vi: 'vi-VN',
   ru: 'ru-RU',
   uk: 'uk-UA',
-  vi: 'vi-VN',
-  zh: 'zh-Hans-CN',
+  fr: 'fr-FR',
+  de: 'de-DE',
 };
 
 export const i18n = i18next.use(Backend).use(LanguageDetector).use(initReactI18next).init({
   resources: {
     en,
-    de,
+    zh,
     es,
-    fr,
+    vi,
     ru,
     uk,
-    vi,
-    zh,
+    fr,
+    de,
   },
   lng: 'en',
   fallbackLng: 'en',

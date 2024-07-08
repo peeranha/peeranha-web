@@ -66,6 +66,7 @@ const TranslationsField: React.FC<TranslationsFieldProps> = ({
         }
         menu={optionsLanguages.map((language) => (
           <div
+            key={language.value}
             css={styles.option}
             onClick={() => {
               setSelectedLanguages([...selectedLanguages, language.value]);
