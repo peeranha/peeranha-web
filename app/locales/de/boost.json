@@ -1,0 +1,19 @@
+{
+  "title": "Steigerung",
+  "description": "Steigerung | Beschreibung",
+  "currentPeriod": "Aktueller Zeitraum",
+  "nextPeriod": "Nächster Zeitraum",
+  "maximumStake": "Durchschnittlicher Einsatz",
+  "users": "Benutzer",
+  "yourStake": "Ihr Einsatz",
+  "yourBoost": "Ihre Steigerung",
+  "yourPredictedBoost": "Ihre vorhergesagte Steigerung",
+  "formTitle": "Einsatz im nächsten Zeitraum",
+  "formSubmit": "Speichern",
+  "formCancel": "Abbrechen",
+  "formBoostPrediction": "Steigerungsvorhersage",
+  "formCurrentStake": "Ihr Einsatz",
+  "formTakeAStake": "Einsatz tätigen",
+  "formUnstakeTokens": "Token zurückziehen",
+  "notTokensToStake": "Sie haben keine Tokens zum Einsatz verfügbar."
+}

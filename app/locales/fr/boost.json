@@ -1,0 +1,19 @@
+{
+  "title": "Boost",
+  "description": "Boost | Description",
+  "currentPeriod": "Période actuelle",
+  "nextPeriod": "Prochaine période",
+  "maximumStake": "Mise maximale",
+  "users": "Utilisateurs",
+  "yourStake": "Votre mise",
+  "yourBoost": "Votre boost",
+  "yourPredictedBoost": "Votre boost prévu",
+  "formTitle": "Prochaine mise",
+  "formSubmit": "Enregistrer",
+  "formCancel": "Annuler",
+  "formBoostPrediction": "Prédiction de boost",
+  "formCurrentStake": "Votre mise actuelle",
+  "formTakeAStake": "Prendre une mise",
+  "formUnstakeTokens": "Récupérer les jetons",
+  "notTokensToStake": "Vous n'avez pas de jetons à miser"
+}

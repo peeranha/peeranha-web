@@ -1,0 +1,21 @@
+{
+  "youHaveNoNewNotifications": "Vous n'avez pas de nouvelles notifications.",
+  "yourQuestionWasUpVoted": "Votre publication a reçu un vote positif.",
+  "yourQuestionWasDownVoted": "Votre publication a reçu un vote négatif.",
+  "yourQuestionUpVoteWasCanceled": "Votre vote positif pour la publication a été annulé.",
+  "yourQuestionDownVoteWasCanceled": "Votre vote négatif pour la publication a été annulé.",
+  "yourAnswerWasUpVoted": "Votre réponse a reçu un vote positif.",
+  "yourAnswerWasDownVoted": "Votre réponse a reçu un vote négatif.",
+  "yourAnswerUpVoteWasCanceled": "Votre vote positif pour la réponse a été annulé.",
+  "yourAnswerDownVoteWasCanceled": "Votre vote négatif pour la réponse a été annulé.",
+  "yourAnswerWasMarkedAsTheBest": "Votre réponse a été marquée comme la meilleure.",
+  "somebodyAnsweredYourQuestion": "Quelqu'un a répondu à votre publication.",
+  "somebodyLeftACommentToYourQuestion": "Quelqu'un a commenté votre publication.",
+  "somebodyLeftACommentToYourAnswer": "Quelqu'un a commenté votre réponse.",
+  "yourQuestionWasTipped": "Votre publication a reçu un pourboire de {{quantity}}.",
+  "yourAnswerWasTipped": "Votre réponse a reçu un pourboire de {{quantity}}.",
+  "yourPostTypeWasChanged": "Le type de votre publication a été modifié.",
+  "communityWasChanged": "Votre publication a été déplacée.",
+  "communityChangedFromTo": "de la communauté {{previousCommunity}} à la communauté {{currentCommunity}}.",
+  "postTypeChangedFromTo": "de {{previousPostType}} à {{postType}}."
+}
