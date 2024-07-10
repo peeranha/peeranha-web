@@ -56,6 +56,10 @@ export const LANGUAGES_MAP = {
   zh: 1,
   es: 2,
   vi: 3,
+  ru: 4,
+  uk: 5,
+  fr: 6,
+  de: 7,
 };
 
 export const globalAdminPermissions = {
