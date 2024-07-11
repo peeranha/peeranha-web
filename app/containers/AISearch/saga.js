@@ -39,10 +39,18 @@ export function* getSearchResultWorker({ query, communityId }) {
       const chunkData = decoder.decode(value, { stream: true });
       response = chunkData;
       const jsonObjects = `[${chunkData.replace(/}{/g, '}, {')}]`;
-      const result = JSON.parse(jsonObjects);
-      answers[answers.length - 1].answer = result[result.length - 1].answer;
-      answers[answers.length - 1].resources = result[result.length - 1].resources;
-      yield put(getChunkSuccess(answers, false, result[result.length - 1].threadId));
+      let result;
+      try {
+        result = JSON.parse(jsonObjects);
+      } catch (parsingError) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+      if (result) {
+        answers[answers.length - 1].answer = result[result.length - 1].answer;
+        answers[answers.length - 1].resources = result[result.length - 1].resources;
+        yield put(getChunkSuccess(answers, false, result[result.length - 1].threadId));
+      }
     }
     yield put(getSearchResultSuccess());
   } catch (e) {
