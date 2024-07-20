@@ -29,25 +29,31 @@ export const queryOnlyFromIndexer = async (ethereumService) => {
   const isMeshService = isMeshServiceConfig();
 
   if (!isMeshService) {
-    const result = await executeQuery(
-      isMeshService,
-      {
-        query: metaQueryGraph,
-      },
-      false,
-    );
-    if (!result || !result._meta) {
+    try {
+      const result = await executeQuery(
+        isMeshService,
+        {
+          query: metaQueryGraph,
+        },
+        false,
+      );
+      if (!result || !result._meta) {
+        return true;
+      }
+      const blockFromEthereum = await ethereumService.getBlock();
+      const blockFromGraph = result._meta.block.number;
+      const delay = blockFromEthereum - blockFromGraph;
+      console.log('Lag of', delay, 'blocks');
+      if (delay > 3) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log(error);
       return true;
     }
-    const blockFromEthereum = await ethereumService.getBlock();
-    const blockFromGraph = result._meta.block.number;
-    const delay = blockFromEthereum - blockFromGraph;
-    console.log('Lag of', delay, 'blocks');
-    if (delay > 3) {
-      return true;
-    }
-    return false;
   }
+  return true;
 };
 
 const executeQuery = async (isMeshService, { query, variables }, enableCache = true) => {
