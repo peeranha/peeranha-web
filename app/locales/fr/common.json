@@ -157,7 +157,7 @@
   "loginViaService": "Se connecter via un service",
   "signUpViaWallet": "S'inscrire via un portefeuille",
   "signUpViaService": "S'inscrire via un service",
-  "general": "Discussion générale",
+  "general": "Discussion",
   "expert": "Expert",
   "tutorial": "Tutoriel",
   "promoted": "Promu",
@@ -169,7 +169,7 @@
   "tipAnswer": "Réponse au pourboire",
   "sendTip": "Envoyer un pourboire",
   "receivedReward": "Vous avez reçu une récompense de référence",
-  "generalPopoverTitle": "Discussion générale",
+  "generalPopoverTitle": "Discussion",
   "generalPopoverLabel": "Un sujet qui ne nécessite pas d'expertise ou d'expérience pour y répondre, et qui peut inclure :",
   "generalPopoverList": [
     "Échange d'opinions subjectives",
@@ -285,7 +285,7 @@
     "Explication ou clarification d'informations difficiles à comprendre;",
     "Demande d'instructions ou de recette."
   ],
-  "tutorialQuestionDescriptionLabel": "Le tutoriel est une instruction manuelle qui peut être l'une des suivantes:",
+  "tutorialQuestionDescriptionLabel": "Un tutoriel est une instruction pas à pas qui peut inclure l'un des éléments suivants:",
   "tutorialQuestionDescriptionList": [
     "Solution étape par étape à un problème ;",
     "Configuration technique ;",
@@ -437,7 +437,7 @@
     "title": "Modifier la publication"
   },
   "editDiscussion": "Modifier la discussion",
-  "editExpertQ&A": "Modifier la question/expertise",
+  "editExpertQ&A": "Modifier la question",
   "editTutorial": "Modifier le tutoriel",
   "footerHeader": "Droits d'auteur : Peeranha",
   "youGotThisKey": "Vous avez reçu cette clé avec l'autorisation qui a été enregistrée dans un endroit sûr. Essayez de la retrouver.",
@@ -541,15 +541,15 @@
     "grantRole": "Accorder un rôle",
     "revokeRole": "Révoquer un rôle",
     "mintUserNFT": "Obtenir un NFT utilisateur",
-    "banCommunityUser": "Interdire l'utilisateur dans la communauté"
+    "banCommunityUser": "Interdire l'utilisateur dans la communauté",
+    "unBanCommunityUser": "Débloquer l'utilisateur dans la communauté’"
   },
   "aboutPeeranha": "À propos de Peeranha",
   "postsAnswersComments": "Publications, Réponses et Commentaires",
   "statusReputationPrivileges": "Statut, Réputation et Privilèges",
   "new": "Nouveau",
-  "aiPoweredSearch": "Recherche alimentée par l'IA",
-  "aiPoweredSearchInputPlaceholder": "Que la magie commence, Posez une question",
-  "askAI": "Demander à l'IA",
+  "aiPoweredSearch": "Assistant IA",
+  "aiPoweredSearchInputPlaceholder": "Posez n'importe quelle question...",
   "askAIQuestion": "Poser une question à l'IA",
   "exploreAI": "Explorez votre moteur de recherche avancé basé sur l'IA",
   "timeEfficiency": "Efficacité temporelle",
@@ -561,10 +561,19 @@
   "noResultsFound": "Aucun résultat trouvé",
   "askingCommunity": "Malheureusement, nous n'avons trouvé aucun résultat correspondant. \nEssayez de poser votre question à notre communauté.",
   "sources": "Sources",
+  "logInWithEmailGoogleOrsocialMedia": "Connectez-vous avec votre email, Google ou les réseaux sociaux",
   "orDivider": "OU",
   "transactionInProgress": "La transaction est en cours",
   "canWork": "Vous pouvez continuer à travailler sur le site pendant que la transaction est en cours.",
-  "banUser": "Utilisateur banni",
+  "banUser": "Bloquer l'utilisateur",
   "bannedUser": "Utilisateur banni",
-  "areYouSure": "Êtes-vous sûr de vouloir bannir l'utilisateur?"
+  "unbanUser": "Débloquer l'utilisateur",
+  "areYouSure": "Êtes-vous sûr de vouloir bannir l'utilisateur?",
+  "areYouSureToUnban": "Êtes-vous sûr de vouloir débloquer l'utilisateur?",
+  "generatedByAI": "Cette réponse est générée par une IA et peut ne pas être entièrement précise.",
+  "askAI": "Demandez à l'IA formée sur la base de la base de connaissances {{community}}",
+  "accessAI": "Accéder à l'IA équipée des ressources {{community}}",
+  "utilizeAI": "Utiliser l'expertise de l'IA provenant des ressources {{community}}",
+  "whatIs": "Qu'est-ce que {{community}}?",
+  "howToStart": "Comment commencer avec {{community}}?"
 }

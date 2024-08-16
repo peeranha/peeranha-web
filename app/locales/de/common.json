@@ -284,7 +284,7 @@
     "Erklärung oder Klärung von komplizierten Informationen;",
     "Anforderung einer Anleitung oder eines Rezepts."
   ],
-  "tutorialQuestionDescriptionLabel": "Ein Tutorial ist eine Anleitung, die eine der folgenden Möglichkeiten bietet:",
+  "tutorialQuestionDescriptionLabel": "Ein Tutorial ist eine Schritt-für-Schritt-Anleitung, die eine der folgenden Möglichkeiten umfasst:",
   "tutorialQuestionDescriptionList": [
     "Schritt-für-Schritt-Lösung eines Problems;",
     "Technische Einrichtung;",
@@ -541,15 +541,15 @@
     "grantRole": "Berechtigung erteilen",
     "revokeRole": "Berechtigung entziehen",
     "mintUserNFT": "NFT beanspruchen",
-    "banCommunityUser": "Benutzer in der community sperren"
+    "banCommunityUser": "Benutzer in der community sperren",
+    "unBanCommunityUser": "Benutzer in der community entsperren"
   },
   "aboutPeeranha": "Über Peeranha",
   "postsAnswersComments": "Beiträge, Antworten und Kommentare",
   "statusReputationPrivileges": "Status, Reputation und Privilegien",
   "new": "Neu",
-  "aiPoweredSearch": "KI-unterstützte Suche",
-  "aiPoweredSearchInputPlaceholder": "Lassen Sie die Magie beginnen, stellen Sie eine Frage",
-  "askAI": "Frag die KI",
+  "aiPoweredSearch": "KI-Assistent",
+  "aiPoweredSearchInputPlaceholder": "Fragen Sie irgendetwas...",
   "askAIQuestion": "Frage stellen",
   "exploreAI": "Erkunden Sie Ihre fortschrittliche KI-Suchmaschine",
   "timeEfficiency": "Zeiteffizienz",
@@ -561,10 +561,19 @@
   "noResultsFound": "Keine Ergebnisse gefunden",
   "askingCommunity": "Leider konnten wir keine übereinstimmenden Ergebnisse finden. \nVersuchen Sie, unsere community zu befragen.",
   "sources": "Quellen",
+  "logInWithEmailGoogleOrsocialMedia": "Melden Sie sich mit E-Mail, Google oder sozialen Medien an",
   "orDivider": "ODER",
   "transactionInProgress": "Transaktion läuft",
   "canWork": "Sie können weiter auf der Website arbeiten, während die Transaktion läuft.",
-  "banUser": "Benutzer blocken",
+  "banUser": "Benutzer sperren",
   "bannedUser": "Gesperrter Benutzer",
-  "areYouSure": "Möchten Sie den Benutzer wirklich sperren?"
+  "unbanUser": "Benutzer entsperren",
+  "areYouSure": "Möchten Sie den Benutzer wirklich sperren?",
+  "areYouSureToUnban": "Möchten Sie den Benutzer wirklich entsperren?",
+  "generatedByAI": "Diese Antwort wurde von KI generiert und ist möglicherweise nicht vollständig genau.",
+  "askAI": "Frage KI, die auf dem Wissenspool von {{community}} trainiert ist",
+  "accessAI": "Zugriff auf KI mit {{community}} Ressourcen",
+  "utilizeAI": "Nutzen Sie die Fachkenntnisse der KI aus den Ressourcen von {{community}}",
+  "whatIs": "Was ist {{community}}?",
+  "howToStart": "Wie kann man mit {{community}} beginnen?"
 }

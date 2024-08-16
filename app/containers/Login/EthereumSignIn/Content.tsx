@@ -42,7 +42,7 @@ const Content = ({
       }}
     >
       <Button css={{ width: '100%' }} onClick={connect} disabled={signInWithEmailProcessing}>
-        Log in with email, Google, or social media
+        {t('common.logInWithEmailGoogleOrsocialMedia')}
       </Button>
 
       <div css={styles.divider}>
