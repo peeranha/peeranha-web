@@ -8,7 +8,7 @@ import { singleCommunityStyles } from 'utils/communityManagement';
 
 const styles = singleCommunityStyles();
 
-const Logo = styled.div`
+const LogoDiv = styled.div`
   display: flex;
   justify-content: left;
   align-items: center;
@@ -40,7 +40,11 @@ const Logo = styled.div`
       width: ${styles.logoText ? 50 : 100}px;
     }
   }
-`.withComponent(Link);
+`;
+
+const Logo = LogoDiv.withComponent(Link);
+
+const LogoA = Logo.withComponent('a');
 
 const QAndALogo = styled.div`
   position: relative;
@@ -96,5 +100,5 @@ const QAndALogo = styled.div`
   }
 `.withComponent(Link);
 
-export { QAndALogo };
+export { QAndALogo, LogoDiv, LogoA };
 export default Logo;

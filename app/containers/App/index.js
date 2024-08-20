@@ -117,8 +117,7 @@ const App = ({ location: { pathname, search }, redirectToFeedDispatch, history }
   }, [history]);
 
   useEffect(() => {
-    const isVisitedSite = getCookie('isVisitedSite');
-    if (isVisitedSite && !single && pathname === '/') {
+    if (!single && pathname === '/') {
       redirectToFeedDispatch();
     }
   }, []);
