@@ -30,7 +30,9 @@ import {
 import { MATIC, POLYGON, POLYGON_TESTNET, PROD_ENV } from './constants';
 
 const networkLabel = process.env.ENV === PROD_ENV ? POLYGON : POLYGON_TESTNET;
-const injected = injectedModule({ displayUnavailable: [ProviderLabel.MetaMask] });
+const injected = injectedModule({
+  displayUnavailable: [ProviderLabel.MetaMask, ProviderLabel.OKXWallet],
+});
 
 const styles = singleCommunityStyles();
 
