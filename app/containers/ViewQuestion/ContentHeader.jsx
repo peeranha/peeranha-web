@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { css } from '@emotion/react';
 
 import { BORDER_SECONDARY, BORDER_PRIMARY, BORDER_ATTENTION_LIGHT } from 'style-constants';
 
@@ -131,6 +132,10 @@ const Box = styled.div`
 const DropdownBox = styled.div`
   position: relative;
 `;
+
+const inlineBlockButton = {
+  display: 'inline-block',
+};
 
 const ContentHeader = (props) => {
   const {
@@ -277,6 +282,7 @@ const ContentHeader = (props) => {
                     params={buttonParams}
                     onClick={onClick}
                     disabled={ids.includes(`${type}_delete_${answerId}`)}
+                    css={css(inlineBlockButton)}
                   >
                     {graphCommunity ? (
                       <TrashGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
@@ -293,7 +299,12 @@ const ContentHeader = (props) => {
 
           {type === QUESTION_TYPE && (
             <DropdownBox>
-              <Button show disabled={isModalOpen} onClick={() => setModalOpen(true)}>
+              <Button
+                show
+                disabled={isModalOpen}
+                onClick={() => setModalOpen(true)}
+                css={css(inlineBlockButton)}
+              >
                 {graphCommunity ? (
                   <ShareNetworkGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
                 ) : (
@@ -311,7 +322,12 @@ const ContentHeader = (props) => {
           )}
 
           <DropdownBox>
-            <Button show disabled={isPopoverOpen} onClick={() => setPopoverOpen(true)}>
+            <Button
+              show
+              disabled={isPopoverOpen}
+              onClick={() => setPopoverOpen(true)}
+              css={css(inlineBlockButton)}
+            >
               {graphCommunity ? (
                 <FileArrowUpGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
               ) : (
@@ -337,6 +353,7 @@ const ContentHeader = (props) => {
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
             id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
+            css={css(inlineBlockButton)}
           >
             <IconMd icon={pencilIcon} />
             <span>{t('post.editButton')}</span>

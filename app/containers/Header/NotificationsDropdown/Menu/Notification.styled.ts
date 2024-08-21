@@ -40,13 +40,12 @@ const styles = {
   },
   titleWrapper: {
     '& span': {
-      whiteSpace: 'normal',
+      whiteSpace: 'nowrap',
       lineHeight: '20px',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      display: '-webkit-box !important',
-      '-webkit-line-clamp': '2',
-      '-webkit-box-orient': 'vertical',
+      display: 'block',
+      width: '100%',
     },
   },
   title: {
@@ -66,14 +65,13 @@ const styles = {
   },
   // Footer styles
   footerContainer: {
-    display: 'flex',
+    display: 'inline-block',
     width: '100%',
     borderTop: `1px solid ${colors.dividerColor || BORDER_SECONDARY_LIGHT}`,
     padding: '16px',
   },
   seeAll: {
     color: graphCommunity ? '#E1E1E4' : colors.btnColor || TEXT_PRIMARY,
-    marginLeft: '2px',
     marginRight: '25px',
   },
   // Header styles
