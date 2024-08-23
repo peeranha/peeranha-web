@@ -15,13 +15,13 @@ type imageByLanguageType = {
 
 const imageByLanguage: imageByLanguageType = {
   0: 'https://images.peeranha.io/languages/en_language.svg',
-  1: 'https://images.peeranha.io/languages/de_language.svg',
+  1: 'https://images.peeranha.io/languages/zh_language.svg',
   2: 'https://images.peeranha.io/languages/es_language.svg',
-  3: 'https://images.peeranha.io/languages/fr_language.svg',
+  3: 'https://images.peeranha.io/languages/vi_language.svg',
   4: 'https://images.peeranha.io/languages/ru_language.svg',
   5: 'https://images.peeranha.io/languages/uk_language.svg',
-  6: 'https://images.peeranha.io/languages/vi_language.svg',
-  7: 'https://images.peeranha.io/languages/zh_language.svg',
+  6: 'https://images.peeranha.io/languages/fr_language.svg',
+  7: 'https://images.peeranha.io/languages/de_language.svg',
 };
 
 type SeeOriginalProps = {
