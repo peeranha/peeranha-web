@@ -43,7 +43,7 @@ import ChangeLocale from 'containers/ChangeLocale';
 
 import { Wrapper, MainSubHeader, WarningFrozenSingleCommunity } from './Wrapper';
 import Section from './Section';
-import LogoStyles from './Logo';
+import { LogoA } from './Logo';
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
@@ -138,8 +138,8 @@ const View = ({
     };
 
     return (
-      <LogoStyles
-        to={single || isSuiBlockchain ? routes.feed() : routes.home()}
+      <LogoA
+        href={single || isSuiBlockchain ? routes.feed() : routes.home()}
         onClick={() =>
           ReactGA.event({
             category: 'Users',
@@ -149,7 +149,7 @@ const View = ({
       >
         <img src={src()} alt="logo" />
         {styles.logoText}
-      </LogoStyles>
+      </LogoA>
     );
   }, [isSearchFormVisible]);
 
