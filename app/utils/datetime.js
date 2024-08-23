@@ -1,14 +1,13 @@
 import format from 'date-fns/format';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
-import {
-  differenceInDays,
-  differenceInMonths,
-  differenceInYears,
-} from 'date-fns';
+import { differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
 import { localeRFC5646 } from 'app/i18n';
 
 import ru from 'date-fns/locale/ru/index.js';
 import en from 'date-fns/locale/en/index.js';
+import de from 'date-fns/locale/de/index.js';
+import fr from 'date-fns/locale/fr/index.js';
+import zh from 'date-fns/locale/zh_cn/index.js';
 
 import {
   MONTH_3LETTERS__DAY_TIME,
@@ -31,12 +30,12 @@ const options = {
 const translations = {
   ru,
   en,
+  de,
+  fr,
+  zh,
 };
 
-export const getTimeFromDateToNow = /* istanbul ignore next */ (
-  date,
-  locale,
-) => {
+export const getTimeFromDateToNow = /* istanbul ignore next */ (date, locale) => {
   const dateInMills = date * 1000;
   const localeObj = { locale: translations[locale] };
 

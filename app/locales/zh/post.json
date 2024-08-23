@@ -66,6 +66,8 @@
   "RulesBlock_4": "3. 对他人有礼貌和尊重。",
   "inThisCommunity": "在这个社区",
   "reputationBelowZero": "你在这个社区的声誉是负面的，你不能发表任何回复。",
+  "warningForAdmin": "此帖子无法更改为教程,因为它已有回复。请删除此帖子的所有回复以继续操作。",
+  "warningForUser": "此帖子无法更改为教程,因为它已有回复。请联系支持人员寻求帮助。",
   "answer_login": "你知道答案吗？",
   "answer_loginText": "请登录并分享。",
   "answer_replied": "你已经回复了这个帖子。",

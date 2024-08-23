@@ -66,6 +66,8 @@
   "RulesBlock_4": "3. Lịch sự và tôn trọng người khác.",
   "inThisCommunity": "trong cộng đồng này",
   "reputationBelowZero": "Danh tiếng của bạn trong cộng đồng này là tiêu cực, bạn không được phép đăng bất kỳ câu trả lời nào.",
+  "warningForAdmin": "Bài đăng này không thể được thay đổi thành Hướng dẫn vì nó có các phản hồi. Vui lòng xóa tất cả các phản hồi từ bài đăng này để tiếp tục.",
+  "warningForUser": "Bài đăng này không thể được thay đổi thành Hướng dẫn vì nó có các phản hồi. Vui lòng liên hệ với bộ phận hỗ trợ để được trợ giúp.",
   "answer_login": "Bạn có biết câu trả lời không?",
   "answer_loginText": "Hãy đăng nhập và chia sẻ nó.",
   "answer_replied": "Bạn đã trả lời bài đăng này.",
