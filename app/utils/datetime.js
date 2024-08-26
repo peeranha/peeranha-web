@@ -1,13 +1,15 @@
 import format from 'date-fns/format';
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import formatDistance from 'date-fns/formatDistance';
 import { differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
 import { localeRFC5646 } from 'app/i18n';
 
 import ru from 'date-fns/locale/ru/index.js';
-import en from 'date-fns/locale/en/index.js';
+import uk from 'date-fns/locale/uk/index.js';
+import en from 'date-fns/locale/en-US/index.js';
 import de from 'date-fns/locale/de/index.js';
 import fr from 'date-fns/locale/fr/index.js';
-import zh from 'date-fns/locale/zh_cn/index.js';
+import zh from 'date-fns/locale/zh-CN/index.js';
+import vi from 'date-fns/locale/vi/index.js';
 
 import {
   MONTH_3LETTERS__DAY_TIME,
@@ -19,27 +21,29 @@ import {
 } from './constants';
 
 const options = {
-  [MONTH_3LETTERS__DAY_TIME]: 'MMM D, HH:mm',
-  [MONTH_3LETTERS__DAY_YYYY_TIME]: 'MMM D YYYY, HH:mm',
-  [MONTH_3LETTERS__DAY_YYYY]: 'MMM D, YYYY',
-  [DD_MM_YYYY]: 'DD.MM.YYYY',
+  [MONTH_3LETTERS__DAY_TIME]: 'MMM d, HH:mm',
+  [MONTH_3LETTERS__DAY_YYYY_TIME]: 'MMM d yyyy, HH:mm',
+  [MONTH_3LETTERS__DAY_YYYY]: 'MMM d, yyyy',
+  [DD_MM_YYYY]: 'DD.MM.yyyy',
   [DD_MM_YY]: 'DD.MM.YY',
-  [FULL_MONTH_NAME_DAY_YEAR]: 'MMMM, D, YYYY',
+  [FULL_MONTH_NAME_DAY_YEAR]: 'MMMM, d, yyyy',
 };
 
 const translations = {
   ru,
+  uk,
   en,
   de,
   fr,
   zh,
+  vi,
 };
 
 export const getTimeFromDateToNow = /* istanbul ignore next */ (date, locale) => {
   const dateInMills = date * 1000;
   const localeObj = { locale: translations[locale] };
 
-  return distanceInWordsToNow(dateInMills, localeObj);
+  return formatDistance(dateInMills, new Date(), localeObj);
 };
 
 const FormatDate = (function () {
