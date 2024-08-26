@@ -37,6 +37,7 @@ const styles = {
     marginLeft: '12px',
     display: 'flex',
     flexDirection: 'column',
+    maxWidth: '265px',
   },
   titleWrapper: {
     '& span': {
@@ -62,6 +63,9 @@ const styles = {
   link: {
     fontSize: '14px',
     color: colors.btnColor || '#576FED',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   // Footer styles
   footerContainer: {
