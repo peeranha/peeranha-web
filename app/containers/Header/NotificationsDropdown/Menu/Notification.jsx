@@ -145,7 +145,14 @@ const Notification = ({
       {renderNotificationIcon(type, isCommunityMode, communityStyles)}
       <div css={styles.textBlock}>
         <div css={styles.titleWrapper}>
-          <span css={graphCommunity && { color: '#E1E1E4' }}>
+          <span
+            title={
+              isChangedType
+                ? notificationTitle.concat(' ', t(additionalTitle, notificationTextProps))
+                : notificationTitle
+            }
+            css={graphCommunity && { color: '#E1E1E4' }}
+          >
             {isChangedType
               ? notificationTitle.concat(' ', t(additionalTitle, notificationTextProps))
               : notificationTitle}

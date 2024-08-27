@@ -37,16 +37,16 @@ const styles = {
     marginLeft: '12px',
     display: 'flex',
     flexDirection: 'column',
+    maxWidth: '265px',
   },
   titleWrapper: {
     '& span': {
-      whiteSpace: 'normal',
+      whiteSpace: 'nowrap',
       lineHeight: '20px',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      display: '-webkit-box !important',
-      '-webkit-line-clamp': '2',
-      '-webkit-box-orient': 'vertical',
+      display: 'block',
+      width: '100%',
     },
   },
   title: {
@@ -63,17 +63,19 @@ const styles = {
   link: {
     fontSize: '14px',
     color: colors.btnColor || '#576FED',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   // Footer styles
   footerContainer: {
-    display: 'flex',
+    display: 'inline-block',
     width: '100%',
     borderTop: `1px solid ${colors.dividerColor || BORDER_SECONDARY_LIGHT}`,
     padding: '16px',
   },
   seeAll: {
     color: graphCommunity ? '#E1E1E4' : colors.btnColor || TEXT_PRIMARY,
-    marginLeft: '2px',
     marginRight: '25px',
   },
   // Header styles

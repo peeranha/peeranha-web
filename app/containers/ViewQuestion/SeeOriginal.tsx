@@ -47,6 +47,12 @@ const flagImageStyles = {
   height: '18px',
 };
 
+const showOriginalSpanStyles = {
+  '@media (max-width: 480px)': {
+    display: 'none',
+  },
+};
+
 const SeeOriginal: React.FC<SeeOriginalProps> = ({
   locale,
   language,
@@ -74,7 +80,9 @@ const SeeOriginal: React.FC<SeeOriginalProps> = ({
         alt="language"
         css={css(flagImageStyles)}
       />
-      <span>{showOriginal ? t('common.seeTranslation') : t('common.seeOriginal')}</span>
+      <span css={css(showOriginalSpanStyles)}>
+        {showOriginal ? t('common.seeTranslation') : t('common.seeOriginal')}
+      </span>
     </div>
   ) : null;
 };
