@@ -76,6 +76,7 @@ const styles = {
   },
   seeAll: {
     color: graphCommunity ? '#E1E1E4' : colors.btnColor || TEXT_PRIMARY,
+    marginLeft: graphCommunity ? '0px' : '2px',
     marginRight: '25px',
   },
   // Header styles
