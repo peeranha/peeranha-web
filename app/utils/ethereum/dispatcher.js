@@ -91,7 +91,7 @@ export async function sendDispatcherTransactionMethod(
     throw response;
   }
 
-  await processOptimisticTransaction(action, response.body.transactionHash, network);
+  // await processOptimisticTransaction(action, response.body.transactionHash, network); TODO: remove commented after Oleksandr's PR
 
   this.transactionInPending(response.body.transactionHash, this.transactionList);
 
