@@ -13,7 +13,6 @@ import {
 } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
-import { NetworkChainIDMap } from 'utils/properties';
 import { POST_QUESTION } from 'utils/queries/constants';
 import { setTransactionResult, writeTransactionList } from 'utils/transactionsListManagement';
 import {
@@ -105,7 +104,7 @@ export async function sendTransactionMethod(
     this.setTransactionList(this.transactionList);
     writeTransactionList(this.transactionList, 10);
 
-    await processOptimisticTransaction(action, transaction.hash, network);
+    await processOptimisticTransaction(action, transaction.hash, transaction.chainId, network);
 
     this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);
@@ -139,12 +138,12 @@ export async function sendTransactionMethod(
 
 const OPTIMISTIC_ACTIONS = [POST_QUESTION];
 
-export async function processOptimisticTransaction(action, transactionHash, network) {
+export async function processOptimisticTransaction(action, transactionHash, chainId, network) {
   if (OPTIMISTIC_ACTIONS.some((actionName) => actionName === action) !== -1 && transactionHash) {
     console.log(`Transaction with hash ${transactionHash} for optimistic action ${action} created`);
     await callService(OPTIMISTIC_TRANSACTION_SERVICE, {
       transactionHash,
-      chainId: NetworkChainIDMap[network],
+      chainId,
     });
     console.log(
       `Call to api completed for optimistic action ${action} with hash ${transactionHash}`,

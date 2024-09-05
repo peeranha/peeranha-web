@@ -18,11 +18,6 @@ import {
 // todo change to "findRole"
 const findAllPropertiesByKeys = () => [];
 
-export const NetworkChainIDMap = {
-  0: Number(process.env.CHAIN_ID),
-  1: Number(process.env.EDGEWARE_CHAIN_ID),
-};
-
 export const getActualId = (idWithNetwork) => idWithNetwork.split('-')[1];
 export const getNetwork = (idWithNetwork) => idWithNetwork.split('-')[0] - 1;
 
