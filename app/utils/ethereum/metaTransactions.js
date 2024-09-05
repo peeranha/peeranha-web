@@ -18,6 +18,7 @@ import PeeranhaCommunity from '../../../../peeranha-subgraph/abis/PeeranhaCommun
 import PeeranhaContent from '../../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaToken from '../../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaUser from '../../../../peeranha-subgraph/abis/PeeranhaUser.json';
+import { processOptimisticTransaction } from 'utils/ethereum/transactions';
 
 const CONTRACT_TO_ABI = {};
 const CONTRACT_TO_NAME = {};
@@ -148,6 +149,8 @@ export async function sendMetaTransactionMethod(
   if (response.errorCode) {
     throw response;
   }
+
+  await processOptimisticTransaction(action, response.body.transactionHash, network);
 
   this.transactionInPending(response.body.transactionHash, this.transactionList);
   const result = await this[this.providerForWaiting[Number(network)]].waitForTransaction(

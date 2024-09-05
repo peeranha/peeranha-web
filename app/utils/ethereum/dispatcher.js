@@ -8,6 +8,7 @@ import {
   BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
   callService,
 } from '../web_integration/src/util/aws-connector';
+import { processOptimisticTransaction } from 'utils/ethereum/transactions';
 
 export async function sendDispatcherTransactionMethod(
   network,
@@ -89,6 +90,8 @@ export async function sendDispatcherTransactionMethod(
   if (response.errorCode) {
     throw response;
   }
+
+  await processOptimisticTransaction(action, response.body.transactionHash, network);
 
   this.transactionInPending(response.body.transactionHash, this.transactionList);
 
