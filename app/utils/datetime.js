@@ -10,6 +10,7 @@ import de from 'date-fns/locale/de/index.js';
 import fr from 'date-fns/locale/fr/index.js';
 import zh from 'date-fns/locale/zh-CN/index.js';
 import vi from 'date-fns/locale/vi/index.js';
+import es from 'date-fns/locale/es/index.js';
 
 import {
   MONTH_3LETTERS__DAY_TIME,
@@ -37,6 +38,7 @@ const translations = {
   fr,
   zh,
   vi,
+  es,
 };
 
 export const getTimeFromDateToNow = /* istanbul ignore next */ (date, locale) => {
