@@ -43,7 +43,9 @@ const AreYouSure = ({ isBanned, Button, submitAction }) => {
 
       {isOpened && (
         <ModalDialog closeModal={closeModal} show={isOpened}>
-          <H4 className="text-center pb-3">{t('common.unbanUser')}</H4>
+          <H4 className="text-center pb-3">
+            {isBanned ? t('common.unbanUser') : t('common.banUser')}
+          </H4>
 
           <div className="pb-4 text-center" css={graphCommunity && { color: '#E1E1E4' }}>
             {isBanned ? t('common.areYouSureToUnban') : t('common.areYouSure')}
