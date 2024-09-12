@@ -570,7 +570,7 @@
   "unbanUser": "Débloquer l'utilisateur",
   "areYouSure": "Êtes-vous sûr de vouloir bannir l'utilisateur?",
   "areYouSureToUnban": "Êtes-vous sûr de vouloir débloquer l'utilisateur?",
-  "askInCommunity": "Demandez dans la communauté",
+  "askInCommunity": "Demander dans la communauté",
   "stopGenerating": "Arrêter la génération",
   "generatedByAI": "Cette réponse est générée par une IA et peut ne pas être entièrement précise.",
   "askAI": "Demandez à l'IA formée sur la base de la base de connaissances {{community}}",
