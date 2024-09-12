@@ -570,6 +570,8 @@
   "unbanUser": "Benutzer entsperren",
   "areYouSure": "Möchten Sie den Benutzer wirklich sperren?",
   "areYouSureToUnban": "Möchten Sie den Benutzer wirklich entsperren?",
+  "askInCommunity": "In der Gemeinschaft fragen",
+  "stopGenerating": "Generierung stoppen",
   "generatedByAI": "Diese Antwort wurde von KI generiert und ist möglicherweise nicht vollständig genau.",
   "askAI": "Frage KI, die auf dem Wissenspool von {{community}} trainiert ist",
   "accessAI": "Zugriff auf KI mit {{community}} Ressourcen",
