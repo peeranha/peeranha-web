@@ -84,5 +84,7 @@
   "unanswered": "Unanswered",
   "answered": "Answered",
   "withBestAnswer": "With Best Answer",
-  "withOfficialAnswer": "With Official Answer"
+  "withOfficialAnswer": "With Official Answer",
+  "actionNotAvailable": "Action is not available while <0>transaction</0> is in progress",
+  "transaction": "transaction"
 }

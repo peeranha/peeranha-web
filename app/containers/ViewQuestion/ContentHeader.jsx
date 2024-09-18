@@ -1,11 +1,16 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 
-import { BORDER_SECONDARY, BORDER_PRIMARY, BORDER_ATTENTION_LIGHT } from 'style-constants';
+import {
+  BORDER_SECONDARY,
+  BORDER_PRIMARY,
+  BORDER_ATTENTION_LIGHT,
+  TEXT_PRIMARY,
+} from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
@@ -30,6 +35,8 @@ import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import SeeOriginal from 'containers/ViewQuestion/SeeOriginal';
 import { ShareNetworkGraph, FileArrowUpGraph, TrashGraph } from 'components/icons';
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
+import ViewTransactionLoader from 'components/icons/ViewTransactionLoader';
+import { OptimisticPopover } from 'containers/ViewQuestion/OptimisticPopover';
 
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
@@ -137,6 +144,10 @@ const inlineBlockButton = {
   display: 'inline-block',
 };
 
+const transactionLoader = {
+  color: graphCommunity ? 'rgba(111, 76, 255, 1)' : colors.linkColor || TEXT_PRIMARY,
+};
+
 const ContentHeader = (props) => {
   const {
     author,
@@ -162,6 +173,10 @@ const ContentHeader = (props) => {
     setShowOriginal,
   } = props;
   const { t } = useTranslation();
+  const isOptimisticPost = Boolean(questionData.optimisticHash);
+  const deleteButtonId = `${type}_delete_${answerId}`;
+  const sourceButtonId = `${type}_source_${answerId}`;
+  const redirectToEditItemButtonId = `redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`;
 
   const ipfsHashValue =
     type === QUESTION_TYPE
@@ -215,7 +230,7 @@ const ContentHeader = (props) => {
   return (
     <Box>
       <RatingBox>
-        <ContentRating {...props} />
+        <ContentRating {...props} isOptimisticPost={isOptimisticPost} />
       </RatingBox>
 
       <ItemInfo>
@@ -270,31 +285,38 @@ const ContentHeader = (props) => {
           ) : null}
 
           {!shouldShowDeleteBtn && (
-            <div id={`${type}_delete_${answerId}`}>
-              <AreYouSure
-                submitAction={deleteAction}
-                isGlobalAdmin={isGlobalAdmin}
-                isMarkedTheBest={isMarkedTheBest}
-                Button={({ onClick }) => (
-                  <Button
-                    show={!shouldShowDeleteBtn}
-                    id={`${type}_delete_${answerId}`}
-                    params={buttonParams}
-                    onClick={onClick}
-                    disabled={ids.includes(`${type}_delete_${answerId}`)}
-                    css={css(inlineBlockButton)}
-                  >
-                    {graphCommunity ? (
-                      <TrashGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
-                    ) : (
-                      <IconMd icon={deleteIcon} fill={colors.contentHeader || BORDER_PRIMARY} />
-                    )}
+            <OptimisticPopover
+              isOptimisticPost={isOptimisticPost}
+              networkId={questionData.networkId}
+              transactionHash={questionData.optimisticHash}
+            >
+              <div id={deleteButtonId}>
+                <AreYouSure
+                  submitAction={deleteAction}
+                  isGlobalAdmin={isGlobalAdmin}
+                  isMarkedTheBest={isMarkedTheBest}
+                  Button={({ onClick }) => (
+                    <Button
+                      show={!shouldShowDeleteBtn}
+                      id={deleteButtonId}
+                      params={buttonParams}
+                      onClick={onClick}
+                      disabled={ids.includes(deleteButtonId) || isOptimisticPost}
+                      isDisabledWithStyle={isOptimisticPost}
+                      css={css(inlineBlockButton)}
+                    >
+                      {graphCommunity ? (
+                        <TrashGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
+                      ) : (
+                        <IconMd icon={deleteIcon} fill={colors.contentHeader || BORDER_PRIMARY} />
+                      )}
 
-                    <span>{t('post.deleteButton')}</span>
-                  </Button>
-                )}
-              />
-            </div>
+                      <span>{t('post.deleteButton')}</span>
+                    </Button>
+                  )}
+                />
+              </div>
+            </OptimisticPopover>
           )}
 
           {type === QUESTION_TYPE && (
@@ -321,43 +343,69 @@ const ContentHeader = (props) => {
             </DropdownBox>
           )}
 
-          <DropdownBox>
-            <Button
-              show
-              disabled={isPopoverOpen}
-              onClick={() => setPopoverOpen(true)}
-              css={css(inlineBlockButton)}
-            >
-              {graphCommunity ? (
-                <FileArrowUpGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
-              ) : (
-                <IconMd icon={blockchainLogo} />
-              )}
-              <span>{t('common.source')}</span>
-            </Button>
-
-            {isPopoverOpen && (
-              <div ref={refPopover}>
-                <IPFSInformation
-                  locale={locale}
-                  ipfsHash={ipfsHashValue}
-                  histories={formattedHistories}
-                  networkId={props.questionData.networkId}
-                />
-              </div>
-            )}
-          </DropdownBox>
-
-          <Button
-            show={(!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)}
-            onClick={editItem[0]}
-            params={{ ...buttonParams, link: editItem[1] }}
-            id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
-            css={css(inlineBlockButton)}
+          <OptimisticPopover
+            isOptimisticPost={isOptimisticPost}
+            networkId={questionData.networkId}
+            transactionHash={questionData.optimisticHash}
           >
-            <IconMd icon={pencilIcon} />
-            <span>{t('post.editButton')}</span>
-          </Button>
+            <DropdownBox>
+              <Button
+                show
+                id={sourceButtonId}
+                disabled={isPopoverOpen || isOptimisticPost}
+                isDisabledWithStyle={isOptimisticPost}
+                onClick={() => setPopoverOpen(true)}
+                css={css(inlineBlockButton)}
+              >
+                {graphCommunity ? (
+                  <FileArrowUpGraph size={[20, 20]} fill="rgba(111, 76, 255, 1)" />
+                ) : (
+                  <IconMd icon={blockchainLogo} />
+                )}
+                <span>{t('common.source')}</span>
+              </Button>
+
+              {isPopoverOpen && (
+                <div ref={refPopover}>
+                  <IPFSInformation
+                    locale={locale}
+                    ipfsHash={ipfsHashValue}
+                    histories={formattedHistories}
+                    networkId={props.questionData.networkId}
+                  />
+                </div>
+              )}
+            </DropdownBox>
+          </OptimisticPopover>
+
+          <OptimisticPopover
+            isOptimisticPost={isOptimisticPost}
+            networkId={questionData.networkId}
+            transactionHash={questionData.optimisticHash}
+          >
+            <Button
+              show={(!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)}
+              onClick={editItem[0]}
+              params={{ ...buttonParams, link: editItem[1] }}
+              id={redirectToEditItemButtonId}
+              css={css(inlineBlockButton)}
+              disabled={isOptimisticPost}
+              isDisabledWithStyle={isOptimisticPost}
+            >
+              <IconMd icon={pencilIcon} />
+              <span>{t('post.editButton')}</span>
+            </Button>
+          </OptimisticPopover>
+
+          {isOptimisticPost && (
+            <OptimisticPopover
+              isOptimisticPost={isOptimisticPost}
+              networkId={questionData.networkId}
+              transactionHash={questionData.optimisticHash}
+            >
+              <ViewTransactionLoader css={css(transactionLoader)} />
+            </OptimisticPopover>
+          )}
         </ButtonContainer>
       </ItemInfo>
     </Box>

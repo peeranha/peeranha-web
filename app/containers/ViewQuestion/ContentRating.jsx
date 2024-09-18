@@ -1,5 +1,5 @@
 /* eslint indent: 0 */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -25,6 +25,7 @@ import {
   ThumbsUpGraph,
   ThumbsDownGraph,
 } from 'components/icons';
+import { OptimisticPopover } from 'containers/ViewQuestion/OptimisticPopover';
 
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
@@ -73,37 +74,54 @@ const ContentRating = ({
   downVote,
   author,
   ids,
-}) => (
-  <>
-    <Button
-      className="overflow-initial"
-      onClick={upVote}
-      disabled={ids.includes(`${UP_VOTE_BUTTON}${answerId}`)}
-      id={`${UP_VOTE_BUTTON}${answerId}`}
-      data-answerid={answerId}
-      data-whowasupvoted={author.user}
-      css={graphCommunity && { color: 'unset' }}
-    >
-      <UpvoteIcon account={account} author={author} votingStatus={votingStatus} />
-    </Button>
+  questionData,
+}) => {
+  const isOptimisticPost = Boolean(questionData.optimisticHash);
 
-    <Span fontSize="20" bold>
-      {getFormattedNum(rating)}
-    </Span>
+  return (
+    <>
+      <OptimisticPopover
+        isOptimisticPost={isOptimisticPost}
+        networkId={questionData.networkId}
+        transactionHash={questionData.optimisticHash}
+      >
+        <Button
+          className="overflow-initial"
+          onClick={!isOptimisticPost ? upVote : undefined}
+          disabled={ids.includes(`${UP_VOTE_BUTTON}${answerId}`)}
+          id={`${UP_VOTE_BUTTON}${answerId}`}
+          data-answerid={answerId}
+          data-whowasupvoted={author.user}
+          css={graphCommunity && { color: 'unset' }}
+        >
+          <UpvoteIcon account={account} author={author} votingStatus={votingStatus} />
+        </Button>
+      </OptimisticPopover>
 
-    <Button
-      className="overflow-initial"
-      onClick={downVote}
-      disabled={ids.includes(`${DOWN_VOTE_BUTTON}${answerId}`)}
-      id={`${DOWN_VOTE_BUTTON}${answerId}`}
-      data-answerid={answerId}
-      data-whowasdownvoted={author.user}
-      css={graphCommunity && { color: 'unset' }}
-    >
-      <DownvoteIcon account={account} author={author} votingStatus={votingStatus} />
-    </Button>
-  </>
-);
+      <Span fontSize="20" bold>
+        {getFormattedNum(rating)}
+      </Span>
+
+      <OptimisticPopover
+        isOptimisticPost={isOptimisticPost}
+        networkId={questionData.networkId}
+        transactionHash={questionData.optimisticHash}
+      >
+        <Button
+          className="overflow-initial"
+          onClick={!isOptimisticPost ? downVote : undefined}
+          disabled={ids.includes(`${DOWN_VOTE_BUTTON}${answerId}`)}
+          id={`${DOWN_VOTE_BUTTON}${answerId}`}
+          data-answerid={answerId}
+          data-whowasdownvoted={author.user}
+          css={graphCommunity && { color: 'unset' }}
+        >
+          <DownvoteIcon account={account} author={author} votingStatus={votingStatus} />
+        </Button>
+      </OptimisticPopover>
+    </>
+  );
+};
 
 ContentRating.propTypes = {
   rating: PropTypes.number,
@@ -116,6 +134,7 @@ ContentRating.propTypes = {
   answerId: PropTypes.number,
   profile: PropTypes.object,
   loginWithSuiDispatch: PropTypes.func,
+  questionData: PropTypes.object,
 };
 
 function UpvoteIcon({ account, author, votingStatus }) {
