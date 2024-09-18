@@ -59,9 +59,8 @@ export async function postQuestion(
     user,
     POST_QUESTION,
     [user, getActualId(communityId), ipfsHash, postType, tags, language],
-    3, // wait for additional confirmation to avoid 404 error when redirect to newly created post
+    1, // no wait for additional confirmation
   );
-  await waitForTransactionConfirmation();
   return resultTransaction;
 }
 

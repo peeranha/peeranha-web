@@ -343,3 +343,15 @@ export const followCommunityQuery = `query($userId: String) {
     ${usercommunity}
   }
 }`;
+
+export const isOptimisticPostIndexedQuery = `
+query ($txHash: String!, $id: String) {
+    post(filter: { optimisticHash: { in: [$txHash] } }) {
+        id
+        optimisticHash
+    }
+    history(condition: {id: $id}) {
+      id
+    }
+}
+`;
