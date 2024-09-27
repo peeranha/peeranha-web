@@ -344,9 +344,9 @@ export const followCommunityQuery = `query($userId: String) {
   }
 }`;
 
-export const isOptimisticPostIndexedQuery = `
+export const isOptimisticPostIndexedQuery = (entityName: string) => `
 query ($txHash: String!, $id: String) {
-    post(filter: { optimisticHash: { in: [$txHash] } }) {
+    ${entityName}(filter: { optimisticHash: { in: [$txHash] } }) {
         id
         optimisticHash
     }

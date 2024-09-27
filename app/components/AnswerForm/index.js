@@ -99,7 +99,7 @@ export const AnswerForm = ({
         >
           <Button
             id={sendButtonId}
-            disabled={true}
+            disabled={sendAnswerLoading || isAnswered || !account}
             type="submit"
             className={(sendAnswerLoading || isAnswered || !account) && 'op80'}
             style={isOptimisticPost ? { opacity: '0.8' } : {}}

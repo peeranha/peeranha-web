@@ -13,7 +13,7 @@ import {
 } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
-import { POST_QUESTION } from 'utils/queries/constants';
+import { POST_ANSWER, POST_QUESTION } from 'utils/queries/constants';
 import { setTransactionResult, writeTransactionList } from 'utils/transactionsListManagement';
 import {
   callService,
@@ -104,7 +104,7 @@ export async function sendTransactionMethod(
     this.setTransactionList(this.transactionList);
     writeTransactionList(this.transactionList, 10);
 
-    await processOptimisticTransaction(action, transaction.hash, transaction.chainId, network);
+    await processOptimisticTransaction(action, transaction.hash, network + 1);
 
     this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);
@@ -136,14 +136,20 @@ export async function sendTransactionMethod(
   }
 }
 
-const OPTIMISTIC_ACTIONS = [POST_QUESTION];
+const OPTIMISTIC_ACTIONS = [POST_QUESTION, POST_ANSWER];
 
-export async function processOptimisticTransaction(action, transactionHash, chainId, network) {
-  if (OPTIMISTIC_ACTIONS.some((actionName) => actionName === action) !== -1 && transactionHash) {
-    console.log(`Transaction with hash ${transactionHash} for optimistic action ${action} created`);
+export async function processOptimisticTransaction(action, transactionHash, network) {
+  console.log(
+    `Check optimistic: ${OPTIMISTIC_ACTIONS.some((actionName) => actionName === action)}`,
+  );
+  console.log('action', action);
+  if (OPTIMISTIC_ACTIONS.some((actionName) => actionName === action) && transactionHash) {
+    console.log(
+      `Transaction with hash ${transactionHash} for optimistic action ${action} created on network '${network}'`,
+    );
     await callService(OPTIMISTIC_TRANSACTION_SERVICE, {
       transactionHash,
-      chainId,
+      network,
     });
     console.log(
       `Call to api completed for optimistic action ${action} with hash ${transactionHash}`,

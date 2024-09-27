@@ -146,6 +146,7 @@ const inlineBlockButton = {
 
 const transactionLoader = {
   color: graphCommunity ? 'rgba(111, 76, 255, 1)' : colors.linkColor || TEXT_PRIMARY,
+  margin: '2px 0',
 };
 
 const ContentHeader = (props) => {
@@ -171,9 +172,10 @@ const ContentHeader = (props) => {
     isOriginalLanguage,
     showOriginal,
     setShowOriginal,
+    optimisticHash,
   } = props;
   const { t } = useTranslation();
-  const isOptimisticPost = Boolean(questionData.optimisticHash);
+  const isOptimisticPost = Boolean(optimisticHash);
   const deleteButtonId = `${type}_delete_${answerId}`;
   const sourceButtonId = `${type}_source_${answerId}`;
   const redirectToEditItemButtonId = `redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`;
@@ -230,7 +232,11 @@ const ContentHeader = (props) => {
   return (
     <Box>
       <RatingBox>
-        <ContentRating {...props} isOptimisticPost={isOptimisticPost} />
+        <ContentRating
+          {...props}
+          optimisticHash={optimisticHash}
+          networkId={questionData.networkId}
+        />
       </RatingBox>
 
       <ItemInfo>
@@ -285,11 +291,7 @@ const ContentHeader = (props) => {
           ) : null}
 
           {!shouldShowDeleteBtn && (
-            <OptimisticPopover
-              isOptimisticPost={isOptimisticPost}
-              networkId={questionData.networkId}
-              transactionHash={questionData.optimisticHash}
-            >
+            <OptimisticPopover networkId={questionData.networkId} transactionHash={optimisticHash}>
               <div id={deleteButtonId}>
                 <AreYouSure
                   submitAction={deleteAction}
@@ -343,11 +345,7 @@ const ContentHeader = (props) => {
             </DropdownBox>
           )}
 
-          <OptimisticPopover
-            isOptimisticPost={isOptimisticPost}
-            networkId={questionData.networkId}
-            transactionHash={questionData.optimisticHash}
-          >
+          <OptimisticPopover networkId={questionData.networkId} transactionHash={optimisticHash}>
             <DropdownBox>
               <Button
                 show
@@ -378,32 +376,32 @@ const ContentHeader = (props) => {
             </DropdownBox>
           </OptimisticPopover>
 
-          <OptimisticPopover
-            isOptimisticPost={isOptimisticPost}
-            networkId={questionData.networkId}
-            transactionHash={questionData.optimisticHash}
-          >
-            <Button
-              show={(!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)}
-              onClick={editItem[0]}
-              params={{ ...buttonParams, link: editItem[1] }}
-              id={redirectToEditItemButtonId}
-              css={css(inlineBlockButton)}
-              disabled={isOptimisticPost}
-              isDisabledWithStyle={isOptimisticPost}
-            >
-              <IconMd icon={pencilIcon} />
-              <span>{t('post.editButton')}</span>
-            </Button>
-          </OptimisticPopover>
+          {(!!profile && isItWrittenByMe) ||
+            (isPostContent && isGlobalAdmin && (
+              <OptimisticPopover
+                networkId={questionData.networkId}
+                transactionHash={optimisticHash}
+              >
+                <Button
+                  show
+                  onClick={editItem[0]}
+                  params={{ ...buttonParams, link: editItem[1] }}
+                  id={redirectToEditItemButtonId}
+                  css={css(inlineBlockButton)}
+                  disabled={isOptimisticPost}
+                  isDisabledWithStyle={isOptimisticPost}
+                >
+                  <IconMd icon={pencilIcon} />
+                  <span>{t('post.editButton')}</span>
+                </Button>
+              </OptimisticPopover>
+            ))}
 
           {isOptimisticPost && (
-            <OptimisticPopover
-              isOptimisticPost={isOptimisticPost}
-              networkId={questionData.networkId}
-              transactionHash={questionData.optimisticHash}
-            >
-              <ViewTransactionLoader css={css(transactionLoader)} />
+            <OptimisticPopover networkId={questionData.networkId} transactionHash={optimisticHash}>
+              <span>
+                <ViewTransactionLoader css={css(transactionLoader)} />
+              </span>
             </OptimisticPopover>
           )}
         </ButtonContainer>
@@ -442,6 +440,7 @@ ContentHeader.propTypes = {
   isOriginalLanguage: PropTypes.bool,
   showOriginal: PropTypes.bool,
   setShowOriginal: PropTypes.func,
+  optimisticHash: PropTypes.string,
 };
 
 export default React.memo(

@@ -141,6 +141,7 @@ export function* postQuestionWorker({ val }) {
       const optimisticIndexStatus = yield call(
         waitForOptimisticPostToIndex,
         transaction.transactionHash,
+        'post',
       );
 
       const logsArray = transaction.logs.filter((log) => log.data === '0x');

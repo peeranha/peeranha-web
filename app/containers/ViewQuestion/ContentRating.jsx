@@ -74,16 +74,17 @@ const ContentRating = ({
   downVote,
   author,
   ids,
-  questionData,
+  optimisticHash,
+  networkId,
 }) => {
-  const isOptimisticPost = Boolean(questionData.optimisticHash);
+  const isOptimisticPost = Boolean(optimisticHash);
 
   return (
     <>
       <OptimisticPopover
         isOptimisticPost={isOptimisticPost}
-        networkId={questionData.networkId}
-        transactionHash={questionData.optimisticHash}
+        networkId={networkId}
+        transactionHash={optimisticHash}
       >
         <Button
           className="overflow-initial"
@@ -104,8 +105,8 @@ const ContentRating = ({
 
       <OptimisticPopover
         isOptimisticPost={isOptimisticPost}
-        networkId={questionData.networkId}
-        transactionHash={questionData.optimisticHash}
+        networkId={networkId}
+        transactionHash={optimisticHash}
       >
         <Button
           className="overflow-initial"
@@ -134,7 +135,8 @@ ContentRating.propTypes = {
   answerId: PropTypes.number,
   profile: PropTypes.object,
   loginWithSuiDispatch: PropTypes.func,
-  questionData: PropTypes.object,
+  optimisticHash: PropTypes.string,
+  networkId: PropTypes.string,
 };
 
 function UpvoteIcon({ account, author, votingStatus }) {

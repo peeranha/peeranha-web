@@ -20,7 +20,7 @@ export const tooltipStyle = {
   borderRadius: '5px',
 };
 
-export const OptimisticPopover = ({ isOptimisticPost, networkId, transactionHash, children }) => {
+export const OptimisticPopover = ({ networkId, transactionHash, children }) => {
   const { t } = useTranslation();
   const NETWORK_TO_URL = {
     1: process.env.POLYGON_TRANSACTION_INFO_URL,
@@ -28,8 +28,8 @@ export const OptimisticPopover = ({ isOptimisticPost, networkId, transactionHash
   };
   const explorerUrl = NETWORK_TO_URL[networkId];
 
-  return (
-    <Popover event={isOptimisticPost ? 'hover' : undefined} placement="top">
+  return transactionHash ? (
+    <Popover event={'hover'} placement="top">
       <Popover.Trigger>{children}</Popover.Trigger>
       <Popover.Content>
         <div className="p16" css={tooltipStyle}>
@@ -49,11 +49,12 @@ export const OptimisticPopover = ({ isOptimisticPost, networkId, transactionHash
         </div>
       </Popover.Content>
     </Popover>
+  ) : (
+    children
   );
 };
 
 OptimisticPopover.propTypes = {
-  isOptimisticPost: PropTypes.bool,
   networkId: PropTypes.number,
   transactionHash: PropTypes.string,
 };

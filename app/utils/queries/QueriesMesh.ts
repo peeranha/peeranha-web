@@ -137,6 +137,7 @@ const replyMesh = `
   language
   handle
   messengerType
+  optimisticHash
   replyvotehistory {
     userId
     direction
