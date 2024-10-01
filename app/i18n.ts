@@ -13,11 +13,11 @@ import de from './locales/de';
 
 export const languages = {
   en: 'en',
-  // de: 'de',
+  de: 'de',
   es: 'es',
-  // fr: 'fr',
-  // ru: 'ru',
-  // uk: 'uk',
+  fr: 'fr',
+  ru: 'ru',
+  uk: 'uk',
   vi: 'vi',
   zh: 'zh',
 };
@@ -27,10 +27,10 @@ export const languagesWithDescriptions = [
   { language: 'zh', description: 'chinese' },
   { language: 'es', description: 'spanish' },
   { language: 'vi', description: 'vietnamese' },
-  // { language: 'ru', description: 'russian' },
-  // { language: 'uk', description: 'ukrainian' },
-  // { language: 'fr', description: 'french' },
-  // { language: 'de', description: 'german' },
+  { language: 'ru', description: 'russian' },
+  { language: 'uk', description: 'ukrainian' },
+  { language: 'fr', description: 'french' },
+  { language: 'de', description: 'german' },
 ];
 
 export const languagesEnum = {
