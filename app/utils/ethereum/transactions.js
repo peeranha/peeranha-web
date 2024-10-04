@@ -13,7 +13,12 @@ import {
 } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 import { WebIntegrationErrorByCode } from 'utils/errors';
+import { POST_ANSWER, POST_QUESTION } from 'utils/queries/constants';
 import { setTransactionResult, writeTransactionList } from 'utils/transactionsListManagement';
+import {
+  callService,
+  OPTIMISTIC_TRANSACTION_SERVICE,
+} from 'utils/web_integration/src/util/aws-connector';
 
 export async function sendTransactionMethod(
   network,
@@ -98,6 +103,9 @@ export async function sendTransactionMethod(
     });
     this.setTransactionList(this.transactionList);
     writeTransactionList(this.transactionList, 10);
+
+    await processOptimisticTransaction(action, transaction.hash, network + 1);
+
     this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);
     setTransactionResult(transaction.hash, result, this.transactionList, this.setTransactionList);
@@ -126,4 +134,26 @@ export async function sendTransactionMethod(
     console.log(err);
     throw new Error(err.message);
   }
+}
+
+const OPTIMISTIC_ACTIONS = [POST_QUESTION, POST_ANSWER];
+
+export async function processOptimisticTransaction(action, transactionHash, network) {
+  console.log(
+    `Check optimistic: ${OPTIMISTIC_ACTIONS.some((actionName) => actionName === action)}`,
+  );
+  console.log('action', action);
+  if (OPTIMISTIC_ACTIONS.some((actionName) => actionName === action) && transactionHash) {
+    console.log(
+      `Transaction with hash ${transactionHash} for optimistic action ${action} created on network '${network}'`,
+    );
+    await callService(OPTIMISTIC_TRANSACTION_SERVICE, {
+      transactionHash,
+      network,
+    });
+    console.log(
+      `Call to api completed for optimistic action ${action} with hash ${transactionHash}`,
+    );
+  }
+  return true;
 }

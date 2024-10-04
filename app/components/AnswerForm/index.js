@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -23,6 +23,7 @@ import FormBox from 'components/Form';
 import BlockedInfoArea from 'components/BlockedInfoArea';
 import { TransactionBanner } from 'components/TransactionBanner/TransactionBanner';
 import { strLength15x30000, required } from 'components/FormFields/validate';
+import { OptimisticPopover } from 'containers/ViewQuestion/OptimisticPopover';
 
 import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
 
@@ -56,6 +57,8 @@ export const AnswerForm = ({
   isMinusReputation,
   isHasRole,
   transactionInPending,
+  isOptimisticPost,
+  questionData,
 }) => {
   const { t } = useTranslation();
 
@@ -69,7 +72,7 @@ export const AnswerForm = ({
       <Field
         name={TEXT_EDITOR_ANSWER_FORM}
         component={TextEditorField}
-        disabled={sendAnswerLoading}
+        disabled={sendAnswerLoading || isOptimisticPost}
         validate={[strLength15x30000, required]}
         warn={[strLength15x30000, required]}
         label={label}
@@ -89,14 +92,21 @@ export const AnswerForm = ({
       {sendAnswerLoading || transactionInPending ? (
         <TransactionBanner />
       ) : (
-        <Button
-          id={sendButtonId}
-          disabled={sendAnswerLoading || isAnswered || !account}
-          type="submit"
-          className={(sendAnswerLoading || isAnswered || !account) && 'op80'}
+        <OptimisticPopover
+          isOptimisticPost={isOptimisticPost}
+          networkId={questionData.networkId}
+          transactionHash={questionData.optimisticHash}
         >
-          {submitButtonName}
-        </Button>
+          <Button
+            id={sendButtonId}
+            disabled={sendAnswerLoading || isAnswered || !account}
+            type="submit"
+            className={(sendAnswerLoading || isAnswered || !account) && 'op80'}
+            style={isOptimisticPost ? { opacity: '0.8' } : {}}
+          >
+            {submitButtonName}
+          </Button>
+        </OptimisticPopover>
       )}
     </FormBox>
   );
@@ -117,6 +127,8 @@ AnswerForm.propTypes = {
   questionView: PropTypes.bool,
   isAnswered: PropTypes.bool,
   account: PropTypes.string,
+  isOptimisticPost: PropTypes.bool,
+  questionData: PropTypes.object,
 };
 
 const FormClone = reduxForm({

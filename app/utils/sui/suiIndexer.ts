@@ -2,6 +2,7 @@ import { isMeshServiceConfig } from 'communities-config';
 import {
   communityTagsQuery,
   historyIdQuery,
+  isOptimisticPostIndexedQuery,
   postQuery,
   postsByCommunityIdQuery,
   postsQuery,
@@ -190,4 +191,36 @@ export const waitForPostTransactionToIndex = async (transaction: any, ethereumSe
     indexed = await isPostTransactionIndexed(transaction, indexerOnly);
   } while (!indexed);
   /* eslint-enable no-await-in-loop */
+  return indexed;
+};
+
+export const isOptimisticPostIndexed = async (txHash: string, entityName: string) => {
+  const data = await getDataFromIndexer(
+    isOptimisticPostIndexedQuery(entityName),
+    { txHash, id: txHash },
+    true,
+  );
+  console.log('data.length', data[entityName].length, data.history.length);
+  return {
+    isOptimisticIndexed: data[entityName] && data[entityName].length > 0,
+    isIndexed: data.history && data.history.length > 0,
+  };
+};
+
+export const waitForOptimisticPostToIndex = async (txHash: any, entityName: string) => {
+  console.log(`Wait for optimistic post creating`);
+  let isOptimisticIndexed = false;
+  let isIndexed = false;
+  /* eslint-disable no-await-in-loop */
+  do {
+    await delay(500);
+    ({ isOptimisticIndexed, isIndexed } = await isOptimisticPostIndexed(txHash, entityName));
+    console.log(`isOptimisticIndexed: ${isOptimisticIndexed}, isIndexed: ${isIndexed}`);
+  } while (!isOptimisticIndexed && !isIndexed);
+  /* eslint-enable no-await-in-loop */
+  console.log(`Optimistic post created`);
+  return {
+    isOptimisticIndexed,
+    isIndexed,
+  };
 };

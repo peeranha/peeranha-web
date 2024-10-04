@@ -5,6 +5,7 @@ import * as routes from 'routes-config';
 import { LANGUAGES_MAP } from 'utils/constants';
 
 import Base from 'components/Base/BaseRoundedNoPadding';
+import { QUESTION_TYPE } from 'containers/ViewQuestion/constants';
 
 import QuestionTitle from './QuestionTitle';
 import ContentHeader from './ContentHeader';
@@ -34,6 +35,12 @@ export const Content = (props) => {
 
   const { title, content } = getContent();
 
+  const optimisticHash =
+    props.type === QUESTION_TYPE
+      ? props.questionData.optimisticHash
+      : props.questionData.answers.find((answer) => answer.id === props.answerId).optimisticHash ||
+        'hash';
+
   return (
     <BaseStyled className={props.className} id={routes.uniqueAnswerId(props.answerId)}>
       <ContentHeader
@@ -41,6 +48,7 @@ export const Content = (props) => {
         translation={translation}
         showOriginal={showOriginal}
         setShowOriginal={setShowOriginal}
+        optimisticHash={optimisticHash}
       />
       <QuestionTitle
         title={title}
@@ -56,6 +64,8 @@ export const Content = (props) => {
         content={content}
         showOriginal={showOriginal}
         setShowOriginal={setShowOriginal}
+        optimisticHash={optimisticHash}
+        networkId={props.questionData.networkId}
       />
     </BaseStyled>
   );

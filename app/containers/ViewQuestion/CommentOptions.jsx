@@ -14,6 +14,7 @@ import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { TextareaStyled } from 'components/Textarea';
 import { DotsThreeOutlineGraph } from 'components/icons';
+import { OptimisticPopover } from 'containers/ViewQuestion/OptimisticPopover';
 
 import CommentForm from './CommentForm';
 import { TOGGLE_ADD_COMMENT_FORM_BUTTON } from './constants';
@@ -29,6 +30,8 @@ const ButtonStyled = styled.button`
   &:not(:last-child) {
     margin-right: 40px;
   }
+
+  ${(props) => (props.disabled ? `cursor: default` : ``)}
 `;
 
 const CommentEditStyled = styled.div`
@@ -37,10 +40,11 @@ const CommentEditStyled = styled.div`
   }
 `;
 
-const ActionButtonWithLogin = ({ onClick, buttonId }) => {
+const ActionButtonWithLogin = ({ onClick, buttonId, disabled }) => {
   const { t } = useTranslation();
+  console.log('disabled', disabled);
   return (
-    <ButtonStyled id={buttonId} onClick={onClick}>
+    <ButtonStyled id={buttonId} onClick={onClick} disabled={disabled}>
       {graphCommunity ? (
         <DotsThreeOutlineGraph className="mr-1" size={[24, 24]} fill="#6F4CFF" />
       ) : (
@@ -73,12 +77,17 @@ export const CommentOptions = ({
   transactionInPending,
   commentIds,
   commentIdsInTransaction,
+  optimisticHash,
+  networkId,
 }) => {
   const { t } = useTranslation();
   const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
 
   const showCommentForm =
     addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) || false;
+
+  console.log('optimisticHash', optimisticHash);
+  console.log('Boolean(optimisticHash)', Boolean(optimisticHash));
   return (
     <div className="my-3">
       <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
@@ -97,10 +106,15 @@ export const CommentOptions = ({
           </ButtonStyled>
         )}
 
-        <ActionButtonWithLogin
-          onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
-          buttonId={toggleFormButtonId}
-        />
+        <OptimisticPopover networkId={networkId} transactionHash={optimisticHash}>
+          <ActionButtonWithLogin
+            onClick={() =>
+              optimisticHash ? null : checkAddCommentAvailable(toggleFormButtonId, answerId)
+            }
+            disabled={Boolean(optimisticHash)}
+            buttonId={toggleFormButtonId}
+          />
+        </OptimisticPopover>
       </div>
 
       {showCommentForm && (
@@ -139,6 +153,8 @@ CommentOptions.propTypes = {
   commentsNumber: PropTypes.number,
   profileInfo: PropTypes.object,
   loginWithSuiDispatch: PropTypes.func,
+  optimisticHash: PropTypes.string,
+  networkId: PropTypes.number,
 };
 
 export default React.memo(CommentOptions);

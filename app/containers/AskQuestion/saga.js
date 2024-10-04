@@ -27,11 +27,21 @@ import {
   FORM_TYPE,
   POST_TYPE,
 } from 'components/QuestionForm/constants';
-
+import { getSuiUserObject } from 'utils/sui/accountManagement';
+import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
+import { waitForOptimisticPostToIndex, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import {
+  transactionCompleted,
+  transactionFailed,
+  transactionInitialised,
+  transactionInPending,
+} from 'containers/EthereumProvider/actions';
+import { getQuestionData } from 'containers/ViewQuestion/actions';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { isValid } from 'containers/EthereumProvider/saga';
 import { postSuiQuestion } from 'utils/sui/questionsManagement';
 import { CREATE_POST_EVENT_NAME, waitForTransactionConfirmation } from 'utils/sui/sui';
+
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 import {
@@ -49,15 +59,6 @@ import {
   POST_QUESTION_BUTTON,
   NEW_POST_PATHNAME,
 } from './constants';
-import { getSuiUserObject } from 'utils/sui/accountManagement';
-import { createSuiProfile, getSuiProfileInfo } from 'utils/sui/profileManagement';
-import { waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
-import {
-  transactionCompleted,
-  transactionFailed,
-  transactionInitialised,
-  transactionInPending,
-} from 'containers/EthereumProvider/actions';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -137,6 +138,12 @@ export function* postQuestionWorker({ val }) {
         ethereumService,
       );
 
+      const optimisticIndexStatus = yield call(
+        waitForOptimisticPostToIndex,
+        transaction.transactionHash,
+        'post',
+      );
+
       const logsArray = transaction.logs.filter((log) => log.data === '0x');
       const idFromTransaction = parseInt(
         logsArray[logsArray.length - 1].topics[3].substring(2),
@@ -144,6 +151,10 @@ export function* postQuestionWorker({ val }) {
       );
       const network = getNetwork(communityId);
       const id = `${Number(network) + 1}-${idFromTransaction}`;
+
+      if (optimisticIndexStatus.isOptimisticIndexed && postType !== POST_TYPE.documentation) {
+        yield call(createdHistory.push, routes.questionView(id, questionData.title, false));
+      }
 
       if (postType === POST_TYPE.documentation) {
         const documentationTraversal = (documentationArray) =>
@@ -209,6 +220,8 @@ export function* postQuestionWorker({ val }) {
             ? routes.documentation(id, questionData.title)
             : routes.questionView(id, questionData.title, false),
         );
+      } else if (optimisticIndexStatus.isOptimisticIndexed) {
+        yield put(getQuestionData(id));
       }
     }
   } catch (err) {

@@ -343,3 +343,15 @@ export const followCommunityQuery = `query($userId: String) {
     ${usercommunity}
   }
 }`;
+
+export const isOptimisticPostIndexedQuery = (entityName: string) => `
+query ($txHash: String!, $id: String) {
+    ${entityName}(filter: { optimisticHash: { in: [$txHash] } }) {
+        id
+        optimisticHash
+    }
+    history(condition: {id: $id}) {
+      id
+    }
+}
+`;
