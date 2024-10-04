@@ -102,7 +102,10 @@ const AdditionalUserInformation = ({
   locale,
 }) => {
   const profileSince = useMemo(
-    () => getFormattedDate(profile?.creationTime, locale, MONTH_3LETTERS__DAY_YYYY),
+    () =>
+      profile?.creationTime
+        ? getFormattedDate(profile?.creationTime, locale, MONTH_3LETTERS__DAY_YYYY)
+        : '',
     [],
   );
 
