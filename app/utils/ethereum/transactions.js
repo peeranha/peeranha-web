@@ -139,21 +139,11 @@ export async function sendTransactionMethod(
 const OPTIMISTIC_ACTIONS = [POST_QUESTION, POST_ANSWER];
 
 export async function processOptimisticTransaction(action, transactionHash, network) {
-  console.log(
-    `Check optimistic: ${OPTIMISTIC_ACTIONS.some((actionName) => actionName === action)}`,
-  );
-  console.log('action', action);
   if (OPTIMISTIC_ACTIONS.some((actionName) => actionName === action) && transactionHash) {
-    console.log(
-      `Transaction with hash ${transactionHash} for optimistic action ${action} created on network '${network}'`,
-    );
     await callService(OPTIMISTIC_TRANSACTION_SERVICE, {
       transactionHash,
       network,
     });
-    console.log(
-      `Call to api completed for optimistic action ${action} with hash ${transactionHash}`,
-    );
   }
   return true;
 }

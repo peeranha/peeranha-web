@@ -42,7 +42,6 @@ const CommentEditStyled = styled.div`
 
 const ActionButtonWithLogin = ({ onClick, buttonId, disabled }) => {
   const { t } = useTranslation();
-  console.log('disabled', disabled);
   return (
     <ButtonStyled id={buttonId} onClick={onClick} disabled={disabled}>
       {graphCommunity ? (
@@ -86,8 +85,6 @@ export const CommentOptions = ({
   const showCommentForm =
     addCommentFormDisplay.find((buttonId) => buttonId === toggleFormButtonId) || false;
 
-  console.log('optimisticHash', optimisticHash);
-  console.log('Boolean(optimisticHash)', Boolean(optimisticHash));
   return (
     <div className="my-3">
       <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
