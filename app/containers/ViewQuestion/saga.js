@@ -29,7 +29,11 @@ import {
   votingStatus,
   getStatusHistory,
 } from 'utils/questionsManagement';
-import { getSuiUserById, waitForPostTransactionToIndex } from 'utils/sui/suiIndexer';
+import {
+  getSuiUserById,
+  waitForOptimisticPostToIndex,
+  waitForPostTransactionToIndex,
+} from 'utils/sui/suiIndexer';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { CHANGED_POSTS_KEY, isSuiBlockchain } from 'utils/constants';
@@ -775,6 +779,8 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     let txHash;
     let updatedProfileInfo;
+    let isOptimisticIndexed;
+    let isIndexed;
 
     if (isSuiBlockchain) {
       const wallet = yield select(selectSuiWallet());
@@ -821,7 +827,12 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
       txHash = transaction.transactionHash;
 
-      yield call(waitForPostTransactionToIndex, txHash, ethereumService);
+      ({ isOptimisticIndexed, isIndexed } = yield call(
+        waitForOptimisticPostToIndex,
+        txHash,
+        'reply',
+        ethereumService,
+      ));
     }
 
     questionData.replyCount += 1;
@@ -842,6 +853,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       rating: 0,
       content: answer,
       ipfsHash,
+      optimisticHash: txHash,
     };
 
     const newHistory = {
@@ -861,11 +873,23 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
+    if (isOptimisticIndexed) {
+      const updatedQuestionData = yield call(getQuestionData, {
+        questionId,
+        user: profileInfo.id,
+      });
+      yield put(getQuestionDataSuccess(updatedQuestionData));
+    }
+
+    if (!isIndexed) {
+      yield call(waitForPostTransactionToIndex, txHash, ethereumService);
+    }
     const updatedQuestionData = yield call(getQuestionData, {
       questionId,
       user: profileInfo.id,
     });
     yield put(getQuestionDataSuccess(updatedQuestionData));
+
     yield put(postAnswerSuccess(questionData));
     ReactGA.event({
       category: 'Users',

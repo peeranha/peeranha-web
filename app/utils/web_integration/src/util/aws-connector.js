@@ -11,6 +11,7 @@ export const NOTIFICATIONS_GET_SERVICE = 'notifications/get';
 export const NOTIFICATIONS_INFO_SERVICE = 'notifications/info';
 export const NOTIFICATIONS_READ_SERVICE = 'notifications/read';
 export const SAVE_FILE_SERVICE = 'save-file';
+export const OPTIMISTIC_TRANSACTION_SERVICE = 'optimistic-transaction';
 
 export async function callService(service, props, isGet = false, signal) {
   const url = new URL(process.env.WALLET_API_ENDPOINT + service);

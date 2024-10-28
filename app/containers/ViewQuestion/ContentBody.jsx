@@ -44,6 +44,8 @@ export const ContentBody = ({
   isOriginalLanguage,
   profile,
   loginWithSuiDispatch,
+  optimisticHash,
+  networkId,
 }) => {
   const { t } = useTranslation();
   let actualAnswerId = answerId;
@@ -101,6 +103,8 @@ export const ContentBody = ({
         communityId={commId}
         histories={histories}
         loginWithSuiDispatch={loginWithSuiDispatch}
+        optimisticHash={optimisticHash}
+        networkId={networkId}
       />
     </Base>
   );
@@ -139,6 +143,8 @@ ContentBody.propTypes = {
   histories: PropTypes.array,
   commId: PropTypes.number,
   loginWithSuiDispatch: PropTypes.func,
+  optimisticHash: PropTypes.string,
+  networkId: PropTypes.number,
 };
 
 export default React.memo(ContentBody);

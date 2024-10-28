@@ -348,6 +348,8 @@ const Comments = (props) => {
         transactionInPending={props?.transactionInPending}
         commentIds={props?.commentIds}
         commentIdsInTransaction={props?.commentIdsInTransaction}
+        optimisticHash={props?.optimisticHash}
+        networkId={props?.networkId}
       />
     </div>
   );
@@ -363,6 +365,8 @@ Comments.propTypes = {
   answerId: PropTypes.number,
   profileInfo: PropTypes.object,
   loginWithSuiDispatch: PropTypes.func,
+  optimisticHash: PropTypes.string,
+  networkId: PropTypes.number,
 };
 
 CommentEdit.propTypes = {

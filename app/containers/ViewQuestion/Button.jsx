@@ -20,6 +20,19 @@ export const SpanStyled = TransparentButton.extend`
         : colors.linkColor || TEXT_PRIMARY,
     })};
 
+  ${(x) =>
+    x.disabled && x.isDisabledWithStyle
+      ? `
+  cursor: default;
+  -webkit-filter: grayscale(100%);
+  -moz-filter:    grayscale(100%);
+  -ms-filter:     grayscale(100%);
+  -o-filter:      grayscale(100%);
+  filter: grayscale(100%);`
+      : `
+  :hover {
+    opacity: 0.8;
+  }`}
   display: inline-flex;
   align-items: center;
   //margin-left: 30px;
@@ -33,10 +46,6 @@ export const SpanStyled = TransparentButton.extend`
       display: none;
     }
   }
-
-  :hover {
-    opacity: 0.8;
-  }
 `;
 
 export const Button = ({
@@ -48,6 +57,7 @@ export const Button = ({
   disabled,
   isVotedToDelete,
   className,
+  isDisabledWithStyle,
 }) => {
   const z = {};
 
@@ -63,6 +73,7 @@ export const Button = ({
       disabled={disabled}
       onClick={onClick}
       isVotedToDelete={isVotedToDelete}
+      isDisabledWithStyle={isDisabledWithStyle}
     >
       {children}
     </SpanStyled>
@@ -78,6 +89,7 @@ Button.propTypes = {
   show: PropTypes.bool,
   disabled: PropTypes.bool,
   isVotedToDelete: PropTypes.bool,
+  isDisabledWithStyle: PropTypes.bool,
 };
 
 export default React.memo(Button);

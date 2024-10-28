@@ -47,6 +47,8 @@ export const ViewQuestionContainer = (props) => {
     (!isHasRole && isMinusReputation) ||
     (!(isHasRole || isCommunityAdminRole) && isFrozenCommunity);
 
+  const isOptimisticPost = Boolean(props.questionData.optimisticHash);
+
   return (
     <article>
       <Question {...props} />
@@ -58,6 +60,7 @@ export const ViewQuestionContainer = (props) => {
             <Base className="mt-3 position-relative overflow-hidden">
               <RulesBlock />
               <AnswerForm
+                {...props}
                 answer=""
                 communityId={props.questionData.communityId}
                 form={ADD_ANSWER_FORM}
@@ -70,6 +73,7 @@ export const ViewQuestionContainer = (props) => {
                 properties={[]}
                 questionView
                 isAnswered={isAnswered}
+                isOptimisticPost={isOptimisticPost}
               />
             </Base>
           ) : (

@@ -137,6 +137,7 @@ const replyMesh = `
   language
   handle
   messengerType
+  optimisticHash
   replyvotehistory {
     userId
     direction
@@ -174,6 +175,7 @@ const postMesh = `
   bestReply
   messengerType
   language
+  optimisticHash
   history {
     id
     transactionHash
@@ -726,6 +728,17 @@ query (
   ) {
     ${postMesh}
   }
+}
+`;
+
+export const optimisticPostQueryMesh = `
+query(
+  $txHash: String!,
+) {
+    post(filter: { optimisticHash: { in: [$txHash] } }) {
+        id
+        optimisticHash
+    }
 }
 `;
 
