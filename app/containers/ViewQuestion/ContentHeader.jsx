@@ -376,26 +376,22 @@ const ContentHeader = (props) => {
             </DropdownBox>
           </OptimisticPopover>
 
-          {(!!profile && isItWrittenByMe) ||
-            (isPostContent && isGlobalAdmin && (
-              <OptimisticPopover
-                networkId={questionData.networkId}
-                transactionHash={optimisticHash}
+          {((!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)) && (
+            <OptimisticPopover networkId={questionData.networkId} transactionHash={optimisticHash}>
+              <Button
+                show
+                onClick={editItem[0]}
+                params={{ ...buttonParams, link: editItem[1] }}
+                id={redirectToEditItemButtonId}
+                css={css(inlineBlockButton)}
+                disabled={isOptimisticPost}
+                isDisabledWithStyle={isOptimisticPost}
               >
-                <Button
-                  show
-                  onClick={editItem[0]}
-                  params={{ ...buttonParams, link: editItem[1] }}
-                  id={redirectToEditItemButtonId}
-                  css={css(inlineBlockButton)}
-                  disabled={isOptimisticPost}
-                  isDisabledWithStyle={isOptimisticPost}
-                >
-                  <IconMd icon={pencilIcon} />
-                  <span>{t('post.editButton')}</span>
-                </Button>
-              </OptimisticPopover>
-            ))}
+                <IconMd icon={pencilIcon} />
+                <span>{t('post.editButton')}</span>
+              </Button>
+            </OptimisticPopover>
+          )}
 
           {isOptimisticPost && (
             <OptimisticPopover networkId={questionData.networkId} transactionHash={optimisticHash}>
