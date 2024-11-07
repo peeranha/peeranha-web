@@ -38,8 +38,7 @@ export const Content = (props) => {
   const optimisticHash =
     props.type === QUESTION_TYPE
       ? props.questionData.optimisticHash
-      : props.questionData.answers.find((answer) => answer.id === props.answerId).optimisticHash ||
-        'hash';
+      : props.questionData.answers.find((answer) => answer.id === props.answerId).optimisticHash;
 
   return (
     <BaseStyled className={props.className} id={routes.uniqueAnswerId(props.answerId)}>

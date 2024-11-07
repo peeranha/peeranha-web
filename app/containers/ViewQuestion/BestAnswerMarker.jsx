@@ -17,14 +17,12 @@ import crownIcon from 'images/crownIcon.svg?external';
 import officialIcon from 'images/officialWhite.svg?external';
 
 import Button from 'components/Button/Contained/PrimaryMedium';
+import { OptimisticPopover } from 'containers/ViewQuestion/OptimisticPopover';
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
-import { B } from './QuestionTitle';
 
 import { MARK_AS_BUTTON } from './constants';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-
-const styles = singleCommunityStyles();
 
 const Label = Button.extend`
   ${LabelStyles};
@@ -63,6 +61,8 @@ export const BestAnswerMarker = ({
   ids,
   isOfficial,
   profile,
+  optimisticHash,
+  networkId,
 }) => {
   const { t } = useTranslation();
 
@@ -70,17 +70,21 @@ export const BestAnswerMarker = ({
 
   return (
     <Div>
-      <MarkAsAcceptedIcon
-        id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
-        answerId={String(answerId)}
-        questionFrom={questionFrom}
-        account={account}
-        profile={profile}
-        markAsAccepted={markAsAccepted}
-        disabled={ids.includes(formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`))}
-        correctAnswerId={String(correctAnswerId)}
-        whoWasAccepted={whoWasAccepted}
-      />
+      <Div className="mr-2">
+        <OptimisticPopover networkId={networkId} transactionHash={optimisticHash}>
+          <MarkAsAcceptedIcon
+            id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
+            answerId={String(answerId)}
+            questionFrom={questionFrom}
+            account={account}
+            profile={profile}
+            markAsAccepted={markAsAccepted}
+            disabled={ids.includes(formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`))}
+            correctAnswerId={String(correctAnswerId)}
+            whoWasAccepted={whoWasAccepted}
+          />
+        </OptimisticPopover>
+      </Div>
 
       {Boolean(isTheLargestRating) && (
         <Label bg={BG_PRIMARY} inactive>
@@ -114,6 +118,8 @@ BestAnswerMarker.propTypes = {
   isOfficial: PropTypes.bool,
   profileInfo: PropTypes.object,
   author: PropTypes.object,
+  optimisticHash: PropTypes.string,
+  networkId: PropTypes.string,
 };
 
 export default React.memo(

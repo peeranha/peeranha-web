@@ -71,6 +71,8 @@ export const ContentBody = ({
         isOfficial={isOfficialReply}
         author={author}
         profile={profile}
+        optimisticHash={optimisticHash}
+        networkId={networkId}
       />
 
       <MarkdownPreviewBlock content={content} />
