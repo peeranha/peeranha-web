@@ -104,7 +104,7 @@ export async function sendTransactionMethod(
     this.setTransactionList(this.transactionList);
     writeTransactionList(this.transactionList, 10);
 
-    await processOptimisticTransaction(action, transaction.hash, network + 1);
+    // await processOptimisticTransaction(action, transaction.hash, network + 1);
 
     this.transactionInPending(transaction.hash, this.transactionList);
     const result = await transaction.wait(confirmations);
