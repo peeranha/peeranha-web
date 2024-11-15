@@ -94,8 +94,8 @@ export const AnswerForm = ({
       ) : (
         <OptimisticPopover
           isOptimisticPost={isOptimisticPost}
-          networkId={questionData.networkId}
-          transactionHash={questionData.optimisticHash}
+          networkId={questionData?.networkId}
+          transactionHash={questionData?.optimisticHash}
         >
           <Button
             id={sendButtonId}
