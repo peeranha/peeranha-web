@@ -1,5 +1,4 @@
 bucket=null
-cd peeranha-web
 rm -rf ./build
 rm -rf ./storybook-static
 if [ "$1" == "prod" ];

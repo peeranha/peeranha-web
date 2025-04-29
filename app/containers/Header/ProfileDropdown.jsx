@@ -222,6 +222,7 @@ const Menu = ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) 
           ) : (
             <LogOutIcon className="mr-2" stroke={colors.linkColor || TEXT_PRIMARY} />
           )}
+          ferfref
           {t('common.logout')}
         </Logout>
       </Ul>
