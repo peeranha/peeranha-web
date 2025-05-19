@@ -75,7 +75,7 @@ const chainsList = [
     label: 'Polygon blockchain',
     avatar: polygonLogo,
   },
-  { value: 2, id: 2, label: 'Edgeware blockchain', avatar: edgewareLogo },
+  { value: 2, id: 2, label: 'Base blockchain', avatar: edgewareLogo },
 ];
 
 export const BlockchainSelector: React.FC<IconComponentProps> = ({

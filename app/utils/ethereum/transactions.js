@@ -61,7 +61,7 @@ export async function sendTransactionMethod(
   }
 
   try {
-    if (metaTransactionsAllowed) {
+    if (metaTransactionsAllowed && action !== 'createCommunity') {
       const token = await this.getRecaptchaToken();
       return await this.sendMetaTransaction(
         network,
