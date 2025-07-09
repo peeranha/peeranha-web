@@ -41,6 +41,11 @@ const communitiesConfig = {
           src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
           styles: SuiMainStyles,
         },
+        '3-0x373432923b625a88cb7b5e11561b351dfc30404cb87f5e6389d420b5df89e589': {
+          origin: `https://legacy-sui-scm${process.env.COOKIE_DOMAIN}`,
+          src: 'https://images.peeranha.io/communities/suiGlobal/logo.svg',
+          styles: SuiMainStyles,
+        },
         '3-0x8feda08f11b31cb96d8ca75b1b100dca575438b54158631c829b4a1772eceea0': {
           origin: `https://cartesi${process.env.COOKIE_DOMAIN}`,
           src: 'https://images.peeranha.io/communities/cartesi/logo.svg',
@@ -52,7 +57,7 @@ const communitiesConfig = {
           styles: SuiNSStyles,
         },
         '3-0xf48acddb048a800da068e4def7efc29bd7b279d6a0d9746179e81e73a4c3f75b': {
-          origin: 'https://move.peeranha.io',
+          origin: 'https://legacy-move.peeranha.io',
           src: 'https://images.peeranha.io/communities/move/logo.svg',
           styles: MoveStyles,
         },
